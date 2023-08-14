@@ -21,6 +21,17 @@ const useStyles = makeStyles()((theme) => ({
       flexGrow: 1,
       padding: 30,
     },
+    card:{
+     borderRadius: "8px",
+     borderStyle: "solid",
+     borderWidth: "1px",
+     padding: "10px",
+     borderColor: "rgba(0, 0, 0, 0.20);",
+       /* 
+      
+      ,
+       */
+    },
     field: {
       width: '100%',
       

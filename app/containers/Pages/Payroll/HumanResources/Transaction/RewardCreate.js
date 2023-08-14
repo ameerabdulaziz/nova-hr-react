@@ -11,7 +11,7 @@ import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
 import { useParams ,useHistory } from 'react-router-dom';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import {Button ,Grid,TextField, Autocomplete ,Typography,Paper} from "@mui/material";
+import {Button ,Grid,TextField, Autocomplete ,Typography,Paper,Card ,CardContent} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -19,7 +19,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
-import { idID } from '@mui/material/locale';
+
 
 
 function CreateReward(props) {
@@ -280,228 +280,265 @@ async function oncancel(){
                         )}
                     />  
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <Autocomplete  
-                        id="rewardsid"                        
-                        options={RewardsList}  
-                        value={{id:data.rewardsId,name:data.rewardsName}}   
-                        isOptionEqualToValue={(option, value) =>
-                            value.id === 0 || value.id === "" ||option.id === value.id
-                          }                   
-                        getOptionLabel={(option) =>
-                        option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setdata((prevFilters) => ({
-                                ...prevFilters,
-                                rewardsId:value.id,
-                                rewardsName:value.name
-                                }));  
-                                getRewardData(value.id);   
-                            } else {
-                            setdata((prevFilters) => ({
-                                ...prevFilters,
-                                rewardsId:0,
-                                rewardsName:""
-                            })); 
-                            getRewardData(0);
-                            }                               
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            variant="outlined"                            
-                            {...params}
-                            name="rewardsid"
-                            required                              
-                            label={intl.formatMessage(messages.rewardsName)}
-                            />
-                        )}
-                    />  
+                <Grid item xs={12} md={12}>
+                    <Card className={classes.card}>
+                        <CardContent>
+                            <Grid
+                            container
+                            spacing={3}
+                            alignItems="flex-start"
+                            direction="row">
+                                <Grid item xs={12} md={4}>
+                                    <Autocomplete  
+                                        id="rewardsid"                        
+                                        options={RewardsList}  
+                                        value={{id:data.rewardsId,name:data.rewardsName}}   
+                                        isOptionEqualToValue={(option, value) =>
+                                            value.id === 0 || value.id === "" ||option.id === value.id
+                                        }                   
+                                        getOptionLabel={(option) =>
+                                        option.name ? option.name : ""
+                                        }
+                                        onChange={(event, value) => {
+                                            if (value !== null) {
+                                                setdata((prevFilters) => ({
+                                                ...prevFilters,
+                                                rewardsId:value.id,
+                                                rewardsName:value.name
+                                                }));  
+                                                getRewardData(value.id);   
+                                            } else {
+                                            setdata((prevFilters) => ({
+                                                ...prevFilters,
+                                                rewardsId:0,
+                                                rewardsName:""
+                                            })); 
+                                            getRewardData(0);
+                                            }                               
+                                        }}
+                                        renderInput={(params) => (
+                                        <TextField
+                                            variant="outlined"                            
+                                            {...params}
+                                            name="rewardsid"
+                                            required                              
+                                            label={intl.formatMessage(messages.rewardsName)}
+                                            />
+                                        )}
+                                    />  
+                                </Grid>
+                                <Grid item xs={12} md={2}>
+                                <TextField
+                                        id="payTemplateName"
+                                        name="payTemplateName"
+                                        value={data.payTemplateName}               
+                                        label={intl.formatMessage(messages.payTemplateName)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+
+                                    /> 
+                                </Grid>
+                                <Grid item xs={12} md={2}>
+                                    <TextField
+                                        id="elementName"
+                                        name="elementName"
+                                        value={data.elementName}               
+                                        label={intl.formatMessage(messages.elementName)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+
+                                    />
+                                </Grid>                
+                                <Grid item xs={12} md={2}>                    
+                                    <TextField
+                                    id="value"
+                                    name="value"
+                                    value={data.value}
+                                    onChange={(e) => handleChange(e)}                 
+                                    label={intl.formatMessage(messages.value)}
+                                    required
+                                    className={classes.field}
+                                    variant="outlined"
+                                    //disabled={data.value ? true : false}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                    <Card className={classes.card}>
+                        <CardContent>
+                            <Grid
+                            container
+                            spacing={3}
+                            alignItems="flex-start"
+                            direction="row">
+                                <Grid item xs={12} md={4}>
+                                    <Autocomplete  
+                                        id="employeeId"                        
+                                        options={EmployeeList}  
+                                        value={{id:data.employeeId,name:data.employeeName}}     
+                                        isOptionEqualToValue={(option, value) =>
+                                            value.id === 0 || value.id === "" ||option.id === value.id
+                                        }                 
+                                        getOptionLabel={(option) =>
+                                        option.name ? option.name : ""
+                                        }
+                                        onChange={(event, value) => {
+                                            if (value !== null) {
+                                                setdata((prevFilters) => ({
+                                                ...prevFilters,
+                                                employeeId:value.id,
+                                                employeeName:value.name
+                                                }));
+                                                getEmployeeData(value.id,false)  ;   
+                                            } else {
+                                                setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    employeeId:0,
+                                                    employeeName:""
+                                                })); 
+                                                getEmployeeData(0,false)  ;   
+                                            }
+                                        }}
+                                        renderInput={(params) => (
+                                        <TextField
+                                            variant="outlined"                            
+                                            {...params}
+                                            name="employeeId"
+                                            required                              
+                                            label={intl.formatMessage(messages.employeeName)}
+                                            />
+                                        )}
+                                    />  
+                                </Grid>
+                                <Grid item xs={12} md={2}>
+                                    <TextField
+                                        id="job"
+                                        name="job"
+                                        value={data.job}               
+                                        label={intl.formatMessage(messages.job)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={2}>
+                                    <TextField
+                                        id="organization"
+                                        name="organization"
+                                        value={data.organization}               
+                                        label={intl.formatMessage(messages.organization)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={2}>
+                                    <TextField
+                                        id="hiringDate"
+                                        name="hiringDate"
+                                        value={data.hiringDate===null ? "" :data.hiringDate}               
+                                        label={intl.formatMessage(messages.hiringDate)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+                                    />
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} md={12}>
+                    <Card className={classes.card}>
+                    <CardContent>
+                        <Grid
+                        container
+                        spacing={3}
+                        alignItems="flex-start"
+                        direction="row">
+                            <Grid item xs={12} md={4}>
+                                <Autocomplete  
+                                    id="superempId"                        
+                                    options={SuperEmployeeList}  
+                                    value={{id:data.superEmployeeId,name:data.superEmployeeName}}     
+                                    isOptionEqualToValue={(option, value) =>
+                                        value.id === 0 || value.id === "" ||option.id === value.id
+                                    }                 
+                                    getOptionLabel={(option) =>
+                                    option.name ? option.name : ""
+                                    }
+                                    onChange={(event, value) => {
+                                        if (value !== null) {
+                                            setdata((prevFilters) => ({
+                                            ...prevFilters,
+                                            superEmployeeId:value.id,
+                                            superEmployeeName:value.name
+                                            })); 
+                                            getEmployeeData(value.id,true)  ;       
+                                        } else {
+                                            setdata((prevFilters) => ({
+                                                ...prevFilters,
+                                                superEmployeeId:0,
+                                                superEmployeeName:""
+                                            }));
+                                            getEmployeeData(0,true)  ;    
+                                        }                               
+                                    }}
+                                    renderInput={(params) => (
+                                    <TextField
+                                        variant="outlined"                            
+                                        {...params}
+                                        name="superempId"
+                                        required                              
+                                        label={intl.formatMessage(messages.superEmployeeName)}
+                                        />
+                                    )}
+                                />  
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <TextField
+                                    id="superJob"
+                                    name="superJob"
+                                    value={data.superJob}               
+                                    label={intl.formatMessage(messages.job)}
+                                    className={classes.field}
+                                    variant="outlined"
+                                    disabled
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <TextField
+                                    id="superOrganization"
+                                    name="superOrganization"
+                                    value={data.superOrganization}               
+                                    label={intl.formatMessage(messages.organization)}
+                                    className={classes.field}
+                                    variant="outlined"
+                                    disabled
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <TextField
+                                    id="superHiringDate"
+                                    name="superHiringDate"
+                                    value={data.superHiringDate===null ? "" :data.superHiringDate}      
+                                    label={intl.formatMessage(messages.hiringDate)}
+                                    className={classes.field}
+                                    variant="outlined"
+                                    disabled
+                                />
+                            </Grid>
+                        </Grid>
+                    </CardContent>                
+                </Card>
                 </Grid>
                 
-                <Grid item xs={12} md={4}>
-                    <Autocomplete  
-                        id="employeeId"                        
-                        options={EmployeeList}  
-                        value={{id:data.employeeId,name:data.employeeName}}     
-                        isOptionEqualToValue={(option, value) =>
-                            value.id === 0 || value.id === "" ||option.id === value.id
-                          }                 
-                        getOptionLabel={(option) =>
-                        option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setdata((prevFilters) => ({
-                                ...prevFilters,
-                                employeeId:value.id,
-                                employeeName:value.name
-                                }));
-                                getEmployeeData(value.id,false)  ;   
-                            } else {
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    employeeId:0,
-                                    employeeName:""
-                                })); 
-                                getEmployeeData(0,false)  ;   
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            variant="outlined"                            
-                            {...params}
-                            name="employeeId"
-                            required                              
-                            label={intl.formatMessage(messages.employeeName)}
-                            />
-                        )}
-                    />  
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <TextField
-                        id="job"
-                        name="job"
-                        value={data.job}               
-                        label={intl.formatMessage(messages.job)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-                    />
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <TextField
-                        id="organization"
-                        name="organization"
-                        value={data.organization}               
-                        label={intl.formatMessage(messages.organization)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-                    />
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <TextField
-                        id="hiringDate"
-                        name="hiringDate"
-                        value={data.hiringDate===null ? "" :data.hiringDate}               
-                        label={intl.formatMessage(messages.hiringDate)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-                    />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <Autocomplete  
-                        id="superempId"                        
-                        options={SuperEmployeeList}  
-                        value={{id:data.superEmployeeId,name:data.superEmployeeName}}     
-                        isOptionEqualToValue={(option, value) =>
-                            value.id === 0 || value.id === "" ||option.id === value.id
-                          }                 
-                        getOptionLabel={(option) =>
-                        option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setdata((prevFilters) => ({
-                                ...prevFilters,
-                                superEmployeeId:value.id,
-                                superEmployeeName:value.name
-                                })); 
-                                getEmployeeData(value.id,true)  ;       
-                            } else {
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    superEmployeeId:0,
-                                    superEmployeeName:""
-                                }));
-                                getEmployeeData(0,true)  ;    
-                            }                               
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            variant="outlined"                            
-                            {...params}
-                            name="superempId"
-                            required                              
-                            label={intl.formatMessage(messages.superEmployeeName)}
-                            />
-                        )}
-                    />  
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <TextField
-                        id="superJob"
-                        name="superJob"
-                        value={data.superJob}               
-                        label={intl.formatMessage(messages.job)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-                    />
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <TextField
-                        id="superOrganization"
-                        name="superOrganization"
-                        value={data.superOrganization}               
-                        label={intl.formatMessage(messages.organization)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-                    />
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <TextField
-                        id="superHiringDate"
-                        name="superHiringDate"
-                        value={data.superHiringDate===null ? "" :data.superHiringDate}      
-                        label={intl.formatMessage(messages.hiringDate)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-                    />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                <TextField
-                        id="payTemplateName"
-                        name="payTemplateName"
-                        value={data.payTemplateName}               
-                        label={intl.formatMessage(messages.payTemplateName)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-
-                    /> 
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <TextField
-                        id="elementName"
-                        name="elementName"
-                        value={data.elementName}               
-                        label={intl.formatMessage(messages.elementName)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-
-                    />
-                </Grid>
-                <Grid item xs={12} md={4}>                    
-                    <TextField
-                    id="value"
-                    name="value"
-                    value={data.value}
-                    onChange={(e) => handleChange(e)}                 
-                    label={intl.formatMessage(messages.value)}
-                    required
-                    className={classes.field}
-                    variant="outlined"
-                    //disabled={data.value ? true : false}
-                    />
-                </Grid>
-                <Grid item xs={12} md={4}>                    
+                
+                <Grid item xs={12} md={8}>                    
                     <TextField
                     id="note"
                     name="note"
@@ -512,6 +549,7 @@ async function oncancel(){
                     variant="outlined"
                     />
                 </Grid>
+                <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
                     <Button variant="contained" type="submit" size="medium" color="primary" >
                        <FormattedMessage {...Payrollmessages.save} /> 
