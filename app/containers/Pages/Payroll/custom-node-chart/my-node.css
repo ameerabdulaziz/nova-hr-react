@@ -1,0 +1,103 @@
+* {
+    padding: 0;
+    margin: 0;
+  }
+  .orgchart-container {
+    height: 100% !important;
+  }
+.orgchart.myChart {
+    background-color:rgb(235 241 251);/* #c4c9cc;  rgb(245, 247, 250);  */
+    /* display: block !important;  */
+  /*  background-image: linear-gradient(
+      90deg,
+      rgba(33, 90, 136, 0.15) 10%,
+      rgba(0, 0, 0, 0) 10%
+    ),
+    linear-gradient(rgba(33, 90, 136, 0.15) 10%, rgba(0, 0, 0, 0) 10%) !important; */
+}
+
+.orgchart.myChart > ul > li > ul li::before {
+  border-top-color: #215a88;
+}
+
+.orgchart.myChart > ul > li > ul li .oc-node::before,
+.orgchart.myChart ul li .oc-node:not(:only-child)::after {
+  background-color: #215a88;
+}
+
+
+.card {
+    position: relative;
+    padding-top: 50px;
+    /* width: 300px; */
+  }
+  
+  .card .image {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -10px;
+    z-index: 100;
+  }
+  .card .image img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border: 13px solid #96f6b7;
+  }
+  .orgchart.myChart .oc-node .card .card-body {
+    /* box-sizing: border-box;
+    background-color: #215a88;
+    color: #fff;
+    width: 130px;
+    height: 65px;
+    padding: 2px; */
+    background: #fff;
+    height: 96px;
+    text-align: center;
+    width: 150px;
+    padding-top: 20px;
+    border-radius: 16px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative;
+    /* z-index: -1; */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .orgchart.myChart .oc-node .card .card-body h2 {
+      font-weight: 600;
+      font-size: medium;
+      margin: 0 0 0.5em !important;
+      /* line-height: 10px; */
+    }
+  .card .card-body p.name {
+    font-weight: bold !important;
+  line-height: 20px;
+  font-size: small;
+  }
+  .card .card-body p {    
+  line-height: 20px;
+  font-size: small;
+  }
+  .orgchart.myChart .oc-node .card .card-footer {
+      padding: 3px;
+      background: #96f6b7;
+      text-align: center;
+      bottom: 0;
+      position: relative;
+      /* width: 295px; */
+      border-radius: 16px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      /* z-index: -1; */
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  .orgchart.myChart .oc-node .card .card-footer img {
+  width: 25px;
+  margin: 5px;
+  }

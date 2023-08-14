@@ -1,0 +1,24 @@
+/*
+ * User Form Messages
+ *
+ * This contains all the text for the Form components.
+ */
+import { defineMessages } from 'react-intl';
+
+export const scope = 'boilerplate.containers.Payroll';
+
+export default defineMessages({
+  //penaltyList----------------------------------------------------------------------------
+  save: {
+    id: `${scope}.save`,
+    defaultMessage: 'Save',
+  },
+  add: {
+    id: `${scope}.add`,
+    defaultMessage: 'Add',
+  },
+  cancel: {
+    id: `${scope}.cancel`,
+    defaultMessage: 'cancel',
+  },
+  });

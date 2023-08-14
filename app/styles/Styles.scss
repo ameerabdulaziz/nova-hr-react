@@ -1,0 +1,39 @@
+.tableContainerStyAr
+{
+    div
+    {
+        div
+        {
+            div:nth-child(2)
+            {
+                text-align: left;
+            }
+        }
+    }
+
+    .tableSty
+    {
+        div:nth-child(3)
+        {
+            position: inherit !important;
+        }
+    }
+}
+
+.actionsSty
+{
+    display: flex;
+}
+
+
+.comboBoxContainer
+{
+    display: flex;
+    align-items: center;
+
+    & > div 
+    {
+        width: 100%;
+        margin-right: 10px;
+    }
+}
