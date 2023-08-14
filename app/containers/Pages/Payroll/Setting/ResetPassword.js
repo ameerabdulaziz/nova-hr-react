@@ -105,12 +105,19 @@ const GetEmployeeListByDepartment = useCallback(async () => {
       >
         <Grid item xs={12} md={6}>
           <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
+            <Typography variant="h5" component="h3" style={{marginBottom:"30px"}}>
                 {Title}
             </Typography>
 
             <form onSubmit={handleSubmit}>
-              <div>
+            <Grid
+              container
+              spacing={3}
+              alignItems="flex-start"
+              direction="row"
+              justifyContent="center"
+            >
+              <Grid item xs={12} md={12}>
                 <Autocomplete
                     id="ddldepartment"                        
                     options={departmentList}                        
@@ -128,7 +135,7 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                     }}
                     renderInput={(params) => (
                     <TextField
-                        variant="standard"                            
+                        variant="outlined"                            
                         {...params}
                         name="department"
                         value={department}
@@ -136,8 +143,8 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                         margin="normal" />
                     )}
                 />  
-              </div>
-              <div>
+              </Grid>
+              <Grid item xs={12} md={12}>
                 <Autocomplete
                     id="ddlEmp"                        
                     options={employeeList}                        
@@ -155,7 +162,7 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                     }}
                     renderInput={(params) => (
                     <TextField
-                        variant="standard"                            
+                        variant="outlined"                            
                         {...params}
                         name="employee"
                         value={employee}
@@ -163,8 +170,8 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                     />
                     )}
                 />
-              </div>
-              <div>
+              </Grid>
+              <Grid item xs={12} md={12}>
                 <TextField
                   id="password"
                   name="password"
@@ -173,11 +180,12 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                   label={intl.formatMessage(messages.password)}
                   required
                   className={classes.field}
-                  variant="standard"
+                  variant="outlined"
                   type="password"
                   autoComplete="new-password"
                 />
-              </div>
+              </Grid>
+            </Grid>
               <div style={{paddingTop:"20px"}}>
                 <Grid container spacing={3}>            
                     <Grid item xs={12} sm={6}>

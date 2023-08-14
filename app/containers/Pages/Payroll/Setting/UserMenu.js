@@ -200,7 +200,7 @@ async function on_submit() {
       <PapperBlock whiteBg icon="border_color" title="" desc="">
         <div>
             <Grid container spacing={3}>            
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={6} md={3}>
                     <Autocomplete
                         id="ddlEmp"                        
                         options={employeeList}                        
@@ -216,16 +216,16 @@ async function on_submit() {
                         }}
                         renderInput={(params) => (
                         <TextField
-                            variant="standard"                            
+                            variant="outlined"                            
                             {...params}
                             name="employee"
                             value={employee}
                             label={intl.formatMessage(messages.chooseEmp)}
-                            margin="normal" />
+                        />
                         )}
                     />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={6} md={3}>
                     <Autocomplete
                         id="ddlMenu"                        
                         options={MenuList}
@@ -239,22 +239,22 @@ async function on_submit() {
                         }}
                         renderInput={(params) => (
                         <TextField
-                            variant="standard"
+                            variant="outlined"
                             {...params}
                             name="menu"
                             value={menu}
                             label={intl.formatMessage(messages.chooseMenu)}
-                            margin="normal" />
+                        />
                             
                         )}
                     />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={6} md={4} >
                 
                     <FormControl variant="filled" className={classes.searchtext} >
                         <Input
                         id="search_filter"
-                        style={{height:"50px"}}
+                        //style={{height:"50px"}}
                         type="text"
                         placeholder={intl.formatMessage(messages.search)}
                         onChange={(e) =>setQuery(e.target.value)}
@@ -269,9 +269,9 @@ async function on_submit() {
                         />
                     </FormControl>
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={6} md={2}>
                     
-                <Button variant="contained" size="medium" color="primary" onClick={on_submit} style={{marginTop: '34px'}}>
+                <Button variant="contained" size="medium" color="primary" onClick={on_submit} >
                   <FormattedMessage {...messages.save} />
                 </Button>
                 </Grid>   

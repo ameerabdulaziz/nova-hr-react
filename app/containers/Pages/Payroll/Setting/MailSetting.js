@@ -135,12 +135,13 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
       >
         <Grid item xs={12} md={6}>
           <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
+            <Typography variant="h5" component="h3" style={{marginBottom:"30px"}}>
               {Title}
             </Typography>
 
             <form onSubmit={handleSubmit}>
-              <div>
+            <Grid container spacing={3}>           
+            <Grid item xs={12} md={12}>
                 <TextField                    
                   type="email"                  
                   error={email === 'Invalid email'}
@@ -150,25 +151,25 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   label={intl.formatMessage(messages.email)}
                   required
                   className={classes.field}
-                  variant="standard"
+                  variant="outlined"
                   value={data.bscMail}
                   onChange={(e) => handleChange(e)}
                 />
-              </div>
-              <div>
+              </Grid>
+              <Grid item xs={12} md={12}>
                 <TextField
                   name="userName"
                   id="userName"
                   label={intl.formatMessage(messages.username)}
                   required
                   className={classes.field}
-                  variant="standard"
+                  variant="outlined"
                   value={data.userName}
                   onChange={(e) => handleChange(e)}
                   autoComplete="new-password"
                 />
-              </div>
-              <div>
+              </Grid>
+              <Grid item xs={12} md={12}>
                 <TextField
                   id="password"
                   name="password"
@@ -177,12 +178,12 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   label={intl.formatMessage(messages.password)}
                   required
                   className={classes.field}
-                  variant="standard"
+                  variant="outlined"
                   type="password"
                   autoComplete="new-password"
                 />
-              </div>
-              <div>
+              </Grid>
+              <Grid item xs={12} md={12}>
                 <TextField
                   id="serverName"
                   name="serverName"
@@ -191,11 +192,11 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   label={intl.formatMessage(messages.servername)}
                   required
                   className={classes.field}  
-                  variant="standard"
+                  variant="outlined"
                 />
-              </div>
+              </Grid>
               
-              <div className={classes.field}>
+              <Grid item xs={12} md={12}>
                 <TextField
                   name="url"
                   id="url"
@@ -204,10 +205,10 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   onChange={(e) => handleChange(e)}
                   label={intl.formatMessage(messages.portallink)}
                   required
-                  variant="standard"
+                  variant="outlined"
                 />
-              </div>
-              <div className={classes.field}>
+              </Grid>
+              <Grid item xs={12} md={12}>
                 <TextField
                   name="mailPort"
                   id="mailPort"
@@ -216,9 +217,10 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   onChange={(e) => handleChange(e)}
                   label={intl.formatMessage(messages.portno)}
                   required
-                  variant="standard"
+                  variant="outlined"
                 />
-              </div>
+              </Grid>
+              </Grid>
               <div style={{paddingTop:"20px"}}>
                 <Grid container spacing={3}>            
                     <Grid item xs={6} sm={3}>

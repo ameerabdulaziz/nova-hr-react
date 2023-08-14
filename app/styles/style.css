@@ -1,0 +1,10 @@
+.MuiAutocomplete-inputRoot {
+    flex-wrap: nowrap !important;
+    height:40px;
+    top: 0px !important
+    
+  }
+  .MuiAutocomplete-input 
+  {
+    margin-top: -15px !important;
+  }

@@ -19,7 +19,7 @@ import { ConnectedRouter } from 'connected-react18-router';
 import history from 'utils/history';
 import 'react-18-image-lightbox/style.css';
 import 'sanitize.css/sanitize.css';
-
+import './styles/style.css';
 // Import root app
 import App from 'containers/App';
 import './styles/layout/base.scss';

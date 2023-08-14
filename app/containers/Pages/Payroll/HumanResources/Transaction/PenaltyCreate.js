@@ -212,7 +212,7 @@ async function GetPenaltyDetails(id) {
                             value={data.date}
                             onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
-                            renderInput={(params) => <TextField {...params} variant="standard" />}
+                            renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
                     </LocalizationProvider>
                 </Grid>
@@ -244,7 +244,7 @@ async function GetPenaltyDetails(id) {
                         }}
                         renderInput={(params) => (
                         <TextField
-                            variant="standard"                            
+                            variant="outlined"                            
                             {...params}
                             name="yearId"
                             required                              
@@ -281,7 +281,7 @@ async function GetPenaltyDetails(id) {
                         }}
                         renderInput={(params) => (
                         <TextField
-                            variant="standard"                            
+                            variant="outlined"                            
                             {...params}
                             name="monthId"
                             required                              
@@ -321,7 +321,7 @@ async function GetPenaltyDetails(id) {
                         }}
                         renderInput={(params) => (
                         <TextField
-                            variant="standard"                            
+                            variant="outlined"                            
                             {...params}
                             name="rewardsid"
                             required                              
@@ -337,7 +337,7 @@ async function GetPenaltyDetails(id) {
                         value={data.elementName}               
                         label={intl.formatMessage(messages.elementName)}
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         disabled
 
                     />
@@ -374,7 +374,7 @@ async function GetPenaltyDetails(id) {
                         }}
                         renderInput={(params) => (
                         <TextField
-                            variant="standard"                            
+                            variant="outlined"                            
                             {...params}
                             name="penaltyTypeId"
                             required                              
@@ -392,7 +392,7 @@ async function GetPenaltyDetails(id) {
                     label={intl.formatMessage(messages.value)}
                     required
                     className={classes.field}
-                    variant="standard"
+                    variant="outlined"
                     //disabled={data.value ? true : false}
                     />
                 </Grid>
@@ -427,7 +427,7 @@ async function GetPenaltyDetails(id) {
                         }}
                         renderInput={(params) => (
                         <TextField
-                            variant="standard"                            
+                            variant="outlined"                            
                             {...params}
                             name="employeeId"
                             required                              
@@ -443,7 +443,7 @@ async function GetPenaltyDetails(id) {
                         value={data.job}               
                         label={intl.formatMessage(messages.job)}
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         disabled
                     />
                 </Grid>
@@ -454,7 +454,7 @@ async function GetPenaltyDetails(id) {
                         value={data.organization}               
                         label={intl.formatMessage(messages.organization)}
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         disabled
                     />
                 </Grid>
@@ -465,7 +465,7 @@ async function GetPenaltyDetails(id) {
                         value={data.hiringDate===null ? "" :data.hiringDate}               
                         label={intl.formatMessage(messages.hiringDate)}
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         disabled
                     />
                 </Grid>
@@ -499,7 +499,7 @@ async function GetPenaltyDetails(id) {
                         }}
                         renderInput={(params) => (
                         <TextField
-                            variant="standard"                            
+                            variant="outlined"                            
                             {...params}
                             name="superempId"
                             required                              
@@ -515,7 +515,7 @@ async function GetPenaltyDetails(id) {
                         value={data.superJob}               
                         label={intl.formatMessage(messages.job)}
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         disabled
                     />
                 </Grid>
@@ -526,7 +526,7 @@ async function GetPenaltyDetails(id) {
                         value={data.superOrganization}               
                         label={intl.formatMessage(messages.organization)}
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         disabled
                     />
                 </Grid>
@@ -537,7 +537,7 @@ async function GetPenaltyDetails(id) {
                         value={data.superHiringDate===null ? "" :data.superHiringDate}      
                         label={intl.formatMessage(messages.hiringDate)}
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         disabled
                     />
                 </Grid>
@@ -550,16 +550,16 @@ async function GetPenaltyDetails(id) {
                     onChange={(e) => handleChange(e)}                        
                     label={intl.formatMessage(messages.note)}
                     className={classes.field}
-                    variant="standard"
+                    variant="outlined"
                     />
                 </Grid>
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" style={{marginTop: '20px'}}>
+                    <Button variant="contained" type="submit" size="medium" color="primary" >
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>
                 <Grid item xs={12} md={1}>
-                    <Button variant="contained" size="medium" color="primary" onClick={oncancel} style={{marginTop: '20px'}}>
+                    <Button variant="contained" size="medium" color="primary" onClick={oncancel} >
                        <FormattedMessage {...Payrollmessages.cancel} /> 
                     </Button>
                 </Grid>

@@ -39,7 +39,7 @@ const useStyles = makeStyles()((theme) => ({
     marginTop: 4,
   },
   searchtext: {
-    marginTop: '30px',
+    //marginTop: '30px',
     width: '100%',  
   },
   table: {

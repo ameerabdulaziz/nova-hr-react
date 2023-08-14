@@ -169,7 +169,7 @@ async function on_submit() {
                         label={intl.formatMessage(messages.arName)}
                         required
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         />
                 </Grid>
                 <Grid item xs={12} md={3}>
@@ -182,7 +182,7 @@ async function on_submit() {
                         label={intl.formatMessage(messages.enName)}
                         required
                         className={classes.field}
-                        variant="standard"
+                        variant="outlined"
                         />
                 </Grid>
                 <Grid item xs={12} md={3}>
@@ -212,7 +212,7 @@ async function on_submit() {
                           }}
                           renderInput={(params) => (
                           <TextField
-                              variant="standard"                            
+                              variant="outlined"                            
                               {...params}
                               name="element"                              
                               label={intl.formatMessage(messages.elementName)}
@@ -222,7 +222,7 @@ async function on_submit() {
                 </Grid>
                 <Grid item xs={12} md={2}>
                   
-                    <Button variant="contained" size="medium" color="primary" onClick={on_submit} style={{marginTop: '20px'}}>
+                    <Button variant="contained" size="medium" color="primary" onClick={on_submit}>
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>
