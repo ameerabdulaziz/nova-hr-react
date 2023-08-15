@@ -24,7 +24,8 @@ const PenaltyData = (locale) => {
       elementId: data.data.elementId,
       type: data.data.type,
       penaltyTypeList:data.data.penaltyTypeList,
-      elementName:"الراتب الاساسى"//data.data.elementName,
+      elementName:data.data.elementName,
+      typeName:data.data.typeName
     };
     var ElementList=data.data.elementList;
     return {finaldata, ElementList };
@@ -49,7 +50,7 @@ const PenaltyData = (locale) => {
             "arName": data.arName,
             "enName": data.enName,  
             "elementId": data.elementId,
-            "type": 1,          
+            "type": data.type,          
             "penaltyDetailsList":penaltyDetailsList
           }
     const result = await axiosInstance.post("HrPenalties/SaveData",formdata);

@@ -862,6 +862,7 @@
    "boilerplate.containers.Payroll.HumanResources.enName":"En Name",
   "boilerplate.containers.Payroll.HumanResources.arName":"Ar Name",
   "boilerplate.containers.Payroll.HumanResources.elementName":"Element",
+  "boilerplate.containers.Payroll.HumanResources.type": "Type",
   "boilerplate.containers.Payroll.HumanResources.add":"Add New",  
   "boilerplate.containers.Payroll.HumanResources.createPenaltyTitle":"Create Penalty",  
   "boilerplate.containers.Payroll.HumanResources.updatePenaltyTitle":"Update Penalty",  
@@ -885,6 +886,11 @@
   "boilerplate.containers.Payroll.HumanResources.job":"Job",
   "boilerplate.containers.Payroll.HumanResources.organization":"Department",
   "boilerplate.containers.Payroll.HumanResources.hiringDate":"Hiring Date",
+  "boilerplate.containers.Payroll.HumanResources.reason":"Reason",
+  "boilerplate.containers.Payroll.HumanResources.AttentionCreateTitle":"Create Attention",  
+  "boilerplate.containers.Payroll.HumanResources.AttentionUpdateTitle":"Update Attention",  
+  "boilerplate.containers.Payroll.HumanResources.LayOffNoticeCreateTitle":"Add LayOff Notice",    
+  "boilerplate.containers.Payroll.HumanResources.LayOffNoticeUpdateTitle":"Update LayOff Notice",
   
   
 

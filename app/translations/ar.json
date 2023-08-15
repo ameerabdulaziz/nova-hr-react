@@ -826,7 +826,7 @@
   "boilerplate.components.tables.codes.araddress": "الهنوان بالعربية",
   "boilerplate.components.tables.codes.enaddress": "العنوان بالانجليزية",
   "boilerplate.components.tables.codes.city": "المدينة",
-  "boilerplate.components.tables.codes.elementName": "العنصر",
+  "boilerplate.components.tables.codes.elementName": "العنصر", 
   "boilerplate.components.tables.codes.payTemplateName": "القالب",
   "boilerplate.components.tables.codes.value": "القيمة",
   "boilerplate.components.tables.codes.PenaltyTypeName": "نوع الجزاء",
@@ -862,6 +862,7 @@
   "boilerplate.containers.Payroll.HumanResources.enName":"الاسم بالانجليزية",
   "boilerplate.containers.Payroll.HumanResources.arName":"الاسم بالعربية",
   "boilerplate.containers.Payroll.HumanResources.elementName":"العنصر",
+  "boilerplate.containers.Payroll.HumanResources.type": "النوع",
   "boilerplate.containers.Payroll.HumanResources.add":"اضافة",
   "boilerplate.containers.Payroll.HumanResources.createPenaltyTitle":"اضافة جزاء",    
   "boilerplate.containers.Payroll.HumanResources.updatePenaltyTitle":"تعديل جزاء",
@@ -884,6 +885,13 @@
   "boilerplate.containers.Payroll.HumanResources.job":"الوظيفة",
   "boilerplate.containers.Payroll.HumanResources.organization":"القسم",
   "boilerplate.containers.Payroll.HumanResources.hiringDate":"تاريخ التعيين",
+  "boilerplate.containers.Payroll.HumanResources.reason":"السبب",
+  "boilerplate.containers.Payroll.HumanResources.AttentionCreateTitle":"اضافة لفت نظر",    
+  "boilerplate.containers.Payroll.HumanResources.AttentionUpdateTitle":"تعديل لفت نظر",  
+  "boilerplate.containers.Payroll.HumanResources.LayOffNoticeCreateTitle":"اضافة انذار بالفصل",    
+  "boilerplate.containers.Payroll.HumanResources.LayOffNoticeUpdateTitle":"تعديل انذار بالفصل",
+  
+  
   
   
   

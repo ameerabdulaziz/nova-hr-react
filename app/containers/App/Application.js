@@ -124,7 +124,8 @@ import {//shymaa
   EmployeeList,
   Courses,
   TrainingCenter,  ResignReason,Rewards,Penalty,CreatePenalty,EditPenalty,
-  RewardTransList,RewardCreate,RewardEdit,PenaltyTransList,PenaltyTransCreate,PenaltyTransEdit
+  RewardTransList,RewardCreate,RewardEdit,PenaltyTransList,PenaltyTransCreate,PenaltyTransEdit,
+  AttentionList,AttentionCreate,AttentionEdit,LayOffNoticeList,LayOffNoticeCreate,LayOffNoticeEdit,
 
 } from '../pageListAsync';
 
@@ -283,6 +284,15 @@ function Application(props) {
         <Route path="/app/Pages/HR/PenaltyTransList" component={withAuthorizationRouter(PenaltyTransList)} />
         <Route path="/app/Pages/HR/PenaltyCreate" component={withAuthorizationRouter(PenaltyTransCreate)} />
         <Route path="/app/Pages/HR/PenaltyEdit:id" component={withAuthorizationRouter(PenaltyTransEdit)} />
+
+        <Route path="/app/Pages/HR/AttentionList" component={withAuthorizationRouter(AttentionList)} />
+        <Route path="/app/Pages/HR/AttentionCreate" component={withAuthorizationRouter(AttentionCreate)} />
+        <Route path="/app/Pages/HR/AttentionEdit:id" component={withAuthorizationRouter(AttentionEdit)} />
+
+        
+        <Route path="/app/Pages/HR/LayOffNoticeList" component={withAuthorizationRouter(LayOffNoticeList)} />
+        <Route path="/app/Pages/HR/LayOffNoticeCreate" component={withAuthorizationRouter(LayOffNoticeCreate)} />
+        <Route path="/app/Pages/HR/LayOffNoticeEdit:id" component={withAuthorizationRouter(LayOffNoticeEdit)} />
         
         
         

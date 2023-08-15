@@ -30,7 +30,8 @@ function CreatePenalty(props) {
     "enName": "",  
     "elementId": 0,
     "elementName":"",
-    "type": 1,          
+    "type": 1, 
+    "typeName": "شهرى",          
     "penaltyDetailsList":[]
   });
   const [ElementList, setElementList] = useState([]);
@@ -138,14 +139,14 @@ async function on_submit() {
       toast.error(notif.error);
     }
   }
-
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     debugger ;
     const dataApi = await ApiData(locale).GetPenalty(id??0);
     setElementList(dataApi.ElementList);
     debugger ;
     setdata(dataApi.finaldata);
-  }
+  });
+ 
   useEffect(() => {    
     fetchData();
   }, []);
@@ -185,11 +186,14 @@ async function on_submit() {
                         variant="outlined"
                         />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={2}>
                       <Autocomplete  
                           id="elementId"                        
                           options={ElementList}  
-                          value={{id:data.elementId,name:data.elementName}}                      
+                          value={{id:data.elementId,name:data.elementName}}  
+                          isOptionEqualToValue={(option, value) =>
+                            value.id === 0 || value.id === "" ||option.id === value.id
+                          }                      
                           getOptionLabel={(option) =>
                             option.name ? option.name : ""
                           }
@@ -216,6 +220,44 @@ async function on_submit() {
                               {...params}
                               name="element"                              
                               label={intl.formatMessage(messages.elementName)}
+                               />
+                          )}
+                      />  
+                </Grid>
+                <Grid item xs={12} md={2}>
+                      <Autocomplete  
+                          id="typelist"                        
+                          options={[{"id":1,"name":"شهرى"},{"id":2,"name":"نصف سنوى"},{"id":3,"name":"سنوى"},{"id":4,"name":"من تاريخ التعيين"}]}  
+                          value={{id:data.type,name:data.typeName}}
+                          isOptionEqualToValue={(option, value) =>
+                            value.id === 0 || value.id === "" ||option.id === value.id
+                          }  
+                          getOptionLabel={(option) =>
+                            option.name ? option.name : ""
+                          }
+                          onChange={(event, value) => {
+
+                            debugger ;
+                              if (value !== null) {
+                                    setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    type:value.id,
+                                    typeName:value.name,
+                                  }));     
+                              } else {
+                                setdata((prevFilters) => ({
+                                  ...prevFilters,
+                                  type:1,
+                                  typeName:"شهرى"
+                                })); 
+                              }                               
+                          }}
+                          renderInput={(params) => (
+                          <TextField
+                              variant="outlined"                            
+                              {...params}
+                              name="typelist"                              
+                              label={intl.formatMessage(messages.type)}
                                />
                           )}
                       />  

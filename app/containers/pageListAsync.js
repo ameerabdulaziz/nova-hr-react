@@ -640,6 +640,44 @@ export const PenaltyTransEdit = loadable(
   }
 );
 
+export const AttentionList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/AttentionList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const AttentionCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/AttentionCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const AttentionEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/AttentionCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const LayOffNoticeList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/LayOffNoticeList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const LayOffNoticeCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/LayOffNoticeCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const LayOffNoticeEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/LayOffNoticeCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 //Employee /////////////////////////////////////////////////////////////////////////////////
 

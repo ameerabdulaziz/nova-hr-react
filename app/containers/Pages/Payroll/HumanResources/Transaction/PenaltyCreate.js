@@ -100,6 +100,7 @@ function PenaltyCreate(props) {
     history.push(`/app/Pages/HR/PenaltyTransList`);
   }
   async function fetchData() {
+    
     debugger ;
     const years = await GeneralListApis(locale).GetYears(locale);
     setYearList(years);

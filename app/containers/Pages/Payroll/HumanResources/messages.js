@@ -21,6 +21,10 @@ export default defineMessages({
     id: `${scope}.elementName`,
     defaultMessage: 'Element',
   },
+  type: {
+    id: `${scope}.type`,
+    defaultMessage: 'type',
+  },
   createPenaltyTitle: {
     id: `${scope}.createPenaltyTitle`,
     defaultMessage: 'Create Penalty',
@@ -103,5 +107,28 @@ hiringDate: {
   id: `${scope}.hiringDate`,
   defaultMessage: 'Hiring Date',
 },
+//Attention//////////////////////////////////////////////////////////////////////////////////////////////////////
 
+AttentionCreateTitle: {
+  id: `${scope}.AttentionCreateTitle`,
+  defaultMessage: 'Create Attention ',
+},
+AttentionUpdateTitle: {
+  id: `${scope}.AttentionUpdateTitle`,
+  defaultMessage: 'Update Attention ',
+},
+LayOffNoticeCreateTitle: {
+  id: `${scope}.LayOffNoticeCreateTitle`,
+  defaultMessage: 'Create LayOffNotice ',
+},
+LayOffNoticeUpdateTitle: {
+  id: `${scope}.LayOffNoticeUpdateTitle`,
+  defaultMessage: 'Update LayOffNotice ',
+},
+
+
+reason: {
+  id: `${scope}.reason`,
+  defaultMessage: 'reason',
+},
 });
