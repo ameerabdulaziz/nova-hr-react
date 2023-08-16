@@ -21,4 +21,33 @@ export default defineMessages({
     id: `${scope}.cancel`,
     defaultMessage: 'cancel',
   },
+  delete: {
+    id: `${scope}.delete`,
+    defaultMessage: 'delete',
+  },
+  code: {
+    id: `${scope}.code`,
+    defaultMessage: 'code',
+  },
+  id: {
+    id: `${scope}.id`,
+    defaultMessage: 'id',
+  },
+  name : {
+    id: `${scope}.name`,
+    defaultMessage: 'Name',
+  },
+  organizationName: {
+    id: `${scope}.organizationName`,
+    defaultMessage: 'organizationName',
+  },
+  chooseEmp: {
+    id: `${scope}.chooseEmp`,
+    defaultMessage: 'chooseEmp',
+  },
+  reset: {
+    id: `${scope}.reset`,
+    defaultMessage: 'Reset',
+  },
+  
   });

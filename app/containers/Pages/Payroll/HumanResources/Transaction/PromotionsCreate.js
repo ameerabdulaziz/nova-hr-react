@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
 import { PapperBlock } from 'enl-components';
-import ApiData from '../api/AttentionData';
+import ApiData from '../api/PromotionsData';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import { useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ import { format } from "date-fns";
 
 
 
-function AttentionCreate(props) {
+function PromotionsCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   let { id } = useParams();
@@ -30,15 +30,21 @@ function AttentionCreate(props) {
   
   const [data, setdata] = useState({
     "id": 0,
-    "attentionDate":format(new Date(), "yyyy-MM-dd"),
+    "date":format(new Date(), "yyyy-MM-dd"),
     "reason":"",
     "employeeId":"",
     "employeeName":"",
+    "jobId":"",
     "job":"",
     "organization":"",
     "hiringDate":"",
+    "oldJobId":"",
+    "oldJob":"",
+    "oldElemVal":"",
+    "elemVal":""
   });
   const [EmployeeList, setEmployeeList] = useState([]);
+  const [JobList, setJobList] = useState([]);
   const history=useHistory();  
 
   const handleSubmit = async (e) => {
@@ -50,7 +56,7 @@ function AttentionCreate(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/AttentionList`);
+        history.push(`/app/Pages/HR/PromotionsList`);
       } else {
           toast.error(response.statusText);
       }
@@ -59,7 +65,7 @@ function AttentionCreate(props) {
     }
   }
   async function oncancel(){
-    history.push(`/app/Pages/HR/AttentionList`);
+    history.push(`/app/Pages/HR/PromotionsList`);
   }
 
   async function fetchData() {
@@ -67,6 +73,9 @@ function AttentionCreate(props) {
     
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
+
+    const jobs = await GeneralListApis(locale).GetJobsList(locale);
+    setJobList(jobs);
     
     const dataApi = await ApiData(locale).Get(id??0);
     if(dataApi.id!=0)
@@ -82,9 +91,10 @@ function AttentionCreate(props) {
     if (!id){       
             setdata((prevFilters) => ({
                 ...prevFilters,
-                job:"",
+                oldJob:"",
                 organization:"",
-                hiringDate:""
+                hiringDate:"",
+                oldElemVal:"",
             }));            
         return
     }
@@ -92,15 +102,16 @@ function AttentionCreate(props) {
     
         setdata((prevFilters) => ({
             ...prevFilters,
-            job:empdata.jobName,
+            oldJob:empdata.jobName,
             organization:empdata.organizationName,
-            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate
+            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate,
+            oldElemVal:empdata.Salary,
         }));   
   }
   
   return (
     <div>
-        <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.AttentionCreateTitle):intl.formatMessage(messages.AttentionUpdateTitle)} desc={""}>
+        <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.PromotionsCreateTitle):intl.formatMessage(messages.PromotionsUpdateTitle)} desc={""}>
         <form onSubmit={handleSubmit}>
             <Grid
                 container
@@ -111,8 +122,8 @@ function AttentionCreate(props) {
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.date)}
-                            value={data.attentionDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,attentionDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            value={data.date}
+                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
@@ -145,14 +156,14 @@ function AttentionCreate(props) {
                                                 employeeId:value.id,
                                                 employeeName:value.name
                                                 }));
-                                                getEmployeeData(value.id)  ;   
+                                                getEmployeeData(value.id,false)  ;   
                                             } else {
                                                 setdata((prevFilters) => ({
                                                     ...prevFilters,
                                                     employeeId:0,
                                                     employeeName:""
                                                 })); 
-                                                getEmployeeData(0)  ;   
+                                                getEmployeeData(0,false)  ;   
                                             }
                                         }}
                                         renderInput={(params) => (
@@ -168,10 +179,10 @@ function AttentionCreate(props) {
                                 </Grid>
                                 <Grid item xs={12} md={2}>
                                     <TextField
-                                        id="job"
-                                        name="job"
-                                        value={data.job}               
-                                        label={intl.formatMessage(messages.job)}
+                                        id="oldJob"
+                                        name="oldJob"
+                                        value={data.oldJob}               
+                                        label={intl.formatMessage(messages.oldJob)}
                                         className={classes.field}
                                         variant="outlined"
                                         disabled
@@ -199,12 +210,83 @@ function AttentionCreate(props) {
                                         disabled
                                     />
                                 </Grid>
+                                <Grid item xs={12} md={2}>                    
+                                    <TextField
+                                    id="oldElemVal"
+                                    name="oldElemVal"
+                                    multiline
+                                    required
+                                    rows={2}
+                                    value={data.oldElemVal}
+                                    onChange={(e) => setdata((prevFilters) => ({
+                                        ...prevFilters,
+                                        oldElemVal: e.target.value,
+                                    }))}                        
+                                    label={intl.formatMessage(messages.oldElemVal)}
+                                    className={classes.field}
+                                    variant="outlined"
+                                    />
+                                </Grid>
                             </Grid>
                         </CardContent>
                     </Card>
                 </Grid>
                
-                
+                <Grid item xs={12} md={4}>
+                    <Autocomplete  
+                        id="job"                        
+                        options={JobList}  
+                        value={{id:data.jobId,name:data.job}}     
+                        isOptionEqualToValue={(option, value) =>
+                            value.id === 0 || value.id === "" ||option.id === value.id
+                        }                 
+                        getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                        }
+                        onChange={(event, value) => {
+                            if (value !== null) {
+                                setdata((prevFilters) => ({
+                                ...prevFilters,
+                                jobId:value.id,
+                                job:value.name
+                                }));
+                                
+                            } else {
+                                setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    jobId:0,
+                                    job:""
+                                })); 
+                            }
+                        }}
+                        renderInput={(params) => (
+                        <TextField
+                            variant="outlined"                            
+                            {...params}
+                            name="job"
+                            required                              
+                            label={intl.formatMessage(messages.job)}
+                            />
+                        )}
+                    />  
+                </Grid>
+                <Grid item xs={12} md={2}>                    
+                    <TextField
+                    id="elemVal"
+                    name="elemVal"
+                    multiline
+                    required
+                    rows={2}
+                    value={data.elemVal}
+                    onChange={(e) => setdata((prevFilters) => ({
+                        ...prevFilters,
+                        elemVal: e.target.value,
+                      }))}                        
+                    label={intl.formatMessage(messages.value)}
+                    className={classes.field}
+                    variant="outlined"
+                    />
+                </Grid>
                 <Grid item xs={12} md={8}>                    
                     <TextField
                     id="reason"
@@ -222,6 +304,7 @@ function AttentionCreate(props) {
                     variant="outlined"
                     />
                 </Grid>
+                
                 <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
                     <Button variant="contained" type="submit" size="medium" color="primary" >
@@ -242,8 +325,8 @@ function AttentionCreate(props) {
     </div>
   );
 }
-AttentionCreate.propTypes = {
+PromotionsCreate.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(AttentionCreate);
+export default injectIntl(PromotionsCreate);
 

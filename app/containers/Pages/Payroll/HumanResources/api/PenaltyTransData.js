@@ -50,14 +50,19 @@ const PenaltyTransData = (locale) => {
     const result = await axiosInstance.post(`HRPenaltyTransaction/DeleteList`,list);
     return result;
   };
-  Apis.GetPenaltyTypesListByPenltyId = async (id) => {    
+  Apis.GetPenaltyTypesListByPenltyId = async (id,employeeId) => {    
     debugger;
-    const result = await axiosInstance.get(`HRPenaltyTransaction/GetPenaltyTypesListByPenltyId/${id}/${locale}`);   
+    const result = await axiosInstance.get(`HRPenaltyTransaction/GetPenaltyTypesListByPenltyId/${id}/${employeeId}/${locale}`);   
     return result.data;
   };
   Apis.GetPenaltyDetails = async (id) => {    
     debugger;
     const result = await axiosInstance.get(`HRPenaltyTransaction/GetPenaltyDetails/${id}`);   
+    return result.data;
+  };
+  Apis.GetEmployeePenalties = async (id) => {    
+    debugger;
+    const result = await axiosInstance.get(`HRPenaltyTransaction/GetEmployeePenalties/${id}`);   
     return result.data;
   };
   

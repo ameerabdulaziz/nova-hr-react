@@ -833,7 +833,14 @@
   "boilerplate.components.tables.codes.PenaltyValue": "القيمة",
 
   "boilerplate.containers.Payroll.save": "حفظ",
-  "boilerplate.containers.Payroll.cancel": "الغاء",
+  "boilerplate.containers.Payroll.cancel": "الغاء",  
+  "boilerplate.containers.Payroll.id": "المسلسل",
+  "boilerplate.containers.Payroll.code": "الكود",  
+  "boilerplate.containers.Payroll.delete": "حذف",
+  "boilerplate.containers.Payroll.name": "الاسم",  
+  "boilerplate.containers.Payroll.organizationName": "القسم",
+  "boilerplate.containers.Payroll.chooseEmp":"اختر الموظف",
+  
   
   "boilerplate.containers.Payroll.Setting.parentName":"القائمة الرئيسية",
   "boilerplate.containers.Payroll.Setting.menuName":"اسم القائمة",
@@ -843,11 +850,8 @@
   "boilerplate.containers.Payroll.Setting.view":"عرض",
   "boilerplate.containers.Payroll.Setting.print":"طباعة",
   "boilerplate.containers.Payroll.Setting.favorites":"المفضلة",
-  "boilerplate.containers.Payroll.Setting.chooseEmp":"اختر الموظف",
   "boilerplate.containers.Payroll.Setting.chooseMenu":"اختر القائمة",
   "boilerplate.containers.Payroll.Setting.search":"بحث",
-  "boilerplate.containers.Payroll.Setting.save":"حفظ",
-  "boilerplate.containers.Payroll.Setting.reset":"الغاء",
   "boilerplate.containers.Payroll.Setting.email":"الايميل",
   "boilerplate.containers.Payroll.Setting.username":"اسم المستخدم",
   "boilerplate.containers.Payroll.Setting.password":"كلمة المرور",
@@ -884,12 +888,20 @@
   "boilerplate.containers.Payroll.HumanResources.yearName":"السنة",
   "boilerplate.containers.Payroll.HumanResources.job":"الوظيفة",
   "boilerplate.containers.Payroll.HumanResources.organization":"القسم",
-  "boilerplate.containers.Payroll.HumanResources.hiringDate":"تاريخ التعيين",
+  "boilerplate.containers.Payroll.HumanResources.hiringDate":"تاريخ التعيين",  
+  "boilerplate.containers.Payroll.HumanResources.month":"شهرى",
+  "boilerplate.containers.Payroll.HumanResources.sixMonth":"6 شهور",
+  "boilerplate.containers.Payroll.HumanResources.year":"سنوى",
+  "boilerplate.containers.Payroll.HumanResources.hiringDateNo":"من تاريخ التعيين",
+  "boilerplate.containers.Payroll.HumanResources.lastDate":"اخر مخالفه",
   "boilerplate.containers.Payroll.HumanResources.reason":"السبب",
   "boilerplate.containers.Payroll.HumanResources.AttentionCreateTitle":"اضافة لفت نظر",    
   "boilerplate.containers.Payroll.HumanResources.AttentionUpdateTitle":"تعديل لفت نظر",  
   "boilerplate.containers.Payroll.HumanResources.LayOffNoticeCreateTitle":"اضافة انذار بالفصل",    
   "boilerplate.containers.Payroll.HumanResources.LayOffNoticeUpdateTitle":"تعديل انذار بالفصل",
+
+  "boilerplate.containers.Payroll.HumanResources.oldElemVal":"القيمة السابقة",  
+  "boilerplate.containers.Payroll.HumanResources.oldJob":"الوظيفة السابقة",  
   
   
   

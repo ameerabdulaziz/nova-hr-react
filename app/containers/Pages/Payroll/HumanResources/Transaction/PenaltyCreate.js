@@ -53,7 +53,12 @@ function PenaltyCreate(props) {
     "hiringDate":"",
     "superJob":"",
     "superOrganization":"",
-    "superHiringDate":""
+    "superHiringDate":"",
+    "month": "",
+    "sixMonth": "",
+    "year": "",
+    "hiringDateNo": "",
+    "lastDate": ""
   });
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
@@ -131,34 +136,28 @@ function PenaltyCreate(props) {
         setdata((prevFilters) => ({
             ...prevFilters,
             elementId:0,
-            elementName:""
+            elementName:"",
+            penaltyDetailId:0,
+            penaltyTypeId:0,
+            penaltyTypeName:"",
+            value:""
           })); 
           setPenaltyTypeList([]);
         return
     }
-    const result = await ApiData(locale).GetPenaltyTypesListByPenltyId(id);
+    const result = await ApiData(locale).GetPenaltyTypesListByPenltyId(id,data.employeeId);
     setdata((prevFilters) => ({
         ...prevFilters,
         elementId:result.elementId,
-        elementName:result.elementName
+        elementName:result.elementName,
+        penaltyDetailId:result.selected.penaltyDetailId,
+        penaltyTypeId:result.selected.id,
+        penaltyTypeName:result.selected.name,
+        value:result.selected.value,
       }));   
       setPenaltyTypeList(result.penaltyTypeList);
     }
-async function GetPenaltyDetails(id) {
-    debugger;
-    if (!id){
-        setdata((prevFilters) => ({
-            ...prevFilters,            
-            value:"",
-            })); 
-        return
-    }
-    const result = await ApiData(locale).GetPenaltyDetails(id);
-    setdata((prevFilters) => ({
-        ...prevFilters,
-        value:result.penaltyValue
-        }));   
-    }
+
         
   async function getEmployeeData(id,isSuper) {
     debugger;
@@ -188,12 +187,20 @@ async function GetPenaltyDetails(id) {
             superHiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate
         })); 
     else
+        { 
+        const result = await ApiData(locale).GetEmployeePenalties(id);
         setdata((prevFilters) => ({
             ...prevFilters,
             job:empdata.jobName,
             organization:empdata.organizationName,
-            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate
-        }));   
+            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate,
+            month: result.month,
+            sixMonth:result.sixMonth,
+            year: result.year,
+            hiringDateNo: result.hiringDate,
+            lastDate: result.lastDate,
+        })); 
+    }
     }
   
   
@@ -292,111 +299,7 @@ async function GetPenaltyDetails(id) {
                     />  
                 </Grid>
                 <Grid item xs={12} md={4}></Grid>
-                <Grid item xs={12} md={6}>
-                    <Autocomplete  
-                        id="penaltyId"                        
-                        options={PenaltyList}  
-                        value={{id:data.penaltyId,name:data.penaltyName}}   
-                        isOptionEqualToValue={(option, value) =>
-                            value.id === 0 || value.id === "" ||option.id === value.id
-                          }                   
-                        getOptionLabel={(option) =>
-                        option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setdata((prevFilters) => ({
-                                ...prevFilters,
-                                penaltyId:value.id,
-                                penaltyName:value.name
-                                }));  
-                                getPenaltyData(value.id);   
-                            } else {
-                            setdata((prevFilters) => ({
-                                ...prevFilters,
-                                penaltyId:0,
-                                penaltyName:""
-                            })); 
-                            getPenaltyData(0);
-                            }                               
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            variant="outlined"                            
-                            {...params}
-                            name="rewardsid"
-                            required                              
-                            label={intl.formatMessage(messages.penaltyName)}
-                            />
-                        )}
-                    />  
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        id="elementName"
-                        name="elementName"
-                        value={data.elementName}               
-                        label={intl.formatMessage(messages.elementName)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled
-
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Autocomplete  
-                        id="penaltyTypeId"                        
-                        options={PenaltyTypeList}  
-                        value={{penaltyDetailId:data.penaltyDetailId,id:data.penaltyTypeId,name:data.penaltyTypeName}}   
-                        isOptionEqualToValue={(option, value) =>
-                            value.penaltyDetailId === 0 || value.penaltyDetailId === "" ||option.penaltyDetailId === value.penaltyDetailId
-                          }                   
-                        getOptionLabel={(option) =>
-                        option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setdata((prevFilters) => ({
-                                ...prevFilters,
-                                penaltyTypeId:value.id,
-                                penaltyTypeName:value.name,
-                                penaltyDetailId:value.penaltyDetailId
-                                }));  
-                                GetPenaltyDetails(value.penaltyDetailId);   
-                            } else {
-                            setdata((prevFilters) => ({
-                                ...prevFilters,
-                                penaltyTypeId:0,
-                                penaltyTypeName:"",
-                                penaltyDetailId:value.penaltyDetailId
-                            })); 
-                            GetPenaltyDetails(0);
-                            }                               
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            variant="outlined"                            
-                            {...params}
-                            name="penaltyTypeId"
-                            required                              
-                            label={intl.formatMessage(messages.penaltyTypeName)}
-                            />
-                        )}
-                    />  
-                </Grid>
-                <Grid item xs={12} md={6}>                    
-                    <TextField
-                    id="value"
-                    name="value"
-                    value={data.value}
-                    onChange={(e) => handleChange(e)}                 
-                    label={intl.formatMessage(messages.value)}
-                    required
-                    className={classes.field}
-                    variant="outlined"
-                    //disabled={data.value ? true : false}
-                    />
-                </Grid>
+               
                 <Grid item xs={12} md={12}>
                     <Card className={classes.card}>
                         <CardContent>
@@ -472,6 +375,62 @@ async function GetPenaltyDetails(id) {
                                         name="hiringDate"
                                         value={data.hiringDate===null ? "" :data.hiringDate}               
                                         label={intl.formatMessage(messages.hiringDate)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={2}></Grid>
+                                <Grid item xs={6} md={2}>
+                                    <TextField
+                                        id="month"
+                                        name="month"
+                                        value={data.month}               
+                                        label={intl.formatMessage(messages.month)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={6} md={2}>
+                                    <TextField
+                                        id="sixMonth"
+                                        name="sixMonth"
+                                        value={data.sixMonth}               
+                                        label={intl.formatMessage(messages.sixMonth)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={6} md={2}>
+                                    <TextField
+                                        id="year"
+                                        name="year"
+                                        value={data.year}               
+                                        label={intl.formatMessage(messages.year)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={6} md={2}>
+                                    <TextField
+                                        id="hiringDateNo"
+                                        name="hiringDateNo"
+                                        value={data.hiringDateNo}               
+                                        label={intl.formatMessage(messages.hiringDateNo)}
+                                        className={classes.field}
+                                        variant="outlined"
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={6} md={2}>
+                                    <TextField
+                                        id="lastDate"
+                                        name="lastDate"
+                                        value={data.lastDate}               
+                                        label={intl.formatMessage(messages.lastDate)}
                                         className={classes.field}
                                         variant="outlined"
                                         disabled
@@ -566,7 +525,113 @@ async function GetPenaltyDetails(id) {
                 </Card>
                 </Grid>
                 
-                
+                <Grid item xs={12} md={6}>
+                    <Autocomplete  
+                        id="penaltyId"                        
+                        options={PenaltyList}  
+                        value={{id:data.penaltyId,name:data.penaltyName}}   
+                        isOptionEqualToValue={(option, value) =>
+                            value.id === 0 || value.id === "" ||option.id === value.id
+                          }                   
+                        getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                        }
+                        onChange={(event, value) => {
+                            if (value !== null) {
+                                setdata((prevFilters) => ({
+                                ...prevFilters,
+                                penaltyId:value.id,
+                                penaltyName:value.name
+                                }));  
+                                getPenaltyData(value.id);   
+                            } else {
+                            setdata((prevFilters) => ({
+                                ...prevFilters,
+                                penaltyId:0,
+                                penaltyName:""
+                            })); 
+                            getPenaltyData(0);
+                            }                               
+                        }}
+                        renderInput={(params) => (
+                        <TextField
+                            variant="outlined"                            
+                            {...params}
+                            name="rewardsid"
+                            required                              
+                            label={intl.formatMessage(messages.penaltyName)}
+                            />
+                        )}
+                    />  
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                        id="elementName"
+                        name="elementName"
+                        value={data.elementName}               
+                        label={intl.formatMessage(messages.elementName)}
+                        className={classes.field}
+                        variant="outlined"
+                        disabled
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Autocomplete  
+                        id="penaltyTypeId"                        
+                        options={PenaltyTypeList}  
+                        value={{penaltyDetailId:data.penaltyDetailId,id:data.penaltyTypeId,name:data.penaltyTypeName}}   
+                        isOptionEqualToValue={(option, value) =>
+                            value.penaltyDetailId === 0 || value.penaltyDetailId === "" ||option.penaltyDetailId === value.penaltyDetailId
+                          }                   
+                        getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                        }
+                        onChange={(event, value) => {
+                            if (value !== null) {
+                                setdata((prevFilters) => ({
+                                ...prevFilters,
+                                penaltyTypeId:value.id,
+                                penaltyTypeName:value.name,
+                                penaltyDetailId:value.penaltyDetailId,
+                                value:value.value
+                                }));  
+                                
+                            } else {
+                            setdata((prevFilters) => ({
+                                ...prevFilters,
+                                penaltyTypeId:0,
+                                penaltyTypeName:"",
+                                penaltyDetailId:value.penaltyDetailId,
+                                value:""
+                            })); 
+                            
+                            }                               
+                        }}
+                        renderInput={(params) => (
+                        <TextField
+                            variant="outlined"                            
+                            {...params}
+                            name="penaltyTypeId"
+                            required                              
+                            label={intl.formatMessage(messages.penaltyTypeName)}
+                            />
+                        )}
+                    />  
+                </Grid>
+                <Grid item xs={12} md={6}>                    
+                    <TextField
+                    id="value"
+                    name="value"
+                    value={data.value}
+                    onChange={(e) => handleChange(e)}                 
+                    label={intl.formatMessage(messages.value)}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                    //disabled={data.value ? true : false}
+                    />
+                </Grid>
+
                 <Grid item xs={12} md={8}>                    
                     <TextField
                     id="note"
@@ -578,7 +643,9 @@ async function GetPenaltyDetails(id) {
                     variant="outlined"
                     />
                 </Grid>
-                <Grid item xs={12} md={4}></Grid>       
+     
+
+                 
                 <Grid item xs={12} md={1}>                  
                     <Button variant="contained" type="submit" size="medium" color="primary" >
                        <FormattedMessage {...Payrollmessages.save} /> 

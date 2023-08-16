@@ -19,7 +19,7 @@ const GeneralListApis = (locale) => {
   };
 
   Apis.GetEmployeeList = async () => {
-    
+    debugger;
     const result = await axiosInstance.get(`GeneralList/GetEmployeeList/${locale}`);
    
     return result.data;
@@ -67,6 +67,16 @@ Apis.GetPayTemplateList = async () => {
 Apis.GetEmployeeData = async (id) => {    
   debugger;
   const result = await axiosInstance.get(`GeneralList/GetEmployeeData/${id}/${locale}`);   
+  return result.data;
+};
+Apis.GetJobsList = async () => {    
+  debugger;
+  const result = await axiosInstance.get(`MdJobs/GetListModel/${locale}`);   
+  return result.data;
+};
+Apis.GetEmployeeDataList = async () => {    
+  debugger;
+  const result = await axiosInstance.get(`GeneralList/GetEmployeeDataList/${locale}`);   
   return result.data;
 };
 

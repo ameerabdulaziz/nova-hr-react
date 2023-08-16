@@ -678,6 +678,32 @@ export const LayOffNoticeEdit = loadable(
   }
 );
 
+export const PromotionsList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const PromotionsCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const PromotionsEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const DirectManager = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/DirectManager'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 //Employee /////////////////////////////////////////////////////////////////////////////////
 

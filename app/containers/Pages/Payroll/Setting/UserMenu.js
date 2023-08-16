@@ -26,6 +26,7 @@ import { toast } from 'react-hot-toast';
 import useStyles from '../../../../components/Tables/tableStyle-jss';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
+import Payrollmessages from '../messages';
 
 function UserMenu(props) {
   
@@ -220,7 +221,7 @@ async function on_submit() {
                             {...params}
                             name="employee"
                             value={employee}
-                            label={intl.formatMessage(messages.chooseEmp)}
+                            label={intl.formatMessage(Payrollmessages.chooseEmp)}
                         />
                         )}
                     />
@@ -272,7 +273,7 @@ async function on_submit() {
                 <Grid item xs={6} md={2}>
                     
                 <Button variant="contained" size="medium" color="primary" onClick={on_submit} >
-                  <FormattedMessage {...messages.save} />
+                  <FormattedMessage {...Payrollmessages.save} />
                 </Button>
                 </Grid>   
             </Grid>

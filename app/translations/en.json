@@ -833,7 +833,15 @@
   "boilerplate.components.tables.codes.PenaltyValue": "Value",
 
   "boilerplate.containers.Payroll.save": "Save",  
-  "boilerplate.containers.Payroll.cancel": "Cancel",
+  "boilerplate.containers.Payroll.cancel": "Cancel",  
+  "boilerplate.containers.Payroll.id": "Id",
+  "boilerplate.containers.Payroll.code": "Code",
+  "boilerplate.containers.Payroll.delete": "Delete",  
+  "boilerplate.containers.Payroll.name": "Name",  
+  "boilerplate.containers.Payroll.organizationName": "Department",
+  "boilerplate.containers.Payroll.chooseEmp":"Select Employee",
+  
+  
 
   "boilerplate.containers.Payroll.Setting.parentName":"Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName":"Menu Name",
@@ -843,11 +851,8 @@
   "boilerplate.containers.Payroll.Setting.view":"View",
   "boilerplate.containers.Payroll.Setting.print":"Print",
   "boilerplate.containers.Payroll.Setting.favorites":"Favorites",
-  "boilerplate.containers.Payroll.Setting.chooseEmp":"Select Employee",
   "boilerplate.containers.Payroll.Setting.chooseMenu":"Select Menu",
   "boilerplate.containers.Payroll.Setting.search":"Search",
-  "boilerplate.containers.Payroll.Setting.save":"Save",
-  "boilerplate.containers.Payroll.Setting.reset":"Reset",
    "boilerplate.containers.Payroll.Setting.email":"Email",
    "boilerplate.containers.Payroll.Setting.username":"User Name",
    "boilerplate.containers.Payroll.Setting.password":"Password",
@@ -886,11 +891,19 @@
   "boilerplate.containers.Payroll.HumanResources.job":"Job",
   "boilerplate.containers.Payroll.HumanResources.organization":"Department",
   "boilerplate.containers.Payroll.HumanResources.hiringDate":"Hiring Date",
+  "boilerplate.containers.Payroll.HumanResources.month":"Month",
+  "boilerplate.containers.Payroll.HumanResources.sixMonth":"Six Month",
+  "boilerplate.containers.Payroll.HumanResources.year":"Year",
+  "boilerplate.containers.Payroll.HumanResources.hiringDateNo":"Hiring Date No",
+  "boilerplate.containers.Payroll.HumanResources.lastDate":"Last Date",
   "boilerplate.containers.Payroll.HumanResources.reason":"Reason",
   "boilerplate.containers.Payroll.HumanResources.AttentionCreateTitle":"Create Attention",  
   "boilerplate.containers.Payroll.HumanResources.AttentionUpdateTitle":"Update Attention",  
   "boilerplate.containers.Payroll.HumanResources.LayOffNoticeCreateTitle":"Add LayOff Notice",    
   "boilerplate.containers.Payroll.HumanResources.LayOffNoticeUpdateTitle":"Update LayOff Notice",
+  
+  "boilerplate.containers.Payroll.HumanResources.oldElemVal":"Prev Value",  
+  "boilerplate.containers.Payroll.HumanResources.oldJob":"Prev Job", 
   
   
 
