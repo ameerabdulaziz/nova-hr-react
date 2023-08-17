@@ -79,6 +79,11 @@ Apis.GetEmployeeDataList = async () => {
   const result = await axiosInstance.get(`GeneralList/GetEmployeeDataList/${locale}`);   
   return result.data;
 };
+Apis.GetExplanationTypeList = async () => {    
+  debugger;
+  const result = await axiosInstance.get(`GeneralList/GetExplanationTypeList/${locale}`);   
+  return result.data;
+};
 
   return  Apis;
 };

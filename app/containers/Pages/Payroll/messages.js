@@ -61,5 +61,17 @@ export default defineMessages({
     id: `${scope}.todate`,
     defaultMessage: 'todate',
   },
+  type: {
+    id: `${scope}.type`,
+    defaultMessage: 'type',
+  },
+  title: {
+    id: `${scope}.title`,
+    defaultMessage: 'title',
+  },
+  details: {
+    id: `${scope}.details`,
+    defaultMessage: 'details',
+  },
   
   });

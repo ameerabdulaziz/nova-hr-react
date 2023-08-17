@@ -843,6 +843,10 @@
   "boilerplate.containers.Payroll.search": "Search",  
   "boilerplate.containers.Payroll.fromdate": "From Date",
   "boilerplate.containers.Payroll.todate":"To Date",
+  "boilerplate.containers.Payroll.type": "Type",  
+  "boilerplate.containers.Payroll.title": "Title",
+  "boilerplate.containers.Payroll.details":"Details",
+  
   
   
 
@@ -907,7 +911,13 @@
   "boilerplate.containers.Payroll.HumanResources.oldElemVal":"Prev Value",  
   "boilerplate.containers.Payroll.HumanResources.oldJob":"Prev Job",   
   "boilerplate.containers.Payroll.HumanResources.PromotionsCreateTitle":"Add Promotions",  
-  "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle":"Update Promotions", 
+  "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle":"Update Promotions",   
+  "boilerplate.containers.Payroll.HumanResources.ExplanationEditTitle":"Update Explanation",    
+  "boilerplate.containers.Payroll.HumanResources.hrLetterLang":"Letter Language",   
+  "boilerplate.containers.Payroll.HumanResources.expDirectedTo":"Directed to",   
+  "boilerplate.containers.Payroll.HumanResources.hrLetterDate":"Letter Date", 
+  "boilerplate.containers.Payroll.HumanResources.response":"Response", 
+  
   
   
 

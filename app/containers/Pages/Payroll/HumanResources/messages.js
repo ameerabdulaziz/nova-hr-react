@@ -170,6 +170,26 @@ PromotionsUpdateTitle: {
   id: `${scope}.PromotionsUpdateTitle`,
   defaultMessage: 'PromotionsUpdateTitle',
 },
-//DirectManger//////////////////////////////////////////////////////////////////////////////////////////////////////
+//Explanation//////////////////////////////////////////////////////////////////////////////////////////////////////
+ExplanationEditTitle: {
+  id: `${scope}.ExplanationEditTitle`,
+  defaultMessage: 'ExplanationEditTitle',
+},
+hrLetterLang: {
+  id: `${scope}.hrLetterLang`,
+  defaultMessage: 'hrLetterLang',
+},
+expDirectedTo: {
+  id: `${scope}.expDirectedTo`,
+  defaultMessage: 'expDirectedTo',
+},
+hrLetterDate: {
+  id: `${scope}.hrLetterDate`,
+  defaultMessage: 'hrLetterDate',
+},
+response: {
+  id: `${scope}.response`,
+  defaultMessage: 'response',
+},
 
 });

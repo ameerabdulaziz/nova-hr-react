@@ -696,6 +696,24 @@ export const PromotionsEdit = loadable(
     fallback: <Loading />,
   }
 );
+export const ExplanationList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ExplanationList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ExplanationEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ExplanationEdit'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ExplanationReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/ExplanationReport'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 export const PromotionsReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/PromotionsReport'),

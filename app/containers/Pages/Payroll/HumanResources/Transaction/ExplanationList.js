@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/PromotionsData';
+import ApiData from '../api/ExplanationData';
 import { useSelector } from 'react-redux';
-import {Button ,Grid,TextField, Autocomplete,Typography  } from '@mui/material';
+import {Button ,Grid,TextField, Autocomplete,IconButton  } from '@mui/material';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -15,9 +15,12 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { PapperBlock } from 'enl-components';
 import { toast } from 'react-hot-toast';
+import EditIcon from '@mui/icons-material/Create';
+import style from '../../../../../../app/styles/styles.scss';
+import { Link} from "react-router-dom";
 
 
-function PromotionsReport(props) {
+function ExplanationList(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -25,6 +28,8 @@ function PromotionsReport(props) {
   const [todate, settodate] = useState(null);
   const [employee, setemployee] = useState(null);
   const [EmployeeList, setEmployeeList] = useState([]);
+  const [type, settype] = useState(null);
+  const [TypeList, setTypeList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   
@@ -32,7 +37,7 @@ function PromotionsReport(props) {
     
     try{
       debugger;  
-      const dataApi = await ApiData(locale).GetReport(employee,fromdate,todate);
+      const dataApi = await ApiData(locale).GetReport(employee,type,fromdate,todate,false);
       setdata(dataApi);
     } catch (err) {
       toast.error(err.response.data);
@@ -43,7 +48,9 @@ function PromotionsReport(props) {
     debugger ;
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
-    const dataApi = await ApiData(locale).GetReport(employee,fromdate,todate);
+    const types = await GeneralListApis(locale).GetExplanationTypeList(locale);
+    setTypeList(types);
+    const dataApi = await ApiData(locale).GetReport(employee,type,fromdate,todate,false);
     setdata(dataApi);
   }
   useEffect(() => {    
@@ -53,60 +60,76 @@ function PromotionsReport(props) {
   const columns = [
     {
       name: 'id',
+      label: <FormattedMessage {...Payrollmessages['id']} />,
       options: {
         filter: false,
       },
     },
     {
-      name: 'date',
-      label:<FormattedMessage {...messages['date']} />,
-      options: {
-        filter: true,
-      },
-    },    
-    {
-      name: 'employeeName',
-      label: <FormattedMessage {...messages['employeeName']} />,
-      options: {
-        filter: true,
-      },
-    },    
-    {
-      name: 'oldJob',
-      label: <FormattedMessage {...messages['oldJob']} />,
-      options: {
+        name: 'employeeName',
+        label: <FormattedMessage {...messages['employeeName']} />,
+        options: {
           filter: true,
-      },
+        },
     }, 
     {
-      name: 'oldElemVal',
-      label: <FormattedMessage {...messages['oldElemVal']} />,
-      options: {
-          filter: true,
-      },
+        name: 'job',
+        label: <FormattedMessage {...messages['job']} />,
+        options: {
+            filter: true,
+        },
     }, 
     {
-      name: 'job',
-      label: <FormattedMessage {...messages['job']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-      name: 'elemVal',
-      label: <FormattedMessage {...messages['value']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-        name: 'reason',
-        label: <FormattedMessage {...messages['reason']} />,
+        name: 'questionDate',
+        label:<FormattedMessage {...messages['date']} />,
         options: {
             filter: true,
         },
     },    
-   
+    {
+      name: 'expTypeName',
+      label: <FormattedMessage {...Payrollmessages['type']} />,
+      options: {
+          filter: true,
+      },
+    }, 
+    {
+      name: 'questionTitle',
+      label: <FormattedMessage {...Payrollmessages['title']} />,
+      options: {
+          filter: true,
+      },
+    },     
+    {
+      name: 'questionDetails',
+      label: <FormattedMessage {...Payrollmessages['details']} />,
+      options: {
+          filter: true,
+      },
+    }, 
+    {
+        name: 'Actions',
+        options: {
+          filter: false,
+  
+          customBodyRender: (value, tableMeta) => {
+            console.log('tableMeta =', tableMeta);
+            return (
+              <div className={style.actionsSty}>
+                <IconButton
+                  aria-label="Edit"
+                  size="large"
+                >
+                  <Link to={`/app/Pages/HR/ExplanationEdit${tableMeta.rowData[0]}`}>
+                    <EditIcon />
+                  </Link>
+                </IconButton>
+  
+              </div>
+            );
+          },
+        },
+      },
   ];
 
   const options = {
@@ -148,6 +171,28 @@ function PromotionsReport(props) {
                       renderInput={(params) => <TextField {...params} variant="outlined" />}
                   />
               </LocalizationProvider>
+          </Grid>
+          <Grid item xs={12} md={2}>
+              <Autocomplete  
+                  id="typeId"                        
+                  options={TypeList}    
+                  isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" ||option.id === value.id
+                  }                 
+                  getOptionLabel={(option) =>
+                  option.name ? option.name : ""
+                  }
+                  onChange={(event, value) =>{debugger; settype(value==null?null:value.id)} }
+                  renderInput={(params) => (
+                  <TextField
+                      variant="outlined"                            
+                      {...params}
+                      name="employeeId"
+                      required                              
+                      label={intl.formatMessage(Payrollmessages.type)}
+                      />
+                  )}
+              />  
           </Grid>
           <Grid item xs={12} md={4}>
               <Autocomplete  
@@ -196,6 +241,6 @@ function PromotionsReport(props) {
   
 }
 
-export default injectIntl(PromotionsReport);
+export default injectIntl(ExplanationList);
 
 
