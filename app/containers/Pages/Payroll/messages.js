@@ -49,5 +49,17 @@ export default defineMessages({
     id: `${scope}.reset`,
     defaultMessage: 'Reset',
   },
+  search: {
+    id: `${scope}.search`,
+    defaultMessage: 'search',
+  },
+  fromdate: {
+    id: `${scope}.fromdate`,
+    defaultMessage: 'fromdate',
+  },
+  todate: {
+    id: `${scope}.todate`,
+    defaultMessage: 'todate',
+  },
   
   });

@@ -840,6 +840,9 @@
   "boilerplate.containers.Payroll.name": "الاسم",  
   "boilerplate.containers.Payroll.organizationName": "القسم",
   "boilerplate.containers.Payroll.chooseEmp":"اختر الموظف",
+  "boilerplate.containers.Payroll.search": "بحث",  
+  "boilerplate.containers.Payroll.fromdate": "من تاريخ",
+  "boilerplate.containers.Payroll.todate":"الى تاريخ",
   
   
   "boilerplate.containers.Payroll.Setting.parentName":"القائمة الرئيسية",
@@ -899,9 +902,10 @@
   "boilerplate.containers.Payroll.HumanResources.AttentionUpdateTitle":"تعديل لفت نظر",  
   "boilerplate.containers.Payroll.HumanResources.LayOffNoticeCreateTitle":"اضافة انذار بالفصل",    
   "boilerplate.containers.Payroll.HumanResources.LayOffNoticeUpdateTitle":"تعديل انذار بالفصل",
-
   "boilerplate.containers.Payroll.HumanResources.oldElemVal":"القيمة السابقة",  
-  "boilerplate.containers.Payroll.HumanResources.oldJob":"الوظيفة السابقة",  
+  "boilerplate.containers.Payroll.HumanResources.oldJob":"الوظيفة السابقة",    
+  "boilerplate.containers.Payroll.HumanResources.PromotionsCreateTitle":"اضافة ترقية",  
+  "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle":"تعديل ترقية", 
   
   
   

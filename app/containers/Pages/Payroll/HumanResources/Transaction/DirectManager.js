@@ -1,21 +1,7 @@
 import React,{useState,useCallback,useEffect } from 'react';
-import { makeStyles } from 'tss-react/mui';
 import { PapperBlock } from 'enl-components';
 import css from 'enl-styles/Table.scss';
-import SearchIcon from '@mui/icons-material/Search';
-import {
-    Button ,
-    Grid,
-    TextField,
-    Autocomplete,
-    Checkbox,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow
-  } from "@mui/material";
-  
+import {Button , Grid,TextField,Autocomplete,Checkbox,Table,TableBody,TableCell,TableHead,TableRow} from "@mui/material";  
 import Payrollmessages from '../../messages';
 import messages from '../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
@@ -25,8 +11,7 @@ import useStyles from '../../../../../components/Tables/tableStyle-jss';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import GeneralListApis from '../../api/GeneralListApis';
-import EmloyeePopup from '../../General/EmloyeePopup';
-import AddIcon from '@mui/icons-material/Add';
+import EmloyeePopup from '../../Component/EmloyeePopup';
 
 function DirectManager(props) {
   
@@ -35,17 +20,19 @@ function DirectManager(props) {
   const [dataList, setdataList] = useState([]);
   const [employee, setEmployee] = useState();  
   const [employeeList, setEmployeeList] = useState([]);  
-  const [selectedEmployees, setSelectedEmployees] = useState([]);    
   const locale = useSelector(state => state.language.locale);
   const [OpenPopup, setOpenPopup] = useState(false);
+  const Title = localStorage.getItem("MenuName");
+  
   
   const handleClose = (data) => {   
 
     debugger;
      data.map((row) =>{
-    if (!dataList.includes(row)) {
-      setdataList((prev) => [...prev, row]);
-    }
+      if(dataList.filter((x) => x.id==row.id).length == 0)
+      {
+        setdataList((prev) => [...prev, row]);
+      }
     });
     setOpenPopup(false);
   }
@@ -69,7 +56,7 @@ const handleEnableOne = (event, row) => {
   
     setdataList(
         dataList.map((x) => {
-          if (x.menuID == row.menuID) {
+          if (x.id == row.id) {
             if (event.target.name == "isselected") {
               x.isSelected = event.target.checked;
             } 
@@ -77,8 +64,6 @@ const handleEnableOne = (event, row) => {
           return x;
         })
       );
-
-    
 };
 
 async function on_submit() {
@@ -94,6 +79,7 @@ async function on_submit() {
       
       if (response.status==200) {
         toast.success(notif.saved);
+        GetList();
       } else {
           toast.error(response.statusText);
       }
@@ -136,7 +122,7 @@ async function on_submit() {
   }, []);
 
   return (
-      <PapperBlock whiteBg icon="border_color" title="" desc="">
+      <PapperBlock whiteBg icon="border_color" title={Title}  desc="">
         <EmloyeePopup
             handleClose={handleClose}            
             open={OpenPopup}
@@ -169,25 +155,21 @@ async function on_submit() {
                     />
                 </Grid>
                 <Grid item xs={6} md={2}>
-                  <Button variant="outlined" onClick={()=>handleClickOpen()}>
-                      <AddIcon />
+                  <Button variant="contained" size="medium" color="primary" onClick={handleClickOpen}>
+                  <FormattedMessage {...Payrollmessages.chooseEmp} />
                   </Button>
                 </Grid>            
                 <Grid item xs={6} md={2}>                   
                     <Button variant="contained" size="medium" color="primary" onClick={on_submit} >
-                    <FormattedMessage {...Payrollmessages.save} />
+                      <FormattedMessage {...Payrollmessages.save} />
                     </Button>
                 </Grid>   
             </Grid>
             <div className={classes.rootTable}>
-                <Table className={cx(css.tableCrud, classes.table, classes.stripped)}>
+                <Table className={cx(css.tableCrud, classes.table, classes.stripped)} >
                     <TableHead>
-                    <TableRow>               
-                        <TableCell ><FormattedMessage {...messages.employeeName} /></TableCell>
-                        <TableCell ><FormattedMessage {...Payrollmessages.id}/></TableCell>
-                        <TableCell ><FormattedMessage {...messages.organization}/></TableCell>
-                        <TableCell  style={{textWrap: 'balance',width: '70px',textAlign:'center'}}>
-                            <FormattedMessage {...Payrollmessages.delete}/>                        
+                    <TableRow >               
+                        <TableCell  style={{width: '5px',padding:'0px'}}>                                                   
                             <Checkbox
                                 checked={dataList.length > 0 &&  dataList.filter((crow) => crow.isSelected==true).length === dataList.length?true:false}
                                 color="primary"
@@ -195,30 +177,32 @@ async function on_submit() {
                                 indeterminate={dataList.filter((crow) => crow.isSelected==true).length > 0 && dataList.filter((crow) => crow.isSelected==true).length < dataList.length?true:false}
                                 onChange={handlepermcheckboxAll}
                             />
-                        </TableCell>                        
+                        </TableCell>   
+                        <TableCell style={{width: '5px',padding:'0px'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.employeeName} /></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.organization}/></TableCell>
+                                             
                     </TableRow>
                     </TableHead>
                     <TableBody>
                     {dataList.length !== 0 &&
                         dataList.map((row) => {
                         return (
-                            <TableRow
-                            hover
-                            key={row.menuID}
-                            sx={{ height: 1 }}
-                            >
-                            <TableCell>{row.name}</TableCell>                            
-                            <TableCell>{row.id}</TableCell>
-                            <TableCell>{row.organizationName}</TableCell>
-                            <TableCell>
-                                <Checkbox
-                                checked={row.isSelected}
-                                color="primary"
-                                name="isselected"
-                                onChange={(event) => handleEnableOne(event, row)}
-                                value={row.isSelected}
-                                />
-                            </TableCell>                            
+                          
+                            <TableRow hover key={row.id} sx={{ height: 1 }} style={{padding:'0px'}}> 
+                              <TableCell style={{width: '5px',padding:'0px'}}>
+                                  <Checkbox
+                                  checked={row.isSelected}
+                                  color="primary"
+                                  name="isselected"
+                                  onChange={(event) => handleEnableOne(event, row)}
+                                  value={row.isSelected}
+                                  />
+                              </TableCell>                                                         
+                              <TableCell style={{width: '5px',padding:'0px'}}>{row.id}</TableCell>
+                              <TableCell style={{width: '20px',padding:'0px'}}>{row.name}</TableCell>   
+                              <TableCell style={{width: '20px',padding:'0px'}}>{row.organizationName}</TableCell>
+                                                    
                             </TableRow>
                         );
                         })}

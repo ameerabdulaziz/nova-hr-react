@@ -77,9 +77,11 @@ function PromotionsCreate(props) {
     const jobs = await GeneralListApis(locale).GetJobsList(locale);
     setJobList(jobs);
     
-    const dataApi = await ApiData(locale).Get(id??0);
-    if(dataApi.id!=0)
+    if(id)
+    {
+        const dataApi = await ApiData(locale).Get(id??0);    
         setdata(dataApi);
+    }
   }
   
   useEffect(() => {    
@@ -91,6 +93,7 @@ function PromotionsCreate(props) {
     if (!id){       
             setdata((prevFilters) => ({
                 ...prevFilters,
+                oldJobId:"",
                 oldJob:"",
                 organization:"",
                 hiringDate:"",
@@ -102,10 +105,11 @@ function PromotionsCreate(props) {
     
         setdata((prevFilters) => ({
             ...prevFilters,
+            oldJobId:empdata.jobId,
             oldJob:empdata.jobName,
             organization:empdata.organizationName,
             hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate,
-            oldElemVal:empdata.Salary,
+            oldElemVal:empdata.salary===null ? "" :empdata.salary
         }));   
   }
   
@@ -214,9 +218,7 @@ function PromotionsCreate(props) {
                                     <TextField
                                     id="oldElemVal"
                                     name="oldElemVal"
-                                    multiline
-                                    required
-                                    rows={2}
+                                    disabled
                                     value={data.oldElemVal}
                                     onChange={(e) => setdata((prevFilters) => ({
                                         ...prevFilters,
@@ -236,6 +238,7 @@ function PromotionsCreate(props) {
                     <Autocomplete  
                         id="job"                        
                         options={JobList}  
+                        key={{id:data.jobId,name:data.job}}
                         value={{id:data.jobId,name:data.job}}     
                         isOptionEqualToValue={(option, value) =>
                             value.id === 0 || value.id === "" ||option.id === value.id
@@ -244,6 +247,7 @@ function PromotionsCreate(props) {
                         option.name ? option.name : ""
                         }
                         onChange={(event, value) => {
+                            debugger;
                             if (value !== null) {
                                 setdata((prevFilters) => ({
                                 ...prevFilters,
@@ -259,6 +263,13 @@ function PromotionsCreate(props) {
                                 })); 
                             }
                         }}
+                        renderOption={(props, option) => {
+                            return (
+                              <li {...props} key={option.id}>
+                                {option.name}
+                              </li>
+                            );
+                          }}
                         renderInput={(params) => (
                         <TextField
                             variant="outlined"                            
@@ -273,10 +284,8 @@ function PromotionsCreate(props) {
                 <Grid item xs={12} md={2}>                    
                     <TextField
                     id="elemVal"
-                    name="elemVal"
-                    multiline
+                    name="elemVal"                    
                     required
-                    rows={2}
                     value={data.elemVal}
                     onChange={(e) => setdata((prevFilters) => ({
                         ...prevFilters,

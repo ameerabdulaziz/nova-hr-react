@@ -11,8 +11,9 @@ const DirectMangerData = () => {
  };
   
  Apis.Save= async (data) => {
+  var submitedData = data.dataList.filter((row) => row.isSelected==true).map((obj) => {return  obj.id;});
   
-    const result = await axiosInstance.post(`DirectManager/Save/${data.employee}`, data.dataList);
+    const result = await axiosInstance.post(`DirectManager/Save/${data.employee}`, submitedData);
     debugger;
     return result;
   };

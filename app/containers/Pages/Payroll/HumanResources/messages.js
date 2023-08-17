@@ -162,6 +162,14 @@ oldElemVal: {
   id: `${scope}.oldElemVal`,
   defaultMessage: 'oldElemVal',
 },
+PromotionsCreateTitle: {
+  id: `${scope}.PromotionsCreateTitle`,
+  defaultMessage: 'PromotionsCreateTitle',
+},
+PromotionsUpdateTitle: {
+  id: `${scope}.PromotionsUpdateTitle`,
+  defaultMessage: 'PromotionsUpdateTitle',
+},
 //DirectManger//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 });

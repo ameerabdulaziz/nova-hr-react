@@ -697,6 +697,13 @@ export const PromotionsEdit = loadable(
   }
 );
 
+export const PromotionsReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/PromotionsReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const DirectManager = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/DirectManager'),
   {

@@ -839,7 +839,10 @@
   "boilerplate.containers.Payroll.delete": "Delete",  
   "boilerplate.containers.Payroll.name": "Name",  
   "boilerplate.containers.Payroll.organizationName": "Department",
-  "boilerplate.containers.Payroll.chooseEmp":"Select Employee",
+  "boilerplate.containers.Payroll.chooseEmp":"Select Employee",  
+  "boilerplate.containers.Payroll.search": "Search",  
+  "boilerplate.containers.Payroll.fromdate": "From Date",
+  "boilerplate.containers.Payroll.todate":"To Date",
   
   
 
@@ -900,10 +903,11 @@
   "boilerplate.containers.Payroll.HumanResources.AttentionCreateTitle":"Create Attention",  
   "boilerplate.containers.Payroll.HumanResources.AttentionUpdateTitle":"Update Attention",  
   "boilerplate.containers.Payroll.HumanResources.LayOffNoticeCreateTitle":"Add LayOff Notice",    
-  "boilerplate.containers.Payroll.HumanResources.LayOffNoticeUpdateTitle":"Update LayOff Notice",
-  
+  "boilerplate.containers.Payroll.HumanResources.LayOffNoticeUpdateTitle":"Update LayOff Notice",  
   "boilerplate.containers.Payroll.HumanResources.oldElemVal":"Prev Value",  
-  "boilerplate.containers.Payroll.HumanResources.oldJob":"Prev Job", 
+  "boilerplate.containers.Payroll.HumanResources.oldJob":"Prev Job",   
+  "boilerplate.containers.Payroll.HumanResources.PromotionsCreateTitle":"Add Promotions",  
+  "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle":"Update Promotions", 
   
   
 

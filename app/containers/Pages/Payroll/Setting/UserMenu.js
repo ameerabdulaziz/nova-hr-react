@@ -1,5 +1,4 @@
 import React,{useState,useCallback,useEffect } from 'react';
-import { makeStyles } from 'tss-react/mui';
 import { PapperBlock } from 'enl-components';
 import css from 'enl-styles/Table.scss';
 import SearchIcon from '@mui/icons-material/Search';
@@ -41,6 +40,7 @@ function UserMenu(props) {
   const [MenuList, setMenuList] = useState([]);
   const [menu, setmenu] = useState();
   const locale = useSelector(state => state.language.locale);
+  const Title = localStorage.getItem("MenuName");
   
 
 const handlepermcheckboxAll = (event) => {
@@ -198,7 +198,7 @@ async function on_submit() {
   }, []);
 
   return (
-      <PapperBlock whiteBg icon="border_color" title="" desc="">
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div>
             <Grid container spacing={3}>            
                 <Grid item xs={6} md={3}>
