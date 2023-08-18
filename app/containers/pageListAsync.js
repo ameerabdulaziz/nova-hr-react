@@ -714,6 +714,24 @@ export const ExplanationReport = loadable(
     fallback: <Loading />,
   }
 );
+export const Complaint = loadable(
+  () => import('./Pages/Payroll/Explanation/Complaint'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const HrLetter = loadable(
+  () => import('./Pages/Payroll/Explanation/HrLetter'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const NewIdea = loadable(
+  () => import('./Pages/Payroll/Explanation/NewIdea'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 export const PromotionsReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/PromotionsReport'),

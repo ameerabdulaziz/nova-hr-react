@@ -73,5 +73,24 @@ export default defineMessages({
     id: `${scope}.details`,
     defaultMessage: 'details',
   },
-  
+  location: {
+    id: `${scope}.location`,
+    defaultMessage: 'location',
+  },
+  directedTo: {
+    id: `${scope}.directedTo`,
+    defaultMessage: 'directedTo',
+  },
+  hrLetterLang: {
+    id: `${scope}.hrLetterLang`,
+    defaultMessage: 'hrLetterLang',
+  },  
+  hrLetterDate: {
+    id: `${scope}.hrLetterDate`,
+    defaultMessage: 'hrLetterDate',
+  },
+  meetingReq: {
+    id: `${scope}.meetingReq`,
+    defaultMessage: 'meetingReq',
+  },
   });

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/ExplanationData';
+import ApiData from '../../Explanation/api/ExplanationData';
 import { useSelector } from 'react-redux';
 import {Button ,Grid,TextField, Autocomplete,IconButton  } from '@mui/material';
 import messages from '../messages';

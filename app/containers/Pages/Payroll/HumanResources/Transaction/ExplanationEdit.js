@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import { Helmet } from 'react-helmet';
-import brand from 'enl-api/dummy/brand';
+import React, { useState, useEffect } from 'react';
 import { PapperBlock } from 'enl-components';
-import ApiData from '../api/ExplanationData';
+import ApiData from '../../Explanation/api/ExplanationData';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import { useSelector } from 'react-redux';
@@ -14,8 +11,6 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import {Button ,Grid,TextField} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
-import GeneralListApis from '../../api/GeneralListApis';
-import { format } from "date-fns";
 
 
 
@@ -158,7 +153,7 @@ function ExplanationEdit(props) {
                                 id="HrLetterDate"
                                 name="HrLetterDate"
                                 value={data.hrLetterDate}  
-                                label={intl.formatMessage(messages.hrLetterDate)}
+                                label={intl.formatMessage(Payrollmessages.hrLetterDate)}
                                 className={classes.field}
                                 variant="outlined"                            
                             />
@@ -170,7 +165,7 @@ function ExplanationEdit(props) {
                                 id="DirectedTo"
                                 name="DirectedTo"
                                 value={data.directedTo}                                                
-                                label={intl.formatMessage(messages.expDirectedTo)}
+                                label={intl.formatMessage(Payrollmessages.directedTo)}
                                 className={classes.field}
                                 variant="outlined"                            
                             />
@@ -182,7 +177,7 @@ function ExplanationEdit(props) {
                                 id="HrLetterLang"
                                 name="HrLetterLang"
                                 value={data.hrLetterLang}  
-                                label={intl.formatMessage(messages.hrLetterLang)}
+                                label={intl.formatMessage(Payrollmessages.hrLetterLang)}
                                 className={classes.field}
                                 variant="outlined"                            
                             />

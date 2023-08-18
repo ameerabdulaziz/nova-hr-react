@@ -846,6 +846,12 @@
   "boilerplate.containers.Payroll.type": "النوع",  
   "boilerplate.containers.Payroll.title": "الموضوع",
   "boilerplate.containers.Payroll.details":"التفاصيل",
+  "boilerplate.containers.Payroll.location":"الموقع",
+  "boilerplate.containers.Payroll.hrLetterLang":"لغة الخطاب",   
+  "boilerplate.containers.Payroll.directedTo":"موجه الى",   
+  "boilerplate.containers.Payroll.hrLetterDate":"تاريخ الخطاب", 
+  "boilerplate.containers.Payroll.meetingReq":"طلب ميتنج", 
+  
   
   
   "boilerplate.containers.Payroll.Setting.parentName":"القائمة الرئيسية",
@@ -909,10 +915,7 @@
   "boilerplate.containers.Payroll.HumanResources.oldJob":"الوظيفة السابقة",    
   "boilerplate.containers.Payroll.HumanResources.PromotionsCreateTitle":"اضافة ترقية",  
   "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle":"تعديل ترقية", 
-  "boilerplate.containers.Payroll.HumanResources.ExplanationEditTitle":"تعديل الاقتراحات والشكاوى",   
-  "boilerplate.containers.Payroll.HumanResources.hrLetterLang":"لغة الخطاب",   
-  "boilerplate.containers.Payroll.HumanResources.expDirectedTo":"موجه الى",   
-  "boilerplate.containers.Payroll.HumanResources.hrLetterDate":"تاريخ الخطاب", 
+  "boilerplate.containers.Payroll.HumanResources.ExplanationEditTitle":"تعديل الاقتراحات والشكاوى",  
   "boilerplate.containers.Payroll.HumanResources.response":"الرد", 
   
   

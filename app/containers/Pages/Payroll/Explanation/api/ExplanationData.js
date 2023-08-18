@@ -38,6 +38,25 @@ const ExplanationData = (locale) => {
     return result;
   };
 
+  Apis.SaveComplaint = async (data) => {
+    debugger;
+    const result = await axiosInstance.post("Explanation/SaveComplaint",data);
+    return result;
+  };
+  
+  Apis.SaveEnquiry = async (data) => {
+    debugger;
+    const result = await axiosInstance.post("Explanation/SaveEnquiry",data);
+    return result;
+  };
+  Apis.SaveHrLetter = async (data) => {
+    debugger;
+    const result = await axiosInstance.post("Explanation/SaveHrLetter",data);
+    return result;
+  };
+
+
+
   
 
   return Apis;
