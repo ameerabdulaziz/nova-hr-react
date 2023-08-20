@@ -5,25 +5,25 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import CompanyData from '../api/CompanyData';
 import Autocomplete from '@mui/material/Autocomplete';
 import JobData from '../api/JobData';
 import { useSelector, useDispatch } from 'react-redux';
-import {  fetchAction , fetchAllJobsAction} from '../../../../../containers/Tables/reducers/crudTbActions';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import  FormPopup  from '../../../../../components/FormPopup/FormPopup';
+import  FormPopup  from '../../../../../components/Popup/FormPopup';
 import style from '../../../../../styles/Styles.scss'
 import AddIcon from '@mui/icons-material/Add';
-import { useParams  } from 'react-router-dom';
+import { useParams, useHistory  } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import notif from 'enl-api/ui/notifMessage';
+import { FormattedMessage , injectIntl } from 'react-intl';
+import messages from '../messages';
+import Payrollmessages from '../../messages';
+import PropTypes from 'prop-types';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
-// validation functions
-// const required = (value) => (value == null ? 'Required' : undefined);
-// const email = (value) =>
-//   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-//     ? 'Invalid email'
-//     : undefined;
+
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-function CreateAndEditJob() {
+function CreateAndEditJob(props) {
   const [id, setid] = useState(0);
   const [arName, setArName] = useState('');
   const [enName, setEnName] = useState('');
@@ -70,108 +70,86 @@ function CreateAndEditJob() {
   const [jobType ,setJobType] = useState("")
   const [sancLevel ,setSancLevel] = useState("")
   const [jobNature ,setJobNature] = useState("")
-  const [organization ,setOrganization] = useState("")
-  const [parent ,setParent] = useState("")
+  const [parent ,setParent] = useState('')
+  const [submitting ,setSubmitting] = useState(false)
+  const [processing ,setProcessing] = useState(false)
   const fetchData = useDispatch();
   const branch = 'jobsAllData' ;
   const locale = useSelector(state => state.language.locale);
-  const jobsData = useSelector(state => state.jobs.jobsAllData);
   const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [openOrganization, setOpenOrganization] = useState(false);
   const [openJobNature, setOpenJobNature] = useState(false);
   const [openJobType, setOpenJobType] = useState(false);
   const [openSancLevel, setOpenSancLevel] = useState(false);
   const [editData, setEditData] = useState();
   let { ID } = useParams();
+  const [jobsData, setJobsData] = useState([]);
+  const history=useHistory(); 
+  const { intl } = props;
 
 
 
   const trueBool = true;
   const { classes } = useStyles();
-  // const { pristine, submitting, init } = props;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // debugger;
+    setSubmitting(true)
+    setProcessing(true)
     const data = {
       id: id,
       arName: arName,
       enName: enName,
-      parentId: parent,
-      organizationId: organization,
-      jobNatureId: jobNature,
-      jobTypeId: jobType,
-      sancLevelId: sancLevel,
-      jobCode: jobCode,
-      medicalInsuranceStartDay: medicalInsuranceStartDay,
+      parentId: parent.id ? parent.id : "",
+      jobNatureId: jobNature.id ? jobNature.id : "",
+      jobTypeId: jobType.id ? jobType.id : "",
+      sancLevelId: sancLevel.id ? sancLevel.id : "",
+      jobCode: jobCode.length !== 0 ? jobCode : "",
+      medicalInsuranceStartDay: medicalInsuranceStartDay.length !== 0 ? medicalInsuranceStartDay : "",
       isLeadershipPosition: isLeadershipPosition
       
     };
-    console.log("data2 =", data);
-    const dataApi = await JobData().Save(data);
+
+    try {
+      let response = await JobData().Save(data);
+
+      if (response.status==200) {
+        toast.success(notif.saved);
+        history.push(`/app/Pages/MainData/job`);
+      } else {
+          toast.error(response.statusText);
+      }
+      setSubmitting(false)
+      setProcessing(false)
+    } catch (err) {
+      toast.error(notif.error);
+      setSubmitting(false)
+      setProcessing(false)
+    }
     
   };
-  const clear = (e) => {
-    setName();
-    setEnName();
-    setphone();
-    setmail();
-    setaddress();
-  };
-//   useEffect(() => {
-//     async function fetchData() {
-//       // You can await here
-//       const dataApi = await CompanyData().GetList();
-//       debugger;
-//       if (dataApi.length > 0) {
-//         setid(dataApi[0].id);
-//         setName(dataApi[0].arName);
-//         setEnName(dataApi[0].enName);
-//         setphone(dataApi[0].phone);
-//         setmail(dataApi[0].mail);
-//         setaddress(dataApi[0].address);
-//       }
-//     }
-//     fetchData();
-//     // if (!data.length) { fetchData(); }
-//   }, []);
+ 
 
-
-// const topFilms = [
-//   { title: 'The Shawshank Redemption', year: 1994 },
-//   { title: 'The Godfather', year: 1972 },
-//   { title: 'The Godfather: Part II', year: 1974 },
-//   { title: 'The Dark Knight', year: 2008 },
-//   { title: '12 Angry Men', year: 1957 },
-//   { title: "Schindler's List", year: 1993 },
-//   { title: 'Pulp Fiction', year: 1994 },
-//   {
-//     title: 'The Lord of the Rings: The Return of the King',
-//     year: 2003,
-//   }
-// ]
 
 const getdata =  async () => {
 
   const data =  await JobData(locale).GetAllDataList();
 
-  fetchData(fetchAllJobsAction(data));
+  setJobsData(data)
 };
 
 const getEditdata =  async () => {
 
-  const data =  await JobData().GetDataById(ID);
+  const data =  await JobData().GetDataById(ID,locale);
 
-  setArName(data ? data.arName : "")
-  setEnName(data ? data.enName : "")
-  setJobCode(data ? data.jobCode : "")
-  setMedicalInsuranceStartDay(data ? data.medicalInsuranceStartDay : "")
-  setIsLeadershipPosition(data ? data.isLeadershipPosition : "")
-  setJobType(data ? data.jobType : "")
-  setSancLevel(data ? data.sancLevel : "")
-  setJobNature(data ? data.jobNature : "")
-  setOrganization(data ? data.organization : "")
-  setParent(data ? data.parent : "")
-  // fetchData(fetchAllJobsAction(data));
+  setid(data ? data[0].id : "")
+  setArName(data ? data[0].arName : "")
+  setEnName(data ? data[0].enName : "")
+  setJobCode(data ? data[0].jobCode : "")
+  setMedicalInsuranceStartDay(data ? data[0].medicalInsuranceStartDay : "")
+  setIsLeadershipPosition(data ? data[0].isLeadershipPosition : "")
+  setJobType(data ? {id:data[0].jobTypeId , name: data[0].jobTypeName } : "")
+  setSancLevel(data ? {id:data[0].sancLevelId , name: data[0].sancLevelName } : "")
+  setJobNature(data ? {id:data[0].jobNatureId , name: data[0].jobNatureName } : "")
+  setParent(data ? {id:data[0].parentId , name: data[0].parentName }  : "")
 };
 
 
@@ -190,15 +168,7 @@ useEffect(() => {
 
 
 const handleClickOpen = (key) => {
-  if(key === "parent")
-  {
-    setOpenParentPopup(true);
-  }
-  else if(key === "organization")
-  {
-    setOpenOrganization(true)
-  }
-  else if(key === "jobNature")
+ if(key === "jobNature")
   {
     setOpenJobNature(true)
   }
@@ -206,22 +176,10 @@ const handleClickOpen = (key) => {
   {
     setOpenJobType(true)
   }
-  else if(key === "sancLevel")
-  {
-    setOpenSancLevel(true)
-  }
 };
 
 const handleClose = (key) => {
-  if(key === "parent")
-  {
-    setOpenParentPopup(false);
-  }
-  else if(key === "organization")
-  {
-    setOpenOrganization(false)
-  }
-  else if(key === "jobNature")
+ if(key === "jobNature")
   {
     setOpenJobNature(false)
   }
@@ -229,47 +187,58 @@ const handleClose = (key) => {
   {
     setOpenJobType(false)
   }
-  else if(key === "sancLevel")
-  {
-    setOpenSancLevel(false)
-  }
 };
 
+const createJobDetailsFun = async (arVal,enVal, jobDetailsType) => {
+  
+  const data = {
+    id: 0,
+    arName: arVal,
+    enName: enVal
+  };
 
- console.log("isLeadershipPosition =",isLeadershipPosition);
+  let URLType = jobDetailsType === "Job Nature" ? "MdJobNatures" :  jobDetailsType === "Job Type" ? "MdJobsTypes" : null;
+  try {
+    let response = await JobData().SaveJobDetails(URLType , data);
+
+    if (response.status==200) {
+      toast.success(notif.saved);
+      getdata();
+    } else {
+        toast.error(response.statusText);
+    }
+  } catch (err) {
+    toast.error(notif.error);
+  }
+}
+
+
 
   return (
     <div>
 
       <FormPopup  
-        handleClose={()=>handleClose("parent")}
-        open={openParentPopup}
-        keyVal="Parent"
-      />
-
-      <FormPopup  
-        handleClose={()=>handleClose("organization")}
-        open={openOrganization}
-        keyVal="Organization"
-      />
-
-      <FormPopup  
         handleClose={()=>handleClose("jobNature")}
         open={openJobNature}
         keyVal="Job Nature"
+        Title={intl.formatMessage(messages.jobNatureName) }
+        callFun={createJobDetailsFun}
+        intl={intl}
+        submitting={submitting}
+        processing={processing}
       />
 
       <FormPopup  
         handleClose={()=>handleClose("jobType")}
         open={openJobType}
         keyVal="Job Type"
+        Title={intl.formatMessage(messages.jobTypeName) }
+        callFun={createJobDetailsFun}
+        intl={intl}
+        submitting={submitting}
+        processing={processing}
       />
 
-      <FormPopup  
-        handleClose={()=>handleClose("sancLevel")}
-        open={openSancLevel}
-        keyVal="sanc Level"
-      />
         
       <Grid
         container
@@ -281,7 +250,10 @@ const handleClose = (key) => {
         <Grid item xs={12} md={6}>
           <Paper className={classes.root}>
             <Typography variant="h5" component="h3">
-              {ID ?  "Edit" : "Create" } Job
+              {ID ?  
+                <FormattedMessage {...messages.editJob} /> 
+              : <FormattedMessage {...messages.createJob} />
+               } 
             </Typography>
 
             <form onSubmit={handleSubmit}>
@@ -289,9 +261,8 @@ const handleClose = (key) => {
                 <TextField
                   name="arName"
                   id="arName"
-                  placeholder="AR Name"
-                  label="AR Name"
-                  // validate={required}
+                  placeholder={intl.formatMessage(messages.arName) }
+                  label={intl.formatMessage(messages.arName)}
                   required
                   className={classes.field}
                   margin="normal"
@@ -304,9 +275,8 @@ const handleClose = (key) => {
                 <TextField
                   name="enName"
                   id="enName"
-                  placeholder="EN Name"
-                  label="EN Name"
-                  // validate={required}
+                  placeholder={intl.formatMessage(messages.enName) }
+                  label={intl.formatMessage(messages.enName)}
                   required
                   className={classes.field}
                   margin="normal"
@@ -315,31 +285,14 @@ const handleClose = (key) => {
                   onChange={(e) => setEnName(e.target.value)}
                 />
               </div>
-              <div className={style.comboBoxContainer}>
-                {/* <TextField
-                  name="parentId"
-                  id="parentId"
-                  placeholder="Parent Id"
-                  label="Parent Id"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                //   value={name}
-                  onChange={(e) => setParentId(e.target.value)}
-                /> */}
+
                 <Autocomplete
                         id="ddlMenu"   
-                        value={parent}                        
-                        // value={{id: 6, name: "CEO"}}                        
-                        options={jobsData ? jobsData.parentList: []}
-                        // options={topFilms}
+                        isOptionEqualToValue={(option, value) => option.id === value.id}
+                        value={parent.length != 0 && parent !== null ? parent : null}                       
+                        options={jobsData.length != 0 ? jobsData.parentList: []}
                         getOptionLabel={(option) =>(
-                          // option.title
-                          option ? option.name : ""
-                          // option ? option.title : ""
-                          // locale=="en"?option.enName:option.arName
+                          option  ? option.name : ""
                         )
                         }
                         renderOption={(props, option) => {
@@ -351,108 +304,31 @@ const handleClose = (key) => {
                         }}
                         onChange={(event, value) => {
                             if (value !== null) {
-                              setParent(value.id);
+                              setParent(value);
                             } else {
                               setParent("");
                             }
                         }}
                         renderInput={(params) => (
                         <TextField
-                            // variant="standard"
                             {...params}
                             name="Parent"
-                            // value={parent}
-                            label="Parent"
+                            label={intl.formatMessage(messages.parentName) }
                             margin="normal" 
-                            required
                             />
                             
                         )}
                     />
 
-                <Button variant="outlined" onClick={()=>handleClickOpen("parent")}>
-                    <AddIcon />
-                </Button>
-              </div>
-              <div className={style.comboBoxContainer}>
-                {/* <TextField
-                  name="organizationId"
-                  id="organizationId"
-                  placeholder="Organization Id"
-                  label="Organization Id"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                //   value={name}
-                  onChange={(e) => setOrganizationId(e.target.value)}
-                /> */}
-                <Autocomplete
-                        id="ddlMenu"         
-                        options={jobsData ? jobsData.organizationList : []}               
-                        // options={topFilms}
-                        getOptionLabel={(option) =>(
-                          // option.title
-                          option ? option.name : ""
-                          // locale=="en"?option.enName:option.arName
-                        )
-                        }
-                        renderOption={(props, option) => {
-                          return (
-                            <li {...props} key={option.id}>
-                              {option.name}
-                            </li>
-                          );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                              setOrganization(value.id);
-                            } else {
-                              setOrganization("");
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            // variant="standard"
-                            {...params}
-                            name="Organization"
-                            value={organization}
-                            label="Organization"
-                            margin="normal" 
-                            required
-                            />
-                            
-                        )}
-                    />
-
-                <Button variant="outlined" onClick={()=>handleClickOpen("organization")}>
-                    <AddIcon />
-                </Button>
-              </div>
-              <div className={style.comboBoxContainer}>
-                {/* <TextField
-                  name="jobNatureId"
-                  id="jobNatureId"
-                  placeholder="Job Nature Id"
-                  label="Job Nature Id"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                //   value={name}
-                  onChange={(e) => setJobNatureId(e.target.value)}
-                /> */}
+              <div className={locale === "en" ?  style.comboBoxContainer : style.comboBoxContainerAR}>
 
                   <Autocomplete
-                        id="ddlMenu"         
-                        options={jobsData ? jobsData.jobNatureList : []}                
-                        // options={topFilms}
+                        id="ddlMenu"   
+                        isOptionEqualToValue={(option, value) => option.id === value.id}
+                        value={jobNature.length != 0 && jobNature !== null? jobNature : null}        
+                        options={jobsData.length != 0 ? jobsData.jobNatureList : []}                
                         getOptionLabel={(option) =>(
-                          // option.title
-                          option ? option.name : ""
-                          // locale=="en"?option.enName:option.arName
+                          option  ? option.name : ""
                         )
                         }
                         renderOption={(props, option) => {
@@ -464,20 +340,18 @@ const handleClose = (key) => {
                         }}
                         onChange={(event, value) => {
                             if (value !== null) {
-                              setJobNature(value.id);
+                              setJobNature(value);
                             } else {
                               setJobNature("");
                             }
                         }}
                         renderInput={(params) => (
                         <TextField
-                            // variant="standard"
                             {...params}
                             name="JobNature"
                             value={jobNature}
-                            label="Job Nature"
+                            label={intl.formatMessage(messages.jobNatureName) }
                             margin="normal"
-                            required
                              />
                             
                         )}
@@ -487,28 +361,14 @@ const handleClose = (key) => {
                     <AddIcon />
                 </Button>
               </div>
-              <div className={style.comboBoxContainer}>
-                {/* <TextField
-                  name="jobTypeId"
-                  id="jobTypeId"
-                  placeholder="Job Type Id"
-                  label="Job Type Id"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                //   value={name}
-                  onChange={(e) => setJobTypeId(e.target.value)}
-                /> */}
+              <div className={locale === "en" ?  style.comboBoxContainer : style.comboBoxContainerAR}>
                 <Autocomplete
-                        id="ddlMenu"         
-                        options={jobsData ? jobsData.jobTypeList: []}                 
-                        // options={topFilms}
+                        id="ddlMenu"  
+                        isOptionEqualToValue={(option, value) => option.id === value.id}       
+                        value={jobType.length != 0 && jobType !== null ? jobType : null}  
+                        options={jobsData.length != 0 ? jobsData.jobTypeList: []}                 
                         getOptionLabel={(option) =>(
-                          // option.title
-                          option ? option.name : ""
-                          // locale=="en"?option.enName:option.arName
+                          option  ? option.name : ""
                         )
                         }
                         renderOption={(props, option) => {
@@ -520,20 +380,18 @@ const handleClose = (key) => {
                         }}
                         onChange={(event, value) => {
                             if (value !== null) {
-                              setJobType(value.id);
+                              setJobType(value);
                             } else {
                               setJobType("");
                             }
                         }}
                         renderInput={(params) => (
                         <TextField
-                            // variant="standard"
                             {...params}
                             name="JobType"
                             value={jobType}
-                            label="Job Type"
+                            label={intl.formatMessage(messages.jobTypeName) }
                             margin="normal" 
-                            required
                             />
                             
                         )}
@@ -543,27 +401,13 @@ const handleClose = (key) => {
                     <AddIcon />
                 </Button>
               </div>
-              <div className={style.comboBoxContainer}>
-                {/* <TextField
-                  name="sancLevelId"
-                  id="sancLevelId"
-                  placeholder="Sanc Level Id"
-                  label="Sanc Level Id"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                //   value={name}
-                  onChange={(e) => setSancLevelId(e.target.value)}
-                /> */}
                 <Autocomplete
-                        id="ddlMenu"                        
-                        options={jobsData ? jobsData.sancLevelList : []}  
+                        id="ddlMenu"    
+                        isOptionEqualToValue={(option, value) => option.id === value.id}  
+                        value={sancLevel.length != 0 && sancLevel !== null ? sancLevel : null}                   
+                        options={jobsData.length != 0 ? jobsData.sancLevelList : []}  
                         getOptionLabel={(option) =>(
-                          // option.title
-                          option ? option.name : ""
-                          // locale=="en"?option.enName:option.arName
+                          option  ? option.name : ""
                         )
                         }
                         renderOption={(props, option) => {
@@ -575,37 +419,29 @@ const handleClose = (key) => {
                         }}
                         onChange={(event, value) => {
                             if (value !== null) {
-                              setSancLevel(value.id);
+                              setSancLevel(value);
                             } else {
                               setSancLevel("");
                             }
                         }}
                         renderInput={(params) => (
                         <TextField
-                            // variant="standard"
                             {...params}
                             name="SancLevel"
                             value={sancLevel}
-                            label="Sanc Level"
+                            label={intl.formatMessage(messages.sancLevelName) }
                             margin="normal"
-                            required
                              />
                             
                         )}
                     />
 
-                <Button variant="outlined" onClick={()=>handleClickOpen("sancLevel")}>
-                    <AddIcon />
-                </Button>
-              </div>
               <div>
                 <TextField
                   name="jobCode"
                   id="jobCode"
-                  placeholder="Job Code"
-                  label="Job Code"
-                  // validate={required}
-                  required
+                  placeholder={intl.formatMessage(messages.jobCode) }
+                  label={intl.formatMessage(messages.jobCode) }
                   className={classes.field}
                   margin="normal"
                   variant="outlined"
@@ -617,10 +453,8 @@ const handleClose = (key) => {
                 <TextField
                   name="medicalInsuranceStartDay"
                   id="medicalInsuranceStartDay"
-                  placeholder="Medical Insurance Start Day"
-                  label="Medical Insurance Start Day"
-                  // validate={required}
-                  required
+                  placeholder={intl.formatMessage(messages.medicalInsuranceStartDay) }
+                  label={intl.formatMessage(messages.medicalInsuranceStartDay) }
                   className={classes.field}
                   margin="normal"
                   variant="outlined"
@@ -630,48 +464,36 @@ const handleClose = (key) => {
                 />
               </div>
               <div>
-                {/* <TextField
-                  name="isLeadershipPosition"
-                  id="isLeadershipPosition"
-                  placeholder="Is Leader ship Position"
-                  label="Leader ship Position"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                //   value={name}
-                  onChange={(e) => setIsLeadershipPosition(e.target.value)}
-                /> */}
-                <FormControlLabel required 
+                <FormControlLabel  
                 control={ 
                   <Switch  
                   checked={isLeadershipPosition} 
                   onChange={() => 
                     setIsLeadershipPosition(!isLeadershipPosition)
                   }
-                  color="secondary"
+                  color="primary" 
                   />} 
-                label="Leader ship Position" 
+                label={intl.formatMessage(messages.isLeadershipPosition) }
                 />
               </div>
               
             
-              
-
-              
               <div>
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="primary" 
                   type="submit"
-                  //disabled={submitting}
+                  className={style.btnContainer}
+                  disabled={submitting || processing}
                 >
-                  Submit
+                  {processing && (
+                   <CircularProgress
+                  size={24}
+                  className={classes.buttonProgress}
+                />
+                )}
+                  <FormattedMessage {...Payrollmessages.save} />
                 </Button>
-                {/* <Button type="reset" onClick={clear}>
-                  Reset
-                </Button> */}
               </div>
             </form>
           </Paper>
@@ -681,6 +503,8 @@ const handleClose = (key) => {
   );
 }
 
+CreateAndEditJob.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
-
-export default CreateAndEditJob;
+export default injectIntl(CreateAndEditJob);

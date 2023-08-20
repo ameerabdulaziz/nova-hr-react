@@ -93,4 +93,12 @@ export default defineMessages({
     id: `${scope}.meetingReq`,
     defaultMessage: 'meetingReq',
   },
+  yes: {
+    id: `${scope}.yes`,
+    defaultMessage: 'yes',
+  },
+  no: {
+    id: `${scope}.no`,
+    defaultMessage: 'no',
+  },
   });

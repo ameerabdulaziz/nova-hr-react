@@ -98,6 +98,8 @@ import {//shymaa
   JobLevel,
   JobNatures,
   Jobs,
+  CreateJob,
+  EditJob,
   JobTypes,
   KinshipLink,
   Month,
@@ -247,6 +249,8 @@ function Application(props) {
         <Route path="/app/Pages/MainData/Job-Level" component={withAuthorizationRouter( (props1) => <JobLevel text="Job Level" table="MdJobLevel" {...props1} />)}/>
         <Route path="/app/Pages/MainData/Job-Natures" component={withAuthorizationRouter( (props1) => <JobNatures text="Job Natures" table="MdJobNatures" {...props1} />)} />
         <Route path="/app/Pages/MainData/job" component={Jobs} />
+        <Route path="/app/Pages/MainData/CreateJob" component={CreateJob} />
+        <Route path="/app/Pages/MainData/EditJob:ID" component={EditJob} />
         <Route path="/app/Pages/MainData/Job-Types" component={withAuthorizationRouter( (props1) => <JobTypes text="Job Types" table="MdJobsTypes" {...props1} />)}/>
         <Route path="/app/Pages/MainData/Kinship-Link" component={withAuthorizationRouter( (props1) => <KinshipLink text="Kinship Link" table="MdKinshipLink" {...props1}/>)}/>
         <Route path="/app/Pages/MainData/Month" component={withAuthorizationRouter( (props1) => <Month text="Month" table="MdMonth" {...props1} /> )} />

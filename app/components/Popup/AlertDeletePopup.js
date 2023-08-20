@@ -1,0 +1,68 @@
+
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Payrollmessages from '../../containers/Pages/Payroll/messages';
+import { FormattedMessage } from 'react-intl';
+import messages from '../../containers/Pages/Payroll/MainData/messages';
+import { useSelector } from 'react-redux';
+import CircularProgress from '@mui/material/CircularProgress';
+import style from '../../styles/Styles.scss';
+
+
+const AlertPopup = ({
+    handleClose,
+    open,
+    messageData,
+    callFun,
+    submitting,
+    processing
+}) => {
+
+    const locale = useSelector((state) => state.language.locale);
+    
+ 
+    return(
+        <div>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>
+                    <FormattedMessage {...messages.delete} />
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText>
+                    <FormattedMessage {...messages.deleteMessage} />  {messageData}
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button 
+                className={style.deleteAlertBtnSty}
+                onClick={handleClose}>
+                    <FormattedMessage {...Payrollmessages.no} />
+                </Button>
+                <Button 
+                disabled={submitting || processing}
+                className={style.deleteAlertBtnSty}
+                onClick={()=> {
+                    callFun()
+                    handleClose()
+                    }}>
+                         {processing && (
+                            <CircularProgress
+                            size={24}
+                            />
+                        )}
+                        <FormattedMessage {...Payrollmessages.yes} />
+                </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    )
+}
+
+
+export default AlertPopup;

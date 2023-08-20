@@ -1,12 +1,38 @@
+.tableContainerSty
+{
+    padding: 20px;
+    background-color: #ffffff;
+
+}
+
+
 .tableContainerStyAr
 {
     div
     {
         div
         {
-            div:nth-child(2)
+           & > div:nth-child(2)
             {
                 text-align: left;
+            }
+        }
+
+        & > div:nth-child(3)
+        {
+            table
+            {
+                th
+                {
+                    span
+                    {
+                        button
+                        {
+                            justify-content: right;
+                            margin-right: -8px;
+                        }
+                    }
+                }
             }
         }
     }
@@ -23,10 +49,18 @@
 .actionsSty
 {
     display: flex;
+
+    button
+    {
+        width: 40px;
+        height: 40px;
+        align-items: end;
+    }
 }
 
 
-.comboBoxContainer
+.comboBoxContainer,
+.comboBoxContainerAR
 {
     display: flex;
     align-items: center;
@@ -34,6 +68,78 @@
     & > div 
     {
         width: 100%;
+    }
+}
+
+
+.comboBoxContainer
+{
+    
+
+    & > div 
+    {
         margin-right: 10px;
     }
+}
+
+.comboBoxContainerAR
+{
+    & > div 
+    {
+        margin-left: 10px;
+    }
+}
+
+.btnContainer
+{
+    margin-top: 24px;
+}
+
+
+.importBtn
+{
+    text-align: right;
+    display: flex;
+    justify-content: right;
+    width: 500px;
+    button
+    {
+        width: 114px;
+    }
+}
+
+.comboBoxSty
+{
+    width: 370px;
+
+    & > div
+    {
+        div
+        {
+            height: 50px;
+            padding: 0 !important;
+        }
+    }
+}
+
+.ImportTableContainer
+{
+    .tableSty
+    {
+        div:nth-child(3)
+        {
+            table
+            {
+                th
+                {
+                    background-color: #e8eaf6;
+                }
+            }
+        }
+    }
+}
+
+.deleteAlertBtnSty
+{
+    width: 80px;
 }

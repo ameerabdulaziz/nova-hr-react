@@ -448,6 +448,20 @@ export const Jobs = loadable(
   }
 );
 
+export const CreateJob = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CreateAndEditJob'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditJob = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CreateAndEditJob'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const Bank = loadable(
   () => import('./Pages/Payroll/MainData/Code/Bank'),
   {
