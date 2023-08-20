@@ -5,7 +5,7 @@
  */
 import { defineMessages } from 'react-intl';
 
-export const scope = 'boilerplate.components.Forms';
+export const scope = 'boilerplate.containers.Payroll.MainData';
 
 export default defineMessages({
 //Jobs------------------------------------------------------------------
