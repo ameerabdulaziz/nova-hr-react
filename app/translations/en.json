@@ -852,7 +852,10 @@
   "boilerplate.containers.Payroll.hrLetterLang":"Letter Language",   
   "boilerplate.containers.Payroll.directedTo":"Directed to",   
   "boilerplate.containers.Payroll.hrLetterDate":"Letter Date", 
-  "boilerplate.containers.Payroll.meetingReq":"Meeting Request", 
+  "boilerplate.containers.Payroll.meetingReq":"Meeting Request",
+  "boilerplate.containers.Payroll.add": "Add",
+  "boilerplate.containers.Payroll.yes": "Yes",
+  "boilerplate.containers.Payroll.no": "No", 
   
   
   
@@ -934,7 +937,37 @@
   "boilerplate.containers.Payroll.Employee.personal.organization":"Organization",
   "boilerplate.containers.Payroll.Employee.personal.reportto":"Report To",
   "boilerplate.containers.Payroll.Employee.personal.jobname":"Job",
-  "boilerplate.containers.Payroll.Employee.personal.isinsured":"Insured"
+  "boilerplate.containers.Payroll.Employee.personal.isinsured":"Insured",
+  "boilerplate.containers.Payroll.MainData.codes.id": "Id",
+  "boilerplate.containers.Payroll.MainData.codes.arName": "AR Name",
+  "boilerplate.containers.Payroll.MainData.codes.enName": "EN Name",
+  "boilerplate.containers.Payroll.MainData.codes.parent": "Parent",
+  "boilerplate.containers.Payroll.MainData.codes.parentName": "Parent",
+  "boilerplate.containers.Payroll.MainData.codes.jobnature": "Nature",
+  "boilerplate.containers.Payroll.MainData.codes.jobtype": "Type",
+  "boilerplate.containers.Payroll.MainData.codes.sanclevel": "Sancation Level",
+  "boilerplate.containers.Payroll.MainData.codes.sancLevelName": "Sancation Level",
+  "boilerplate.containers.Payroll.MainData.codes.sancLevelArName": "AR Sancation Level",
+  "boilerplate.containers.Payroll.MainData.codes.jobcode": "Code",
+  "boilerplate.containers.Payroll.MainData.codes.medicalinsurancestartday": "Medical.Insu Day",
+  "boilerplate.containers.Payroll.MainData.codes.isleadership": "Leadership",
+  "boilerplate.containers.Payroll.MainData.codes.actions": "Actions",
+  "boilerplate.containers.Payroll.MainData.codes.deleteMessage": "Are You Sure You Want To Delete",
+  "boilerplate.containers.Payroll.MainData.codes.delete": "Delete", 
+  "boilerplate.containers.Payroll.MainData.codes.createJob": "Create Job",
+  "boilerplate.containers.Payroll.MainData.codes.editJob": "Edit Job",
+  "boilerplate.containers.Payroll.MainData.codes.worknature": "Work Nature Allowance",
+  "boilerplate.containers.Payroll.MainData.codes.bank": "Bank",
+  "boilerplate.containers.Payroll.MainData.codes.add": "Add New",
+  "boilerplate.containers.Payroll.MainData.codes.ADD": "Add New",
+  "boilerplate.containers.Payroll.MainData.codes.TransactionsTypes": "Transactions Types",
+  "boilerplate.containers.Payroll.MainData.codes.Upload": "Upload",
+  "boilerplate.containers.Payroll.MainData.codes.Submit": "Submit",
+  "boilerplate.containers.Payroll.MainData.codes.SubmitTooltip": "Import Excel File And Choose Transactions Type To Can Submit",
+  "boilerplate.containers.Payroll.MainData.codes.Reset": "Reset",
+  "boilerplate.containers.Payroll.MainData.codes.Import": "Import",
+  "boilerplate.containers.Payroll.MainData.codes.SubmitEmployeeTooltip": "Import Excel File To Can Submit",
+  "boilerplate.containers.Payroll.MainData.codes.Download": "Download"
   
    
    
