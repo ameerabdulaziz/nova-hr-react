@@ -34,7 +34,7 @@ function Row(props) {
   const {
     anchor,
     item,  
-    API,IsNotSave
+    API,IsNotSave,isNotAdd
   } = props;
 
   const branch = 'crudTableDemo' ;
@@ -190,13 +190,14 @@ function Row(props) {
           size="large">
           <DoneIcon />
         </IconButton>
+        {(isNotAdd)?'':
         <IconButton
           onClick={() => eventDel(this)}
           className={classes.button}
           aria-label="Delete"
           size="large">
           <DeleteIcon />
-        </IconButton>
+        </IconButton>}
       </TableCell>
     </tr>
   );

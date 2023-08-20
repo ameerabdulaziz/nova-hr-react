@@ -5,7 +5,7 @@ const DepartmentApis = () => {
 
     deptApis.GetList = async () => {
         
-            const data = await Axios.get('http://160.153.234.244:8090/api/Department?brcode=1');
+            const data = await Axios.get('api/Department?brcode=1');
             const result = data.data ;
             const finaldata = result.map((obj) => {
                                 return {
@@ -23,13 +23,13 @@ const DepartmentApis = () => {
         if(Item.id != Item.Department_ID)
         {
             let param='namear='+Item.name+'&nameen='+Item.Department_NameEn+'&id='+Item.Department_ID ;
-            const data = await Axios.get('http://160.153.234.244:8090/api/Department?'+param)
+            const data = await Axios.get('api/Department?'+param)
             return data;
         }
         else
         {
             let param='namear='+Item.name+'&nameen='+Item.Department_NameEn+'&id='+Item.Department_ID+'&type=1' ;
-            const data = await Axios.get('http://160.153.234.244:8090/api/Department?'+param)
+            const data = await Axios.get('api/Department?'+param)
             return data;
         }
     }
@@ -38,13 +38,13 @@ const DepartmentApis = () => {
 
     deptApis.Update = async (Item) => {
         let param='namear='+Item.Department_Name+'&nameen='+Item.Department_NameEn+'&id='+Item.Department_ID+'&type=1' ;
-        const data = await Axios.get('http://160.153.234.244:8090/api/Department?'+param)
+        const data = await Axios.get('api/Department?'+param)
         return data;
     }
 
     deptApis.Delete = async (Item) => {
         
-            const data = await Axios.get(`http://160.153.234.244:8090/api/Department?brcode=1&id=${Item.Department_ID}`)
+            const data = await Axios.get(`api/Department?brcode=1&id=${Item.Department_ID}`)
             return data;
        
     }

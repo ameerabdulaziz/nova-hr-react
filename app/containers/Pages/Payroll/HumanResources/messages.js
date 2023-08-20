@@ -191,5 +191,15 @@ response: {
   id: `${scope}.response`,
   defaultMessage: 'response',
 },
+//News////////////////////////////////////////////////////////////////////////////////////////////////
+
+NewsCreateTitle: {
+  id: `${scope}.NewsCreateTitle`,
+  defaultMessage: 'NewsCreateTitle',
+},
+NewsUpdateTitle: {
+  id: `${scope}.NewsUpdateTitle`,
+  defaultMessage: 'NewsUpdateTitle',
+},
 
 });

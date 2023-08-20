@@ -38,6 +38,12 @@ const useStyles = makeStyles()((theme) => ({
     width: 300,
     marginTop: 4,
   },
+  field: {
+    width: '100%',
+    
+    //marginBottom: 20,
+    //margin: theme.spacing(1),
+  },
   searchtext: {
     //marginTop: '30px',
     width: '100%',  

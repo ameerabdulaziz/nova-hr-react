@@ -831,6 +831,8 @@
   "boilerplate.components.tables.codes.value": "القيمة",
   "boilerplate.components.tables.codes.PenaltyTypeName": "نوع الجزاء",
   "boilerplate.components.tables.codes.PenaltyValue": "القيمة",
+  "boilerplate.components.tables.codes.employeeName": "المدير الحالى",
+  "boilerplate.components.tables.codes.newEmployeeName": "المدير الجديد",
 
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.cancel": "الغاء",  
@@ -917,6 +919,8 @@
   "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle":"تعديل ترقية", 
   "boilerplate.containers.Payroll.HumanResources.ExplanationEditTitle":"تعديل الاقتراحات والشكاوى",  
   "boilerplate.containers.Payroll.HumanResources.response":"الرد", 
+  "boilerplate.containers.Payroll.HumanResources.NewsCreateTitle":"اضافة اخبار واعلاتات", 
+  "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle":"تعديل اخبار واعلانات", 
   
   
   

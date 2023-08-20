@@ -159,5 +159,13 @@ export default defineMessages({
   PenaltyValue:{
     id: `${scope}.codes.PenaltyValue`,
     defaultMessage: 'Value',
+  },
+  employeeName:{
+    id: `${scope}.codes.employeeName`,
+    defaultMessage: 'Value',
+  },
+  newEmployeeName:{
+    id: `${scope}.codes.newEmployeeName`,
+    defaultMessage: 'Value',
   }
 });

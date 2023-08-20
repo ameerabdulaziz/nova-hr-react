@@ -84,6 +84,11 @@ Apis.GetExplanationTypeList = async () => {
   const result = await axiosInstance.get(`GeneralList/GetExplanationTypeList/${locale}`);   
   return result.data;
 };
+Apis.GetNewsTypeList = async () => {    
+  debugger;
+  const result = await axiosInstance.get(`GeneralList/GetNewsTypeList/${locale}`);   
+  return result.data;
+};
 
   return  Apis;
 };

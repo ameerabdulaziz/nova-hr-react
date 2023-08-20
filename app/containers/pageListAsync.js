@@ -708,6 +708,32 @@ export const ExplanationEdit = loadable(
     fallback: <Loading />,
   }
 );
+
+export const OrganizationManger = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/OrganizationManager'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const NewsList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/NewsList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const NewsCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/NewsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const NewsEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/NewsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ExplanationReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/ExplanationReport'),
   {

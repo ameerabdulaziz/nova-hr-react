@@ -831,6 +831,8 @@
   "boilerplate.components.tables.codes.value": "Value",
   "boilerplate.components.tables.codes.PenaltyTypeName": "Type Name",
   "boilerplate.components.tables.codes.PenaltyValue": "Value",
+  "boilerplate.components.tables.codes.employeeName": "Current Manger",
+  "boilerplate.components.tables.codes.newEmployeeName": "New Manger",
 
   "boilerplate.containers.Payroll.save": "Save",  
   "boilerplate.containers.Payroll.cancel": "Cancel",  
@@ -918,7 +920,9 @@
   "boilerplate.containers.Payroll.HumanResources.PromotionsCreateTitle":"Add Promotions",  
   "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle":"Update Promotions",   
   "boilerplate.containers.Payroll.HumanResources.ExplanationEditTitle":"Update Explanation", 
-  "boilerplate.containers.Payroll.HumanResources.response":"Response", 
+  "boilerplate.containers.Payroll.HumanResources.response":"Response",   
+  "boilerplate.containers.Payroll.HumanResources.NewsCreateTitle":"Create News", 
+  "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle":"Update News",  
   
   
   

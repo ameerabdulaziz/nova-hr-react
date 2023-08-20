@@ -5,8 +5,7 @@ import brand from 'enl-api/dummy/brand';
 import { PapperBlock } from 'enl-components';
 
 import { EditTable } from '../../../../Tables/demos';
-import RewardsApis from '../api/RewardsData';
-import messages from '../messages';
+import Apis from '../api/OrganizationManagerData';
 import { useSelector, useDispatch } from 'react-redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
@@ -18,7 +17,7 @@ const useStyles = makeStyles()(() => ({
   },
 }));
 
-function Rewards(props) {
+function OrganizationManager(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const title = localStorage.getItem("MenuName");
@@ -41,28 +40,20 @@ function Rewards(props) {
       width: 'auto',
       hidden: false,
     },
+    
     {
-      name: 'enName',
-      label: 'enname',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
-    },
-    {
-      name: 'payTemplateName',
-      label: 'payTemplateName',
+      name: 'employeeName',
+      label: 'employeeName',
       type: 'selection',
       initialValue: '',
       options: [],
       orignaldata:[],
-      childname:'elementName',
       width: 'auto',
       hidden: false,
     },
 
     {
-      name: 'payTemplateId',
+      name: 'employeeId',
       label: 'id',
       type: 'number',
       initialValue: '0',
@@ -70,8 +61,8 @@ function Rewards(props) {
       hidden: true,
     },
     {
-        name: 'elementName',
-        label: 'elementName',
+        name: 'newEmployeeName',
+        label: 'newEmployeeName',
         type: 'selection',
         initialValue: '',
         options: [],
@@ -81,20 +72,12 @@ function Rewards(props) {
       },
   
       {
-        name: 'elementId',
+        name: 'newEmployeeId',
         label: 'id',
         type: 'number',
         initialValue: '0',
         width: 'auto',
         hidden: true,
-      },
-      {
-        name: 'value',
-        label: 'value',
-        type: 'number',
-        initialValue: '',
-        width: 'auto',
-        hidden: false,
       },
     {
       name: 'edited',
@@ -128,7 +111,8 @@ function Rewards(props) {
             <EditTable
               anchorTable={anchorTable}
               title={title}
-              API={RewardsApis(locale)}
+              API={Apis(locale)}
+              isNotAdd={true}
             />
           }
         </div>
@@ -136,8 +120,8 @@ function Rewards(props) {
     </div>
   );
 }
-Rewards.propTypes = {
+OrganizationManager.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(Rewards);
+export default injectIntl(OrganizationManager);
 

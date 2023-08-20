@@ -127,7 +127,7 @@ import {//shymaa
   RewardTransList,RewardCreate,RewardEdit,PenaltyTransList,PenaltyTransCreate,PenaltyTransEdit,
   AttentionList,AttentionCreate,AttentionEdit,LayOffNoticeList,LayOffNoticeCreate,LayOffNoticeEdit,
   PromotionsList,PromotionsCreate,PromotionsEdit,PromotionsReport,DirectManager,ExplanationList,ExplanationEdit,ExplanationReport,
-  Complaint,HrLetter,NewIdea
+  Complaint,HrLetter,NewIdea,OrganizationManger,NewsList,NewsCreate,NewsEdit
 
 } from '../pageListAsync';
 
@@ -302,9 +302,14 @@ function Application(props) {
         <Route path="/app/Pages/HR/DirectManager" component={withAuthorizationRouter(DirectManager)} />
         <Route path="/app/Pages/HR/ExplanationList" component={withAuthorizationRouter(ExplanationList)} />
         <Route path="/app/Pages/HR/ExplanationEdit:id" component={withAuthorizationRouter(ExplanationEdit)} />
+        <Route path="/app/Pages/HR/OrganizationManger" component={withAuthorizationRouter(OrganizationManger)} />
+        <Route path="/app/Pages/HR/NewsList" component={withAuthorizationRouter(NewsList)} />
+        <Route path="/app/Pages/HR/NewsCreate" component={withAuthorizationRouter(NewsCreate)} />
+        <Route path="/app/Pages/HR/NewsEdit:id" component={withAuthorizationRouter(NewsEdit)} />
         
         <Route path="/app/Pages/HR/PromotionsReport" component={withAuthorizationRouter(PromotionsReport)} />
         <Route path="/app/Pages/HR/ExplanationReport" component={withAuthorizationRouter(ExplanationReport)} />
+
         <Route path="/app/Pages/EXP/Complaint" component={withAuthorizationRouter(Complaint)} />
         <Route path="/app/Pages/EXP/HrLetter" component={withAuthorizationRouter(HrLetter)} />
         <Route path="/app/Pages/EXP/NewIdea" component={withAuthorizationRouter(NewIdea)} />
