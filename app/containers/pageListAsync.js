@@ -546,6 +546,20 @@ export const Organization = loadable(
   }
 );
 
+export const ImportFile = loadable(
+  () => import('./Pages/Payroll/MainData/Code/ImportFile'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const UploadEmployeeData = loadable(
+  () => import('./Pages/Payroll/MainData/Code/UploadEmployeeData'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 //Setting /////////////////////////////////////////////////////////////////////////////////
 export const UserMenu = loadable(
   () => import('./Pages/Payroll/Setting/UserMenu'),
