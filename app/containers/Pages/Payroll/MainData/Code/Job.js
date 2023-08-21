@@ -1,45 +1,28 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { makeStyles } from 'tss-react/mui';
+import React, { useState, useEffect} from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
-import { PapperBlock } from 'enl-components';
 import { injectIntl } from 'react-intl';
-import { EditTable } from '../../../../Tables/demos';
 import JobData from '../api/JobData';
-//import  AdvancedTable  from '../../../../../components/Tables/AdvancedTable';
 import MUIDataTable from 'mui-datatables';
-import { jobs } from './messages';
-// import messages from './messages';
-import messagesSec from '../../../../../components/Tables/messages';
+import messages from '../messages';
+import Payrollmessages from '../../messages';
 import { FormattedMessage } from 'react-intl';
-import Toolbar from '@mui/material/Toolbar';
-import FormControl from '@mui/material/FormControl';
-import Input from '@mui/material/Input';
-import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../../../../components/Tables/tableStyle-jss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import style from '../../../../../styles/Styles.scss';
 import EditIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';
+import { toast } from 'react-hot-toast';
+import notif from 'enl-api/ui/notifMessage';
 
-import {
-  fetchAction,
-  fetchJobsAction,
-} from '../../../../../containers/Tables/reducers/crudTbActions';
-import { async } from '@dabeng/react-orgchart';
 
-// const useStyles = makeStyles()(() => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-// }));
 
 function Job({ intl }) {
   const title = brand.name + ' - Job';
@@ -49,51 +32,13 @@ function Job({ intl }) {
   const locale = useSelector((state) => state.language.locale);
   const history = useHistory();
   const [search, setsearch] = useState('');
-  const [test, setTest] = useState('');
+  const [dataTable, setDataTable] = useState([]);
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [deleteItem, setDeleteItem] = useState("");
+  const [submitting ,setSubmitting] = useState(false)
+  const [processing ,setProcessing] = useState(false)
 
-  const fetchData = useDispatch();
-  // const branch = 'crudTableDemo' ;
-  const dataTable = useSelector((state) => state.jobs.jobsData);
 
-  // const anchorTable = [
-  //   {
-  //     name: 'id',
-  //     label: 'code',
-  //     type: 'static',
-  //     initialValue: '',
-  //     hidden: true,
-  //   },
-
-  //   {
-  //     name: 'name',
-  //     label: 'name',
-  //     type: 'text',
-  //     width: 'auto',
-  //     hidden: false,
-  //   },
-  //   {
-  //     name: 'EnName',
-  //     label: 'enname',
-  //     type: 'text',
-  //     initialValue: '',
-  //     width: 'auto',
-  //     hidden: false,
-  //   },
-  //   {
-  //     name: 'edited',
-  //     label: '',
-  //     type: 'static',
-  //     initialValue: '',
-  //     hidden: true,
-  //   },
-  //   {
-  //     name: 'action',
-  //     label: 'action',
-  //     type: 'static',
-  //     initialValue: '',
-  //     hidden: false,
-  //   },
-  // ];
 
   const getdata = async () => {
     const data = await JobData(locale).GetList();
@@ -108,184 +53,128 @@ function Job({ intl }) {
       return items;
     });
 
-    fetchData(fetchJobsAction(newData));
-    // fetchData(fetchAction(data,"",branch));
+    setDataTable(newData)
   };
 
   useEffect(() => {
     getdata();
   }, []);
 
-  const columns = Object.keys(jobs).map((item) => ({
-    name: item,
-    label: intl.formatMessage(jobs[item]),
-    options: {
-      filter: true,
+  
+
+  const columns = [
+    {
+      name: "id",
+      label: intl.formatMessage(messages.id),
+      options: {
+        display: true
+      }
     },
-  }));
+    {
+      name: 'arName',
+      label: intl.formatMessage(messages.arName),
+      options: {
+        filter: true
+      }
+    },
+    {
+        name: 'enName',
+        label: intl.formatMessage(messages.enName),
+        options: {
+          filter: true
+        }
+      },
+      // {
+      //   name: 'jobCode',
+      //   label: intl.formatMessage(messages.jobCode),
+      //   options: {
+      //     filter: true
+      //   }
+      // },
+      // {
+      //   name: 'isLeadershipPosition',
+      //   label: intl.formatMessage(messages.isLeadershipPosition),
+      //   options: {
+      //     filter: true
+      //   }
+      // },
+      // {
+      //   name: 'medicalInsuranceStartDay',
+      //   label: intl.formatMessage(messages.medicalInsuranceStartDay),
+      //   options: {
+      //     filter: true
+      //   }
+      // },
+      // {
+      //   name: 'sancLevelName',
+      //   label: intl.formatMessage(messages.sancLevelName),
+      //   options: {
+      //     filter: true
+      //   }
+      // },
+      // {
+      //   name: 'sancLevelArName',
+      //   label: intl.formatMessage(messages.sancLevelArName),
+      //   options: {
+      //     filter: true
+      //   }
+      // },
+      {
+        name: 'jobTypeName',
+        label: intl.formatMessage(messages.jobTypeName),
+        options: {
+          filter: true
+        }
+      },
+      {
+        name: 'jobNatureName',
+        label: intl.formatMessage(messages.jobNatureName),
+        options: {
+          filter: true
+        }
+      },
+      {
+        name: 'parentName',
+        label: intl.formatMessage(messages.parentName),
+        options: {
+          filter: true
+        }
+      },
+      {
+        name: 'Actions',
+        label: intl.formatMessage(messages.actions),
+        options: {
+          filter: false,
+          customBodyRender: (value, tableMeta) => {
+            return (
+              <div className={style.actionsSty}>
+              <IconButton
+                aria-label="Edit"
+                size="large">
+                <Link to={`/app/Pages/MainData/EditJob${tableMeta.rowData[0]}`}>
+                  <EditIcon />
+                </Link>
+                
+              </IconButton>
 
-  columns.push({
-    name: 'Actions',
-    options: {
-      filter: false,
-
-      customBodyRender: (value, tableMeta) => {
-        console.log('tableMeta =', tableMeta);
-        return (
-          <div className={style.actionsSty}>
-            <IconButton
-              // onClick={() => eventEdit(this)}
-              // className={cx((item.edited ? css.hideAction : ''), classes.button)}
-              aria-label="Edit"
-              size="large"
-            >
-              <Link to={`/app/Pages/MainData/EditJob${tableMeta.rowData[0]}`}>
-                <EditIcon />
-              </Link>
-            </IconButton>
-
-            <IconButton
-              // onClick={() => eventDel(this)}
-              className={classes.button}
+              <IconButton
               aria-label="Delete"
               size="large"
               onClick={() => {
-                console.log(`rowsDeleted2222 = ${tableMeta.rowData[0]}`);
+                handleClickOpen(tableMeta.rowData)
               }}
-            >
+              >
               <DeleteIcon />
-            </IconButton>
-          </div>
-          // <Link
-          //   style={{ textDecoration: "none" }}
-          //   to={`/user/${tableMeta.rowData[0]}`}
-          // >
-          //   {value}
-          // </Link>
-        );
-      },
-    },
-  });
+              </IconButton>
+              </div>
+            );
+          }
+        }
+      
+    }
+  ];
 
-  columns.unshift({
-    name: 'id',
-    label: 'Id',
-    options: {
-      display: false,
-    },
-  });
-
-  // const columns = [
-  //   {
-  //     name: 'Arabic Name',
-  //     options: {
-  //       filter: true
-  //     }
-  //   },
-  //   {
-  //       name: 'English Name',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'Leadership Position',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'Job Code',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'Job Nature Name',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'Job Type Name',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'Medical Insurance Start Day',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'Organization Name',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'Parent Name',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'Sanc Level Name',
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  // ];
-
-  // const data = [
-  //   ['Gabby George', 'Business Analyst', 30, 'active', 100000],
-  //   ['Aiden Lloyd', 'Business Consultant', 55, 'active', 200000],
-  //   ['Jaden Collins', 'Attorney', 27, 'non-active', 500000],
-  //   ['Franky Rees', 'Business Analyst', 90, 'active', 50000],
-  //   ['Aaren Rose', 'Business Consultant', 28, 'unknown', 75000],
-  //   ['Blake Duncan', 'Business Management Analyst', 65, 'active', 94000],
-  //   ['Frankie Parry', 'Agency Legal Counsel', 71, 'non-active', 210000],
-  //   ['Lane Wilson', 'Commercial Specialist', 19, 'active', 65000],
-  //   ['Robin Duncan', 'Business Analyst', 20, 'unknown', 77000],
-  //   ['Mel Brooks', 'Business Consultant', 89, 'active', 135000],
-  //   ['Harper White', 'Attorney', 52, 'non-active', 420000],
-  //   ['Kris Humphrey', 'Agency Legal Counsel', 80, 'active', 150000],
-  //   ['Frankie Long', 'Industrial Analyst', 31, 'active', 170000],
-  //   ['Brynn Robbins', 'Business Analyst', 22, 'active', 90000],
-  //   ['Justice Mann', 'Business Consultant', 76, 'non-active', 33000],
-  //   ['Addison Navarro', 'Business Management Analyst', 50, 'non-active', 295000],
-  //   ['Jesse Welch', 'Agency Legal Counsel', 28, 'active', 100000],
-  //   ['Eli Mejia', 'Commercial Specialist', 65, 'active', 400000],
-  //   ['Gene Leblanc', 'Industrial Analyst', 100, 'active', 110000],
-  //   ['Danny Leon', 'Computer Scientist', 60, 'non-active', 220000],
-  //   ['Lane Lee', 'Corporate Counselor', 52, 'unknown', 180000],
-  //   ['Jesse Hall', 'Business Analyst', 44, 'active', 99000],
-  //   ['Danni Hudson', 'Agency Legal Counsel', 37, 'active', 90000],
-  //   ['Terry Macdonald', 'Commercial Specialist', 39, 'active', 140000],
-  //   ['Justice Mccarthy', 'Attorney', 26, 'active', 330000],
-  //   ['Silver Carey', 'Computer Scientist', 10, 'active', 250000],
-  //   ['Franky Miles', 'Industrial Analyst', 49, 'active', 190000],
-  //   ['Glen Nixon', 'Corporate Counselor', 15, 'non-active', 80000],
-  //   ['Gabby Strickland', 'Business Process Consultant', 26, 'unknown', 45000],
-  //   ['Mason Ray', 'Computer Scientist', 39, 'active', 142000]
-  // ];
-
-  // const data2 = [
-  //   {
-  //     name: "Gabby George",
-  //     enname: "Business Analyst",
-  //     isleadership: 100000,
-  //     medicalinsurancestartday: 30,
-  //     jobcode: "active",
-  //     sanclevel: 100000,
-  //     jobtype: 100000,
-  //     jobnature: 100000,
-  //     organization: 100000,
-  //     parent: 100000,
-
-  //   }
-  // ]
+  
 
   const options = {
     filterType: 'dropdown',
@@ -293,58 +182,59 @@ function Job({ intl }) {
     print: true,
     rowsPerPage: 10,
     page: 0,
-    // customToolbar: () => (
-    //   <IconButton style={{ order: -1 }} onClick={() => window.alert('ADD')}>
-    //     <AddIcon />
-    //   </IconButton>
-    // ),
-    customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
-      <div>
-        {console.log('selectedRows =', selectedRows)}
-        {console.log('displayData =', displayData)}
-        <Tooltip title={'Deleteeeeee'} cursor="pointer" className="mr-6">
-          <IconButton
-            onClick={() => {
-              console.log('rowsDeleted');
-            }}
-          >
-            <DeleteIcon></DeleteIcon>
-            {/* <ActionDelete></ActionDelete> */}
-          </IconButton>
-        </Tooltip>
-        {/* {selectedRows.data.length === 1 ? (
-          <Tooltip title={'Edit'} cursor="pointer" className="mr-6">
-            <IconButton onClick={() => window.alert(displayData)}>
-              <EditIcon></EditIcon>
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <span></span>
-        )} */}
-      </div>
-    ),
+    searchOpen: true,
+    selectableRows: "none" ,
+    customToolbar: () => (
+      <Tooltip title="Add New">
+        <Button
+          variant="contained"
+          onClick={() => {
+            history.push(`/app/Pages/MainData/CreateJob`);
+          }}
+          color="secondary"
+          className={classes.button}
+        >
+          <AddIcon />
+            <FormattedMessage {...Payrollmessages.add} />
+        </Button>
+      </Tooltip>
+    )
   };
 
-  const getSearchData = (searchVal) => {
-    let searchData = '';
-    if (searchVal.length !== 0 && dataTable.length !== 0) {
-      searchData = dataTable.filter((item) =>
-        Object.keys(item).some((key) =>
-          item[key] !== null
-            ? item[key]
-                .toString()
-                .toLowerCase()
-                .includes(searchVal.toLowerCase())
-            : null
-        )
-      );
-      setsearch(searchData);
-    } else {
-      setsearch(searchData);
-    }
+
+  const handleClickOpen = (item) => {
+      setOpenParentPopup(true);
+      setDeleteItem(item)
+  };
+  
+  const handleClose = () => {
+      setOpenParentPopup(false);
   };
 
-  console.log('dataTable =', dataTable);
+
+  const DeleteFun = async () => {
+    setSubmitting(true)
+    setProcessing(true)
+    try {
+       let response = await JobData().Delete(deleteItem);
+ 
+       if (response.status==200) {
+         toast.success(notif.saved);
+         getdata()
+       } else {
+           toast.error(response.statusText);
+       }
+
+      setSubmitting(false)
+      setProcessing(false)
+     } catch (err) {
+       toast.error(notif.error);
+       setSubmitting(false)
+       setProcessing(false)
+     }
+  }
+
+
 
   return (
     <div>
@@ -356,67 +246,29 @@ function Job({ intl }) {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
-      <PapperBlock whiteBg icon="border_color" title="" desc="">
-        <div className={classes.root}>
-          <Toolbar className={classes.toolbar}>
-            <div className={classes.title}>
-              <FormControl variant="standard" className={cx(classes.textField)}>
-                <Input
-                  id="search_filter"
-                  type="text"
-                  // value={x}
-                  onChange={(e) => {
-                    getSearchData(e.target.value);
-                    // console.log("val =",e.target.value);
-                    // setTest(e.target.value)
-                  }}
-                  // onChange={(e) => input1.current = e.target.value}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton aria-label="Search filter" size="large">
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-            </div>
-            <div className={classes.spacer} />
-            <div className={classes.actions}>
-              <Tooltip title="Add Item">
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    history.push(`/app/Pages/MainData/CreateJob`);
-                  }}
-                  color="secondary"
-                  className={classes.button}
-                >
-                  <AddIcon
-                    className={cx(smUp && classes.leftIcon, classes.iconSmall)}
-                  />
-                  {smUp && ' '} <FormattedMessage {...messagesSec.add} />
-                </Button>
-              </Tooltip>
-            </div>
-          </Toolbar>
-
+        <div className={classes.root}  >
           <div
-            className={`${locale === 'ar' ? style.tableContainerStyAr : ''}`}
+            className={`${style.tableContainerSty}  ${locale === 'ar' ? style.tableContainerStyAr : ''}`}
           >
             <MUIDataTable
               title="Jobs list"
-              // data={data2}
               data={search ? search : dataTable}
-              // columns={columns}
               columns={columns}
               options={options}
               className={style.tableSty}
             />
           </div>
-          {/* <AdvancedTable /> */}
         </div>
-      </PapperBlock>
+
+      <AlertPopup  
+        handleClose={handleClose}
+        open={openParentPopup}
+        messageData={ locale === "en" ? deleteItem[2] : deleteItem[1]}
+        callFun={DeleteFun}
+        submitting={submitting}
+        processing={processing}
+      />
+
     </div>
   );
 }

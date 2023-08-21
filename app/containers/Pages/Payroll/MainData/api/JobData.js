@@ -1,66 +1,44 @@
 import axiosInstance from '../../api/axios';
 const JobData = (locale) => {
   const jobApis = {};
-console.log("locale22 =",locale);
   jobApis.GetList = async () => {
-    // debugger;
     const data = await axiosInstance.get(`MdJobs/GetAllJob/${locale}`);
     const result = data.data;
-    const finaldata = result.map((obj) => ({
-      id: obj.id,
-      name: obj.arName,
-      EnName: obj.enName,
-      edited: false,
-    }));
 
     return result;
-    // return finaldata;
   };
 
   jobApis.GetAllDataList = async () => {
-    // debugger;
     const data = await axiosInstance.get(`MdJobs/GetAllData/${locale}`);
     const result = data.data;
-    // const finaldata = result.map((obj) => ({
-    //   id: obj.id,
-    //   name: obj.arName,
-    //   EnName: obj.enName,
-    //   edited: false,
-    // }));
 
     return result;
-    // return finaldata;
   };
 
 
-  jobApis.GetDataById = async (id) => {
-    // debugger;
-    const data = await axiosInstance.get(`MdJobs/${id}`);
+  jobApis.GetDataById = async (id,locale) => {
+    const data = await axiosInstance.get(`MdJobs/GetAllJob/${locale}?id=${id}`);
     const result = data.data;
 
     return result;
   };
 
   jobApis.Save = async (data) => {
-    // debugger;
-    // const data = {
-    //   id: Item.id,
-    //   arName: Item.name,
-    //   enName: Item.EnName,
-    // };
-
     const result =
       data.id === 0
         ? await axiosInstance.post('MdJobs', data)
-        : ""
-        // await axiosInstance.put(`MdGender/${Item.id}`, data);
+        : await axiosInstance.put(`MdJobs/${data.id}`, data);
+        
     return result;
   };
 
-  jobApis.Delete = async (Item) => {
-    // debugger;
+  jobApis.SaveJobDetails = async (URLType , data) => {
+    const result =  await axiosInstance.post(URLType, data)
+    return result;
+  }
 
-    // const data = await axiosInstance.delete(`MdGender/${Item.id}`);
+  jobApis.Delete = async (Item) => {
+    const data = await axiosInstance.delete(`MdJobs/${Item[0]}`);
     return data;
   };
 

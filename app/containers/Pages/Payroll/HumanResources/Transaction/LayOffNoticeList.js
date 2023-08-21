@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
 import ApiData from '../api/LayOffNoticeData';
-import { useSelector, useDispatch } from 'react-redux';
-import { CheckBox, IndeterminateCheckBoxRounded } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -17,13 +16,16 @@ import IconButton from '@mui/material/IconButton';
 import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
 import useStyles from '../../Style';
+import { PapperBlock } from 'enl-components';
+
 
 function LayOffNoticeList() {
   const history=useHistory();  
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const [changedata, setchangedata] = useState(1);
+  const Title = localStorage.getItem("MenuName");
+  
 
   async function deleterow(id) {
   
@@ -179,14 +181,17 @@ function LayOffNoticeList() {
   
 
   return (
-    <div className={classes.table}>
-      <MUIDataTable
-        title="Penalties List"
-        data={data}
-        columns={columns}
-        options={options}
-      />
-    </div>
+    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+       
+      <div className={classes.table}>
+        <MUIDataTable
+          title=""
+          data={data}
+          columns={columns}
+          options={options}
+        />
+      </div>
+    </PapperBlock>
   );
 }
 

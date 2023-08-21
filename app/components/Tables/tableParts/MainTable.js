@@ -27,7 +27,7 @@ import {FormattedMessage } from 'react-intl';
 
 function MainTable(props) {
   const { classes, cx } = useStyles();
-  const { items, anchor, title, API, intl,IsNotSave } = props;
+  const { items, anchor, title, API, intl,IsNotSave ,isNotAdd} = props;
 
   const branch = 'crudTableDemo';
   const [search, setsearch] = useState('');
@@ -39,11 +39,11 @@ function MainTable(props) {
   console.log('MainTable');
   const getItems = (dataArray) =>IsNotSave?dataArray
   .map((item) => (
-    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} />
+    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd} />
   )):dataArray
   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
   .map((item) => (
-    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} />
+    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd}  />
   ));
   
   const getData = () => {
@@ -101,6 +101,7 @@ function MainTable(props) {
         </div>
         <div className={classes.spacer} />
         <div className={classes.actions}>
+          {(isNotAdd)?'':
           <Tooltip title="Add Item">
             <Button
               variant="contained"
@@ -113,7 +114,7 @@ function MainTable(props) {
               />
               {smUp && ' '} <FormattedMessage {...messages.add} />
             </Button>
-          </Tooltip>
+          </Tooltip>}
         </div>
       </Toolbar>
       <div className={classes.rootTable}>

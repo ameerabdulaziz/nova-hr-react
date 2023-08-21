@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Paper from '@mui/material/Paper';
+
+import { PapperBlock } from 'enl-components';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import MailSMSSettingData from './api/MailSMSSettingData';
@@ -10,6 +10,7 @@ import notif from 'enl-api/ui/notifMessage';
 import messages from './messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
+import Payrollmessages from '../messages';
 
 
 function MailSetting(props) {
@@ -134,11 +135,8 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
         justifyContent="center"
       >
         <Grid item xs={12} md={6}>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3" style={{marginBottom:"30px"}}>
-              {Title}
-            </Typography>
-
+          <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+          
             <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>           
             <Grid item xs={12} md={12}>
@@ -230,18 +228,18 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                         type="submit"
                         size="medium"
                       >
-                        <FormattedMessage {...messages.save} />
+                        <FormattedMessage {...Payrollmessages.save} />
                       </Button>
                     </Grid>
                     <Grid item xs={6} sm={3}>
                       <Button variant="contained"  size="medium" color="primary"  onClick={clear}>
-                        <FormattedMessage {...messages.reset} />
+                        <FormattedMessage {...Payrollmessages.reset} />
                       </Button>
                     </Grid>
                 </Grid>
               </div>
             </form>
-          </Paper>
+          </PapperBlock>
         </Grid>
       </Grid>
     </div>

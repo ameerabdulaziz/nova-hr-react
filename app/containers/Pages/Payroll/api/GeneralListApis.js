@@ -20,10 +20,16 @@ const GeneralListApis = (locale) => {
   };
 
   Apis.GetEmployeeList = async () => {
+<<<<<<< HEAD
     const result = await axiosInstance.get(
       `GeneralList/GetEmployeeList/${locale}`
     );
 
+=======
+    debugger;
+    const result = await axiosInstance.get(`GeneralList/GetEmployeeList/${locale}`);
+   
+>>>>>>> e5db13103550138b195a5dbccc73f564c702838b
     return result.data;
   };
 
@@ -87,6 +93,31 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
+Apis.GetEmployeeData = async (id) => {    
+  debugger;
+  const result = await axiosInstance.get(`GeneralList/GetEmployeeData/${id}/${locale}`);   
+  return result.data;
+};
+Apis.GetJobsList = async () => {    
+  debugger;
+  const result = await axiosInstance.get(`MdJobs/GetListModel/${locale}`);   
+  return result.data;
+};
+Apis.GetEmployeeDataList = async () => {    
+  debugger;
+  const result = await axiosInstance.get(`GeneralList/GetEmployeeDataList/${locale}`);   
+  return result.data;
+};
+Apis.GetExplanationTypeList = async () => {    
+  debugger;
+  const result = await axiosInstance.get(`GeneralList/GetExplanationTypeList/${locale}`);   
+  return result.data;
+};
+Apis.GetNewsTypeList = async () => {    
+  debugger;
+  const result = await axiosInstance.get(`GeneralList/GetNewsTypeList/${locale}`);   
+  return result.data;
+};
 
   Apis.GetSalaryStructureList = async () => {
     debugger;

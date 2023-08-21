@@ -1,5 +1,4 @@
 import React,{useState,useCallback,useEffect } from 'react';
-import { makeStyles } from 'tss-react/mui';
 import { PapperBlock } from 'enl-components';
 import css from 'enl-styles/Table.scss';
 import SearchIcon from '@mui/icons-material/Search';
@@ -26,6 +25,7 @@ import { toast } from 'react-hot-toast';
 import useStyles from '../../../../components/Tables/tableStyle-jss';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
+import Payrollmessages from '../messages';
 
 function UserMenu(props) {
   
@@ -40,6 +40,7 @@ function UserMenu(props) {
   const [MenuList, setMenuList] = useState([]);
   const [menu, setmenu] = useState();
   const locale = useSelector(state => state.language.locale);
+  const Title = localStorage.getItem("MenuName");
   
 
 const handlepermcheckboxAll = (event) => {
@@ -197,7 +198,7 @@ async function on_submit() {
   }, []);
 
   return (
-      <PapperBlock whiteBg icon="border_color" title="" desc="">
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div>
             <Grid container spacing={3}>            
                 <Grid item xs={6} md={3}>
@@ -220,7 +221,7 @@ async function on_submit() {
                             {...params}
                             name="employee"
                             value={employee}
-                            label={intl.formatMessage(messages.chooseEmp)}
+                            label={intl.formatMessage(Payrollmessages.chooseEmp)}
                         />
                         )}
                     />
@@ -272,7 +273,7 @@ async function on_submit() {
                 <Grid item xs={6} md={2}>
                     
                 <Button variant="contained" size="medium" color="primary" onClick={on_submit} >
-                  <FormattedMessage {...messages.save} />
+                  <FormattedMessage {...Payrollmessages.save} />
                 </Button>
                 </Grid>   
             </Grid>

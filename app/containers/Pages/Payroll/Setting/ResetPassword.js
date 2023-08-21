@@ -3,19 +3,18 @@ import {
     Button ,
     Grid,
     TextField,
-    Autocomplete ,
-    Typography,
-    Paper
+    Autocomplete 
   } from "@mui/material";
 import ResetPasswordData from './api/ResetPasswordData';
 import GeneralListApis from '../api/GeneralListApis';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import messages from './messages';
+import Payrollmessages from '../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
-import history from 'utils/history';
 import { useSelector } from 'react-redux';
+import { PapperBlock } from 'enl-components';
 
 function ResetPassword(props) {
 const {classes} = useStyles();  
@@ -104,11 +103,8 @@ const GetEmployeeListByDepartment = useCallback(async () => {
         justifyContent="center"
       >
         <Grid item xs={12} md={6}>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3" style={{marginBottom:"30px"}}>
-                {Title}
-            </Typography>
-
+        <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+          
             <form onSubmit={handleSubmit}>
             <Grid
               container
@@ -166,7 +162,7 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                         {...params}
                         name="employee"
                         value={employee}
-                        label={intl.formatMessage(messages.chooseEmp)}
+                        label={intl.formatMessage(Payrollmessages.chooseEmp)}
                     />
                     )}
                 />
@@ -206,7 +202,7 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                 </Grid>
                 </div>
             </form>
-          </Paper>
+          </PapperBlock>
         </Grid>
       </Grid>
     </div>

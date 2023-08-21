@@ -447,6 +447,20 @@ export const Jobs = loadable(
   }
 );
 
+export const CreateJob = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CreateAndEditJob'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditJob = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CreateAndEditJob'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const Bank = loadable(
   () => import('./Pages/Payroll/MainData/Code/Bank'),
   {
@@ -672,6 +686,102 @@ export const LayOffNoticeCreate = loadable(
 );
 export const LayOffNoticeEdit = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/LayOffNoticeCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const PromotionsList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const PromotionsCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const PromotionsEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ExplanationList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ExplanationList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ExplanationEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ExplanationEdit'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const OrganizationManger = loadable(
+  () =>
+    import('./Pages/Payroll/HumanResources/Transaction/OrganizationManager'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const NewsList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/NewsList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const NewsCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/NewsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const NewsEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/NewsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ExplanationReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/ExplanationReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const Complaint = loadable(
+  () => import('./Pages/Payroll/Explanation/Complaint'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const HrLetter = loadable(
+  () => import('./Pages/Payroll/Explanation/HrLetter'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const NewIdea = loadable(
+  () => import('./Pages/Payroll/Explanation/NewIdea'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const PromotionsReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/PromotionsReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const DirectManager = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/DirectManager'),
   {
     fallback: <Loading />,
   }

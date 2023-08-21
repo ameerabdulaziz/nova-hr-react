@@ -11,7 +11,7 @@ function CrudTable(props) {
     anchorTable,    
     dataInit,
     API,
-    IsNotSave
+    IsNotSave,isNotAdd
   } = props;
   
  console.log("CrudTable");
@@ -44,6 +44,7 @@ function CrudTable(props) {
       anchor={anchor}      
       API={API}
       IsNotSave={IsNotSave}
+      isNotAdd={isNotAdd}
     />
   );
 }

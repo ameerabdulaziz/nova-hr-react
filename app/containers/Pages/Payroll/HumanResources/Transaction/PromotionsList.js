@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/PenaltyTransData';
+import ApiData from '../api/PromotionsData';
 import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Create';
@@ -18,14 +18,14 @@ import { toast } from 'react-hot-toast';
 import useStyles from '../../Style';
 import { PapperBlock } from 'enl-components';
 
-
-function PenaltyTransList() {
+function PromotionsList() {
   const history=useHistory();  
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   
+
   async function deleterow(id) {
   
     try {
@@ -64,20 +64,6 @@ function PenaltyTransList() {
       options: {
         filter: true,
       },
-    },
-    {
-        name: 'yearName',
-        label: <FormattedMessage {...messages['yearName']} />,
-        options: {
-          filter: true,
-        },
-    },
-    {
-        name: 'monthName',
-        label: <FormattedMessage {...messages['monthName']} />,
-        options: {
-            filter: true,
-        },
     },    
     {
       name: 'employeeName',
@@ -85,63 +71,42 @@ function PenaltyTransList() {
       options: {
         filter: true,
       },
-    },
+    },    
     {
-        name: 'superEmployeeName',
-        label: <FormattedMessage {...messages['superEmployeeName']} />,
+      name: 'oldJob',
+      label: <FormattedMessage {...messages['oldJob']} />,
+      options: {
+          filter: true,
+      },
+    }, 
+    {
+      name: 'oldElemVal',
+      label: <FormattedMessage {...messages['oldElemVal']} />,
+      options: {
+          filter: true,
+      },
+    }, 
+    {
+      name: 'job',
+      label: <FormattedMessage {...messages['job']} />,
+      options: {
+          filter: true,
+      },
+    }, 
+    {
+      name: 'elemVal',
+      label: <FormattedMessage {...messages['value']} />,
+      options: {
+          filter: true,
+      },
+    }, 
+    {
+        name: 'reason',
+        label: <FormattedMessage {...messages['reason']} />,
         options: {
             filter: true,
         },
     },    
-    {
-      name: 'penaltyName',
-      label: <FormattedMessage {...messages['penaltyName']} />,
-      options: {
-          filter: true,
-      },
-    },
-    {
-        name: 'penaltyTypeName',
-        label: <FormattedMessage {...messages['penaltyTypeName']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'elementName',
-        label: <FormattedMessage {...messages['elementName']} />,
-        options: {
-          filter: true,
-        },
-    },  
-    {
-        name: 'value',
-        label: <FormattedMessage {...messages['value']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'reqSer',
-        label: <FormattedMessage {...messages['reqSer']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'docName',
-        label: <FormattedMessage {...messages['docName']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'note',
-        label: <FormattedMessage {...messages['note']} />,
-        options: {
-            filter: true,
-        },
-        },
     {
       name: 'Actions',
       options: {
@@ -155,7 +120,7 @@ function PenaltyTransList() {
                 aria-label="Edit"
                 size="large"
               >
-                <Link to={`/app/Pages/HR/PenaltyEdit${tableMeta.rowData[0]}`}>
+                <Link to={`/app/Pages/HR/PromotionsEdit${tableMeta.rowData[0]}`}>
                   <EditIcon />
                 </Link>
               </IconButton>
@@ -193,7 +158,7 @@ function PenaltyTransList() {
           variant="contained"
           onClick={() => {
             debugger;
-            history.push(`/app/Pages/HR/PenaltyCreate`);
+            history.push(`/app/Pages/HR/PromotionsCreate`);
           }}
           color="secondary"
           className={classes.button}
@@ -242,18 +207,17 @@ function PenaltyTransList() {
   
 
   return (
-    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
-    <div className={classes.table}>
-      <MUIDataTable
-        title=""
-        data={data}
-        columns={columns}
-        options={options}
-      />
-    </div>
+    <PapperBlock whiteBg icon="border_color" title={Title} desc="">       
+      <div className={classes.table}>
+        <MUIDataTable
+          title=""
+          data={data}
+          columns={columns}
+          options={options}
+        />
+      </div>
     </PapperBlock>
   );
 }
 
-export default PenaltyTransList;
+export default PromotionsList;

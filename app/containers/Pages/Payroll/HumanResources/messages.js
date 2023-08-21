@@ -42,6 +42,7 @@ docName: {
   id: `${scope}.docName`,
   defaultMessage: 'Document',
 },
+
 employeeName: {
   id: `${scope}.employeeName`,
   defaultMessage: 'Employee Name',
@@ -107,6 +108,29 @@ hiringDate: {
   id: `${scope}.hiringDate`,
   defaultMessage: 'Hiring Date',
 },
+
+month: {
+  id: `${scope}.month`,
+  defaultMessage: 'month',
+},
+sixMonth: {
+  id: `${scope}.sixMonth`,
+  defaultMessage: 'sixMonth',
+},
+year: {
+  id: `${scope}.year`,
+  defaultMessage: 'year',
+},
+hiringDateNo: {
+  id: `${scope}.hiringDateNo`,
+  defaultMessage: 'hiringDateNo',
+},
+lastDate: {
+  id: `${scope}.lastDate`,
+  defaultMessage: 'lastDate',
+},
+
+  
 //Attention//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 AttentionCreateTitle: {
@@ -125,10 +149,57 @@ LayOffNoticeUpdateTitle: {
   id: `${scope}.LayOffNoticeUpdateTitle`,
   defaultMessage: 'Update LayOffNotice ',
 },
-
-
 reason: {
   id: `${scope}.reason`,
   defaultMessage: 'reason',
 },
+//Promotions//////////////////////////////////////////////////////////////////////////////////////////////////////
+oldJob: {
+  id: `${scope}.oldJob`,
+  defaultMessage: 'oldJob',
+},
+oldElemVal: {
+  id: `${scope}.oldElemVal`,
+  defaultMessage: 'oldElemVal',
+},
+PromotionsCreateTitle: {
+  id: `${scope}.PromotionsCreateTitle`,
+  defaultMessage: 'PromotionsCreateTitle',
+},
+PromotionsUpdateTitle: {
+  id: `${scope}.PromotionsUpdateTitle`,
+  defaultMessage: 'PromotionsUpdateTitle',
+},
+//Explanation//////////////////////////////////////////////////////////////////////////////////////////////////////
+ExplanationEditTitle: {
+  id: `${scope}.ExplanationEditTitle`,
+  defaultMessage: 'ExplanationEditTitle',
+},
+hrLetterLang: {
+  id: `${scope}.hrLetterLang`,
+  defaultMessage: 'hrLetterLang',
+},
+expDirectedTo: {
+  id: `${scope}.expDirectedTo`,
+  defaultMessage: 'expDirectedTo',
+},
+hrLetterDate: {
+  id: `${scope}.hrLetterDate`,
+  defaultMessage: 'hrLetterDate',
+},
+response: {
+  id: `${scope}.response`,
+  defaultMessage: 'response',
+},
+//News////////////////////////////////////////////////////////////////////////////////////////////////
+
+NewsCreateTitle: {
+  id: `${scope}.NewsCreateTitle`,
+  defaultMessage: 'NewsCreateTitle',
+},
+NewsUpdateTitle: {
+  id: `${scope}.NewsUpdateTitle`,
+  defaultMessage: 'NewsUpdateTitle',
+},
+
 });

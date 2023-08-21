@@ -5,7 +5,7 @@ import useStyles from 'enl-components/Tables/tableStyle-jss';
 import { addAction, closeNotifAction, resetStateAction} from '../reducers/crudTbActions';
 
 function EditTable(props) {
-  const {anchorTable,title,API,IsNotSave} = props;
+  const {anchorTable,title,API,IsNotSave,isNotAdd} = props;
   const branch = 'crudTableDemo' ;
   const dataTable = useSelector(state => state.crudTableDemo.dataTable);
   const anchor = useSelector(state => state.crudTableDemo.anchor);
@@ -39,6 +39,7 @@ function EditTable(props) {
           anchor={anchor}
           API={API}
           IsNotSave={IsNotSave}
+          isNotAdd={isNotAdd}
         />
       </div>
     </div>

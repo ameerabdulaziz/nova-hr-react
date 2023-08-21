@@ -41,10 +41,7 @@ export default defineMessages({
     id: `${scope}.favorites`,
     defaultMessage: 'Favorites',
   },
-  chooseEmp: {
-    id: `${scope}.chooseEmp`,
-    defaultMessage: 'Select Employee',
-  },
+
   chooseMenu: {
     id: `${scope}.chooseMenu`,
     defaultMessage: 'Select Menu',
@@ -53,14 +50,8 @@ export default defineMessages({
     id: `${scope}.search`,
     defaultMessage: 'Search',
   },
-  save: {
-    id: `${scope}.save`,
-    defaultMessage: 'Save',
-  },
-  reset: {
-    id: `${scope}.reset`,
-    defaultMessage: 'Reset',
-  },
+ 
+ 
   //MailSetting----------------------------------------------------------------------------
   
   email: {

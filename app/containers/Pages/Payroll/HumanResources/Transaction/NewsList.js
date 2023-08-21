@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/PenaltyTransData';
+import ApiData from '../api/NewsData';
 import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import messages from '../messages';
 import Payrollmessages from '../../messages';
 import { FormattedMessage } from 'react-intl';
 import { useHistory,Link} from "react-router-dom";
@@ -19,7 +18,7 @@ import useStyles from '../../Style';
 import { PapperBlock } from 'enl-components';
 
 
-function PenaltyTransList() {
+function NewsList() {
   const history=useHistory();  
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -59,89 +58,42 @@ function PenaltyTransList() {
       },
     },
     {
-      name: 'date',
-      label:<FormattedMessage {...messages['date']} />,
+        name: 'fromDate',
+        label: <FormattedMessage {...Payrollmessages['fromdate']} />,
+        options: {
+          filter: true,
+        },
+      },
+      {
+          name: 'toDate',
+          label: <FormattedMessage {...Payrollmessages['todate']} />,
+          options: {
+              filter: true,
+          },
+      },    
+    {
+      name: 'header',
+      label:<FormattedMessage {...Payrollmessages['title']} />,
       options: {
         filter: true,
       },
     },
     {
-        name: 'yearName',
-        label: <FormattedMessage {...messages['yearName']} />,
+        name: 'details',
+        label: <FormattedMessage {...Payrollmessages['details']} />,
         options: {
           filter: true,
         },
     },
     {
-        name: 'monthName',
-        label: <FormattedMessage {...messages['monthName']} />,
+        name: 'newsTypeName',
+        label: <FormattedMessage {...Payrollmessages['type']} />,
         options: {
             filter: true,
         },
     },    
-    {
-      name: 'employeeName',
-      label: <FormattedMessage {...messages['employeeName']} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-        name: 'superEmployeeName',
-        label: <FormattedMessage {...messages['superEmployeeName']} />,
-        options: {
-            filter: true,
-        },
-    },    
-    {
-      name: 'penaltyName',
-      label: <FormattedMessage {...messages['penaltyName']} />,
-      options: {
-          filter: true,
-      },
-    },
-    {
-        name: 'penaltyTypeName',
-        label: <FormattedMessage {...messages['penaltyTypeName']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'elementName',
-        label: <FormattedMessage {...messages['elementName']} />,
-        options: {
-          filter: true,
-        },
-    },  
-    {
-        name: 'value',
-        label: <FormattedMessage {...messages['value']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'reqSer',
-        label: <FormattedMessage {...messages['reqSer']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'docName',
-        label: <FormattedMessage {...messages['docName']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'note',
-        label: <FormattedMessage {...messages['note']} />,
-        options: {
-            filter: true,
-        },
-        },
+    
+    
     {
       name: 'Actions',
       options: {
@@ -155,7 +107,7 @@ function PenaltyTransList() {
                 aria-label="Edit"
                 size="large"
               >
-                <Link to={`/app/Pages/HR/PenaltyEdit${tableMeta.rowData[0]}`}>
+                <Link to={`/app/Pages/HR/NewsEdit${tableMeta.rowData[0]}`}>
                   <EditIcon />
                 </Link>
               </IconButton>
@@ -193,7 +145,7 @@ function PenaltyTransList() {
           variant="contained"
           onClick={() => {
             debugger;
-            history.push(`/app/Pages/HR/PenaltyCreate`);
+            history.push(`/app/Pages/HR/NewsCreate`);
           }}
           color="secondary"
           className={classes.button}
@@ -256,4 +208,4 @@ function PenaltyTransList() {
   );
 }
 
-export default PenaltyTransList;
+export default NewsList;
