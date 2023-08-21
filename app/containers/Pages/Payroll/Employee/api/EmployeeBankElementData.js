@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 const EmployeeBankElementData = (probs) => {
   const lang = 'en'; //useSelector((state) => state.language.locale);
   const empBankId = probs;
-  //   const [eList, setList] = useState([]);
-  //   const [cList, setcurrencyList] = useState([]);
+  const [eList, setList] = useState([]);
+  const [cList, setcurrencyList] = useState([]);
   const EmployeeBankElementApis = {};
 
-  EmployeeBankElementApis.GetList = async () => {
+  EmployeeBankElementApis.GetList = async (anchorTable) => {
     debugger;
 
     const data = await axiosInstance.get(
@@ -18,32 +18,32 @@ const EmployeeBankElementData = (probs) => {
     const finaldata = result.map((obj) => ({
       id: obj.id,
       empBankId: obj.empBankId,
-      elementId: obj.elementId,
+      elementId: obj.PayTemplateId,
       currencyId: obj.currencyId,
-      elementName: obj.elementName,
+      elementName: obj.payTemplateName,
       currencyName: obj.currencyName,
       edited: false,
     }));
-    // setList(data.data.elementList);
-    // const elemList = data.data.elementList.map((obj) => obj.name);
-    // setcurrencyList(data.data.currencyList);
-    // const currencyList = data.data.currencyList.map((obj) => obj.name);
-    // console.log(elemList);
-    // anchorTable[2].options = elemList;
-    // anchorTable[2].initialValue = elemList[0];
-    // anchorTable[4].options = currencyList;
-    // anchorTable[4].initialValue = currencyList[0];
-    return finaldata;
-    // return { finaldata, anchorTable };
+    setList(data.data.PayTemplateList);
+    const elemList = data.data.payTemplateList.map((obj) => obj.name);
+    setcurrencyList(data.data.currencyList);
+    const currencyList = data.data.currencyList.map((obj) => obj.name);
+    console.log(elemList);
+    anchorTable[2].options = elemList;
+    anchorTable[2].initialValue = elemList[0];
+    anchorTable[4].options = currencyList;
+    anchorTable[4].initialValue = currencyList[0];
+    // return finaldata;
+    return { finaldata, anchorTable };
   };
 
   EmployeeBankElementApis.Save = async (Item) => {
-    const elementId = 1; // eList.find((ele) => ele.name === Item.elementName).id;
-    const currencyId = 2; //cList.find((ele) => ele.name === Item.currencyName).id;
+    const elementId = eList.find((ele) => ele.name === Item.payTemplateName).id;
+    const currencyId = cList.find((ele) => ele.name === Item.currencyName).id;
     const data = {
       id: Item.id,
       empBankId: empBankId,
-      elementId: elementId,
+      payTemplateId: elementId,
       currencyId: currencyId,
     };
 

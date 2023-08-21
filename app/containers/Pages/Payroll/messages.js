@@ -21,4 +21,8 @@ export default defineMessages({
     id: `${scope}.cancel`,
     defaultMessage: 'cancel',
   },
-  });
+  delete: {
+    id: `${scope}.delete`,
+    defaultMessage: 'Delete',
+  },
+});

@@ -73,13 +73,14 @@ const contactData = (props) => {
     const result = data.data.empBankList;
     const finaldata = result.map((obj) => ({
       key: obj.id,
-      avatar: avatarApi[9],
+      avatar: avatarApi[11],
       name: obj.bankName,
       bankBranchNo: obj.bankBranchNo,
       bnkEmpCode: obj.bnkEmpCode,
       swiftCode: obj.swiftCode,
       iban: obj.iban,
       bankId: obj.bankId,
+      bnkAcc: obj.bnkAcc,
       employeeId: obj.employeeId,
       favorited: false,
     }));
@@ -88,15 +89,15 @@ const contactData = (props) => {
       const finaldata2 = [
         {
           key: 0,
-          avatar: avatarApi[9],
+          avatar: avatarApi[11],
           name: '',
-          title: '',
-          phone: '',
-          secondaryPhone: '',
-          personalEmail: '',
-          companyEmail: '',
-          address: '',
-          website: 'http://doeclans.net',
+          bankBranchNo: '',
+          bnkEmpCode: '',
+          swiftCode: '',
+          iban: '',
+          bankId: 0,
+          bnkAcc: '',
+          employeeId: employeeid,
           favorited: false,
         },
       ];

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles } from 'tss-react/mui';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -7,51 +6,24 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import EmployeeCarData from '../api/EmployeeCarData';
 import { toast } from 'react-hot-toast';
+import notif from 'enl-api/ui/notifMessage';
 import { useSelector, useDispatch } from 'react-redux';
-import UserMenuData from '../../Setting/api/UserMenuData';
-// validation functions
-//const required = (value) => (value == null ? 'Required' : undefined);
-const email = (value) =>
-  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-    ? 'Invalid email'
-    : undefined;
+import GeneralListApis from '../../api/GeneralListApis';
+import { Autocomplete } from '@mui/material';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import useStyles from '../../Style';
+import messages from '../messages';
+import Payrollmessages from '../../messages';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 
-const useStyles = makeStyles()((theme) => ({
-  root: {
-    flexGrow: 1,
-    padding: 30,
-  },
-  field: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  fieldBasic: {
-    width: '100%',
-    marginBottom: 20,
-    marginTop: 10,
-  },
-  inlineWrap: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  buttonInit: {
-    margin: theme.spacing(4),
-    textAlign: 'center',
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  menu: {
-    width: 200,
-  },
-}));
-
-function EmployeeCar() {
+function EmployeeCar(props) {
+  const { intl, pristine } = props;
+  const [processing, setprocessing] = useState(false);
+  const [delprocessing, setdelprocessing] = useState(false);
+  const [progress, setProgress] = useState(false);
   const title = localStorage.getItem('MenuName');
   const [employee, setEmployee] = useState(0);
   const [id, setid] = useState(0);
@@ -60,56 +32,93 @@ function EmployeeCar() {
   const [licenseNo, setlicenseNo] = useState('');
   const [trafficUnit, settrafficUnit] = useState('');
   const [hasLicense, sethasLicense] = useState('');
-  const [licenseGradeId, setlicenseGradeId] = useState('');
+  const [licenseGradeId, setlicenseGradeId] = useState({});
   const [gradelist, setgradelist] = useState('');
+  const [employeeList, setemployeeList] = useState([]);
+  const [required, setRequired] = useState({ required: false });
+
   const trueBool = true;
   const { classes } = useStyles();
   // const { pristine, submitting, init } = props;
   const locale = useSelector((state) => state.language.locale);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
+      setprocessing(true);
+      debugger;
+      const data = {
+        id: id,
+        employeeId: employee,
+        carModel: carModel,
+        manufactureYear: manufactureYear,
+        licenseNo: licenseNo,
+        trafficUnit: trafficUnit,
+        hasLicense: hasLicense,
+        licenseGradeId: licenseGradeId.id ?? '',
+      };
 
-    const data = {
-      id: id,
-      employeeId: employee,
-      carModel: carModel,
-      manufactureYear: manufactureYear,
-      licenseNo: licenseNo,
-      trafficUnit: trafficUnit,
-      hasLicense: hasLicense,
-      licenseGradeId: licenseGradeId,
-    };
+      const dataApi = await EmployeeCarData().Save(data);
+      if (dataApi.status == 200) {
+        if (id == 0) setid(dataApi.data.id);
 
-    const dataApi = await EmployeeCarData().Save(data);
+        toast.success(notif.saved);
+      } else {
+        toast.error(dataApi.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+    setprocessing(false);
+  };
+  const deletedata = async (e) => {
+    try {
+      setdelprocessing(true);
+      const dataApi = await EmployeeCarData().Delete(id);
+      if (dataApi.status == 200) {
+        clear();
+        toast.error(notif.removed);
+      } else {
+        toast.error(dataApi.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+    setdelprocessing(false);
   };
   const clear = (e) => {
-    setlicenseNo();
-    setlicenseGradeId();
-    sethasLicense();
-    setcarModel();
-    setmanufactureYear();
-    settrafficUnit();
-    setgradelist();
+    setid(0);
+    setlicenseNo('');
+    setlicenseGradeId({});
+    sethasLicense('');
+    setcarModel('');
+    setmanufactureYear('');
+    settrafficUnit('');
+    // setgradelist();
   };
-  const GetUserMenuLookup = useCallback(async () => {
+  const GetLookup = useCallback(async () => {
     try {
       debugger;
-      const data = await UserMenuData().GetUserMenuLookup(locale);
-      setEmployeeList(data.employees || []);
+      const employeedata = await GeneralListApis(locale).GetEmployeeList();
+      setemployeeList(employeedata || []);
+      const LicenseGradedata = await GeneralListApis(
+        locale
+      ).GetLicenseGradeList();
+      setgradelist(LicenseGradedata || []);
     } catch (err) {
       toast.error(err);
     }
   }, []);
 
   useEffect(() => {
-    GetUserMenuLookup();
+    GetLookup();
   }, []);
 
   useEffect(() => {
     async function fetchData() {
+      setProgress(true);
       // You can await here
-      const dataApi = await EmployeeCarData().GetList();
+      const dataApi = await EmployeeCarData(locale).GetList(employee);
 
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
@@ -117,10 +126,17 @@ function EmployeeCar() {
         setlicenseNo(dataApi[0].licenseNo);
         setmanufactureYear(dataApi[0].manufactureYear);
         setcarModel(dataApi[0].carModel);
-        setmail(dataApi[0].email);
-        setlicenseGradeId(dataApi[0].licenseGradeId);
-        setgradelist(dataApi[0].gradeList);
+        sethasLicense(dataApi[0].hasLicense);
+        setlicenseGradeId({
+          id: dataApi[0].licenseGradeId,
+          name: dataApi[0].gradeName,
+        });
+        // { id: 0, name: '' }
+        // setgradelist(dataApi[0].gradeList);
+      } else {
+        clear();
       }
+      setProgress(false);
     }
     fetchData();
     // if (!data.length) { fetchData(); }
@@ -161,6 +177,15 @@ function EmployeeCar() {
                 />
               )}
             />
+            {progress && (
+              <div>
+                {' '}
+                <LinearProgress />
+                <br />
+                <LinearProgress color="secondary" />
+                <br />
+              </div>
+            )}
             <form onSubmit={handleSubmit}>
               <div>
                 <TextField
@@ -168,8 +193,8 @@ function EmployeeCar() {
                   name="carModel"
                   value={carModel}
                   onChange={(e) => setcarModel(e.target.value)}
-                  placeholder="Telephone"
-                  label="Telephone"
+                  placeholder={intl.formatMessage(messages.carModel)}
+                  label={intl.formatMessage(messages.carModel)}
                   // validate={required}
                   required
                   className={classes.field}
@@ -183,8 +208,8 @@ function EmployeeCar() {
                   name="manufactureYear"
                   value={manufactureYear}
                   onChange={(e) => setmanufactureYear(e.target.value)}
-                  placeholder="manufactureYear"
-                  label="manufactureYear"
+                  placeholder={intl.formatMessage(messages.manufactureYear)}
+                  label={intl.formatMessage(messages.manufactureYear)}
                   // validate={required}
                   required
                   className={classes.field}
@@ -198,24 +223,26 @@ function EmployeeCar() {
                   control={
                     <Switch
                       checked={hasLicense}
-                      onChange={() => sethasLicense(!hasLicense)}
+                      onChange={() => {
+                        sethasLicense(!hasLicense);
+                        setRequired({ required: !hasLicense });
+                      }}
                       color="secondary"
                     />
                   }
-                  label="Has License"
+                  label={intl.formatMessage(messages.hasLicense)}
                 />
               </div>
-
               <div>
                 <TextField
                   id="licenseNo"
                   name="licenseNo"
                   value={licenseNo}
                   onChange={(e) => setlicenseNo(e.target.value)}
-                  placeholder="work manufactureYear"
-                  label="work manufactureYear"
+                  placeholder={intl.formatMessage(messages.licenseNo)}
+                  label={intl.formatMessage(messages.licenseNo)}
                   // validate={required}
-                  required
+                  {...required}
                   className={classes.field}
                   margin="normal"
                   variant="outlined"
@@ -227,64 +254,79 @@ function EmployeeCar() {
                   name="trafficUnit"
                   value={trafficUnit}
                   onChange={(e) => settrafficUnit(e.target.value)}
-                  placeholder="relatives Phone No"
-                  label="relatives Phone No"
+                  placeholder={intl.formatMessage(messages.trafficUnit)}
+                  label={intl.formatMessage(messages.trafficUnit)}
                   // validate={required}
-                  required
+                  {...required}
                   className={classes.field}
                   margin="normal"
                   variant="outlined"
                 />
               </div>
+              <br />
               <div>
                 <Autocomplete
-                  id="licenseGradeId"
+                  id="ddlgrade"
                   options={gradelist}
-                  getOptionLabel={
-                    (option) =>
-                      // option.title
-                      option ? option.name : ''
-                    // locale=="en"?option.enName:option.arName
-                  }
-                  renderOption={(props, option) => {
-                    return (
-                      <li {...props} key={option.id}>
-                        {option.name}
-                      </li>
-                    );
-                  }}
+                  value={{ id: licenseGradeId.id, name: licenseGradeId.name }}
+                  getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
+                    debugger;
                     if (value !== null) {
-                      setlicenseGradeId(value.id);
+                      setlicenseGradeId((prevFilters) => ({
+                        ...prevFilters,
+                        id: value.id,
+                        name: value.name,
+                      }));
                     } else {
-                      setlicenseGradeId('');
+                      setlicenseGradeId((prevFilters) => ({
+                        ...prevFilters,
+                        id: 0,
+                        name: '',
+                      }));
                     }
                   }}
                   renderInput={(params) => (
                     <TextField
-                      // variant="standard"
+                      //margin="normal"
+
                       {...params}
-                      name="licenseGradeIdchk"
-                      value={licenseGradeId}
-                      label="License Grade"
-                      margin="normal"
-                      required
+                      name="licenseGrade"
+                      label={intl.formatMessage(messages.licenseGrade)}
+                      variant="outlined"
                     />
                   )}
                 />
               </div>
 
+              <br />
               <div>
                 <Button
                   variant="contained"
                   color="secondary"
                   type="submit"
-                  //disabled={submitting}
+                  disabled={employee === 0 || processing || delprocessing}
                 >
-                  Submit
+                  {processing && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )}
+                  <FormattedMessage {...Payrollmessages.save} />
                 </Button>
-                <Button type="reset" onClick={clear}>
-                  Reset
+                <Button
+                  type="button"
+                  disabled={employee === 0 || pristine || processing}
+                  onClick={() => deletedata()}
+                >
+                  {delprocessing && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )}
+                  <FormattedMessage {...Payrollmessages.delete} />
                 </Button>
               </div>
             </form>
@@ -295,4 +337,4 @@ function EmployeeCar() {
   );
 }
 
-export default EmployeeCar;
+export default injectIntl(EmployeeCar);

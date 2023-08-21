@@ -1,68 +1,67 @@
 import { makeStyles } from 'tss-react/mui';
 const useStyles = makeStyles()((theme) => ({
-    table: {
-      '& > div': {
-        overflow: 'auto',
+  table: {
+    '& > div': {
+      overflow: 'auto',
+    },
+    '& table': {
+      '& td': {
+        wordBreak: 'keep-all',
       },
-      '& table': {
+      [theme.breakpoints.down('lg')]: {
         '& td': {
-          wordBreak: 'keep-all',
-        },
-        [theme.breakpoints.down('lg')]: {
-          '& td': {
-            height: 60,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          },
+          height: 60,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         },
       },
     },
-    root: {
-      flexGrow: 1,
-      padding: 30,
-    },
-    card:{
-     borderRadius: "8px",
-     borderStyle: "solid",
-     borderWidth: "1px",
-     padding: "10px",
-     borderColor: "rgba(0, 0, 0, 0.20);",
-       /* 
+  },
+  root: {
+    flexGrow: 1,
+    padding: 30,
+  },
+  card: {
+    borderRadius: '8px',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    padding: '10px',
+    borderColor: 'rgba(0, 0, 0, 0.20);',
+    /* 
       
       ,
        */
-    },
-    field: {
-      width: '100%',
-      
-      //marginBottom: 20,
-      //margin: theme.spacing(1),
-    },
-    fieldBasic: {
-      width: '100%',
-      marginBottom: 20,
-      marginTop: 10,
-    },
-    inlineWrap: {
-      display: 'flex',
-      flexDirection: 'row',
-    },
-    buttonInit: {
-      margin: theme.spacing(4),
-      textAlign: 'center',
-    },
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-    menu: {
-      width: 200,
-    },
-  }));
+  },
+  field: {
+    width: '100%',
 
-  export default useStyles;
-  
+    //marginBottom: 20,
+    //margin: theme.spacing(1),
+  },
+  fieldBasic: {
+    width: '100%',
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  inlineWrap: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  buttonInit: {
+    margin: theme.spacing(40),
+    textAlign: 'center',
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  menu: {
+    width: 200,
+  },
+}));
+
+export default useStyles;

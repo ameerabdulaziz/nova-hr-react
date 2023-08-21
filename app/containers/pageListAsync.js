@@ -243,7 +243,6 @@ export const ForgotPassword = loadable(
   }
 );
 
-
 export const LockScreen = loadable(() => import('./Pages/Users/LockScreen'), {
   fallback: <Loading />,
 });
@@ -678,7 +677,6 @@ export const LayOffNoticeEdit = loadable(
   }
 );
 
-
 //Employee /////////////////////////////////////////////////////////////////////////////////
 
 export const EmployeeList = loadable(
@@ -702,6 +700,57 @@ export const EmployeeAddress = loadable(
 
 export const EmployeeCourse = loadable(
   () => import('./Pages/Payroll/Employee/Code/EmployeeCourse'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeExperince = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeExperince'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmployeeInsurance = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeInsurance'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmployeeBank = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeBank'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmployeeQualification = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeQualification'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeCar = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeCar'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmployeeContactInfo = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeContactInfo'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeSalary = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeSalary'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmployeeContract = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeContract'),
   {
     fallback: <Loading />,
   }

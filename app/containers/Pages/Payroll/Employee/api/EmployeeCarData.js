@@ -1,9 +1,11 @@
 import axiosInstance from '../../api/axios';
-const EmployeeCarData = () => {
+const EmployeeCarData = (locale) => {
   const Apis = {};
 
-  Apis.GetList = async () => {
-    const data = await axiosInstance.get('MdEmployeeCar');
+  Apis.GetList = async (employeeId) => {
+    const data = await axiosInstance.get(
+      `EmpCar/GetAllModel/${employeeId}/${locale}`
+    );
     const result = data.data;
     return result;
   };
@@ -17,14 +19,20 @@ const EmployeeCarData = () => {
     //   accNo: Item.accNo,
     //   note: Item.note,
     // };
-
+    debugger;
     const result =
       data.id === 0
-        ? await axiosInstance.post('MdEmployeeCar', data)
-        : await axiosInstance.put(`MdEmployeeCar/${data.id}`, data);
+        ? await axiosInstance.post('EmpCar', data)
+        : await axiosInstance.put(`EmpCar/${data.id}`, data);
     return result;
   };
 
+  Apis.Delete = async (id) => {
+    // debugger;
+
+    const data = await axiosInstance.delete(`EmpCar/${id}`);
+    return data;
+  };
   return Apis;
 };
 

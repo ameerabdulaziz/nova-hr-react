@@ -43,7 +43,6 @@ const CompanyChart = () => {
   
   const getdata =  async () => {
     
-    debugger;
       const result =  await CompanyChartData().GetOrganizationChart();      
       setData(result[0]); 
       console.log(result[0]);    

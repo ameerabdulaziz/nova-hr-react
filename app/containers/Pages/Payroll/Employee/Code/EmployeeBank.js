@@ -5,8 +5,8 @@ import brand from 'enl-api/dummy/brand';
 import dummy from 'enl-api/dummy/dummyContents';
 import { Notification } from 'enl-components';
 import ContactDetail from '../component/ContactDetail';
-import ContactList from '../component/ContactList';
-
+import Fab from '@mui/material/Fab';
+import Add from '@mui/icons-material/Add';
 import PropTypes from 'prop-types';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -68,21 +68,6 @@ function Contact() {
   //   const favorite = useDispatch();
   //   const search = useDispatch();
   //   const closeNotif = useDispatch();
-
-  useEffect(() => {
-    async function fetchData1() {
-      debugger;
-
-      const dataApi = await data(employee).GetList();
-      setdata(dataApi);
-      setitemSelected(0);
-      //setloading(true);
-      //fetchAction(dataApi);
-      // fetchData(fetchAction(dataApi));
-    }
-
-    fetchData1();
-  }, [employee]);
   useEffect(() => {
     async function fetchEmployee() {
       debugger;
@@ -93,10 +78,26 @@ function Contact() {
       const bnkdata = await data(employee).GetUserMenuLookup('en');
       setBankList(bnkdata || []);
 
-      if (empdata.employees != []) setEmployee(empdata.employees[0].id);
+      if (empdata.employees && empdata.employees.length > 0)
+        setEmployee(empdata.employees[0].id);
     }
     fetchEmployee();
   }, []);
+
+  useEffect(() => {
+    async function fetchData1() {
+      debugger;
+
+      const dataApi = await data(employee).GetList();
+      setdata(dataApi);
+      setitemSelected(-1);
+      //setloading(true);
+      //fetchAction(dataApi);
+      // fetchData(fetchAction(dataApi));
+    }
+
+    fetchData1();
+  }, [employee]);
 
   const getItem = (dataArray) =>
     dataArray.map((data) => {
@@ -136,7 +137,7 @@ function Contact() {
     submit(submitAction(item, avatarPreview));
   };
 
-  const title = brand.name + ' - Contact';
+  const title = brand.name + ' - Banks';
   const description = brand.desc;
   const { classes, cx } = useStyles();
 
@@ -204,6 +205,16 @@ function Contact() {
             </div>
           </Drawer>
         </Fragment>
+
+        <Tooltip title="add">
+          <Fab
+            color="secondary"
+            onClick={() => setitemSelected(-1)}
+            className={classes.addBtn}
+          >
+            <Add />
+          </Fab>
+        </Tooltip>
 
         <ContactDetail
           loading={loading}

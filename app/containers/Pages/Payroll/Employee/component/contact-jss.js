@@ -192,7 +192,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     background: theme.palette.background.paper,
     border: `1px solid ${theme.palette.divider}`,
     marginRight: theme.spacing(0.5),
-    height: theme.spacing(6.8),
+    height: theme.spacing(5.8),
     margin: '0px',
   },
   search: {
@@ -222,6 +222,9 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     '&:focus': {
       outline: 0,
     },
+  },
+  EditBtn: {
+    background: theme.palette.background.paper,
   },
   bottomFilter: {
     position: 'absolute',
@@ -357,7 +360,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       background: alpha(
         theme.palette.mode === 'dark'
           ? theme.palette.primary.dark
-          : theme.palette.background.paper,
+          : theme.palette.background.default,
         0.8
       ),
     },

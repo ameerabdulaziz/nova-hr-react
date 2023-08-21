@@ -9,18 +9,18 @@ import { injectIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import messages from '../messages';
 import { EditTable } from '../../../../Tables/demos';
-
+import useStyles from '../../Style';
 import { toast } from 'react-hot-toast';
 import EmployeeCourseData from '../api/EmployeeCourseData';
 import UserMenuData from '../../Setting/api/UserMenuData';
 import { CrudTable, Notification } from 'enl-components';
 import { Grid, TextField, Autocomplete } from '@mui/material';
 
-const useStyles = makeStyles()(() => ({
-  root: {
-    flexGrow: 1,
-  },
-}));
+// const useStyles = makeStyles()(() => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+// }));
 
 function EmployeeCourse(props) {
   const { intl } = props;

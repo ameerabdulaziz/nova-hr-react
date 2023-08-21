@@ -134,7 +134,73 @@ export default defineMessages({
   },
   enaddress: {
     id: `${scope}.codes.enaddress`,
-    defaultMessage: 'English Date',
+    defaultMessage: 'English Address',
+  },
+  city: {
+    id: `${scope}.codes.city`,
+    defaultMessage: 'City',
+  },
+  fromdate: {
+    id: `${scope}.codes.fromdate`,
+    defaultMessage: 'From Date',
+  },
+  todate: {
+    id: `${scope}.codes.todate`,
+    defaultMessage: 'To Date',
+  },
+  companyname: {
+    id: `${scope}.codes.companyname`,
+    defaultMessage: 'Company Name',
+  },
+
+  monthno: {
+    id: `${scope}.codes.monthno`,
+    defaultMessage: 'month No',
+  },
+
+  bank: {
+    id: `${scope}.codes.bank`,
+    defaultMessage: 'Bank',
+  },
+  bankBranchNo: {
+    id: `${scope}.codes.bankBranchNo`,
+    defaultMessage: 'Branch No',
+  },
+  iban: {
+    id: `${scope}.codes.iban`,
+    defaultMessage: 'Iban',
+  },
+  bnkAcc: {
+    id: `${scope}.codes.bnkAcc`,
+    defaultMessage: 'Bank Account',
+  },
+  bnkEmpCode: {
+    id: `${scope}.codes.bnkEmpCode`,
+    defaultMessage: 'Emoloyee Bank Code',
+  },
+  swiftCode: {
+    id: `${scope}.codes.swiftCode`,
+    defaultMessage: 'Swift Code',
+  },
+  qualification: {
+    id: `${scope}.codes.qualification`,
+    defaultMessage: 'Qualification',
+  },
+  qualificationRelease: {
+    id: `${scope}.codes.qualificationRelease`,
+    defaultMessage: 'Qualification Release',
+  },
+  qualificationDate: {
+    id: `${scope}.codes.qualificationDate`,
+    defaultMessage: 'Qualification Date',
+  },
+  grade: {
+    id: `${scope}.codes.grade`,
+    defaultMessage: 'Grade',
+  },
+  membershipNo: {
+    id: `${scope}.codes.membershipNo`,
+    defaultMessage: 'Member Ship No',
   },
   city: {
     id: `${scope}.codes.city`,
@@ -156,8 +222,8 @@ export default defineMessages({
     id: `${scope}.codes.PenaltyTypeName`,
     defaultMessage: 'Type Name',
   },
-  PenaltyValue:{
+  PenaltyValue: {
     id: `${scope}.codes.PenaltyValue`,
     defaultMessage: 'Value',
-  }
+  },
 });

@@ -2,8 +2,9 @@ import axiosInstance from '../../api/axios';
 const EmployeeContactInfoData = () => {
   const Apis = {};
 
-  Apis.GetList = async () => {
-    const data = await axiosInstance.get('MdEmployeeContactInfo');
+  Apis.GetList = async (employeeId) => {
+    debugger;
+    const data = await axiosInstance.get(`EmpContactInfo/GetAll/${employeeId}`);
     const result = data.data;
     return result;
   };
@@ -20,8 +21,8 @@ const EmployeeContactInfoData = () => {
 
     const result =
       data.id === 0
-        ? await axiosInstance.post('MdEmployeeContactInfo', data)
-        : await axiosInstance.put(`MdEmployeeContactInfo/${data.id}`, data);
+        ? await axiosInstance.post('EmpContactInfo', data)
+        : await axiosInstance.put(`EmpContactInfo/${data.id}`, data);
     return result;
   };
 

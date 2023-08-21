@@ -8,54 +8,22 @@ import TextField from '@mui/material/TextField';
 import EmployeeContactInfoData from '../api/EmployeeContactInfoData';
 import { toast } from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from '../messages';
-import UserMenuData from '../../Setting/api/UserMenuData';
+import GeneralListApis from '../../api/GeneralListApis';
 import { Autocomplete } from '@mui/material';
-// validation functions
-//const required = (value) => (value == null ? 'Required' : undefined);
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
+import Payrollmessages from '../../messages';
+import useStyles from '../../Style';
+import notif from 'enl-api/ui/notifMessage';
 const email = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email'
     : undefined;
 
-const useStyles = makeStyles()((theme) => ({
-  root: {
-    flexGrow: 1,
-    padding: 30,
-  },
-  field: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  fieldBasic: {
-    width: '100%',
-    marginBottom: 20,
-    marginTop: 10,
-  },
-  inlineWrap: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  buttonInit: {
-    margin: theme.spacing(4),
-    textAlign: 'center',
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  menu: {
-    width: 200,
-  },
-}));
-
 function EmployeeContactInfo(props) {
-  const { intl } = props;
+  const { intl, pristine } = props;
   const title = localStorage.getItem('MenuName');
   const [employee, setEmployee] = useState(0);
   const [employeeList, setEmployeeList] = useState([]);
@@ -70,49 +38,64 @@ function EmployeeContactInfo(props) {
   const { classes } = useStyles();
   // const { pristine, submitting, init } = props;
   const locale = useSelector((state) => state.language.locale);
+  const [progress, setProgress] = useState(false);
+  const [processing, setprocessing] = useState(false);
+  const [delprocessing, setdelprocessing] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const data = {
-      id: id,
-      employeeId: employee,
-      telPhone: TelPhone,
-      mobile: Mobile,
-      workMobile: WorkMobile,
-      relativesPhoneNo: relativesPhoneNo,
-      email: mail,
-      workEmail: WorkEmail,
-    };
-
-    const dataApi = await EmployeeContactInfoData().Save(data);
-  };
-  const clear = (e) => {
-    settelPhone();
-    setmobile();
-    setworkMobile();
-    setrelativesPhoneNo();
-    setmail();
-    setworkEmail();
-  };
-  const GetUserMenuLookup = useCallback(async () => {
     try {
       debugger;
-      const data = await UserMenuData().GetUserMenuLookup(locale);
-      setEmployeeList(data.employees || []);
+      e.preventDefault();
+      setprocessing(true);
+      const data = {
+        id: id,
+        employeeId: employee,
+        telPhone: telPhone,
+        mobile: mobile,
+        workMobile: workMobile,
+        relativesPhoneNo: relativesPhoneNo,
+        email: mail,
+        workEmail: workEmail,
+      };
+
+      const dataApi = await EmployeeContactInfoData().Save(data);
+      if (dataApi.status == 200) {
+        if (id == 0) setid(dataApi.data.id);
+        toast.success(notif.saved);
+      } else {
+        toast.error(dataApi.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+    setprocessing(false);
+  };
+  const clear = (e) => {
+    setid(0);
+    settelPhone('');
+    setmobile('');
+    setworkMobile('');
+    setrelativesPhoneNo('');
+    setmail('');
+    setworkEmail('');
+  };
+  const GetLookup = useCallback(async () => {
+    try {
+      debugger;
+      const employeedata = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employeedata || []);
     } catch (err) {
       toast.error(err);
     }
   }, []);
-
   useEffect(() => {
-    GetUserMenuLookup();
+    GetLookup();
   }, []);
 
   useEffect(() => {
     async function fetchData() {
-      // You can await here
-      const dataApi = await EmployeeContactInfoData().GetList();
+      setProgress(true);
+      const dataApi = await EmployeeContactInfoData().GetList(employee);
 
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
@@ -122,11 +105,31 @@ function EmployeeContactInfo(props) {
         settelPhone(dataApi[0].telPhone);
         setmail(dataApi[0].email);
         setworkEmail(dataApi[0].workEmail);
-      }
+      } else clear();
+
+      setProgress(false);
     }
     fetchData();
     // if (!data.length) { fetchData(); }
-  }, []);
+  }, [employee]);
+  const deletedata = async (e) => {
+    try {
+      debugger;
+      // e.preventDefault();
+
+      setdelprocessing(true);
+      const dataApi = await EmployeeContactInfoData().Delete(id);
+      if (dataApi.status == 200) {
+        clear();
+        toast.error(notif.removed);
+      } else {
+        toast.error(dataApi.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+    setdelprocessing(false);
+  };
   return (
     <div>
       <Grid
@@ -163,6 +166,15 @@ function EmployeeContactInfo(props) {
                 />
               )}
             />
+            {progress && (
+              <div>
+                {' '}
+                <LinearProgress />
+                <br />
+                <LinearProgress color="secondary" />
+                <br />
+              </div>
+            )}
             <form onSubmit={handleSubmit}>
               <div>
                 <TextField
@@ -249,7 +261,7 @@ function EmployeeContactInfo(props) {
                   id="workEmail"
                   name="workEmail"
                   value={workEmail}
-                  onChange={(e) => setmail(e.target.value)}
+                  onChange={(e) => setworkEmail(e.target.value)}
                   placeholder="work Email"
                   label="work Email"
                   required
@@ -260,19 +272,36 @@ function EmployeeContactInfo(props) {
                   variant="outlined"
                 />
               </div>
-
               <div>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  //disabled={submitting}
-                >
-                  Submit
-                </Button>
-                <Button type="reset" onClick={clear}>
-                  Reset
-                </Button>
+                <div>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                    disabled={employee === 0 || processing || delprocessing}
+                  >
+                    {processing && (
+                      <CircularProgress
+                        size={24}
+                        className={classes.buttonProgress}
+                      />
+                    )}
+                    <FormattedMessage {...Payrollmessages.save} />
+                  </Button>
+                  <Button
+                    type="button"
+                    disabled={employee === 0 || pristine || processing}
+                    onClick={() => deletedata()}
+                  >
+                    {delprocessing && (
+                      <CircularProgress
+                        size={24}
+                        className={classes.buttonProgress}
+                      />
+                    )}
+                    <FormattedMessage {...Payrollmessages.delete} />
+                  </Button>
+                </div>
               </div>
             </form>
           </Paper>

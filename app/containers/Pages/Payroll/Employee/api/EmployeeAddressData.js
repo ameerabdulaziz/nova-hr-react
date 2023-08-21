@@ -37,9 +37,11 @@ const EmployeeAddressData = (probs) => {
     const cityList = data.data.cityList.map((obj) => obj.name);
     console.log(govList);
     anchorTable[3].options = govList;
-    anchorTable[3].initialValue = govList[0];
+    anchorTable[3].initialValue = '';
+    anchorTable[3].orignaldata = data.data.governmentList; // govList[0];
     anchorTable[5].options = cityList;
-    anchorTable[5].initialValue = cityList[0];
+    anchorTable[5].initialValue = '';
+    anchorTable[5].orignaldata = data.data.cityList; //cityList[0];
 
     return { finaldata, anchorTable };
   };
