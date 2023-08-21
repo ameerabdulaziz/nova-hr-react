@@ -138,7 +138,9 @@ import {
   RewardTransList,RewardCreate,RewardEdit,PenaltyTransList,PenaltyTransCreate,PenaltyTransEdit,
   AttentionList,AttentionCreate,AttentionEdit,LayOffNoticeList,LayOffNoticeCreate,LayOffNoticeEdit,
   PromotionsList,PromotionsCreate,PromotionsEdit,PromotionsReport,DirectManager,ExplanationList,ExplanationEdit,ExplanationReport,
-  Complaint,HrLetter,NewIdea,OrganizationManger,NewsList,NewsCreate,NewsEdit
+  Complaint,HrLetter,NewIdea,OrganizationManger,NewsList,NewsCreate,NewsEdit,
+  ImportFile,
+  UploadEmployeeData,
 
 } from '../pageListAsync';
 
@@ -446,7 +448,8 @@ function Application(props) {
         <Route path="/app/Pages/MainData/CompanyChart" component={withAuthorizationRouter(CompanyChart)} />
         <Route path="/app/Pages/MainData/EmployeeChart" component={withAuthorizationRouter(EmployeeChart)} />   
         <Route path="/app/Pages/MainData/Organization" component={withAuthorizationRouter(Organization)} />   
-            
+        <Route path="/app/Pages/MainData/Upload_KPI_Data" component={ImportFile} />
+        <Route path="/app/Pages/MainData/UploadEmployeeData" component={UploadEmployeeData} />       
         
         {/* Setting */}
         <Route
