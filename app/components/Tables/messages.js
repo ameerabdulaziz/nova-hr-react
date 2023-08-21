@@ -226,8 +226,6 @@ export default defineMessages({
     id: `${scope}.codes.PenaltyValue`,
     defaultMessage: 'Value',
   },
-<<<<<<< HEAD
-=======
   employeeName:{
     id: `${scope}.codes.employeeName`,
     defaultMessage: 'Value',
@@ -236,5 +234,4 @@ export default defineMessages({
     id: `${scope}.codes.newEmployeeName`,
     defaultMessage: 'Value',
   }
->>>>>>> e5db13103550138b195a5dbccc73f564c702838b
 });

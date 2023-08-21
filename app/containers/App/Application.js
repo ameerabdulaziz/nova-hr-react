@@ -126,25 +126,6 @@ import {
   EmployeeCourse,
   EmployeeList,
   Courses,
-<<<<<<< HEAD
-  TrainingCenter,
-  ResignReason,
-  Rewards,
-  Penalty,
-  CreatePenalty,
-  EditPenalty,
-  RewardTransList,
-  RewardCreate,
-  RewardEdit,
-  PenaltyTransList,
-  PenaltyTransCreate,
-  PenaltyTransEdit,
-  AttentionList,
-  AttentionCreate,
-  AttentionEdit,
-  LayOffNoticeList,
-  LayOffNoticeCreate,
-  LayOffNoticeEdit,
   EmployeeExperince,
   EmployeeInsurance,
   EmployeeBank,
@@ -153,14 +134,12 @@ import {
   EmployeeCar,
   EmployeeSalary,
   EmployeeContract,
-=======
   TrainingCenter,  ResignReason,Rewards,Penalty,CreatePenalty,EditPenalty,
   RewardTransList,RewardCreate,RewardEdit,PenaltyTransList,PenaltyTransCreate,PenaltyTransEdit,
   AttentionList,AttentionCreate,AttentionEdit,LayOffNoticeList,LayOffNoticeCreate,LayOffNoticeEdit,
   PromotionsList,PromotionsCreate,PromotionsEdit,PromotionsReport,DirectManager,ExplanationList,ExplanationEdit,ExplanationReport,
   Complaint,HrLetter,NewIdea,OrganizationManger,NewsList,NewsCreate,NewsEdit
 
->>>>>>> e5db13103550138b195a5dbccc73f564c702838b
 } from '../pageListAsync';
 
 function Application(props) {
@@ -574,8 +553,6 @@ function Application(props) {
           component={withAuthorizationRouter(LayOffNoticeEdit)}
         />
 
-<<<<<<< HEAD
-=======
         
         <Route path="/app/Pages/HR/LayOffNoticeList" component={withAuthorizationRouter(LayOffNoticeList)} />
         <Route path="/app/Pages/HR/LayOffNoticeCreate" component={withAuthorizationRouter(LayOffNoticeCreate)} />
@@ -601,7 +578,6 @@ function Application(props) {
 
 
         
->>>>>>> e5db13103550138b195a5dbccc73f564c702838b
         {/* Employee */}
         <Route
           path="/app/Pages/Employee/EmployeeList"
