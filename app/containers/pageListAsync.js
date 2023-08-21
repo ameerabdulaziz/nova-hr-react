@@ -748,6 +748,7 @@ export const NewsEdit = loadable(
   }
 );
 
+
 export const ExplanationReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/ExplanationReport'),
   {
