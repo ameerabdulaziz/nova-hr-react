@@ -546,6 +546,20 @@ export const Organization = loadable(
   }
 );
 
+export const CreateOrganization = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CreateAndEditOrg'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditOrganization = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CreateAndEditOrg'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ImportFile = loadable(
   () => import('./Pages/Payroll/MainData/Code/ImportFile'),
   {

@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import useStyles from '../../../../../components/Tables/tableStyle-jss';
+import useStyles from '../../Style';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory , Link  } from 'react-router-dom';
 import classes2 from '../../../../../styles/Styles.scss';
@@ -25,6 +25,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 // import { ImportFiles } from './messages';
 import messages from '../messages';
+import {Card ,CardContent} from "@mui/material";
 
 
 function ImportFile({intl }) {
@@ -161,8 +162,9 @@ const uploadFun = (e) => {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <PapperBlock whiteBg icon="border_color" title="" desc="">
-        <div className={classes.root}>
+        <div className={`${classes.root} ${classes2.btnsContainer}`}>
         
+      {/* <Card className={classes.card}>  */}
 
         <Toolbar className={classes.toolbar}>
 
@@ -330,9 +332,9 @@ const uploadFun = (e) => {
        
  
       </Toolbar>
-
+      {/* </Card> */}
 {fileData.length !== 0 && (
-
+  
   <div className={`${classes2.ImportTableContainer}  ${locale === "ar" ? classes2.tableContainerStyAr : ''}`}>
         <MUIDataTable
           title={fileTitle}
@@ -340,12 +342,12 @@ const uploadFun = (e) => {
           columns={columns}
           options={options}
           className={classes2.tableSty}
-        />
+          />
         </div>
 )}
           {/* <AdvancedTable /> */}
         </div>
-      </PapperBlock>
+</PapperBlock>
     </div>
   );
 }

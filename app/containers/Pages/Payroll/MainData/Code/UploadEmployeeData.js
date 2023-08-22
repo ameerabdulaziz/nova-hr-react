@@ -15,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import useStyles from '../../../../../components/Tables/tableStyle-jss';
+import useStyles from '../../Style';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory , Link  } from 'react-router-dom';
 import classes2 from '../../../../../styles/Styles.scss';
@@ -123,7 +123,7 @@ console.log("fileData =", fileData);
         <meta property="twitter:description" content={description} />
       </Helmet>
       <PapperBlock whiteBg icon="border_color" title="" desc="">
-        <div className={classes.root}>
+        <div className={`${classes.root} ${classes2.btnsContainer}`}>
         
 
         <Toolbar className={classes.toolbar}>

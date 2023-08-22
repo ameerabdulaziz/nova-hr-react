@@ -1011,7 +1011,15 @@
   "boilerplate.containers.Payroll.MainData.codes.Reset": "Reset",
   "boilerplate.containers.Payroll.MainData.codes.Import": "Import",
   "boilerplate.containers.Payroll.MainData.codes.SubmitEmployeeTooltip": "Import Excel File To Can Submit",
-  "boilerplate.containers.Payroll.MainData.codes.Download": "Download"
+  "boilerplate.containers.Payroll.MainData.codes.Download": "Download",
+  "boilerplate.containers.Payroll.MainData.codes.parentNameOrg": "Main Unit",
+  "boilerplate.containers.Payroll.MainData.codes.empName": "Unit Manager",
+  "boilerplate.containers.Payroll.MainData.codes.manPower": "ManPower",
+  "boilerplate.containers.Payroll.MainData.codes.createOrganization": "Create Organization",
+  "boilerplate.containers.Payroll.MainData.codes.editOrganization": "Edit Organization", 
+  "boilerplate.containers.Payroll.MainData.codes.note": "Note", 
+  "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "Work Nature Allowance",
+  "boilerplate.containers.Payroll.MainData.codes.errorMes": "Enter Integer Number"
   
    
    
