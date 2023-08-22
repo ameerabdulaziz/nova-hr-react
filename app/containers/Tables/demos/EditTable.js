@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CrudTable, Notification } from 'enl-components';
-import useStyles from 'enl-components/Tables/tableStyle-jss';
+import useStyles from '../../Pages/Payroll/Style';
 import { addAction, closeNotifAction, resetStateAction} from '../reducers/crudTbActions';
 
 function EditTable(props) {

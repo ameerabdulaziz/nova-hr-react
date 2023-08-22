@@ -185,7 +185,26 @@ async function oncancel(){
         }));   
     }
   
-  
+    /* const useStyles = makeStyles()((theme) => ({
+        divider: {
+          display: 'block',
+          margin: `${theme.spacing(3)} 0`,
+        },
+        bg: {
+          padding: theme.spacing(2),
+          marginBottom: theme.spacing(4),
+          backgroundImage: `linear-gradient(-45deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.main} 33%, ${theme.palette.secondary.dark} 100%);`,
+          textAlign: 'center',
+          borderRadius: theme.rounded.small,
+          '& h3': {
+            color: theme.palette.common.white
+          }
+        },
+        lineBackground: {
+          width: '100%',
+          maxWidth: 500,
+        }
+      })); */
   return (
     <div>
         <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.createRewardTitle):intl.formatMessage(messages.updateRewardTitle)} desc={""}>

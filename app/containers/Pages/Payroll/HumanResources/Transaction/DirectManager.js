@@ -7,7 +7,7 @@ import messages from '../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import DirectMangerData from '../api/DirectMangerData';
 import { toast } from 'react-hot-toast';
-import useStyles from '../../../../../components/Tables/tableStyle-jss';
+import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import GeneralListApis from '../../api/GeneralListApis';

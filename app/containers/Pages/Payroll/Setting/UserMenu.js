@@ -22,7 +22,7 @@ import { injectIntl,FormattedMessage } from 'react-intl';
 import IconButton from '@mui/material/IconButton';
 import UserMenuData from './api/UserMenuData';
 import { toast } from 'react-hot-toast';
-import useStyles from '../../../../components/Tables/tableStyle-jss';
+import useStyles from '../Style';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import Payrollmessages from '../messages';
