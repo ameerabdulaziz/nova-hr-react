@@ -802,6 +802,128 @@ export const DirectManager = loadable(
   }
 );
 
+export const Custody = loadable(
+  () => import('./Pages/Payroll/HumanResources/Code/Custody'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const CustodyCategory = loadable(
+  () => import('./Pages/Payroll/HumanResources/Code/CustodyCategory'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CustodyDeliveryReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/CustodyDeliveryReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const CustodyDeliveryList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/CustodyDeliveryList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const CustodyDeliveryCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/CustodyDeliveryCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const CustodyDeliveryEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/CustodyDeliveryCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CustodyReceiveReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/CustodyReceiveReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const CustodyReceiveList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/CustodyReceiveList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const CustodyReceiveCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/CustodyReceiveCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const CustodyReceiveEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/CustodyReceiveCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+
+export const Uniform = loadable(
+  () => import('./Pages/Payroll/HumanResources/Code/Uniform'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const UniformDeliveryReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/UniformDeliveryReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const UniformDeliveryList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/UniformDeliveryList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const UniformDeliveryCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/UniformDeliveryCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const UniformDeliveryEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/UniformDeliveryCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const UniformReceiveReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/UniformReceiveReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const UniformReceiveList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/UniformReceiveList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const UniformReceiveCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/UniformReceiveCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const UniformReceiveEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/UniformReceiveCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 //Employee /////////////////////////////////////////////////////////////////////////////////
 
 export const EmployeeList = loadable(

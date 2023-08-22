@@ -833,6 +833,10 @@
   "boilerplate.components.tables.codes.PenaltyValue": "القيمة",
   "boilerplate.components.tables.codes.employeeName": "المدير الحالى",
   "boilerplate.components.tables.codes.newEmployeeName": "المدير الجديد",
+  "boilerplate.components.tables.codes.job": "الوظيفة",
+  "boilerplate.components.tables.codes.categoryName": "التصنيف",
+  "boilerplate.components.tables.codes.price": "السعر",
+  
 
 
   "boilerplate.components.tables.codes.fromdate":  "من تاريخ",
@@ -878,6 +882,12 @@
   "boilerplate.containers.Payroll.add": "اضافة",
   "boilerplate.containers.Payroll.yes": "نعم",
   "boilerplate.containers.Payroll.no": "لا", 
+  "boilerplate.containers.Payroll.date": "التاريخ", 
+  "boilerplate.containers.Payroll.notes": "ملاحظات",
+  "boilerplate.containers.Payroll.price": "السعر",   
+  "boilerplate.containers.Payroll.count": "العدد", 
+  
+  
   
   
   
@@ -945,7 +955,20 @@
   "boilerplate.containers.Payroll.HumanResources.ExplanationEditTitle":"تعديل الاقتراحات والشكاوى",  
   "boilerplate.containers.Payroll.HumanResources.response":"الرد", 
   "boilerplate.containers.Payroll.HumanResources.NewsCreateTitle":"اضافة اخبار واعلاتات", 
-  "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle":"تعديل اخبار واعلانات", 
+  "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle":"تعديل اخبار واعلانات",   
+  "boilerplate.containers.Payroll.HumanResources.custodyName":"العهدة",   
+  "boilerplate.containers.Payroll.HumanResources.itemSerial":"كود العهده", 
+
+  "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryCreateTitle":"اضافة تسليم عهدة",   
+  "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryEditTitle":"تعديل تسليم عهده", 
+  "boilerplate.containers.Payroll.HumanResources.CustodyReceiveCreateTitle":"اضافة استلام عهدة",   
+  "boilerplate.containers.Payroll.HumanResources.CustodyReceiveEditTitle":"تعديل استلام عهدة", 
+  "boilerplate.containers.Payroll.HumanResources.UniformDeliveryCreateTitle":"اضافة تسليم زى",   
+  "boilerplate.containers.Payroll.HumanResources.UniformDeliveryEditTitle":"تعديل تسليم زى", 
+  "boilerplate.containers.Payroll.HumanResources.UniformReceiveCreateTitle":"اضافة استلام زى",   
+  "boilerplate.containers.Payroll.HumanResources.UniformReceiveEditTitle":"تعديل استلام زى", 
+  "boilerplate.containers.Payroll.HumanResources.uniformName":"اسم الزى", 
+  
   
   
   

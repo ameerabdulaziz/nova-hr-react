@@ -201,5 +201,50 @@ NewsUpdateTitle: {
   id: `${scope}.NewsUpdateTitle`,
   defaultMessage: 'NewsUpdateTitle',
 },
+//Custody//////////////// //////////////////////////////////////////////////////////////////  ////////
 
+custodyName: {
+  id: `${scope}.custodyName`,
+  defaultMessage: 'custodyName',
+},
+itemSerial: {
+  id: `${scope}.itemSerial`,
+  defaultMessage: 'itemSerial',
+},
+CustodyDeliveryCreateTitle: {
+  id: `${scope}.CustodyDeliveryCreateTitle`,
+  defaultMessage: 'CustodyDeliveryCreateTitle',
+},
+CustodyDeliveryEditTitle: {
+  id: `${scope}.CustodyDeliveryEditTitle`,
+  defaultMessage: 'CustodyDeliveryEditTitle',
+},
+CustodyReceiveCreateTitle: {
+  id: `${scope}.CustodyReceiveCreateTitle`,
+  defaultMessage: 'CustodyReceiveCreateTitle',
+},
+CustodyReceiveEditTitle: {
+  id: `${scope}.CustodyReceiveEditTitle`,
+  defaultMessage: 'CustodyReceiveEditTitle',
+},
+UniformDeliveryCreateTitle: {
+  id: `${scope}.UniformDeliveryCreateTitle`,
+  defaultMessage: 'UniformDeliveryCreateTitle',
+},
+UniformDeliveryEditTitle: {
+  id: `${scope}.UniformDeliveryEditTitle`,
+  defaultMessage: 'UniformDeliveryEditTitle',
+},
+UniformReceiveCreateTitle: {
+  id: `${scope}.UniformReceiveCreateTitle`,
+  defaultMessage: 'UniformReceiveCreateTitle',
+},
+UniformReceiveEditTitle: {
+  id: `${scope}.UniformReceiveEditTitle`,
+  defaultMessage: 'UniformReceiveEditTitle',
+},
+uniformName: {
+  id: `${scope}.uniformName`,
+  defaultMessage: 'uniformName',
+},
 });

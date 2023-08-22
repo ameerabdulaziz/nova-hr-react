@@ -233,5 +233,18 @@ export default defineMessages({
   newEmployeeName:{
     id: `${scope}.codes.newEmployeeName`,
     defaultMessage: 'Value',
-  }
+  },
+  job:{
+    id: `${scope}.codes.job`,
+    defaultMessage: 'job',
+  },
+  categoryName:{
+    id: `${scope}.codes.categoryName`,
+    defaultMessage: 'categoryName',
+  },
+  price:{
+    id: `${scope}.codes.price`,
+    defaultMessage: 'price',
+  },
 });
+

@@ -148,6 +148,20 @@ Apis.GetNewsTypeList = async () => {
     );
     return result.data;
   };
+  Apis.GetCustodyList = async () => {
+    
+    debugger;
+    const result = await axiosInstance.get(`GeneralList/GetCustodyList/${locale}`);
+   
+    return result.data;
+  };
+  Apis.GetUniformList = async () => {
+    
+    debugger;
+    const result = await axiosInstance.get(`GeneralList/GetUniformList/${locale}`);
+   
+    return result.data;
+  };
   return Apis;
 };
 
