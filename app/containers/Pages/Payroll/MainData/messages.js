@@ -80,5 +80,37 @@ createJob: {
 editJob: {
   id: `${scope}.codes.editJob`,
   defaultMessage: 'Edit Job',
-}
+},
+parentNameOrg: {
+  id: `${scope}.codes.parentNameOrg`,
+  defaultMessage: 'Main Unit',
+},
+empName: {
+  id: `${scope}.codes.empName`,
+  defaultMessage: 'Unit Manager',
+},
+manPower: {  
+  id: `${scope}.codes.manPower`,
+  defaultMessage: 'ManPower',
+},
+createOrganization: {
+  id: `${scope}.codes.createOrganization`,
+  defaultMessage: 'Create Organization',
+},
+editOrganization: {
+  id: `${scope}.codes.editOrganization`,
+  defaultMessage: 'Edit Organization',
+},
+note: {
+  id: `${scope}.codes.note`,
+  defaultMessage: 'Note',
+},
+worknatureAllowance: {
+  id: `${scope}.codes.worknatureAllowance`,
+  defaultMessage: 'Work Nature Allowance',
+},
+errorMes: {
+  id: `${scope}.codes.errorMes`,
+  defaultMessage: 'Enter Integer Number',
+},
 });

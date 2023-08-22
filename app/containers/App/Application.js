@@ -121,6 +121,8 @@ import {
   SMSSetting,
   SettingResetPassword,
   Organization,
+  CreateOrganization,
+  EditOrganization,
   Personal,
   EmployeeAddress,
   EmployeeCourse,
@@ -448,6 +450,8 @@ function Application(props) {
         <Route path="/app/Pages/MainData/CompanyChart" component={withAuthorizationRouter(CompanyChart)} />
         <Route path="/app/Pages/MainData/EmployeeChart" component={withAuthorizationRouter(EmployeeChart)} />   
         <Route path="/app/Pages/MainData/Organization" component={withAuthorizationRouter(Organization)} />   
+        <Route path="/app/Pages/MainData/CreateOrganization" component={withAuthorizationRouter(CreateOrganization)} />   
+        <Route path="/app/Pages/MainData/EditOrganization:ID" component={withAuthorizationRouter(EditOrganization)} />  
         <Route path="/app/Pages/MainData/Upload_KPI_Data" component={ImportFile} />
         <Route path="/app/Pages/MainData/UploadEmployeeData" component={UploadEmployeeData} />       
         

@@ -987,7 +987,7 @@
   "boilerplate.containers.Payroll.Employee.job.ruleTemplate":"نموذج الفواعد",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
-  "boilerplate.containers.Payroll.MainData.codes.arName": "الاسم ع",
+  "boilerplate.containers.Payroll.MainData.codes.arName": "الاسم بالعربية",
   "boilerplate.containers.Payroll.MainData.codes.enName": "الاسم بالانجليزية",
   "boilerplate.containers.Payroll.MainData.codes.parent": "الوظيفة الرئيسية",
   "boilerplate.containers.Payroll.MainData.codes.parentName": "الوظيفة الرئيسية",
@@ -1015,6 +1015,14 @@
   "boilerplate.containers.Payroll.MainData.codes.Reset": "إعادة تعيين",
   "boilerplate.containers.Payroll.MainData.codes.Import": "استيراد",
   "boilerplate.containers.Payroll.MainData.codes.SubmitEmployeeTooltip": "قم باستيراد ملف إكسل لإرساله",
-  "boilerplate.containers.Payroll.MainData.codes.Download": "تحميل"
+  "boilerplate.containers.Payroll.MainData.codes.Download": "تحميل",
+  "boilerplate.containers.Payroll.MainData.codes.parentNameOrg": "الوحدة الرئيسية",
+  "boilerplate.containers.Payroll.MainData.codes.empName": "مدير الوحدة",
+  "boilerplate.containers.Payroll.MainData.codes.manPower": "قوة العماله",
+  "boilerplate.containers.Payroll.MainData.codes.createOrganization": "إنشاء المنظمة",
+  "boilerplate.containers.Payroll.MainData.codes.editOrganization": "تعديل المنظمة",
+  "boilerplate.containers.Payroll.MainData.codes.note": "ملاحظة",
+  "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "بدل طبيعة العمل",
+  "boilerplate.containers.Payroll.MainData.codes.errorMes": "قم بإدخال رقم صحيحا"
   
 }
