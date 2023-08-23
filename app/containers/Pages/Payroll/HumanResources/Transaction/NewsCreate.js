@@ -9,18 +9,19 @@ import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
 import { useParams ,useHistory } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import {Button , Grid,TextField,Autocomplete,Checkbox,Table,TableBody,TableCell,TableHead,TableRow} from "@mui/material";  
-
+import {Button , Grid,TextField,Autocomplete,Checkbox,Table,
+  TableBody,TableCell,TableHead,TableRow,FormControl,Tooltip, TableContainer} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 import css from 'enl-styles/Table.scss';
-import useStyles from '../../../../../components/Tables/tableStyle-jss';
 import PropTypes from 'prop-types';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 import EmloyeePopup from '../../Component/EmloyeePopup';
+import useStyles from '../../Style';
 
 
 
@@ -29,8 +30,9 @@ function NewsCreate(props) {
   const locale = useSelector((state) => state.language.locale);
   let { id } = useParams();
   const { classes,cx } = useStyles();
-  const [OpenPopup, setOpenPopup] = useState(false);
-  
+  const [OpenPopup, setOpenPopup] = useState(false);  
+  const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+
   const [data, setdata] = useState({
     "id": 0,
     "fromDate":format(new Date(), "yyyy-MM-dd"),
@@ -39,6 +41,8 @@ function NewsCreate(props) {
     "details":"",
     "newsTypeId":"",
     "newsTypeName":"",   
+    "image":"",
+    "photo":"",
   });
   const [TypeList, setTypeList] = useState([]);
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -108,7 +112,7 @@ function NewsCreate(props) {
       setOpenPopup(true);
   }
 
-const handlepermcheckboxAll = (event) => {  
+const handlecheckAll = (event) => {  
 setEmployeeList(  
   EmployeeList.map((x) => {    
     x.isSelected = event.target.checked;
@@ -140,160 +144,199 @@ const handleEnableOne = (event, row) => {
             open={OpenPopup}
         />
         <form onSubmit={handleSubmit}>
-            <Grid
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row">
-                <Grid item xs={12}  md={4}>                
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                            label={intl.formatMessage(Payrollmessages.fromdate)}
-                            value={data.fromDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,fromDate: format(new Date(date), "yyyy-MM-dd"),}))}}
-                            className={classes.field}
-                            renderInput={(params) => <TextField {...params} variant="outlined" />}
-                        />
-                    </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12}  md={4}>                
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                            label={intl.formatMessage(Payrollmessages.todate)}
-                            value={data.toDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,toDate: format(new Date(date), "yyyy-MM-dd"),}))}}
-                            className={classes.field}
-                            renderInput={(params) => <TextField {...params} variant="outlined" />}
-                        />
-                    </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <Autocomplete  
-                        id="newsTypeId"                        
-                        options={TypeList}  
-                        value={{id:data.newsTypeId,name:data.newsTypeName}}     
-                        isOptionEqualToValue={(option, value) =>
-                            value.id === 0 || value.id === "" ||option.id === value.id
-                        }                 
-                        getOptionLabel={(option) =>
-                        option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                                setdata((prevFilters) => ({
-                                ...prevFilters,
-                                newsTypeId:(value !== null)?value.id:0,
-                                newsTypeName:(value !== null)?value.name:""
-                                }));
-                                  
-                             }}
-                        renderInput={(params) => (
-                        <TextField
-                            variant="outlined"                            
-                            {...params}
-                            name="newsTypeId"
-                            required                              
-                            label={intl.formatMessage(Payrollmessages.type)}
-                            />
-                        )}
-                    />  
-                </Grid>
-                <Grid item xs={12} md={8}>  
-                    <TextField
-                        id="title"
-                        name="title"
-                        value={data.header}               
-                        label={intl.formatMessage(Payrollmessages.title)}
-                        className={classes.field}
-                        variant="outlined"
-                        onChange={(e) => setdata((prevFilters) => ({
-                            ...prevFilters,
-                            header: e.target.value,
-                          }))}  
-                    />                  
-                    
-                </Grid>
-                <Grid item xs={12} md={8}>                    
-                    <TextField
-                    id="details"
-                    name="details"
-                    multiline
-                    required
-                    rows={2}
-                    value={data.details}
-                    onChange={(e) => setdata((prevFilters) => ({
-                        ...prevFilters,
-                        details: e.target.value,
-                      }))}                        
-                    label={intl.formatMessage(Payrollmessages.details)}
+        <Grid container alignItems={"initial"} spacing={3} >
+            <Grid container item md={7} xs={12}  direction="row" style={{ maxHeight: '200vh' }}> 
+            
+              <Grid  item  md={4} xs={12}>                
+                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                          label={intl.formatMessage(Payrollmessages.fromdate)}
+                          value={data.fromDate}
+                          onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,fromDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                          className={classes.field1}
+                          renderInput={(params) => <TextField {...params} variant="outlined" />}
+                      />
+                  </LocalizationProvider>
+              </Grid>
+              <Grid  item  md={4} xs={12}>                
+                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                          label={intl.formatMessage(Payrollmessages.todate)}
+                          value={data.toDate}
+                          onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,toDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                          className={classes.field1}
+                          renderInput={(params) => <TextField {...params} variant="outlined" />}
+                      />
+                  </LocalizationProvider>
+              </Grid>
+              <Grid item md={4} xs={12}>
+                  <Autocomplete  
+                      id="newsTypeId"                        
+                      options={TypeList}  
+                      value={{id:data.newsTypeId,name:data.newsTypeName}}     
+                      isOptionEqualToValue={(option, value) =>
+                          value.id === 0 || value.id === "" ||option.id === value.id
+                      }                 
+                      getOptionLabel={(option) =>
+                      option.name ? option.name : ""
+                      }
+                      onChange={(event, value) => {
+                              setdata((prevFilters) => ({
+                              ...prevFilters,
+                              newsTypeId:(value !== null)?value.id:0,
+                              newsTypeName:(value !== null)?value.name:""
+                              }));
+                                
+                          }}
+                      renderInput={(params) => (
+                      <TextField
+                          variant="outlined"                            
+                          {...params}
+                          name="newsTypeId"
+                          required                              
+                          label={intl.formatMessage(Payrollmessages.type)}
+                          />
+                      )}
+                  />  
+              </Grid>
+              <Grid item md={12} xs={12}>  
+                <TextField
+                    id="title"
+                    name="title"
+                    value={data.header}               
+                    label={intl.formatMessage(Payrollmessages.title)}
                     className={classes.field}
                     variant="outlined"
-                    />
-                </Grid>
-                <Grid item xs={6} md={4}></Grid>
-                <Grid item xs={6} md={2}>
-                  <Button variant="contained" size="medium" color="primary" onClick={handleClickOpen}>
-                  <FormattedMessage {...Payrollmessages.chooseEmp} />
-                  </Button>
-                </Grid> 
-                <Grid item xs={6} md={10}></Grid>
-                <Grid item xs={12} md={8}>
-                    <div className={classes.rootTable}>
-                    <Table className={cx(css.tableCrud, classes.table, classes.stripped)} >
-                        <TableHead>
-                        <TableRow >               
-                            <TableCell  style={{width: '5px',padding:'0px'}}>                                                   
-                                <Checkbox
-                                    checked={EmployeeList.length > 0 &&  EmployeeList.filter((crow) => crow.isSelected==true).length === EmployeeList.length?true:false}
-                                    color="primary"
-                                    name="AllSelect"
-                                    indeterminate={EmployeeList.filter((crow) => crow.isSelected==true).length > 0 && EmployeeList.filter((crow) => crow.isSelected==true).length < EmployeeList.length?true:false}
-                                    onChange={handlepermcheckboxAll}
-                                />
-                            </TableCell>   
-                            <TableCell style={{width: '5px',padding:'0px'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
-                            <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.employeeName} /></TableCell>
-                                                                         
-                        </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {EmployeeList.length !== 0 &&
-                            EmployeeList.map((row) => {
-                            return (                          
-                                <TableRow hover key={row.id} sx={{ height: 1 }} style={{padding:'0px'}}> 
-                                <TableCell style={{width: '5px',padding:'0px'}}>
-                                    <Checkbox
-                                    checked={row.isSelected}
-                                    color="primary"
-                                    name="isselected"
-                                    onChange={(event) => handleEnableOne(event, row)}
-                                    value={row.isSelected}
-                                    />
-                                </TableCell>                                                         
-                                <TableCell style={{width: '5px',padding:'0px'}}>{row.id}</TableCell>
-                                <TableCell style={{width: '20px',padding:'0px'}}>{row.name}</TableCell>   
-                                                      
-                                </TableRow>
-                            );
-                            })}
-                        </TableBody>
-                    </Table>
-                    
-                    </div>
-                </Grid>
-                <Grid item xs={6} md={4}></Grid>
-                <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
-                </Grid>
-                <Grid item xs={12} md={1}>
-                    <Button variant="contained" size="medium" color="primary" onClick={oncancel} >
-                       <FormattedMessage {...Payrollmessages.cancel} /> 
-                    </Button>
+                    onChange={(e) => setdata((prevFilters) => ({
+                        ...prevFilters,
+                        header: e.target.value,
+                      }))}  
+                />                  
+              
+              </Grid>
+              <Grid item md={12} xs={12} >                    
+                  <TextField
+                  id="details"
+                  name="details"
+                  multiline
+                  required
+                  rows={2}
+                  value={data.details}
+                  onChange={(e) => setdata((prevFilters) => ({
+                      ...prevFilters,
+                      details: e.target.value,
+                    }))}                        
+                  label={intl.formatMessage(Payrollmessages.details)}
+                  className={classes.field}
+                  variant="outlined"
+                  />
+              </Grid>                    
+            </Grid>
+            <Grid  container item md={5} xs={12}  direction="row"> 
+              <section className={classes.content}>
+                <Grid item xs={12} md={12}  >
+                  {data.image &&  <img  style={{width:"200px",height:"200px"}} src={URL.createObjectURL(data.image)} />}
+                  {data.photo &&  <img style={{width:"200px",height:"200px"}} src={`data:image/jpeg;base64,${data.photo}`}/>}
                 </Grid>
                 
+                <Grid item xs={12} md={12} >
+                    <FormControl variant="standard" className={`${cx(classes.textField)}`}>
+                      <div className={classes.actions}>     
+                        <Tooltip title= "Upload">
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            className={classes.button}
+                            component="label"
+                          >
+                            <AddIcon
+                              className={cx(smUp && classes.leftIcon, classes.iconSmall)}
+                            />
+                            {smUp && ' '} Upload
+                            
+                            <input 
+                              hidden 
+                              type="file" 
+                              name="file" 
+                              className="custom-file-input" 
+                              id="inputGroupFile" 
+                              onChange={(e) => {debugger ; setdata((prevFilters) => ({
+                                ...prevFilters,
+                                image: e.target.files[0],
+                                photo:""
+                              }))}}  
+                              accept="image/png, image/jpeg, image/jpg, image/apng, image/webp, image/svg+xml"
+                            />
+                        </Button>
+                        </Tooltip>
+                      </div>
+                    </FormControl>                    
+                </Grid>
+                
+                <hr className={classes.hr} />
+                <Grid item xs={12} md={12}>
+                  <Button variant="contained" size="medium" color="primary" onClick={handleClickOpen}>
+                    <FormattedMessage {...Payrollmessages.chooseEmp} />
+                  </Button>
+                  <div className={classes.rootTable}>
+                    <TableContainer style={{ maxHeight: 250 }}>
+                      <Table className={cx(css.tableCrud, classes.table, classes.stripped)} style={{minWidth:"0px"}} >
+                          <TableHead>
+                          <TableRow >               
+                              <TableCell  style={{width: '5px',padding:'0px'}}>                                                   
+                                  <Checkbox
+                                      checked={EmployeeList.length > 0 &&  EmployeeList.filter((crow) => crow.isSelected==true).length === EmployeeList.length?true:false}
+                                      color="primary"
+                                      name="AllSelect"
+                                      indeterminate={EmployeeList.filter((crow) => crow.isSelected==true).length > 0 && EmployeeList.filter((crow) => crow.isSelected==true).length < EmployeeList.length?true:false}
+                                      onChange={handlecheckAll}
+                                  />
+                              </TableCell>   
+                              <TableCell style={{width: '5px',padding:'0px'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
+                              <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.employeeName} /></TableCell>
+                                                                            
+                          </TableRow>
+                          </TableHead>
+                          <TableBody>
+                          {EmployeeList.length !== 0 &&
+                              EmployeeList.map((row) => {
+                              return (                          
+                                  <TableRow hover key={row.id} sx={{ height: 1 }} style={{padding:'0px'}}> 
+                                  <TableCell style={{width: '5px',padding:'0px'}}>
+                                      <Checkbox
+                                      checked={row.isSelected}
+                                      color="primary"
+                                      name="isselected"
+                                      onChange={(event) => handleEnableOne(event, row)}
+                                      value={row.isSelected}
+                                      />
+                                  </TableCell>                                                         
+                                  <TableCell style={{width: '5px',padding:'0px'}}>{row.id}</TableCell>
+                                  <TableCell style={{width: '20px',padding:'0px'}}>{row.name}</TableCell>   
+                                                        
+                                  </TableRow>
+                              );
+                              })}
+                          </TableBody>
+                      </Table> 
+                    </TableContainer>                   
+                  </div>
+                </Grid>
+              </section> 
+            </Grid>                
+            <Grid item xs={12} md={1}>                  
+                <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <FormattedMessage {...Payrollmessages.save} /> 
+                </Button>
+            </Grid>
+            <Grid item xs={12} md={1}>
+                <Button variant="contained" size="medium" color="primary" onClick={oncancel} >
+                    <FormattedMessage {...Payrollmessages.cancel} /> 
+                </Button>
+            </Grid>
+                
 
-            </Grid>            
+        </Grid>            
         </form>
         </PapperBlock>
     

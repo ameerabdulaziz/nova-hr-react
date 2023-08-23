@@ -4,7 +4,7 @@ import { Dialog,DialogContent,DialogTitle,Checkbox,Table,TableBody,TableCell,Tab
 import Payrollmessages from '../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import { toast } from 'react-hot-toast';
-import useStyles from '../../../../components/Tables/tableStyle-jss';
+import useStyles from '../Style';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../api/GeneralListApis';
 

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -21,44 +18,10 @@ import messages from '../messages';
 import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
+import { PapperBlock } from 'enl-components';
+import useStyles from '../../Style';
 
 
-
-
-const useStyles = makeStyles()((theme) => ({
-  root: {
-    flexGrow: 1,
-    padding: 30,
-  },
-  field: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  fieldBasic: {
-    width: '100%',
-    marginBottom: 20,
-    marginTop: 10,
-  },
-  inlineWrap: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  buttonInit: {
-    margin: theme.spacing(4),
-    textAlign: 'center',
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  menu: {
-    width: 200,
-  },
-}));
 
 function CreateAndEditJob(props) {
   const [id, setid] = useState(0);
@@ -73,14 +36,9 @@ function CreateAndEditJob(props) {
   const [parent ,setParent] = useState('')
   const [submitting ,setSubmitting] = useState(false)
   const [processing ,setProcessing] = useState(false)
-  const fetchData = useDispatch();
-  const branch = 'jobsAllData' ;
   const locale = useSelector(state => state.language.locale);
-  const [openParentPopup, setOpenParentPopup] = useState(false);
   const [openJobNature, setOpenJobNature] = useState(false);
   const [openJobType, setOpenJobType] = useState(false);
-  const [openSancLevel, setOpenSancLevel] = useState(false);
-  const [editData, setEditData] = useState();
   let { ID } = useParams();
   const [jobsData, setJobsData] = useState([]);
   const history=useHistory(); 
@@ -213,6 +171,11 @@ const createJobDetailsFun = async (arVal,enVal, jobDetailsType) => {
 }
 
 
+function oncancel(){
+  history.push(`/app/Pages/MainData/job`);
+}
+
+
 
   return (
     <div>
@@ -239,54 +202,163 @@ const createJobDetailsFun = async (arVal,enVal, jobDetailsType) => {
         processing={processing}
       />
 
-        
-      <Grid
-        container
-        spacing={3}
-        alignItems="flex-start"
-        direction="row"
-        justifyContent="center"
-      >
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-              {ID ?  
-                <FormattedMessage {...messages.editJob} /> 
-              : <FormattedMessage {...messages.createJob} />
+        <PapperBlock whiteBg icon="border_color" 
+          title={ID ?  
+                    intl.formatMessage(messages.editJob)
+                  :  intl.formatMessage(messages.createJob)
                } 
-            </Typography>
+          desc={""}>
 
-            <form onSubmit={handleSubmit}>
-              <div>
-                <TextField
-                  name="arName"
-                  id="arName"
-                  placeholder={intl.formatMessage(messages.arName) }
-                  label={intl.formatMessage(messages.arName)}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                  value={arName}
-                  onChange={(e) => setArName(e.target.value)}
-                />
-              </div>
-              <div>
-                <TextField
-                  name="enName"
-                  id="enName"
-                  placeholder={intl.formatMessage(messages.enName) }
-                  label={intl.formatMessage(messages.enName)}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                  value={enName}
-                  onChange={(e) => setEnName(e.target.value)}
-                />
-              </div>
+              <form onSubmit={handleSubmit}>
+              <Grid
+                container
+                spacing={3}
+                alignItems="flex-start"
+                direction="row">
+                  <Grid item xs={12}  md={12} 
+                    container
+                    spacing={3}
+                    alignItems="flex-start"
+                    direction="row"> 
+                      <Grid item xs={12}  md={4}> 
+                          <TextField
+                          name="arName"
+                          id="arName"
+                          placeholder={intl.formatMessage(messages.arName) }
+                          label={intl.formatMessage(messages.arName)}
+                          required
+                          className={`${classes.field} ${style.fieldsSty}`}
+                          margin="normal"
+                          variant="outlined"
+                          value={arName}
+                          onChange={(e) => setArName(e.target.value)}
+                        />
+                      </Grid>
 
-                <Autocomplete
+                      <Grid item xs={12}  md={4}> 
+                        <TextField
+                          name="enName"
+                          id="enName"
+                          placeholder={intl.formatMessage(messages.enName) }
+                          label={intl.formatMessage(messages.enName)}
+                          required
+                          className={`${classes.field} ${style.fieldsSty}`}
+                          margin="normal"
+                          variant="outlined"
+                          value={enName}
+                          onChange={(e) => setEnName(e.target.value)}
+                        />
+                      </Grid>
+                    </Grid>
+
+                    
+
+                    <Grid item xs={12}  md={12} 
+                    container
+                    spacing={3}
+                    alignItems="flex-start"
+                    direction="row"> 
+
+                    <Grid item xs={12}  md={4}> 
+                      <div className={locale === "en" ?  style.comboBoxContainer : style.comboBoxContainerAR}>
+
+                          <Autocomplete
+                                id="ddlMenu"   
+                                isOptionEqualToValue={(option, value) => option.id === value.id}
+                                value={jobNature.length != 0 && jobNature !== null? jobNature : null}        
+                                options={jobsData.length != 0 ? jobsData.jobNatureList : []}                
+                                getOptionLabel={(option) =>(
+                                  option  ? option.name : ""
+                                )
+                                }
+                                renderOption={(props, option) => {
+                                  return (
+                                    <li {...props} key={option.id}>
+                                      {option.name}
+                                    </li>
+                                  );
+                                }}
+                                onChange={(event, value) => {
+                                    if (value !== null) {
+                                      setJobNature(value);
+                                    } else {
+                                      setJobNature("");
+                                    }
+                                }}
+                                renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    name="JobNature"
+                                    value={jobNature}
+                                    label={intl.formatMessage(messages.jobNatureName) }
+                                    margin="normal"
+                                    className={style.fieldsSty}
+                                    />
+                                    
+                                )}
+                            />
+
+                        <Button variant="outlined" onClick={()=>handleClickOpen("jobNature")}>
+                            <AddIcon />
+                        </Button>
+                      </div>
+                    
+                    </Grid>
+
+                    <Grid item xs={12}  md={4}> 
+                      <div className={locale === "en" ?  style.comboBoxContainer : style.comboBoxContainerAR}>
+                          <Autocomplete
+                                  id="ddlMenu"  
+                                  isOptionEqualToValue={(option, value) => option.id === value.id}       
+                                  value={jobType.length != 0 && jobType !== null ? jobType : null}  
+                                  options={jobsData.length != 0 ? jobsData.jobTypeList: []}                 
+                                  getOptionLabel={(option) =>(
+                                    option  ? option.name : ""
+                                  )
+                                  }
+                                  renderOption={(props, option) => {
+                                    return (
+                                      <li {...props} key={option.id}>
+                                        {option.name}
+                                      </li>
+                                    );
+                                  }}
+                                  onChange={(event, value) => {
+                                      if (value !== null) {
+                                        setJobType(value);
+                                      } else {
+                                        setJobType("");
+                                      }
+                                  }}
+                                  renderInput={(params) => (
+                                  <TextField
+                                      {...params}
+                                      name="JobType"
+                                      value={jobType}
+                                      label={intl.formatMessage(messages.jobTypeName) }
+                                      margin="normal" 
+                                      className={style.fieldsSty}
+                                      />
+                                      
+                                  )}
+                              />
+
+                          <Button variant="outlined" onClick={()=>handleClickOpen("jobType")}>
+                              <AddIcon />
+                          </Button>
+                        </div>
+                    </Grid>
+
+                    </Grid>
+
+                    <Grid item xs={12}  md={12} 
+                    container
+                    spacing={3}
+                    alignItems="flex-start"
+                    direction="row"> 
+
+                    <Grid item xs={12}  md={4}> 
+                    <Autocomplete
                         id="ddlMenu"   
                         isOptionEqualToValue={(option, value) => option.id === value.id}
                         value={parent.length != 0 && parent !== null ? parent : null}                       
@@ -315,190 +387,122 @@ const createJobDetailsFun = async (arVal,enVal, jobDetailsType) => {
                             name="Parent"
                             label={intl.formatMessage(messages.parentName) }
                             margin="normal" 
+                            className={style.fieldsSty}
                             />
                             
                         )}
                     />
+                    </Grid>
 
-              <div className={locale === "en" ?  style.comboBoxContainer : style.comboBoxContainerAR}>
-
-                  <Autocomplete
-                        id="ddlMenu"   
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
-                        value={jobNature.length != 0 && jobNature !== null? jobNature : null}        
-                        options={jobsData.length != 0 ? jobsData.jobNatureList : []}                
-                        getOptionLabel={(option) =>(
-                          option  ? option.name : ""
-                        )
-                        }
-                        renderOption={(props, option) => {
-                          return (
-                            <li {...props} key={option.id}>
-                              {option.name}
-                            </li>
-                          );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                              setJobNature(value);
-                            } else {
-                              setJobNature("");
+                    <Grid item xs={12}  md={4}> 
+                        <Autocomplete
+                            id="ddlMenu"    
+                            isOptionEqualToValue={(option, value) => option.id === value.id}  
+                            value={sancLevel.length != 0 && sancLevel !== null ? sancLevel : null}                   
+                            options={jobsData.length != 0 ? jobsData.sancLevelList : []}  
+                            getOptionLabel={(option) =>(
+                              option  ? option.name : ""
+                            )
                             }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            name="JobNature"
-                            value={jobNature}
-                            label={intl.formatMessage(messages.jobNatureName) }
-                            margin="normal"
-                             />
-                            
-                        )}
-                    />
+                            renderOption={(props, option) => {
+                              return (
+                                <li {...props} key={option.id}>
+                                  {option.name}
+                                </li>
+                              );
+                            }}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                  setSancLevel(value);
+                                } else {
+                                  setSancLevel("");
+                                }
+                            }}
+                            renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                name="SancLevel"
+                                value={sancLevel}
+                                label={intl.formatMessage(messages.sancLevelName) }
+                                margin="normal"
+                                className={style.fieldsSty}
+                                />
+                                
+                            )}
+                        />
+                    </Grid>
 
-                <Button variant="outlined" onClick={()=>handleClickOpen("jobNature")}>
-                    <AddIcon />
-                </Button>
-              </div>
-              <div className={locale === "en" ?  style.comboBoxContainer : style.comboBoxContainerAR}>
-                <Autocomplete
-                        id="ddlMenu"  
-                        isOptionEqualToValue={(option, value) => option.id === value.id}       
-                        value={jobType.length != 0 && jobType !== null ? jobType : null}  
-                        options={jobsData.length != 0 ? jobsData.jobTypeList: []}                 
-                        getOptionLabel={(option) =>(
-                          option  ? option.name : ""
-                        )
-                        }
-                        renderOption={(props, option) => {
-                          return (
-                            <li {...props} key={option.id}>
-                              {option.name}
-                            </li>
-                          );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                              setJobType(value);
-                            } else {
-                              setJobType("");
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            name="JobType"
-                            value={jobType}
-                            label={intl.formatMessage(messages.jobTypeName) }
-                            margin="normal" 
-                            />
-                            
-                        )}
-                    />
+                    </Grid>
 
-                <Button variant="outlined" onClick={()=>handleClickOpen("jobType")}>
-                    <AddIcon />
-                </Button>
-              </div>
-                <Autocomplete
-                        id="ddlMenu"    
-                        isOptionEqualToValue={(option, value) => option.id === value.id}  
-                        value={sancLevel.length != 0 && sancLevel !== null ? sancLevel : null}                   
-                        options={jobsData.length != 0 ? jobsData.sancLevelList : []}  
-                        getOptionLabel={(option) =>(
-                          option  ? option.name : ""
-                        )
-                        }
-                        renderOption={(props, option) => {
-                          return (
-                            <li {...props} key={option.id}>
-                              {option.name}
-                            </li>
-                          );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                              setSancLevel(value);
-                            } else {
-                              setSancLevel("");
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            name="SancLevel"
-                            value={sancLevel}
-                            label={intl.formatMessage(messages.sancLevelName) }
-                            margin="normal"
-                             />
-                            
-                        )}
-                    />
 
-              <div>
-                <TextField
-                  name="jobCode"
-                  id="jobCode"
-                  placeholder={intl.formatMessage(messages.jobCode) }
-                  label={intl.formatMessage(messages.jobCode) }
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                  value={jobCode}
-                  onChange={(e) => setJobCode(e.target.value)}
-                />
-              </div>
-              <div>
-                <TextField
-                  name="medicalInsuranceStartDay"
-                  id="medicalInsuranceStartDay"
-                  placeholder={intl.formatMessage(messages.medicalInsuranceStartDay) }
-                  label={intl.formatMessage(messages.medicalInsuranceStartDay) }
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                  value={medicalInsuranceStartDay}
-                  type='number'
-                  onChange={(e) => setMedicalInsuranceStartDay(e.target.value)}
-                />
-              </div>
-              <div>
-                <FormControlLabel  
-                control={ 
-                  <Switch  
-                  checked={isLeadershipPosition} 
-                  onChange={() => 
-                    setIsLeadershipPosition(!isLeadershipPosition)
-                  }
-                  color="primary" 
-                  />} 
-                label={intl.formatMessage(messages.isLeadershipPosition) }
-                />
-              </div>
-              
-            
-              <div>
-                <Button
-                  variant="contained"
-                  color="primary" 
-                  type="submit"
-                  className={style.btnContainer}
-                  disabled={submitting || processing}
-                >
-                  {processing && (
-                   <CircularProgress
-                  size={24}
-                  className={classes.buttonProgress}
-                />
-                )}
-                  <FormattedMessage {...Payrollmessages.save} />
-                </Button>
-              </div>
-            </form>
-          </Paper>
-        </Grid>
-      </Grid>
+                    <Grid item xs={12}  md={2}> 
+                        <TextField
+                          name="jobCode"
+                          id="jobCode"
+                          placeholder={intl.formatMessage(messages.jobCode) }
+                          label={intl.formatMessage(messages.jobCode) }
+                          className={`${classes.field} ${style.fieldsSty}`}
+                          margin="normal"
+                          variant="outlined"
+                          value={jobCode}
+                          onChange={(e) => setJobCode(e.target.value)}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}  md={2}> 
+                      <TextField
+                        name="medicalInsuranceStartDay"
+                        id="medicalInsuranceStartDay"
+                        placeholder={intl.formatMessage(messages.medicalInsuranceStartDay) }
+                        label={intl.formatMessage(messages.medicalInsuranceStartDay) }
+                        className={`${classes.field} ${style.fieldsSty}`}
+                        margin="normal"
+                        variant="outlined"
+                        value={medicalInsuranceStartDay}
+                        type='number'
+                        onChange={(e) => setMedicalInsuranceStartDay(e.target.value)}
+                      />
+                    </Grid>
+
+
+                    <Grid item xs={12}  md={4}> 
+                      <FormControlLabel  
+                        control={ 
+                          <Switch  
+                          checked={isLeadershipPosition} 
+                          onChange={() => 
+                            setIsLeadershipPosition(!isLeadershipPosition)
+                          }
+                          color="primary" 
+                          />} 
+                        label={intl.formatMessage(messages.isLeadershipPosition) }
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}></Grid>
+                      <Grid item xs={12} md={1}>                  
+                          <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
+                          {processing && (
+                            <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                          />
+                          )}
+                            <FormattedMessage {...Payrollmessages.save} /> 
+                          </Button>
+                      </Grid>
+                      <Grid item xs={12} md={1}>
+                          <Button variant="contained" size="medium" color="primary" 
+                          onClick={oncancel}
+                          >
+                            <FormattedMessage {...Payrollmessages.cancel} /> 
+                          </Button>
+                      </Grid>
+
+                </Grid>
+              </form>
+
+          </PapperBlock>
     </div>
   );
 }

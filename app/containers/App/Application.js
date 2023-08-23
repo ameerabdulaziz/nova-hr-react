@@ -121,11 +121,21 @@ import {
   SMSSetting,
   SettingResetPassword,
   Organization,
+  CreateOrganization,
+  EditOrganization,
   Personal,
   EmployeeAddress,
   EmployeeCourse,
   EmployeeList,
   Courses,
+  EmployeeExperince,
+  EmployeeInsurance,
+  EmployeeBank,
+  EmployeeQualification,
+  EmployeeContactInfo,
+  EmployeeCar,
+  EmployeeSalary,
+  EmployeeContract,
   TrainingCenter,
   ResignReason,
   Rewards,
@@ -144,14 +154,6 @@ import {
   LayOffNoticeList,
   LayOffNoticeCreate,
   LayOffNoticeEdit,
-  EmployeeExperince,
-  EmployeeInsurance,
-  EmployeeBank,
-  EmployeeQualification,
-  EmployeeContactInfo,
-  EmployeeCar,
-  EmployeeSalary,
-  EmployeeContract,
   PromotionsList,
   PromotionsCreate,
   PromotionsEdit,
@@ -167,6 +169,27 @@ import {
   NewsList,
   NewsCreate,
   NewsEdit,
+  ImportFile,
+  UploadEmployeeData,
+  Custody,
+  CustodyCategory,
+  CustodyReceiveList,
+  CustodyReceiveReport,
+  CustodyReceiveCreate,
+  CustodyReceiveEdit,
+  CustodyDeliveryList,
+  CustodyDeliveryReport,
+  CustodyDeliveryCreate,
+  CustodyDeliveryEdit,
+  Uniform,
+  UniformReceiveList,
+  UniformReceiveReport,
+  UniformReceiveCreate,
+  UniformReceiveEdit,
+  UniformDeliveryList,
+  UniformDeliveryReport,
+  UniformDeliveryCreate,
+  UniformDeliveryEdit,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -579,6 +602,22 @@ function Application(props) {
           path="/app/Pages/MainData/Organization"
           component={withAuthorizationRouter(Organization)}
         />
+        <Route
+          path="/app/Pages/MainData/CreateOrganization"
+          component={withAuthorizationRouter(CreateOrganization)}
+        />
+        <Route
+          path="/app/Pages/MainData/EditOrganization:ID"
+          component={withAuthorizationRouter(EditOrganization)}
+        />
+        <Route
+          path="/app/Pages/MainData/Upload_KPI_Data"
+          component={ImportFile}
+        />
+        <Route
+          path="/app/Pages/MainData/UploadEmployeeData"
+          component={UploadEmployeeData}
+        />
 
         {/* Setting */}
         <Route
@@ -749,16 +788,81 @@ function Application(props) {
         />
 
         <Route
-          path="/app/Pages/EXP/Complaint"
-          component={withAuthorizationRouter(Complaint)}
+          path="/app/Pages/HR/CustodyCategory"
+          component={withAuthorizationRouter(CustodyCategory)}
         />
         <Route
-          path="/app/Pages/EXP/HrLetter"
-          component={withAuthorizationRouter(HrLetter)}
+          path="/app/Pages/HR/Custody"
+          component={withAuthorizationRouter(Custody)}
         />
         <Route
-          path="/app/Pages/EXP/NewIdea"
-          component={withAuthorizationRouter(NewIdea)}
+          path="/app/Pages/HR/CustodyDeliveryList"
+          component={withAuthorizationRouter(CustodyDeliveryList)}
+        />
+        <Route
+          path="/app/Pages/HR/CustodyDeliveryCreate"
+          component={withAuthorizationRouter(CustodyDeliveryCreate)}
+        />
+        <Route
+          path="/app/Pages/HR/CustodyDeliveryEdit:id"
+          component={withAuthorizationRouter(CustodyDeliveryEdit)}
+        />
+        <Route
+          path="/app/Pages/HR/CustodyReceiveList"
+          component={withAuthorizationRouter(CustodyReceiveList)}
+        />
+        <Route
+          path="/app/Pages/HR/CustodyReceiveCreate"
+          component={withAuthorizationRouter(CustodyReceiveCreate)}
+        />
+        <Route
+          path="/app/Pages/HR/CustodyReceiveEdit:id"
+          component={withAuthorizationRouter(CustodyReceiveEdit)}
+        />
+        <Route
+          path="/app/Pages/HR/CustodyDeliveryReport"
+          component={withAuthorizationRouter(CustodyDeliveryReport)}
+        />
+        <Route
+          path="/app/Pages/HR/CustodyReceiveReport"
+          component={withAuthorizationRouter(CustodyReceiveReport)}
+        />
+
+        <Route
+          path="/app/Pages/HR/Uniform"
+          component={withAuthorizationRouter(Uniform)}
+        />
+        <Route
+          path="/app/Pages/HR/UniformDeliveryList"
+          component={withAuthorizationRouter(UniformDeliveryList)}
+        />
+        <Route
+          path="/app/Pages/HR/UniformDeliveryCreate"
+          component={withAuthorizationRouter(UniformDeliveryCreate)}
+        />
+        <Route
+          path="/app/Pages/HR/UniformDeliveryEdit:id"
+          component={withAuthorizationRouter(UniformDeliveryEdit)}
+        />
+        <Route
+          path="/app/Pages/HR/UniformReceiveList"
+          component={withAuthorizationRouter(UniformReceiveList)}
+        />
+        <Route
+          path="/app/Pages/HR/UniformReceiveCreate"
+          component={withAuthorizationRouter(UniformReceiveCreate)}
+        />
+        <Route
+          path="/app/Pages/HR/UniformReceiveEdit:id"
+          component={withAuthorizationRouter(UniformReceiveEdit)}
+        />
+        <Route
+          path="/app/Pages/HR/UniformDeliveryReport"
+          component={withAuthorizationRouter(UniformDeliveryReport)}
+        />
+        <Route
+          path="/app/Pages/HR/UniformReceiveReport"
+          component={withAuthorizationRouter(UniformReceiveReport)}
         />
 
         {/* Employee */}

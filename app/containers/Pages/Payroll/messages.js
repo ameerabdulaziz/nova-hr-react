@@ -102,4 +102,20 @@ export default defineMessages({
     id: `${scope}.no`,
     defaultMessage: 'no',
   },
+  date: {
+    id: `${scope}.date`,
+    defaultMessage: 'Date',
+  },
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: 'notes',
+  },
+  price: {
+    id: `${scope}.price`,
+    defaultMessage: 'price',
+  },
+  count: {
+    id: `${scope}.count`,
+    defaultMessage: 'count',
+  },
 });

@@ -833,6 +833,11 @@
   "boilerplate.components.tables.codes.PenaltyValue": "Value",
   "boilerplate.components.tables.codes.employeeName": "Current Manger",
   "boilerplate.components.tables.codes.newEmployeeName": "New Manger",
+  "boilerplate.components.tables.codes.job": "Job",
+  "boilerplate.components.tables.codes.categoryName": "Category",
+  "boilerplate.components.tables.codes.price": "Price",
+
+
 
   "boilerplate.containers.Payroll.save": "Save",  
   "boilerplate.containers.Payroll.cancel": "Cancel",  
@@ -855,7 +860,11 @@
   "boilerplate.containers.Payroll.meetingReq":"Meeting Request",
   "boilerplate.containers.Payroll.add": "Add",
   "boilerplate.containers.Payroll.yes": "Yes",
-  "boilerplate.containers.Payroll.no": "No", 
+  "boilerplate.containers.Payroll.no": "No",  
+  "boilerplate.containers.Payroll.date": "Date",   
+  "boilerplate.containers.Payroll.notes": "Notes",   
+  "boilerplate.containers.Payroll.price": "Price",   
+  "boilerplate.containers.Payroll.count": "Count", 
   
   
   
@@ -925,7 +934,20 @@
   "boilerplate.containers.Payroll.HumanResources.ExplanationEditTitle":"Update Explanation", 
   "boilerplate.containers.Payroll.HumanResources.response":"Response",   
   "boilerplate.containers.Payroll.HumanResources.NewsCreateTitle":"Create News", 
-  "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle":"Update News",  
+  "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle":"Update News",     
+  "boilerplate.containers.Payroll.HumanResources.custodyName":"Custody Name",   
+  "boilerplate.containers.Payroll.HumanResources.itemSerial":"Item Serial", 
+  
+  "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryCreateTitle":"Create Custody Delivery",   
+  "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryEditTitle":"Update Custody Delivery", 
+  "boilerplate.containers.Payroll.HumanResources.CustodyReceiveCreateTitle":"Create Custody Receive",   
+  "boilerplate.containers.Payroll.HumanResources.CustodyReceiveEditTitle":"Update Custody Receive", 
+  "boilerplate.containers.Payroll.HumanResources.UniformDeliveryCreateTitle":"Create Uniform Delivery",   
+  "boilerplate.containers.Payroll.HumanResources.UniformDeliveryEditTitle":"Update Uniform Delivery", 
+  "boilerplate.containers.Payroll.HumanResources.UniformReceiveCreateTitle":"Create Uniform Receive",   
+  "boilerplate.containers.Payroll.HumanResources.UniformReceiveEditTitle":"Update Uniform Receive", 
+  "boilerplate.containers.Payroll.HumanResources.uniformName":"Uniform Name", 
+  
   
   
   
@@ -989,7 +1011,15 @@
   "boilerplate.containers.Payroll.MainData.codes.Reset": "Reset",
   "boilerplate.containers.Payroll.MainData.codes.Import": "Import",
   "boilerplate.containers.Payroll.MainData.codes.SubmitEmployeeTooltip": "Import Excel File To Can Submit",
-  "boilerplate.containers.Payroll.MainData.codes.Download": "Download"
+  "boilerplate.containers.Payroll.MainData.codes.Download": "Download",
+  "boilerplate.containers.Payroll.MainData.codes.parentNameOrg": "Main Unit",
+  "boilerplate.containers.Payroll.MainData.codes.empName": "Unit Manager",
+  "boilerplate.containers.Payroll.MainData.codes.manPower": "ManPower",
+  "boilerplate.containers.Payroll.MainData.codes.createOrganization": "Create Organization",
+  "boilerplate.containers.Payroll.MainData.codes.editOrganization": "Edit Organization", 
+  "boilerplate.containers.Payroll.MainData.codes.note": "Note", 
+  "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "Work Nature Allowance",
+  "boilerplate.containers.Payroll.MainData.codes.errorMes": "Enter Integer Number"
   
    
    

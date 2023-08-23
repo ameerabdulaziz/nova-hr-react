@@ -5,7 +5,7 @@ import brand from 'enl-api/dummy/brand';
 import { PapperBlock } from 'enl-components';
 
 import { EditTable } from '../../../../Tables/demos';
-import CityApis from '../api/CityData';
+import CustodyApis from '../api/CustodyData';
 //import messages from '../messages';
 import { useSelector, useDispatch } from 'react-redux';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
@@ -18,7 +18,7 @@ const useStyles = makeStyles()(() => ({
   },
 }));
 
-function City(props) {
+function Custody(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const title = localStorage.getItem('MenuName');
@@ -42,7 +42,7 @@ function City(props) {
       initialValue: '',
     },
     {
-      name: 'EnName',
+      name: 'enName',
       label: 'enname',
       type: 'text',
       initialValue: '',
@@ -50,8 +50,8 @@ function City(props) {
       hidden: false,
     },
     {
-      name: 'govName',
-      label: 'govname',
+      name: 'categoryName',
+      label: 'categoryName',
       type: 'selection',
       initialValue: '',
       options: [],
@@ -60,7 +60,7 @@ function City(props) {
     },
 
     {
-      name: 'governmentId',
+      name: 'custodyCategoryId',
       label: 'id',
       type: 'text',
       width: 'auto',
@@ -98,7 +98,7 @@ function City(props) {
             <EditTable
               anchorTable={anchorTable}
               title={title}
-              API={CityApis(locale)}
+              API={CustodyApis(locale)}
             />
           }
         </div>
@@ -106,68 +106,7 @@ function City(props) {
     </div>
   );
 }
-City.propTypes = {
+Custody.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(City);
-
-// import React from 'react';
-// import { makeStyles } from 'tss-react/mui';
-// import PropTypes from 'prop-types';
-// import { Helmet } from 'react-helmet';
-// import brand from 'enl-api/dummy/brand';
-// import { SourceReader, PapperBlock } from 'enl-components';
-// import { injectIntl, FormattedMessage } from 'react-intl';
-// import messages from '../../../../Tables/messages';
-// import { EditableCellDemo } from '../../../../Tables/demos';
-
-// const useStyles = makeStyles()(() => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-// }));
-
-// function City(props) {
-//   //   const x =
-//   //     intl.formatMessage({ id: 'inRowEditTitle' }) +
-//   //     ' ' +
-//   //     intl.formatMessage({ id: 'inRowEditTitle' });
-//   const title = brand.name + ' - Table';
-//   const description = brand.desc;
-//   const docSrc = 'containers/Tables/demos/';
-//   const { intl } = props;
-//   debugger;
-
-//   const { classes } = useStyles();
-
-//   return (
-//     <div>
-//       <Helmet>
-//         <title>{title}</title>
-//         <meta name="description" content={description} />
-//         <meta property="og:title" content={title} />
-//         <meta property="og:description" content={description} />
-//         <meta property="twitter:title" content={title} />
-//         <meta property="twitter:description" content={description} />
-//       </Helmet>
-//       <FormattedMessage {...messages.inRowEditDesc} />
-//       <PapperBlock
-//         whiteBg
-//         icon="border_color"
-//         title={intl.formatMessage(messages.inRowEditTitle)}
-//         desc={intl.formatMessage(messages.inRowEditDesc)}
-//       >
-//         <div className={classes.root}>
-//           <EditableCellDemo />
-//           <SourceReader componentName={docSrc + 'EditableCellDemo.js'} />
-//         </div>
-//       </PapperBlock>
-//     </div>
-//   );
-// }
-
-// City.propTypes = {
-//   intl: PropTypes.object.isRequired,
-// };
-
-// export default injectIntl(City);
+export default injectIntl(Custody);

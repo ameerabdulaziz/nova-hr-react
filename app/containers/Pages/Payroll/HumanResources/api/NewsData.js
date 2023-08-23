@@ -19,21 +19,22 @@ const NewsData = (locale) => {
     return data.data;
 
   };
+  
+  const getFormData = object => Object.entries(object).reduce((fd, [ key, val ]) => {
+    if (Array.isArray(val)) {
+      val.forEach(v => fd.append(key, v))
+    } else {
+      fd.append(key, val)
+    }
+    return fd
+  }, new FormData());
+  
   Apis.Save = async (data,EmployeeList) => {
-    debugger;
-  var requestData={
-  "id": data.id,
-  "header": data.header,
-  "details":data.details,
-  "newsTypeId":data.newsTypeId,
-  "fromDate":data.fromDate,
-  "toDate":data.toDate,
-  "employees":EmployeeList.filter((row) => row.isSelected==true).map((obj) => ({
-    id: obj.id,
-    name: obj.name,
-  }))
-  }
-    const result = await axiosInstance.post("HrNews/Save",requestData);
+    
+    var Emp = EmployeeList.filter((row) => row.isSelected==true).map((obj) => obj.id);
+    data.emp=Emp;
+    data.employees=[];
+    const result = await axiosInstance.post("HrNews/Save",getFormData(data));
     return result;
   };
   Apis.Delete = async (id) => {
