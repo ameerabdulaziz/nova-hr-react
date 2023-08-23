@@ -226,25 +226,25 @@ export default defineMessages({
     id: `${scope}.codes.PenaltyValue`,
     defaultMessage: 'Value',
   },
-  employeeName:{
+
+  employeeName: {
     id: `${scope}.codes.employeeName`,
     defaultMessage: 'Value',
   },
-  newEmployeeName:{
+  newEmployeeName: {
     id: `${scope}.codes.newEmployeeName`,
     defaultMessage: 'Value',
   },
-  job:{
+  job: {
     id: `${scope}.codes.job`,
     defaultMessage: 'job',
   },
-  categoryName:{
+  categoryName: {
     id: `${scope}.codes.categoryName`,
     defaultMessage: 'categoryName',
   },
-  price:{
+  price: {
     id: `${scope}.codes.price`,
     defaultMessage: 'price',
   },
 });
-

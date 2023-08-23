@@ -40,6 +40,117 @@ export default defineMessages({
     id: `${scope}.personal.isinsured`,
     defaultMessage: 'Insured',
   },
+  //new
+  machineCode: {
+    id: `${scope}.personal.machineCode`,
+    defaultMessage: 'Machine Code',
+  },
+  eRPCode: {
+    id: `${scope}.personal.eRPCode`,
+    defaultMessage: 'ERPCode',
+  },
+  arname: {
+    id: `${scope}.personal.arname`,
+    defaultMessage: 'Arabic Name',
+  },
+
+  enname: {
+    id: `${scope}.personal.enname`,
+    defaultMessage: 'English Name',
+  },
+  identityType: {
+    id: `${scope}.personal.identityType`,
+    defaultMessage: 'Identity Type',
+  },
+  identityIssuingAuth: {
+    id: `${scope}.personal.identityIssuingAuth`,
+    defaultMessage: 'Identity Issuing Auth',
+  },
+  identityIssuingDate: {
+    id: `${scope}.personal.identityIssuingDate`,
+    defaultMessage: 'Identity Issuing Date',
+  },
+  identityExpiry: {
+    id: `${scope}.personal.identityExpiry`,
+    defaultMessage: 'Identity Expiry',
+  },
+
+  gender: {
+    id: `${scope}.personal.gender`,
+    defaultMessage: 'Gender',
+  },
+  nationality: {
+    id: `${scope}.personal.nationality`,
+    defaultMessage: 'Nationality',
+  },
+  religion: {
+    id: `${scope}.personal.religion`,
+    defaultMessage: 'ReligionId',
+  },
+  motherName: {
+    id: `${scope}.personal.motherName`,
+    defaultMessage: 'mother Name',
+  },
+  birthDate: {
+    id: `${scope}.personal.birthDate`,
+    defaultMessage: 'Birth Date',
+  },
+  gov: {
+    id: `${scope}.personal.gov`,
+    defaultMessage: 'Governerate',
+  },
+  city: {
+    id: `${scope}.personal.city`,
+    defaultMessage: 'City',
+  },
+  socialStatus: {
+    id: `${scope}.personal.socialStatus`,
+    defaultMessage: 'social Status',
+  },
+  militaryStatus: {
+    id: `${scope}.personal.militaryStatusId`,
+    defaultMessage: 'Military Status',
+  },
+
+  sonNo: {
+    id: `${scope}.personal.sonNo`,
+    defaultMessage: 'Son Number',
+  },
+  socialStatus: {
+    id: `${scope}.personal.socialStatus`,
+    defaultMessage: 'social Status',
+  },
+
+  socialStatus: {
+    id: `${scope}.personal.socialStatus`,
+    defaultMessage: 'social Status',
+  },
+  socialStatus: {
+    id: `${scope}.personal.socialStatus`,
+    defaultMessage: 'social Status',
+  },
+  socialStatus: {
+    id: `${scope}.personal.socialStatus`,
+    defaultMessage: 'social Status',
+  },
+  socialStatus: {
+    id: `${scope}.personal.socialStatus`,
+    defaultMessage: 'social Status',
+  },
+  socialStatus: {
+    id: `${scope}.personal.socialStatus`,
+    defaultMessage: 'social Status',
+  },
+
+  isResident: {
+    id: `${scope}.personal.isResident`,
+    defaultMessage: 'Is Resident',
+  },
+  isSpecialNeeds: {
+    id: `${scope}.personal.isSpecialNeeds`,
+    defaultMessage: 'Is SpecialNeeds',
+  },
+
   chooseEmp: {
     id: `boilerplate.containers.Payroll.Setting.chooseEmp`,
     defaultMessage: 'Select Employee',
@@ -124,7 +235,10 @@ export default defineMessages({
     id: `${scope}.job.joblevel`,
     defaultMessage: 'Job Level',
   },
-
+  jobType: {
+    id: `${scope}.job.jobType`,
+    defaultMessage: 'Job Type',
+  },
   hiringSource: {
     id: `${scope}.job.hiringSource`,
     defaultMessage: 'Hiring Source',

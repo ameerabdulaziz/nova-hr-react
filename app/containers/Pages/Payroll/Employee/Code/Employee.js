@@ -33,7 +33,9 @@ function Employee(props) {
   const title = localStorage.getItem('MenuName');
   const [employee, setEmployee] = useState(0);
   const [id, setid] = useState(0);
-  const [employeeCode, setemployeeCode] = useState(false);
+  const [employeeCode, setemployeeCode] = useState();
+  const [machineCode, setmachineCode] = useState();
+  const [eRPCode, seteRPCode] = useState();
   const [reportTo, setreportTo] = useState({});
   const [reportToList, setreportToList] = useState([]);
   const [MachineCode, setMachineCode] = useState();
@@ -69,7 +71,7 @@ function Employee(props) {
 
   const [birthCityId, setbirthCityId] = useState({});
   const [birthCityList, setbirthCityList] = useState([]);
-  const [socialStatusId, setsocialStatusId] = useState({});
+  const [socialStatusId, setsocialStatusId] = useState();
   const [socialStatusList, setsocialStatusList] = useState([]);
   const [sonNo, setsonNo] = useState(0);
 
@@ -100,6 +102,8 @@ function Employee(props) {
       const data = {
         id: id,
         employeeCode: employeeCode,
+        eRPCode: eRPCode,
+        machineCode: machineCode,
         reportTo: reportTo.id ?? '',
         machineCode: machineCode,
         arName: arName,
@@ -164,6 +168,8 @@ function Employee(props) {
   const clear = (e) => {
     setid(0);
     setemployeeCode('');
+    seteRPCode('');
+    setmachineCode('');
     setreportTo({});
     setMachineCode('');
     setarName('');
@@ -209,14 +215,45 @@ function Employee(props) {
       ).GetDepartmentList();
       setorganizationList(organizationdata || []);
 
-      const kinshipLinkdata = await GeneralListApis(
+      const ControlParameterdata = await GeneralListApis(
         locale
-      ).GetcontrolParameterList();
-      setcontrolParameterList(kinshipLinkdata || []);
+      ).GetControlParameterList();
+      setcontrolParameterList(ControlParameterdata || []);
+
       const identityTypedata = await GeneralListApis(
         locale
-      ).GetidentityTypeList();
+      ).GetIdentityTypeList();
       setidentityTypeList(identityTypedata || []);
+
+      const Genderdata = await GeneralListApis(locale).GetGenderList();
+      setgenderList(Genderdata || []);
+
+      const Nationalitydata = await GeneralListApis(
+        locale
+      ).GetNationalityList();
+      setnationalityList(Nationalitydata || []);
+
+      const religiondata = await GeneralListApis(locale).GetReligionList();
+      setreligionList(religiondata || []);
+
+      const BirthGovdata = await GeneralListApis(locale).GetGovList();
+      setbirthGovList(BirthGovdata || []);
+
+      const BirthCitydata = await GeneralListApis(locale).GetCityList();
+      setbirthCityList(BirthCitydata || []);
+
+      const socialStatusdata = await GeneralListApis(
+        locale
+      ).GetSocialStatusList();
+      setsocialStatusList(socialStatusdata || []);
+
+      const MilitaryStatusdata = await GeneralListApis(
+        locale
+      ).GetMilitaryStatusList();
+      setmilitaryStatusList(MilitaryStatusdata || []);
+
+      const Salutedata = await GeneralListApis(locale).GetSaluteList();
+      setsaluteId(Salutedata || []);
 
       //  const kinshipEmpdata = await GeneralListApis(locale).GetEmployeeList();
     } catch (err) {
@@ -234,6 +271,21 @@ function Employee(props) {
       debugger;
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
+        setemployeeCode(dataApi[0].employeeCode);
+        sereRPCode(dataApi.eRPCode);
+        setmachineCode(dataApi[0].machineCode);
+        setreportTo({
+          id: dataApi[0].reportTo,
+          name: dataApi[0].reportToName,
+        });
+        setMachineCode(dataApi.MachineCode);
+        setarName(dataApi[0].arName);
+        setenName(dataApi[0].enName);
+        setmotherName(dataApi[0].motherName);
+        setorganizationId({
+          id: dataApi[0].organizationId,
+          name: dataApi[0].hiringSourceName,
+        });
         setjobId({
           id: dataApi[0].jobId,
           name: dataApi[0].jobName,
@@ -243,31 +295,55 @@ function Employee(props) {
           name: dataApi[0].jobLevelName,
         });
         sethiringDate(dataApi[0].hiringDate);
-        setorganizationId({
-          id: dataApi[0].organizationId,
-          name: dataApi[0].hiringSourceName,
-        });
-        setemployeeCode(dataApi[0].employeeCode);
         setcontrolParameterId({
           id: dataApi[0].controlParameterId,
-          name: dataApi[0].kinshipLinkName,
+          name: dataApi[0].controlParameterName,
         });
-        setreportTo({
-          id: dataApi[0].reportTo,
-          name: dataApi[0].kinshipEmpName,
-        });
-        setenName(dataApi[0].enName);
         setidentityTypeId({
           id: dataApi[0].identityTypeId,
           name: dataApi[0].identityTypeName,
         });
         setidentityIssuingDate(dataApi[0].identityIssuingDate);
         setidentityExpiry(dataApi[0].identityExpiry);
-        setarName(dataApi[0].arName);
+        setidentityNumber(dataApi[0].identityNumber);
+        setidentityIssuingAuth(dataApi[0].identityIssuingAuth);
         setgenderId({
           id: dataApi[0].genderId,
           name: dataApi[0].genderName,
         });
+        setnationalityId({
+          id: dataApi[0].nationalityId,
+          name: dataApi[0].nationalityName,
+        });
+        setreligionId({
+          id: dataApi[0].religionId,
+          name: dataApi[0].religionName,
+        });
+        setbirthDate(dataApi[0].birthDate);
+        setbirthGovId({
+          id: dataApi[0].birthGovId,
+          name: dataApi[0].birthGovName,
+        });
+        setbirthCityId({
+          id: dataApi[0].birthCityId,
+          name: dataApi[0].birthCityName,
+        });
+        setsocialStatusId({
+          id: dataApi[0].socialStatusId,
+          name: dataApi[0].socialStatusName,
+        });
+        setsonNo(dataApi[0].sonNo);
+        setmilitaryStatusId({
+          id: dataApi[0].militaryStatusId,
+          name: dataApi[0].militaryStatusName,
+        });
+        setisInsured(dataApi[0].isInsured);
+        setisSpecialNeeds(dataApi[0].isSpecialNeeds);
+        setsaluteId({
+          id: dataApi[0].saluteId,
+          name: dataApi[0].saluteName,
+        });
+        setstatusId(dataApi[0].statusId);
       } else clear();
 
       setProgress(false);
@@ -276,443 +352,634 @@ function Employee(props) {
   }, [employee]);
   return (
     <div>
-      <Grid
-        container
-        spacing={3}
-        alignItems="flex-start"
-        direction="row"
-        justifyContent="center"
+      <PapperBlock
+        whiteBg
+        icon="border_color"
+        title={
+          id == 0
+            ? intl.formatMessage(messages.createRewardTitle)
+            : intl.formatMessage(messages.updateRewardTitle)
+        }
+        desc={''}
       >
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-              {title}
-            </Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={3} alignItems="flex-start" direction="row">
+            <Grid item xs={12} md={4}>
+              <TextField
+                id="empcode"
+                name="empcode"
+                value={employeeCode}
+                onChange={(e) => setemployeeCode(e.value)}
+                label={intl.formatMessage(messages.employeeCode)}
+                className={classes.field}
+                variant="outlined"
+              />
+              <TextField
+                id="machineCode"
+                name="machineCode"
+                value={machineCode}
+                onChange={(e) => setmachineCode(e.value)}
+                label={intl.formatMessage(messages.employeeCode)}
+                className={classes.field}
+                variant="outlined"
+              />
+              <TextField
+                id="eRPCode"
+                name="eRPCode"
+                value={eRPCode}
+                onChange={(e) => seteRPCode(e.value)}
+                label={intl.formatMessage(messages.employeeCode)}
+                className={classes.field}
+                variant="outlined"
+              />
+              <TextField
+                id="arname"
+                name="arname"
+                value={arName}
+                onChange={(e) => setarName(e.value)}
+                label={intl.formatMessage(messages.arName)}
+                className={classes.field}
+                variant="outlined"
+              />
+              <TextField
+                id="enname"
+                name="enname"
+                value={enName}
+                onChange={(e) => setenName(e.value)}
+                label={intl.formatMessage(messages.enName)}
+                className={classes.field}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                id="identityType"
+                options={identityTypeList}
+                value={{ id: data.identityTypeId, name: data.identityTypeName }}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === '' || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : '')}
+                onChange={(event, value) => {
+                  if (value !== null) {
+                    setidentityTypeId({
+                      id: value.id,
+                      name: value.name,
+                    });
+                  } else {
+                    setidentityTypeId({
+                      id: 0,
+                      name: '',
+                    });
+                  }
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="yearId"
+                    required
+                    label={intl.formatMessage(messages.bnkEmpCode)}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <TextField
+                id="identityNumber"
+                name="identityNumber"
+                value={identityNumber}
+                onChange={(e) => setidentityNumber(e.value)}
+                label={intl.formatMessage(messages.identitynumber)}
+                className={classes.field}
+                variant="outlined"
+              />
+              <TextField
+                id="identityIssuingAuth"
+                name="identityIssuingAuth"
+                value={identityIssuingAuth}
+                onChange={(e) => setidentityNumber(e.value)}
+                label={intl.formatMessage(messages.identitynumber)}
+                className={classes.field}
+                variant="outlined"
+              />
+            </Grid>
+          </Grid>
+          <Grid item xs={12} md={4}></Grid>
 
+          <Grid item xs={12} md={12}>
+            <Card className={classes.card}>
+              <CardContent>
+                <Grid
+                  container
+                  spacing={3}
+                  alignItems="flex-start"
+                  direction="row"
+                >
+                  <Grid item xs={12} md={4}>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                        label={intl.formatMessage(messages.identityIssuingDate)}
+                        value={identityIssuingDate}
+                        onChange={(date) => {
+                          debugger;
+                          setidentityIssuingDate(
+                            format(new Date(date), 'yyyy-MM-dd')
+                          );
+                        }}
+                        className={classes.field}
+                        renderInput={(params) => (
+                          <TextField {...params} variant="outlined" />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                        label={intl.formatMessage(messages.identitynumber)}
+                        value={identityExpiry}
+                        onChange={(date) => {
+                          debugger;
+                          setidentityExpiry(
+                            format(new Date(date), 'yyyy-MM-dd')
+                          );
+                        }}
+                        className={classes.field}
+                        renderInput={(params) => (
+                          <TextField {...params} variant="outlined" />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Autocomplete
+                      id="GenderId"
+                      options={genderList}
+                      value={{
+                        id: data.genderId,
+                        name: data.genderName,
+                      }}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === '' ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ''
+                      }
+                      onChange={(event, value) => {
+                        if (value !== null) {
+                          setgenderId({
+                            id: value.id,
+                            name: value.name,
+                          });
+                        } else {
+                          setgenderId({
+                            id: 0,
+                            name: '',
+                          });
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="GenderId"
+                          required
+                          label={intl.formatMessage(messages.hasLicense)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Autocomplete
+                      id="NationalityId"
+                      options={nationalityList}
+                      value={{
+                        id: data.nationalityId,
+                        name: data.nationalityName,
+                      }}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === '' ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ''
+                      }
+                      onChange={(event, value) => {
+                        if (value !== null) {
+                          setnationalityId({
+                            id: value.id,
+                            name: value.name,
+                          });
+                        } else {
+                          setnationalityId({
+                            id: 0,
+                            name: '',
+                          });
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="nationality"
+                          required
+                          label={intl.formatMessage(messages.hasLicense)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={2}></Grid>
+                  <Grid item xs={6} md={2}>
+                    <Autocomplete
+                      id="ddlreligionId"
+                      options={religionList}
+                      value={{
+                        id: data.religionId,
+                        name: data.religionName,
+                      }}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === '' ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ''
+                      }
+                      onChange={(event, value) => {
+                        if (value !== null) {
+                          setreligionId({
+                            id: value.id,
+                            name: value.name,
+                          });
+                        } else {
+                          setreligionId({
+                            id: 0,
+                            name: '',
+                          });
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="religionId"
+                          required
+                          label={intl.formatMessage(messages.hasLicense)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={6} md={2}>
+                    <TextField
+                      id="motherName"
+                      name="motherName"
+                      value={motherName}
+                      label={intl.formatMessage(messages.bankBranchNo)}
+                      className={classes.field}
+                      variant="outlined"
+                      onChange={(e) => setmotherName(e.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={6} md={2}>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                        label={intl.formatMessage(messages.contractType)}
+                        value={birthDate}
+                        onChange={(date) => {
+                          debugger;
+                          setbirthDate(format(new Date(date), 'yyyy-MM-dd'));
+                        }}
+                        className={classes.field}
+                        renderInput={(params) => (
+                          <TextField {...params} variant="outlined" />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid item xs={6} md={2}>
+                    <Autocomplete
+                      id="ddlbirthGovId"
+                      options={birthGovList}
+                      value={{
+                        id: data.birthGovId,
+                        name: data.birthGovName,
+                      }}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === '' ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ''
+                      }
+                      onChange={(event, value) => {
+                        if (value !== null) {
+                          setbirthGovId({
+                            id: value.id,
+                            name: value.name,
+                          });
+                        } else {
+                          setbirthGovId({
+                            id: 0,
+                            name: '',
+                          });
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="birthGovId"
+                          required
+                          label={intl.formatMessage(messages.hasLicense)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={6} md={2}>
+                    <Autocomplete
+                      id="ddlbirthcityId"
+                      options={birthCityId}
+                      value={{
+                        id: data.birthCityId,
+                        name: data.birthCityName,
+                      }}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === '' ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ''
+                      }
+                      onChange={(event, value) => {
+                        if (value !== null) {
+                          setbirthCityId({
+                            id: value.id,
+                            name: value.name,
+                          });
+                        } else {
+                          setbirthCityId({
+                            id: 0,
+                            name: '',
+                          });
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="birthcityId"
+                          required
+                          label={intl.formatMessage(messages.hasLicense)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <Card className={classes.card}>
+              <CardContent>
+                <Grid
+                  container
+                  spacing={3}
+                  alignItems="flex-start"
+                  direction="row"
+                >
+                  <Grid item xs={12} md={4}>
+                    <Autocomplete
+                      id="ddlsocialStatusId"
+                      options={socialStatusList}
+                      value={{
+                        id: data.socialStatusId,
+                        name: data.socialStatusName,
+                      }}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === '' ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ''
+                      }
+                      onChange={(event, value) => {
+                        if (value !== null) {
+                          setsocialStatusId({
+                            id: value.id,
+                            name: value.name,
+                          });
+                        } else {
+                          setsocialStatusId({
+                            id: 0,
+                            name: '',
+                          });
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="socialStatusId"
+                          required
+                          label={intl.formatMessage(messages.status)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Autocomplete
+                      id="ddlmilitaryStatusId"
+                      options={militaryStatusList}
+                      value={{
+                        id: data.militaryStatusId,
+                        name: data.militaryStatusName,
+                      }}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === '' ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ''
+                      }
+                      onChange={(event, value) => {
+                        if (value !== null) {
+                          setmilitaryStatusId({
+                            id: value.id,
+                            name: value.name,
+                          });
+                        } else {
+                          setmilitaryStatusId({
+                            id: 0,
+                            name: '',
+                          });
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="militaryStatusId"
+                          required
+                          label={intl.formatMessage(messages.status)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <TextField
+                      id="sonNo"
+                      name="sonNo"
+                      value={sonNo}
+                      label={intl.formatMessage(messages.organization)}
+                      className={classes.field}
+                      variant="outlined"
+                      onChange={(e) => setsonNo(e.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Autocomplete
+                      id="ddljobid"
+                      options={jobList}
+                      value={{ id: jobId, name: jobName }}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === '' ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ''
+                      }
+                      onChange={(event, value) => {
+                        if (value !== null) {
+                          setjobId({
+                            id: value.id,
+                            name: value.name,
+                          });
+                        } else {
+                          setjobId({
+                            id: 0,
+                            name: '',
+                          });
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="jobid"
+                          required
+                          label={intl.formatMessage(messages.job)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
             <Autocomplete
-              id="ddlEmp"
-              required
-              options={employeeList}
-              getOptionLabel={(option) => option.name}
+              id="ddljobLevelId"
+              options={jobLevelList}
+              value={{ id: jobLevelId, name: jobLevelName }}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === '' || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
                 if (value !== null) {
-                  setEmployee(value.id);
+                  setjobLevelId({
+                    id: value.id,
+                    name: value.name,
+                  });
                 } else {
-                  setEmployee(0);
+                  setjobLevelId({
+                    id: 0,
+                    name: '',
+                  });
                 }
               }}
               renderInput={(params) => (
                 <TextField
-                  variant="standard"
+                  variant="outlined"
                   {...params}
-                  name="employee"
-                  value={employee}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                  margin="normal"
+                  name="jobLevelId"
+                  required
+                  label={intl.formatMessage(messages.joblevel)}
                 />
               )}
             />
-            {progress && (
-              <div>
-                {' '}
-                <LinearProgress />
-                <br />
-                <LinearProgress color="secondary" />
-                <br />
-              </div>
-            )}
-            <form onSubmit={handleSubmit}>
-              <div>
-                <br />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="jobnature"
+              name="jobnature"
+              // value={data.elementName}
+              label={intl.formatMessage(messages.jobname)}
+              className={classes.field}
+              variant="outlined"
+              disabled
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <TextField
+              id="jobtype"
+              name="jobtype"
+              //value={data.value}
+              label={intl.formatMessage(messages.job)}
+              required
+              className={classes.field}
+              variant="outlined"
+              disabled
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            //notes
+          </Grid>
 
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <DesktopDatePicker
-                    label={intl.formatMessage(messages.hiringDate)}
-                    value={hiringDate}
-                    onChange={(date) => {
-                      debugger;
-                      sethiringDate(format(new Date(date), 'yyyy-MM-dd'));
-                    }}
-                    className={classes.field}
-                    renderInput={(params) => (
-                      <TextField {...params} variant="outlined" />
-                    )}
-                  />
-                </LocalizationProvider>
-              </div>
-              <br />
-              <div>
-                <Autocomplete
-                  id="ddljobId"
-                  required
-                  options={jobList}
-                  value={{
-                    id: jobId.id,
-                    name: jobId.name,
-                  }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
-                  onChange={(event, value) => {
-                    debugger;
-                    if (value !== null) {
-                      setjobId({
-                        id: value.id,
-                        name: value.name,
-                      });
-                    } else {
-                      setjobId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
+          <Grid item xs={12} md={8}>
+            <TextField
+              id="note"
+              name="note"
+              value={data.note}
+              onChange={(e) => handleChange(e)}
+              label={intl.formatMessage(messages.note)}
+              className={classes.field}
+              variant="outlined"
+            />
+          </Grid>
 
-                      {...params}
-                      name="jobId"
-                      label={intl.formatMessage(messages.job)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-              <br />
-              <div>
-                <Autocomplete
-                  id="ddlJoblevelId"
-                  required
-                  options={jobLevelList}
-                  value={{
-                    id: jobLevelId.id,
-                    name: jobLevelId.name,
-                  }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
-                  onChange={(event, value) => {
-                    debugger;
-                    if (value !== null) {
-                      setjobLevelId({
-                        id: value.id,
-                        name: value.name,
-                      });
-                    } else {
-                      setjobLevelId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
-
-                      {...params}
-                      name="JobLevelId"
-                      label={intl.formatMessage(messages.joblevel)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-              <br />
-              <div>
-                <Autocomplete
-                  id="ddlorganizationId"
-                  required
-                  options={organizationList}
-                  value={{
-                    id: organizationId.id,
-                    name: organizationId.name,
-                  }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
-                  onChange={(event, value) => {
-                    debugger;
-                    if (value !== null) {
-                      setorganizationId({
-                        id: value.id,
-                        name: value.name,
-                      });
-                    } else {
-                      setorganizationId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
-
-                      {...params}
-                      name="organizationId"
-                      label={intl.formatMessage(messages.hiringSource)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={employeeCode}
-                      onChange={() => {
-                        setemployeeCode(!employeeCode);
-                        setRequired({ required: !employeeCode });
-                      }}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.employeeCode)}
-                />
-              </div>
-
-              <div>
-                <Autocomplete
-                  id="ddcontrolParameterId"
-                  required
-                  options={controlParameterList}
-                  value={{
-                    id: controlParameterId.id,
-                    name: controlParameterId.name,
-                  }}
-                  {...required}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
-                  onChange={(event, value) => {
-                    debugger;
-                    if (value !== null) {
-                      setcontrolParameterId({
-                        id: value.id,
-                        name: value.name,
-                      });
-                    } else {
-                      setcontrolParameterId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
-                      {...required}
-                      {...params}
-                      name="controlParameterId"
-                      label={intl.formatMessage(messages.kinshipLink)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-              <br />
-              <div>
-                <Autocomplete
-                  id="ddlreportTo"
-                  {...required}
-                  options={reportToList}
-                  value={{
-                    id: reportTo.id,
-                    name: reportTo.name,
-                  }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
-                  onChange={(event, value) => {
-                    debugger;
-                    if (value !== null) {
-                      setreportTo({
-                        id: value.id,
-                        name: value.name,
-                      });
-                    } else {
-                      setreportTo({
-                        id: 0,
-                        name: '',
-                      });
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
-                      {...required}
-                      {...params}
-                      name="reportTo"
-                      label={intl.formatMessage(messages.kinshipEmp)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={enName}
-                      onChange={() => setenName(!enName)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.enName)}
-                />
-              </div>
-
-              <div>
-                <Autocomplete
-                  id="ddlidentityTypeId"
-                  required
-                  options={identityTypeList}
-                  value={{
-                    id: identityTypeId.id,
-                    name: identityTypeId.name,
-                  }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
-                  onChange={(event, value) => {
-                    debugger;
-                    if (value !== null) {
-                      setidentityTypeId({
-                        id: value.id,
-                        name: value.name,
-                      });
-                    } else {
-                      setidentityTypeId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
-
-                      {...params}
-                      name="identityTypeId"
-                      label={intl.formatMessage(messages.identityType)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-              <br />
-              <div>
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <DesktopDatePicker
-                    label={intl.formatMessage(messages.identityIssuingDate)}
-                    value={identityIssuingDate}
-                    onChange={(date) => {
-                      debugger;
-                      setidentityIssuingDate(
-                        format(new Date(date), 'yyyy-MM-dd')
-                      );
-                    }}
-                    className={classes.field}
-                    renderInput={(params) => (
-                      <TextField {...params} variant="outlined" />
-                    )}
-                  />
-                </LocalizationProvider>
-              </div>
-              <br />
-              <div>
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <DesktopDatePicker
-                    label={intl.formatMessage(messages.identityExpiry)}
-                    value={identityExpiry}
-                    onChange={(date) => {
-                      debugger;
-                      setidentityExpiry(format(new Date(date), 'yyyy-MM-dd'));
-                    }}
-                    className={classes.field}
-                    renderInput={(params) => (
-                      <TextField {...params} variant="outlined" />
-                    )}
-                  />
-                </LocalizationProvider>
-              </div>
-
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={arName}
-                      onChange={() => setarName(!arName)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.arName)}
-                />
-              </div>
-
-              <div>
-                <Autocomplete
-                  id="ddlgenderId"
-                  options={genderList || []}
-                  value={{
-                    id: genderId.id,
-                    name: genderId.name,
-                  }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
-                  onChange={(event, value) => {
-                    debugger;
-                    if (value !== null) {
-                      setgenderId({
-                        id: value.id,
-                        name: value.name,
-                      });
-                    } else {
-                      setgenderId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      name="genderId"
-                      label={intl.formatMessage(messages.gender)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-              <br />
-
-              <div>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  disabled={employee === 0 || processing || delprocessing}
-                >
-                  {processing && (
-                    <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                  )}
-                  <FormattedMessage {...Payrollmessages.save} />
-                </Button>
-                <Button
-                  type="button"
-                  disabled={employee === 0 || pristine || processing}
-                  onClick={() => deletedata()}
-                >
-                  {delprocessing && (
-                    <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                  )}
-                  <FormattedMessage {...Payrollmessages.delete} />
-                </Button>
-              </div>
-            </form>
-          </Paper>
-        </Grid>
-      </Grid>
+          <Grid item xs={12} md={1}>
+            <Button
+              variant="contained"
+              type="submit"
+              size="medium"
+              color="primary"
+            >
+              <FormattedMessage {...Payrollmessages.save} />
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={1}>
+            <Button
+              variant="contained"
+              size="medium"
+              color="primary"
+              onClick={oncancel}
+            >
+              <FormattedMessage {...Payrollmessages.cancel} />
+            </Button>
+          </Grid>
+        </form>
+      </PapperBlock>
     </div>
   );
 }
