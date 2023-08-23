@@ -17,12 +17,16 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 
+import { useLocation } from "react-router-dom";
+
+
 
 
 function UniformReceiveCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  let { id } = useParams();
+  const location = useLocation()
+  const { id } = location.state??0;
   const { classes } = useStyles();
   
   const [data, setdata] = useState({

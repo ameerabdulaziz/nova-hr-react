@@ -247,4 +247,46 @@ uniformName: {
   id: `${scope}.uniformName`,
   defaultMessage: 'uniformName',
 },
+//ResignTrx////////////////////////////////////////////////////////////////////////////////////////////////
+resignReasonName: {
+  id: `${scope}.resignReasonName`,
+  defaultMessage: 'resignReasonName',
+},
+lworkingDay: {
+  id: `${scope}.lworkingDay`,
+  defaultMessage: 'lworkingDay',
+},
+
+settlementV: {
+  id: `${scope}.settlementV`,
+  defaultMessage: 'settlementV',
+},
+vacSettlValue: {
+  id: `${scope}.vacSettlValue`,
+  defaultMessage: 'vacSettlValue',
+},
+ResignTrxCreateTitle: {
+  id: `${scope}.ResignTrxCreateTitle`,
+  defaultMessage: 'ResignTrxCreateTitle',
+},
+ResignTrxUpdateTitle: {
+  id: `${scope}.ResignTrxUpdateTitle`,
+  defaultMessage: 'ResignTrxUpdateTitle',
+},
+workingYears: {
+  id: `${scope}.workingYears`,
+  defaultMessage: 'workingYears',
+},
+vacElement: {
+  id: `${scope}.vacElement`,
+  defaultMessage: 'vacElement',
+},
+settElemnt: {
+  id: `${scope}.settElemnt`,
+  defaultMessage: 'settElemnt',
+},
+source: {
+  id: `${scope}.source`,
+  defaultMessage: 'source',
+},
 });

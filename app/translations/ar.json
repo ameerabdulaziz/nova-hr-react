@@ -886,6 +886,8 @@
   "boilerplate.containers.Payroll.notes": "ملاحظات",
   "boilerplate.containers.Payroll.price": "السعر",   
   "boilerplate.containers.Payroll.count": "العدد", 
+  "boilerplate.containers.Payroll.isStop": "ايقاف التعامل المالى", 
+  
   
   
   
@@ -968,6 +970,18 @@
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveCreateTitle":"اضافة استلام زى",   
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveEditTitle":"تعديل استلام زى", 
   "boilerplate.containers.Payroll.HumanResources.uniformName":"اسم الزى", 
+  "boilerplate.containers.Payroll.HumanResources.resignReasonName":"سبب الاستقالة", 
+  "boilerplate.containers.Payroll.HumanResources.lworkingDay":"اخر يوم عمل", 
+  "boilerplate.containers.Payroll.HumanResources.settlementV":"مكتفئة نهاية الخدمة", 
+  "boilerplate.containers.Payroll.HumanResources.vacSettlValue":"تسوية الاجازات", 
+  "boilerplate.containers.Payroll.HumanResources.ResignTrxCreateTitle":"اضافة استقالة", 
+  "boilerplate.containers.Payroll.HumanResources.ResignTrxUpdateTitle":"تعديل استقالة", 
+  "boilerplate.containers.Payroll.HumanResources.vacElement":"عنصر تسوية الاجازات", 
+  "boilerplate.containers.Payroll.HumanResources.settElemnt":"عنصر المكافئة", 
+  "boilerplate.containers.Payroll.HumanResources.workingYears":"سنين العمل",
+  "boilerplate.containers.Payroll.HumanResources.source":"المصدر", 
+  
+  
   
   
   

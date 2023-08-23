@@ -23,12 +23,15 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import EmloyeePopup from '../../Component/EmloyeePopup';
 import useStyles from '../../Style';
 
+import { useLocation } from "react-router-dom";
+
 
 
 function NewsCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  let { id } = useParams();
+  const location = useLocation()
+  const { id } = location.state??0;
   const { classes,cx } = useStyles();
   const [OpenPopup, setOpenPopup] = useState(false);  
   const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));

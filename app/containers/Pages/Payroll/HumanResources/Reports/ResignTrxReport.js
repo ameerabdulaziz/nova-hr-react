@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import ApiData from '../../Explanation/api/ExplanationData';
+import ApiData from '../api/ResignTrxData';
 import { useSelector } from 'react-redux';
-import {Button ,Grid,TextField, Autocomplete,IconButton  } from '@mui/material';
+import {Button ,Grid,TextField, Autocomplete  } from '@mui/material';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -15,12 +15,9 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { PapperBlock } from 'enl-components';
 import { toast } from 'react-hot-toast';
-import EditIcon from '@mui/icons-material/Create';
-import style from '../../../../../../app/styles/styles.scss';
-import { Link} from "react-router-dom";
 
 
-function ExplanationList(props) {
+function ResignTrxReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -28,8 +25,8 @@ function ExplanationList(props) {
   const [todate, settodate] = useState(null);
   const [employee, setemployee] = useState(null);
   const [EmployeeList, setEmployeeList] = useState([]);
-  const [type, settype] = useState(null);
-  const [TypeList, setTypeList] = useState([]);
+  const [Resign, setResign] = useState(null);
+  const [ResignList, setResignList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   
@@ -37,7 +34,7 @@ function ExplanationList(props) {
     
     try{
       debugger;  
-      const dataApi = await ApiData(locale).GetReport(employee,type,fromdate,todate,false);
+      const dataApi = await ApiData(locale).GetReport(employee,Resign,fromdate,todate);
       setdata(dataApi);
     } catch (err) {
       toast.error(err.response.data);
@@ -48,9 +45,11 @@ function ExplanationList(props) {
     debugger ;
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
-    const types = await GeneralListApis(locale).GetExplanationTypeList(locale);
-    setTypeList(types);
-    const dataApi = await ApiData(locale).GetReport(employee,type,fromdate,todate,false);
+
+    const resigns = await GeneralListApis(locale).GetResignReasonList(locale);
+    setResignList(resigns);
+
+    const dataApi = await ApiData(locale).GetReport(employee,Resign,fromdate,todate);
     setdata(dataApi);
   }
   useEffect(() => {    
@@ -60,77 +59,80 @@ function ExplanationList(props) {
   const columns = [
     {
       name: 'id',
-      label: <FormattedMessage {...Payrollmessages['id']} />,
       options: {
         filter: false,
       },
     },
     {
-        name: 'employeeName',
-        label: <FormattedMessage {...messages['employeeName']} />,
-        options: {
-          filter: true,
-        },
-    }, 
+      name: 'date',
+      label:<FormattedMessage {...messages['date']} />,
+      options: {
+        filter: true,
+      },
+    },
+        
     {
-        name: 'job',
-        label: <FormattedMessage {...messages['job']} />,
+      name: 'employeeName',
+      label: <FormattedMessage {...messages['employeeName']} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+        name: 'resignReasonName',
+        label: <FormattedMessage {...messages['resignReasonName']} />,
         options: {
             filter: true,
         },
-    }, 
+    },   
+    
+    
     {
-        name: 'questionDate',
-        label:<FormattedMessage {...messages['date']} />,
+        name: 'lworkingDay',
+        label: <FormattedMessage {...messages['lworkingDay']} />,
         options: {
             filter: true,
         },
-    },    
+    },
+    
     {
-      name: 'expTypeName',
-      label: <FormattedMessage {...Payrollmessages['type']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-      name: 'questionTitle',
-      label: <FormattedMessage {...Payrollmessages['title']} />,
-      options: {
-          filter: true,
-      },
-    },     
-    {
-      name: 'questionDetails',
-      label: <FormattedMessage {...Payrollmessages['details']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-        name: 'Actions',
+        name: 'note',
+        label: <FormattedMessage {...messages['note']} />,
         options: {
-          filter: false,
-  
-          customBodyRender: (value, tableMeta) => {
-            console.log('tableMeta =', tableMeta);
-            return (
-              <div className={style.actionsSty}>
-                <IconButton
-                  aria-label="Edit"
-                  size="large"
-                >
-                  <Link to={{ pathname: "/app/Pages/HR/ExplanationEdit", state: {id: tableMeta.rowData[0],},}}>
-                    <EditIcon />
-                  </Link>
-                </IconButton>
-  
-              </div>
-            );
-          },
+            filter: true,
         },
-      },
+    },
+    {
+        name: 'settlementV',
+        label: <FormattedMessage {...messages['settlementV']} />,
+        options: {
+            filter: true,
+        },
+    },
+    {
+        name: 'vacSettlValue',
+        label: <FormattedMessage {...messages['vacSettlValue']} />,
+        options: {
+            filter: true,
+        },
+    },
+    {
+        name: 'isStop',
+        label: <FormattedMessage {...Payrollmessages['isStop']} />,
+        options: {
+            filter: true,
+        },
+    },
+    {
+        name: 'source',
+        label: <FormattedMessage {...messages['source']} />,
+        options: {
+            filter: true,
+        },
+    },
+   
   ];
+
 
   const options = {
     filterType: 'dropdown',
@@ -174,22 +176,22 @@ function ExplanationList(props) {
           </Grid>
           <Grid item xs={12} md={2}>
               <Autocomplete  
-                  id="typeId"                        
-                  options={TypeList}    
+                  id="ResignId"                        
+                  options={ResignList}    
                   isOptionEqualToValue={(option, value) =>
                       value.id === 0 || value.id === "" ||option.id === value.id
                   }                 
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; settype(value==null?null:value.id)} }
+                  onChange={(event, value) =>{debugger; setResign(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
                       {...params}
-                      name="employeeId"
+                      name="ResignId"
                       required                              
-                      label={intl.formatMessage(Payrollmessages.type)}
+                      label={intl.formatMessage(messages.resignReasonName)}
                       />
                   )}
               />  
@@ -197,8 +199,7 @@ function ExplanationList(props) {
           <Grid item xs={12} md={4}>
               <Autocomplete  
                   id="employeeId"                        
-                  options={EmployeeList}  
-                  //value={{id:data.employeeId,name:data.employeeName}}     
+                  options={EmployeeList}    
                   isOptionEqualToValue={(option, value) =>
                       value.id === 0 || value.id === "" ||option.id === value.id
                   }                 
@@ -241,6 +242,6 @@ function ExplanationList(props) {
   
 }
 
-export default injectIntl(ExplanationList);
+export default injectIntl(ResignTrxReport);
 
 

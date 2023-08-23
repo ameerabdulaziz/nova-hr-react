@@ -11,13 +11,15 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import {Button ,Grid,TextField} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
+import { useLocation } from "react-router-dom";
 
 
 
 function ExplanationEdit(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  let { id } = useParams();
+  const location = useLocation()
+  const { id } = location.state??0;
   const { classes } = useStyles();
   
   const [data, setdata] = useState({

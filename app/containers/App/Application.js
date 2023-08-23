@@ -136,18 +136,19 @@ import {
   EmployeeCar,
   EmployeeSalary,
   EmployeeContract,
-  TrainingCenter,  ResignReason,Rewards,Penalty,CreatePenalty,EditPenalty,
-  RewardTransList,RewardCreate,RewardEdit,PenaltyTransList,PenaltyTransCreate,PenaltyTransEdit,
-  AttentionList,AttentionCreate,AttentionEdit,LayOffNoticeList,LayOffNoticeCreate,LayOffNoticeEdit,
-  PromotionsList,PromotionsCreate,PromotionsEdit,PromotionsReport,DirectManager,ExplanationList,ExplanationEdit,ExplanationReport,
+  TrainingCenter,  ResignReason,Rewards,Penalty,CreatePenalty,
+  RewardTransList,PenaltyTransList,PenaltyTransCreate,
+  AttentionList,AttentionCreate,LayOffNoticeList,LayOffNoticeCreate,
+  PromotionsList,PromotionsCreate,PromotionsReport,DirectManager,ExplanationList,ExplanationEdit,ExplanationReport,
   Complaint,HrLetter,NewIdea,OrganizationManger,NewsList,NewsCreate,NewsEdit,
   ImportFile,
   UploadEmployeeData,
-  Custody,CustodyCategory,CustodyReceiveList,CustodyReceiveReport,CustodyReceiveCreate,CustodyReceiveEdit,
-  CustodyDeliveryList,CustodyDeliveryReport,CustodyDeliveryCreate,CustodyDeliveryEdit,
+  Custody,CustodyCategory,CustodyReceiveList,CustodyReceiveReport,CustodyReceiveCreate,
+  CustodyDeliveryList,CustodyDeliveryReport,CustodyDeliveryCreate,
 
-  Uniform,UniformReceiveList,UniformReceiveReport,UniformReceiveCreate,UniformReceiveEdit,
-  UniformDeliveryList,UniformDeliveryReport,UniformDeliveryCreate,UniformDeliveryEdit
+  Uniform,UniformReceiveList,UniformReceiveReport,UniformReceiveCreate,
+  UniformDeliveryList,UniformDeliveryReport,UniformDeliveryCreate,RewardCreate,
+  ResignTrxList,ResignTrxCreate,ResignTrxReport
 
 } from '../pageListAsync';
 
@@ -511,8 +512,8 @@ function Application(props) {
           component={withAuthorizationRouter(CreatePenalty)}
         />
         <Route
-          path="/app/Pages/HR/EditPenalty:id"
-          component={withAuthorizationRouter(EditPenalty)}
+          path="/app/Pages/HR/EditPenalty"
+          component={withAuthorizationRouter(CreatePenalty)}
         />
         <Route
           path="/app/Pages/HR/RewardTransList"
@@ -523,8 +524,8 @@ function Application(props) {
           component={withAuthorizationRouter(RewardCreate)}
         />
         <Route
-          path="/app/Pages/HR/RewardEdit:id"
-          component={withAuthorizationRouter(RewardEdit)}
+          path="/app/Pages/HR/RewardEdit"
+          component={withAuthorizationRouter(RewardCreate)}
         />
         <Route
           path="/app/Pages/HR/PenaltyTransList"
@@ -535,8 +536,8 @@ function Application(props) {
           component={withAuthorizationRouter(PenaltyTransCreate)}
         />
         <Route
-          path="/app/Pages/HR/PenaltyEdit:id"
-          component={withAuthorizationRouter(PenaltyTransEdit)}
+          path="/app/Pages/HR/PenaltyEdit"
+          component={withAuthorizationRouter(PenaltyTransCreate)}
         />
 
         <Route
@@ -548,8 +549,8 @@ function Application(props) {
           component={withAuthorizationRouter(AttentionCreate)}
         />
         <Route
-          path="/app/Pages/HR/AttentionEdit:id"
-          component={withAuthorizationRouter(AttentionEdit)}
+          path="/app/Pages/HR/AttentionEdit"
+          component={withAuthorizationRouter(AttentionCreate)}
         />
 
         <Route
@@ -561,25 +562,25 @@ function Application(props) {
           component={withAuthorizationRouter(LayOffNoticeCreate)}
         />
         <Route
-          path="/app/Pages/HR/LayOffNoticeEdit:id"
-          component={withAuthorizationRouter(LayOffNoticeEdit)}
+          path="/app/Pages/HR/LayOffNoticeEdit"
+          component={withAuthorizationRouter(LayOffNoticeCreate)}
         />
 
         
         <Route path="/app/Pages/HR/LayOffNoticeList" component={withAuthorizationRouter(LayOffNoticeList)} />
         <Route path="/app/Pages/HR/LayOffNoticeCreate" component={withAuthorizationRouter(LayOffNoticeCreate)} />
-        <Route path="/app/Pages/HR/LayOffNoticeEdit:id" component={withAuthorizationRouter(LayOffNoticeEdit)} />
+        <Route path="/app/Pages/HR/LayOffNoticeEdit" component={withAuthorizationRouter(LayOffNoticeCreate)} />
 
         <Route path="/app/Pages/HR/PromotionsList" component={withAuthorizationRouter(PromotionsList)} />
         <Route path="/app/Pages/HR/PromotionsCreate" component={withAuthorizationRouter(PromotionsCreate)} />
-        <Route path="/app/Pages/HR/PromotionsEdit:id" component={withAuthorizationRouter(PromotionsEdit)} />
+        <Route path="/app/Pages/HR/PromotionsEdit" component={withAuthorizationRouter(PromotionsCreate)} />
         <Route path="/app/Pages/HR/DirectManager" component={withAuthorizationRouter(DirectManager)} />
         <Route path="/app/Pages/HR/ExplanationList" component={withAuthorizationRouter(ExplanationList)} />
-        <Route path="/app/Pages/HR/ExplanationEdit:id" component={withAuthorizationRouter(ExplanationEdit)} />
+        <Route path="/app/Pages/HR/ExplanationEdit" component={withAuthorizationRouter(ExplanationEdit)} />
         <Route path="/app/Pages/HR/OrganizationManger" component={withAuthorizationRouter(OrganizationManger)} />
         <Route path="/app/Pages/HR/NewsList" component={withAuthorizationRouter(NewsList)} />
         <Route path="/app/Pages/HR/NewsCreate" component={withAuthorizationRouter(NewsCreate)} />
-        <Route path="/app/Pages/HR/NewsEdit:id" component={withAuthorizationRouter(NewsEdit)} />
+        <Route path="/app/Pages/HR/NewsEdit" component={withAuthorizationRouter(NewsCreate)} />
         
         <Route path="/app/Pages/HR/PromotionsReport" component={withAuthorizationRouter(PromotionsReport)} />
         <Route path="/app/Pages/HR/ExplanationReport" component={withAuthorizationRouter(ExplanationReport)} />
@@ -592,22 +593,26 @@ function Application(props) {
         <Route path="/app/Pages/HR/Custody" component={withAuthorizationRouter(Custody)} />
         <Route path="/app/Pages/HR/CustodyDeliveryList" component={withAuthorizationRouter(CustodyDeliveryList)} />
         <Route path="/app/Pages/HR/CustodyDeliveryCreate" component={withAuthorizationRouter(CustodyDeliveryCreate)} />
-        <Route path="/app/Pages/HR/CustodyDeliveryEdit:id" component={withAuthorizationRouter(CustodyDeliveryEdit)} />
+        <Route path="/app/Pages/HR/CustodyDeliveryEdit" component={withAuthorizationRouter(CustodyDeliveryCreate)} />
         <Route path="/app/Pages/HR/CustodyReceiveList" component={withAuthorizationRouter(CustodyReceiveList)} />
         <Route path="/app/Pages/HR/CustodyReceiveCreate" component={withAuthorizationRouter(CustodyReceiveCreate)} />
-        <Route path="/app/Pages/HR/CustodyReceiveEdit:id" component={withAuthorizationRouter(CustodyReceiveEdit)} />
+        <Route path="/app/Pages/HR/CustodyReceiveEdit" component={withAuthorizationRouter(CustodyReceiveCreate)} />
         <Route path="/app/Pages/HR/CustodyDeliveryReport" component={withAuthorizationRouter(CustodyDeliveryReport)} />
         <Route path="/app/Pages/HR/CustodyReceiveReport" component={withAuthorizationRouter(CustodyReceiveReport)} />
         
         <Route path="/app/Pages/HR/Uniform" component={withAuthorizationRouter(Uniform)} />
         <Route path="/app/Pages/HR/UniformDeliveryList" component={withAuthorizationRouter(UniformDeliveryList)} />
         <Route path="/app/Pages/HR/UniformDeliveryCreate" component={withAuthorizationRouter(UniformDeliveryCreate)} />
-        <Route path="/app/Pages/HR/UniformDeliveryEdit:id" component={withAuthorizationRouter(UniformDeliveryEdit)} />
+        <Route path="/app/Pages/HR/UniformDeliveryEdit" component={withAuthorizationRouter(UniformDeliveryCreate)} />
         <Route path="/app/Pages/HR/UniformReceiveList" component={withAuthorizationRouter(UniformReceiveList)} />
         <Route path="/app/Pages/HR/UniformReceiveCreate" component={withAuthorizationRouter(UniformReceiveCreate)} />
-        <Route path="/app/Pages/HR/UniformReceiveEdit:id" component={withAuthorizationRouter(UniformReceiveEdit)} />
+        <Route path="/app/Pages/HR/UniformReceiveEdit" component={withAuthorizationRouter(UniformDeliveryCreate)} />
         <Route path="/app/Pages/HR/UniformDeliveryReport" component={withAuthorizationRouter(UniformDeliveryReport)} />
         <Route path="/app/Pages/HR/UniformReceiveReport" component={withAuthorizationRouter(UniformReceiveReport)} />
+        <Route path="/app/Pages/HR/ResignTrxList" component={withAuthorizationRouter(ResignTrxList)} />
+        <Route path="/app/Pages/HR/ResignTrxCreate" component={withAuthorizationRouter(ResignTrxCreate)} />
+        <Route path="/app/Pages/HR/ResignTrxEdit" component={withAuthorizationRouter(ResignTrxCreate)} />
+        <Route path="/app/Pages/HR/ResignTrxReport" component={withAuthorizationRouter(ResignTrxReport)} />
         
 
         

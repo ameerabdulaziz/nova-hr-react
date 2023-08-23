@@ -120,9 +120,9 @@ function PromotionsList() {
                 aria-label="Edit"
                 size="large"
               >
-                <Link to={`/app/Pages/HR/PromotionsEdit${tableMeta.rowData[0]}`}>
-                  <EditIcon />
-                </Link>
+                <Link to={{ pathname: "/app/Pages/HR/PromotionsEdit", state: {id: tableMeta.rowData[0],},}}>
+                    <EditIcon />
+                  </Link>
               </IconButton>
 
               <IconButton

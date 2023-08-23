@@ -155,11 +155,11 @@ function PenaltyTransList() {
                 aria-label="Edit"
                 size="large"
               >
-                <Link to={`/app/Pages/HR/PenaltyEdit${tableMeta.rowData[0]}`}>
+                <Link to={{ pathname: "/app/Pages/HR/PenaltyEdit", state: {id: tableMeta.rowData[0],},}}>
                   <EditIcon />
                 </Link>
               </IconButton>
-
+             
               <IconButton
                 className={classes.button}
                 aria-label="Delete"

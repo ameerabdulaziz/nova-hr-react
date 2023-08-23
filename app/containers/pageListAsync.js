@@ -636,12 +636,7 @@ export const CreatePenalty = loadable(
     fallback: <Loading />,
   }
 );
-export const EditPenalty = loadable(
-  () => import('./Pages/Payroll/HumanResources/Code/CreatePenalty'),
-  {
-    fallback: <Loading />,
-  }
-);
+
 
 export const RewardTransList = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/RewardTransList'),
@@ -650,12 +645,6 @@ export const RewardTransList = loadable(
   }
 );
 export const RewardCreate = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/RewardCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const RewardEdit = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/RewardCreate'),
   {
     fallback: <Loading />,
@@ -674,12 +663,6 @@ export const PenaltyTransCreate = loadable(
     fallback: <Loading />,
   }
 );
-export const PenaltyTransEdit = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/PenaltyCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 export const AttentionList = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/AttentionList'),
@@ -688,12 +671,6 @@ export const AttentionList = loadable(
   }
 );
 export const AttentionCreate = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/AttentionCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const AttentionEdit = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/AttentionCreate'),
   {
     fallback: <Loading />,
@@ -712,12 +689,6 @@ export const LayOffNoticeCreate = loadable(
     fallback: <Loading />,
   }
 );
-export const LayOffNoticeEdit = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/LayOffNoticeCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 export const PromotionsList = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsList'),
@@ -726,12 +697,6 @@ export const PromotionsList = loadable(
   }
 );
 export const PromotionsCreate = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const PromotionsEdit = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/PromotionsCreate'),
   {
     fallback: <Loading />,
@@ -764,12 +729,6 @@ export const NewsList = loadable(
   }
 );
 export const NewsCreate = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/NewsCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const NewsEdit = loadable(
   () => import('./Pages/Payroll/HumanResources/Transaction/NewsCreate'),
   {
     fallback: <Loading />,
@@ -847,12 +806,6 @@ export const CustodyDeliveryCreate = loadable(
     fallback: <Loading />,
   }
 );
-export const CustodyDeliveryEdit = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/CustodyDeliveryCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 export const CustodyReceiveReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/CustodyReceiveReport'),
@@ -872,13 +825,6 @@ export const CustodyReceiveCreate = loadable(
     fallback: <Loading />,
   }
 );
-export const CustodyReceiveEdit = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/CustodyReceiveCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
-
 
 
 export const Uniform = loadable(
@@ -906,12 +852,6 @@ export const UniformDeliveryCreate = loadable(
     fallback: <Loading />,
   }
 );
-export const UniformDeliveryEdit = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/UniformDeliveryCreate'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 export const UniformReceiveReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/UniformReceiveReport'),
@@ -931,12 +871,27 @@ export const UniformReceiveCreate = loadable(
     fallback: <Loading />,
   }
 );
-export const UniformReceiveEdit = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/UniformReceiveCreate'),
+export const ResignTrxList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ResignTrxList'),
   {
     fallback: <Loading />,
   }
 );
+export const ResignTrxCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ResignTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ResignTrxReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/ResignTrxReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+
 
 //Employee /////////////////////////////////////////////////////////////////////////////////
 

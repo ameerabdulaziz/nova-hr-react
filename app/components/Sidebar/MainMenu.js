@@ -26,8 +26,8 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 function MainMenu(props) {
   const { classes, cx } = useStyles();
   const locale = useSelector(state => state.language.locale);
-  //const dataMenu = useSelector(state => state.authReducer.usermenu);
-  const [dataMenu,setdataMenu]=useState([]);
+  const dataMenu = useSelector(state => state.authReducer.usermenu);
+  //const [dataMenu,setdataMenu]=useState([]);
   const {
     openSubMenu,
     open,
@@ -46,13 +46,14 @@ function MainMenu(props) {
    const getdata =  async () => {    
 
     const data =  await menuApi.fetchApi(locale);
-    setdataMenu(data);
+    //setdataMenu(data);
     Dispatcher(syncUserMenu(data));
 };
 
 useEffect(() => {  
   /* if(!dataMenu || dataMenu.length==0)
   { */
+  
     getdata();
   /* } */
 }, []);

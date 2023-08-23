@@ -92,7 +92,8 @@ function AttentionList() {
                 aria-label="Edit"
                 size="large"
               >
-                <Link to={`/app/Pages/HR/AttentionEdit${tableMeta.rowData[0]}`}>
+                
+                <Link to={{ pathname: "/app/Pages/HR/AttentionEdit", state: {id: tableMeta.rowData[0],},}}>
                   <EditIcon />
                 </Link>
               </IconButton>

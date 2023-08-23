@@ -118,4 +118,8 @@ export default defineMessages({
     id: `${scope}.count`,
     defaultMessage: 'count',
   },
+  isStop: {
+    id: `${scope}.isStop`,
+    defaultMessage: 'isStop',
+  },
 });

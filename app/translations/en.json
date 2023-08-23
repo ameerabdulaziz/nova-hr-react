@@ -865,6 +865,9 @@
   "boilerplate.containers.Payroll.notes": "Notes",   
   "boilerplate.containers.Payroll.price": "Price",   
   "boilerplate.containers.Payroll.count": "Count", 
+  "boilerplate.containers.Payroll.isStop": "Is Stop", 
+  
+  
   
   
   
@@ -946,7 +949,17 @@
   "boilerplate.containers.Payroll.HumanResources.UniformDeliveryEditTitle":"Update Uniform Delivery", 
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveCreateTitle":"Create Uniform Receive",   
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveEditTitle":"Update Uniform Receive", 
-  "boilerplate.containers.Payroll.HumanResources.uniformName":"Uniform Name", 
+  "boilerplate.containers.Payroll.HumanResources.uniformName":"Uniform Name",   
+  "boilerplate.containers.Payroll.HumanResources.resignReasonName":"Resign Reason", 
+  "boilerplate.containers.Payroll.HumanResources.lworkingDay":"Last Working Day",  
+  "boilerplate.containers.Payroll.HumanResources.settlementV":"Settlement Value", 
+  "boilerplate.containers.Payroll.HumanResources.vacSettlValue":"Vac Settlement Value",   
+  "boilerplate.containers.Payroll.HumanResources.ResignTrxCreateTitle":"Add Resign", 
+  "boilerplate.containers.Payroll.HumanResources.ResignTrxUpdateTitle":"Update Resign",
+  "boilerplate.containers.Payroll.HumanResources.vacElement":"Vacation Elemnt", 
+  "boilerplate.containers.Payroll.HumanResources.settElemnt":"Settlement Element", 
+  "boilerplate.containers.Payroll.HumanResources.workingYears":"Working Years", 
+  "boilerplate.containers.Payroll.HumanResources.source":"Source", 
   
   
   

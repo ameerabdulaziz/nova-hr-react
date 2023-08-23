@@ -162,7 +162,15 @@ Apis.GetNewsTypeList = async () => {
    
     return result.data;
   };
+  Apis.GetResignReasonList = async () => {
+    
+    debugger;
+    const result = await axiosInstance.get(`HrResignReason/GetListModel/${locale}`);
+   
+    return result.data;
+  };
   return Apis;
 };
+
 
 export default GeneralListApis;

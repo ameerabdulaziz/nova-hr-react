@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/UniformTrxData';
+import ApiData from '../api/ResignTrxData';
 import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Create';
@@ -18,17 +18,34 @@ import { toast } from 'react-hot-toast';
 import useStyles from '../../Style';
 import { PapperBlock } from 'enl-components';
 
-function UniformDeliveryList(props) {
-  const { intl } = props;
+
+function ResignTrxList() {
+  const history=useHistory();  
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const Title = localStorage.getItem("MenuName");  
-  const history=useHistory();  
+  const Title = localStorage.getItem("MenuName");
   
+
+  async function deleterow(id) {
+  
+    try {
+     debugger;
+      let response = await  ApiData(locale).Delete(id);
+
+      if (response.status==200) {
+        toast.success(notif.saved);
+        fetchData();
+
+      } else {
+          toast.error(response.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+  }
   async function fetchData() {
-    debugger ;
-    const dataApi = await ApiData(locale).GetList(1);
+    const dataApi = await ApiData(locale).GetList();
     setdata(dataApi);
   }
   useEffect(() => {    
@@ -38,89 +55,84 @@ function UniformDeliveryList(props) {
   const columns = [
     {
       name: 'id',
-      label: <FormattedMessage {...Payrollmessages['id']} />,
       options: {
         filter: false,
       },
     },
     {
-        name: 'date',
-        label: <FormattedMessage {...Payrollmessages['date']} />,
+      name: 'date',
+      label:<FormattedMessage {...messages['date']} />,
+      options: {
+        filter: true,
+      },
+    },
+        
+    {
+      name: 'employeeName',
+      label: <FormattedMessage {...messages['employeeName']} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+        name: 'resignReasonName',
+        label: <FormattedMessage {...messages['resignReasonName']} />,
         options: {
             filter: true,
         },
-    }, 
-    {
-        name: 'employeeName',
-        label: <FormattedMessage {...messages['employeeName']} />,
-        options: {
-          filter: true,
-        },
-    }, 
+    },   
+    
     
     {
-        name: 'uniformName',
-        label:<FormattedMessage {...messages['uniformName']} />,
-        options: {
-            filter: true,
-        },
-    },    
-    {
-      name: 'notes',
-      label: <FormattedMessage {...Payrollmessages['notes']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-      name: 'quantity',
-      label: <FormattedMessage {...Payrollmessages['count']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-        name: 'uniformPrice',
-        label: <FormattedMessage {...Payrollmessages['price']} />,
+        name: 'lworkingDay',
+        label: <FormattedMessage {...messages['lworkingDay']} />,
         options: {
             filter: true,
         },
     },
+    
     {
-        name: 'Actions',
+        name: 'note',
+        label: <FormattedMessage {...messages['note']} />,
         options: {
-          filter: false,
-  
-          customBodyRender: (value, tableMeta) => {
-            console.log('tableMeta =', tableMeta);
-            return (
-              <div className={style.actionsSty}>
-                <IconButton
-                  aria-label="Edit"
-                  size="large"
-                >
-                  <Link to={{ pathname: "/app/Pages/HR/UniformDeliveryEdit", state: {id: tableMeta.rowData[0],},}}>
+            filter: true,
+        },
+        },
+    {
+      name: 'Actions',
+      options: {
+        filter: false,
+
+        customBodyRender: (value, tableMeta) => {
+          console.log('tableMeta =', tableMeta);
+          return (
+            <div className={style.actionsSty}>
+              <IconButton
+                aria-label="Edit"
+                size="large"
+              >
+                <Link to={{ pathname: "/app/Pages/HR/ResignTrxEdit", state: {id: tableMeta.rowData[0],},}}>
                     <EditIcon />
                   </Link>
-                </IconButton>
-  
-                <IconButton
-                  className={classes.button}
-                  aria-label="Delete"
-                  size="large"
-                  onClick={() => deleterow(tableMeta.rowData[0])}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </div>
-            );
-          },
+              </IconButton>
+
+              <IconButton
+                className={classes.button}
+                aria-label="Delete"
+                size="large"
+                onClick={() => deleterow(tableMeta.rowData[0])}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </div>
+          );
         },
-      }, 
-   
+      },
+    },
+
+    
   ];
 
-  
   const options = {
     filterType: 'dropdown',
     responsive: 'vertical',
@@ -137,7 +149,7 @@ function UniformDeliveryList(props) {
           variant="contained"
           onClick={() => {
             debugger;
-            history.push(`/app/Pages/HR/UniformDeliveryCreate`);
+            history.push(`/app/Pages/HR/ResignTrxCreate`);
           }}
           color="secondary"
           className={classes.button}
@@ -175,29 +187,28 @@ function UniformDeliveryList(props) {
             }}
           >
             <DeleteIcon></DeleteIcon>
+            {/* <ActionDelete></ActionDelete> */}
           </IconButton>
         </Tooltip>
        
       </div>
     ),
   };
-  return (
-    <PapperBlock whiteBg icon="border_color" title={Title} desc="">      
-        <div className={classes.table}>
-          
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>
-    </PapperBlock>
-);
 
   
+
+  return (
+    <PapperBlock whiteBg icon="border_color" title={Title} desc=""> 
+      <div className={classes.table}>
+        <MUIDataTable
+          title=""
+          data={data}
+          columns={columns}
+          options={options}
+        />
+      </div>
+    </PapperBlock>
+  );
 }
 
-export default UniformDeliveryList;
-
-
+export default ResignTrxList;

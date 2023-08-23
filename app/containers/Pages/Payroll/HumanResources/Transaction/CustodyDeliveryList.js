@@ -106,9 +106,9 @@ function CustodyDeliveryList(props) {
                   aria-label="Edit"
                   size="large"
                 >
-                  <Link to={`/app/Pages/HR/CustodyDeliveryEdit${tableMeta.rowData[0]}`}>
-                    <EditIcon />
-                  </Link>
+                <Link to={{ pathname: "/app/Pages/HR/CustodyDeliveryEdit", state: {id: tableMeta.rowData[0],},}}>
+                  <EditIcon />
+                </Link>
                 </IconButton>
   
                 <IconButton

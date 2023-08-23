@@ -95,7 +95,7 @@ function PenaltyList() {
                 aria-label="Edit"
                 size="large"
               >
-                <Link to={`/app/Pages/HR/EditPenalty${tableMeta.rowData[0]}`}>
+                <Link to={{ pathname: "/app/Pages/HR/EditPenalty", state: {id: tableMeta.rowData[0],},}}>
                   <EditIcon />
                 </Link>
               </IconButton>
