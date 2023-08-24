@@ -23,7 +23,7 @@ function ManPowerSetting(props) {
   const locale = useSelector(state => state.language.locale);
   const [OpenPopup, setOpenPopup] = useState(false);
   const Title = localStorage.getItem("MenuName");
-  
+  const [totalIdealManPower, settotalIdealManPower] = useState("")
   
   const handleClose = (data) => {   
 
@@ -35,7 +35,7 @@ function ManPowerSetting(props) {
       }
     });
     setOpenPopup(false);
-  }
+}
   
   const handleClickOpen = () => {
     debugger;
@@ -48,11 +48,13 @@ const handlepermcheckboxAll = (event) => {
         x.isSelected = event.target.checked;
         return x;
     }));
+    
 };
 
 
 const handleEnableOne = (event, row) => {
   
+    debugger ;
     setdataList(
         dataList.map((x) => {
           if (x.jobId == row.jobId) {
@@ -61,12 +63,13 @@ const handleEnableOne = (event, row) => {
             } 
             else if(event.target.name == "idealManPower")
             {
-                x.idealManPower = event.target.value;
+                x.idealManPower =parseInt( event.target.value);
             }
           }
           return x;
         })
       );
+      
 };
 
 async function on_submit() {
@@ -103,7 +106,9 @@ async function on_submit() {
             ...obj,
             isSelected: true,
         }}) || []);
-    } catch (err) {
+        
+    }
+    catch (err) {
       toast.error(err);
     }
   });
@@ -119,6 +124,13 @@ async function on_submit() {
       toast.error(err);
     }
   }, []);
+
+  useEffect(() => {   
+    debugger ;
+    var temp=dataList.filter((row) => row.isSelected==true) ;
+    var total = temp.reduce((n, {idealManPower}) => n + idealManPower, 0);
+  settotalIdealManPower(total);
+}, [dataList]);
 
   useEffect(() => {    
     GetList();
@@ -167,6 +179,17 @@ async function on_submit() {
                             />
                         )}
                     />  
+                </Grid>
+                <Grid item xs={12} md={2}>
+                    <TextField
+                        id="totalIdealManPower"
+                        name="totalIdealManPower"
+                        value={totalIdealManPower}               
+                        label={intl.formatMessage(Payrollmessages.total)}
+                        className={classes.field}
+                        variant="outlined"
+                        disabled
+                    />
                 </Grid>
                 <Grid item xs={6} md={2}>
                   <Button variant="contained" size="medium" color="primary" onClick={handleClickOpen}>

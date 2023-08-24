@@ -126,4 +126,8 @@ export default defineMessages({
     id: `${scope}.chooseJob`,
     defaultMessage: 'chooseJob',
   },
+  total: {
+    id: `${scope}.total`,
+    defaultMessage: 'total',
+  },
 });
