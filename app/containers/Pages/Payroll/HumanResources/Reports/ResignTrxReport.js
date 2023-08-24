@@ -15,12 +15,14 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { PapperBlock } from 'enl-components';
 import { toast } from 'react-hot-toast';
+import PropTypes from 'prop-types';
 
 
 function ResignTrxReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  
   const [fromdate, setfromate] = useState(null);
   const [todate, settodate] = useState(null);
   const [employee, setemployee] = useState(null);
@@ -42,7 +44,6 @@ function ResignTrxReport(props) {
   }
 
   async function fetchData() {
-    debugger ;
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
 
@@ -52,7 +53,7 @@ function ResignTrxReport(props) {
     const dataApi = await ApiData(locale).GetReport(employee,Resign,fromdate,todate);
     setdata(dataApi);
   }
-  useEffect(() => {    
+  useEffect(() => {  
     fetchData();
   }, []);
   
@@ -241,6 +242,8 @@ function ResignTrxReport(props) {
 
   
 }
+
+ResignTrxReport.propTypes = { intl: PropTypes.object.isRequired };
 
 export default injectIntl(ResignTrxReport);
 

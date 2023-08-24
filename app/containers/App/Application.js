@@ -249,7 +249,7 @@ function Application(props) {
         <Route path="/app/pages/chat" component={Chat} />
         <Route
           path="/app/pages/authenticated-page"
-          component={withAuthorizationRouter(AuthenticatedPage)}
+          component={AuthenticatedPage}
         />
         <Route path="/app/pages/blank-page" component={BlankPage} />
         <Route path="/app/pages/photo-gallery" component={Photos} />
@@ -258,380 +258,380 @@ function Application(props) {
         {/* MainData */}
         <Route
           path="/app/Pages/Payroll/Department"
-          component={withAuthorizationRouter(Department)}
+          component={Department}
         />
         <Route
           path="/app/Pages/Payroll/Section"
-          component={withAuthorizationRouter(Section)}
+          component={Section}
         />
         <Route
           path="/app/Pages/MainData/Government"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Government text="Government" table="MdGovernment" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/City"
-          component={withAuthorizationRouter(City)}
+          component={City}
         />
         <Route
           path="/app/Pages/MainData/Currency"
-          component={withAuthorizationRouter(Currency)}
+          component={Currency}
         />
         <Route
           path="/app/Pages/MainData/Currency-Rate"
-          component={withAuthorizationRouter(CurrencyRate)}
+          component={CurrencyRate}
         />
         <Route
           path="/app/Pages/MainData/Documents"
-          component={withAuthorizationRouter(Documents)}
+          component={Documents}
         />
         <Route
           path="/app/Pages/MainData/Gender"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Gender text="Gender" table="MdGender" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Grade"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Grade text="Grade" table="MdGrade" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Job-Level"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <JobLevel text="Job Level" table="MdJobLevel" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Job-Natures"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <JobNatures text="Job Natures" table="MdJobNatures" {...props1} />
-          ))}
+          )}
         />
         <Route path="/app/Pages/MainData/job" component={Jobs} />
         <Route
           path="/app/Pages/MainData/Job-Types"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <JobTypes text="Job Types" table="MdJobsTypes" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Kinship-Link"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <KinshipLink
               text="Kinship Link"
               table="MdKinshipLink"
               {...props1}
             />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Month"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Month text="Month" table="MdMonth" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Year"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Year text="Year" table="MdYear" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Nationalities"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Nationalities
               text="Nationalities"
               table="MdNationalities"
               {...props1}
             />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Qualifications"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Qualifications
               text="Qualifications"
               table="MdQualifications"
               {...props1}
             />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Religions"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Religions text="Religions" table="MdReligions" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Salute"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Salute text="Salute" table="MdSalute" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/License-Grade"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <LicenseGrade
               text="License Grade"
               table="MdLicenseGrade"
               {...props1}
             />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Military-Status"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <MilitaryStatus
               text="Military Status"
               table="MdMilitaryStatus"
               {...props1}
             />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Social-Status"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <SocialStatus
               text="Social Status"
               table="MdSocialStatus"
               {...props1}
             />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Identity-Type"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <IdentityType
               text="Identity Type"
               table="MdIdentityType"
               {...props1}
             />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/MainData/Bank"
-          component={withAuthorizationRouter(Bank)}
+          component={Bank}
         />
         <Route
           path="/app/Pages/MainData/Contract-Type"
-          component={withAuthorizationRouter(ContractType)}
+          component={ContractType}
         />
         <Route
           path="/app/Pages/MainData/Company"
-          component={withAuthorizationRouter(Company)}
+          component={Company}
         />
         <Route
           path="/app/Pages/MainData/CompanyChart"
-          component={withAuthorizationRouter(CompanyChart)}
+          component={CompanyChart}
         />
         <Route
           path="/app/Pages/MainData/EmployeeChart"
-          component={withAuthorizationRouter(EmployeeChart)}
+          component={EmployeeChart}
         />
         <Route
           path="/app/Pages/MainData/Organization"
-          component={withAuthorizationRouter(Organization)}
+          component={Organization}
         />
 
         <Route path="/app/Pages/MainData/CreateJob" component={CreateJob} />
         <Route path="/app/Pages/MainData/EditJob:ID" component={EditJob} />
-        <Route path="/app/Pages/MainData/Job-Types" component={withAuthorizationRouter( (props1) => <JobTypes text="Job Types" table="MdJobsTypes" {...props1} />)}/>
-        <Route path="/app/Pages/MainData/Kinship-Link" component={withAuthorizationRouter( (props1) => <KinshipLink text="Kinship Link" table="MdKinshipLink" {...props1}/>)}/>
-        <Route path="/app/Pages/MainData/Month" component={withAuthorizationRouter( (props1) => <Month text="Month" table="MdMonth" {...props1} /> )} />
-        <Route path="/app/Pages/MainData/Year"  component={withAuthorizationRouter( (props1) => <Year text="Year" table="MdYear" {...props1} />)} />
-        <Route path="/app/Pages/MainData/Nationalities" component={withAuthorizationRouter( (props1) => <Nationalities text="Nationalities" table="MdNationalities" {...props1} /> )}/>
-        <Route path="/app/Pages/MainData/Qualifications" component={withAuthorizationRouter( (props1) => <Qualifications text="Qualifications" table="MdQualifications" {...props1} /> )} />
-        <Route path="/app/Pages/MainData/Religions" component={withAuthorizationRouter( (props1) => <Religions text="Religions" table="MdReligions" {...props1} /> )} />
-        <Route path="/app/Pages/MainData/Salute" component={withAuthorizationRouter( (props1) => <Salute text="Salute" table="MdSalute" {...props1} /> )} />
-        <Route path="/app/Pages/MainData/License-Grade" component={withAuthorizationRouter( (props1) => <LicenseGrade text="License Grade" table="MdLicenseGrade" {...props1} /> )} />
-        <Route path="/app/Pages/MainData/Military-Status" component={withAuthorizationRouter( (props1) => <MilitaryStatus  text="Military Status" table="MdMilitaryStatus"  {...props1} /> )} />
-        <Route path="/app/Pages/MainData/Social-Status" component={withAuthorizationRouter( (props1) => <SocialStatus text="Social Status" table="MdSocialStatus" {...props1}/> )} />
-        <Route path="/app/Pages/MainData/Identity-Type" component={withAuthorizationRouter( (props1) => <IdentityType text="Identity Type" table="MdIdentityType" {...props1}/> )} />
-        <Route path="/app/Pages/MainData/Bank" component={withAuthorizationRouter(Bank)} />
-        <Route path="/app/Pages/MainData/Contract-Type" component={withAuthorizationRouter(ContractType)}/>
-        <Route path="/app/Pages/MainData/Company" component={withAuthorizationRouter(Company)} />
-        <Route path="/app/Pages/MainData/CompanyChart" component={withAuthorizationRouter(CompanyChart)} />
-        <Route path="/app/Pages/MainData/EmployeeChart" component={withAuthorizationRouter(EmployeeChart)} />   
-        <Route path="/app/Pages/MainData/Organization" component={withAuthorizationRouter(Organization)} />   
-        <Route path="/app/Pages/MainData/CreateOrganization" component={withAuthorizationRouter(CreateOrganization)} />   
-        <Route path="/app/Pages/MainData/EditOrganization:ID" component={withAuthorizationRouter(EditOrganization)} />  
+        <Route path="/app/Pages/MainData/Job-Types" component={ (props1) => <JobTypes text="Job Types" table="MdJobsTypes" {...props1} />}/>
+        <Route path="/app/Pages/MainData/Kinship-Link" component={ (props1) => <KinshipLink text="Kinship Link" table="MdKinshipLink" {...props1}/>}/>
+        <Route path="/app/Pages/MainData/Month" component={ (props1) => <Month text="Month" table="MdMonth" {...props1} /> } />
+        <Route path="/app/Pages/MainData/Year"  component={ (props1) => <Year text="Year" table="MdYear" {...props1} />} />
+        <Route path="/app/Pages/MainData/Nationalities" component={ (props1) => <Nationalities text="Nationalities" table="MdNationalities" {...props1} /> }/>
+        <Route path="/app/Pages/MainData/Qualifications" component={ (props1) => <Qualifications text="Qualifications" table="MdQualifications" {...props1} /> } />
+        <Route path="/app/Pages/MainData/Religions" component={ (props1) => <Religions text="Religions" table="MdReligions" {...props1} /> } />
+        <Route path="/app/Pages/MainData/Salute" component={ (props1) => <Salute text="Salute" table="MdSalute" {...props1} /> } />
+        <Route path="/app/Pages/MainData/License-Grade" component={ (props1) => <LicenseGrade text="License Grade" table="MdLicenseGrade" {...props1} /> } />
+        <Route path="/app/Pages/MainData/Military-Status" component={ (props1) => <MilitaryStatus  text="Military Status" table="MdMilitaryStatus"  {...props1} /> } />
+        <Route path="/app/Pages/MainData/Social-Status" component={ (props1) => <SocialStatus text="Social Status" table="MdSocialStatus" {...props1}/> } />
+        <Route path="/app/Pages/MainData/Identity-Type" component={ (props1) => <IdentityType text="Identity Type" table="MdIdentityType" {...props1}/> } />
+        <Route path="/app/Pages/MainData/Bank" component={Bank} />
+        <Route path="/app/Pages/MainData/Contract-Type" component={ContractType}/>
+        <Route path="/app/Pages/MainData/Company" component={Company} />
+        <Route path="/app/Pages/MainData/CompanyChart" component={CompanyChart} />
+        <Route path="/app/Pages/MainData/EmployeeChart" component={EmployeeChart} />   
+        <Route path="/app/Pages/MainData/Organization" component={Organization} />   
+        <Route path="/app/Pages/MainData/CreateOrganization" component={CreateOrganization} />   
+        <Route path="/app/Pages/MainData/EditOrganization:ID" component={EditOrganization} />  
         <Route path="/app/Pages/MainData/Upload_KPI_Data" component={ImportFile} />
         <Route path="/app/Pages/MainData/UploadEmployeeData" component={UploadEmployeeData} />       
         
         {/* Setting */}
         <Route
           path="/app/Pages/Setting/UserMenu"
-          component={withAuthorizationRouter(UserMenu)}
+          component={UserMenu}
         />
         <Route
           path="/app/Pages/Setting/MailSetting"
-          component={withAuthorizationRouter(MailSetting)}
+          component={MailSetting}
         />
         <Route
           path="/app/Pages/Setting/SMSSetting"
-          component={withAuthorizationRouter(SMSSetting)}
+          component={SMSSetting}
         />
         <Route
           path="/app/Pages/Setting/ResetPassword"
-          component={withAuthorizationRouter(SettingResetPassword)}
+          component={SettingResetPassword}
         />
         {/* HR */}
         <Route
           path="/app/Pages/HR/Course"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <Courses text="Courses" table="HrCourses" {...props1} />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/HR/ResignReason"
-          component={withAuthorizationRouter((props1) => (
+          component={(props1) => (
             <ResignReason
               text="ResignReason"
               table="HrResignReason"
               {...props1}
             />
-          ))}
+          )}
         />
         <Route
           path="/app/Pages/HR/TrainingCenter"
-          component={withAuthorizationRouter(TrainingCenter)}
+          component={TrainingCenter}
         />
         <Route
           path="/app/Pages/HR/Rewards"
-          component={withAuthorizationRouter(Rewards)}
+          component={Rewards}
         />
         <Route
           path="/app/Pages/HR/Penalty"
-          component={withAuthorizationRouter(Penalty)}
+          component={Penalty}
         />
         <Route
           path="/app/Pages/HR/CreatePenalty"
-          component={withAuthorizationRouter(CreatePenalty)}
+          component={CreatePenalty}
         />
         <Route
           path="/app/Pages/HR/EditPenalty"
-          component={withAuthorizationRouter(CreatePenalty)}
+          component={CreatePenalty}
         />
         <Route
           path="/app/Pages/HR/RewardTransList"
-          component={withAuthorizationRouter(RewardTransList)}
+          component={RewardTransList}
         />
         <Route
           path="/app/Pages/HR/RewardCreate"
-          component={withAuthorizationRouter(RewardCreate)}
+          component={RewardCreate}
         />
         <Route
           path="/app/Pages/HR/RewardEdit"
-          component={withAuthorizationRouter(RewardCreate)}
+          component={RewardCreate}
         />
         <Route
           path="/app/Pages/HR/PenaltyTransList"
-          component={withAuthorizationRouter(PenaltyTransList)}
+          component={PenaltyTransList}
         />
         <Route
           path="/app/Pages/HR/PenaltyCreate"
-          component={withAuthorizationRouter(PenaltyTransCreate)}
+          component={PenaltyTransCreate}
         />
         <Route
           path="/app/Pages/HR/PenaltyEdit"
-          component={withAuthorizationRouter(PenaltyTransCreate)}
+          component={PenaltyTransCreate}
         />
 
         <Route
           path="/app/Pages/HR/AttentionList"
-          component={withAuthorizationRouter(AttentionList)}
+          component={AttentionList}
         />
         <Route
           path="/app/Pages/HR/AttentionCreate"
-          component={withAuthorizationRouter(AttentionCreate)}
+          component={AttentionCreate}
         />
         <Route
           path="/app/Pages/HR/AttentionEdit"
-          component={withAuthorizationRouter(AttentionCreate)}
+          component={AttentionCreate}
         />
 
         <Route
           path="/app/Pages/HR/LayOffNoticeList"
-          component={withAuthorizationRouter(LayOffNoticeList)}
+          component={LayOffNoticeList}
         />
         <Route
           path="/app/Pages/HR/LayOffNoticeCreate"
-          component={withAuthorizationRouter(LayOffNoticeCreate)}
+          component={LayOffNoticeCreate}
         />
         <Route
           path="/app/Pages/HR/LayOffNoticeEdit"
-          component={withAuthorizationRouter(LayOffNoticeCreate)}
+          component={LayOffNoticeCreate}
         />
 
         
-        <Route path="/app/Pages/HR/LayOffNoticeList" component={withAuthorizationRouter(LayOffNoticeList)} />
-        <Route path="/app/Pages/HR/LayOffNoticeCreate" component={withAuthorizationRouter(LayOffNoticeCreate)} />
-        <Route path="/app/Pages/HR/LayOffNoticeEdit" component={withAuthorizationRouter(LayOffNoticeCreate)} />
+        <Route path="/app/Pages/HR/LayOffNoticeList" component={LayOffNoticeList} />
+        <Route path="/app/Pages/HR/LayOffNoticeCreate" component={LayOffNoticeCreate} />
+        <Route path="/app/Pages/HR/LayOffNoticeEdit" component={LayOffNoticeCreate} />
 
-        <Route path="/app/Pages/HR/PromotionsList" component={withAuthorizationRouter(PromotionsList)} />
-        <Route path="/app/Pages/HR/PromotionsCreate" component={withAuthorizationRouter(PromotionsCreate)} />
-        <Route path="/app/Pages/HR/PromotionsEdit" component={withAuthorizationRouter(PromotionsCreate)} />
-        <Route path="/app/Pages/HR/DirectManager" component={withAuthorizationRouter(DirectManager)} />
-        <Route path="/app/Pages/HR/ExplanationList" component={withAuthorizationRouter(ExplanationList)} />
-        <Route path="/app/Pages/HR/ExplanationEdit" component={withAuthorizationRouter(ExplanationEdit)} />
-        <Route path="/app/Pages/HR/OrganizationManger" component={withAuthorizationRouter(OrganizationManger)} />
-        <Route path="/app/Pages/HR/NewsList" component={withAuthorizationRouter(NewsList)} />
-        <Route path="/app/Pages/HR/NewsCreate" component={withAuthorizationRouter(NewsCreate)} />
-        <Route path="/app/Pages/HR/NewsEdit" component={withAuthorizationRouter(NewsCreate)} />
+        <Route path="/app/Pages/HR/PromotionsList" component={PromotionsList} />
+        <Route path="/app/Pages/HR/PromotionsCreate" component={PromotionsCreate} />
+        <Route path="/app/Pages/HR/PromotionsEdit" component={PromotionsCreate} />
+        <Route path="/app/Pages/HR/DirectManager" component={DirectManager} />
+        <Route path="/app/Pages/HR/ExplanationList" component={ExplanationList} />
+        <Route path="/app/Pages/HR/ExplanationEdit" component={ExplanationEdit} />
+        <Route path="/app/Pages/HR/OrganizationManger" component={OrganizationManger} />
+        <Route path="/app/Pages/HR/NewsList" component={NewsList} />
+        <Route path="/app/Pages/HR/NewsCreate" component={NewsCreate} />
+        <Route path="/app/Pages/HR/NewsEdit" component={NewsCreate} />
         
-        <Route path="/app/Pages/HR/PromotionsReport" component={withAuthorizationRouter(PromotionsReport)} />
-        <Route path="/app/Pages/HR/ExplanationReport" component={withAuthorizationRouter(ExplanationReport)} />
+        <Route path="/app/Pages/HR/PromotionsReport" component={PromotionsReport} />
+        <Route path="/app/Pages/HR/ExplanationReport" component={ExplanationReport} />
 
-        <Route path="/app/Pages/EXP/Complaint" component={withAuthorizationRouter(Complaint)} />
-        <Route path="/app/Pages/EXP/HrLetter" component={withAuthorizationRouter(HrLetter)} />
-        <Route path="/app/Pages/EXP/NewIdea" component={withAuthorizationRouter(NewIdea)} />
+        <Route path="/app/Pages/EXP/Complaint" component={Complaint} />
+        <Route path="/app/Pages/EXP/HrLetter" component={HrLetter} />
+        <Route path="/app/Pages/EXP/NewIdea" component={NewIdea} />
 
-        <Route path="/app/Pages/HR/CustodyCategory" component={withAuthorizationRouter(CustodyCategory)} />
-        <Route path="/app/Pages/HR/Custody" component={withAuthorizationRouter(Custody)} />
-        <Route path="/app/Pages/HR/CustodyDeliveryList" component={withAuthorizationRouter(CustodyDeliveryList)} />
-        <Route path="/app/Pages/HR/CustodyDeliveryCreate" component={withAuthorizationRouter(CustodyDeliveryCreate)} />
-        <Route path="/app/Pages/HR/CustodyDeliveryEdit" component={withAuthorizationRouter(CustodyDeliveryCreate)} />
-        <Route path="/app/Pages/HR/CustodyReceiveList" component={withAuthorizationRouter(CustodyReceiveList)} />
-        <Route path="/app/Pages/HR/CustodyReceiveCreate" component={withAuthorizationRouter(CustodyReceiveCreate)} />
-        <Route path="/app/Pages/HR/CustodyReceiveEdit" component={withAuthorizationRouter(CustodyReceiveCreate)} />
-        <Route path="/app/Pages/HR/CustodyDeliveryReport" component={withAuthorizationRouter(CustodyDeliveryReport)} />
-        <Route path="/app/Pages/HR/CustodyReceiveReport" component={withAuthorizationRouter(CustodyReceiveReport)} />
+        <Route path="/app/Pages/HR/CustodyCategory" component={CustodyCategory} />
+        <Route path="/app/Pages/HR/Custody" component={Custody} />
+        <Route path="/app/Pages/HR/CustodyDeliveryList" component={CustodyDeliveryList} />
+        <Route path="/app/Pages/HR/CustodyDeliveryCreate" component={CustodyDeliveryCreate} />
+        <Route path="/app/Pages/HR/CustodyDeliveryEdit" component={CustodyDeliveryCreate} />
+        <Route path="/app/Pages/HR/CustodyReceiveList" component={CustodyReceiveList} />
+        <Route path="/app/Pages/HR/CustodyReceiveCreate" component={CustodyReceiveCreate} />
+        <Route path="/app/Pages/HR/CustodyReceiveEdit" component={CustodyReceiveCreate} />
+        <Route path="/app/Pages/HR/CustodyDeliveryReport" component={CustodyDeliveryReport} />
+        <Route path="/app/Pages/HR/CustodyReceiveReport" component={CustodyReceiveReport} />
         
-        <Route path="/app/Pages/HR/Uniform" component={withAuthorizationRouter(Uniform)} />
-        <Route path="/app/Pages/HR/UniformDeliveryList" component={withAuthorizationRouter(UniformDeliveryList)} />
-        <Route path="/app/Pages/HR/UniformDeliveryCreate" component={withAuthorizationRouter(UniformDeliveryCreate)} />
-        <Route path="/app/Pages/HR/UniformDeliveryEdit" component={withAuthorizationRouter(UniformDeliveryCreate)} />
-        <Route path="/app/Pages/HR/UniformReceiveList" component={withAuthorizationRouter(UniformReceiveList)} />
-        <Route path="/app/Pages/HR/UniformReceiveCreate" component={withAuthorizationRouter(UniformReceiveCreate)} />
-        <Route path="/app/Pages/HR/UniformReceiveEdit" component={withAuthorizationRouter(UniformDeliveryCreate)} />
-        <Route path="/app/Pages/HR/UniformDeliveryReport" component={withAuthorizationRouter(UniformDeliveryReport)} />
-        <Route path="/app/Pages/HR/UniformReceiveReport" component={withAuthorizationRouter(UniformReceiveReport)} />
-        <Route path="/app/Pages/HR/ResignTrxList" component={withAuthorizationRouter(ResignTrxList)} />
-        <Route path="/app/Pages/HR/ResignTrxCreate" component={withAuthorizationRouter(ResignTrxCreate)} />
-        <Route path="/app/Pages/HR/ResignTrxEdit" component={withAuthorizationRouter(ResignTrxCreate)} />
-        <Route path="/app/Pages/HR/ResignTrxReport" component={withAuthorizationRouter(ResignTrxReport)} />
+        <Route path="/app/Pages/HR/Uniform" component={Uniform} />
+        <Route path="/app/Pages/HR/UniformDeliveryList" component={UniformDeliveryList} />
+        <Route path="/app/Pages/HR/UniformDeliveryCreate" component={UniformDeliveryCreate} />
+        <Route path="/app/Pages/HR/UniformDeliveryEdit" component={UniformDeliveryCreate} />
+        <Route path="/app/Pages/HR/UniformReceiveList" component={UniformReceiveList} />
+        <Route path="/app/Pages/HR/UniformReceiveCreate" component={UniformReceiveCreate} />
+        <Route path="/app/Pages/HR/UniformReceiveEdit" component={UniformDeliveryCreate} />
+        <Route path="/app/Pages/HR/UniformDeliveryReport" component={UniformDeliveryReport} />
+        <Route path="/app/Pages/HR/UniformReceiveReport" component={UniformReceiveReport} />
+        <Route path="/app/Pages/HR/ResignTrxList" component={ResignTrxList} />
+        <Route path="/app/Pages/HR/ResignTrxCreate" component={ResignTrxCreate} />
+        <Route path="/app/Pages/HR/ResignTrxEdit" component={ResignTrxCreate} />
+        <Route path="/app/Pages/HR/ResignTrxReport" component={ResignTrxReport} />
         
 
         
         {/* Employee */}
         <Route
           path="/app/Pages/Employee/EmployeeList"
-          component={withAuthorizationRouter(EmployeeList)}
+          component={EmployeeList}
         />
         <Route
           path="/app/Pages/Employee/Personal"
-          component={withAuthorizationRouter(Personal)}
+          component={Personal}
         />
         <Route
           path="/app/Pages/Employee/EmployeeAddress"
-          component={withAuthorizationRouter(EmployeeAddress)}
+          component={EmployeeAddress}
         />
         <Route
           path="/app/Pages/Employee/EmployeeCourse"
-          component={withAuthorizationRouter(EmployeeCourse)}
+          component={EmployeeCourse}
         />
 
         <Route
