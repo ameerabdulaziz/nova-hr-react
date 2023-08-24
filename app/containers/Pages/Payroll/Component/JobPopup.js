@@ -9,31 +9,33 @@ import { useSelector } from 'react-redux';
 import GeneralListApis from '../api/GeneralListApis';
 
 
-function EmloyeePopup(props) {
+function JobPopup(props) {
   
+  const {intl} = props;
   const {classes,cx} = useStyles();  
-  const [EmployeeList, setEmployeeList] = useState([]);  
+  const [dataList, setdataList] = useState([]);
+  const [JobList, setJobList] = useState([]);  
   const locale = useSelector(state => state.language.locale);
-  const { handleClose,open,Key } = props;
+  const { handleClose,open } = props;
 
 const CloseClick = async (key) => {
  
   debugger ;
   
-  handleClose(EmployeeList.filter((row) => row.isSelected==true));
+  handleClose(JobList.filter((row) => row.isSelected==true));
 };
 
 const handlepermcheckboxAll = (event) => {
-setEmployeeList(  
-  EmployeeList.map((x) => {    
+setJobList(  
+  JobList.map((x) => {    
         x.isSelected = event.target.checked;
     return x;
     })
 );
 };
 const handleEnableOne = (event, row) => {  
-    setEmployeeList(
-        EmployeeList.map((x) => {
+    setJobList(
+        JobList.map((x) => {
           if (x.id == row.id) {
               x.isSelected = event.target.checked;
           }
@@ -41,20 +43,16 @@ const handleEnableOne = (event, row) => {
         })
       );
 };
-const GetEmployeeList = useCallback(async () => {
+const GetJobList = useCallback(async () => {
     try {
       
-      var data=[];
-      if(Key=="Employee")
-        data = await GeneralListApis(locale).GetEmployeeDataList(); 
-      else if(Key=="Job")
-        data = await GeneralListApis(locale).GetJobList();   
-      
-      setEmployeeList(data.map((obj) => {
-        return {
-            ...obj,
-            isSelected: false,
-        }}));
+    const Jobs = await GeneralListApis(locale).GetJobList(locale);   
+    
+    setJobList(Jobs.map((obj) => {
+      return {
+          ...obj,
+          isSelected: false,
+      }}));
 
     } catch (err) {
       toast.error(err);
@@ -66,13 +64,13 @@ const GetEmployeeList = useCallback(async () => {
   useEffect(() => {
     debugger;
     if(open)
-      GetEmployeeList();
+      GetJobList();
   }, [open]);
 
   return (
     <div>
     <Dialog open={open} onClose={()=>CloseClick()}>
-        <DialogTitle>{`${Key} List`} </DialogTitle>
+        <DialogTitle>Job List</DialogTitle>
         <DialogContent>       
           <div className={classes.rootTable}>
             <Table className={cx(css.tableCrud, classes.table, classes.stripped)} style={{minWidth:'0px'}}>
@@ -81,10 +79,10 @@ const GetEmployeeList = useCallback(async () => {
                     <TableCell  style={{width: '5px',padding:'0px'}}>
                                               
                         <Checkbox
-                            checked={EmployeeList.length > 0 &&  EmployeeList.filter((crow) => crow.isSelected==true).length === EmployeeList.length?true:false}
+                            checked={JobList.length > 0 &&  JobList.filter((crow) => crow.isSelected==true).length === JobList.length?true:false}
                             color="primary"
                             name="AllSelect"
-                            indeterminate={EmployeeList.filter((crow) => crow.isSelected==true).length > 0 && EmployeeList.filter((crow) => crow.isSelected==true).length < EmployeeList.length?true:false}
+                            indeterminate={JobList.filter((crow) => crow.isSelected==true).length > 0 && JobList.filter((crow) => crow.isSelected==true).length < JobList.length?true:false}
                             onChange={handlepermcheckboxAll}
                         />
                     </TableCell>  
@@ -93,8 +91,8 @@ const GetEmployeeList = useCallback(async () => {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {EmployeeList.length !== 0 &&
-                    EmployeeList.map((row) => {
+                {JobList.length !== 0 &&
+                    JobList.map((row) => {
                     return (
                         <TableRow
                           hover
@@ -127,4 +125,4 @@ const GetEmployeeList = useCallback(async () => {
   );
 }
   
-export default injectIntl(EmloyeePopup);
+export default injectIntl(JobPopup);

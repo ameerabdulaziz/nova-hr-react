@@ -3,7 +3,7 @@ const GeneralListApis = (locale) => {
   const Apis = {};
 
   Apis.GetDepartmentList = async () => {
-    //  debugger;
+    debugger;
     const data = await axiosInstance.get(
       `GeneralList/GetDepartmentList/${locale}`
     );
@@ -123,7 +123,7 @@ const GeneralListApis = (locale) => {
   };
 
   Apis.GetJobList = async () => {
-    //  debugger;
+     debugger;
     const result = await axiosInstance.get(`GeneralList/GetJobList/${locale}`);
     return result.data;
   };

@@ -5,7 +5,7 @@ import {Button , Grid,TextField,Autocomplete,Checkbox,Table,TableBody,TableCell,
 import Payrollmessages from '../../messages';
 import messages from '../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
-import DirectMangerData from '../api/DirectMangerData';
+import ManPowerSettingData from '../api/ManPowerSettingData';
 import { toast } from 'react-hot-toast';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
@@ -13,13 +13,13 @@ import notif from 'enl-api/ui/notifMessage';
 import GeneralListApis from '../../api/GeneralListApis';
 import EmloyeePopup from '../../Component/EmloyeePopup';
 
-function DirectManager(props) {
+function ManPowerSetting(props) {
   
   const {intl} = props;
   const {classes,cx} = useStyles();  
   const [dataList, setdataList] = useState([]);
-  const [employee, setEmployee] = useState();  
-  const [employeeList, setEmployeeList] = useState([]);  
+  const [organization, setorganization] = useState();  
+  const [organizationList, setorganizationList] = useState([]);  
   const locale = useSelector(state => state.language.locale);
   const [OpenPopup, setOpenPopup] = useState(false);
   const Title = localStorage.getItem("MenuName");
@@ -29,9 +29,9 @@ function DirectManager(props) {
 
     debugger;
      data.map((row) =>{
-      if(dataList.filter((x) => x.id==row.id).length == 0)
+      if(dataList.filter((x) => x.jobId==row.id).length == 0)
       {
-        setdataList((prev) => [...prev, row]);
+        setdataList((prev) => [...prev, {jobId:row.id,jobName:row.name,idealManPower:0,isSelected:true}]);
       }
     });
     setOpenPopup(false);
@@ -43,12 +43,11 @@ function DirectManager(props) {
   }
 
 const handlepermcheckboxAll = (event) => {  
-setdataList(  
-  dataList.map((x) => {    
-    x.isSelected = event.target.checked;
-    return x;
-  }));
-
+    setdataList(  
+    dataList.map((x) => {    
+        x.isSelected = event.target.checked;
+        return x;
+    }));
 };
 
 
@@ -56,10 +55,14 @@ const handleEnableOne = (event, row) => {
   
     setdataList(
         dataList.map((x) => {
-          if (x.id == row.id) {
+          if (x.jobId == row.jobId) {
             if (event.target.name == "isselected") {
               x.isSelected = event.target.checked;
             } 
+            else if(event.target.name == "idealManPower")
+            {
+                x.idealManPower = event.target.value;
+            }
           }
           return x;
         })
@@ -67,13 +70,13 @@ const handleEnableOne = (event, row) => {
 };
 
 async function on_submit() {
-    if (!employee){
-      toast.error("Please Select Employee")
+    if (!organization){
+      toast.error("Please Select organization")
       return
     }
     try {
-      let response = await  DirectMangerData().Save({
-        'employee':employee,
+      let response = await  ManPowerSettingData().Save({
+        'organization':organization,
         'dataList':dataList,
       });
       
@@ -90,11 +93,11 @@ async function on_submit() {
 
   const GetList = useCallback(async () => {
     try {
-      if (!employee){
+      if (!organization){
         setdataList([]);
         return
       }
-      const data = await DirectMangerData().GetList(locale,employee);
+      const data = await ManPowerSettingData().GetList(locale,organization);
       setdataList(data.map((obj) => {
         return {
             ...obj,
@@ -106,11 +109,11 @@ async function on_submit() {
   });
 
 
-  const GetEmployeeList = useCallback(async () => {
+  const GetorganizationList = useCallback(async () => {
     try {
       
-    const employees = await GeneralListApis(locale).GetEmployeeList();
-    setEmployeeList(employees);
+    const organizations = await GeneralListApis(locale).GetDepartmentList();
+    setorganizationList(organizations);
 
     } catch (err) {
       toast.error(err);
@@ -119,10 +122,10 @@ async function on_submit() {
 
   useEffect(() => {    
     GetList();
-  }, [employee]);
+  }, [organization]);
 
   useEffect(() => {
-    GetEmployeeList();
+    GetorganizationList();
   }, []);
 
   return (
@@ -130,38 +133,44 @@ async function on_submit() {
         <EmloyeePopup
             handleClose={handleClose}            
             open={OpenPopup}
-            Key={"Employee"}
+            Key="Job"
         />
         <div>
             <Grid container spacing={3}>            
-                <Grid item xs={6} md={3}>
-                    <Autocomplete
-                        id="ddlEmp"                        
-                        options={employeeList}                        
-                        getOptionLabel={(option) =>option.name}
+                <Grid item xs={6} md={3}>                    
+                    <Autocomplete  
+                        id="ddlOrganization"                        
+                        options={organizationList}    
+                        isOptionEqualToValue={(option, value) =>
+                            value.id === 0 || value.id === "" ||option.id === value.id
+                        }                 
+                        getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                        }
                         onChange={(event, value) => {
-                          debugger ;
-                            if (value !== null) {
-                                setEmployee(value.id);
-                            } else {
-                                setEmployee(null);
-                            }
-                            
+                            setorganization(value !== null?value.id:null);
                         }}
+                        renderOption={(props, option) => {
+                            return (
+                              <li {...props} key={option.id}>
+                                {option.name}
+                              </li>
+                            );
+                          }}
                         renderInput={(params) => (
                         <TextField
                             variant="outlined"                            
                             {...params}
-                            name="employee"
-                            value={employee}
-                            label={intl.formatMessage(Payrollmessages.chooseEmp)}
-                        />
+                            name="organization"
+                            required                              
+                            label={intl.formatMessage(messages.organization)}
+                            />
                         )}
-                    />
+                    />  
                 </Grid>
                 <Grid item xs={6} md={2}>
                   <Button variant="contained" size="medium" color="primary" onClick={handleClickOpen}>
-                  <FormattedMessage {...Payrollmessages.chooseEmp} />
+                  <FormattedMessage {...Payrollmessages.chooseJob} />
                   </Button>
                 </Grid>            
                 <Grid item xs={6} md={2}>                   
@@ -184,9 +193,8 @@ async function on_submit() {
                             />
                         </TableCell>   
                         <TableCell style={{width: '5px',padding:'0px'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
-                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.employeeName} /></TableCell>
-                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.organization}/></TableCell>
-                                             
+                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.job} /></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.idealManPower} /></TableCell>                                             
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -204,10 +212,9 @@ async function on_submit() {
                                   value={row.isSelected}
                                   />
                               </TableCell>                                                         
-                              <TableCell style={{width: '5px',padding:'0px'}}>{row.id}</TableCell>
-                              <TableCell style={{width: '20px',padding:'0px'}}>{row.name}</TableCell>   
-                              <TableCell style={{width: '20px',padding:'0px'}}>{row.organizationName}</TableCell>
-                                                    
+                              <TableCell style={{width: '5px',padding:'0px'}}>{row.jobId}</TableCell>
+                              <TableCell style={{width: '20px',padding:'0px'}}>{row.jobName}</TableCell> 
+                              <TableCell style={{width: '20px',padding:'0px'}}><input name="idealManPower"  type="text" value={row.idealManPower} onChange={(event) => handleEnableOne(event, row)}></input></TableCell>                                                       
                             </TableRow>
                         );
                         })}
@@ -220,4 +227,4 @@ async function on_submit() {
   );
 }
   
-export default injectIntl(DirectManager);
+export default injectIntl(ManPowerSetting);

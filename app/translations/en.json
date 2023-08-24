@@ -865,7 +865,8 @@
   "boilerplate.containers.Payroll.notes": "Notes",   
   "boilerplate.containers.Payroll.price": "Price",   
   "boilerplate.containers.Payroll.count": "Count", 
-  "boilerplate.containers.Payroll.isStop": "Is Stop", 
+  "boilerplate.containers.Payroll.isStop": "Is Stop",   
+  "boilerplate.containers.Payroll.chooseJob": "Choose Job",
   
   
   
@@ -960,6 +961,8 @@
   "boilerplate.containers.Payroll.HumanResources.settElemnt":"Settlement Element", 
   "boilerplate.containers.Payroll.HumanResources.workingYears":"Working Years", 
   "boilerplate.containers.Payroll.HumanResources.source":"Source", 
+  
+  "boilerplate.containers.Payroll.HumanResources.idealManPower":"idealManPower", 
   
   
   

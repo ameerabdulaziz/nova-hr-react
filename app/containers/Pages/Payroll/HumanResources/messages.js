@@ -289,4 +289,9 @@ source: {
   id: `${scope}.source`,
   defaultMessage: 'source',
 },
+//ManPowerSetting////////////////////////////////////////////////////////////////////////////////////////////////
+idealManPower: {
+  id: `${scope}.idealManPower`,
+  defaultMessage: 'idealManPower',
+},
 });

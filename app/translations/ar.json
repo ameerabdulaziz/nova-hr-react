@@ -887,6 +887,7 @@
   "boilerplate.containers.Payroll.price": "السعر",   
   "boilerplate.containers.Payroll.count": "العدد", 
   "boilerplate.containers.Payroll.isStop": "ايقاف التعامل المالى", 
+  "boilerplate.containers.Payroll.chooseJob": "اختر وظيفة",
   
   
   
@@ -980,6 +981,7 @@
   "boilerplate.containers.Payroll.HumanResources.settElemnt":"عنصر المكافئة", 
   "boilerplate.containers.Payroll.HumanResources.workingYears":"سنين العمل",
   "boilerplate.containers.Payroll.HumanResources.source":"المصدر", 
+  "boilerplate.containers.Payroll.HumanResources.idealManPower":"قوة العمالة المخططه", 
   
   
   

@@ -122,4 +122,8 @@ export default defineMessages({
     id: `${scope}.isStop`,
     defaultMessage: 'isStop',
   },
+  chooseJob: {
+    id: `${scope}.chooseJob`,
+    defaultMessage: 'chooseJob',
+  },
 });

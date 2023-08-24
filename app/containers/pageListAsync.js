@@ -889,9 +889,12 @@ export const ResignTrxReport = loadable(
     fallback: <Loading />,
   }
 );
-
-
-
+export const ManPowerSetting = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ManPowerSetting'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 //Employee /////////////////////////////////////////////////////////////////////////////////
 
