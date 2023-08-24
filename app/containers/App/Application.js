@@ -148,7 +148,7 @@ import {
 
   Uniform,UniformReceiveList,UniformReceiveReport,UniformReceiveCreate,
   UniformDeliveryList,UniformDeliveryReport,UniformDeliveryCreate,RewardCreate,
-  ResignTrxList,ResignTrxCreate,ResignTrxReport,ManPowerSetting
+  ResignTrxList,ResignTrxCreate,ResignTrxReport,ManPowerSetting,ResignTrxImport
 
 } from '../pageListAsync';
 
@@ -614,6 +614,7 @@ function Application(props) {
         <Route path="/app/Pages/HR/ResignTrxEdit" component={ResignTrxCreate} />
         <Route path="/app/Pages/HR/ResignTrxReport" component={ResignTrxReport} />
         <Route path="/app/Pages/HR/ManPowerSetting" component={ManPowerSetting} />
+        <Route path="/app/Pages/HR/ResignTrxImport" component={ResignTrxImport} />
         
 
         

@@ -46,6 +46,27 @@ const ResignTrxData = (locale) => {
     const result = await axiosInstance.post("HrResignTrx/Save",requestData);
     return result;
   };
+
+  Apis.SaveList = async (data) => {
+    debugger;
+  /* var requestData={
+    "id":data.id,
+    "date": data.date,    
+    "employeeId":data.employeeId,    
+    "resignReasonId":data.resignReasonId,
+    "note":data.note,
+    "payTemplateId": data.payTemplateId,
+    "settlElementId":data.settlElementId,
+    "vacElementId": data.vacElementId,
+    "settlementV":data.settlementV,
+    "vacSettlValue": data.vacSettlValue,
+    "lworkingDay": data.lworkingDay,
+    "isStop": data.isStop,
+    } */
+    const result = await axiosInstance.post("HrResignTrx/SaveList",data);
+    return result;
+  };
+
   Apis.Delete = async (id) => {
     debugger;
     const result = await axiosInstance.delete(`HrResignTrx/Delete/${id}`);
