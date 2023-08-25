@@ -255,6 +255,27 @@ const GeneralListApis = (locale) => {
    
     return result.data;
   };
+  Apis.GetCourseList = async () => {
+    
+    debugger;
+    const result = await axiosInstance.get(`HrCourses/GetListModel/${locale}`);
+   
+    return result.data;
+  };
+  Apis.GetTrainingCenterList = async () => {
+    
+    debugger;
+    const result = await axiosInstance.get(`HrTrainingCenter/GetListModel/${locale}`);
+   
+    return result.data;
+  };
+  Apis.GetGradeList = async () => {
+    
+    debugger;
+    const result = await axiosInstance.get(`MdGrade/GetListModel/${locale}`);
+   
+    return result.data;
+  };
   return Apis;
 };
 

@@ -104,14 +104,14 @@ function ResignTrxCreate(props) {
   async function fetchData() {
     debugger ;
    
-    const resigns = await GeneralListApis(locale).GetResignReasonList(locale);
+    const resigns = await GeneralListApis(locale).GetResignReasonList();
     setResignList(resigns);
 
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
+    const employees = await GeneralListApis(locale).GetEmployeeList();
     setEmployeeList(employees);
     
 
-    const payTemplates = await GeneralListApis(locale).GetPayTemplateList(locale);
+    const payTemplates = await GeneralListApis(locale).GetPayTemplateList();
     setPayTemplateList(payTemplates);
 
 

@@ -4,9 +4,9 @@ import axiosInstance from '../../api/axios';
 const ResignTrxData = (locale) => {
   const Apis = {};
   
-  Apis.GetReport = async (employee,ResignReason,fromdate,todate) => {
+  Apis.GetReport = async (employee,Course,fromdate,todate) => {
     debugger;
-    const data = await axiosInstance.get(`HrResignTrx/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&ResignReasonId=${ResignReason!=null?ResignReason:""}`);
+    const data = await axiosInstance.get(`HrEmployeeCourse/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&CourseId=${Course!=null?Course:""}`);
     const result = data.data;
     
     return result;
@@ -14,7 +14,7 @@ const ResignTrxData = (locale) => {
 
   Apis.GetList = async () => {
     debugger;
-    const data = await axiosInstance.get(`HrResignTrx/GetList/${locale}`);
+    const data = await axiosInstance.get(`HrEmployeeCourse/GetList/${locale}`);
     const result = data.data;
     
     return result;
@@ -22,7 +22,7 @@ const ResignTrxData = (locale) => {
 
   Apis.Get = async (id) => {
     debugger;
-    const data = await axiosInstance.get(`HrResignTrx/Get/${id}/${locale}`);
+    const data = await axiosInstance.get(`HrEmployeeCourse/Get/${id}/${locale}`);
     
     return data.data;
 
@@ -43,25 +43,20 @@ const ResignTrxData = (locale) => {
     "lworkingDay": data.lworkingDay,
     "isStop": data.isStop,
     }
-    const result = await axiosInstance.post("HrResignTrx/Save",requestData);
+    const result = await axiosInstance.post("HrEmployeeCourse/Save",requestData);
     return result;
   };
 
-  Apis.SaveList = async (data) => {
-    debugger;
-    const result = await axiosInstance.post("HrResignTrx/SaveList",data);
-    return result;
-  };
 
   Apis.Delete = async (id) => {
     debugger;
-    const result = await axiosInstance.delete(`HrResignTrx/Delete/${id}`);
+    const result = await axiosInstance.delete(`HrEmployeeCourse/Delete/${id}`);
     return result;
   };
 
   Apis.DeleteList = async (list) => {
     debugger;
-    const result = await axiosInstance.post(`HrResignTrx/DeleteList`,list);
+    const result = await axiosInstance.post(`HrEmployeeCourse/DeleteList`,list);
     return result;
   };
 

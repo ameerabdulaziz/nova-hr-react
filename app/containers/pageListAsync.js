@@ -901,6 +901,24 @@ export const ResignTrxImport = loadable(
     fallback: <Loading />,
   }
 );
+export const EmpCourseList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/EmpCourseList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmpCourseCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/EmpCourseCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmpCourseReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/EmpCourseReport'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 
 //Employee /////////////////////////////////////////////////////////////////////////////////
