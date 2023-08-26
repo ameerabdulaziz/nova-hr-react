@@ -4,7 +4,14 @@ import axiosInstance from '../../api/axios';
 const LayOffNoticeData = (locale) => {
   const Apis = {};
   
-  
+  Apis.GetReport = async (employee,fromdate,todate) => {
+    debugger;
+    const data = await axiosInstance.get(`HrLayoffNotice/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}`);
+    const result = data.data;
+    
+    return result;
+  };
+
 
   Apis.GetList = async () => {
     debugger;

@@ -913,6 +913,30 @@ export const EmpCourseCreate = loadable(
     fallback: <Loading />,
   }
 );
+export const LayOffNoticeReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/LayOffNoticeReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const AttentionReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/AttentionReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const PenaltyTransReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/PenaltyTransReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const RewardTransReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/RewardTransReport'),
+  {
+    fallback: <Loading />,
+  }
+);
 export const EmpCourseReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/EmpCourseReport'),
   {

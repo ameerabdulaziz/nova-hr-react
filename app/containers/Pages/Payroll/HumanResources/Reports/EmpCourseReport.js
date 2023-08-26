@@ -44,10 +44,10 @@ function EmpCourseReport(props) {
   }
 
   async function fetchData() {
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
+    const employees = await GeneralListApis(locale).GetEmployeeList();
     setEmployeeList(employees);
 
-    const Courses = await GeneralListApis(locale).GetCourseList(locale);
+    const Courses = await GeneralListApis(locale).GetCourseList();
     setCourseList(Courses);
 
     const dataApi = await ApiData(locale).GetReport(employee,Course,fromdate,todate);
@@ -72,8 +72,8 @@ function EmpCourseReport(props) {
         },
       },
       {
-        name: 'CourseName',
-        label: <FormattedMessage {...messages['employeeName']} />,
+        name: 'courseName',
+        label: <FormattedMessage {...messages['courseName']} />,
         options: {
           filter: true,
         },
@@ -93,7 +93,7 @@ function EmpCourseReport(props) {
         },
       },   
       {
-        name: 'CourseCost',
+        name: 'courseCost',
         label:<FormattedMessage {...Payrollmessages['price']} />,
         options: {
           filter: true,
@@ -115,7 +115,7 @@ function EmpCourseReport(props) {
     print: true,
     rowsPerPage: 10,
     page: 0,
-    searchOpen: true,
+    searchOpen: false,
     onSearchClose: () => {
       //some logic
     },
@@ -166,7 +166,7 @@ function EmpCourseReport(props) {
                       {...params}
                       name="CourseId"
                       required                              
-                      label={intl.formatMessage(messages.CourseReasonName)}
+                      label={intl.formatMessage(messages.courseName)}
                       />
                   )}
               />  

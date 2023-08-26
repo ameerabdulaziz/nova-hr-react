@@ -110,9 +110,7 @@ function AttentionList() {
           );
         },
       },
-    },
-
-    
+    },    
   ];
 
   const options = {

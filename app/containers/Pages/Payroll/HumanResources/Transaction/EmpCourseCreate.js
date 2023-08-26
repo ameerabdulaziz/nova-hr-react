@@ -59,7 +59,7 @@ function EmpCourseCreate(props) {
       if(event.target.name =="notes")
         setdata((prevFilters) => ({
         ...prevFilters,
-        note: event.target.value,
+        notes: event.target.value,
       }));
           
       if(event.target.name =="courseCost")
@@ -127,7 +127,7 @@ function EmpCourseCreate(props) {
                 <Grid item xs={12}  md={3}>                
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
-                            label={intl.formatMessage(messages.date)}
+                            label={intl.formatMessage(Payrollmessages.fromdate)}
                             value={data.startDate}
                             onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,startDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
@@ -138,7 +138,7 @@ function EmpCourseCreate(props) {
                 <Grid item xs={12}  md={3}>                
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
-                            label={intl.formatMessage(messages.date)}
+                            label={intl.formatMessage(Payrollmessages.todate)}
                             value={data.finishDate}
                             onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,finishDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
@@ -149,7 +149,7 @@ function EmpCourseCreate(props) {
                 <Grid item xs={12}  md={3}>                
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
-                            label={intl.formatMessage(messages.date)}
+                            label={intl.formatMessage(messages.commStartDate)}
                             value={data.commStartDate}
                             onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,commStartDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
@@ -160,7 +160,7 @@ function EmpCourseCreate(props) {
                 <Grid item xs={12}  md={3}>                
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
-                            label={intl.formatMessage(messages.date)}
+                            label={intl.formatMessage(messages.commEndDate)}
                             value={data.commEndDate}
                             onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,commEndDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
@@ -168,7 +168,7 @@ function EmpCourseCreate(props) {
                         />
                     </LocalizationProvider>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
                     <Autocomplete  
                         id="employeeId"                        
                         options={EmployeeList}  
@@ -180,21 +180,11 @@ function EmpCourseCreate(props) {
                         option.name ? option.name : ""
                         }
                         onChange={(event, value) => {
-                            if (value !== null) {
                                 setdata((prevFilters) => ({
                                 ...prevFilters,
-                                employeeId:value.id,
-                                employeeName:value.name
-                                }));
-                                getEmployeeData(value.id,false)  ;   
-                            } else {
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    employeeId:0,
-                                    employeeName:""
-                                })); 
-                                getEmployeeData(0,false)  ;   
-                            }
+                                employeeId:value !== null?value.id:0,
+                                employeeName:value !== null?value.name:""
+                                }));                            
                         }}
                         renderInput={(params) => (
                         <TextField
@@ -233,13 +223,13 @@ function EmpCourseCreate(props) {
                             {...params}
                             name="courseId"
                             required                              
-                            label={intl.formatMessage(messages.resignReasonName)}
+                            label={intl.formatMessage(messages.courseName)}
                             />
                         )}
                     />  
                 </Grid>
                 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
                     <Autocomplete  
                         id="gradeId"                        
                         options={GradeList}  
@@ -265,13 +255,13 @@ function EmpCourseCreate(props) {
                             {...params}
                             name="gradeId"
                             required                              
-                            label={intl.formatMessage(messages.resignReasonName)}
+                            label={intl.formatMessage(messages.gradeName)}
                             />
                         )}
                     />  
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={3}>
                     <Autocomplete  
                         id="centerId"                        
                         options={CenterList}  
@@ -297,29 +287,29 @@ function EmpCourseCreate(props) {
                             {...params}
                             name="centerId"
                             required                              
-                            label={intl.formatMessage(messages.resignReasonName)}
+                            label={intl.formatMessage(messages.centerName)}
                             />
                         )}
                     />  
                 </Grid>
                 
-                <Grid item xs={12} md={2}>                    
+                <Grid item xs={12} md={3}>                    
                     <TextField
                     id="courseCost"
                     name="courseCost"
                     value={data.courseCost}
                     onChange={(e) => handleChange(e)}                        
-                    label={intl.formatMessage(messages.settlementV)}
+                    label={intl.formatMessage(Payrollmessages.price)}
                     className={classes.field}
                     variant="outlined"
                     required
                     />
                 </Grid>
                 
-                <Grid item xs={12} md={8}>                    
+                <Grid item xs={12} md={9}>                    
                     <TextField
-                    id="note"
-                    name="note"
+                    id="notes"
+                    name="notes"
                     value={data.notes}
                     onChange={(e) => handleChange(e)}                        
                     label={intl.formatMessage(messages.note)}

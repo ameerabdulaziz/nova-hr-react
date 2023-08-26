@@ -983,6 +983,15 @@
   "boilerplate.containers.Payroll.HumanResources.workingYears":"سنين العمل",
   "boilerplate.containers.Payroll.HumanResources.source":"المصدر", 
   "boilerplate.containers.Payroll.HumanResources.idealManPower":"قوة العمالة المخططه", 
+
+  "boilerplate.containers.Payroll.HumanResources.courseName":"قوة العمالة المخططه", 
+  "boilerplate.containers.Payroll.HumanResources.EmpCourseCreateTitle":"اضافة الدورات التدريبية",
+  "boilerplate.containers.Payroll.HumanResources.EmpCourseUpdateTitle":"تعديل الدورات التدريبية",   
+  "boilerplate.containers.Payroll.HumanResources.commStartDate":"بداية الالتزام بالعمل",   
+  "boilerplate.containers.Payroll.HumanResources.commEndDate":"نهاية الالتزام بالعمل",   
+  "boilerplate.containers.Payroll.HumanResources.gradeName":"التقدير", 
+  "boilerplate.containers.Payroll.HumanResources.centerName":"المركز", 
+
   
   
   

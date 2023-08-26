@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/PromotionsData';
+import ApiData from '../api/LayOffNoticeData';
 import { useSelector } from 'react-redux';
-import {Button ,Grid,TextField, Autocomplete,Typography  } from '@mui/material';
+import {Button ,Grid,TextField, Autocomplete  } from '@mui/material';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -15,16 +15,20 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { PapperBlock } from 'enl-components';
 import { toast } from 'react-hot-toast';
+import PropTypes from 'prop-types';
 
 
-function PromotionsReport(props) {
+function LayOffNoticeReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  
   const [fromdate, setfromate] = useState(null);
   const [todate, settodate] = useState(null);
   const [employee, setemployee] = useState(null);
   const [EmployeeList, setEmployeeList] = useState([]);
+  const [Resign, setResign] = useState(null);
+  const [ResignList, setResignList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   
@@ -40,13 +44,16 @@ function PromotionsReport(props) {
   }
 
   async function fetchData() {
-    debugger ;
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
+
+    const resigns = await GeneralListApis(locale).GetResignReasonList(locale);
+    setResignList(resigns);
+
     const dataApi = await ApiData(locale).GetReport(employee,fromdate,todate);
     setdata(dataApi);
   }
-  useEffect(() => {    
+  useEffect(() => {  
     fetchData();
   }, []);
   
@@ -58,7 +65,7 @@ function PromotionsReport(props) {
       },
     },
     {
-      name: 'date',
+      name: 'noticeDate',
       label:<FormattedMessage {...messages['date']} />,
       options: {
         filter: true,
@@ -72,41 +79,13 @@ function PromotionsReport(props) {
       },
     },    
     {
-      name: 'oldJob',
-      label: <FormattedMessage {...messages['oldJob']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-      name: 'oldElemVal',
-      label: <FormattedMessage {...messages['oldElemVal']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-      name: 'job',
-      label: <FormattedMessage {...messages['job']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
-      name: 'elemVal',
-      label: <FormattedMessage {...messages['value']} />,
-      options: {
-          filter: true,
-      },
-    }, 
-    {
         name: 'reason',
         label: <FormattedMessage {...messages['reason']} />,
         options: {
             filter: true,
         },
     },    
-   
+    
   ];
 
   const options = {
@@ -149,11 +128,11 @@ function PromotionsReport(props) {
                   />
               </LocalizationProvider>
           </Grid>
+          
           <Grid item xs={12} md={4}>
               <Autocomplete  
                   id="employeeId"                        
-                  options={EmployeeList}  
-                  //value={{id:data.employeeId,name:data.employeeName}}     
+                  options={EmployeeList}    
                   isOptionEqualToValue={(option, value) =>
                       value.id === 0 || value.id === "" ||option.id === value.id
                   }                 
@@ -196,6 +175,8 @@ function PromotionsReport(props) {
   
 }
 
-export default injectIntl(PromotionsReport);
+LayOffNoticeReport.propTypes = { intl: PropTypes.object.isRequired };
+
+export default injectIntl(LayOffNoticeReport);
 
 

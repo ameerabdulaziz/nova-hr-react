@@ -961,9 +961,16 @@
   "boilerplate.containers.Payroll.HumanResources.vacElement":"Vacation Elemnt", 
   "boilerplate.containers.Payroll.HumanResources.settElemnt":"Settlement Element", 
   "boilerplate.containers.Payroll.HumanResources.workingYears":"Working Years", 
-  "boilerplate.containers.Payroll.HumanResources.source":"Source", 
-  
-  "boilerplate.containers.Payroll.HumanResources.idealManPower":"idealManPower", 
+  "boilerplate.containers.Payroll.HumanResources.source":"Source",   
+  "boilerplate.containers.Payroll.HumanResources.idealManPower":"idealManPower",   
+  "boilerplate.containers.Payroll.HumanResources.courseName":"Course Name",  
+  "boilerplate.containers.Payroll.HumanResources.EmpCourseCreateTitle":"Add Employee Course",
+  "boilerplate.containers.Payroll.HumanResources.EmpCourseUpdateTitle":"Update Employee Course",   
+  "boilerplate.containers.Payroll.HumanResources.commStartDate":"Worke Start Date",   
+  "boilerplate.containers.Payroll.HumanResources.commEndDate":"Worker End Date",   
+  "boilerplate.containers.Payroll.HumanResources.gradeName":"Grade Name", 
+  "boilerplate.containers.Payroll.HumanResources.centerName":"Center Name", 
+
   
   
   

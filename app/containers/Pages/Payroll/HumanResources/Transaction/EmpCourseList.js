@@ -67,8 +67,8 @@ function EmpCourseList() {
       },
     },
     {
-      name: 'CourseName',
-      label: <FormattedMessage {...messages['employeeName']} />,
+      name: 'courseName',
+      label: <FormattedMessage {...messages['courseName']} />,
       options: {
         filter: true,
       },

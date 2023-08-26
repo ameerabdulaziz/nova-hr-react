@@ -29,21 +29,8 @@ const ResignTrxData = (locale) => {
   };
   Apis.Save = async (data) => {
     debugger;
-  var requestData={
-    "id":data.id,
-    "date": data.date,    
-    "employeeId":data.employeeId,    
-    "resignReasonId":data.resignReasonId,
-    "note":data.note,
-    "payTemplateId": data.payTemplateId,
-    "settlElementId":data.settlElementId,
-    "vacElementId": data.vacElementId,
-    "settlementV":data.settlementV,
-    "vacSettlValue": data.vacSettlValue,
-    "lworkingDay": data.lworkingDay,
-    "isStop": data.isStop,
-    }
-    const result = await axiosInstance.post("HrEmployeeCourse/Save",requestData);
+  
+    const result = await axiosInstance.post("HrEmployeeCourse/Save",data);
     return result;
   };
 
