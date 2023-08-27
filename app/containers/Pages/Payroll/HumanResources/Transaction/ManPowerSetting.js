@@ -13,6 +13,8 @@ import notif from 'enl-api/ui/notifMessage';
 import GeneralListApis from '../../api/GeneralListApis';
 import EmloyeePopup from '../../Component/EmloyeePopup';
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 function ManPowerSetting(props) {
   
   const {intl} = props;
@@ -23,7 +25,8 @@ function ManPowerSetting(props) {
   const locale = useSelector(state => state.language.locale);
   const [OpenPopup, setOpenPopup] = useState(false);
   const Title = localStorage.getItem("MenuName");
-  const [totalIdealManPower, settotalIdealManPower] = useState("")
+  const [totalIdealManPower, settotalIdealManPower] = useState("")  
+  const [processing, setprocessing] = useState(false);
   
   const handleClose = (data) => {   
 
@@ -78,6 +81,7 @@ async function on_submit() {
       return
     }
     try {
+      setprocessing(true);
       let response = await  ManPowerSettingData().Save({
         'organization':organization,
         'dataList':dataList,
@@ -85,6 +89,7 @@ async function on_submit() {
       
       if (response.status==200) {
         toast.success(notif.saved);
+        setprocessing(fasle);
         GetList();
       } else {
           toast.error(response.statusText);
@@ -197,7 +202,13 @@ async function on_submit() {
                   </Button>
                 </Grid>            
                 <Grid item xs={6} md={2}>                   
-                    <Button variant="contained" size="medium" color="primary" onClick={on_submit} >
+                    <Button variant="contained" size="medium" color="secondary" disabled={ processing} onClick={on_submit} >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )} 
                       <FormattedMessage {...Payrollmessages.save} />
                     </Button>
                 </Grid>   

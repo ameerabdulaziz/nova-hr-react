@@ -12,6 +12,7 @@ import {Button ,Grid,TextField} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
 import { useLocation } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
@@ -21,7 +22,7 @@ function ExplanationEdit(props) {
   const location = useLocation()
   const { id } = location.state??0;
   const { classes } = useStyles();
-  
+  const [processing, setprocessing] = useState(false);
   const [data, setdata] = useState({
     "id": 0,
     "employeeName":"",
@@ -42,6 +43,7 @@ function ExplanationEdit(props) {
     e.preventDefault();   
     try{
       debugger;  
+      setprocessing(true);  
       let response = await  ApiData(locale).SaveResponse(data);
 
       if (response.status==200) {
@@ -203,7 +205,13 @@ function ExplanationEdit(props) {
                     </Grid>
                 
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )}
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>

@@ -22,7 +22,7 @@ import { format } from "date-fns";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import EmloyeePopup from '../../Component/EmloyeePopup';
 import useStyles from '../../Style';
-
+import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation } from "react-router-dom";
 
 
@@ -35,7 +35,6 @@ function NewsCreate(props) {
   const { classes,cx } = useStyles();
   const [OpenPopup, setOpenPopup] = useState(false);  
   const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
-
   const [data, setdata] = useState({
     "id": 0,
     "fromDate":format(new Date(), "yyyy-MM-dd"),
@@ -49,13 +48,15 @@ function NewsCreate(props) {
   });
   const [TypeList, setTypeList] = useState([]);
   const [EmployeeList, setEmployeeList] = useState([]);
-  const history=useHistory();  
+  const history=useHistory();    
+  const [processing, setprocessing] = useState(false);
 
   const handleSubmit = async (e) => {
     
     e.preventDefault();   
     try{
-      debugger;  
+      debugger; 
+      setprocessing(true); 
       let response = await  ApiData(locale).Save(data,EmployeeList);
 
       if (response.status==200) {
@@ -328,7 +329,13 @@ const handleEnableOne = (event, row) => {
               </section> 
             </Grid>                
             <Grid item xs={12} md={1}>                  
-                <Button variant="contained" type="submit" size="medium" color="primary" >
+                <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )} 
                     <FormattedMessage {...Payrollmessages.save} /> 
                 </Button>
             </Grid>

@@ -19,6 +19,7 @@ import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
@@ -58,7 +59,8 @@ function ResignTrxCreate(props) {
   const [VacElementList, setVacElementList] = useState([]);
   const [SettlElementList, setSettlElementList] = useState([]);
   const [ResignList, setResignList] = useState([]);
-  const history=useHistory();  
+  const history=useHistory();    
+  const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
     debugger ;
@@ -85,7 +87,8 @@ function ResignTrxCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+      debugger; 
+      setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
       if (response.status==200) {
@@ -480,7 +483,13 @@ function ResignTrxCreate(props) {
                 </Grid>
                 
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )} 
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>

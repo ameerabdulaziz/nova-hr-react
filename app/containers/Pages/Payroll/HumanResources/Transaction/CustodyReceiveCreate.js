@@ -21,6 +21,8 @@ import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 function CustodyReceiveCreate(props) {
@@ -28,7 +30,7 @@ function CustodyReceiveCreate(props) {
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation()
   const { id } = location.state??0;
-  
+  const [processing, setprocessing] = useState(false);
   const { classes } = useStyles();
   
   const [data, setdata] = useState({
@@ -84,6 +86,7 @@ function CustodyReceiveCreate(props) {
     e.preventDefault();   
     try{
       debugger;  
+      setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
       if (response.status==200) {
@@ -318,7 +321,13 @@ async function oncancel(){
                 </Grid>
                 <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )}
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>

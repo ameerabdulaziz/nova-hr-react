@@ -19,9 +19,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
-
 import { useLocation } from "react-router-dom";
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
@@ -51,6 +50,7 @@ function UniformDeliveryCreate(props) {
   const [EmployeeList, setEmployeeList] = useState([]);
   const [UniformList, setUniformList] = useState([]);
   const history=useHistory();  
+  const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
     debugger ;
@@ -74,6 +74,7 @@ function UniformDeliveryCreate(props) {
     e.preventDefault();   
     try{
       debugger;  
+      setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
       if (response.status==200) {
@@ -308,7 +309,13 @@ async function oncancel(){
                 </Grid>
                 <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )} 
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>

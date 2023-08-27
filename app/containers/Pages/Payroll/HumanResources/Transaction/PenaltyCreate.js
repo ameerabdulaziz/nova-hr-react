@@ -20,6 +20,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 function PenaltyCreate(props) {
@@ -29,7 +30,7 @@ function PenaltyCreate(props) {
   
   const location = useLocation()
   const { id } = location.state??0;
-
+  const [processing, setprocessing] = useState(false);
   const { classes } = useStyles();
   
   const [data, setdata] = useState({
@@ -94,6 +95,7 @@ function PenaltyCreate(props) {
     e.preventDefault();   
     try{
       debugger;  
+      setprocessing(true); 
       let response = await  ApiData(locale).Save(data);
 
       if (response.status==200) {
@@ -652,7 +654,13 @@ function PenaltyCreate(props) {
 
                  
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing}  >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )} 
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>

@@ -17,8 +17,8 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 
@@ -30,6 +30,7 @@ function EmpCourseCreate(props) {
   const { id } = location.state??0;
   const { classes } = useStyles();
   
+  const [processing, setprocessing] = useState(false);
   const [data, setdata] = useState({
     "id": 0,
     "startDate":format(new Date(), "yyyy-MM-dd"),   
@@ -73,6 +74,7 @@ function EmpCourseCreate(props) {
     e.preventDefault();   
     try{
       debugger;  
+      setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
       if (response.status==200) {
@@ -320,7 +322,13 @@ function EmpCourseCreate(props) {
                 <Grid item xs={12} md={4}></Grid>
                 
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )}
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>
