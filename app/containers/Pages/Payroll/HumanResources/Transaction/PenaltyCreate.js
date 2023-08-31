@@ -11,7 +11,7 @@ import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
 import { useHistory } from 'react-router-dom';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import {Button ,Grid,TextField, Autocomplete,Card ,CardContent} from "@mui/material";
+import {Button ,Grid,TextField, Autocomplete,Card ,CardContent,FormControl,Tooltip} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -21,7 +21,10 @@ import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
-
+import AddIcon from '@mui/icons-material/Add';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import {ServerURL} from '../../api/ServerConfig';
+import { NavLink } from 'react-router-dom';
 
 function PenaltyCreate(props) {
   const { intl } = props;
@@ -31,8 +34,8 @@ function PenaltyCreate(props) {
   const location = useLocation()
   const { id } = location.state??0;
   const [processing, setprocessing] = useState(false);
-  const { classes } = useStyles();
-  
+  const { classes,cx  } = useStyles();  
+  const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   const [data, setdata] = useState({
     "id": 0,
     "date":format(new Date(), "yyyy-MM-dd"),
@@ -64,7 +67,9 @@ function PenaltyCreate(props) {
     "sixMonth": "",
     "year": "",
     "hiringDateNo": "",
-    "lastDate": ""
+    "lastDate": "",
+    "uploadedFile":null,
+    "docName":""
   });
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
@@ -74,7 +79,7 @@ function PenaltyCreate(props) {
   const [PenaltyTypeList, setPenaltyTypeList] = useState([]);
   
   const history=useHistory();  
-
+  
   const handleChange = (event) => {
     debugger ;
 
@@ -305,8 +310,45 @@ function PenaltyCreate(props) {
                         )}
                     />  
                 </Grid>
-                <Grid item xs={12} md={4}></Grid>
-               
+                <Grid item xs={12} md={2} >
+                    <FormControl variant="standard">
+                      <div className={classes.actions}>     
+                        <Tooltip title= "Upload">
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            component="label"
+                          >
+                            <AddIcon
+                              className={cx(smUp && classes.leftIcon, classes.iconSmall)}
+                            />
+                            {smUp && ' '} Upload
+                            
+                            <input 
+                              hidden 
+                              type="file" 
+                              name="file" 
+                              id="inputGroupFile" 
+                              onChange={(e) => {debugger ; setdata((prevFilters) => ({
+                                ...prevFilters,
+                                uploadedFile: e.target.files[0],
+                              }))}}  
+                              accept="image/png, image/jpeg, image/jpg, image/apng, image/webp, image/svg+xml"
+                            />
+                        </Button>
+                        </Tooltip>
+                      </div>
+                    </FormControl>              
+                </Grid>
+                <Grid item xs={12} md={2} >                 
+                   {
+                    data.docName && <NavLink to={{pathname: `${ServerURL}${data.docName}`}} target="_blank">
+                        <Button size="small">
+                            Open File
+                        </Button> 
+                    </NavLink>
+                    }
+                </Grid>
                 <Grid item xs={12} md={12}>
                     <Card className={classes.card}>
                         <CardContent>

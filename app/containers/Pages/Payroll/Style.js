@@ -118,6 +118,19 @@ const useMainStyles = makeStyles()((theme) => ({
   menu: {
     width: 200,
   },
+  buttonLink: {
+    /* background: 'none', */
+    padding: 0,
+    textTransform: 'none',
+    transition: 'color ease 0.3s',
+    fontWeight: theme.typography.fontWeightRegular,
+    fontSize: '0.875rem',
+    '&:hover': {
+      /* background: 'none', */
+      color: theme.palette.secondary.main
+    }
+  },
+
 }));
 
 export default useMainStyles;
