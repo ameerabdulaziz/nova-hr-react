@@ -45,6 +45,13 @@ const PermissionTrxData = (locale) => {
     return result;
   };
 
+  Apis.getRepeatedNo = async (permissionId , date,employeeId) => {
+    debugger;
+    const data = await axiosInstance.get(`AttPermissionTrx/getRepeatedNo?permissionId=${permissionId}&date=${date}&EmployeeId=${employeeId}`);
+    
+    return data.data;
+
+  };
   
 Apis.GetRewardData = async (id) => {    
   debugger;

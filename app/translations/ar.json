@@ -892,6 +892,9 @@
   "boilerplate.containers.Payroll.employeeName": "اسم الموظف",
   "boilerplate.containers.Payroll.job": "الوظيفة",
   "boilerplate.containers.Payroll.hiringDate": "تاريخ التعيين",
+  "boilerplate.containers.Payroll.arName": "الاسم بالعربية",
+  "boilerplate.containers.Payroll.enName": "الاسم بالانجليزية",
+  "boilerplate.containers.Payroll.element": "العنصر",
   
   
   
@@ -1010,6 +1013,16 @@
   "boilerplate.containers.Payroll.Attendance.calcLate":"احتساب تأخير", 
   "boilerplate.containers.Payroll.Attendance.calcMinus":"احتساب متمم", 
   "boilerplate.containers.Payroll.Attendance.dedRased":"خصم من الرصيد", 
+  "boilerplate.containers.Payroll.Attendance.isDeducted":"تخصم من المرتب", 
+  "boilerplate.containers.Payroll.Attendance.deductedValue":"قيمة الخصم",  
+  "boilerplate.containers.Payroll.Attendance.maxRepeated":"الحد الاقصى للتكرار",  
+  "boilerplate.containers.Payroll.Attendance.maxMinuteNo":"عدد دقائق الاذن", 
+  "boilerplate.containers.Payroll.Attendance.isDeductAnnual":"خصم من السنوى", 
+  "boilerplate.containers.Payroll.Attendance.shortName":"الاسم المختصر", 
+  "boilerplate.containers.Payroll.Attendance.PermissionCreateTitle":"اضافة اكواد الاذون", 
+  "boilerplate.containers.Payroll.Attendance.PermissionUpdateTitle":"تعديل اكواد الاذون", 
+  
+  
   
   
   

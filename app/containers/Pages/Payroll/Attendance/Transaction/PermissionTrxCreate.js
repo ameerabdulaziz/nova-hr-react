@@ -22,7 +22,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
-function CreateReward(props) {
+function PermissionTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation()
@@ -32,11 +32,10 @@ function CreateReward(props) {
   const [data, setdata] = useState({
     "id": 0,
     "date":format(new Date(), "yyyy-MM-dd"),
-    "docName":"",
     "employeeId":"",
     "employeeName":"",
     "permissionId":"",
-    "PermissionName":"",
+    "permissionName":"",
     "startTime":"", 
     "endTime":"",    
     "minutesCount":"",
@@ -49,6 +48,11 @@ function CreateReward(props) {
     "dedRased" :false,
     "prasedMin":"",    
     "notes":"",
+    "job":"",
+    "organization":"",
+    "hiringDate":"",
+    "maxRepeated":"",
+    "maxMinuteNo" :40,
   });
   
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -84,31 +88,86 @@ function CreateReward(props) {
         }));
 
         if(event.target.name =="startTime")
-        setdata((prevFilters) => ({
-            ...prevFilters,
-            startTime: event.target.value,
-        }));
+        {
+            debugger;
+           
+            if(data.endTime!="")
+            {
+                debugger ;
+                var diff = Math.round((new Date(0,0,0,data.endTime.split(':')[0],data.endTime.split(':')[1]) - new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1])) / 60000);
+                if(diff<=maxMinuteNo)
+                    setdata((prevFilters) => ({
+                        ...prevFilters,
+                        startTime: event.target.value,
+                        minutesCount: diff
+                    }));
+                else
+                {
+                    toast.error("max minutes count is"+data.maxMinuteNo);
+                }
+            }
+            else
+                setdata((prevFilters) => ({
+                    ...prevFilters,
+                    startTime: event.target.value,
+                }));
+        }
+        
         if(event.target.name =="endTime")
-        setdata((prevFilters) => ({
-            ...prevFilters,
-            endTime: event.target.value,
-        }));
+        {
+            debugger;
+           
+            if(data.startTime!="")
+            {
+                debugger ;
+                var diff = Math.round((new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1]) - new Date(0,0,0,data.startTime.split(':')[0],data.startTime.split(':')[1])) / 60000);
+                
+                if(diff<=data.maxMinuteNo)
+                    setdata((prevFilters) => ({
+                        ...prevFilters,
+                        endTime: event.target.value,
+                        minutesCount: diff
+                    }));
+                else
+                {
+                    toast.error("max minutes count is"+data.maxMinuteNo);
+                 }
+            }
+            else
+                setdata((prevFilters) => ({
+                    ...prevFilters,
+                    endTime: event.target.value,
+                }));
+        }
+        
+        
   };
   const handleSubmit = async (e) => {
     
     e.preventDefault();   
     try{
       debugger; 
-      setprocessing(true);  
-      let response = await  ApiData(locale).Save(data);
-
-      if (response.status==200) {
-        toast.success(notif.saved);
-        history.push(`/app/Pages/Att/PermissionTrxList`);
-      } else {
-          toast.error(response.statusText);
+      setprocessing(true); 
+      var RepeatedNo= await getRepeatedNo();
+      if(RepeatedNo>=data.maxRepeated)
+      {
+        toast.error("max repeated Permission is"+data.maxRepeated);
+        setprocessing(false);
+        return ;
       }
-    } catch (err) {
+      else{
+            let response = await  ApiData(locale).Save(data);
+
+            if (response.status==200) {
+                toast.success(notif.saved);
+                history.push(`/app/Pages/Att/PermissionTrxList`);
+            } else {
+                toast.error(response.statusText);
+            }
+        }
+    }
+    catch (err) {
+      setprocessing(false);
       toast.error(err.response.data);
     }
   }
@@ -135,18 +194,9 @@ async function oncancel(){
     fetchData();
   }, []);
 
-  
-  async function getEmployeeData(id,isSuper) {
+async function getEmployeeData(id) {
     debugger;
     if (!id){
-        if(isSuper)
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                superJob:"",
-                superOrganization:"",
-                superHiringDate:""
-            }));   
-          else
             setdata((prevFilters) => ({
                 ...prevFilters,
                 job:"",
@@ -156,14 +206,7 @@ async function oncancel(){
         return
     }
     const empdata = await GeneralListApis(locale).GetEmployeeData(id);
-    if(isSuper)
-        setdata((prevFilters) => ({
-            ...prevFilters,
-            superJob:empdata.jobName,
-            superOrganization:empdata.organizationName,
-            superHiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate
-        })); 
-    else
+   
         setdata((prevFilters) => ({
             ...prevFilters,
             job:empdata.jobName,
@@ -171,6 +214,19 @@ async function oncancel(){
             hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate
         }));   
     }
+
+const getRepeatedNo = useCallback(async () => {
+        debugger;
+        if (data.permissionId && data.date && data.employeeId){
+               
+            const RepeatedNo = await ApiData(locale).getRepeatedNo(data.permissionId , data.date,data.employeeId);
+            return  RepeatedNo ;
+        } 
+        else
+            return null ;
+});
+
+
   
   return (
     <div>
@@ -194,9 +250,9 @@ async function oncancel(){
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <Autocomplete  
-                        id="Permissionsid"                        
+                        id="permissionid"                        
                         options={PermissionsList}  
-                        value={{id:data.PermissionsId,name:data.PermissionsName}}   
+                        value={{id:data.permissionId,name:data.permissionName}}   
                         isOptionEqualToValue={(option, value) =>
                             value.id === 0 || value.id === "" ||option.id === value.id
                         }                   
@@ -204,25 +260,20 @@ async function oncancel(){
                         option.name ? option.name : ""
                         }
                         onChange={(event, value) => {
-                            if (value !== null) {
+                            
                                 setdata((prevFilters) => ({
                                 ...prevFilters,
-                                PermissionsId:value.id,
-                                PermissionsName:value.name
+                                permissionId:value !== null?value.id:0,
+                                permissionName:value !== null?value.name:"",
+                                maxRepeated:value !== null?value.maxRepeated:"",
+                                maxMinuteNo:value !== null?value.maxMinuteNo:""
                                 }));   
-                            } else {
-                            setdata((prevFilters) => ({
-                                ...prevFilters,
-                                PermissionsId:0,
-                                PermissionsName:""
-                            })); 
-                            }                               
-                        }}
+                            }}
                         renderInput={(params) => (
                         <TextField
                             variant="outlined"                            
                             {...params}
-                            name="Permissionsid"
+                            name="permissionid"
                             required                              
                             label={intl.formatMessage(messages.permissionName)}
                             />
@@ -330,6 +381,8 @@ async function oncancel(){
                                             onChange={(e) => setdata((prevFilters) => ({
                                                 ...prevFilters,
                                                 calcLate: e.target.checked,
+                                                calcMinus: !e.target.checked,
+                                                dedRased: !e.target.checked,
                                                 }))}   
                                             value={data.calcLate}
                                             color="primary"
@@ -343,11 +396,12 @@ async function oncancel(){
                                     <TextField
                                     id="plateMin"
                                     name="plateMin"
-                                    value={data.plateMin}
+                                    value={data.calcLate?data.plateMin:""}
                                     onChange={(e) => handleChange(e)}                        
                                     label={""}
                                     className={classes.field}
                                     variant="outlined"
+                                    disabled={!data.calcLate}
                                     />
                                 </Grid>
                                 <Grid item xs={12}  md={8}>
@@ -358,6 +412,8 @@ async function oncancel(){
                                             onChange={(e) => setdata((prevFilters) => ({
                                                 ...prevFilters,
                                                 calcMinus: e.target.checked,
+                                                calcLate: !e.target.checked,
+                                                dedRased: !e.target.checked,
                                                 }))}   
                                             value={data.calcMinus}
                                             color="primary"
@@ -371,11 +427,12 @@ async function oncancel(){
                                     <TextField
                                         id="pminusMin"
                                         name="pminusMin"
-                                        value={data.pminusMin}
+                                        value={data.calcMinus?data.pminusMin:""}
                                         onChange={(e) => handleChange(e)}                        
                                         label={""}
                                         className={classes.field}
                                         variant="outlined"
+                                        disabled={!data.calcMinus}
                                         />
                                 </Grid> 
                                 <Grid item xs={12}  md={8}>
@@ -386,8 +443,10 @@ async function oncancel(){
                                             onChange={(e) => setdata((prevFilters) => ({
                                                 ...prevFilters,
                                                 dedRased: e.target.checked,
+                                                calcMinus: !e.target.checked,
+                                                calcLate: !e.target.checked,
                                                 }))}   
-                                            value={data.calcMinus}
+                                            value={data.dedRased}
                                             color="primary"
                                         />
                                         )}
@@ -399,11 +458,12 @@ async function oncancel(){
                                     <TextField
                                         id="prasedMin"
                                         name="prasedMin"
-                                        value={data.prasedMin}
+                                        value={data.dedRased?data.prasedMin:""}
                                         onChange={(e) => handleChange(e)}                        
                                         label={""}
                                         className={classes.field}
                                         variant="outlined"
+                                        disabled={!data.dedRased}
                                         />
                                 </Grid>
                             </Grid>
@@ -454,6 +514,7 @@ async function oncancel(){
                             required
                             className={classes.field}
                             variant="outlined"
+                            disabled
                             />
                         </Grid>
                         <Grid item xs={12}  md={6}>
@@ -527,8 +588,8 @@ async function oncancel(){
     </div>
   );
 }
-CreateReward.propTypes = {
+PermissionTrxCreate.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(CreateReward);
+export default injectIntl(PermissionTrxCreate);
 

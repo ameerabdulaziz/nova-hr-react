@@ -871,6 +871,9 @@
   "boilerplate.containers.Payroll.employeeName": "Employee Name",  
   "boilerplate.containers.Payroll.job": "Job",
   "boilerplate.containers.Payroll.hiringDate": "Hiring Date",
+  "boilerplate.containers.Payroll.arName": "Arabic Name", 
+  "boilerplate.containers.Payroll.enName": "English Name", 
+  "boilerplate.containers.Payroll.element": "Element",
   
   
   
@@ -987,6 +990,16 @@
   "boilerplate.containers.Payroll.Attendance.calcLate":"Late Calulation", 
   "boilerplate.containers.Payroll.Attendance.calcMinus":"Minus Calulation", 
   "boilerplate.containers.Payroll.Attendance.dedRased":"Rased Deduction",  
+  
+  "boilerplate.containers.Payroll.Attendance.isDeducted":"Is Deducted", 
+  "boilerplate.containers.Payroll.Attendance.deductedValue":"Deducted Value",  
+  "boilerplate.containers.Payroll.Attendance.maxRepeated":"Max Repeated",  
+  "boilerplate.containers.Payroll.Attendance.maxMinuteNo":"Max Minute No", 
+  "boilerplate.containers.Payroll.Attendance.isDeductAnnual":"Is Deduct Annual", 
+  "boilerplate.containers.Payroll.Attendance.shortName":"Short Name", 
+  
+  "boilerplate.containers.Payroll.Attendance.PermissionCreateTitle":"Add Permission Codes", 
+  "boilerplate.containers.Payroll.Attendance.PermissionUpdateTitle":"Update Permission Codes",  
   
   
   

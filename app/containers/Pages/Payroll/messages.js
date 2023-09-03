@@ -143,4 +143,16 @@ export default defineMessages({
     id: `${scope}.hiringDate`,
     defaultMessage: 'hiringDate',
   },
+  arName: {
+    id: `${scope}.arName`,
+    defaultMessage: 'arName',
+  },
+  enName: {
+    id: `${scope}.enName`,
+    defaultMessage: 'enName',
+  },
+  element: {
+    id: `${scope}.element`,
+    defaultMessage: 'element',
+  }
 });

@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll.Attendance';
 
 export default defineMessages({
-  //penaltyList----------------------------------------------------------------------------
+  //PermissionTrx----------------------------------------------------------------------------
   permissionName: {
     id: `${scope}.permissionName`,
     defaultMessage: 'permissionName Name',
@@ -54,5 +54,37 @@ dedRased: {
   id: `${scope}.dedRased`,
   defaultMessage: 'dedRased',
 },
-
+//Permission Code
+isDeducted: {
+  id: `${scope}.isDeducted`,
+  defaultMessage: 'isDeducted',
+},
+deductedValue: {
+  id: `${scope}.deductedValue`,
+  defaultMessage: 'deductedValue',
+},
+maxRepeated: {
+  id: `${scope}.maxRepeated`,
+  defaultMessage: 'maxRepeated',
+},
+maxMinuteNo: {
+  id: `${scope}.maxMinuteNo`,
+  defaultMessage: 'maxMinuteNo',
+},
+isDeductAnnual: {
+  id: `${scope}.isDeductAnnual`,
+  defaultMessage: 'isDeductAnnual',
+},
+shortName: {
+  id: `${scope}.shortName`,
+  defaultMessage: 'shortName',
+},
+PermissionCreateTitle: {
+  id: `${scope}.PermissionCreateTitle`,
+  defaultMessage: 'PermissionCreateTitle',
+},
+PermissionUpdateTitle: {
+  id: `${scope}.PermissionUpdateTitle`,
+  defaultMessage: 'PermissionUpdateTitle',
+},
 });
