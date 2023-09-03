@@ -26,6 +26,7 @@ const PermissionData = (locale) => {
     const result = await axiosInstance.post("AttPermission/Save",data);
     return result;
   };
+  
   Apis.Delete = async (id) => {
     debugger;
     const result = await axiosInstance.delete(`AttPermission/Delete/${id}`);

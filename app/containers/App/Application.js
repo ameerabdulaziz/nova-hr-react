@@ -150,7 +150,7 @@ import {
   UniformDeliveryList,UniformDeliveryReport,UniformDeliveryCreate,RewardCreate,
   ResignTrxList,ResignTrxCreate,ResignTrxReport,ManPowerSetting,ResignTrxImport,
   EmpCourseList,EmpCourseCreate,EmpCourseReport,RewardTransReport,AttentionReport,LayOffNoticeReport,PenaltyTransReport,
-  PermissionTrxList,PermissionTrxCreate,PermissionTrxReport,PermissionList,PermissionCreate
+  PermissionTrxList,PermissionTrxCreate,PermissionTrxReport,PermissionList,PermissionCreate,PermissionTrxImport
 } from '../pageListAsync';
 
 
@@ -636,6 +636,7 @@ function Application(props) {
         <Route path="/app/Pages/Att/PermissionList" component={PermissionList} />
         <Route path="/app/Pages/Att/PermissionCreate" component={PermissionCreate} />
         <Route path="/app/Pages/Att/PermissionEdit" component={PermissionCreate} />
+        <Route path="/app/Pages/Att/PermissionTrxImport" component={PermissionTrxImport} />
         
 
         {/* Employee */}

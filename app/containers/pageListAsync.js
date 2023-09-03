@@ -977,6 +977,13 @@ export const PermissionCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const PermissionTrxImport = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/PermissionTrxImport'),
+  {
+    fallback: <Loading />,
+  }
+);
 //Employee /////////////////////////////////////////////////////////////////////////////////
 
 export const EmployeeList = loadable(

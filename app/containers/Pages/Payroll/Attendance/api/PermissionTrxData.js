@@ -33,6 +33,16 @@ const PermissionTrxData = (locale) => {
     const result = await axiosInstance.post("AttPermissionTrx/Save",data);
     return result;
   };
+  Apis.SaveAll = async (data) => {
+    debugger;
+    const result = await axiosInstance.post("AttPermissionTrx/SaveAll",data);
+    return result;
+  };
+  Apis.SaveList = async (data) => {
+    debugger;
+    const result = await axiosInstance.post("AttPermissionTrx/SaveList",data);
+    return result;
+  };
   Apis.Delete = async (id) => {
     debugger;
     const result = await axiosInstance.delete(`AttPermissionTrx/Delete/${id}`);
