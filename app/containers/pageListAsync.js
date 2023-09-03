@@ -944,7 +944,26 @@ export const EmpCourseReport = loadable(
   }
 );
 
+//Attendance /////////////////////////////////////////////////////////////////////////////////
 
+export const PermissionTrxList = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/PermissionTrxList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const PermissionTrxCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/PermissionTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const PermissionTrxReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/PermissionTrxReport'),
+  {
+    fallback: <Loading />,
+  }
+);
 //Employee /////////////////////////////////////////////////////////////////////////////////
 
 export const EmployeeList = loadable(

@@ -130,4 +130,17 @@ export default defineMessages({
     id: `${scope}.total`,
     defaultMessage: 'total',
   },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  job: {
+    id: `${scope}.job`,
+    defaultMessage: 'job',
+  },
+  
+  hiringDate: {
+    id: `${scope}.hiringDate`,
+    defaultMessage: 'hiringDate',
+  },
 });

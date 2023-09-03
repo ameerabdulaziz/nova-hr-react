@@ -149,9 +149,10 @@ import {
   Uniform,UniformReceiveList,UniformReceiveReport,UniformReceiveCreate,
   UniformDeliveryList,UniformDeliveryReport,UniformDeliveryCreate,RewardCreate,
   ResignTrxList,ResignTrxCreate,ResignTrxReport,ManPowerSetting,ResignTrxImport,
-  EmpCourseList,EmpCourseCreate,EmpCourseReport,RewardTransReport,AttentionReport,LayOffNoticeReport,PenaltyTransReport
-
+  EmpCourseList,EmpCourseCreate,EmpCourseReport,RewardTransReport,AttentionReport,LayOffNoticeReport,PenaltyTransReport,
+  PermissionTrxList,PermissionTrxCreate,PermissionTrxReport
 } from '../pageListAsync';
+
 
 function Application(props) {
   const { history } = props;
@@ -626,6 +627,11 @@ function Application(props) {
         <Route path="/app/Pages/HR/LayOffNoticeReport" component={LayOffNoticeReport} />
         
 
+        {/*Attendance*/}
+        <Route path="/app/Pages/Att/PermissionTrxList" component={PermissionTrxList} />
+        <Route path="/app/Pages/Att/PermissionTrxCreate" component={PermissionTrxCreate} />
+        <Route path="/app/Pages/Att/PermissionTrxEdit" component={PermissionTrxCreate} />
+        <Route path="/app/Pages/Att/PermissionTrxReport" component={PermissionTrxReport} />
         
         {/* Employee */}
         <Route

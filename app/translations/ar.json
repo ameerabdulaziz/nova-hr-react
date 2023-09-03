@@ -889,6 +889,10 @@
   "boilerplate.containers.Payroll.isStop": "ايقاف التعامل المالى", 
   "boilerplate.containers.Payroll.chooseJob": "اختر وظيفة",
   "boilerplate.containers.Payroll.total": "الاجمالى",
+  "boilerplate.containers.Payroll.employeeName": "اسم الموظف",
+  "boilerplate.containers.Payroll.job": "الوظيفة",
+  "boilerplate.containers.Payroll.hiringDate": "تاريخ التعيين",
+  
   
   
   
@@ -994,6 +998,18 @@
 
   
   
+
+  "boilerplate.containers.Payroll.Attendance.permissionName":"نوع الاذن",   
+  "boilerplate.containers.Payroll.Attendance.PermissionTrxCreateTitle":"اضافة اذن",   
+  "boilerplate.containers.Payroll.Attendance.PermissionTrxUpdateTitle":"تعديل اذن", 
+  "boilerplate.containers.Payroll.Attendance.minutesCount":"عدد الدقائق", 
+  "boilerplate.containers.Payroll.Attendance.startTime":"من الساعه", 
+  "boilerplate.containers.Payroll.Attendance.endTime":"الى الساعه", 
+  "boilerplate.containers.Payroll.Attendance.exemptEntryRec":"اعفاء من تسجيل الدخول", 
+  "boilerplate.containers.Payroll.Attendance.exemptLeaveRec":"اعفاء من تسجيل الانصراف", 
+  "boilerplate.containers.Payroll.Attendance.calcLate":"احتساب تأخير", 
+  "boilerplate.containers.Payroll.Attendance.calcMinus":"احتساب متمم", 
+  "boilerplate.containers.Payroll.Attendance.dedRased":"خصم من الرصيد", 
   
   
   

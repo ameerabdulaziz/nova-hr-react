@@ -276,7 +276,16 @@ const GeneralListApis = (locale) => {
    
     return result.data;
   };
-  return Apis;
+  
+  Apis.GetPermissionList = async () => {
+      
+    debugger;
+    const result = await axiosInstance.get(`AttPermission/GetListModel/${locale}`);
+  
+    return result.data;
+  };
+  
+return Apis;
 };
 
 

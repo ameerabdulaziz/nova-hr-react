@@ -867,7 +867,10 @@
   "boilerplate.containers.Payroll.count": "Count", 
   "boilerplate.containers.Payroll.isStop": "Is Stop",   
   "boilerplate.containers.Payroll.chooseJob": "Choose Job",  
-  "boilerplate.containers.Payroll.total": "Total",
+  "boilerplate.containers.Payroll.total": "Total",  
+  "boilerplate.containers.Payroll.employeeName": "Employee Name",  
+  "boilerplate.containers.Payroll.job": "Job",
+  "boilerplate.containers.Payroll.hiringDate": "Hiring Date",
   
   
   
@@ -972,6 +975,18 @@
   "boilerplate.containers.Payroll.HumanResources.centerName":"Center Name", 
 
   
+  
+  "boilerplate.containers.Payroll.Attendance.permissionName":"Permission Type",   
+  "boilerplate.containers.Payroll.Attendance.PermissionTrxCreateTitle":"Add Permission",   
+  "boilerplate.containers.Payroll.Attendance.PermissionTrxUpdateTitle":"Update Permission",  
+  "boilerplate.containers.Payroll.Attendance.minutesCount":"minutes", 
+  "boilerplate.containers.Payroll.Attendance.startTime":"Start Time",  
+  "boilerplate.containers.Payroll.Attendance.endTime":"End Time", 
+  "boilerplate.containers.Payroll.Attendance.exemptEntryRec":"exempt Entry Record", 
+  "boilerplate.containers.Payroll.Attendance.exemptLeaveRec":"exempt Leave Record", 
+  "boilerplate.containers.Payroll.Attendance.calcLate":"Late Calulation", 
+  "boilerplate.containers.Payroll.Attendance.calcMinus":"Minus Calulation", 
+  "boilerplate.containers.Payroll.Attendance.dedRased":"Rased Deduction",  
   
   
   
