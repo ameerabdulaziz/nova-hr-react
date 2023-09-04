@@ -154,5 +154,13 @@ export default defineMessages({
   element: {
     id: `${scope}.element`,
     defaultMessage: 'element',
-  }
+  },
+  Upload: {
+    id: `${scope}.Upload`,
+    defaultMessage: 'Upload',
+  },
+  Print: {
+    id: `${scope}.Print`,
+    defaultMessage: 'Print',
+  },
 });

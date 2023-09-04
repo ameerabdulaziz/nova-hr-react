@@ -136,6 +136,9 @@ import {
   EmployeeCar,
   EmployeeSalary,
   EmployeeContract,
+  EmployeeDocuments,
+  CreateEmployeeDocuments,
+  EditEmployeeDocuments,
   TrainingCenter,  ResignReason,Rewards,Penalty,CreatePenalty,
   RewardTransList,PenaltyTransList,PenaltyTransCreate,
   AttentionList,AttentionCreate,LayOffNoticeList,LayOffNoticeCreate,
@@ -691,6 +694,21 @@ function Application(props) {
         <Route
           path="/app/Pages/Employee/EmployeeContract"
           component={EmployeeContract}
+        />
+
+        <Route
+          path="/app/Pages/Employee/EmployeeDocuments"
+          component={EmployeeDocuments}
+        />
+
+        <Route
+          path="/app/Pages/Employee/CreateEmployeeDocuments"
+          component={CreateEmployeeDocuments}
+        />
+
+        <Route
+          path="/app/Pages/Employee/EditEmployeeDocuments"
+          component={EditEmployeeDocuments}
         />
 
         {/* Map */}

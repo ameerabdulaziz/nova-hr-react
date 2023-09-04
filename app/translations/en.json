@@ -874,6 +874,8 @@
   "boilerplate.containers.Payroll.arName": "Arabic Name", 
   "boilerplate.containers.Payroll.enName": "English Name", 
   "boilerplate.containers.Payroll.element": "Element",
+  "boilerplate.containers.Payroll.Upload": "Upload", 
+  "boilerplate.containers.Payroll.Print": "Print", 
   
   
   
@@ -1034,6 +1036,21 @@
   "boilerplate.containers.Payroll.Employee.job.contractType":"Contract Type",
   "boilerplate.containers.Payroll.Employee.job.notHasMission":"Not Has Mission",
   "boilerplate.containers.Payroll.Employee.job.ruleTemplate":"Rule Template",
+
+  "boilerplate.containers.Payroll.Employee.doc.id":"Id",
+  "boilerplate.containers.Payroll.Employee.doc.startDate":"Start Date",
+  "boilerplate.containers.Payroll.Employee.doc.endDate":"End Date",
+  "boilerplate.containers.Payroll.Employee.doc.followDate":"Follow Date",
+  "boilerplate.containers.Payroll.Employee.doc.HardCopy":"Hard Copy",
+  "boilerplate.containers.Payroll.Employee.doc.actions":"Actions",
+  "boilerplate.containers.Payroll.Employee.doc.EmployeeDocuments":"Employee Documents",
+  "boilerplate.containers.Payroll.Employee.doc.CreateEmployeeDocument":"Create Employee Document",
+  "boilerplate.containers.Payroll.Employee.doc.EditEmployeeDocument":"Edit Employee Document",
+  "boilerplate.containers.Payroll.Employee.doc.documentType":"Document Type",
+  "boilerplate.containers.Payroll.Employee.doc.notes":"Notes",
+  "boilerplate.containers.Payroll.Employee.doc.uploadFileErrorMes":"The File Is too Large",
+  "boilerplate.containers.Payroll.Employee.doc.FilePreview":"File Preview",
+
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.arName": "AR Name",
   "boilerplate.containers.Payroll.MainData.codes.enName": "EN Name",
