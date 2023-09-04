@@ -1070,6 +1070,28 @@ export const EmployeeContract = loadable(
     fallback: <Loading />,
   }
 );
+
+export const EmployeeDocuments = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeDocuments'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CreateEmployeeDocuments = loadable(
+  () => import('./Pages/Payroll/Employee/Code/CreateAndEditEmployeeDocuments'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditEmployeeDocuments = loadable(
+  () => import('./Pages/Payroll/Employee/Code/CreateAndEditEmployeeDocuments'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 //////////////////////////////////////////////////////////////////////////////////////////
 export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
   fallback: <Loading />,

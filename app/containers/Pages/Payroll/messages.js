@@ -158,5 +158,13 @@ export default defineMessages({
   preview:{
     id: `${scope}.preview`,
     defaultMessage: 'preview',
-  }
+  },
+  Upload: {
+    id: `${scope}.Upload`,
+    defaultMessage: 'Upload',
+  },
+  Print: {
+    id: `${scope}.Print`,
+    defaultMessage: 'Print',
+  },
 });
