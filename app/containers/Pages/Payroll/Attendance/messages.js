@@ -91,4 +91,36 @@ isNotUpdate: {
   id: `${scope}.isNotUpdate`,
   defaultMessage: 'isNotUpdate',
 },
+missionName: {
+  id: `${scope}.missionName`,
+  defaultMessage: 'missionName',
+},
+isOverTime: {
+  id: `${scope}.isOverTime`,
+  defaultMessage: 'isOverTime',
+},
+isMustAttend: {
+  id: `${scope}.isMustAttend`,
+  defaultMessage: 'isMustAttend',
+},
+MissionTrxCreateTitle: {
+  id: `${scope}.MissionTrxCreateTitle`,
+  defaultMessage: 'MissionTrxCreateTitle',
+},
+MissioTrxUpdateTitle: {
+  id: `${scope}.MissioTrxUpdateTitle`,
+  defaultMessage: 'MissioTrxUpdateTitle',
+},
+missionDestination: {
+  id: `${scope}.missionDestination`,
+  defaultMessage: 'missionDestination',
+},
+transportationExpenses: {
+  id: `${scope}.transportationExpenses`,
+  defaultMessage: 'transportationExpenses',
+},
+isNotUpdateMission: {
+  id: `${scope}.isNotUpdateMission`,
+  defaultMessage: 'isNotUpdateMission',
+},
 });

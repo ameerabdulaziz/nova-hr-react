@@ -160,6 +160,7 @@
     "moment": "^2.29.4",
     "mui-datatables": "^4.3.0",
     "organism-react-scroll-nav": "^1.1.0",
+    "print-js": "^1.6.0",
     "process": "^0.11.10",
     "prop-types": "15.7.2",
     "query-string": "^8.1.0",

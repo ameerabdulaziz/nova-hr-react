@@ -284,6 +284,13 @@ const GeneralListApis = (locale) => {
   
     return result.data;
   };
+  Apis.GetMissionList = async () => {
+      
+    debugger;
+    const result = await axiosInstance.get(`GeneralList/GetMissionList/${locale}`);
+  
+    return result.data;
+  };
 
 return Apis;
 };

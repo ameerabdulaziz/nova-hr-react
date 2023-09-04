@@ -990,6 +990,43 @@ export const CollectedPermission = loadable(
     fallback: <Loading />,
   }
 );
+export const MissionType = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/MissionType'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MissionTrxList = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/MissionTrxList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const MissionTrxCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/MissionTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const MissionTrxReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/MissionTrxReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const MissionTrxImport = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/MissionTrxImport'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const CollectedMission = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/CollectedMission'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 
 //Employee /////////////////////////////////////////////////////////////////////////////////

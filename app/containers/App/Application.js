@@ -154,7 +154,7 @@ import {
   ResignTrxList,ResignTrxCreate,ResignTrxReport,ManPowerSetting,ResignTrxImport,
   EmpCourseList,EmpCourseCreate,EmpCourseReport,RewardTransReport,AttentionReport,LayOffNoticeReport,PenaltyTransReport,
   PermissionTrxList,PermissionTrxCreate,PermissionTrxReport,PermissionList,PermissionCreate,PermissionTrxImport,
-  CollectedPermission
+  CollectedPermission,MissionType,MissionTrxList,MissionTrxCreate,MissionTrxReport,MissionTrxImport,CollectedMission
 } from '../pageListAsync';
 
 
@@ -642,8 +642,15 @@ function Application(props) {
         <Route path="/app/Pages/Att/PermissionEdit" component={PermissionCreate} />
         <Route path="/app/Pages/Att/PermissionTrxImport" component={PermissionTrxImport} />
         <Route path="/app/Pages/Att/CollectedPermission" component={CollectedPermission} />
-        
+        <Route path="/app/Pages/Att/MissionType" component={MissionType} />
 
+        <Route path="/app/Pages/Att/MissionTrxList" component={MissionTrxList} />
+        <Route path="/app/Pages/Att/MissionTrxCreate" component={MissionTrxCreate} />
+        <Route path="/app/Pages/Att/MissionTrxEdit" component={MissionTrxCreate} />
+        <Route path="/app/Pages/Att/MissionTrxReport" component={MissionTrxReport} />
+        <Route path="/app/Pages/Att/MissionTrxImport" component={MissionTrxImport} />
+        <Route path="/app/Pages/Att/CollectedMission" component={CollectedMission} />
+        
         {/* Employee */}
         <Route
           path="/app/Pages/Employee/EmployeeList"

@@ -836,6 +836,7 @@
   "boilerplate.components.tables.codes.job": "الوظيفة",
   "boilerplate.components.tables.codes.categoryName": "التصنيف",
   "boilerplate.components.tables.codes.price": "السعر",
+  "boilerplate.components.tables.codes.transportaion": "انتقالات",  
   
 
 
@@ -1026,7 +1027,14 @@
   "boilerplate.containers.Payroll.Attendance.PermissionCreateTitle":"اضافة اكواد الاذون", 
   "boilerplate.containers.Payroll.Attendance.PermissionUpdateTitle":"تعديل اكواد الاذون", 
   "boilerplate.containers.Payroll.Attendance.isNotUpdate":"فى حالة وجود اذن للموظف لا تقم بالتعديل", 
-  
+  "boilerplate.containers.Payroll.Attendance.missionName":"نوع المأمورية", 
+  "boilerplate.containers.Payroll.Attendance.isOverTime":"تحتسب اضافى", 
+  "boilerplate.containers.Payroll.Attendance.isMustAttend":"يحتسب غياب فى حالة عدم الحضور",
+   "boilerplate.containers.Payroll.Attendance.MissionTrxCreateTitle":"اضافة مأموريات", 
+  "boilerplate.containers.Payroll.Attendance.MissioTrxUpdateTitle":"تعديل مأموريات", 
+  "boilerplate.containers.Payroll.Attendance.missionDestination":"جهة المأمورية", 
+  "boilerplate.containers.Payroll.Attendance.transportationExpenses":"الانتقالات", 
+  "boilerplate.containers.Payroll.Attendance.isNotUpdateMission":"فى حالة وجود مأمورية للموظف لا تقم بالتعديل", 
   
   
   

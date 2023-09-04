@@ -28,6 +28,7 @@ function PermissionTrxCreate(props) {
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation()
   const { classes } = useStyles();
+  const Title = localStorage.getItem("MenuName");
   
   const [data, setdata] = useState({
     "date":format(new Date(), "yyyy-MM-dd"),
@@ -54,6 +55,8 @@ function PermissionTrxCreate(props) {
   const [dataList, setdataList] = useState([]);
   const [PermissionsList, setPermissionsList] = useState([]);
   const [processing, setprocessing] = useState(false);
+  const [previewprocessing, setpreviewprocessing] = useState(false);
+  const [deleteprocessing, setdeleteprocessing] = useState(false);
 
   const handleChange = (event) => {
     debugger ;
@@ -161,10 +164,10 @@ function PermissionTrxCreate(props) {
     }
   }
   const handleDelete = async (e) => {
-    setprocessing(true);
+    setdeleteprocessing(true);
     try{
       debugger; 
-      setprocessing(true); 
+      setdeleteprocessing(true); 
      
     let response = await  ApiData(locale).DeleteAll(data);
 
@@ -174,7 +177,7 @@ function PermissionTrxCreate(props) {
     else 
         toast.error(response.statusText);
     
-        setprocessing(false);
+    setdeleteprocessing(false);
 
     }
     catch (err) {
@@ -203,6 +206,7 @@ function PermissionTrxCreate(props) {
         "notes":"",
         "maxRepeated":"",
         "maxMinuteNo" :"",
+        "isNotUpdate":false
       });
   }
   async function fetchData() {
@@ -218,8 +222,8 @@ function PermissionTrxCreate(props) {
 
 async function getData() {
     debugger;
-    
-    setprocessing(true);
+    if(data.missionId && data.startTime&&data.endTime) {
+    setpreviewprocessing(true);
     const result = await ApiData(locale).getPermissions(data);
    
     setdataList(result.employees.map((obj) => {
@@ -232,12 +236,15 @@ async function getData() {
             setdata(result.permission);
         else
             handleReset();
-    setprocessing(false);
+    setpreviewprocessing(false);
+    }
+    else
+    toast.error("Enter Permission, Start, End Time")
 }
   
   return (
     <div>
-        <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.PermissionTrxCreateTitle):intl.formatMessage(messages.PermissionTrxUpdateTitle)} desc={""}>
+        <PapperBlock whiteBg icon="border_color" title={Title} desc={""}>
         <form onSubmit={handleSubmit}>
             <Grid
                 container
@@ -535,8 +542,8 @@ async function getData() {
                         </Button>
                     </Grid>
                     <Grid item xs={12} md={2}>
-                        <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={getData} >
-                        {processing && (
+                        <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={getData} disabled={previewprocessing} >
+                        {previewprocessing && (
                             <CircularProgress
                                 size={24}
                                 className={classes.buttonProgress}
@@ -557,8 +564,8 @@ async function getData() {
                         </Button>
                     </Grid>
                     <Grid item xs={12} md={2}>
-                        <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={handleDelete} >
-                        {processing && (
+                        <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={handleDelete} disabled={deleteprocessing}  >
+                        {deleteprocessing && (
                             <CircularProgress
                                 size={24}
                                 className={classes.buttonProgress}
