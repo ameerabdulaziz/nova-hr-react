@@ -27,6 +27,14 @@ const PermissionTrxData = (locale) => {
     return data.data;
 
   };
+  Apis.getPermissions = async (data) => {
+    debugger;
+    const result = await axiosInstance.get(`AttPermissionTrx/getPermissions/${locale}?permissionId=${data.permissionId}&date=${data.date}&StartTime=${data.startTime}&EndTime=${data.endTime}`);
+    
+    return result.data;
+
+  };
+  
   Apis.Save = async (data) => {
     debugger;
 
@@ -54,7 +62,11 @@ const PermissionTrxData = (locale) => {
     const result = await axiosInstance.post(`AttPermissionTrx/DeleteList`,list);
     return result;
   };
-
+  Apis.DeleteAll = async (data) => {
+    debugger;
+    const result = await axiosInstance.post("AttPermissionTrx/DeleteAll",data);
+    return result;
+  };
   Apis.getRepeatedNo = async (permissionId , date,employeeId) => {
     debugger;
     const data = await axiosInstance.get(`AttPermissionTrx/getRepeatedNo?permissionId=${permissionId}&date=${date}&EmployeeId=${employeeId}`);
@@ -63,11 +75,7 @@ const PermissionTrxData = (locale) => {
 
   };
   
-Apis.GetRewardData = async (id) => {    
-  debugger;
-  const result = await axiosInstance.get(`AttPermissionTrx/GetRewardData/${id}/${locale}`);   
-  return result.data;
-};
+
 
   return Apis;
 };

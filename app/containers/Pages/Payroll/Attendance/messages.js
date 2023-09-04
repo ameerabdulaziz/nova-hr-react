@@ -87,4 +87,8 @@ PermissionUpdateTitle: {
   id: `${scope}.PermissionUpdateTitle`,
   defaultMessage: 'PermissionUpdateTitle',
 },
+isNotUpdate: {
+  id: `${scope}.isNotUpdate`,
+  defaultMessage: 'isNotUpdate',
+},
 });

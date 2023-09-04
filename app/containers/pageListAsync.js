@@ -984,6 +984,14 @@ export const PermissionTrxImport = loadable(
     fallback: <Loading />,
   }
 );
+export const CollectedPermission = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/CollectedPermission'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
 //Employee /////////////////////////////////////////////////////////////////////////////////
 
 export const EmployeeList = loadable(

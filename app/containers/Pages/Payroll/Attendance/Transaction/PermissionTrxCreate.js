@@ -52,7 +52,7 @@ function PermissionTrxCreate(props) {
     "organization":"",
     "hiringDate":"",
     "maxRepeated":"",
-    "maxMinuteNo" :40,
+    "maxMinuteNo" :"",
   });
   
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -383,6 +383,8 @@ const getRepeatedNo = useCallback(async () => {
                                                 calcLate: e.target.checked,
                                                 calcMinus: !e.target.checked,
                                                 dedRased: !e.target.checked,
+                                                pminusMin:"",
+                                                prasedMin:"",
                                                 }))}   
                                             value={data.calcLate}
                                             color="primary"
@@ -396,7 +398,7 @@ const getRepeatedNo = useCallback(async () => {
                                     <TextField
                                     id="plateMin"
                                     name="plateMin"
-                                    value={data.calcLate?data.plateMin:""}
+                                    value={data.plateMin}
                                     onChange={(e) => handleChange(e)}                        
                                     label={""}
                                     className={classes.field}
@@ -414,6 +416,8 @@ const getRepeatedNo = useCallback(async () => {
                                                 calcMinus: e.target.checked,
                                                 calcLate: !e.target.checked,
                                                 dedRased: !e.target.checked,
+                                                plateMin:"",
+                                                prasedMin:"",
                                                 }))}   
                                             value={data.calcMinus}
                                             color="primary"
@@ -427,7 +431,7 @@ const getRepeatedNo = useCallback(async () => {
                                     <TextField
                                         id="pminusMin"
                                         name="pminusMin"
-                                        value={data.calcMinus?data.pminusMin:""}
+                                        value={data.pminusMin}
                                         onChange={(e) => handleChange(e)}                        
                                         label={""}
                                         className={classes.field}
@@ -445,6 +449,8 @@ const getRepeatedNo = useCallback(async () => {
                                                 dedRased: e.target.checked,
                                                 calcMinus: !e.target.checked,
                                                 calcLate: !e.target.checked,
+                                                plateMin:"",
+                                                pminusMin:"",
                                                 }))}   
                                             value={data.dedRased}
                                             color="primary"
@@ -458,7 +464,7 @@ const getRepeatedNo = useCallback(async () => {
                                     <TextField
                                         id="prasedMin"
                                         name="prasedMin"
-                                        value={data.dedRased?data.prasedMin:""}
+                                        value={data.prasedMin}
                                         onChange={(e) => handleChange(e)}                        
                                         label={""}
                                         className={classes.field}

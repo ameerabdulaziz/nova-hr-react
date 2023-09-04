@@ -154,5 +154,9 @@ export default defineMessages({
   element: {
     id: `${scope}.element`,
     defaultMessage: 'element',
+  },
+  preview:{
+    id: `${scope}.preview`,
+    defaultMessage: 'preview',
   }
 });
