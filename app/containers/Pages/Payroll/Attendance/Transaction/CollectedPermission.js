@@ -222,7 +222,7 @@ function PermissionTrxCreate(props) {
 
 async function getData() {
     debugger;
-    if(data.missionId && data.startTime&&data.endTime) {
+    if(data.permissionId && data.startTime&&data.endTime) {
     setpreviewprocessing(true);
     const result = await ApiData(locale).getPermissions(data);
    
