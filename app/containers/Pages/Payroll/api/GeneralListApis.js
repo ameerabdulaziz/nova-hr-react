@@ -291,6 +291,14 @@ const GeneralListApis = (locale) => {
   
     return result.data;
   };
+  Apis.GetDocumentList = async () => {
+      
+    debugger;
+    const result = await axiosInstance.get(`GeneralList/GetDocumentList/${locale}`);
+  
+    return result.data;
+  };
+  
 
 return Apis;
 };

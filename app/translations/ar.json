@@ -899,7 +899,7 @@
   "boilerplate.containers.Payroll.Upload": "رفع", 
   "boilerplate.containers.Payroll.Print": "طباعة", 
   "boilerplate.containers.Payroll.preview": "عرض",
-  
+ 
   
   
   
@@ -1038,6 +1038,13 @@
   
   
   
+  
+  
+  "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
+  "boilerplate.containers.Payroll.Workflow.step": "المرحلة",
+  "boilerplate.containers.Payroll.Workflow.nextStep": "المرحلة التالية",
+  "boilerplate.containers.Payroll.Workflow.approval": "الموافقة",
+  "boilerplate.containers.Payroll.Workflow.actionType": "القرار",
   
   
   

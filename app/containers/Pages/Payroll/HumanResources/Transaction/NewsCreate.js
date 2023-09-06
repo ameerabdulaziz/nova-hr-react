@@ -20,7 +20,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import EmloyeePopup from '../../Component/EmloyeePopup';
+import NamePopup from '../../Component/NamePopup';
 import useStyles from '../../Style';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation } from "react-router-dom";
@@ -143,7 +143,7 @@ const handleEnableOne = (event, row) => {
   return (
     <div>
         <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.NewsCreateTitle):intl.formatMessage(messages.NewsUpdateTitle)} desc={""}>
-        <EmloyeePopup
+        <NamePopup
             handleClose={handleClose}            
             open={OpenPopup}
         />

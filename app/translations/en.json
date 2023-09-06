@@ -877,7 +877,7 @@
   "boilerplate.containers.Payroll.element": "Element",  
   "boilerplate.containers.Payroll.Upload": "Upload", 
   "boilerplate.containers.Payroll.Print": "Print", 
-  "boilerplate.containers.Payroll.preview": "Preview",
+  "boilerplate.containers.Payroll.preview": "Preview",  
   
   
   
@@ -1014,6 +1014,19 @@
   "boilerplate.containers.Payroll.Attendance.transportationExpenses":"Transportation",   
   "boilerplate.containers.Payroll.Attendance.isNotUpdateMission":"Not Update Existing Mission",
   
+
+  
+  "boilerplate.containers.Payroll.Workflow.documentName": "Document Name",
+  "boilerplate.containers.Payroll.Workflow.step": "Step",
+  "boilerplate.containers.Payroll.Workflow.nextStep": "Next Step",
+  "boilerplate.containers.Payroll.Workflow.approval": "Approval",
+  "boilerplate.containers.Payroll.Workflow.actionType": "Action",
+
+
+
+
+
+
 
   "boilerplate.containers.Payroll.Employee.personal.employeeCode":"Employee Code",
   "boilerplate.containers.Payroll.Employee.personal.employeename":"Employee Name",

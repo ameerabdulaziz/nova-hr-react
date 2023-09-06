@@ -20,7 +20,7 @@ import { useLocation } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import EmployeeList from '../../Component/EmployeeList';
+import NameList from '../../Component/NameList';
 
 
 function MissionTrxCreate(props) {
@@ -475,9 +475,10 @@ async function getData() {
                         <Grid item xs={12} md={12}>                                                            
                             <Card className={classes.card}>
                                 <CardContent>                                
-                                    <EmployeeList
+                                    <NameList
                                         dataList={dataList}            
                                         setdataList={setdataList}
+                                        key={"Employee"}
                                     />
                                 </CardContent>
                             </Card>

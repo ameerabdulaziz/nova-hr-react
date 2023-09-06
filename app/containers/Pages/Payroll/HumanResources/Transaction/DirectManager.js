@@ -11,7 +11,7 @@ import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import GeneralListApis from '../../api/GeneralListApis';
-import EmloyeePopup from '../../Component/EmloyeePopup';
+import NamePopup from '../../Component/NamePopup';
 
 function DirectManager(props) {
   
@@ -127,7 +127,7 @@ async function on_submit() {
 
   return (
       <PapperBlock whiteBg icon="border_color" title={Title}  desc="">
-        <EmloyeePopup
+        <NamePopup
             handleClose={handleClose}            
             open={OpenPopup}
             Key={"Employee"}

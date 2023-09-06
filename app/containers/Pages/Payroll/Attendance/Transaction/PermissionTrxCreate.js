@@ -564,6 +564,8 @@ const getRepeatedNo = useCallback(async () => {
                             label={intl.formatMessage(Payrollmessages.notes)}
                             className={classes.field}
                             variant="outlined"
+                            multiline
+                            rows={2}
                             />
                         </Grid>
                     </Grid>

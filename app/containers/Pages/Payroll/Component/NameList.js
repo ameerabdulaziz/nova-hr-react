@@ -1,17 +1,17 @@
 import React,{useState,useCallback,useEffect } from 'react';
-import { PapperBlock } from 'enl-components';
 import css from 'enl-styles/Table.scss';
-import {Button , Grid,TextField,Autocomplete,Checkbox,Table,TableBody,TableCell,TableHead,TableRow,TableContainer} from "@mui/material";  
+import {Button , Grid,Checkbox,Table,TableBody,TableCell,TableHead,TableRow,TableContainer} from "@mui/material";  
 import Payrollmessages from '../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
-import EmloyeePopup from './EmloyeePopup';
+import NamePopup from './NamePopup';
 
-function EmployeeList(props) {
+function NameList(props) {
   
-  const {intl,dataList,setdataList} = props;
+  const {intl,dataList,setdataList,Key} = props;
   const {classes,cx} = useStyles();  
   const [OpenPopup, setOpenPopup] = useState(false);
+
   
   const handleClose = (data) => {   
 
@@ -54,26 +54,26 @@ const handleEnableOne = (event, row) => {
       );
 };
 
-
+debugger;
   return (
       <div>
-        <EmloyeePopup
+        <NamePopup
             handleClose={handleClose}            
             open={OpenPopup}
-            Key={"Employee"}
+            Key={Key}
         />
         <div>
             <Grid container spacing={3}>            
                
                 <Grid item xs={6} md={2}>
                   <Button variant="contained" size="medium" color="primary" onClick={handleClickOpen}>
-                  <FormattedMessage {...Payrollmessages.chooseEmp} />
+                  <FormattedMessage {...(Key==="Employee"?Payrollmessages.chooseEmp:Payrollmessages.chooseJob) }/>
                   </Button>
                 </Grid>            
                
             </Grid>
             <div className={classes.rootTable}>
-            <TableContainer style={{ maxHeight: 420,minWidth: 0 }}>
+            <TableContainer style={{ maxHeight: 420}}>
                 <Table className={cx(css.tableCrud, classes.table, classes.stripped)} >
                     <TableHead>
                     <TableRow >               
@@ -87,7 +87,7 @@ const handleEnableOne = (event, row) => {
                             />
                         </TableCell>   
                         <TableCell style={{width: '5px',padding:'0px'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
-                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...Payrollmessages.employeeName} /></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...Payrollmessages.name} /></TableCell>
                                           
                     </TableRow>
                     </TableHead>
@@ -121,4 +121,4 @@ const handleEnableOne = (event, row) => {
   );
 }
   
-export default injectIntl(EmployeeList);
+export default injectIntl(NameList);

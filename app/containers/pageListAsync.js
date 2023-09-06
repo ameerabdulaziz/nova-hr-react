@@ -1028,6 +1028,19 @@ export const CollectedMission = loadable(
   }
 );
 
+//Workflow /////////////////////////////////////////////////////////////////////////////////
+export const WorkFlowList = loadable(
+  () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const WorkFlowCreate = loadable(
+  () => import('./Pages/Payroll/WorkFlow/WorkFlowCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 //Employee /////////////////////////////////////////////////////////////////////////////////
 
