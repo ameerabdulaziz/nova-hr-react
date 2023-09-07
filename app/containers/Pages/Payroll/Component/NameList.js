@@ -54,7 +54,6 @@ const handleEnableOne = (event, row) => {
       );
 };
 
-debugger;
   return (
       <div>
         <NamePopup

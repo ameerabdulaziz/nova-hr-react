@@ -19,7 +19,7 @@ import ActionsList from './ActionsList';
 import GeneralListApis from '../api/GeneralListApis';
 
 
-function PermissionTrxCreate(props) {
+function WorkFlowCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation()
@@ -44,6 +44,7 @@ function PermissionTrxCreate(props) {
   const [processing, setprocessing] = useState(false);
   const history=useHistory(); 
   
+
   const handleChange = (event) => {
     debugger ;
 
@@ -119,9 +120,13 @@ function PermissionTrxCreate(props) {
     fetchData();
   }, []);
 
+  
   return (
     <div>
-        <PapperBlock whiteBg icon="border_color" title={Title} desc={""}>
+       
+
+        <PapperBlock whiteBg icon="border_color"
+         title={Title} desc={""}>
         <form onSubmit={handleSubmit}>
             <Grid
                 container
@@ -263,8 +268,8 @@ function PermissionTrxCreate(props) {
     </div>
   );
 }
-PermissionTrxCreate.propTypes = {
+WorkFlowCreate.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(PermissionTrxCreate);
+export default injectIntl(WorkFlowCreate);
 

@@ -12,3 +12,6 @@
   .mui-style-ltr-prkftb-MuiTable-root-table-stripped {
     min-width: 0px !important;
   }
+  .mui-style-ltr-lgyxef-MuiPaper-root-MuiDialog-paper{
+    max-width: 1000px !important;
+  }

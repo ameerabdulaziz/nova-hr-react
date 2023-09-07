@@ -46,13 +46,14 @@ const GetEmployeeList = useCallback(async () => {
       
       var data=[];
       if(Key=="Employee")
-        data = await GeneralListApis(locale).GetEmployeeDataList(); 
+        data = await GeneralListApis(locale).GetEmployeeList(); 
       else if(Key=="Job")
         data = await GeneralListApis(locale).GetJobList();   
       
       setEmployeeList(data.map((obj) => {
         return {
-            ...obj,
+            id: obj.id,
+            name: obj.name,
             isSelected: false,
         }}));
 

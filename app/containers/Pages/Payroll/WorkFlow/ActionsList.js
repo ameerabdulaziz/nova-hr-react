@@ -61,7 +61,6 @@ const handleChange = (event, row) => {
     );
 };
 
-debugger;
   return (
       <div>
       
@@ -83,12 +82,12 @@ debugger;
                     <TableHead>
                     <TableRow >               
                         
-                        <TableCell style={{width: '5px',padding:'0px'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
-                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...Payrollmessages.name} /></TableCell>
-                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.step} /></TableCell>
-                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.actionType} /></TableCell>
-                        <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.nextStep} /></TableCell>
-                        <TableCell style={{width: '5px',padding:'0px'}}></TableCell>
+                        <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}><FormattedMessage {...Payrollmessages.name} /></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}><FormattedMessage {...messages.step} /></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}><FormattedMessage {...messages.actionType} /></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}><FormattedMessage {...messages.nextStep} /></TableCell>
+                        <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}></TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -97,10 +96,10 @@ debugger;
                         return (
                           
                             <TableRow hover key={row.id} sx={{ height: 1 }} style={{padding:'0px'}}> 
-                              <TableCell style={{width: '5px',padding:'0px'}}>{row.id}</TableCell>
-                              <TableCell style={{width: '5px',padding:'0px'}}>
+                              <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>{row.id}</TableCell>
+                              <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>
                                 <TextField
-                                  style={{width:'250px'}}
+                                  style={{width:'200px'}}
                                   id="arName"
                                   name="arName"
                                   value={row.arName}
@@ -109,9 +108,9 @@ debugger;
                                   variant="outlined"
                                   />
                               </TableCell>                                                         
-                              <TableCell style={{width: '20px',padding:'0px'}}>
+                              <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}>
                                 <Select
-                                  style={{width:'250px'}}
+                                  style={{width:'200px'}}
                                   id="stepId"
                                   name="stepId"
                                   variant="standard"
@@ -124,7 +123,7 @@ debugger;
                                   })}
                                 </Select>
                               </TableCell>  
-                              <TableCell style={{width: '20px',padding:'0px'}}>
+                              <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}>
                                 <Select
                                 
                                   style={{width:'150px'}}
@@ -138,9 +137,9 @@ debugger;
                                   <MenuItem value={3}>Reject</MenuItem>
                                 </Select>
                               </TableCell>  
-                              <TableCell style={{width: '20px',padding:'0px'}}>
+                              <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}>
                                 <Select
-                                  style={{width:'250px'}}
+                                  style={{width:'200px'}}
                                   id="nextStepId"
                                   name="nextStepId"
                                   variant="standard"
