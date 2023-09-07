@@ -27,6 +27,13 @@ const WorkFlowData = (locale) => {
     return data.data;
 
   };
+  Apis.Getrequests = async (documentid,employee,fromdate,todate) => {
+    debugger;
+    const data = await axiosInstance.get(`WorkFlow/Getrequests/${locale}?DocumentId=${documentid}&FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}`);
+    
+    return data.data;
+
+  };
   
   
   Apis.Save = async (data) => {
@@ -35,7 +42,13 @@ const WorkFlowData = (locale) => {
     const result = await axiosInstance.post("WorkFlow/Save",data);
     return result;
   };
- 
+  Apis.ExecuteWorkFlow = async (executionId,actionTypeId) => {
+    debugger;
+
+    const result = await axiosInstance.post("WorkFlow/ExecuteWorkFlow",{"executionId":executionId,"actionTypeId":actionTypeId});
+    return result;
+  };
+  
   Apis.Delete = async (id) => {
     debugger;
     const result = await axiosInstance.delete(`WorkFlow/Delete/${id}`);

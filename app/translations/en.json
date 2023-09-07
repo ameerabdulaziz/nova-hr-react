@@ -879,6 +879,12 @@
   "boilerplate.containers.Payroll.Print": "Print", 
   "boilerplate.containers.Payroll.preview": "Preview",  
   
+  "boilerplate.containers.Payroll.executionId": "WorkFlow Id",
+  "boilerplate.containers.Payroll.permissionName": "Permission Name", 
+  "boilerplate.containers.Payroll.startTime": "StartTime", 
+  "boilerplate.containers.Payroll.endTime": "EndTime",
+  
+  "boilerplate.containers.Payroll.minutesCount": "Minutes",
   
   
   

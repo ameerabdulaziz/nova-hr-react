@@ -167,5 +167,27 @@ export default defineMessages({
     id: `${scope}.Print`,
     defaultMessage: 'Print',
   },
+  executionId: {
+    id: `${scope}.executionId`,
+    defaultMessage: 'executionId',
+  },
+  permissionName: {
+    id: `${scope}.permissionName`,
+    defaultMessage: 'permissionName',
+  },
+  startTime: {
+    id: `${scope}.startTime`,
+    defaultMessage: 'startTime',
+  },
+  endTime: {
+    id: `${scope}.endTime`,
+    defaultMessage: 'endTime',
+  },
+  minutesCount: {
+    id: `${scope}.minutesCount`,
+    defaultMessage: 'minutesCount',
+  },
+  
+  
 
 });

@@ -1041,6 +1041,13 @@ export const WorkFlowCreate = loadable(
     fallback: <Loading />,
   }
 );
+export const RequestsList = loadable(
+  () => import('./Pages/Payroll/WorkFlow/RequestsList'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 //Employee /////////////////////////////////////////////////////////////////////////////////
 

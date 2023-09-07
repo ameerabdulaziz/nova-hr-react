@@ -899,6 +899,14 @@
   "boilerplate.containers.Payroll.Upload": "رفع", 
   "boilerplate.containers.Payroll.Print": "طباعة", 
   "boilerplate.containers.Payroll.preview": "عرض",
+
+  "boilerplate.containers.Payroll.executionId": "WorkFlow Id",
+  "boilerplate.containers.Payroll.permissionName": "اسم الاذن", 
+  "boilerplate.containers.Payroll.startTime": "من ساعه", 
+  "boilerplate.containers.Payroll.endTime": "الى ساعه",
+  "boilerplate.containers.Payroll.minutesCount": "عدد الدقائق",
+  
+  
  
   
   

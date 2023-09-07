@@ -155,7 +155,7 @@ import {
   EmpCourseList,EmpCourseCreate,EmpCourseReport,RewardTransReport,AttentionReport,LayOffNoticeReport,PenaltyTransReport,
   PermissionTrxList,PermissionTrxCreate,PermissionTrxReport,PermissionList,PermissionCreate,PermissionTrxImport,
   CollectedPermission,MissionType,MissionTrxList,MissionTrxCreate,MissionTrxReport,MissionTrxImport,CollectedMission,
-  WorkFlowCreate,WorkFlowList
+  WorkFlowCreate,WorkFlowList,RequestsList
 } from '../pageListAsync';
 
 
@@ -656,6 +656,7 @@ function Application(props) {
         <Route path="/app/Pages/WF/WorkFlowList" component={WorkFlowList} />
         <Route path="/app/Pages/WF/WorkFlowCreate" component={WorkFlowCreate} />
         <Route path="/app/Pages/WF/WorkFlowEdit" component={WorkFlowCreate} />
+        <Route path="/app/Pages/WF/RequestsList" component={RequestsList} />
         
         {/* Employee */}
         <Route
