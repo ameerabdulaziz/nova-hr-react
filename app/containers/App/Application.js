@@ -159,6 +159,12 @@ import {
   CreatePermission,
   EditPermission,
   Permissions,
+  CreateVacationType,
+  EditVacationType,
+  VacationsTypes,
+  CreateOfficialVacation,
+  OfficialVacations,
+  EditOfficialVacation
 } from '../pageListAsync';
 
 
@@ -755,7 +761,39 @@ function Application(props) {
           path="/app/Pages/Request/Permissions"
           component={Permissions}
         />
+
+
+        {/* Vacations */} 
         
+        <Route
+          path="/app/Pages/vac/CreateVacationType"
+          component={CreateVacationType}
+        />
+
+        <Route
+          path="/app/Pages/vac/EditVacationType"
+          component={EditVacationType}
+        />
+
+        <Route
+          path="/app/Pages/vac/VacationsTypes"
+          component={VacationsTypes}
+        />
+
+        <Route
+          path="/app/Pages/vac/CreateOfficialVacation"
+          component={CreateOfficialVacation}
+        />
+
+        <Route
+          path="/app/Pages/vac/EditOfficialVacation"
+          component={EditOfficialVacation}
+        />
+
+        <Route
+          path="/app/Pages/vac/OfficialVacations"
+          component={OfficialVacations}
+        />
         
         
         {/* Default */}

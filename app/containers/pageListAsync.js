@@ -1184,3 +1184,52 @@ export const Permissions = loadable(
     fallback: <Loading />,
   }
 );
+
+
+///Vac ///////////////////////
+
+export const CreateVacationType = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditVacationType'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditVacationType = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditVacationType'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const VacationsTypes = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/VacationsTypes'),
+  {
+    fallback: <Loading />,
+  }
+); 
+
+
+export const CreateOfficialVacation = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditOfficialVacation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditOfficialVacation = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditOfficialVacation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const OfficialVacations = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/OfficialVacations'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+
