@@ -1144,6 +1144,23 @@
   "boilerplate.containers.Payroll.MainData.codes.editOrganization": "تعديل المنظمة",
   "boilerplate.containers.Payroll.MainData.codes.note": "ملاحظة",
   "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "بدل طبيعة العمل",
-  "boilerplate.containers.Payroll.MainData.codes.errorMes": "قم بإدخال رقم صحيحا"
+  "boilerplate.containers.Payroll.MainData.codes.errorMes": "قم بإدخال رقم صحيحا",
+
+  "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "قائمة الأذونات",
+  "boilerplate.containers.Payroll.Request.Transaction.employeeId": "كود الموظف",
+  "boilerplate.containers.Payroll.Request.Transaction.employeeName": "اسم الموظف",
+  "boilerplate.containers.Payroll.Request.Transaction.permissionType": "نوع الإذن",
+  "boilerplate.containers.Payroll.Request.Transaction.startTime": "من الساعة",
+  "boilerplate.containers.Payroll.Request.Transaction.endTime": "إلى الساعة",
+  "boilerplate.containers.Payroll.Request.Transaction.minutesCount": "عدد الدقائق",
+  "boilerplate.containers.Payroll.Request.Transaction.actions": "الإجراءات",
+  "boilerplate.containers.Payroll.Request.Transaction.permissionStartTimeErrorMes": "وقت البدء بعد وقت الانتهاء",
+  "boilerplate.containers.Payroll.Request.Transaction.createPermissionRequest": "اضافة طلب إذن",
+  "boilerplate.containers.Payroll.Request.Transaction.editPermissionRequest": "تعديل طلب إذن",
+  "boilerplate.containers.Payroll.Request.Transaction.BackupEmployee": "الموظف الاحتياطي",
+  "boilerplate.containers.Payroll.Request.Transaction.PermissionReason": "سبب الإذن",
+  "boilerplate.containers.Payroll.Request.Transaction.AccessToTimeInOUT": "الوصول إلى وقت الداخل / الخارج",
+  "boilerplate.containers.Payroll.Request.Transaction.checkIn": "عدم تسجيل بصمة حضور",
+  "boilerplate.containers.Payroll.Request.Transaction.checkOut": "عدم تسجيل بصمة انصراف"
   
 }

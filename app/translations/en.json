@@ -1116,7 +1116,24 @@
   "boilerplate.containers.Payroll.MainData.codes.editOrganization": "Edit Organization", 
   "boilerplate.containers.Payroll.MainData.codes.note": "Note", 
   "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "Work Nature Allowance",
-  "boilerplate.containers.Payroll.MainData.codes.errorMes": "Enter Integer Number"
+  "boilerplate.containers.Payroll.MainData.codes.errorMes": "Enter Integer Number",
+
+  "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "Permissions List",
+  "boilerplate.containers.Payroll.Request.Transaction.employeeId": "Employee Id",
+  "boilerplate.containers.Payroll.Request.Transaction.employeeName": "Employee Name",
+  "boilerplate.containers.Payroll.Request.Transaction.permissionType": "Permission Type",
+  "boilerplate.containers.Payroll.Request.Transaction.startTime": "Start Time",
+  "boilerplate.containers.Payroll.Request.Transaction.endTime": "End Time",
+  "boilerplate.containers.Payroll.Request.Transaction.minutesCount": "Minutes Count",
+  "boilerplate.containers.Payroll.Request.Transaction.actions": "Actions",
+  "boilerplate.containers.Payroll.Request.Transaction.permissionStartTimeErrorMes": "Start Time is After End Time",
+  "boilerplate.containers.Payroll.Request.Transaction.createPermissionRequest": "Create Permission Request",
+  "boilerplate.containers.Payroll.Request.Transaction.editPermissionRequest": "Edit Permission Request",
+  "boilerplate.containers.Payroll.Request.Transaction.BackupEmployee": "Backup Employee",
+  "boilerplate.containers.Payroll.Request.Transaction.PermissionReason": "Permission Reason",
+  "boilerplate.containers.Payroll.Request.Transaction.AccessToTimeInOUT": "Access To Time In/OUT",
+  "boilerplate.containers.Payroll.Request.Transaction.checkIn": "No check In",
+  "boilerplate.containers.Payroll.Request.Transaction.checkOut": "No Check Out"
   
    
    

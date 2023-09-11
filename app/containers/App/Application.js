@@ -155,7 +155,10 @@ import {
   EmpCourseList,EmpCourseCreate,EmpCourseReport,RewardTransReport,AttentionReport,LayOffNoticeReport,PenaltyTransReport,
   PermissionTrxList,PermissionTrxCreate,PermissionTrxReport,PermissionList,PermissionCreate,PermissionTrxImport,
   CollectedPermission,MissionType,MissionTrxList,MissionTrxCreate,MissionTrxReport,MissionTrxImport,CollectedMission,
-  WorkFlowCreate,WorkFlowList,RequestsList
+  WorkFlowCreate,WorkFlowList,RequestsList,
+  CreatePermission,
+  EditPermission,
+  Permissions,
 } from '../pageListAsync';
 
 
@@ -734,6 +737,27 @@ function Application(props) {
         <Route path="/app/maps/map-searchbox" component={SearchMap} />
         <Route path="/app/maps/map-traffic" component={TrafficIndicator} />
         <Route path="/app/maps/street-view" component={StreetViewMap} />
+        
+        
+          {/* Req */} 
+        
+          <Route
+          path="/app/Pages/Request/CreatePermission"
+          component={CreatePermission}
+        />
+
+        <Route
+          path="/app/Pages/Request/EditPermission"
+          component={EditPermission}
+        />
+
+        <Route
+          path="/app/Pages/Request/Permissions"
+          component={Permissions}
+        />
+        
+        
+        
         {/* Default */}
         <Route component={NotFound} />
       </Switch>

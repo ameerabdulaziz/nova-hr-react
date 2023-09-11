@@ -1,3 +1,24 @@
+
+// general Style
+.gridSty
+{
+    padding-top: 10px !important;
+}
+
+.CardContentSty
+{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+
+
+
+
+
+// general Style -- end
+
+
 .tableContainerSty
 {
     padding: 20px;
@@ -29,7 +50,7 @@
                         button
                         {
                             justify-content: right;
-                            margin-right: -8px;
+                            margin-right: -14px;
                         }
                     }
                 }
@@ -298,3 +319,140 @@
 }
 
 // Employee Documents --end
+
+
+
+// Request Premissions
+.TextareaAutosizeSty
+{
+    width: 100%;
+    font-family: IBM Plex Sans, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 12px;
+    border-radius: 12px 12px 0 12px;
+    background:  '#fff';
+    border-color: rgba(0, 0, 0, 0.23);
+    height: 104px !important;
+    overflow: hidden;
+  
+    &:hover {
+      border-color: #000000;
+    }
+  
+    &:focus {
+      border-color: #3f51b5;
+    }
+  
+    // firefox
+    &:focus-visible {
+      outline: 0;
+    }
+}
+
+
+.totalMinutesContainer
+{
+    & > div
+    {
+       margin: 0 !important;
+    }
+}
+
+.timeContainer
+{
+    & > div
+    {
+        & > div
+        {
+            input
+            {
+                text-align: right;
+            }
+        }
+    }
+}
+
+
+// Request Premissions --end
+
+
+// Official Vacations
+.AutocompleteMulSty
+{
+        width: auto !important;
+    & > div
+    {
+        & > div
+        {
+            display: table;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+           
+            
+
+            input
+            {
+                width: auto !important;
+                display: inline;
+            }
+        }
+    }
+}
+
+.AutocompleteMulStyAR
+{
+    & > div
+    {
+        & > div
+        {
+            div
+            {
+               & > svg
+                {
+                    margin: 0 -6px 0 5px !important;
+                }
+            }
+        }
+    }
+}
+
+// Official Vacations --end
+
+
+//  Vacations types
+.ElementsContainer
+{
+    & > div
+    {
+         margin: 0 !important;
+    }
+}
+
+.DayValueContainer
+{
+    & > div
+    {
+        margin: 0 !important;
+    }
+}
+
+// Vacations types --end
+
+
+
+
+// reaponsive style
+
+@media only screen and (max-width: 480px) 
+{
+    // general Style
+    .itemsStyle
+    {
+        justify-content: center;
+    }
+    // general Style --end
+}
+
+// reaponsive style --end

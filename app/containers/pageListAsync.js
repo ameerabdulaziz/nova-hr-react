@@ -1162,3 +1162,25 @@ export const TermsConditions = loadable(
     fallback: <Loading />,
   }
 );
+
+//Req /////////////////////////////////////////////////////////////////////////////////
+export const CreatePermission = loadable(
+  () => import('./Pages/Payroll/Request/Transaction/CreateAndEditPermission'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditPermission = loadable(
+  () => import('./Pages/Payroll/Request/Transaction/CreateAndEditPermission'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const Permissions = loadable(
+  () => import('./Pages/Payroll/Request/Transaction/Permissions'),
+  {
+    fallback: <Loading />,
+  }
+);
