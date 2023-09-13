@@ -58,6 +58,12 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
+  Apis.GetElementListByType = async (TypeID) => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetElementList/${locale}?TypeID=${TypeID}`
+    );
+    return result.data;
+  };
   Apis.GetElementListByTemplate = async (templateId) => {
     //  debugger;
     const result = await axiosInstance.get(
@@ -296,6 +302,13 @@ const GeneralListApis = (locale) => {
     debugger;
     const result = await axiosInstance.get(`GeneralList/GetDocumentList/${locale}`);
   
+    return result.data;
+  };
+
+  Apis.GetGovernmentSickVacList = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetGovernmentSickVacList/${locale}`
+    );
     return result.data;
   };
   

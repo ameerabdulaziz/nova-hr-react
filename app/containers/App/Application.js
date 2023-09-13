@@ -164,7 +164,8 @@ import {
   VacationsTypes,
   CreateOfficialVacation,
   OfficialVacations,
-  EditOfficialVacation
+  EditOfficialVacation,
+  GovernmentSickLeaveSetting
 } from '../pageListAsync';
 
 
@@ -793,6 +794,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/OfficialVacations"
           component={OfficialVacations}
+        />
+
+        <Route
+          path="/app/Pages/vac/GovernmentSickLeaveSetting"
+          component={GovernmentSickLeaveSetting}
         />
         
         

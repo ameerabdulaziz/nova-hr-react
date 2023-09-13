@@ -154,4 +154,33 @@ export default defineMessages({
         id: `${scope}.code.MustAttachFile`,
         defaultMessage: 'Must attach file',
       },
+      // Government Sick Leave Setting
+      GovernmentSickLeaveSetting: {
+        id: `${scope}.code.GovernmentSickLeaveSetting`,
+        defaultMessage: 'Government sick leave setting',
+      },
+      VacationType: {
+        id: `${scope}.code.VacationType`,
+        defaultMessage: 'Vacation type',
+      },
+      Yearly: {
+        id: `${scope}.code.Yearly`,
+        defaultMessage: 'Yearly',
+      },
+      Every3Years: {
+        id: `${scope}.code.Every3Years`,
+        defaultMessage: 'Every3Years',
+      },
+      DaysNumber: {
+        id: `${scope}.code.DaysNumber`,
+        defaultMessage: 'Days number',
+      },
+      CountValueDay: {
+        id: `${scope}.code.CountValueDay`,
+        defaultMessage: 'Count/Value(Day)',
+      },
+      EmployeeDeduction: {
+        id: `${scope}.code.EmployeeDeduction`,
+        defaultMessage: 'Employee deduction',
+      },
 });

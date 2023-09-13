@@ -442,6 +442,20 @@
 
 
 
+//  Government Sick Leave Setting 
+
+.EmployeeDaysDeduction
+{
+    padding-top: 20px;
+}
+
+.EmployeeDaysDeductionTitle
+{
+    text-align: center;
+}
+
+//  Government Sick Leave Setting --end
+
 
 // reaponsive style
 
@@ -451,6 +465,7 @@
     .itemsStyle
     {
         justify-content: center;
+        text-align: center;
     }
     // general Style --end
 }

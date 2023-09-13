@@ -1200,6 +1200,14 @@
   "boilerplate.containers.Payroll.vac.code.AffectsTheIncentiveCalculation": "تؤثر فى احتساب الحوافز",
   "boilerplate.containers.Payroll.vac.code.DoesnotTakeAWeekOff": "لا يستقطع الاجازه الاسبوعيه",
   "boilerplate.containers.Payroll.vac.code.AnnualInAdvance": "سنوى مقدم",
-  "boilerplate.containers.Payroll.vac.code.MustAttachFile": "يلزم ارفاق ملف"
+  "boilerplate.containers.Payroll.vac.code.MustAttachFile": "يلزم ارفاق ملف",
+
+  "boilerplate.containers.Payroll.vac.code.GovernmentSickLeaveSetting": "اعدادات الاجازة المرضى الحكومى",
+  "boilerplate.containers.Payroll.vac.code.VacationType": "نوع الإجازة",
+  "boilerplate.containers.Payroll.vac.code.Yearly": "سنويا",
+  "boilerplate.containers.Payroll.vac.code.Every3Years": "كل 3 سنوات",
+  "boilerplate.containers.Payroll.vac.code.DaysNumber": "عدد الأيام",
+  "boilerplate.containers.Payroll.vac.code.CountValueDay": "العدد/القيمة(من اليوم)",
+  "boilerplate.containers.Payroll.vac.code.EmployeeDeduction": "خصم الموظف"
   
 }

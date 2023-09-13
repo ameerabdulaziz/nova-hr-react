@@ -1232,4 +1232,12 @@ export const OfficialVacations = loadable(
 );
 
 
+export const GovernmentSickLeaveSetting = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/GovernmentSickLeaveSetting'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
 
