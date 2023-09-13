@@ -324,8 +324,24 @@ useEffect(() => {
                       onChange={(e) => setNote(e.target.value)}
                     />
                   </Grid>
-                  <Grid item xs={12} md={4}></Grid>
-                <Grid item xs={12} md={1}>                  
+
+              </Grid>
+
+              <Grid
+                container
+                spacing={3}
+                alignItems="flex-start"
+                direction="row">
+                 
+                  <Grid item xs={12} md={12}></Grid>
+                  <Grid item xs={12} md={4}
+                  container
+                  spacing={3}
+                  alignItems="flex-start"
+                  direction="row"
+                  className={style.itemsStyle}
+                  >
+                <Grid item xs={3}  md={5} lg={3}>                  
                     <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
                     {processing && (
                       <CircularProgress
@@ -336,12 +352,13 @@ useEffect(() => {
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>
-                <Grid item xs={12} md={1}>
+                <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 
                     onClick={oncancel}
                      >
                        <FormattedMessage {...Payrollmessages.cancel} /> 
                     </Button>
+                </Grid>
                 </Grid>
               </Grid>
           </form>

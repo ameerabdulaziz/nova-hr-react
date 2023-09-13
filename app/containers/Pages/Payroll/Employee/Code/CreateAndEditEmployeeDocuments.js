@@ -374,11 +374,17 @@ const handleClose = () => {
                       <Grid item xs={12}  md={12}
                         container
                         spacing={3}
-                        alignItems="flex-start"
+                        alignItems="center"
                         direction="row"
                         >
-                          <Grid item xs={12}  md={12}> 
-                        
+                          <Grid item xs={12}  md={12}
+                          container
+                          spacing={3}
+                          alignItems="center"
+                          direction="row"
+                          className={style.itemsStyle}
+                          > 
+                        <Grid item xs={12}   lg={2}>  
                               <FormControl variant="standard" >
                                 <div className={classes.actions}>     
                                   <Tooltip title= "Upload">
@@ -410,37 +416,20 @@ const handleClose = () => {
                                   </Tooltip>
                                 </div>
                               </FormControl>   
+                          </Grid>
                             
+                          <Grid item xs={12}   lg={2}>  
                               <Button variant="contained" size="medium" color="primary" className={style.printBtnSty}
                               disabled={!uploadedFile}
                                 onClick={()=>printFun()}
                                 >
                                   <FormattedMessage {...Payrollmessages.Print} /> 
                                 </Button>  
-
-                                        
+                          </Grid>
+                          <Grid item xs={12} md={12}></Grid>     
                           </Grid>
                         </Grid>
 
-                   
-                        <Grid item xs={12} md={12}></Grid>
-                        <Grid item xs={12} md={12}>                  
-                            <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing} className={style.BtnSty}>
-                            {processing && (
-                              <CircularProgress
-                              size={24}
-                              className={classes.buttonProgress}
-                            />
-                            )}
-                              <FormattedMessage {...Payrollmessages.save} /> 
-                            </Button>
-
-                            <Button variant="contained" size="medium" color="primary" className={style.BtnSty}
-                            onClick={oncancel}
-                            >
-                              <FormattedMessage {...Payrollmessages.cancel} /> 
-                            </Button>
-                        </Grid>
                   </Grid>
 
                   <Grid item xs={12}  md={4}
@@ -472,6 +461,41 @@ const handleClose = () => {
                   </Grid>
 
                 </Grid>
+
+                <Grid
+                container
+                spacing={3}
+                alignItems="flex-start"
+                direction="row">
+                 
+                  <Grid item xs={12} md={12}></Grid>
+                  <Grid item xs={12} md={4}
+                  container
+                  spacing={3}
+                  alignItems="flex-start"
+                  direction="row"
+                  className={style.itemsStyle}
+                  >
+                <Grid item xs={3}  md={5} lg={3}>                  
+                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
+                    {processing && (
+                      <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                    )}
+                       <FormattedMessage {...Payrollmessages.save} /> 
+                    </Button>
+                </Grid>
+                <Grid item xs={3}  md={5} lg={3}>
+                    <Button variant="contained" size="medium" color="primary" 
+                    onClick={oncancel}
+                     >
+                       <FormattedMessage {...Payrollmessages.cancel} /> 
+                    </Button>
+                </Grid>
+                </Grid>
+              </Grid>
 
           </form>
       </PapperBlock>         

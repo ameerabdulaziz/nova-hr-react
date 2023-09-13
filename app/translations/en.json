@@ -1117,6 +1117,8 @@
   "boilerplate.containers.Payroll.MainData.codes.note": "Note", 
   "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "Work Nature Allowance",
   "boilerplate.containers.Payroll.MainData.codes.errorMes": "Enter Integer Number",
+  "boilerplate.containers.Payroll.MainData.codes.JobsList": "Jobs list",
+  "boilerplate.containers.Payroll.MainData.codes.OrganizationsList": "Organizations list",
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "Permissions List",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "Employee Id",

@@ -113,4 +113,12 @@ errorMes: {
   id: `${scope}.codes.errorMes`,
   defaultMessage: 'Enter Integer Number',
 },
+JobsList: {
+  id: `${scope}.codes.JobsList`,
+  defaultMessage: 'Jobs list',
+},
+OrganizationsList: {
+  id: `${scope}.codes.OrganizationsList`,
+  defaultMessage: 'Organizations list',
+},
 });

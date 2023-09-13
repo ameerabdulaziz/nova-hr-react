@@ -1145,6 +1145,8 @@
   "boilerplate.containers.Payroll.MainData.codes.note": "ملاحظة",
   "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "بدل طبيعة العمل",
   "boilerplate.containers.Payroll.MainData.codes.errorMes": "قم بإدخال رقم صحيحا",
+  "boilerplate.containers.Payroll.MainData.codes.JobsList": "قائمة الوظائف",
+  "boilerplate.containers.Payroll.MainData.codes.OrganizationsList": "قائمة المنظمات",
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "قائمة الأذونات",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "كود الموظف",
