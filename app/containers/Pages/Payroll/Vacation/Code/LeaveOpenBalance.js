@@ -276,7 +276,7 @@ useEffect(() => {
                               value={OpenBalance}
                               onChange={(e) => setOpenBalance(e.target.value)}
                               inputProps={{ pattern: "^[0-9.]+$" }}
-                            
+                              required
                             />
                         </Grid>
 
