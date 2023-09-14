@@ -183,4 +183,37 @@ export default defineMessages({
         id: `${scope}.code.EmployeeDeduction`,
         defaultMessage: 'Employee deduction',
       },
+      // Leaves Open Balance
+      LeavesOpenBalanceTitle: {
+        id: `${scope}.code.LeavesOpenBalanceTitle`,
+        defaultMessage: 'Leaves open balance',
+      },
+      EmployeeName: {
+        id: `${scope}.code.EmployeeName`,
+        defaultMessage: 'Employee name',
+      },
+      LeaveType: {
+        id: `${scope}.code.LeaveType`,
+        defaultMessage: 'Leave type',
+      },
+      usedLeaves: {
+        id: `${scope}.code.usedLeaves`,
+        defaultMessage: 'Used leaves',
+      },
+      OpenBalance: {
+        id: `${scope}.code.OpenBalance`,
+        defaultMessage: 'Open balance',
+      },
+      Balance: {
+        id: `${scope}.code.Balance`,
+        defaultMessage: 'Balance',
+      },
+      PostedBalance: {
+        id: `${scope}.code.PostedBalance`,
+        defaultMessage: 'Posted balance',
+      },
+      UpdateCurrentBalance: {
+        id: `${scope}.code.UpdateCurrentBalance`,
+        defaultMessage: 'Update current balance',
+      },
 });

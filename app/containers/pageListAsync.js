@@ -1239,5 +1239,12 @@ export const GovernmentSickLeaveSetting = loadable(
   }
 );
 
+export const LeaveOpenBalance = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/LeaveOpenBalance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 

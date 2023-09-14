@@ -311,6 +311,13 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
+
+  Apis.GetVacList = async (HasBalance) => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetVacationList/${locale}?HasBalance=${HasBalance ? HasBalance : false}`
+    );
+    return result.data;
+  };
   
 
 return Apis;

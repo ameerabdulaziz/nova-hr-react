@@ -1208,6 +1208,14 @@
   "boilerplate.containers.Payroll.vac.code.Every3Years": "كل 3 سنوات",
   "boilerplate.containers.Payroll.vac.code.DaysNumber": "عدد الأيام",
   "boilerplate.containers.Payroll.vac.code.CountValueDay": "العدد/القيمة(من اليوم)",
-  "boilerplate.containers.Payroll.vac.code.EmployeeDeduction": "خصم الموظف"
+  "boilerplate.containers.Payroll.vac.code.EmployeeDeduction": "خصم الموظف",
+  "boilerplate.containers.Payroll.vac.code.LeavesOpenBalanceTitle": "ارصدة الاجازات الافتتاحية",
+  "boilerplate.containers.Payroll.vac.code.EmployeeName": "اسم الموظف",
+  "boilerplate.containers.Payroll.vac.code.LeaveType": "نوع الإجازة",
+  "boilerplate.containers.Payroll.vac.code.usedLeaves": "الاجازات المستهلكة",
+  "boilerplate.containers.Payroll.vac.code.OpenBalance": " الرصيد الإفتتاحى",
+  "boilerplate.containers.Payroll.vac.code.Balance": "الرصيد الحالى",
+  "boilerplate.containers.Payroll.vac.code.PostedBalance": "رصيد مرحل",
+  "boilerplate.containers.Payroll.vac.code.UpdateCurrentBalance": "تحديث الرصيد الحالى"
   
 }

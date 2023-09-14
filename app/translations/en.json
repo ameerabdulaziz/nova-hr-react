@@ -1180,7 +1180,15 @@
   "boilerplate.containers.Payroll.vac.code.Every3Years": "Every 3 years",
   "boilerplate.containers.Payroll.vac.code.DaysNumber": "Days number",
   "boilerplate.containers.Payroll.vac.code.CountValueDay": "Count/Value(Day)",
-  "boilerplate.containers.Payroll.vac.code.EmployeeDeduction": "Employee deduction"
+  "boilerplate.containers.Payroll.vac.code.EmployeeDeduction": "Employee deduction",
+  "boilerplate.containers.Payroll.vac.code.LeavesOpenBalanceTitle": "Leaves open balance",
+  "boilerplate.containers.Payroll.vac.code.EmployeeName": "Employee name",
+  "boilerplate.containers.Payroll.vac.code.LeaveType": "Leave type",
+  "boilerplate.containers.Payroll.vac.code.usedLeaves": "Used leaves",
+  "boilerplate.containers.Payroll.vac.code.OpenBalance": "Open balance",
+  "boilerplate.containers.Payroll.vac.code.Balance": "Balance",
+  "boilerplate.containers.Payroll.vac.code.PostedBalance": "Posted balance",
+  "boilerplate.containers.Payroll.vac.code.UpdateCurrentBalance": "Update current balance"
    
    
 }
