@@ -73,7 +73,7 @@ function PromotionsList() {
       },
     },    
     {
-      name: 'oldJob',
+      name: 'job',
       label: <FormattedMessage {...messages['oldJob']} />,
       options: {
           filter: true,
@@ -87,7 +87,7 @@ function PromotionsList() {
       },
     }, 
     {
-      name: 'job',
+      name: 'newJob',
       label: <FormattedMessage {...messages['job']} />,
       options: {
           filter: true,

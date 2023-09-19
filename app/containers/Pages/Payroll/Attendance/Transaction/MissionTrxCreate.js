@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PapperBlock } from 'enl-components';
 import ApiData from '../api/MissionTrxData';
 import messages from '../messages';
@@ -20,7 +20,7 @@ import { useLocation } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import EmployeeData from '../../Component/EmployeeData';
 
 function MissionTrxCreate(props) {
   const { intl } = props;
@@ -52,7 +52,6 @@ function MissionTrxCreate(props) {
     "hiringDate":"",
   });
   
-  const [EmployeeList, setEmployeeList] = useState([]);
   const [MissionsList, setMissionsList] = useState([]);
   const history=useHistory();  
   const [processing, setprocessing] = useState(false);
@@ -155,12 +154,9 @@ async function oncancel(){
     const Missions = await GeneralListApis(locale).GetMissionList(locale);
     setMissionsList(Missions);
 
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
-    setEmployeeList(employees);
-
     if(id)
     {
-        const dataApi = await ApiData(locale).Get(id??0);        
+        const dataApi = await ApiData(locale).Get(id);        
         setdata(dataApi);
     }
   }
@@ -169,26 +165,7 @@ async function oncancel(){
     fetchData();
   }, []);
 
-async function getEmployeeData(id) {
-    debugger;
-    if (!id){
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                job:"",
-                organization:"",
-                hiringDate:""
-            }));            
-        return
-    }
-    const empdata = await GeneralListApis(locale).GetEmployeeData(id);
-   
-        setdata((prevFilters) => ({
-            ...prevFilters,
-            job:empdata.jobName,
-            organization:empdata.organizationName,
-            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate
-        }));   
-    }
+
 
   return (
     <div>
@@ -264,88 +241,7 @@ async function getEmployeeData(id) {
                 </Grid>
                    
                 <Grid item xs={12} md={12}>
-                    <Card className={classes.card}>
-                        <CardContent>
-                            <Grid
-                            container
-                            spacing={3}
-                            alignItems="flex-start"
-                            direction="row">
-                                <Grid item xs={12} md={3}>
-                                    <Autocomplete  
-                                        id="employeeId"                        
-                                        options={EmployeeList}  
-                                        value={{id:data.employeeId,name:data.employeeName}}     
-                                        isOptionEqualToValue={(option, value) =>
-                                            value.id === 0 || value.id === "" ||option.id === value.id
-                                        }                 
-                                        getOptionLabel={(option) =>
-                                        option.name ? option.name : ""
-                                        }
-                                        onChange={(event, value) => {
-                                            if (value !== null) {
-                                                setdata((prevFilters) => ({
-                                                ...prevFilters,
-                                                employeeId:value.id,
-                                                employeeName:value.name
-                                                }));
-                                                getEmployeeData(value.id,false)  ;   
-                                            } else {
-                                                setdata((prevFilters) => ({
-                                                    ...prevFilters,
-                                                    employeeId:0,
-                                                    employeeName:""
-                                                })); 
-                                                getEmployeeData(0,false)  ;   
-                                            }
-                                        }}
-                                        renderInput={(params) => (
-                                        <TextField
-                                            variant="outlined"                            
-                                            {...params}
-                                            name="employeeId"
-                                            required                              
-                                            label={intl.formatMessage(Payrollmessages.employeeName)}
-                                            />
-                                        )}
-                                    />  
-                                </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <TextField
-                                        id="job"
-                                        name="job"
-                                        value={data.job}               
-                                        label={intl.formatMessage(Payrollmessages.job)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <TextField
-                                        id="organization"
-                                        name="organization"
-                                        value={data.organization}               
-                                        label={intl.formatMessage(Payrollmessages.organizationName)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <TextField
-                                        id="hiringDate"
-                                        name="hiringDate"
-                                        value={data.hiringDate===null ? "" :data.hiringDate}               
-                                        label={intl.formatMessage(Payrollmessages.hiringDate)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
+                    <EmployeeData data={data} setdata={setdata}></EmployeeData>
                 </Grid>
                
                 <Grid item xs={12} md={4}>
@@ -356,7 +252,7 @@ async function getEmployeeData(id) {
                             spacing={3}
                             alignItems="flex-start"
                             direction="row">
-                               <Grid item xs={12}  md={8}>
+                                <Grid item xs={12}  md={8}>
                                     <FormControlLabel
                                         control={(
                                         <Checkbox
@@ -373,7 +269,7 @@ async function getEmployeeData(id) {
                                     />
                                     
                                 </Grid> 
-                               
+                                
                                 <Grid item xs={12}  md={8}>
                                     <FormControlLabel
                                         control={(
@@ -423,7 +319,7 @@ async function getEmployeeData(id) {
                                         label={intl.formatMessage(messages.exemptLeaveRec)}
                                     />
                                 </Grid>
-                               
+                                
                             </Grid>
                         </CardContent>
                     </Card>

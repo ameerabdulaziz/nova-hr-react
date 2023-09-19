@@ -86,11 +86,10 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
-  Apis.GetEmployeeData = async (id) => {
+  Apis.GetEmployeeData = async (id,isWorkingYears,isVacBalance) => {
     //  debugger;
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeData/${id}/${locale}`
-    );
+      `GeneralList/GetEmployeeData/${id}/${locale}?isWorkingYears=${isWorkingYears?true:false}&isVacBalance=${isVacBalance?true:false}`);
     return result.data;
   };
   Apis.GetJobsList = async () => {
@@ -310,6 +309,12 @@ const GeneralListApis = (locale) => {
     const result = await axiosInstance.get(
       `GeneralList/GetVacationList/${locale}?HasBalance=${HasBalance ? HasBalance : false}`
     );
+    return result.data;
+  };
+  
+  Apis.GetEmployeePenalties = async (id) => {    
+    debugger;
+    const result = await axiosInstance.get(`HRPenaltyTransaction/GetEmployeePenalties/${id}`);   
     return result.data;
   };
   

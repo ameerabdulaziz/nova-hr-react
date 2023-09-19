@@ -27,9 +27,18 @@ const RewardTransData = (locale) => {
     return data.data;
 
   };
+  const getFormData = object => Object.entries(object).reduce((fd, [ key, val ]) => {
+    if (Array.isArray(val)) {
+      val.forEach(v => fd.append(key, v))
+    } else {
+      fd.append(key, val)
+    }
+    return fd
+  }, new FormData());
+  
   Apis.Save = async (data) => {
     debugger;
-  var requestData={
+  /* var requestData={
     "date": data.date,
     "docName": data.docName,
     "elementId":data.elementId,
@@ -42,8 +51,8 @@ const RewardTransData = (locale) => {
     "superEmployeeId": data.superEmployeeId,
     "value":data.value,
     "yearId": data.yearId,
-    }
-    const result = await axiosInstance.post("HrRewardsTransaction/Save",requestData);
+    } */
+    const result = await axiosInstance.post("HrRewardsTransaction/Save",getFormData(data));
     return result;
   };
   Apis.Delete = async (id) => {

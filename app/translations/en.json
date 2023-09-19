@@ -877,14 +877,20 @@
   "boilerplate.containers.Payroll.element": "Element",  
   "boilerplate.containers.Payroll.Upload": "Upload", 
   "boilerplate.containers.Payroll.Print": "Print", 
-  "boilerplate.containers.Payroll.preview": "Preview",  
-  
+  "boilerplate.containers.Payroll.preview": "Preview",    
   "boilerplate.containers.Payroll.executionId": "WorkFlow Id",
   "boilerplate.containers.Payroll.permissionName": "Permission Name", 
   "boilerplate.containers.Payroll.startTime": "StartTime", 
-  "boilerplate.containers.Payroll.endTime": "EndTime",
-  
-  "boilerplate.containers.Payroll.minutesCount": "Minutes",
+  "boilerplate.containers.Payroll.endTime": "EndTime",  
+  "boilerplate.containers.Payroll.minutesCount": "Minutes",  
+  "boilerplate.containers.Payroll.superEmployeeName": "Super Employee",  
+  "boilerplate.containers.Payroll.month":"Month",
+  "boilerplate.containers.Payroll.sixMonth":"Six Month",
+  "boilerplate.containers.Payroll.year":"Year",
+  "boilerplate.containers.Payroll.hiringDateNo":"Hiring Date No",
+  "boilerplate.containers.Payroll.lastDate":"Last Date",
+  "boilerplate.containers.Payroll.oldElemVal":"Prev Value",     
+  "boilerplate.containers.Payroll.workingYears":"Working Years", 
   
   
   

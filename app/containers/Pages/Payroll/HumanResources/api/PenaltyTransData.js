@@ -77,11 +77,6 @@ const PenaltyTransData = (locale) => {
     const result = await axiosInstance.get(`HRPenaltyTransaction/GetPenaltyDetails/${id}`);   
     return result.data;
   };
-  Apis.GetEmployeePenalties = async (id) => {    
-    debugger;
-    const result = await axiosInstance.get(`HRPenaltyTransaction/GetEmployeePenalties/${id}`);   
-    return result.data;
-  };
   
   return Apis;
 };

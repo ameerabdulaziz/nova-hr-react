@@ -20,9 +20,7 @@ import { useLocation } from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import CircularProgress from '@mui/material/CircularProgress';
-
-
-
+import EmployeeData from '../../Component/EmployeeData';
 
 function ResignTrxCreate(props) {
   const { intl } = props;
@@ -52,9 +50,9 @@ function ResignTrxCreate(props) {
     "job":"",
     "organization":"",
     "hiringDate":"",
-    
+    "workingYears":""
   });
-  const [EmployeeList, setEmployeeList] = useState([]);
+  
   const [PayTemplateList, setPayTemplateList] = useState([]);
   const [VacElementList, setVacElementList] = useState([]);
   const [SettlElementList, setSettlElementList] = useState([]);
@@ -110,9 +108,6 @@ function ResignTrxCreate(props) {
     const resigns = await GeneralListApis(locale).GetResignReasonList();
     setResignList(resigns);
 
-    const employees = await GeneralListApis(locale).GetEmployeeList();
-    setEmployeeList(employees);
-    
 
     const payTemplates = await GeneralListApis(locale).GetPayTemplateList();
     setPayTemplateList(payTemplates);
@@ -153,28 +148,6 @@ function ResignTrxCreate(props) {
       })); 
 }
 
-  async function getEmployeeData(id,isSuper) {
-    debugger;
-    if (!id){
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                job:"",
-                organization:"",
-                hiringDate:"",
-                workingYears:""
-            }));            
-        return
-    }
-    const empdata = await GeneralListApis(locale).GetEmployeeData(id);
-    
-        setdata((prevFilters) => ({
-            ...prevFilters,
-            job:empdata.jobName,
-            organization:empdata.organizationName,
-            hiringDate:empdata.hiringDate===null ?? "" ,
-            workingYears:empdata.workingYears===null??""
-        }));   
-  }
   return (
     <div>
         <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.ResignTrxCreateTitle):intl.formatMessage(messages.ResignTrxUpdateTitle)} desc={""}>
@@ -223,99 +196,7 @@ function ResignTrxCreate(props) {
                         />
                     </Grid> 
                 <Grid item xs={12} md={12}>
-                    <Card className={classes.card}>
-                        <CardContent>
-                            <Grid
-                            container
-                            spacing={3}
-                            alignItems="flex-start"
-                            direction="row">
-                                <Grid item xs={12} md={4}>
-                                    <Autocomplete  
-                                        id="employeeId"                        
-                                        options={EmployeeList}  
-                                        value={{id:data.employeeId,name:data.employeeName}}     
-                                        isOptionEqualToValue={(option, value) =>
-                                            value.id === 0 || value.id === "" ||option.id === value.id
-                                        }                 
-                                        getOptionLabel={(option) =>
-                                        option.name ? option.name : ""
-                                        }
-                                        onChange={(event, value) => {
-                                            if (value !== null) {
-                                                setdata((prevFilters) => ({
-                                                ...prevFilters,
-                                                employeeId:value.id,
-                                                employeeName:value.name
-                                                }));
-                                                getEmployeeData(value.id,false)  ;   
-                                            } else {
-                                                setdata((prevFilters) => ({
-                                                    ...prevFilters,
-                                                    employeeId:0,
-                                                    employeeName:""
-                                                })); 
-                                                getEmployeeData(0,false)  ;   
-                                            }
-                                        }}
-                                        renderInput={(params) => (
-                                        <TextField
-                                            variant="outlined"                            
-                                            {...params}
-                                            name="employeeId"
-                                            required                              
-                                            label={intl.formatMessage(messages.employeeName)}
-                                            />
-                                        )}
-                                    />  
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="job"
-                                        name="job"
-                                        value={data.job}               
-                                        label={intl.formatMessage(messages.job)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="organization"
-                                        name="organization"
-                                        value={data.organization}               
-                                        label={intl.formatMessage(messages.organization)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="hiringDate"
-                                        name="hiringDate"
-                                        value={data.hiringDate===null ? "" :data.hiringDate}               
-                                        label={intl.formatMessage(messages.hiringDate)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="workingYears"
-                                        name="workingYears"
-                                        value={data.workingYears===null ? "" :data.workingYears}               
-                                        label={intl.formatMessage(messages.workingYears)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
+                    <EmployeeData data={data} setdata={setdata} GetworkingYears={true}></EmployeeData>
                 </Grid>
                
                 <Grid item xs={12} md={4}>

@@ -134,6 +134,7 @@ export default defineMessages({
     id: `${scope}.employeeName`,
     defaultMessage: 'employeeName',
   },
+  
   job: {
     id: `${scope}.job`,
     defaultMessage: 'job',
@@ -187,7 +188,39 @@ export default defineMessages({
     id: `${scope}.minutesCount`,
     defaultMessage: 'minutesCount',
   },
+  superEmployeeName: {
+    id: `${scope}.superEmployeeName`,
+    defaultMessage: 'superEmployeeName',
+  },
   
-  
+month: {
+  id: `${scope}.month`,
+  defaultMessage: 'month',
+},
+sixMonth: {
+  id: `${scope}.sixMonth`,
+  defaultMessage: 'sixMonth',
+},
+year: {
+  id: `${scope}.year`,
+  defaultMessage: 'year',
+},
+hiringDateNo: {
+  id: `${scope}.hiringDateNo`,
+  defaultMessage: 'hiringDateNo',
+},
+lastDate: {
+  id: `${scope}.lastDate`,
+  defaultMessage: 'lastDate',
+},
+oldElemVal: {
+  id: `${scope}.oldElemVal`,
+  defaultMessage: 'oldElemVal',
+},
+workingYears: {
+  id: `${scope}.workingYears`,
+  defaultMessage: 'workingYears',
+},
+
 
 });

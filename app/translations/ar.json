@@ -905,6 +905,16 @@
   "boilerplate.containers.Payroll.startTime": "من ساعه", 
   "boilerplate.containers.Payroll.endTime": "الى ساعه",
   "boilerplate.containers.Payroll.minutesCount": "عدد الدقائق",
+  "boilerplate.containers.Payroll.superEmployeeName": "متخذ القرار",  
+  "boilerplate.containers.Payroll.month":"شهرى",
+  "boilerplate.containers.Payroll.sixMonth":"6 شهور",
+  "boilerplate.containers.Payroll.year":"سنوى",
+  "boilerplate.containers.Payroll.hiringDateNo":"من تاريخ التعيين",
+  "boilerplate.containers.Payroll.lastDate":"اخر مخالفه",
+  "boilerplate.containers.Payroll.oldElemVal":"القيمة السابقة", 
+  "boilerplate.containers.Payroll.workingYears":"سنين العمل",
+  
+
   
   
  
