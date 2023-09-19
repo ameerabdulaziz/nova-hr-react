@@ -83,7 +83,7 @@ function CreateAndEditOrg(props) {
 
 const getdata =  async () => {
 
-  const employees = await GeneralListApis(locale).GetEmployeeDataList(locale);    
+  const employees = await GeneralListApis(locale).GetEmployeeList(locale);    
   const Departmentlist = await GeneralListApis(locale).GetDepartmentList(locale);  
 
   setEmployeesData(employees)

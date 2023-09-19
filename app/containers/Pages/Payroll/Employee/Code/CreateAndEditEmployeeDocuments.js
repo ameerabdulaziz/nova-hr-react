@@ -120,7 +120,7 @@ function CreateAndEditEmployeeDocuments(props) {
 const getdata =  async () => {
 
   const documentsData = await GeneralListApis(locale).GetDocumentList(locale);   
-  const employees = await GeneralListApis(locale).GetEmployeeDataList(locale);  
+  const employees = await GeneralListApis(locale).GetEmployeeList(locale);  
 
   setDocumentsList(documentsData)
   setEmployeeName(employees.length !== 0 && employeeID ? employees.find((item)=> item.id === employeeID)?.name.split("-").pop() : "")

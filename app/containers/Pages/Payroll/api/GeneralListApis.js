@@ -98,13 +98,7 @@ const GeneralListApis = (locale) => {
     const result = await axiosInstance.get(`MdJobs/GetListModel/${locale}`);
     return result.data;
   };
-  Apis.GetEmployeeDataList = async () => {
-    //  debugger;
-    const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeDataList/${locale}`
-    );
-    return result.data;
-  };
+  
   Apis.GetExplanationTypeList = async () => {
     //  debugger;
     const result = await axiosInstance.get(

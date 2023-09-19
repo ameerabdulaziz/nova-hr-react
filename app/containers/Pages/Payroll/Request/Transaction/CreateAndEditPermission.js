@@ -140,7 +140,7 @@ function CreateAndEditPermission(props) {
 
 const getdata =  async () => {
 
-  const employees = await GeneralListApis(locale).GetEmployeeDataList(locale);    
+  const employees = await GeneralListApis(locale).GetEmployeeList(locale);    
   const Permissionlist = await GeneralListApis(locale).GetPermissionList(locale);  
 
   setEmployeesData(employees)
