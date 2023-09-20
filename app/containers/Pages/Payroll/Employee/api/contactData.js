@@ -52,11 +52,11 @@ import { useSelector, useDispatch } from 'react-redux';
 //export default EmployeeBankData;
 
 const contactData = (props) => {
-  const lang = 'en'; //useSelector((state) => state.language.locale);
-  const employeeid = props;
+  const lang = props; // 'en'; //useSelector((state) => state.language.locale);
+  //const employeeid = props;
 
   const EmployeeBankApis = {};
-  EmployeeBankApis.GetBankLookup = async () => {
+  EmployeeBankApis.GetBankLookup = async (employeeid) => {
     debugger;
     const data = await axiosInstance.get(
       `EmpBank/GetAllData/${lang}/${employeeid}`
@@ -64,7 +64,7 @@ const contactData = (props) => {
 
     return data.data.bankList;
   };
-  EmployeeBankApis.GetList = async () => {
+  EmployeeBankApis.GetList = async (employeeid) => {
     debugger;
 
     const data = await axiosInstance.get(
@@ -123,6 +123,38 @@ const contactData = (props) => {
       Item.id === 0
         ? await axiosInstance.post('EmpBank', data)
         : await axiosInstance.put(`EmpBank/${Item.id}`, data);
+    return result;
+  };
+
+  EmployeeBankApis.SaveData = async (Item, details) => {
+    debugger;
+    var DetailsList = [];
+
+    // for (let i = 0; i < details.length; i++) {
+    //   penaltyDetailsList.push({
+    //     elementId: data.penaltyTypeList.find(
+    //       (ele) => ele.name === dataTable[i].PenaltyTypeName
+    //     ).id,
+    //     penaltyValue: details[i].PenaltyValue,
+    //     empBankId: Item.id,
+    //   });
+    // }
+
+    // const data = {
+    //   id: Item.id,
+    //   employeeId: employeeid,
+    //   bankId: Bankid,
+    //   bankBranchNo: Item.bankBranchNo,
+    //   iban: Item.iban,
+    //   bnkEmpCode: Item.bnkEmpCode,
+    //   bankName: Item.bankName,
+    //   swiftCode: Item.swiftCode,
+    // };
+
+    const result =
+      Item.id === 0
+        ? await axiosInstance.post('EmpBank', Item)
+        : await axiosInstance.put(`EmpBank/${Item.id}`, Item);
     return result;
   };
 

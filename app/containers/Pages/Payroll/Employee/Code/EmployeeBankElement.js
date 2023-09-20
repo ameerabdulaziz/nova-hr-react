@@ -90,6 +90,7 @@ function EmployeeBankElement(props) {
         anchorTable={anchorTable}
         title={ids.toString()}
         API={EmployeeBankElementData(ids)}
+        IsNotSave={true}
       />
     </div>
   );

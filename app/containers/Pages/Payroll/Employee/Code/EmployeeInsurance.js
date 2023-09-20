@@ -13,7 +13,8 @@ import { toast } from 'react-hot-toast';
 import EmployeeInsuranceData from '../api/EmployeeInsuranceData';
 import GeneralListApis from '../../api/GeneralListApis';
 import { Grid, TextField, Autocomplete } from '@mui/material';
-
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles()(() => ({
   root: {
     flexGrow: 1,
@@ -22,7 +23,10 @@ const useStyles = makeStyles()(() => ({
 
 function EmployeeInsurance(props) {
   const { intl } = props;
-  const [employee, setEmployee] = useState(0);
+  const history = useHistory();
+  const location = useLocation();
+  const { empid } = location.state ?? { id: 0, name: '' };
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
   const [employeeList, setEmployeeList] = useState([]);
   const title = 'Employee Insurance'; //localStorage.getItem('MenuName');
   const description = brand.desc;
@@ -157,12 +161,23 @@ function EmployeeInsurance(props) {
               <Autocomplete
                 id="ddlEmp"
                 options={employeeList}
-                getOptionLabel={(option) => option.name}
+                value={{ id: employee.id, name: employee.name }}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === '' || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
+                  debugger;
                   if (value !== null) {
-                    setEmployee(value.id);
+                    setEmployee({
+                      id: value.id,
+                      name: value.name,
+                    });
                   } else {
-                    setEmployee(0);
+                    setEmployee({
+                      id: 0,
+                      name: '',
+                    });
                   }
                 }}
                 renderInput={(params) => (
@@ -170,7 +185,7 @@ function EmployeeInsurance(props) {
                     variant="standard"
                     {...params}
                     name="employee"
-                    value={employee}
+                    //  value={employee.id}
                     label={intl.formatMessage(messages.chooseEmp)}
                     margin="normal"
                   />
@@ -181,7 +196,7 @@ function EmployeeInsurance(props) {
           <EditTable
             anchorTable={anchorTable}
             title={employee}
-            API={EmployeeInsuranceData(employee)}
+            API={EmployeeInsuranceData(employee.id)}
           />
         </div>
       </PapperBlock>

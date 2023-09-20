@@ -27,7 +27,13 @@ import {
 } from '../../../../../../app/containers/SampleApps/Contact/reducers/contactActions';
 import data from '../api/contactData';
 import GeneralListApis from '../../api/GeneralListApis';
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 function Contact() {
+  const history = useHistory();
+  const location = useLocation();
+  const { empid } = location.state ?? { id: 0, name: '' };
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
   const avatarInit = null; //useSelector((state) => state.contact.avatarInit);
   const [dataContact, setdata] = useState([]);
   const [itemSelected, setitemSelected] = useState(-1);
@@ -37,7 +43,7 @@ function Contact() {
   const locale = useSelector((state) => state.language.locale);
   const [showMobileDetail, setshowMobileDetail] = useState(false);
   const messageNotif = useSelector((state) => state.contact.notifMsg);
-  const [employee, setEmployee] = useState(0);
+  // const [employee, setEmployee] = useState(0);
   const [employeeList, setEmployeeList] = useState([]);
   const [BankList, setBankList] = useState([]);
 
@@ -47,10 +53,11 @@ function Contact() {
       const empdata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(empdata || []);
 
-      const bnkdata = await data(employee).GetBankLookup(locale);
+      const bnkdata = await data(locale).GetBankLookup(employee.id);
       setBankList(bnkdata || []);
 
-      if (empdata && empdata.length > 0) setEmployee(empdata[0].id);
+      //   if (empdata && empdata.length > 0)
+      //     setEmployee({ id: empdata[0].id, name: empdata[0].name });
     }
     fetchEmployee();
   }, []);
@@ -59,7 +66,7 @@ function Contact() {
     async function fetchData1() {
       debugger;
 
-      const dataApi = await data(employee).GetList();
+      const dataApi = await data(locale).GetList(employee.id);
       setdata(dataApi);
       setitemSelected(-1);
     }
@@ -145,12 +152,27 @@ function Contact() {
                     className={classes.autocomplete}
                     id="ddlEmp"
                     options={employeeList}
-                    getOptionLabel={(option) => option.name}
+                    value={{ id: employee.id, name: employee.name }}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 ||
+                      value.id === '' ||
+                      option.id === value.id
+                    }
+                    getOptionLabel={(option) =>
+                      option.name ? option.name : ''
+                    }
                     onChange={(event, value) => {
+                      debugger;
                       if (value !== null) {
-                        setEmployee(value.id);
+                        setEmployee({
+                          id: value.id,
+                          name: value.name,
+                        });
                       } else {
-                        setEmployee(0);
+                        setEmployee({
+                          id: 0,
+                          name: '',
+                        });
                       }
                     }}
                     renderInput={(params) => (
@@ -158,7 +180,7 @@ function Contact() {
                         variant="standard"
                         {...params}
                         name="employee"
-                        value={employee}
+                        //value={employee}
                         label="choose employee"
                         margin="normal"
                       />
@@ -185,6 +207,7 @@ function Contact() {
         </Tooltip>
 
         <EmpBankDetail
+          employeeId={employee.id}
           loading={loading}
           showMobileDetail={showMobileDetail}
           bnkList={BankList}
