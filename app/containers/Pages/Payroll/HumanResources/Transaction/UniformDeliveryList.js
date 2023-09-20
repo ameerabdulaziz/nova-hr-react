@@ -99,7 +99,7 @@ function UniformDeliveryList(props) {
                   aria-label="Edit"
                   size="large"
                 >
-                  <Link to={`/app/Pages/HR/UniformDeliveryEdit${tableMeta.rowData[0]}`}>
+                  <Link to={{ pathname: "/app/Pages/HR/UniformDeliveryEdit", state: {id: tableMeta.rowData[0],},}}>
                     <EditIcon />
                   </Link>
                 </IconButton>

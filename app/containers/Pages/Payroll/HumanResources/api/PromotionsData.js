@@ -35,7 +35,7 @@ const PromotionsData = (locale) => {
     "id":data.id,
     "reason":data.reason,
     "jobId":data.jobId,
-    "oldJobId":data.oldJobId,
+    "newJobId":data.newJobId,
     "oldElemVal":data.oldElemVal,
     "elemVal":data.elemVal,
     }    

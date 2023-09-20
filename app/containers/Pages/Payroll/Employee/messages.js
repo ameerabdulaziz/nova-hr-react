@@ -134,10 +134,7 @@ export default defineMessages({
     id: `${scope}.personal.upload`,
     defaultMessage: 'upload',
   },
-  isSpecialNeeds: {
-    id: `${scope}.personal.isSpecialNeeds`,
-    defaultMessage: 'Is SpecialNeeds',
-  },
+
   controlParameter: {
     id: `${scope}.personal.controlParameter`,
     defaultMessage: 'rules Template',

@@ -115,7 +115,7 @@ function PromotionsReport(props) {
     print: true,
     rowsPerPage: 10,
     page: 0,
-    searchOpen: true,
+    searchOpen: false,
     onSearchClose: () => {
       //some logic
     },

@@ -108,7 +108,8 @@ function CustodyReceiveList(props) {
                   aria-label="Edit"
                   size="large"
                 >
-                  <Link to={`/app/Pages/HR/CustodyReceiveEdit${tableMeta.rowData[0]}`}>
+                
+                  <Link to={{ pathname: "/app/Pages/HR/CustodyReceiveEdit", state: {id: tableMeta.rowData[0],},}}>
                     <EditIcon />
                   </Link>
                 </IconButton>

@@ -9,14 +9,12 @@ import { useSelector } from 'react-redux';
 import GeneralListApis from '../api/GeneralListApis';
 
 
-function EmloyeePopup(props) {
+function NamePopup(props) {
   
-  const {intl} = props;
   const {classes,cx} = useStyles();  
-  const [dataList, setdataList] = useState([]);
   const [EmployeeList, setEmployeeList] = useState([]);  
   const locale = useSelector(state => state.language.locale);
-  const { handleClose,open } = props;
+  const { handleClose,open,Key } = props;
 
 const CloseClick = async (key) => {
  
@@ -46,8 +44,18 @@ const handleEnableOne = (event, row) => {
 const GetEmployeeList = useCallback(async () => {
     try {
       
-    const employees = await GeneralListApis(locale).GetEmployeeDataList(locale);    
-    setEmployeeList(employees);
+      var data=[];
+      if(Key=="Employee")
+        data = await GeneralListApis(locale).GetEmployeeList(); 
+      else if(Key=="Job")
+        data = await GeneralListApis(locale).GetJobList();   
+      
+      setEmployeeList(data.map((obj) => {
+        return {
+            id: obj.id,
+            name: obj.name,
+            isSelected: false,
+        }}));
 
     } catch (err) {
       toast.error(err);
@@ -65,7 +73,7 @@ const GetEmployeeList = useCallback(async () => {
   return (
     <div>
     <Dialog open={open} onClose={()=>CloseClick()}>
-        <DialogTitle>Emloyee List</DialogTitle>
+        <DialogTitle>{`${Key} List`} </DialogTitle>
         <DialogContent>       
           <div className={classes.rootTable}>
             <Table className={cx(css.tableCrud, classes.table, classes.stripped)} style={{minWidth:'0px'}}>
@@ -120,4 +128,4 @@ const GetEmployeeList = useCallback(async () => {
   );
 }
   
-export default injectIntl(EmloyeePopup);
+export default injectIntl(NamePopup);

@@ -33,8 +33,17 @@ axiosInstance.interceptors.response.use(
 		}
         if (error.response.status === 500) {
 			debugger;
-            if(error.response.data.message)
-                alert(error.response.data.message );
+            if(error.response.data)
+                alert(JSON.parse(error.response.data).message);
+            else
+			    alert("Internal Server Error" );
+
+			return Promise.reject(error);
+		}
+		if (error.response.status === 400) {
+			debugger;
+            if(error.response.data)
+                alert(error.response.data);
             else
 			    alert("Internal Server Error" );
 

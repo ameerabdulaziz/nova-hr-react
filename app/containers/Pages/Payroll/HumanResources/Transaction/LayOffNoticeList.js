@@ -94,9 +94,9 @@ function LayOffNoticeList() {
                 aria-label="Edit"
                 size="large"
               >
-                <Link to={`/app/Pages/HR/LayOffNoticeEdit${tableMeta.rowData[0]}`}>
-                  <EditIcon />
-                </Link>
+                <Link to={{ pathname: "/app/Pages/HR/LayOffNoticeEdit", state: {id: tableMeta.rowData[0],},}}>
+                    <EditIcon />
+                  </Link>
               </IconButton>
 
               <IconButton

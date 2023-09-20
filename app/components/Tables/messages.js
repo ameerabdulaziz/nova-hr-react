@@ -247,4 +247,8 @@ export default defineMessages({
     id: `${scope}.codes.price`,
     defaultMessage: 'price',
   },
+  transportaion: {
+    id: `${scope}.codes.transportaion`,
+    defaultMessage: 'transportaion',
+  },
 });

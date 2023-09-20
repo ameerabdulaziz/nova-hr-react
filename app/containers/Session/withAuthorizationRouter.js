@@ -11,11 +11,11 @@ export default function withAuthorizationRouter(Component) {
       const redirectAfterLogin = this.props.location.pathname; // eslint-disable-line
       const authenticating = isAuth => {
         // Check authentication
-        if (isAuth === null) {
+        /* if (isAuth === null) {
           return (<AuthLoading />);
-        }
+        } */
         // Is not authenticate
-        if (isAuth === false) {
+        if (isAuth === null || isAuth === false) {
           return (<Redirect to={`/login?redirectTo=${redirectAfterLogin}`} />);
         }
         // Is authenticate

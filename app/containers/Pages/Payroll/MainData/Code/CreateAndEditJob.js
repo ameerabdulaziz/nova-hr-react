@@ -479,27 +479,42 @@ function oncancel(){
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={12}></Grid>
-                      <Grid item xs={12} md={1}>                  
-                          <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                          {processing && (
-                            <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                          />
-                          )}
-                            <FormattedMessage {...Payrollmessages.save} /> 
-                          </Button>
-                      </Grid>
-                      <Grid item xs={12} md={1}>
-                          <Button variant="contained" size="medium" color="primary" 
-                          onClick={oncancel}
-                          >
-                            <FormattedMessage {...Payrollmessages.cancel} /> 
-                          </Button>
-                      </Grid>
-
                 </Grid>
+
+                <Grid
+                container
+                spacing={3}
+                alignItems="flex-start"
+                direction="row">
+                 
+                  <Grid item xs={12} md={12}></Grid>
+                  <Grid item xs={12} md={4}
+                  container
+                  spacing={3}
+                  alignItems="flex-start"
+                  direction="row"
+                  className={style.itemsStyle}
+                  >
+                <Grid item xs={3}  md={5} lg={3}>                  
+                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
+                    {processing && (
+                      <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                    )}
+                       <FormattedMessage {...Payrollmessages.save} /> 
+                    </Button>
+                </Grid>
+                <Grid item xs={3}  md={5} lg={3}>
+                    <Button variant="contained" size="medium" color="primary" 
+                    onClick={oncancel}
+                     >
+                       <FormattedMessage {...Payrollmessages.cancel} /> 
+                    </Button>
+                </Grid>
+                </Grid>
+              </Grid>
               </form>
 
           </PapperBlock>

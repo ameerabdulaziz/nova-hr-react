@@ -247,4 +247,82 @@ uniformName: {
   id: `${scope}.uniformName`,
   defaultMessage: 'uniformName',
 },
+//ResignTrx////////////////////////////////////////////////////////////////////////////////////////////////
+resignReasonName: {
+  id: `${scope}.resignReasonName`,
+  defaultMessage: 'resignReasonName',
+},
+lworkingDay: {
+  id: `${scope}.lworkingDay`,
+  defaultMessage: 'lworkingDay',
+},
+
+settlementV: {
+  id: `${scope}.settlementV`,
+  defaultMessage: 'settlementV',
+},
+vacSettlValue: {
+  id: `${scope}.vacSettlValue`,
+  defaultMessage: 'vacSettlValue',
+},
+ResignTrxCreateTitle: {
+  id: `${scope}.ResignTrxCreateTitle`,
+  defaultMessage: 'ResignTrxCreateTitle',
+},
+ResignTrxUpdateTitle: {
+  id: `${scope}.ResignTrxUpdateTitle`,
+  defaultMessage: 'ResignTrxUpdateTitle',
+},
+workingYears: {
+  id: `${scope}.workingYears`,
+  defaultMessage: 'workingYears',
+},
+vacElement: {
+  id: `${scope}.vacElement`,
+  defaultMessage: 'vacElement',
+},
+settElemnt: {
+  id: `${scope}.settElemnt`,
+  defaultMessage: 'settElemnt',
+},
+source: {
+  id: `${scope}.source`,
+  defaultMessage: 'source',
+},
+//ManPowerSetting////////////////////////////////////////////////////////////////////////////////////////////////
+idealManPower: {
+  id: `${scope}.idealManPower`,
+  defaultMessage: 'idealManPower',
+},
+//Course/////////////////////////////////////////////////////////////////////////////////////////////////////////
+courseName: {
+  id: `${scope}.courseName`,
+  defaultMessage: 'courseName',
+},
+
+EmpCourseCreateTitle: {
+  id: `${scope}.EmpCourseCreateTitle`,
+  defaultMessage: 'EmpCourseCreateTitle',
+},
+EmpCourseUpdateTitle: {
+  id: `${scope}.EmpCourseUpdateTitle`,
+  defaultMessage: 'EmpCourseUpdateTitle',
+},
+commStartDate: {
+  id: `${scope}.commStartDate`,
+  defaultMessage: 'commStartDate',
+},
+commEndDate: {
+  id: `${scope}.commEndDate`,
+  defaultMessage: 'commEndDate',
+},
+gradeName: {
+  id: `${scope}.gradeName`,
+  defaultMessage: 'gradeName',
+},
+centerName: {
+  id: `${scope}.centerName`,
+  defaultMessage: 'centerName',
+},
+
 });

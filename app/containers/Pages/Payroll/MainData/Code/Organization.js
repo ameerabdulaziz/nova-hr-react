@@ -153,7 +153,7 @@ function Organization({ intl }) {
     print: true,
     rowsPerPage: 10,
     page: 0,
-    searchOpen: true,
+    // searchOpen: true,
     selectableRows: "none" ,
     customToolbar: () => (
       <Tooltip title="Add New">
@@ -222,7 +222,7 @@ const DeleteFun = async () => {
             className={`${style.tableContainerSty}  ${locale === 'ar' ? style.tableContainerStyAr : ''}`}
           >
             <MUIDataTable
-              title="Organizations list"
+              title={intl.formatMessage(messages.OrganizationsList)}
               data={dataTable}
               columns={columns}
               options={options}

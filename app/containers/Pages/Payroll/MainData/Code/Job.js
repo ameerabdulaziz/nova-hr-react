@@ -183,7 +183,7 @@ function Job({ intl }) {
     print: true,
     rowsPerPage: 10,
     page: 0,
-    searchOpen: true,
+    // searchOpen: true,
     selectableRows: "none" ,
     customToolbar: () => (
       <Tooltip title="Add New">
@@ -252,7 +252,7 @@ function Job({ intl }) {
             className={`${style.tableContainerSty}  ${locale === 'ar' ? style.tableContainerStyAr : ''}`}
           >
             <MUIDataTable
-              title="Jobs list"
+              title={intl.formatMessage(messages.JobsList)}
               data={search ? search : dataTable}
               columns={columns}
               options={options}

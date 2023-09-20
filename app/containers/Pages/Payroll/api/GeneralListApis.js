@@ -3,7 +3,7 @@ const GeneralListApis = (locale) => {
   const Apis = {};
 
   Apis.GetDepartmentList = async () => {
-    //  debugger;
+    debugger;
     const data = await axiosInstance.get(
       `GeneralList/GetDepartmentList/${locale}`
     );
@@ -58,6 +58,12 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
+  Apis.GetElementListByType = async (TypeID) => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetElementList/${locale}?TypeID=${TypeID}`
+    );
+    return result.data;
+  };
   Apis.GetElementListByTemplate = async (templateId) => {
     //  debugger;
     const result = await axiosInstance.get(
@@ -80,10 +86,12 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
-  Apis.GetEmployeeData = async (id) => {
+  Apis.GetEmployeeData = async (id, isWorkingYears, isVacBalance) => {
     //  debugger;
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeData/${id}/${locale}`
+      `GeneralList/GetEmployeeData/${id}/${locale}?isWorkingYears=${
+        isWorkingYears ? true : false
+      }&isVacBalance=${isVacBalance ? true : false}`
     );
     return result.data;
   };
@@ -92,13 +100,7 @@ const GeneralListApis = (locale) => {
     const result = await axiosInstance.get(`MdJobs/GetListModel/${locale}`);
     return result.data;
   };
-  Apis.GetEmployeeDataList = async () => {
-    //  debugger;
-    const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeDataList/${locale}`
-    );
-    return result.data;
-  };
+
   Apis.GetExplanationTypeList = async () => {
     //  debugger;
     const result = await axiosInstance.get(
@@ -123,7 +125,7 @@ const GeneralListApis = (locale) => {
   };
 
   Apis.GetJobList = async () => {
-    //  debugger;
+    debugger;
     const result = await axiosInstance.get(`GeneralList/GetJobList/${locale}`);
     return result.data;
   };
@@ -256,6 +258,85 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
+
+  Apis.GetResignReasonList = async () => {
+    debugger;
+    const result = await axiosInstance.get(
+      `HrResignReason/GetListModel/${locale}`
+    );
+
+    return result.data;
+  };
+  Apis.GetCourseList = async () => {
+    debugger;
+    const result = await axiosInstance.get(`HrCourses/GetListModel/${locale}`);
+
+    return result.data;
+  };
+  Apis.GetTrainingCenterList = async () => {
+    debugger;
+    const result = await axiosInstance.get(
+      `HrTrainingCenter/GetListModel/${locale}`
+    );
+
+    return result.data;
+  };
+  Apis.GetGradeList = async () => {
+    debugger;
+    const result = await axiosInstance.get(`MdGrade/GetListModel/${locale}`);
+
+    return result.data;
+  };
+
+  Apis.GetPermissionList = async () => {
+    debugger;
+    const result = await axiosInstance.get(
+      `GeneralList/GetPermissionList/${locale}`
+    );
+
+    return result.data;
+  };
+  Apis.GetMissionList = async () => {
+    debugger;
+    const result = await axiosInstance.get(
+      `GeneralList/GetMissionList/${locale}`
+    );
+
+    return result.data;
+  };
+  Apis.GetDocumentList = async () => {
+    debugger;
+    const result = await axiosInstance.get(
+      `GeneralList/GetDocumentList/${locale}`
+    );
+
+    return result.data;
+  };
+
+  Apis.GetGovernmentSickVacList = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetGovernmentSickVacList/${locale}`
+    );
+    return result.data;
+  };
+
+  Apis.GetVacList = async (HasBalance) => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetVacationList/${locale}?HasBalance=${
+        HasBalance ? HasBalance : false
+      }`
+    );
+    return result.data;
+  };
+
+  Apis.GetEmployeePenalties = async (id) => {
+    debugger;
+    const result = await axiosInstance.get(
+      `HRPenaltyTransaction/GetEmployeePenalties/${id}`
+    );
+    return result.data;
+  };
+
   return Apis;
 };
 

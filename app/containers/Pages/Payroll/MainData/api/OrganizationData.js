@@ -19,10 +19,7 @@ const OrganizationData = (locale) => {
   };
 
   OrganizationApis.Save = async (data) => {
-    const result =
-      data.id === 0
-        ? await axiosInstance.post('MdOrganization', data)
-        : await axiosInstance.put(`MdOrganization/${data.id}`, data);
+    const result = await axiosInstance.post('MdOrganization/Save', data);
         
     return result;
   };

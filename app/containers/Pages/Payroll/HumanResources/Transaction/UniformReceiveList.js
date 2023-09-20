@@ -99,7 +99,7 @@ function UniformReceiveList(props) {
                   aria-label="Edit"
                   size="large"
                 >
-                  <Link to={`/app/Pages/HR/UniformReceiveEdit${tableMeta.rowData[0]}`}>
+                  <Link to={{ pathname: "/app/Pages/HR/UniformReceiveEdit", state: {id: tableMeta.rowData[0],},}}>
                     <EditIcon />
                   </Link>
                 </IconButton>

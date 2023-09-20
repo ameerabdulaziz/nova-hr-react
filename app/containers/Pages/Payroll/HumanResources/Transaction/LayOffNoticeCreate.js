@@ -19,15 +19,21 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
+import { useLocation } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
+import EmployeeData from '../../Component/EmployeeData';
+
+
 
 
 
 function LayOffNoticeCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  let { id } = useParams();
+  const location = useLocation()
+  const { id } = location.state??0;
   const { classes } = useStyles();
-  
+  const [processing, setprocessing] = useState(false);
   const [data, setdata] = useState({
     "id": 0,
     "noticeDate":format(new Date(), "yyyy-MM-dd"),
@@ -38,7 +44,7 @@ function LayOffNoticeCreate(props) {
     "organization":"",
     "hiringDate":"",
   });
-  const [EmployeeList, setEmployeeList] = useState([]);
+  
   const history=useHistory();  
 
   const handleSubmit = async (e) => {
@@ -46,6 +52,7 @@ function LayOffNoticeCreate(props) {
     e.preventDefault();   
     try{
       debugger;  
+      setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
       if (response.status==200) {
@@ -65,8 +72,6 @@ function LayOffNoticeCreate(props) {
   async function fetchData() {
     debugger ;
     
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
-    setEmployeeList(employees);
     
     const dataApi = await ApiData(locale).Get(id??0);
     if(dataApi.id!=0)
@@ -77,26 +82,7 @@ function LayOffNoticeCreate(props) {
     fetchData();
   }, []);
 
-  async function getEmployeeData(id,isSuper) {
-    debugger;
-    if (!id){       
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                job:"",
-                organization:"",
-                hiringDate:""
-            }));            
-        return
-    }
-    const empdata = await GeneralListApis(locale).GetEmployeeData(id);
-    
-        setdata((prevFilters) => ({
-            ...prevFilters,
-            job:empdata.jobName,
-            organization:empdata.organizationName,
-            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate
-        }));   
-  }
+  
   
   return (
     <div>
@@ -120,88 +106,7 @@ function LayOffNoticeCreate(props) {
                 </Grid>
                
                 <Grid item xs={12} md={12}>
-                    <Card className={classes.card}>
-                        <CardContent>
-                            <Grid
-                            container
-                            spacing={3}
-                            alignItems="flex-start"
-                            direction="row">
-                                <Grid item xs={12} md={4}>
-                                    <Autocomplete  
-                                        id="employeeId"                        
-                                        options={EmployeeList}  
-                                        value={{id:data.employeeId,name:data.employeeName}}     
-                                        isOptionEqualToValue={(option, value) =>
-                                            value.id === 0 || value.id === "" ||option.id === value.id
-                                        }                 
-                                        getOptionLabel={(option) =>
-                                        option.name ? option.name : ""
-                                        }
-                                        onChange={(event, value) => {
-                                            if (value !== null) {
-                                                setdata((prevFilters) => ({
-                                                ...prevFilters,
-                                                employeeId:value.id,
-                                                employeeName:value.name
-                                                }));
-                                                getEmployeeData(value.id,false)  ;   
-                                            } else {
-                                                setdata((prevFilters) => ({
-                                                    ...prevFilters,
-                                                    employeeId:0,
-                                                    employeeName:""
-                                                })); 
-                                                getEmployeeData(0,false)  ;   
-                                            }
-                                        }}
-                                        renderInput={(params) => (
-                                        <TextField
-                                            variant="outlined"                            
-                                            {...params}
-                                            name="employeeId"
-                                            required                              
-                                            label={intl.formatMessage(messages.employeeName)}
-                                            />
-                                        )}
-                                    />  
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="job"
-                                        name="job"
-                                        value={data.job}               
-                                        label={intl.formatMessage(messages.job)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="organization"
-                                        name="organization"
-                                        value={data.organization}               
-                                        label={intl.formatMessage(messages.organization)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="hiringDate"
-                                        name="hiringDate"
-                                        value={data.hiringDate===null ? "" :data.hiringDate}               
-                                        label={intl.formatMessage(messages.hiringDate)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
+                    <EmployeeData data={data} setdata={setdata}></EmployeeData>
                 </Grid>
                
                 
@@ -224,7 +129,13 @@ function LayOffNoticeCreate(props) {
                 </Grid>
                 <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )}
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>

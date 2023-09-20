@@ -120,7 +120,7 @@ function ExplanationList(props) {
                   aria-label="Edit"
                   size="large"
                 >
-                  <Link to={`/app/Pages/HR/ExplanationEdit${tableMeta.rowData[0]}`}>
+                  <Link to={{ pathname: "/app/Pages/HR/ExplanationEdit", state: {id: tableMeta.rowData[0],},}}>
                     <EditIcon />
                   </Link>
                 </IconButton>

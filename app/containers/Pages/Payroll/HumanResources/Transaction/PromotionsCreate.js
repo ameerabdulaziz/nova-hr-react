@@ -19,15 +19,19 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
+import { useLocation } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
+import EmployeeData from '../../Component/EmployeeData';
 
 
 
 function PromotionsCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  let { id } = useParams();
-  const { classes } = useStyles();
-  
+  const location = useLocation()
+  const { id } = location.state??0;
+  const { classes } = useStyles();  
+  const [processing, setprocessing] = useState(false);
   const [data, setdata] = useState({
     "id": 0,
     "date":format(new Date(), "yyyy-MM-dd"),
@@ -38,12 +42,11 @@ function PromotionsCreate(props) {
     "job":"",
     "organization":"",
     "hiringDate":"",
-    "oldJobId":"",
-    "oldJob":"",
+    "newJobId":"",
+    "newJob":"",
     "oldElemVal":"",
     "elemVal":""
   });
-  const [EmployeeList, setEmployeeList] = useState([]);
   const [JobList, setJobList] = useState([]);
   const history=useHistory();  
 
@@ -52,6 +55,7 @@ function PromotionsCreate(props) {
     e.preventDefault();   
     try{
       debugger;  
+      setprocessing(true); 
       let response = await  ApiData(locale).Save(data);
 
       if (response.status==200) {
@@ -70,16 +74,12 @@ function PromotionsCreate(props) {
 
   async function fetchData() {
     debugger ;
-    
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
-    setEmployeeList(employees);
-
     const jobs = await GeneralListApis(locale).GetJobsList(locale);
     setJobList(jobs);
     
     if(id)
     {
-        const dataApi = await ApiData(locale).Get(id??0);    
+        const dataApi = await ApiData(locale).Get(id);    
         setdata(dataApi);
     }
   }
@@ -88,31 +88,6 @@ function PromotionsCreate(props) {
     fetchData();
   }, []);
 
-  async function getEmployeeData(id) {
-    debugger;
-    if (!id){       
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                oldJobId:"",
-                oldJob:"",
-                organization:"",
-                hiringDate:"",
-                oldElemVal:"",
-            }));            
-        return
-    }
-    const empdata = await GeneralListApis(locale).GetEmployeeData(id);
-    
-        setdata((prevFilters) => ({
-            ...prevFilters,
-            oldJobId:empdata.jobId,
-            oldJob:empdata.jobName,
-            organization:empdata.organizationName,
-            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate,
-            oldElemVal:empdata.salary===null ? "" :empdata.salary
-        }));   
-  }
-  
   return (
     <div>
         <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.PromotionsCreateTitle):intl.formatMessage(messages.PromotionsUpdateTitle)} desc={""}>
@@ -135,111 +110,15 @@ function PromotionsCreate(props) {
                 </Grid>
                
                 <Grid item xs={12} md={12}>
-                    <Card className={classes.card}>
-                        <CardContent>
-                            <Grid
-                            container
-                            spacing={3}
-                            alignItems="flex-start"
-                            direction="row">
-                                <Grid item xs={12} md={4}>
-                                    <Autocomplete  
-                                        id="employeeId"                        
-                                        options={EmployeeList}  
-                                        value={{id:data.employeeId,name:data.employeeName}}     
-                                        isOptionEqualToValue={(option, value) =>
-                                            value.id === 0 || value.id === "" ||option.id === value.id
-                                        }                 
-                                        getOptionLabel={(option) =>
-                                        option.name ? option.name : ""
-                                        }
-                                        onChange={(event, value) => {
-                                            if (value !== null) {
-                                                setdata((prevFilters) => ({
-                                                ...prevFilters,
-                                                employeeId:value.id,
-                                                employeeName:value.name
-                                                }));
-                                                getEmployeeData(value.id,false)  ;   
-                                            } else {
-                                                setdata((prevFilters) => ({
-                                                    ...prevFilters,
-                                                    employeeId:0,
-                                                    employeeName:""
-                                                })); 
-                                                getEmployeeData(0,false)  ;   
-                                            }
-                                        }}
-                                        renderInput={(params) => (
-                                        <TextField
-                                            variant="outlined"                            
-                                            {...params}
-                                            name="employeeId"
-                                            required                              
-                                            label={intl.formatMessage(messages.employeeName)}
-                                            />
-                                        )}
-                                    />  
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="oldJob"
-                                        name="oldJob"
-                                        value={data.oldJob}               
-                                        label={intl.formatMessage(messages.oldJob)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="organization"
-                                        name="organization"
-                                        value={data.organization}               
-                                        label={intl.formatMessage(messages.organization)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={2}>
-                                    <TextField
-                                        id="hiringDate"
-                                        name="hiringDate"
-                                        value={data.hiringDate===null ? "" :data.hiringDate}               
-                                        label={intl.formatMessage(messages.hiringDate)}
-                                        className={classes.field}
-                                        variant="outlined"
-                                        disabled
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={2}>                    
-                                    <TextField
-                                    id="oldElemVal"
-                                    name="oldElemVal"
-                                    disabled
-                                    value={data.oldElemVal}
-                                    onChange={(e) => setdata((prevFilters) => ({
-                                        ...prevFilters,
-                                        oldElemVal: e.target.value,
-                                    }))}                        
-                                    label={intl.formatMessage(messages.oldElemVal)}
-                                    className={classes.field}
-                                    variant="outlined"
-                                    />
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
+                    <EmployeeData data={data} setdata={setdata} GetSalary={true}></EmployeeData>
                 </Grid>
                
                 <Grid item xs={12} md={4}>
                     <Autocomplete  
                         id="job"                        
                         options={JobList}  
-                        key={{id:data.jobId,name:data.job}}
-                        value={{id:data.jobId,name:data.job}}     
+                        key={{id:data.newJobId,name:data.newJob}}
+                        value={{id:data.newJobId,name:data.newJob}}     
                         isOptionEqualToValue={(option, value) =>
                             value.id === 0 || value.id === "" ||option.id === value.id
                         }                 
@@ -248,20 +127,12 @@ function PromotionsCreate(props) {
                         }
                         onChange={(event, value) => {
                             debugger;
-                            if (value !== null) {
+                            
                                 setdata((prevFilters) => ({
                                 ...prevFilters,
-                                jobId:value.id,
-                                job:value.name
+                                newJobId:value !== null?value.id:0,
+                                newJob:value !== null?value.name:""
                                 }));
-                                
-                            } else {
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    jobId:0,
-                                    job:""
-                                })); 
-                            }
                         }}
                         renderOption={(props, option) => {
                             return (
@@ -316,7 +187,13 @@ function PromotionsCreate(props) {
                 
                 <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary" >
+                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing}>
+                        {processing && (
+                        <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                        />
+                        )} 
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>

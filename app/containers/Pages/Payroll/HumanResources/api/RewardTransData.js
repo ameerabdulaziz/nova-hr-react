@@ -4,7 +4,13 @@ import axiosInstance from '../../api/axios';
 const RewardTransData = (locale) => {
   const Apis = {};
   
-  
+  Apis.GetReport = async (employee,rewards,fromdate,todate) => {
+    debugger;
+    const data = await axiosInstance.get(`HrRewardsTransaction/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&RewardsId=${rewards!=null?rewards:""}`);
+    const result = data.data;
+    
+    return result;
+  };
 
   Apis.GetList = async () => {
     debugger;
@@ -21,9 +27,18 @@ const RewardTransData = (locale) => {
     return data.data;
 
   };
+  const getFormData = object => Object.entries(object).reduce((fd, [ key, val ]) => {
+    if (Array.isArray(val)) {
+      val.forEach(v => fd.append(key, v))
+    } else {
+      fd.append(key, val)
+    }
+    return fd
+  }, new FormData());
+  
   Apis.Save = async (data) => {
     debugger;
-  var requestData={
+  /* var requestData={
     "date": data.date,
     "docName": data.docName,
     "elementId":data.elementId,
@@ -36,8 +51,8 @@ const RewardTransData = (locale) => {
     "superEmployeeId": data.superEmployeeId,
     "value":data.value,
     "yearId": data.yearId,
-    }
-    const result = await axiosInstance.post("HrRewardsTransaction/Save",requestData);
+    } */
+    const result = await axiosInstance.post("HrRewardsTransaction/Save",getFormData(data));
     return result;
   };
   Apis.Delete = async (id) => {

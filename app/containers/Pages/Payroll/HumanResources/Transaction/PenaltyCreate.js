@@ -18,6 +18,8 @@ import {
   Autocomplete,
   Card,
   CardContent,
+  FormControl,
+  Tooltip,
 } from '@mui/material';
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
@@ -26,13 +28,24 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from 'date-fns';
+import { useLocation } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import AddIcon from '@mui/icons-material/Add';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { ServerURL } from '../../api/ServerConfig';
+import { NavLink } from 'react-router-dom';
+import EmployeeData from '../../Component/EmployeeData';
 
 function PenaltyCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  let { id } = useParams();
-  const { classes } = useStyles();
+  debugger;
 
+  const location = useLocation();
+  const { id } = location.state ?? 0;
+  const [processing, setprocessing] = useState(false);
+  const { classes, cx } = useStyles();
+  const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   const [data, setdata] = useState({
     id: 0,
     date: format(new Date(), 'yyyy-MM-dd'),
@@ -65,11 +78,11 @@ function PenaltyCreate(props) {
     year: '',
     hiringDateNo: '',
     lastDate: '',
+    uploadedFile: null,
+    docName: '',
   });
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
-  const [EmployeeList, setEmployeeList] = useState([]);
-  const [SuperEmployeeList, setSuperEmployeeList] = useState([]);
   const [PenaltyList, setPenaltyList] = useState([]);
   const [PenaltyTypeList, setPenaltyTypeList] = useState([]);
 
@@ -94,6 +107,7 @@ function PenaltyCreate(props) {
     e.preventDefault();
     try {
       debugger;
+      setprocessing(true);
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -111,18 +125,14 @@ function PenaltyCreate(props) {
   }
   async function fetchData() {
     debugger;
-    const years = await GeneralListApis(locale).GetYears(locale);
+    const years = await GeneralListApis(locale).GetYears();
     setYearList(years);
 
-    const months = await GeneralListApis(locale).GetMonths(locale);
+    const months = await GeneralListApis(locale).GetMonths();
     setMonthList(months);
 
-    const penalties = await GeneralListApis(locale).GetPenaltyList(locale);
+    const penalties = await GeneralListApis(locale).GetPenaltyList();
     setPenaltyList(penalties);
-
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
-    setEmployeeList(employees);
-    setSuperEmployeeList(employees);
 
     const dataApi = await ApiData(locale).Get(id ?? 0);
     if (dataApi.id != 0) setdata(dataApi);
@@ -161,49 +171,6 @@ function PenaltyCreate(props) {
       value: result.selected.value,
     }));
     setPenaltyTypeList(result.penaltyTypeList);
-  }
-
-  async function getEmployeeData(id, isSuper) {
-    debugger;
-    if (!id) {
-      if (isSuper)
-        setdata((prevFilters) => ({
-          ...prevFilters,
-          superJob: '',
-          superOrganization: '',
-          superHiringDate: '',
-        }));
-      else
-        setdata((prevFilters) => ({
-          ...prevFilters,
-          job: '',
-          organization: '',
-          hiringDate: '',
-        }));
-      return;
-    }
-    const empdata = await GeneralListApis(locale).GetEmployeeData(id);
-    if (isSuper)
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        superJob: empdata.jobName,
-        superOrganization: empdata.organizationName,
-        superHiringDate: empdata.hiringDate === null ? '' : empdata.hiringDate,
-      }));
-    else {
-      const result = await ApiData(locale).GetEmployeePenalties(id);
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        job: empdata.jobName,
-        organization: empdata.organizationName,
-        hiringDate: empdata.hiringDate === null ? '' : empdata.hiringDate,
-        month: result.month,
-        sixMonth: result.sixMonth,
-        year: result.year,
-        hiringDateNo: result.hiringDate,
-        lastDate: result.lastDate,
-      }));
-    }
   }
 
   return (
@@ -362,11 +329,151 @@ function PenaltyCreate(props) {
                       />
                     </Grid>
                     <Grid item xs={12} md={2}>
+                      <Autocomplete
+                        id="monthId"
+                        options={MonthList}
+                        value={{ id: data.monthId, name: data.monthName }}
+                        isOptionEqualToValue={(option, value) =>
+                          value.id === 0 ||
+                          value.id === '' ||
+                          option.id === value.id
+                        }
+                        getOptionLabel={(option) =>
+                          option.name ? option.name : ''
+                        }
+                        onChange={(event, value) => {
+                          if (value !== null) {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              monthId: value.id,
+                              monthName: value.name,
+                            }));
+                          } else {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              monthId: 0,
+                              monthName: '',
+                            }));
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="monthId"
+                            required
+                            label={intl.formatMessage(messages.monthName)}
+                          />
+                        )}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                      <FormControl variant="standard">
+                        <div className={classes.actions}>
+                          <Tooltip title="Upload">
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              component="label"
+                            >
+                              <AddIcon
+                                className={cx(
+                                  smUp && classes.leftIcon,
+                                  classes.iconSmall
+                                )}
+                              />
+                              {smUp && ' '} Upload
+                              <input
+                                hidden
+                                type="file"
+                                name="file"
+                                id="inputGroupFile"
+                                onChange={(e) => {
+                                  debugger;
+                                  setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    uploadedFile: e.target.files[0],
+                                  }));
+                                }}
+                                accept="image/png, image/jpeg, image/jpg, image/apng, image/webp, image/svg+xml"
+                              />
+                            </Button>
+                          </Tooltip>
+                        </div>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                      {data.docName && (
+                        <NavLink
+                          to={{ pathname: `${ServerURL}${data.docName}` }}
+                          target="_blank"
+                        >
+                          <Button size="small">Open File</Button>
+                        </NavLink>
+                      )}
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                      <EmployeeData
+                        data={data}
+                        setdata={setdata}
+                        GetEmployeePenalties={true}
+                      ></EmployeeData>
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                      <EmployeeData
+                        data={data}
+                        setdata={setdata}
+                        isSuper={true}
+                      ></EmployeeData>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Autocomplete
+                        id="penaltyId"
+                        options={PenaltyList}
+                        value={{ id: data.penaltyId, name: data.penaltyName }}
+                        isOptionEqualToValue={(option, value) =>
+                          value.id === 0 ||
+                          value.id === '' ||
+                          option.id === value.id
+                        }
+                        getOptionLabel={(option) =>
+                          option.name ? option.name : ''
+                        }
+                        onChange={(event, value) => {
+                          if (value !== null) {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              penaltyId: value.id,
+                              penaltyName: value.name,
+                            }));
+                            getPenaltyData(value.id);
+                          } else {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              penaltyId: 0,
+                              penaltyName: '',
+                            }));
+                            getPenaltyData(0);
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="rewardsid"
+                            required
+                            label={intl.formatMessage(messages.penaltyName)}
+                          />
+                        )}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
                       <TextField
-                        id="job"
-                        name="job"
-                        value={data.job}
-                        label={intl.formatMessage(messages.job)}
+                        id="elementName"
+                        name="elementName"
+                        value={data.elementName}
+                        label={intl.formatMessage(messages.elementName)}
                         className={classes.field}
                         variant="outlined"
                         disabled
@@ -675,8 +782,15 @@ function PenaltyCreate(props) {
                 variant="contained"
                 type="submit"
                 size="medium"
-                color="primary"
+                color="secondary"
+                disabled={processing}
               >
+                {processing && (
+                  <CircularProgress
+                    size={24}
+                    className={classes.buttonProgress}
+                  />
+                )}
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>

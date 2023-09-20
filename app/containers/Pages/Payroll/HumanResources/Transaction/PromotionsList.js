@@ -73,7 +73,7 @@ function PromotionsList() {
       },
     },    
     {
-      name: 'oldJob',
+      name: 'job',
       label: <FormattedMessage {...messages['oldJob']} />,
       options: {
           filter: true,
@@ -87,7 +87,7 @@ function PromotionsList() {
       },
     }, 
     {
-      name: 'job',
+      name: 'newJob',
       label: <FormattedMessage {...messages['job']} />,
       options: {
           filter: true,
@@ -120,9 +120,9 @@ function PromotionsList() {
                 aria-label="Edit"
                 size="large"
               >
-                <Link to={`/app/Pages/HR/PromotionsEdit${tableMeta.rowData[0]}`}>
-                  <EditIcon />
-                </Link>
+                <Link to={{ pathname: "/app/Pages/HR/PromotionsEdit", state: {id: tableMeta.rowData[0],},}}>
+                    <EditIcon />
+                  </Link>
               </IconButton>
 
               <IconButton

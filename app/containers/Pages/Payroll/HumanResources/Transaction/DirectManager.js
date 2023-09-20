@@ -11,7 +11,7 @@ import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import GeneralListApis from '../../api/GeneralListApis';
-import EmloyeePopup from '../../Component/EmloyeePopup';
+import NamePopup from '../../Component/NamePopup';
 
 function DirectManager(props) {
   
@@ -95,7 +95,11 @@ async function on_submit() {
         return
       }
       const data = await DirectMangerData().GetList(locale,employee);
-      setdataList(data || []);
+      setdataList(data.map((obj) => {
+        return {
+            ...obj,
+            isSelected: true,
+        }}) || []);
     } catch (err) {
       toast.error(err);
     }
@@ -105,7 +109,7 @@ async function on_submit() {
   const GetEmployeeList = useCallback(async () => {
     try {
       
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
+    const employees = await GeneralListApis(locale).GetEmployeeList();
     setEmployeeList(employees);
 
     } catch (err) {
@@ -123,9 +127,10 @@ async function on_submit() {
 
   return (
       <PapperBlock whiteBg icon="border_color" title={Title}  desc="">
-        <EmloyeePopup
+        <NamePopup
             handleClose={handleClose}            
             open={OpenPopup}
+            Key={"Employee"}
         />
         <div>
             <Grid container spacing={3}>            

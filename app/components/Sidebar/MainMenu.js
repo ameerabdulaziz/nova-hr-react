@@ -18,6 +18,9 @@ import menuApi from 'enl-api/ui/menuApi';
 //import dataMenu from 'enl-api/ui/menu';
 import {syncUserMenu} from '../../redux/actions/authActions';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory} from "react-router-dom";
+
+
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
 });
@@ -26,8 +29,10 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 function MainMenu(props) {
   const { classes, cx } = useStyles();
   const locale = useSelector(state => state.language.locale);
-  //const dataMenu = useSelector(state => state.authReducer.usermenu);
-  const [dataMenu,setdataMenu]=useState([]);
+  const Auth = useSelector((state) => state.authReducer.loggedIn);
+  const history = useHistory();
+  const dataMenu = useSelector(state => state.authReducer.usermenu);
+  //const [dataMenu,setdataMenu]=useState([]);
   const {
     openSubMenu,
     open,
@@ -46,13 +51,17 @@ function MainMenu(props) {
    const getdata =  async () => {    
 
     const data =  await menuApi.fetchApi(locale);
-    setdataMenu(data);
+    //setdataMenu(data);
     Dispatcher(syncUserMenu(data));
 };
 
 useEffect(() => {  
   /* if(!dataMenu || dataMenu.length==0)
   { */
+  
+  if (Auth === null || Auth===false) {
+    history.push(`/login?redirectTo=${history.location.pathname}`);
+  }
     getdata();
   /* } */
 }, []);

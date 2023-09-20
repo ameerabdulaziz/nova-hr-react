@@ -118,4 +118,109 @@ export default defineMessages({
     id: `${scope}.count`,
     defaultMessage: 'count',
   },
+  isStop: {
+    id: `${scope}.isStop`,
+    defaultMessage: 'isStop',
+  },
+  chooseJob: {
+    id: `${scope}.chooseJob`,
+    defaultMessage: 'chooseJob',
+  },
+  total: {
+    id: `${scope}.total`,
+    defaultMessage: 'total',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  
+  job: {
+    id: `${scope}.job`,
+    defaultMessage: 'job',
+  },
+  
+  hiringDate: {
+    id: `${scope}.hiringDate`,
+    defaultMessage: 'hiringDate',
+  },
+  arName: {
+    id: `${scope}.arName`,
+    defaultMessage: 'arName',
+  },
+  enName: {
+    id: `${scope}.enName`,
+    defaultMessage: 'enName',
+  },
+  element: {
+    id: `${scope}.element`,
+    defaultMessage: 'element',
+  },
+  preview:{
+    id: `${scope}.preview`,
+    defaultMessage: 'preview',
+  },
+  Upload: {
+    id: `${scope}.Upload`,
+    defaultMessage: 'Upload',
+  },
+  Print: {
+    id: `${scope}.Print`,
+    defaultMessage: 'Print',
+  },
+  executionId: {
+    id: `${scope}.executionId`,
+    defaultMessage: 'executionId',
+  },
+  permissionName: {
+    id: `${scope}.permissionName`,
+    defaultMessage: 'permissionName',
+  },
+  startTime: {
+    id: `${scope}.startTime`,
+    defaultMessage: 'startTime',
+  },
+  endTime: {
+    id: `${scope}.endTime`,
+    defaultMessage: 'endTime',
+  },
+  minutesCount: {
+    id: `${scope}.minutesCount`,
+    defaultMessage: 'minutesCount',
+  },
+  superEmployeeName: {
+    id: `${scope}.superEmployeeName`,
+    defaultMessage: 'superEmployeeName',
+  },
+  
+month: {
+  id: `${scope}.month`,
+  defaultMessage: 'month',
+},
+sixMonth: {
+  id: `${scope}.sixMonth`,
+  defaultMessage: 'sixMonth',
+},
+year: {
+  id: `${scope}.year`,
+  defaultMessage: 'year',
+},
+hiringDateNo: {
+  id: `${scope}.hiringDateNo`,
+  defaultMessage: 'hiringDateNo',
+},
+lastDate: {
+  id: `${scope}.lastDate`,
+  defaultMessage: 'lastDate',
+},
+oldElemVal: {
+  id: `${scope}.oldElemVal`,
+  defaultMessage: 'oldElemVal',
+},
+workingYears: {
+  id: `${scope}.workingYears`,
+  defaultMessage: 'workingYears',
+},
+
+
 });

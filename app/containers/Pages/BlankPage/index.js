@@ -50,7 +50,13 @@ const useStyles = makeStyles()((theme) => ({
   }
 }));
 
+
 function BlankPage() {
+
+  useEffect(() => {    
+    alert('useEffect');
+  }, []);
+  
   const notify = () => {
     
     toast.error("error.response.data.error",{

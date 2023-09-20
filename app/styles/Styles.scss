@@ -1,3 +1,24 @@
+
+// general Style
+.gridSty
+{
+    padding-top: 10px !important;
+}
+
+.CardContentSty
+{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+
+
+
+
+
+// general Style -- end
+
+
 .tableContainerSty
 {
     padding: 20px;
@@ -29,7 +50,7 @@
                         button
                         {
                             justify-content: right;
-                            margin-right: -8px;
+                            margin-right: -14px;
                         }
                     }
                 }
@@ -173,3 +194,280 @@
 }
 
 // create organization --end
+
+// Employee Documents 
+
+.container
+{
+    & > div
+    {
+        div
+        {
+            div
+            {
+                margin: 0;
+            }
+        }
+    }
+}
+.EmpDocTableContainerSty
+{
+    margin-top: 30px;
+}
+
+.imgContainer
+{
+    justify-content: center;
+    text-align: center;
+    height: 298px;
+    align-items: flex-start !important;
+
+    img
+    {
+        width: 60%;
+        max-height: -webkit-fill-available;
+        box-shadow: 0px 3px 5px -1px #bdbdbd;
+        border-radius: 3px;
+    }
+
+    object
+    {
+        pointer-events: none;
+        box-shadow: 0px 3px 5px -1px #bdbdbd;
+    }
+}
+
+.printBtnSty,
+.BtnSty
+{
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.uploadBtnSty
+{
+    opacity: 0;
+    width: 2px;
+    height: 2px;
+}
+
+
+.viewerPopup
+{
+
+   & > div:nth-child(3)
+    {
+        & >  div
+        {
+            max-height: none;
+            max-width: none;
+            width: 80%;
+            // height: 90%;
+            // height: -webkit-fill-available;
+            // height: inherit;
+            max-height: 90%;
+
+            object
+            {
+                height: 100%;
+            }
+        }
+
+    }
+
+    .fileContainer
+    {
+        height: 100%;
+        // text-align: center;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+
+        img
+        {
+            max-height: -webkit-fill-available;
+        }
+    }
+
+    & > div:nth-child(3)
+        {
+
+            & > div:nth-child(1)
+            {
+                & > div:nth-child(2)
+                {
+            position: relative;
+            max-height: 100vh;
+            height: 100vh;
+
+            p
+            {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img
+                {
+                    height: auto;
+                    position: absolute;
+                }
+            }
+                }
+            }
+            
+        }
+}
+
+// Employee Documents --end
+
+
+
+// Request Premissions
+.TextareaAutosizeSty
+{
+    width: 100%;
+    font-family: IBM Plex Sans, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 12px;
+    border-radius: 12px 12px 0 12px;
+    background:  '#fff';
+    border-color: rgba(0, 0, 0, 0.23);
+    height: 104px !important;
+    overflow: hidden;
+  
+    &:hover {
+      border-color: #000000;
+    }
+  
+    &:focus {
+      border-color: #3f51b5;
+    }
+  
+    // firefox
+    &:focus-visible {
+      outline: 0;
+    }
+}
+
+
+.totalMinutesContainer
+{
+    & > div
+    {
+       margin: 0 !important;
+    }
+}
+
+.timeContainer
+{
+    & > div
+    {
+        & > div
+        {
+            input
+            {
+                text-align: right;
+            }
+        }
+    }
+}
+
+
+// Request Premissions --end
+
+
+// Official Vacations
+.AutocompleteMulSty
+{
+        width: auto !important;
+    & > div
+    {
+        & > div
+        {
+            display: table;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+           
+            
+
+            input
+            {
+                width: auto !important;
+                display: inline;
+            }
+        }
+    }
+}
+
+.AutocompleteMulStyAR
+{
+    & > div
+    {
+        & > div
+        {
+            div
+            {
+               & > svg
+                {
+                    margin: 0 -6px 0 5px !important;
+                }
+            }
+        }
+    }
+}
+
+// Official Vacations --end
+
+
+//  Vacations types
+.ElementsContainer
+{
+    & > div
+    {
+         margin: 0 !important;
+    }
+}
+
+.DayValueContainer
+{
+    & > div
+    {
+        margin: 0 !important;
+    }
+}
+
+// Vacations types --end
+
+
+
+//  Government Sick Leave Setting 
+
+.EmployeeDaysDeduction
+{
+    padding-top: 20px;
+}
+
+.EmployeeDaysDeductionTitle
+{
+    text-align: center;
+}
+
+//  Government Sick Leave Setting --end
+
+
+// reaponsive style
+
+@media only screen and (max-width: 480px) 
+{
+    // general Style
+    .itemsStyle
+    {
+        justify-content: center;
+        text-align: center;
+    }
+    // general Style --end
+}
+
+// reaponsive style --end
