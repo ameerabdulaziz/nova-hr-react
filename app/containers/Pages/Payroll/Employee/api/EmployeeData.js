@@ -11,16 +11,25 @@ const EmployeeData = (locale) => {
     return result;
   };
 
-  Apis.Save = async (data) => {
-    // const data = {
-    //   id: Item.id,
-    //   arName: Item.name,
-    //   enName: Item.EnName,
-    //   address: Item.address,
-    //   accNo: Item.accNo,
-    //   note: Item.note,
-    // };
+  const getFormData = (object) =>
+    Object.entries(object).reduce((fd, [key, val]) => {
+      if (Array.isArray(val)) {
+        val.forEach((v) => fd.append(key, v));
+      } else {
+        fd.append(key, val);
+      }
+      return fd;
+    }, new FormData());
 
+  Apis.Saveform = async (data) => {
+    const result = await axiosInstance.post(
+      'EmpEmployee/Save',
+      getFormData(data)
+    );
+    return result;
+  };
+
+  Apis.Save = async (data) => {
     const result =
       data.id === 0
         ? await axiosInstance.post('EmpEmployee', data)

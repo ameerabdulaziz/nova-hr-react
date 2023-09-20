@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import useStyles from './contact-jss';
+import useStyles from './EmpBank-jss';
 
 function PlaceLoader(props) {
   const { loop } = props;

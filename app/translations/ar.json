@@ -986,6 +986,33 @@
   "boilerplate.containers.Payroll.Employee.personal.jobname":" الوظيفة",
   "boilerplate.containers.Payroll.Employee.personal.isinsured":"مؤمن عليه",
 
+  "boilerplate.containers.Payroll.Employee.personal.eRPCode":"الرقم الدفترى",
+  "boilerplate.containers.Payroll.Employee.personal.machineCode":"الرقم المرجعى",
+  "boilerplate.containers.Payroll.Employee.personal.arname":"الاسم يالعربية",
+  "boilerplate.containers.Payroll.Employee.personal.enname":"الاسم بالانجليزية",
+  "boilerplate.containers.Payroll.Employee.personal.identityType":"نوع الهوية",
+  "boilerplate.containers.Payroll.Employee.personal.identityIssuingAuth":"تابع لسجل مدنى",
+  "boilerplate.containers.Payroll.Employee.personal.identityIssuingDate":"تاريح الاصدار",
+  "boilerplate.containers.Payroll.Employee.personal.identityExpiry":"تاريح الانتهاء",
+
+  "boilerplate.containers.Payroll.Employee.personal.gender":"التوع",
+  "boilerplate.containers.Payroll.Employee.personal.nationality":"الجنسية",
+  "boilerplate.containers.Payroll.Employee.personal.religion":"الديانة",
+  "boilerplate.containers.Payroll.Employee.personal.motherName":"اسم الام",
+  "boilerplate.containers.Payroll.Employee.personal.birthDate":"تاريح الميلاد",
+  "boilerplate.containers.Payroll.Employee.personal.gov":"المحافطة",
+  "boilerplate.containers.Payroll.Employee.personal.city":" المدينة",
+  "boilerplate.containers.Payroll.Employee.personal.socialStatus":"الحالة الاجتماعية",
+
+  "boilerplate.containers.Payroll.Employee.personal.militaryStatus":"حالة الخدمة العسكرية",
+  "boilerplate.containers.Payroll.Employee.personal.sonNo":"عدد الابناء",
+
+  "boilerplate.containers.Payroll.Employee.personal.isResident":"مفترب / مقيم",
+  "boilerplate.containers.Payroll.Employee.personal.isSpecialNeeds":"من ذوى الهمم",
+  "boilerplate.containers.Payroll.Employee.personal.upload":"تحميل",
+  "boilerplate.containers.Payroll.Employee.personal.controlParameter":" نموذج القواعد",
+ 
+
 
   "boilerplate.containers.Payroll.Employee.car.carModel":"موديل السيارة",
   "boilerplate.containers.Payroll.Employee.car.manufactureYear":"سنة الصنع",

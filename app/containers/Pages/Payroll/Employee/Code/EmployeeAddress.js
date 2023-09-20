@@ -12,7 +12,7 @@ import { EditTable } from '../../../../Tables/demos';
 
 import { toast } from 'react-hot-toast';
 import EmployeeAddressData from '../api/EmployeeAddressData';
-import UserMenuData from '../../Setting/api/UserMenuData';
+import GeneralListApis from '../../api/GeneralListApis';
 import { CrudTable, Notification } from 'enl-components';
 import {
   Button,
@@ -50,8 +50,8 @@ function EmployeeAddress(props) {
   const GetUserMenuLookup = useCallback(async () => {
     try {
       debugger;
-      const data = await UserMenuData().GetUserMenuLookup(locale);
-      setEmployeeList(data.employees || []);
+      const empdata = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(empdata || []);
     } catch (err) {
       toast.error(err);
     }

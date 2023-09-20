@@ -121,27 +121,6 @@ export default defineMessages({
     defaultMessage: 'social Status',
   },
 
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-
   isResident: {
     id: `${scope}.personal.isResident`,
     defaultMessage: 'Is Resident',
@@ -151,8 +130,20 @@ export default defineMessages({
     defaultMessage: 'Is SpecialNeeds',
   },
 
+  upload: {
+    id: `${scope}.personal.upload`,
+    defaultMessage: 'upload',
+  },
+  isSpecialNeeds: {
+    id: `${scope}.personal.isSpecialNeeds`,
+    defaultMessage: 'Is SpecialNeeds',
+  },
+  controlParameter: {
+    id: `${scope}.personal.controlParameter`,
+    defaultMessage: 'rules Template',
+  },
   chooseEmp: {
-    id: `boilerplate.containers.Payroll.Setting.chooseEmp`,
+    id: `boilerplate.containers.Payroll.chooseEmp`,
     defaultMessage: 'Select Employee',
   },
   bank: {

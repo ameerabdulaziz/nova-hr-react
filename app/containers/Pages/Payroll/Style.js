@@ -54,7 +54,7 @@ const useMainStyles = makeStyles()((theme) => ({
     borderStyle: 'solid',
     borderWidth: '1px',
     padding: '10px',
-    borderColor: 'rgba(0, 0, 0, 0.20);',    
+    borderColor: 'rgba(0, 0, 0, 0.20);',
   },
   content: {
     width: '100%',
@@ -63,16 +63,16 @@ const useMainStyles = makeStyles()((theme) => ({
     borderRadius: theme.rounded.medium,
     backgroundColor: theme.palette.background.default,
     [theme.breakpoints.up('lg')]: {
-      padding: theme.spacing(2)
-    }
+      padding: theme.spacing(2),
+    },
   },
   hr: {
     border: 0,
-  clear:'both',
-  display:'block',
-  width: '96%',               
-  backgroundColor:'#ecece9',
-  height: '1px'
+    clear: 'both',
+    display: 'block',
+    width: '96%',
+    backgroundColor: '#ecece9',
+    height: '1px',
   },
   field: {
     width: '100%',
@@ -117,6 +117,47 @@ const useMainStyles = makeStyles()((theme) => ({
 
   menu: {
     width: 200,
+  },
+
+  hiddenDropzone: {
+    display: 'none',
+  },
+  avatarWrap: {
+    width: 100,
+    height: 100,
+    margin: '10px auto 30px',
+    position: 'relative',
+  },
+  avatarTop: {
+    display: 'block',
+    textAlign: 'center',
+    padding: theme.spacing(3),
+    // [`& .${classes.avatar}`]: {
+    //   width: 100,
+    //   height: 100,
+    //   margin: '0 auto',
+    // },
+  },
+  uploadAvatar: {
+    width: '100%',
+    height: '100%',
+    background:
+      theme.palette.mode === 'dark'
+        ? theme.palette.grey[700]
+        : theme.palette.grey[100],
+  },
+  buttonUpload: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  navIconHide: {
+    marginRight: theme.spacing(1),
+    paddingTop: 0,
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
 }));
 

@@ -18,22 +18,27 @@ import Payrollmessages from '../../messages';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
-
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 function EmployeeCar(props) {
+  const history = useHistory();
+  const location = useLocation();
+  const { empid } = location.state ?? { id: 0, name: '' };
+  debugger;
   const { intl, pristine } = props;
   const [processing, setprocessing] = useState(false);
   const [delprocessing, setdelprocessing] = useState(false);
   const [progress, setProgress] = useState(false);
   const title = localStorage.getItem('MenuName');
-  const [employee, setEmployee] = useState(0);
-  const [id, setid] = useState(0);
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
+  const [id, setid] = useState();
   const [carModel, setcarModel] = useState('');
   const [manufactureYear, setmanufactureYear] = useState('');
   const [licenseNo, setlicenseNo] = useState('');
   const [trafficUnit, settrafficUnit] = useState('');
-  const [hasLicense, sethasLicense] = useState('');
-  const [licenseGradeId, setlicenseGradeId] = useState({});
-  const [gradelist, setgradelist] = useState('');
+  const [hasLicense, sethasLicense] = useState(false);
+  const [licenseGradeId, setlicenseGradeId] = useState({ id: 0, name: '' });
+  const [gradelist, setgradelist] = useState([]);
   const [employeeList, setemployeeList] = useState([]);
   const [required, setRequired] = useState({ required: false });
 
@@ -49,7 +54,7 @@ function EmployeeCar(props) {
       debugger;
       const data = {
         id: id,
-        employeeId: employee,
+        employeeId: employee.id,
         carModel: carModel,
         manufactureYear: manufactureYear,
         licenseNo: licenseNo,
@@ -89,8 +94,8 @@ function EmployeeCar(props) {
   const clear = (e) => {
     setid(0);
     setlicenseNo('');
-    setlicenseGradeId({});
-    sethasLicense('');
+    setlicenseGradeId({ id: 0, name: '' });
+    sethasLicense(false);
     setcarModel('');
     setmanufactureYear('');
     settrafficUnit('');
@@ -105,6 +110,8 @@ function EmployeeCar(props) {
         locale
       ).GetLicenseGradeList();
       setgradelist(LicenseGradedata || []);
+      debugger;
+      //setEmployee(empid);
     } catch (err) {
       toast.error(err);
     }
@@ -118,7 +125,8 @@ function EmployeeCar(props) {
     async function fetchData() {
       setProgress(true);
       // You can await here
-      const dataApi = await EmployeeCarData(locale).GetList(employee);
+      debugger;
+      const dataApi = await EmployeeCarData(locale).GetList(employee.id);
 
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
@@ -140,7 +148,7 @@ function EmployeeCar(props) {
     }
     fetchData();
     // if (!data.length) { fetchData(); }
-  }, [employee]);
+  }, [employee.id]);
   return (
     <div>
       <Grid
@@ -158,20 +166,39 @@ function EmployeeCar(props) {
             <Autocomplete
               id="ddlEmp"
               options={employeeList}
-              getOptionLabel={(option) => option.name}
+              value={{ id: employee.id, name: employee.name }}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === '' || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
+                debugger;
                 if (value !== null) {
-                  setEmployee(value.id);
+                  setEmployee({
+                    id: value.id,
+                    name: value.name,
+                  });
                 } else {
-                  setEmployee(0);
+                  setEmployee({
+                    id: 0,
+                    name: '',
+                  });
                 }
               }}
+              //   getOptionLabel={(option) => option.name}
+              //   onChange={(event, value) => {
+              //     if (value !== null) {
+              //       setEmployee(value.id);
+              //     } else {
+              //       setEmployee(0);
+              //     }
+              //   }}
               renderInput={(params) => (
                 <TextField
                   variant="standard"
                   {...params}
                   name="employee"
-                  value={employee}
+                  //  value={employee.id}
                   label={intl.formatMessage(messages.chooseEmp)}
                   margin="normal"
                 />
@@ -269,21 +296,22 @@ function EmployeeCar(props) {
                   id="ddlgrade"
                   options={gradelist}
                   value={{ id: licenseGradeId.id, name: licenseGradeId.name }}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === '' || option.id === value.id
+                  }
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
                     debugger;
                     if (value !== null) {
-                      setlicenseGradeId((prevFilters) => ({
-                        ...prevFilters,
+                      setlicenseGradeId({
                         id: value.id,
                         name: value.name,
-                      }));
+                      });
                     } else {
-                      setlicenseGradeId((prevFilters) => ({
-                        ...prevFilters,
+                      setlicenseGradeId({
                         id: 0,
                         name: '',
-                      }));
+                      });
                     }
                   }}
                   renderInput={(params) => (
@@ -305,7 +333,7 @@ function EmployeeCar(props) {
                   variant="contained"
                   color="secondary"
                   type="submit"
-                  disabled={employee === 0 || processing || delprocessing}
+                  disabled={employee.id === 0 || processing || delprocessing}
                 >
                   {processing && (
                     <CircularProgress
@@ -317,7 +345,7 @@ function EmployeeCar(props) {
                 </Button>
                 <Button
                   type="button"
-                  disabled={employee === 0 || pristine || processing}
+                  disabled={employee.id === 0 || pristine || processing}
                   onClick={() => deletedata()}
                 >
                   {delprocessing && (

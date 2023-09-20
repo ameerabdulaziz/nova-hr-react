@@ -56,7 +56,7 @@ const contactData = (props) => {
   const employeeid = props;
 
   const EmployeeBankApis = {};
-  EmployeeBankApis.GetUserMenuLookup = async () => {
+  EmployeeBankApis.GetBankLookup = async () => {
     debugger;
     const data = await axiosInstance.get(
       `EmpBank/GetAllData/${lang}/${employeeid}`

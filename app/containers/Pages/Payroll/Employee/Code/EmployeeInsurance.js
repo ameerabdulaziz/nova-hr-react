@@ -11,7 +11,7 @@ import messages from '../messages';
 import { EditTable } from '../../../../Tables/demos';
 import { toast } from 'react-hot-toast';
 import EmployeeInsuranceData from '../api/EmployeeInsuranceData';
-import UserMenuData from '../../Setting/api/UserMenuData';
+import GeneralListApis from '../../api/GeneralListApis';
 import { Grid, TextField, Autocomplete } from '@mui/material';
 
 const useStyles = makeStyles()(() => ({
@@ -30,18 +30,18 @@ function EmployeeInsurance(props) {
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
 
-  const GetUserMenuLookup = useCallback(async () => {
+  const GetEmpLookup = useCallback(async () => {
     try {
       debugger;
-      const data = await UserMenuData().GetUserMenuLookup(locale);
-      setEmployeeList(data.employees || []);
+      const data = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(data || []);
     } catch (err) {
       toast.error(err);
     }
   }, []);
 
   useEffect(() => {
-    GetUserMenuLookup();
+    GetEmpLookup();
   }, []);
 
   const anchorTable = [
