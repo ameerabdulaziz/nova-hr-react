@@ -52,6 +52,7 @@ function EmployeeList() {
   const title = localStorage.getItem('MenuName');
   //const optionsOpt1 = ['Option 1', 'Option 2', 'Option 3'];
   const optionsOpt = [
+    { name: 'Personal', url: 'Personal' },
     { name: 'Qualification', url: 'EmployeeQualification' },
     { name: 'Contact Info', url: 'EmployeeContactInfo' },
     { name: 'Address', url: 'EmployeeAddress' },
@@ -213,18 +214,6 @@ function EmployeeList() {
                     },
                   }}
                 >
-                  <MenuItem>
-                    close
-                    <Link
-                      to={{
-                        pathname: '/app/Pages/Employee/Personal',
-                        state: { id: employeeid },
-                      }}
-                    >
-                      Personal
-                      <EditIcon />
-                    </Link>
-                  </MenuItem>
                   {optionsOpt.map((option) => (
                     <MenuItem
                       key={option.name}

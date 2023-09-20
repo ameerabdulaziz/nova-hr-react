@@ -41,7 +41,10 @@ function Personal(props) {
   const history = useHistory();
   // const ref = useRef(null);
   const location = useLocation();
-  const { id } = location.state ?? 0;
+
+  const { empid } =
+    location.state == null ? { id: 0, name: '' } : location.state;
+  const id = location.state == null ? 0 : empid.id;
   let dropzoneRef;
   const [progress, setProgress] = useState(false);
   const { intl, pristine } = props;
