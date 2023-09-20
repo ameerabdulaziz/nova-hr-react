@@ -12,7 +12,7 @@ import { EditTable } from '../../../../Tables/demos';
 import useStyles from '../../Style';
 import { toast } from 'react-hot-toast';
 import EmployeeCourseData from '../api/EmployeeCourseData';
-import UserMenuData from '../../Setting/api/UserMenuData';
+import GeneralListApis from '../../api/GeneralListApis';
 import { CrudTable, Notification } from 'enl-components';
 import { Grid, TextField, Autocomplete } from '@mui/material';
 
@@ -35,8 +35,9 @@ function EmployeeCourse(props) {
   const GetUserMenuLookup = useCallback(async () => {
     try {
       debugger;
-      const data = await UserMenuData().GetUserMenuLookup(locale);
-      setEmployeeList(data.employees || []);
+
+      const employeedata = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employeedata || []);
     } catch (err) {
       toast.error(err);
     }

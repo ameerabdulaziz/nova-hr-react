@@ -121,27 +121,6 @@ export default defineMessages({
     defaultMessage: 'social Status',
   },
 
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
-  },
-
   isResident: {
     id: `${scope}.personal.isResident`,
     defaultMessage: 'Is Resident',
@@ -151,6 +130,15 @@ export default defineMessages({
     defaultMessage: 'Is SpecialNeeds',
   },
 
+  upload: {
+    id: `${scope}.personal.upload`,
+    defaultMessage: 'upload',
+  },
+
+  controlParameter: {
+    id: `${scope}.personal.controlParameter`,
+    defaultMessage: 'rules Template',
+  },
   chooseEmp: {
     id: `boilerplate.containers.Payroll.chooseEmp`,
     defaultMessage: 'Select Employee',
@@ -321,57 +309,5 @@ export default defineMessages({
   incentiveFrom: {
     id: `${scope}.salary.incentiveFrom`,
     defaultMessage: 'Incentive From',
-  },
-  id: {
-    id: `${scope}.doc.id`,
-    defaultMessage: 'Id',
-  },
-  startDate: {
-    id: `${scope}.doc.startDate`,
-    defaultMessage: 'Start Date',
-  },
-  endDate: {
-    id: `${scope}.doc.endDate`,
-    defaultMessage: 'End Date',
-  },
-  followDate: {
-    id: `${scope}.doc.followDate`,
-    defaultMessage: 'Follow Date',
-  },
-  HardCopy: {
-    id: `${scope}.doc.HardCopy`,
-    defaultMessage: 'Hard Copy',
-  },
-  actions: {
-    id: `${scope}.doc.actions`,
-    defaultMessage: 'Actions',
-  },
-  EmployeeDocuments: {
-    id: `${scope}.doc.EmployeeDocuments`,
-    defaultMessage: 'Employee Documents',
-  },
-  CreateEmployeeDocument: {
-    id: `${scope}.doc.CreateEmployeeDocument`,
-    defaultMessage: 'Create Employee Document',
-  },
-  EditEmployeeDocument: {
-    id: `${scope}.doc.EditEmployeeDocument`,
-    defaultMessage: 'Edit Employee Document',
-  },
-  documentType: {
-    id: `${scope}.doc.documentType`,
-    defaultMessage: 'Document Type',
-  },
-  notes: {
-    id: `${scope}.doc.notes`,
-    defaultMessage: 'Note',
-  },
-  uploadFileErrorMes: {
-    id: `${scope}.doc.uploadFileErrorMes`,
-    defaultMessage: 'The File Is too Large',
-  },
-  FilePreview: {
-    id: `${scope}.doc.FilePreview`,
-    defaultMessage: 'File Preview',
   },
 });

@@ -27,11 +27,7 @@ import PlaceLoader from './PlaceLoader';
 import messages from './messages';
 import useStyles from './contact-jss';
 
-const optionsOpt = [
-  'Option 1',
-  'Option 2',
-  'Option 3',
-];
+const optionsOpt = ['Option 1', 'Option 2', 'Option 3'];
 
 const ITEM_HEIGHT = 48;
 
@@ -46,17 +42,22 @@ function ContactDetail(props) {
     loading,
     intl,
     remove,
-    favorite
+    favorite,
   } = props;
   const [anchorElOpt, setAnchorElOpt] = useState(null);
-  const handleClickOpt = event => setAnchorElOpt(event.currentTarget);
+  const handleClickOpt = (event) => setAnchorElOpt(event.currentTarget);
   const handleCloseOpt = () => setAnchorElOpt(null);
   const deleteContact = (item) => {
     remove(item);
     setAnchorElOpt(null);
   };
   return (
-    <main className={cx(classes.content, showMobileDetail ? classes.detailPopup : '')}>
+    <main
+      className={cx(
+        classes.content,
+        showMobileDetail ? classes.detailPopup : ''
+      )}
+    >
       <section className={classes.cover}>
         <div className={classes.opt}>
           {dataContact[itemSelected] && (
@@ -64,14 +65,16 @@ function ContactDetail(props) {
               className={classes.favorite}
               aria-label="Favorite"
               onClick={() => favorite(dataContact[itemSelected])}
-              size="large">
-              {dataContact[itemSelected].favorited ? (<Star />) : <StarBorder />}
+              size="large"
+            >
+              {dataContact[itemSelected].favorited ? <Star /> : <StarBorder />}
             </IconButton>
           )}
           <IconButton
             aria-label="Edit"
             onClick={() => edit(dataContact[itemSelected])}
-            size="large">
+            size="large"
+          >
             <Edit />
           </IconButton>
           <IconButton
@@ -80,7 +83,8 @@ function ContactDetail(props) {
             aria-haspopup="true"
             className={classes.button}
             onClick={handleClickOpt}
-            size="large">
+            size="large"
+          >
             <MoreVertIcon />
           </IconButton>
           <Menu
@@ -101,7 +105,7 @@ function ContactDetail(props) {
             <MenuItem onClick={() => deleteContact(dataContact[itemSelected])}>
               <FormattedMessage {...messages.delete} />
             </MenuItem>
-            {optionsOpt.map(option => (
+            {optionsOpt.map((option) => (
               <MenuItem key={option} onClick={handleCloseOpt}>
                 {option}
               </MenuItem>
@@ -112,52 +116,53 @@ function ContactDetail(props) {
           onClick={hideDetail}
           className={classes.navIconHide}
           aria-label="Back"
-          size="large">
+          size="large"
+        >
           <ArrowBack />
         </IconButton>
         <Hidden smDown>
-          {!loading && dataContact.length > 0
-            ? (
-              <Fragment>
-                <Avatar alt={dataContact[itemSelected].name} src={dataContact[itemSelected].avatar} className={classes.avatar} />
-                <Typography className={classes.userName} variant="h6">
-                  {dataContact[itemSelected].name}
-                  <div>
-                    <Typography variant="caption">
-                      {dataContact[itemSelected].title}
-                    </Typography>
-                  </div>
-                </Typography>
-              </Fragment>
-            )
-            : (
-              <div className={classes.placeLoaderCover}>
-                <PlaceLoader loop={1} />
-              </div>
-            )
-          }
+          {!loading && dataContact.length > 0 ? (
+            <Fragment>
+              <Avatar
+                alt={dataContact[itemSelected].name}
+                src={dataContact[itemSelected].avatar}
+                className={classes.avatar}
+              />
+              <Typography className={classes.userName} variant="h6">
+                {dataContact[itemSelected].name}
+                <div>
+                  <Typography variant="caption">
+                    {dataContact[itemSelected].title}
+                  </Typography>
+                </div>
+              </Typography>
+            </Fragment>
+          ) : (
+            <div className={classes.placeLoaderCover}>
+              <PlaceLoader loop={1} />
+            </div>
+          )}
         </Hidden>
       </section>
       <div>
         <Hidden smUp>
-          {!loading && dataContact.length > 0
-            ? (
-              <div className={classes.avatarTop}>
-                <Avatar alt={dataContact[itemSelected].name} src={dataContact[itemSelected].avatar} className={classes.avatar} />
-                <Typography variant="h5">
-                  {dataContact[itemSelected].name}
-                  <Typography>
-                    {dataContact[itemSelected].title}
-                  </Typography>
-                </Typography>
-              </div>
-            )
-            : (
-              <div className={classes.placeLoaderCover}>
-                <PlaceLoader loop={1} />
-              </div>
-            )
-          }
+          {!loading && dataContact.length > 0 ? (
+            <div className={classes.avatarTop}>
+              <Avatar
+                alt={dataContact[itemSelected].name}
+                src={dataContact[itemSelected].avatar}
+                className={classes.avatar}
+              />
+              <Typography variant="h5">
+                {dataContact[itemSelected].name}
+                <Typography>{dataContact[itemSelected].title}</Typography>
+              </Typography>
+            </div>
+          ) : (
+            <div className={classes.placeLoaderCover}>
+              <PlaceLoader loop={1} />
+            </div>
+          )}
         </Hidden>
         {dataContact.length > 0 && (
           <List className={classes.detailContact}>
@@ -167,7 +172,10 @@ function ContactDetail(props) {
                   <LocalPhone />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={dataContact[itemSelected].phone} secondary={intl.formatMessage(messages.phone)} />
+              <ListItemText
+                primary={dataContact[itemSelected].phone}
+                secondary={intl.formatMessage(messages.phone)}
+              />
             </ListItem>
             <Divider />
             <ListItem>
@@ -176,7 +184,10 @@ function ContactDetail(props) {
                   <Smartphone />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={dataContact[itemSelected].secondaryPhone} secondary={intl.formatMessage(messages.secondary_phone)} />
+              <ListItemText
+                primary={dataContact[itemSelected].secondaryPhone}
+                secondary={intl.formatMessage(messages.secondary_phone)}
+              />
             </ListItem>
             <Divider />
             <ListItem>
@@ -185,7 +196,10 @@ function ContactDetail(props) {
                   <Email />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={dataContact[itemSelected].personalEmail} secondary={intl.formatMessage(messages.personal_email)} />
+              <ListItemText
+                primary={dataContact[itemSelected].personalEmail}
+                secondary={intl.formatMessage(messages.personal_email)}
+              />
             </ListItem>
             <Divider />
             <ListItem>
@@ -194,7 +208,10 @@ function ContactDetail(props) {
                   <Work />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={dataContact[itemSelected].companyEmail} secondary={intl.formatMessage(messages.company_email)} />
+              <ListItemText
+                primary={dataContact[itemSelected].companyEmail}
+                secondary={intl.formatMessage(messages.company_email)}
+              />
             </ListItem>
             <Divider />
             <ListItem>
@@ -203,7 +220,10 @@ function ContactDetail(props) {
                   <LocationOn />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={dataContact[itemSelected].address} secondary={intl.formatMessage(messages.address)} />
+              <ListItemText
+                primary={dataContact[itemSelected].address}
+                secondary={intl.formatMessage(messages.address)}
+              />
             </ListItem>
             <Divider />
             <ListItem>
@@ -212,7 +232,10 @@ function ContactDetail(props) {
                   <Language />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={dataContact[itemSelected].website} secondary={intl.formatMessage(messages.website)} />
+              <ListItemText
+                primary={dataContact[itemSelected].website}
+                secondary={intl.formatMessage(messages.website)}
+              />
             </ListItem>
           </List>
         )}
@@ -234,7 +257,7 @@ ContactDetail.propTypes = {
 };
 
 ContactDetail.defaultProps = {
-  loading: false
+  loading: false,
 };
 
 export default injectIntl(ContactDetail);

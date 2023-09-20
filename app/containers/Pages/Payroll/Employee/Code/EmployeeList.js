@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from 'tss-react/mui';
 import LinearProgress from '@mui/material/LinearProgress';
-
+import { useHistory, Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import ActionDelete from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -17,6 +17,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import messages from '../messages';
 import { FormattedMessage } from 'react-intl';
 import style from '../../../../../styles/Styles.scss';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 const useStyles = makeStyles()((theme) => ({
   table: {
     '& > div': {
@@ -38,11 +41,29 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 function EmployeeList() {
+  const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const [changedata, setchangedata] = useState(1);
-
+  const [anchorElOpt, setAnchorElOpt] = useState(null);
+  const handleClickOpt = (event) => setAnchorElOpt(event.currentTarget);
+  const handleCloseOpt = () => setAnchorElOpt(null);
+  const [employeeid, setemployeeid] = useState({});
   const title = localStorage.getItem('MenuName');
+  //const optionsOpt1 = ['Option 1', 'Option 2', 'Option 3'];
+  const optionsOpt = [
+    { name: 'Personal', url: 'Personal' },
+    { name: 'Qualification', url: 'EmployeeQualification' },
+    { name: 'Contact Info', url: 'EmployeeContactInfo' },
+    { name: 'Address', url: 'EmployeeAddress' },
+    { name: 'Car', url: 'EmployeeCar' },
+    { name: 'Course', url: 'EmployeeCourse' },
+    { name: 'Contract', url: 'EmployeeContract' },
+    { name: 'Experince', url: 'EmployeeExperince' },
+    { name: 'Insurance', url: 'EmployeeInsurance' },
+    { name: 'Bank', url: 'EmployeeBank' },
+    { name: 'Salary', url: 'EmployeeSalary' },
+  ];
   useEffect(() => {
     async function fetchData() {
       const dataApi = await ApiData(locale).GetList();
@@ -68,7 +89,7 @@ function EmployeeList() {
       },
     },
     {
-      name: 'arName',
+      name: 'enName',
       label: <FormattedMessage {...messages['employeename']} />,
       options: {
         filter: true,
@@ -142,7 +163,14 @@ function EmployeeList() {
                 aria-label="Edit"
                 size="large"
               >
-                <EditIcon />
+                <Link
+                  to={{
+                    pathname: '/app/Pages/Employee/Personal',
+                    state: { id: tableMeta.rowData[0] },
+                  }}
+                >
+                  <EditIcon />
+                </Link>
               </IconButton>
 
               <IconButton
@@ -150,10 +178,57 @@ function EmployeeList() {
                 aria-label="Delete"
                 size="large"
                 onClick={() => {
+                  debugger;
                   console.log(`rowsDeleted2222 = ${tableMeta.rowData[0]}`);
                 }}
               >
                 <DeleteIcon />
+              </IconButton>
+
+              <IconButton
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                //onClick={handleClick}
+                //   onClick={handleClickOpt}
+                onClick={(e) => {
+                  debugger;
+                  setemployeeid({
+                    id: tableMeta.rowData[0],
+                    name: tableMeta.rowData[2],
+                  });
+                  setAnchorElOpt(e.currentTarget);
+                }}
+                size="large"
+              >
+                <MoreVertIcon />
+                <Menu
+                  id="long-menu"
+                  anchorEl={anchorElOpt}
+                  open={Boolean(anchorElOpt)}
+                  onClose={handleCloseOpt}
+                  PaperProps={{
+                    style: {
+                      // maxHeight: 48 * 4.5,
+                      width: 200,
+                    },
+                  }}
+                >
+                  {optionsOpt.map((option) => (
+                    <MenuItem
+                      key={option.name}
+                      onClick={() => {
+                        debugger;
+                        history.push(`/app/Pages/Employee/${option.url}`, {
+                          empid: employeeid,
+                        });
+                        setAnchorElOpt(null);
+                      }}
+                    >
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </Menu>
               </IconButton>
             </div>
           );
@@ -177,7 +252,7 @@ function EmployeeList() {
         <Button
           variant="contained"
           onClick={() => {
-            history.push(`/app/Pages/MainData/CreateJob`);
+            history.push(`/app/Pages/Employee/Personal`);
           }}
           color="secondary"
           className={classes.button}

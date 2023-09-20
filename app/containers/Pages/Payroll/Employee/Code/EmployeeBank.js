@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
 import dummy from 'enl-api/dummy/dummyContents';
 import { Notification } from 'enl-components';
-import ContactDetail from '../component/ContactDetail';
+import EmpBankDetail from '../component/EmpBankDetail';
 import Fab from '@mui/material/Fab';
 import Add from '@mui/icons-material/Add';
 import PropTypes from 'prop-types';
@@ -15,71 +15,42 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
-import useStyles from '../component/contact-jss';
+import useStyles from '../component/EmpBank-jss';
 import { TextField, Autocomplete } from '@mui/material';
 
-import UserMenuData from '../../Setting/api/UserMenuData';
 import {
-  fetchAction,
-  showDetailAction,
-  hideDetailAction,
   submitAction,
   editAction,
-  addAction,
-  closeAction,
   removeAction,
   addToFavoriteAction,
-  searchAction,
   closeNotifAction,
 } from '../../../../../../app/containers/SampleApps/Contact/reducers/contactActions';
-//import data from '../api/EmployeeBankData';
 import data from '../api/contactData';
-
+import GeneralListApis from '../../api/GeneralListApis';
 function Contact() {
-  // Redux State
   const avatarInit = null; //useSelector((state) => state.contact.avatarInit);
-  //const dataContact = useSelector((state) => state.contact.contactList);
   const [dataContact, setdata] = useState([]);
   const [itemSelected, setitemSelected] = useState(-1);
   const [loading, setloading] = useState(false);
-  // const itemSelected = 0; //useSelector((state) => state.contact.selectedIndex);
   const keyword = ''; //useSelector((state) => state.contact.keywordValue);
-  //const open = useSelector((state) => state.contact.openFrm);
   const clippedRight = 'clippedRight';
-
+  const locale = useSelector((state) => state.language.locale);
   const [showMobileDetail, setshowMobileDetail] = useState(false);
-  //   const showMobileDetail = useSelector(
-  //     (state) => state.contact.showMobileDetail
-  //   );
   const messageNotif = useSelector((state) => state.contact.notifMsg);
   const [employee, setEmployee] = useState(0);
   const [employeeList, setEmployeeList] = useState([]);
   const [BankList, setBankList] = useState([]);
-  //bnknoha
-  // Dispatcher
-  //   const fetchData = useDispatch();
-  //   const submit = useDispatch();
-  //   const showDetail = useDispatch();
-  //   const hideDetail = useDispatch();
-  //   const edit = useDispatch();
-  //   const add = useDispatch();
-  //   const close = useDispatch();
-  //   const remove = useDispatch();
-  //   const favorite = useDispatch();
-  //   const search = useDispatch();
-  //   const closeNotif = useDispatch();
+
   useEffect(() => {
     async function fetchEmployee() {
       debugger;
+      const empdata = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(empdata || []);
 
-      const empdata = await UserMenuData().GetUserMenuLookup('en');
-      setEmployeeList(empdata.employees || []);
-
-      const bnkdata = await data(employee).GetUserMenuLookup('en');
+      const bnkdata = await data(employee).GetBankLookup(locale);
       setBankList(bnkdata || []);
 
-      if (empdata.employees && empdata.employees.length > 0)
-        setEmployee(empdata.employees[0].id);
+      if (empdata && empdata.length > 0) setEmployee(empdata[0].id);
     }
     fetchEmployee();
   }, []);
@@ -91,9 +62,6 @@ function Contact() {
       const dataApi = await data(employee).GetList();
       setdata(dataApi);
       setitemSelected(-1);
-      //setloading(true);
-      //fetchAction(dataApi);
-      // fetchData(fetchAction(dataApi));
     }
 
     fetchData1();
@@ -134,7 +102,7 @@ function Contact() {
         ? URL.createObjectURL(avatar)
         : avatar;
     const avatarPreview = avatar !== null ? avatarBase64 : dummy.user.avatar;
-    submit(submitAction(item, avatarPreview));
+    //submit(submitAction(item, avatarPreview));
   };
 
   const title = brand.name + ' - Banks';
@@ -216,10 +184,9 @@ function Contact() {
           </Fab>
         </Tooltip>
 
-        <ContactDetail
+        <EmpBankDetail
           loading={loading}
           showMobileDetail={showMobileDetail}
-          //hideDetail={() => hideDetail(hideDetailAction)}
           bnkList={BankList}
           dataContact={dataContact}
           itemSelected={itemSelected}
