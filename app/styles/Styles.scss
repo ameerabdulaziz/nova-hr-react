@@ -11,7 +11,16 @@
     padding-bottom: 5px !important;
 }
 
-
+.AutocompleteMulFieldStyAR
+{
+        div
+        {
+            div
+            {
+                margin: 0;
+            }
+        }
+}
 
 
 
@@ -458,6 +467,17 @@
 
 
 // reaponsive style
+
+@media only screen and (max-width: 899px) 
+{
+    .actionsSty
+    {
+        button
+        {
+            margin-top: 0 !important;
+        }
+    }
+}
 
 @media only screen and (max-width: 480px) 
 {

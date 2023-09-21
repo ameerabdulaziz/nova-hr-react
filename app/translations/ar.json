@@ -1253,6 +1253,27 @@
   "boilerplate.containers.Payroll.vac.code.OpenBalance": " الرصيد الإفتتاحى",
   "boilerplate.containers.Payroll.vac.code.Balance": "الرصيد الحالى",
   "boilerplate.containers.Payroll.vac.code.PostedBalance": "رصيد مرحل",
-  "boilerplate.containers.Payroll.vac.code.UpdateCurrentBalance": "تحديث الرصيد الحالى"
+  "boilerplate.containers.Payroll.vac.code.UpdateCurrentBalance": "تحديث الرصيد الحالى",
+
+  "boilerplate.containers.Payroll.vac.code.EmpVacBalRepMoney_ErrorBalanceMsg": "خطأ...الرصيد المراد استبداله أكبر من الرصيد الحالي",
+  "boilerplate.containers.Payroll.vac.code.EmpVacBalRepMoney_ErrorOpenMonthMsg": "الشهر مقفل",
+  "boilerplate.containers.Payroll.vac.code.VacMonthOpenClose_ErrorYearAlreadyOpen": "هذه السنة سبق افتتاحها من قبل",
+  "boilerplate.containers.Payroll.vac.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "السنة السابق لهذه السنة لم يتم اقفالها...لا يمكن اتمام العملية",
+  "boilerplate.containers.Payroll.vac.code.TrxSerial": "المسلسل",
+  "boilerplate.containers.Payroll.vac.code.EmployeeName": "اسم الموظف",
+  "boilerplate.containers.Payroll.vac.code.Template": "القالب",
+  "boilerplate.containers.Payroll.vac.code.Element": "العنصر",
+  "boilerplate.containers.Payroll.vac.code.year": "السنة",
+  "boilerplate.containers.Payroll.vac.code.Month": "الشهر",
+  "boilerplate.containers.Payroll.vac.code.BalanceToReplace": "الرصيد المستبدل",
+  "boilerplate.containers.Payroll.vac.code.ReplaceAnnualLeaveBalance": "استبدال رصيد الاجازات السنوية بنقدية",
+  "boilerplate.containers.Payroll.vac.code.EditReplaceAnnualLeaveBalance": "تعديل استبدال رصيد الاجازات السنوية بنقدية",
+  "boilerplate.containers.Payroll.vac.code.CreateReplaceAnnualLeaveBalance": "اضافة استبدال رصيد الاجازات السنوية بنقدية",
+  "boilerplate.containers.Payroll.vac.code.Job": "الوظيفة",
+  "boilerplate.containers.Payroll.vac.code.Department": "الادارة",
+  "boilerplate.containers.Payroll.vac.code.hiringDate": "تاريخ التعيين",
+  "boilerplate.containers.Payroll.vac.code.CurrentBalance": "الرصيد الحالى",
+  "boilerplate.containers.Payroll.vac.code.caluValue": "حساب قيمة الاستبدال",
+  "boilerplate.containers.Payroll.vac.code.Value": "القيمة"
   
 }

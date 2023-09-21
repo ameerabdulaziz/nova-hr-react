@@ -166,7 +166,10 @@ import {
   OfficialVacations,
   EditOfficialVacation,
   GovernmentSickLeaveSetting,
-  LeaveOpenBalance
+  LeaveOpenBalance,
+  CreateReplaceAnnualLeaveBalance,
+  EditReplaceAnnualLeaveBalance,
+  ReplaceAnnualLeaveBalance
 } from '../pageListAsync';
 
 
@@ -805,6 +808,21 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/LeaveOpenBalance"
           component={LeaveOpenBalance}
+        />
+
+        <Route
+          path="/app/Pages/vac/CreateReplaceAnnualLeaveBalance"
+          component={CreateReplaceAnnualLeaveBalance}
+        />
+
+        <Route
+          path="/app/Pages/vac/EditReplaceAnnualLeaveBalance"
+          component={EditReplaceAnnualLeaveBalance}
+        />
+
+        <Route
+          path="/app/Pages/vac/ReplaceAnnualLeaveBalance"
+          component={ReplaceAnnualLeaveBalance}
         />
         
         

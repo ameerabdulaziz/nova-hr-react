@@ -216,4 +216,85 @@ export default defineMessages({
         id: `${scope}.code.UpdateCurrentBalance`,
         defaultMessage: 'Update current balance',
       },
+      // ReplaceAnnualLeaveBalance
+      EmpVacBalRepMoney_ErrorBalanceMsg: {
+        id: `${scope}.code.EmpVacBalRepMoney_ErrorBalanceMsg`,
+        defaultMessage: 'Error.. Replaced Balance is greater than current balance',
+      },
+      EmpVacBalRepMoney_ErrorOpenMonthMsg: {
+        id: `${scope}.code.EmpVacBalRepMoney_ErrorOpenMonthMsg`,
+        defaultMessage: 'This month is closed',
+      },
+      VacMonthOpenClose_ErrorYearAlreadyOpen: {
+        id: `${scope}.code.VacMonthOpenClose_ErrorYearAlreadyOpen`,
+        defaultMessage: 'Year Already Opened',
+      },
+      VacMonthOpenClose_ErrorPreviousyearnotclosed: {
+        id: `${scope}.code.VacMonthOpenClose_ErrorPreviousyearnotclosed`,
+        defaultMessage: 'Previous year was not closed ...cannot open new year',
+      },
+      TrxSerial: {
+        id: `${scope}.code.TrxSerial`,
+        defaultMessage: 'Trx serial',
+      },
+      EmployeeName: {
+        id: `${scope}.code.EmployeeName`,
+        defaultMessage: 'Employee name',
+      },
+      Template: {
+        id: `${scope}.code.Template`,
+        defaultMessage: 'Template',
+      },
+      Element: {
+        id: `${scope}.code.Element`,
+        defaultMessage: 'Element',
+      },
+      year: {
+        id: `${scope}.code.year`,
+        defaultMessage: 'Year',
+      },
+      Month: {
+        id: `${scope}.code.Month`,
+        defaultMessage: 'Month',
+      },
+      BalanceToReplace: {
+        id: `${scope}.code.BalanceToReplace`,
+        defaultMessage: 'Balance To Replace',
+      },
+      ReplaceAnnualLeaveBalance: {
+        id: `${scope}.code.ReplaceAnnualLeaveBalance`,
+        defaultMessage: 'Replace Annual Leave Balance',
+      },
+      EditReplaceAnnualLeaveBalance: {
+        id: `${scope}.code.EditReplaceAnnualLeaveBalance`,
+        defaultMessage: 'Edit Replace Annual Leave Balance',
+      },
+      CreateReplaceAnnualLeaveBalance: {
+        id: `${scope}.code.CreateReplaceAnnualLeaveBalance`,
+        defaultMessage: 'Create Replace Annual Leave Balance',
+      },
+      Job: {
+        id: `${scope}.code.Job`,
+        defaultMessage: 'Job',
+      },
+      Department: {
+        id: `${scope}.code.Department`,
+        defaultMessage: 'Department',
+      },
+      hiringDate: {
+        id: `${scope}.code.hiringDate`,
+        defaultMessage: 'hiringDate',
+      },
+      CurrentBalance: {
+        id: `${scope}.code.CurrentBalance`,
+        defaultMessage: 'Current balance',
+      },
+      caluValue: {
+        id: `${scope}.code.caluValue`,
+        defaultMessage: 'Calu Value',
+      },
+      Value: {
+        id: `${scope}.code.Value`,
+        defaultMessage: 'Value',
+      },
 });

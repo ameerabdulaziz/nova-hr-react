@@ -1,0 +1,30 @@
+
+
+.calcBtnSty
+{
+    text-align: center;
+}
+
+.containerSty
+{
+    margin-top: 0px;
+}
+
+.btnStAr
+{
+    margin-top: 16px !important;
+    margin-bottom: 8px !important;
+}
+
+
+
+
+@media only screen and (max-width: 480px) 
+{
+    .calcBtnSty
+    {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+    }
+}
