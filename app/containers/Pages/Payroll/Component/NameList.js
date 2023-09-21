@@ -15,7 +15,6 @@ function NameList(props) {
   
   const handleClose = (data) => {   
 
-    debugger;
      data.map((row) =>{
       if(dataList.filter((x) => x.id==row.id).length == 0)
       {
@@ -26,7 +25,7 @@ function NameList(props) {
   }
   
   const handleClickOpen = () => {
-    debugger;
+    
       setOpenPopup(true);
   }
 

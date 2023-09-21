@@ -867,7 +867,7 @@
   "boilerplate.containers.Payroll.price": "Price",   
   "boilerplate.containers.Payroll.count": "Count", 
   "boilerplate.containers.Payroll.isStop": "Is Stop",   
-  "boilerplate.containers.Payroll.chooseJob": "Choose Job",  
+  "boilerplate.containers.Payroll.chooseJob": "Select Job",  
   "boilerplate.containers.Payroll.total": "Total",  
   "boilerplate.containers.Payroll.employeeName": "Employee Name",  
   "boilerplate.containers.Payroll.job": "Job",

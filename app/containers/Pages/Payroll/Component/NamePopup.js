@@ -41,7 +41,7 @@ const handleEnableOne = (event, row) => {
         })
       );
 };
-const GetEmployeeList = useCallback(async () => {
+const GetList = useCallback(async () => {
     try {
       
       var data=[];
@@ -67,7 +67,7 @@ const GetEmployeeList = useCallback(async () => {
   useEffect(() => {
     debugger;
     if(open)
-      GetEmployeeList();
+      GetList();
   }, [open]);
 
   return (

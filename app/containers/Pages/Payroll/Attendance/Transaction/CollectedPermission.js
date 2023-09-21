@@ -530,7 +530,7 @@ async function getData() {
                                     <NameList
                                         dataList={dataList}            
                                         setdataList={setdataList}
-                                        key={"Employee"}
+                                        Key={"Employee"}
                                     />
                                 </CardContent>
                             </Card>
