@@ -21,16 +21,16 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 function EmployeeCar(props) {
+  const { intl, pristine } = props;
   const history = useHistory();
   const location = useLocation();
   const { empid } = location.state ?? { id: 0, name: '' };
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
   debugger;
-  const { intl, pristine } = props;
   const [processing, setprocessing] = useState(false);
   const [delprocessing, setdelprocessing] = useState(false);
   const [progress, setProgress] = useState(false);
   const title = localStorage.getItem('MenuName');
-  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
   const [id, setid] = useState();
   const [carModel, setcarModel] = useState('');
   const [manufactureYear, setmanufactureYear] = useState('');

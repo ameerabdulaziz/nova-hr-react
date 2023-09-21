@@ -18,7 +18,8 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import EmployeeContractData from '../api/EmployeeContractData';
 import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
-
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -28,10 +29,12 @@ function EmployeeContract(props) {
   const { intl, pristine } = props;
   const [processing, setprocessing] = useState(false);
   const [delprocessing, setdelprocessing] = useState(false);
-
+  const history = useHistory();
+  const location = useLocation();
+  const { empid } = location.state ?? { id: 0, name: '' };
   const { classes } = useStyles();
   const title = localStorage.getItem('MenuName');
-  const [employee, setEmployee] = useState(0);
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
   const [id, setid] = useState(0);
   const [hiringDate, sethiringDate] = useState('');
   const [isKinship, setisKinship] = useState(false);
@@ -76,7 +79,7 @@ function EmployeeContract(props) {
       debugger;
       const data = {
         id: id,
-        employeeId: employee,
+        employeeId: employee.id,
 
         hiringSourceId: hiringSourceId.id ?? '',
         isKinship: isKinship,
@@ -164,7 +167,7 @@ function EmployeeContract(props) {
   useEffect(() => {
     async function fetchData() {
       setProgress(true);
-      const dataApi = await EmployeeContractData(locale).GetList(employee);
+      const dataApi = await EmployeeContractData(locale).GetList(employee.id);
       debugger;
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
@@ -213,14 +216,24 @@ function EmployeeContract(props) {
 
             <Autocomplete
               id="ddlEmp"
-              required
               options={employeeList}
-              getOptionLabel={(option) => option.name}
+              value={{ id: employee.id, name: employee.name }}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === '' || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
+                debugger;
                 if (value !== null) {
-                  setEmployee(value.id);
+                  setEmployee({
+                    id: value.id,
+                    name: value.name,
+                  });
                 } else {
-                  setEmployee(0);
+                  setEmployee({
+                    id: 0,
+                    name: '',
+                  });
                 }
               }}
               renderInput={(params) => (
@@ -228,7 +241,7 @@ function EmployeeContract(props) {
                   variant="standard"
                   {...params}
                   name="employee"
-                  value={employee}
+                  //  value={employee.id}
                   label={intl.formatMessage(messages.chooseEmp)}
                   margin="normal"
                 />
@@ -483,7 +496,7 @@ function EmployeeContract(props) {
                   variant="contained"
                   color="secondary"
                   type="submit"
-                  disabled={employee === 0 || processing || delprocessing}
+                  disabled={employee.id === 0 || processing || delprocessing}
                 >
                   {processing && (
                     <CircularProgress
@@ -495,7 +508,7 @@ function EmployeeContract(props) {
                 </Button>
                 <Button
                   type="button"
-                  disabled={employee === 0 || pristine || processing}
+                  disabled={employee.id === 0 || pristine || processing}
                   onClick={() => deletedata()}
                 >
                   {delprocessing && (

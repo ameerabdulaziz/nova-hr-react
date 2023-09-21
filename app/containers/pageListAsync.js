@@ -1247,4 +1247,25 @@ export const LeaveOpenBalance = loadable(
 );
 
 
+export const CreateReplaceAnnualLeaveBalance = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditReplaceAnnualLeaveBalance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditReplaceAnnualLeaveBalance = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditReplaceAnnualLeaveBalance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ReplaceAnnualLeaveBalance = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/ReplaceAnnualLeaveBalance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 

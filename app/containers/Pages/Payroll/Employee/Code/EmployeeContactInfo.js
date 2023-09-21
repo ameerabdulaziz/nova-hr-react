@@ -17,15 +17,20 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Payrollmessages from '../../messages';
 import useStyles from '../../Style';
 import notif from 'enl-api/ui/notifMessage';
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 const email = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email'
     : undefined;
 
 function EmployeeContactInfo(props) {
+  const history = useHistory();
+  const location = useLocation();
+  const { empid } = location.state ?? { id: 0, name: '' };
   const { intl, pristine } = props;
   const title = localStorage.getItem('MenuName');
-  const [employee, setEmployee] = useState(0);
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
   const [employeeList, setEmployeeList] = useState([]);
   const [id, setid] = useState(0);
   const [telPhone, settelPhone] = useState('');
@@ -49,7 +54,7 @@ function EmployeeContactInfo(props) {
       setprocessing(true);
       const data = {
         id: id,
-        employeeId: employee,
+        employeeId: employee.id,
         telPhone: telPhone,
         mobile: mobile,
         workMobile: workMobile,
@@ -95,7 +100,7 @@ function EmployeeContactInfo(props) {
   useEffect(() => {
     async function fetchData() {
       setProgress(true);
-      const dataApi = await EmployeeContactInfoData().GetList(employee);
+      const dataApi = await EmployeeContactInfoData().GetList(employee.id);
 
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
@@ -147,12 +152,23 @@ function EmployeeContactInfo(props) {
             <Autocomplete
               id="ddlEmp"
               options={employeeList}
-              getOptionLabel={(option) => option.name}
+              value={{ id: employee.id, name: employee.name }}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === '' || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
+                debugger;
                 if (value !== null) {
-                  setEmployee(value.id);
+                  setEmployee({
+                    id: value.id,
+                    name: value.name,
+                  });
                 } else {
-                  setEmployee(0);
+                  setEmployee({
+                    id: 0,
+                    name: '',
+                  });
                 }
               }}
               renderInput={(params) => (
@@ -160,7 +176,7 @@ function EmployeeContactInfo(props) {
                   variant="standard"
                   {...params}
                   name="employee"
-                  value={employee}
+                  //  value={employee.id}
                   label={intl.formatMessage(messages.chooseEmp)}
                   margin="normal"
                 />
@@ -278,7 +294,7 @@ function EmployeeContactInfo(props) {
                     variant="contained"
                     color="secondary"
                     type="submit"
-                    disabled={employee === 0 || processing || delprocessing}
+                    disabled={employee.id === 0 || processing || delprocessing}
                   >
                     {processing && (
                       <CircularProgress
@@ -290,7 +306,7 @@ function EmployeeContactInfo(props) {
                   </Button>
                   <Button
                     type="button"
-                    disabled={employee === 0 || pristine || processing}
+                    disabled={employee.id === 0 || pristine || processing}
                     onClick={() => deletedata()}
                   >
                     {delprocessing && (

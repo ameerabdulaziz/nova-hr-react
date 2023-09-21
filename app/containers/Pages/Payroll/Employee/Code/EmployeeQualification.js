@@ -9,7 +9,8 @@ import { injectIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import messages from '../messages';
 import { EditTable } from '../../../../Tables/demos';
-
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import EmployeeQualificationData from '../api/EmployeeQualificationData';
 import UserMenuData from '../../Setting/api/UserMenuData';
@@ -38,8 +39,12 @@ const useStyles = makeStyles()(() => ({
 }));
 
 function EmployeeQualification(props) {
+  const history = useHistory();
+  const location = useLocation();
+  const { empid } =
+    location.state == null ? { id: 0, name: '' } : location.state;
   const { intl } = props;
-  const [employee, setEmployee] = useState(0);
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
   const [employeeList, setEmployeeList] = useState([]);
   const title = localStorage.getItem('MenuName');
   const description = brand.desc;
@@ -178,12 +183,23 @@ function EmployeeQualification(props) {
               <Autocomplete
                 id="ddlEmp"
                 options={employeeList}
-                getOptionLabel={(option) => option.name}
+                value={{ id: employee.id, name: employee.name }}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === '' || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
+                  debugger;
                   if (value !== null) {
-                    setEmployee(value.id);
+                    setEmployee({
+                      id: value.id,
+                      name: value.name,
+                    });
                   } else {
-                    setEmployee(0);
+                    setEmployee({
+                      id: 0,
+                      name: '',
+                    });
                   }
                 }}
                 renderInput={(params) => (
@@ -191,7 +207,7 @@ function EmployeeQualification(props) {
                     variant="standard"
                     {...params}
                     name="employee"
-                    value={employee}
+                    //  value={employee.id}
                     label={intl.formatMessage(messages.chooseEmp)}
                     margin="normal"
                   />
@@ -202,7 +218,7 @@ function EmployeeQualification(props) {
           <EditTable
             anchorTable={anchorTable}
             title={employee}
-            API={EmployeeQualificationData(employee)}
+            API={EmployeeQualificationData(employee.id)}
           />
         </div>
       </PapperBlock>

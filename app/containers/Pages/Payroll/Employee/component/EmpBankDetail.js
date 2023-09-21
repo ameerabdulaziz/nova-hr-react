@@ -43,10 +43,11 @@ import EmployeeBankElementData from '../api/EmployeeBankElementData';
 import { EditTable } from '../../../../Tables/demos';
 import EmployeeBankElement from '../Code/EmployeeBankElement';
 import { data } from 'autoprefixer';
+//import Apidata from '../api/EmployeeBankData';
 import Apidata from '../api/contactData';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
-
+import { useSelector } from 'react-redux';
 const ITEM_HEIGHT = 48;
 
 function EmpBankDetail(props) {
@@ -63,9 +64,11 @@ function EmpBankDetail(props) {
     remove,
     favorite,
     bnkList,
+    employeeId,
     //processing,
   } = props;
   // const ref = useRef(null);
+  const locale = useSelector((state) => state.language.locale);
   debugger;
   const { classes, cx } = useStyles();
   //const [bnkList, setbnkList] = useState([]);
@@ -77,8 +80,8 @@ function EmpBankDetail(props) {
   );
   const [name, setname] = useState('');
   const [avtr, setavtr] = useState(avatarApi[11]);
-  const [employeeId, setemployeeId] = useState(0);
-  const [bankId, setbankId] = useState({});
+  //const [employeeId, setemployeeId] = useState();
+  const [bankId, setbankId] = useState({ id: 0, name: '' });
 
   const [bnkAcc, setbnkAcc] = useState('');
   // );
@@ -103,6 +106,7 @@ function EmpBankDetail(props) {
       ? dataContact[itemSelected].swiftCode
       : ''
   );
+  const dataTable = useSelector((state) => state.crudTableDemo.dataTable);
 
   useEffect(() => {
     setid(
@@ -183,6 +187,35 @@ function EmpBankDetail(props) {
     setavtr(avatarApi[11]);
     setname('');
   };
+  async function on_submit() {
+    try {
+      debugger;
+      if (dataTable.length == 0) {
+        toast.error('ُEnter Details data');
+        return;
+      }
+      const data = {
+        id: id,
+        employeeId: employeeId,
+        bankId: bankId.id,
+        bankBranchNo: branchNo,
+        iban: iban,
+        bnkEmpCode: bnkEmpCode,
+        bankName: bankId.name,
+        swiftCode: swiftCode,
+      };
+
+      let response = await Apidata(locale).SaveData(data, dataTable);
+
+      if (response.status == 200) {
+        toast.success(notif.saved);
+      } else {
+        toast.error(response.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+  }
   return (
     <main
       className={cx(
@@ -355,7 +388,8 @@ function EmpBankDetail(props) {
                   <Button
                     variant="contained"
                     color="secondary"
-                    type="submit"
+                    onClick={on_submit}
+
                     // disabled={submitting || processing}
                   >
                     SUBMITT
