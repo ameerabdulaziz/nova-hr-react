@@ -10,11 +10,14 @@ import messages from './messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
 import Payrollmessages from '../messages';
+import SaveButton from '../Component/SaveButton';
 
 function SMSSetting(props) {
 const { classes } = useStyles();
 const {intl} = props;
 const Title = localStorage.getItem("MenuName");
+const [processing, setprocessing] = useState(false);
+
 const email = (value) =>
 value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email'
@@ -61,7 +64,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
   const handleSubmit = async (e) => {
     e.preventDefault();    
     try{
-      debugger;
+    setprocessing(true); 
     const response = await MailSMSSettingData().SaveSetting(data);
  
     if (response.status==200) {
@@ -74,10 +77,12 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
       } else {
           toast.error(response.statusText);
       }
+    
     }
     catch(e){
     toast.error(notif.error);
   }
+  setprocessing(false); 
   };
   const clear = (e) => {
     setdata({
@@ -180,14 +185,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
               <div style={{paddingTop:"20px"}} >
                 <Grid container spacing={3}>            
                     <Grid item xs={6} sm={3} >
-                      <Button
-                        variant="contained"
-                        color="primary" 
-                        type="submit"
-                        size="medium"
-                      >
-                        <FormattedMessage {...Payrollmessages.save} />
-                      </Button>
+                      <SaveButton Id={data.id} processing={processing} />
                     </Grid>
                     <Grid item xs={6} sm={3} >
                       <Button variant="contained"  size="medium" color="primary"  onClick={clear}>

@@ -8,7 +8,7 @@ import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
 import { useHistory } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import {Button ,Grid,TextField, Autocomplete ,Card ,CardContent} from "@mui/material";
+import {Button ,Grid,TextField, Autocomplete} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -17,19 +17,14 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import CircularProgress from '@mui/material/CircularProgress';
-
-
-
-
+import SaveButton from '../../Component/SaveButton';
 
 function EmpCourseCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation()
   const { id } = location.state??0;
-  const { classes } = useStyles();
-  
+  const { classes } = useStyles();  
   const [processing, setprocessing] = useState(false);
   const [data, setdata] = useState({
     "id": 0,
@@ -79,7 +74,7 @@ function EmpCourseCreate(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/EmpCourseList`);
+        history.push(`/app/Pages/HR/EmpCourse`);
       } else {
           toast.error(response.statusText);
       }
@@ -88,7 +83,7 @@ function EmpCourseCreate(props) {
     }
   }
   async function oncancel(){
-    history.push(`/app/Pages/HR/EmpCourseList`);
+    history.push(`/app/Pages/HR/EmpCourse`);
   }
   async function fetchData() {
     debugger ;
@@ -322,15 +317,7 @@ function EmpCourseCreate(props) {
                 <Grid item xs={12} md={4}></Grid>
                 
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
-                        {processing && (
-                        <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                        />
-                        )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={12} md={1}>
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >

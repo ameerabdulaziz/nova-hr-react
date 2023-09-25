@@ -3,29 +3,61 @@ import MUIDataTable from 'mui-datatables';
 import ApiData from '../api/CustodyTrxData';
 import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip';
-import EditIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
-import { FormattedMessage } from 'react-intl';
-import { useHistory,Link} from "react-router-dom";
+import { injectIntl,FormattedMessage } from 'react-intl';
 import style from '../../../../../../app/styles/styles.scss';
-import IconButton from '@mui/material/IconButton';
 import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
 import useStyles from '../../Style';
 import { PapperBlock } from 'enl-components';
+import EditButton from '../../Component/EditButton';
+import DeleteButton from '../../Component/DeleteButton';
+import AddButton   from '../../Component/AddButton';
+
 
 function CustodyDeliveryList(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const Title = localStorage.getItem("MenuName");  
-  const history=useHistory();  
+  const Title = localStorage.getItem("MenuName"); 
   
+  async function deleteList(selectedRows){
+      const list=[];
+      for(let i=0; i<selectedRows.data.length; i++) {
+      list.push(data[selectedRows.data[i].dataIndex].id);
+      }
+      try {
+        debugger;
+          let response = await  ApiData(locale).DeleteList(list);
+    
+          if (response.status==200) {
+            toast.success(notif.saved);
+            fetchData();
+          } else {
+              toast.error(response.statusText);
+          }
+        } catch (err) {
+          toast.error(notif.error);
+        }
+  }
+  async function deleterow(id) {
+  
+    try {
+      let response = await  ApiData(locale).Delete(id);
+
+      if (response.status==200) {
+        toast.success(notif.saved);
+        fetchData();
+
+      } else {
+          toast.error(response.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+  }
   async function fetchData() {
     debugger ;
     const dataApi = await ApiData(locale).GetList(1);
@@ -102,23 +134,8 @@ function CustodyDeliveryList(props) {
             console.log('tableMeta =', tableMeta);
             return (
               <div className={style.actionsSty}>
-                <IconButton
-                  aria-label="Edit"
-                  size="large"
-                >
-                <Link to={{ pathname: "/app/Pages/HR/CustodyDeliveryEdit", state: {id: tableMeta.rowData[0],},}}>
-                  <EditIcon />
-                </Link>
-                </IconButton>
-  
-                <IconButton
-                  className={classes.button}
-                  aria-label="Delete"
-                  size="large"
-                  onClick={() => deleterow(tableMeta.rowData[0])}
-                >
-                  <DeleteIcon />
-                </IconButton>
+                <EditButton Id={tableMeta.rowData[0]} url={"/app/Pages/HR/CustodyDeliveryEdit"}></EditButton>
+                <DeleteButton clickfnc={() => deleterow(tableMeta.rowData[0])}></DeleteButton>              
               </div>
             );
           },
@@ -139,50 +156,16 @@ function CustodyDeliveryList(props) {
       //some logic
     },
     customToolbar: () => (
-      <Tooltip title="Add New">
-        <Button
-          variant="contained"
-          onClick={() => {
-            debugger;
-            history.push(`/app/Pages/HR/CustodyDeliveryCreate`);
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          <AddIcon />
-            <FormattedMessage {...Payrollmessages.add} />
-        </Button>
+      <Tooltip title={intl.formatMessage(Payrollmessages.addNew)}>        
+        <AddButton url={"/app/Pages/HR/CustodyDeliveryCreate"}></AddButton>
       </Tooltip>
     ),
     customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
       
       <div>
      
-        <Tooltip title={'Delete'} cursor="pointer" className="mr-6">
-          <IconButton
-            onClick={async() => {
-              debugger;
-              const list=[];
-              for(let i=0; i<selectedRows.data.length; i++) {
-              list.push(data[selectedRows.data[i].dataIndex].id);
-              }
-              try {
-                debugger;
-                 let response = await  ApiData(locale).DeleteList(list);
-           
-                 if (response.status==200) {
-                   toast.success(notif.saved);
-                   fetchData();
-                 } else {
-                     toast.error(response.statusText);
-                 }
-               } catch (err) {
-                 toast.error(notif.error);
-               }
-            }}
-          >
-            <DeleteIcon></DeleteIcon>
-          </IconButton>
+        <Tooltip title={intl.formatMessage(Payrollmessages.delete)} cursor="pointer" className="mr-6">
+          <DeleteButton clickfnc={() => deleteList(selectedRows)}></DeleteButton>             
         </Tooltip>
        
       </div>
@@ -205,6 +188,6 @@ function CustodyDeliveryList(props) {
   
 }
 
-export default CustodyDeliveryList;
+export default injectIntl(CustodyDeliveryList);
 
 

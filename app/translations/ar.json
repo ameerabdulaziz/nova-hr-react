@@ -913,6 +913,14 @@
   "boilerplate.containers.Payroll.lastDate":"اخر مخالفه",
   "boilerplate.containers.Payroll.oldElemVal":"القيمة السابقة", 
   "boilerplate.containers.Payroll.workingYears":"سنين العمل",
+  "boilerplate.containers.Payroll.step":"المرحلة",
+  "boilerplate.containers.Payroll.status":"الحالة",
+  "boilerplate.containers.Payroll.approvedEmp":"متخذ القرار",
+  "boilerplate.containers.Payroll.edit":"تعديل",
+  "boilerplate.containers.Payroll.addNew":"اضافة",
+
+
+  
   
 
   

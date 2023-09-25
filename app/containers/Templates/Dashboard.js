@@ -33,6 +33,7 @@ function Dashboard(props) {
   const [appHeight, setAppHeight] = useState(0);
   const [openGuide, setOpenGuide] = useState(false);
   //const getAuth = useSelector(state => state.authReducer.user);
+  
   const titleException = ['/app', '/app/crm-dashboard', '/app/crypto-dashboard'];
   const parts = history.location.pathname.split('/');
   const place = parts[parts.length - 1].replace('-', ' ');
@@ -40,6 +41,7 @@ function Dashboard(props) {
   const dataMenu = useSelector(state => state.authReducer.usermenu);  
   const locale = useSelector(state => state.language.locale);
   function findNode ( array,path) {
+    
     if(array)
     {
       for (const node of array) {
@@ -52,9 +54,20 @@ function Dashboard(props) {
       }
     }
   }
-var result = findNode(dataMenu, pathname);
+
+  debugger;
+var result = findNode(dataMenu, place.endsWith("Create")?pathname.replace('Create', ''):(place.endsWith("Edit")?pathname.replace('Edit', ''):pathname));
 if(result) 
+{
   localStorage.setItem("MenuName", locale=="en"?result.name:result.arname); 
+  localStorage.setItem("Menu", JSON.stringify(result)); 
+}
+else if(pathname!="/app/pages/error"&&pathname!="/app" && dataMenu) 
+{
+  history.push(`/app/pages/error`); 
+}
+  
+
   const profile = userProfile => {
     
     if (userProfile) {

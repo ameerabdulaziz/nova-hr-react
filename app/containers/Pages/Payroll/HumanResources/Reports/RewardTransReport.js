@@ -150,7 +150,28 @@ function RewardTransReport(props) {
         options: {
             filter: true,
         },
+    },
+    {
+      name: 'step',
+      label: <FormattedMessage {...Payrollmessages['step']} />,
+      options: {
+          filter: true,
       },
+    },
+    {
+      name: 'status',
+      label: <FormattedMessage {...Payrollmessages['status']} />,
+      options: {
+          filter: true,
+      },
+    },
+    {
+      name: 'approvedEmp',
+      label: <FormattedMessage {...Payrollmessages['approvedEmp']} />,
+      options: {
+          filter: true,
+      },
+    },
     
   ];
   const options = {

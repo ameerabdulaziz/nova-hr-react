@@ -630,8 +630,8 @@ export const Penalty = loadable(
     fallback: <Loading />,
   }
 );
-export const CreatePenalty = loadable(
-  () => import('./Pages/Payroll/HumanResources/Code/CreatePenalty'),
+export const PenaltyCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Code/PenaltyCreate'),
   {
     fallback: <Loading />,
   }
@@ -644,8 +644,8 @@ export const RewardTransList = loadable(
     fallback: <Loading />,
   }
 );
-export const RewardCreate = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/RewardCreate'),
+export const RewardTransCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/RewardTransCreate'),
   {
     fallback: <Loading />,
   }
@@ -658,7 +658,7 @@ export const PenaltyTransList = loadable(
   }
 );
 export const PenaltyTransCreate = loadable(
-  () => import('./Pages/Payroll/HumanResources/Transaction/PenaltyCreate'),
+  () => import('./Pages/Payroll/HumanResources/Transaction/PenaltyTransCreate'),
   {
     fallback: <Loading />,
   }

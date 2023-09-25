@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PapperBlock } from 'enl-components';
 import ApiData from '../api/UniformTrxData';
 import messages from '../messages';
@@ -6,9 +6,9 @@ import Payrollmessages from '../../messages';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
-import { useParams ,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import {Button ,Grid,TextField, Autocomplete ,Typography,Paper,Card ,CardContent} from "@mui/material";
+import {Button ,Grid,TextField, Autocomplete} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -17,8 +17,8 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import CircularProgress from '@mui/material/CircularProgress';
 import EmployeeData from '../../Component/EmployeeData';
+import SaveButton from '../../Component/SaveButton';
 
 
 function UniformReceiveCreate(props) {
@@ -74,7 +74,7 @@ function UniformReceiveCreate(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/UniformReceiveList`);
+        history.push(`/app/Pages/HR/UniformReceive`);
       } else {
           toast.error(response.statusText);
       }
@@ -83,7 +83,7 @@ function UniformReceiveCreate(props) {
     }
   }
 async function oncancel(){
-    history.push(`/app/Pages/HR/UniformReceiveList`);
+    history.push(`/app/Pages/HR/UniformReceive`);
   }
   async function fetchData() {
     debugger ;
@@ -200,15 +200,7 @@ async function oncancel(){
                 </Grid>
                 <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing}  >
-                        {processing && (
-                        <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                        />
-                        )} 
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                  <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={12} md={1}>
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >

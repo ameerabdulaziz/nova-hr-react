@@ -139,7 +139,7 @@ import {
   EmployeeDocuments,
   CreateEmployeeDocuments,
   EditEmployeeDocuments,
-  TrainingCenter,  ResignReason,Rewards,Penalty,CreatePenalty,
+  TrainingCenter,  ResignReason,Rewards,Penalty,PenaltyCreate,
   RewardTransList,PenaltyTransList,PenaltyTransCreate,
   AttentionList,AttentionCreate,LayOffNoticeList,LayOffNoticeCreate,
   PromotionsList,PromotionsCreate,PromotionsReport,DirectManager,ExplanationList,ExplanationEdit,ExplanationReport,
@@ -150,7 +150,7 @@ import {
   CustodyDeliveryList,CustodyDeliveryReport,CustodyDeliveryCreate,
 
   Uniform,UniformReceiveList,UniformReceiveReport,UniformReceiveCreate,
-  UniformDeliveryList,UniformDeliveryReport,UniformDeliveryCreate,RewardCreate,
+  UniformDeliveryList,UniformDeliveryReport,UniformDeliveryCreate,RewardTransCreate,
   ResignTrxList,ResignTrxCreate,ResignTrxReport,ManPowerSetting,ResignTrxImport,
   EmpCourseList,EmpCourseCreate,EmpCourseReport,RewardTransReport,AttentionReport,LayOffNoticeReport,PenaltyTransReport,
   PermissionTrxList,PermissionTrxCreate,PermissionTrxReport,PermissionList,PermissionCreate,PermissionTrxImport,
@@ -529,40 +529,40 @@ function Application(props) {
           component={Penalty}
         />
         <Route
-          path="/app/Pages/HR/CreatePenalty"
-          component={CreatePenalty}
-        />
-        <Route
-          path="/app/Pages/HR/EditPenalty"
-          component={CreatePenalty}
-        />
-        <Route
-          path="/app/Pages/HR/RewardTransList"
-          component={RewardTransList}
-        />
-        <Route
-          path="/app/Pages/HR/RewardCreate"
-          component={RewardCreate}
-        />
-        <Route
-          path="/app/Pages/HR/RewardEdit"
-          component={RewardCreate}
-        />
-        <Route
-          path="/app/Pages/HR/PenaltyTransList"
-          component={PenaltyTransList}
-        />
-        <Route
           path="/app/Pages/HR/PenaltyCreate"
-          component={PenaltyTransCreate}
+          component={PenaltyCreate}
         />
         <Route
           path="/app/Pages/HR/PenaltyEdit"
+          component={PenaltyCreate}
+        />
+        <Route
+          path="/app/Pages/HR/RewardTrans"
+          component={RewardTransList}
+        />
+        <Route
+          path="/app/Pages/HR/RewardTransCreate"
+          component={RewardTransCreate}
+        />
+        <Route
+          path="/app/Pages/HR/RewardTransEdit"
+          component={RewardTransCreate}
+        />
+        <Route
+          path="/app/Pages/HR/PenaltyTrans"
+          component={PenaltyTransList}
+        />
+        <Route
+          path="/app/Pages/HR/PenaltyTransCreate"
+          component={PenaltyTransCreate}
+        />
+        <Route
+          path="/app/Pages/HR/PenaltyTransEdit"
           component={PenaltyTransCreate}
         />
 
         <Route
-          path="/app/Pages/HR/AttentionList"
+          path="/app/Pages/HR/Attention"
           component={AttentionList}
         />
         <Route
@@ -575,7 +575,7 @@ function Application(props) {
         />
 
         <Route
-          path="/app/Pages/HR/LayOffNoticeList"
+          path="/app/Pages/HR/LayOffNotice"
           component={LayOffNoticeList}
         />
         <Route
@@ -592,14 +592,14 @@ function Application(props) {
         <Route path="/app/Pages/HR/LayOffNoticeCreate" component={LayOffNoticeCreate} />
         <Route path="/app/Pages/HR/LayOffNoticeEdit" component={LayOffNoticeCreate} />
 
-        <Route path="/app/Pages/HR/PromotionsList" component={PromotionsList} />
+        <Route path="/app/Pages/HR/Promotions" component={PromotionsList} />
         <Route path="/app/Pages/HR/PromotionsCreate" component={PromotionsCreate} />
         <Route path="/app/Pages/HR/PromotionsEdit" component={PromotionsCreate} />
         <Route path="/app/Pages/HR/DirectManager" component={DirectManager} />
-        <Route path="/app/Pages/HR/ExplanationList" component={ExplanationList} />
+        <Route path="/app/Pages/HR/Explanation" component={ExplanationList} />
         <Route path="/app/Pages/HR/ExplanationEdit" component={ExplanationEdit} />
         <Route path="/app/Pages/HR/OrganizationManger" component={OrganizationManger} />
-        <Route path="/app/Pages/HR/NewsList" component={NewsList} />
+        <Route path="/app/Pages/HR/News" component={NewsList} />
         <Route path="/app/Pages/HR/NewsCreate" component={NewsCreate} />
         <Route path="/app/Pages/HR/NewsEdit" component={NewsCreate} />
         
@@ -612,31 +612,31 @@ function Application(props) {
 
         <Route path="/app/Pages/HR/CustodyCategory" component={CustodyCategory} />
         <Route path="/app/Pages/HR/Custody" component={Custody} />
-        <Route path="/app/Pages/HR/CustodyDeliveryList" component={CustodyDeliveryList} />
+        <Route path="/app/Pages/HR/CustodyDelivery" component={CustodyDeliveryList} />
         <Route path="/app/Pages/HR/CustodyDeliveryCreate" component={CustodyDeliveryCreate} />
         <Route path="/app/Pages/HR/CustodyDeliveryEdit" component={CustodyDeliveryCreate} />
-        <Route path="/app/Pages/HR/CustodyReceiveList" component={CustodyReceiveList} />
+        <Route path="/app/Pages/HR/CustodyReceive" component={CustodyReceiveList} />
         <Route path="/app/Pages/HR/CustodyReceiveCreate" component={CustodyReceiveCreate} />
         <Route path="/app/Pages/HR/CustodyReceiveEdit" component={CustodyReceiveCreate} />
         <Route path="/app/Pages/HR/CustodyDeliveryReport" component={CustodyDeliveryReport} />
         <Route path="/app/Pages/HR/CustodyReceiveReport" component={CustodyReceiveReport} />
         
         <Route path="/app/Pages/HR/Uniform" component={Uniform} />
-        <Route path="/app/Pages/HR/UniformDeliveryList" component={UniformDeliveryList} />
+        <Route path="/app/Pages/HR/UniformDelivery" component={UniformDeliveryList} />
         <Route path="/app/Pages/HR/UniformDeliveryCreate" component={UniformDeliveryCreate} />
         <Route path="/app/Pages/HR/UniformDeliveryEdit" component={UniformDeliveryCreate} />
-        <Route path="/app/Pages/HR/UniformReceiveList" component={UniformReceiveList} />
+        <Route path="/app/Pages/HR/UniformReceive" component={UniformReceiveList} />
         <Route path="/app/Pages/HR/UniformReceiveCreate" component={UniformReceiveCreate} />
         <Route path="/app/Pages/HR/UniformReceiveEdit" component={UniformDeliveryCreate} />
         <Route path="/app/Pages/HR/UniformDeliveryReport" component={UniformDeliveryReport} />
         <Route path="/app/Pages/HR/UniformReceiveReport" component={UniformReceiveReport} />
-        <Route path="/app/Pages/HR/ResignTrxList" component={ResignTrxList} />
+        <Route path="/app/Pages/HR/ResignTrx" component={ResignTrxList} />
         <Route path="/app/Pages/HR/ResignTrxCreate" component={ResignTrxCreate} />
         <Route path="/app/Pages/HR/ResignTrxEdit" component={ResignTrxCreate} />
         <Route path="/app/Pages/HR/ResignTrxReport" component={ResignTrxReport} />
         <Route path="/app/Pages/HR/ManPowerSetting" component={ManPowerSetting} />
         <Route path="/app/Pages/HR/ResignTrxImport" component={ResignTrxImport} />
-        <Route path="/app/Pages/HR/EmpCourseList" component={EmpCourseList} />
+        <Route path="/app/Pages/HR/EmpCourse" component={EmpCourseList} />
         <Route path="/app/Pages/HR/EmpCourseCreate" component={EmpCourseCreate} />
         <Route path="/app/Pages/HR/EmpCourseEdit" component={EmpCourseCreate} />
         <Route path="/app/Pages/HR/EmpCourseReport" component={EmpCourseReport} />
@@ -647,7 +647,7 @@ function Application(props) {
         
 
         {/*Attendance*/}
-        <Route path="/app/Pages/Att/PermissionTrxList" component={PermissionTrxList} />
+        <Route path="/app/Pages/Att/PermissionTrx" component={PermissionTrxList} />
         <Route path="/app/Pages/Att/PermissionTrxCreate" component={PermissionTrxCreate} />
         <Route path="/app/Pages/Att/PermissionTrxEdit" component={PermissionTrxCreate} />
         <Route path="/app/Pages/Att/PermissionTrxReport" component={PermissionTrxReport} />
@@ -659,7 +659,7 @@ function Application(props) {
         <Route path="/app/Pages/Att/CollectedPermission" component={CollectedPermission} />
         <Route path="/app/Pages/Att/MissionType" component={MissionType} />
 
-        <Route path="/app/Pages/Att/MissionTrxList" component={MissionTrxList} />
+        <Route path="/app/Pages/Att/MissionTrx" component={MissionTrxList} />
         <Route path="/app/Pages/Att/MissionTrxCreate" component={MissionTrxCreate} />
         <Route path="/app/Pages/Att/MissionTrxEdit" component={MissionTrxCreate} />
         <Route path="/app/Pages/Att/MissionTrxReport" component={MissionTrxReport} />

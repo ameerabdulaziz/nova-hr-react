@@ -17,10 +17,11 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import CircularProgress from '@mui/material/CircularProgress';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import EmployeeData from '../../Component/EmployeeData';
+import SaveButton from '../../Component/SaveButton';
+
 
 function MissionTrxCreate(props) {
   const { intl } = props;
@@ -134,7 +135,7 @@ function MissionTrxCreate(props) {
 
         if (response.status==200) {
             toast.success(notif.saved);
-            history.push(`/app/Pages/Att/MissionTrxList`);
+            history.push(`/app/Pages/Att/MissionTrx`);
         } else {
             toast.error(response.statusText);
         }
@@ -146,7 +147,7 @@ function MissionTrxCreate(props) {
     }
   }
 async function oncancel(){
-    history.push(`/app/Pages/Att/MissionTrxList`);
+    history.push(`/app/Pages/Att/MissionTrx`);
   }
   async function fetchData() {
     debugger ;
@@ -403,15 +404,7 @@ async function oncancel(){
                 </Grid>
                 
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
-                        {processing && (
-                        <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                        />
-                        )} 
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={12} md={1}>
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >

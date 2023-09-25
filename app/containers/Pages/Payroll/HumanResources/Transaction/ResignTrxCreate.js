@@ -19,8 +19,8 @@ import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import CircularProgress from '@mui/material/CircularProgress';
 import EmployeeData from '../../Component/EmployeeData';
+import SaveButton from '../../Component/SaveButton';
 
 function ResignTrxCreate(props) {
   const { intl } = props;
@@ -91,7 +91,7 @@ function ResignTrxCreate(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/ResignTrxList`);
+        history.push(`/app/Pages/HR/ResignTrx`);
       } else {
           toast.error(response.statusText);
       }
@@ -100,7 +100,7 @@ function ResignTrxCreate(props) {
     }
   }
   async function oncancel(){
-    history.push(`/app/Pages/HR/ResignTrxList`);
+    history.push(`/app/Pages/HR/ResignTrx`);
   }
   async function fetchData() {
     debugger ;
@@ -364,15 +364,7 @@ function ResignTrxCreate(props) {
                 </Grid>
                 
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
-                        {processing && (
-                        <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                        />
-                        )} 
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={12} md={1}>
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >

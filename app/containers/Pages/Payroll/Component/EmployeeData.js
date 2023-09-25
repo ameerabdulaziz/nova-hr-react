@@ -1,4 +1,4 @@
-import React,{useState,useCallback,useEffect } from 'react';
+import React,{useState,memo,useEffect } from 'react';
 import {TextField ,Grid, Autocomplete ,Card ,CardContent} from "@mui/material";  
 import Payrollmessages from '../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
@@ -8,7 +8,6 @@ import GeneralListApis from '../api/GeneralListApis';
 import { useSelector } from 'react-redux';
 
 function EmployeeData(props) {
-  
   const {intl,data,setdata,isSuper,GetEmployeePenalties,GetSalary,GetworkingYears} = props;
   const {classes,cx} = useStyles();  
   const locale = useSelector((state) => state.language.locale);
@@ -294,4 +293,6 @@ function EmployeeData(props) {
   );
 }
   
-export default injectIntl(EmployeeData);
+const MemoedEmployeeData = memo(EmployeeData);
+
+export default injectIntl(MemoedEmployeeData);

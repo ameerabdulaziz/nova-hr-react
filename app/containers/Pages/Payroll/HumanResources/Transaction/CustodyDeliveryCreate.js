@@ -22,6 +22,7 @@ import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import EmployeeData from '../../Component/EmployeeData';
+import SaveButton from '../../Component/SaveButton';
 
 
 
@@ -88,7 +89,7 @@ function CustodyDeliveryCreate(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/CustodyDeliveryList`);
+        history.push(`/app/Pages/HR/CustodyDelivery`);
       } else {
           toast.error(response.statusText);
       }
@@ -97,7 +98,7 @@ function CustodyDeliveryCreate(props) {
     }
   }
 async function oncancel(){
-    history.push(`/app/Pages/HR/CustodyDeliveryList`);
+    history.push(`/app/Pages/HR/CustodyDelivery`);
   }
   async function fetchData() {
     debugger ;
@@ -214,15 +215,7 @@ async function oncancel(){
                 </Grid>
                 <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
-                        {processing && (
-                        <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                        />
-                        )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                  <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={12} md={1}>
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >

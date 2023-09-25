@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
 import ApiData from '../../Explanation/api/ExplanationData';
 import { useSelector } from 'react-redux';
-import {Button ,Grid,TextField, Autocomplete,IconButton  } from '@mui/material';
+import {Button ,Grid,TextField, Autocomplete  } from '@mui/material';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -15,9 +15,8 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { PapperBlock } from 'enl-components';
 import { toast } from 'react-hot-toast';
-import EditIcon from '@mui/icons-material/Create';
+import EditButton from '../../Component/EditButton';
 import style from '../../../../../../app/styles/styles.scss';
-import { Link} from "react-router-dom";
 
 
 function ExplanationList(props) {
@@ -116,14 +115,8 @@ function ExplanationList(props) {
             console.log('tableMeta =', tableMeta);
             return (
               <div className={style.actionsSty}>
-                <IconButton
-                  aria-label="Edit"
-                  size="large"
-                >
-                  <Link to={{ pathname: "/app/Pages/HR/ExplanationEdit", state: {id: tableMeta.rowData[0],},}}>
-                    <EditIcon />
-                  </Link>
-                </IconButton>
+                
+                <EditButton Id={tableMeta.rowData[0]} url={"/app/Pages/HR/ExplanationEdit"}></EditButton>
   
               </div>
             );

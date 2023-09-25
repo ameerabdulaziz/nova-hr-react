@@ -221,6 +221,25 @@ workingYears: {
   id: `${scope}.workingYears`,
   defaultMessage: 'workingYears',
 },
-
+step: {
+  id: `${scope}.step`,
+  defaultMessage: 'step',
+},
+status: {
+  id: `${scope}.status`,
+  defaultMessage: 'status',
+},
+approvedEmp: {
+  id: `${scope}.approvedEmp`,
+  defaultMessage: 'approvedEmp',
+},
+edit: {
+  id: `${scope}.edit`,
+  defaultMessage: 'edit',
+},
+addNew: {
+  id: `${scope}.addNew`,
+  defaultMessage: 'addNew',
+},
 
 });

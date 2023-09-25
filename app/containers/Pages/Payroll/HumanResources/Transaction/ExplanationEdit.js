@@ -6,13 +6,13 @@ import Payrollmessages from '../../messages';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
-import { useParams ,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import {Button ,Grid,TextField} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
 import { useLocation } from "react-router-dom";
-import CircularProgress from '@mui/material/CircularProgress';
+import SaveButton from '../../Component/SaveButton';
 
 
 
@@ -48,7 +48,7 @@ function ExplanationEdit(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/ExplanationList`);
+        history.push(`/app/Pages/HR/Explanation`);
       } else {
           toast.error(response.statusText);
       }
@@ -57,7 +57,7 @@ function ExplanationEdit(props) {
     }
   }
   async function oncancel(){
-    history.push(`/app/Pages/HR/ExplanationList`);
+    history.push(`/app/Pages/HR/Explanation`);
   }
 
   async function fetchData() {
@@ -205,15 +205,7 @@ function ExplanationEdit(props) {
                     </Grid>
                 
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
-                        {processing && (
-                        <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                        />
-                        )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={12} md={1}>
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >

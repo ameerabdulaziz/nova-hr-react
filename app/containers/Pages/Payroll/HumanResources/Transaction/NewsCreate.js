@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-
 import { PapperBlock } from 'enl-components';
 import ApiData from '../api/NewsData';
 import messages from '../messages';
@@ -22,7 +21,7 @@ import { format } from "date-fns";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import NamePopup from '../../Component/NamePopup';
 import useStyles from '../../Style';
-import CircularProgress from '@mui/material/CircularProgress';
+import SaveButton from '../../Component/SaveButton';
 import { useLocation } from "react-router-dom";
 
 
@@ -61,7 +60,7 @@ function NewsCreate(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/NewsList`);
+        history.push(`/app/Pages/HR/News`);
       } else {
           toast.error(response.statusText);
       }
@@ -70,7 +69,7 @@ function NewsCreate(props) {
     }
   }
   async function oncancel(){
-    history.push(`/app/Pages/HR/NewsList`);
+    history.push(`/app/Pages/HR/News`);
   }
 
   async function fetchData() {
@@ -329,15 +328,7 @@ const handleEnableOne = (event, row) => {
               </section> 
             </Grid>                
             <Grid item xs={12} md={1}>                  
-                <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
-                        {processing && (
-                        <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                        />
-                        )} 
-                    <FormattedMessage {...Payrollmessages.save} /> 
-                </Button>
+              <SaveButton Id={id} processing={processing} />
             </Grid>
             <Grid item xs={12} md={1}>
                 <Button variant="contained" size="medium" color="primary" onClick={oncancel} >

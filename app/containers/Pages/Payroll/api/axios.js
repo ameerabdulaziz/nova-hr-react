@@ -49,6 +49,15 @@ axiosInstance.interceptors.response.use(
 
 			return Promise.reject(error);
 		}
+		if (error.response.status === 404) {
+			debugger;
+            if(error.response.data.title)
+                alert(error.response.data.title);
+            else
+			    alert("Internal Server Error" );
+
+			return Promise.reject(error);
+		}
 		if (
 			error.response.status === 401 &&originalRequest.url === baseURL + 'token/refresh/'
 		) {

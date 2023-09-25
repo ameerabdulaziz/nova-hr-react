@@ -71,7 +71,7 @@ function SidebarContent(props) {
           />
           <div>
             <h4>{userAttr.name}</h4>
-            <Button size="small" onClick={openMenuStatus}>
+           {/*  <Button size="small" onClick={openMenuStatus}>
               <i className={cx(classes.dotStatus, setStatus(status))} />
               
               <FormattedMessage {...messages[status]} />
@@ -99,7 +99,7 @@ function SidebarContent(props) {
                 <i className={cx(classes.dotStatus, classes.offline)} />
                 <FormattedMessage {...messages.offline} />
               </MenuItem>
-            </Menu>
+            </Menu> */}
           </div>
         </div>
       </div>

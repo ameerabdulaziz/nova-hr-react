@@ -15,12 +15,12 @@ import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
 import { useSelector } from 'react-redux';
 import { PapperBlock } from 'enl-components';
+import SaveButton from '../Component/SaveButton';
 
 function ResetPassword(props) {
-const {classes} = useStyles();  
-const {intl} = props;
- 
-   
+  const {classes} = useStyles();  
+  const {intl} = props;
+  const [processing, setprocessing] = useState(false);   
   const [departmentList, setDepartmentList] = useState([]);  
   const [department, setDepartment] = useState(); 
   const [employeeList, setemployeeList] = useState([]);  
@@ -31,6 +31,7 @@ const {intl} = props;
   const handleSubmit = async (e) => {
     e.preventDefault();    
     try{
+      setprocessing(true); 
       if (!employee || !password){
         toast.error("Please Select Employee and enter Password")
         return
@@ -47,6 +48,7 @@ const {intl} = props;
     catch(e){
     toast.error(notif.error);
   }
+  setprocessing(false); 
   };
   const resetAll = async() => {
     
@@ -185,14 +187,7 @@ const GetEmployeeListByDepartment = useCallback(async () => {
               <div style={{paddingTop:"20px"}}>
                 <Grid container spacing={3}>            
                     <Grid item xs={12} sm={6}>
-                        <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        size="medium"
-                        >
-                        <FormattedMessage {...messages.resetpassword} />
-                        </Button>
+                      <SaveButton Id={1} processing={processing} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <Button variant="contained" size="medium" color="primary" onClick={resetAll} >

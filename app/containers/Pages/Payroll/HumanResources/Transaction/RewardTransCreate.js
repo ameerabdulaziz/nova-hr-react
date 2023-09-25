@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import { Helmet } from 'react-helmet';
-import brand from 'enl-api/dummy/brand';
+import React, { useState, useEffect } from 'react';
 import { PapperBlock } from 'enl-components';
 import ApiData from '../api/RewardTransData';
 import messages from '../messages';
@@ -9,9 +6,9 @@ import Payrollmessages from '../../messages';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
-import { useParams ,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import {Button ,Grid,TextField, Autocomplete ,Typography,Paper,Card ,CardContent} from "@mui/material";
+import {Button ,Grid,TextField, Autocomplete ,Card ,CardContent,FormControl,Tooltip,} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -20,16 +17,20 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import CircularProgress from '@mui/material/CircularProgress';
 import EmployeeData from '../../Component/EmployeeData';
+import SaveButton from '../../Component/SaveButton';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import AddIcon from '@mui/icons-material/Add';
+import { NavLink } from 'react-router-dom';
+import { ServerURL } from '../../api/ServerConfig';
 
-function CreateReward(props) {
+function RewardTransCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation()
   const { id } = location.state??0;
-  const { classes } = useStyles();
-  
+  const { classes,cx  } = useStyles();  
+  const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   const [data, setdata] = useState({
     "id": 0,
     "date":format(new Date(), "yyyy-MM-dd"),
@@ -88,7 +89,7 @@ function CreateReward(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/RewardTransList`);
+        history.push(`/app/Pages/HR/RewardTrans`);
       } else {
           toast.error(response.statusText);
       }
@@ -99,7 +100,7 @@ function CreateReward(props) {
   }
   
 async function oncancel(){
-    history.push(`/app/Pages/HR/RewardTransList`);
+    history.push(`/app/Pages/HR/RewardTrans`);
   }
   async function fetchData() {
     debugger ;
@@ -244,6 +245,51 @@ async function oncancel(){
                         )}
                     />  
                 </Grid>
+                <Grid item xs={12} md={2}>
+                    <FormControl variant="standard">
+                        <div className={classes.actions}>
+                        <Tooltip title="Upload">
+                            <Button
+                            variant="contained"
+                            color="secondary"
+                            component="label"
+                            >
+                            <AddIcon
+                                className={cx(
+                                smUp && classes.leftIcon,
+                                classes.iconSmall
+                                )}
+                            />
+                            {smUp && ' '} Upload
+                            <input
+                                hidden
+                                type="file"
+                                name="file"
+                                id="inputGroupFile"
+                                onChange={(e) => {
+                                debugger;
+                                setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    uploadedFile: e.target.files[0],
+                                }));
+                                }}
+                                accept="image/png, image/jpeg, image/jpg, image/apng, image/webp, image/svg+xml"
+                            />
+                            </Button>
+                        </Tooltip>
+                        </div>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12} md={2}>
+                {data.docName && (
+                    <NavLink
+                    to={{ pathname: `${ServerURL}${data.docName}` }}
+                    target="_blank"
+                    >
+                    <Button size="small">Open File</Button>
+                    </NavLink>
+                )}
+                </Grid>
                 <Grid item xs={12} md={12}>
                     <Card className={classes.card}>
                         <CardContent>
@@ -353,15 +399,7 @@ async function oncancel(){
                 </Grid>
                 <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={1}>                  
-                    <Button variant="contained" type="submit" size="medium" color="secondary" disabled={ processing} >
-                        {processing && (
-                        <CircularProgress
-                            size={24}
-                            className={classes.buttonProgress}
-                        />
-                        )} 
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={12} md={1}>
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >
@@ -377,8 +415,8 @@ async function oncancel(){
     </div>
   );
 }
-CreateReward.propTypes = {
+RewardTransCreate.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(CreateReward);
+export default injectIntl(RewardTransCreate);
 
