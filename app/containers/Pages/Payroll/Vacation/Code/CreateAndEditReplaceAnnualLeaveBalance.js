@@ -12,6 +12,7 @@ import notif from 'enl-api/ui/notifMessage';
 import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
+import ErrorMessages from '../../api/ApiMessages';
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import GeneralListApis from '../../api/GeneralListApis'; 
@@ -92,7 +93,7 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
       setSubmitting(false)
       setProcessing(false)
     } catch (err) {
-      toast.error( err.response &&  err.response.data ? intl.formatMessage( messages[err.response.data]) : notif.error );
+        toast.error( err.response &&  err.response.data ? intl.formatMessage( ErrorMessages[err.response.data]) : notif.error );
       setSubmitting(false)
       setProcessing(false)
     }

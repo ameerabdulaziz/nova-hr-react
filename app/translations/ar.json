@@ -1282,6 +1282,21 @@
   "boilerplate.containers.Payroll.vac.code.hiringDate": "تاريخ التعيين",
   "boilerplate.containers.Payroll.vac.code.CurrentBalance": "الرصيد الحالى",
   "boilerplate.containers.Payroll.vac.code.caluValue": "حساب قيمة الاستبدال",
-  "boilerplate.containers.Payroll.vac.code.Value": "القيمة"
+  "boilerplate.containers.Payroll.vac.code.Value": "القيمة",
+
+
+  "boilerplate.containers.Payroll.vac.code.OpeningClosingYearForLeaves": "فتح / اقفال السنة للاجازات",
+  "boilerplate.containers.Payroll.vac.code.Organization": "المنظمة",
+  "boilerplate.containers.Payroll.vac.code.Year": "السنة",
+  "boilerplate.containers.Payroll.vac.code.StartDate": "تاريخ البدء",
+  "boilerplate.containers.Payroll.vac.code.EndDate": "تاريخ الانتهاء",
+  "boilerplate.containers.Payroll.vac.code.OpenYear": "فتح السنة",
+  "boilerplate.containers.Payroll.vac.code.CloseYear": "اغلاق السنة",
+  "boilerplate.containers.Payroll.vac.code.dateErrorMes": "تاريخ الانتهاء يسبق تاريخ البدء",
+
+  "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorBalanceMsg": "خطأ...الرصيد المراد استبداله أكبر من الرصيد الحالي",
+  "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorOpenMonthMsg": "الشهر مقفل",
+  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorYearAlreadyOpen": "هذه السنة سبق افتتاحها من قبل",
+  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "السنة السابق لهذه السنة لم يتم اقفالها...لا يمكن اتمام العملية"
   
 }

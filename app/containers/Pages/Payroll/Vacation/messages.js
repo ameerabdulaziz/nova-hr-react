@@ -217,22 +217,6 @@ export default defineMessages({
         defaultMessage: 'Update current balance',
       },
       // ReplaceAnnualLeaveBalance
-      EmpVacBalRepMoney_ErrorBalanceMsg: {
-        id: `${scope}.code.EmpVacBalRepMoney_ErrorBalanceMsg`,
-        defaultMessage: 'Error.. Replaced Balance is greater than current balance',
-      },
-      EmpVacBalRepMoney_ErrorOpenMonthMsg: {
-        id: `${scope}.code.EmpVacBalRepMoney_ErrorOpenMonthMsg`,
-        defaultMessage: 'This month is closed',
-      },
-      VacMonthOpenClose_ErrorYearAlreadyOpen: {
-        id: `${scope}.code.VacMonthOpenClose_ErrorYearAlreadyOpen`,
-        defaultMessage: 'Year Already Opened',
-      },
-      VacMonthOpenClose_ErrorPreviousyearnotclosed: {
-        id: `${scope}.code.VacMonthOpenClose_ErrorPreviousyearnotclosed`,
-        defaultMessage: 'Previous year was not closed ...cannot open new year',
-      },
       TrxSerial: {
         id: `${scope}.code.TrxSerial`,
         defaultMessage: 'Trx serial',
@@ -296,5 +280,38 @@ export default defineMessages({
       Value: {
         id: `${scope}.code.Value`,
         defaultMessage: 'Value',
+      },
+      // Opening Closing Year For Leaves
+      OpeningClosingYearForLeaves: {
+        id: `${scope}.code.OpeningClosingYearForLeaves`,
+        defaultMessage: 'Opening \ Closing Year For Leaves',
+      },
+      Organization: {
+        id: `${scope}.code.Organization`,
+        defaultMessage: 'Organization',
+      },
+      Year: {
+        id: `${scope}.code.Year`,
+        defaultMessage: 'Year',
+      },
+      StartDate: {
+        id: `${scope}.code.StartDate`,
+        defaultMessage: 'Start date',
+      },
+      EndDate: {
+        id: `${scope}.code.EndDate`,
+        defaultMessage: 'End date',
+      },
+      OpenYear: {
+        id: `${scope}.code.OpenYear`,
+        defaultMessage: 'Open Year',
+      },
+      CloseYear: {
+        id: `${scope}.code.CloseYear`,
+        defaultMessage: 'Close Year',
+      },
+      dateErrorMes: {
+        id: `${scope}.code.dateErrorMes`,
+        defaultMessage: 'End date precedes the start date',
       },
 });

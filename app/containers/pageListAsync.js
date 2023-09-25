@@ -1269,3 +1269,10 @@ export const ReplaceAnnualLeaveBalance = loadable(
 );
 
 
+export const OpeningClosingTheYearForLeaves = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/OpeningClosingTheYearForLeaves'),
+  {
+    fallback: <Loading />,
+  }
+);
+
