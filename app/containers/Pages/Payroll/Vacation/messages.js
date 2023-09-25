@@ -297,4 +297,103 @@ export default defineMessages({
         id: `${scope}.code.Value`,
         defaultMessage: 'Value',
       },
+            // Opening Closing Year For Leaves
+      OpeningClosingYearForLeaves: {
+        id: `${scope}.code.OpeningClosingYearForLeaves`,
+        defaultMessage: 'Opening \ Closing Year For Leaves',
+      },
+      Organization: {
+        id: `${scope}.code.Organization`,
+        defaultMessage: 'Organization',
+      },
+      Year: {
+        id: `${scope}.code.Year`,
+        defaultMessage: 'Year',
+      },
+      StartDate: {
+        id: `${scope}.code.StartDate`,
+        defaultMessage: 'Start date',
+      },
+      EndDate: {
+        id: `${scope}.code.EndDate`,
+        defaultMessage: 'End date',
+      },
+      OpenYear: {
+        id: `${scope}.code.OpenYear`,
+        defaultMessage: 'Open Year',
+      },
+      CloseYear: {
+        id: `${scope}.code.CloseYear`,
+        defaultMessage: 'Close Year',
+      },
+      dateErrorMes: {
+        id: `${scope}.code.dateErrorMes`,
+        defaultMessage: 'End date precedes the start date',
+      },
+            // Opening Closing Year For Leaves
+      OpeningClosingYearForLeaves: {
+        id: `${scope}.code.OpeningClosingYearForLeaves`,
+        defaultMessage: 'Opening \ Closing Year For Leaves',
+      },
+      Organization: {
+        id: `${scope}.code.Organization`,
+        defaultMessage: 'Organization',
+      },
+      Year: {
+        id: `${scope}.code.Year`,
+        defaultMessage: 'Year',
+      },
+      StartDate: {
+        id: `${scope}.code.StartDate`,
+        defaultMessage: 'Start date',
+      },
+      EndDate: {
+        id: `${scope}.code.EndDate`,
+        defaultMessage: 'End date',
+      },
+      OpenYear: {
+        id: `${scope}.code.OpenYear`,
+        defaultMessage: 'Open Year',
+      },
+      CloseYear: {
+        id: `${scope}.code.CloseYear`,
+        defaultMessage: 'Close Year',
+      },
+      dateErrorMes: {
+        id: `${scope}.code.dateErrorMes`,
+        defaultMessage: 'End date precedes the start date',
+      },
+      // Opening Closing Year For Leaves
+      OpeningClosingYearForLeaves: {
+        id: `${scope}.code.OpeningClosingYearForLeaves`,
+        defaultMessage: 'Opening \ Closing Year For Leaves',
+      },
+      Organization: {
+        id: `${scope}.code.Organization`,
+        defaultMessage: 'Organization',
+      },
+      Year: {
+        id: `${scope}.code.Year`,
+        defaultMessage: 'Year',
+      },
+      StartDate: {
+        id: `${scope}.code.StartDate`,
+        defaultMessage: 'Start date',
+      },
+      EndDate: {
+        id: `${scope}.code.EndDate`,
+        defaultMessage: 'End date',
+      },
+      OpenYear: {
+        id: `${scope}.code.OpenYear`,
+        defaultMessage: 'Open Year',
+      },
+      CloseYear: {
+        id: `${scope}.code.CloseYear`,
+        defaultMessage: 'Close Year',
+      },
+      dateErrorMes: {
+        id: `${scope}.code.dateErrorMes`,
+        defaultMessage: 'End date precedes the start date',
+      },      
 });

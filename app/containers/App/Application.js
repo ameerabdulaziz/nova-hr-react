@@ -169,7 +169,8 @@ import {
   LeaveOpenBalance,
   CreateReplaceAnnualLeaveBalance,
   EditReplaceAnnualLeaveBalance,
-  ReplaceAnnualLeaveBalance
+  ReplaceAnnualLeaveBalance,
+  OpeningClosingTheYearForLeaves
 } from '../pageListAsync';
 
 
@@ -823,6 +824,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/ReplaceAnnualLeaveBalance"
           component={ReplaceAnnualLeaveBalance}
+        />
+
+        <Route
+          path="/app/Pages/vac/OpeningClosingTheYearForLeaves"
+          component={OpeningClosingTheYearForLeaves}
         />
         
         

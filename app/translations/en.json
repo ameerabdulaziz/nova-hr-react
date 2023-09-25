@@ -1242,7 +1242,22 @@
   "boilerplate.containers.Payroll.vac.code.hiringDate": "Hiring date",
   "boilerplate.containers.Payroll.vac.code.CurrentBalance": "Current balance",
   "boilerplate.containers.Payroll.vac.code.caluValue": "Calu Value",
-  "boilerplate.containers.Payroll.vac.code.Value": "Value"
+  "boilerplate.containers.Payroll.vac.code.Value": "Value",
+
+  
+  "boilerplate.containers.Payroll.vac.code.OpeningClosingYearForLeaves": "Opening \/ Closing Year For Leaves",
+  "boilerplate.containers.Payroll.vac.code.Organization": "Organization",
+  "boilerplate.containers.Payroll.vac.code.Year": "Year",
+  "boilerplate.containers.Payroll.vac.code.StartDate": "Start date",
+  "boilerplate.containers.Payroll.vac.code.EndDate": "End date",
+  "boilerplate.containers.Payroll.vac.code.OpenYear": "Open Year",
+  "boilerplate.containers.Payroll.vac.code.CloseYear": "Close Year",
+  "boilerplate.containers.Payroll.vac.code.dateErrorMes": "End date precedes the start date",
    
+
+  "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorBalanceMsg": "Error.. Replaced Balance is greater than current balance",
+  "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorOpenMonthMsg": "This month is closed",
+  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorYearAlreadyOpen": "Year Already Opened",
+  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "Previous year was not closed ...cannot open new year"
    
 }
