@@ -9,7 +9,7 @@ const EmployeeBankElementData = (probs) => {
   const EmployeeBankElementApis = {};
 
   EmployeeBankElementApis.GetList = async (anchorTable) => {
-    debugger;
+    
 
     const data = await axiosInstance.get(
       `EmpBankElement/GetAllData/${lang}/${empBankId}`
@@ -55,7 +55,7 @@ const EmployeeBankElementData = (probs) => {
   };
 
   EmployeeBankElementApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`EmpBankElement/${Item.id}`);
     return data;

@@ -33,7 +33,7 @@ const GeneralData = (probs) => {
   };
 
   generalApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`${probs}/${Item.id}`);
     return data;

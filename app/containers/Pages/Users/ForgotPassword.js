@@ -25,7 +25,7 @@ function ForgotPassword() {
 
   async function fetchData() {
     if (valueForm) {
-      debugger ;
+      
       try{
         
         var data = {Email:Email, Password:valueForm.password,ConfirmPassword:valueForm.confirmpassword,Token:Token}

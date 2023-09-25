@@ -30,7 +30,7 @@ function ManPowerSetting(props) {
   
   const handleClose = (data) => {   
 
-    debugger;
+    
      data.map((row) =>{
       if(dataList.filter((x) => x.jobId==row.id).length == 0)
       {
@@ -41,7 +41,7 @@ function ManPowerSetting(props) {
 }
   
   const handleClickOpen = () => {
-    debugger;
+    
       setOpenPopup(true);
   }
 
@@ -57,7 +57,7 @@ const handlepermcheckboxAll = (event) => {
 
 const handleEnableOne = (event, row) => {
   
-    debugger ;
+    
     setdataList(
         dataList.map((x) => {
           if (x.jobId == row.jobId) {
@@ -131,7 +131,7 @@ async function on_submit() {
   }, []);
 
   useEffect(() => {   
-    debugger ;
+    
     var temp=dataList.filter((row) => row.isSelected==true) ;
     var total = temp.reduce((n, {idealManPower}) => n + idealManPower, 0);
   settotalIdealManPower(total);

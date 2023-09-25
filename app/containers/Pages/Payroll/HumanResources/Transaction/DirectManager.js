@@ -27,7 +27,7 @@ function DirectManager(props) {
   
   const handleClose = (data) => {   
 
-    debugger;
+    
      data.map((row) =>{
       if(dataList.filter((x) => x.id==row.id).length == 0)
       {
@@ -38,7 +38,7 @@ function DirectManager(props) {
   }
   
   const handleClickOpen = () => {
-    debugger;
+    
       setOpenPopup(true);
   }
 
@@ -140,7 +140,7 @@ async function on_submit() {
                         options={employeeList}                        
                         getOptionLabel={(option) =>option.name}
                         onChange={(event, value) => {
-                          debugger ;
+                          
                             if (value !== null) {
                                 setEmployee(value.id);
                             } else {

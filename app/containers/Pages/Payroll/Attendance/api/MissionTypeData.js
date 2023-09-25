@@ -3,7 +3,7 @@ const MissionTypeData = () => {
   const MissionTypeApis = {};
 
   MissionTypeApis.GetList = async () => {
-    // debugger;
+    
     const data = await axiosInstance.get('AttMissionType');
     const result = data.data;
     const finaldata = result.map((obj) => ({
@@ -18,7 +18,7 @@ const MissionTypeData = () => {
   };
 
   MissionTypeApis.Save = async (Item) => {
-    // debugger;
+    
     const data = {
       id: Item.id,
       arName: Item.name,
@@ -34,7 +34,7 @@ const MissionTypeData = () => {
   };
 
   MissionTypeApis.Delete = async (Item) => {
-    // debugger;
+    
 
     const data = await axiosInstance.delete(`AttMissionType/${Item.id}`);
     return data;

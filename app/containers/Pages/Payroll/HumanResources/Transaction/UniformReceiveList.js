@@ -31,7 +31,7 @@ function UniformReceiveList(props) {
     list.push(data[selectedRows.data[i].dataIndex].id);
     }
     try {
-      debugger;
+      
         let response = await  ApiData(locale).DeleteList(list);
   
         if (response.status==200) {
@@ -61,7 +61,7 @@ async function deleterow(id) {
   }
 }
   async function fetchData() {
-    debugger ;
+    
     const dataApi = await ApiData(locale).GetList(2);
     setdata(dataApi);
   }

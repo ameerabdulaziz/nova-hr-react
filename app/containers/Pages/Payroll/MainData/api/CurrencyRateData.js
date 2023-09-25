@@ -35,7 +35,7 @@ const CurrencyRateData = (locale) => {
   };
 
   CurrencyRateApis.Save = async (Item) => {
-    debugger;
+    
     const currencyid = dList.currencyList.find(
       (rec) => rec.name === Item.currencyName
     ).id;
@@ -62,7 +62,7 @@ const CurrencyRateData = (locale) => {
   };
 
   CurrencyRateApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`MdCurrencyRate/${Item.id}`);
     return data;

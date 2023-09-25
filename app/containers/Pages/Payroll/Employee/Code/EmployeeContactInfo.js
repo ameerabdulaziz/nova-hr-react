@@ -49,7 +49,7 @@ function EmployeeContactInfo(props) {
 
   const handleSubmit = async (e) => {
     try {
-      debugger;
+      
       e.preventDefault();
       setprocessing(true);
       const data = {
@@ -86,7 +86,7 @@ function EmployeeContactInfo(props) {
   };
   const GetLookup = useCallback(async () => {
     try {
-      debugger;
+      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employeedata || []);
     } catch (err) {
@@ -119,7 +119,7 @@ function EmployeeContactInfo(props) {
   }, [employee]);
   const deletedata = async (e) => {
     try {
-      debugger;
+      
       // e.preventDefault();
 
       setdelprocessing(true);
@@ -158,7 +158,7 @@ function EmployeeContactInfo(props) {
               }
               getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
-                debugger;
+                
                 if (value !== null) {
                   setEmployee({
                     id: value.id,

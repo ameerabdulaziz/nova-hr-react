@@ -27,7 +27,7 @@ const CustodyCategory = (locale) => {
   };
 
   CustodyApis.Save = async (Item) => {
-    debugger;
+    
     const jid = jobsList.find((ele) => ele.name === Item.jobName).id;
     const data = {
       id: Item.id,
@@ -44,7 +44,7 @@ const CustodyCategory = (locale) => {
   };
 
   CustodyApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`HrCustodyCategory/${Item.id}`);
     return data;

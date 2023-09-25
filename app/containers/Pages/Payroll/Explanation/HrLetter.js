@@ -38,7 +38,7 @@ function HrLetter(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+        
       let response = await  ApiData(locale).SaveHrLetter(data);
 
       if (response.status==200) {
@@ -80,7 +80,7 @@ function HrLetter(props) {
                             <DesktopDatePicker
                                 label={intl.formatMessage(messages.hrLetterDate)}
                                 value={data.hrLetterDate}
-                                onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,hrLetterDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                                onChange={(date) => { setdata((prevFilters) => ({...prevFilters,hrLetterDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                                 className={classes.field}
                                 renderInput={(params) => <TextField {...params} variant="outlined" />}
                             />

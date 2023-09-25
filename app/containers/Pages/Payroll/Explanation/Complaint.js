@@ -29,7 +29,7 @@ function Complaint(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+        
       let response = await  ApiData(locale).SaveComplaint(data);
 
       if (response.status==200) {

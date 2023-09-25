@@ -111,7 +111,7 @@ function PenaltyCreate(props) {
         ...prevFilters,
         arName: event.target.value,
       }));
-      debugger;
+      
     
       if(event.target.name =="enName")
     setdata((prevFilters) => ({
@@ -150,10 +150,10 @@ function PenaltyCreate(props) {
     setprocessing(false); 
   }
   const fetchData = useCallback(async () => {
-    debugger ;
+    
     const dataApi = await ApiData(locale).GetPenalty(id??0);
     setElementList(dataApi.ElementList);
-    debugger ;
+    
     setdata(dataApi.finaldata);
   });
  
@@ -239,7 +239,7 @@ function PenaltyCreate(props) {
                             }
                             onChange={(event, value) => {
 
-                              debugger ;
+                              
                                 if (value !== null) {
                                       setdata((prevFilters) => ({
                                       ...prevFilters,

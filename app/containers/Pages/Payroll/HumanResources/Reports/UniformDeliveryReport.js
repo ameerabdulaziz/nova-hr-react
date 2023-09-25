@@ -33,7 +33,7 @@ function UniformDeliveryReport(props) {
   const handleSearch = async (e) => {
     
     try{
-      debugger;  
+        
       const dataApi = await ApiData(locale).GetReport(employee,Uniform,1,fromdate,todate);
       setdata(dataApi);
     } catch (err) {
@@ -42,7 +42,7 @@ function UniformDeliveryReport(props) {
   }
 
   async function fetchData() {
-    debugger ;
+    
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
     const uniforms = await GeneralListApis(locale).GetUniformList(locale);
@@ -158,7 +158,7 @@ function UniformDeliveryReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setUniform(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setUniform(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
@@ -180,7 +180,7 @@ function UniformDeliveryReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setemployee(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            

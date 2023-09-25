@@ -8,13 +8,13 @@ const EmployeeAddressData = (probs) => {
   const [cList, setcityList] = useState([]);
   const EmployeeAddressApis = {};
   EmployeeAddressApis.GetUserMenuLookup = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
 
     return data.data;
   };
   EmployeeAddressApis.GetList = async (anchorTable) => {
-    debugger;
+    
 
     const data = await axiosInstance.get(
       `EmpAddress/GetAllData/${lang}/${employeeid}`
@@ -66,7 +66,7 @@ const EmployeeAddressData = (probs) => {
   };
 
   EmployeeAddressApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`EmpAddress/${Item.id}`);
     return data;

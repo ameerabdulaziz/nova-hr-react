@@ -35,7 +35,7 @@ function ResignTrxReport(props) {
   const handleSearch = async (e) => {
     
     try{
-      debugger;  
+        
       const dataApi = await ApiData(locale).GetReport(employee,Resign,fromdate,todate);
       setdata(dataApi);
     } catch (err) {
@@ -185,7 +185,7 @@ function ResignTrxReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setResign(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setResign(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
@@ -207,7 +207,7 @@ function ResignTrxReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setemployee(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            

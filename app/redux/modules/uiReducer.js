@@ -68,7 +68,7 @@ const uiReducer = (state = initialState, action = {}) => produce(state, draft =>
       draft.subMenuOpen = [];
       break;
     case OPEN_SUBMENU: {
-      debugger;
+      
       // Set initial open parent menu
       const activeParent = setNavCollapse(
         getMenus(MenuContent),

@@ -30,7 +30,7 @@ import SaveButton from '../../Component/SaveButton';
 function PenaltyTransCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  debugger;
+  
 
   const location = useLocation();
   const { id } = location.state ?? 0;
@@ -80,7 +80,7 @@ function PenaltyTransCreate(props) {
   const history = useHistory();
 
   const handleChange = (event) => {
-    debugger;
+    
 
     if (event.target.name == 'note')
       setdata((prevFilters) => ({
@@ -97,7 +97,7 @@ function PenaltyTransCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      debugger;
+      
       setprocessing(true);
       let response = await ApiData(locale).Save(data);
 
@@ -115,7 +115,7 @@ function PenaltyTransCreate(props) {
     history.push(`/app/Pages/HR/PenaltyTrans`);
   }
   async function fetchData() {
-    debugger;
+    
     const years = await GeneralListApis(locale).GetYears();
     setYearList(years);
 
@@ -134,7 +134,7 @@ function PenaltyTransCreate(props) {
   }, []);
 
   async function getPenaltyData(id) {
-    debugger;
+    
     if (!id) {
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -184,7 +184,7 @@ function PenaltyTransCreate(props) {
                   label={intl.formatMessage(messages.date)}
                   value={data.date}
                   onChange={(date) => {
-                    debugger;
+                    
                     setdata((prevFilters) => ({
                       ...prevFilters,
                       date: format(new Date(date), 'yyyy-MM-dd'),
@@ -289,7 +289,7 @@ function PenaltyTransCreate(props) {
                         name="file"
                         id="inputGroupFile"
                         onChange={(e) => {
-                          debugger;
+                          
                           setdata((prevFilters) => ({
                             ...prevFilters,
                             uploadedFile: e.target.files[0],

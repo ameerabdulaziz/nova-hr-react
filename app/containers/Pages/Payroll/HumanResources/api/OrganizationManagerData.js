@@ -34,7 +34,7 @@ const OrganizationManagerData = (locale) => {
   };
 
   OrganizationManagerApis.Save = async (Item) => {
-    debugger;
+    
     const EmpId = employeeList.find((ele) => ele.name === Item.newEmployeeName).id;
     
     const data = {

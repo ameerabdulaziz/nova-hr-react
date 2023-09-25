@@ -39,7 +39,7 @@ const crudTbReducer = (state = initialState, action = {}) => produce(state, draf
   const { branch } = action;
   switch (action.type) {
     case `${branch}/${FETCH_DATA}`:
-      debugger;
+      
       draft.dataTable = action.items;
       draft.anchor = action.anchor;
       
@@ -51,7 +51,7 @@ const crudTbReducer = (state = initialState, action = {}) => produce(state, draf
       break;
     }
     case `${branch}/${REMOVE_ROW}`: {
-      debugger;
+      
       const index = draft.dataTable.findIndex(item => item.id === action.item.id);
       if (index !== -1) {
         draft.dataTable.splice(index, 1);
@@ -61,7 +61,7 @@ const crudTbReducer = (state = initialState, action = {}) => produce(state, draf
       break;
     }
     case `${branch}/${UPDATE_ROW}`: {
-      debugger ;
+      
       
       const index = draft.dataTable.findIndex(item => item.id === action.item.id);
       const cellTarget = action.event.target.name;
@@ -92,7 +92,7 @@ const crudTbReducer = (state = initialState, action = {}) => produce(state, draf
       break;
     }
     case `${branch}/${EDIT_ROW}`: {
-      debugger ;
+      
       
       for(var i=0; i<draft.dataTable.length; i++)
       {
@@ -124,7 +124,7 @@ const crudTbReducer = (state = initialState, action = {}) => produce(state, draf
       break;
     }
     case `${branch}/${SAVE_ROW}`: {
-      debugger ;
+      
       const index = draft.dataTable.findIndex(item => item.id === action.item.id);
       if (index !== -1) {
         

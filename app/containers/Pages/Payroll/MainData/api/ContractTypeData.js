@@ -3,7 +3,7 @@ const ContractTypeData = () => {
   const ContractTypeApis = {};
 
   ContractTypeApis.GetList = async () => {
-    // debugger;
+    // 
     const data = await axiosInstance.get('MdContractType');
     const result = data.data;
     const finaldata = result.map((obj) => ({
@@ -18,7 +18,7 @@ const ContractTypeData = () => {
   };
 
   ContractTypeApis.Save = async (Item) => {
-    // debugger;
+    // 
     const data = {
       id: Item.id,
       arName: Item.name,
@@ -34,7 +34,7 @@ const ContractTypeData = () => {
   };
 
   ContractTypeApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`MdContractType/${Item.id}`);
     return data;

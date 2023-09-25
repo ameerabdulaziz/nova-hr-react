@@ -54,7 +54,7 @@ function EmployeeQualification(props) {
 
   const GetUserMenuLookup = useCallback(async () => {
     try {
-      debugger;
+      
       const data = await UserMenuData().GetUserMenuLookup(locale);
       setEmployeeList(data.employees || []);
     } catch (err) {
@@ -189,7 +189,7 @@ function EmployeeQualification(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  debugger;
+                  
                   if (value !== null) {
                     setEmployee({
                       id: value.id,

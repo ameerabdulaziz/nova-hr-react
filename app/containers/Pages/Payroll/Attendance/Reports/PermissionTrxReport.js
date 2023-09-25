@@ -35,7 +35,7 @@ function PermissionTrxReport(props) {
   const handleSearch = async (e) => {
     
     try{
-      debugger;  
+        
       const dataApi = await ApiData(locale).GetReport(employee,Permission,fromdate,todate);
       setdata(dataApi);
     } catch (err) {
@@ -190,7 +190,7 @@ function PermissionTrxReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setPermission(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setPermission(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
@@ -212,7 +212,7 @@ function PermissionTrxReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setemployee(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            

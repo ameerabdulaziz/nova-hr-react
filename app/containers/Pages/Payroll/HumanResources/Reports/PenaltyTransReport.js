@@ -35,7 +35,7 @@ function PenaltyTransReport(props) {
   const handleSearch = async (e) => {
     
     try{
-      debugger;  
+        
       const dataApi = await ApiData(locale).GetReport(employee,Penalty,fromdate,todate);
       setdata(dataApi);
     } catch (err) {
@@ -222,7 +222,7 @@ function PenaltyTransReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setPenalty(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setPenalty(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
@@ -244,7 +244,7 @@ function PenaltyTransReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setemployee(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            

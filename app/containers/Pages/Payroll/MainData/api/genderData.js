@@ -3,7 +3,7 @@ const genderData = () => {
   const genderApis = {};
 
   genderApis.GetList = async () => {
-    // debugger;
+    // 
     const data = await axiosInstance.get('MdGender');
     const result = data.data;
     const finaldata = result.map((obj) => ({
@@ -17,7 +17,7 @@ const genderData = () => {
   };
 
   genderApis.Save = async (Item) => {
-    // debugger;
+    // 
     const data = {
       id: Item.id,
       arName: Item.name,
@@ -32,7 +32,7 @@ const genderData = () => {
   };
 
   genderApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`MdGender/${Item.id}`);
     return data;

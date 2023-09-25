@@ -16,7 +16,7 @@ import { loginWithEmail } from 'enl-redux/actions/authActions';
 import messages from './messages';
 
 function Login(props) {
-  debugger ;
+  
   const { handleLogin } = props;
   const { classes } = useStyles();
   const title = brand.name + ' - Login';
@@ -27,7 +27,7 @@ function Login(props) {
 
   useEffect(() => {
     if (valueForm) {
-      debugger;
+      
       handleLogin(valueForm.email, valueForm.password); // eslint-disable-line
     }
   }, [valueForm]);

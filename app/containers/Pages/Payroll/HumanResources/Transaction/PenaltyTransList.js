@@ -32,7 +32,7 @@ function PenaltyTransList(props) {
     list.push(data[selectedRows.data[i].dataIndex].id);
     }
     try {
-      debugger;
+      
         let response = await  ApiData(locale).DeleteList(list);
   
         if (response.status==200) {
@@ -48,7 +48,7 @@ function PenaltyTransList(props) {
   async function deleterow(id) {
   
     try {
-     debugger;
+     
       let response = await  ApiData(locale).Delete(id);
 
       if (response.status==200) {

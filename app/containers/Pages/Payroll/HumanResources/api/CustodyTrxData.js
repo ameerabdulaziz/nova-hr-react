@@ -7,7 +7,7 @@ const CustodyTrxData = (locale) => {
   
  
   Apis.GetReport = async (employee,custody,type,fromdate,todate) => {
-    debugger;
+    
     
       const data = await axiosInstance.get(`HrCustodyTrx/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&CustodyId=${custody!=null?custody:""}&TrxType=${type}`);
       const result = data.data;
@@ -16,7 +16,7 @@ const CustodyTrxData = (locale) => {
   };
 
   Apis.GetList = async (type) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrCustodyTrx/GetList/${type}/${locale}`);
     const result = data.data;
     
@@ -24,14 +24,14 @@ const CustodyTrxData = (locale) => {
   };
 
   Apis.Get = async (id,type) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrCustodyTrx/Get/${id}/${type}/${locale}`);
     
     return data.data;
 
   };
   Apis.Save = async (data) => {
-    debugger;
+    
   var requestData={
     "id":data.id,
     "date": data.date,
@@ -47,13 +47,13 @@ const CustodyTrxData = (locale) => {
     return result;
   };
   Apis.Delete = async (id) => {
-    debugger;
+    
     const result = await axiosInstance.delete(`HrCustodyTrx/Delete/${id}`);
     return result;
   };
 
   Apis.DeleteList = async (list) => {
-    debugger;
+    
     const result = await axiosInstance.post(`HrCustodyTrx/DeleteList`,list);
     return result;
   };

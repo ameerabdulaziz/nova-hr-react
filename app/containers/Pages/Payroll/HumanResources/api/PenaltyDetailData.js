@@ -7,7 +7,7 @@ const PenaltyDetailData = (locale,id) => {
   const PenaltyDetailApis = {};
 
   PenaltyDetailApis.GetList = async (anchorTable) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrPenalties/GetPenaltyDetail/${id??0}/${locale}`);
     const PenaltyDetailsList = data.data.penaltyDetailsList;
     const finaldata = PenaltyDetailsList.map((obj) => ({
@@ -29,7 +29,7 @@ const PenaltyDetailData = (locale,id) => {
   };
 
   PenaltyDetailApis.Save = async (Item) => {
-    debugger;
+    
     const ElementId = elementList.find((ele) => ele.name === Item.elementName).id;
     const PayTemplateId = payTemplate.find((ele) => ele.name === Item.payTemplateName).id;
     const data = {
@@ -49,7 +49,7 @@ const PenaltyDetailData = (locale,id) => {
   };
 
   PenaltyDetailApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`HrPenaltyDetail/${Item.id}`);
     return data;

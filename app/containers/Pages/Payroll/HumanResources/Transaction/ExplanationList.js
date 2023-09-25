@@ -35,7 +35,7 @@ function ExplanationList(props) {
   const handleSearch = async (e) => {
     
     try{
-      debugger;  
+        
       const dataApi = await ApiData(locale).GetReport(employee,type,fromdate,todate,false);
       setdata(dataApi);
     } catch (err) {
@@ -44,7 +44,7 @@ function ExplanationList(props) {
   }
 
   async function fetchData() {
-    debugger ;
+    
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
     const types = await GeneralListApis(locale).GetExplanationTypeList(locale);
@@ -175,7 +175,7 @@ function ExplanationList(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; settype(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ settype(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
@@ -198,7 +198,7 @@ function ExplanationList(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setemployee(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            

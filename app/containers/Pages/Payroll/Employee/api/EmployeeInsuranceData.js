@@ -6,13 +6,13 @@ const EmployeeInsuranceData = (probs) => {
   const employeeid = probs;
   const EmployeeInsuranceApis = {};
   EmployeeInsuranceApis.GetUserMenuLookup = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
 
     return data.data;
   };
   EmployeeInsuranceApis.GetList = async () => {
-    debugger;
+    
 
     const data = await axiosInstance.get(`EmpInsurance/GetAll/${employeeid}`);
     const result = data.data;
@@ -54,7 +54,7 @@ const EmployeeInsuranceData = (probs) => {
   };
 
   EmployeeInsuranceApis.Delete = async (Item) => {
-    // debugger;
+    
 
     const data = await axiosInstance.delete(`EmpInsurance/${Item.id}`);
     return data;

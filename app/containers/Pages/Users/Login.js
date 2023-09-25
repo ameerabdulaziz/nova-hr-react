@@ -31,13 +31,13 @@ function Login() {
       
       try{
       Dispatcher(login());
-      debugger ;
+      
       const data = {
         UserName: valueForm.email,
         Password: valueForm.password,
         RememberMe: valueForm.RememberMe?true:false,
       };
-      debugger ;
+      
   
       const res =  await axiosInstance.post('Account/Login', data) ;
       Dispatcher(loginSuccess());
@@ -62,7 +62,7 @@ function Login() {
       //window.location.href = '/app';      
     }
     catch(error){
-      debugger ;
+      
       if(!error.response)
         Dispatcher(loginFailure(error));
       if(error.response.data.error)

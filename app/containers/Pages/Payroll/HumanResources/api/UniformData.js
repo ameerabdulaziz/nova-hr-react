@@ -21,7 +21,7 @@ const UniformData = (locale) => {
   };
 
   UniformApis.Save = async (Item) => {
-    debugger;
+    
     
     const data = {
       id: Item.id,
@@ -38,7 +38,7 @@ const UniformData = (locale) => {
   };
 
   UniformApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`HrUniform/${Item.id}`);
     return data;

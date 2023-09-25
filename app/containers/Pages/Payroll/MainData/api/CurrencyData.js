@@ -3,7 +3,7 @@ const CurrencyData = () => {
   const CurrencyApis = {};
 
   CurrencyApis.GetList = async () => {
-    // debugger;
+    // 
     const data = await axiosInstance.get('MdCurrency');
     const result = data.data;
     const finaldata = result.map((obj) => ({
@@ -18,7 +18,7 @@ const CurrencyData = () => {
   };
 
   CurrencyApis.Save = async (Item) => {
-    // debugger;
+    // 
     const data = {
       id: Item.id,
       arName: Item.name,
@@ -34,7 +34,7 @@ const CurrencyData = () => {
   };
 
   CurrencyApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`MdCurrency/${Item.id}`);
     return data;

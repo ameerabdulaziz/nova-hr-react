@@ -3,7 +3,7 @@ const EmployeeContactInfoData = () => {
   const Apis = {};
 
   Apis.GetList = async (employeeId) => {
-    debugger;
+    
     const data = await axiosInstance.get(`EmpContactInfo/GetAll/${employeeId}`);
     const result = data.data;
     return result;

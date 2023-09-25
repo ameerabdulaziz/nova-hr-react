@@ -30,7 +30,7 @@ function PermissionTrxList(props) {
       list.push(data[selectedRows.data[i].dataIndex].id);
       }
       try {
-        debugger;
+        
           let response = await  ApiData(locale).DeleteList(list);
     
           if (response.status==200) {

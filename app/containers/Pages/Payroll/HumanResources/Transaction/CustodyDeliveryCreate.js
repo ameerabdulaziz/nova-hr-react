@@ -57,7 +57,7 @@ function CustodyDeliveryCreate(props) {
   const history=useHistory();  
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="notes")
             setdata((prevFilters) => ({
@@ -83,7 +83,7 @@ function CustodyDeliveryCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+        
       setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
@@ -101,7 +101,7 @@ async function oncancel(){
     history.push(`/app/Pages/HR/CustodyDelivery`);
   }
   async function fetchData() {
-    debugger ;
+    
   
     const custodies = await GeneralListApis(locale).GetCustodyList(locale);
     setCustodyList(custodies);
@@ -134,7 +134,7 @@ async function oncancel(){
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.date)}
                             value={data.date}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />

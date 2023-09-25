@@ -18,7 +18,7 @@ function NamePopup(props) {
 
 const CloseClick = async (key) => {
  
-  debugger ;
+  
   
   handleClose(EmployeeList.filter((row) => row.isSelected==true));
 };
@@ -65,7 +65,7 @@ const GetList = useCallback(async () => {
  
   
   useEffect(() => {
-    debugger;
+    
     if(open)
       GetList();
   }, [open]);

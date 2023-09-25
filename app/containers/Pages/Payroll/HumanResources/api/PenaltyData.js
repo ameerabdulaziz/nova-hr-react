@@ -7,7 +7,7 @@ const PenaltyData = (locale) => {
   
 
   Apis.GetPenaltyList = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrPenalties/GetPenaltyList/${locale}`);
     const result = data.data;
     
@@ -15,7 +15,7 @@ const PenaltyData = (locale) => {
   };
 
   Apis.GetPenalty = async (id) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrPenalties/GetPenalty/${id}/${locale}`);
     var finaldata ={
       id: data.data.id,
@@ -32,7 +32,7 @@ const PenaltyData = (locale) => {
 
   };
   Apis.SaveData = async (data,dataTable) => {
-    debugger;
+    
 
     var penaltyDetailsList=[];
    
@@ -57,13 +57,13 @@ const PenaltyData = (locale) => {
     return result;
   };
   Apis.Delete = async (id) => {
-    debugger;
+    
     const result = await axiosInstance.delete(`HrPenalties/DeleteData/${id}`);
     return result;
   };
 
   Apis.DeleteList = async (list) => {
-    debugger;
+    
     const result = await axiosInstance.post(`HrPenalties/DeleteList`,list);
     return result;
   };

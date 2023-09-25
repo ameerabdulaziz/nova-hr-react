@@ -71,7 +71,6 @@ function Row(props) {
   }, [editRow, item, branch]);
 
   const eventDone = useCallback(async() => {
-    debugger;
     if(API && !IsNotSave)
     {
       

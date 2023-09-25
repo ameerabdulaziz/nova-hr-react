@@ -53,7 +53,7 @@ const authReducer = (state = AuthState, action = {}) => produce(state, draft => 
     case CREATE_USER_FAILURE:
     case PASSWORD_FORGET_FAILURE:
     case LOGOUT_FAILURE:
-      debugger ;
+      
       draft.loading = false;
       draft.message = action.error;
       break;

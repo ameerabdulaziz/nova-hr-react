@@ -5,7 +5,7 @@ const AttentionData = (locale) => {
   const Apis = {};
   
   Apis.GetReport = async (employee,fromdate,todate) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrAttention/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}`);
     const result = data.data;
     
@@ -14,7 +14,7 @@ const AttentionData = (locale) => {
 
 
   Apis.GetList = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrAttention/GetList/${locale}`);
     const result = data.data;
     
@@ -22,14 +22,14 @@ const AttentionData = (locale) => {
   };
 
   Apis.Get = async (id) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrAttention/Get/${id}/${locale}`);
     
     return data.data;
 
   };
   Apis.Save = async (data) => {
-    debugger;
+    
   var requestData={
     "attentionDate": data.attentionDate,
     "employeeId":data.employeeId,
@@ -40,13 +40,13 @@ const AttentionData = (locale) => {
     return result;
   };
   Apis.Delete = async (id) => {
-    debugger;
+    
     const result = await axiosInstance.delete(`HrAttention/Delete/${id}`);
     return result;
   };
 
   Apis.DeleteList = async (list) => {
-    debugger;
+    
     const result = await axiosInstance.post(`HrAttention/DeleteList`,list);
     return result;
   };

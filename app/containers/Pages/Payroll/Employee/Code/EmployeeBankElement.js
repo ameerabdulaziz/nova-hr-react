@@ -12,7 +12,7 @@ import { EditTable } from '../../../../Tables/demos';
 import EmployeeBankElementData from '../api/EmployeeBankElementData';
 
 function EmployeeBankElement(props) {
-  debugger;
+  
   const { ids } = props;
 
   const anchorTable = [

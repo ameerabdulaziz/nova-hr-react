@@ -5,7 +5,7 @@ const NewsData = (locale) => {
   const Apis = {};
 
   Apis.GetList = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrNews/GetList/${locale}`);
     const result = data.data;
     
@@ -13,7 +13,7 @@ const NewsData = (locale) => {
   };
 
   Apis.Get = async (id) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrNews/Get/${id}/${locale}`);
     
     return data.data;
@@ -38,28 +38,28 @@ const NewsData = (locale) => {
     return result;
   };
   Apis.Delete = async (id) => {
-    debugger;
+    
     const result = await axiosInstance.delete(`HrNews/Delete/${id}`);
     return result;
   };
 
   Apis.DeleteList = async (list) => {
-    debugger;
+    
     const result = await axiosInstance.post(`HrNews/DeleteList`,list);
     return result;
   };
   Apis.GetPenaltyTypesListByPenltyId = async (id,employeeId) => {    
-    debugger;
+    
     const result = await axiosInstance.get(`HrNews/GetPenaltyTypesListByPenltyId/${id}/${employeeId}/${locale}`);   
     return result.data;
   };
   Apis.GetPenaltyDetails = async (id) => {    
-    debugger;
+    
     const result = await axiosInstance.get(`HrNews/GetPenaltyDetails/${id}`);   
     return result.data;
   };
   Apis.GetEmployeePenalties = async (id) => {    
-    debugger;
+    
     const result = await axiosInstance.get(`HrNews/GetEmployeePenalties/${id}`);   
     return result.data;
   };

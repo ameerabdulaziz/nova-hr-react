@@ -34,7 +34,7 @@ function EmployeeCourse(props) {
 
   const GetUserMenuLookup = useCallback(async () => {
     try {
-      debugger;
+      
 
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employeedata || []);

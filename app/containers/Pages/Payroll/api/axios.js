@@ -24,7 +24,6 @@ axiosInstance.interceptors.response.use(
 	},
 	async function (error) {
 		const originalRequest = error.config;
-		debugger;
 		if (typeof error.response === 'undefined') {
 			alert(
 				'A server/network error occurred. ' +'Looks like CORS might be the problem. ' +'Sorry about this - we will get it fixed shortly.'
@@ -32,7 +31,6 @@ axiosInstance.interceptors.response.use(
 			return Promise.reject(error);
 		}
         if (error.response.status === 500) {
-			debugger;
             if(error.response.data)
                 alert(JSON.parse(error.response.data).message);
             else
@@ -41,7 +39,6 @@ axiosInstance.interceptors.response.use(
 			return Promise.reject(error);
 		}
 		if (error.response.status === 400) {
-			debugger;
             if(error.response.data)
                 alert(error.response.data);
             else
@@ -50,7 +47,6 @@ axiosInstance.interceptors.response.use(
 			return Promise.reject(error);
 		}
 		if (error.response.status === 404) {
-			debugger;
             if(error.response.data.title)
                 alert(error.response.data.title);
             else

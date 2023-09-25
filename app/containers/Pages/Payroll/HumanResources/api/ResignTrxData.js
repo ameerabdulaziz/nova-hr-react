@@ -5,7 +5,7 @@ const ResignTrxData = (locale) => {
   const Apis = {};
   
   Apis.GetReport = async (employee,ResignReason,fromdate,todate) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrResignTrx/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&ResignReasonId=${ResignReason!=null?ResignReason:""}`);
     const result = data.data;
     
@@ -13,7 +13,7 @@ const ResignTrxData = (locale) => {
   };
 
   Apis.GetList = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrResignTrx/GetList/${locale}`);
     const result = data.data;
     
@@ -21,14 +21,14 @@ const ResignTrxData = (locale) => {
   };
 
   Apis.Get = async (id) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrResignTrx/Get/${id}/${locale}`);
     
     return data.data;
 
   };
   Apis.Save = async (data) => {
-    debugger;
+    
   var requestData={
     "id":data.id,
     "date": data.date,    
@@ -48,19 +48,19 @@ const ResignTrxData = (locale) => {
   };
 
   Apis.SaveList = async (data) => {
-    debugger;
+    
     const result = await axiosInstance.post("HrResignTrx/SaveList",data);
     return result;
   };
 
   Apis.Delete = async (id) => {
-    debugger;
+    
     const result = await axiosInstance.delete(`HrResignTrx/Delete/${id}`);
     return result;
   };
 
   Apis.DeleteList = async (list) => {
-    debugger;
+    
     const result = await axiosInstance.post(`HrResignTrx/DeleteList`,list);
     return result;
   };

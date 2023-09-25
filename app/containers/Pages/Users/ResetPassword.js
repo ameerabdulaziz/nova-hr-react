@@ -18,7 +18,7 @@ function ResetPassword() {
 
   async function fetchData() {
     if (valueForm) {
-      debugger ;
+      
       try{
           const res =  await axiosInstance.post('Account/ForgotPassword?Email='+valueForm.email) ;
           if(res.status==200) {

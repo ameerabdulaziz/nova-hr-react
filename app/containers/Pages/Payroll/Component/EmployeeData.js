@@ -16,7 +16,7 @@ function EmployeeData(props) {
     async function fetchData() {
   
     const employees = await GeneralListApis(locale).GetEmployeeList();
-    debugger ;
+    
     setEmployeeList(employees);
 
   }
@@ -27,7 +27,7 @@ function EmployeeData(props) {
 
   async function getEmployeeData(id) 
   {
-    debugger;
+    
     if (!id){
         if(isSuper)
             setdata((prevFilters) => ({

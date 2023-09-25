@@ -44,7 +44,7 @@ function RequestsList(props) {
   const handleSearch = async (e) => {
     
     try{
-      debugger;  
+        
       const dataApi = await ApiData(locale).Getrequests(Document.documentId,employee,fromdate,todate);
       setdata(dataApi);
       dataApi.map(item => (
@@ -57,7 +57,7 @@ function RequestsList(props) {
   async function RequestAction(executionId,actionTypeId) {
   
     try {
-     debugger;
+     
       let response = await  ApiData(locale).ExecuteWorkFlow(executionId,actionTypeId);
 
       if (response.status==200) {
@@ -184,7 +184,7 @@ function RequestsList(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setemployee(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
@@ -207,7 +207,7 @@ function RequestsList(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setDocument({"documentId":value==null?null:value.id,"documentName":value==null?null:value.name});}}
+                  onChange={(event, value) =>{ setDocument({"documentId":value==null?null:value.id,"documentName":value==null?null:value.name});}}
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            

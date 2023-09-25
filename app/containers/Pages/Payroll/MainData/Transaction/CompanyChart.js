@@ -53,7 +53,7 @@ const CompanyChart = () => {
   }, []);
 
   const exportTo = () => {
-    debugger;
+    
     orgchart.current.exportTo("organization_chart", fileextension);
   };
   const save = async () => {

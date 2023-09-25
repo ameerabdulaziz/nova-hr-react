@@ -8,13 +8,13 @@ const EmployeeBankData = (probs) => {
 
   const EmployeeBankApis = {};
   EmployeeBankApis.GetUserMenuLookup = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
 
     return data.data;
   };
   EmployeeBankApis.GetList = async (anchorTable) => {
-    debugger;
+    
 
     const data = await axiosInstance.get(
       `EmpBank/GetAllData/${lang}/${employeeid}`
@@ -63,7 +63,7 @@ const EmployeeBankData = (probs) => {
   };
 
   EmployeeBankApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`EmpBank/${Item.id}`);
     return data;

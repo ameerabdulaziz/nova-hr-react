@@ -1,9 +1,9 @@
 import axiosInstance from '../../api/axios';
 const PersonalData = (locale) => {
   const Apis = {};
-  debugger;
+  
   Apis.GetList = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`EmpEmployee/AllData/${locale}`);
     const result = data.data;
     return result;

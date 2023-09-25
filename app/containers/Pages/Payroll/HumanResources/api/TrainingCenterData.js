@@ -3,7 +3,7 @@ const TrainingCenterData = () => {
   const TrainingCentersApis = {};
 
   TrainingCentersApis.GetList = async () => {
-    // debugger;
+    // 
     const data = await axiosInstance.get('HrTrainingCenter');
     const result = data.data;
     const finaldata = result.map((obj) => ({
@@ -19,7 +19,7 @@ const TrainingCenterData = () => {
   };
 
   TrainingCentersApis.Save = async (Item) => {
-    // debugger;
+    // 
     const data = {
       id: Item.id,
       arName: Item.name,
@@ -36,7 +36,7 @@ const TrainingCenterData = () => {
   };
 
   TrainingCentersApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`HrTrainingCenter/${Item.id}`);
     return data;

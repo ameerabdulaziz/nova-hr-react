@@ -178,7 +178,7 @@ function EmployeeList() {
                 aria-label="Delete"
                 size="large"
                 onClick={() => {
-                  debugger;
+                  
                   console.log(`rowsDeleted2222 = ${tableMeta.rowData[0]}`);
                 }}
               >
@@ -192,7 +192,7 @@ function EmployeeList() {
                 //onClick={handleClick}
                 //   onClick={handleClickOpt}
                 onClick={(e) => {
-                  debugger;
+                  
                   setemployeeid({
                     id: tableMeta.rowData[0],
                     name: tableMeta.rowData[2],
@@ -218,7 +218,7 @@ function EmployeeList() {
                     <MenuItem
                       key={option.name}
                       onClick={() => {
-                        debugger;
+                        
                         history.push(`/app/Pages/Employee/${option.url}`, {
                           empid: employeeid,
                         });

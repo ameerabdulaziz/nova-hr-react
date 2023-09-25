@@ -43,7 +43,7 @@ function LayOffNoticeCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+        
       setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
@@ -62,7 +62,7 @@ function LayOffNoticeCreate(props) {
   }
 
   async function fetchData() {
-    debugger ;
+    
     
     
     const dataApi = await ApiData(locale).Get(id??0);
@@ -90,7 +90,7 @@ function LayOffNoticeCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.date)}
                             value={data.noticeDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,noticeDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,noticeDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />

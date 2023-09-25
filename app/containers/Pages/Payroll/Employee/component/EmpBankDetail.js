@@ -69,7 +69,7 @@ function EmpBankDetail(props) {
   } = props;
   // const ref = useRef(null);
   const locale = useSelector((state) => state.language.locale);
-  debugger;
+  
   const { classes, cx } = useStyles();
   //const [bnkList, setbnkList] = useState([]);
 
@@ -165,7 +165,7 @@ function EmpBankDetail(props) {
   //   const handleCloseOpt = () => setAnchorElOpt(null);
   const deletedata = async (e) => {
     try {
-      debugger;
+      
       const dataApi = await Apidata().Delete(id);
       if (dataApi.status == 200) {
         toast.error(notif.removed);
@@ -189,7 +189,7 @@ function EmpBankDetail(props) {
   };
   async function on_submit() {
     try {
-      debugger;
+      
       if (dataTable.length == 0) {
         toast.error('ُEnter Details data');
         return;
@@ -286,7 +286,7 @@ function EmpBankDetail(props) {
                         option.name ? option.name : ''
                       }
                       onChange={(event, value) => {
-                        debugger;
+                        
                         if (value !== null) {
                           setbankId((prevFilters) => ({
                             ...prevFilters,

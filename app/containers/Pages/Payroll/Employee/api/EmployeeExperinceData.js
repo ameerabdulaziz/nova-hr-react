@@ -6,13 +6,13 @@ const EmployeeExperinceData = (probs) => {
   const employeeid = probs;
   const EmployeeExperinceApis = {};
   EmployeeExperinceApis.GetUserMenuLookup = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
 
     return data.data;
   };
   EmployeeExperinceApis.GetList = async () => {
-    debugger;
+    
 
     const data = await axiosInstance.get(`EmpExperince/GetAll/${employeeid}`);
     const result = data.data;
@@ -54,7 +54,7 @@ const EmployeeExperinceData = (probs) => {
   };
 
   EmployeeExperinceApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`EmpExperince/${Item.id}`);
     return data;

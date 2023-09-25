@@ -58,7 +58,7 @@ function MissionTrxCreate(props) {
   const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="notes")
        setdata((prevFilters) => ({
@@ -80,11 +80,11 @@ function MissionTrxCreate(props) {
 
         if(event.target.name =="startTime")
         {
-            debugger;
+            
            
             if(data.endTime!="")
             {
-                debugger ;
+                
                 var diff = Math.round((new Date(0,0,0,data.endTime.split(':')[0],data.endTime.split(':')[1]) - new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1])) / 60000);
                 
                     setdata((prevFilters) => ({
@@ -102,11 +102,11 @@ function MissionTrxCreate(props) {
         
         if(event.target.name =="endTime")
         {
-            debugger;
+            
            
             if(data.startTime!="")
             {
-                debugger ;
+                
                 var diff = Math.round((new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1]) - new Date(0,0,0,data.startTime.split(':')[0],data.startTime.split(':')[1])) / 60000);
                 
                     setdata((prevFilters) => ({
@@ -128,7 +128,7 @@ function MissionTrxCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
         setprocessing(true); 
       
         let response = await  ApiData(locale).Save(data);
@@ -150,7 +150,7 @@ async function oncancel(){
     history.push(`/app/Pages/Att/MissionTrx`);
   }
   async function fetchData() {
-    debugger ;
+    
     
     const Missions = await GeneralListApis(locale).GetMissionList(locale);
     setMissionsList(Missions);
@@ -182,7 +182,7 @@ async function oncancel(){
                         <DesktopDatePicker
                             label={intl.formatMessage(Payrollmessages.fromdate)}
                             value={data.fromDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,fromDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,fromDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
@@ -193,7 +193,7 @@ async function oncancel(){
                         <DesktopDatePicker
                             label={intl.formatMessage(Payrollmessages.todate)}
                             value={data.toDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,toDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,toDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />

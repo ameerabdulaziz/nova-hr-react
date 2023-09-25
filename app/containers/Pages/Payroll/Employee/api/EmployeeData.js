@@ -1,6 +1,6 @@
 import axiosInstance from '../../api/axios';
 const EmployeeData = (locale) => {
-  debugger;
+  
   const Apis = {};
 
   Apis.GetList = async (employeeId) => {
@@ -37,7 +37,7 @@ const EmployeeData = (locale) => {
     return result;
   };
   Apis.Delete = async (id) => {
-    debugger;
+    
 
     const data = await axiosInstance.delete(`EmpEmployee/${id}`);
     return data;

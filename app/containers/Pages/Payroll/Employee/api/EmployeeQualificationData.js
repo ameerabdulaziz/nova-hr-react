@@ -8,13 +8,13 @@ const EmployeeQualificationData = (probs) => {
   const [cList, setqualificationList] = useState([]);
   const EmployeeQualificationApis = {};
   EmployeeQualificationApis.GetUserMenuLookup = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
 
     return data.data;
   };
   EmployeeQualificationApis.GetList = async (anchorTable) => {
-    debugger;
+    
 
     const data = await axiosInstance.get(
       `EmpQualification/GetAllData/${lang}/${employeeid}`
@@ -70,7 +70,7 @@ const EmployeeQualificationData = (probs) => {
   };
 
   EmployeeQualificationApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`EmpQualification/${Item.id}`);
     return data;

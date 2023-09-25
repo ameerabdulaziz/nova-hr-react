@@ -27,8 +27,7 @@ const EmployeeSalaryData = (locale) => {
     return result;
   };
   Apis.Delete = async (id) => {
-    // debugger;
-
+   
     const data = await axiosInstance.delete(`EmpSalaryData/${id}`);
     return data;
   };

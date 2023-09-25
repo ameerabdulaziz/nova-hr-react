@@ -3,53 +3,6 @@ import avatarApi from 'enl-api/images/avatars';
 import axiosInstance from '../../api/axios';
 
 import { useSelector, useDispatch } from 'react-redux';
-//const contactData = () => {
-//   debugger;
-//   const lang = 'en'; //useSelector((state) => state.language.locale);
-//   const employeeid = 14;
-//   const data = await axiosInstance.get(
-//     `EmpBank/GetAllData/${lang}/${employeeid}`
-//   );
-//   const result = data.data.empBankList;
-//   const finaldata = result.map((obj) => ({
-//     key: obj.id,
-//     avatar: avatarApi[9],
-//     name: obj.bankName,
-//     title: obj.bankBranchNo,
-//     phone: obj.bnkEmpCode,
-//     secondaryPhone: obj.swiftCode,
-//     personalEmail: obj.iban,
-//     companyEmail: obj.bankId,
-//     address: obj.employeeId,
-//     website: 'http://doeclans.net',
-//     favorited: false,
-//   }));
-//   return finaldata;
-//   const EmployeeBank = async (anchorTable) => {
-//     debugger;
-//     const data = await axiosInstance.get(
-//       `EmpBank/GetAllData/${lang}/${employeeid}`
-//     );
-//     const result = data.data.empBankList;
-//     const finaldata = result.map((obj) => ({
-//       key: obj.id,
-//       avatar: avatarApi[9],
-//       name: obj.bankName,
-//       title: obj.bankBranchNo,
-//       phone: obj.bnkEmpCode,
-//       secondaryPhone: obj.swiftCode,
-//       personalEmail: obj.iban,
-//       companyEmail: obj.bankId,
-//       address: obj.employeeId,
-//       website: 'http://doeclans.net',
-//       favorited: false,
-//     }));
-//     console.log(BankList);
-//     return finaldata;
-//   };
-//};
-
-//export default EmployeeBankData;
 
 const contactData = (props) => {
   const lang = props; // 'en'; //useSelector((state) => state.language.locale);
@@ -57,7 +10,6 @@ const contactData = (props) => {
 
   const EmployeeBankApis = {};
   EmployeeBankApis.GetBankLookup = async (employeeid) => {
-    debugger;
     const data = await axiosInstance.get(
       `EmpBank/GetAllData/${lang}/${employeeid}`
     );
@@ -65,7 +17,7 @@ const contactData = (props) => {
     return data.data.bankList;
   };
   EmployeeBankApis.GetList = async (employeeid) => {
-    debugger;
+    
 
     const data = await axiosInstance.get(
       `EmpBank/GetAllData/${lang}/${employeeid}`
@@ -127,7 +79,7 @@ const contactData = (props) => {
   };
 
   EmployeeBankApis.SaveData = async (Item, details) => {
-    debugger;
+    
     var DetailsList = [];
 
     // for (let i = 0; i < details.length; i++) {
@@ -159,7 +111,7 @@ const contactData = (props) => {
   };
 
   EmployeeBankApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`EmpBank/${Item.id}`);
     return data;

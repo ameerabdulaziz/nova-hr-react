@@ -42,7 +42,7 @@ console.log(ElementNameList);
   };
 
   RewardsApis.Save = async (Item) => {
-    debugger;
+    
     const ElementId = elementList.find((ele) => ele.name === Item.elementName).id;
     const PayTemplateId = payTemplate.find((ele) => ele.name === Item.payTemplateName).id;
     const data = {
@@ -62,8 +62,7 @@ console.log(ElementNameList);
   };
 
   RewardsApis.Delete = async (Item) => {
-    // debugger;
-
+    
     const data = await axiosInstance.delete(`HrRewards/${Item.id}`);
     return data;
   };

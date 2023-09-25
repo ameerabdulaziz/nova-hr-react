@@ -49,7 +49,7 @@ function Contact() {
 
   useEffect(() => {
     async function fetchEmployee() {
-      debugger;
+      
       const empdata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(empdata || []);
 
@@ -64,7 +64,7 @@ function Contact() {
 
   useEffect(() => {
     async function fetchData1() {
-      debugger;
+      
 
       const dataApi = await data(locale).GetList(employee.id);
       setdata(dataApi);
@@ -87,7 +87,7 @@ function Contact() {
           className={index === itemSelected ? classes.selected : ''}
           onClick={() => {
             //showDetail(data)
-            debugger;
+            
             setitemSelected(index || 0);
             setshowMobileDetail(false);
           }}
@@ -162,7 +162,7 @@ function Contact() {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      debugger;
+                      
                       if (value !== null) {
                         setEmployee({
                           id: value.id,

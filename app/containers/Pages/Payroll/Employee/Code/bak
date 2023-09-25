@@ -62,7 +62,7 @@ function Contact() {
 
   useEffect(() => {
     async function fetchData1() {
-      debugger;
+      
       const dataApi = await data().GetList();
       //   setdata(dataApi);
       //fetchAction(dataApi);
@@ -73,7 +73,7 @@ function Contact() {
   }, []);
 
   //   useEffect(() => {
-  //     debugger;
+  //     
 
   //     fetchData(fetchAction(data()));
   //   }, []);

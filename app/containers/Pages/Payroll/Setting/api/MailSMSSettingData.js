@@ -3,7 +3,7 @@ const MailSMSSettingData = () => {
   const Apis = {};
 
  Apis.GetSetting = async (Type) => {
-     debugger;
+     
     const data = await axiosInstance.get(`SettingMailSMS/GetSetting/${Type}`);
    
     return data.data;
@@ -12,7 +12,7 @@ const MailSMSSettingData = () => {
   Apis.SaveSetting = async (data) => {
   
     const result = await axiosInstance.post(`SettingMailSMS/SaveSetting`, data);
-    debugger;
+    
     return result;
   };
 

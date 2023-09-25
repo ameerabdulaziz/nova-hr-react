@@ -8,13 +8,13 @@ const EmployeeCourseData = (probs) => {
 
   const EmployeeCourseApis = {};
   EmployeeCourseApis.GetUserMenuLookup = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
 
     return data.data;
   };
   EmployeeCourseApis.GetList = async (anchorTable) => {
-    debugger;
+    
 
     const data = await axiosInstance.get(
       `EmpCourses/GetAllData/${lang}/${employeeid}`
@@ -60,7 +60,7 @@ const EmployeeCourseData = (probs) => {
   };
 
   EmployeeCourseApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`EmpCourses/${Item.id}`);
     return data;

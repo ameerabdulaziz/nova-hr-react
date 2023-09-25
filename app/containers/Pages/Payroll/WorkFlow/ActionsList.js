@@ -23,7 +23,7 @@ const handledelete = (event, row) => {
 };
 
 const handleAdd = () => {
-  debugger;
+  
   if(Steps.length==0)
   {
     toast.error("enter steps first");
@@ -35,7 +35,7 @@ const handleAdd = () => {
 
 const handleChange = (event, row) => {
   
-  debugger;
+  
   setdataList(
       dataList.map((x) => {
         if (x.id == row.id) {

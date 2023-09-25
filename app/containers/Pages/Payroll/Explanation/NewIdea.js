@@ -40,7 +40,7 @@ function NewIdea(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+        
       let response = await  ApiData(locale).SaveEnquiry(data);
 
       if (response.status==200) {
@@ -75,7 +75,7 @@ function NewIdea(props) {
       })
   }
   async function fetchData() {
-    debugger ;
+    
     const types = await GeneralListApis(locale).GetExplanationTypeList(locale);
     setTypeList(types);
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
@@ -105,7 +105,7 @@ function NewIdea(props) {
                             getOptionLabel={(option) =>
                             option.name ? option.name : ""
                             }
-                            onChange={(event, value) =>{debugger; setdata((prevFilters) => ({...prevFilters,questionType: value.id,questionTypeName:value.name})) }}
+                            onChange={(event, value) =>{ setdata((prevFilters) => ({...prevFilters,questionType: value.id,questionTypeName:value.name})) }}
                             
                             renderInput={(params) => (
                             <TextField
@@ -129,7 +129,7 @@ function NewIdea(props) {
                             getOptionLabel={(option) =>
                             option.name ? option.name : ""
                             }
-                            onChange={(event, value) =>{debugger; setdata((prevFilters) => ({...prevFilters,directedTo: value.id,directedToName:value.name})) }}
+                            onChange={(event, value) =>{ setdata((prevFilters) => ({...prevFilters,directedTo: value.id,directedToName:value.name})) }}
                             
                             renderInput={(params) => (
                             <TextField

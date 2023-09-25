@@ -54,7 +54,7 @@ function NewsCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
       setprocessing(true); 
       let response = await  ApiData(locale).Save(data,EmployeeList);
 
@@ -73,7 +73,7 @@ function NewsCreate(props) {
   }
 
   async function fetchData() {
-    debugger ;
+    
     
     const types = await GeneralListApis(locale).GetNewsTypeList(locale);
     setTypeList(types);
@@ -100,7 +100,7 @@ function NewsCreate(props) {
 
   const handleClose = (data) => {   
 
-    debugger;
+    
      data.map((row) =>{
       if( EmployeeList.filter((x) => x.id==row.id).length == 0)
       {
@@ -111,7 +111,7 @@ function NewsCreate(props) {
   }
   
   const handleClickOpen = () => {
-    debugger;
+    
       setOpenPopup(true);
   }
 
@@ -155,7 +155,7 @@ const handleEnableOne = (event, row) => {
                       <DesktopDatePicker
                           label={intl.formatMessage(Payrollmessages.fromdate)}
                           value={data.fromDate}
-                          onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,fromDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                          onChange={(date) => { setdata((prevFilters) => ({...prevFilters,fromDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                           className={classes.field1}
                           renderInput={(params) => <TextField {...params} variant="outlined" />}
                       />
@@ -166,7 +166,7 @@ const handleEnableOne = (event, row) => {
                       <DesktopDatePicker
                           label={intl.formatMessage(Payrollmessages.todate)}
                           value={data.toDate}
-                          onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,toDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                          onChange={(date) => { setdata((prevFilters) => ({...prevFilters,toDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                           className={classes.field1}
                           renderInput={(params) => <TextField {...params} variant="outlined" />}
                       />
@@ -263,7 +263,7 @@ const handleEnableOne = (event, row) => {
                               name="file" 
                               className="custom-file-input" 
                               id="inputGroupFile" 
-                              onChange={(e) => {debugger ; setdata((prevFilters) => ({
+                              onChange={(e) => { setdata((prevFilters) => ({
                                 ...prevFilters,
                                 image: e.target.files[0],
                                 photo:""

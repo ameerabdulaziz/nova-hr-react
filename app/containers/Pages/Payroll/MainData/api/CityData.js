@@ -28,7 +28,7 @@ const CityData = (locale) => {
   };
 
   CityApis.Save = async (Item) => {
-    debugger;
+    
     const govid = gList.find((ele) => ele.name === Item.govName).id;
     const data = {
       id: Item.id,
@@ -45,7 +45,7 @@ const CityData = (locale) => {
   };
 
   CityApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`MdCity/${Item.id}`);
     return data;

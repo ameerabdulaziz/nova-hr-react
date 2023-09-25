@@ -27,7 +27,7 @@ const CustodyData = (locale) => {
   };
 
   CustodyApis.Save = async (Item) => {
-    debugger;
+    
     const cid = categoryList.find((ele) => ele.name === Item.categoryName).id;
     const data = {
       id: Item.id,
@@ -44,7 +44,7 @@ const CustodyData = (locale) => {
   };
 
   CustodyApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`HrCustody/${Item.id}`);
     return data;

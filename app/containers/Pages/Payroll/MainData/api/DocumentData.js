@@ -3,7 +3,7 @@ const DocumentData = () => {
   const DocumentApis = {};
 
   DocumentApis.GetList = async () => {
-    // debugger;
+    // 
     const data = await axiosInstance.get('MdDocuments');
     const result = data.data;
     const finaldata = result.map((obj) => ({
@@ -18,7 +18,7 @@ const DocumentData = () => {
   };
 
   DocumentApis.Save = async (Item) => {
-    // debugger;
+    // 
     const data = {
       id: Item.id,
       arName: Item.name,
@@ -34,7 +34,7 @@ const DocumentData = () => {
   };
 
   DocumentApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`MdDocuments/${Item.id}`);
     return data;

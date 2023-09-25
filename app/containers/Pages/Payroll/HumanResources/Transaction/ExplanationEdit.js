@@ -42,7 +42,7 @@ function ExplanationEdit(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+        
       setprocessing(true);  
       let response = await  ApiData(locale).SaveResponse(data);
 
@@ -61,7 +61,7 @@ function ExplanationEdit(props) {
   }
 
   async function fetchData() {
-    debugger ;
+    
     
     const dataApi = await ApiData(locale).Get(id??0);
     

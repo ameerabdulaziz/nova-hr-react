@@ -49,7 +49,7 @@ function PermissionCreate(props) {
   const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="arName")
        setdata((prevFilters) => ({
@@ -77,7 +77,7 @@ function PermissionCreate(props) {
 
         if(event.target.name =="maxRepeated")
         {
-            debugger;
+            
             setdata((prevFilters) => ({
                 ...prevFilters,
                 maxRepeated: event.target.value,
@@ -85,7 +85,7 @@ function PermissionCreate(props) {
          }
          if(event.target.name =="maxMinuteNo")
         {
-            debugger;
+            
             setdata((prevFilters) => ({
                 ...prevFilters,
                 maxMinuteNo: event.target.value,
@@ -97,7 +97,7 @@ function PermissionCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
       setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
@@ -115,7 +115,7 @@ async function oncancel(){
     history.push(`/app/Pages/Att/PermissionList`);
   }
   async function fetchData() {
-    debugger ;
+    
     
     const elements = await GeneralListApis(locale).GetElementList(locale);
     setElementList(elements);

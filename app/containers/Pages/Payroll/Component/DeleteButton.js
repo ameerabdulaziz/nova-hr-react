@@ -9,7 +9,7 @@ function DeleteButton(props) {
   const {intl,clickfnc} = props; 
   const { classes } = useStyles();
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
-  debugger; 
+   
   return (
       <div>
         <IconButton

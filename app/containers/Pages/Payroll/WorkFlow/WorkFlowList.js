@@ -30,7 +30,7 @@ function WorkFlowList() {
   async function deleterow(id) {
   
     try {
-     debugger;
+     
       let response = await  ApiData(locale).Delete(id);
 
       if (response.status==200) {
@@ -131,7 +131,7 @@ function WorkFlowList() {
         <Button
           variant="contained"
           onClick={() => {
-            debugger;
+            
             history.push(`/app/Pages/WF/WorkFlowCreate`);
           }}
           color="secondary"
@@ -149,13 +149,13 @@ function WorkFlowList() {
         <Tooltip title={'Delete'} cursor="pointer" className="mr-6">
           <IconButton
             onClick={async() => {
-              debugger;
+              
               const list=[];
               for(let i=0; i<selectedRows.data.length; i++) {
               list.push(data[selectedRows.data[i].dataIndex].id);
               }
               try {
-                debugger;
+                
                  let response = await  ApiData(locale).DeleteList(list);
            
                  if (response.status==200) {

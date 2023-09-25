@@ -4,7 +4,7 @@ const DirectMangerData = () => {
 
   
   Apis.GetList = async (lang,employee) => {
-    debugger;
+    
    const data = await axiosInstance.get(`DirectManager/GetList/${lang}/${employee}`);
   
    return data.data;
@@ -14,7 +14,7 @@ const DirectMangerData = () => {
   var submitedData = data.dataList.filter((row) => row.isSelected==true).map((obj) => {return  obj.id;});
   
     const result = await axiosInstance.post(`DirectManager/Save/${data.employee}`, submitedData);
-    debugger;
+    
     return result;
   };
 

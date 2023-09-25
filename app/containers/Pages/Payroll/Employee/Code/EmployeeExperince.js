@@ -38,7 +38,7 @@ function EmployeeExperince(props) {
 
   const GetUserMenuLookup = useCallback(async () => {
     try {
-      debugger;
+      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employeedata || []);
     } catch (err) {
@@ -169,7 +169,7 @@ function EmployeeExperince(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  debugger;
+                  
                   if (value !== null) {
                     setEmployee({
                       id: value.id,

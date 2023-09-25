@@ -26,7 +26,7 @@ function EmployeeCar(props) {
   const location = useLocation();
   const { empid } = location.state ?? { id: 0, name: '' };
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
-  debugger;
+  
   const [processing, setprocessing] = useState(false);
   const [delprocessing, setdelprocessing] = useState(false);
   const [progress, setProgress] = useState(false);
@@ -51,7 +51,7 @@ function EmployeeCar(props) {
     try {
       e.preventDefault();
       setprocessing(true);
-      debugger;
+      
       const data = {
         id: id,
         employeeId: employee.id,
@@ -103,14 +103,14 @@ function EmployeeCar(props) {
   };
   const GetLookup = useCallback(async () => {
     try {
-      debugger;
+      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setemployeeList(employeedata || []);
       const LicenseGradedata = await GeneralListApis(
         locale
       ).GetLicenseGradeList();
       setgradelist(LicenseGradedata || []);
-      debugger;
+      
       //setEmployee(empid);
     } catch (err) {
       toast.error(err);
@@ -125,7 +125,7 @@ function EmployeeCar(props) {
     async function fetchData() {
       setProgress(true);
       // You can await here
-      debugger;
+      
       const dataApi = await EmployeeCarData(locale).GetList(employee.id);
 
       if (dataApi.length > 0) {
@@ -172,7 +172,7 @@ function EmployeeCar(props) {
               }
               getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
-                debugger;
+                
                 if (value !== null) {
                   setEmployee({
                     id: value.id,
@@ -301,7 +301,7 @@ function EmployeeCar(props) {
                   }
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
-                    debugger;
+                    
                     if (value !== null) {
                       setlicenseGradeId({
                         id: value.id,

@@ -51,7 +51,7 @@ function PromotionsCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+        
       setprocessing(true); 
       let response = await  ApiData(locale).Save(data);
 
@@ -70,7 +70,7 @@ function PromotionsCreate(props) {
   }
 
   async function fetchData() {
-    debugger ;
+    
     const jobs = await GeneralListApis(locale).GetJobsList(locale);
     setJobList(jobs);
     
@@ -99,7 +99,7 @@ function PromotionsCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.date)}
                             value={data.date}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
@@ -123,7 +123,7 @@ function PromotionsCreate(props) {
                         option.name ? option.name : ""
                         }
                         onChange={(event, value) => {
-                            debugger;
+                            
                             
                                 setdata((prevFilters) => ({
                                 ...prevFilters,

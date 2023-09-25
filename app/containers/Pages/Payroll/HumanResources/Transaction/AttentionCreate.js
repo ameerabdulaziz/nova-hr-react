@@ -49,7 +49,7 @@ function AttentionCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger;
+      
       setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
@@ -68,7 +68,7 @@ function AttentionCreate(props) {
   }
 
   async function fetchData() {
-    debugger ;    
+        
     if(id)
     {
         const dataApi = await ApiData(locale).Get(id);
@@ -96,7 +96,7 @@ function AttentionCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.date)}
                             value={data.attentionDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,attentionDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,attentionDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />

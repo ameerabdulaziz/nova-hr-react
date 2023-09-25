@@ -11,7 +11,7 @@ function EditButton(props) {
   const {intl,Id,url} = props;
  
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
-  debugger; 
+   
   return (
       <div>
         <IconButton

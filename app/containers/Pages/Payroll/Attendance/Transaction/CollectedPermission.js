@@ -59,7 +59,7 @@ function PermissionTrxCreate(props) {
   const [deleteprocessing, setdeleteprocessing] = useState(false);
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="notes")
        setdata((prevFilters) => ({
@@ -87,11 +87,11 @@ function PermissionTrxCreate(props) {
 
         if(event.target.name =="startTime")
         {
-            debugger;
+            
            
             if(data.endTime!="")
             {
-                debugger ;
+                
                 var diff = Math.round((new Date(0,0,0,data.endTime.split(':')[0],data.endTime.split(':')[1]) - new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1])) / 60000);
                 if(diff<=maxMinuteNo)
                     setdata((prevFilters) => ({
@@ -113,11 +113,11 @@ function PermissionTrxCreate(props) {
         
         if(event.target.name =="endTime")
         {
-            debugger;
+            
            
             if(data.startTime!="")
             {
-                debugger ;
+                
                 var diff = Math.round((new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1]) - new Date(0,0,0,data.startTime.split(':')[0],data.startTime.split(':')[1])) / 60000);
                 
                 if(diff<=data.maxMinuteNo)
@@ -144,7 +144,7 @@ function PermissionTrxCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
       setprocessing(true); 
       var SelectedIds = dataList.filter((row) => row.isSelected==true).map((obj) => {return  obj.id;});
       data.employeesId=SelectedIds ;
@@ -166,7 +166,7 @@ function PermissionTrxCreate(props) {
   const handleDelete = async (e) => {
     setdeleteprocessing(true);
     try{
-      debugger; 
+       
       setdeleteprocessing(true); 
      
     let response = await  ApiData(locale).DeleteAll(data);
@@ -210,7 +210,7 @@ function PermissionTrxCreate(props) {
       });
   }
   async function fetchData() {
-    debugger ;
+    
     
     const Permissions = await GeneralListApis(locale).GetPermissionList(locale);
     setPermissionsList(Permissions);
@@ -221,7 +221,7 @@ function PermissionTrxCreate(props) {
   }, []);
 
 async function getData() {
-    debugger;
+    
     if(data.permissionId && data.startTime&&data.endTime) {
     setpreviewprocessing(true);
     const result = await ApiData(locale).getPermissions(data);
@@ -261,7 +261,7 @@ async function getData() {
                                             control={(
                                             <Checkbox
                                                 checked={data.isNotUpdate}
-                                                onChange={(e) =>{debugger; setdata((prevFilters) => ({
+                                                onChange={(e) =>{ setdata((prevFilters) => ({
                                                     ...prevFilters,
                                                     isNotUpdate: e.target.checked,
                                                     }))}  } 
@@ -278,7 +278,7 @@ async function getData() {
                                             <DesktopDatePicker
                                                 label={intl.formatMessage(Payrollmessages.date)}
                                                 value={data.date}
-                                                onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
+                                                onChange={(date) => { setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
                                                 className={classes.field}
                                                 renderInput={(params) => <TextField {...params} variant="outlined" />}
                                             />

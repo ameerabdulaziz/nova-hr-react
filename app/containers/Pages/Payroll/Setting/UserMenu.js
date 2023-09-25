@@ -180,7 +180,7 @@ async function on_submit() {
       
       const data = await UserMenuData().GetUserMenuLookup(locale);
       setEmployeeList(data.employees || []);
-      debugger;
+      
       setMenuList(data.parentMenu || []);
       
     } catch (err) {
@@ -207,7 +207,7 @@ async function on_submit() {
                         options={employeeList}                        
                         getOptionLabel={(option) =>option.name}
                         onChange={(event, value) => {
-                          debugger ;
+                          
                             if (value !== null) {
                                 setEmployee(value.id);
                             } else {

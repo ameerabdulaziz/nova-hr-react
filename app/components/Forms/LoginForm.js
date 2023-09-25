@@ -54,7 +54,7 @@ function LoginForm(props) {
   const handleMouseDownPassword = event => event.preventDefault();
   const handleFacebookClick = () =>window.open('https://www.facebook.com/dynamiceg', '_blank').focus();
   const handleLinkedinClick = () =>window.open('https://eg.linkedin.com/company/dynamic-technology', '_blank').focus();
-  const handleTwitterClick = () =>{debugger ; window.open('https://www.dynamiceg.com/', '_blank').focus(); }
+  const handleTwitterClick = () =>{ window.open('https://www.dynamiceg.com/', '_blank').focus(); }
   
   return (
     <Paper className={classes.sideWrap}>

@@ -138,7 +138,7 @@ function Personal(props) {
       e.preventDefault();
       setprocessing(true);
 
-      debugger;
+      
       const data = {
         id: id ?? 0,
         employeeCode: employeeCode,
@@ -231,7 +231,7 @@ function Personal(props) {
   useEffect(() => {
     async function fetchData() {
       setProgress(true);
-      debugger;
+      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setreportToList(employeedata || []);
 
@@ -420,7 +420,7 @@ function Personal(props) {
                       name="eRPCode"
                       value={eRPCode}
                       onChange={(e) => {
-                        debugger;
+                        
                         seteRPCode(e.target.value);
                       }}
                       label={intl.formatMessage(messages.eRPCode)}
@@ -495,7 +495,7 @@ function Personal(props) {
                         label={intl.formatMessage(messages.hiringDate)}
                         value={hiringDate}
                         onChange={(date) => {
-                          debugger;
+                          
                           sethiringDate(format(new Date(date), 'yyyy-MM-dd'));
                         }}
                         className={classes.field}
@@ -703,7 +703,7 @@ function Personal(props) {
                       value={identityIssuingDate}
                       required
                       onChange={(date) => {
-                        debugger;
+                        
                         setidentityIssuingDate(
                           format(new Date(date), 'yyyy-MM-dd')
                         );
@@ -722,7 +722,7 @@ function Personal(props) {
                       required
                       value={identityExpiry}
                       onChange={(date) => {
-                        debugger;
+                        
                         setidentityExpiry(format(new Date(date), 'yyyy-MM-dd'));
                       }}
                       className={classes.field}
@@ -852,7 +852,7 @@ function Personal(props) {
                   label={intl.formatMessage(messages.birthDate)}
                   value={birthDate}
                   onChange={(date) => {
-                    debugger;
+                    
                     setbirthDate(format(new Date(date), 'yyyy-MM-dd'));
                   }}
                   className={classes.field}

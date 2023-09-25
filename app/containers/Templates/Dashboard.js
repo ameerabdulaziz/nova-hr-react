@@ -55,7 +55,7 @@ function Dashboard(props) {
     }
   }
 
-  debugger;
+  
 var result = findNode(dataMenu, place.endsWith("Create")?pathname.replace('Create', ''):(place.endsWith("Edit")?pathname.replace('Edit', ''):pathname));
 if(result) 
 {

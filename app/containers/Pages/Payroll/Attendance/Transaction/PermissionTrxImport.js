@@ -61,7 +61,7 @@ const resetDataFun = () => {
 
 const submitFun = async (e) => {
     try{
-        debugger;  
+          
         let response = await  ApiData(locale).SaveList(fileData);
   
         if (response.status==200) {

@@ -29,7 +29,7 @@ function CustodyDeliveryList(props) {
       list.push(data[selectedRows.data[i].dataIndex].id);
       }
       try {
-        debugger;
+        
           let response = await  ApiData(locale).DeleteList(list);
     
           if (response.status==200) {
@@ -59,7 +59,7 @@ function CustodyDeliveryList(props) {
     }
   }
   async function fetchData() {
-    debugger ;
+    
     const dataApi = await ApiData(locale).GetList(1);
     setdata(dataApi);
   }

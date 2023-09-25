@@ -1,6 +1,6 @@
 import axiosInstance from '../../api/axios';
 const EmployeeContractData = (locale) => {
-  debugger;
+  
   const Apis = {};
 
   Apis.GetList = async (employeeId) => {
@@ -28,7 +28,7 @@ const EmployeeContractData = (locale) => {
     return result;
   };
   Apis.Delete = async (id) => {
-    debugger;
+    
 
     const data = await axiosInstance.delete(`EmpContractData/${id}`);
     return data;

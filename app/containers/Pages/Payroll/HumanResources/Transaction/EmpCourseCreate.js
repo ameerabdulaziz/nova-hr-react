@@ -50,7 +50,7 @@ function EmpCourseCreate(props) {
   const history=useHistory();  
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="notes")
         setdata((prevFilters) => ({
@@ -68,7 +68,7 @@ function EmpCourseCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger;  
+        
       setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
@@ -86,7 +86,7 @@ function EmpCourseCreate(props) {
     history.push(`/app/Pages/HR/EmpCourse`);
   }
   async function fetchData() {
-    debugger ;
+    
    
     const courses = await GeneralListApis(locale).GetCourseList();
     setCourseList(courses);
@@ -126,7 +126,7 @@ function EmpCourseCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(Payrollmessages.fromdate)}
                             value={data.startDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,startDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,startDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
@@ -137,7 +137,7 @@ function EmpCourseCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(Payrollmessages.todate)}
                             value={data.finishDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,finishDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,finishDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
@@ -148,7 +148,7 @@ function EmpCourseCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.commStartDate)}
                             value={data.commStartDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,commStartDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,commStartDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
@@ -159,7 +159,7 @@ function EmpCourseCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.commEndDate)}
                             value={data.commEndDate}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,commEndDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,commEndDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />

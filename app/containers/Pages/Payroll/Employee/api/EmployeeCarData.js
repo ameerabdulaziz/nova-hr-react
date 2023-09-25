@@ -19,7 +19,7 @@ const EmployeeCarData = (locale) => {
     //   accNo: Item.accNo,
     //   note: Item.note,
     // };
-    debugger;
+    
     const result =
       data.id === 0
         ? await axiosInstance.post('EmpCar', data)
@@ -28,7 +28,7 @@ const EmployeeCarData = (locale) => {
   };
 
   Apis.Delete = async (id) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`EmpCar/${id}`);
     return data;

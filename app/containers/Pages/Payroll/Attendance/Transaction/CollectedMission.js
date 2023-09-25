@@ -58,7 +58,7 @@ function MissionTrxCreate(props) {
 
   
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="notes")
        setdata((prevFilters) => ({
@@ -80,11 +80,11 @@ function MissionTrxCreate(props) {
 
         if(event.target.name =="startTime")
         {
-            debugger;
+            
            
             if(data.endTime!="")
             {
-                debugger ;
+                
                 var diff = Math.round((new Date(0,0,0,data.endTime.split(':')[0],data.endTime.split(':')[1]) - new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1])) / 60000);
                 
                     setdata((prevFilters) => ({
@@ -102,11 +102,11 @@ function MissionTrxCreate(props) {
         
         if(event.target.name =="endTime")
         {
-            debugger;
+            
            
             if(data.startTime!="")
             {
-                debugger ;
+                
                 var diff = Math.round((new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1]) - new Date(0,0,0,data.startTime.split(':')[0],data.startTime.split(':')[1])) / 60000);
                 
                     setdata((prevFilters) => ({
@@ -129,7 +129,7 @@ function MissionTrxCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
       setprocessing(true); 
       var SelectedIds = dataList.filter((row) => row.isSelected==true).map((obj) => {return  obj.id;});
       data.employeesId=SelectedIds ;
@@ -151,7 +151,7 @@ function MissionTrxCreate(props) {
   const handleDelete = async (e) => {
     setdeleteprocessing(true);
     try{
-      debugger; 
+       
       setdeleteprocessing(true); 
      
     let response = await  ApiData(locale).DeleteAll(data);
@@ -192,7 +192,7 @@ function MissionTrxCreate(props) {
       });
   }
   async function fetchData() {
-    debugger ;
+    
     
     const Missions = await GeneralListApis(locale).GetMissionList(locale);
     setMissionsList(Missions);
@@ -203,7 +203,7 @@ function MissionTrxCreate(props) {
   }, []);
 
 async function getData() {
-    debugger;
+    
     if(data.missionId && data.startTime&&data.endTime) {
     setpreviewprocessing(true);
     const result = await ApiData(locale).getMissions(data);
@@ -243,7 +243,7 @@ async function getData() {
                                             control={(
                                             <Checkbox
                                                 checked={data.isNotUpdate}
-                                                onChange={(e) =>{debugger; setdata((prevFilters) => ({
+                                                onChange={(e) =>{ setdata((prevFilters) => ({
                                                     ...prevFilters,
                                                     isNotUpdate: e.target.checked,
                                                     }))}  } 
@@ -260,7 +260,7 @@ async function getData() {
                                             <DesktopDatePicker
                                                 label={intl.formatMessage(Payrollmessages.fromdate)}
                                                 value={data.fromDate}
-                                                onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,fromDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                                                onChange={(date) => { setdata((prevFilters) => ({...prevFilters,fromDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                                                 className={classes.field}
                                                 renderInput={(params) => <TextField {...params} variant="outlined" />}
                                             />
@@ -271,7 +271,7 @@ async function getData() {
                                             <DesktopDatePicker
                                                 label={intl.formatMessage(Payrollmessages.todate)}
                                                 value={data.toDate}
-                                                onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,toDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                                                onChange={(date) => { setdata((prevFilters) => ({...prevFilters,toDate: format(new Date(date), "yyyy-MM-dd"),}))}}
                                                 className={classes.field}
                                                 renderInput={(params) => <TextField {...params} variant="outlined" />}
                                             />

@@ -47,7 +47,6 @@ function MainTable(props) {
   ));
   
   const getData = () => {
-    debugger;
     if (search.length !== 0)
       return items.filter((item) =>
         Object.keys(item).some((key) =>

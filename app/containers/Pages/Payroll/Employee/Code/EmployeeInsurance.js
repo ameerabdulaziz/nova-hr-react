@@ -36,7 +36,7 @@ function EmployeeInsurance(props) {
 
   const GetEmpLookup = useCallback(async () => {
     try {
-      debugger;
+      
       const data = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(data || []);
     } catch (err) {
@@ -167,7 +167,7 @@ function EmployeeInsurance(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  debugger;
+                  
                   if (value !== null) {
                     setEmployee({
                       id: value.id,

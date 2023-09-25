@@ -65,7 +65,7 @@ function RewardTransCreate(props) {
   const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="note")
     setdata((prevFilters) => ({
@@ -83,7 +83,7 @@ function RewardTransCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
       setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
@@ -103,7 +103,7 @@ async function oncancel(){
     history.push(`/app/Pages/HR/RewardTrans`);
   }
   async function fetchData() {
-    debugger ;
+    
     const years = await GeneralListApis(locale).GetYears(locale);
     setYearList(years);
 
@@ -127,7 +127,7 @@ async function oncancel(){
   }, []);
 
   async function getRewardData(id) {
-    debugger;
+    
     if (!id){
         setdata((prevFilters) => ({
             ...prevFilters,
@@ -165,7 +165,7 @@ async function oncancel(){
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.date)}
                             value={data.date}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
@@ -267,7 +267,7 @@ async function oncancel(){
                                 name="file"
                                 id="inputGroupFile"
                                 onChange={(e) => {
-                                debugger;
+                                
                                 setdata((prevFilters) => ({
                                     ...prevFilters,
                                     uploadedFile: e.target.files[0],

@@ -46,7 +46,7 @@ function WorkFlowCreate(props) {
   
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="arName")
        setdata((prevFilters) => ({
@@ -65,7 +65,7 @@ function WorkFlowCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
       setprocessing(true); 
       data.employeeList=employeeList.filter((row) => row.isSelected==true);
       data.jobList=jobList.filter((row) => row.isSelected==true);
@@ -96,7 +96,7 @@ function WorkFlowCreate(props) {
     const Documents = await GeneralListApis(locale).GetDocumentList(locale);
     setDocumentList(Documents);
 
-    debugger ;
+    
     if(id)
     {
         const dataApi = await ApiData(locale).Get(id??0);        

@@ -62,7 +62,7 @@ function PermissionTrxCreate(props) {
   const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="notes")
        setdata((prevFilters) => ({
@@ -90,11 +90,11 @@ function PermissionTrxCreate(props) {
 
         if(event.target.name =="startTime")
         {
-            debugger;
+            
            
             if(data.endTime!="")
             {
-                debugger ;
+                
                 var diff = Math.round((new Date(0,0,0,data.endTime.split(':')[0],data.endTime.split(':')[1]) - new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1])) / 60000);
                 if(diff<=maxMinuteNo)
                     setdata((prevFilters) => ({
@@ -116,11 +116,11 @@ function PermissionTrxCreate(props) {
         
         if(event.target.name =="endTime")
         {
-            debugger;
+            
            
             if(data.startTime!="")
             {
-                debugger ;
+                
                 var diff = Math.round((new Date(0,0,0,event.target.value.split(':')[0],event.target.value.split(':')[1]) - new Date(0,0,0,data.startTime.split(':')[0],data.startTime.split(':')[1])) / 60000);
                 
                 if(diff<=data.maxMinuteNo)
@@ -147,7 +147,7 @@ function PermissionTrxCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
       setprocessing(true); 
       var RepeatedNo= await getRepeatedNo();
       if(RepeatedNo>=data.maxRepeated)
@@ -176,7 +176,7 @@ async function oncancel(){
     history.push(`/app/Pages/Att/PermissionTrx`);
   }
   async function fetchData() {
-    debugger ;
+    
     
     const Permissions = await GeneralListApis(locale).GetPermissionList(locale);
     setPermissionsList(Permissions);
@@ -194,7 +194,7 @@ async function oncancel(){
 
 
 const getRepeatedNo = useCallback(async () => {
-        debugger;
+        
         if (data.permissionId && data.date && data.employeeId){
                
             const RepeatedNo = await ApiData(locale).getRepeatedNo(data.permissionId , data.date,data.employeeId);
@@ -220,7 +220,7 @@ const getRepeatedNo = useCallback(async () => {
                         <DesktopDatePicker
                             label={intl.formatMessage(Payrollmessages.date)}
                             value={data.date}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />

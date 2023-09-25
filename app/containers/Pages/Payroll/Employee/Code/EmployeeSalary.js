@@ -66,7 +66,7 @@ function EmployeeSalary(props) {
       e.preventDefault();
       setprocessing(true);
 
-      debugger;
+      
       const data = {
         id: id,
         employeeId: employee.id,
@@ -98,7 +98,7 @@ function EmployeeSalary(props) {
   };
   const deletedata = async (e) => {
     try {
-      debugger;
+      
       // e.preventDefault();
 
       setdelprocessing(true);
@@ -131,7 +131,7 @@ function EmployeeSalary(props) {
   };
   const GetLookup = useCallback(async () => {
     try {
-      debugger;
+      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setemployeeList(employeedata || []);
 
@@ -201,7 +201,7 @@ function EmployeeSalary(props) {
               }
               getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
-                debugger;
+                
                 if (value !== null) {
                   setEmployee({
                     id: value.id,
@@ -386,7 +386,7 @@ function EmployeeSalary(props) {
                   }}
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
-                    debugger;
+                    
                     if (value !== null) {
                       setsalaryStructureId((prevFilters) => ({
                         ...prevFilters,
@@ -424,7 +424,7 @@ function EmployeeSalary(props) {
                   }}
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
-                    debugger;
+                    
                     if (value !== null) {
                       setincentiveFrom((prevFilters) => ({
                         ...prevFilters,

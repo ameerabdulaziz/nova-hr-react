@@ -5,7 +5,7 @@ const RewardTransData = (locale) => {
   const Apis = {};
   
   Apis.GetReport = async (employee,rewards,fromdate,todate) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrRewardsTransaction/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&RewardsId=${rewards!=null?rewards:""}`);
     const result = data.data;
     
@@ -13,7 +13,7 @@ const RewardTransData = (locale) => {
   };
 
   Apis.GetList = async () => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrRewardsTransaction/GetList/${locale}`);
     const result = data.data;
     
@@ -21,7 +21,7 @@ const RewardTransData = (locale) => {
   };
 
   Apis.Get = async (id) => {
-    debugger;
+    
     const data = await axiosInstance.get(`HrRewardsTransaction/Get/${id}/${locale}`);
     
     return data.data;
@@ -37,7 +37,7 @@ const RewardTransData = (locale) => {
   }, new FormData());
   
   Apis.Save = async (data) => {
-    debugger;
+    
   /* var requestData={
     "date": data.date,
     "docName": data.docName,
@@ -56,20 +56,20 @@ const RewardTransData = (locale) => {
     return result;
   };
   Apis.Delete = async (id) => {
-    debugger;
+    
     const result = await axiosInstance.delete(`HrRewardsTransaction/Delete/${id}`);
     return result;
   };
 
   Apis.DeleteList = async (list) => {
-    debugger;
+    
     const result = await axiosInstance.post(`HrRewardsTransaction/DeleteList`,list);
     return result;
   };
 
   
 Apis.GetRewardData = async (id) => {    
-  debugger;
+  
   const result = await axiosInstance.get(`HrRewardsTransaction/GetRewardData/${id}/${locale}`);   
   return result.data;
 };

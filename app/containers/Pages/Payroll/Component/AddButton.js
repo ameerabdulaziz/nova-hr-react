@@ -12,7 +12,7 @@ function AddButton(props) {
   const history=useHistory();  
   const { classes } = useStyles();
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
-  debugger; 
+   
   return (
       <div>
        <Button

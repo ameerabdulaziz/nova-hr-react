@@ -61,7 +61,7 @@ function ResignTrxCreate(props) {
   const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
-    debugger ;
+    
 
       if(event.target.name =="note")
     setdata((prevFilters) => ({
@@ -85,7 +85,7 @@ function ResignTrxCreate(props) {
     
     e.preventDefault();   
     try{
-      debugger; 
+       
       setprocessing(true);  
       let response = await  ApiData(locale).Save(data);
 
@@ -103,7 +103,7 @@ function ResignTrxCreate(props) {
     history.push(`/app/Pages/HR/ResignTrx`);
   }
   async function fetchData() {
-    debugger ;
+    
    
     const resigns = await GeneralListApis(locale).GetResignReasonList();
     setResignList(resigns);
@@ -126,7 +126,7 @@ function ResignTrxCreate(props) {
   }, []);
 
   async function getElements(id) {
-    debugger;
+    
     if (!id)
     {
         setVacElementList([]);
@@ -162,7 +162,7 @@ function ResignTrxCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.date)}
                             value={data.date}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,date: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />
@@ -173,7 +173,7 @@ function ResignTrxCreate(props) {
                         <DesktopDatePicker
                             label={intl.formatMessage(messages.lworkingDay)}
                             value={data.lworkingDay}
-                            onChange={(date) => {debugger; setdata((prevFilters) => ({...prevFilters,lworkingDay: format(new Date(date), "yyyy-MM-dd"),}))}}
+                            onChange={(date) => { setdata((prevFilters) => ({...prevFilters,lworkingDay: format(new Date(date), "yyyy-MM-dd"),}))}}
                             className={classes.field}
                             renderInput={(params) => <TextField {...params} variant="outlined" />}
                         />

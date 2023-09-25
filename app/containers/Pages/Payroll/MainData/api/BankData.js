@@ -3,7 +3,7 @@ const BankData = () => {
   const BanksApis = {};
 
   BanksApis.GetList = async () => {
-    // debugger;
+    // 
     const data = await axiosInstance.get('MdBanks');
     const result = data.data;
     const finaldata = result.map((obj) => ({
@@ -20,7 +20,7 @@ const BankData = () => {
   };
 
   BanksApis.Save = async (Item) => {
-    // debugger;
+    // 
     const data = {
       id: Item.id,
       arName: Item.name,
@@ -38,7 +38,7 @@ const BankData = () => {
   };
 
   BanksApis.Delete = async (Item) => {
-    // debugger;
+    // 
 
     const data = await axiosInstance.delete(`MdBanks/${Item.id}`);
     return data;

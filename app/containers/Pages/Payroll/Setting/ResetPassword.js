@@ -36,7 +36,7 @@ function ResetPassword(props) {
         toast.error("Please Select Employee and enter Password")
         return
       }
-      debugger;
+      
     const response = await ResetPasswordData().ResetUserPassword(employee, password);
  
     if (response.status==200) {
@@ -66,7 +66,7 @@ function ResetPassword(props) {
   };
 
   const GetDepartmentList = useCallback(async()=> {
-    debugger ;
+    
     const data = await GeneralListApis(locale).GetDepartmentList();
     
     setDepartmentList(data || []);
@@ -74,7 +74,7 @@ function ResetPassword(props) {
 
 const GetEmployeeListByDepartment = useCallback(async () => {
     try {
-      debugger;
+      
       if (!department){
         setemployeeList([]);
         return
@@ -123,7 +123,7 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                         option.name
                     }
                     onChange={(event, value) => {
-                        debugger ;
+                        
                         if (value !== null) {
                             setDepartment(value.id);
                         } else {
@@ -150,7 +150,7 @@ const GetEmployeeListByDepartment = useCallback(async () => {
                         option.name
                     }
                     onChange={(event, value) => {
-                        debugger ;
+                        
                         if (value !== null) {
                             setEmployee(value.id);
                         } else {

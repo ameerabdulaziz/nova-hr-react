@@ -33,7 +33,7 @@ function CustodyReceiveReport(props) {
   const handleSearch = async (e) => {
     
     try{
-      debugger;  
+        
       const dataApi = await ApiData(locale).GetReport(employee,custody,2,fromdate,todate);
       setdata(dataApi);
     } catch (err) {
@@ -42,7 +42,7 @@ function CustodyReceiveReport(props) {
   }
 
   async function fetchData() {
-    debugger ;
+    
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
     const custodies = await GeneralListApis(locale).GetCustodyList(locale);
@@ -159,7 +159,7 @@ function CustodyReceiveReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setcustody(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setcustody(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
@@ -181,7 +181,7 @@ function CustodyReceiveReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{debugger; setemployee(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            

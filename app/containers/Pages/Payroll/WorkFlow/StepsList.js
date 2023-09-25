@@ -21,7 +21,7 @@ function StepsList(props) {
 
   const handleClosePopUp = () => {   
     
-    debugger;
+    
     setdataList(
       dataList.map((x) => {
         if (x.id == Selectedid) {
@@ -34,7 +34,7 @@ function StepsList(props) {
     setOpenPopup(false);
   }
   const handleOpenPopUp = (event, row) => {
-    debugger;
+    
     setSelectedid(row.id);
     var rowEmployeeList = dataList.find((x) => x.id==row.id).stepsEmployeeList ; 
     if(rowEmployeeList !=null && rowEmployeeList!==undefined)
@@ -80,14 +80,14 @@ const handledelete = (event, row) => {
 };
 
 const handleAdd = () => {
-  debugger;
+  
   setdataList((prev) => [...prev, {id:(dataList.length)+1,arName:"",approvalType:1}]);
 }
 
 
 const handleChange = (event, row) => {
   
-  debugger;
+  
   setdataList(
       dataList.map((x) => {
         if (x.id == row.id) {

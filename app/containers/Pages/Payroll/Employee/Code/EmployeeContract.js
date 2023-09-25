@@ -76,7 +76,7 @@ function EmployeeContract(props) {
       e.preventDefault();
       setprocessing(true);
 
-      debugger;
+      
       const data = {
         id: id,
         employeeId: employee.id,
@@ -106,7 +106,7 @@ function EmployeeContract(props) {
   };
   const deletedata = async (e) => {
     try {
-      debugger;
+      
       // e.preventDefault();
 
       setdelprocessing(true);
@@ -136,7 +136,7 @@ function EmployeeContract(props) {
   };
   const GetLookup = useCallback(async () => {
     try {
-      debugger;
+      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setemployeeList(employeedata || []);
       setkinshipEmpList(employeedata || []);
@@ -168,7 +168,7 @@ function EmployeeContract(props) {
     async function fetchData() {
       setProgress(true);
       const dataApi = await EmployeeContractData(locale).GetList(employee.id);
-      debugger;
+      
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
 
@@ -223,7 +223,7 @@ function EmployeeContract(props) {
               }
               getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
-                debugger;
+                
                 if (value !== null) {
                   setEmployee({
                     id: value.id,
@@ -270,7 +270,7 @@ function EmployeeContract(props) {
                   }}
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
-                    debugger;
+                    
                     if (value !== null) {
                       sethiringSourceId({
                         id: value.id,
@@ -325,7 +325,7 @@ function EmployeeContract(props) {
                   {...required}
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
-                    debugger;
+                    
                     if (value !== null) {
                       setkinshipLinkId({
                         id: value.id,
@@ -362,7 +362,7 @@ function EmployeeContract(props) {
                   }}
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
-                    debugger;
+                    
                     if (value !== null) {
                       setkinshipEmpId({
                         id: value.id,
@@ -413,7 +413,7 @@ function EmployeeContract(props) {
                   }}
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
-                    debugger;
+                    
                     if (value !== null) {
                       setcontractTypeId({
                         id: value.id,
@@ -445,7 +445,7 @@ function EmployeeContract(props) {
                     label={intl.formatMessage(messages.contractStartDate)}
                     value={contractStartDate}
                     onChange={(date) => {
-                      debugger;
+                      
                       setcontractStartDate(
                         format(new Date(date), 'yyyy-MM-dd')
                       );
@@ -464,7 +464,7 @@ function EmployeeContract(props) {
                     label={intl.formatMessage(messages.contractEndDate)}
                     value={contractEndDate}
                     onChange={(date) => {
-                      debugger;
+                      
                       setcontractEndDate(format(new Date(date), 'yyyy-MM-dd'));
                     }}
                     className={classes.field}
