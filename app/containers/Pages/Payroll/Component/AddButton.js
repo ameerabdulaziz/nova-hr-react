@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 function AddButton(props) {
   
-  const {intl,url,param} = props;
+  const {intl,url,param,disabled } = props;
   const history=useHistory();  
   const { classes } = useStyles();
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
@@ -18,7 +18,7 @@ function AddButton(props) {
       <div>
         <Tooltip title={intl.formatMessage(Payrollmessages.add)} cursor="pointer" className="mr-6">  
           <Button
-              disabled={!Menu.isAdd}
+              disabled={!Menu.isAdd||disabled }
               variant="contained"
               onClick={() => {
                 history.push(url,param);
