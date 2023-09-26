@@ -4,12 +4,11 @@ import Payrollmessages from '../messages';
 import AddIcon from '@mui/icons-material/Add';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
-import { useHistory} from "react-router-dom";
+import { Link} from "react-router-dom";
 
 function AddButton(props) {
   
-  const {intl,url} = props;
-  const history=useHistory();  
+  const {intl,url,Id,employeeId} = props;
   const { classes } = useStyles();
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
    
@@ -18,14 +17,18 @@ function AddButton(props) {
        <Button
           disabled={!Menu.isAdd}
           variant="contained"
-          onClick={() => {
-            history.push(url);
-          }}
           color="secondary"
           className={classes.button}
         >
-          <AddIcon />
-            <FormattedMessage {...Payrollmessages.add} />
+
+          {employeeId?<Link to={{ pathname: url, state: {id:Id?Id:0,employeeId:employeeId},}}>
+              <AddIcon />
+              <FormattedMessage {...Payrollmessages.add} />
+          </Link>:
+          <Link to={{ pathname: url, state: {id:Id?Id:0},}}>
+              <AddIcon />
+              <FormattedMessage {...Payrollmessages.add} />
+          </Link> }
         </Button>
       </div>
   );
