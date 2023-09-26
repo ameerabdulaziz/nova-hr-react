@@ -6,7 +6,8 @@ const PermissionTrxData = (locale) => {
   
   Apis.GetReport = async (employee,permission,fromdate,todate,Status,Deleted) => {
     
-    const data = await axiosInstance.get(`AttPermissionTrx/GetReport/${locale}?FromDate=${fromdate}&ToDate=${todate}&EmployeeId=${employee}&PermissionId=${permission}&StatusId=${Status}&StatusId=${Status}&IsDeleted=${Deleted}`);
+    debugger ;
+    const data = await axiosInstance.get(`AttPermissionTrx/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee}&PermissionId=${permission}&StatusId=${Status}&StatusId=${Status}&IsDeleted=${Deleted}`);
     const result = data.data;
     
     return result;

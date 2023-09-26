@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
 import ApiData from '../api/PermissionTrxData';
 import { useSelector } from 'react-redux';
-import Tooltip from '@mui/material/Tooltip';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
@@ -141,7 +140,7 @@ function PermissionTrxList(props) {
           console.log('tableMeta =', tableMeta);
           return (
             <div className={style.actionsSty}>
-              <EditButton Id={tableMeta.rowData[0]} url={"/app/Pages/Att/PermissionTrxEdit"}></EditButton>
+              <EditButton param={{id: tableMeta.rowData[0] }} url={"/app/Pages/Att/PermissionTrxEdit"}></EditButton>
               <DeleteButton clickfnc={() => deleterow(tableMeta.rowData[0])}></DeleteButton>
               
             </div>
@@ -164,16 +163,16 @@ function PermissionTrxList(props) {
       //some logic
     },
     customToolbar: () => (
-      <Tooltip title={intl.formatMessage(Payrollmessages.addNew)}>        
-        <AddButton url={"/app/Pages/Att/PermissionTrxCreate"}></AddButton>
-      </Tooltip>
+             
+        <AddButton url={"/app/Pages/Att/PermissionTrxCreate"} ></AddButton>
+      
     ),
     customToolbarSelect: (selectedRows) => (
       
       <div>     
-        <Tooltip title={intl.formatMessage(Payrollmessages.delete)} cursor="pointer" className="mr-6">         
+          
           <DeleteButton clickfnc={() => deleteList(selectedRows)}></DeleteButton>              
-        </Tooltip>       
+         
       </div>
     ),
   };

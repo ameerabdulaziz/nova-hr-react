@@ -4,32 +4,32 @@ import Payrollmessages from '../messages';
 import AddIcon from '@mui/icons-material/Add';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
-import { Link} from "react-router-dom";
+import { useHistory} from "react-router-dom";
+import Tooltip from '@mui/material/Tooltip';
 
 function AddButton(props) {
   
-  const {intl,url,Id,employeeId} = props;
+  const {intl,url,param} = props;
+  const history=useHistory();  
   const { classes } = useStyles();
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
    
   return (
       <div>
-       <Button
-          disabled={!Menu.isAdd}
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-        >
-
-          {employeeId?<Link to={{ pathname: url, state: {id:Id?Id:0,employeeId:employeeId},}}>
+        <Tooltip title={intl.formatMessage(Payrollmessages.add)} cursor="pointer" className="mr-6">  
+          <Button
+              disabled={!Menu.isAdd}
+              variant="contained"
+              onClick={() => {
+                history.push(url,param);
+              }}
+              color="secondary"
+              className={classes.button}
+            >
               <AddIcon />
-              <FormattedMessage {...Payrollmessages.add} />
-          </Link>:
-          <Link to={{ pathname: url, state: {id:Id?Id:0},}}>
-              <AddIcon />
-              <FormattedMessage {...Payrollmessages.add} />
-          </Link> }
-        </Button>
+                <FormattedMessage {...Payrollmessages.add} />
+            </Button>
+        </Tooltip>
       </div>
   );
 } ;

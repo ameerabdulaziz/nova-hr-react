@@ -116,7 +116,7 @@ function ExplanationList(props) {
             return (
               <div className={style.actionsSty}>
                 
-                <EditButton Id={tableMeta.rowData[0]} url={"/app/Pages/HR/ExplanationEdit"}></EditButton>
+                <EditButton param={{id: tableMeta.rowData[0] }} url={"/app/Pages/HR/ExplanationEdit"}></EditButton>
   
               </div>
             );

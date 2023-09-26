@@ -16,6 +16,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { PapperBlock } from 'enl-components';
 import { toast } from 'react-hot-toast';
 import PropTypes from 'prop-types';
+import { isNull } from 'lodash';
 
 
 function PermissionTrxReport(props) {
@@ -23,8 +24,8 @@ function PermissionTrxReport(props) {
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   
-  const [fromdate, setfromate] = useState("");
-  const [todate, settodate] = useState("");
+  const [fromdate, setfromate] = useState(null);
+  const [todate, settodate] = useState(null);
   const [employee, setemployee] = useState("");
   const [EmployeeList, setEmployeeList] = useState([]);
   const [Permission, setPermission] = useState("");
@@ -51,9 +52,6 @@ function PermissionTrxReport(props) {
 
     const  Permissions= await GeneralListApis(locale).GetPermissionList();
     setPermissionsList(Permissions);
-/* 
-    const dataApi = await ApiData(locale).GetReport(employee,Permission,fromdate,todate);
-    setdata(dataApi); */
   }
   useEffect(() => {  
     fetchData();
@@ -236,13 +234,13 @@ function PermissionTrxReport(props) {
                 getOptionLabel={(option) =>
                   option.name ? option.name : ""
                 }
-                onChange={(event, value) =>{ setStatus(value==1?null:value.id)} }
+                onChange={(event, value) =>{ setStatus(value.id===1?"":value.id)} }
                 renderInput={(params) => (
                 <TextField
                     variant="outlined"                            
                     {...params}
                     name="StatusList"                              
-                    label={intl.formatMessage(messages.type)}
+                    label={intl.formatMessage(Payrollmessages.status)}
                     />
                 )}
               />  
@@ -257,13 +255,13 @@ function PermissionTrxReport(props) {
                 getOptionLabel={(option) =>
                   option.name ? option.name : ""
                 }
-                onChange={(event, value) =>{ setDeleted(value.id)} }
+                onChange={(event, value) =>{ setDeleted(value.id===null?"":value.id)} }
                 renderInput={(params) => (
                 <TextField
                     variant="outlined"                            
                     {...params}
                     name="DeleteList"                              
-                    label={intl.formatMessage(messages.type)}
+                    label={intl.formatMessage(Payrollmessages.delete)}
                     />
                 )}
               />  

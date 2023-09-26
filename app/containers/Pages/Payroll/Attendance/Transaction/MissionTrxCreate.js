@@ -26,6 +26,7 @@ import SaveButton from '../../Component/SaveButton';
 function MissionTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+ 
   const location = useLocation()
   const { id } = location.state??0;
   const { classes } = useStyles();

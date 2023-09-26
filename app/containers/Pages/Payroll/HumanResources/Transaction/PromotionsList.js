@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
 import ApiData from '../api/PromotionsData';
 import { useSelector } from 'react-redux';
-import Tooltip from '@mui/material/Tooltip';
 import messages from '../messages';
-import Payrollmessages from '../../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import style from '../../../../../../app/styles/styles.scss';
 import notif from 'enl-api/ui/notifMessage';
@@ -134,7 +132,7 @@ function PromotionsList(props) {
           console.log('tableMeta =', tableMeta);
           return (
             <div className={style.actionsSty}>
-              <EditButton Id={tableMeta.rowData[0]} url={"/app/Pages/HR/PromotionsEdit"}></EditButton>
+              <EditButton param={{id: tableMeta.rowData[0] }} url={"/app/Pages/HR/PromotionsEdit"}></EditButton>
               <DeleteButton clickfnc={() => deleterow(tableMeta.rowData[0])}></DeleteButton>
             </div>
           );
@@ -155,17 +153,13 @@ function PromotionsList(props) {
     onSearchClose: () => {
       //some logic
     },
-    customToolbar: () => (
-      <Tooltip title={intl.formatMessage(Payrollmessages.addNew)}>        
+    customToolbar: () => ( 
         <AddButton url={"/app/Pages/HR/PromotionsCreate"}></AddButton>
-      </Tooltip>
     ),
     customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
       
-      <div>
-        <Tooltip title={intl.formatMessage(Payrollmessages.delete)} cursor="pointer" className="mr-6">         
-          <DeleteButton clickfnc={() => deleteList(selectedRows)}></DeleteButton>              
-        </Tooltip>
+      <div>        
+          <DeleteButton clickfnc={() => deleteList(selectedRows)}></DeleteButton>          
       </div>
     ),
   };
