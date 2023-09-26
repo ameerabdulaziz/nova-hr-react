@@ -139,14 +139,8 @@ async function on_submit() {
                         id="ddlEmp"                        
                         options={employeeList}                        
                         getOptionLabel={(option) =>option.name}
-                        onChange={(event, value) => {
-                          
-                            if (value !== null) {
-                                setEmployee(value.id);
-                            } else {
-                                setEmployee(null);
-                            }
-                            
+                        onChange={(event, value) => {                          
+                          setEmployee(value !== null?value.id:null);
                         }}
                         renderInput={(params) => (
                         <TextField

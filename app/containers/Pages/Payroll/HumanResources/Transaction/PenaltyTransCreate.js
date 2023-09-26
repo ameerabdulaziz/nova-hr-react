@@ -207,20 +207,12 @@ function PenaltyTransCreate(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
                     setdata((prevFilters) => ({
                       ...prevFilters,
-                      yearId: value.id,
-                      yearName: value.name,
+                      yearId: value !== null?value.id:0,
+                      yearName: value !== null?value.name:'',
                     }));
-                  } else {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      yearId: 0,
-                      yearName: '',
-                    }));
-                  }
-                }}
+                  }}
                 renderInput={(params) => (
                   <TextField
                     variant="outlined"
@@ -242,19 +234,13 @@ function PenaltyTransCreate(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
+                  
                     setdata((prevFilters) => ({
                       ...prevFilters,
-                      monthId: value.id,
-                      monthName: value.name,
+                      monthId: value !== null?value.id:0,
+                      monthName: value !== null?value.name:'',
                     }));
-                  } else {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      monthId: 0,
-                      monthName: '',
-                    }));
-                  }
+                 
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -366,22 +352,14 @@ function PenaltyTransCreate(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
+                  
                     setdata((prevFilters) => ({
                       ...prevFilters,
-                      penaltyId: value.id,
-                      penaltyName: value.name,
+                      penaltyId: value !== null?value.id:0,
+                      penaltyName: value !== null?value.name:'',
                     }));
-                    getPenaltyData(value.id);
-                  } else {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      penaltyId: 0,
-                      penaltyName: '',
-                    }));
-                    getPenaltyData(0);
-                  }
-                }}
+                    getPenaltyData(value !== null?value.id:0);
+                 }}
                 renderInput={(params) => (
                   <TextField
                     variant="outlined"
@@ -420,23 +398,15 @@ function PenaltyTransCreate(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
+                  
                     setdata((prevFilters) => ({
                       ...prevFilters,
-                      penaltyTypeId: value.id,
-                      penaltyTypeName: value.name,
+                      penaltyTypeId: value !== null?value.id:0,
+                      penaltyTypeName:value !== null? value.name:'',
                       penaltyDetailId: value.penaltyDetailId,
-                      value: value.value,
+                      value: value !== null?value.value:'',
                     }));
-                  } else {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      penaltyTypeId: 0,
-                      penaltyTypeName: '',
-                      penaltyDetailId: value.penaltyDetailId,
-                      value: '',
-                    }));
-                  }
+                  
                 }}
                 renderInput={(params) => (
                   <TextField

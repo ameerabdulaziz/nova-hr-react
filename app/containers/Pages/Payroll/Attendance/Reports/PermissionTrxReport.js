@@ -23,11 +23,13 @@ function PermissionTrxReport(props) {
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   
-  const [fromdate, setfromate] = useState(null);
-  const [todate, settodate] = useState(null);
-  const [employee, setemployee] = useState(null);
+  const [fromdate, setfromate] = useState("");
+  const [todate, settodate] = useState("");
+  const [employee, setemployee] = useState("");
   const [EmployeeList, setEmployeeList] = useState([]);
-  const [Permission, setPermission] = useState(null);
+  const [Permission, setPermission] = useState("");
+  const [Status, setStatus] = useState("");
+  const [Deleted, setDeleted] = useState("");
   const [PermissionsList, setPermissionsList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
@@ -36,7 +38,7 @@ function PermissionTrxReport(props) {
     
     try{
         
-      const dataApi = await ApiData(locale).GetReport(employee,Permission,fromdate,todate);
+      const dataApi = await ApiData(locale).GetReport(employee,Permission,fromdate,todate,Status,Deleted);
       setdata(dataApi);
     } catch (err) {
       toast.error(err.response.data);
@@ -49,9 +51,9 @@ function PermissionTrxReport(props) {
 
     const  Permissions= await GeneralListApis(locale).GetPermissionList();
     setPermissionsList(Permissions);
-
+/* 
     const dataApi = await ApiData(locale).GetReport(employee,Permission,fromdate,todate);
-    setdata(dataApi);
+    setdata(dataApi); */
   }
   useEffect(() => {  
     fetchData();
@@ -222,6 +224,48 @@ function PermissionTrxReport(props) {
                       label={intl.formatMessage(Payrollmessages.employeeName)}
                       />
                   )}
+              />  
+          </Grid>
+          <Grid item xs={12} md={2}>
+            <Autocomplete  
+                id="StatusList"                        
+                options={[{"id":1,"name":"All"},{"id":2,"name":"Approved"},{"id":3,"name":"Rejected"}]}                
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" ||option.id === value.id
+                }  
+                getOptionLabel={(option) =>
+                  option.name ? option.name : ""
+                }
+                onChange={(event, value) =>{ setStatus(value==1?null:value.id)} }
+                renderInput={(params) => (
+                <TextField
+                    variant="outlined"                            
+                    {...params}
+                    name="StatusList"                              
+                    label={intl.formatMessage(messages.type)}
+                    />
+                )}
+              />  
+          </Grid>
+          <Grid item xs={12} md={2}>
+            <Autocomplete  
+                id="DeleteList"                        
+                options={[{"id":null,"name":"All"},{"id":true,"name":"Deleted"},{"id":false,"name":"Not Deleted"}]}                
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" ||option.id === value.id
+                }  
+                getOptionLabel={(option) =>
+                  option.name ? option.name : ""
+                }
+                onChange={(event, value) =>{ setDeleted(value.id)} }
+                renderInput={(params) => (
+                <TextField
+                    variant="outlined"                            
+                    {...params}
+                    name="DeleteList"                              
+                    label={intl.formatMessage(messages.type)}
+                    />
+                )}
               />  
           </Grid>
           <Grid item xs={12} md={2}>

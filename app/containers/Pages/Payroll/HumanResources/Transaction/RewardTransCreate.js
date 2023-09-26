@@ -183,19 +183,12 @@ async function oncancel(){
                         option.name ? option.name : ""
                         }
                         onChange={(event, value) => {
-                            if (value !== null) {
+                            
                                 setdata((prevFilters) => ({
                                 ...prevFilters,
-                                yearId:value.id,
-                                yearName:value.name
+                                yearId:value !== null?value.id:0,
+                                yearName:value !== null?value.name:""
                                 }));     
-                            } else {
-                            setdata((prevFilters) => ({
-                                ...prevFilters,
-                                yearId:0,
-                                yearName:""
-                            })); 
-                            }                               
                         }}
                         renderInput={(params) => (
                         <TextField
@@ -220,19 +213,11 @@ async function oncancel(){
                         option.name ? option.name : ""
                         }
                         onChange={(event, value) => {
-                            if (value !== null) {
                                 setdata((prevFilters) => ({
                                 ...prevFilters,
-                                monthId:value.id,
-                                monthName:value.name
-                                }));     
-                            } else {
-                            setdata((prevFilters) => ({
-                                ...prevFilters,
-                                monthId:0,
-                                monthName:""
-                            })); 
-                            }                               
+                                monthId:value !== null?value.id:0,
+                                monthName:value !== null?value.name:"",
+                                }));  
                         }}
                         renderInput={(params) => (
                         <TextField
@@ -310,22 +295,14 @@ async function oncancel(){
                                         option.name ? option.name : ""
                                         }
                                         onChange={(event, value) => {
-                                            if (value !== null) {
+                                            
                                                 setdata((prevFilters) => ({
                                                 ...prevFilters,
-                                                rewardsId:value.id,
-                                                rewardsName:value.name
+                                                rewardsId:value !== null?value.id:0,
+                                                rewardsName:value !== null?value.name:''
                                                 }));  
-                                                getRewardData(value.id);   
-                                            } else {
-                                            setdata((prevFilters) => ({
-                                                ...prevFilters,
-                                                rewardsId:0,
-                                                rewardsName:""
-                                            })); 
-                                            getRewardData(0);
-                                            }                               
-                                        }}
+                                                getRewardData(value !== null?value.id:0);   
+                                            }}
                                         renderInput={(params) => (
                                         <TextField
                                             variant="outlined"                            

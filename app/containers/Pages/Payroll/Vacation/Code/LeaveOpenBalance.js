@@ -162,13 +162,7 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => {
-                                if (value !== null) {
-                                    setEmployee(value);
-                                } else {
-                                    setEmployee("");
-                                }
-                            }}
+                            onChange={(event, value) => setEmployee(value !== null?value:"")}
                             renderInput={(params) => (
                             <TextField
                                 {...params}
@@ -210,13 +204,7 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => {
-                                if (value !== null) {
-                                    setLeaveType(value);
-                                } else {
-                                    setLeaveType("");
-                                }
-                            }}
+                            onChange={(event, value) => setLeaveType(value !== null?value:"")}
                             
                             renderInput={(params) => (
                             <TextField

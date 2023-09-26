@@ -287,19 +287,12 @@ function EmpBankDetail(props) {
                       }
                       onChange={(event, value) => {
                         
-                        if (value !== null) {
                           setbankId((prevFilters) => ({
                             ...prevFilters,
-                            id: value.id,
-                            name: value.name,
+                            id: value !== null?value.id:0,
+                            name: value !== null?value.name:'',
                           }));
-                        } else {
-                          setbankId((prevFilters) => ({
-                            ...prevFilters,
-                            id: 0,
-                            name: '',
-                          }));
-                        }
+                        
                       }}
                       renderInput={(params) => (
                         <TextField

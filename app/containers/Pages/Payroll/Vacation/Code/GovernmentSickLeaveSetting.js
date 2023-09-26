@@ -175,13 +175,7 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => {
-                                if (value !== null) {
-                                    setGovernmentSickVac(value);
-                                } else {
-                                    setGovernmentSickVac("");
-                                }
-                            }}
+                            onChange={(event, value) => setGovernmentSickVac(value !== null?value:"")}
                             renderInput={(params) => (
                             <TextField
                                 {...params}
@@ -224,13 +218,7 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => {
-                                if (value !== null) {
-                                    setElementListByType(value);
-                                } else {
-                                    setElementListByType("");
-                                }
-                            }}
+                            onChange={(event, value) =>setElementListByType(value !== null?value:"")}
                             
                             renderInput={(params) => (
                             <TextField

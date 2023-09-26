@@ -224,17 +224,11 @@ function EmployeeContract(props) {
               getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
                 
-                if (value !== null) {
                   setEmployee({
-                    id: value.id,
-                    name: value.name,
+                    id: value !== null?value.id:0,
+                    name: value !== null?value.name:'',
                   });
-                } else {
-                  setEmployee({
-                    id: 0,
-                    name: '',
-                  });
-                }
+                
               }}
               renderInput={(params) => (
                 <TextField
@@ -271,17 +265,11 @@ function EmployeeContract(props) {
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
                     
-                    if (value !== null) {
                       sethiringSourceId({
-                        id: value.id,
-                        name: value.name,
+                        id: value !== null?value.id:0,
+                        name: value !== null?value.name:"",
                       });
-                    } else {
-                      sethiringSourceId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
+                    
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -326,17 +314,11 @@ function EmployeeContract(props) {
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
                     
-                    if (value !== null) {
                       setkinshipLinkId({
-                        id: value.id,
-                        name: value.name,
+                        id: value !== null?value.id:0,
+                        name: value !== null?value.name:'',
                       });
-                    } else {
-                      setkinshipLinkId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
+                    
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -363,17 +345,11 @@ function EmployeeContract(props) {
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
                     
-                    if (value !== null) {
                       setkinshipEmpId({
-                        id: value.id,
-                        name: value.name,
+                        id: value !== null?value.id:0,
+                        name: value !== null?value.name:'',
                       });
-                    } else {
-                      setkinshipEmpId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
+                   
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -414,17 +390,11 @@ function EmployeeContract(props) {
                   getOptionLabel={(option) => (option.name ? option.name : '')}
                   onChange={(event, value) => {
                     
-                    if (value !== null) {
                       setcontractTypeId({
-                        id: value.id,
-                        name: value.name,
+                        id: value !== null?value.id:0,
+                        name: value !== null?value.name:'',
                       });
-                    } else {
-                      setcontractTypeId({
-                        id: 0,
-                        name: '',
-                      });
-                    }
+                    
                   }}
                   renderInput={(params) => (
                     <TextField

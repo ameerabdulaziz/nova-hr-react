@@ -464,17 +464,11 @@ function Personal(props) {
                         option.name ? option.name : ''
                       }
                       onChange={(event, value) => {
-                        if (value !== null) {
                           setstatusId({
-                            id: value.id,
-                            name: value.name,
+                            id: value !== null?value.id:0,
+                            name: value !== null?value.name:'',
                           });
-                        } else {
-                          setstatusId({
-                            id: 0,
-                            name: '',
-                          });
-                        }
+                        
                       }}
                       renderInput={(params) => (
                         <TextField
@@ -640,17 +634,12 @@ function Personal(props) {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      if (value !== null) {
+                      
                         setidentityTypeId({
-                          id: value.id,
-                          name: value.name,
+                          id: value !== null?value.id:0,
+                          name: value !== null?value.name:'',
                         });
-                      } else {
-                        setidentityTypeId({
-                          id: 0,
-                          name: '',
-                        });
-                      }
+                     
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -750,17 +739,12 @@ function Personal(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
+                  
                     setgenderId({
-                      id: value.id,
-                      name: value.name,
+                      id: value !== null?value.id:0,
+                        name: value !== null?value.name:'',
                     });
-                  } else {
-                    setgenderId({
-                      id: 0,
-                      name: '',
-                    });
-                  }
+                  
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -786,17 +770,12 @@ function Personal(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
+                  
                     setnationalityId({
-                      id: value.id,
-                      name: value.name,
+                      id: value !== null?value.id:0,
+                        name: value !== null?value.name:'',
                     });
-                  } else {
-                    setnationalityId({
-                      id: 0,
-                      name: '',
-                    });
-                  }
+                 
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -822,17 +801,12 @@ function Personal(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
+                  
                     setreligionId({
-                      id: value.id,
-                      name: value.name,
+                      id: value !== null?value.id:0,
+                      name: value !== null?value.name:'',
                     });
-                  } else {
-                    setreligionId({
-                      id: 0,
-                      name: '',
-                    });
-                  }
+                  
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -875,17 +849,12 @@ function Personal(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
+                  
                     setbirthGovId({
-                      id: value.id,
-                      name: value.name,
+                      id: value !== null?value.id:0,
+                      name: value !== null?value.name:'',
                     });
-                  } else {
-                    setbirthGovId({
-                      id: 0,
-                      name: '',
-                    });
-                  }
+                  
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -911,17 +880,12 @@ function Personal(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  if (value !== null) {
+                  
                     setbirthCityId({
-                      id: value.id,
-                      name: value.name,
+                      id: value !== null?value.id:0,
+                      name: value !== null?value.name:'',
                     });
-                  } else {
-                    setbirthCityId({
-                      id: 0,
-                      name: '',
-                    });
-                  }
+                  
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -969,17 +933,12 @@ function Personal(props) {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      if (value !== null) {
+                      
                         setsocialStatusId({
-                          id: value.id,
-                          name: value.name,
+                          id: value !== null?value.id:0,
+                          name: value !== null?value.name:'',
                         });
-                      } else {
-                        setsocialStatusId({
-                          id: 0,
-                          name: '',
-                        });
-                      }
+                     
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1021,17 +980,12 @@ function Personal(props) {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      if (value !== null) {
+                      
                         setmilitaryStatusId({
-                          id: value.id,
-                          name: value.name,
+                          id: value !== null?value.id:0,
+                          name: value !== null?value.name:'',
                         });
-                      } else {
-                        setmilitaryStatusId({
-                          id: 0,
-                          name: '',
-                        });
-                      }
+                     
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1064,17 +1018,12 @@ function Personal(props) {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      if (value !== null) {
+                      
                         setorganizationId({
-                          id: value.id,
-                          name: value.name,
+                          id: value !== null?value.id:0,
+                          name: value !== null?value.name:'',
                         });
-                      } else {
-                        setorganizationId({
-                          id: 0,
-                          name: '',
-                        });
-                      }
+                      
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1104,17 +1053,12 @@ function Personal(props) {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      if (value !== null) {
+                     
                         setcontrolParameterId({
-                          id: value.id,
-                          name: value.name,
+                          id: value !== null?value.id:0,
+                          name: value !== null?value.name:'',
                         });
-                      } else {
-                        setcontrolParameterId({
-                          id: 0,
-                          name: '',
-                        });
-                      }
+                     
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1143,17 +1087,12 @@ function Personal(props) {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      if (value !== null) {
+                      
                         setjobId({
-                          id: value.id,
-                          name: value.name,
+                          id: value !== null?value.id:0,
+                          name: value !== null?value.name:'',
                         });
-                      } else {
-                        setjobId({
-                          id: 0,
-                          name: '',
-                        });
-                      }
+                      
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1180,17 +1119,12 @@ function Personal(props) {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      if (value !== null) {
+                      
                         setjobLevelId({
-                          id: value.id,
-                          name: value.name,
+                          id: value !== null?value.id:0,
+                          name: value !== null?value.name:'',
                         });
-                      } else {
-                        setjobLevelId({
-                          id: 0,
-                          name: '',
-                        });
-                      }
+                     
                     }}
                     renderInput={(params) => (
                       <TextField

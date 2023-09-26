@@ -159,17 +159,11 @@ function EmployeeContactInfo(props) {
               getOptionLabel={(option) => (option.name ? option.name : '')}
               onChange={(event, value) => {
                 
-                if (value !== null) {
                   setEmployee({
-                    id: value.id,
-                    name: value.name,
+                    id: value !== null?value.id:0,
+                    name: value !== null?value.name:'',
                   });
-                } else {
-                  setEmployee({
-                    id: 0,
-                    name: '',
-                  });
-                }
+                
               }}
               renderInput={(params) => (
                 <TextField

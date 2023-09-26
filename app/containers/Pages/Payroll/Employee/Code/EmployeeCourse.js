@@ -144,11 +144,8 @@ function EmployeeCourse(props) {
                 options={employeeList}
                 getOptionLabel={(option) => option.name}
                 onChange={(event, value) => {
-                  if (value !== null) {
-                    setEmployee(value.id);
-                  } else {
-                    setEmployee(0);
-                  }
+                    setEmployee(value !== null?value.id:0);
+                  
                 }}
                 renderInput={(params) => (
                   <TextField

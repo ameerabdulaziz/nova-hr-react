@@ -238,21 +238,11 @@ function PenaltyCreate(props) {
                               option.name ? option.name : ""
                             }
                             onChange={(event, value) => {
-
-                              
-                                if (value !== null) {
                                       setdata((prevFilters) => ({
                                       ...prevFilters,
-                                      type:value.id,
-                                      typeName:value.name,
-                                    }));     
-                                } else {
-                                  setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    type:1,
-                                    typeName:"شهرى"
-                                  })); 
-                                }                               
+                                      type:value !== null?value.id:1,
+                                      typeName:value !== null?value.name:"شهرى",
+                                    }));                 
                             }}
                             renderInput={(params) => (
                             <TextField

@@ -208,13 +208,8 @@ async function on_submit() {
                         getOptionLabel={(option) =>option.name}
                         onChange={(event, value) => {
                           
-                            if (value !== null) {
-                                setEmployee(value.id);
-                            } else {
-                                setEmployee(null);
-                            }
-                            
-                        }}
+                            setEmployee(value !== null?value.id:null);
+                      }}
                         renderInput={(params) => (
                         <TextField
                             variant="outlined"                            
@@ -231,13 +226,7 @@ async function on_submit() {
                         id="ddlMenu"                        
                         options={MenuList}
                         getOptionLabel={(option) =>option.name}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                            setmenu(value.id);
-                            } else {
-                            setmenu(null);
-                            }
-                        }}
+                        onChange={(event, value) => setmenu(value !== null?value.id:null)}
                         renderInput={(params) => (
                         <TextField
                             variant="outlined"

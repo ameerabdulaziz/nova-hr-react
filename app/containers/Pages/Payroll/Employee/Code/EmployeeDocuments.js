@@ -275,11 +275,8 @@ function EmployeeDocuments({ intl }) {
                   );
                 }}
                 onChange={(event, value) => {
-                  if (value !== null) {
-                    setEmployee(value.id);
-                  } else {
-                    setEmployee(0);
-                  }
+                  setEmployee(value !== null?value.id:0);
+                  
                   employeeChangeFun(value !== null ? value.id : null)
                 }}
                 renderInput={(params) => (

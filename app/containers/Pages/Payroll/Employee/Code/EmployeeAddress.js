@@ -184,26 +184,12 @@ function EmployeeAddress(props) {
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
                   
-                  if (value !== null) {
                     setEmployee({
-                      id: value.id,
+                      id: value !== null?value.id:'',
                       name: value.name,
                     });
-                  } else {
-                    setEmployee({
-                      id: 0,
-                      name: '',
-                    });
-                  }
-                }}
-                //   getOptionLabel={(option) => option.name}
-                //   onChange={(event, value) => {
-                //     if (value !== null) {
-                //       setEmployee(value.id);
-                //     } else {
-                //       setEmployee(0);
-                //     }
-                //   }}
+                  }}
+                
                 renderInput={(params) => (
                   <TextField
                     variant="standard"
