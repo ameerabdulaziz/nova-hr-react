@@ -1240,7 +1240,7 @@ export const GovernmentSickLeaveSetting = loadable(
 );
 
 export const LeaveOpenBalance = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/LeaveOpenBalance'),
+  () => import('./Pages/Payroll/Vacation/Transaction/LeaveOpenBalance'),
   {
     fallback: <Loading />,
   }
@@ -1248,21 +1248,21 @@ export const LeaveOpenBalance = loadable(
 
 
 export const CreateReplaceAnnualLeaveBalance = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/ReplaceAnnualLeaveBalanceCreate'),
+  () => import('./Pages/Payroll/Vacation/Transaction/ReplaceAnnualLeaveBalanceCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const EditReplaceAnnualLeaveBalance = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/ReplaceAnnualLeaveBalanceCreate'),
+  () => import('./Pages/Payroll/Vacation/Transaction/ReplaceAnnualLeaveBalanceCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const ReplaceAnnualLeaveBalance = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/ReplaceAnnualLeaveBalance'),
+  () => import('./Pages/Payroll/Vacation/Transaction/ReplaceAnnualLeaveBalance'),
   {
     fallback: <Loading />,
   }
@@ -1270,9 +1270,8 @@ export const ReplaceAnnualLeaveBalance = loadable(
 
 
 export const OpeningClosingTheYearForLeaves = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/OpeningClosingTheYearForLeaves'),
+  () => import('./Pages/Payroll/Vacation/Transaction/OpeningClosingTheYearForLeaves'),
   {
     fallback: <Loading />,
   }
 );
-
