@@ -152,7 +152,7 @@ function Permissions({ intl }) {
                 aria-label="Edit"
                 size="large">
                 {/* <Link to={`/app/Pages/MainData/EditJob${tableMeta.rowData[0]}`}> */}
-                <Link to={{ pathname: "/app/Pages/Request/EditPermission", state: {id: tableMeta.rowData[0]}}}>
+                <Link to={{ pathname: "/app/Pages/Request/PermissionsEdit", state: {id: tableMeta.rowData[0]}}}>
                   <EditIcon />
                 </Link>
                 
@@ -190,7 +190,7 @@ function Permissions({ intl }) {
         <Button
           variant="contained"
           onClick={() => {
-            history.push(`/app/Pages/Request/CreatePermission`);
+            history.push(`/app/Pages/Request/PermissionsCreate`);
           }}
           color="secondary"
           className={classes.button}

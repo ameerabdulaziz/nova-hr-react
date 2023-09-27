@@ -310,4 +310,57 @@ export default defineMessages({
     id: `${scope}.salary.incentiveFrom`,
     defaultMessage: 'Incentive From',
   },
+    // employee Documents
+    id: {
+      id: `${scope}.doc.id`,
+      defaultMessage: 'Id',
+    },
+    startDate: {
+      id: `${scope}.doc.startDate`,
+      defaultMessage: 'Start Date',
+    },
+    endDate: {
+      id: `${scope}.doc.endDate`,
+      defaultMessage: 'End Date',
+    },
+    followDate: {
+      id: `${scope}.doc.followDate`,
+      defaultMessage: 'Follow Date',
+    },
+    HardCopy: {
+      id: `${scope}.doc.HardCopy`,
+      defaultMessage: 'Hard Copy',
+    },
+    actions: {
+      id: `${scope}.doc.actions`,
+      defaultMessage: 'Actions',
+    },
+    EmployeeDocuments: {
+      id: `${scope}.doc.EmployeeDocuments`,
+      defaultMessage: 'Employee Documents',
+    },
+    CreateEmployeeDocument: {
+      id: `${scope}.doc.CreateEmployeeDocument`,
+      defaultMessage: 'Create Employee Document',
+    },
+    EditEmployeeDocument: {
+      id: `${scope}.doc.EditEmployeeDocument`,
+      defaultMessage: 'Edit Employee Document',
+    },
+    documentType: {
+      id: `${scope}.doc.documentType`,
+      defaultMessage: 'Document Type',
+    },
+    notes: {
+      id: `${scope}.doc.notes`,
+      defaultMessage: 'Note',
+    },
+    uploadFileErrorMes: {
+      id: `${scope}.doc.uploadFileErrorMes`,
+      defaultMessage: 'The File Is too Large',
+    },
+    FilePreview: {
+      id: `${scope}.doc.FilePreview`,
+      defaultMessage: 'File Preview',
+    },
 });

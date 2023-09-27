@@ -5,25 +5,17 @@ import { injectIntl } from 'react-intl';
 import VacationsTypesData from '../api/VacationsTypesData';
 import MUIDataTable from 'mui-datatables';
 import messages from '../messages';
-import Payrollmessages from '../../messages';
-// import Payrollmessages from '../../messages';
-import { FormattedMessage } from 'react-intl';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
 import style from '../../../../../styles/Styles.scss';
-import EditIcon from '@mui/icons-material/BorderColor';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import EditButton from '../../Component/EditButton';
+import DeleteButton from '../../Component/DeleteButton';
+import AddButton   from '../../Component/AddButton';
 
 
 
@@ -32,7 +24,6 @@ function VacationsTypes({ intl }) {
   const description = brand.desc;
   const { classes, cx } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const history = useHistory();
   const [dataTable, setDataTable] = useState([]);
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
@@ -46,10 +37,6 @@ function VacationsTypes({ intl }) {
 
     let newData = data.map((items) => {
         Object.keys(items).forEach((val) => {
-          // this used to convert boolean values to string until table can read the values
-        // if (typeof items[val] == 'boolean') {
-        //   items[val] = String(items[val]);
-        // }
 
         // used to make table read date Data as a date 
         if(val === "vacationDate")
@@ -166,24 +153,9 @@ function VacationsTypes({ intl }) {
           customBodyRender: (value, tableMeta) => {
             return (
               <div className={style.actionsSty}>
-              <IconButton
-                aria-label="Edit"
-                size="large">
-                <Link to={{ pathname: "/app/Pages/vac/EditVacationType", state: {id: tableMeta.rowData[0]}}}>
-                  <EditIcon />
-                </Link>
-                
-              </IconButton>
+              <EditButton param={{id: tableMeta.rowData[0]}} url={"/app/Pages/vac/VacationsTypesEdit"}></EditButton>
 
-              <IconButton
-              aria-label="Delete"
-              size="large"
-              onClick={() => {
-                handleClickOpen(tableMeta.rowData)
-              }}
-              >
-              <DeleteIcon />
-              </IconButton>
+              <DeleteButton clickfnc={() => handleClickOpen(tableMeta.rowData)}></DeleteButton>
               </div>
             );
           }
@@ -203,19 +175,9 @@ function VacationsTypes({ intl }) {
     // searchOpen: true,
     selectableRows: "none" ,
     customToolbar: () => (
-      <Tooltip title="Add New">
-        <Button
-          variant="contained"
-          onClick={() => {
-            history.push(`/app/Pages/vac/CreateVacationType`);
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          <AddIcon />
-            <FormattedMessage {...Payrollmessages.add} />
-        </Button>
-      </Tooltip>
+      <div className={style.customToolbarBtn}>
+          <AddButton url={"/app/Pages/vac/VacationsTypesCreate"} ></AddButton>
+      </div>
     )
   };
 

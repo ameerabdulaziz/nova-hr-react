@@ -448,14 +448,14 @@ export const Jobs = loadable(
 );
 
 export const CreateJob = loadable(
-  () => import('./Pages/Payroll/MainData/Code/CreateAndEditJob'),
+  () => import('./Pages/Payroll/MainData/Code/JobCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const EditJob = loadable(
-  () => import('./Pages/Payroll/MainData/Code/CreateAndEditJob'),
+  () => import('./Pages/Payroll/MainData/Code/JobCreate'),
   {
     fallback: <Loading />,
   }
@@ -547,14 +547,14 @@ export const Organization = loadable(
 );
 
 export const CreateOrganization = loadable(
-  () => import('./Pages/Payroll/MainData/Code/CreateAndEditOrg'),
+  () => import('./Pages/Payroll/MainData/Code/OrganizationCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const EditOrganization = loadable(
-  () => import('./Pages/Payroll/MainData/Code/CreateAndEditOrg'),
+  () => import('./Pages/Payroll/MainData/Code/OrganizationCreate'),
   {
     fallback: <Loading />,
   }
@@ -1136,14 +1136,14 @@ export const EmployeeDocuments = loadable(
 );
 
 export const CreateEmployeeDocuments = loadable(
-  () => import('./Pages/Payroll/Employee/Code/CreateAndEditEmployeeDocuments'),
+  () => import('./Pages/Payroll/Employee/Code/EmployeeDocumentsCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const EditEmployeeDocuments = loadable(
-  () => import('./Pages/Payroll/Employee/Code/CreateAndEditEmployeeDocuments'),
+  () => import('./Pages/Payroll/Employee/Code/EmployeeDocumentsCreate'),
   {
     fallback: <Loading />,
   }
@@ -1189,14 +1189,14 @@ export const Permissions = loadable(
 ///Vac ///////////////////////
 
 export const CreateVacationType = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditVacationType'),
+  () => import('./Pages/Payroll/Vacation/Code/VacationTypeCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const EditVacationType = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditVacationType'),
+  () => import('./Pages/Payroll/Vacation/Code/VacationTypeCreate'),
   {
     fallback: <Loading />,
   }
@@ -1211,14 +1211,14 @@ export const VacationsTypes = loadable(
 
 
 export const CreateOfficialVacation = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditOfficialVacation'),
+  () => import('./Pages/Payroll/Vacation/Code/OfficialVacationCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const EditOfficialVacation = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditOfficialVacation'),
+  () => import('./Pages/Payroll/Vacation/Code/OfficialVacationCreate'),
   {
     fallback: <Loading />,
   }
@@ -1248,14 +1248,14 @@ export const LeaveOpenBalance = loadable(
 
 
 export const CreateReplaceAnnualLeaveBalance = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditReplaceAnnualLeaveBalance'),
+  () => import('./Pages/Payroll/Vacation/Code/ReplaceAnnualLeaveBalanceCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const EditReplaceAnnualLeaveBalance = loadable(
-  () => import('./Pages/Payroll/Vacation/Code/CreateAndEditReplaceAnnualLeaveBalance'),
+  () => import('./Pages/Payroll/Vacation/Code/ReplaceAnnualLeaveBalanceCreate'),
   {
     fallback: <Loading />,
   }

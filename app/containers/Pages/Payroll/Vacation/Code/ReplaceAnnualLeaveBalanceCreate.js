@@ -14,7 +14,6 @@ import messages from '../messages';
 import Payrollmessages from '../../messages';
 import ErrorMessages from '../../api/ApiMessages';
 import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
@@ -24,27 +23,26 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from "date-fns";
+import SaveButton from '../../Component/SaveButton';
 
 
 
 
 function CreateAndEditReplaceAnnualLeaveBalance(props) {
   const [id, setid] = useState(0);
-  const [Employee, setEmployee] = useState('');
+  const [Employee, setEmployee] = useState(null);
   const [date, setDate] = useState(null);
-  const [Templet, setTemplet] = useState('');
-  const [Element, setElement] = useState('');
-  const [Year, setYear] = useState('');
-  const [Month, setMonth] = useState('');
+  const [Templet, setTemplet] = useState(null);
+  const [Element, setElement] = useState(null);
+  const [Year, setYear] = useState(null);
+  const [Month, setMonth] = useState(null);
   const [CurrentBalance, setCurrentBalance] = useState('');
   const [BalanceToReplace, setBalanceToReplace] = useState('');
   const [caluVal, setCaluVal] = useState('');
   const [recSerial, setRecSerial] = useState(0); 
-  const [Day, setDay] = useState(0);
   const [job, setJob] = useState('');
   const [Department, setDepartment] = useState('');
   const [hiringDate, setHiringDate] = useState('');
-  const [submitting ,setSubmitting] = useState(false)
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
   const [EmployeeData, setEmployeeData] = useState([]);
@@ -63,7 +61,6 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
     setProcessing(true)
 
 
@@ -90,11 +87,9 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
       } else {
           toast.error(response.statusText);
       }
-      setSubmitting(false)
       setProcessing(false)
     } catch (err) {
         toast.error( err.response &&  err.response.data ? intl.formatMessage( ErrorMessages[err.response.data]) : notif.error );
-      setSubmitting(false)
       setProcessing(false)
     }
     
@@ -120,16 +115,25 @@ const getEditdata =  async () => {
   const data =  await ReplaceAnnualLeaveBalanceData(locale).GetDataById(ID);
 
 
+
     setid(data ? data.id : "")
     setDate(data ? data.trxDate : "") 
-    setEmployee(data && data.employeeId ? EmployeeData.find((item)=> item.id === data.employeeId) : "") 
+    setEmployee(data && data.employeeId && EmployeeData.find((item)=> item.id === data.employeeId) !== undefined  ? 
+        EmployeeData.find((item)=> item.id === data.employeeId)
+    : null) 
     setJob(data ? data.jobName : "") 
     setDepartment(data ? data.organizationName : "") 
     setHiringDate(data ? data.hiringDate : "") 
-    setTemplet(data && data.payTemplateId ? TempletData.find((item)=> item.id === data.payTemplateId) : "") 
-    setElement(data && data.elementId && data.elementName ? {id: data.elementId, name: data.elementName} : "") 
-    setYear(data && data.yearId ? YearData.find((item)=> item.id === data.yearId) : "") 
-    setMonth(data && data.monthId ? MonthData.find((item)=> item.id === data.monthId) : "") 
+    setTemplet(data && data.payTemplateId && TempletData.find((item)=> item.id === data.payTemplateId) !== undefined ?
+         TempletData.find((item)=> item.id === data.payTemplateId) 
+         : null) 
+    setElement(data && data.elementId && data.elementName ? {id: data.elementId, name: data.elementName} : null) 
+    setYear(data && data.yearId && YearData.find((item)=> item.id === data.yearId) !== undefined ? 
+        YearData.find((item)=> item.id === data.yearId) 
+        : null) 
+    setMonth(data && data.monthId &&  MonthData.find((item)=> item.id === data.monthId) !== undefined ? 
+        MonthData.find((item)=> item.id === data.monthId) 
+        : null) 
     setCurrentBalance(data ? data.vacCurrBal : "") 
     setBalanceToReplace(data ? data.vacBalRep : "") 
     setRecSerial(data ? data.recSerial : 0)
@@ -156,8 +160,8 @@ setJob(data && data.jobName ? data.jobName : "")
 setDepartment(data && data.organizationName ? data.organizationName : "")
 setHiringDate(data && data.hiringDate ? data.hiringDate : "")
 setCurrentBalance(data && data.currVacBal ? data.currVacBal : "")
-setYear(data && data.yearId ? YearData.find((item)=> item.id === data.yearId) : "") 
-setMonth(data && data.monthId ? MonthData.find((item)=> item.id === data.monthId) : "") 
+setYear(data && data.yearId ? YearData.find((item)=> item.id === data.yearId) : null) 
+setMonth(data && data.monthId ? MonthData.find((item)=> item.id === data.monthId) : null) 
 }
 
 const getElementByIdData = async (templateId)=> {
@@ -171,7 +175,7 @@ const getElementByIdData = async (templateId)=> {
         }
         else
         {
-            setElement("")
+            setElement(null)
         }
 }
 
@@ -200,6 +204,9 @@ const caluValFun = async ()=>{
 }
 
 
+function oncancel(){
+    history.push(`/app/Pages/vac/ReplaceAnnualLeaveBalance`);
+  }
 
 
 
@@ -269,7 +276,7 @@ const caluValFun = async ()=>{
                                                 <Grid item xs={12}  md={12} lg={4} className={`${locale === "ar" ?  style.AutocompleteMulFieldStyAR : null}`}> 
                                                     <Autocomplete
                                                         id="ddlMenu"   
-                                                        value={Employee.length != 0 && Employee !== null ? Employee : null}
+                                                        value={ Employee !== null ? Employee : null}
                                                         isOptionEqualToValue={(option, value) => option.id === value.id}                  
                                                         options={EmployeeData.length != 0 ? EmployeeData: []}
                                                         getOptionLabel={(option) =>(
@@ -288,7 +295,7 @@ const caluValFun = async ()=>{
                                                                 setEmployee(value);
                                                                 getEmpData(value.id);
                                                             } else {
-                                                                setEmployee("");
+                                                                setEmployee(null);
                                                             }
                                                         }}
                                                         
@@ -373,7 +380,7 @@ const caluValFun = async ()=>{
                             <Grid item xs={12}  md={12}> 
                                 <Autocomplete
                                     id="ddlMenu"   
-                                    value={Templet.length != 0 && Templet !== null ? Templet : null}
+                                    value={ Templet !== null ? Templet : null}
                                     isOptionEqualToValue={(option, value) => option.id === value.id}                  
                                     options={TempletData.length != 0 ? TempletData: []}
                                     getOptionLabel={(option) =>(
@@ -391,7 +398,7 @@ const caluValFun = async ()=>{
                                         if (value !== null) {
                                             setTemplet(value);
                                         } else {
-                                            setTemplet("");
+                                            setTemplet(null);
                                         }
                                     }}
                                     
@@ -420,7 +427,7 @@ const caluValFun = async ()=>{
                             <Grid item xs={12}  md={6} lg={4}> 
                                 <Autocomplete
                                     id="ddlMenu"   
-                                    value={Element.length != 0 && Element !== null ? Element : null}
+                                    value={ Element !== null ? Element : null}
                                     isOptionEqualToValue={(option, value) => option.id === value.id}                  
                                     options={ElementData.length != 0 ? ElementData: []}
                                     getOptionLabel={(option) =>(
@@ -438,7 +445,7 @@ const caluValFun = async ()=>{
                                         if (value !== null) {
                                             setElement(value);
                                         } else {
-                                            setElement("");
+                                            setElement(null);
                                         }
                                     }}
                                     
@@ -467,7 +474,7 @@ const caluValFun = async ()=>{
                                 <Grid item xs={12}  md={3} lg={2}> 
                                     <Autocomplete
                                         id="ddlMenu"  
-                                        value={Year.length !== 0 && Year !== null ? Year : null} 
+                                        value={ Year !== null ? Year : null} 
                                         isOptionEqualToValue={(option, value) => option.id === value.id}                  
                                         options={YearData.length != 0 ? YearData: []}
                                         getOptionLabel={(option) =>(
@@ -485,7 +492,7 @@ const caluValFun = async ()=>{
                                             if (value !== null) {
                                                 setYear(value);
                                             } else {
-                                                setYear("");
+                                                setYear(null);
                                             }
                                         }}
                                         
@@ -506,7 +513,7 @@ const caluValFun = async ()=>{
                                 <Grid item xs={12}  md={3} lg={2}> 
                                     <Autocomplete
                                         id="ddlMenu"   
-                                        value={Month.length !== 0 && Month !== null ? Month : null} 
+                                        value={ Month !== null ? Month : null} 
                                         isOptionEqualToValue={(option, value) => option.id === value.id}                  
                                         options={MonthData.length != 0 ? MonthData: []}
                                         getOptionLabel={(option) =>(
@@ -524,7 +531,7 @@ const caluValFun = async ()=>{
                                             if (value !== null) {
                                                 setMonth(value);
                                             } else {
-                                                setMonth("");
+                                                setMonth(null);
                                             }
                                         }}
                                         
@@ -659,15 +666,7 @@ const caluValFun = async ()=>{
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                    {processing && (
-                      <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                    )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                     <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 

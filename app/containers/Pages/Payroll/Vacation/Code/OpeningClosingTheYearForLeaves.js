@@ -199,7 +199,13 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) =>setOrganization(value !== null?value:null)}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                  setOrganization(value);
+                                } else {
+                                  setOrganization(null);
+                                }
+                            }}
                             renderInput={(params) => (
                             <TextField
                                 {...params}
@@ -241,7 +247,13 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => setYear(value !== null?value:null)}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                  setYear(value);
+                                } else {
+                                  setYear(null);
+                                }
+                            }}
                             
                             renderInput={(params) => (
                             <TextField

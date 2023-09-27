@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import LeaveOpenBalanceData from '../api/LeaveOpenBalanceData';
@@ -8,25 +7,24 @@ import { useSelector } from 'react-redux';
 import style from '../../../../../styles/Styles.scss'
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
-import { FormattedMessage , injectIntl } from 'react-intl';
+import {  injectIntl } from 'react-intl';
 import messages from '../messages';
-import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import {Card ,CardContent} from "@mui/material";
+import SaveButton from '../../Component/SaveButton';
 
 
 
 
 function LeaveOpenBalance(props) {
   const [id, setid] = useState(0);
-  const [Employee, setEmployee] = useState('');
-  const [LeaveType, setLeaveType] = useState('');
+  const [Employee, setEmployee] = useState(null);
+  const [LeaveType, setLeaveType] = useState(null);
   const [UpdateCurrentBalance, setUpdateCurrentBalance] = useState(false);
   const [Day, setDay] = useState(0);
   const [OpenBalance, setOpenBalance] = useState('');
@@ -34,8 +32,6 @@ function LeaveOpenBalance(props) {
   const [PostedBalance, setPostedBalance] = useState(0);
   const [yearId, setYearId] = useState('');
   const [oldBal, setOldBal] = useState('');
-
-  const [submitting ,setSubmitting] = useState(false)
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
   const [EmployeeData, setEmployeeData] = useState([]);
@@ -48,7 +44,6 @@ function LeaveOpenBalance(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
     setProcessing(true)
 
 
@@ -75,11 +70,9 @@ function LeaveOpenBalance(props) {
       } else {
           toast.error(response.statusText);
       }
-      setSubmitting(false)
       setProcessing(false)
     } catch (err) {
       toast.error(notif.error);
-      setSubmitting(false)
       setProcessing(false)
     }
     
@@ -115,7 +108,7 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if(Employee.length !== 0 && LeaveType.length !== 0)
+  if(Employee !== null && LeaveType !== null)
   {
     getEditdata()
   }
@@ -162,7 +155,13 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => setEmployee(value !== null?value:"")}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                    setEmployee(value);
+                                } else {
+                                    setEmployee(null);
+                                }
+                            }}
                             renderInput={(params) => (
                             <TextField
                                 {...params}
@@ -204,7 +203,13 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => setLeaveType(value !== null?value:"")}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                    setLeaveType(value);
+                                } else {
+                                    setLeaveType(null);
+                                }
+                            }}
                             
                             renderInput={(params) => (
                             <TextField
@@ -349,15 +354,7 @@ useEffect(() => {
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                    {processing && (
-                      <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                    )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
 
                 </Grid>

@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import GovernmentSickLeaveSettingData from '../api/GovernmentSickLeaveSettingData';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/Styles.scss'
-import {  useHistory, useLocation  } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
-import { FormattedMessage , injectIntl } from 'react-intl';
+import {  injectIntl } from 'react-intl';
 import messages from '../messages';
-import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import {Card ,CardContent} from "@mui/material";
+import SaveButton from '../../Component/SaveButton';
 
 
 
 
 function GovernmentSickLeaveSetting(props) {
   const [id, setid] = useState(0);
-  const [GovernmentSickVac, setGovernmentSickVac] = useState('');
-  const [ElementListByType, setElementListByType] = useState('');
+  const [GovernmentSickVac, setGovernmentSickVac] = useState(null);
+  const [ElementListByType, setElementListByType] = useState(null);
   const [Yearly, setYearly] = useState(true);
   const [Every3Years, setEvery3Years] = useState(false);
   const [DaysNumber1, setDaysNumber1] = useState('');
@@ -40,12 +35,10 @@ function GovernmentSickLeaveSetting(props) {
   const [DayValue3, setDayValue3] = useState('');
   const [DaysNumber4, setDaysNumber4] = useState('');
   const [DayValue4, setDayValue4] = useState('');
-  const [submitting ,setSubmitting] = useState(false)
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
   const [GovernmentSickVacData, setGovernmentSickVacData] = useState([]);
   const [ElementListByTypeData, setElementListByTypeData] = useState([]);
-  const { state } = useLocation()
   const { intl } = props;
   const { classes } = useStyles();
 
@@ -54,7 +47,6 @@ function GovernmentSickLeaveSetting(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
     setProcessing(true)
 
 
@@ -84,11 +76,9 @@ function GovernmentSickLeaveSetting(props) {
       } else {
           toast.error(response.statusText);
       }
-      setSubmitting(false)
       setProcessing(false)
     } catch (err) {
       toast.error(notif.error);
-      setSubmitting(false)
       setProcessing(false)
     }
     
@@ -110,7 +100,7 @@ const getEditdata =  async () => {
   const data =  await GovernmentSickLeaveSettingData().GetDataById(GovernmentSickVac.id,locale);
 
   setid(data ? data.id : "")
-  setElementListByType(data && data.elementId && data.elementName ? {id: data.elementId, name: data.elementName} : "")
+  setElementListByType(data && data.elementId && data.elementName ? {id: data.elementId, name: data.elementName} : null)
   setYearly(data ? data.yearlyOpt : false) 
   setEvery3Years(data ? data.yerar3Opt : false) 
   setDaysNumber1(data ? data.no1Choice : "") 
@@ -129,7 +119,7 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if(GovernmentSickVac.length !== 0)
+  if(GovernmentSickVac !== null)
   {
     getEditdata()
   }
@@ -175,7 +165,13 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => setGovernmentSickVac(value !== null?value:"")}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                    setGovernmentSickVac(value);
+                                } else {
+                                    setGovernmentSickVac(null);
+                                }
+                            }}
                             renderInput={(params) => (
                             <TextField
                                 {...params}
@@ -205,7 +201,7 @@ useEffect(() => {
                         <Autocomplete
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}
-                            value={ElementListByType.length != 0 && ElementListByType !== null ? ElementListByType : null}                       
+                            value={ ElementListByType !== null ? ElementListByType : null}                       
                             options={ElementListByTypeData.length != 0 ? ElementListByTypeData: []}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
@@ -218,7 +214,13 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) =>setElementListByType(value !== null?value:"")}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                    setElementListByType(value);
+                                } else {
+                                    setElementListByType(null);
+                                }
+                            }}
                             
                             renderInput={(params) => (
                             <TextField
@@ -467,15 +469,7 @@ useEffect(() => {
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                    {processing && (
-                      <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                    )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
 
                 </Grid>
