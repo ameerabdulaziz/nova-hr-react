@@ -16,7 +16,7 @@ import useStyles from '../../Style';
 // import useStyles from '../../../../../components/Tables/tableStyle-jss';
 import { useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
-import style from '../../../../../styles/Styles.scss';
+import style from '../../../../../styles/styles.scss';
 import EditIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';

@@ -9,7 +9,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import style from '../../../../../styles/Styles.scss';
+import style from '../../../../../styles/styles.scss';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';

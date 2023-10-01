@@ -8,7 +8,7 @@ import messages from '../messages';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import { useHistory , useLocation } from 'react-router-dom';
-import style from '../../../../../styles/Styles.scss';
+import style from '../../../../../styles/styles.scss';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import Grid from '@mui/material/Grid';

@@ -15,7 +15,7 @@ import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import style from '../../../../../styles/pagesStyle/ReplaceAnnualLeaveBalanceSty.scss';
-import generalStyle from '../../../../../styles/Styles.scss';
+import generalStyle from '../../../../../styles/styles.scss';
 import EditIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';

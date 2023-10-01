@@ -8,7 +8,7 @@ import messages from '../messages';
 import Payrollmessages from '../../messages';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/Styles.scss';
+import style from '../../../../../styles/styles.scss';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';

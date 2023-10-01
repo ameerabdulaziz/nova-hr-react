@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import GovernmentSickLeaveSettingData from '../api/GovernmentSickLeaveSettingData';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import {  injectIntl } from 'react-intl';

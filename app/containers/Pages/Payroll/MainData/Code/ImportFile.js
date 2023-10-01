@@ -18,7 +18,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../Style';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory , Link  } from 'react-router-dom';
-import classes2 from '../../../../../styles/Styles.scss';
+import classes2 from '../../../../../styles/styles.scss';
 
 import { read, utils, writeFile } from 'xlsx';
 import Autocomplete from '@mui/material/Autocomplete';

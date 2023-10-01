@@ -6,7 +6,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import ReplaceAnnualLeaveBalanceData from '../api/ReplaceAnnualLeaveBalanceData';
 import { useSelector } from 'react-redux';
 import pageStyle from '../../../../../styles/pagesStyle/ReplaceAnnualLeaveBalanceSty.scss';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import { FormattedMessage , injectIntl } from 'react-intl';

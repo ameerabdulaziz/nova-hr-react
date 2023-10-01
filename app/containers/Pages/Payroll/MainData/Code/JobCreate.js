@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import  FormPopup  from '../../../../../components/Popup/FormPopup';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import AddIcon from '@mui/icons-material/Add';
 import {  useHistory , useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
