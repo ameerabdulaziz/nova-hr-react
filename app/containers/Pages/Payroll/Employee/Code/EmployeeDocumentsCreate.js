@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import EmployeeDocumentsData from '../api/EmployeeDocumentsData';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import { useHistory , useLocation  } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
@@ -13,7 +13,6 @@ import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
@@ -29,6 +28,7 @@ import FileViewerPopup  from '../../../../../components/Popup/fileViewerPopup';
 import printJS from "print-js";
 import { format } from "date-fns";
 import {ServerURL} from '../../api/ServerConfig';
+import SaveButton from '../../Component/SaveButton';
 
 
 
@@ -57,8 +57,7 @@ function CreateAndEditEmployeeDocuments(props) {
     "svg+xml"
   ])
   const [validPDFTypes ,setValidPDFTypes] = useState([ "application/pdf", ".pdf", "pdf"])
-  const [document ,setDocument] = useState('')
-  const [submitting ,setSubmitting] = useState(false)
+  const [document ,setDocument] = useState(null)
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
   const history= useHistory(); 
@@ -79,7 +78,6 @@ function CreateAndEditEmployeeDocuments(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
     setProcessing(true)
     const data = {
       id: id,
@@ -105,11 +103,9 @@ function CreateAndEditEmployeeDocuments(props) {
       } else {
           toast.error(response.statusText);
       }
-      setSubmitting(false)
       setProcessing(false)
     } catch (err) {
       toast.error(notif.error);
-      setSubmitting(false)
       setProcessing(false)
     }
     
@@ -123,7 +119,8 @@ const getdata =  async () => {
   const employees = await GeneralListApis(locale).GetEmployeeList(locale);  
 
   setDocumentsList(documentsData)
-  setEmployeeName(employees.length !== 0 && employeeID ? employees.find((item)=> item.id === employeeID)?.name.split("-").pop() : "")
+  setEmployeeName(employees.length !== 0 && employeeID && employees.find((item)=> item.id === employeeID) !== undefined ? 
+    employees.find((item)=> item.id === employeeID)?.name.split("-").pop() : "")
 };
 
 
@@ -139,7 +136,9 @@ const getEditdata =  async () => {
   setFollowDate(data ? data.followDate : null) 
   setNote(data && data.notes ? data.notes : "") 
   setIsPaperCopy(data ? data.isPaperCopy : false)
-  setDocument(data && data.documentId ? documentsList.find((item)=> item.id === data.documentId) : "")
+  setDocument(data && data.documentId && documentsList.find((item)=> item.id === data.documentId) !== undefined ? 
+    documentsList.find((item)=> item.id === data.documentId) 
+    : null)
   setUploadedFile(data && data.documentUrl ? ` ${ServerURL}${data.documentUrl} ` : "")
   setUploadedFileType(data && data.documentUrl ? ` ${ServerURL}${data.documentUrl} `.split(/[#?]/)[0].split('.').pop().trim() : null)
 
@@ -219,6 +218,7 @@ const handleClose = () => {
 
 
 
+
   return (
     <div>
       <PapperBlock whiteBg icon="border_color" 
@@ -255,7 +255,7 @@ const handleClose = () => {
                           <Autocomplete
                                 id="ddlMenu"   
                                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                                value={document.length != 0 && document !== null ? document : null}                       
+                                value={ document !== null ? document : null}                       
                                 options={documentsList.length != 0 ? documentsList: []}
                                 getOptionLabel={(option) =>(
                                   option  ? option.name : ""
@@ -272,7 +272,7 @@ const handleClose = () => {
                                     if (value !== null) {
                                       setDocument(value);
                                     } else {
-                                      setDocument("");
+                                      setDocument(null);
                                     }
                                 }}
                                 renderInput={(params) => (
@@ -477,15 +477,7 @@ const handleClose = () => {
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                    {processing && (
-                      <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                    )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 

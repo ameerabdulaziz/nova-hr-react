@@ -15,11 +15,15 @@ import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import style from '../../../../../styles/pagesStyle/ReplaceAnnualLeaveBalanceSty.scss';
+import generalStyle from '../../../../../styles/styles.scss';
 import EditIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
+import EditButton from '../../Component/EditButton';
+import DeleteButton from '../../Component/DeleteButton';
+import AddButton   from '../../Component/AddButton';
 
 
 
@@ -125,25 +129,10 @@ function ReplaceAnnualLeaveBalance({ intl }) {
           filter: false,
           customBodyRender: (value, tableMeta) => {
             return (
-              <div className={style.actionsSty}>
-              <IconButton
-                aria-label="Edit"
-                size="large">
-                <Link to={{ pathname: "/app/Pages/vac/EditReplaceAnnualLeaveBalance", state: {id: tableMeta.rowData[0]}}}>
-                  <EditIcon />
-                </Link>
-                
-              </IconButton>
+              <div className={generalStyle.actionsSty}>
+              <EditButton param={{id: tableMeta.rowData[0]}} url={"/app/Pages/vac/ReplaceAnnualLeaveBalanceEdit"}></EditButton>
 
-              <IconButton
-              aria-label="Delete"
-              size="large"
-              onClick={() => {
-                handleClickOpen(tableMeta.rowData)
-              }}
-              >
-              <DeleteIcon />
-              </IconButton>
+              <DeleteButton clickfnc={() => handleClickOpen(tableMeta.rowData)}></DeleteButton>
               </div>
             );
           }
@@ -163,19 +152,9 @@ function ReplaceAnnualLeaveBalance({ intl }) {
     // searchOpen: true,
     selectableRows: "none" ,
     customToolbar: () => (
-      <Tooltip title="Add New">
-        <Button
-          variant="contained"
-          onClick={() => {
-            history.push(`/app/Pages/vac/CreateReplaceAnnualLeaveBalance`);
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          <AddIcon />
-            <FormattedMessage {...Payrollmessages.add} />
-        </Button>
-      </Tooltip>
+      <div className={generalStyle.customToolbarBtn}>
+          <AddButton url={"/app/Pages/vac/ReplaceAnnualLeaveBalanceCreate"} ></AddButton>
+        </div>
     )
   };
 

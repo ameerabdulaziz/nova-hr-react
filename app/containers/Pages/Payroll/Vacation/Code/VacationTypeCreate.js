@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import VacationsTypesData from '../api/VacationsTypesData';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import {  useHistory, useLocation  } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
@@ -13,13 +13,13 @@ import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import {Card ,CardContent} from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import SaveButton from '../../Component/SaveButton';
 
 
 
@@ -46,7 +46,6 @@ function CreateVacationType(props) {
   const [AnnualInAdvance ,setAnnualInAdvance] = useState(false)
   const [attachFile ,setAttachFile] = useState(false)
   const [elements, setElements] = useState("");
-  const [submitting ,setSubmitting] = useState(false)
   const [processing ,setProcessing] = useState(false) 
   const locale = useSelector(state => state.language.locale);
   const [elementsData, setElementsData] = useState([]);
@@ -61,7 +60,6 @@ function CreateVacationType(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
     setProcessing(true)
     const data = {
       id: id,
@@ -99,11 +97,9 @@ function CreateVacationType(props) {
       } else {
           toast.error(response.statusText);
       }
-      setSubmitting(false)
       setProcessing(false)
     } catch (err) {
       toast.error(notif.error);
-      setSubmitting(false)
       setProcessing(false)
     }
     
@@ -597,15 +593,7 @@ useEffect(() => {
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                    {processing && (
-                      <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                    )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 

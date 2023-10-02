@@ -458,8 +458,8 @@ function Application(props) {
           component={Organization}
         />
 
-        <Route path="/app/Pages/MainData/CreateJob" component={CreateJob} />
-        <Route path="/app/Pages/MainData/EditJob:ID" component={EditJob} />
+        <Route path="/app/Pages/MainData/JobCreate" component={CreateJob} />
+        <Route path="/app/Pages/MainData/JobEdit" component={EditJob} />
         <Route path="/app/Pages/MainData/Job-Types" component={ (props1) => <JobTypes text="Job Types" table="MdJobsTypes" {...props1} />}/>
         <Route path="/app/Pages/MainData/Kinship-Link" component={ (props1) => <KinshipLink text="Kinship Link" table="MdKinshipLink" {...props1}/>}/>
         <Route path="/app/Pages/MainData/Month" component={ (props1) => <Month text="Month" table="MdMonth" {...props1} /> } />
@@ -478,8 +478,8 @@ function Application(props) {
         <Route path="/app/Pages/MainData/CompanyChart" component={CompanyChart} />
         <Route path="/app/Pages/MainData/EmployeeChart" component={EmployeeChart} />   
         <Route path="/app/Pages/MainData/Organization" component={Organization} />   
-        <Route path="/app/Pages/MainData/CreateOrganization" component={CreateOrganization} />   
-        <Route path="/app/Pages/MainData/EditOrganization:ID" component={EditOrganization} />  
+        <Route path="/app/Pages/MainData/OrganizationCreate" component={CreateOrganization} />   
+        <Route path="/app/Pages/MainData/OrganizationEdit" component={EditOrganization} />  
         <Route path="/app/Pages/MainData/Upload_KPI_Data" component={ImportFile} />
         <Route path="/app/Pages/MainData/UploadEmployeeData" component={UploadEmployeeData} />       
         
@@ -733,12 +733,12 @@ function Application(props) {
         />
 
         <Route
-          path="/app/Pages/Employee/CreateEmployeeDocuments"
+          path="/app/Pages/Employee/EmployeeDocumentsCreate"
           component={CreateEmployeeDocuments}
         />
 
         <Route
-          path="/app/Pages/Employee/EditEmployeeDocuments"
+          path="/app/Pages/Employee/EmployeeDocumentsEdit"
           component={EditEmployeeDocuments}
         />
 
@@ -754,12 +754,12 @@ function Application(props) {
           {/* Req */} 
         
           <Route
-          path="/app/Pages/Request/CreatePermission"
+          path="/app/Pages/Request/PermissionsCreate"
           component={CreatePermission}
         />
 
         <Route
-          path="/app/Pages/Request/EditPermission"
+          path="/app/Pages/Request/PermissionsEdit"
           component={EditPermission}
         />
 
@@ -772,12 +772,12 @@ function Application(props) {
         {/* Vacations */} 
         
         <Route
-          path="/app/Pages/vac/CreateVacationType"
+          path="/app/Pages/vac/VacationsTypesCreate"
           component={CreateVacationType}
         />
 
         <Route
-          path="/app/Pages/vac/EditVacationType"
+          path="/app/Pages/vac/VacationsTypesEdit"
           component={EditVacationType}
         />
 
@@ -787,12 +787,12 @@ function Application(props) {
         />
 
         <Route
-          path="/app/Pages/vac/CreateOfficialVacation"
+          path="/app/Pages/vac/OfficialVacationsCreate"
           component={CreateOfficialVacation}
         />
 
         <Route
-          path="/app/Pages/vac/EditOfficialVacation"
+          path="/app/Pages/vac/OfficialVacationsEdit"
           component={EditOfficialVacation}
         />
 
@@ -812,12 +812,12 @@ function Application(props) {
         />
 
         <Route
-          path="/app/Pages/vac/CreateReplaceAnnualLeaveBalance"
+          path="/app/Pages/vac/ReplaceAnnualLeaveBalanceCreate"
           component={CreateReplaceAnnualLeaveBalance}
         />
 
         <Route
-          path="/app/Pages/vac/EditReplaceAnnualLeaveBalance"
+          path="/app/Pages/vac/ReplaceAnnualLeaveBalanceEdit"
           component={EditReplaceAnnualLeaveBalance}
         />
 

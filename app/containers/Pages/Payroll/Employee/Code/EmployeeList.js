@@ -16,7 +16,7 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import messages from '../messages';
 import { FormattedMessage } from 'react-intl';
-import style from '../../../../../styles/Styles.scss';
+import style from '../../../../../styles/styles.scss';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';

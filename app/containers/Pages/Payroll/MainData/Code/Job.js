@@ -5,23 +5,17 @@ import { injectIntl } from 'react-intl';
 import JobData from '../api/JobData';
 import MUIDataTable from 'mui-datatables';
 import messages from '../messages';
-import Payrollmessages from '../../messages';
-import { FormattedMessage } from 'react-intl';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../Style';
-// import useStyles from '../../../../../components/Tables/tableStyle-jss';
 import { useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
-import style from '../../../../../styles/Styles.scss';
-import EditIcon from '@mui/icons-material/BorderColor';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { useHistory } from 'react-router-dom';
+import style from '../../../../../styles/styles.scss';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
+import EditButton from '../../Component/EditButton';
+import DeleteButton from '../../Component/DeleteButton';
+import AddButton   from '../../Component/AddButton';
 
 
 
@@ -149,24 +143,9 @@ function Job({ intl }) {
           customBodyRender: (value, tableMeta) => {
             return (
               <div className={style.actionsSty}>
-              <IconButton
-                aria-label="Edit"
-                size="large">
-                <Link to={`/app/Pages/MainData/EditJob${tableMeta.rowData[0]}`}>
-                  <EditIcon />
-                </Link>
-                
-              </IconButton>
+                  <EditButton param={{id: tableMeta.rowData[0]}} url={"/app/Pages/MainData/JobEdit"}></EditButton>
 
-              <IconButton
-              aria-label="Delete"
-              size="large"
-              onClick={() => {
-                handleClickOpen(tableMeta.rowData)
-              }}
-              >
-              <DeleteIcon />
-              </IconButton>
+                  <DeleteButton clickfnc={() => handleClickOpen(tableMeta.rowData)}></DeleteButton>
               </div>
             );
           }
@@ -186,19 +165,10 @@ function Job({ intl }) {
     // searchOpen: true,
     selectableRows: "none" ,
     customToolbar: () => (
-      <Tooltip title="Add New">
-        <Button
-          variant="contained"
-          onClick={() => {
-            history.push(`/app/Pages/MainData/CreateJob`);
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          <AddIcon />
-            <FormattedMessage {...Payrollmessages.add} />
-        </Button>
-      </Tooltip>
+      
+        <div className={style.customToolbarBtn}>
+          <AddButton url={"/app/Pages/MainData/JobCreate"} ></AddButton>
+        </div>
     )
   };
 
@@ -253,7 +223,7 @@ function Job({ intl }) {
           >
             <MUIDataTable
               title={intl.formatMessage(messages.JobsList)}
-              data={search ? search : dataTable}
+              data={ dataTable}
               columns={columns}
               options={options}
               className={style.tableSty}

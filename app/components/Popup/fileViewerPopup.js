@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
-import style from '../../styles/Styles.scss';
+import style from '../../styles/styles.scss';
 import messages from '../../containers/Pages/Payroll/Employee/messages';
 import Payrollmessages from '../../containers/Pages/Payroll/messages';
 import { FormattedMessage , injectIntl } from 'react-intl';

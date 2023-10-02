@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from '../../containers/Pages/Payroll/MainData/messages';
 import { useSelector } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
-import style from '../../styles/Styles.scss';
+import style from '../../styles/styles.scss';
 
 
 const AlertPopup = ({
