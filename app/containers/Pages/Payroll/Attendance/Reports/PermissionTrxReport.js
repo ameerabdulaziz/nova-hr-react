@@ -180,7 +180,7 @@ function PermissionTrxReport(props) {
                   />
               </LocalizationProvider>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={4}>
               <Autocomplete  
                   id="permissionId"                        
                   options={PermissionsList}    
@@ -190,7 +190,7 @@ function PermissionTrxReport(props) {
                   getOptionLabel={(option) =>
                   option.name ? option.name : ""
                   }
-                  onChange={(event, value) =>{ setPermission(value==null?null:value.id)} }
+                  onChange={(event, value) =>{ setPermission(value==null?"":value.id)} }
                   renderInput={(params) => (
                   <TextField
                       variant="outlined"                            
@@ -202,39 +202,19 @@ function PermissionTrxReport(props) {
                   )}
               />  
           </Grid>
-          <Grid item xs={12} md={4}>
-              <Autocomplete  
-                  id="employeeId"                        
-                  options={EmployeeList}    
-                  isOptionEqualToValue={(option, value) =>
-                      value.id === 0 || value.id === "" ||option.id === value.id
-                  }                 
-                  getOptionLabel={(option) =>
-                  option.name ? option.name : ""
-                  }
-                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
-                  renderInput={(params) => (
-                  <TextField
-                      variant="outlined"                            
-                      {...params}
-                      name="employeeId"
-                      required                              
-                      label={intl.formatMessage(Payrollmessages.employeeName)}
-                      />
-                  )}
-              />  
-          </Grid>
+          <Grid item xs={12} md={4}></Grid>
+          
           <Grid item xs={12} md={2}>
             <Autocomplete  
                 id="StatusList"                        
-                options={[{"id":1,"name":"All"},{"id":2,"name":"Approved"},{"id":3,"name":"Rejected"}]}                
+                options={[{"id":null,"name":"All"},{"id":1,"name":"Pending"},{"id":2,"name":"Approved"},{"id":3,"name":"Rejected"}]}                
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" ||option.id === value.id
                 }  
                 getOptionLabel={(option) =>
                   option.name ? option.name : ""
                 }
-                onChange={(event, value) =>{ setStatus(value.id===1?"":value.id)} }
+                onChange={(event, value) => setStatus(value===null?"":(value.id==null?"":value.id))}
                 renderInput={(params) => (
                 <TextField
                     variant="outlined"                            
@@ -255,7 +235,7 @@ function PermissionTrxReport(props) {
                 getOptionLabel={(option) =>
                   option.name ? option.name : ""
                 }
-                onChange={(event, value) =>{ setDeleted(value.id===null?"":value.id)} }
+                onChange={(event, value) =>{ setDeleted(value==null?"":(value.id==null?"":value.id))} }
                 renderInput={(params) => (
                 <TextField
                     variant="outlined"                            
@@ -264,6 +244,27 @@ function PermissionTrxReport(props) {
                     label={intl.formatMessage(Payrollmessages.delete)}
                     />
                 )}
+              />  
+          </Grid>
+          <Grid item xs={12} md={4}>
+              <Autocomplete  
+                  id="employeeId"                        
+                  options={EmployeeList}    
+                  isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" ||option.id === value.id
+                  }                 
+                  getOptionLabel={(option) =>
+                  option.name ? option.name : ""
+                  }
+                  onChange={(event, value) =>{ setemployee(value==null?"":value.id)} }
+                  renderInput={(params) => (
+                  <TextField
+                      variant="outlined"                            
+                      {...params}
+                      name="employeeId"                  
+                      label={intl.formatMessage(Payrollmessages.employeeName)}
+                      />
+                  )}
               />  
           </Grid>
           <Grid item xs={12} md={2}>

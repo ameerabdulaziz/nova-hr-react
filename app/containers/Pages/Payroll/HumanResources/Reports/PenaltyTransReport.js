@@ -25,10 +25,12 @@ function PenaltyTransReport(props) {
   
   const [fromdate, setfromate] = useState(null);
   const [todate, settodate] = useState(null);
-  const [employee, setemployee] = useState(null);
+  const [employee, setemployee] = useState("");
   const [EmployeeList, setEmployeeList] = useState([]);
-  const [Penalty, setPenalty] = useState(null);
+  const [Penalty, setPenalty] = useState("");
   const [PenaltyList, setPenaltyList] = useState([]);
+  const [Status, setStatus] = useState("");
+  const [Deleted, setDeleted] = useState("");
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   
@@ -36,7 +38,7 @@ function PenaltyTransReport(props) {
     
     try{
         
-      const dataApi = await ApiData(locale).GetReport(employee,Penalty,fromdate,todate);
+      const dataApi = await ApiData(locale).GetReport(employee,Penalty,fromdate,todate,Status,Deleted);
       setdata(dataApi);
     } catch (err) {
       toast.error(err.response.data);
@@ -49,9 +51,6 @@ function PenaltyTransReport(props) {
 
     const penalties = await GeneralListApis(locale).GetPenaltyList(locale);
     setPenaltyList(penalties);
-
-    const dataApi = await ApiData(locale).GetReport(employee,Penalty,fromdate,todate);
-    setdata(dataApi);
   }
   useEffect(() => {  
     fetchData();
@@ -106,14 +105,7 @@ function PenaltyTransReport(props) {
       options: {
           filter: true,
       },
-    },
-    {
-        name: 'penaltyTypeName',
-        label: <FormattedMessage {...messages['penaltyTypeName']} />,
-        options: {
-            filter: true,
-        },
-    },
+    },    
     {
         name: 'elementName',
         label: <FormattedMessage {...messages['elementName']} />,
@@ -127,21 +119,7 @@ function PenaltyTransReport(props) {
         options: {
             filter: true,
         },
-    },
-    {
-        name: 'reqSer',
-        label: <FormattedMessage {...messages['reqSer']} />,
-        options: {
-            filter: true,
-        },
-    },
-    {
-        name: 'docName',
-        label: <FormattedMessage {...messages['docName']} />,
-        options: {
-            filter: true,
-        },
-    },
+    },    
     {
         name: 'note',
         label: <FormattedMessage {...messages['note']} />,
@@ -212,7 +190,7 @@ function PenaltyTransReport(props) {
                   />
               </LocalizationProvider>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={4}>
               <Autocomplete  
                   id="PenaltyId"                        
                   options={PenaltyList}    
@@ -232,6 +210,49 @@ function PenaltyTransReport(props) {
                       label={intl.formatMessage(messages.penaltyName)}
                       />
                   )}
+              />  
+          </Grid>
+          <Grid item xs={12} md={4}></Grid>
+          <Grid item xs={12} md={2}>
+            <Autocomplete  
+                id="StatusList"                        
+                options={[{"id":null,"name":"All"},{"id":1,"name":"Pending"},{"id":2,"name":"Approved"},{"id":3,"name":"Rejected"}]}                
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" ||option.id === value.id
+                }  
+                getOptionLabel={(option) =>
+                  option.name ? option.name : ""
+                }
+                onChange={(event, value) => setStatus(value===null?"":(value.id==null?"":value.id))}
+                renderInput={(params) => (
+                <TextField
+                    variant="outlined"                            
+                    {...params}
+                    name="StatusList"                              
+                    label={intl.formatMessage(Payrollmessages.status)}
+                    />
+                )}
+              />  
+          </Grid>
+          <Grid item xs={12} md={2}>
+            <Autocomplete  
+                id="DeleteList"                        
+                options={[{"id":null,"name":"All"},{"id":true,"name":"Deleted"},{"id":false,"name":"Not Deleted"}]}                
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" ||option.id === value.id
+                }  
+                getOptionLabel={(option) =>
+                  option.name ? option.name : ""
+                }
+                onChange={(event, value) =>{ setDeleted(value==null?"":(value.id==null?"":value.id))} }
+                renderInput={(params) => (
+                <TextField
+                    variant="outlined"                            
+                    {...params}
+                    name="DeleteList"                              
+                    label={intl.formatMessage(Payrollmessages.delete)}
+                    />
+                )}
               />  
           </Grid>
           <Grid item xs={12} md={4}>
