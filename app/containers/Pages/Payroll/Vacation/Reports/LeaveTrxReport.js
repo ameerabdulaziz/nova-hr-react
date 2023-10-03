@@ -18,10 +18,10 @@ import {
 } from '@mui/material';
 import GeneralListApis from '../../api/GeneralListApis';
 import useStyles from '../../Style';
-import messages from '../../messages';
-import API from '../api/VacationTrxReportData';
+import messages from '../messages';
+import API from '../api/LeaveTrxReportData';
 
-function VacationTrxReport(props) {
+function LeaveTrxReport(props) {
   const { intl } = props;
 
   const { classes } = useStyles();
@@ -357,4 +357,4 @@ function VacationTrxReport(props) {
   );
 }
 
-export default injectIntl(VacationTrxReport);
+export default injectIntl(LeaveTrxReport);

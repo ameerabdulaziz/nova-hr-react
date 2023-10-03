@@ -1224,8 +1224,8 @@ export const OfficialVacations = loadable(
   }
 );
 
-export const VacationTrxReport = loadable(
-  () => import('./Pages/Payroll/Vacation/Reports/VacationTrxReport'),
+export const LeaveTrxReport = loadable(
+  () => import('./Pages/Payroll/Vacation/Reports/LeaveTrxReport'),
   {
     fallback: <Loading />,
   }
