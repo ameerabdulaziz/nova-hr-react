@@ -171,7 +171,7 @@ import {
   EditReplaceAnnualLeaveBalance,
   ReplaceAnnualLeaveBalance,
   OpeningClosingTheYearForLeaves,
-  VacationTrxReport
+  LeaveTrxReport
 } from '../pageListAsync';
 
 
@@ -804,7 +804,7 @@ function Application(props) {
 
         <Route
           path="/app/Pages/vac/VacationTrxReport"
-          component={VacationTrxReport}
+          component={LeaveTrxReport}
         />
 
         <Route
