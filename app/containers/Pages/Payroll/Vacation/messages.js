@@ -314,4 +314,65 @@ export default defineMessages({
         id: `${scope}.code.dateErrorMes`,
         defaultMessage: 'End date precedes the start date',
       },
+
+  vacationType: {
+    id: `${scope}.vacationType`,
+    defaultMessage: 'vacationType',
+  },
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'department',
+  },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'employeeId',
+  },
+  vacationCode: {
+    id: `${scope}.vacationCode`,
+    defaultMessage: 'vacationCode',
+  },
+  daysCount: {
+    id: `${scope}.daysCount`,
+    defaultMessage: 'daysCount',
+  },
+  dayDeducedBy: {
+    id: `${scope}.dayDeducedBy`,
+    defaultMessage: 'dayDeducedBy',
+  },
+  registrationDate: {
+    id: `${scope}.registrationDate`,
+    defaultMessage: 'registrationDate',
+  },
+  appointmentDate: {
+    id: `${scope}.appointmentDate`,
+    defaultMessage: 'appointmentDate',
+  },
+  filterOnRegistrationHistory: {
+    id: `${scope}.filterOnRegistrationHistory`,
+    defaultMessage: 'filterOnRegistrationHistory',
+  },
+  organization: {
+    id: `${scope}.organization`,
+    defaultMessage: 'organization',
+  },
+  fromdate: {
+    id: `${scope}.fromdate`,
+    defaultMessage: 'fromdate',
+  },
+  todate: {
+    id: `${scope}.todate`,
+    defaultMessage: 'todate',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  search: {
+    id: `${scope}.search`,
+    defaultMessage: 'search',
+  },
 });

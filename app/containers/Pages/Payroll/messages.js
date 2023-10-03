@@ -135,51 +135,6 @@ export default defineMessages({
     defaultMessage: 'employeeName',
   },
 
-  vacationType: {
-    id: `${scope}.vacationType`,
-    defaultMessage: 'vacationType',
-  },
-  department: {
-    id: `${scope}.department`,
-    defaultMessage: 'department',
-  },
-  employeeId: {
-    id: `${scope}.employeeId`,
-    defaultMessage: 'employeeId',
-  },
-  vacationCode: {
-    id: `${scope}.vacationCode`,
-    defaultMessage: 'vacationCode',
-  },
-  daysCount: {
-    id: `${scope}.daysCount`,
-    defaultMessage: 'daysCount',
-  },
-  dayDeducedBy: {
-    id: `${scope}.dayDeducedBy`,
-    defaultMessage: 'dayDeducedBy',
-  },
-  registrationDate: {
-    id: `${scope}.registrationDate`,
-    defaultMessage: 'registrationDate',
-  },
-  appointmentDate: {
-    id: `${scope}.appointmentDate`,
-    defaultMessage: 'appointmentDate',
-  },
-  filterOnRegistrationHistory: {
-    id: `${scope}.filterOnRegistrationHistory`,
-    defaultMessage: 'filterOnRegistrationHistory',
-  },
-  vacationName: {
-    id: `${scope}.vacationName`,
-    defaultMessage: 'vacationName',
-  },
-  organization: {
-    id: `${scope}.organization`,
-    defaultMessage: 'organization',
-  },
-
   job: {
     id: `${scope}.job`,
     defaultMessage: 'job',
