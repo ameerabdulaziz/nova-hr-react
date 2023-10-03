@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll';
 
 export default defineMessages({
-  //penaltyList----------------------------------------------------------------------------
+  // penaltyList----------------------------------------------------------------------------
   save: {
     id: `${scope}.save`,
     defaultMessage: 'Save',
@@ -134,12 +134,57 @@ export default defineMessages({
     id: `${scope}.employeeName`,
     defaultMessage: 'employeeName',
   },
-  
+
+  vacationType: {
+    id: `${scope}.vacationType`,
+    defaultMessage: 'vacationType',
+  },
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'department',
+  },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'employeeId',
+  },
+  vacationCode: {
+    id: `${scope}.vacationCode`,
+    defaultMessage: 'vacationCode',
+  },
+  daysCount: {
+    id: `${scope}.daysCount`,
+    defaultMessage: 'daysCount',
+  },
+  dayDeducedBy: {
+    id: `${scope}.dayDeducedBy`,
+    defaultMessage: 'dayDeducedBy',
+  },
+  registrationDate: {
+    id: `${scope}.registrationDate`,
+    defaultMessage: 'registrationDate',
+  },
+  appointmentDate: {
+    id: `${scope}.appointmentDate`,
+    defaultMessage: 'appointmentDate',
+  },
+  filterOnRegistrationHistory: {
+    id: `${scope}.filterOnRegistrationHistory`,
+    defaultMessage: 'filterOnRegistrationHistory',
+  },
+  vacationName: {
+    id: `${scope}.vacationName`,
+    defaultMessage: 'vacationName',
+  },
+  organization: {
+    id: `${scope}.organization`,
+    defaultMessage: 'organization',
+  },
+
   job: {
     id: `${scope}.job`,
     defaultMessage: 'job',
   },
-  
+
   hiringDate: {
     id: `${scope}.hiringDate`,
     defaultMessage: 'hiringDate',
@@ -156,7 +201,7 @@ export default defineMessages({
     id: `${scope}.element`,
     defaultMessage: 'element',
   },
-  preview:{
+  preview: {
     id: `${scope}.preview`,
     defaultMessage: 'preview',
   },
@@ -192,54 +237,54 @@ export default defineMessages({
     id: `${scope}.superEmployeeName`,
     defaultMessage: 'superEmployeeName',
   },
-  
-month: {
-  id: `${scope}.month`,
-  defaultMessage: 'month',
-},
-sixMonth: {
-  id: `${scope}.sixMonth`,
-  defaultMessage: 'sixMonth',
-},
-year: {
-  id: `${scope}.year`,
-  defaultMessage: 'year',
-},
-hiringDateNo: {
-  id: `${scope}.hiringDateNo`,
-  defaultMessage: 'hiringDateNo',
-},
-lastDate: {
-  id: `${scope}.lastDate`,
-  defaultMessage: 'lastDate',
-},
-oldElemVal: {
-  id: `${scope}.oldElemVal`,
-  defaultMessage: 'oldElemVal',
-},
-workingYears: {
-  id: `${scope}.workingYears`,
-  defaultMessage: 'workingYears',
-},
-step: {
-  id: `${scope}.step`,
-  defaultMessage: 'step',
-},
-status: {
-  id: `${scope}.status`,
-  defaultMessage: 'status',
-},
-approvedEmp: {
-  id: `${scope}.approvedEmp`,
-  defaultMessage: 'approvedEmp',
-},
-edit: {
-  id: `${scope}.edit`,
-  defaultMessage: 'edit',
-},
-addNew: {
-  id: `${scope}.addNew`,
-  defaultMessage: 'addNew',
-},
+
+  month: {
+    id: `${scope}.month`,
+    defaultMessage: 'month',
+  },
+  sixMonth: {
+    id: `${scope}.sixMonth`,
+    defaultMessage: 'sixMonth',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'year',
+  },
+  hiringDateNo: {
+    id: `${scope}.hiringDateNo`,
+    defaultMessage: 'hiringDateNo',
+  },
+  lastDate: {
+    id: `${scope}.lastDate`,
+    defaultMessage: 'lastDate',
+  },
+  oldElemVal: {
+    id: `${scope}.oldElemVal`,
+    defaultMessage: 'oldElemVal',
+  },
+  workingYears: {
+    id: `${scope}.workingYears`,
+    defaultMessage: 'workingYears',
+  },
+  step: {
+    id: `${scope}.step`,
+    defaultMessage: 'step',
+  },
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  approvedEmp: {
+    id: `${scope}.approvedEmp`,
+    defaultMessage: 'approvedEmp',
+  },
+  edit: {
+    id: `${scope}.edit`,
+    defaultMessage: 'edit',
+  },
+  addNew: {
+    id: `${scope}.addNew`,
+    defaultMessage: 'addNew',
+  },
 
 });
