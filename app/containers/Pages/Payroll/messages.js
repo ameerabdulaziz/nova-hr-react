@@ -25,6 +25,10 @@ export default defineMessages({
     id: `${scope}.delete`,
     defaultMessage: 'Delete',
   },
+  close: {
+    id: `${scope}.close`,
+    defaultMessage: 'Close',
+  },
 
   code: {
     id: `${scope}.code`,

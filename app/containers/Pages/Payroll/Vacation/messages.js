@@ -375,4 +375,72 @@ export default defineMessages({
     id: `${scope}.search`,
     defaultMessage: 'search',
   },
+  transactionDate: {
+    id: `${scope}.transactionDate`,
+    defaultMessage: 'transactionDate',
+  },
+  serial: {
+    id: `${scope}.serial`,
+    defaultMessage: 'serial',
+  },
+  employeeCode: {
+    id: `${scope}.employeeCode`,
+    defaultMessage: 'employeeCode',
+  },
+  staff: {
+    id: `${scope}.staff`,
+    defaultMessage: 'staff',
+  },
+  leaveTrxCreateTitle: {
+    id: `${scope}.leaveTrxCreateTitle`,
+    defaultMessage: 'leaveTrxCreateTitle',
+  },
+  leaveTrxUpdateTitle: {
+    id: `${scope}.leaveTrxUpdateTitle`,
+    defaultMessage: 'leaveTrxUpdateTitle',
+  },
+  telNumber: {
+    id: `${scope}.telNumber`,
+    defaultMessage: 'telNumber',
+  },
+  address: {
+    id: `${scope}.address`,
+    defaultMessage: 'address',
+  },
+  leaveReason: {
+    id: `${scope}.leaveReason`,
+    defaultMessage: 'leaveReason',
+  },
+  exemptLeaveRec: {
+    id: `${scope}.exemptLeaveRec`,
+    defaultMessage: 'exemptLeaveRec',
+  },
+  exemptEntryRec: {
+    id: `${scope}.exemptEntryRec`,
+    defaultMessage: 'exemptEntryRec',
+  },
+  section: {
+    id: `${scope}.section`,
+    defaultMessage: 'section',
+  },
+  hiringMonth: {
+    id: `${scope}.hiringMonth`,
+    defaultMessage: 'hiringMonth',
+  },
+  insuranceNumber: {
+    id: `${scope}.insuranceNumber`,
+    defaultMessage: 'insuranceNumber',
+  },
+  medicalNumber: {
+    id: `${scope}.medicalNumber`,
+    defaultMessage: 'medicalNumber',
+  },
+  alternativeEmployee: {
+    id: `${scope}.alternativeEmployee`,
+    defaultMessage: 'alternativeEmployee',
+  },
+  uploadAttachment: {
+    id: `${scope}.uploadAttachment`,
+    defaultMessage: 'uploadAttachment',
+  },
 });
