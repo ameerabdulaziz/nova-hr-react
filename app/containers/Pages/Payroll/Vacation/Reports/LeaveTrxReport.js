@@ -152,10 +152,14 @@ function LeaveTrxReport(props) {
     setStatusList(status);
   }
 
+  const formateDate = date => format(new Date(date), 'yyyy-MM-dd');
+
   const fetchTableData = async () => {
     const formData = { ...formInfo };
 
     formData.VacationId = formData.VacationId.map(item => item.id);
+    formData.FromDate = formateDate(formData.FromDate);
+    formData.ToDate = formateDate(formData.ToDate);
 
     Object.keys(formData).forEach((key) => {
       formData[key] = formData[key] === null ? '' : formData[key];
@@ -191,7 +195,7 @@ function LeaveTrxReport(props) {
                 onChange={(date) => {
                   setFormInfo((prev) => ({
                     ...prev,
-                    FromDate: date && format(new Date(date), 'yyyy-MM-dd'),
+                    FromDate: date
                   }));
                 }}
                 className={classes.field}
@@ -210,7 +214,7 @@ function LeaveTrxReport(props) {
                 onChange={(date) => {
                   setFormInfo((prev) => ({
                     ...prev,
-                    ToDate: date && format(new Date(date), 'yyyy-MM-dd'),
+                    ToDate: date
                   }));
                 }}
                 className={classes.field}
