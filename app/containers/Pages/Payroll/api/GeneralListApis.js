@@ -70,6 +70,13 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.getVacationBalanceById = async (employeeId) => {
+    const result = await axiosInstance.get(
+      `VacVacationTrx/GetEmpVacBalance/${locale}/${employeeId}`
+    );
+    return result.data;
+  };
+
   Apis.GetLicenseGradeList = async () => {
     const result = await axiosInstance.get(
       `GeneralList/GetLicenseGradeList/${locale}`
