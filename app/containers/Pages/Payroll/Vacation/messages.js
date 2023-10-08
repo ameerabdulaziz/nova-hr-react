@@ -314,4 +314,133 @@ export default defineMessages({
         id: `${scope}.code.dateErrorMes`,
         defaultMessage: 'End date precedes the start date',
       },
+
+  vacationType: {
+    id: `${scope}.vacationType`,
+    defaultMessage: 'vacationType',
+  },
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'department',
+  },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'employeeId',
+  },
+  vacationCode: {
+    id: `${scope}.vacationCode`,
+    defaultMessage: 'vacationCode',
+  },
+  daysCount: {
+    id: `${scope}.daysCount`,
+    defaultMessage: 'daysCount',
+  },
+  dayDeducedBy: {
+    id: `${scope}.dayDeducedBy`,
+    defaultMessage: 'dayDeducedBy',
+  },
+  registrationDate: {
+    id: `${scope}.registrationDate`,
+    defaultMessage: 'registrationDate',
+  },
+  appointmentDate: {
+    id: `${scope}.appointmentDate`,
+    defaultMessage: 'appointmentDate',
+  },
+  filterOnRegistrationHistory: {
+    id: `${scope}.filterOnRegistrationHistory`,
+    defaultMessage: 'filterOnRegistrationHistory',
+  },
+  organization: {
+    id: `${scope}.organization`,
+    defaultMessage: 'organization',
+  },
+  fromdate: {
+    id: `${scope}.fromdate`,
+    defaultMessage: 'fromdate',
+  },
+  todate: {
+    id: `${scope}.todate`,
+    defaultMessage: 'todate',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  search: {
+    id: `${scope}.search`,
+    defaultMessage: 'search',
+  },
+  transactionDate: {
+    id: `${scope}.transactionDate`,
+    defaultMessage: 'transactionDate',
+  },
+  serial: {
+    id: `${scope}.serial`,
+    defaultMessage: 'serial',
+  },
+  employeeCode: {
+    id: `${scope}.employeeCode`,
+    defaultMessage: 'employeeCode',
+  },
+  staff: {
+    id: `${scope}.staff`,
+    defaultMessage: 'staff',
+  },
+  leaveTrxCreateTitle: {
+    id: `${scope}.leaveTrxCreateTitle`,
+    defaultMessage: 'leaveTrxCreateTitle',
+  },
+  leaveTrxUpdateTitle: {
+    id: `${scope}.leaveTrxUpdateTitle`,
+    defaultMessage: 'leaveTrxUpdateTitle',
+  },
+  telNumber: {
+    id: `${scope}.telNumber`,
+    defaultMessage: 'telNumber',
+  },
+  address: {
+    id: `${scope}.address`,
+    defaultMessage: 'address',
+  },
+  leaveReason: {
+    id: `${scope}.leaveReason`,
+    defaultMessage: 'leaveReason',
+  },
+  exemptLeaveRec: {
+    id: `${scope}.exemptLeaveRec`,
+    defaultMessage: 'exemptLeaveRec',
+  },
+  exemptEntryRec: {
+    id: `${scope}.exemptEntryRec`,
+    defaultMessage: 'exemptEntryRec',
+  },
+  section: {
+    id: `${scope}.section`,
+    defaultMessage: 'section',
+  },
+  hiringMonth: {
+    id: `${scope}.hiringMonth`,
+    defaultMessage: 'hiringMonth',
+  },
+  insuranceNumber: {
+    id: `${scope}.insuranceNumber`,
+    defaultMessage: 'insuranceNumber',
+  },
+  medicalNumber: {
+    id: `${scope}.medicalNumber`,
+    defaultMessage: 'medicalNumber',
+  },
+  alternativeEmployee: {
+    id: `${scope}.alternativeEmployee`,
+    defaultMessage: 'alternativeEmployee',
+  },
+  uploadAttachment: {
+    id: `${scope}.uploadAttachment`,
+    defaultMessage: 'uploadAttachment',
+  },
 });

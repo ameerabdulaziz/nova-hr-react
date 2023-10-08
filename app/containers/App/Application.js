@@ -170,7 +170,14 @@ import {
   CreateReplaceAnnualLeaveBalance,
   EditReplaceAnnualLeaveBalance,
   ReplaceAnnualLeaveBalance,
+<<<<<<< HEAD
   OpeningClosingTheYearForLeaves,ShiftCreate,ShiftList,EmployeeShiftList,EmployeeShiftCreate,OrgnizationShift
+=======
+  OpeningClosingTheYearForLeaves,
+  LeaveTrxReport,
+  LeaveTrxCreate,
+  LeaveTrx,
+>>>>>>> 744d9cff7512868b818b2d6652eeccab96439bcd
 } from '../pageListAsync';
 
 
@@ -809,6 +816,26 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/OfficialVacations"
           component={OfficialVacations}
+        />
+
+        <Route
+          path="/app/Pages/vac/VacationTrxReport"
+          component={LeaveTrxReport}
+        />
+
+        <Route
+          path="/app/Pages/vac/LeaveTrx"
+          component={LeaveTrx}
+        />
+
+        <Route
+          path="/app/Pages/vac/LeaveTrxCreate"
+          component={LeaveTrxCreate}
+        />
+
+        <Route
+          path="/app/Pages/vac/LeaveTrxEdit"
+          component={LeaveTrxCreate}
         />
 
         <Route

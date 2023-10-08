@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll';
 
 export default defineMessages({
-  //penaltyList----------------------------------------------------------------------------
+  // penaltyList----------------------------------------------------------------------------
   save: {
     id: `${scope}.save`,
     defaultMessage: 'Save',
@@ -24,6 +24,10 @@ export default defineMessages({
   delete: {
     id: `${scope}.delete`,
     defaultMessage: 'Delete',
+  },
+  close: {
+    id: `${scope}.close`,
+    defaultMessage: 'Close',
   },
 
   code: {
@@ -135,12 +139,12 @@ export default defineMessages({
     id: `${scope}.employeeName`,
     defaultMessage: 'employeeName',
   },
-  
+
   job: {
     id: `${scope}.job`,
     defaultMessage: 'job',
   },
-  
+
   hiringDate: {
     id: `${scope}.hiringDate`,
     defaultMessage: 'hiringDate',
@@ -157,7 +161,7 @@ export default defineMessages({
     id: `${scope}.element`,
     defaultMessage: 'element',
   },
-  preview:{
+  preview: {
     id: `${scope}.preview`,
     defaultMessage: 'preview',
   },
@@ -193,6 +197,7 @@ export default defineMessages({
     id: `${scope}.superEmployeeName`,
     defaultMessage: 'superEmployeeName',
   },
+<<<<<<< HEAD
   
 month: {
   id: `${scope}.month`,
@@ -278,4 +283,71 @@ employeeId: {
   id: `${scope}.employeeId`,
   defaultMessage: 'employeeId',
 },
+=======
+
+  month: {
+    id: `${scope}.month`,
+    defaultMessage: 'month',
+  },
+  sixMonth: {
+    id: `${scope}.sixMonth`,
+    defaultMessage: 'sixMonth',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'year',
+  },
+  hiringDateNo: {
+    id: `${scope}.hiringDateNo`,
+    defaultMessage: 'hiringDateNo',
+  },
+  lastDate: {
+    id: `${scope}.lastDate`,
+    defaultMessage: 'lastDate',
+  },
+  oldElemVal: {
+    id: `${scope}.oldElemVal`,
+    defaultMessage: 'oldElemVal',
+  },
+  workingYears: {
+    id: `${scope}.workingYears`,
+    defaultMessage: 'workingYears',
+  },
+  step: {
+    id: `${scope}.step`,
+    defaultMessage: 'step',
+  },
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  approvedEmp: {
+    id: `${scope}.approvedEmp`,
+    defaultMessage: 'approvedEmp',
+  },
+  edit: {
+    id: `${scope}.edit`,
+    defaultMessage: 'edit',
+  },
+  addNew: {
+    id: `${scope}.addNew`,
+    defaultMessage: 'addNew',
+  },
+  vacationBalance: {
+    id: `${scope}.vacationBalance`,
+    defaultMessage: 'vacationBalance',
+  },
+  noEmployeeIdProvide: {
+    id: `${scope}.noEmployeeIdProvide`,
+    defaultMessage: 'noEmployeeIdProvide',
+  },
+  vacation: {
+    id: `${scope}.vacation`,
+    defaultMessage: 'vacation',
+  },
+  balance: {
+    id: `${scope}.balance`,
+    defaultMessage: 'balance',
+  },
+>>>>>>> 744d9cff7512868b818b2d6652eeccab96439bcd
 });
