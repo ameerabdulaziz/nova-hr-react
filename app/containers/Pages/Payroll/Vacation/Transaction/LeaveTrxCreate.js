@@ -1,4 +1,3 @@
-import { Help } from '@mui/icons-material';
 import {
   Autocomplete,
   Button,
@@ -7,9 +6,8 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  IconButton,
   Stack,
-  TextField,
+  TextField
 } from '@mui/material';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -24,6 +22,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import EmployeeData from '../../Component/EmployeeData';
 import SaveButton from '../../Component/SaveButton';
+import VacationBalancePopup from '../../Component/VacationBalance';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import Payrollmessages from '../../messages';
@@ -307,9 +306,8 @@ function LeaveTrxCreate(props) {
                             />
                           )}
                         />
-                        <IconButton>
-                          <Help />
-                        </IconButton>
+
+                        <VacationBalancePopup employeeId={formInfo.employeeId} />
                       </Stack>
                     </Grid>
 
