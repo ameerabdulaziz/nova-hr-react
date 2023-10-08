@@ -1034,7 +1034,6 @@
   "boilerplate.containers.Payroll.Attendance.transportationExpenses": "Transportation",
   "boilerplate.containers.Payroll.Attendance.isNotUpdateMission": "Not Update Existing Mission",
 
-<<<<<<< HEAD
   
   "boilerplate.containers.Payroll.Attendance.hours":"Hours No",
   "boilerplate.containers.Payroll.Attendance.shft2d":"Night Shift",
@@ -1057,8 +1056,6 @@
   "boilerplate.containers.Payroll.Attendance.EmployeeShiftCreateTitle":"Add Employee Shift",
   "boilerplate.containers.Payroll.Attendance.EmployeeShiftUpdateTitle":"Update Employee Shift",
   
-=======
->>>>>>> 744d9cff7512868b818b2d6652eeccab96439bcd
   "boilerplate.containers.Payroll.Workflow.documentName": "Document Name",
   "boilerplate.containers.Payroll.Workflow.step": "Step",
   "boilerplate.containers.Payroll.Workflow.nextStep": "Next Step",

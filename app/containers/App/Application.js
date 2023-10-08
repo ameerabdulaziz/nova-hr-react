@@ -170,14 +170,10 @@ import {
   CreateReplaceAnnualLeaveBalance,
   EditReplaceAnnualLeaveBalance,
   ReplaceAnnualLeaveBalance,
-<<<<<<< HEAD
-  OpeningClosingTheYearForLeaves,ShiftCreate,ShiftList,EmployeeShiftList,EmployeeShiftCreate,OrgnizationShift
-=======
-  OpeningClosingTheYearForLeaves,
+  OpeningClosingTheYearForLeaves,ShiftCreate,ShiftList,EmployeeShiftList,EmployeeShiftCreate,OrgnizationShift,  
   LeaveTrxReport,
   LeaveTrxCreate,
   LeaveTrx,
->>>>>>> 744d9cff7512868b818b2d6652eeccab96439bcd
 } from '../pageListAsync';
 
 

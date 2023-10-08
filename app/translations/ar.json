@@ -1019,7 +1019,6 @@
   "boilerplate.containers.Payroll.HumanResources.workingYears": "سنين العمل",
   "boilerplate.containers.Payroll.HumanResources.source": "المصدر",
   "boilerplate.containers.Payroll.HumanResources.idealManPower": "قوة العمالة المخططه",
-
   "boilerplate.containers.Payroll.HumanResources.courseName": "قوة العمالة المخططه",
   "boilerplate.containers.Payroll.HumanResources.EmpCourseCreateTitle": "اضافة الدورات التدريبية",
   "boilerplate.containers.Payroll.HumanResources.EmpCourseUpdateTitle": "تعديل الدورات التدريبية",
@@ -1056,38 +1055,6 @@
   "boilerplate.containers.Payroll.Attendance.missionDestination": "جهة المأمورية",
   "boilerplate.containers.Payroll.Attendance.transportationExpenses": "الانتقالات",
   "boilerplate.containers.Payroll.Attendance.isNotUpdateMission": "فى حالة وجود مأمورية للموظف لا تقم بالتعديل",
-
-<<<<<<< HEAD
-  "boilerplate.containers.Payroll.Attendance.permissionName":"نوع الاذن",   
-  "boilerplate.containers.Payroll.Attendance.PermissionTrxCreateTitle":"اضافة اذن",   
-  "boilerplate.containers.Payroll.Attendance.PermissionTrxUpdateTitle":"تعديل اذن", 
-  "boilerplate.containers.Payroll.Attendance.minutesCount":"عدد الدقائق", 
-  "boilerplate.containers.Payroll.Attendance.startTime":"من الساعه", 
-  "boilerplate.containers.Payroll.Attendance.endTime":"الى الساعه", 
-  "boilerplate.containers.Payroll.Attendance.exemptEntryRec":"اعفاء من تسجيل الدخول", 
-  "boilerplate.containers.Payroll.Attendance.exemptLeaveRec":"اعفاء من تسجيل الانصراف", 
-  "boilerplate.containers.Payroll.Attendance.calcLate":"احتساب تأخير", 
-  "boilerplate.containers.Payroll.Attendance.calcMinus":"احتساب متمم", 
-  "boilerplate.containers.Payroll.Attendance.dedRased":"خصم من الرصيد", 
-  "boilerplate.containers.Payroll.Attendance.isDeducted":"تخصم من المرتب", 
-  "boilerplate.containers.Payroll.Attendance.deductedValue":"قيمة الخصم",  
-  "boilerplate.containers.Payroll.Attendance.maxRepeated":"الحد الاقصى للتكرار",  
-  "boilerplate.containers.Payroll.Attendance.maxMinuteNo":"عدد دقائق الاذن", 
-  "boilerplate.containers.Payroll.Attendance.isDeductAnnual":"خصم من السنوى", 
-  "boilerplate.containers.Payroll.Attendance.shortName":"الاسم المختصر", 
-  "boilerplate.containers.Payroll.Attendance.PermissionCreateTitle":"اضافة اكواد الاذون", 
-  "boilerplate.containers.Payroll.Attendance.PermissionUpdateTitle":"تعديل اكواد الاذون", 
-  "boilerplate.containers.Payroll.Attendance.isNotUpdate":"فى حالة وجود اذن للموظف لا تقم بالتعديل", 
-  "boilerplate.containers.Payroll.Attendance.missionName":"نوع المأمورية", 
-  "boilerplate.containers.Payroll.Attendance.isOverTime":"تحتسب اضافى", 
-  "boilerplate.containers.Payroll.Attendance.isMustAttend":"يحتسب غياب فى حالة عدم الحضور",
-   "boilerplate.containers.Payroll.Attendance.MissionTrxCreateTitle":"اضافة مأموريات", 
-  "boilerplate.containers.Payroll.Attendance.MissioTrxUpdateTitle":"تعديل مأموريات", 
-  "boilerplate.containers.Payroll.Attendance.missionDestination":"جهة المأمورية", 
-  "boilerplate.containers.Payroll.Attendance.transportationExpenses":"الانتقالات", 
-  "boilerplate.containers.Payroll.Attendance.isNotUpdateMission":"فى حالة وجود مأمورية للموظف لا تقم بالتعديل", 
-  
-  
   "boilerplate.containers.Payroll.Attendance.hours":"عدد الساعات",
   "boilerplate.containers.Payroll.Attendance.shft2d":"وردية ليل",
   "boilerplate.containers.Payroll.Attendance.shft10Hours":"وردية 10 ساعات",
@@ -1113,8 +1080,6 @@
   
   
   
-=======
->>>>>>> 744d9cff7512868b818b2d6652eeccab96439bcd
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
   "boilerplate.containers.Payroll.Workflow.step": "المرحلة",
   "boilerplate.containers.Payroll.Workflow.nextStep": "المرحلة التالية",

@@ -197,7 +197,6 @@ export default defineMessages({
     id: `${scope}.superEmployeeName`,
     defaultMessage: 'superEmployeeName',
   },
-<<<<<<< HEAD
   
 month: {
   id: `${scope}.month`,
@@ -283,7 +282,6 @@ employeeId: {
   id: `${scope}.employeeId`,
   defaultMessage: 'employeeId',
 },
-=======
 
   month: {
     id: `${scope}.month`,
@@ -349,5 +347,4 @@ employeeId: {
     id: `${scope}.balance`,
     defaultMessage: 'balance',
   },
->>>>>>> 744d9cff7512868b818b2d6652eeccab96439bcd
 });
