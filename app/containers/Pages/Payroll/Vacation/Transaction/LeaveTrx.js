@@ -1,14 +1,17 @@
+import notif from 'enl-api/ui/notifMessage';
+import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
 import React, { useEffect, useState } from 'react';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import toast from 'react-hot-toast';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { PapperBlock } from 'enl-components';
-import useStyles from '../../Style';
-import messages from '../messages';
-import AddButton from '../../Component/AddButton';
-import EditButton from '../../Component/EditButton';
-import DeleteButton from '../../Component/DeleteButton';
 import style from '../../../../../styles/styles.scss';
+import AddButton from '../../Component/AddButton';
+import DeleteButton from '../../Component/DeleteButton';
+import EditButton from '../../Component/EditButton';
+import useStyles from '../../Style';
+import api from '../api/LeaveTrxData';
+import messages from '../messages';
 
 function LeaveTrxList(props) {
   const { intl } = props;
@@ -18,9 +21,32 @@ function LeaveTrxList(props) {
 
   const [tableData, setTableData] = useState([]);
 
-  const deleteRow = async id => {
-    console.log(id);
+  const fetchTableData = async () => {
+    const response = await api(
+      locale
+    ).GetList();
+    setTableData(response);
   };
+
+  const deleteRow = async id => {
+    try {
+      const response = await api(locale).delete(id);
+
+      if (response.status === 200) {
+        toast.success(notif.saved);
+
+        fetchTableData();
+      } else {
+        toast.error(response.statusText);
+      }
+    } catch (err) {
+      toast.error(JSON.stringify(err));
+    }
+  };
+
+  useEffect(() => {
+    fetchTableData();
+  }, []);
 
   const columns = [
     {
@@ -31,7 +57,7 @@ function LeaveTrxList(props) {
       },
     },
     {
-      name: 'staff',
+      name: 'employeeId',
       label: <FormattedMessage {...messages.employeeCode} />,
       options: {
         filter: true,
@@ -47,7 +73,7 @@ function LeaveTrxList(props) {
     },
 
     {
-      name: 'LeaveType',
+      name: 'vacationName',
       label: <FormattedMessage {...messages.LeaveType} />,
       options: {
         filter: true,
@@ -74,15 +100,15 @@ function LeaveTrxList(props) {
         filter: true,
       },
     },
+    // {
+    //   name: 'serial',
+    //   label: <FormattedMessage {...messages.serial} />,
+    //   options: {
+    //     filter: true,
+    //   },
+    // },
     {
-      name: 'serial',
-      label: <FormattedMessage {...messages.serial} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: 'transactionDate',
+      name: 'trxDate',
       label: <FormattedMessage {...messages.transactionDate} />,
       options: {
         filter: true,
