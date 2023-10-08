@@ -893,6 +893,10 @@
   "boilerplate.containers.Payroll.approvedEmp": "Decision Maker",
   "boilerplate.containers.Payroll.edit": "Edit",
   "boilerplate.containers.Payroll.addNew": "Add",
+  "boilerplate.containers.Payroll.vacationBalance": "Vacation Balance",
+  "boilerplate.containers.Payroll.noEmployeeIdProvide": "No Employee Id Provide",
+  "boilerplate.containers.Payroll.balance": "Balance",
+  "boilerplate.containers.Payroll.vacation": "Vacation",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",

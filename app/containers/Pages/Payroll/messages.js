@@ -245,5 +245,20 @@ export default defineMessages({
     id: `${scope}.addNew`,
     defaultMessage: 'addNew',
   },
-
+  vacationBalance: {
+    id: `${scope}.vacationBalance`,
+    defaultMessage: 'vacationBalance',
+  },
+  noEmployeeIdProvide: {
+    id: `${scope}.noEmployeeIdProvide`,
+    defaultMessage: 'noEmployeeIdProvide',
+  },
+  vacation: {
+    id: `${scope}.vacation`,
+    defaultMessage: 'vacation',
+  },
+  balance: {
+    id: `${scope}.balance`,
+    defaultMessage: 'balance',
+  },
 });
