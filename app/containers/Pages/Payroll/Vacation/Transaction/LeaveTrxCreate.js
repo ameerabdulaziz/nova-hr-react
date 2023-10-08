@@ -15,6 +15,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
+import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -26,6 +27,7 @@ import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import Payrollmessages from '../../messages';
+import api from '../api/LeaveTrxData';
 import messages from '../messages';
 
 function LeaveTrxCreate(props) {
@@ -39,27 +41,29 @@ function LeaveTrxCreate(props) {
   const [vacationsList, setVacationsList] = useState([]);
   const [alternativeEmployeeList, setAlternativeEmployeeList] = useState([]);
 
-  const [processing, setprocessing] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const [formInfo, setFormInfo] = useState({
+    id,
+
     employeeId: '',
     employeeName: '',
     hiringDate: null,
     job: '',
     organization: '',
 
-    date: null,
-    FromDate: null,
-    ToDate: null,
+    trxDate: null,
+    fromDate: null,
+    toDate: null,
     daysCount: '',
     dayDeducedBy: '',
-    telNumber: '',
+    tel: '',
     attachment: null,
-    leaveReason: '',
+    vacReson: '',
     address: '',
     notes: '',
     exemptEntryRec: false,
     exemptLeaveRec: false,
-    AltEmployeeId: '',
+    alternativeStaff: '',
     vacation: {},
   });
 
@@ -67,8 +71,54 @@ function LeaveTrxCreate(props) {
     try {
       const vacationResponse = await GeneralListApis(locale).GetVacList();
       setVacationsList(vacationResponse);
+
+      if (id !== 0) {
+        const dataApi = await api(locale).GetById(id);
+        setFormInfo({
+          ...dataApi,
+          vacation: {
+            id: dataApi.vacCode,
+            name: dataApi.vacationName
+          }
+        });
+      }
     } catch (err) {
       toast.error(JSON.stringify(err.response.data));
+    }
+  };
+
+  const GetAlternativeEmployee = async () => {
+    if (formInfo.employeeId) {
+      const alternativeEmployeeResponse = await api(
+        locale
+      ).GetAlternativeEmployeeList(formInfo.employeeId);
+      setAlternativeEmployeeList(alternativeEmployeeResponse);
+    }
+  };
+
+  const calculateDaysCount = () => {
+    if (formInfo.toDate && formInfo.fromDate) {
+      const obj = {
+        toDate: formInfo.toDate,
+        fromDate: formInfo.fromDate,
+        daysCount: formInfo.daysCount,
+      };
+
+      if (formInfo.vacation?.id === 5) {
+        obj.toDate = formInfo.fromDate;
+        obj.daysCount = 0.5;
+      } else {
+        const dateDiffTo = new Date(formInfo.toDate).getTime();
+        const dateDiffFrom = new Date(formInfo.fromDate).getTime();
+
+        const timeDiff = dateDiffTo - dateDiffFrom;
+
+        const daysCount = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+        obj.daysCount = timeDiff >= 0 ? daysCount + 1 : 0;
+      }
+
+      setFormInfo((prev) => ({ ...prev, ...obj }));
     }
   };
 
@@ -77,34 +127,16 @@ function LeaveTrxCreate(props) {
   }, []);
 
   useEffect(() => {
-    if (formInfo.ToDate && formInfo.FromDate) {
-      const obj = {
-        ToDate: formInfo.ToDate,
-        FromDate: formInfo.FromDate,
-        daysCount: formInfo.daysCount,
-      };
+    GetAlternativeEmployee();
+  }, [formInfo.employeeId]);
 
-      if (formInfo.vacation?.id === 5) {
-        obj.ToDate = formInfo.FromDate;
-        obj.daysCount = 0.5;
-      } else {
-        const dateDiffTo = new Date(formInfo.ToDate).getTime();
-        const dateDiffFrom = new Date(formInfo.FromDate).getTime();
-
-        const timeDiff = dateDiffTo - dateDiffFrom;
-
-        const daysCount = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-
-        obj.daysCount = timeDiff > 0 ? daysCount + 1 : 0;
-      }
-
-      setFormInfo((prev) => ({ ...prev, ...obj }));
-    }
-  }, [formInfo.ToDate, formInfo.FromDate]);
+  useEffect(() => {
+    calculateDaysCount();
+  }, [formInfo.toDate, formInfo.fromDate]);
 
   const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
 
-  const onFormSubmit = (evt) => {
+  const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
     let errors = {};
@@ -112,15 +144,15 @@ function LeaveTrxCreate(props) {
     const formData = { ...formInfo };
 
     if (formInfo.vacation.id !== 5) {
-      if (formInfo.FromDate && formInfo.ToDate) {
-        const isFromDateLessThanToDate = new Date(formInfo.FromDate) < new Date(formInfo.ToDate);
+      if (formInfo.fromDate && formInfo.toDate) {
+        const isfromDateLessThantoDate =					new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
 
-        if (isFromDateLessThanToDate) {
+        if (isfromDateLessThantoDate) {
           const { date, ...reset } = errors;
 
           errors = reset;
         } else {
-          errors.date = 'FromDate must be less than ToDate';
+          errors.date = 'fromDate must be less than toDate';
         }
       }
     }
@@ -136,12 +168,26 @@ function LeaveTrxCreate(props) {
     }
 
     if (Object.keys(errors).length === 0) {
-      formData.date = formateDate(formData.date);
-      formData.FromDate = formateDate(formData.FromDate);
-      formData.ToDate = formateDate(formData.ToDate);
-      formData.vacationId = formData.vacation?.id;
+      formData.trxDate = formateDate(formData.trxDate);
+      formData.fromDate = formateDate(formData.fromDate);
+      formData.toDate = formateDate(formData.toDate);
+      formData.vacCode = formData.vacation?.id;
 
-      console.log(formData);
+      setProcessing(true);
+
+      try {
+        const {
+          vacation, hiringDate, employeeName, job, organization, dayDeducedBy, ...reset
+        } = formData;
+        await api(locale).save(reset);
+
+        toast.success(notif.saved);
+        history.push('/app/Pages/vac/LeaveTrx');
+      } catch (error) {
+        toast.error(error.response.data ?? JSON.stringify(error));
+      } finally {
+        setProcessing(false);
+      }
     } else {
       Object.keys(errors).forEach((key) => {
         toast.error(JSON.stringify(errors[key]));
@@ -170,12 +216,13 @@ function LeaveTrxCreate(props) {
         setFormInfo((prev) => ({
           ...prev,
           vacation: value,
-          ToDate: prev.FromDate,
+          toDate: prev.fromDate,
         }));
       } else {
         setFormInfo((prev) => ({
           ...prev,
           vacation: value,
+          toDate: null,
           daysCount: '',
         }));
       }
@@ -183,6 +230,8 @@ function LeaveTrxCreate(props) {
       setFormInfo((prev) => ({
         ...prev,
         vacation: {},
+        toDate: null,
+        daysCount: '',
       }));
     }
   };
@@ -214,16 +263,16 @@ function LeaveTrxCreate(props) {
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(Payrollmessages.date)}
-                          value={formInfo.date}
+                          value={formInfo.trxDate}
                           onChange={(date) => {
                             setFormInfo((prevFilters) => ({
                               ...prevFilters,
-                              date,
+                              trxDate: date,
                             }));
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField {...params} variant='outlined' />
+                            <TextField {...params} variant='outlined' required />
                           )}
                         />
                       </LocalizationProvider>
@@ -238,8 +287,9 @@ function LeaveTrxCreate(props) {
                       >
                         <Autocomplete
                           options={vacationsList}
-                          getOptionLabel={(option) => option.name}
+                          getOptionLabel={(option) => option.name ?? ''}
                           onChange={onVacationChange}
+                          value={formInfo.vacation}
                           sx={{
                             '.MuiInputBase-root': {
                               paddingTop: '8px',
@@ -250,6 +300,7 @@ function LeaveTrxCreate(props) {
                           renderInput={(params) => (
                             <TextField
                               variant='outlined'
+                              required
                               {...params}
                               name='vacation'
                               label={intl.formatMessage(messages.vacationType)}
@@ -269,7 +320,7 @@ function LeaveTrxCreate(props) {
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
-                            AltEmployeeId: value.id,
+                            alternativeStaff: value?.id,
                           }));
                         }}
                         renderInput={(params) => (
@@ -352,19 +403,23 @@ function LeaveTrxCreate(props) {
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(messages.fromdate)}
-                          value={formInfo.FromDate}
+                          value={formInfo.fromDate}
                           maxDate={
-                            formInfo.vacation.id !== 5 ? formInfo.ToDate : null
+                            formInfo.vacation?.id !== 5 ? formInfo.toDate : null
                           }
                           onChange={(date) => {
                             setFormInfo((prev) => ({
                               ...prev,
-                              FromDate: date,
+                              fromDate: date,
                             }));
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField {...params} variant='outlined' required />
+                            <TextField
+                              {...params}
+                              variant='outlined'
+                              required
+                            />
                           )}
                         />
                       </LocalizationProvider>
@@ -374,17 +429,21 @@ function LeaveTrxCreate(props) {
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(messages.todate)}
-                          value={formInfo.ToDate}
+                          value={formInfo.toDate}
                           disabled={formInfo.vacation.id === 5}
                           onChange={(date) => {
                             setFormInfo((prev) => ({
                               ...prev,
-                              ToDate: date,
+                              toDate: date,
                             }));
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField {...params} variant='outlined' required />
+                            <TextField
+                              {...params}
+                              variant='outlined'
+                              required
+                            />
                           )}
                         />
                       </LocalizationProvider>
@@ -408,6 +467,7 @@ function LeaveTrxCreate(props) {
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.dayDeducedBy)}
                         className={classes.field}
+                        disabled
                         variant='outlined'
                       />
                     </Grid>
@@ -427,12 +487,13 @@ function LeaveTrxCreate(props) {
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='telNumber'
-                        value={formInfo.telNumber}
+                        name='tel'
+                        value={formInfo.tel}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.telNumber)}
                         className={classes.field}
                         variant='outlined'
+                        required
                       />
                     </Grid>
 
@@ -444,17 +505,19 @@ function LeaveTrxCreate(props) {
                         label={intl.formatMessage(messages.address)}
                         className={classes.field}
                         variant='outlined'
+                        required
                       />
                     </Grid>
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='leaveReason'
-                        value={formInfo.leaveReason}
+                        name='vacReson'
+                        value={formInfo.vacReson}
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.leaveReason)}
                         className={classes.field}
                         variant='outlined'
+                        required
                       />
                     </Grid>
 
