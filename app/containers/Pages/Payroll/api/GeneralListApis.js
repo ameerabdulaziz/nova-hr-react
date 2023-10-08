@@ -301,6 +301,13 @@ const GeneralListApis = (locale) => {
 
     return data.data;
   };
+  Apis.GetShiftList = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetShiftList/${locale}`
+    );
+
+    return result.data;
+  };
 
   return Apis;
 };

@@ -997,6 +997,39 @@ export const MissionType = loadable(
   }
 );
 
+export const ShiftList = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/ShiftList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ShiftCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/ShiftCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeShiftList = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/EmployeeShiftList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmployeeShiftCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/EmployeeShiftCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const OrgnizationShift = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/OrgnizationShift'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const MissionTrxList = loadable(
   () => import('./Pages/Payroll/Attendance/Transaction/MissionTrxList'),
   {

@@ -896,6 +896,20 @@
   "boilerplate.containers.Payroll.approvedEmp":"Decision Maker",
   "boilerplate.containers.Payroll.edit":"Edit",  
   "boilerplate.containers.Payroll.addNew":"Add",
+
+  
+  "boilerplate.containers.Payroll.saturday":"Saturday",
+  "boilerplate.containers.Payroll.sunday":"Sunday",
+  "boilerplate.containers.Payroll.monday":"Monday",
+  "boilerplate.containers.Payroll.tuesday":"Tuesday",
+  "boilerplate.containers.Payroll.wednesday":"Wednesday",
+  "boilerplate.containers.Payroll.thursday":"Thursday",
+  "boilerplate.containers.Payroll.friday":"Friday",  
+  "boilerplate.containers.Payroll.apply":"Apply",  
+  "boilerplate.containers.Payroll.employeeId":"Employee Id",
+  
+
+
   
   
   
@@ -1032,6 +1046,27 @@
   "boilerplate.containers.Payroll.Attendance.isNotUpdateMission":"Not Update Existing Mission",
   
 
+  
+  "boilerplate.containers.Payroll.Attendance.hours":"Hours No",
+  "boilerplate.containers.Payroll.Attendance.shft2d":"Night Shift",
+  "boilerplate.containers.Payroll.Attendance.shft10Hours":"Ten Hours Shift",
+  "boilerplate.containers.Payroll.Attendance.hoursFromEmp":"Working hours related to Employee",
+  "boilerplate.containers.Payroll.Attendance.webHide":"Used by Hr Employee",
+  "boilerplate.containers.Payroll.Attendance.allowedLate":"Allowed Late after shift Start",
+  "boilerplate.containers.Payroll.Attendance.allowedEarlyEx":"Allowes Early Exit",
+  "boilerplate.containers.Payroll.Attendance.allowedLateEx":"Allowed Exit after shift finish",
+  "boilerplate.containers.Payroll.Attendance.allowedEarlyenter":"Allowed Enter before shift Start",
+  "boilerplate.containers.Payroll.Attendance.coreH":"Shift has Core Time",
+  "boilerplate.containers.Payroll.Attendance.firstM":"Calculated first",
+  "boilerplate.containers.Payroll.Attendance.firstM2":"minutes Overtime",
+  "boilerplate.containers.Payroll.Attendance.firstMfactor":"with factor",
+  "boilerplate.containers.Payroll.Attendance.restTimeFactor":"Remain Factor",  
+  "boilerplate.containers.Payroll.Attendance.ShiftCreateTitle":"Add Shift",
+  "boilerplate.containers.Payroll.Attendance.ShiftUpdateTitle":"Update Shift",
+  "boilerplate.containers.Payroll.Attendance.shiftId":"Shift Id",
+  "boilerplate.containers.Payroll.Attendance.shiftName":"Shift Name",  
+  "boilerplate.containers.Payroll.Attendance.EmployeeShiftCreateTitle":"Add Employee Shift",
+  "boilerplate.containers.Payroll.Attendance.EmployeeShiftUpdateTitle":"Update Employee Shift",
   
   "boilerplate.containers.Payroll.Workflow.documentName": "Document Name",
   "boilerplate.containers.Payroll.Workflow.step": "Step",

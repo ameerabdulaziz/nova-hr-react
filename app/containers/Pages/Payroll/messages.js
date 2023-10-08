@@ -130,6 +130,7 @@ export default defineMessages({
     id: `${scope}.total`,
     defaultMessage: 'total',
   },
+  
   employeeName: {
     id: `${scope}.employeeName`,
     defaultMessage: 'employeeName',
@@ -241,5 +242,40 @@ addNew: {
   id: `${scope}.addNew`,
   defaultMessage: 'addNew',
 },
-
+saturday: {
+  id: `${scope}.saturday`,
+  defaultMessage: 'saturday',
+},
+sunday: {
+  id: `${scope}.sunday`,
+  defaultMessage: 'sunday',
+},
+monday: {
+  id: `${scope}.monday`,
+  defaultMessage: 'monday',
+},
+tuesday: {
+  id: `${scope}.tuesday`,
+  defaultMessage: 'tuesday',
+},
+wednesday: {
+  id: `${scope}.wednesday`,
+  defaultMessage: 'wednesday',
+},
+thursday: {
+  id: `${scope}.thursday`,
+  defaultMessage: 'thursday',
+},
+friday: {
+  id: `${scope}.friday`,
+  defaultMessage: 'friday',
+},
+apply: {
+  id: `${scope}.apply`,
+  defaultMessage: 'apply',
+},
+employeeId: {
+  id: `${scope}.employeeId`,
+  defaultMessage: 'employeeId',
+},
 });

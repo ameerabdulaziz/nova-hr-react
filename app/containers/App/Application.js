@@ -170,7 +170,7 @@ import {
   CreateReplaceAnnualLeaveBalance,
   EditReplaceAnnualLeaveBalance,
   ReplaceAnnualLeaveBalance,
-  OpeningClosingTheYearForLeaves
+  OpeningClosingTheYearForLeaves,ShiftCreate,ShiftList,EmployeeShiftList,EmployeeShiftCreate,OrgnizationShift
 } from '../pageListAsync';
 
 
@@ -659,6 +659,16 @@ function Application(props) {
         <Route path="/app/Pages/Att/PermissionTrxImport" component={PermissionTrxImport} />
         <Route path="/app/Pages/Att/CollectedPermission" component={CollectedPermission} />
         <Route path="/app/Pages/Att/MissionType" component={MissionType} />
+        
+        <Route path="/app/Pages/Att/Shift" component={ShiftList} />
+        <Route path="/app/Pages/Att/ShiftCreate" component={ShiftCreate} />
+        <Route path="/app/Pages/Att/ShiftEdit" component={ShiftCreate} />
+
+        <Route path="/app/Pages/Att/EmployeeShift" component={EmployeeShiftList} />
+        <Route path="/app/Pages/Att/EmployeeShiftCreate" component={EmployeeShiftCreate} />
+        <Route path="/app/Pages/Att/EmployeeShiftEdit" component={EmployeeShiftCreate} />
+
+        <Route path="/app/Pages/Att/OrgnizationShift" component={OrgnizationShift} />
 
         <Route path="/app/Pages/Att/MissionTrx" component={MissionTrxList} />
         <Route path="/app/Pages/Att/MissionTrxCreate" component={MissionTrxCreate} />

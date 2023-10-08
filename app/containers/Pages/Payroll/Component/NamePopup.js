@@ -17,13 +17,10 @@ function NamePopup(props) {
   const { handleClose,open,Key } = props;
 
 const CloseClick = async (key) => {
- 
-  
-  
   handleClose(EmployeeList.filter((row) => row.isSelected==true));
 };
 
-const handlepermcheckboxAll = (event) => {
+const handlecheckboxAll = (event) => {
 setEmployeeList(  
   EmployeeList.map((x) => {    
         x.isSelected = event.target.checked;
@@ -86,7 +83,7 @@ const GetList = useCallback(async () => {
                             color="primary"
                             name="AllSelect"
                             indeterminate={EmployeeList.filter((crow) => crow.isSelected==true).length > 0 && EmployeeList.filter((crow) => crow.isSelected==true).length < EmployeeList.length?true:false}
-                            onChange={handlepermcheckboxAll}
+                            onChange={handlecheckboxAll}
                         />
                     </TableCell>  
                     <TableCell style={{width: '5px',padding:'0px'}}><FormattedMessage {...Payrollmessages.id} /></TableCell>
