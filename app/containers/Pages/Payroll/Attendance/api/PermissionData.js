@@ -40,11 +40,6 @@ const PermissionData = (locale) => {
   };
 
   
-Apis.GetRewardData = async (id) => {    
-  
-  const result = await axiosInstance.get(`AttPermission/GetRewardData/${id}/${locale}`);   
-  return result.data;
-};
 
   return Apis;
 };

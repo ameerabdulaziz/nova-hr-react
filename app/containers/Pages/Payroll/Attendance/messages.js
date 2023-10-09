@@ -123,4 +123,84 @@ isNotUpdateMission: {
   id: `${scope}.isNotUpdateMission`,
   defaultMessage: 'isNotUpdateMission',
 },
+hours: {
+  id: `${scope}.hours`,
+  defaultMessage: 'hours',
+},
+shft2d: {
+  id: `${scope}.shft2d`,
+  defaultMessage: 'shft2d',
+},
+shft10Hours: {
+  id: `${scope}.shft10Hours`,
+  defaultMessage: 'shft10Hours',
+},
+
+hoursFromEmp: {
+  id: `${scope}.hoursFromEmp`,
+  defaultMessage: 'hoursFromEmp',
+},
+webHide: {
+  id: `${scope}.webHide`,
+  defaultMessage: 'webHide',
+},
+allowedLate: {
+  id: `${scope}.allowedLate`,
+  defaultMessage: 'allowedLate',
+},
+allowedEarlyEx: {
+  id: `${scope}.allowedEarlyEx`,
+  defaultMessage: 'allowedEarlyEx',
+},
+allowedLateEx: {
+  id: `${scope}.allowedLateEx`,
+  defaultMessage: 'allowedLateEx',
+},
+allowedEarlyenter: {
+  id: `${scope}.allowedEarlyenter`,
+  defaultMessage: 'allowedEarlyenter',
+},
+coreH: {
+  id: `${scope}.coreH`,
+  defaultMessage: 'coreH',
+},
+
+firstM: {
+  id: `${scope}.firstM`,
+  defaultMessage: 'firstM',
+},
+
+firstMfactor: {
+  id: `${scope}.firstMfactor`,
+  defaultMessage: 'firstMfactor',
+},
+restTimeFactor: {
+  id: `${scope}.restTimeFactor`,
+  defaultMessage: 'restTimeFactor',
+},
+
+ShiftCreateTitle: {
+  id: `${scope}.ShiftCreateTitle`,
+  defaultMessage: 'ShiftCreateTitle',
+},
+ShiftUpdateTitle: {
+  id: `${scope}.ShiftUpdateTitle`,
+  defaultMessage: 'ShiftUpdateTitle',
+},
+shiftId: {
+  id: `${scope}.shiftId`,
+  defaultMessage: 'shiftId',
+},
+shiftName: {
+  id: `${scope}.shiftName`,
+  defaultMessage: 'shiftName',
+},
+EmployeeShiftCreateTitle: {
+  id: `${scope}.EmployeeShiftCreateTitle`,
+  defaultMessage: 'EmployeeShiftCreateTitle',
+},
+EmployeeShiftUpdateTitle: {
+  id: `${scope}.EmployeeShiftUpdateTitle`,
+  defaultMessage: 'EmployeeShiftUpdateTitle',
+},
 });

@@ -134,6 +134,7 @@ export default defineMessages({
     id: `${scope}.total`,
     defaultMessage: 'total',
   },
+  
   employeeName: {
     id: `${scope}.employeeName`,
     defaultMessage: 'employeeName',
@@ -196,6 +197,91 @@ export default defineMessages({
     id: `${scope}.superEmployeeName`,
     defaultMessage: 'superEmployeeName',
   },
+  
+month: {
+  id: `${scope}.month`,
+  defaultMessage: 'month',
+},
+sixMonth: {
+  id: `${scope}.sixMonth`,
+  defaultMessage: 'sixMonth',
+},
+year: {
+  id: `${scope}.year`,
+  defaultMessage: 'year',
+},
+hiringDateNo: {
+  id: `${scope}.hiringDateNo`,
+  defaultMessage: 'hiringDateNo',
+},
+lastDate: {
+  id: `${scope}.lastDate`,
+  defaultMessage: 'lastDate',
+},
+oldElemVal: {
+  id: `${scope}.oldElemVal`,
+  defaultMessage: 'oldElemVal',
+},
+workingYears: {
+  id: `${scope}.workingYears`,
+  defaultMessage: 'workingYears',
+},
+step: {
+  id: `${scope}.step`,
+  defaultMessage: 'step',
+},
+status: {
+  id: `${scope}.status`,
+  defaultMessage: 'status',
+},
+approvedEmp: {
+  id: `${scope}.approvedEmp`,
+  defaultMessage: 'approvedEmp',
+},
+edit: {
+  id: `${scope}.edit`,
+  defaultMessage: 'edit',
+},
+addNew: {
+  id: `${scope}.addNew`,
+  defaultMessage: 'addNew',
+},
+saturday: {
+  id: `${scope}.saturday`,
+  defaultMessage: 'saturday',
+},
+sunday: {
+  id: `${scope}.sunday`,
+  defaultMessage: 'sunday',
+},
+monday: {
+  id: `${scope}.monday`,
+  defaultMessage: 'monday',
+},
+tuesday: {
+  id: `${scope}.tuesday`,
+  defaultMessage: 'tuesday',
+},
+wednesday: {
+  id: `${scope}.wednesday`,
+  defaultMessage: 'wednesday',
+},
+thursday: {
+  id: `${scope}.thursday`,
+  defaultMessage: 'thursday',
+},
+friday: {
+  id: `${scope}.friday`,
+  defaultMessage: 'friday',
+},
+apply: {
+  id: `${scope}.apply`,
+  defaultMessage: 'apply',
+},
+employeeId: {
+  id: `${scope}.employeeId`,
+  defaultMessage: 'employeeId',
+},
 
   month: {
     id: `${scope}.month`,
