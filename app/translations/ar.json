@@ -1283,6 +1283,9 @@
   "boilerplate.containers.Payroll.vac.alternativeEmployee": "الموظف البديل",
   "boilerplate.containers.Payroll.vac.uploadAttachment": "تحميل المرفق",
   "boilerplate.containers.Payroll.vac.vacationType": "نوع الإجازة",
+  "boilerplate.containers.Payroll.vac.GovernmentSickLeaveCreateTitle": "إنشاء إجازة مرضية حكومية",
+  "boilerplate.containers.Payroll.vac.GovernmentSickLeaveUpdateTitle": "تعديل إجازة مرضية حكومية",
+  "boilerplate.containers.Payroll.vac.reducedFromAnnual": "خصم من السنوي",
 
   "boilerplate.containers.Payroll.vac.code.GovernmentSickLeaveSetting": "اعدادات الاجازة المرضى الحكومى",
   "boilerplate.containers.Payroll.vac.code.VacationType": "نوع الإجازة",

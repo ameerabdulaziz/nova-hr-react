@@ -443,4 +443,16 @@ export default defineMessages({
     id: `${scope}.uploadAttachment`,
     defaultMessage: 'uploadAttachment',
   },
+  GovernmentSickLeaveCreateTitle: {
+    id: `${scope}.GovernmentSickLeaveCreateTitle`,
+    defaultMessage: 'GovernmentSickLeaveCreateTitle',
+  },
+  GovernmentSickLeaveUpdateTitle: {
+    id: `${scope}.GovernmentSickLeaveUpdateTitle`,
+    defaultMessage: 'GovernmentSickLeaveUpdateTitle',
+  },
+  reducedFromAnnual: {
+    id: `${scope}.reducedFromAnnual`,
+    defaultMessage: 'reducedFromAnnual',
+  },
 });
