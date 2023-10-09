@@ -50,6 +50,11 @@ function LeaveTrxCreate(props) {
     job: '',
     organization: '',
 
+    vacDayChange: null,
+    vacDocPath: null,
+    replaceDate: null,
+    alternativeTask: null,
+
     trxDate: null,
     fromDate: null,
     toDate: null,
@@ -133,7 +138,7 @@ function LeaveTrxCreate(props) {
     calculateDaysCount();
   }, [formInfo.toDate, formInfo.fromDate]);
 
-  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
+  const formateDate = (date) => new Date(date)
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
