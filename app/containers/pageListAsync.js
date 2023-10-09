@@ -1238,6 +1238,20 @@ export const LeaveTrx = loadable(
   }
 );
 
+export const GovernmentSickLeave = loadable(
+  () => import('./Pages/Payroll/Vacation/Transaction/GovernmentSickLeave'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const GovernmentSickLeaveCreate = loadable(
+  () => import('./Pages/Payroll/Vacation/Transaction/GovernmentSickLeaveCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LeaveTrxCreate = loadable(
   () => import('./Pages/Payroll/Vacation/Transaction/LeaveTrxCreate'),
   {
