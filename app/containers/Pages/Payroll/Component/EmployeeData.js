@@ -84,7 +84,8 @@ function EmployeeData(props) {
             ...prevFilters,
             job:empdata.jobName,
             organization:empdata.organizationName,
-            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate,            
+            hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate,
+            HasAlternativeEmp:empdata.hasAlternativeEmp            
         })); 
         if(GetEmployeePenalties)
         {
@@ -159,6 +160,7 @@ function EmployeeData(props) {
                                 name="employeeId"
                                 required                              
                                 label={intl.formatMessage(isSuper?Payrollmessages.superEmployeeName:Payrollmessages.employeeName)}
+                                
                                 />
                             )}
                         />  
@@ -172,6 +174,7 @@ function EmployeeData(props) {
                             className={classes.field}
                             variant="outlined"
                             disabled
+                            InputLabelProps={{ shrink: isSuper?data.superJob:data.job}}
                         />
                     </Grid>
                     <Grid item xs={12} md={2}>
@@ -183,6 +186,7 @@ function EmployeeData(props) {
                             className={classes.field}
                             variant="outlined"
                             disabled
+                            InputLabelProps={{ shrink: isSuper?data.superOrganization:data.organization }}
                         />
                     </Grid>
                     <Grid item xs={12} md={2}>
@@ -194,6 +198,7 @@ function EmployeeData(props) {
                             className={classes.field}
                             variant="outlined"
                             disabled
+                            InputLabelProps={{ shrink: isSuper?(data.superHiringDate===null ? "" :data.superHiringDate):(data.hiringDate===null ? "" :data.hiringDate) }}
                         />
                     </Grid>
                     {GetSalary?
@@ -210,6 +215,7 @@ function EmployeeData(props) {
                         label={intl.formatMessage(Payrollmessages.oldElemVal)}
                         className={classes.field}
                         variant="outlined"
+                        InputLabelProps={{ shrink: data.oldElemVal }}
                         />
                         </Grid>:
                     
@@ -223,6 +229,7 @@ function EmployeeData(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                InputLabelProps={{ shrink: data.workingYears===null ? "" :data.workingYears }}
                             />
                         </Grid>:<Grid item xs={12} md={2}> </Grid>}
                         
@@ -236,6 +243,7 @@ function EmployeeData(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                InputLabelProps={{ shrink: data.month }}
                             />
                         </Grid>:""}
                         {GetEmployeePenalties?
@@ -248,6 +256,7 @@ function EmployeeData(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                InputLabelProps={{ shrink: data.sixMonth }}
                             />
                         </Grid>:""}
                         {GetEmployeePenalties?
@@ -260,6 +269,7 @@ function EmployeeData(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                InputLabelProps={{ shrink: data.year }}
                             />
                         </Grid>:""}
                         {GetEmployeePenalties?
@@ -272,6 +282,7 @@ function EmployeeData(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                InputLabelProps={{ shrink: data.hiringDateNo }}
                             />
                         </Grid>:""}
                         {GetEmployeePenalties?
@@ -284,6 +295,7 @@ function EmployeeData(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                InputLabelProps={{ shrink: data.lastDate }}
                             />
                         </Grid>:""}                    
                 </Grid>
