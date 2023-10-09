@@ -12,7 +12,6 @@ import {
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import React, { useEffect, useState } from 'react';
@@ -20,17 +19,32 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import EmployeeData from '../../Component/EmployeeData';
 import SaveButton from '../../Component/SaveButton';
 import VacationBalancePopup from '../../Component/VacationBalance';
 import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
 import Payrollmessages from '../../messages';
 import api from '../api/LeaveTrxData';
 import messages from '../messages';
 
 function LeaveTrxCreate(props) {
   const { intl } = props;
+  const validPDFTypes = ['application/pdf', '.pdf', 'pdf'];
+  const validImageTypes = [
+    'image/jpg',
+    'jpg',
+    'image/jpeg',
+    'jpeg',
+    'image/png',
+    'png',
+    'image/apng',
+    'apng',
+    'image/webp',
+    'webp',
+    'image/svg+xml',
+    'svg+xml'
+  ];
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const id = location.state?.id ?? 0;
@@ -41,6 +55,7 @@ function LeaveTrxCreate(props) {
   const [alternativeEmployeeList, setAlternativeEmployeeList] = useState([]);
 
   const [processing, setProcessing] = useState(false);
+  const [isAttachmentPopupOpen, setIsAttachmentPopupOpen] = useState(false);
   const [formInfo, setFormInfo] = useState({
     id,
 
@@ -49,6 +64,7 @@ function LeaveTrxCreate(props) {
     hiringDate: null,
     job: '',
     organization: '',
+    HasAlternativeEmp: false,
 
     vacDayChange: null,
     vacDocPath: null,
@@ -73,7 +89,7 @@ function LeaveTrxCreate(props) {
 
   const fetchNeededData = async () => {
     try {
-      const vacationResponse = await GeneralListApis(locale).GetVacList();
+      const vacationResponse = await api(locale).GetVacationType();
       setVacationsList(vacationResponse);
 
       if (id !== 0) {
@@ -138,7 +154,7 @@ function LeaveTrxCreate(props) {
     calculateDaysCount();
   }, [formInfo.toDate, formInfo.fromDate]);
 
-  const formateDate = (date) => new Date(date)
+  const formateDate = (date) => new Date(date);
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -149,9 +165,9 @@ function LeaveTrxCreate(props) {
 
     if (formInfo.vacation.id !== 5) {
       if (formInfo.fromDate && formInfo.toDate) {
-        const isfromDateLessThantoDate =					new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
+        const isFromDateLessThanToDate =					new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
 
-        if (isfromDateLessThantoDate) {
+        if (isFromDateLessThanToDate) {
           const { date, ...reset } = errors;
 
           errors = reset;
@@ -188,7 +204,7 @@ function LeaveTrxCreate(props) {
         toast.success(notif.saved);
         history.push('/app/Pages/vac/LeaveTrx');
       } catch (error) {
-        toast.error(error.response.data ?? JSON.stringify(error));
+        toast.error(JSON.stringify(error.response.data ?? error));
       } finally {
         setProcessing(false);
       }
@@ -238,6 +254,27 @@ function LeaveTrxCreate(props) {
         daysCount: '',
       }));
     }
+  };
+
+  const onAttachmentPopupClose = () => {
+    setIsAttachmentPopupOpen(false);
+  };
+
+  const onAttachmentPopupBtnClick = () => {
+    setIsAttachmentPopupOpen(true);
+  };
+
+  const getAttachmentType = () => {
+    // documentUrl
+    if (formInfo.attachment && typeof formInfo.attachment === 'string') {
+      return formInfo.attachment?.split('.').pop().toLowerCase().trim();
+    }
+
+    if (formInfo.attachment instanceof File) {
+      return formInfo.attachment.type;
+    }
+
+    return 'pdf';
   };
 
   return (
@@ -293,7 +330,6 @@ function LeaveTrxCreate(props) {
                           options={vacationsList}
                           getOptionLabel={(option) => option.name ?? ''}
                           onChange={onVacationChange}
-                          value={formInfo.vacation}
                           sx={{
                             '.MuiInputBase-root': {
                               paddingTop: '8px',
@@ -329,6 +365,7 @@ function LeaveTrxCreate(props) {
                         renderInput={(params) => (
                           <TextField
                             variant='outlined'
+                            required={formInfo.HasAlternativeEmp}
                             {...params}
                             label={intl.formatMessage(
                               messages.alternativeEmployee
@@ -357,6 +394,20 @@ function LeaveTrxCreate(props) {
                           </Button>
                         </label>
                       </div>
+
+                      {formInfo.attachment && <Button variant='outlined' component='span' sx={{ mt: 1 }} onClick={onAttachmentPopupBtnClick} >
+                        <FormattedMessage {...Payrollmessages.preview} />
+                      </Button>
+                      }
+
+                      <FileViewerPopup
+                        handleClose={onAttachmentPopupClose}
+                        open={isAttachmentPopupOpen}
+                        uploadedFileType={getAttachmentType()}
+                        uploadedFile={formInfo.attachment}
+                        validImageTypes={validImageTypes}
+                        validPDFTypes={validPDFTypes}
+                      />
                     </Grid>
 
                     <Grid item md={3}>
