@@ -904,6 +904,9 @@
   "boilerplate.containers.Payroll.employeeId":"Employee Id", 
   "boilerplate.containers.Payroll.vacationBalance": "Vacation Balance",
   "boilerplate.containers.Payroll.noEmployeeIdProvide": "No Employee Id Provide",
+  "boilerplate.containers.Payroll.noVacationIdProvide": "No Vacation Id Provide",
+  "boilerplate.containers.Payroll.sickLeave": "Sick Leave",
+  "boilerplate.containers.Payroll.somethingWentWrong": "Something Went Wrong",
   "boilerplate.containers.Payroll.balance": "Balance",
   "boilerplate.containers.Payroll.vacation": "Vacation",
 

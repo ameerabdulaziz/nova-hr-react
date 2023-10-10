@@ -347,4 +347,16 @@ employeeId: {
     id: `${scope}.balance`,
     defaultMessage: 'balance',
   },
+  somethingWentWrong: {
+    id: `${scope}.somethingWentWrong`,
+    defaultMessage: 'somethingWentWrong',
+  },
+  sickLeave: {
+    id: `${scope}.sickLeave`,
+    defaultMessage: 'sickLeave',
+  },
+  noVacationIdProvide: {
+    id: `${scope}.noVacationIdProvide`,
+    defaultMessage: 'noVacationIdProvide',
+  },
 });
