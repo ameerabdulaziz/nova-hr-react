@@ -85,6 +85,14 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetGovernmentSickVacList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetGovernmentSickVacList/${locale}`
+    );
+
+    return data.data;
+  };
+
   Apis.GetLicenseGradeList = async () => {
     const result = await axiosInstance.get(
       `GeneralList/GetLicenseGradeList/${locale}`
