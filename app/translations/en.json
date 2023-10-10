@@ -914,6 +914,8 @@
   "boilerplate.containers.Payroll.day": "Day",
   "boilerplate.containers.Payroll.value": "Value",
   "boilerplate.containers.Payroll.employeeDeduced": "Employee Deduced",
+  "boilerplate.containers.Payroll.Yearly": "Yearly",
+  "boilerplate.containers.Payroll.Every3Years": "Every 3 years",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",

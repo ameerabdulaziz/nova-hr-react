@@ -375,4 +375,12 @@ employeeId: {
     id: `${scope}.employeeDeduced`,
     defaultMessage: 'employeeDeduced',
   },
+  Every3Years: {
+    id: `${scope}.Every3Years`,
+    defaultMessage: 'Every3Years',
+  },
+  Yearly: {
+    id: `${scope}.Yearly`,
+    defaultMessage: 'Yearly',
+  },
 });

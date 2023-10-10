@@ -35,14 +35,14 @@ function GovernmentVacationPopup(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [balance, setBalance] = useState([]);
+  const [vacationResponse, setVacationResponse] = useState({});
 
   const fetchVacationBalance = async () => {
     setIsLoading(true);
 
     try {
-      const response = await api(locale).getVacationBalanceById(vacationId);
-      setBalance(response);
+      const response = await api(locale).GetVacGovernmentSickVacSetting(vacationId);
+      setVacationResponse(response);
     } catch (er) {
       setError(JSON.stringify(er));
     } finally {
@@ -94,7 +94,7 @@ function GovernmentVacationPopup(props) {
         </Stack>
       );
     }
-    if (balance.length > 0) {
+    if (Object.keys(vacationResponse).length > 0) {
       return <GridRows />;
     }
   };
@@ -111,34 +111,113 @@ function GovernmentVacationPopup(props) {
         </Grid>
       </Grid>
 
-      {balance.map((row) => (
-        <Grid container spacing={1} my={2} key={row.vacationId}>
-          <Grid item md={6}>
-            <TextField
-              fullWidth
-              label={intl.formatMessage(payrollMessages.daysCount)}
-              disabled
-              value={10}
-            />
-          </Grid>
-
-          <Grid item md={6}>
-            <TextField
-              fullWidth
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    {intl.formatMessage(payrollMessages.day)}
-                  </InputAdornment>
-                ),
-              }}
-              label={intl.formatMessage(payrollMessages.count_value)}
-              disabled
-              value={10}
-            />
-          </Grid>
+      <Grid container spacing={1} my={2} >
+        <Grid item md={6}>
+          <TextField
+            fullWidth
+            label={intl.formatMessage(payrollMessages.daysCount)}
+            disabled
+            value={vacationResponse.no1Choice}
+          />
         </Grid>
-      ))}
+
+        <Grid item md={6}>
+          <TextField
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  {intl.formatMessage(payrollMessages.day)}
+                </InputAdornment>
+              ),
+            }}
+            label={intl.formatMessage(payrollMessages.count_value)}
+            disabled
+            value={vacationResponse.no1Value}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={1} my={2} >
+        <Grid item md={6}>
+          <TextField
+            fullWidth
+            label={intl.formatMessage(payrollMessages.daysCount)}
+            disabled
+            value={vacationResponse.no2Choice}
+          />
+        </Grid>
+
+        <Grid item md={6}>
+          <TextField
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  {intl.formatMessage(payrollMessages.day)}
+                </InputAdornment>
+              ),
+            }}
+            label={intl.formatMessage(payrollMessages.count_value)}
+            disabled
+            value={vacationResponse.no2Value}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={1} my={2} >
+        <Grid item md={6}>
+          <TextField
+            fullWidth
+            label={intl.formatMessage(payrollMessages.daysCount)}
+            disabled
+            value={vacationResponse.no3Choice}
+          />
+        </Grid>
+
+        <Grid item md={6}>
+          <TextField
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  {intl.formatMessage(payrollMessages.day)}
+                </InputAdornment>
+              ),
+            }}
+            label={intl.formatMessage(payrollMessages.count_value)}
+            disabled
+            value={vacationResponse.no3Value}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={1} my={2} >
+        <Grid item md={6}>
+          <TextField
+            fullWidth
+            label={intl.formatMessage(payrollMessages.daysCount)}
+            disabled
+            value={vacationResponse.no4Choice}
+          />
+        </Grid>
+
+        <Grid item md={6}>
+          <TextField
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  {intl.formatMessage(payrollMessages.day)}
+                </InputAdornment>
+              ),
+            }}
+            label={intl.formatMessage(payrollMessages.count_value)}
+            disabled
+            value={vacationResponse.no4Value}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 
@@ -150,7 +229,11 @@ function GovernmentVacationPopup(props) {
 
       <Dialog open={isOpen} onClose={onClose}>
         <DialogTitle>
-          <FormattedMessage {...payrollMessages.sickLeave} />
+          {
+            vacationResponse.yerar3Opt
+              ? <FormattedMessage {...payrollMessages.Every3Years} />
+              : <FormattedMessage {...payrollMessages.Yearly} />
+          }
         </DialogTitle>
 
         <DialogContent sx={{ minWidth: '400px' }}>

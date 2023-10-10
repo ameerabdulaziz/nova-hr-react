@@ -927,6 +927,8 @@
   "boilerplate.containers.Payroll.day": "اليوم",
   "boilerplate.containers.Payroll.employeeDeduced": "خصم الموظف",
   "boilerplate.containers.Payroll.value": "القيمة",
+  "boilerplate.containers.Payroll.Yearly": "سنويا",
+  "boilerplate.containers.Payroll.Every3Years": "كل 3 سنوات",
 
   "boilerplate.containers.Payroll.saturday":"السبت",
   "boilerplate.containers.Payroll.sunday":"الاحد",
