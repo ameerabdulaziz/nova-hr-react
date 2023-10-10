@@ -29,9 +29,9 @@ function PermissionTrxReport(props) {
   const [employee, setemployee] = useState("");
   const [EmployeeList, setEmployeeList] = useState([]);
   const [Permission, setPermission] = useState("");
-  const [Status, setStatus] = useState("");
-  const [Deleted, setDeleted] = useState("");
   const [PermissionsList, setPermissionsList] = useState([]);
+  const [Status, setStatus] = useState("");
+  const [Deleted, setDeleted] = useState("");  
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   

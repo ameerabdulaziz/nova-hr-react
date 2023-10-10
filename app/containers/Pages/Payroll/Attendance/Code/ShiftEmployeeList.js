@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/EmployeeShiftData';
+import ApiData from '../api/ShiftEmployeeData';
 import { useSelector } from 'react-redux';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
@@ -17,7 +17,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import {Grid,TextField, Autocomplete  } from '@mui/material';
 import { useLocation } from "react-router-dom";
 
-function EmployeeShiftList(props) {
+function ShiftEmployeeList(props) {
   
   const { intl } = props;
   const { classes } = useStyles();
@@ -84,7 +84,7 @@ function EmployeeShiftList(props) {
             setdata([]);
           return
         }
-        const dataApi = await ApiData(locale).GetList(employee,"");
+        const dataApi = await ApiData(locale).GetList(employee,"","");
         setdata(dataApi|| []);
       } catch (err) {
         toast.error(err);
@@ -216,7 +216,7 @@ useEffect(() => {
           console.log('tableMeta =', tableMeta);
           return (
             <div className={style.actionsSty}>
-              <EditButton param={{id: tableMeta.rowData[0],employeeId:employee,employeeName:employee?EmployeeList.find((item)=> item.id === employee).name:null }} url={"/app/Pages/Att/EmployeeShiftEdit"}></EditButton>
+              <EditButton param={{id: tableMeta.rowData[0],employeeId:employee,employeeName:employee?EmployeeList.find((item)=> item.id === employee).name:null }} url={"/app/Pages/Att/ShiftEmployeeEdit"}></EditButton>
               <DeleteButton clickfnc={() => deleterow(tableMeta.rowData[0])}></DeleteButton>
               
             </div>
@@ -240,7 +240,7 @@ useEffect(() => {
     },
     customToolbar: () => (
              
-        <AddButton url={"/app/Pages/Att/EmployeeShiftCreate"} param={{ employeeId: employee,employeeName:employee?EmployeeList.find((item)=> item.id === employee).name:null }} disabled={employee? false : true} ></AddButton>
+        <AddButton url={"/app/Pages/Att/ShiftEmployeeCreate"} param={{ employeeId: employee,employeeName:employee?EmployeeList.find((item)=> item.id === employee).name:null }} disabled={employee? false : true} ></AddButton>
       
     ),
     customToolbarSelect: (selectedRows) => (
@@ -300,4 +300,4 @@ useEffect(() => {
 }
 
 
-export default injectIntl(EmployeeShiftList);
+export default injectIntl(ShiftEmployeeList);

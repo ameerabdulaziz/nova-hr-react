@@ -347,4 +347,8 @@ employeeId: {
     id: `${scope}.balance`,
     defaultMessage: 'balance',
   },
+  weekDayName: {
+    id: `${scope}.weekDayName`,
+    defaultMessage: 'weekDayName',
+  },
 });
