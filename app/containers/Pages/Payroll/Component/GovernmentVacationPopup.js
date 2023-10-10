@@ -41,7 +41,9 @@ function GovernmentVacationPopup(props) {
     setIsLoading(true);
 
     try {
-      const response = await api(locale).GetVacGovernmentSickVacSetting(vacationId);
+      const response = await api(locale).GetVacGovernmentSickVacSetting(
+        vacationId
+      );
       setVacationResponse(response);
     } catch (er) {
       setError(JSON.stringify(er));
@@ -111,7 +113,7 @@ function GovernmentVacationPopup(props) {
         </Grid>
       </Grid>
 
-      <Grid container spacing={1} my={2} >
+      <Grid container spacing={1} my={2}>
         <Grid item md={6}>
           <TextField
             fullWidth
@@ -138,7 +140,7 @@ function GovernmentVacationPopup(props) {
         </Grid>
       </Grid>
 
-      <Grid container spacing={1} my={2} >
+      <Grid container spacing={1} my={2}>
         <Grid item md={6}>
           <TextField
             fullWidth
@@ -165,7 +167,7 @@ function GovernmentVacationPopup(props) {
         </Grid>
       </Grid>
 
-      <Grid container spacing={1} my={2} >
+      <Grid container spacing={1} my={2}>
         <Grid item md={6}>
           <TextField
             fullWidth
@@ -192,7 +194,7 @@ function GovernmentVacationPopup(props) {
         </Grid>
       </Grid>
 
-      <Grid container spacing={1} my={2} >
+      <Grid container spacing={1} my={2}>
         <Grid item md={6}>
           <TextField
             fullWidth
@@ -229,11 +231,18 @@ function GovernmentVacationPopup(props) {
 
       <Dialog open={isOpen} onClose={onClose}>
         <DialogTitle>
-          {
-            vacationResponse.yerar3Opt
-              ? <FormattedMessage {...payrollMessages.Every3Years} />
-              : <FormattedMessage {...payrollMessages.Yearly} />
-          }
+          {vacationResponse.vacName ? (
+            <>
+              {vacationResponse.yerar3Opt ? (
+                <FormattedMessage {...payrollMessages.Every3Years} />
+              ) : (
+                <FormattedMessage {...payrollMessages.Yearly} />
+              )}{' '}
+							- {vacationResponse.vacName}
+            </>
+          ) : (
+            ''
+          )}
         </DialogTitle>
 
         <DialogContent sx={{ minWidth: '400px' }}>
