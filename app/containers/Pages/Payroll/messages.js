@@ -359,4 +359,20 @@ employeeId: {
     id: `${scope}.noVacationIdProvide`,
     defaultMessage: 'noVacationIdProvide',
   },
+  daysCount: {
+    id: `${scope}.daysCount`,
+    defaultMessage: 'daysCount',
+  },
+  count_value: {
+    id: `${scope}.count_value`,
+    defaultMessage: 'count_value',
+  },
+  day: {
+    id: `${scope}.day`,
+    defaultMessage: 'day',
+  },
+  employeeDeduced: {
+    id: `${scope}.employeeDeduced`,
+    defaultMessage: 'employeeDeduced',
+  },
 });

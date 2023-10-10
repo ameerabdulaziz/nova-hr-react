@@ -921,7 +921,12 @@
   "boilerplate.containers.Payroll.somethingWentWrong": "هناك خطأ ما",
   "boilerplate.containers.Payroll.sickLeave": "أجازة مرضية",
   "boilerplate.containers.Payroll.balance": "الرصيد",
+  "boilerplate.containers.Payroll.count_value": "العدد / القيمة",
   "boilerplate.containers.Payroll.vacation": "الاجازة",
+  "boilerplate.containers.Payroll.daysCount": "عدد الايام",
+  "boilerplate.containers.Payroll.day": "اليوم",
+  "boilerplate.containers.Payroll.employeeDeduced": "خصم الموظف",
+  "boilerplate.containers.Payroll.value": "القيمة",
 
   "boilerplate.containers.Payroll.saturday":"السبت",
   "boilerplate.containers.Payroll.sunday":"الاحد",
