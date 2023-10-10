@@ -85,6 +85,13 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetVacGovernmentSickVacSetting = async (vacationId) => {
+    const result = await axiosInstance.get(
+      `VacGovernmentSickVacSetting/Get/${vacationId}/${locale}`
+    );
+    return result.data;
+  };
+
   Apis.GetGovernmentSickVacList = async () => {
     const data = await axiosInstance.get(
       `GeneralList/GetGovernmentSickVacList/${locale}`
