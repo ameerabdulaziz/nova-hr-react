@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom"
-
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+
+import { ThemeProvider } from '@mui/material';
+import { createTheme } from '@mui/material/styles'
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
 import {
   Button,
@@ -37,6 +39,51 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
 function ShiftOrgnization(props) {
+  
+const theme = createTheme({
+  overrides: {
+    /* MuiTable: {
+      root: {
+        border: [[1, 'solid', '#d3d3d3']],
+      },
+    }, */
+    /* MuiTableHead: {
+      root: {
+        background: 'red',
+      },
+    },
+   
+    MuiTableCell: {
+      root: {
+        borderColor: '#d3d3d3',
+        background: 'red !important',
+      },
+      head: {
+        background: 'red !important',
+        '&:not(:last-child)': {
+          borderRight: [[1, 'solid', '#c0c0c0']],
+        },
+      },
+    },
+    MuiTableSortLabel: {
+      root: {
+        alignItems: 'flex-start',
+      },
+    },
+    MuiTableFooter: {
+      root: {
+        background: 'lightgrey',
+      },
+    },
+
+    // MUIDataTable
+    MUIDataTableHeadCell: {
+      sortLabelRoot: {
+        // height: undefined,
+      },
+    }, */
+  },
+});
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { classes } = useStyles();
@@ -723,12 +770,14 @@ function ShiftOrgnization(props) {
             </Grid>
             <Grid item xs={12} md={12}>
               <div className={classes.table}>
+              {/* <ThemeProvider theme={theme}> */}
                 <MUIDataTable
                   title=""
                   data={dataList}
                   columns={columns}
                   options={options}
                 />
+                {/* </ThemeProvider> */}
               </div>
             </Grid>
           </Grid>
