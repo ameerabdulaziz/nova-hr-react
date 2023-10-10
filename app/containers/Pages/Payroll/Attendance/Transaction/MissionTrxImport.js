@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
-import classes2 from '../../../../../styles/Styles.scss';
+import classes2 from '../../../../../styles/styles.scss';
 import ApiData from '../api/MissionTrxData';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';

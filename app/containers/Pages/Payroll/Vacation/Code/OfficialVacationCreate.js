@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import OfficialVacationsData from '../api/OfficialVacationsData';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import {  useHistory, useLocation  } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
@@ -13,7 +13,6 @@ import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
@@ -24,6 +23,7 @@ import { format } from "date-fns";
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import SaveButton from '../../Component/SaveButton';
 
 
 
@@ -300,15 +300,7 @@ useEffect(() => {
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                    {processing && (
-                      <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                    )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 

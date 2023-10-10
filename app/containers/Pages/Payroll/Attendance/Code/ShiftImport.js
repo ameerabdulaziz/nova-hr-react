@@ -12,13 +12,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import classes2 from '../../../../../styles/styles.scss';
-import ApiData from '../api/ResignTrxData';
+import ApiData from '../api/ShiftEmployeeData';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import { read, utils } from 'xlsx';
 
 
-function ResignTrxImport({intl }) {
+function ShiftImport({intl }) {
   const { classes, cx } = useStyles();
   const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   const locale = useSelector(state => state.language.locale);
@@ -151,8 +151,6 @@ const submitFun = async (e) => {
                   onClick={resetDataFun}
                 >
                   {smUp && ' '} Reset
-                  {/* {smUp && ' '} <FormattedMessage {...messages.Reset} /> */}
-                  
                 </Button>
               </Tooltip>
           </div>
@@ -199,4 +197,4 @@ const submitFun = async (e) => {
   );
 }
 
-export default injectIntl(ResignTrxImport);
+export default injectIntl(ShiftImport);

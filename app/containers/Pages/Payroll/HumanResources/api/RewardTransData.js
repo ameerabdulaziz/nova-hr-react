@@ -4,9 +4,9 @@ import axiosInstance from '../../api/axios';
 const RewardTransData = (locale) => {
   const Apis = {};
   
-  Apis.GetReport = async (employee,rewards,fromdate,todate) => {
+  Apis.GetReport = async (employee,rewards,fromdate,todate,Status,Deleted) => {
     
-    const data = await axiosInstance.get(`HrRewardsTransaction/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&RewardsId=${rewards!=null?rewards:""}`);
+    const data = await axiosInstance.get(`HrRewardsTransaction/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee}&RewardsId=${rewards}&StatusId=${Status}&IsDeleted=${Deleted}`);
     const result = data.data;
     
     return result;

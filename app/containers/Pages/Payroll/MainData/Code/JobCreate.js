@@ -4,13 +4,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import JobData from '../api/JobData';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import  FormPopup  from '../../../../../components/Popup/FormPopup';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import AddIcon from '@mui/icons-material/Add';
-import { useParams, useHistory  } from 'react-router-dom';
+import {  useHistory , useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import { FormattedMessage , injectIntl } from 'react-intl';
@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
+import SaveButton from '../../Component/SaveButton';
 
 
 
@@ -39,15 +40,15 @@ function CreateAndEditJob(props) {
   const locale = useSelector(state => state.language.locale);
   const [openJobNature, setOpenJobNature] = useState(false);
   const [openJobType, setOpenJobType] = useState(false);
-  let { ID } = useParams();
   const [jobsData, setJobsData] = useState([]);
+  const { state } = useLocation()
+  const  ID  = state?.id
   const history=useHistory(); 
   const { intl } = props;
-
-
-
-  const trueBool = true;
   const { classes } = useStyles();
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true)
@@ -71,7 +72,7 @@ function CreateAndEditJob(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/MainData/job`);
+        history.push(`/app/Pages/MainData/Job`);
       } else {
           toast.error(response.statusText);
       }
@@ -496,15 +497,7 @@ function oncancel(){
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                    {processing && (
-                      <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                    )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 

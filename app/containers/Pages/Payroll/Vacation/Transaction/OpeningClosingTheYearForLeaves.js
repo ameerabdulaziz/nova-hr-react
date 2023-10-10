@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import OpeningClosingTheYearForLeavesData from '../api/OpeningClosingTheYearForLeavesData';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import { FormattedMessage , injectIntl } from 'react-intl';
@@ -199,7 +199,13 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) =>setOrganization(value !== null?value:null)}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                  setOrganization(value);
+                                } else {
+                                  setOrganization(null);
+                                }
+                            }}
                             renderInput={(params) => (
                             <TextField
                                 {...params}
@@ -241,7 +247,13 @@ useEffect(() => {
                                 </li>
                                 );
                             }}
-                            onChange={(event, value) => setYear(value !== null?value:null)}
+                            onChange={(event, value) => {
+                                if (value !== null) {
+                                  setYear(value);
+                                } else {
+                                  setYear(null);
+                                }
+                            }}
                             
                             renderInput={(params) => (
                             <TextField

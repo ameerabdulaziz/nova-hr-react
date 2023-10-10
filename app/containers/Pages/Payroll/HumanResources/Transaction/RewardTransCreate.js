@@ -50,13 +50,7 @@ function RewardTransCreate(props) {
     "superEmployeeName":"",
     "value" :"",
     "yearId" :"",
-    "yearName":"",
-    "job":"",
-    "organization":"",
-    "hiringDate":"",
-    "superJob":"",
-    "superOrganization":"",
-    "superHiringDate":""
+    "yearName":""
   });
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);

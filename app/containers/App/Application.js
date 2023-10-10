@@ -170,7 +170,13 @@ import {
   CreateReplaceAnnualLeaveBalance,
   EditReplaceAnnualLeaveBalance,
   ReplaceAnnualLeaveBalance,
-  OpeningClosingTheYearForLeaves
+  OpeningClosingTheYearForLeaves,ShiftCreate,ShiftList,ShiftEmployeeList,ShiftEmployeeCreate,ShiftOrgnization,  
+  LeaveTrxReport,
+  LeaveTrxCreate,
+  LeaveTrx,
+  ShiftTransfere,ShiftReview,ShiftImport,
+  GovernmentSickLeaveCreate,
+  GovernmentSickLeave
 } from '../pageListAsync';
 
 
@@ -458,8 +464,8 @@ function Application(props) {
           component={Organization}
         />
 
-        <Route path="/app/Pages/MainData/CreateJob" component={CreateJob} />
-        <Route path="/app/Pages/MainData/EditJob:ID" component={EditJob} />
+        <Route path="/app/Pages/MainData/JobCreate" component={CreateJob} />
+        <Route path="/app/Pages/MainData/JobEdit" component={EditJob} />
         <Route path="/app/Pages/MainData/Job-Types" component={ (props1) => <JobTypes text="Job Types" table="MdJobsTypes" {...props1} />}/>
         <Route path="/app/Pages/MainData/Kinship-Link" component={ (props1) => <KinshipLink text="Kinship Link" table="MdKinshipLink" {...props1}/>}/>
         <Route path="/app/Pages/MainData/Month" component={ (props1) => <Month text="Month" table="MdMonth" {...props1} /> } />
@@ -478,8 +484,8 @@ function Application(props) {
         <Route path="/app/Pages/MainData/CompanyChart" component={CompanyChart} />
         <Route path="/app/Pages/MainData/EmployeeChart" component={EmployeeChart} />   
         <Route path="/app/Pages/MainData/Organization" component={Organization} />   
-        <Route path="/app/Pages/MainData/CreateOrganization" component={CreateOrganization} />   
-        <Route path="/app/Pages/MainData/EditOrganization:ID" component={EditOrganization} />  
+        <Route path="/app/Pages/MainData/OrganizationCreate" component={CreateOrganization} />   
+        <Route path="/app/Pages/MainData/OrganizationEdit" component={EditOrganization} />  
         <Route path="/app/Pages/MainData/Upload_KPI_Data" component={ImportFile} />
         <Route path="/app/Pages/MainData/UploadEmployeeData" component={UploadEmployeeData} />       
         
@@ -659,6 +665,19 @@ function Application(props) {
         <Route path="/app/Pages/Att/PermissionTrxImport" component={PermissionTrxImport} />
         <Route path="/app/Pages/Att/CollectedPermission" component={CollectedPermission} />
         <Route path="/app/Pages/Att/MissionType" component={MissionType} />
+        
+        <Route path="/app/Pages/Att/Shift" component={ShiftList} />
+        <Route path="/app/Pages/Att/ShiftCreate" component={ShiftCreate} />
+        <Route path="/app/Pages/Att/ShiftEdit" component={ShiftCreate} />
+
+        <Route path="/app/Pages/Att/ShiftEmployee" component={ShiftEmployeeList} />
+        <Route path="/app/Pages/Att/ShiftEmployeeCreate" component={ShiftEmployeeCreate} />
+        <Route path="/app/Pages/Att/ShiftEmployeeEdit" component={ShiftEmployeeCreate} />
+
+        <Route path="/app/Pages/Att/ShiftOrgnization" component={ShiftOrgnization} />
+        <Route path="/app/Pages/Att/ShiftTransfere" component={ShiftTransfere} />
+        <Route path="/app/Pages/Att/ShiftReview" component={ShiftReview} />
+        <Route path="/app/Pages/Att/ShiftImport" component={ShiftImport} />
 
         <Route path="/app/Pages/Att/MissionTrx" component={MissionTrxList} />
         <Route path="/app/Pages/Att/MissionTrxCreate" component={MissionTrxCreate} />
@@ -733,12 +752,12 @@ function Application(props) {
         />
 
         <Route
-          path="/app/Pages/Employee/CreateEmployeeDocuments"
+          path="/app/Pages/Employee/EmployeeDocumentsCreate"
           component={CreateEmployeeDocuments}
         />
 
         <Route
-          path="/app/Pages/Employee/EditEmployeeDocuments"
+          path="/app/Pages/Employee/EmployeeDocumentsEdit"
           component={EditEmployeeDocuments}
         />
 
@@ -754,12 +773,12 @@ function Application(props) {
           {/* Req */} 
         
           <Route
-          path="/app/Pages/Request/CreatePermission"
+          path="/app/Pages/Request/PermissionsCreate"
           component={CreatePermission}
         />
 
         <Route
-          path="/app/Pages/Request/EditPermission"
+          path="/app/Pages/Request/PermissionsEdit"
           component={EditPermission}
         />
 
@@ -772,12 +791,12 @@ function Application(props) {
         {/* Vacations */} 
         
         <Route
-          path="/app/Pages/vac/CreateVacationType"
+          path="/app/Pages/vac/VacationsTypesCreate"
           component={CreateVacationType}
         />
 
         <Route
-          path="/app/Pages/vac/EditVacationType"
+          path="/app/Pages/vac/VacationsTypesEdit"
           component={EditVacationType}
         />
 
@@ -787,18 +806,53 @@ function Application(props) {
         />
 
         <Route
-          path="/app/Pages/vac/CreateOfficialVacation"
+          path="/app/Pages/vac/OfficialVacationsCreate"
           component={CreateOfficialVacation}
         />
 
         <Route
-          path="/app/Pages/vac/EditOfficialVacation"
+          path="/app/Pages/vac/OfficialVacationsEdit"
           component={EditOfficialVacation}
         />
 
         <Route
           path="/app/Pages/vac/OfficialVacations"
           component={OfficialVacations}
+        />
+
+        <Route
+          path="/app/Pages/vac/VacationTrxReport"
+          component={LeaveTrxReport}
+        />
+
+        <Route
+          path="/app/Pages/vac/LeaveTrx"
+          component={LeaveTrx}
+        />
+
+        <Route
+          path="/app/Pages/vac/LeaveTrxCreate"
+          component={LeaveTrxCreate}
+        />
+
+        <Route
+          path="/app/Pages/vac/LeaveTrxEdit"
+          component={LeaveTrxCreate}
+        />
+
+        <Route
+          path="/app/Pages/vac/GovernmentSickLeave"
+          component={GovernmentSickLeave}
+        />
+
+        <Route
+          path="/app/Pages/vac/GovernmentSickLeaveCreate"
+          component={GovernmentSickLeaveCreate}
+        />
+
+        <Route
+          path="/app/Pages/vac/GovernmentSickLeaveEdit"
+          component={GovernmentSickLeaveCreate}
         />
 
         <Route
@@ -812,12 +866,12 @@ function Application(props) {
         />
 
         <Route
-          path="/app/Pages/vac/CreateReplaceAnnualLeaveBalance"
+          path="/app/Pages/vac/ReplaceAnnualLeaveBalanceCreate"
           component={CreateReplaceAnnualLeaveBalance}
         />
 
         <Route
-          path="/app/Pages/vac/EditReplaceAnnualLeaveBalance"
+          path="/app/Pages/vac/ReplaceAnnualLeaveBalanceEdit"
           component={EditReplaceAnnualLeaveBalance}
         />
 

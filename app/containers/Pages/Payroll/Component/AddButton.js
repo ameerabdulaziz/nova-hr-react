@@ -17,6 +17,7 @@ function AddButton(props) {
   return (
       <div>
         <Tooltip title={intl.formatMessage(Payrollmessages.add)} cursor="pointer" className="mr-6">  
+        <span>
           <Button
               disabled={!Menu.isAdd||disabled }
               variant="contained"
@@ -28,7 +29,8 @@ function AddButton(props) {
             >
               <AddIcon />
                 <FormattedMessage {...Payrollmessages.add} />
-            </Button>
+          </Button>
+        </span>
         </Tooltip>
       </div>
   );

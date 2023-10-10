@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import PermissionsData from '../api/PermissionsData';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/Styles.scss'
+import style from '../../../../../styles/styles.scss'
 import {  useHistory, useLocation  } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';

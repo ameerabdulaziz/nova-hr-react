@@ -5,18 +5,18 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import OrganizationData from '../api/OrganizationData';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/Styles.scss'
-import { useParams, useHistory  } from 'react-router-dom';
+import style from '../../../../../styles/styles.scss'
+import {  useHistory, useLocation  } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
+import SaveButton from '../../Component/SaveButton';
 
 
 
@@ -33,7 +33,8 @@ function CreateAndEditOrg(props) {
   const [submitting ,setSubmitting] = useState(false)
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
-  let { ID } = useParams();
+  const { state } = useLocation()
+  const  ID  = state?.id
   const [EmployeesData, setEmployeesData] = useState([]);
   const [parentData, setParentData] = useState([]);
   const [errorMesManPower, setErrorMesManPower] = useState(false);
@@ -306,7 +307,7 @@ useEffect(() => {
                         }}
                         inputProps={{ pattern: "^[0-9]+$" }}
                       />
-                      {worknatureAllowance.length > 0 && !errorMesWorknature && (
+                      {worknatureAllowance?.length > 0 && !errorMesWorknature && (
                         <p className={style.errorMes}> <FormattedMessage {...messages.errorMes} /> </p>
                       )}
                     </Grid>
@@ -342,15 +343,7 @@ useEffect(() => {
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <Button variant="contained" type="submit" size="medium" color="primary"  disabled={submitting || processing}>
-                    {processing && (
-                      <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                    )}
-                       <FormattedMessage {...Payrollmessages.save} /> 
-                    </Button>
+                    <SaveButton Id={id} processing={processing} />
                 </Grid>
                 <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 

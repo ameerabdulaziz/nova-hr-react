@@ -1,35 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles } from 'tss-react/mui';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
-import { PapperBlock } from 'enl-components';
 import { injectIntl } from 'react-intl';
 import OrganizationData from '../api/OrganizationData';
 import MUIDataTable from 'mui-datatables';
 import messages from '../messages';
-import Payrollmessages from '../../messages';
-import { FormattedMessage } from 'react-intl';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../../../../components/Tables/tableStyle-jss';
 import { useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
-import style from '../../../../../styles/Styles.scss';
-import EditIcon from '@mui/icons-material/BorderColor';
-import DeleteIcon from '@mui/icons-material/Delete';
+import style from '../../../../../styles/styles.scss';
 import AlertPopup  from '../../../../../components/Popup/AlertDeletePopup';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
+import EditButton from '../../Component/EditButton';
+import DeleteButton from '../../Component/DeleteButton';
+import AddButton   from '../../Component/AddButton';
 
 
-// const useStyles = makeStyles()(() => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-// }));
 
 function Organization({ intl }) {
   const title = brand.name + ' - Organization';
@@ -42,7 +28,6 @@ function Organization({ intl }) {
   const [submitting ,setSubmitting] = useState(false)
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector((state) => state.language.locale);
-  const history = useHistory();
 
 
 
@@ -107,7 +92,6 @@ function Organization({ intl }) {
       },
       {
         name: 'manPower',
-        // label: "ManPower",
         label: intl.formatMessage(messages.manPower),
         options: {
           filter: true
@@ -121,24 +105,9 @@ function Organization({ intl }) {
           customBodyRender: (value, tableMeta) => {
             return (
               <div className={style.actionsSty}>
-              <IconButton
-                aria-label="Edit"
-                size="large">
-                <Link to={`/app/Pages/MainData/EditOrganization${tableMeta.rowData[0]}`}>
-                  <EditIcon />
-                </Link>
-                
-              </IconButton>
+                  <EditButton param={{id: tableMeta.rowData[0]}} url={"/app/Pages/MainData/OrganizationEdit"}></EditButton>
 
-              <IconButton
-              aria-label="Delete"
-              size="large"
-              onClick={() => {
-                handleClickOpen(tableMeta.rowData)
-              }}
-              >
-              <DeleteIcon />
-              </IconButton>
+                  <DeleteButton clickfnc={() => handleClickOpen(tableMeta.rowData)}></DeleteButton>
               </div>
             );
           }
@@ -156,19 +125,9 @@ function Organization({ intl }) {
     // searchOpen: true,
     selectableRows: "none" ,
     customToolbar: () => (
-      <Tooltip title="Add New">
-        <Button
-          variant="contained"
-          onClick={() => {
-            history.push(`/app/Pages/MainData/CreateOrganization`);
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          <AddIcon />
-            <FormattedMessage {...Payrollmessages.add} />
-        </Button>
-      </Tooltip>
+      <div className={style.customToolbarBtn}>
+          <AddButton url={"/app/Pages/MainData/OrganizationCreate"} ></AddButton>
+        </div>
     )
   };
 

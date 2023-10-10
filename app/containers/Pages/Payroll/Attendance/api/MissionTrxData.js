@@ -4,9 +4,9 @@ import axiosInstance from '../../api/axios';
 const MissionTrxData = (locale) => {
   const Apis = {};
   
-  Apis.GetReport = async (employee,Mission,fromdate,todate) => {
+  Apis.GetReport = async (employee,Mission,fromdate,todate,Status,Deleted) => {
     
-    const data = await axiosInstance.get(`AttMissionTrx/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&MissionId=${Mission!=null?Mission:""}`);
+    const data = await axiosInstance.get(`AttMissionTrx/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee}&MissionId=${Mission}&StatusId=${Status}&IsDeleted=${Deleted}`);
     const result = data.data;
     
     return result;
