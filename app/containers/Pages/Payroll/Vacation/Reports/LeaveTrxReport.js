@@ -79,6 +79,7 @@ function LeaveTrxReport(props) {
       label: <FormattedMessage {...messages.hiringDate} />,
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
       },
     },
     {
@@ -93,6 +94,7 @@ function LeaveTrxReport(props) {
       label: <FormattedMessage {...messages.fromdate} />,
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
       },
     },
     {
@@ -100,6 +102,7 @@ function LeaveTrxReport(props) {
       label: <FormattedMessage {...messages.todate} />,
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
       },
     },
     {
@@ -152,12 +155,12 @@ function LeaveTrxReport(props) {
     setStatusList(status);
   }
 
-  const formateDate = date => format(new Date(date), 'yyyy-MM-dd');
+  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
 
   const fetchTableData = async () => {
     const formData = { ...formInfo };
 
-    formData.VacationId = formData.VacationId.map(item => item.id);
+    formData.VacationId = formData.VacationId.map((item) => item.id);
     formData.FromDate = formateDate(formData.FromDate);
     formData.ToDate = formateDate(formData.ToDate);
 
@@ -184,7 +187,7 @@ function LeaveTrxReport(props) {
   };
 
   return (
-    <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
       <div>
         <Grid container spacing={3}>
           <Grid item xs={12} md={2}>
@@ -195,12 +198,12 @@ function LeaveTrxReport(props) {
                 onChange={(date) => {
                   setFormInfo((prev) => ({
                     ...prev,
-                    FromDate: date
+                    FromDate: date,
                   }));
                 }}
                 className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant='outlined' />
+                  <TextField {...params} variant="outlined" />
                 )}
               />
             </LocalizationProvider>
@@ -214,12 +217,12 @@ function LeaveTrxReport(props) {
                 onChange={(date) => {
                   setFormInfo((prev) => ({
                     ...prev,
-                    ToDate: date
+                    ToDate: date,
                   }));
                 }}
                 className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant='outlined' />
+                  <TextField {...params} variant="outlined" />
                 )}
               />
             </LocalizationProvider>
@@ -227,7 +230,7 @@ function LeaveTrxReport(props) {
 
           <Grid item xs={12} md={2}>
             <Autocomplete
-              id='departmentId'
+              id="departmentId"
               options={departmentList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -238,9 +241,9 @@ function LeaveTrxReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='departmentId'
+                  name="departmentId"
                   required
                   label={intl.formatMessage(messages.department)}
                 />
@@ -250,7 +253,7 @@ function LeaveTrxReport(props) {
 
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='employeeId'
+              id="employeeId"
               options={EmployeeList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -261,9 +264,9 @@ function LeaveTrxReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='employeeId'
+                  name="employeeId"
                   required
                   label={intl.formatMessage(messages.employeeName)}
                 />
@@ -273,7 +276,7 @@ function LeaveTrxReport(props) {
 
           <Grid item xs={12} md={2}>
             <Autocomplete
-              id='StatusList'
+              id="StatusList"
               options={statusList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -284,9 +287,9 @@ function LeaveTrxReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='StatusList'
+                  name="StatusList"
                   label={intl.formatMessage(messages.status)}
                 />
               )}
@@ -295,7 +298,7 @@ function LeaveTrxReport(props) {
 
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='vacationId'
+              id="vacationId"
               options={VacationsList}
               multiple
               getOptionLabel={(option) => option.name}
@@ -313,9 +316,9 @@ function LeaveTrxReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='VacationId'
+                  name="VacationId"
                   required
                   label={intl.formatMessage(messages.vacationType)}
                 />
@@ -326,10 +329,11 @@ function LeaveTrxReport(props) {
           <Grid item md={3}>
             <FormControlLabel
               control={<Checkbox />}
-              onChange={(evt) => setFormInfo((prev) => ({
-                ...prev,
-                InsertDate: evt.target.checked,
-              }))
+              onChange={(evt) =>
+                setFormInfo((prev) => ({
+                  ...prev,
+                  InsertDate: evt.target.checked,
+                }))
               }
               checked={formInfo.InsertDate}
               label={intl.formatMessage(messages.filterOnRegistrationHistory)}
@@ -338,9 +342,9 @@ function LeaveTrxReport(props) {
 
           <Grid item xs={12} md={2}>
             <Button
-              variant='contained'
-              size='medium'
-              color='primary'
+              variant="contained"
+              size="medium"
+              color="primary"
               onClick={onSearchBtnClick}
             >
               <FormattedMessage {...messages.search} />
@@ -350,7 +354,7 @@ function LeaveTrxReport(props) {
 
         <div className={classes.table}>
           <MUIDataTable
-            title=''
+            title=""
             data={tableData}
             columns={columns}
             options={options}

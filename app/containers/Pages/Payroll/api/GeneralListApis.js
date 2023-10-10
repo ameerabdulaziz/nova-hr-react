@@ -26,6 +26,14 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetAlternativeEmployeeList = async (employeeId) => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetAlternativeEmployeeList/${locale}?EmployeeId=${employeeId}`
+    );
+
+    return result.data;
+  };
+
   Apis.GetYears = async () => {
     const result = await axiosInstance.get(`MdYear/GetListModel/${locale}`);
     return result.data;
@@ -75,6 +83,21 @@ const GeneralListApis = (locale) => {
       `VacVacationTrx/GetEmpVacBalance/${locale}/${employeeId}`
     );
     return result.data;
+  };
+
+  Apis.GetVacGovernmentSickVacSetting = async (vacationId) => {
+    const result = await axiosInstance.get(
+      `VacGovernmentSickVacSetting/Get/${vacationId}/${locale}`
+    );
+    return result.data;
+  };
+
+  Apis.GetGovernmentSickVacList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetGovernmentSickVacList/${locale}`
+    );
+
+    return data.data;
   };
 
   Apis.GetLicenseGradeList = async () => {

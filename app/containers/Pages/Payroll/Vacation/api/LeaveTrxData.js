@@ -25,14 +25,6 @@ const LeaveTrxData = (locale) => {
     return result;
   };
 
-  api.GetAlternativeEmployeeList = async (employeeId) => {
-    const result = await axiosInstance.get(
-      `GeneralList/GetAlternativeEmployeeList/${locale}?EmployeeId=${employeeId}`
-    );
-
-    return result.data;
-  };
-
   api.GetEmpVacBalance = async (id) => {
     const data = await axiosInstance.get(
       `VacVacationTrx/GetEmpVacBalance/${locale}/${id}`
@@ -41,6 +33,15 @@ const LeaveTrxData = (locale) => {
 
     return result;
   };
+
+  const getFormData = object => Object.entries(object).reduce((fd, [key, val]) => {
+    if (Array.isArray(val)) {
+      val.forEach(v => fd.append(key, v));
+    } else {
+      fd.append(key, val);
+    }
+    return fd;
+  }, new FormData());
 
   api.save = async (body) => {
     const result = await axiosInstance.post('VacVacationTrx/Save', body);

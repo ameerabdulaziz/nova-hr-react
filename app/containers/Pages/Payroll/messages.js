@@ -347,6 +347,42 @@ employeeId: {
     id: `${scope}.balance`,
     defaultMessage: 'balance',
   },
+  somethingWentWrong: {
+    id: `${scope}.somethingWentWrong`,
+    defaultMessage: 'somethingWentWrong',
+  },
+  sickLeave: {
+    id: `${scope}.sickLeave`,
+    defaultMessage: 'sickLeave',
+  },
+  noVacationIdProvide: {
+    id: `${scope}.noVacationIdProvide`,
+    defaultMessage: 'noVacationIdProvide',
+  },
+  daysCount: {
+    id: `${scope}.daysCount`,
+    defaultMessage: 'daysCount',
+  },
+  count_value: {
+    id: `${scope}.count_value`,
+    defaultMessage: 'count_value',
+  },
+  day: {
+    id: `${scope}.day`,
+    defaultMessage: 'day',
+  },
+  employeeDeduced: {
+    id: `${scope}.employeeDeduced`,
+    defaultMessage: 'employeeDeduced',
+  },
+  Every3Years: {
+    id: `${scope}.Every3Years`,
+    defaultMessage: 'Every3Years',
+  },
+  Yearly: {
+    id: `${scope}.Yearly`,
+    defaultMessage: 'Yearly',
+  },
   weekDayName: {
     id: `${scope}.weekDayName`,
     defaultMessage: 'weekDayName',

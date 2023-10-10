@@ -1,56 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import LinearProgress from '@mui/material/LinearProgress';
 import { useHistory, Link } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
-import ActionDelete from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import Tooltip from '@mui/material/Tooltip';
-import EditIcon from '@mui/icons-material/Create';
 import Chip from '@mui/material/Chip';
 import MUIDataTable from 'mui-datatables';
 import ApiData from '../api/PersonalData';
 import { useSelector, useDispatch } from 'react-redux';
 import { CheckBox, IndeterminateCheckBoxRounded } from '@mui/icons-material';
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
 import messages from '../messages';
 import { FormattedMessage } from 'react-intl';
-import style from '../../../../../styles/styles.scss';
+import style from '../../../../../styles/Styles.scss';
+import useStyles from '../../Style';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-const useStyles = makeStyles()((theme) => ({
-  table: {
-    '& > div': {
-      overflow: 'auto',
-    },
-    '& table': {
-      '& td': {
-        wordBreak: 'keep-all',
-      },
-      [theme.breakpoints.down('lg')]: {
-        '& td': {
-          height: 60,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        },
-      },
-    },
-  },
-}));
+import DeleteButton from '../../Component/DeleteButton';
+import AddButton from '../../Component/AddButton';
+import notif from 'enl-api/ui/notifMessage';
+import { toast } from 'react-hot-toast';
 
 function EmployeeList() {
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const [changedata, setchangedata] = useState(1);
   const [anchorElOpt, setAnchorElOpt] = useState(null);
   const handleClickOpt = (event) => setAnchorElOpt(event.currentTarget);
   const handleCloseOpt = () => setAnchorElOpt(null);
   const [employeeid, setemployeeid] = useState({});
   const title = localStorage.getItem('MenuName');
-  //const optionsOpt1 = ['Option 1', 'Option 2', 'Option 3'];
+
   const optionsOpt = [
     { name: 'Personal', url: 'Personal' },
     { name: 'Qualification', url: 'EmployeeQualification' },
@@ -64,15 +41,28 @@ function EmployeeList() {
     { name: 'Bank', url: 'EmployeeBank' },
     { name: 'Salary', url: 'EmployeeSalary' },
   ];
-  useEffect(() => {
-    async function fetchData() {
-      const dataApi = await ApiData(locale).GetList();
-      setdata(dataApi);
-    }
-    fetchData();
-    // if (!data.length) { fetchData(); }
-  }, [changedata]);
 
+  async function fetchData() {
+    const dataApi = await ApiData(locale).GetList();
+    setdata(dataApi);
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+  async function deleterow(id) {
+    try {
+      let response = await ApiData(locale).Delete(id);
+
+      if (response.status == 200) {
+        toast.success(notif.saved);
+        fetchData();
+      } else {
+        toast.error(response.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+  }
   const columns = [
     {
       name: 'id',
@@ -157,33 +147,9 @@ function EmployeeList() {
           console.log('tableMeta =', tableMeta);
           return (
             <div className={style.actionsSty}>
-              <IconButton
-                // onClick={() => eventEdit(this)}
-                // className={cx((item.edited ? css.hideAction : ''), classes.button)}
-                aria-label="Edit"
-                size="large"
-              >
-                <Link
-                  to={{
-                    pathname: '/app/Pages/Employee/Personal',
-                    state: { id: tableMeta.rowData[0] },
-                  }}
-                >
-                  <EditIcon />
-                </Link>
-              </IconButton>
-
-              <IconButton
-                className={classes.button}
-                aria-label="Delete"
-                size="large"
-                onClick={() => {
-                  
-                  console.log(`rowsDeleted2222 = ${tableMeta.rowData[0]}`);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
+              <DeleteButton
+                clickfnc={() => deleterow(tableMeta.rowData[0])}
+              ></DeleteButton>
 
               <IconButton
                 aria-label="more"
@@ -192,7 +158,6 @@ function EmployeeList() {
                 //onClick={handleClick}
                 //   onClick={handleClickOpt}
                 onClick={(e) => {
-                  
                   setemployeeid({
                     id: tableMeta.rowData[0],
                     name: tableMeta.rowData[2],
@@ -218,7 +183,6 @@ function EmployeeList() {
                     <MenuItem
                       key={option.name}
                       onClick={() => {
-                        
                         history.push(`/app/Pages/Employee/${option.url}`, {
                           empid: employeeid,
                         });
@@ -241,26 +205,15 @@ function EmployeeList() {
     filterType: 'dropdown',
     responsive: 'vertical',
     print: true,
-    rowsPerPage: 10,
+    rowsPerPage: 100,
     page: 0,
     searchOpen: true,
+    selectableRows: 'none',
     onSearchClose: () => {
       //some logic
     },
     customToolbar: () => (
-      <Tooltip title="Add New">
-        <Button
-          variant="contained"
-          onClick={() => {
-            history.push(`/app/Pages/Employee/Personal`);
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          <AddIcon />
-          Add new
-        </Button>
-      </Tooltip>
+      <AddButton url={'/app/Pages/Employee/Personal'}></AddButton>
     ),
   };
 

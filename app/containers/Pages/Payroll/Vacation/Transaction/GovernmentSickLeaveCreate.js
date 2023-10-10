@@ -7,11 +7,12 @@ import {
   FormControlLabel,
   Grid,
   Stack,
-  TextField
+  TextField,
 } from '@mui/material';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -20,10 +21,12 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import EmployeeData from '../../Component/EmployeeData';
+import GovernmentVacationPopup from '../../Component/GovernmentVacationPopup';
 import SaveButton from '../../Component/SaveButton';
-import VacationBalancePopup from '../../Component/VacationBalance';
 import useStyles from '../../Style';
+import GeneralListApis from '../../api/GeneralListApis';
 import Payrollmessages from '../../messages';
+import api from '../api/GovernmentSickLeaveData';
 import messages from '../messages';
 
 function GovernmentSickLeaveCreate(props) {
@@ -41,7 +44,7 @@ function GovernmentSickLeaveCreate(props) {
     'image/webp',
     'webp',
     'image/svg+xml',
-    'svg+xml'
+    'svg+xml',
   ];
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
@@ -66,8 +69,8 @@ function GovernmentSickLeaveCreate(props) {
     organization: '',
     HasAlternativeEmp: false,
 
-    year: null,
-    month: null,
+    yearId: null,
+    monthId: null,
 
     vacDayChange: null,
     vacDocPath: null,
@@ -84,10 +87,59 @@ function GovernmentSickLeaveCreate(props) {
     vacReson: '',
     address: '',
     notes: '',
-    reducedFromAnnual: false,
+    deductAnual: false,
     alternativeStaff: '',
     vacation: {},
   });
+  const [autoCOmpleteStates, setAutoCOmpleteStates] = useState({
+    vacation: {},
+    alternative: {},
+    month: {},
+    year: {},
+  });
+
+  const fetchNeededData = async () => {
+    try {
+      const vacationResponse = await GeneralListApis(
+        locale
+      ).GetGovernmentSickVacList();
+      setVacationsList(vacationResponse);
+
+      const yearResponse = await GeneralListApis(locale).GetYears();
+      setYearsList(yearResponse);
+
+      const monthResponse = await GeneralListApis(locale).GetMonths();
+      setMonthsList(monthResponse);
+
+      if (id !== 0) {
+        const dataApi = await api(locale).GetById(id);
+        setFormInfo({
+          ...dataApi,
+          vacation: {
+            id: dataApi.vacCode,
+            name: dataApi.vacationName,
+          },
+        });
+      }
+    } catch (err) {
+      toast.error(JSON.stringify(err.response.data));
+    }
+  };
+
+  const GetAlternativeEmployee = async () => {
+    if (formInfo.employeeId) {
+      const alternativeEmployeeResponse = await GeneralListApis(
+        locale
+      ).GetAlternativeEmployeeList(formInfo.employeeId);
+      setAlternativeEmployeeList(alternativeEmployeeResponse);
+      setAutoCOmpleteStates((prev) => ({
+        ...prev,
+        alternative: alternativeEmployeeResponse.find(
+          (emp) => emp.id === formInfo.alternativeStaff
+        ),
+      }));
+    }
+  };
 
   const calculateDaysCount = () => {
     if (formInfo.toDate && formInfo.fromDate) {
@@ -116,8 +168,26 @@ function GovernmentSickLeaveCreate(props) {
   };
 
   useEffect(() => {
+    fetchNeededData();
+  }, []);
+
+  useEffect(() => {
+    setAutoCOmpleteStates(
+      (prev) => ({
+        ...prev,
+        year: yearsList.find((emp) => emp.id === formInfo.yearId) ?? {},
+        month: monthsList.find((emp) => emp.id === formInfo.monthId),
+      } ?? {})
+    );
+  }, [yearsList, formInfo.yearId, monthsList, formInfo.monthId]);
+
+  useEffect(() => {
     calculateDaysCount();
   }, [formInfo.toDate, formInfo.fromDate]);
+
+  useEffect(() => {
+    GetAlternativeEmployee();
+  }, [formInfo.employeeId]);
 
   const formateDate = (date) => new Date(date);
 
@@ -160,7 +230,25 @@ function GovernmentSickLeaveCreate(props) {
 
       setProcessing(true);
 
-      console.log(formData);
+      try {
+        const {
+          vacation,
+          hiringDate,
+          employeeName,
+          job,
+          organization,
+          dayDeducedBy,
+          ...reset
+        } = formData;
+        await api(locale).save(reset);
+
+        toast.success(notif.saved);
+        history.push('/app/Pages/vac/GovernmentSickLeave');
+      } catch (error) {
+        toast.error(JSON.stringify(error.response.data ?? error));
+      } finally {
+        setProcessing(false);
+      }
     } else {
       Object.keys(errors).forEach((key) => {
         toast.error(JSON.stringify(errors[key]));
@@ -266,7 +354,11 @@ function GovernmentSickLeaveCreate(props) {
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField {...params} variant='outlined' required />
+                            <TextField
+                              {...params}
+                              variant='outlined'
+                              required
+                            />
                           )}
                         />
                       </LocalizationProvider>
@@ -281,7 +373,10 @@ function GovernmentSickLeaveCreate(props) {
                       >
                         <Autocomplete
                           options={vacationsList}
+                          value={formInfo.vacation}
                           getOptionLabel={(option) => option.name ?? ''}
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
                           onChange={onVacationChange}
                           sx={{
                             '.MuiInputBase-root': {
@@ -301,14 +396,19 @@ function GovernmentSickLeaveCreate(props) {
                           )}
                         />
 
-                        <VacationBalancePopup employeeId={formInfo.employeeId} />
+                        <GovernmentVacationPopup
+                          vacationId={formInfo.vacation?.id}
+                        />
                       </Stack>
                     </Grid>
 
                     <Grid item xs={12} md={3}>
                       <Autocomplete
                         options={alternativeEmployeeList}
-                        getOptionLabel={(option) => option.name}
+                        getOptionLabel={(option) => option.name ?? ''}
+                        value={autoCOmpleteStates.alternative}
+                        isOptionEqualToValue={(option, value) => option.id === value?.id
+                        }
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
@@ -348,10 +448,16 @@ function GovernmentSickLeaveCreate(props) {
                         </label>
                       </div>
 
-                      {formInfo.attachment && <Button variant='outlined' component='span' sx={{ mt: 1 }} onClick={onAttachmentPopupBtnClick} >
-                        <FormattedMessage {...Payrollmessages.preview} />
-                      </Button>
-                      }
+                      {formInfo.attachment && (
+                        <Button
+                          variant='outlined'
+                          component='span'
+                          sx={{ mt: 1 }}
+                          onClick={onAttachmentPopupBtnClick}
+                        >
+                          <FormattedMessage {...Payrollmessages.preview} />
+                        </Button>
+                      )}
 
                       <FileViewerPopup
                         handleClose={onAttachmentPopupClose}
@@ -366,11 +472,14 @@ function GovernmentSickLeaveCreate(props) {
                     <Grid item xs={12} md={3}>
                       <Autocomplete
                         options={monthsList}
-                        getOptionLabel={(option) => option.name}
+                        getOptionLabel={(option) => option.name ?? ''}
+                        value={autoCOmpleteStates.month}
+                        isOptionEqualToValue={(option, value) => option.id === value?.id
+                        }
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
-                            month: value?.id,
+                            monthId: value?.id,
                           }));
                         }}
                         renderInput={(params) => (
@@ -378,9 +487,7 @@ function GovernmentSickLeaveCreate(props) {
                             variant='outlined'
                             required={formInfo.HasAlternativeEmp}
                             {...params}
-                            label={intl.formatMessage(
-                              messages.Month
-                            )}
+                            label={intl.formatMessage(messages.Month)}
                           />
                         )}
                       />
@@ -389,11 +496,14 @@ function GovernmentSickLeaveCreate(props) {
                     <Grid item xs={12} md={3}>
                       <Autocomplete
                         options={yearsList}
-                        getOptionLabel={(option) => option.name}
+                        getOptionLabel={(option) => option.name ?? ''}
+                        value={autoCOmpleteStates.year}
+                        isOptionEqualToValue={(option, value) => option.id === value?.id
+                        }
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
-                            year: value?.id,
+                            yearId: value?.id,
                           }));
                         }}
                         renderInput={(params) => (
@@ -401,9 +511,7 @@ function GovernmentSickLeaveCreate(props) {
                             variant='outlined'
                             required={formInfo.HasAlternativeEmp}
                             {...params}
-                            label={intl.formatMessage(
-                              messages.year
-                            )}
+                            label={intl.formatMessage(messages.year)}
                           />
                         )}
                       />
@@ -414,14 +522,13 @@ function GovernmentSickLeaveCreate(props) {
                         control={<Checkbox />}
                         onChange={(evt) => setFormInfo((prev) => ({
                           ...prev,
-                          reducedFromAnnual: evt.target.checked,
+                          deductAnual: evt.target.checked,
                         }))
                         }
-                        checked={formInfo.reducedFromAnnual}
+                        checked={formInfo.deductAnual}
                         label={intl.formatMessage(messages.reducedFromAnnual)}
                       />
                     </Grid>
-
                   </Grid>
                 </CardContent>
               </Card>
