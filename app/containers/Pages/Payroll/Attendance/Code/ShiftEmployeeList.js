@@ -16,6 +16,9 @@ import AddButton   from '../../Component/AddButton';
 import GeneralListApis from '../../api/GeneralListApis';
 import {Grid,TextField, Autocomplete  } from '@mui/material';
 import { useLocation } from "react-router-dom";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import { format } from "date-fns";
 
 function ShiftEmployeeList(props) {
   
@@ -99,6 +102,17 @@ useEffect(() => {
     fetchData();
   }, [employee]);
 
+  const CheckBox = (value) => {
+    return (
+      <div className={style.actionsSty}>
+        {value ? (
+          <CheckIcon style={{ color: "#3f51b5" }} />
+        ) : (
+          <CloseIcon style={{ color: "#717171" }} />
+        )}
+      </div>
+    );
+  };
   
   const columns = [
     {
@@ -142,6 +156,7 @@ useEffect(() => {
         label: <FormattedMessage {...Payrollmessages['fromdate']} />,
         options: {
             filter: true,
+            customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
         },
     },
     {
@@ -149,6 +164,7 @@ useEffect(() => {
         label: <FormattedMessage {...Payrollmessages['todate']} />,
         options: {
             filter: true,
+            customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
         },
     },
     {
@@ -163,6 +179,7 @@ useEffect(() => {
       label: <FormattedMessage {...Payrollmessages['saturday']} />,
       options: {
           filter: true,
+          customBodyRender: (value) => CheckBox(value),
       },
     },
     {
@@ -170,6 +187,7 @@ useEffect(() => {
       label: <FormattedMessage {...Payrollmessages['sunday']} />,
       options: {
           filter: true,
+          customBodyRender: (value) => CheckBox(value),
       },
     },
     {
@@ -177,6 +195,7 @@ useEffect(() => {
         label: <FormattedMessage {...Payrollmessages['monday']} />,
         options: {
             filter: true,
+            customBodyRender: (value) => CheckBox(value),
         },
       },
       {
@@ -184,6 +203,7 @@ useEffect(() => {
         label: <FormattedMessage {...Payrollmessages['tuesday']} />,
         options: {
             filter: true,
+            customBodyRender: (value) => CheckBox(value),
         },
       },
       {
@@ -191,6 +211,7 @@ useEffect(() => {
         label: <FormattedMessage {...Payrollmessages['wednesday']} />,
         options: {
             filter: true,
+            customBodyRender: (value) => CheckBox(value),
         },
       },
       {
@@ -198,6 +219,7 @@ useEffect(() => {
         label: <FormattedMessage {...Payrollmessages['thursday']} />,
         options: {
             filter: true,
+            customBodyRender: (value) => CheckBox(value),
         },
       },
       {
@@ -205,6 +227,7 @@ useEffect(() => {
         label: <FormattedMessage {...Payrollmessages['friday']} />,
         options: {
             filter: true,
+            customBodyRender: (value) => CheckBox(value),
         },
       },
     {
