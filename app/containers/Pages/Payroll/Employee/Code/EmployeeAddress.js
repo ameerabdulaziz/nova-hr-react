@@ -14,23 +14,7 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import EmployeeAddressData from '../api/EmployeeAddressData';
 import GeneralListApis from '../../api/GeneralListApis';
-import { CrudTable, Notification } from 'enl-components';
-import {
-  Button,
-  Grid,
-  TextField,
-  Autocomplete,
-  Checkbox,
-  InputAdornment,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  FormControl,
-  Input,
-} from '@mui/material';
+import { Grid, TextField, Autocomplete } from '@mui/material';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -46,7 +30,7 @@ function EmployeeAddress(props) {
   const { intl } = props;
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
   const [employeeList, setEmployeeList] = useState([]);
-  const title = 'Employee Address'; //localStorage.getItem('MenuName');
+  const title = localStorage.getItem('MenuName');
   const description = brand.desc;
   console.log(description + '*' + title);
   const { classes } = useStyles();
@@ -54,7 +38,6 @@ function EmployeeAddress(props) {
 
   const GetUserMenuLookup = useCallback(async () => {
     try {
-      
       const empdata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(empdata || []);
     } catch (err) {
@@ -183,13 +166,11 @@ function EmployeeAddress(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  
-                    setEmployee({
-                      id: value !== null?value.id:'',
-                      name: value.name,
-                    });
-                  }}
-                
+                  setEmployee({
+                    id: value !== null ? value.id : '',
+                    name: value.name,
+                  });
+                }}
                 renderInput={(params) => (
                   <TextField
                     variant="standard"

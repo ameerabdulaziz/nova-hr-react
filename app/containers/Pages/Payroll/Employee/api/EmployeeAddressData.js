@@ -7,15 +7,13 @@ const EmployeeAddressData = (probs) => {
   const [gList, setList] = useState([]);
   const [cList, setcityList] = useState([]);
   const EmployeeAddressApis = {};
-  EmployeeAddressApis.GetUserMenuLookup = async () => {
-    
-    const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
+  //   EmployeeAddressApis.GetUserMenuLookup = async () => {
 
-    return data.data;
-  };
+  //     const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
+
+  //     return data.data;
+  //   };
   EmployeeAddressApis.GetList = async (anchorTable) => {
-    
-
     const data = await axiosInstance.get(
       `EmpAddress/GetAllData/${lang}/${employeeid}`
     );
@@ -66,7 +64,7 @@ const EmployeeAddressData = (probs) => {
   };
 
   EmployeeAddressApis.Delete = async (Item) => {
-    // 
+    //
 
     const data = await axiosInstance.delete(`EmpAddress/${Item.id}`);
     return data;
