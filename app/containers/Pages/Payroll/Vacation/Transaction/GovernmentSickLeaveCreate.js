@@ -87,7 +87,7 @@ function GovernmentSickLeaveCreate(props) {
     vacReson: '',
     address: '',
     notes: '',
-    reducedFromAnnual: false,
+    deductAnual: false,
     alternativeStaff: '',
     vacation: {},
   });
@@ -522,10 +522,10 @@ function GovernmentSickLeaveCreate(props) {
                         control={<Checkbox />}
                         onChange={(evt) => setFormInfo((prev) => ({
                           ...prev,
-                          reducedFromAnnual: evt.target.checked,
+                          deductAnual: evt.target.checked,
                         }))
                         }
-                        checked={formInfo.reducedFromAnnual}
+                        checked={formInfo.deductAnual}
                         label={intl.formatMessage(messages.reducedFromAnnual)}
                       />
                     </Grid>
