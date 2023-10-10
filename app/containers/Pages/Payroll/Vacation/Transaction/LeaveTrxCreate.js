@@ -27,6 +27,7 @@ import useStyles from '../../Style';
 import Payrollmessages from '../../messages';
 import api from '../api/LeaveTrxData';
 import messages from '../messages';
+import GeneralListApis from '../../api/GeneralListApis';
 
 function LeaveTrxCreate(props) {
   const { intl } = props;
@@ -109,7 +110,7 @@ function LeaveTrxCreate(props) {
 
   const GetAlternativeEmployee = async () => {
     if (formInfo.employeeId) {
-      const alternativeEmployeeResponse = await api(
+      const alternativeEmployeeResponse = await GeneralListApis(
         locale
       ).GetAlternativeEmployeeList(formInfo.employeeId);
       setAlternativeEmployeeList(alternativeEmployeeResponse);
