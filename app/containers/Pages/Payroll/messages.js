@@ -383,4 +383,8 @@ employeeId: {
     id: `${scope}.Yearly`,
     defaultMessage: 'Yearly',
   },
+  weekDayName: {
+    id: `${scope}.weekDayName`,
+    defaultMessage: 'weekDayName',
+  },
 });

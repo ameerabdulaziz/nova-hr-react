@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { PapperBlock } from 'enl-components';
-import ApiData from '../api/EmployeeShiftData';
+import ApiData from '../api/ShiftEmployeeData';
 import shiftApi from '../api/ShiftData';
 import messages from '../messages';
 import Payrollmessages from '../../messages';
@@ -23,7 +23,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
-function EmployeeShiftCreate(props) {
+function ShiftEmployeeCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation()
@@ -63,7 +63,7 @@ function EmployeeShiftCreate(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Att/EmployeeShift`,  { employeeId: data.employeeId });
+        history.push(`/app/Pages/Att/ShiftEmployee`,  { employeeId: data.employeeId });
       } else {
           toast.error(response.statusText);
       }
@@ -72,7 +72,7 @@ function EmployeeShiftCreate(props) {
     }
   }
 async function oncancel(){
-    history.push(`/app/Pages/Att/EmployeeShift`);
+    history.push(`/app/Pages/Att/ShiftEmployee`,  { employeeId: data.employeeId });
   }
   async function fetchData() {
     const shifts = await GeneralListApis(locale).GetShiftList();
@@ -354,8 +354,8 @@ async function oncancel(){
     </div>
   );
 }
-EmployeeShiftCreate.propTypes = {
+ShiftEmployeeCreate.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(EmployeeShiftCreate);
+export default injectIntl(ShiftEmployeeCreate);
 

@@ -939,6 +939,8 @@
   "boilerplate.containers.Payroll.friday":"الجمعه",
   "boilerplate.containers.Payroll.apply":"تطبيق",
    "boilerplate.containers.Payroll.employeeId":"كود الموظف",
+   "boilerplate.containers.Payroll.weekDayName":"اليوم",
+   
   
 
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
@@ -1085,6 +1087,18 @@
   "boilerplate.containers.Payroll.Attendance.shiftName":"اسم الوردية",
   "boilerplate.containers.Payroll.Attendance.EmployeeShiftCreateTitle":"اضفة ورديات الموظفين",
   "boilerplate.containers.Payroll.Attendance.EmployeeShiftUpdateTitle":"تعديل ورديات الموظفين",
+
+  "boilerplate.containers.Payroll.Attendance.timeIn":"حضور",
+  "boilerplate.containers.Payroll.Attendance.timeOut":"انصراف",
+  "boilerplate.containers.Payroll.Attendance.lateMin":"تأخير",
+  "boilerplate.containers.Payroll.Attendance.extraTime":"اضافى",
+  "boilerplate.containers.Payroll.Attendance.lessTime":"متمم",
+  "boilerplate.containers.Payroll.Attendance.breakTime":"بدل راحة",
+  "boilerplate.containers.Payroll.Attendance.vac":"اجازة",
+  "boilerplate.containers.Payroll.Attendance.per":"اذن",
+  "boilerplate.containers.Payroll.Attendance.mission":"مأمورية",
+  "boilerplate.containers.Payroll.Attendance.shiftVacancy":"اجازةوردية",
+  "boilerplate.containers.Payroll.Attendance.absence":"غياب",
   
   
   

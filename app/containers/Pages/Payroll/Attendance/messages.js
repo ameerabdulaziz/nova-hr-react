@@ -203,4 +203,52 @@ EmployeeShiftUpdateTitle: {
   id: `${scope}.EmployeeShiftUpdateTitle`,
   defaultMessage: 'EmployeeShiftUpdateTitle',
 },
+timeIn: {
+  id: `${scope}.timeIn`,
+  defaultMessage: 'timeIn',
+},
+timeOut: {
+  id: `${scope}.timeOut`,
+  defaultMessage: 'timeOut',
+},
+lateMin: {
+  id: `${scope}.lateMin`,
+  defaultMessage: 'lateMin',
+},
+lateMin: {
+  id: `${scope}.lateMin`,
+  defaultMessage: 'lateMin',
+},
+extraTime: {
+  id: `${scope}.extraTime`,
+  defaultMessage: 'extraTime',
+},
+lessTime: {
+  id: `${scope}.lessTime`,
+  defaultMessage: 'lessTime',
+},
+breakTime: {
+  id: `${scope}.breakTime`,
+  defaultMessage: 'breakTime',
+},
+vac: {
+  id: `${scope}.vac`,
+  defaultMessage: 'vac',
+},
+per: {
+  id: `${scope}.per`,
+  defaultMessage: 'per',
+},
+mission: {
+  id: `${scope}.mission`,
+  defaultMessage: 'mission',
+},
+shiftVacancy: {
+  id: `${scope}.shiftVacancy`,
+  defaultMessage: 'shiftVacancy',
+},
+absence: {
+  id: `${scope}.absence`,
+  defaultMessage: 'absence',
+},
 });

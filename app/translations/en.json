@@ -908,7 +908,6 @@
   "boilerplate.containers.Payroll.sickLeave": "Sick Leave",
   "boilerplate.containers.Payroll.somethingWentWrong": "Something Went Wrong",
   "boilerplate.containers.Payroll.balance": "Balance",
-  "boilerplate.containers.Payroll.vacation": "Vacation",
   "boilerplate.containers.Payroll.count_value": "Count / Value",
   "boilerplate.containers.Payroll.daysCount": "Days Count",
   "boilerplate.containers.Payroll.day": "Day",
@@ -916,6 +915,8 @@
   "boilerplate.containers.Payroll.employeeDeduced": "Employee Deduced",
   "boilerplate.containers.Payroll.Yearly": "Yearly",
   "boilerplate.containers.Payroll.Every3Years": "Every 3 years",
+  "boilerplate.containers.Payroll.vacation": "Vacation",  
+  "boilerplate.containers.Payroll.weekDayName":"Day",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",

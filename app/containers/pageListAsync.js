@@ -1006,21 +1006,39 @@ export const ShiftCreate = loadable(
   }
 );
 
-export const EmployeeShiftList = loadable(
-  () => import('./Pages/Payroll/Attendance/Code/EmployeeShiftList'),
+export const ShiftEmployeeList = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/ShiftEmployeeList'),
   {
     fallback: <Loading />,
   }
 );
-export const EmployeeShiftCreate = loadable(
-  () => import('./Pages/Payroll/Attendance/Code/EmployeeShiftCreate'),
+export const ShiftEmployeeCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/ShiftEmployeeCreate'),
   {
     fallback: <Loading />,
   }
 );
 
-export const OrgnizationShift = loadable(
-  () => import('./Pages/Payroll/Attendance/Code/OrgnizationShift'),
+export const ShiftOrgnization = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/ShiftOrgnization'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ShiftTransfere = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/ShiftTransfere'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ShiftReview = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/ShiftReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ShiftImport = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/ShiftImport'),
   {
     fallback: <Loading />,
   }

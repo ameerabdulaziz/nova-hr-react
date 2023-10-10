@@ -170,10 +170,11 @@ import {
   CreateReplaceAnnualLeaveBalance,
   EditReplaceAnnualLeaveBalance,
   ReplaceAnnualLeaveBalance,
-  OpeningClosingTheYearForLeaves,ShiftCreate,ShiftList,EmployeeShiftList,EmployeeShiftCreate,OrgnizationShift,  
+  OpeningClosingTheYearForLeaves,ShiftCreate,ShiftList,ShiftEmployeeList,ShiftEmployeeCreate,ShiftOrgnization,  
   LeaveTrxReport,
   LeaveTrxCreate,
   LeaveTrx,
+  ShiftTransfere,ShiftReview,ShiftImport,
   GovernmentSickLeaveCreate,
   GovernmentSickLeave
 } from '../pageListAsync';
@@ -669,11 +670,14 @@ function Application(props) {
         <Route path="/app/Pages/Att/ShiftCreate" component={ShiftCreate} />
         <Route path="/app/Pages/Att/ShiftEdit" component={ShiftCreate} />
 
-        <Route path="/app/Pages/Att/EmployeeShift" component={EmployeeShiftList} />
-        <Route path="/app/Pages/Att/EmployeeShiftCreate" component={EmployeeShiftCreate} />
-        <Route path="/app/Pages/Att/EmployeeShiftEdit" component={EmployeeShiftCreate} />
+        <Route path="/app/Pages/Att/ShiftEmployee" component={ShiftEmployeeList} />
+        <Route path="/app/Pages/Att/ShiftEmployeeCreate" component={ShiftEmployeeCreate} />
+        <Route path="/app/Pages/Att/ShiftEmployeeEdit" component={ShiftEmployeeCreate} />
 
-        <Route path="/app/Pages/Att/OrgnizationShift" component={OrgnizationShift} />
+        <Route path="/app/Pages/Att/ShiftOrgnization" component={ShiftOrgnization} />
+        <Route path="/app/Pages/Att/ShiftTransfere" component={ShiftTransfere} />
+        <Route path="/app/Pages/Att/ShiftReview" component={ShiftReview} />
+        <Route path="/app/Pages/Att/ShiftImport" component={ShiftImport} />
 
         <Route path="/app/Pages/Att/MissionTrx" component={MissionTrxList} />
         <Route path="/app/Pages/Att/MissionTrxCreate" component={MissionTrxCreate} />
