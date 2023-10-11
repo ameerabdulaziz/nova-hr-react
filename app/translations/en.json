@@ -900,6 +900,8 @@
   "boilerplate.containers.Payroll.wednesday":"Wednesday",
   "boilerplate.containers.Payroll.thursday":"Thursday",
   "boilerplate.containers.Payroll.friday":"Friday",  
+  "boilerplate.containers.Payroll.noMatchingRecord":"Sorry, no matching records found",  
+  "boilerplate.containers.Payroll.loading":"Loading",  
   "boilerplate.containers.Payroll.apply":"Apply",  
   "boilerplate.containers.Payroll.employeeId":"Employee Id", 
   "boilerplate.containers.Payroll.vacationBalance": "Vacation Balance",

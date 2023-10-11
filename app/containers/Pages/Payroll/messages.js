@@ -387,4 +387,12 @@ employeeId: {
     id: `${scope}.weekDayName`,
     defaultMessage: 'weekDayName',
   },
+  loading: {
+    id: `${scope}.loading`,
+    defaultMessage: 'loading',
+  },
+  noMatchingRecord: {
+    id: `${scope}.noMatchingRecord`,
+    defaultMessage: 'noMatchingRecord',
+  },
 });
