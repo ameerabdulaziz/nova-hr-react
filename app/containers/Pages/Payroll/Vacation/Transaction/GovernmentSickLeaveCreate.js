@@ -16,6 +16,7 @@ import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { format } from 'date-fns';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -88,14 +89,8 @@ function GovernmentSickLeaveCreate(props) {
     address: '',
     notes: '',
     deductAnual: false,
-    alternativeStaff: '',
-    vacation: {},
-  });
-  const [autoCOmpleteStates, setAutoCOmpleteStates] = useState({
-    vacation: {},
-    alternative: {},
-    month: {},
-    year: {},
+    alternativeStaff: null,
+    vacCode: null,
   });
 
   const fetchNeededData = async () => {
@@ -113,13 +108,7 @@ function GovernmentSickLeaveCreate(props) {
 
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
-        setFormInfo({
-          ...dataApi,
-          vacation: {
-            id: dataApi.vacCode,
-            name: dataApi.vacationName,
-          },
-        });
+        setFormInfo(dataApi);
       }
     } catch (err) {
       toast.error(JSON.stringify(err.response.data));
@@ -132,12 +121,6 @@ function GovernmentSickLeaveCreate(props) {
         locale
       ).GetAlternativeEmployeeList(formInfo.employeeId);
       setAlternativeEmployeeList(alternativeEmployeeResponse);
-      setAutoCOmpleteStates((prev) => ({
-        ...prev,
-        alternative: alternativeEmployeeResponse.find(
-          (emp) => emp.id === formInfo.alternativeStaff
-        ),
-      }));
     }
   };
 
@@ -149,7 +132,7 @@ function GovernmentSickLeaveCreate(props) {
         daysCount: formInfo.daysCount,
       };
 
-      if (formInfo.vacation?.id === 5) {
+      if (formInfo.vacCode === 5) {
         obj.toDate = formInfo.fromDate;
         obj.daysCount = 0.5;
       } else {
@@ -172,16 +155,6 @@ function GovernmentSickLeaveCreate(props) {
   }, []);
 
   useEffect(() => {
-    setAutoCOmpleteStates(
-      (prev) => ({
-        ...prev,
-        year: yearsList.find((emp) => emp.id === formInfo.yearId) ?? {},
-        month: monthsList.find((emp) => emp.id === formInfo.monthId),
-      } ?? {})
-    );
-  }, [yearsList, formInfo.yearId, monthsList, formInfo.monthId]);
-
-  useEffect(() => {
     calculateDaysCount();
   }, [formInfo.toDate, formInfo.fromDate]);
 
@@ -189,7 +162,7 @@ function GovernmentSickLeaveCreate(props) {
     GetAlternativeEmployee();
   }, [formInfo.employeeId]);
 
-  const formateDate = (date) => new Date(date);
+  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -198,9 +171,9 @@ function GovernmentSickLeaveCreate(props) {
 
     const formData = { ...formInfo };
 
-    if (formInfo.vacation.id !== 5) {
+    if (formInfo.vacCode !== 5) {
       if (formInfo.fromDate && formInfo.toDate) {
-        const isFromDateLessThanToDate =					new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
+        const isFromDateLessThanToDate = new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
 
         if (isFromDateLessThanToDate) {
           const { date, ...reset } = errors;
@@ -212,7 +185,7 @@ function GovernmentSickLeaveCreate(props) {
       }
     }
 
-    if (formInfo.vacation.id === 5) {
+    if (formInfo.vacCode === 5) {
       if (formInfo.attachment) {
         const { attachment, ...reset } = errors;
 
@@ -226,13 +199,11 @@ function GovernmentSickLeaveCreate(props) {
       formData.trxDate = formateDate(formData.trxDate);
       formData.fromDate = formateDate(formData.fromDate);
       formData.toDate = formateDate(formData.toDate);
-      formData.vacCode = formData.vacation?.id;
 
       setProcessing(true);
 
       try {
         const {
-          vacation,
           hiringDate,
           employeeName,
           job,
@@ -276,13 +247,13 @@ function GovernmentSickLeaveCreate(props) {
       if (value.id === 5) {
         setFormInfo((prev) => ({
           ...prev,
-          vacation: value,
+          vacCode: value.id,
           toDate: prev.fromDate,
         }));
       } else {
         setFormInfo((prev) => ({
           ...prev,
-          vacation: value,
+          vacCode: value.id,
           toDate: null,
           daysCount: '',
         }));
@@ -290,7 +261,7 @@ function GovernmentSickLeaveCreate(props) {
     } else {
       setFormInfo((prev) => ({
         ...prev,
-        vacation: {},
+        vacCode: null,
         toDate: null,
         daysCount: '',
       }));
@@ -332,6 +303,11 @@ function GovernmentSickLeaveCreate(props) {
       >
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
+
+            <Grid item xs={12} md={12}>
+              <EmployeeData data={formInfo} setdata={setFormInfo} />
+            </Grid>
+
             <Grid item xs={12} md={12}>
               <Card className={classes.card}>
                 <CardContent>
@@ -341,7 +317,7 @@ function GovernmentSickLeaveCreate(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={4}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(Payrollmessages.date)}
@@ -356,7 +332,6 @@ function GovernmentSickLeaveCreate(props) {
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              variant='outlined'
                               required
                             />
                           )}
@@ -364,7 +339,7 @@ function GovernmentSickLeaveCreate(props) {
                       </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={4}>
                       <Stack
                         direction='row'
                         justifyContent='space-between'
@@ -372,8 +347,12 @@ function GovernmentSickLeaveCreate(props) {
                         spacing={1}
                       >
                         <Autocomplete
+                          value={
+                            vacationsList.find(
+                              (vac) => vac.id === formInfo.vacCode
+                            ) ?? null
+                          }
                           options={vacationsList}
-                          value={formInfo.vacation}
                           getOptionLabel={(option) => option.name ?? ''}
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
@@ -387,37 +366,39 @@ function GovernmentSickLeaveCreate(props) {
                           }}
                           renderInput={(params) => (
                             <TextField
-                              variant='outlined'
                               required
                               {...params}
-                              name='vacation'
+                              name='vacCode'
                               label={intl.formatMessage(messages.vacationType)}
                             />
                           )}
                         />
 
                         <GovernmentVacationPopup
-                          vacationId={formInfo.vacation?.id}
+                          vacationId={formInfo.vacCode}
                         />
                       </Stack>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={4}>
                       <Autocomplete
                         options={alternativeEmployeeList}
-                        getOptionLabel={(option) => option.name ?? ''}
-                        value={autoCOmpleteStates.alternative}
-                        isOptionEqualToValue={(option, value) => option.id === value?.id
+                        value={
+                          alternativeEmployeeList.find(
+                            (alt) => alt.id === formInfo.alternativeStaff
+                          ) ?? null
                         }
+                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option ? option.name : '')}
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
-                            alternativeStaff: value?.id,
+                            alternativeStaff: value !== null ? value.id : null,
                           }));
                         }}
                         renderInput={(params) => (
                           <TextField
-                            variant='outlined'
                             required={formInfo.HasAlternativeEmp}
                             {...params}
                             label={intl.formatMessage(
@@ -428,54 +409,17 @@ function GovernmentSickLeaveCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
-                      <div>
-                        <input
-                          accept='image/*, .pdf, .doc, .docx'
-                          id='attachment-button-file'
-                          type='file'
-                          style={{ display: 'none' }}
-                          onChange={(evt) => setFormInfo((prev) => ({
-                            ...prev,
-                            attachment: evt.target.files?.[0],
-                          }))
-                          }
-                        />
-                        <label htmlFor='attachment-button-file'>
-                          <Button variant='contained' component='span'>
-                            <FormattedMessage {...messages.uploadAttachment} />
-                          </Button>
-                        </label>
-                      </div>
-
-                      {formInfo.attachment && (
-                        <Button
-                          variant='outlined'
-                          component='span'
-                          sx={{ mt: 1 }}
-                          onClick={onAttachmentPopupBtnClick}
-                        >
-                          <FormattedMessage {...Payrollmessages.preview} />
-                        </Button>
-                      )}
-
-                      <FileViewerPopup
-                        handleClose={onAttachmentPopupClose}
-                        open={isAttachmentPopupOpen}
-                        uploadedFileType={getAttachmentType()}
-                        uploadedFile={formInfo.attachment}
-                        validImageTypes={validImageTypes}
-                        validPDFTypes={validPDFTypes}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={2}>
                       <Autocomplete
-                        options={monthsList}
-                        getOptionLabel={(option) => option.name ?? ''}
-                        value={autoCOmpleteStates.month}
-                        isOptionEqualToValue={(option, value) => option.id === value?.id
+                        value={
+                          monthsList.find(
+                            (month) => month.id === formInfo.monthId
+                          ) ?? null
                         }
+                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option ? option.name : '')}
+                        options={monthsList}
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
@@ -484,7 +428,6 @@ function GovernmentSickLeaveCreate(props) {
                         }}
                         renderInput={(params) => (
                           <TextField
-                            variant='outlined'
                             required={formInfo.HasAlternativeEmp}
                             {...params}
                             label={intl.formatMessage(messages.Month)}
@@ -493,13 +436,17 @@ function GovernmentSickLeaveCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={2}>
                       <Autocomplete
-                        options={yearsList}
-                        getOptionLabel={(option) => option.name ?? ''}
-                        value={autoCOmpleteStates.year}
-                        isOptionEqualToValue={(option, value) => option.id === value?.id
+                        value={
+                          yearsList.find(
+                            (year) => year.id === formInfo.yearId
+                          ) ?? null
                         }
+                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option ? option.name : '')}
+                        options={yearsList}
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
@@ -508,12 +455,54 @@ function GovernmentSickLeaveCreate(props) {
                         }}
                         renderInput={(params) => (
                           <TextField
-                            variant='outlined'
                             required={formInfo.HasAlternativeEmp}
                             {...params}
                             label={intl.formatMessage(messages.year)}
                           />
                         )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+                      <Stack direction='row' alignItems='center' spacing={2}>
+                        <div>
+                          <input
+                            accept='image/*, .pdf, .doc, .docx'
+                            id='attachment-button-file'
+                            type='file'
+                            style={{ display: 'none' }}
+                            onChange={(evt) => setFormInfo((prev) => ({
+                              ...prev,
+                              attachment: evt.target.files?.[0],
+                            }))
+                            }
+                          />
+                          <label htmlFor='attachment-button-file'>
+                            <Button variant='contained' component='span'>
+                              <FormattedMessage
+                                {...messages.uploadAttachment}
+                              />
+                            </Button>
+                          </label>
+                        </div>
+
+                        {formInfo.attachment && (
+                          <Button
+                            component='span'
+                            onClick={onAttachmentPopupBtnClick}
+                          >
+                            <FormattedMessage {...Payrollmessages.preview} />
+                          </Button>
+                        )}
+                      </Stack>
+
+                      <FileViewerPopup
+                        handleClose={onAttachmentPopupClose}
+                        open={isAttachmentPopupOpen}
+                        uploadedFileType={getAttachmentType()}
+                        uploadedFile={formInfo.attachment}
+                        validImageTypes={validImageTypes}
+                        validPDFTypes={validPDFTypes}
                       />
                     </Grid>
 
@@ -535,10 +524,6 @@ function GovernmentSickLeaveCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={12}>
-              <EmployeeData data={formInfo} setdata={setFormInfo} />
-            </Grid>
-
-            <Grid item xs={12} md={12}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -553,7 +538,7 @@ function GovernmentSickLeaveCreate(props) {
                           label={intl.formatMessage(messages.fromdate)}
                           value={formInfo.fromDate}
                           maxDate={
-                            formInfo.vacation?.id !== 5 ? formInfo.toDate : null
+                            formInfo.vacCode !== 5 ? formInfo.toDate : null
                           }
                           onChange={(date) => {
                             setFormInfo((prev) => ({
@@ -565,7 +550,6 @@ function GovernmentSickLeaveCreate(props) {
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              variant='outlined'
                               required
                             />
                           )}
@@ -578,7 +562,7 @@ function GovernmentSickLeaveCreate(props) {
                         <DatePicker
                           label={intl.formatMessage(messages.todate)}
                           value={formInfo.toDate}
-                          disabled={formInfo.vacation.id === 5}
+                          disabled={formInfo.vacCode === 5}
                           onChange={(date) => {
                             setFormInfo((prev) => ({
                               ...prev,
@@ -589,7 +573,6 @@ function GovernmentSickLeaveCreate(props) {
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              variant='outlined'
                               required
                             />
                           )}
@@ -604,7 +587,6 @@ function GovernmentSickLeaveCreate(props) {
                         disabled
                         label={intl.formatMessage(messages.daysCount)}
                         className={classes.field}
-                        variant='outlined'
                       />
                     </Grid>
 
@@ -616,7 +598,6 @@ function GovernmentSickLeaveCreate(props) {
                         label={intl.formatMessage(messages.dayDeducedBy)}
                         className={classes.field}
                         disabled
-                        variant='outlined'
                       />
                     </Grid>
                   </Grid>
@@ -633,50 +614,48 @@ function GovernmentSickLeaveCreate(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         name='tel'
                         value={formInfo.tel}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.telNumber)}
                         className={classes.field}
-                        variant='outlined'
-                        required
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         name='address'
                         value={formInfo.address}
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.address)}
                         className={classes.field}
-                        variant='outlined'
-                        required
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         name='vacReson'
+                        multiline
+                        rows={3}
                         value={formInfo.vacReson}
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.leaveReason)}
                         className={classes.field}
-                        variant='outlined'
                         required
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         name='notes'
+                        multiline
+                        rows={3}
                         value={formInfo.notes}
                         onChange={onInputChange}
                         label={intl.formatMessage(Payrollmessages.notes)}
                         className={classes.field}
-                        variant='outlined'
                       />
                     </Grid>
                   </Grid>

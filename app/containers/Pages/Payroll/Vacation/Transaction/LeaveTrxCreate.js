@@ -12,6 +12,7 @@ import {
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import React, { useEffect, useState } from 'react';
@@ -24,10 +25,10 @@ import EmployeeData from '../../Component/EmployeeData';
 import SaveButton from '../../Component/SaveButton';
 import VacationBalancePopup from '../../Component/VacationBalance';
 import useStyles from '../../Style';
+import GeneralListApis from '../../api/GeneralListApis';
 import Payrollmessages from '../../messages';
 import api from '../api/LeaveTrxData';
 import messages from '../messages';
-import GeneralListApis from '../../api/GeneralListApis';
 
 function LeaveTrxCreate(props) {
   const { intl } = props;
@@ -84,8 +85,8 @@ function LeaveTrxCreate(props) {
     notes: '',
     exemptEntryRec: false,
     exemptLeaveRec: false,
-    alternativeStaff: '',
-    vacation: {},
+    alternativeStaff: null,
+    vacCode: null,
   });
 
   const fetchNeededData = async () => {
@@ -125,7 +126,7 @@ function LeaveTrxCreate(props) {
         daysCount: formInfo.daysCount,
       };
 
-      if (formInfo.vacation?.id === 5) {
+      if (formInfo.vacCode === 5) {
         obj.toDate = formInfo.fromDate;
         obj.daysCount = 0.5;
       } else {
@@ -155,7 +156,7 @@ function LeaveTrxCreate(props) {
     calculateDaysCount();
   }, [formInfo.toDate, formInfo.fromDate]);
 
-  const formateDate = (date) => new Date(date);
+  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -164,9 +165,9 @@ function LeaveTrxCreate(props) {
 
     const formData = { ...formInfo };
 
-    if (formInfo.vacation.id !== 5) {
+    if (formInfo.vacCode !== 5) {
       if (formInfo.fromDate && formInfo.toDate) {
-        const isFromDateLessThanToDate =					new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
+        const isFromDateLessThanToDate = new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
 
         if (isFromDateLessThanToDate) {
           const { date, ...reset } = errors;
@@ -178,7 +179,7 @@ function LeaveTrxCreate(props) {
       }
     }
 
-    if (formInfo.vacation.id === 5) {
+    if (formInfo.vacCode === 5) {
       if (formInfo.attachment) {
         const { attachment, ...reset } = errors;
 
@@ -192,13 +193,12 @@ function LeaveTrxCreate(props) {
       formData.trxDate = formateDate(formData.trxDate);
       formData.fromDate = formateDate(formData.fromDate);
       formData.toDate = formateDate(formData.toDate);
-      formData.vacCode = formData.vacation?.id;
 
       setProcessing(true);
 
       try {
         const {
-          vacation, hiringDate, employeeName, job, organization, dayDeducedBy, ...reset
+          hiringDate, employeeName, job, organization, dayDeducedBy, ...reset
         } = formData;
         await api(locale).save(reset);
 
@@ -236,13 +236,13 @@ function LeaveTrxCreate(props) {
       if (value.id === 5) {
         setFormInfo((prev) => ({
           ...prev,
-          vacation: value,
+          vacCode: value.id,
           toDate: prev.fromDate,
         }));
       } else {
         setFormInfo((prev) => ({
           ...prev,
-          vacation: value,
+          vacCode: value.id,
           toDate: null,
           daysCount: '',
         }));
@@ -250,7 +250,7 @@ function LeaveTrxCreate(props) {
     } else {
       setFormInfo((prev) => ({
         ...prev,
-        vacation: {},
+        vacCode: null,
         toDate: null,
         daysCount: '',
       }));
@@ -293,6 +293,10 @@ function LeaveTrxCreate(props) {
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
             <Grid item xs={12} md={12}>
+              <EmployeeData data={formInfo} setdata={setFormInfo} />
+            </Grid>
+
+            <Grid item xs={12} md={12}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -301,7 +305,7 @@ function LeaveTrxCreate(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={4}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(Payrollmessages.date)}
@@ -320,7 +324,7 @@ function LeaveTrxCreate(props) {
                       </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={4}>
                       <Stack
                         direction='row'
                         justifyContent='space-between'
@@ -328,8 +332,15 @@ function LeaveTrxCreate(props) {
                         spacing={1}
                       >
                         <Autocomplete
+                          value={
+                            vacationsList.find(
+                              (vac) => vac.id === formInfo.vacCode
+                            ) ?? null
+                          }
                           options={vacationsList}
                           getOptionLabel={(option) => option.name ?? ''}
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
                           onChange={onVacationChange}
                           sx={{
                             '.MuiInputBase-root': {
@@ -353,14 +364,21 @@ function LeaveTrxCreate(props) {
                       </Stack>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={4}>
                       <Autocomplete
                         options={alternativeEmployeeList}
-                        getOptionLabel={(option) => option.name}
+                        value={
+                          alternativeEmployeeList.find(
+                            (alt) => alt.id === formInfo.alternativeStaff
+                          ) ?? null
+                        }
+                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option ? option.name : '')}
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
-                            alternativeStaff: value?.id,
+                            alternativeStaff: value !== null ? value.id : null,
                           }));
                         }}
                         renderInput={(params) => (
@@ -376,30 +394,32 @@ function LeaveTrxCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
-                      <div>
-                        <input
-                          accept='image/*, .pdf, .doc, .docx'
-                          id='attachment-button-file'
-                          type='file'
-                          style={{ display: 'none' }}
-                          onChange={(evt) => setFormInfo((prev) => ({
-                            ...prev,
-                            attachment: evt.target.files?.[0],
-                          }))
-                          }
-                        />
-                        <label htmlFor='attachment-button-file'>
-                          <Button variant='contained' component='span'>
-                            <FormattedMessage {...messages.uploadAttachment} />
-                          </Button>
-                        </label>
-                      </div>
+                    <Grid item xs={12} md={4}>
+                      <Stack direction='row' alignItems='center' gap={3} >
+                        <div>
+                          <input
+                            accept='image/*, .pdf, .doc, .docx'
+                            id='attachment-button-file'
+                            type='file'
+                            style={{ display: 'none' }}
+                            onChange={(evt) => setFormInfo((prev) => ({
+                              ...prev,
+                              attachment: evt.target.files?.[0],
+                            }))
+                            }
+                          />
+                          <label htmlFor='attachment-button-file'>
+                            <Button variant='contained' component='span'>
+                              <FormattedMessage {...messages.uploadAttachment} />
+                            </Button>
+                          </label>
+                        </div>
 
-                      {formInfo.attachment && <Button variant='outlined' component='span' sx={{ mt: 1 }} onClick={onAttachmentPopupBtnClick} >
-                        <FormattedMessage {...Payrollmessages.preview} />
-                      </Button>
-                      }
+                        {formInfo.attachment && <Button variant='outlined' component='span' onClick={onAttachmentPopupBtnClick} >
+                          <FormattedMessage {...Payrollmessages.preview} />
+                        </Button>
+                        }
+                      </Stack>
 
                       <FileViewerPopup
                         handleClose={onAttachmentPopupClose}
@@ -442,10 +462,6 @@ function LeaveTrxCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={12}>
-              <EmployeeData data={formInfo} setdata={setFormInfo} />
-            </Grid>
-
-            <Grid item xs={12} md={12}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -460,7 +476,7 @@ function LeaveTrxCreate(props) {
                           label={intl.formatMessage(messages.fromdate)}
                           value={formInfo.fromDate}
                           maxDate={
-                            formInfo.vacation?.id !== 5 ? formInfo.toDate : null
+                            formInfo.vacCode !== 5 ? formInfo.toDate : null
                           }
                           onChange={(date) => {
                             setFormInfo((prev) => ({
@@ -485,7 +501,7 @@ function LeaveTrxCreate(props) {
                         <DesktopDatePicker
                           label={intl.formatMessage(messages.todate)}
                           value={formInfo.toDate}
-                          disabled={formInfo.vacation.id === 5}
+                          disabled={formInfo.vacCode === 5}
                           onChange={(date) => {
                             setFormInfo((prev) => ({
                               ...prev,
@@ -540,7 +556,7 @@ function LeaveTrxCreate(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         name='tel'
                         value={formInfo.tel}
@@ -548,11 +564,10 @@ function LeaveTrxCreate(props) {
                         label={intl.formatMessage(messages.telNumber)}
                         className={classes.field}
                         variant='outlined'
-                        required
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         name='address'
                         value={formInfo.address}
@@ -560,11 +575,10 @@ function LeaveTrxCreate(props) {
                         label={intl.formatMessage(messages.address)}
                         className={classes.field}
                         variant='outlined'
-                        required
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         name='vacReson'
                         value={formInfo.vacReson}
@@ -572,11 +586,13 @@ function LeaveTrxCreate(props) {
                         label={intl.formatMessage(messages.leaveReason)}
                         className={classes.field}
                         variant='outlined'
+                        multiline
+                        rows={3}
                         required
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         name='notes'
                         value={formInfo.notes}
@@ -584,6 +600,8 @@ function LeaveTrxCreate(props) {
                         label={intl.formatMessage(Payrollmessages.notes)}
                         className={classes.field}
                         variant='outlined'
+                        multiline
+                        rows={3}
                       />
                     </Grid>
                   </Grid>
