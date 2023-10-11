@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   Grid,
   Stack,
-  TextField,
+  TextField
 } from '@mui/material';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -22,9 +22,9 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import payrollMessages from '../../messages';
 import API from '../api/LeaveTrxReportData';
 import messages from '../messages';
-import payrollMessages from '../../messages';
 
 function LeaveTrxReport(props) {
   const { intl } = props;
@@ -212,13 +212,14 @@ function LeaveTrxReport(props) {
   };
 
   return (
-    <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-      <Box
-        sx={{
-          zIndex: 100,
-          position: 'relative',
-        }}
-      >
+    <Box
+      sx={{
+        zIndex: 100,
+        position: 'relative',
+      }}
+    >
+
+      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Backdrop
           sx={{
             color: 'primary.main',
@@ -231,7 +232,7 @@ function LeaveTrxReport(props) {
           <CircularProgress color='inherit' />
         </Backdrop>
 
-        <Grid container spacing={3} mb={3}>
+        <Grid container spacing={3}>
           <Grid item xs={12} md={2}>
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DesktopDatePicker
@@ -397,16 +398,17 @@ function LeaveTrxReport(props) {
           </Grid>
         </Grid>
 
-        <div className={classes.table}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      </Box>
-    </PapperBlock>
+      </PapperBlock>
+
+      <div className={classes.table}>
+        <MUIDataTable
+          title=''
+          data={tableData}
+          columns={columns}
+          options={options}
+        />
+      </div>
+    </Box>
   );
 }
 
