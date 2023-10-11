@@ -1,9 +1,12 @@
 import {
   Autocomplete,
+  Backdrop,
+  Box,
   Button,
   Card,
   CardContent,
   Checkbox,
+  CircularProgress,
   FormControlLabel,
   Grid,
   Stack,
@@ -56,6 +59,7 @@ function LeaveTrxCreate(props) {
   const [vacationsList, setVacationsList] = useState([]);
   const [alternativeEmployeeList, setAlternativeEmployeeList] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [isAttachmentPopupOpen, setIsAttachmentPopupOpen] = useState(false);
   const [formInfo, setFormInfo] = useState({
@@ -90,6 +94,8 @@ function LeaveTrxCreate(props) {
   });
 
   const fetchNeededData = async () => {
+    setIsLoading(true);
+
     try {
       const vacationResponse = await api(locale).GetVacationType();
       setVacationsList(vacationResponse);
@@ -106,15 +112,24 @@ function LeaveTrxCreate(props) {
       }
     } catch (err) {
       toast.error(JSON.stringify(err.response.data));
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const GetAlternativeEmployee = async () => {
     if (formInfo.employeeId) {
-      const alternativeEmployeeResponse = await GeneralListApis(
-        locale
-      ).GetAlternativeEmployeeList(formInfo.employeeId);
-      setAlternativeEmployeeList(alternativeEmployeeResponse);
+      try {
+        setIsLoading(true);
+        const alternativeEmployeeResponse = await GeneralListApis(
+          locale
+        ).GetAlternativeEmployeeList(formInfo.employeeId);
+        setAlternativeEmployeeList(alternativeEmployeeResponse);
+      } catch (error) {
+        toast.error(JSON.stringify(error.response.data ?? error));
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -195,6 +210,7 @@ function LeaveTrxCreate(props) {
       formData.toDate = formateDate(formData.toDate);
 
       setProcessing(true);
+      setIsLoading(true);
 
       try {
         const {
@@ -208,6 +224,7 @@ function LeaveTrxCreate(props) {
         toast.error(JSON.stringify(error.response.data ?? error));
       } finally {
         setProcessing(false);
+        setIsLoading(false);
       }
     } else {
       Object.keys(errors).forEach((key) => {
@@ -279,7 +296,24 @@ function LeaveTrxCreate(props) {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: 'relative',
+      }}
+    >
+      <Backdrop
+        sx={{
+          color: 'primary.main',
+          zIndex: 10,
+          position: 'absolute',
+          backgroundColor: 'rgba(255, 255, 255, 0.69)',
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color='inherit' />
+      </Backdrop>
+
       <PapperBlock
         whiteBg
         icon='border_color'
@@ -625,7 +659,7 @@ function LeaveTrxCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </>
+    </Box>
   );
 }
 

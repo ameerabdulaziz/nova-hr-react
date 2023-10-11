@@ -1,9 +1,12 @@
 import {
   Autocomplete,
+  Backdrop,
+  Box,
   Button,
   Card,
   CardContent,
   Checkbox,
+  CircularProgress,
   FormControlLabel,
   Grid,
   Stack,
@@ -12,11 +15,11 @@ import {
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { format } from 'date-fns';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -58,6 +61,7 @@ function GovernmentSickLeaveCreate(props) {
   const [yearsList, setYearsList] = useState([]);
   const [alternativeEmployeeList, setAlternativeEmployeeList] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [isAttachmentPopupOpen, setIsAttachmentPopupOpen] = useState(false);
   const [formInfo, setFormInfo] = useState({
@@ -94,6 +98,8 @@ function GovernmentSickLeaveCreate(props) {
   });
 
   const fetchNeededData = async () => {
+    setIsLoading(true);
+
     try {
       const vacationResponse = await GeneralListApis(
         locale
@@ -112,15 +118,24 @@ function GovernmentSickLeaveCreate(props) {
       }
     } catch (err) {
       toast.error(JSON.stringify(err.response.data));
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const GetAlternativeEmployee = async () => {
     if (formInfo.employeeId) {
-      const alternativeEmployeeResponse = await GeneralListApis(
-        locale
-      ).GetAlternativeEmployeeList(formInfo.employeeId);
-      setAlternativeEmployeeList(alternativeEmployeeResponse);
+      try {
+        setIsLoading(true);
+        const alternativeEmployeeResponse = await GeneralListApis(
+          locale
+        ).GetAlternativeEmployeeList(formInfo.employeeId);
+        setAlternativeEmployeeList(alternativeEmployeeResponse);
+      } catch (error) {
+        toast.error(JSON.stringify(error.response.data ?? error));
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -201,6 +216,7 @@ function GovernmentSickLeaveCreate(props) {
       formData.toDate = formateDate(formData.toDate);
 
       setProcessing(true);
+      setIsLoading(true);
 
       try {
         const {
@@ -219,6 +235,7 @@ function GovernmentSickLeaveCreate(props) {
         toast.error(JSON.stringify(error.response.data ?? error));
       } finally {
         setProcessing(false);
+        setIsLoading(false);
       }
     } else {
       Object.keys(errors).forEach((key) => {
@@ -290,7 +307,24 @@ function GovernmentSickLeaveCreate(props) {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: 'relative',
+      }}
+    >
+      <Backdrop
+        sx={{
+          color: 'primary.main',
+          zIndex: 10,
+          position: 'absolute',
+          backgroundColor: 'rgba(255, 255, 255, 0.69)',
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color='inherit' />
+      </Backdrop>
+
       <PapperBlock
         whiteBg
         icon='border_color'
@@ -679,7 +713,7 @@ function GovernmentSickLeaveCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </>
+    </Box>
   );
 }
 
