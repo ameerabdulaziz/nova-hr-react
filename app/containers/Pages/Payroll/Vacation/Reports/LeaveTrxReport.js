@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
-import { toast } from 'react-hot-toast';
+import {
+  Autocomplete,
+  Backdrop,
+  Box,
+  Button,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  Grid,
+  Stack,
+  TextField
+} from '@mui/material';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import {
-  Autocomplete,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
-} from '@mui/material';
-import GeneralListApis from '../../api/GeneralListApis';
+import { PapperBlock } from 'enl-components';
+import MUIDataTable from 'mui-datatables';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
 import useStyles from '../../Style';
-import messages from '../messages';
+import GeneralListApis from '../../api/GeneralListApis';
+import payrollMessages from '../../messages';
 import API from '../api/LeaveTrxReportData';
+import messages from '../messages';
 
 function LeaveTrxReport(props) {
   const { intl } = props;
@@ -32,6 +37,8 @@ function LeaveTrxReport(props) {
   const [VacationsList, setVacationsList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
   const [statusList, setStatusList] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const Title = localStorage.getItem('MenuName');
 
@@ -132,48 +139,66 @@ function LeaveTrxReport(props) {
     filterType: 'dropdown',
     responsive: 'vertical',
     print: true,
-    rowsPerPage: 10,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 15, 50, 100],
     page: 0,
     searchOpen: false,
     selectableRows: 'none',
+    serverSide: true,
     onSearchClose: () => {
       // some logic
+    },
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(payrollMessages.loading)
+          : intl.formatMessage(payrollMessages.noMatchingRecord),
+      },
     },
   };
 
   async function fetchData() {
-    const employees = await GeneralListApis(locale).GetEmployeeList();
-    setEmployeeList(employees);
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
 
-    const Vacations = await GeneralListApis(locale).GetVacList();
-    setVacationsList(Vacations);
+      const Vacations = await GeneralListApis(locale).GetVacList();
+      setVacationsList(Vacations);
 
-    const department = await GeneralListApis(locale).GetDepartmentList();
-    setDepartmentList(department);
+      const department = await GeneralListApis(locale).GetDepartmentList();
+      setDepartmentList(department);
 
-    const status = await GeneralListApis(locale).GetEmpStatusList();
-    setStatusList(status);
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+    } catch (error) {
+      toast.error(JSON.stringify(error.response.data));
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
 
   const fetchTableData = async () => {
-    const formData = { ...formInfo };
-
-    formData.VacationId = formData.VacationId.map((item) => item.id);
-    formData.FromDate = formateDate(formData.FromDate);
-    formData.ToDate = formateDate(formData.ToDate);
-
-    Object.keys(formData).forEach((key) => {
-      formData[key] = formData[key] === null ? '' : formData[key];
-    });
-
     try {
+      setIsLoading(true);
+      const formData = { ...formInfo };
+
+      formData.VacationId = formData.VacationId.map((item) => item.id);
+      formData.FromDate = formateDate(formData.FromDate);
+      formData.ToDate = formateDate(formData.ToDate);
+
+      Object.keys(formData).forEach((key) => {
+        formData[key] = formData[key] === null ? '' : formData[key];
+      });
+
       const dataApi = await API(locale).GetReport(formData);
 
       setTableData(dataApi);
-    } catch (err) {
-      toast.error(JSON.stringify(err.response.data));
+    } catch (error) {
+      toast.error(JSON.stringify(error.response.data));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -187,8 +212,26 @@ function LeaveTrxReport(props) {
   };
 
   return (
-    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-      <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: 'relative',
+      }}
+    >
+
+      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+        <Backdrop
+          sx={{
+            color: 'primary.main',
+            zIndex: 10,
+            position: 'absolute',
+            backgroundColor: 'rgba(255, 255, 255, 0.69)',
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color='inherit' />
+        </Backdrop>
+
         <Grid container spacing={3}>
           <Grid item xs={12} md={2}>
             <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -203,7 +246,7 @@ function LeaveTrxReport(props) {
                 }}
                 className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
+                  <TextField {...params} variant='outlined' />
                 )}
               />
             </LocalizationProvider>
@@ -222,7 +265,7 @@ function LeaveTrxReport(props) {
                 }}
                 className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
+                  <TextField {...params} variant='outlined' />
                 )}
               />
             </LocalizationProvider>
@@ -230,7 +273,7 @@ function LeaveTrxReport(props) {
 
           <Grid item xs={12} md={2}>
             <Autocomplete
-              id="departmentId"
+              id='departmentId'
               options={departmentList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -241,9 +284,9 @@ function LeaveTrxReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   {...params}
-                  name="departmentId"
+                  name='departmentId'
                   required
                   label={intl.formatMessage(messages.department)}
                 />
@@ -253,7 +296,7 @@ function LeaveTrxReport(props) {
 
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id="employeeId"
+              id='employeeId'
               options={EmployeeList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -264,9 +307,9 @@ function LeaveTrxReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   {...params}
-                  name="employeeId"
+                  name='employeeId'
                   required
                   label={intl.formatMessage(messages.employeeName)}
                 />
@@ -274,9 +317,9 @@ function LeaveTrxReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={3}>
             <Autocomplete
-              id="StatusList"
+              id='StatusList'
               options={statusList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -287,18 +330,18 @@ function LeaveTrxReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   {...params}
-                  name="StatusList"
+                  name='StatusList'
                   label={intl.formatMessage(messages.status)}
                 />
               )}
             />
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={4}>
             <Autocomplete
-              id="vacationId"
+              id='vacationId'
               options={VacationsList}
               multiple
               getOptionLabel={(option) => option.name}
@@ -316,9 +359,9 @@ function LeaveTrxReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   {...params}
-                  name="VacationId"
+                  name='VacationId'
                   required
                   label={intl.formatMessage(messages.vacationType)}
                 />
@@ -326,42 +369,46 @@ function LeaveTrxReport(props) {
             />
           </Grid>
 
-          <Grid item md={3}>
-            <FormControlLabel
-              control={<Checkbox />}
-              onChange={(evt) =>
-                setFormInfo((prev) => ({
+          <Grid item md={5}>
+            <Stack
+              direction='row'
+              alignItems='center'
+              justifyContent='space-between'
+            >
+              <FormControlLabel
+                control={<Checkbox />}
+                onChange={(evt) => setFormInfo((prev) => ({
                   ...prev,
                   InsertDate: evt.target.checked,
                 }))
-              }
-              checked={formInfo.InsertDate}
-              label={intl.formatMessage(messages.filterOnRegistrationHistory)}
-            />
-          </Grid>
+                }
+                checked={formInfo.InsertDate}
+                label={intl.formatMessage(messages.filterOnRegistrationHistory)}
+              />
 
-          <Grid item xs={12} md={2}>
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              onClick={onSearchBtnClick}
-            >
-              <FormattedMessage {...messages.search} />
-            </Button>
+              <Button
+                variant='contained'
+                size='medium'
+                color='primary'
+                onClick={onSearchBtnClick}
+              >
+                <FormattedMessage {...messages.search} />
+              </Button>
+            </Stack>
           </Grid>
         </Grid>
 
-        <div className={classes.table}>
-          <MUIDataTable
-            title=""
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
+      </PapperBlock>
+
+      <div className={classes.table}>
+        <MUIDataTable
+          title=''
+          data={tableData}
+          columns={columns}
+          options={options}
+        />
       </div>
-    </PapperBlock>
+    </Box>
   );
 }
 

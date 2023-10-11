@@ -906,6 +906,8 @@
   "boilerplate.containers.Payroll.month": "شهرى",
   "boilerplate.containers.Payroll.sixMonth": "6 شهور",
   "boilerplate.containers.Payroll.year": "سنوى",
+  "boilerplate.containers.Payroll.loading": "جار التحميل",
+  "boilerplate.containers.Payroll.noMatchingRecord":"عذرا، لم يتم العثور على سجلات مطابقة",  
   "boilerplate.containers.Payroll.hiringDateNo": "من تاريخ التعيين",
   "boilerplate.containers.Payroll.lastDate": "اخر مخالفه",
   "boilerplate.containers.Payroll.oldElemVal": "القيمة السابقة",

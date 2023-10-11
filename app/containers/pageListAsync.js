@@ -1282,6 +1282,13 @@ export const LeaveTrxReport = loadable(
   }
 );
 
+export const LeaveReport = loadable(
+  () => import('./Pages/Payroll/Vacation/Reports/LeaveReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LeaveTrx = loadable(
   () => import('./Pages/Payroll/Vacation/Transaction/LeaveTrx'),
   {

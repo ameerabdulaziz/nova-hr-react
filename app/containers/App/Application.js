@@ -172,6 +172,7 @@ import {
   ReplaceAnnualLeaveBalance,
   OpeningClosingTheYearForLeaves,ShiftCreate,ShiftList,ShiftEmployeeList,ShiftEmployeeCreate,ShiftOrgnization,  
   LeaveTrxReport,
+  LeaveReport,
   LeaveTrxCreate,
   LeaveTrx,
   ShiftTransfere,ShiftReview,ShiftImport,
@@ -821,6 +822,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/VacationTrxReport"
           component={LeaveTrxReport}
+        />
+
+        <Route
+          path="/app/Pages/vac/LeaveReport"
+          component={LeaveReport}
         />
 
         <Route
