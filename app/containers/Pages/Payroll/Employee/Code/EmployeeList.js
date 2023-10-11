@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CheckBox, IndeterminateCheckBoxRounded } from '@mui/icons-material';
 import messages from '../messages';
 import { FormattedMessage } from 'react-intl';
-import style from '../../../../../styles/Styles.scss';
+import style from '../../../../../styles/styles.scss';
 import useStyles from '../../Style';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
