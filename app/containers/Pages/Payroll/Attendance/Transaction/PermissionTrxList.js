@@ -13,6 +13,8 @@ import { PapperBlock } from 'enl-components';
 import EditButton from '../../Component/EditButton';
 import DeleteButton from '../../Component/DeleteButton';
 import AddButton   from '../../Component/AddButton';
+import { format } from "date-fns";
+
 
 function PermissionTrxList(props) {
   
@@ -21,7 +23,6 @@ function PermissionTrxList(props) {
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
-  
   async function deleteList(selectedRows){
     
       const list=[];
@@ -59,6 +60,8 @@ function PermissionTrxList(props) {
     }
   }
   async function fetchData() {
+    
+  
     const dataApi = await ApiData(locale).GetList();
     setdata(dataApi);
   }
@@ -78,6 +81,7 @@ function PermissionTrxList(props) {
       label:<FormattedMessage {...Payrollmessages['date']} />,
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     
@@ -181,14 +185,14 @@ function PermissionTrxList(props) {
 
   return (
     <PapperBlock whiteBg icon="border_color" title={Title} desc=""> 
-      <div className={classes.table}>
+      <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
           title=""
           data={data}
           columns={columns}
           options={options}
         />
-      </div>
+        </div>
     </PapperBlock>
   );
 }

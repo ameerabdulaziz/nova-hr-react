@@ -363,7 +363,7 @@ export const Section = loadable(
   }
 );
 export const Gender = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
+  () => import('./Pages/Payroll/MainData/Code/Gender'),
   {
     fallback: <Loading />,
   }

@@ -20,6 +20,7 @@ function EditTable(props) {
   const reset = useDispatch();
 
   useEffect(() => {
+    
     return () => {
       console.log("leave page");
       reset(resetStateAction( branch))
@@ -30,7 +31,8 @@ function EditTable(props) {
   return (
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
-      <div className={classes.rootTable}>
+      {/* <div className={classes.rootTable}> */}
+      <div className={classes.CustomMUIDataTable}>
         <CrudTable
           dataInit={[]}
           anchorTable={anchorTable}
@@ -46,4 +48,4 @@ function EditTable(props) {
   );
 }
 
-export default EditTable;
+export default React.memo(EditTable);

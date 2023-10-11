@@ -53,7 +53,10 @@ function LeftSidebarLayout(props) {
         userAttr={userAttr}
         leftSidebar
       />
-      <main className={cx(classes.content, !sidebarOpen ? classes.contentPaddingLeft : '')} style={{ background: "rgb(245, 247, 250)"}} id="mainContent">
+      {/* style={{ background: "rgb(245, 247, 250)"}} */}
+      {/* style={{ background: "#292929"}} */}
+      
+      <main className={cx(classes.content, !sidebarOpen ? classes.contentPaddingLeft : '')}  id="mainContent">
         <section className={cx(classes.mainWrap, classes.sidebarLayout)}>
         {/*   {titleException.indexOf(history.location.pathname) < 0 && (
             <div className={classes.pageTitle}>

@@ -1,6 +1,17 @@
 import { makeStyles } from 'tss-react/mui';
 import { lighten, darken, alpha } from '@mui/material/styles';
 const useMainStyles = makeStyles()((theme) => ({
+  
+  CustomMUIDataTable: {
+    '& .MuiToolbar-root':{background:theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light},
+    '& .MuiTableCell-head':{color: theme.palette.primary.main,},
+    '& .MuiTableCell-root':{paddingRight:'0px',paddingTop:'0px',paddingBottom:'0px'},
+    '& .MuiTablePagination-toolbar':{background:'white'},
+    '& .mui-style-ltr-bfklix-rootTable':{marginTop:'0px'},
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important",
+  },
+
+
   table: {
     '& > div': {
       overflow: 'auto',

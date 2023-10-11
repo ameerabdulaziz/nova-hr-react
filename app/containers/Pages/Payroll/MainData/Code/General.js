@@ -10,19 +10,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import messages from '../../../../Tables/messages';
 import { EditTable } from '../../../../Tables/demos';
 import generalData from '../api/GeneralData';
-
-const useStyles = makeStyles()(() => ({
-  root: {
-    flexGrow: 1,
-  },
-}));
+import useStyles from '../../Style';
 
 function General(props1) {
   const title = localStorage.getItem('MenuName');
   const description = brand.desc;
 
   const { classes } = useStyles();
-
+  
   const anchorTable = [
     {
       name: 'id',
@@ -75,13 +70,12 @@ function General(props1) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-        <div className={classes.root}>
+        
           <EditTable
             anchorTable={anchorTable}
             title={title}
             API={generalData(props1.table)}
           />
-        </div>
       </PapperBlock>
     </div>
   );

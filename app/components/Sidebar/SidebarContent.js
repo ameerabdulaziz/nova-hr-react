@@ -58,7 +58,8 @@ function SidebarContent(props) {
   }, []);
 
   return (
-    <div className={cx(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}  style={{ background: "white" }}>
+    /* style={{ background: "white" }} */
+    <div className={cx(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}  >
       <div className={classes.drawerHeader}>
         <div
           className={classes.profile}
