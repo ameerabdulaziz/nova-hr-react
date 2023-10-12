@@ -1,25 +1,25 @@
-import { Backdrop, Box, CircularProgress } from '@mui/material';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
-import AddButton from '../../Component/AddButton';
-import DeleteButton from '../../Component/DeleteButton';
-import EditButton from '../../Component/EditButton';
-import useStyles from '../../Style';
-import payrollMessages from '../../messages';
-import api from '../api/GovernmentSickLeaveData';
-import messages from '../messages';
+import { Backdrop, Box, CircularProgress } from "@mui/material";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import MUIDataTable from "mui-datatables";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import style from "../../../../../styles/styles.scss";
+import AddButton from "../../Component/AddButton";
+import DeleteButton from "../../Component/DeleteButton";
+import EditButton from "../../Component/EditButton";
+import useStyles from "../../Style";
+import payrollMessages from "../../messages";
+import api from "../api/GovernmentSickLeaveData";
+import messages from "../messages";
 
 function GovernmentSickLeave(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const Title = localStorage.getItem('MenuName');
+  const Title = localStorage.getItem("MenuName");
 
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
@@ -28,9 +28,7 @@ function GovernmentSickLeave(props) {
     setIsLoading(true);
 
     try {
-      const response = await api(
-        locale
-      ).GetList();
+      const response = await api(locale).GetList();
       setTableData(response);
     } catch (error) {
       toast.error(JSON.stringify(error.response.data));
@@ -39,7 +37,7 @@ function GovernmentSickLeave(props) {
     }
   };
 
-  const deleteRow = async id => {
+  const deleteRow = async (id) => {
     setIsLoading(true);
 
     try {
@@ -65,14 +63,14 @@ function GovernmentSickLeave(props) {
 
   const columns = [
     {
-      name: 'id',
+      name: "id",
       options: {
         filter: false,
-        display: false
+        display: false,
       },
     },
     {
-      name: 'employeeId',
+      name: "employeeId",
       label: <FormattedMessage {...messages.employeeCode} />,
       options: {
         filter: true,
@@ -80,7 +78,7 @@ function GovernmentSickLeave(props) {
     },
 
     {
-      name: 'employeeName',
+      name: "employeeName",
       label: <FormattedMessage {...messages.employeeName} />,
       options: {
         filter: true,
@@ -88,42 +86,42 @@ function GovernmentSickLeave(props) {
     },
 
     {
-      name: 'vacationName',
+      name: "vacationName",
       label: <FormattedMessage {...messages.LeaveType} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'daysCount',
+      name: "daysCount",
       label: <FormattedMessage {...messages.daysCount} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'fromDate',
+      name: "fromDate",
       label: <FormattedMessage {...messages.fromdate} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'toDate',
+      name: "toDate",
       label: <FormattedMessage {...messages.todate} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'trxDate',
+      name: "trxDate",
       label: <FormattedMessage {...messages.transactionDate} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'Actions',
+      name: "Actions",
       label: <FormattedMessage {...messages.actions} />,
       options: {
         filter: false,
@@ -131,12 +129,10 @@ function GovernmentSickLeave(props) {
           <div className={style.actionsSty}>
             <EditButton
               param={{ id: tableMeta.rowData[0] }}
-              url={'/app/Pages/vac/GovernmentSickLeaveEdit'}
+              url={"/app/Pages/vac/GovernmentSickLeaveEdit"}
             />
 
-            <DeleteButton
-              clickfnc={() => deleteRow(tableMeta.rowData[0])}
-            />
+            <DeleteButton clickfnc={() => deleteRow(tableMeta.rowData[0])} />
           </div>
         ),
       },
@@ -144,19 +140,19 @@ function GovernmentSickLeave(props) {
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
     rowsPerPage: 50,
     rowsPerPageOptions: [10, 15, 50, 100],
     page: 0,
     searchOpen: true,
-    selectableRows: 'none',
+    selectableRows: "none",
     onSearchClose: () => {
       // some logic
     },
     customToolbar: () => (
-      <AddButton url={'/app/Pages/vac/GovernmentSickLeaveCreate'} />
+      <AddButton url={"/app/Pages/vac/GovernmentSickLeaveCreate"} />
     ),
     textLabels: {
       body: {
@@ -171,31 +167,31 @@ function GovernmentSickLeave(props) {
     <Box
       sx={{
         zIndex: 100,
-        position: 'relative',
+        position: "relative",
       }}
     >
       <Backdrop
         sx={{
-          color: 'primary.main',
+          color: "primary.main",
           zIndex: 10,
-          position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.69)',
+          position: "absolute",
+          backgroundColor: "rgba(255, 255, 255, 0.69)",
         }}
         open={isLoading}
       >
-        <CircularProgress color='inherit' />
+        <CircularProgress color="inherit" />
       </Backdrop>
-
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <div className={classes.table}>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
-            title=''
+            title=""
             data={tableData}
             columns={columns}
             options={options}
           />
         </div>
-      </PapperBlock>    </Box>
+      </PapperBlock>{" "}
+    </Box>
   );
 }
 

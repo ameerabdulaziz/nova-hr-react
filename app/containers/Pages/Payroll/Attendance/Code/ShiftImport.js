@@ -180,7 +180,7 @@ const submitFun = async (e) => {
 
         {fileData.length !== 0 && (
 
-            <div className={`${classes2.ImportTableContainer}  ${locale === "ar" ? classes2.tableContainerStyAr : ''}`}>
+            <div className={classes.CustomMUIDataTable}>
                     <MUIDataTable
                     title={fileTitle}
                     data={fileData}

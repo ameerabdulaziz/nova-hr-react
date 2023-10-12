@@ -182,7 +182,7 @@ function WorkFlowList() {
 
   return (
     <PapperBlock whiteBg icon="border_color" title={Title} desc=""> 
-      <div className={classes.table}>
+      <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
           title=""
           data={data}

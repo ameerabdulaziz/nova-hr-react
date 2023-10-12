@@ -422,7 +422,7 @@ function ShiftReview(props) {
             </Grid>
 
             <Grid item xs={12} md={12}>
-              <div className={classes.table}>
+              <div className={classes.CustomMUIDataTable}>
                 <MUIDataTable
                   title=""
                   data={dataList}

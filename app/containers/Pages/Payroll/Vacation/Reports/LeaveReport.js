@@ -8,20 +8,20 @@ import {
   FormControlLabel,
   Grid,
   Stack,
-  TextField
-} from '@mui/material';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { format } from 'date-fns';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
-import React, { useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import useStyles from '../../Style';
-import payrollMessages from '../../messages';
-import messages from '../messages';
+  TextField,
+} from "@mui/material";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { format } from "date-fns";
+import { PapperBlock } from "enl-components";
+import MUIDataTable from "mui-datatables";
+import React, { useState } from "react";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import useStyles from "../../Style";
+import payrollMessages from "../../messages";
+import messages from "../messages";
 
 function LeaveReport(props) {
   const { intl } = props;
@@ -36,65 +36,65 @@ function LeaveReport(props) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const Title = localStorage.getItem('MenuName');
+  const Title = localStorage.getItem("MenuName");
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
     ToDate: null,
-    EmployeeId: '',
-    EmpStatusId: '',
-    OrganizationId: '',
+    EmployeeId: "",
+    EmpStatusId: "",
+    OrganizationId: "",
     branch: [],
   });
 
   const columns = [
     {
-      name: 'id',
+      name: "id",
       options: {
         filter: false,
         display: false,
       },
     },
     {
-      name: 'organizationName',
+      name: "organizationName",
       label: <FormattedMessage {...messages.organization} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'employeeId',
+      name: "employeeId",
       label: <FormattedMessage {...messages.employeeId} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'employeeName',
+      name: "employeeName",
       label: <FormattedMessage {...messages.employeeName} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'hiringDate',
+      name: "hiringDate",
       label: <FormattedMessage {...messages.hiringDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
     rowsPerPage: 50,
     rowsPerPageOptions: [10, 15, 50, 100],
     page: 0,
     searchOpen: false,
-    selectableRows: 'none',
+    selectableRows: "none",
     serverSide: true,
     onSearchClose: () => {
       // some logic
@@ -109,35 +109,33 @@ function LeaveReport(props) {
   };
 
   const onSearchBtnClick = () => {
-    console.log('search');
+    console.log("search");
   };
 
   return (
     <Box
       sx={{
         zIndex: 100,
-        position: 'relative',
+        position: "relative",
       }}
     >
-
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Backdrop
           sx={{
-            color: 'primary.main',
+            color: "primary.main",
             zIndex: 10,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.69)',
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
           }}
           open={isLoading}
         >
-          <CircularProgress color='inherit' />
+          <CircularProgress color="inherit" />
         </Backdrop>
 
         <Grid container spacing={3}>
-
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='departmentId'
+              id="departmentId"
               options={departmentList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -148,9 +146,9 @@ function LeaveReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='departmentId'
+                  name="departmentId"
                   required
                   label={intl.formatMessage(messages.department)}
                 />
@@ -160,7 +158,7 @@ function LeaveReport(props) {
 
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='employeeId'
+              id="employeeId"
               options={EmployeeList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -171,9 +169,9 @@ function LeaveReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='employeeId'
+                  name="employeeId"
                   required
                   label={intl.formatMessage(messages.employeeName)}
                 />
@@ -194,7 +192,7 @@ function LeaveReport(props) {
                 }}
                 className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant='outlined' />
+                  <TextField {...params} variant="outlined" />
                 )}
               />
             </LocalizationProvider>
@@ -213,7 +211,7 @@ function LeaveReport(props) {
                 }}
                 className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant='outlined' />
+                  <TextField {...params} variant="outlined" />
                 )}
               />
             </LocalizationProvider>
@@ -221,7 +219,7 @@ function LeaveReport(props) {
 
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='StatusList'
+              id="StatusList"
               options={statusList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -232,9 +230,9 @@ function LeaveReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='StatusList'
+                  name="StatusList"
                   label={intl.formatMessage(messages.status)}
                 />
               )}
@@ -243,21 +241,20 @@ function LeaveReport(props) {
 
           <Grid item md={3}>
             <Button
-              variant='contained'
-              size='medium'
-              color='primary'
+              variant="contained"
+              size="medium"
+              color="primary"
               onClick={onSearchBtnClick}
             >
               <FormattedMessage {...messages.search} />
             </Button>
           </Grid>
         </Grid>
-
       </PapperBlock>
 
-      <div className={classes.table}>
+      <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
-          title=''
+          title=""
           data={tableData}
           columns={columns}
           options={options}

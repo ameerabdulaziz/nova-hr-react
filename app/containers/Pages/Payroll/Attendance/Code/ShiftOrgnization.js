@@ -6,12 +6,12 @@ import Payrollmessages from "../../messages";
 import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
-import { useHistory } from "react-router-dom"
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import { useHistory } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
-import { ThemeProvider } from '@mui/material';
-import { createTheme } from '@mui/material/styles'
+import { ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
 import {
   Button,
@@ -39,15 +39,14 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
 function ShiftOrgnization(props) {
-  
-const theme = createTheme({
-  overrides: {
-    /* MuiTable: {
+  const theme = createTheme({
+    overrides: {
+      /* MuiTable: {
       root: {
         border: [[1, 'solid', '#d3d3d3']],
       },
     }, */
-    /* MuiTableHead: {
+      /* MuiTableHead: {
       root: {
         background: 'red',
       },
@@ -82,8 +81,8 @@ const theme = createTheme({
         // height: undefined,
       },
     }, */
-  },
-});
+    },
+  });
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { classes } = useStyles();
@@ -449,8 +448,12 @@ const theme = createTheme({
             >
               <FormattedMessage {...Payrollmessages.apply} />
             </Button> */}
-            <Tooltip title={intl.formatMessage(Payrollmessages.apply)} cursor="pointer" className="mr-6">       
-              <IconButton                
+            <Tooltip
+              title={intl.formatMessage(Payrollmessages.apply)}
+              cursor="pointer"
+              className="mr-6"
+            >
+              <IconButton
                 className={classes.button}
                 aria-label="Delete"
                 size="large"
@@ -458,7 +461,7 @@ const theme = createTheme({
               >
                 <CheckIcon></CheckIcon>
               </IconButton>
-        </Tooltip> 
+            </Tooltip>
           </Grid>
         </Grid>
       </div>
@@ -769,8 +772,8 @@ const theme = createTheme({
               </Card>
             </Grid>
             <Grid item xs={12} md={12}>
-              <div className={classes.table}>
-              {/* <ThemeProvider theme={theme}> */}
+              <div className={classes.CustomMUIDataTable}>
+                {/* <ThemeProvider theme={theme}> */}
                 <MUIDataTable
                   title=""
                   data={dataList}

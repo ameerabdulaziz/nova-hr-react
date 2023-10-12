@@ -8,6 +8,7 @@ const useMainStyles = makeStyles()((theme) => ({
     '& .MuiTableCell-root':{paddingRight:'0px',paddingTop:'0px',paddingBottom:'0px'},
     '& .MuiTablePagination-toolbar':{background:'white'},
     '& .mui-style-ltr-bfklix-rootTable':{marginTop:'0px'},
+    '& .tss-1cdcmys-MUIDataTable-responsiveBase':{position: 'inherit !important'},
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important",
   },
 

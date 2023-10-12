@@ -160,7 +160,7 @@ function AttentionReport(props) {
           </Grid>  
           <Grid item xs={12}  md={12}></Grid>
         </Grid>
-        <div className={classes.table}>
+        <div className={classes.CustomMUIDataTable}>
           
           <MUIDataTable
             title=""

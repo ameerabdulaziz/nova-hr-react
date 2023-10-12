@@ -1,21 +1,19 @@
-
-import React, { useEffect, useState } from 'react';
-import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/CustodyTrxData';
-import { useSelector } from 'react-redux';
-import {Button ,Grid,TextField, Autocomplete  } from '@mui/material';
-import messages from '../messages';
-import Payrollmessages from '../../messages';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import useStyles from '../../Style';
+import React, { useEffect, useState } from "react";
+import MUIDataTable from "mui-datatables";
+import ApiData from "../api/CustodyTrxData";
+import { useSelector } from "react-redux";
+import { Button, Grid, TextField, Autocomplete } from "@mui/material";
+import messages from "../messages";
+import Payrollmessages from "../../messages";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import useStyles from "../../Style";
 import { format } from "date-fns";
-import GeneralListApis from '../../api/GeneralListApis';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import { PapperBlock } from 'enl-components';
-import { toast } from 'react-hot-toast';
-
+import GeneralListApis from "../../api/GeneralListApis";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { injectIntl, FormattedMessage } from "react-intl";
+import { PapperBlock } from "enl-components";
+import { toast } from "react-hot-toast";
 
 function CustodyReceiveReport(props) {
   const { intl } = props;
@@ -29,89 +27,97 @@ function CustodyReceiveReport(props) {
   const [custodyList, setcustodyList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
-  
+
   const handleSearch = async (e) => {
-    
-    try{
-        
-      const dataApi = await ApiData(locale).GetReport(employee,custody,2,fromdate,todate);
+    try {
+      const dataApi = await ApiData(locale).GetReport(
+        employee,
+        custody,
+        2,
+        fromdate,
+        todate
+      );
       setdata(dataApi);
     } catch (err) {
       toast.error(err.response.data);
     }
-  }
+  };
 
   async function fetchData() {
-    
     const employees = await GeneralListApis(locale).GetEmployeeList(locale);
     setEmployeeList(employees);
     const custodies = await GeneralListApis(locale).GetCustodyList(locale);
     setcustodyList(custodies);
-    const dataApi = await ApiData(locale).GetReport(employee,custody,2,fromdate,todate);
+    const dataApi = await ApiData(locale).GetReport(
+      employee,
+      custody,
+      2,
+      fromdate,
+      todate
+    );
     setdata(dataApi);
   }
-  useEffect(() => {    
+  useEffect(() => {
     fetchData();
   }, []);
-  
+
   const columns = [
     {
-      name: 'id',
-      label: <FormattedMessage {...Payrollmessages['id']} />,
+      name: "id",
+      label: <FormattedMessage {...Payrollmessages["id"]} />,
       options: {
         filter: false,
       },
     },
     {
-        name: 'date',
-        label: <FormattedMessage {...Payrollmessages['date']} />,
-        options: {
-            filter: true,
-        },
-    }, 
-    {
-        name: 'employeeName',
-        label: <FormattedMessage {...messages['employeeName']} />,
-        options: {
-          filter: true,
-        },
-    }, 
-    
-    {
-        name: 'custodyName',
-        label:<FormattedMessage {...messages['custodyName']} />,
-        options: {
-            filter: true,
-        },
-    },    
-    {
-      name: 'notes',
-      label: <FormattedMessage {...Payrollmessages['notes']} />,
+      name: "date",
+      label: <FormattedMessage {...Payrollmessages["date"]} />,
       options: {
-          filter: true,
+        filter: true,
       },
-    }, 
-     
+    },
     {
-      name: 'custCount',
-      label: <FormattedMessage {...Payrollmessages['count']} />,
+      name: "employeeName",
+      label: <FormattedMessage {...messages["employeeName"]} />,
       options: {
-          filter: true,
+        filter: true,
       },
-    }, 
+    },
+
     {
-        name: 'custodyPrice',
-        label: <FormattedMessage {...Payrollmessages['price']} />,
-        options: {
-            filter: true,
-        },
-      }, 
-   
+      name: "custodyName",
+      label: <FormattedMessage {...messages["custodyName"]} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: "notes",
+      label: <FormattedMessage {...Payrollmessages["notes"]} />,
+      options: {
+        filter: true,
+      },
+    },
+
+    {
+      name: "custCount",
+      label: <FormattedMessage {...Payrollmessages["count"]} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: "custodyPrice",
+      label: <FormattedMessage {...Payrollmessages["price"]} />,
+      options: {
+        filter: true,
+      },
+    },
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
     rowsPerPage: 10,
     page: 0,
@@ -119,90 +125,102 @@ function CustodyReceiveReport(props) {
     onSearchClose: () => {
       //some logic
     },
-    
   };
   return (
     <PapperBlock whiteBg icon="border_color" title={Title} desc="">
       <div>
-        <Grid
-          container
-          spacing={3}>
-          <Grid item xs={12}  md={2}>                
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <DesktopDatePicker
-                      label={intl.formatMessage(Payrollmessages.fromdate)}
-                      value={fromdate}
-                      onChange={(date) => { setfromate(date==null?null: format(new Date(date), "yyyy-MM-dd"))}}
-                      className={classes.field}
-                      renderInput={(params) => <TextField {...params} variant="outlined" />}
-                  />
-              </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12}  md={2}>                
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={2}>
             <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <DesktopDatePicker
-                      label={intl.formatMessage(Payrollmessages.todate)}
-                      value={todate}
-                      onChange={(date) => { settodate(date==null?null: format(new Date(date), "yyyy-MM-dd"))}}
-                      className={classes.field}
-                      renderInput={(params) => <TextField {...params} variant="outlined" />}
-                  />
-              </LocalizationProvider>
+              <DesktopDatePicker
+                label={intl.formatMessage(Payrollmessages.fromdate)}
+                value={fromdate}
+                onChange={(date) => {
+                  setfromate(
+                    date == null ? null : format(new Date(date), "yyyy-MM-dd")
+                  );
+                }}
+                className={classes.field}
+                renderInput={(params) => (
+                  <TextField {...params} variant="outlined" />
+                )}
+              />
+            </LocalizationProvider>
           </Grid>
           <Grid item xs={12} md={2}>
-              <Autocomplete  
-                  id="custodyId"                        
-                  options={custodyList}    
-                  isOptionEqualToValue={(option, value) =>
-                      value.id === 0 || value.id === "" ||option.id === value.id
-                  }                 
-                  getOptionLabel={(option) =>
-                  option.name ? option.name : ""
-                  }
-                  onChange={(event, value) =>{ setcustody(value==null?null:value.id)} }
-                  renderInput={(params) => (
-                  <TextField
-                      variant="outlined"                            
-                      {...params}
-                      name="custodyId"
-                      required                              
-                      label={intl.formatMessage(messages.custodyName)}
-                      />
-                  )}
-              />  
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DesktopDatePicker
+                label={intl.formatMessage(Payrollmessages.todate)}
+                value={todate}
+                onChange={(date) => {
+                  settodate(
+                    date == null ? null : format(new Date(date), "yyyy-MM-dd")
+                  );
+                }}
+                className={classes.field}
+                renderInput={(params) => (
+                  <TextField {...params} variant="outlined" />
+                )}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={12} md={2}>
+            <Autocomplete
+              id="custodyId"
+              options={custodyList}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === "" || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : "")}
+              onChange={(event, value) => {
+                setcustody(value == null ? null : value.id);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  name="custodyId"
+                  required
+                  label={intl.formatMessage(messages.custodyName)}
+                />
+              )}
+            />
           </Grid>
           <Grid item xs={12} md={4}>
-              <Autocomplete  
-                  id="employeeId"                        
-                  options={EmployeeList}    
-                  isOptionEqualToValue={(option, value) =>
-                      value.id === 0 || value.id === "" ||option.id === value.id
-                  }                 
-                  getOptionLabel={(option) =>
-                  option.name ? option.name : ""
-                  }
-                  onChange={(event, value) =>{ setemployee(value==null?null:value.id)} }
-                  renderInput={(params) => (
-                  <TextField
-                      variant="outlined"                            
-                      {...params}
-                      name="employeeId"
-                      required                              
-                      label={intl.formatMessage(messages.employeeName)}
-                      />
-                  )}
-              />  
+            <Autocomplete
+              id="employeeId"
+              options={EmployeeList}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === "" || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : "")}
+              onChange={(event, value) => {
+                setemployee(value == null ? null : value.id);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  name="employeeId"
+                  required
+                  label={intl.formatMessage(messages.employeeName)}
+                />
+              )}
+            />
           </Grid>
           <Grid item xs={12} md={2}>
-                    
-                <Button variant="contained" size="medium" color="primary" onClick={handleSearch} >
-                  <FormattedMessage {...Payrollmessages.search} />
-                </Button>
-          </Grid>  
-          <Grid item xs={12}  md={12}></Grid>
+            <Button
+              variant="contained"
+              size="medium"
+              color="primary"
+              onClick={handleSearch}
+            >
+              <FormattedMessage {...Payrollmessages.search} />
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={12}></Grid>
         </Grid>
-        <div className={classes.table}>
-          
+        <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title=""
             data={data}
@@ -212,11 +230,7 @@ function CustodyReceiveReport(props) {
         </div>
       </div>
     </PapperBlock>
-);
-
-  
+  );
 }
 
 export default injectIntl(CustodyReceiveReport);
-
-

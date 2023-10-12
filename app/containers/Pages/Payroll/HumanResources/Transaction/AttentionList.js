@@ -1,59 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import MUIDataTable from 'mui-datatables';
-import ApiData from '../api/AttentionData';
-import { useSelector } from 'react-redux';
-import messages from '../messages';
-import { injectIntl,FormattedMessage } from 'react-intl';
-import style from '../../../../../../app/styles/styles.scss';
-import notif from 'enl-api/ui/notifMessage';
-import { toast } from 'react-hot-toast';
-import useStyles from '../../Style';
-import { PapperBlock } from 'enl-components';
-import EditButton from '../../Component/EditButton';
-import DeleteButton from '../../Component/DeleteButton';
-import AddButton   from '../../Component/AddButton';
-
+import React, { useEffect, useState } from "react";
+import MUIDataTable from "mui-datatables";
+import ApiData from "../api/AttentionData";
+import { useSelector } from "react-redux";
+import messages from "../messages";
+import { injectIntl, FormattedMessage } from "react-intl";
+import style from "../../../../../../app/styles/styles.scss";
+import notif from "enl-api/ui/notifMessage";
+import { toast } from "react-hot-toast";
+import useStyles from "../../Style";
+import { PapperBlock } from "enl-components";
+import EditButton from "../../Component/EditButton";
+import DeleteButton from "../../Component/DeleteButton";
+import AddButton from "../../Component/AddButton";
 
 function AttentionList(props) {
-  
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
-  
 
-  async function deleteList(selectedRows){
-      const list=[];
-      for(let i=0; i<selectedRows.data.length; i++) {
+  async function deleteList(selectedRows) {
+    const list = [];
+    for (let i = 0; i < selectedRows.data.length; i++) {
       list.push(data[selectedRows.data[i].dataIndex].id);
-      }
-      try {
-        
-          let response = await  ApiData(locale).DeleteList(list);
-    
-          if (response.status==200) {
-            toast.success(notif.saved);
-            fetchData();
-          } else {
-              toast.error(response.statusText);
-          }
-        } catch (err) {
-          toast.error(notif.error);
-        }
-  }
-  async function deleterow(id) {
-  
+    }
     try {
-     
-      let response = await  ApiData(locale).Delete(id);
+      let response = await ApiData(locale).DeleteList(list);
 
-      if (response.status==200) {
+      if (response.status == 200) {
         toast.success(notif.saved);
         fetchData();
-
       } else {
-          toast.error(response.statusText);
+        toast.error(response.statusText);
+      }
+    } catch (err) {
+      toast.error(notif.error);
+    }
+  }
+  async function deleterow(id) {
+    try {
+      let response = await ApiData(locale).Delete(id);
+
+      if (response.status == 200) {
+        toast.success(notif.saved);
+        fetchData();
+      } else {
+        toast.error(response.statusText);
       }
     } catch (err) {
       toast.error(notif.error);
@@ -63,59 +56,64 @@ function AttentionList(props) {
     const dataApi = await ApiData(locale).GetList();
     setdata(dataApi);
   }
-  useEffect(() => {    
+  useEffect(() => {
     fetchData();
   }, []);
-  
+
   const columns = [
     {
-      name: 'id',
+      name: "id",
       options: {
         filter: false,
       },
     },
     {
-      name: 'attentionDate',
-      label:<FormattedMessage {...messages['date']} />,
+      name: "attentionDate",
+      label: <FormattedMessage {...messages["date"]} />,
       options: {
         filter: true,
       },
-    },    
+    },
     {
-      name: 'employeeName',
-      label: <FormattedMessage {...messages['employeeName']} />,
+      name: "employeeName",
+      label: <FormattedMessage {...messages["employeeName"]} />,
       options: {
         filter: true,
       },
-    },    
+    },
     {
-        name: 'reason',
-        label: <FormattedMessage {...messages['reason']} />,
-        options: {
-            filter: true,
-        },
-    },    
+      name: "reason",
+      label: <FormattedMessage {...messages["reason"]} />,
+      options: {
+        filter: true,
+      },
+    },
     {
-      name: 'Actions',
+      name: "Actions",
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log('tableMeta =', tableMeta);
+          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
-              <EditButton param={{id: tableMeta.rowData[0] }} url={"/app/Pages/HR/AttentionEdit"}></EditButton>
-              <DeleteButton clickfnc={() => deleterow(tableMeta.rowData[0])}></DeleteButton>              
+              <EditButton
+                param={{ id: tableMeta.rowData[0] }}
+                url={"/app/Pages/HR/AttentionEdit"}
+              ></EditButton>
+              <DeleteButton
+                clickfnc={() => deleterow(tableMeta.rowData[0])}
+              ></DeleteButton>
             </div>
           );
         },
       },
-    },    
+    },
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
     rowsPerPage: 10,
     page: 0,
@@ -123,30 +121,26 @@ function AttentionList(props) {
     onSearchClose: () => {
       //some logic
     },
-    customToolbar: () => (   
-        <AddButton url={"/app/Pages/HR/AttentionCreate"}></AddButton>
+    customToolbar: () => (
+      <AddButton url={"/app/Pages/HR/AttentionCreate"}></AddButton>
     ),
     customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
-      
-      <div>     
-          <DeleteButton clickfnc={() => deleteList(selectedRows)}></DeleteButton>           
+      <div>
+        <DeleteButton clickfnc={() => deleteList(selectedRows)}></DeleteButton>
       </div>
     ),
   };
 
-  
-
   return (
     <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
-        <div className={classes.table}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>
+      <div className={classes.CustomMUIDataTable}>
+        <MUIDataTable
+          title=""
+          data={data}
+          columns={columns}
+          options={options}
+        />
+      </div>
     </PapperBlock>
   );
 }

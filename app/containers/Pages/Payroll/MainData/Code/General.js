@@ -6,8 +6,6 @@ import { Helmet } from 'react-helmet';
 import brand from 'enl-api/dummy/brand';
 import { PapperBlock } from 'enl-components';
 import { injectIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
-import messages from '../../../../Tables/messages';
 import { EditTable } from '../../../../Tables/demos';
 import generalData from '../api/GeneralData';
 import useStyles from '../../Style';
