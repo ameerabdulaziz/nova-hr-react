@@ -455,4 +455,16 @@ export default defineMessages({
     id: `${scope}.reducedFromAnnual`,
     defaultMessage: 'reducedFromAnnual',
   },
+  annualBalance: {
+    id: `${scope}.annualBalance`,
+    defaultMessage: 'annualBalance',
+  },
+  postedBalance: {
+    id: `${scope}.postedBalance`,
+    defaultMessage: 'postedBalance',
+  },
+  annualOpen: {
+    id: `${scope}.annualOpen`,
+    defaultMessage: 'annualOpen',
+  },
 });

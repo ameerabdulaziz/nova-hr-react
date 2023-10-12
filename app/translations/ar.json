@@ -1314,6 +1314,9 @@
   "boilerplate.containers.Payroll.vac.GovernmentSickLeaveCreateTitle": "إنشاء إجازة مرضية حكومية",
   "boilerplate.containers.Payroll.vac.GovernmentSickLeaveUpdateTitle": "تعديل إجازة مرضية حكومية",
   "boilerplate.containers.Payroll.vac.reducedFromAnnual": "خصم من السنوي",
+  "boilerplate.containers.Payroll.vac.annualBalance": "الرصيد السنوي",
+  "boilerplate.containers.Payroll.vac.postedBalance": "الرصيد المعلن",
+  "boilerplate.containers.Payroll.vac.annualOpen": "الافتتاح السنوي",
 
   "boilerplate.containers.Payroll.vac.code.GovernmentSickLeaveSetting": "اعدادات الاجازة المرضى الحكومى",
   "boilerplate.containers.Payroll.vac.code.VacationType": "نوع الإجازة",

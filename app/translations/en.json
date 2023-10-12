@@ -1241,6 +1241,9 @@
   "boilerplate.containers.Payroll.vac.GovernmentSickLeaveCreateTitle": "Create Government Sick Leave",
   "boilerplate.containers.Payroll.vac.GovernmentSickLeaveUpdateTitle": "Update Government Sick Leave",
   "boilerplate.containers.Payroll.vac.reducedFromAnnual": "Reduced From Annual",
+  "boilerplate.containers.Payroll.vac.postedBalance": "Posted Balance",
+  "boilerplate.containers.Payroll.vac.annualOpen": "Annual Open",
+  "boilerplate.containers.Payroll.vac.annualBalance": "Annual Balance",
 
   "boilerplate.containers.Payroll.vac.code.date": "Date",
   "boilerplate.containers.Payroll.vac.code.actions": "Actions",
