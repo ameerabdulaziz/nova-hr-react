@@ -3,11 +3,8 @@ import {
   Backdrop,
   Box,
   Button,
-  Checkbox,
   CircularProgress,
-  FormControlLabel,
   Grid,
-  Stack,
   TextField
 } from '@mui/material';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -16,11 +13,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import useStyles from '../../Style';
+import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
+import API from '../api/LeaveReportData';
 import messages from '../messages';
 
 function LeaveReport(props) {
@@ -35,19 +35,7 @@ function LeaveReport(props) {
   const [statusList, setStatusList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const Title = localStorage.getItem('MenuName');
-
-  const [formInfo, setFormInfo] = useState({
-    FromDate: null,
-    ToDate: null,
-    EmployeeId: '',
-    EmpStatusId: '',
-    OrganizationId: '',
-    branch: [],
-  });
-
-  const columns = [
+  const [columns, setColumns] = useState([
     {
       name: 'id',
       options: {
@@ -84,7 +72,38 @@ function LeaveReport(props) {
         customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
       },
     },
-  ];
+    {
+      name: 'annCurrentBa',
+      label: <FormattedMessage {...messages.annualBalance} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'postedBal',
+      label: <FormattedMessage {...messages.postedBalance} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'annOpen',
+      label: <FormattedMessage {...messages.annualOpen} />,
+      options: {
+        filter: true,
+      },
+    },
+  ]);
+
+  const Title = localStorage.getItem('MenuName');
+
+  const [formInfo, setFormInfo] = useState({
+    FromDate: null,
+    ToDate: null,
+    EmployeeId: '',
+    EmpStatusId: '',
+    OrganizationId: '',
+  });
 
   const options = {
     filterType: 'dropdown',
@@ -108,8 +127,75 @@ function LeaveReport(props) {
     },
   };
 
+  async function fetchData() {
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const department = await GeneralListApis(locale).GetDepartmentList();
+      setDepartmentList(department);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+    } catch (error) {
+      toast.error(JSON.stringify(error.response.data));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
+
+  const fetchTableData = async () => {
+    try {
+      setIsLoading(true);
+      const formData = { ...formInfo };
+
+      formData.FromDate = formateDate(formData.FromDate);
+      formData.ToDate = formateDate(formData.ToDate);
+
+      Object.keys(formData).forEach((key) => {
+        formData[key] = formData[key] === null ? '' : formData[key];
+      });
+
+      const dataApi = await API(locale).GetReport(formData);
+
+      if (dataApi?.length > 0) {
+        const clonedColumn = [...columns];
+
+        const {
+          employeeId, employeeName, annCurrentBa, employeeCode, hiringDate, organizationName, organizationId, annOpen, postedBal, ...reset
+        } = dataApi[0];
+
+        Object.keys(reset).forEach(key => {
+          clonedColumn.push({
+            name: key,
+            label: key,
+            options: {
+              filter: true,
+            },
+          });
+        });
+
+        setColumns(clonedColumn);
+      }
+
+      setTableData(dataApi);
+    } catch (error) {
+      toast.error(JSON.stringify(error));
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchTableData();
+  }, []);
+
   const onSearchBtnClick = () => {
-    console.log('search');
+    fetchTableData();
   };
 
   return (
