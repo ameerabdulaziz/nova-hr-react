@@ -177,7 +177,8 @@ import {
   LeaveTrx,
   ShiftTransfere,ShiftReview,ShiftImport,
   GovernmentSickLeaveCreate,
-  GovernmentSickLeave
+  GovernmentSickLeave,
+  OpeningLeaveBalancesReport
 } from '../pageListAsync';
 
 
@@ -822,6 +823,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/VacationTrxReport"
           component={LeaveTrxReport}
+        />
+
+        <Route
+          path="/app/Pages/vac/OpeningLeaveBalancesReport"
+          component={OpeningLeaveBalancesReport}
         />
 
         <Route
