@@ -395,4 +395,8 @@ employeeId: {
     id: `${scope}.noMatchingRecord`,
     defaultMessage: 'noMatchingRecord',
   },
+  Empstatus: {
+    id: `${scope}.Empstatus`,
+    defaultMessage: 'Empstatus',
+  },
 });

@@ -942,6 +942,8 @@
   "boilerplate.containers.Payroll.apply":"تطبيق",
    "boilerplate.containers.Payroll.employeeId":"كود الموظف",
    "boilerplate.containers.Payroll.weekDayName":"اليوم",
+   "boilerplate.containers.Payroll.Empstatus":"حالة الموضف",
+   
    
   
 

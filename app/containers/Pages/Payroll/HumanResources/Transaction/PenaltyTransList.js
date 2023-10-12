@@ -73,6 +73,7 @@ function PenaltyTransList(props) {
       label: <FormattedMessage {...messages["date"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
 

@@ -104,6 +104,7 @@ function GovernmentSickLeave(props) {
       label: <FormattedMessage {...messages.fromdate} />,
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {

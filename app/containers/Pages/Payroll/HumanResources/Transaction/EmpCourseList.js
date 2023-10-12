@@ -87,6 +87,7 @@ function EmpCourseList(props) {
       label: <FormattedMessage {...Payrollmessages["fromdate"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {
@@ -94,6 +95,7 @@ function EmpCourseList(props) {
       label: <FormattedMessage {...Payrollmessages["todate"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {

@@ -919,7 +919,8 @@
   "boilerplate.containers.Payroll.Yearly": "Yearly",
   "boilerplate.containers.Payroll.Every3Years": "Every 3 years",
   "boilerplate.containers.Payroll.vacation": "Vacation",  
-  "boilerplate.containers.Payroll.weekDayName":"Day",
+  "boilerplate.containers.Payroll.weekDayName":"Day",  
+  "boilerplate.containers.Payroll.Empstatus":"Employee Status",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",

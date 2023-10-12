@@ -1,0 +1,154 @@
+import React,{memo,useState,useEffect} from 'react';
+import Payrollmessages from '../messages';
+import { injectIntl,FormattedMessage } from 'react-intl';
+import useStyles from '../Style';
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import GeneralListApis from "../api/GeneralListApis";
+import { useSelector } from "react-redux";
+import {
+    Grid,
+    TextField,
+    Autocomplete,
+  } from "@mui/material"
+
+function Search(props) {
+  
+  const {intl,handleChange ,fromdate,todate} = props;
+  const { classes } = useStyles();
+  const [EmployeeList, setEmployeeList] = useState([]);
+  const [OrganizationList, setOrganizationList] = useState([]); 
+  const [statusList, setStatusList] = useState([]);
+  
+  const locale = useSelector((state) => state.language.locale);
+
+  async function fetchData() {
+    const employees = await GeneralListApis(locale).GetEmployeeList();
+    setEmployeeList(employees);
+
+    const organizations = await GeneralListApis(locale).GetDepartmentList();
+    setOrganizationList(organizations);
+
+    const status = await GeneralListApis(locale).GetEmpStatusList();
+    debugger;
+      setStatusList(status);
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+      <div>
+        <Grid
+        container
+        spacing={2}
+        alignItems="flex-start"
+        direction="row"
+        >
+            <Grid item xs={12} md={2}>
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DesktopDatePicker
+                    label={intl.formatMessage(Payrollmessages.fromdate)}
+                    value={fromdate}
+                    onChange={(date) => {handleChange("fromDate",date)}}
+                    className={classes.field}
+                    renderInput={(params) => (
+                    <TextField {...params} variant="outlined" />
+                    )}
+                />
+                </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} md={2}>
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DesktopDatePicker
+                    label={intl.formatMessage(Payrollmessages.todate)}
+                    value={todate}
+                    onChange={(date) => {handleChange("toDate",date)}}
+                    className={classes.field}
+                    renderInput={(params) => (
+                    <TextField {...params} variant="outlined" />
+                    )}
+                />
+                </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} md={3}>
+                <Autocomplete
+                id="organizationId"
+                options={OrganizationList}
+                isOptionEqualToValue={(option, value) =>
+                    value.id === 0 ||
+                    value.id === "" ||
+                    option.id === value.id
+                }
+                getOptionLabel={(option) =>
+                    option.name ? option.name : ""
+                }
+                onChange={(event, value) => {handleChange("organizationId",value == null ? "" : value.id)}}                
+                renderInput={(params) => (
+                    <TextField
+                    variant="outlined"
+                    {...params}
+                    name="OrganizationId"
+                    label={intl.formatMessage(
+                        Payrollmessages.organizationName
+                    )}
+                    />
+                )}
+                />
+            </Grid>
+            <Grid item xs={12} md={3}>
+                <Autocomplete
+                id="employeeId"
+                options={EmployeeList}
+                isOptionEqualToValue={(option, value) =>
+                    value.id === 0 ||
+                    value.id === "" ||
+                    option.id === value.id
+                }
+                getOptionLabel={(option) =>
+                    option.name ? option.name : ""
+                }
+                onChange={(event, value) => {handleChange("employeeId",value == null ? "" : value.id)}}        
+                renderInput={(params) => (
+                    <TextField
+                    variant="outlined"
+                    {...params}
+                    name="employeeId"
+                    label={intl.formatMessage(
+                        Payrollmessages.employeeName
+                    )}
+                    />
+                )}
+                />
+            </Grid>
+            <Grid item xs={12} md={2}>
+            <Autocomplete
+              id="EmpStatusId"
+              options={statusList}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 ||
+                value.id === "" ||
+                option.id === value.id
+            }
+              getOptionLabel={(option) => option.name ? option.name : ""}            
+              onChange={(event, value) => {handleChange("statusId",value == null ? "" : value.id)}}  
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  name="EmpStatusId"
+                  label={intl.formatMessage(Payrollmessages.Empstatus)}
+                />
+              )}
+            />
+          </Grid>
+        </Grid>
+      </div>
+  );
+} ;
+  
+
+const MemoedSearch = memo(Search);
+
+export default injectIntl(MemoedSearch);

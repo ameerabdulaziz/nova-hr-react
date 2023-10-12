@@ -109,6 +109,7 @@ function Permissions({ intl }) {
       label: intl.formatMessage(Payrollmessages.date),
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {
