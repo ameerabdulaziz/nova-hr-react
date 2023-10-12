@@ -130,7 +130,7 @@ function AdvFilter() {
   } = useStyles();
 
   return (
-    <div className={classes.table}>
+    <div className={classes.CustomMUIDataTable}>
       <MUIDataTable
         title="Employee list"
         data={data}

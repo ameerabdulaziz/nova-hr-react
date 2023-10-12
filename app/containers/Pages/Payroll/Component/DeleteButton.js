@@ -18,8 +18,9 @@ function DeleteButton(props) {
           <IconButton
             disabled={!Menu.isDelete}
             className={classes.button}
-            aria-label="Delete"
+            aria-label={intl.formatMessage(Payrollmessages.delete)}
             size="large"
+            color="primary"
             onClick={clickfnc}
           >
             <DeleteIcon />

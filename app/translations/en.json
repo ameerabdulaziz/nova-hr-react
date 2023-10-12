@@ -868,6 +868,7 @@
   "boilerplate.containers.Payroll.isStop": "Is Stop",
   "boilerplate.containers.Payroll.chooseJob": "Select Job",
   "boilerplate.containers.Payroll.total": "Total",
+  "boilerplate.containers.Payroll.employeeName":"Employee Name",
   "boilerplate.containers.Payroll.hiringDate": "Hiring Date",
   "boilerplate.containers.Payroll.arName": "Arabic Name",
   "boilerplate.containers.Payroll.enName": "English Name",

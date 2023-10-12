@@ -20,6 +20,7 @@ function CrudTable(props) {
   const getdata =  async () => {
     if(API)
     {
+      
       const data =  await API.GetList(anchorTable);
       
       fetchData(fetchAction(data.finaldata?data.finaldata:data,

@@ -317,9 +317,7 @@ function Application(props) {
         />
         <Route
           path="/app/Pages/MainData/Gender"
-          component={(props1) => (
-            <Gender text="Gender" table="MdGender" {...props1} />
-          )}
+          component={Gender}
         />
         <Route
           path="/app/Pages/MainData/Grade"

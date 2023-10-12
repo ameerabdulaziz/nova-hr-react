@@ -34,6 +34,17 @@ function LeaveReport(props) {
   const [departmentList, setDepartmentList] = useState([]);
   const [statusList, setStatusList] = useState([]);
 
+  const Title = localStorage.getItem('MenuName');
+
+  const [formInfo, setFormInfo] = useState({
+    FromDate: null,
+    ToDate: null,
+    EmployeeId: '',
+    EmpStatusId: '',
+    OrganizationId: '',
+    branch: [],
+  });
+
   const [isLoading, setIsLoading] = useState(false);
   const [columns, setColumns] = useState([
     {
@@ -93,17 +104,28 @@ function LeaveReport(props) {
         filter: true,
       },
     },
+    {
+      name: 'annCurrentBa',
+      label: <FormattedMessage {...messages.annualBalance} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'postedBal',
+      label: <FormattedMessage {...messages.postedBalance} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'annOpen',
+      label: <FormattedMessage {...messages.annualOpen} />,
+      options: {
+        filter: true,
+      },
+    },
   ]);
-
-  const Title = localStorage.getItem('MenuName');
-
-  const [formInfo, setFormInfo] = useState({
-    FromDate: null,
-    ToDate: null,
-    EmployeeId: '',
-    EmpStatusId: '',
-    OrganizationId: '',
-  });
 
   const options = {
     filterType: 'dropdown',
@@ -205,8 +227,7 @@ function LeaveReport(props) {
         position: 'relative',
       }}
     >
-
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Backdrop
           sx={{
             color: 'primary.main',
@@ -216,14 +237,13 @@ function LeaveReport(props) {
           }}
           open={isLoading}
         >
-          <CircularProgress color='inherit' />
+          <CircularProgress color="inherit" />
         </Backdrop>
 
         <Grid container spacing={3}>
-
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='departmentId'
+              id="departmentId"
               options={departmentList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -234,9 +254,9 @@ function LeaveReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='departmentId'
+                  name="departmentId"
                   required
                   label={intl.formatMessage(messages.department)}
                 />
@@ -246,7 +266,7 @@ function LeaveReport(props) {
 
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='employeeId'
+              id="employeeId"
               options={EmployeeList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -257,9 +277,9 @@ function LeaveReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='employeeId'
+                  name="employeeId"
                   required
                   label={intl.formatMessage(messages.employeeName)}
                 />
@@ -280,7 +300,7 @@ function LeaveReport(props) {
                 }}
                 className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant='outlined' />
+                  <TextField {...params} variant="outlined" />
                 )}
               />
             </LocalizationProvider>
@@ -299,7 +319,7 @@ function LeaveReport(props) {
                 }}
                 className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant='outlined' />
+                  <TextField {...params} variant="outlined" />
                 )}
               />
             </LocalizationProvider>
@@ -307,7 +327,7 @@ function LeaveReport(props) {
 
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='StatusList'
+              id="StatusList"
               options={statusList}
               getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
@@ -318,9 +338,9 @@ function LeaveReport(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='StatusList'
+                  name="StatusList"
                   label={intl.formatMessage(messages.status)}
                 />
               )}
@@ -329,21 +349,20 @@ function LeaveReport(props) {
 
           <Grid item md={3}>
             <Button
-              variant='contained'
-              size='medium'
-              color='primary'
+              variant="contained"
+              size="medium"
+              color="primary"
               onClick={onSearchBtnClick}
             >
               <FormattedMessage {...messages.search} />
             </Button>
           </Grid>
         </Grid>
-
       </PapperBlock>
 
-      <div className={classes.table}>
+      <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
-          title=''
+          title=""
           data={tableData}
           columns={columns}
           options={options}

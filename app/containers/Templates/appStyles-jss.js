@@ -52,6 +52,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     padding: theme.spacing(2),
     minHeight: '100%',
     overflow: 'hidden',
+    background:theme.palette.mode === 'dark' ? "rgb(12, 16, 36)" : "rgb(245, 247, 250)",
     [theme.breakpoints.down('lg')]: {
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
@@ -67,7 +68,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   },
   bgWrap: {
     position: 'fixed',
-    background: theme.palette.background.default,
+    background: 'theme.palette.background.default',
     width: '100%',
     height: '100%',
     top: 0,

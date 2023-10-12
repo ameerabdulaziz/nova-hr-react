@@ -1,25 +1,25 @@
-import { Backdrop, Box, CircularProgress } from '@mui/material';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
-import AddButton from '../../Component/AddButton';
-import DeleteButton from '../../Component/DeleteButton';
-import EditButton from '../../Component/EditButton';
-import useStyles from '../../Style';
-import payrollMessages from '../../messages';
-import api from '../api/LeaveTrxData';
-import messages from '../messages';
+import { Backdrop, Box, CircularProgress } from "@mui/material";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import MUIDataTable from "mui-datatables";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import style from "../../../../../styles/styles.scss";
+import AddButton from "../../Component/AddButton";
+import DeleteButton from "../../Component/DeleteButton";
+import EditButton from "../../Component/EditButton";
+import useStyles from "../../Style";
+import payrollMessages from "../../messages";
+import api from "../api/LeaveTrxData";
+import messages from "../messages";
 
 function LeaveTrxList(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const Title = localStorage.getItem('MenuName');
+  const Title = localStorage.getItem("MenuName");
 
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,14 +60,14 @@ function LeaveTrxList(props) {
 
   const columns = [
     {
-      name: 'id',
+      name: "id",
       options: {
         filter: false,
         display: false,
       },
     },
     {
-      name: 'employeeId',
+      name: "employeeId",
       label: <FormattedMessage {...messages.employeeCode} />,
       options: {
         filter: true,
@@ -75,7 +75,7 @@ function LeaveTrxList(props) {
     },
 
     {
-      name: 'employeeName',
+      name: "employeeName",
       label: <FormattedMessage {...messages.employeeName} />,
       options: {
         filter: true,
@@ -83,28 +83,28 @@ function LeaveTrxList(props) {
     },
 
     {
-      name: 'vacationName',
+      name: "vacationName",
       label: <FormattedMessage {...messages.LeaveType} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'daysCount',
+      name: "daysCount",
       label: <FormattedMessage {...messages.daysCount} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'fromDate',
+      name: "fromDate",
       label: <FormattedMessage {...messages.fromdate} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'toDate',
+      name: "toDate",
       label: <FormattedMessage {...messages.todate} />,
       options: {
         filter: true,
@@ -118,14 +118,14 @@ function LeaveTrxList(props) {
     //   },
     // },
     {
-      name: 'trxDate',
+      name: "trxDate",
       label: <FormattedMessage {...messages.transactionDate} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'Actions',
+      name: "Actions",
       label: <FormattedMessage {...messages.actions} />,
       options: {
         filter: false,
@@ -133,7 +133,7 @@ function LeaveTrxList(props) {
           <div className={style.actionsSty}>
             <EditButton
               param={{ id: tableMeta.rowData[0] }}
-              url={'/app/Pages/vac/LeaveTrxEdit'}
+              url={"/app/Pages/vac/LeaveTrxEdit"}
             />
 
             <DeleteButton clickfnc={() => deleteRow(tableMeta.rowData[0])} />
@@ -144,17 +144,17 @@ function LeaveTrxList(props) {
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
     rowsPerPage: 50,
     rowsPerPageOptions: [10, 15, 50, 100],
     searchOpen: true,
-    selectableRows: 'none',
+    selectableRows: "none",
     onSearchClose: () => {
       // some logic
     },
-    customToolbar: () => <AddButton url={'/app/Pages/vac/LeaveTrxCreate'} />,
+    customToolbar: () => <AddButton url={"/app/Pages/vac/LeaveTrxCreate"} />,
     textLabels: {
       body: {
         noMatch: isLoading
@@ -168,25 +168,25 @@ function LeaveTrxList(props) {
     <Box
       sx={{
         zIndex: 100,
-        position: 'relative',
+        position: "relative",
       }}
     >
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Backdrop
           sx={{
-            color: 'primary.main',
+            color: "primary.main",
             zIndex: 10,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.69)',
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
           }}
           open={isLoading}
         >
-          <CircularProgress color='inherit' />
+          <CircularProgress color="inherit" />
         </Backdrop>
 
-        <div className={classes.table}>
+        <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
-            title=''
+            title=""
             data={tableData}
             columns={columns}
             options={options}

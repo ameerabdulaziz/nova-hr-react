@@ -15,7 +15,8 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   drawerWrap: {
     position: 'relative',
     border: 'none',
-    background: 'none'
+    /* background: 'none' */
+    background:theme.palette.mode === 'dark' ? "#292929" : 'white',
   },
   drawerPaper: {
     position: 'relative',

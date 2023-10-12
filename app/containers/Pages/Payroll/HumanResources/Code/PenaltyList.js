@@ -139,7 +139,7 @@ function PenaltyList(props) {
 
   
   return (
-    <div className={classes.table}>
+    <div className={classes.CustomMUIDataTable}>
       <MUIDataTable
         title="Penalties List"
         data={data}

@@ -15,7 +15,7 @@ function AddButton(props) {
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
    
   return (
-      <div>
+      <span>
         <Tooltip title={intl.formatMessage(Payrollmessages.add)} cursor="pointer" className="mr-6">  
         <span>
           <Button
@@ -24,7 +24,7 @@ function AddButton(props) {
               onClick={() => {
                 history.push(url,param);
               }}
-              color="secondary"
+              color="primary"
               className={classes.button}
             >
               <AddIcon />
@@ -32,7 +32,7 @@ function AddButton(props) {
           </Button>
         </span>
         </Tooltip>
-      </div>
+      </span>
   );
 } ;
   

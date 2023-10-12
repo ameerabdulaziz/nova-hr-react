@@ -220,7 +220,7 @@ function EmployeeList() {
   const { classes } = useStyles();
 
   return (
-    <div className={classes.table}>
+    <div className={classes.CustomMUIDataTable}>
       <MUIDataTable
         title={title ?? ''}
         data={data}
