@@ -36,7 +36,7 @@ function Dashboard(props) {
   
   const titleException = ['/app', '/app/crm-dashboard', '/app/crypto-dashboard'];
   const parts = history.location.pathname.split('/');
-  const place = parts[parts.length - 1].replace('-', ' ');
+  let place = parts[parts.length - 1].replace('-', ' ');
   const pathname = history.location.pathname;   
   const dataMenu = useSelector(state => state.authReducer.usermenu);  
   const locale = useSelector(state => state.language.locale);
@@ -61,6 +61,7 @@ if(result)
 {
   localStorage.setItem("MenuName", locale=="en"?result.name:result.arname); 
   localStorage.setItem("Menu", JSON.stringify(result)); 
+  place=locale=="en"?result.name:result.arname;
 }
 else if(pathname!="/app/pages/error"&&pathname!="/app" && dataMenu) 
 {

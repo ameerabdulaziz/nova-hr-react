@@ -4,7 +4,7 @@ import {
   lightGreen, red, amber, grey
 } from '@mui/material/colors';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 const useStyles = makeStyles()((theme, _params, classes) => ({
   user: {
     justifyContent: 'center'
@@ -25,6 +25,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     border: 'none',
     background: 'none',
     color: theme.palette.text.primary,
+   
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -131,18 +132,18 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
     margin: `${theme.spacing(0.5)} 0`,
-    paddingLeft: theme.spacing(7),
+    paddingLeft: theme.spacing(4),
     color: theme.palette.text.primary
   },
   child: {
     '& a': {
-      paddingLeft: theme.spacing(8),
+      paddingLeft: theme.spacing(5),
     }
   },
   title: {
     fontSize: 10,
     textTransform: 'uppercase',
-    paddingLeft: theme.spacing(7),
+    paddingLeft: theme.spacing(4),
     marginTop: theme.spacing(3),
     display: 'block',
     color: theme.palette.secondary.main,
@@ -150,12 +151,13 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     fontWeight: 'bold'
   },
   dense: {
-    padding: theme.spacing(),
+    //shymaa
+    padding: theme.spacing(0),
     [`& > .${classes.title}:first-of-type`]: {
       margin: '0'
     },
     [`& .${classes.head}`]: {
-      paddingLeft: theme.spacing(7)
+      paddingLeft: theme.spacing(4)
     }
   },
   active: {
@@ -197,9 +199,9 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     padding: `${theme.spacing(1)} 0`,
     margin: `${theme.spacing(1)} 0`,
     borderRadius: `0 ${theme.spacing(1)} ${theme.spacing(1)} 0`,
-    paddingLeft: theme.spacing(3),
+    paddingLeft: theme.spacing(2),
     [`&.${classes.iconed}`]: {
-      paddingLeft: theme.spacing(3),
+      paddingLeft: theme.spacing(2),
     },
     '& svg[class^="MuiSvgIcon"]': {
       left: -10,
@@ -340,7 +342,8 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       }
     },
     [`&.${classes.rounded}`]: {
-      paddingRight: theme.spacing(1.5),
+      //shymaa
+      paddingRight: theme.spacing(0),
       '& a': {
         borderRadius: theme.spacing(),
       },

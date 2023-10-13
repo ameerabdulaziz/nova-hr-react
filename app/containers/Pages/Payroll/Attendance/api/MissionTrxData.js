@@ -3,14 +3,18 @@ import axiosInstance from '../../api/axios';
 
 const MissionTrxData = (locale) => {
   const Apis = {};
-  
-  Apis.GetReport = async (employee,Mission,fromdate,todate,Status,Deleted) => {
-    
-    const data = await axiosInstance.get(`AttMissionTrx/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee}&MissionId=${Mission}&StatusId=${Status}&IsDeleted=${Deleted}`);
+
+  Apis.GetReport = async (params) => {
+    debugger;
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `AttMissionTrx/GetReport/${locale}?${queryString}`
+    );
     const result = data.data;
-    
+
     return result;
   };
+
 
   Apis.GetList = async () => {
     

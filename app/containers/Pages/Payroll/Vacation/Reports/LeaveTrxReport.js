@@ -400,7 +400,7 @@ function LeaveTrxReport(props) {
 
       </PapperBlock>
 
-      <div className={classes.table}>
+      <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
           title=''
           data={tableData}
