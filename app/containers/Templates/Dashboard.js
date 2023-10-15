@@ -55,7 +55,7 @@ function Dashboard(props) {
     }
   }
 
-  
+  debugger;
 var result = findNode(dataMenu, place.endsWith("Create")?pathname.replace('Create', ''):(place.endsWith("Edit")?pathname.replace('Edit', ''):pathname));
 if(result) 
 {
@@ -65,6 +65,15 @@ if(result)
 }
 else if(pathname!="/app/pages/error"&&pathname!="/app" && dataMenu) 
 {
+  var isFound = false;
+  children.props.children[0].props.path
+  for (const item of children.props.children) {
+    if (item.props.path === pathname) {
+      isFound=true ;
+      break ;
+    }
+  }
+if(isFound)
   history.push(`/app/pages/error`); 
 }
   

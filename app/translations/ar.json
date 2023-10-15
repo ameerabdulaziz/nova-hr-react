@@ -402,6 +402,7 @@
   "boilerplate.containers.CommingSoon.button": "اعلمني",
   "boilerplate.components.Error.title404": "عفوًا ، لم يتم العثور على الصفحة :(",
   "boilerplate.components.Error.title502": "عذرًا ، خطأ الخادم",
+  "boilerplate.components.Error.title403": "عذرًا ، لم يسمح بفتح الصفحة للمستخدم",
   "boilerplate.components.Error.button": "الذهاب إلى لوحة القيادة",
   "boilerplate.components.Sidebar.status.online": "عبر الإنترنت",
   "boilerplate.components.Sidebar.status.idle": "الخمول",

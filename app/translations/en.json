@@ -401,6 +401,7 @@
   "boilerplate.containers.CommingSoon.button": "Notify Me",
   "boilerplate.components.Error.title404": "Oops, Page Not Found :(",
   "boilerplate.components.Error.title502": "Sorry, server goes wrong",
+  "boilerplate.components.Error.title403": "Sorry,Forbidden Access",
   "boilerplate.components.Error.button": "Go to Dashboard",
   "boilerplate.components.Sidebar.status.online": "Online",
   "boilerplate.components.Sidebar.status.idle": "Idle",

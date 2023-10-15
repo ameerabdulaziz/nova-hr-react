@@ -21,7 +21,7 @@ function Error(props) {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
-      <ErrorWrap title="500" desc={intl.formatMessage(messages.title502)} />
+      <ErrorWrap title="403" desc={intl.formatMessage(messages.title403)} />
     </div>
   );
 }

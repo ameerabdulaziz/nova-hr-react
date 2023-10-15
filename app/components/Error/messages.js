@@ -20,4 +20,8 @@ export default defineMessages({
     id: `${scope}.button`,
     defaultMessage: 'Go to Dashboard',
   },
+  title403: {
+    id: `${scope}.title403`,
+    defaultMessage: 'Sorry,Forbidden Access',
+  },
 });
