@@ -1121,6 +1121,16 @@
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.Employee.personal.employeename": "اسم الموظف",
   "boilerplate.containers.Payroll.Employee.personal.status": "الحالة",
+  "boilerplate.containers.Payroll.Employee.personal.insuranceSalary": "راتب التأمين",
+  "boilerplate.containers.Payroll.Employee.personal.basicSalary": "الراتب الاساسي",
+  "boilerplate.containers.Payroll.Employee.personal.qualification": "المؤهلات",
+  "boilerplate.containers.Payroll.Employee.personal.showSalary": "اظهر المرتب",
+  "boilerplate.containers.Payroll.Employee.personal.jopTitle": "اسم الوظيفة",
+  "boilerplate.containers.Payroll.Employee.personal.vacationType": "نوع الاجازة",
+  "boilerplate.containers.Payroll.Employee.personal.toDate": "الي تاريخ",
+  "boilerplate.containers.Payroll.Employee.personal.fromDate": "من تاريح",
+  "boilerplate.containers.Payroll.Employee.personal.department": "القسم",
+  "boilerplate.containers.Payroll.Employee.personal.address": "العنوان",
   "boilerplate.containers.Payroll.Employee.personal.identitynumber": "رقم الهوية",
   "boilerplate.containers.Payroll.Employee.personal.organization": "القسم",
   "boilerplate.containers.Payroll.Employee.personal.reportto": "المدير المباشر",
@@ -1312,6 +1322,8 @@
   "boilerplate.containers.Payroll.vac.exemptEntryRec": "اعفاء من تسجيل الحضور",
   "boilerplate.containers.Payroll.vac.exemptLeaveRec": "اعفاء من تسجيل الانصراف",
   "boilerplate.containers.Payroll.vac.section": "القسم",
+  "boilerplate.containers.Payroll.vac.consumedLeave": "الاجازة المستخدمة",
+  "boilerplate.containers.Payroll.vac.insuranceDate": "تاريخ التامين",
   "boilerplate.containers.Payroll.vac.hiringMonth": "عدد شهور التعيين",
   "boilerplate.containers.Payroll.vac.insuranceNumber": "الرقم التأميني",
   "boilerplate.containers.Payroll.vac.medicalNumber": "التأمين الصحي",
@@ -1374,5 +1386,15 @@
   "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorOpenMonthMsg": "الشهر مقفل",
   "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorYearAlreadyOpen": "هذه السنة سبق افتتاحها من قبل",
   "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "السنة السابق لهذه السنة لم يتم اقفالها...لا يمكن اتمام العملية",
-  "boilerplate.containers.Payroll.vac.Transaction.FileIsEmpty": "الملف لا يحتوي على بيانات"
+  
+  "boilerplate.containers.Payroll.vac.Transaction.FileIsEmpty": "الملف لا يحتوي على بيانات",
+
+  "boilerplate.containers.Payroll.vac.Transaction.VacationType": "نوع الإجازة",
+  "boilerplate.containers.Payroll.vac.Transaction.startDate": "تاريخ البدء",
+  "boilerplate.containers.Payroll.vac.Transaction.endDate": "تاريخ الانتهاء",
+  "boilerplate.containers.Payroll.vac.Transaction.totalDays": "عدد الايام",
+  "boilerplate.containers.Payroll.vac.Transaction.ReasonForVacation": "سبب الإجازة",
+  "boilerplate.containers.Payroll.vac.Transaction.employeesErrorMes": "يجب اختيار موظف واحد على الأقل",
+  "boilerplate.containers.Payroll.vac.Transaction.noDataError": "لا توجد بيانات لعرضها",
+  "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "تاريخ البدء يأتي بعد تاريخ الانتهاء"
 }

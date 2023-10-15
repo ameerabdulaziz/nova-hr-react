@@ -16,6 +16,46 @@ export default defineMessages({
     id: `${scope}.personal.employeename`,
     defaultMessage: 'Name',
   },
+  insuranceSalary: {
+    id: `${scope}.personal.insuranceSalary`,
+    defaultMessage: 'insuranceSalary',
+  },
+  basicSalary: {
+    id: `${scope}.personal.basicSalary`,
+    defaultMessage: 'basicSalary',
+  },
+  address: {
+    id: `${scope}.personal.address`,
+    defaultMessage: 'address',
+  },
+  qualification: {
+    id: `${scope}.personal.qualification`,
+    defaultMessage: 'qualification',
+  },
+  department: {
+    id: `${scope}.personal.department`,
+    defaultMessage: 'department',
+  },
+  showSalary: {
+    id: `${scope}.personal.showSalary`,
+    defaultMessage: 'showSalary',
+  },
+  toDate: {
+    id: `${scope}.personal.toDate`,
+    defaultMessage: 'toDate',
+  },
+  fromDate: {
+    id: `${scope}.personal.fromDate`,
+    defaultMessage: 'fromDate',
+  },
+  jopTitle: {
+    id: `${scope}.personal.jopTitle`,
+    defaultMessage: 'jopTitle',
+  },
+  vacationType: {
+    id: `${scope}.personal.vacationType`,
+    defaultMessage: 'vacationType',
+  },
   status: {
     id: `${scope}.personal.status`,
     defaultMessage: 'Status',

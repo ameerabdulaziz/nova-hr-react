@@ -479,9 +479,46 @@ export default defineMessages({
     id: `${scope}.modificationReason`,
     defaultMessage: 'modificationReason',
   },
+  insuranceDate: {
+    id: `${scope}.insuranceDate`,
+    defaultMessage: 'insuranceDate',
+  },
   // ImportVacations
   FileIsEmpty: {
     id: `${scope}.Transaction.FileIsEmpty`,
     defaultMessage: 'File Is Empty',
   },
+// Group Leaves
+VacationType: {
+  id: `${scope}.Transaction.VacationType`,
+  defaultMessage: 'Vacation type',
+},
+startDate: {
+  id: `${scope}.Transaction.startDate`,
+  defaultMessage: 'Start date',
+},
+endDate: {
+  id: `${scope}.Transaction.endDate`,
+  defaultMessage: 'End date',
+},
+totalDays: {
+  id: `${scope}.Transaction.totalDays`,
+  defaultMessage: 'Total days',
+},
+ReasonForVacation: {
+  id: `${scope}.Transaction.ReasonForVacation`,
+  defaultMessage: 'Reason for vacation',
+},
+employeesErrorMes: {
+  id: `${scope}.Transaction.employeesErrorMes`,
+  defaultMessage: "Must to select at least one employee",
+},
+noDataError: {
+  id: `${scope}.Transaction.noDataError`,
+  defaultMessage: "No data to view",
+},
+startEndDateError: {
+  id: `${scope}.Transaction.startEndDateError`,
+  defaultMessage: "Start Date is After End Date",
+},
 });

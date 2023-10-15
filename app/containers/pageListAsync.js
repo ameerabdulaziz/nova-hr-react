@@ -1195,6 +1195,13 @@ export const EditEmployeeDocuments = loadable(
   }
 );
 
+export const NewEmployeeReport = loadable(
+  () => import('./Pages/Payroll/Employee/reports/NewEmployeeReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 /// ///////////////////////////////////////////////////////////////////////////////////////
 export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
   fallback: <Loading />,
@@ -1373,8 +1380,22 @@ export const OpeningClosingTheYearForLeaves = loadable(
   }
 );
 
+export const LeavesBalance = loadable(
+  () => import('./Pages/Payroll/Vacation/Reports/LeavesBalance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ImportVacations = loadable(
   () => import('./Pages/Payroll/Vacation/Transaction/ImportVacations'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const GroupLeaves = loadable(
+  () => import('./Pages/Payroll/Vacation/Transaction/GroupLeaves'),
   {
     fallback: <Loading />,
   }

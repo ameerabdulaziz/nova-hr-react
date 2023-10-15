@@ -137,6 +137,7 @@ import {
   EmployeeSalary,
   EmployeeContract,
   EmployeeDocuments,
+  NewEmployeeReport,
   CreateEmployeeDocuments,
   EditEmployeeDocuments,
   TrainingCenter,  ResignReason,Rewards,Penalty,PenaltyCreate,
@@ -180,7 +181,9 @@ import {
   GovernmentSickLeave,
   OpeningLeaveBalancesReport,
   BalanceUpdateLog,
-  ImportVacations
+  ImportVacations,
+  LeavesBalance,
+  GroupLeaves,
 } from '../pageListAsync';
 
 
@@ -749,6 +752,11 @@ function Application(props) {
         />
 
         <Route
+          path="/app/Pages/Employee/NewEmployeeReport"
+          component={NewEmployeeReport}
+        />
+
+        <Route
           path="/app/Pages/Employee/EmployeeDocuments"
           component={EmployeeDocuments}
         />
@@ -838,6 +846,11 @@ function Application(props) {
         />
 
         <Route
+          path="/app/Pages/vac/LeavesBalance"
+          component={LeavesBalance}
+        />
+
+        <Route
           path="/app/Pages/vac/LeaveReport"
           component={LeaveReport}
         />
@@ -905,6 +918,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/ImportVacations"
           component={ImportVacations}
+        />
+
+        <Route
+          path="/app/Pages/vac/GroupLeaves"
+          component={GroupLeaves}
         />
         
         
