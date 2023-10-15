@@ -178,7 +178,8 @@ import {
   ShiftTransfere,ShiftReview,ShiftImport,
   GovernmentSickLeaveCreate,
   GovernmentSickLeave,
-  OpeningLeaveBalancesReport
+  OpeningLeaveBalancesReport,
+  BalanceUpdateLog
 } from '../pageListAsync';
 
 
@@ -828,6 +829,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/OpeningLeaveBalancesReport"
           component={OpeningLeaveBalancesReport}
+        />
+
+        <Route
+          path="/app/Pages/vac/BalanceUpdateLog"
+          component={BalanceUpdateLog}
         />
 
         <Route

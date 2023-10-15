@@ -1296,6 +1296,13 @@ export const LeaveReport = loadable(
   }
 );
 
+export const BalanceUpdateLog = loadable(
+  () => import('./Pages/Payroll/Vacation/Reports/BalanceUpdateLog'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LeaveTrx = loadable(
   () => import('./Pages/Payroll/Vacation/Transaction/LeaveTrx'),
   {
