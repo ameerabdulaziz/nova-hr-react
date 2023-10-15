@@ -181,7 +181,8 @@ import {
   OpeningLeaveBalancesReport,
   BalanceUpdateLog,
   ImportVacations,
-  LeavesBalance
+  LeavesBalance,
+  GroupLeaves,
 } from '../pageListAsync';
 
 
@@ -911,6 +912,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/ImportVacations"
           component={ImportVacations}
+        />
+
+        <Route
+          path="/app/Pages/vac/GroupLeaves"
+          component={GroupLeaves}
         />
         
         
