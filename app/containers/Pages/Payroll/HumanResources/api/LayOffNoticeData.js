@@ -4,11 +4,15 @@ import axiosInstance from '../../api/axios';
 const LayOffNoticeData = (locale) => {
   const Apis = {};
   
-  Apis.GetReport = async (employee,fromdate,todate) => {
-    
-    const data = await axiosInstance.get(`HrLayoffNotice/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}`);
+
+  Apis.GetReport = async (params) => {
+    debugger;
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `HrLayoffNotice/GetReport/${locale}?${queryString}`
+    );
     const result = data.data;
-    
+
     return result;
   };
 

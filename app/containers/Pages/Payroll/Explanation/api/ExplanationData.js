@@ -4,14 +4,18 @@ import axiosInstance from '../../api/axios';
 const ExplanationData = (locale) => {
   const Apis = {};
   
-  Apis.GetReport = async (employee,type,fromdate,todate,allData) => {
-    
-    
-      const data = await axiosInstance.get(`Explanation/GetReport/${locale}?FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&TypeId=${type!=null?type:""}&AllData=${allData}`);
-      const result = data.data;
-   
+ 
+  Apis.GetReport = async (params) => {
+    debugger;
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `Explanation/GetReport/${locale}?${queryString}`
+    );
+    const result = data.data;
+
     return result;
   };
+
 
   Apis.GetList = async () => {
     

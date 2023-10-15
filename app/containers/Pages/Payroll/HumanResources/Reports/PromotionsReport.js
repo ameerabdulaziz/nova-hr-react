@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../api/PromotionsData";
 import { useSelector } from "react-redux";
@@ -7,19 +7,19 @@ import {
   Grid,
   TextField,
   Autocomplete,
-  Typography,
+  Backdrop,
+  CircularProgress,
+  Box,
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import useStyles from "../../Style";
 import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
+import Search from "../../Component/Search";
 
 function PromotionsReport(props) {
   const { intl } = props;
@@ -28,32 +28,47 @@ function PromotionsReport(props) {
   const [fromdate, setfromate] = useState(null);
   const [todate, settodate] = useState(null);
   const [employee, setemployee] = useState(null);
-  const [EmployeeList, setEmployeeList] = useState([]);
+  const [Organization, setOrganization] = useState("");
+  const [EmployeeStatus, setEmployeeStatus] = useState("");
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = useCallback((name, value) => {
+    debugger;
+    if (name == "fromDate")
+      setfromate(value == null ? null : format(new Date(value), "yyyy-MM-dd"));
+    if (name == "toDate")
+      settodate(value == null ? null : format(new Date(value), "yyyy-MM-dd"));
+    if (name == "employeeId") setemployee(value);
+
+    if (name == "organizationId") setOrganization(value);
+
+    if (name == "statusId") setEmployeeStatus(value);
+  }, []);
 
   const handleSearch = async (e) => {
     try {
-      const dataApi = await ApiData(locale).GetReport(
-        employee,
-        fromdate,
-        todate
-      );
+      setIsLoading(true);
+      var formData = {
+        FromDate: fromdate,
+        ToDate: todate,
+        EmployeeId: employee,
+        OrganizationId: Organization,
+        EmployeeStatusId: EmployeeStatus,
+      };
+      Object.keys(formData).forEach((key) => {
+        formData[key] = formData[key] === null ? "" : formData[key];
+      });
+      const dataApi = await ApiData(locale).GetReport(formData);
+
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.response.data);
+      toast.error(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  async function fetchData() {
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
-    setEmployeeList(employees);
-    const dataApi = await ApiData(locale).GetReport(employee, fromdate, todate);
-    setdata(dataApi);
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const columns = [
     {
@@ -124,67 +139,40 @@ function PromotionsReport(props) {
     onSearchClose: () => {
       //some logic
     },
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
   return (
-    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-      <div>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.fromdate)}
-                value={fromdate}
-                onChange={(date) => {
-                  setfromate(
-                    date == null ? null : format(new Date(date), "yyyy-MM-dd")
-                  );
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.todate)}
-                value={todate}
-                onChange={(date) => {
-                  settodate(
-                    date == null ? null : format(new Date(date), "yyyy-MM-dd")
-                  );
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Autocomplete
-              id="employeeId"
-              options={EmployeeList}
-              //value={{id:data.employeeId,name:data.employeeName}}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setemployee(value == null ? null : value.id);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employeeId"
-                  required
-                  label={intl.formatMessage(messages.employeeName)}
-                />
-              )}
-            />
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={12}>
+            <Search
+              handleChange={handleChange}
+              fromdate={fromdate}
+              todate={todate}
+            ></Search>
           </Grid>
           <Grid item xs={12} md={2}>
             <Button
@@ -198,16 +186,16 @@ function PromotionsReport(props) {
           </Grid>
           <Grid item xs={12} md={12}></Grid>
         </Grid>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>
+      </PapperBlock>
+      <div className={classes.CustomMUIDataTable}>
+        <MUIDataTable
+          title=""
+          data={data}
+          columns={columns}
+          options={options}
+        />
       </div>
-    </PapperBlock>
+    </Box>
   );
 }
 
