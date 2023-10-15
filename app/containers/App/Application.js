@@ -137,6 +137,7 @@ import {
   EmployeeSalary,
   EmployeeContract,
   EmployeeDocuments,
+  NewEmployeeReport,
   CreateEmployeeDocuments,
   EditEmployeeDocuments,
   TrainingCenter,  ResignReason,Rewards,Penalty,PenaltyCreate,
@@ -747,6 +748,11 @@ function Application(props) {
         <Route
           path="/app/Pages/Employee/EmployeeContract"
           component={EmployeeContract}
+        />
+
+        <Route
+          path="/app/Pages/Employee/NewEmployeeReport"
+          component={NewEmployeeReport}
         />
 
         <Route
