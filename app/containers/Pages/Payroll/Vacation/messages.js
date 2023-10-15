@@ -467,4 +467,21 @@ export default defineMessages({
     id: `${scope}.annualOpen`,
     defaultMessage: 'annualOpen',
   },
+  description: {
+    id: `${scope}.description`,
+    defaultMessage: 'description',
+  },
+  oldBalance: {
+    id: `${scope}.oldBalance`,
+    defaultMessage: 'oldBalance',
+  },
+  modificationReason: {
+    id: `${scope}.modificationReason`,
+    defaultMessage: 'modificationReason',
+  },
+  // ImportVacations
+  FileIsEmpty: {
+    id: `${scope}.Transaction.FileIsEmpty`,
+    defaultMessage: 'File Is Empty',
+  },
 });

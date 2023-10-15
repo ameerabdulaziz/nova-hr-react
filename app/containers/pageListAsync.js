@@ -1296,6 +1296,13 @@ export const LeaveReport = loadable(
   }
 );
 
+export const BalanceUpdateLog = loadable(
+  () => import('./Pages/Payroll/Vacation/Reports/BalanceUpdateLog'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LeaveTrx = loadable(
   () => import('./Pages/Payroll/Vacation/Transaction/LeaveTrx'),
   {
@@ -1361,6 +1368,13 @@ export const ReplaceAnnualLeaveBalance = loadable(
 
 export const OpeningClosingTheYearForLeaves = loadable(
   () => import('./Pages/Payroll/Vacation/Transaction/OpeningClosingTheYearForLeaves'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ImportVacations = loadable(
+  () => import('./Pages/Payroll/Vacation/Transaction/ImportVacations'),
   {
     fallback: <Loading />,
   }

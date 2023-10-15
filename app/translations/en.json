@@ -921,6 +921,9 @@
   "boilerplate.containers.Payroll.vacation": "Vacation",  
   "boilerplate.containers.Payroll.weekDayName":"Day",  
   "boilerplate.containers.Payroll.Empstatus":"Employee Status",
+  "boilerplate.containers.Payroll.Download":"Download",
+  "boilerplate.containers.Payroll.Import":"Import",
+  "boilerplate.containers.Payroll.reset":"reset",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
@@ -1222,11 +1225,14 @@
   "boilerplate.containers.Payroll.vac.fromdate": "From Date",
   "boilerplate.containers.Payroll.vac.todate": "To Date",
   "boilerplate.containers.Payroll.vac.serial": "Serial",
+  "boilerplate.containers.Payroll.vac.modificationReason": "Modification Reason",
   "boilerplate.containers.Payroll.vac.employeeCode": "Employee Code",
   "boilerplate.containers.Payroll.vac.transactionDate": "Transaction Date",
   "boilerplate.containers.Payroll.vac.leaveTrxCreateTitle": "Create Leave",
   "boilerplate.containers.Payroll.vac.leaveTrxUpdateTitle": "Update Leave",
   "boilerplate.containers.Payroll.vac.telNumber": "Tel Number",
+  "boilerplate.containers.Payroll.vac.description": "Description",
+  "boilerplate.containers.Payroll.vac.oldBalance": "Old Balance",
   "boilerplate.containers.Payroll.vac.address": "Address",
   "boilerplate.containers.Payroll.vac.status": "Status",
   "boilerplate.containers.Payroll.vac.leaveReason": "Leave Reason",
@@ -1330,5 +1336,6 @@
   "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorBalanceMsg": "Error.. Replaced Balance is greater than current balance",
   "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorOpenMonthMsg": "This month is closed",
   "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorYearAlreadyOpen": "Year Already Opened",
-  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "Previous year was not closed ...cannot open new year"
+  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "Previous year was not closed ...cannot open new year",
+  "boilerplate.containers.Payroll.vac.Transaction.FileIsEmpty": "File Is Empty"
 }

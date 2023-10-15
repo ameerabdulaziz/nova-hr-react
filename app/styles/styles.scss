@@ -470,6 +470,21 @@
 
 //  Government Sick Leave Setting --end
 
+// ImportVacations
+.btnsStyle
+{
+    text-align: end;
+    justify-content: end;
+}
+
+.btnsStyleAr
+{
+    text-align: start;
+    justify-content: start;
+}
+
+// ImportVacations --end
+
 
 // reaponsive style
 
@@ -482,6 +497,19 @@
             margin-top: 0 !important;
         }
     }
+
+     // ImportVacations
+     .btnsStyle
+     {
+         text-align: center;
+     }
+ 
+     .btnsStyleAr
+     {
+         text-align: center;
+     }
+ 
+     // ImportVacations --end
 }
 
 @media only screen and (max-width: 480px) 
