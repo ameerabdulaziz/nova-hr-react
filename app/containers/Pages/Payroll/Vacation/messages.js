@@ -475,6 +475,10 @@ export default defineMessages({
     id: `${scope}.oldBalance`,
     defaultMessage: 'oldBalance',
   },
+  modificationReason: {
+    id: `${scope}.modificationReason`,
+    defaultMessage: 'modificationReason',
+  },
   // ImportVacations
   FileIsEmpty: {
     id: `${scope}.Transaction.FileIsEmpty`,

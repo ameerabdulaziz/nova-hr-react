@@ -1225,6 +1225,7 @@
   "boilerplate.containers.Payroll.vac.fromdate": "From Date",
   "boilerplate.containers.Payroll.vac.todate": "To Date",
   "boilerplate.containers.Payroll.vac.serial": "Serial",
+  "boilerplate.containers.Payroll.vac.modificationReason": "Modification Reason",
   "boilerplate.containers.Payroll.vac.employeeCode": "Employee Code",
   "boilerplate.containers.Payroll.vac.transactionDate": "Transaction Date",
   "boilerplate.containers.Payroll.vac.leaveTrxCreateTitle": "Create Leave",

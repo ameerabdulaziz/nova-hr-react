@@ -1302,6 +1302,7 @@
   "boilerplate.containers.Payroll.vac.transactionDate": "تاريخ الادخال",
   "boilerplate.containers.Payroll.vac.leaveTrxCreateTitle": "إنشاء إجازة",
   "boilerplate.containers.Payroll.vac.leaveTrxUpdateTitle": "تحديث الإجازة",
+  "boilerplate.containers.Payroll.vac.modificationReason": "سبب التعديل",
   "boilerplate.containers.Payroll.vac.telNumber": "رقم التليفون",
   "boilerplate.containers.Payroll.vac.address": "العنوان",
   "boilerplate.containers.Payroll.vac.description": "الوصف",
