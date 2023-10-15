@@ -180,7 +180,8 @@ import {
   GovernmentSickLeave,
   OpeningLeaveBalancesReport,
   BalanceUpdateLog,
-  ImportVacations
+  ImportVacations,
+  LeavesBalance
 } from '../pageListAsync';
 
 
@@ -835,6 +836,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/BalanceUpdateLog"
           component={BalanceUpdateLog}
+        />
+
+        <Route
+          path="/app/Pages/vac/LeavesBalance"
+          component={LeavesBalance}
         />
 
         <Route

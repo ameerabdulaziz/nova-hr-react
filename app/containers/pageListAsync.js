@@ -1373,6 +1373,13 @@ export const OpeningClosingTheYearForLeaves = loadable(
   }
 );
 
+export const LeavesBalance = loadable(
+  () => import('./Pages/Payroll/Vacation/Reports/LeavesBalance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ImportVacations = loadable(
   () => import('./Pages/Payroll/Vacation/Transaction/ImportVacations'),
   {

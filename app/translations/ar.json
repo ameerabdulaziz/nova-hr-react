@@ -1311,6 +1311,8 @@
   "boilerplate.containers.Payroll.vac.exemptEntryRec": "اعفاء من تسجيل الحضور",
   "boilerplate.containers.Payroll.vac.exemptLeaveRec": "اعفاء من تسجيل الانصراف",
   "boilerplate.containers.Payroll.vac.section": "القسم",
+  "boilerplate.containers.Payroll.vac.consumedLeave": "الاجازة المستخدمة",
+  "boilerplate.containers.Payroll.vac.insuranceDate": "تاريخ التامين",
   "boilerplate.containers.Payroll.vac.hiringMonth": "عدد شهور التعيين",
   "boilerplate.containers.Payroll.vac.insuranceNumber": "الرقم التأميني",
   "boilerplate.containers.Payroll.vac.medicalNumber": "التأمين الصحي",

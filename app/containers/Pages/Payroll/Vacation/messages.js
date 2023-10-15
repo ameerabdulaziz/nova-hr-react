@@ -479,6 +479,10 @@ export default defineMessages({
     id: `${scope}.modificationReason`,
     defaultMessage: 'modificationReason',
   },
+  insuranceDate: {
+    id: `${scope}.insuranceDate`,
+    defaultMessage: 'insuranceDate',
+  },
   // ImportVacations
   FileIsEmpty: {
     id: `${scope}.Transaction.FileIsEmpty`,
