@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
-import classes2 from '../../../../../styles/Styles.scss';
+import classes2 from '../../../../../styles/styles.scss';
 import ApiData from '../api/ImportVacationsData';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
@@ -24,7 +24,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { object } from 'prop-types';
 import messages from '../messages';
 import {Grid} from "@mui/material";
-import style from '../../../../../styles/Styles.scss'
 
 
 
@@ -267,7 +266,7 @@ jsonFileData.forEach( async (val, index) => {
                         container
                         spacing={3}
                         direction="row"
-                        className={`${style.itemsStyle}   ${locale === "en" ? style.btnsStyle : style.btnsStyleAr} `}
+                        className={`${classes2.itemsStyle}   ${locale === "en" ? classes2.btnsStyle : classes2.btnsStyleAr} `}
                         >
       <Grid item xs={12} sm={6}  md={2}>
             <div className={classes.actions}>     
