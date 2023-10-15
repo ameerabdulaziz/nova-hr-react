@@ -1393,3 +1393,10 @@ export const ImportVacations = loadable(
     fallback: <Loading />,
   }
 );
+
+export const GroupLeaves = loadable(
+  () => import('./Pages/Payroll/Vacation/Transaction/GroupLeaves'),
+  {
+    fallback: <Loading />,
+  }
+);

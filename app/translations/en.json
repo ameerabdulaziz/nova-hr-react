@@ -1349,5 +1349,15 @@
   "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorOpenMonthMsg": "This month is closed",
   "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorYearAlreadyOpen": "Year Already Opened",
   "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "Previous year was not closed ...cannot open new year",
-  "boilerplate.containers.Payroll.vac.Transaction.FileIsEmpty": "File Is Empty"
+  
+  "boilerplate.containers.Payroll.vac.Transaction.FileIsEmpty": "File Is Empty",
+
+  "boilerplate.containers.Payroll.vac.Transaction.VacationType": "Vacation type",
+  "boilerplate.containers.Payroll.vac.Transaction.startDate": "Start date",
+  "boilerplate.containers.Payroll.vac.Transaction.endDate": "End date",
+  "boilerplate.containers.Payroll.vac.Transaction.totalDays": "Total days",
+  "boilerplate.containers.Payroll.vac.Transaction.ReasonForVacation": "Reason for vacation",
+  "boilerplate.containers.Payroll.vac.Transaction.employeesErrorMes": "Must to select at least one employee",
+  "boilerplate.containers.Payroll.vac.Transaction.noDataError": "No data to view",
+  "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "Start Date is After End Date"
 }
