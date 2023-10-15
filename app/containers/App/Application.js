@@ -179,7 +179,8 @@ import {
   GovernmentSickLeaveCreate,
   GovernmentSickLeave,
   OpeningLeaveBalancesReport,
-  BalanceUpdateLog
+  BalanceUpdateLog,
+  ImportVacations
 } from '../pageListAsync';
 
 
@@ -899,6 +900,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/OpeningClosingTheYearForLeaves"
           component={OpeningClosingTheYearForLeaves}
+        />
+
+        <Route
+          path="/app/Pages/vac/ImportVacations"
+          component={ImportVacations}
         />
         
         

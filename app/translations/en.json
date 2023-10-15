@@ -921,6 +921,9 @@
   "boilerplate.containers.Payroll.vacation": "Vacation",  
   "boilerplate.containers.Payroll.weekDayName":"Day",  
   "boilerplate.containers.Payroll.Empstatus":"Employee Status",
+  "boilerplate.containers.Payroll.Download":"Download",
+  "boilerplate.containers.Payroll.Import":"Import",
+  "boilerplate.containers.Payroll.reset":"reset",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
@@ -1332,5 +1335,6 @@
   "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorBalanceMsg": "Error.. Replaced Balance is greater than current balance",
   "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorOpenMonthMsg": "This month is closed",
   "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorYearAlreadyOpen": "Year Already Opened",
-  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "Previous year was not closed ...cannot open new year"
+  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "Previous year was not closed ...cannot open new year",
+  "boilerplate.containers.Payroll.vac.Transaction.FileIsEmpty": "File Is Empty"
 }

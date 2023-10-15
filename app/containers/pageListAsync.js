@@ -1372,3 +1372,10 @@ export const OpeningClosingTheYearForLeaves = loadable(
     fallback: <Loading />,
   }
 );
+
+export const ImportVacations = loadable(
+  () => import('./Pages/Payroll/Vacation/Transaction/ImportVacations'),
+  {
+    fallback: <Loading />,
+  }
+);

@@ -858,7 +858,7 @@
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",
-  "boilerplate.containers.Payroll.id": "المسلسل",
+  "boilerplate.containers.Payroll.id": "كود الموظف",
   "boilerplate.containers.Payroll.code": "الكود",
   "boilerplate.containers.Payroll.delete": "حذف",
   "boilerplate.containers.Payroll.name": "الاسم",
@@ -943,6 +943,9 @@
    "boilerplate.containers.Payroll.employeeId":"كود الموظف",
    "boilerplate.containers.Payroll.weekDayName":"اليوم",
    "boilerplate.containers.Payroll.Empstatus":"حالة الموضف",
+   "boilerplate.containers.Payroll.Download":"تحميل",
+  "boilerplate.containers.Payroll.Import":"استيراد",
+  "boilerplate.containers.Payroll.reset":"إعادة الضبط",
    
    
   
@@ -1368,5 +1371,6 @@
   "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorBalanceMsg": "خطأ...الرصيد المراد استبداله أكبر من الرصيد الحالي",
   "boilerplate.containers.Payroll.errMes.code.EmpVacBalRepMoney_ErrorOpenMonthMsg": "الشهر مقفل",
   "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorYearAlreadyOpen": "هذه السنة سبق افتتاحها من قبل",
-  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "السنة السابق لهذه السنة لم يتم اقفالها...لا يمكن اتمام العملية"
+  "boilerplate.containers.Payroll.errMes.code.VacMonthOpenClose_ErrorPreviousyearnotclosed": "السنة السابق لهذه السنة لم يتم اقفالها...لا يمكن اتمام العملية",
+  "boilerplate.containers.Payroll.vac.Transaction.FileIsEmpty": "الملف لا يحتوي على بيانات"
 }

@@ -475,4 +475,9 @@ export default defineMessages({
     id: `${scope}.oldBalance`,
     defaultMessage: 'oldBalance',
   },
+  // ImportVacations
+  FileIsEmpty: {
+    id: `${scope}.Transaction.FileIsEmpty`,
+    defaultMessage: 'File Is Empty',
+  },
 });
