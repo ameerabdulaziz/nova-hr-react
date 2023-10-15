@@ -1227,6 +1227,8 @@
   "boilerplate.containers.Payroll.vac.leaveTrxCreateTitle": "Create Leave",
   "boilerplate.containers.Payroll.vac.leaveTrxUpdateTitle": "Update Leave",
   "boilerplate.containers.Payroll.vac.telNumber": "Tel Number",
+  "boilerplate.containers.Payroll.vac.description": "Description",
+  "boilerplate.containers.Payroll.vac.oldBalance": "Old Balance",
   "boilerplate.containers.Payroll.vac.address": "Address",
   "boilerplate.containers.Payroll.vac.status": "Status",
   "boilerplate.containers.Payroll.vac.leaveReason": "Leave Reason",

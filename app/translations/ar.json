@@ -1301,6 +1301,8 @@
   "boilerplate.containers.Payroll.vac.leaveTrxUpdateTitle": "تحديث الإجازة",
   "boilerplate.containers.Payroll.vac.telNumber": "رقم التليفون",
   "boilerplate.containers.Payroll.vac.address": "العنوان",
+  "boilerplate.containers.Payroll.vac.description": "الوصف",
+  "boilerplate.containers.Payroll.vac.oldBalance": "الرصيد قبل التعديل",
   "boilerplate.containers.Payroll.vac.leaveReason": "سبب الاجازة",
   "boilerplate.containers.Payroll.vac.exemptEntryRec": "اعفاء من تسجيل الحضور",
   "boilerplate.containers.Payroll.vac.exemptLeaveRec": "اعفاء من تسجيل الانصراف",

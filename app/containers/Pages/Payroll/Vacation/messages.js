@@ -467,4 +467,12 @@ export default defineMessages({
     id: `${scope}.annualOpen`,
     defaultMessage: 'annualOpen',
   },
+  description: {
+    id: `${scope}.description`,
+    defaultMessage: 'description',
+  },
+  oldBalance: {
+    id: `${scope}.oldBalance`,
+    defaultMessage: 'oldBalance',
+  },
 });
