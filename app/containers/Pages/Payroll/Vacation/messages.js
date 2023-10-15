@@ -467,4 +467,9 @@ export default defineMessages({
     id: `${scope}.annualOpen`,
     defaultMessage: 'annualOpen',
   },
+  // ImportVacations
+  FileIsEmpty: {
+    id: `${scope}.Transaction.FileIsEmpty`,
+    defaultMessage: 'File Is Empty',
+  },
 });

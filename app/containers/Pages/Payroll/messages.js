@@ -399,4 +399,12 @@ employeeId: {
     id: `${scope}.Empstatus`,
     defaultMessage: 'Empstatus',
   },
+  Download: {
+    id: `${scope}.Download`,
+    defaultMessage: 'Download',
+  },
+  Import: {
+    id: `${scope}.Import`,
+    defaultMessage: 'Import',
+  },
 });
