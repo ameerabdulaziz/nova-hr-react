@@ -103,7 +103,7 @@ function BalanceUpdateLog(props) {
     },
     {
       name: 'notes',
-      label: <FormattedMessage {...payrollMessages.notes} />,
+      label: <FormattedMessage {...messages.modificationReason} />,
       options: {
         filter: true,
       },
