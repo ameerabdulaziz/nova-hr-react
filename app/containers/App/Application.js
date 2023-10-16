@@ -250,7 +250,8 @@ import {
   LeavesBalance,
   GroupLeaves,
   ImportLeaveBalance,
-  InsuranceOffices
+  InsuranceOffices,
+  SInsuranceJob
 } from '../pageListAsync';
 
 function Application(props) {
@@ -989,6 +990,11 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/InsuranceOffices'
           component={InsuranceOffices}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SInsuranceJob'
+          component={SInsuranceJob}
         />
 
         {/* Default */}

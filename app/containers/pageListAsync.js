@@ -1310,3 +1310,10 @@ export const InsuranceOffices = loadable(
     fallback: <Loading />,
   }
 );
+
+export const SInsuranceJob = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Code/SInsuranceJob'),
+  {
+    fallback: <Loading />,
+  }
+);
