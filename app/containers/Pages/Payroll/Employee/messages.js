@@ -48,6 +48,38 @@ export default defineMessages({
     id: `${scope}.personal.fromDate`,
     defaultMessage: 'fromDate',
   },
+  insuranceDate: {
+    id: `${scope}.personal.insuranceDate`,
+    defaultMessage: 'insuranceDate',
+  },
+  postOverTime: {
+    id: `${scope}.personal.postOverTime`,
+    defaultMessage: 'postOverTime',
+  },
+  netSalary: {
+    id: `${scope}.personal.netSalary`,
+    defaultMessage: 'netSalary',
+  },
+  grossSalary: {
+    id: `${scope}.personal.grossSalary`,
+    defaultMessage: 'grossSalary',
+  },
+  qualificationDate: {
+    id: `${scope}.personal.qualificationDate`,
+    defaultMessage: 'qualificationDate',
+  },
+  idCardNumber: {
+    id: `${scope}.personal.idCardNumber`,
+    defaultMessage: 'idCardNumber',
+  },
+  taxableStuff: {
+    id: `${scope}.personal.taxableStuff`,
+    defaultMessage: 'taxableStuff',
+  },
+  insuranceShare: {
+    id: `${scope}.personal.insuranceShare`,
+    defaultMessage: 'insuranceShare',
+  },
   jopTitle: {
     id: `${scope}.personal.jopTitle`,
     defaultMessage: 'jopTitle',

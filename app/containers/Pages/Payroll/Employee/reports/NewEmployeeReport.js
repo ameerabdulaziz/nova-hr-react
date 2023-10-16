@@ -95,6 +95,14 @@ function NewEmployeeReport(props) {
       },
     },
     {
+      name: 'hiringDate',
+      label: <FormattedMessage {...messages.hiringDate} />,
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+      },
+    },
+    {
       name: 'qualification',
       label: <FormattedMessage {...messages.qualification} />,
       options: {
@@ -104,6 +112,85 @@ function NewEmployeeReport(props) {
     {
       name: 'address',
       label: <FormattedMessage {...messages.address} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'insuranceDate',
+      label: <FormattedMessage {...messages.insuranceDate} />,
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+      },
+    },
+    {
+      name: 'taxable',
+      label: <FormattedMessage {...messages.taxableStuff} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'postOverTime',
+      label: <FormattedMessage {...messages.postOverTime} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'netSal',
+      label: <FormattedMessage {...messages.netSalary} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'grossSalary',
+      label: <FormattedMessage {...messages.grossSalary} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'siEmpShareFix',
+      label: <FormattedMessage {...messages.insuranceShare} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'religion',
+      label: <FormattedMessage {...messages.religion} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'qualificationDate',
+      label: <FormattedMessage {...messages.qualificationDate} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'idCardNumber',
+      label: <FormattedMessage {...messages.idCardNumber} />,
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'birthDate',
+      label: <FormattedMessage {...messages.birthDate} />,
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+      },
+    },
+    {
+      name: 'gender',
+      label: <FormattedMessage {...messages.gender} />,
       options: {
         filter: true,
       },
@@ -156,8 +243,6 @@ function NewEmployeeReport(props) {
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? '' : formData[key];
       });
-
-      console.log(formData);
 
       const dataApi = await API(locale).GetReport(formData);
 
