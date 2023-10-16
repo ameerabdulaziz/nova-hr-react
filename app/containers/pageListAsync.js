@@ -368,78 +368,7 @@ export const Gender = loadable(
     fallback: <Loading />,
   }
 );
-export const Grade = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Government = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Month = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Year = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Nationalities = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Qualifications = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Religions = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Salute = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const LicenseGrade = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const KinshipLink = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const JobLevel = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const MilitaryStatus = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
+
 export const Jobs = loadable(
   () => import('./Pages/Payroll/MainData/Code/Job'),
   {
@@ -503,30 +432,7 @@ export const Documents = loadable(
     fallback: <Loading />,
   }
 );
-export const JobTypes = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const JobNatures = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const SocialStatus = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const IdentityType = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
+
 export const CompanyChart = loadable(
   () => import('./Pages/Payroll/MainData/Transaction/CompanyChart'),
   {
@@ -600,24 +506,14 @@ export const SettingResetPassword = loadable(
   }
 );
 // HR////////////////////////////////////////////////////////////////////////////////////////
-export const Courses = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
+
 export const TrainingCenter = loadable(
   () => import('./Pages/Payroll/HumanResources/Code/TrainingCenter'),
   {
     fallback: <Loading />,
   }
 );
-export const ResignReason = loadable(
-  () => import('./Pages/Payroll/MainData/Code/General'),
-  {
-    fallback: <Loading />,
-  }
-);
+
 export const Rewards = loadable(
   () => import('./Pages/Payroll/HumanResources/Code/Rewards'),
   {
