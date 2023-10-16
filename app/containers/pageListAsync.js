@@ -1400,3 +1400,10 @@ export const GroupLeaves = loadable(
     fallback: <Loading />,
   }
 );
+
+export const ImportLeaveBalance = loadable(
+  () => import('./Pages/Payroll/Vacation/Transaction/ImportLeaveBalance'),
+  {
+    fallback: <Loading />,
+  }
+);
