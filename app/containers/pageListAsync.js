@@ -1303,3 +1303,10 @@ export const ImportLeaveBalance = loadable(
     fallback: <Loading />,
   }
 );
+
+export const InsuranceOffices = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Code/InsuranceOffices'),
+  {
+    fallback: <Loading />,
+  }
+);

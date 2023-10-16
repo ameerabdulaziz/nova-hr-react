@@ -48,6 +48,10 @@ export default defineMessages({
     id: `${scope}.codes.symbol`,
     defaultMessage: 'Symbol',
   },
+  insuranceOffices: {
+    id: `${scope}.codes.insuranceOffices`,
+    defaultMessage: 'insuranceOffices',
+  },
   currency: {
     id: `${scope}.codes.currency`,
     defaultMessage: 'Currency',

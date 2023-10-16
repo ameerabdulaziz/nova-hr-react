@@ -250,6 +250,7 @@ import {
   LeavesBalance,
   GroupLeaves,
   ImportLeaveBalance,
+  InsuranceOffices
 } from '../pageListAsync';
 
 function Application(props) {
@@ -983,6 +984,11 @@ function Application(props) {
         <Route
           path='/app/Pages/vac/ImportLeaveBalance'
           component={ImportLeaveBalance}
+        />
+
+        <Route
+          path='/app/Pages/insurance/InsuranceOffices'
+          component={InsuranceOffices}
         />
 
         {/* Default */}

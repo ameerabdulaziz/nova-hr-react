@@ -798,6 +798,7 @@
   "boilerplate.components.tables.codes.name": "Arabic Name",
   "boilerplate.components.tables.codes.enname": "English Name",
   "boilerplate.components.tables.codes.govname": "Governorate",
+  "boilerplate.components.tables.codes.insuranceOffices": "Insurance Offices",
   "boilerplate.components.tables.codes.action": "Action",
   "boilerplate.components.tables.codes.address": "Address",
   "boilerplate.components.tables.codes.note": "Notes",
