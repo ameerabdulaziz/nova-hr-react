@@ -171,6 +171,7 @@ function NewEmployeeReport(props) {
       label: <FormattedMessage {...messages.qualificationDate} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
       },
     },
     {
