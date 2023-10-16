@@ -7,7 +7,7 @@ const LeaveReportData = (locale) => {
     const queryString = new URLSearchParams(params);
 
     const data = await axiosInstance.get(
-      `/VacVacationTrx/GetLeaveReport/${locale}?${queryString.toString()}`
+      `/VacReport/GetLeaveReport/${locale}?${queryString.toString()}`
     );
 
     return data.data;

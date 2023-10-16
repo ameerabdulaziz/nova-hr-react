@@ -7,7 +7,7 @@ const vacationTrxData = (locale) => {
     const queryString = new URLSearchParams(params);
 
     const data = await axiosInstance.get(
-      `VacEmployeeVacOpenBalance/GetReport/${locale}?${queryString.toString()}`
+      `VacReport/GetVacOpenBal/${locale}?${queryString.toString()}`
     );
 
     return data.data;

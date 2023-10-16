@@ -6,7 +6,7 @@ const vacationTrxData = (locale) => {
   Apis.GetReport = async (params) => {
     const queryString = new URLSearchParams(params);
 
-    const data = await axiosInstance.post(`VacVacationTrx/GetReport/${locale}?${queryString.toString()}`, params.VacationId);
+    const data = await axiosInstance.post(`VacReport/GetLeaveDetails/${locale}?${queryString.toString()}`, params.VacationId);
 
     return data.data;
   };
