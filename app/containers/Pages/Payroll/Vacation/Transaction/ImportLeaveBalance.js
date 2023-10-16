@@ -12,7 +12,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from '../../Style';
 import { useSelector } from 'react-redux';
 import classes2 from '../../../../../styles/styles.scss';
-// import ApiData from '../api/ImportVacationsData';
+import ApiData from '../api/ImportLeaveBalanceData';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import { read, utils } from 'xlsx';
@@ -24,6 +24,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { object } from 'prop-types';
 import messages from '../messages';
 import {Grid} from "@mui/material";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import { async } from '@dabeng/react-orgchart';
+import GeneralListApis from '../../api/GeneralListApis';
 
 
 
@@ -40,13 +44,18 @@ function ImportLeaveBalance({intl }) {
   const Title = localStorage.getItem("MenuName");  
   let columns = []
   const [processing, setprocessing] = useState(false);
+  const [VacationType, setVacationType] = useState(null);
+  const [LeavesList, setLeavesList] = useState([]);
+  
+
+  
 
   const handleImport = ($event) => {
    
     const files = $event.target.files;
     let jsonData = []
     let obj= {}
-    const regex = /^\d{2}-\d{2}-\d{4}$/;
+
     
     if (files.length) {
      
@@ -62,42 +71,36 @@ function ImportLeaveBalance({intl }) {
                 const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {raw: false});
                if(rows.length !== 0)
                {
+              
                 // the below code used to recustomize the file data before send it to Api
-              obj.trxDate =  format(new Date(), "yyyy-MM-dd")
+              
 
                   rows.map((items)=>(
 
                   obj= {},
                   Object.keys(items).map((item, index) => {
 
-                    if(index === 5 && items[item].length !== 0)
-                    {
-                      obj.VacCode = Number(items[item])
-                    }
+                    
 
                     if(index === 0 && items[item].length !== 0)
                     {
+                      
                       obj.employeeId = Number(items[item])
                     }
 
-                    if(index === 2 && items[item].length !== 0 && regex.test(items[item]))
+                    if(index === 2 && items[item].length !== 0)
                     {
-                      obj.fromdate = items[item]
+                      obj.currentBalance   = parseFloat(items[item])
                     }
 
-                    if(index === 3 && items[item].length !== 0 && regex.test(items[item]))
+                    if(index === 3 && items[item].length !== 0 &&  items[item].length !== 0 )
                     {
-                      obj.todate = items[item]
+                      obj.oldBal  = parseFloat(items[item])
                     }
 
-                    if(index === 4 && items[item].length !== 0)
+                    if(index === 4 && items[item].length !== 0 && items[item].length !== 0 )
                     {
-                      obj.vacationName = items[item]
-                    }
-
-                    if(index === 6 && items[item].length !== 0)
-                    {
-                      obj.notes = items[item]
+                      obj.postedBal  = parseFloat(items[item])
                     }
 
                   }),
@@ -123,6 +126,8 @@ function ImportLeaveBalance({intl }) {
         }
         reader.readAsArrayBuffer(file);
         setFileTitle(file.name.split(".")[0])
+
+        
     }
 }
 const resetDataFun = () => {
@@ -131,44 +136,45 @@ const resetDataFun = () => {
   setFileTitle("")
   setCols("")
   setFile("")
+  setVacationType(null)
 }
 
 const submitFun = async (e) => {
-// let lock = true
+let lock = true
 
-// // used to check if file has empty cells
-// jsonFileData.forEach( async (val, index) => {
-//     if (
-//       Object.keys(val).some((key) => {
-//         return val[key] == null || val[key] == "";
-//       })
-//     )
-//     {
-//       lock = false
-//       toast.error(`There is missed values in row number ${index + 1} in the file`);
-//     }
-//   });
+// used to check if file has empty cells
+jsonFileData.forEach( async (val, index) => {
+    if (
+      Object.keys(val).some((key) => {
+        return val[key] == null || val[key] == "";
+      })
+    )
+    {
+      lock = false
+      toast.error(`There is missed values in row number ${index + 1} in the file`);
+    }
+  });
 
 
-//   if(lock)
-//   {
-//   try{
-//         setprocessing(true); 
-//           let response = await  ApiData(locale).SaveList(jsonFileData);
+  if(lock)
+  {
+  try{
+        setprocessing(true); 
+          let response = await  ApiData(locale).SaveList(jsonFileData,VacationType);
   
-//           if (response.status==200) {
-//             toast.success(response.data , {duration: 8000});
-//             resetDataFun();
-//           } else {
-//               toast.error(response.statusText);
-//           }
+          if (response.status==200) {
+            toast.success(notif.saved);
+            resetDataFun();
+          } else {
+              toast.error(response.statusText);
+          }
   
-//           setprocessing(false);
-//         } catch (err) {
-//           setprocessing(false);
-//           toast.error(err.response.data);
-//         }
-//   }
+          setprocessing(false);
+        } catch (err) {
+          setprocessing(false);
+          toast.error(err.response.data);
+        }
+  }
     
 }
 
@@ -252,6 +258,19 @@ const submitFun = async (e) => {
   };
 
 
+  const getVacTypeList = async () => {
+    const Leaves = await GeneralListApis(locale).GetVacList(true);
+    setLeavesList(Leaves);
+  }
+
+  useEffect( ()=>{
+    getVacTypeList()
+  },[])
+
+
+
+
+
   return (
     <div>
       
@@ -268,11 +287,54 @@ const submitFun = async (e) => {
                         direction="row"
                         className={`${classes2.itemsStyle}   ${locale === "en" ? classes2.btnsStyle : classes2.btnsStyleAr} `}
                         >
-      <Grid item xs={12} sm={6}  md={2}>
+
+          <Grid item xs={12}   lg={4}>
+            <div className={classes.actions}>     
+            <Autocomplete
+              id="ddlMenu"
+              className={`${classes2.comboBoxSty} ${classes2.comboBoxSty2}`}
+              options={LeavesList}
+              // options={topFilms}
+              sx={{ width: "300px", paddingTop: "0px" }}
+              getOptionLabel={(option) =>
+                option.name || ""
+                // option ? option.name : ""
+                // option ? option.title : ""
+                // locale=="en"?option.enName:option.arName
+              }
+              renderOption={(props, option) => {
+                
+                return (
+                  <li {...props} key={option.id}>
+                    {option.name}
+                  </li>
+                );
+              }}
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setVacationType(value.id);
+                } else {
+                  setVacationType(null);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name="LeaveType"
+                   label= {intl.formatMessage(messages.LeaveType)}
+                  margin="normal"
+                />
+              )}
+            />
+          </div>
+
+        </Grid>
+
+      <Grid item xs={12} md={6} lg={2}>
             <div className={classes.actions}>     
               <Tooltip title="Download">             
               <a 
-                href={`${ServerURL}Doc/ExcelForm/VacForm.xlsx`} 
+                href={`${ServerURL}Doc/ExcelForm/VacBalanceForm.xlsx`} 
                 target="_blank" rel="noreferrer"  
                 download>
                   <Button
@@ -289,7 +351,7 @@ const submitFun = async (e) => {
 
         </Grid>
 
-        <Grid item xs={12} sm={6}  md={2}>
+        <Grid item xs={12} md={6} lg={2}>
             <div className={classes.actions}>     
             <Tooltip title="Import">
 
@@ -318,7 +380,7 @@ const submitFun = async (e) => {
             </div>
 </Grid>
 
-<Grid item  xs={12} sm={6} md={2}>
+<Grid item  xs={12} md={6} lg={2}>
             <div className={classes.actions}>     
               <Tooltip title="Reset">             
                 <Button
@@ -334,7 +396,7 @@ const submitFun = async (e) => {
 
         </Grid>
 
-        <Grid item xs={12} sm={6}  md={2}>
+        <Grid item xs={12} md={6} lg={2}>
 
             <div className={classes.actions}>     
               <Tooltip title="Import Excel File To Can Submit">              
@@ -344,7 +406,7 @@ const submitFun = async (e) => {
                   color="secondary"
                   className={classes.button}
                   onClick={submitFun}
-                  disabled={fileData.length !== 0 && !processing ? false : true}
+                  disabled={fileData.length !== 0 && VacationType !== null && !processing ? false : true}
                 >
                   {processing && (
                             <CircularProgress

@@ -1405,5 +1405,7 @@
   "boilerplate.containers.Payroll.vac.Transaction.ReasonForVacation": "سبب الإجازة",
   "boilerplate.containers.Payroll.vac.Transaction.employeesErrorMes": "يجب اختيار موظف واحد على الأقل",
   "boilerplate.containers.Payroll.vac.Transaction.noDataError": "لا توجد بيانات لعرضها",
-  "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "تاريخ البدء يأتي بعد تاريخ الانتهاء"
+  "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "تاريخ البدء يأتي بعد تاريخ الانتهاء",
+
+  "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "نوع الإجازة"
 }

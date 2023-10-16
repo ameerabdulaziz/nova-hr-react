@@ -521,4 +521,9 @@ startEndDateError: {
   id: `${scope}.Transaction.startEndDateError`,
   defaultMessage: "Start Date is After End Date",
 },
+// Import Leave Balance
+LeaveType: {
+  id: `${scope}.Transaction.LeaveType`,
+  defaultMessage: "Leave type",
+},
 });

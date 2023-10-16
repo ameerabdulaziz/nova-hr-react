@@ -1369,5 +1369,7 @@
   "boilerplate.containers.Payroll.vac.Transaction.ReasonForVacation": "Reason for vacation",
   "boilerplate.containers.Payroll.vac.Transaction.employeesErrorMes": "Must to select at least one employee",
   "boilerplate.containers.Payroll.vac.Transaction.noDataError": "No data to view",
-  "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "Start Date is After End Date"
+  "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "Start Date is After End Date",
+
+  "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "Leave Type"
 }

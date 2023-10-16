@@ -268,7 +268,7 @@ jsonFileData.forEach( async (val, index) => {
                         direction="row"
                         className={`${classes2.itemsStyle}   ${locale === "en" ? classes2.btnsStyle : classes2.btnsStyleAr} `}
                         >
-      <Grid item xs={12} sm={6}  md={2}>
+       <Grid item xs={12} md={6} lg={2}>
             <div className={classes.actions}>     
               <Tooltip title="Download">             
               <a 
@@ -289,7 +289,7 @@ jsonFileData.forEach( async (val, index) => {
 
         </Grid>
 
-        <Grid item xs={12} sm={6}  md={2}>
+        <Grid item xs={12} md={6} lg={2}>
             <div className={classes.actions}>     
             <Tooltip title="Import">
 
@@ -318,7 +318,7 @@ jsonFileData.forEach( async (val, index) => {
             </div>
 </Grid>
 
-<Grid item  xs={12} sm={6} md={2}>
+<Grid item xs={12} md={6} lg={2}>
             <div className={classes.actions}>     
               <Tooltip title="Reset">             
                 <Button
@@ -334,7 +334,7 @@ jsonFileData.forEach( async (val, index) => {
 
         </Grid>
 
-        <Grid item xs={12} sm={6}  md={2}>
+        <Grid item xs={12} md={6} lg={2}>
 
             <div className={classes.actions}>     
               <Tooltip title="Import Excel File To Can Submit">              
@@ -367,7 +367,7 @@ jsonFileData.forEach( async (val, index) => {
 
         {fileData.length !== 0 && (
 
-            <div className={`${classes2.ImportTableContainer}  ${locale === "ar" ? classes2.tableContainerStyAr : ''}`}>
+<div className={classes.CustomMUIDataTable}>
                     <MUIDataTable
                     title={fileTitle}
                     data={fileData}
