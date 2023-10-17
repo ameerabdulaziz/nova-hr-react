@@ -12,6 +12,10 @@
   .mui-style-ltr-prkftb-MuiTable-root-table-stripped {
     min-width: 0px !important;
   }
+  .mui-style-rtl-prkftb-MuiTable-root-table-stripped { 
+    min-width: 0px !important;
+  }
+    
   .mui-style-ltr-lgyxef-MuiPaper-root-MuiDialog-paper{
     max-width: 1000px !important;
   }
@@ -24,6 +28,11 @@
     overflow-y: clip !important;
     height: 100% !important;
   }
+  .mui-style-rtl-1gcb22l-MuiPaper-root-MuiDialog-paper {
+    overflow-y: clip !important;
+    height: 100% !important;
+  }
+
 /* .tss-1g1redb-MUIDataTableHeadCell-fixedHeader
 {
   background-color: #b3d4fc !important;
