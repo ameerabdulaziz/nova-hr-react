@@ -254,7 +254,10 @@ import {
   InsuranceOffices,
   SInsuranceJob,
   SinsuranceCalculationTemplate,
-  EmployeeDataReport
+  SInsuranceOrgnization,
+  SInsuranceOrgnizationCreate,
+  EmployeeDataReport,
+  followStaffContracts
 } from '../pageListAsync';
 
 function Application(props) {
@@ -856,6 +859,11 @@ function Application(props) {
           component={EmployeeDataReport}
         />
 
+        <Route
+          path='/app/Pages/Employee/followStaffContracts'
+          component={followStaffContracts}
+        />
+
         {/* Map */}
         <Route exact path='/app/maps' component={Parent} />
         <Route path='/app/maps/map-marker' component={MapMarker} />
@@ -1013,6 +1021,21 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/SinsuranceCalculationTemplate'
           component={SinsuranceCalculationTemplate}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SInsuranceOrgnization'
+          component={SInsuranceOrgnization}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SInsuranceOrgnizationCreate'
+          component={SInsuranceOrgnizationCreate}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SInsuranceOrgnizationEdit'
+          component={SInsuranceOrgnizationCreate}
         />
 
         {/* Default */}

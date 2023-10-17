@@ -1405,5 +1405,21 @@
   "boilerplate.containers.Payroll.vac.Transaction.noDataError": "No data to view",
   "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "Start Date is After End Date",
 
-  "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "Leave Type"
+  "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "Leave Type",
+
+  "boilerplate.containers.Payroll.insurance.arName": "Arabic Name",
+  "boilerplate.containers.Payroll.insurance.enName": "English Name",
+  "boilerplate.containers.Payroll.insurance.government": "Government",
+  "boilerplate.containers.Payroll.insurance.ownerLegalDescription": "Owner Legal Description",
+  "boilerplate.containers.Payroll.insurance.legalDescription": "Legal Description",
+  "boilerplate.containers.Payroll.insurance.actions": "Actions",
+  "boilerplate.containers.Payroll.insurance.ownerName": "Owner Name",
+  "boilerplate.containers.Payroll.insurance.SInsuranceOrgnizationCreateTitle": "Create Insurance Orgnization",
+  "boilerplate.containers.Payroll.insurance.SInsuranceOrgnizationEditTitle": "Edit Insurance Orgnization",
+  "boilerplate.containers.Payroll.insurance.organizationId": "organization Id",
+  "boilerplate.containers.Payroll.insurance.address": "Address",
+  "boilerplate.containers.Payroll.insurance.region": "Region",
+  "boilerplate.containers.Payroll.insurance.insuranceOffice": "Insurance Office",
+  "boilerplate.containers.Payroll.insurance.organizationName": "organization Name",
+  "boilerplate.containers.Payroll.insurance.insuranceNumber": "Insurance Number"
 }

@@ -1098,6 +1098,20 @@ export const NewEmployeeReport = loadable(
   }
 );
 
+export const EmployeeDataReport = loadable(
+  () => import('./Pages/Payroll/Employee/reports/EmployeeDataReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const followStaffContracts = loadable(
+  () => import('./Pages/Payroll/Employee/reports/followStaffContracts'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 /// ///////////////////////////////////////////////////////////////////////////////////////
 export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
   fallback: <Loading />,
@@ -1304,6 +1318,10 @@ export const ImportLeaveBalance = loadable(
   }
 );
 
+
+
+// Social Insurance
+
 export const InsuranceOffices = loadable(
   () => import('./Pages/Payroll/SocialInsurance/Code/InsuranceOffices'),
   {
@@ -1325,10 +1343,16 @@ export const SinsuranceCalculationTemplate = loadable(
   }
 );
 
-export const EmployeeDataReport = loadable(
-  () => import('./Pages/Payroll/Employee/reports/EmployeeDataReport'),
+export const SInsuranceOrgnization = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Code/SInsuranceOrgnization'),
   {
     fallback: <Loading />,
   }
 );
 
+export const SInsuranceOrgnizationCreate = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Code/SInsuranceOrgnizationCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
