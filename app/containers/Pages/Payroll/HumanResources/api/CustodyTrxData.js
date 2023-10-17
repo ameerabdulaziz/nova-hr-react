@@ -4,7 +4,6 @@ const CustodyTrxData = (locale) => {
   const Apis = {};
 
   Apis.GetReport = async (params) => {
-    debugger;
     const queryString = new URLSearchParams(params);
     const data = await axiosInstance.get(
       `HrCustodyTrx/GetReport/${locale}?${queryString}`

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PapperBlock } from 'enl-components';
 import ApiData from '../api/NewsData';
 import messages from '../messages';
@@ -6,12 +6,9 @@ import Payrollmessages from '../../messages';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
-import { useParams ,useHistory } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import {Button , Grid,TextField,Autocomplete,Checkbox,Table,
-  TableBody,TableCell,TableHead,TableRow,FormControl,Tooltip, TableContainer} from "@mui/material";
+import {Button , Grid,TextField,Autocomplete,FormControl,Tooltip} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import css from 'enl-styles/Table.scss';
 import PropTypes from 'prop-types';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -19,7 +16,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import NamePopup from '../../Component/NamePopup';
+import NameList from '../../Component/NameList';
 import useStyles from '../../Style';
 import SaveButton from '../../Component/SaveButton';
 import { useLocation } from "react-router-dom";
@@ -27,12 +24,12 @@ import { useLocation } from "react-router-dom";
 
 
 function NewsCreate(props) {
+  
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation()
   const { id } = location.state??0;
   const { classes,cx } = useStyles();
-  const [OpenPopup, setOpenPopup] = useState(false);  
   const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   const [data, setdata] = useState({
     "id": 0,
@@ -98,54 +95,10 @@ function NewsCreate(props) {
     fetchData();
   }, []);
 
-  const handleClose = (data) => {   
-
-    
-     data.map((row) =>{
-      if( EmployeeList.filter((x) => x.id==row.id).length == 0)
-      {
-        setEmployeeList((prev) => [...prev, {"id":row.id,"name":row.name,"isSelected":row.isSelected}]);
-      }
-    });
-    setOpenPopup(false);
-  }
-  
-  const handleClickOpen = () => {
-    
-      setOpenPopup(true);
-  }
-
-const handlecheckAll = (event) => {  
-setEmployeeList(  
-  EmployeeList.map((x) => {    
-    x.isSelected = event.target.checked;
-    return x;
-  }));
-
-};
-
-
-const handleEnableOne = (event, row) => {
-  
-    setEmployeeList(
-        EmployeeList.map((x) => {
-          if (x.id == row.id) {
-            if (event.target.name == "isselected") {
-              x.isSelected = event.target.checked;
-            } 
-          }
-          return x;
-        })
-      );
-};
-
   return (
     <div>
         <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.NewsCreateTitle):intl.formatMessage(messages.NewsUpdateTitle)} desc={""}>
-        <NamePopup
-            handleClose={handleClose}            
-            open={OpenPopup}
-        />
+   
         <form onSubmit={handleSubmit}>
         <Grid container alignItems={"initial"} spacing={3} >
             <Grid container item md={7} xs={12}  direction="row" style={{ maxHeight: '200vh' }}> 
@@ -278,52 +231,10 @@ const handleEnableOne = (event, row) => {
                 
                 <hr className={classes.hr} />
                 <Grid item xs={12} md={12}>
-                  <Button variant="contained" size="medium" color="primary" onClick={handleClickOpen}>
-                    <FormattedMessage {...Payrollmessages.chooseEmp} />
-                  </Button>
-                  <div className={classes.rootTable}>
-                    <TableContainer style={{ maxHeight: 250 }}>
-                      <Table className={cx(css.tableCrud, classes.table, classes.stripped)} style={{minWidth:"0px"}} >
-                          <TableHead>
-                          <TableRow >               
-                              <TableCell  style={{width: '5px',padding:'0px'}}>                                                   
-                                  <Checkbox
-                                      checked={EmployeeList.length > 0 &&  EmployeeList.filter((crow) => crow.isSelected==true).length === EmployeeList.length?true:false}
-                                      color="primary"
-                                      name="AllSelect"
-                                      indeterminate={EmployeeList.filter((crow) => crow.isSelected==true).length > 0 && EmployeeList.filter((crow) => crow.isSelected==true).length < EmployeeList.length?true:false}
-                                      onChange={handlecheckAll}
-                                  />
-                              </TableCell>   
-                              <TableCell style={{width: '5px',padding:'0px'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
-                              <TableCell style={{width: '20px',padding:'0px'}}><FormattedMessage {...messages.employeeName} /></TableCell>
-                                                                            
-                          </TableRow>
-                          </TableHead>
-                          <TableBody>
-                          {EmployeeList.length !== 0 &&
-                              EmployeeList.map((row) => {
-                              return (                          
-                                  <TableRow hover key={row.id} sx={{ height: 1 }} style={{padding:'0px'}}> 
-                                  <TableCell style={{width: '5px',padding:'0px'}}>
-                                      <Checkbox
-                                      checked={row.isSelected}
-                                      color="primary"
-                                      name="isselected"
-                                      onChange={(event) => handleEnableOne(event, row)}
-                                      value={row.isSelected}
-                                      />
-                                  </TableCell>                                                         
-                                  <TableCell style={{width: '5px',padding:'0px'}}>{row.id}</TableCell>
-                                  <TableCell style={{width: '20px',padding:'0px'}}>{row.name}</TableCell>   
-                                                        
-                                  </TableRow>
-                              );
-                              })}
-                          </TableBody>
-                      </Table> 
-                    </TableContainer>                   
-                  </div>
+                  <NameList
+                    dataList={EmployeeList}            
+                    setdataList={setEmployeeList}
+                    Key={"Employee"}/>
                 </Grid>
               </section> 
             </Grid>                

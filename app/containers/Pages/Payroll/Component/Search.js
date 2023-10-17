@@ -31,7 +31,6 @@ function Search(props) {
     setOrganizationList(organizations);
 
     const status = await GeneralListApis(locale).GetEmpStatusList();
-    debugger;
       setStatusList(status);
   }
   useEffect(() => {

@@ -7,7 +7,6 @@ const RewardTransData = (locale) => {
   
   
   Apis.GetReport = async (params) => {
-    debugger;
     const queryString = new URLSearchParams(params);
     const data = await axiosInstance.get(
       `HrRewardsTransaction/GetReport/${locale}?${queryString}`

@@ -63,7 +63,6 @@ function ShiftTransfere(props) {
 
   async function handleUpdate(selectedRows) {
     try {
-      debugger;
       const shifts = [];
       for (let i = 0; i < selectedRows.data.length; i++) {
         shifts.push({

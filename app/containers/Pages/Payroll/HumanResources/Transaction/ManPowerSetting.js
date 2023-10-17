@@ -28,9 +28,7 @@ function ManPowerSetting(props) {
   const [totalIdealManPower, settotalIdealManPower] = useState("")  
   const [processing, setprocessing] = useState(false);
   
-  const handleClose = (data) => {   
-
-    
+  const handleClose = useCallback((data) => {   
      data.map((row) =>{
       if(dataList.filter((x) => x.jobId==row.id).length == 0)
       {
@@ -38,7 +36,7 @@ function ManPowerSetting(props) {
       }
     });
     setOpenPopup(false);
-}
+  },[dataList]);
   
   const handleClickOpen = () => {
     
@@ -66,7 +64,7 @@ const handleEnableOne = (event, row) => {
             } 
             else if(event.target.name == "idealManPower")
             {
-                x.idealManPower =parseInt( event.target.value);
+                x.idealManPower =event.target.value?parseInt( event.target.value):0;
             }
           }
           return x;
@@ -88,14 +86,16 @@ async function on_submit() {
       });
       
       if (response.status==200) {
-        toast.success(notif.saved);
-        setprocessing(fasle);
+        toast.success(notif.saved);        
         GetList();
       } else {
           toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+      toast.error(err.message);
+    }
+    finally{
+      setprocessing(false);
     }
   }
 

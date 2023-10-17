@@ -1304,6 +1304,16 @@ export const ImportLeaveBalance = loadable(
   }
 );
 
+export const EmployeeDataReport = loadable(
+  () => import('./Pages/Payroll/Employee/reports/EmployeeDataReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+// Social Insurance
+
 export const InsuranceOffices = loadable(
   () => import('./Pages/Payroll/SocialInsurance/Code/InsuranceOffices'),
   {
