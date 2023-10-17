@@ -28,40 +28,30 @@ function CustodyDeliveryReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const [fromdate, setfromate] = useState(null);
-  const [todate, settodate] = useState(null);
-  const [employee, setemployee] = useState(null);
-  const [Organization, setOrganization] = useState("");
-  const [EmployeeStatus, setEmployeeStatus] = useState("");
   const [custody, setcustody] = useState(null);
   const [custodyList, setcustodyList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
-
-  const handleChange = useCallback((name, value) => {
-    if (name == "fromDate")
-      setfromate(value == null ? null : format(new Date(value), "yyyy-MM-dd"));
-    if (name == "toDate")
-      settodate(value == null ? null : format(new Date(value), "yyyy-MM-dd"));
-    if (name == "employeeId") setemployee(value);
-
-    if (name == "organizationId") setOrganization(value);
-
-    if (name == "statusId") setEmployeeStatus(value);
-  }, []);
-
+  const [searchData, setsearchData] = useState({
+    FromDate: null,
+    ToDate: null,
+    EmployeeId: "",
+    OrganizationId: "",
+    EmpStatusId: 1,
+  });
+  
   const handleSearch = async (e) => {
     try {
       setIsLoading(true);
       var formData = {
-        FromDate: fromdate,
-        ToDate: todate,
-        EmployeeId: employee,
+        FromDate: searchData.FromDate,
+        ToDate: searchData.ToDate,
+        EmployeeId: searchData.EmployeeId,
         CustodyId: custody,
         TrxType: 1,
-        OrganizationId: Organization,
-        EmployeeStatusId: EmployeeStatus,
+        OrganizationId: searchData.OrganizationId,
+        EmployeeStatusId: searchData.EmpStatusId,
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
@@ -183,10 +173,9 @@ function CustodyDeliveryReport(props) {
 
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
-            <Search
-              handleChange={handleChange}
-              fromdate={fromdate}
-              todate={todate}
+          <Search
+              setsearchData={setsearchData}
+              searchData={searchData}
             ></Search>
           </Grid>
           <Grid item xs={12} md={4}>

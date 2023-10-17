@@ -26,7 +26,7 @@ function LeavesBalance(props) {
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
     OrganizationId: null,
-    statusId: null,
+    EmpStatusId: 1,
   });
 
   const columns = [
@@ -101,8 +101,13 @@ function LeavesBalance(props) {
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
-      const formData = { ...formInfo };
-
+      var formData = {
+       
+        EmployeeId: formInfo.EmployeeId,
+        OrganizationId: formInfo.OrganizationId,
+        StatusId: formInfo.EmpStatusId,
+      };
+      
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? '' : formData[key];
       });
@@ -127,15 +132,7 @@ function LeavesBalance(props) {
     fetchTableData();
   };
 
-  const handleChange = useCallback((name, value) => {
-    if (name === 'employeeId') {
-      setFormInfo((prev) => ({ ...prev, EmployeeId: value }));
-    } else if (name === 'organizationId') {
-      setFormInfo((prev) => ({ ...prev, OrganizationId: value }));
-    } else if (name === 'statusId') {
-      setFormInfo((prev) => ({ ...prev, statusId: value }));
-    }
-  }, []);
+
 
   return (
     <Box
@@ -159,7 +156,8 @@ function LeavesBalance(props) {
 
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-            <Search handleChange={handleChange} />
+            <Search setsearchData={setFormInfo}
+              searchData={formInfo} notShowDate={true} />
           </Grid>
 
           <Grid item md={2}>

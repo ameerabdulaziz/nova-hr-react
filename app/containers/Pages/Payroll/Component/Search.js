@@ -1,152 +1,180 @@
-import React,{memo,useState,useEffect} from 'react';
-import Payrollmessages from '../messages';
-import { injectIntl,FormattedMessage } from 'react-intl';
-import useStyles from '../Style';
+import React, { memo, useState, useEffect ,useCallback} from "react";
+import Payrollmessages from "../messages";
+import { injectIntl, FormattedMessage } from "react-intl";
+import useStyles from "../Style";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../api/GeneralListApis";
 import { useSelector } from "react-redux";
-import {
-    Grid,
-    TextField,
-    Autocomplete,
-  } from "@mui/material"
+import { Grid, TextField, Autocomplete } from "@mui/material";
+import { format } from "date-fns";
 
 function Search(props) {
-  
-  const {intl,handleChange ,fromdate,todate} = props;
+  const { intl, setsearchData, searchData, notShowDate } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
-  const [OrganizationList, setOrganizationList] = useState([]); 
+  const [OrganizationList, setOrganizationList] = useState([]);
   const [statusList, setStatusList] = useState([]);
-  
   const locale = useSelector((state) => state.language.locale);
+  
+  const handleChange = useCallback((name, value) => {
+    if (name == "fromDate")
+      setsearchData((prevFilters) => ({
+        ...prevFilters,
+        FromDate: value == null ? null : format(new Date(value), "yyyy-MM-dd"),
+      }));
+
+    if (name == "toDate")
+      setsearchData((prevFilters) => ({
+        ...prevFilters,
+        ToDate: value == null ? null : format(new Date(value), "yyyy-MM-dd"),
+      }));
+
+    if (name == "employeeId")
+      setsearchData((prevFilters) => ({
+        ...prevFilters,
+        EmployeeId: value,
+      }));
+
+    if (name == "organizationId")
+      setsearchData((prevFilters) => ({
+        ...prevFilters,
+        OrganizationId: value,
+      }));
+
+    if (name == "statusId")
+      setsearchData((prevFilters) => ({
+        ...prevFilters,
+        EmpStatusId: value,
+      }));
+  }, []);
 
   async function fetchData() {
     const employees = await GeneralListApis(locale).GetEmployeeList();
     setEmployeeList(employees);
-
     const organizations = await GeneralListApis(locale).GetDepartmentList();
     setOrganizationList(organizations);
-
     const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
+    setStatusList(status);
   }
   useEffect(() => {
     fetchData();
   }, []);
-
   return (
-      <div>
-        <Grid
-        container
-        spacing={2}
-        alignItems="flex-start"
-        direction="row"
-        >
-            <Grid item xs={12} md={2}>
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                    label={intl.formatMessage(Payrollmessages.fromdate)}
-                    value={fromdate}
-                    onChange={(date) => {handleChange("fromDate",date)}}
-                    className={classes.field}
-                    renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                    )}
-                />
-                </LocalizationProvider>
-            </Grid>
-            <Grid item xs={12} md={2}>
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                    label={intl.formatMessage(Payrollmessages.todate)}
-                    value={todate}
-                    onChange={(date) => {handleChange("toDate",date)}}
-                    className={classes.field}
-                    renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                    )}
-                />
-                </LocalizationProvider>
-            </Grid>
-            <Grid item xs={12} md={3}>
-                <Autocomplete
-                id="organizationId"
-                options={OrganizationList}
-                isOptionEqualToValue={(option, value) =>
-                    value.id === 0 ||
-                    value.id === "" ||
-                    option.id === value.id
-                }
-                getOptionLabel={(option) =>
-                    option.name ? option.name : ""
-                }
-                onChange={(event, value) => {handleChange("organizationId",value == null ? "" : value.id)}}                
+    <div>
+      <Grid container spacing={2} alignItems="flex-start" direction="row">
+        {notShowDate ? (
+          ""
+        ) : (
+          <Grid item xs={12} md={2}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DesktopDatePicker
+                label={intl.formatMessage(Payrollmessages.fromdate)}
+                value={searchData.FromDate}
+                onChange={(date) => {
+                  handleChange("fromDate", date);
+                }}
+                className={classes.field}
                 renderInput={(params) => (
-                    <TextField
-                    variant="outlined"
-                    {...params}
-                    name="OrganizationId"
-                    label={intl.formatMessage(
-                        Payrollmessages.organizationName
-                    )}
-                    />
+                  <TextField {...params} variant="outlined" />
                 )}
-                />
-            </Grid>
-            <Grid item xs={12} md={3}>
-                <Autocomplete
-                id="employeeId"
-                options={EmployeeList}
-                isOptionEqualToValue={(option, value) =>
-                    value.id === 0 ||
-                    value.id === "" ||
-                    option.id === value.id
-                }
-                getOptionLabel={(option) =>
-                    option.name ? option.name : ""
-                }
-                onChange={(event, value) => {handleChange("employeeId",value == null ? "" : value.id)}}        
-                renderInput={(params) => (
-                    <TextField
-                    variant="outlined"
-                    {...params}
-                    name="employeeId"
-                    label={intl.formatMessage(
-                        Payrollmessages.employeeName
-                    )}
-                    />
-                )}
-                />
-            </Grid>
-            <Grid item xs={12} md={2}>
-            <Autocomplete
-              id="EmpStatusId"
-              options={statusList}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 ||
-                value.id === "" ||
-                option.id === value.id
-            }
-              getOptionLabel={(option) => option.name ? option.name : ""}            
-              onChange={(event, value) => {handleChange("statusId",value == null ? "" : value.id)}}  
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="EmpStatusId"
-                  label={intl.formatMessage(Payrollmessages.Empstatus)}
-                />
-              )}
-            />
+              />
+            </LocalizationProvider>
           </Grid>
+        )}
+        {notShowDate ? (
+          ""
+        ) : (
+          <Grid item xs={12} md={2}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DesktopDatePicker
+                label={intl.formatMessage(Payrollmessages.todate)}
+                value={searchData.ToDate}
+                onChange={(date) => {
+                  handleChange("toDate", date);
+                }}
+                className={classes.field}
+                renderInput={(params) => (
+                  <TextField {...params} variant="outlined" />
+                )}
+              />
+            </LocalizationProvider>
+          </Grid>
+        )}
+        <Grid item xs={12} md={3}>
+          <Autocomplete
+            id="organizationId"
+            options={OrganizationList}
+            isOptionEqualToValue={(option, value) =>
+              value.id === 0 || value.id === "" || option.id === value.id
+            }
+            getOptionLabel={(option) => (option.name ? option.name : "")}
+            onChange={(event, value) => {
+              handleChange("organizationId", value == null ? "" : value.id);
+            }}
+            renderInput={(params) => (
+              <TextField
+                variant="outlined"
+                {...params}
+                name="OrganizationId"
+                label={intl.formatMessage(Payrollmessages.organizationName)}
+              />
+            )}
+          />
         </Grid>
-      </div>
+        <Grid item xs={12} md={3}>
+          <Autocomplete
+            id="employeeId"
+            options={EmployeeList}
+            isOptionEqualToValue={(option, value) =>
+              value.id === 0 || value.id === "" || option.id === value.id
+            }
+            getOptionLabel={(option) => (option.name ? option.name : "")}
+            onChange={(event, value) => {
+              handleChange("employeeId", value == null ? "" : value.id);
+            }}
+            renderInput={(params) => (
+              <TextField
+                variant="outlined"
+                {...params}
+                name="employeeId"
+                label={intl.formatMessage(Payrollmessages.employeeName)}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={12} md={2}>
+          <Autocomplete
+            id="EmpStatusId"
+            options={statusList}
+            value={
+              statusList.length > 0
+                ? statusList.find((item) => item.id === searchData.EmpStatusId)
+                : { id: 0, name: "" }
+            }
+            isOptionEqualToValue={(option, value) =>
+              value.id === 0 || value.id === "" || option.id === value.id
+            }
+            getOptionLabel={(option) => (option.name ? option.name : "")}
+            onChange={(event, value) => {
+              
+              handleChange("statusId", value == null ? "" : value.id);
+            }}
+            renderInput={(params) => (
+              <TextField
+                variant="outlined"
+                {...params}
+                name="EmpStatusId"
+                label={intl.formatMessage(Payrollmessages.Empstatus)}
+              />
+            )}
+          />
+        </Grid>
+      </Grid>
+    </div>
   );
-} ;
-  
+}
 
 const MemoedSearch = memo(Search);
 

@@ -41,9 +41,7 @@ function PermissionCreate(props) {
     "maxRepeated":"",
     "maxMinuteNo" :"",
     "isDeductAnnual":false,
-  });
-  
-  const [EmployeeList, setEmployeeList] = useState([]);
+  });  
   const [ElementList, setElementList] = useState([]);
   const history=useHistory();  
   const [processing, setprocessing] = useState(false);

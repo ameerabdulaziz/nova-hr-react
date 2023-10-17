@@ -40,7 +40,7 @@ function LeaveTrxReport(props) {
     FromDate: null,
     ToDate: null,
     EmployeeId: '',
-    EmpStatusId: '',
+    EmpStatusId: 1,
     OrganizationId: '',
     VacationId: [],
     InsertDate: false,
@@ -196,19 +196,6 @@ function LeaveTrxReport(props) {
     fetchTableData();
   };
 
-  const handleChange = useCallback((name, value) => {
-    if (name === 'fromDate') {
-      setFormInfo((prev) => ({ ...prev, FromDate: value }));
-    } else if (name === 'toDate') {
-      setFormInfo((prev) => ({ ...prev, ToDate: value }));
-    } else if (name === 'employeeId') {
-      setFormInfo((prev) => ({ ...prev, EmployeeId: value }));
-    } else if (name === 'organizationId') {
-      setFormInfo((prev) => ({ ...prev, OrganizationId: value }));
-    } else if (name === 'statusId') {
-      setFormInfo((prev) => ({ ...prev, EmpStatusId: value }));
-    }
-  }, []);
 
   return (
     <Box
@@ -234,9 +221,8 @@ function LeaveTrxReport(props) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Search
-              handleChange={handleChange}
-              fromdate={formInfo.FromDate}
-              todate={formInfo.ToDate}
+            setsearchData={setFormInfo}
+            searchData={formInfo}
             />
           </Grid>
 

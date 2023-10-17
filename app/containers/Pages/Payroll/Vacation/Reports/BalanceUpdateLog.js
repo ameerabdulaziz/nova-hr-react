@@ -164,20 +164,6 @@ function BalanceUpdateLog(props) {
     fetchTableData();
   };
 
-  const handleChange = useCallback((name, value) => {
-    if (name === 'fromDate') {
-      setFormInfo((prev) => ({ ...prev, fromDate: value }));
-    } else if (name === 'toDate') {
-      setFormInfo((prev) => ({ ...prev, toDate: value }));
-    } else if (name === 'employeeId') {
-      setFormInfo((prev) => ({ ...prev, EmployeeId: value }));
-    } else if (name === 'organizationId') {
-      setFormInfo((prev) => ({ ...prev, OrganizationId: value }));
-    } else if (name === 'statusId') {
-      setFormInfo((prev) => ({ ...prev, statusId: value }));
-    }
-  }, []);
-
   return (
     <Box
       sx={{
@@ -199,12 +185,10 @@ function BalanceUpdateLog(props) {
         </Backdrop>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
-            <Search
-              handleChange={handleChange}
-              fromdate={formInfo.fromDate}
-              todate={formInfo.toDate}
-            />
+          <Grid item xs={12} md={12}><Search
+              setsearchData={setFormInfo}
+              searchData={formInfo}
+            ></Search>
           </Grid>
 
           <Grid item md={2}>
