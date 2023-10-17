@@ -1,12 +1,7 @@
-import React,{useState,useCallback,useEffect } from 'react';
-import css from 'enl-styles/Table.scss';
-import { Dialog,DialogContent,DialogTitle,Card ,CardContent,Grid } from "@mui/material";  
-import Payrollmessages from '../messages';
+import React from 'react';
+import { Dialog,DialogContent,DialogTitle,Card ,CardContent,Grid } from "@mui/material"; 
 import { injectIntl,FormattedMessage } from 'react-intl';
-import { toast } from 'react-hot-toast';
 import useStyles from '../Style';
-import { useSelector } from 'react-redux';
-import GeneralListApis from '../api/GeneralListApis';
 import NameList from '../Component/NameList';
 
 

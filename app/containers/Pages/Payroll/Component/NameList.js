@@ -12,7 +12,7 @@ function NameList(props) {
   const {classes,cx} = useStyles();  
   const [OpenPopup, setOpenPopup] = useState(false);
 
-  alert('NameList');
+ 
   const handleClose = useCallback((data) => {   
 
      data.map((row) =>{
