@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { makeStyles } from 'tss-react/mui';
 import { EditTable } from '../../../../Tables/demos';
-import SInsuranceJobData from '../api/SInsuranceJobData';
+import SinsuranceCalculationTemplateData from '../api/SinsuranceCalculationTemplateData';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles()(() => ({
   },
 }));
 
-function SInsuranceJob() {
+function SinsuranceCalculationTemplate() {
   const title = localStorage.getItem('MenuName');
   const description = brand.desc;
   const { classes } = useStyles();
@@ -44,8 +44,40 @@ function SInsuranceJob() {
       hidden: false,
     },
     {
-      name: 'jobCode',
-      label: 'jobCode',
+      name: 'salaryLimit',
+      label: 'salaryLimit',
+      type: 'text',
+      initialValue: '',
+      width: 'auto',
+      hidden: false,
+    },
+    {
+      name: 'companyShare',
+      label: 'companyShare',
+      type: 'text',
+      initialValue: '',
+      width: 'auto',
+      hidden: false,
+    },
+    {
+      name: 'employeeShare',
+      label: 'employeeShare',
+      type: 'text',
+      initialValue: '',
+      width: 'auto',
+      hidden: false,
+    },
+    {
+      name: 'fromAge',
+      label: 'fromAge',
+      type: 'text',
+      initialValue: '',
+      width: 'auto',
+      hidden: false,
+    },
+    {
+      name: 'toAge',
+      label: 'toAge',
       type: 'text',
       initialValue: '',
       width: 'auto',
@@ -83,7 +115,7 @@ function SInsuranceJob() {
           <EditTable
             anchorTable={anchorTable}
             title={title}
-            API={SInsuranceJobData()}
+            API={SinsuranceCalculationTemplateData()}
           />
         </div>
       </PapperBlock>
@@ -91,4 +123,4 @@ function SInsuranceJob() {
   );
 }
 
-export default injectIntl(SInsuranceJob);
+export default injectIntl(SinsuranceCalculationTemplate);

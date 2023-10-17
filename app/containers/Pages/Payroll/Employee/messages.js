@@ -435,4 +435,113 @@ export default defineMessages({
       id: `${scope}.doc.FilePreview`,
       defaultMessage: 'File Preview',
     },
+     // EmployeeDataReport
+     EmpCode: {
+      id: `${scope}.repo.EmpCode`,
+      defaultMessage: 'Emp.Code',
+    },
+    Staff: {
+      id: `${scope}.repo.Staff`,
+      defaultMessage: 'Staff',
+    },
+    birthDate: {
+      id: `${scope}.repo.birthDate`,
+      defaultMessage: 'Birth Date',
+    },
+    Department: {
+      id: `${scope}.repo.Department`,
+      defaultMessage: 'Department',
+    },
+    InsuranceSalary: {
+      id: `${scope}.repo.InsuranceSalary`,
+      defaultMessage: 'Insurance Salary',
+    },
+    BasicSalary: {
+      id: `${scope}.repo.BasicSalary`,
+      defaultMessage: 'Basic Salary',
+    },
+    Job: {
+      id: `${scope}.repo.Job`,
+      defaultMessage: 'Job',
+    },
+    Gendar: {
+      id: `${scope}.repo.Gendar`,
+      defaultMessage: 'Gendar',
+    },
+    hiringDate: {
+      id: `${scope}.repo.hiringDate`,
+      defaultMessage: 'Hiring Date',
+    },
+    Qualification: {
+      id: `${scope}.repo.Qualification`,
+      defaultMessage: 'Qualification',
+    },
+    Address: {
+      id: `${scope}.repo.Address`,
+      defaultMessage: 'Address',
+    },
+    BankTransfere: {
+      id: `${scope}.repo.BankTransfere`,
+      defaultMessage: 'BankTransfere',
+    },
+    Insured: {
+      id: `${scope}.repo.Insured`,
+      defaultMessage: 'Insured',
+    },
+    TaxableEmployee: {
+      id: `${scope}.repo.TaxableEmployee`,
+      defaultMessage: 'TaxableEmployee',
+    },
+    postOverTime: {
+      id: `${scope}.repo.postOverTime`,
+      defaultMessage: 'Post Over Time',
+    },
+    Religion: {
+      id: `${scope}.repo.Religion`,
+      defaultMessage: 'Religion',
+    },
+    Governorate: {
+      id: `${scope}.repo.Governorate`,
+      defaultMessage: 'Governorate',
+    },
+    City: {
+      id: `${scope}.repo.City`,
+      defaultMessage: 'City',
+    },
+    Nationality: {
+      id: `${scope}.repo.Nationality`,
+      defaultMessage: 'Nationality',
+    },
+    StopEmployee: {
+      id: `${scope}.repo.StopEmployee`,
+      defaultMessage: 'StopEmployee',
+    },
+    BankName: {
+      id: `${scope}.repo.BankName`,
+      defaultMessage: 'Bank Name',
+    },
+    InsuranceJob: {
+      id: `${scope}.repo.InsuranceJob`,
+      defaultMessage: 'Insurance Job',
+    },
+    MedicalInsuranceCategory: {
+      id: `${scope}.repo.MedicalInsuranceCategory`,
+      defaultMessage: 'Medical Insurance Category',
+    },
+    GraduationDate: {
+      id: `${scope}.repo.GraduationDate`,
+      defaultMessage: 'Graduation Date',
+    },
+    IDCardNumber: {
+      id: `${scope}.repo.IDCardNumber`,
+      defaultMessage: 'ID Card Number',
+    },
+    JobType: {
+      id: `${scope}.repo.JobType`,
+      defaultMessage: 'Job Type',
+    },
+    BookNo: {
+      id: `${scope}.repo.BookNo`,
+      defaultMessage: 'BookNo.',
+    },
 });

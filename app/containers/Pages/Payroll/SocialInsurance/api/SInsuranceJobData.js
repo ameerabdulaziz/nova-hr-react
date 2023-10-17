@@ -1,15 +1,15 @@
 import axiosInstance from '../../api/axios';
-const SInsuranceJobDataData = () => {
+const SInsuranceJobData = () => {
   const api = {};
 
   api.GetList = async () => {
-    const data = await axiosInstance.get('SInsuranceJobData');
+    const data = await axiosInstance.get('SInsuranceJob');
     const result = data.data;
     const finalData = result.map((obj) => ({
       id: obj.id,
       name: obj.arName,
       EnName: obj.enName,
-      address: obj.address,
+      jobCode: obj.jobCode,
       edited: false,
     }));
 
@@ -21,21 +21,21 @@ const SInsuranceJobDataData = () => {
       id: Item.id,
       arName: Item.name,
       enName: Item.EnName,
-      address: Item.address,
+      jobCode: Item.jobCode,
     };
 
     const result = Item.id === 0
-      ? await axiosInstance.post('SInsuranceJobData', data)
-      : await axiosInstance.put(`SInsuranceJobData/${Item.id}`, data);
+      ? await axiosInstance.post('SInsuranceJob', data)
+      : await axiosInstance.put(`SInsuranceJob/${Item.id}`, data);
     return result;
   };
 
   api.Delete = async (Item) => {
-    const data = await axiosInstance.delete(`SInsuranceJobData/${Item.id}`);
+    const data = await axiosInstance.delete(`SInsuranceJob/${Item.id}`);
     return data;
   };
 
   return api;
 };
 
-export default SInsuranceJobDataData;
+export default SInsuranceJobData;

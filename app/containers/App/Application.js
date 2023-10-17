@@ -24,6 +24,7 @@ import {
   IdentityType,
   Courses,
   ResignReason,
+  InsuranceRegion
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -251,7 +252,9 @@ import {
   GroupLeaves,
   ImportLeaveBalance,
   InsuranceOffices,
-  SInsuranceJob
+  SInsuranceJob,
+  SinsuranceCalculationTemplate,
+  EmployeeDataReport
 } from '../pageListAsync';
 
 function Application(props) {
@@ -848,6 +851,11 @@ function Application(props) {
           component={EditEmployeeDocuments}
         />
 
+        <Route
+          path='/app/Pages/Employee/EmployeeDataReport'
+          component={EmployeeDataReport}
+        />
+
         {/* Map */}
         <Route exact path='/app/maps' component={Parent} />
         <Route path='/app/maps/map-marker' component={MapMarker} />
@@ -995,6 +1003,16 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/SInsuranceJob'
           component={SInsuranceJob}
+        />
+
+        <Route
+          path='/app/Pages/insurance/InsuranceRegion'
+          component={InsuranceRegion}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SinsuranceCalculationTemplate'
+          component={SinsuranceCalculationTemplate}
         />
 
         {/* Default */}
