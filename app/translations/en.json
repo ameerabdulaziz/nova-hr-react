@@ -805,6 +805,7 @@
   "boilerplate.components.tables.codes.accno": "Account Number",
   "boilerplate.components.tables.codes.contractperiod": "Contract Period",
   "boilerplate.components.tables.codes.symbol": "Symbol",
+  "boilerplate.components.tables.codes.jobCode": "Jop Code",
   "boilerplate.components.tables.codes.currency": "Currency",
   "boilerplate.components.tables.codes.month": "Month",
   "boilerplate.components.tables.codes.year": "Year",

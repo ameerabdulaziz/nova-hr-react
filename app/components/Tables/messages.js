@@ -52,6 +52,10 @@ export default defineMessages({
     id: `${scope}.codes.insuranceOffices`,
     defaultMessage: 'insuranceOffices',
   },
+  jobCode: {
+    id: `${scope}.codes.jobCode`,
+    defaultMessage: 'jobCode',
+  },
   currency: {
     id: `${scope}.codes.currency`,
     defaultMessage: 'Currency',

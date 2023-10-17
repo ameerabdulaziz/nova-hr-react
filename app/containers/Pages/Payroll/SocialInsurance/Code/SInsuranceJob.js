@@ -44,8 +44,8 @@ function SInsuranceJob() {
       hidden: false,
     },
     {
-      name: 'address',
-      label: 'address',
+      name: 'jobCode',
+      label: 'jobCode',
       type: 'text',
       initialValue: '',
       width: 'auto',
