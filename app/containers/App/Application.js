@@ -256,7 +256,8 @@ import {
   SinsuranceCalculationTemplate,
   SInsuranceOrgnization,
   SInsuranceOrgnizationCreate,
-  EmployeeDataReport
+  EmployeeDataReport,
+  followStaffContracts
 } from '../pageListAsync';
 
 function Application(props) {
@@ -856,6 +857,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Employee/EmployeeDataReport'
           component={EmployeeDataReport}
+        />
+
+        <Route
+          path='/app/Pages/Employee/followStaffContracts'
+          component={followStaffContracts}
         />
 
         {/* Map */}
