@@ -253,7 +253,8 @@ import {
   ImportLeaveBalance,
   InsuranceOffices,
   SInsuranceJob,
-  SinsuranceCalculationTemplate
+  SinsuranceCalculationTemplate,
+  EmployeeDataReport
 } from '../pageListAsync';
 
 function Application(props) {
@@ -848,6 +849,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Employee/EmployeeDocumentsEdit'
           component={EditEmployeeDocuments}
+        />
+
+        <Route
+          path='/app/Pages/Employee/EmployeeDataReport'
+          component={EmployeeDataReport}
         />
 
         {/* Map */}

@@ -1325,3 +1325,10 @@ export const SinsuranceCalculationTemplate = loadable(
   }
 );
 
+export const EmployeeDataReport = loadable(
+  () => import('./Pages/Payroll/Employee/reports/EmployeeDataReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
