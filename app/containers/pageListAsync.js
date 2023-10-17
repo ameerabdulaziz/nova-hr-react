@@ -1325,3 +1325,16 @@ export const SinsuranceCalculationTemplate = loadable(
   }
 );
 
+export const SInsuranceOrgnization = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Code/SInsuranceOrgnization'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const SInsuranceOrgnizationCreate = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Code/SInsuranceOrgnizationCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

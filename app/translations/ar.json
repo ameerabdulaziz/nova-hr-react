@@ -1413,5 +1413,21 @@
   "boilerplate.containers.Payroll.vac.Transaction.noDataError": "لا توجد بيانات لعرضها",
   "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "تاريخ البدء يأتي بعد تاريخ الانتهاء",
 
-  "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "نوع الإجازة"
+  "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "نوع الإجازة",
+
+  "boilerplate.containers.Payroll.insurance.government": "المحافظة",
+  "boilerplate.containers.Payroll.insurance.ownerName": "اسم المالك",
+  "boilerplate.containers.Payroll.insurance.actions": "الاجراءت",
+  "boilerplate.containers.Payroll.insurance.enName": "الاسم بالانجليزية",
+  "boilerplate.containers.Payroll.insurance.arName": "الاسم بالعربية",
+  "boilerplate.containers.Payroll.insurance.SInsuranceOrgnizationCreateTitle": "إنشاء منظمة التأمين",
+  "boilerplate.containers.Payroll.insurance.SInsuranceOrgnizationEditTitle": "تعديل منظمة التأمين",
+  "boilerplate.containers.Payroll.insurance.organizationId": "كود المنشأة",
+  "boilerplate.containers.Payroll.insurance.legalDescription": "الشكل القانوني للمنشأة",
+  "boilerplate.containers.Payroll.insurance.ownerLegalDescription": "صفته القانونية",
+  "boilerplate.containers.Payroll.insurance.insuranceOffice": "مكتب التامينات",
+  "boilerplate.containers.Payroll.insurance.regionName": "المنطقة",
+  "boilerplate.containers.Payroll.insurance.address": "العنوان",
+  "boilerplate.containers.Payroll.insurance.organizationName": "أسم المنشأة",
+  "boilerplate.containers.Payroll.insurance.insuranceNumber": "الرقم التأميني"
 }

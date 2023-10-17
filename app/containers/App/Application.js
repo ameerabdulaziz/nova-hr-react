@@ -253,7 +253,9 @@ import {
   ImportLeaveBalance,
   InsuranceOffices,
   SInsuranceJob,
-  SinsuranceCalculationTemplate
+  SinsuranceCalculationTemplate,
+  SInsuranceOrgnization,
+  SInsuranceOrgnizationCreate
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1007,6 +1009,21 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/SinsuranceCalculationTemplate'
           component={SinsuranceCalculationTemplate}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SInsuranceOrgnization'
+          component={SInsuranceOrgnization}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SInsuranceOrgnizationCreate'
+          component={SInsuranceOrgnizationCreate}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SInsuranceOrgnizationEdit'
+          component={SInsuranceOrgnizationCreate}
         />
 
         {/* Default */}
