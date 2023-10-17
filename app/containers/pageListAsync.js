@@ -1317,3 +1317,11 @@ export const SInsuranceJob = loadable(
     fallback: <Loading />,
   }
 );
+
+export const SinsuranceCalculationTemplate = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Code/SinsuranceCalculationTemplate'),
+  {
+    fallback: <Loading />,
+  }
+);
+

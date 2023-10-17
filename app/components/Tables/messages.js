@@ -56,6 +56,26 @@ export default defineMessages({
     id: `${scope}.codes.jobCode`,
     defaultMessage: 'jobCode',
   },
+  salaryLimit: {
+    id: `${scope}.codes.salaryLimit`,
+    defaultMessage: 'salaryLimit',
+  },
+  companyShare: {
+    id: `${scope}.codes.companyShare`,
+    defaultMessage: 'companyShare',
+  },
+  employeeShare: {
+    id: `${scope}.codes.employeeShare`,
+    defaultMessage: 'employeeShare',
+  },
+  toAge: {
+    id: `${scope}.codes.toAge`,
+    defaultMessage: 'toAge',
+  },
+  fromAge: {
+    id: `${scope}.codes.fromAge`,
+    defaultMessage: 'fromAge',
+  },
   currency: {
     id: `${scope}.codes.currency`,
     defaultMessage: 'Currency',

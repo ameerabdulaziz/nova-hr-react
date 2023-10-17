@@ -92,3 +92,11 @@ export const SocialStatus = (props) => (
 export const IdentityType = (props) => (
   <MainDataGeneralCode text='Identity Type' table='MdIdentityType' {...props} />
 );
+
+export const InsuranceRegion = (props) => (
+  <MainDataGeneralCode
+    text='Insurance Region'
+    table='SinsuranceRegion'
+    {...props}
+  />
+);
