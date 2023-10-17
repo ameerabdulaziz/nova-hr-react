@@ -73,7 +73,6 @@ function ShiftEmployeeList(props) {
   }
   async function fetchData() {
     try {
-      debugger;
       if (!employee) {
         setdata([]);
         return;

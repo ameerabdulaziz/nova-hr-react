@@ -25,7 +25,14 @@ const GeneralListApis = (locale) => {
 
     return result.data;
   };
+  Apis.GetEmployeeListComponent = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetEmployeeListComponent/${locale}`
+    );
 
+    return result.data;
+  };
+  
   Apis.GetAlternativeEmployeeList = async (employeeId) => {
     const result = await axiosInstance.get(
       `GeneralList/GetAlternativeEmployeeList/${locale}?EmployeeId=${employeeId}`

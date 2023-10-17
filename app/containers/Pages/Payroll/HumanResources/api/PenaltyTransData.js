@@ -6,7 +6,6 @@ const PenaltyTransData = (locale) => {
 
   
   Apis.GetReport = async (params) => {
-    debugger;
     const queryString = new URLSearchParams(params);
     const data = await axiosInstance.get(
       `HRPenaltyTransaction/GetReport/${locale}?${queryString}`

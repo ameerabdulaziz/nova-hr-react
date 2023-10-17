@@ -19,7 +19,11 @@
     padding: 8px !important;
     padding-bottom: 0px !important;
 }
-
+.mui-style-ltr-1gcb22l-MuiPaper-root-MuiDialog-paper 
+  {
+    overflow-y: clip !important;
+    height: 100% !important;
+  }
 /* .tss-1g1redb-MUIDataTableHeadCell-fixedHeader
 {
   background-color: #b3d4fc !important;

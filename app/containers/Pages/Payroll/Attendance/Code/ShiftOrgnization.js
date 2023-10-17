@@ -9,7 +9,6 @@ import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
@@ -109,8 +108,7 @@ function ShiftOrgnization(props) {
   const [OpenPopup, setOpenPopup] = useState(false);
   const [ShiftsList, setShiftsList] = useState([]);
 
-  const handleClose = async (Employeesdata) => {
-    debugger;
+  const handleClose = useCallback(async(Employeesdata) => {
     setOpenPopup(false);
     try {
       const shifts = Employeesdata.map((obj) => ({
@@ -138,9 +136,9 @@ function ShiftOrgnization(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.response.data);
+      toast.error(err.message);
     }
-  };
+  },[data]);
 
   const handleClickOpen = () => {
     setOpenPopup(true);
@@ -148,7 +146,6 @@ function ShiftOrgnization(props) {
 
   async function handleUpdate(selectedRows) {
     try {
-      debugger;
       const shifts = [];
       for (let i = 0; i < selectedRows.data.length; i++) {
         shifts.push({
@@ -223,6 +220,7 @@ function ShiftOrgnization(props) {
   }, []);
 
   async function getShiftData(id) {
+    alert(data) ;
     if (!id) {
       setdata((prevFilters) => ({
         ...prevFilters,

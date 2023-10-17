@@ -33,7 +33,6 @@ function LayOffNoticeReport(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = useCallback((name, value) => {
-    debugger;
     if (name == "fromDate")
       setfromate(value == null ? null : format(new Date(value), "yyyy-MM-dd"));
     if (name == "toDate")

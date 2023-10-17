@@ -40,7 +40,7 @@ function PermissionTrxReport(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = useCallback((name, value) => {
-    debugger;
+   
     if (name == "fromDate")
       setfromate(value == null ? null : format(new Date(value), "yyyy-MM-dd"));
     if (name == "toDate")
@@ -284,7 +284,6 @@ function PermissionTrxReport(props) {
               }
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                debugger;
                 setDeleted(
                   value == null ? "" : value.id == null ? "" : value.id
                 );

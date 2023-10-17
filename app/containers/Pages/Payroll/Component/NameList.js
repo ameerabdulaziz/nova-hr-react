@@ -1,4 +1,4 @@
-import React,{useState,useCallback,useEffect } from 'react';
+import React,{useState,useCallback,memo } from 'react';
 import css from 'enl-styles/Table.scss';
 import {Button , Grid,Checkbox,Table,TableBody,TableCell,TableHead,TableRow,TableContainer} from "@mui/material";  
 import Payrollmessages from '../messages';
@@ -12,8 +12,8 @@ function NameList(props) {
   const {classes,cx} = useStyles();  
   const [OpenPopup, setOpenPopup] = useState(false);
 
-  
-  const handleClose = (data) => {   
+  alert('NameList');
+  const handleClose = useCallback((data) => {   
 
      data.map((row) =>{
       if(dataList.filter((x) => x.id==row.id).length == 0)
@@ -22,7 +22,7 @@ function NameList(props) {
       }
     });
     setOpenPopup(false);
-  }
+  }, [dataList]);
   
   const handleClickOpen = () => {
     
@@ -118,5 +118,7 @@ const handleEnableOne = (event, row) => {
       </div>
   );
 }
-  
-export default injectIntl(NameList);
+
+const MemoedNameList = memo(NameList);
+
+export default injectIntl(MemoedNameList);

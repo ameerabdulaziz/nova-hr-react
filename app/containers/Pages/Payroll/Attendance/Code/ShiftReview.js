@@ -47,8 +47,6 @@ function ShiftReview(props) {
 
   async function handleUpdate(selectedRows) {
     try {
-      debugger;
-
       let response = await ApiData(locale).ChangeShift(
         dataList[selectedRows.data[0].dataIndex].employeeId,
         ShiftId,
