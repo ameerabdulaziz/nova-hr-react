@@ -1112,6 +1112,13 @@ export const followStaffContracts = loadable(
   }
 );
 
+export const EmploymentDocsDetails = loadable(
+  () => import('./Pages/Payroll/Employee/reports/EmploymentDocsDetails'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 /// ///////////////////////////////////////////////////////////////////////////////////////
 export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
   fallback: <Loading />,

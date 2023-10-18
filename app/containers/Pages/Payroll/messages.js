@@ -411,4 +411,8 @@ employeeId: {
     id: `${scope}.codes.deleteMessage`,
     defaultMessage: 'Are You Sure You Want To Delete',
   },
+  confirmation: {
+    id: `${scope}.codes.confirmation`,
+    defaultMessage: 'confirmation message',
+  },
 });

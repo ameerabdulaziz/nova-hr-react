@@ -46,7 +46,7 @@ function EmployeeDataReport({ intl }) {
     },
     {
         name: "employeeName",
-        label: intl.formatMessage(messages.Staff),
+        label: intl.formatMessage(messages.employeeName),
         options: {
           filter: true,
         },
@@ -300,8 +300,7 @@ function EmployeeDataReport({ intl }) {
       <div className={classes.root}>
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
-            title="Employee List"
-            // title={intl.formatMessage(messages.vacationsTypes)}
+            title={intl.formatMessage(messages.EmployeeList)}
             data={dataTable}
             columns={columns}
             options={options}
