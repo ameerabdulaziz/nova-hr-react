@@ -955,6 +955,8 @@
   "boilerplate.containers.Payroll.Import":"استيراد",
   "boilerplate.containers.Payroll.reset":"إعادة الضبط",
   "boilerplate.containers.Payroll.deleteMessage": "هل أنت متأكد أنك تريد حذف",
+  "boilerplate.containers.Payroll.confirmation": "رسالة تأكيدية",
+  
   
    
    

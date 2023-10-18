@@ -31,7 +31,7 @@ const AlertPopup = ({
         <div>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>
-                    <FormattedMessage {...messages.delete} />
+                    <FormattedMessage {...Payrollmessages.confirmation} />
                 </DialogTitle>
                 <DialogContent>
                 <DialogContentText>
