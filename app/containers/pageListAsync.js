@@ -1356,3 +1356,10 @@ export const SInsuranceOrgnizationCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const SocialInsuranceData = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Transaction/SocialInsuranceData'),
+  {
+    fallback: <Loading />,
+  }
+);

@@ -257,7 +257,8 @@ import {
   SInsuranceOrgnization,
   SInsuranceOrgnizationCreate,
   EmployeeDataReport,
-  followStaffContracts
+  followStaffContracts,
+  SocialInsuranceData
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1036,6 +1037,11 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/SInsuranceOrgnizationEdit'
           component={SInsuranceOrgnizationCreate}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SocialInsuranceData'
+          component={SocialInsuranceData}
         />
 
         {/* Default */}
