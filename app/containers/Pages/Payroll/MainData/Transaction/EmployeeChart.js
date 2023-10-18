@@ -2,12 +2,9 @@ import React, { useRef, useState,useEffect } from "react";
 import OrganizationChart from "@dabeng/react-orgchart";
 import MyNode from "../../custom-node-chart/my-node";
 import CompanyChartData from '../api/CompanyChartData';
-import Snackbar from '@mui/material/Snackbar';
 import Button from '@mui/material/Button';
-import MuiAlert from '@mui/material/Alert';
-import Alert from '../../Component/Alert';
 
-import { Toaster ,toast} from 'react-hot-toast';
+import { toast} from 'react-hot-toast';
 
 const EmployeeChart = () => {
  const [data,setData]=useState({}) ;   

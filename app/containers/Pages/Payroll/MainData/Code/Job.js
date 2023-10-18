@@ -10,7 +10,7 @@ import useStyles from "../../Style";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import style from "../../../../../styles/styles.scss";
-import AlertPopup from "../../../../../components/Popup/AlertDeletePopup";
+import AlertPopup from "../../Component/AlertPopup";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
@@ -223,7 +223,7 @@ function Job({ intl }) {
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={locale === "en" ? deleteItem[2] : deleteItem[1]}
+        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${locale === "en" ? deleteItem[2] : deleteItem[1]}`}
         callFun={DeleteFun}
         submitting={submitting}
         processing={processing}

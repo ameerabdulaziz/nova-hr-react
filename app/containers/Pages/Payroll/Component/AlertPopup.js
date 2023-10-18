@@ -7,12 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import Payrollmessages from '../../containers/Pages/Payroll/messages';
+import Payrollmessages from '../messages';
 import { FormattedMessage } from 'react-intl';
-import messages from '../../containers/Pages/Payroll/MainData/messages';
+import messages from '../MainData/messages';
 import { useSelector } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
-import style from '../../styles/styles.scss';
+import style from '../../../../styles/styles.scss';
 
 
 const AlertPopup = ({
@@ -35,7 +35,7 @@ const AlertPopup = ({
                 </DialogTitle>
                 <DialogContent>
                 <DialogContentText>
-                    <FormattedMessage {...messages.deleteMessage} />  {messageData}
+                    {messageData}
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>

@@ -4,8 +4,6 @@ import MyNode from "../../custom-node-chart/my-node";
 import CompanyChartData from '../api/CompanyChartData';
 import Snackbar from '@mui/material/Snackbar';
 import Button from '@mui/material/Button';
-import MuiAlert from '@mui/material/Alert';
-import Alert from '../../Component/Alert'
 
 const CompanyChart = () => {
  const [data,setData]=useState({}) ;

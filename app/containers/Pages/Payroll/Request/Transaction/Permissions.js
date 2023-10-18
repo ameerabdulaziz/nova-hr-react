@@ -19,7 +19,7 @@ import { useHistory, Link } from "react-router-dom";
 import style from "../../../../../styles/styles.scss";
 import EditIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AlertPopup from "../../../../../components/Popup/AlertDeletePopup";
+import AlertPopup from "../../Component/AlertPopup";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { format } from "date-fns";
@@ -251,7 +251,7 @@ function Permissions({ intl }) {
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={deleteItem[2]}
+        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${deleteItem[2]}`}
         callFun={DeleteFun}
         submitting={submitting}
         processing={processing}

@@ -5,10 +5,11 @@ import { injectIntl } from "react-intl";
 import VacationsTypesData from "../api/VacationsTypesData";
 import MUIDataTable from "mui-datatables";
 import messages from "../messages";
+import Payrollmessages from '../../messages';
 import useStyles from "../../Style";
 import { useSelector } from "react-redux";
 import style from "../../../../../styles/styles.scss";
-import AlertPopup from "../../../../../components/Popup/AlertDeletePopup";
+import AlertPopup from "../../Component/AlertPopup";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import CheckIcon from "@mui/icons-material/Check";
@@ -244,7 +245,7 @@ function VacationsTypes({ intl }) {
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={deleteItem[1]}
+        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${deleteItem[1]}`}
         callFun={DeleteFun}
         submitting={submitting}
         processing={processing}

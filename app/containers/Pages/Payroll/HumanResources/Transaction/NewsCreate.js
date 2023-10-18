@@ -20,6 +20,7 @@ import NameList from '../../Component/NameList';
 import useStyles from '../../Style';
 import SaveButton from '../../Component/SaveButton';
 import { useLocation } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 
 

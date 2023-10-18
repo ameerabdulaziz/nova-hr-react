@@ -407,4 +407,8 @@ employeeId: {
     id: `${scope}.Import`,
     defaultMessage: 'Import',
   },
+  deleteMessage: {
+    id: `${scope}.codes.deleteMessage`,
+    defaultMessage: 'Are You Sure You Want To Delete',
+  },
 });
