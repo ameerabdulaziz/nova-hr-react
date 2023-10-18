@@ -1,5 +1,4 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-debugger */
+
 import axiosInstance from '../../api/axios';
 import React, { useEffect, useState } from 'react';
 const CurrencyRateData = (locale) => {

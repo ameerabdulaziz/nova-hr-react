@@ -255,7 +255,6 @@ function followStaffContracts(props) {
               }
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                debugger;
                 setDeleted(
                   value == null ? "" : value.id == null ? "" : value.id
                 );

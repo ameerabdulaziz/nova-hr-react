@@ -6,7 +6,6 @@ const ShiftEmployeeData = (locale) => {
 
 
   Apis.GetList = async (EmployeeId,ShiftId,ToDate) => {
-    debugger ;
     const data = await axiosInstance.get(`AttShiftEmployee/GetList/${locale}?EmployeeId=${EmployeeId}&ShiftId=${ShiftId}&ToDate=${ToDate}`);
     const result = data.data;    
     return result;
@@ -21,7 +20,6 @@ const ShiftEmployeeData = (locale) => {
   };
   Apis.Save = async (data) => {
     
-debugger ;
     const result = await axiosInstance.post("AttShiftEmployee/Save",data);
     return result;
   };
@@ -52,8 +50,6 @@ debugger ;
   
   
   Apis.GetEmpAttendance = async (FromDate,ToDate, EmployeeId, OrganizationId) => {
-    
-    debugger ;
     const data = await axiosInstance.get(`AttEmployeeAttendance/GetEmpAttendance/${locale}?FromDate=${FromDate!=null?FromDate:""}&ToDate=${ToDate!=null?ToDate:""}&EmployeeId=${EmployeeId}&OrganizationId=${OrganizationId}`);
     const result = data.data;
     

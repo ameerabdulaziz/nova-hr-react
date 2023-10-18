@@ -69,7 +69,6 @@ function PermissionTrxReport(props) {
 
   async function fetchData() {
     try {
-      debugger;
       const Permissions = await GeneralListApis(locale).GetPermissionList();
       setPermissionsList(Permissions);
     } catch (err) {

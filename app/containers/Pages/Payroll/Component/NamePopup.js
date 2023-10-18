@@ -136,7 +136,6 @@ const GetList = useCallback(async () => {
       </div>
     ),
     onRowsSelect: (curRowSelected, allRowsSelected) => {
-      debugger ;
       handleSelect(allRowsSelected);
     },
     
