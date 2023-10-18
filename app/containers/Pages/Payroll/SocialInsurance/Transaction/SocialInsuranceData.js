@@ -22,7 +22,6 @@ import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
 import api from '../api/SocialInsuranceData';
 import messages from '../messages';
 
@@ -137,7 +136,7 @@ function SocialInsuranceData(props) {
           compFixedShare: response.compFixedShare,
         });
 
-        setFormInfo(prev => ({
+        setFormInfo((prev) => ({
           ...prev,
           insNotes: response.insNotes,
           showSpecialInsurance: response.showSpecialInsurance,
@@ -159,28 +158,46 @@ function SocialInsuranceData(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    let formData = { ...formInfo };
+    const errors = {};
 
-    setProcessing(true);
-    setIsLoading(true);
+    if ((formInfo.c1inNo || formInfo.c6inNo)) {
+      if (insuredState.socialInsuranceId) {
+        const { attachment, ...reset } = errors;
 
-    if (isInsured) {
-      formData = { ...formData, ...insuredState };
+        errors = reset;
+      } else {
+        errors.attachment = 'Insurance Number Is Required';
+      }
     }
 
-    if (isCalculateInsurance) {
-      formData = { ...formData, ...fixedShareState };
-    }
+    if (Object.keys(errors).length === 0) {
+      let formData = {
+        ...formInfo,
+        isInsured,
+        calcSifromEmpRecordValue: isCalculateInsurance,
+      };
 
-    try {
-      await api(locale).save(formData);
+      setProcessing(true);
+      setIsLoading(true);
 
-      toast.success(notif.saved);
-    } catch (error) {
-      toast.error(JSON.stringify(error.response.data ?? error));
-    } finally {
-      setProcessing(false);
-      setIsLoading(false);
+      if (isCalculateInsurance) {
+        formData = { ...formData, ...fixedShareState };
+      }
+
+      try {
+        await api(locale).save(formData);
+
+        toast.success(notif.saved);
+      } catch (error) {
+        toast.error(JSON.stringify(error.response.data ?? error));
+      } finally {
+        setProcessing(false);
+        setIsLoading(false);
+      }
+    } else {
+      Object.keys(errors).forEach((key) => {
+        toast.error(JSON.stringify(errors[key]));
+      });
     }
   };
 
@@ -513,7 +530,6 @@ function SocialInsuranceData(props) {
                       <TextField
                         name='c1inNo'
                         value={formInfo.c1inNo}
-                        required
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.c1IncomingNumber)}
                         className={classes.field}
@@ -537,7 +553,6 @@ function SocialInsuranceData(props) {
                             <TextField
                               {...params}
                               variant='outlined'
-                              required
                             />
                           )}
                         />
@@ -555,7 +570,6 @@ function SocialInsuranceData(props) {
                       <TextField
                         name='c6inNo'
                         value={formInfo.c6inNo}
-                        required
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.c6IncomingNumber)}
                         className={classes.field}
@@ -579,7 +593,6 @@ function SocialInsuranceData(props) {
                             <TextField
                               {...params}
                               variant='outlined'
-                              required
                             />
                           )}
                         />
@@ -612,11 +625,7 @@ function SocialInsuranceData(props) {
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant='outlined'
-                              required
-                            />
+                            <TextField {...params} variant='outlined' />
                           )}
                         />
                       </LocalizationProvider>
@@ -626,7 +635,6 @@ function SocialInsuranceData(props) {
                       <TextField
                         name='ka3bNo'
                         value={formInfo.ka3bNo}
-                        required
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.workLetterNumber)}
                         className={classes.field}
