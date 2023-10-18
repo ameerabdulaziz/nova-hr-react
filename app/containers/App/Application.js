@@ -259,7 +259,8 @@ import {
   EmployeeDataReport,
   followStaffContracts,
   SocialInsuranceData,
-  EmploymentDocsDetails
+  EmploymentDocsDetails,
+  UpdateInsuranceSalary
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1048,6 +1049,11 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/SocialInsuranceData'
           component={SocialInsuranceData}
+        />
+
+        <Route
+          path='/app/Pages/insurance/UpdateInsuranceSalary'
+          component={UpdateInsuranceSalary}
         />
 
         {/* Default */}
