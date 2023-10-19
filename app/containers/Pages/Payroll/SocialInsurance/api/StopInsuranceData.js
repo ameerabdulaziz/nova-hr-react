@@ -1,5 +1,5 @@
 import axiosInstance from '../../api/axios';
-const UpdateInsuranceSalaryData = (locale) => {
+const StopInsuranceData = (locale) => {
   const api = {};
 
   api.GetList = async () => {
@@ -31,4 +31,4 @@ const UpdateInsuranceSalaryData = (locale) => {
   return api;
 };
 
-export default UpdateInsuranceSalaryData;
+export default StopInsuranceData;
