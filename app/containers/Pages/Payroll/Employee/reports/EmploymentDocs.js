@@ -161,28 +161,16 @@ function EmploymentDocs(props) {
     },
   ];
 
-//   columns =  cols.length !== 0?
-//   cols.map(item => (
-//    {
-//       name: item,
-//       label: item,
-//       options: {
-//         filter: true
-//       }
-//    }
-//   )) 
+
 if(data.length !== 0)
 {
-    console.log("data =", Object.keys(data[0]) );
     Object.keys(data[0]).map((key)=>{
-        console.log("key =", key);
 
       let keyCheck =  columns.some(function(product) {
             return product.name === key;
           })
         if(!keyCheck)
         {
-            console.log("yes");
             columns.push({
                 name: key,
                 label: key,
