@@ -258,7 +258,10 @@ import {
   SInsuranceOrgnizationCreate,
   EmployeeDataReport,
   followStaffContracts,
-  SocialInsuranceData
+  SocialInsuranceData,
+  EmploymentDocsDetails,
+  UpdateInsuranceSalary,
+  EmploymentDocs
 } from '../pageListAsync';
 
 function Application(props) {
@@ -865,6 +868,16 @@ function Application(props) {
           component={followStaffContracts}
         />
 
+        <Route
+          path='/app/Pages/Employee/EmploymentDocsDetails'
+          component={EmploymentDocsDetails}
+        />
+
+        <Route
+          path='/app/Pages/Employee/EmploymentDocs'
+          component={EmploymentDocs}
+        />
+
         {/* Map */}
         <Route exact path='/app/maps' component={Parent} />
         <Route path='/app/maps/map-marker' component={MapMarker} />
@@ -1042,6 +1055,11 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/SocialInsuranceData'
           component={SocialInsuranceData}
+        />
+
+        <Route
+          path='/app/Pages/insurance/UpdateInsuranceSalary'
+          component={UpdateInsuranceSalary}
         />
 
         {/* Default */}

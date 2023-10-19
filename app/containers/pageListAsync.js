@@ -1112,6 +1112,20 @@ export const followStaffContracts = loadable(
   }
 );
 
+export const EmploymentDocsDetails = loadable(
+  () => import('./Pages/Payroll/Employee/reports/EmploymentDocsDetails'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmploymentDocs = loadable(
+  () => import('./Pages/Payroll/Employee/reports/EmploymentDocs'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 /// ///////////////////////////////////////////////////////////////////////////////////////
 export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
   fallback: <Loading />,
@@ -1359,6 +1373,13 @@ export const SInsuranceOrgnizationCreate = loadable(
 
 export const SocialInsuranceData = loadable(
   () => import('./Pages/Payroll/SocialInsurance/Transaction/SocialInsuranceData'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const UpdateInsuranceSalary = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Transaction/UpdateInsuranceSalary'),
   {
     fallback: <Loading />,
   }

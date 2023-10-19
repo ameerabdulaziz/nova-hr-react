@@ -1220,7 +1220,7 @@
   "boilerplate.containers.Payroll.Employee.doc.FilePreview": "معاينة الملف",
 
   "boilerplate.containers.Payroll.Employee.repo.EmpCode": "كود الموظف",
-  "boilerplate.containers.Payroll.Employee.repo.Staff": "الموظف",
+  "boilerplate.containers.Payroll.Employee.repo.employeeName": "الموظف",
   "boilerplate.containers.Payroll.Employee.repo.birthDate": "تاريخ الميلاد",
   "boilerplate.containers.Payroll.Employee.repo.Department": "الادارة",
   "boilerplate.containers.Payroll.Employee.repo.InsuranceSalary": "المرتب التأميني",
@@ -1246,6 +1246,18 @@
   "boilerplate.containers.Payroll.Employee.repo.IDCardNumber": "رقم البطاقة الشخصية",
   "boilerplate.containers.Payroll.Employee.repo.JobType": "نوع الوظيفة",
   "boilerplate.containers.Payroll.Employee.repo.BookNo": "الرقم الدفترى",
+  "boilerplate.containers.Payroll.Employee.repo.EmployeeList": "قائمة الموظفين",
+  "boilerplate.containers.Payroll.Employee.repo.branch": "الفرع",
+  "boilerplate.containers.Payroll.Employee.repo.document": "اسم الوثيقة",
+  "boilerplate.containers.Payroll.Employee.repo.IDCardIssuingDate": "تاريخ الاصدار",
+  "boilerplate.containers.Payroll.Employee.repo.expireDate": "تاريخ الانتهاء",
+  "boilerplate.containers.Payroll.Employee.repo.DocumentTypes": "انواع الوثائق",
+  "boilerplate.containers.Payroll.Employee.repo.Bank": "بنك فقط",
+  "boilerplate.containers.Payroll.Employee.repo.Cash": "نقدى",
+  "boilerplate.containers.Payroll.Employee.repo.SoftCopy": "مسلم باليد",
+  "boilerplate.containers.Payroll.Employee.repo.HardCopy": "نسخة الكترونية",
+  "boilerplate.containers.Payroll.Employee.repo.job": "المسمى الوظيفى",
+
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.arName": "الاسم بالعربية",

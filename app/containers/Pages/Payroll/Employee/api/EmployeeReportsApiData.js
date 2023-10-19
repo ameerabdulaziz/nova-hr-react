@@ -11,6 +11,26 @@ const EmployeeReportsApiData = (locale) => {
     return result;
   };
 
+  EmployeeReportsApi.GetEmploymentDocsDetailsReport = async (params,bodyData) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.post(
+      `EmpReport/GetEmployeeDocDetails/${locale}?${queryString}`
+    , bodyData);
+    const result = data.data;
+
+    return result;
+  };
+
+  EmployeeReportsApi.GetEmploymentDocsReport = async (params,bodyData) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.post(
+      `EmpReport/GetEmployeeDoc/${locale}?${queryString}`
+    , bodyData);
+    const result = data.data;
+
+    return result;
+  };
+
   return EmployeeReportsApi;
 };
 

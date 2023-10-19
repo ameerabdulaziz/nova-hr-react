@@ -19,41 +19,29 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
 import EmployeeData from '../../Component/EmployeeData';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
-// import api from '../api/SInsuranceOrgnizationData';
+import api from '../api/SocialInsuranceData';
 import messages from '../messages';
 
 function SocialInsuranceData(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
-  const location = useLocation();
-  const id = location.state?.id ?? 0;
   const Title = localStorage.getItem('MenuName');
   const { classes } = useStyles();
-  const history = useHistory();
 
-  const [governmentList, setGovernmentList] = useState([]);
-  const [regionList, setRegionList] = useState([]);
   const [insuranceOfficeList, setInsuranceOfficeList] = useState([]);
   const [insuranceJobList, setInsuranceJobList] = useState([]);
   const [branchInsuranceList, setBranchInsuranceList] = useState([]);
 
-  const [
-    isCalculateInsuranceFromTheFollowingValue,
-    setIsCalculateInsuranceFromTheFollowingValue,
-  ] = useState(false);
+  const [isCalculateInsurance, setIsCalculateInsurance] = useState(false);
   const [isInsured, setIsInsured] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [formInfo, setFormInfo] = useState({
-    id,
-
     employeeId: '',
     employeeName: '',
     hiringDate: null,
@@ -61,31 +49,31 @@ function SocialInsuranceData(props) {
     organization: '',
     HasAlternativeEmp: false,
 
-    hrNotes: '',
+    insNotes: '',
     showSpecialInsurance: false,
 
-    workLetterDate: null,
-    workLetterNumber: '',
+    ka3bDate: null,
+    ka3bNo: '',
 
-    c1IncomingNumber: '',
-    c6IncomingNumber: '',
-    c1DeliverDate: null,
-    c6DeliverDate: null,
+    c1inNo: '',
+    c6inNo: '',
+    c1inDate: null,
+    c6inDate: null,
   });
 
   const [insuredState, setInsuredState] = useState({
     insuranceDate: null,
-    insuranceNumber: '',
-    insuranceJob: null,
-    insuranceOffice: null,
-    insuranceSalary: '',
-    branchInsurance: null,
-    grossSalary: '',
+    socialInsuranceId: '',
+    insuJobId: null,
+    insuOfficeId: null,
     mainSalary: '',
+    branchInsurance: null,
+    insGrossSalary: '',
+    mainSalaryNew: '',
   });
   const [fixedShareState, setFixedShareState] = useState({
-    employeeFixedShare: '',
-    companyFixedShare: '',
+    empFixedShare: '',
+    compFixedShare: '',
   });
 
   const onInsuredNumericInputChange = (evt) => {
@@ -106,19 +94,14 @@ function SocialInsuranceData(props) {
     setIsLoading(true);
 
     try {
-      const government = await GeneralListApis(locale).GetGovernmentList();
-      setGovernmentList(government);
+      const office = await api(locale).GetSInsuranceOffices();
+      setInsuranceOfficeList(office);
 
-      // const region = await api(locale).GetSinsuranceRegion();
-      // setRegionList(region);
+      const jobs = await api(locale).GetSInsuranceJob();
+      setInsuranceJobList(jobs);
 
-      // const office = await api(locale).GetSinsuranceOffices();
-      // setInsuranceOfficeList(office);
-
-      // if (id !== 0) {
-      //   const dataApi = await api(locale).GetById(id);
-      //   setFormInfo(dataApi[0]);
-      // }
+      const organizations = await api(locale).GetSInsuranceOrgnization();
+      setBranchInsuranceList(organizations);
     } catch (err) {
       toast.error(JSON.stringify(err));
     } finally {
@@ -126,45 +109,105 @@ function SocialInsuranceData(props) {
     }
   };
 
+  const GetEmployeeInfo = async () => {
+    if (formInfo.employeeId) {
+      try {
+        setIsLoading(true);
+        const response = await api(locale).GetSInsuranceEmployeeInfo(
+          formInfo.employeeId
+        );
+
+        setIsInsured(response.isInsured);
+        setIsCalculateInsurance(response.calcSifromEmpRecordValue);
+
+        setInsuredState({
+          insuranceDate: response.insuranceDate,
+          socialInsuranceId: response.socialInsuranceId,
+          insuJobId: response.insuJobId,
+          insuOfficeId: response.insuOfficeId,
+          mainSalary: response.mainSalary,
+          branchInsurance: response.branchInsurance,
+          insGrossSalary: response.insGrossSalary,
+          mainSalaryNew: response.mainSalaryNew,
+        });
+
+        setFixedShareState({
+          empFixedShare: response.empFixedShare,
+          compFixedShare: response.compFixedShare,
+        });
+
+        setFormInfo((prev) => ({
+          ...prev,
+          insNotes: response.insNotes,
+          showSpecialInsurance: response.showSpecialInsurance,
+          ka3bDate: response.ka3bDate,
+          ka3bNo: response.ka3bNo,
+          c1inNo: response.c1inNo,
+          c6inNo: response.c6inNo,
+          c1inDate: response.c1inDate,
+          c6inDate: response.c6inDate,
+        }));
+      } catch (error) {
+        toast.error(JSON.stringify(error.response.data ?? error));
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    let formData = { ...formInfo };
+    const errors = {};
 
-    setProcessing(true);
-    setIsLoading(true);
+    if ((formInfo.c1inNo || formInfo.c6inNo)) {
+      if (insuredState.socialInsuranceId) {
+        const { attachment, ...reset } = errors;
 
-    if (isInsured) {
-      formData = { ...formData, ...insuredState };
+        errors = reset;
+      } else {
+        errors.attachment = 'Insurance Number Is Required';
+      }
     }
 
-    if (isCalculateInsuranceFromTheFollowingValue) {
-      formData = { ...formData, ...fixedShareState };
-    }
+    if (Object.keys(errors).length === 0) {
+      let formData = {
+        ...formInfo,
+        isInsured,
+        calcSifromEmpRecordValue: isCalculateInsurance,
+      };
 
-    console.log(insuredState);
-    console.log(fixedShareState);
-    console.log(formData);
+      setProcessing(true);
+      setIsLoading(true);
 
-    try {
-      // if (id !== 0) {
-      //   await api(locale).update(id, formData);
-      // } else {
-      //   await api(locale).save(formData);
-      // }
+      if (isCalculateInsurance) {
+        formData = { ...formData, ...fixedShareState };
+      }
 
-      toast.success(notif.saved);
-    } catch (error) {
-      toast.error(JSON.stringify(error.response.data ?? error));
-    } finally {
-      setProcessing(false);
-      setIsLoading(false);
+      try {
+        await api(locale).save(formData);
+
+        toast.success(notif.saved);
+      } catch (error) {
+        toast.error(JSON.stringify(error.response.data ?? error));
+      } finally {
+        setProcessing(false);
+        setIsLoading(false);
+      }
+    } else {
+      Object.keys(errors).forEach((key) => {
+        toast.error(JSON.stringify(errors[key]));
+      });
     }
   };
 
   useEffect(() => {
     fetchNeededData();
   }, []);
+
+  useEffect(() => {
+    GetEmployeeInfo();
+  }, [formInfo.employeeId]);
 
   const onInputChange = (evt) => {
     setFormInfo((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
@@ -214,8 +257,8 @@ function SocialInsuranceData(props) {
                   >
                     <Grid item xs={12}>
                       <TextField
-                        name='hrNotes'
-                        value={formInfo.hrNotes}
+                        name='insNotes'
+                        value={formInfo.insNotes}
                         required
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.hrNotes)}
@@ -252,8 +295,8 @@ function SocialInsuranceData(props) {
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='insuranceNumber'
-                        value={insuredState.insuranceNumber}
+                        name='socialInsuranceId'
+                        value={insuredState.socialInsuranceId}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
@@ -293,7 +336,7 @@ function SocialInsuranceData(props) {
                         disabled={!isInsured}
                         value={
                           insuranceOfficeList.find(
-                            (alt) => alt.id === insuredState.insuranceOffice
+                            (alt) => alt.id === insuredState.insuOfficeId
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
@@ -302,7 +345,7 @@ function SocialInsuranceData(props) {
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
-                            insuranceOffice: value !== null ? value.id : null,
+                            insuOfficeId: value !== null ? value.id : null,
                           }));
                         }}
                         renderInput={(params) => (
@@ -321,7 +364,7 @@ function SocialInsuranceData(props) {
                         disabled={!isInsured}
                         value={
                           insuranceJobList.find(
-                            (alt) => alt.id === insuredState.insuranceJob
+                            (alt) => alt.id === insuredState.insuJobId
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
@@ -330,7 +373,7 @@ function SocialInsuranceData(props) {
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
-                            insuranceJob: value !== null ? value.id : null,
+                            insuJobId: value !== null ? value.id : null,
                           }));
                         }}
                         renderInput={(params) => (
@@ -345,8 +388,8 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='insuranceSalary'
-                        value={insuredState.insuranceSalary}
+                        name='mainSalary'
+                        value={insuredState.mainSalary}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
@@ -386,8 +429,8 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='grossSalary'
-                        value={insuredState.grossSalary}
+                        name='insGrossSalary'
+                        value={insuredState.insGrossSalary}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
@@ -399,8 +442,8 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='mainSalary'
-                        value={insuredState.mainSalary}
+                        name='mainSalaryNew'
+                        value={insuredState.mainSalaryNew}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
@@ -420,10 +463,8 @@ function SocialInsuranceData(props) {
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={isCalculateInsuranceFromTheFollowingValue}
-                        onChange={(evt) => setIsCalculateInsuranceFromTheFollowingValue(
-                          evt.target.checked
-                        )
+                        checked={isCalculateInsurance}
+                        onChange={(evt) => setIsCalculateInsurance(evt.target.checked)
                         }
                       />
                     }
@@ -441,10 +482,10 @@ function SocialInsuranceData(props) {
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='employeeFixedShare'
-                        value={fixedShareState.employeeFixedShare}
+                        name='empFixedShare'
+                        value={fixedShareState.empFixedShare}
                         required
-                        disabled={!isCalculateInsuranceFromTheFollowingValue}
+                        disabled={!isCalculateInsurance}
                         onChange={onFixedShareNumericInputChange}
                         label={intl.formatMessage(messages.employeeFixedShare)}
                         className={classes.field}
@@ -454,10 +495,10 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='companyFixedShare'
-                        value={fixedShareState.companyFixedShare}
+                        name='compFixedShare'
+                        value={fixedShareState.compFixedShare}
                         required
-                        disabled={!isCalculateInsuranceFromTheFollowingValue}
+                        disabled={!isCalculateInsurance}
                         onChange={onFixedShareNumericInputChange}
                         label={intl.formatMessage(messages.companyFixedShare)}
                         className={classes.field}
@@ -487,9 +528,8 @@ function SocialInsuranceData(props) {
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='c1IncomingNumber'
-                        value={formInfo.c1IncomingNumber}
-                        required
+                        name='c1inNo'
+                        value={formInfo.c1inNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.c1IncomingNumber)}
                         className={classes.field}
@@ -501,11 +541,11 @@ function SocialInsuranceData(props) {
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(messages.c1DeliverDate)}
-                          value={formInfo.c1DeliverDate}
+                          value={formInfo.c1inDate}
                           onChange={(date) => {
                             setFormInfo((prevFilters) => ({
                               ...prevFilters,
-                              c1DeliverDate: date,
+                              c1inDate: date,
                             }));
                           }}
                           className={classes.field}
@@ -513,7 +553,6 @@ function SocialInsuranceData(props) {
                             <TextField
                               {...params}
                               variant='outlined'
-                              required
                             />
                           )}
                         />
@@ -529,9 +568,8 @@ function SocialInsuranceData(props) {
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='c6IncomingNumber'
-                        value={formInfo.c6IncomingNumber}
-                        required
+                        name='c6inNo'
+                        value={formInfo.c6inNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.c6IncomingNumber)}
                         className={classes.field}
@@ -543,11 +581,11 @@ function SocialInsuranceData(props) {
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(messages.c6DeliverDate)}
-                          value={formInfo.c6DeliverDate}
+                          value={formInfo.c6inDate}
                           onChange={(date) => {
                             setFormInfo((prevFilters) => ({
                               ...prevFilters,
-                              c6DeliverDate: date,
+                              c6inDate: date,
                             }));
                           }}
                           className={classes.field}
@@ -555,7 +593,6 @@ function SocialInsuranceData(props) {
                             <TextField
                               {...params}
                               variant='outlined'
-                              required
                             />
                           )}
                         />
@@ -579,20 +616,16 @@ function SocialInsuranceData(props) {
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(messages.workLetterDate)}
-                          value={formInfo.workLetterDate}
+                          value={formInfo.ka3bDate}
                           onChange={(date) => {
                             setFormInfo((prevFilters) => ({
                               ...prevFilters,
-                              workLetterDate: date,
+                              ka3bDate: date,
                             }));
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant='outlined'
-                              required
-                            />
+                            <TextField {...params} variant='outlined' />
                           )}
                         />
                       </LocalizationProvider>
@@ -600,9 +633,8 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='workLetterNumber'
-                        value={formInfo.workLetterNumber}
-                        required
+                        name='ka3bNo'
+                        value={formInfo.ka3bNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.workLetterNumber)}
                         className={classes.field}
@@ -617,7 +649,7 @@ function SocialInsuranceData(props) {
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={1}>
-                  <SaveButton Id={id} processing={processing} />
+                  <SaveButton processing={processing} />
                 </Grid>
               </Grid>
             </Grid>

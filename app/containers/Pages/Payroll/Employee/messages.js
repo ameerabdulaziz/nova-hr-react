@@ -440,9 +440,9 @@ export default defineMessages({
       id: `${scope}.repo.EmpCode`,
       defaultMessage: 'Emp.Code',
     },
-    Staff: {
-      id: `${scope}.repo.Staff`,
-      defaultMessage: 'Staff',
+    employeeName: {
+      id: `${scope}.repo.employeeName`,
+      defaultMessage: 'Employee Name',
     },
     birthDate: {
       id: `${scope}.repo.birthDate`,
@@ -543,5 +543,50 @@ export default defineMessages({
     BookNo: {
       id: `${scope}.repo.BookNo`,
       defaultMessage: 'BookNo.',
+    },
+    EmployeeList: {
+      id: `${scope}.repo.EmployeeList`,
+      defaultMessage: 'Employee List',
+    },
+  // EmploymentDocsDetails
+    branch: {
+      id: `${scope}.repo.branch`,
+      defaultMessage: 'Branch',
+    },
+    document: {
+      id: `${scope}.repo.document`,
+      defaultMessage: 'Document',
+    },
+    IDCardIssuingDate: {
+      id: `${scope}.repo.IDCardIssuingDate`,
+      defaultMessage: 'IDCardIssuingDate',
+    },
+    expireDate: {
+      id: `${scope}.repo.expireDate`,
+      defaultMessage: 'Expire Date',
+    },
+    DocumentTypes: {
+      id: `${scope}.repo.DocumentTypes`,
+      defaultMessage: 'Document Types',
+    },
+    Bank: {
+      id: `${scope}.repo.Bank`,
+      defaultMessage: 'Bank',
+    },
+    Cash: {
+      id: `${scope}.repo.Cash`,
+      defaultMessage: 'Cash',
+    },
+    SoftCopy: {
+      id: `${scope}.repo.SoftCopy`,
+      defaultMessage: 'Soft Copy',
+    },
+    HardCopy: {
+      id: `${scope}.repo.HardCopy`,
+      defaultMessage: 'Hard Copy',
+    },
+    job: {
+      id: `${scope}.repo.job`,
+      defaultMessage: 'Job',
     },
 });
