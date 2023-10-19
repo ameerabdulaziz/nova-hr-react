@@ -155,4 +155,40 @@ export default defineMessages({
     id: `${scope}.saveConfirmMessage`,
     defaultMessage: 'saveConfirmMessage',
   },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'employeeId',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  endDate: {
+    id: `${scope}.endDate`,
+    defaultMessage: 'endDate',
+  },
+  reason: {
+    id: `${scope}.reason`,
+    defaultMessage: 'reason',
+  },
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: 'notes',
+  },
+  lastUpdateBy: {
+    id: `${scope}.lastUpdateBy`,
+    defaultMessage: 'lastUpdateBy',
+  },
+  lastUpdate: {
+    id: `${scope}.lastUpdate`,
+    defaultMessage: 'lastUpdate',
+  },
+  StopInsuranceCreateTitle: {
+    id: `${scope}.StopInsuranceCreateTitle`,
+    defaultMessage: 'StopInsuranceCreateTitle',
+  },
+  StopInsuranceEditTitle: {
+    id: `${scope}.StopInsuranceEditTitle`,
+    defaultMessage: 'StopInsuranceEditTitle',
+  },
 });
