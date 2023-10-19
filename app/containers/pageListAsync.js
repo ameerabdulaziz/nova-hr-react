@@ -1119,6 +1119,13 @@ export const EmploymentDocsDetails = loadable(
   }
 );
 
+export const EmploymentDocs = loadable(
+  () => import('./Pages/Payroll/Employee/reports/EmploymentDocs'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 /// ///////////////////////////////////////////////////////////////////////////////////////
 export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
   fallback: <Loading />,

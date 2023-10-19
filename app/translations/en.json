@@ -1215,6 +1215,8 @@
   "boilerplate.containers.Payroll.Employee.repo.Cash": "Cash",
   "boilerplate.containers.Payroll.Employee.repo.SoftCopy": "Soft Copy",
   "boilerplate.containers.Payroll.Employee.repo.HardCopy": "Hard Copy",
+  "boilerplate.containers.Payroll.Employee.repo.job": "Job",
+  
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.arName": "AR Name",

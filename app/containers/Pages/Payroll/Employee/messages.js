@@ -548,7 +548,7 @@ export default defineMessages({
       id: `${scope}.repo.EmployeeList`,
       defaultMessage: 'Employee List',
     },
-    // EmploymentDocs
+  // EmploymentDocsDetails
     branch: {
       id: `${scope}.repo.branch`,
       defaultMessage: 'Branch',
@@ -584,5 +584,9 @@ export default defineMessages({
     HardCopy: {
       id: `${scope}.repo.HardCopy`,
       defaultMessage: 'Hard Copy',
+    },
+    job: {
+      id: `${scope}.repo.job`,
+      defaultMessage: 'Job',
     },
 });

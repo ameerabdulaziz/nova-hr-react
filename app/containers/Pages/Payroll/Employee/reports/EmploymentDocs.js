@@ -27,8 +27,10 @@ import style from '../../../../../styles/styles.scss'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import ApiData from "../api/EmployeeReportsApiData";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
 
-function EmploymentDocsDetails(props) {
+function EmploymentDocs(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -78,7 +80,7 @@ function EmploymentDocsDetails(props) {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
       
-      const dataApi = await ApiData(locale).GetEmploymentDocsDetailsReport(formData, DocumentTypeData);
+      const dataApi = await ApiData(locale).GetEmploymentDocsReport(formData, DocumentTypeData);
       setdata(dataApi);
     } catch (err) {
       toast.error(err.message);
@@ -102,7 +104,7 @@ function EmploymentDocsDetails(props) {
     fetchData();
   }, []);
 
-  const columns = [
+  let columns = [
     {
       name: "id",
       options: {
@@ -150,43 +152,62 @@ function EmploymentDocsDetails(props) {
       },
     },
     {
-      name: "job",
-      label: intl.formatMessage(messages.job),
-    options: {
-      filter: true,
-    },
-    },
-    {
-      name: "documentName",
-      label: intl.formatMessage(messages.document),
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "issueDate",
-      label: intl.formatMessage(messages.IDCardIssuingDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
-      },
-    },
-    {
-      name: "expDate",
-      label: intl.formatMessage(messages.expireDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
-      },
-    },
-    {
-      name: "notes",
-      label: intl.formatMessage(messages.notes),
+        name: "job",
+        label: intl.formatMessage(messages.job),
       options: {
         filter: true,
       },
     },
   ];
+
+//   columns =  cols.length !== 0?
+//   cols.map(item => (
+//    {
+//       name: item,
+//       label: item,
+//       options: {
+//         filter: true
+//       }
+//    }
+//   )) 
+if(data.length !== 0)
+{
+    console.log("data =", Object.keys(data[0]) );
+    Object.keys(data[0]).map((key)=>{
+        console.log("key =", key);
+
+      let keyCheck =  columns.some(function(product) {
+            return product.name === key;
+          })
+        if(!keyCheck)
+        {
+            console.log("yes");
+            columns.push({
+                name: key,
+                label: key,
+              options: {
+                filter: true,
+                customBodyRender: (value, tableMeta) => {
+                    return (
+                      <div className={style.actionsSty}>
+                        {value ? (
+                          <CheckIcon style={{ color: "#3f51b5" }} />
+                        ) : (
+                          <CloseIcon style={{ color: "#717171" }} />
+                        )}
+                      </div>
+                    );
+                  },
+              },
+            })
+        }
+    }) 
+    
+}
+
+
+
+
   const options = {
     filterType: "dropdown",
     responsive: "vertical",
@@ -358,6 +379,6 @@ function EmploymentDocsDetails(props) {
   );
 }
 
-EmploymentDocsDetails.propTypes = { intl: PropTypes.object.isRequired };
+EmploymentDocs.propTypes = { intl: PropTypes.object.isRequired };
 
-export default injectIntl(EmploymentDocsDetails);
+export default injectIntl(EmploymentDocs);

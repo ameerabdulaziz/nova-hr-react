@@ -1254,6 +1254,8 @@
   "boilerplate.containers.Payroll.Employee.repo.Cash": "نقدى",
   "boilerplate.containers.Payroll.Employee.repo.SoftCopy": "مسلم باليد",
   "boilerplate.containers.Payroll.Employee.repo.HardCopy": "نسخة الكترونية",
+  "boilerplate.containers.Payroll.Employee.repo.job": "المسمى الوظيفى",
+
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.arName": "الاسم بالعربية",
