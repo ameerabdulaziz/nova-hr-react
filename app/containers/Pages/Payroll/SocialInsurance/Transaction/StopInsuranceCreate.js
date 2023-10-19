@@ -78,11 +78,7 @@ function StopInsuranceCreate(props) {
     setIsLoading(true);
 
     try {
-      if (id !== 0) {
-        await api(locale).update(id, formData);
-      } else {
-        await api(locale).save(formData);
-      }
+      await api(locale).save(formData);
 
       toast.success(notif.saved);
       history.push('/app/Pages/insurance/StopInsurance');

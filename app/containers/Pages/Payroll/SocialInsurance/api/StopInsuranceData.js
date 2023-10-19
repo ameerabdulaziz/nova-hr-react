@@ -17,15 +17,6 @@ const UpdateInsuranceSalaryData = (locale) => {
     return result;
   };
 
-  api.update = async (id, body) => {
-    const result = await axiosInstance.put(
-      `SinsuranceLog/${id}`,
-      body
-    );
-
-    return result;
-  };
-
   api.delete = async (id) => {
     const data = await axiosInstance.delete(`SinsuranceLog/Delete/${id}`);
     return data;
