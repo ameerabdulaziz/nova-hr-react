@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
 import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
-import { useHistory } from "react-router-dom";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
 import {
   Button,
@@ -27,6 +25,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../api/ShiftEmployeeData";
 import style from "../../../../../../app/styles/styles.scss";
+import Payrollmessages from "../../messages";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function ShiftReview(props) {
   const { intl } = props;
@@ -34,8 +34,6 @@ function ShiftReview(props) {
   const { classes } = useStyles();
   const Title = localStorage.getItem("MenuName");
   const [dataList, setdataList] = useState([]);
-
-  const history = useHistory();
   const [fromdate, setfromate] = useState(null);
   const [todate, settodate] = useState(null);
   const [employee, setemployee] = useState("");
@@ -44,9 +42,11 @@ function ShiftReview(props) {
   const [OrganizationList, setOrganizationList] = useState([]);
   const [ShiftsList, setShiftsList] = useState([]);
   const [ShiftId, setShiftId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   async function handleUpdate(selectedRows) {
     try {
+      setIsLoading(true);
       let response = await ApiData(locale).ChangeShift(
         dataList[selectedRows.data[0].dataIndex].employeeId,
         ShiftId,
@@ -60,19 +60,25 @@ function ShiftReview(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.response.data);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   async function Getookup() {
-    const employees = await GeneralListApis(locale).GetEmployeeList();
-    setEmployeeList(employees);
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
 
-    const organizations = await GeneralListApis(locale).GetDepartmentList();
-    setOrganizationList(organizations);
-    const shifts = await GeneralListApis(locale).GetShiftList();
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+      const shifts = await GeneralListApis(locale).GetShiftList();
 
-    setShiftsList(shifts);
+      setShiftsList(shifts);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -81,6 +87,7 @@ function ShiftReview(props) {
 
   const handleSearch = async (e) => {
     try {
+      setIsLoading(true);
       const dataApi = await ApiData(locale).GetEmpAttendance(
         fromdate,
         todate,
@@ -89,7 +96,8 @@ function ShiftReview(props) {
       );
       setdataList(dataApi);
     } catch (err) {
-      toast.error(err.response.data);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -241,7 +249,8 @@ function ShiftReview(props) {
     filter: false,
     search: false,
     selection: true,
-    rowsPerPage: 10,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     selectableRows: "single",
     //textRowsSelected: false,
@@ -295,144 +304,162 @@ function ShiftReview(props) {
         </Grid>
       </div>
     ),
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
 
   return (
-    <div>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc={""}>
-        <div>
-          <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={2}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={2}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={fromdate}
-                          onChange={(date) => {
-                            setfromate(
-                              date == null
-                                ? null
-                                : format(new Date(date), "yyyy-MM-dd")
-                            );
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                    <Grid item xs={12} md={2}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.todate)}
-                          value={todate}
-                          onChange={(date) => {
-                            settodate(
-                              date == null
-                                ? null
-                                : format(new Date(date), "yyyy-MM-dd")
-                            );
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <Autocomplete
-                        id="OrganizationId"
-                        options={OrganizationList}
-                        isOptionEqualToValue={(option, value) =>
-                          value.id === 0 ||
-                          value.id === "" ||
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) =>
-                          option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                          setOrganization(value == null ? "" : value.id);
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Grid container spacing={3} alignItems="flex-start" direction="row">
+          <Grid item xs={12} md={12}>
+            <Card className={classes.card}>
+              <CardContent>
+                <Grid
+                  container
+                  spacing={2}
+                  alignItems="flex-start"
+                  direction="row"
+                >
+                  <Grid item xs={12} md={2}>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                        label={intl.formatMessage(Payrollmessages.fromdate)}
+                        value={fromdate}
+                        onChange={(date) => {
+                          setfromate(
+                            date == null
+                              ? null
+                              : format(new Date(date), "yyyy-MM-dd")
+                          );
                         }}
+                        className={classes.field}
                         renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="OrganizationId"
-                            label={intl.formatMessage(
-                              Payrollmessages.organizationName
-                            )}
-                          />
+                          <TextField {...params} variant="outlined" />
                         )}
                       />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <Autocomplete
-                        id="employeeId"
-                        options={EmployeeList}
-                        isOptionEqualToValue={(option, value) =>
-                          value.id === 0 ||
-                          value.id === "" ||
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) =>
-                          option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                          setemployee(value == null ? "" : value.id);
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="employeeId"
-                            label={intl.formatMessage(
-                              Payrollmessages.employeeName
-                            )}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={2}>
-                      <Button
-                        variant="contained"
-                        size="medium"
-                        color="primary"
-                        onClick={handleSearch}
-                      >
-                        <FormattedMessage {...Payrollmessages.search} />
-                      </Button>
-                    </Grid>
+                    </LocalizationProvider>
                   </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
+                  <Grid item xs={12} md={2}>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                        label={intl.formatMessage(Payrollmessages.todate)}
+                        value={todate}
+                        onChange={(date) => {
+                          settodate(
+                            date == null
+                              ? null
+                              : format(new Date(date), "yyyy-MM-dd")
+                          );
+                        }}
+                        className={classes.field}
+                        renderInput={(params) => (
+                          <TextField {...params} variant="outlined" />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <Autocomplete
+                      id="OrganizationId"
+                      options={OrganizationList}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === "" ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                      }
+                      onChange={(event, value) => {
+                        setOrganization(value == null ? "" : value.id);
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="OrganizationId"
+                          label={intl.formatMessage(
+                            Payrollmessages.organizationName
+                          )}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <Autocomplete
+                      id="employeeId"
+                      options={EmployeeList}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === "" ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                      }
+                      onChange={(event, value) => {
+                        setemployee(value == null ? "" : value.id);
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="employeeId"
+                          label={intl.formatMessage(
+                            Payrollmessages.employeeName
+                          )}
+                        />
+                      )}
+                    />
+                  </Grid>
 
-            <Grid item xs={12} md={12}>
-              <div className={classes.CustomMUIDataTable}>
-                <MUIDataTable
-                  title=""
-                  data={dataList}
-                  columns={columns}
-                  options={options}
-                />
-              </div>
-            </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Button
+                      variant="contained"
+                      size="medium"
+                      color="primary"
+                      onClick={handleSearch}
+                    >
+                      <FormattedMessage {...Payrollmessages.search} />
+                    </Button>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
           </Grid>
-        </div>
+        </Grid>
       </PapperBlock>
-    </div>
+      <div className={classes.CustomMUIDataTable}>
+        <MUIDataTable
+          title=""
+          data={dataList}
+          columns={columns}
+          options={options}
+        />
+      </div>
+    </Box>
   );
 }
 ShiftReview.propTypes = {

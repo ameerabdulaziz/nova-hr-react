@@ -26,9 +26,6 @@ function VacationsTypes({ intl }) {
   const [dataTable, setDataTable] = useState([]);
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [processing, setProcessing] = useState(false);
-
   const getdata = async () => {
     const data = await VacationsTypesData(locale).GetList();
 
@@ -177,7 +174,8 @@ function VacationsTypes({ intl }) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     // searchOpen: true,
     selectableRows: "none",
@@ -198,9 +196,6 @@ function VacationsTypes({ intl }) {
   };
 
   const DeleteFun = async () => {
-    setSubmitting(true);
-    setProcessing(true);
-
     try {
       let response = await VacationsTypesData().Delete(deleteItem);
 
@@ -211,12 +206,8 @@ function VacationsTypes({ intl }) {
         toast.error(response.statusText);
       }
 
-      setSubmitting(false);
-      setProcessing(false);
     } catch (err) {
       toast.error(notif.error);
-      setSubmitting(false);
-      setProcessing(false);
     }
   };
 
@@ -247,8 +238,6 @@ function VacationsTypes({ intl }) {
         open={openParentPopup}
         messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${deleteItem[1]}`}
         callFun={DeleteFun}
-        submitting={submitting}
-        processing={processing}
       />
     </div>
   );

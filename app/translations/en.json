@@ -933,7 +933,8 @@
   "boilerplate.containers.Payroll.Import":"Import",
   "boilerplate.containers.Payroll.reset":"reset",
   "boilerplate.containers.Payroll.deleteMessage":"Are You Sure You Want To Delete",  
-  "boilerplate.containers.Payroll.confirmation": "Confirmation Message",
+  "boilerplate.containers.Payroll.confirmation": "Confirmation Message",  
+  "boilerplate.containers.Payroll.applynewshift": "Apply new shift",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",

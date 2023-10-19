@@ -79,7 +79,9 @@ function UniformDeliveryCreate(props) {
           toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.response.data);
+    }
+    finally{
+      setprocessing(false);
     }
   }
 async function oncancel(){
@@ -182,6 +184,7 @@ async function oncancel(){
                         label={intl.formatMessage(Payrollmessages.count)}
                         className={classes.field}
                         variant="outlined"
+                        required
                         onChange={(e) => handleChange(e)}       
                     />
                 </Grid>
