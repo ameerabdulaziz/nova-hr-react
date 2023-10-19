@@ -61,7 +61,6 @@ function MissionTrxReport(props) {
       const dataApi = await ApiData(locale).GetReport(formData);
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.response.data);
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +72,6 @@ function MissionTrxReport(props) {
       const Missions = await GeneralListApis(locale).GetMissionList();
       setMissionsList(Missions);
     } catch (err) {
-      toast.error(err.response.data);
     } finally {
       setIsLoading(false);
     }
