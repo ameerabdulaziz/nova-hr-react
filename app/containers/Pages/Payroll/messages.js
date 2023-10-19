@@ -415,4 +415,8 @@ employeeId: {
     id: `${scope}.codes.confirmation`,
     defaultMessage: 'confirmation message',
   },
+  applynewshift: {
+    id: `${scope}.applynewshift`,
+    defaultMessage: 'Apply New Shift',
+  },
 });

@@ -260,7 +260,8 @@ import {
   followStaffContracts,
   SocialInsuranceData,
   EmploymentDocsDetails,
-  UpdateInsuranceSalary
+  UpdateInsuranceSalary,
+  EmploymentDocs
 } from '../pageListAsync';
 
 function Application(props) {
@@ -870,6 +871,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Employee/EmploymentDocsDetails'
           component={EmploymentDocsDetails}
+        />
+
+        <Route
+          path='/app/Pages/Employee/EmploymentDocs'
+          component={EmploymentDocs}
         />
 
         {/* Map */}

@@ -3,7 +3,6 @@ import MUIDataTable from "mui-datatables";
 import ApiData from "../api/ShiftEmployeeData";
 import { useSelector } from "react-redux";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import style from "../../../../../../app/styles/styles.scss";
 import notif from "enl-api/ui/notifMessage";
@@ -19,6 +18,9 @@ import { useLocation } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { format } from "date-fns";
+import AlertPopup from "../../Component/AlertPopup";
+import Payrollmessages from "../../messages";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function ShiftEmployeeList(props) {
   const { intl } = props;
@@ -28,17 +30,27 @@ function ShiftEmployeeList(props) {
   const Title = localStorage.getItem("MenuName");
   const [EmployeeList, setEmployeeList] = useState([]);
   const [employee, setemployee] = useState("");
-
   const { state } = useLocation();
   const employeeID = state?.employeeId;
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [deleteItem, setDeleteItem] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  async function deleteList(selectedRows) {
-    const list = [];
-    for (let i = 0; i < selectedRows.data.length; i++) {
-      list.push(data[selectedRows.data[i].dataIndex].id);
-    }
+  const handleClickOpen = (item) => {
+    debugger;
+    setOpenParentPopup(true);
+    setDeleteItem(item);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
+
+  async function deleterow() {
     try {
-      let response = await ApiData(locale).DeleteList(list);
+      debugger;
+      setIsLoading(true);
+      let response = await ApiData(locale).Delete(deleteItem);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -47,32 +59,26 @@ function ShiftEmployeeList(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
   }
-  async function deleterow(id) {
-    try {
-      let response = await ApiData(locale).Delete(id);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
-    } catch (err) {
-      toast.error(notif.error);
-    }
-  }
   async function Getookup() {
-    const employees = await GeneralListApis(locale).GetEmployeeList();
-    setEmployeeList(employees);
-    if (employeeID) {
-      setemployee(employeeID);
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+      if (employeeID) {
+        setemployee(employeeID);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
     }
   }
   async function fetchData() {
     try {
+      setIsLoading(true);
       if (!employee) {
         setdata([]);
         return;
@@ -80,7 +86,8 @@ function ShiftEmployeeList(props) {
       const dataApi = await ApiData(locale).GetList(employee, "", "");
       setdata(dataApi || []);
     } catch (err) {
-      toast.error(err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -253,7 +260,9 @@ function ShiftEmployeeList(props) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     onSearchClose: () => {
@@ -273,54 +282,80 @@ function ShiftEmployeeList(props) {
     ),
     customToolbarSelect: (selectedRows) => (
       <div>
-        <DeleteButton clickfnc={() => deleteList(selectedRows)}></DeleteButton>
+        <DeleteButton
+          clickfnc={() => handleClickOpen(selectedRows)}
+        ></DeleteButton>
       </div>
     ),
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
 
   return (
-    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-      <div>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
-            <Autocomplete
-              id="employeeId"
-              options={EmployeeList}
-              value={
-                employee
-                  ? EmployeeList.find((item) => item.id === employee)
-                  : null
-              }
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setemployee(value == null ? "" : value.id);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employeeId"
-                  required
-                  label={intl.formatMessage(Payrollmessages.employeeName)}
-                />
-              )}
-            />
-          </Grid>
-        </Grid>
-
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <div>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={4}>
+              <Autocomplete
+                id="employeeId"
+                options={EmployeeList}
+                value={
+                  employee
+                    ? EmployeeList.find((item) => item.id === employee)
+                    : null
+                }
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  setemployee(value == null ? "" : value.id);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="employeeId"
+                    required
+                    label={intl.formatMessage(Payrollmessages.employeeName)}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>          
         </div>
-      </div>
-    </PapperBlock>
+      </PapperBlock>
+      <div className={classes.CustomMUIDataTable}>
+            <MUIDataTable
+              title=""
+              data={data}
+              columns={columns}
+              options={options}
+            />
+          </div>
+    </Box>
   );
 }
 

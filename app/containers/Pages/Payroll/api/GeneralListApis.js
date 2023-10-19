@@ -18,16 +18,16 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetEmployeeList = async () => {
+  Apis.GetEmployeeList = async (IsInsured) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeList/${locale}`
+      `GeneralList/GetEmployeeList/${locale}?IsInsured=${IsInsured?true:false}`
     );
 
     return result.data;
   };
-  Apis.GetEmployeeListComponent = async () => {
+  Apis.GetEmployeeListComponent = async (IsInsured) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeListComponent/${locale}`
+      `GeneralList/GetEmployeeListComponent/${locale}?IsInsured=${IsInsured?true:false}`
     );
 
     return result.data;

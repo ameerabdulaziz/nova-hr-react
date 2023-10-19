@@ -933,7 +933,8 @@
   "boilerplate.containers.Payroll.Import":"Import",
   "boilerplate.containers.Payroll.reset":"reset",
   "boilerplate.containers.Payroll.deleteMessage":"Are You Sure You Want To Delete",  
-  "boilerplate.containers.Payroll.confirmation": "Confirmation Message",
+  "boilerplate.containers.Payroll.confirmation": "Confirmation Message",  
+  "boilerplate.containers.Payroll.applynewshift": "Apply new shift",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
@@ -1215,6 +1216,8 @@
   "boilerplate.containers.Payroll.Employee.repo.Cash": "Cash",
   "boilerplate.containers.Payroll.Employee.repo.SoftCopy": "Soft Copy",
   "boilerplate.containers.Payroll.Employee.repo.HardCopy": "Hard Copy",
+  "boilerplate.containers.Payroll.Employee.repo.job": "Job",
+  
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.arName": "AR Name",

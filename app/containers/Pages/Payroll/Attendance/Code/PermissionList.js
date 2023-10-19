@@ -6,27 +6,42 @@ import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
 import { FormattedMessage } from "react-intl";
 import style from "../../../../../../app/styles/styles.scss";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import useStyles from "../../Style";
 import { PapperBlock } from "enl-components";
+import AlertPopup from "../../Component/AlertPopup";
+import Payrollmessages from "../../messages";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
+
 
 function PermissionList() {
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [deleteItem, setDeleteItem] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  async function deleteList(selectedRows) {
-    const list = [];
-    for (let i = 0; i < selectedRows.data.length; i++) {
-      list.push(data[selectedRows.data[i].dataIndex].id);
-    }
+  
+  const handleClickOpen = (item) => {
+    debugger;
+    setOpenParentPopup(true);
+    setDeleteItem(item);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
+
+  async function deleterow() {
     try {
-      let response = await ApiData(locale).DeleteList(list);
+      debugger;
+      setIsLoading(true);
+      let response = await ApiData(locale).Delete(deleteItem);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -35,27 +50,22 @@ function PermissionList() {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+      
+    } finally {
+      setIsLoading(false);
     }
   }
-  async function deleterow(id) {
-    try {
-      let response = await ApiData(locale).Delete(id);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
-    } catch (err) {
-      toast.error(notif.error);
-    }
-  }
   async function fetchData() {
-    const dataApi = await ApiData(locale).GetList();
-    setdata(dataApi);
+    try {
+      const dataApi = await ApiData(locale).GetList();
+      setdata(dataApi);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -118,7 +128,7 @@ function PermissionList() {
                 url={"/app/Pages/Att/PermissionEdit"}
               ></EditButton>
               <DeleteButton
-                clickfnc={() => deleterow(tableMeta.rowData[0])}
+                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
               ></DeleteButton>
             </div>
           );
@@ -131,7 +141,9 @@ function PermissionList() {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
+    selectableRows: "none",
     rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: true,
     onSearchClose: () => {
@@ -140,24 +152,52 @@ function PermissionList() {
     customToolbar: () => (
       <AddButton url={"/app/Pages/Att/PermissionCreate"}></AddButton>
     ),
-    customToolbarSelect: (selectedRows) => (
-      <div>
-        <DeleteButton clickfnc={() => deleteList(selectedRows)}></DeleteButton>
-      </div>
-    ),
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
 
   return (
-    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <div className={classes.CustomMUIDataTable}>
+          <MUIDataTable
+            title=""
+            data={data}
+            columns={columns}
+            options={options}
+          />
+        </div>
+        <AlertPopup
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(
+            Payrollmessages.deleteMessage
+          )}${deleteItem}`}
+          callFun={deleterow}
         />
-      </div>
-    </PapperBlock>
+      </PapperBlock>
+    </Box>
   );
 }
 

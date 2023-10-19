@@ -36,52 +36,10 @@ import DeleteButton from "../../Component/DeleteButton";
 import NamePopup from "../../Component/NamePopup";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import AlertPopup from "../../Component/AlertPopup";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function ShiftOrgnization(props) {
-  const theme = createTheme({
-    overrides: {
-      /* MuiTable: {
-      root: {
-        border: [[1, 'solid', '#d3d3d3']],
-      },
-    }, */
-      /* MuiTableHead: {
-      root: {
-        background: 'red',
-      },
-    },
-   
-    MuiTableCell: {
-      root: {
-        borderColor: '#d3d3d3',
-        background: 'red !important',
-      },
-      head: {
-        background: 'red !important',
-        '&:not(:last-child)': {
-          borderRight: [[1, 'solid', '#c0c0c0']],
-        },
-      },
-    },
-    MuiTableSortLabel: {
-      root: {
-        alignItems: 'flex-start',
-      },
-    },
-    MuiTableFooter: {
-      root: {
-        background: 'lightgrey',
-      },
-    },
-
-    // MUIDataTable
-    MUIDataTableHeadCell: {
-      sortLabelRoot: {
-        // height: undefined,
-      },
-    }, */
-    },
-  });
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { classes } = useStyles();
@@ -107,42 +65,80 @@ function ShiftOrgnization(props) {
   const history = useHistory();
   const [OpenPopup, setOpenPopup] = useState(false);
   const [ShiftsList, setShiftsList] = useState([]);
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [deleteItem, setDeleteItem] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleClose = useCallback(async(Employeesdata) => {
-    setOpenPopup(false);
+  const handleCloseNamePopup = useCallback(
+    async (Employeesdata) => {
+      setOpenPopup(false);
+      try {
+        setIsLoading(true);
+        const shifts = Employeesdata.map((obj) => ({
+          id: 0,
+          employeeId: obj.id,
+          shiftId: data.shiftId,
+          workHours: data.workHours,
+          fromDate: data.fromDate,
+          toDate: data.toDate,
+          vsaturday: data.vsaturday,
+          vsunday: data.vsunday,
+          vmonday: data.vmonday,
+          vtuesday: data.vtuesday,
+          vwednesday: data.vwednesday,
+          vthursday: data.vthursday,
+          vfriday: data.vfriday,
+        }));
+        let response = await ApiData(locale).SaveList(shifts);
+
+        if (response.status == 200) {
+          toast.success(notif.saved);
+          const result = await ApiData(locale).GetList("", data.shiftId, "");
+          setdataList(result || []);
+        } else {
+          toast.error(response.statusText);
+        }
+      } catch (err) {
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [data]
+  );
+
+  const handleClickOpenNamePopup = () => {
+    setOpenPopup(true);
+  };
+
+  
+  const handleClickOpen = (item) => {
+    debugger;
+    setOpenParentPopup(true);
+    setDeleteItem(item);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
+
+  async function deleterow() {
     try {
-      const shifts = Employeesdata.map((obj) => ({
-        id: 0,
-        employeeId: obj.id,
-        shiftId: data.shiftId,
-        workHours: data.workHours,
-        fromDate: data.fromDate,
-        toDate: data.toDate,
-        vsaturday: data.vsaturday,
-        vsunday: data.vsunday,
-        vmonday: data.vmonday,
-        vtuesday: data.vtuesday,
-        vwednesday: data.vwednesday,
-        vthursday: data.vthursday,
-        vfriday: data.vfriday,
-      }));
-      let response = await ApiData(locale).SaveList(shifts);
+      debugger;
+      setIsLoading(true);
+      let response = await ApiData(locale).Delete(deleteItem);
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        const result = await ApiData(locale).GetList("", data.shiftId, "");
-        setdataList(result || []);
+        getShiftData(data.shiftId);
       } else {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.message);
+      
+    } finally {
+      setIsLoading(false);
     }
-  },[data]);
-
-  const handleClickOpen = () => {
-    setOpenPopup(true);
-  };
+  }
 
   async function handleUpdate(selectedRows) {
     try {
@@ -164,55 +160,31 @@ function ShiftOrgnization(props) {
           vfriday: data.vfriday,
         });
       }
-
-      let response = await ApiData(locale).SaveList(shifts);
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        const result = await ApiData(locale).GetList("", data.shiftId, "");
-        setdataList(result || []);
-      } else {
-        toast.error(response.statusText);
+      if (shifts.length > 0) {
+        setIsLoading(true);
+        let response = await ApiData(locale).SaveList(shifts);
+        if (response.status == 200) {
+          toast.success(notif.saved);
+          const result = await ApiData(locale).GetList("", data.shiftId, "");
+          setdataList(result || []);
+        } else {
+          toast.error(response.statusText);
+        }
       }
     } catch (err) {
-      toast.error(err.response.data);
+    } finally {
+      setIsLoading(false);
     }
   }
-
-  async function deleteList(selectedRows) {
-    const list = [];
-    for (let i = 0; i < selectedRows.data.length; i++) {
-      list.push(data[selectedRows.data[i].dataIndex].id);
-    }
-    try {
-      let response = await ApiData(locale).DeleteList(list);
-
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
-    } catch (err) {
-      toast.error(notif.error);
-    }
-  }
-  async function deleterow(id) {
-    try {
-      let response = await ApiData(locale).Delete(id);
-
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
-    } catch (err) {
-      toast.error(notif.error);
-    }
-  }
+  
   async function Getookup() {
-    const shifts = await GeneralListApis(locale).GetShiftList();
-    setShiftsList(shifts);
+    try {
+      const shifts = await GeneralListApis(locale).GetShiftList();
+      setShiftsList(shifts);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -220,43 +192,48 @@ function ShiftOrgnization(props) {
   }, []);
 
   async function getShiftData(id) {
-    alert(data) ;
-    if (!id) {
+    try {
+      if (!id) {
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          startTime: "",
+          endTime: "",
+          workHours: "",
+        }));
+        setdataList([]);
+        return;
+      }
+      setIsLoading(true);
+      const result = await shiftApi(locale).Get(id);
+
       setdata((prevFilters) => ({
         ...prevFilters,
-        startTime: "",
-        endTime: "",
-        workHours: "",
+        startTime: result.startTime,
+        endTime: result.endTime,
+        workHours: Math.round(
+          (new Date(
+            0,
+            0,
+            0,
+            result.endTime.split(":")[0],
+            result.endTime.split(":")[1]
+          ) -
+            new Date(
+              0,
+              0,
+              0,
+              result.startTime.split(":")[0],
+              result.startTime.split(":")[1]
+            )) /
+            3600000
+        ),
       }));
-      setdataList([]);
-      return;
+      const dataApi = await ApiData(locale).GetList("", id, "");
+      setdataList(dataApi || []);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
     }
-    const result = await shiftApi(locale).Get(id);
-
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      startTime: result.startTime,
-      endTime: result.endTime,
-      workHours: Math.round(
-        (new Date(
-          0,
-          0,
-          0,
-          result.endTime.split(":")[0],
-          result.endTime.split(":")[1]
-        ) -
-          new Date(
-            0,
-            0,
-            0,
-            result.startTime.split(":")[0],
-            result.startTime.split(":")[1]
-          )) /
-          3600000
-      ),
-    }));
-    const dataApi = await ApiData(locale).GetList("", id, "");
-    setdataList(dataApi || []);
   }
 
   const CheckBox = (value) => {
@@ -397,7 +374,7 @@ function ShiftOrgnization(props) {
           return (
             <div className={style.actionsSty}>
               <DeleteButton
-                clickfnc={() => deleterow(tableMeta.rowData[0])}
+                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
               ></DeleteButton>
             </div>
           );
@@ -413,7 +390,8 @@ function ShiftOrgnization(props) {
     filter: false,
     search: false,
     selection: true,
-    rowsPerPage: 10,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     onSearchClose: () => {
       //some logic
@@ -424,7 +402,7 @@ function ShiftOrgnization(props) {
         size="medium"
         color="secondary"
         disabled={!data.shiftId}
-        onClick={handleClickOpen}
+        onClick={handleClickOpenNamePopup}
       >
         <FormattedMessage {...Payrollmessages.chooseEmp} />
       </Button>
@@ -432,11 +410,7 @@ function ShiftOrgnization(props) {
     customToolbarSelect: (selectedRows) => (
       <div>
         <Grid container spacing={1} alignItems="flex-start" direction="row">
-          <Grid item xs={12} md={4}>
-            <DeleteButton
-              clickfnc={() => deleteList(selectedRows)}
-            ></DeleteButton>
-          </Grid>
+         
           <Grid item xs={12} md={2}>
             {/* <Button
               variant="contained"
@@ -447,7 +421,7 @@ function ShiftOrgnization(props) {
               <FormattedMessage {...Payrollmessages.apply} />
             </Button> */}
             <Tooltip
-              title={intl.formatMessage(Payrollmessages.apply)}
+              title={intl.formatMessage(Payrollmessages.applynewshift)}
               cursor="pointer"
               className="mr-6"
             >
@@ -464,13 +438,37 @@ function ShiftOrgnization(props) {
         </Grid>
       </div>
     ),
+
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
 
   return (
-    <div>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc={""}>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <NamePopup
-          handleClose={handleClose}
+          handleClose={handleCloseNamePopup}
           open={OpenPopup}
           Key={"Employee"}
         />
@@ -784,7 +782,15 @@ function ShiftOrgnization(props) {
           </Grid>
         </div>
       </PapperBlock>
-    </div>
+      <AlertPopup
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(
+            Payrollmessages.deleteMessage
+          )}${deleteItem}`}
+          callFun={deleterow}
+        />
+    </Box>
   );
 }
 ShiftOrgnization.propTypes = {

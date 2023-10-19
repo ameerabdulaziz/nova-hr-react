@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../../Explanation/api/ExplanationData";
 import { useSelector } from "react-redux";
-import { Button, Grid, TextField, Autocomplete } from "@mui/material";
+import { Button, Grid, TextField, Autocomplete,Backdrop, CircularProgress, Box  } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -29,9 +29,11 @@ function ExplanationList(props) {
   const [TypeList, setTypeList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSearch = async (e) => {
     try {
+      setIsLoading(true);
       const dataApi = await ApiData(locale).GetReport(
         employee,
         type,
@@ -41,23 +43,33 @@ function ExplanationList(props) {
       );
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.response.data);
+      toast.error(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   async function fetchData() {
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
-    setEmployeeList(employees);
-    const types = await GeneralListApis(locale).GetExplanationTypeList(locale);
-    setTypeList(types);
-    const dataApi = await ApiData(locale).GetReport(
-      employee,
-      type,
-      fromdate,
-      todate,
-      false
-    );
-    setdata(dataApi);
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList(locale);
+      setEmployeeList(employees);
+      const types = await GeneralListApis(locale).GetExplanationTypeList(
+        locale
+      );
+      setTypeList(types);
+      const dataApi = await ApiData(locale).GetReport(
+        employee,
+        type,
+        fromdate,
+        todate,
+        false
+      );
+      setdata(dataApi);
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   }
   useEffect(() => {
     fetchData();
@@ -138,118 +150,145 @@ function ExplanationList(props) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: true,
     onSearchClose: () => {
       //some logic
     },
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
   return (
-    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-      <div>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.fromdate)}
-                value={fromdate}
-                onChange={(date) => {
-                  setfromate(
-                    date == null ? null : format(new Date(date), "yyyy-MM-dd")
-                  );
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <div>
+          <Backdrop
+            sx={{
+              color: "primary.main",
+              zIndex: 10,
+              position: "absolute",
+              backgroundColor: "rgba(255, 255, 255, 0.69)",
+            }}
+            open={isLoading}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DesktopDatePicker
+                  label={intl.formatMessage(Payrollmessages.fromdate)}
+                  value={fromdate}
+                  onChange={(date) => {
+                    setfromate(
+                      date == null ? null : format(new Date(date), "yyyy-MM-dd")
+                    );
+                  }}
+                  className={classes.field}
+                  renderInput={(params) => (
+                    <TextField {...params} variant="outlined" />
+                  )}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DesktopDatePicker
+                  label={intl.formatMessage(Payrollmessages.todate)}
+                  value={todate}
+                  onChange={(date) => {
+                    settodate(
+                      date == null ? null : format(new Date(date), "yyyy-MM-dd")
+                    );
+                  }}
+                  className={classes.field}
+                  renderInput={(params) => (
+                    <TextField {...params} variant="outlined" />
+                  )}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <Autocomplete
+                id="typeId"
+                options={TypeList}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  settype(value == null ? null : value.id);
                 }}
-                className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="employeeId"
+                    required
+                    label={intl.formatMessage(Payrollmessages.type)}
+                  />
                 )}
               />
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.todate)}
-                value={todate}
-                onChange={(date) => {
-                  settodate(
-                    date == null ? null : format(new Date(date), "yyyy-MM-dd")
-                  );
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Autocomplete
+                id="employeeId"
+                options={EmployeeList}
+                //value={{id:data.employeeId,name:data.employeeName}}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  setemployee(value == null ? null : value.id);
                 }}
-                className={classes.field}
                 renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="employeeId"
+                    required
+                    label={intl.formatMessage(messages.employeeName)}
+                  />
                 )}
               />
-            </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <Button
+                variant="contained"
+                size="medium"
+                color="primary"
+                onClick={handleSearch}
+              >
+                <FormattedMessage {...Payrollmessages.search} />
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={12}></Grid>
           </Grid>
-          <Grid item xs={12} md={2}>
-            <Autocomplete
-              id="typeId"
-              options={TypeList}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                settype(value == null ? null : value.id);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employeeId"
-                  required
-                  label={intl.formatMessage(Payrollmessages.type)}
-                />
-              )}
+          <div className={classes.CustomMUIDataTable}>
+            <MUIDataTable
+              title=""
+              data={data}
+              columns={columns}
+              options={options}
             />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Autocomplete
-              id="employeeId"
-              options={EmployeeList}
-              //value={{id:data.employeeId,name:data.employeeName}}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setemployee(value == null ? null : value.id);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employeeId"
-                  required
-                  label={intl.formatMessage(messages.employeeName)}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              onClick={handleSearch}
-            >
-              <FormattedMessage {...Payrollmessages.search} />
-            </Button>
-          </Grid>
-          <Grid item xs={12} md={12}></Grid>
-        </Grid>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
+          </div>
         </div>
-      </div>
-    </PapperBlock>
+      </PapperBlock>
+    </Box>
   );
 }
 
