@@ -1468,5 +1468,10 @@
   "boilerplate.containers.Payroll.insurance.calculateInsuranceFromTheFollowingValue": "Calculate Insurance From The Following Value",
   "boilerplate.containers.Payroll.insurance.insuranceOffice": "Insurance Office",
   "boilerplate.containers.Payroll.insurance.organizationName": "organization Name",
-  "boilerplate.containers.Payroll.insurance.insuranceNumber": "Insurance Number"
+  "boilerplate.containers.Payroll.insurance.insuranceNumber": "Insurance Number",
+  "boilerplate.containers.Payroll.insurance.EmpCode": "Emp.Code",
+  "boilerplate.containers.Payroll.insurance.employeeName": "Employee Name",
+  "boilerplate.containers.Payroll.insurance.InsuranceEndDate": "Insurance End Date",
+  "boilerplate.containers.Payroll.insurance.InsuranceReasone": "Insurance Reasone",
+  "boilerplate.containers.Payroll.insurance.orgName": "orgName"
 }

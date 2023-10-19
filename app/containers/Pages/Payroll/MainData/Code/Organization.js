@@ -14,6 +14,7 @@ import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
+import Payrollmessages from "../../messages";
 
 function Organization({ intl }) {
   const title = brand.name + " - Organization";

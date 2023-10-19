@@ -191,4 +191,21 @@ export default defineMessages({
     id: `${scope}.StopInsuranceEditTitle`,
     defaultMessage: 'StopInsuranceEditTitle',
   },
+  // Stop Insurance Report
+  EmpCode: {
+    id: `${scope}.EmpCode`,
+    defaultMessage: 'Emp.Code',
+  },
+  InsuranceEndDate: {
+    id: `${scope}.InsuranceEndDate`,
+    defaultMessage: 'Insurance End Date',
+  },
+  InsuranceReasone: {
+    id: `${scope}.InsuranceReasone`,
+    defaultMessage: 'Insurance Reasone',
+  },
+  orgName: {
+    id: `${scope}.orgName`,
+    defaultMessage: 'Organization',
+  },
 });

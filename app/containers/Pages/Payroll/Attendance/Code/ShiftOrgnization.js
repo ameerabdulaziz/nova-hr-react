@@ -427,7 +427,6 @@ function ShiftOrgnization(props) {
             >
               <IconButton
                 className={classes.button}
-                aria-label="Delete"
                 size="large"
                 onClick={() => handleUpdate(selectedRows)}
               >

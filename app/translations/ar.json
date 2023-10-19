@@ -1507,5 +1507,11 @@
   "boilerplate.containers.Payroll.insurance.employeeId": "كود الموظف",
   "boilerplate.containers.Payroll.insurance.address": "العنوان",
   "boilerplate.containers.Payroll.insurance.organizationName": "أسم المنشأة",
-  "boilerplate.containers.Payroll.insurance.insuranceNumber": "الرقم التأميني"
+  "boilerplate.containers.Payroll.insurance.insuranceNumber": "الرقم التأميني",
+  "boilerplate.containers.Payroll.insurance.EmpCode": "كود الموظف",
+  "boilerplate.containers.Payroll.insurance.employeeName": "الموظف",
+  "boilerplate.containers.Payroll.insurance.InsuranceEndDate": "تاريخ الانتهاء",
+  "boilerplate.containers.Payroll.insurance.InsuranceReasone": "السبب",
+  "boilerplate.containers.Payroll.insurance.orgName": "القسم"
+
 }

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import MUIDataTable from "mui-datatables";
-import ApiData from "../api/PermissionTrxData";
+import ApiData from "../api/InsuranceReportApisData";
 import { useSelector } from "react-redux";
 import {
   Button,
   Grid,
-  TextField,
-  Autocomplete,
   Backdrop,
   CircularProgress,
   Box,
+  Autocomplete,
+  TextField
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -22,7 +22,7 @@ import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 
-function PermissionTrxReport(props) {
+function StopInsuranceReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -41,26 +41,26 @@ function PermissionTrxReport(props) {
     EmpStatusId: 1,
   });
 
+
   const handleSearch = async (e) => {
     try {
       setIsLoading(true);
-     
       var formData = {
         FromDate: searchData.FromDate,
         ToDate: searchData.ToDate,
         EmployeeId: searchData.EmployeeId,
-        PermissionId: Permission,
-        StatusId: Status,
-        IsDeleted: Deleted,
         OrganizationId: searchData.OrganizationId,
-        EmployeeStatusId: searchData.EmpStatusId,
+        EmpStatusId: searchData.EmpStatusId,
+        IsDeleted: Deleted,
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
-      const dataApi = await ApiData(locale).GetReport(formData);
+
+      const dataApi = await ApiData(locale).GetStopInsuranceReport(formData);
       setdata(dataApi);
     } catch (err) {
+      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -71,6 +71,7 @@ function PermissionTrxReport(props) {
       const Permissions = await GeneralListApis(locale).GetPermissionList();
       setPermissionsList(Permissions);
     } catch (err) {
+      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -83,90 +84,58 @@ function PermissionTrxReport(props) {
     {
       name: "id",
       options: {
-        filter: false,
+        display: false,
       },
     },
     {
-      name: "date",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
-      options: {
-        filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
-      },
-    },
-
-    {
-      name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
+      name: "organizationName",
+      label: intl.formatMessage(messages.orgName),
       options: {
         filter: true,
       },
     },
 
     {
-      name: "permissionName",
-      label: <FormattedMessage {...messages["permissionName"]} />,
+      name: "employeeCode",
+      label: intl.formatMessage(messages.EmpCode),
       options: {
         filter: true,
       },
     },
 
     {
-      name: "startTime",
-      label: <FormattedMessage {...messages["startTime"]} />,
+      name: "employeeName",
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
-      name: "endTime",
-      label: <FormattedMessage {...messages["endTime"]} />,
+      name: "insEndDate",
+      label: intl.formatMessage(messages.InsuranceEndDate),
       options: {
         filter: true,
+        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
       },
     },
     {
-      name: "minutesCount",
-      label: <FormattedMessage {...messages["minutesCount"]} />,
+      name: "insReason",
+      label: intl.formatMessage(messages.InsuranceReasone),
       options: {
         filter: true,
       },
     },
-    {
-      name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "step",
-      label: <FormattedMessage {...Payrollmessages["step"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "status",
-      label: <FormattedMessage {...Payrollmessages["status"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "approvedEmp",
-      label: <FormattedMessage {...Payrollmessages["approvedEmp"]} />,
-      options: {
-        filter: true,
-      },
-    },
+    
+    
   ];
   const options = {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 100,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 15, 50, 100],
     page: 0,
+    selectableRows: "none",
     searchOpen: false,
     onSearchClose: () => {
       //some logic
@@ -202,61 +171,11 @@ function PermissionTrxReport(props) {
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
             <Search
-              setsearchData={setsearchData}
-              searchData={searchData}
+               setsearchData={setsearchData}
+               searchData={searchData}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Autocomplete
-              id="permissionId"
-              options={PermissionsList}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setPermission(value == null ? "" : value.id);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="PermissionId"
-                  required
-                  label={intl.formatMessage(messages.permissionName)}
-                />
-              )}
-            />
-          </Grid>
 
-          <Grid item xs={12} md={2}>
-            <Autocomplete
-              id="StatusList"
-              options={[
-                { id: null, name: "All" },
-                { id: 1, name: "Pending" },
-                { id: 2, name: "Approved" },
-                { id: 3, name: "Rejected" },
-              ]}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) =>
-                setStatus(
-                  value === null ? "" : value.id == null ? "" : value.id
-                )
-              }
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="StatusList"
-                  label={intl.formatMessage(Payrollmessages.status)}
-                />
-              )}
-            />
-          </Grid>
           <Grid item xs={12} md={2}>
             <Autocomplete
               id="DeleteList"
@@ -285,6 +204,7 @@ function PermissionTrxReport(props) {
               )}
             />
           </Grid>
+    
 
           <Grid item xs={12} md={2}>
             <Button
@@ -311,6 +231,6 @@ function PermissionTrxReport(props) {
   );
 }
 
-PermissionTrxReport.propTypes = { intl: PropTypes.object.isRequired };
+StopInsuranceReport.propTypes = { intl: PropTypes.object.isRequired };
 
-export default injectIntl(PermissionTrxReport);
+export default injectIntl(StopInsuranceReport);
