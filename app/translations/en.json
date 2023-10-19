@@ -1464,5 +1464,13 @@
   "boilerplate.containers.Payroll.insurance.employeeName": "Employee Name",
   "boilerplate.containers.Payroll.insurance.InsuranceEndDate": "Insurance End Date",
   "boilerplate.containers.Payroll.insurance.InsuranceReasone": "Insurance Reasone",
-  "boilerplate.containers.Payroll.insurance.orgName": "orgName"
+  "boilerplate.containers.Payroll.insurance.orgName": "orgName",
+  "boilerplate.containers.Payroll.insurance.hiringDate": "Hiring Date",
+  "boilerplate.containers.Payroll.insurance.job": "job",
+  "boilerplate.containers.Payroll.insurance.birthDate": "Birth Date",
+  "boilerplate.containers.Payroll.insurance.notes": "Notes",
+  "boilerplate.containers.Payroll.insurance.BranchName": "Branch Name",
+  "boilerplate.containers.Payroll.insurance.HrNotes": "Hr Notes",
+  "boilerplate.containers.Payroll.insurance.Company": "Company",
+  "boilerplate.containers.Payroll.insurance.InsuranceStatus": "Insurance Status"
 }

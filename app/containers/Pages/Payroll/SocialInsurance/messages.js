@@ -176,4 +176,41 @@ export default defineMessages({
     id: `${scope}.orgName`,
     defaultMessage: 'Organization',
   },
+  // Insurance Follow
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'Employee Name',
+  },
+  hiringDate: {
+    id: `${scope}.hiringDate`,
+    defaultMessage: 'Hiring Date',
+  },
+  job: {
+    id: `${scope}.job`,
+    defaultMessage: 'Job',
+  },
+  birthDate: {
+    id: `${scope}.birthDate`,
+    defaultMessage: 'birthDate',
+  },
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: 'Notes',
+  },
+  BranchName: {
+    id: `${scope}.BranchName`,
+    defaultMessage: 'Branch Name',
+  },
+  HrNotes: {
+    id: `${scope}.HrNotes`,
+    defaultMessage: 'Hr Notes',
+  },
+  Company: {
+    id: `${scope}.Company`,
+    defaultMessage: 'Company',
+  },
+  InsuranceStatus: {
+    id: `${scope}.InsuranceStatus`,
+    defaultMessage: 'InsuranceStatus',
+  },
 });

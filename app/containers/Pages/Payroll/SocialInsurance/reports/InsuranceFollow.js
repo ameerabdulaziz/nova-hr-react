@@ -9,7 +9,8 @@ import {
   CircularProgress,
   Box,
   Autocomplete,
-  TextField
+  TextField,
+  Tooltip
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -20,47 +21,51 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
-import Search from "../../Component/Search";
+import  InsuranceFormPopUp  from '../../Component/InsuranceFormPopUp';
+import notif from 'enl-api/ui/notifMessage';
 
-function StopInsuranceReport(props) {
+
+function InsuranceNotifications(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const [Permission, setPermission] = useState("");
-  const [PermissionsList, setPermissionsList] = useState([]);
-  const [Status, setStatus] = useState("");
-  const [Deleted, setDeleted] = useState("");
+  const [InsuranceStatus, setInsuranceStatus] = useState("");
+  const [Company, setCompany] = useState("");
+  const [CompanyList, setCompanyList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
-  const [searchData, setsearchData] = useState({
-    FromDate: null,
-    ToDate: null,
-    EmployeeId: "",
-    OrganizationId: "",
-    EmpStatusId: 1,
-  });
+
+
+  const [hrNotes, setHrNotes] = useState(false);
+  const [rowIndexVal, setRowIndexVal] = useState("");
+
+  const handleClickOpen = (key) => {
+    setHrNotes(true)
+   };
+   
+   const handleClose = (key) => {
+    setHrNotes(false)
+   };
 
 
   const handleSearch = async (e) => {
     try {
       setIsLoading(true);
-      var formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
-        EmployeeId: searchData.EmployeeId,
-        OrganizationId: searchData.OrganizationId,
-        EmpStatusId: searchData.EmpStatusId,
-        IsDeleted: Deleted,
+      let formData = {
+        InsStatusId: InsuranceStatus,
+        BranchId: Company,
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
 
-      const dataApi = await ApiData(locale).GetStopInsuranceReport(formData);
+
+
+      const dataApi = await ApiData(locale).GetInsuranceFollowReport(formData);
       setdata(dataApi);
     } catch (err) {
-      // toast.error(err.message);
+
     } finally {
       setIsLoading(false);
     }
@@ -68,10 +73,10 @@ function StopInsuranceReport(props) {
 
   async function fetchData() {
     try {
-      const Permissions = await GeneralListApis(locale).GetPermissionList();
-      setPermissionsList(Permissions);
+      const Branch = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(Branch);
     } catch (err) {
-      toast.error(err.message);
+
     } finally {
       setIsLoading(false);
     }
@@ -88,21 +93,12 @@ function StopInsuranceReport(props) {
       },
     },
     {
-      name: "organizationName",
-      label: intl.formatMessage(messages.orgName),
-      options: {
-        filter: true,
-      },
-    },
-
-    {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
       options: {
         filter: true,
       },
     },
-
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
@@ -111,18 +107,64 @@ function StopInsuranceReport(props) {
       },
     },
     {
-      name: "insEndDate",
-      label: intl.formatMessage(messages.InsuranceEndDate),
+      name: "hiringDate",
+      label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
       },
     },
     {
-      name: "insReason",
-      label: intl.formatMessage(messages.InsuranceReasone),
+      name: "job",
+      label: intl.formatMessage(messages.job),
       options: {
         filter: true,
+      },
+    },
+    {
+      name: "birthDate",
+      label: intl.formatMessage(messages.birthDate),
+      options: {
+        filter: true,
+        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+      },
+    },
+    {
+      name: "notes",
+      label: intl.formatMessage(messages.notes),
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: "organizationName",
+      label: intl.formatMessage(messages.BranchName),
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: "insNotes",
+      label: intl.formatMessage(messages.HrNotes),
+      options: {
+        filter: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <div >
+              <Tooltip title= "Edit">
+              <span 
+              onClick={()=>{
+                handleClickOpen()
+                setRowIndexVal(tableMeta.rowData[0])
+              }}
+                > 
+                {value} 
+                </span>
+              </Tooltip>
+              
+            </div>
+          );
+        }
       },
     },
     
@@ -148,6 +190,25 @@ function StopInsuranceReport(props) {
       },
     },
   };
+
+
+  const createHrNotesFun = async (hrNoteVal) => {
+
+    try {
+      let response = await ApiData(locale).save(hrNoteVal,rowIndexVal);
+      if (response.status==200) {
+        toast.success(notif.saved);
+        setdata([]);
+      }
+    } catch (err) {
+
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+
+
   return (
     <Box
       sx={{
@@ -169,28 +230,19 @@ function StopInsuranceReport(props) {
         </Backdrop>
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
-            <Search
-               setsearchData={setsearchData}
-               searchData={searchData}
-            ></Search>
-          </Grid>
+
 
           <Grid item xs={12} md={2}>
             <Autocomplete
-              id="DeleteList"
-              name="DeleteList"
-              options={[
-                { id: null, name: "All" },
-                { id: true, name: "Deleted" },
-                { id: false, name: "Not Deleted" },
-              ]}
+              id="Company"
+              name="Company"
+              options={CompanyList.length != 0 ? CompanyList: []}
               isOptionEqualToValue={(option, value) =>
                 value.id === 0 || value.id === "" || option.id === value.id
               }
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                setDeleted(
+                setCompany(
                   value == null ? "" : value.id == null ? "" : value.id
                 );
               }}
@@ -198,12 +250,43 @@ function StopInsuranceReport(props) {
                 <TextField
                   variant="outlined"
                   {...params}
-                  name="DeleteList"
-                  label={intl.formatMessage(Payrollmessages.delete)}
+                  name="Company"
+                  label={intl.formatMessage(messages.Company)}
                 />
               )}
             />
           </Grid>
+
+          <Grid item xs={12} md={2}>
+            <Autocomplete
+              id="InsuranceStatus"
+              name="InsuranceStatus"
+              options={[
+                { id: null, name: "All" },
+                { id: 1, name: "Join social Insuranc" },
+                { id: 0, name: "Exit Insurance" },
+              ]}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === "" || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : "")}
+              onChange={(event, value) => {
+                setInsuranceStatus(
+                  value == null ? "" : value.id == null ? "" : value.id
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  name="InsuranceStatus"
+                  label={intl.formatMessage(messages.InsuranceStatus)}
+                />
+              )}
+            />
+          </Grid>
+
+        
     
 
           <Grid item xs={12} md={2}>
@@ -227,10 +310,18 @@ function StopInsuranceReport(props) {
           options={options}
         />
       </div>
+
+
+<InsuranceFormPopUp  
+        handleClose={()=>handleClose()}
+        open={hrNotes}
+        callFun={createHrNotesFun}
+      />
+
     </Box>
   );
 }
 
-StopInsuranceReport.propTypes = { intl: PropTypes.object.isRequired };
+InsuranceNotifications.propTypes = { intl: PropTypes.object.isRequired };
 
-export default injectIntl(StopInsuranceReport);
+export default injectIntl(InsuranceNotifications);

@@ -1503,6 +1503,14 @@
   "boilerplate.containers.Payroll.insurance.employeeName": "الموظف",
   "boilerplate.containers.Payroll.insurance.InsuranceEndDate": "تاريخ الانتهاء",
   "boilerplate.containers.Payroll.insurance.InsuranceReasone": "السبب",
-  "boilerplate.containers.Payroll.insurance.orgName": "القسم"
+  "boilerplate.containers.Payroll.insurance.orgName": "القسم",
+  "boilerplate.containers.Payroll.insurance.hiringDate": "تاريخ التعيين",
+  "boilerplate.containers.Payroll.insurance.job": "الوظيفة",
+  "boilerplate.containers.Payroll.insurance.birthDate": "تاريخ الميلاد",
+  "boilerplate.containers.Payroll.insurance.notes": "ملاحظات",
+  "boilerplate.containers.Payroll.insurance.BranchName": "اسم الفرع",
+  "boilerplate.containers.Payroll.insurance.HrNotes": "ملاحظات المسؤول",
+  "boilerplate.containers.Payroll.insurance.Company": "الشركه",
+  "boilerplate.containers.Payroll.insurance.InsuranceStatus": "حالة التأمين"
 
 }

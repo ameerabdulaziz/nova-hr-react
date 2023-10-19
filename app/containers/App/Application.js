@@ -262,7 +262,8 @@ import {
   EmploymentDocsDetails,
   UpdateInsuranceSalary,
   EmploymentDocs,
-  StopInsuranceReport
+  StopInsuranceReport,
+  InsuranceFollow
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1068,6 +1069,11 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/StopInsuranceReport'
           component={StopInsuranceReport}
+        />
+
+        <Route
+          path='/app/Pages/insurance/Insurancefollow'
+          component={InsuranceFollow}
         />
 
         {/* Default */}

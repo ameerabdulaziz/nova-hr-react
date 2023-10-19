@@ -1391,3 +1391,10 @@ export const StopInsuranceReport = loadable(
     fallback: <Loading />,
   }
 );
+
+export const InsuranceFollow = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/InsuranceFollow'),
+  {
+    fallback: <Loading />,
+  }
+);
