@@ -1384,3 +1384,10 @@ export const UpdateInsuranceSalary = loadable(
     fallback: <Loading />,
   }
 );
+
+export const StopInsuranceReport = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/StopInsuranceReport'),
+  {
+    fallback: <Loading />,
+  }
+);

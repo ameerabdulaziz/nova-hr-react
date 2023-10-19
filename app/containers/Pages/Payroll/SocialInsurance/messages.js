@@ -155,4 +155,25 @@ export default defineMessages({
     id: `${scope}.saveConfirmMessage`,
     defaultMessage: 'saveConfirmMessage',
   },
+  // Stop Insurance Report
+  EmpCode: {
+    id: `${scope}.EmpCode`,
+    defaultMessage: 'Emp.Code',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'Employee Name',
+  },
+  InsuranceEndDate: {
+    id: `${scope}.InsuranceEndDate`,
+    defaultMessage: 'Insurance End Date',
+  },
+  InsuranceReasone: {
+    id: `${scope}.InsuranceReasone`,
+    defaultMessage: 'Insurance Reasone',
+  },
+  orgName: {
+    id: `${scope}.orgName`,
+    defaultMessage: 'Organization',
+  },
 });

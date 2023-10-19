@@ -261,7 +261,8 @@ import {
   SocialInsuranceData,
   EmploymentDocsDetails,
   UpdateInsuranceSalary,
-  EmploymentDocs
+  EmploymentDocs,
+  StopInsuranceReport
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1017,6 +1018,8 @@ function Application(props) {
           component={ImportLeaveBalance}
         />
 
+         {/* Insurance */}
+
         <Route
           path='/app/Pages/insurance/InsuranceOffices'
           component={InsuranceOffices}
@@ -1060,6 +1063,11 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/UpdateInsuranceSalary'
           component={UpdateInsuranceSalary}
+        />
+
+        <Route
+          path='/app/Pages/insurance/StopInsuranceReport'
+          component={StopInsuranceReport}
         />
 
         {/* Default */}
