@@ -197,6 +197,7 @@ function UpdateInsuranceSalary(props) {
                       dataList={dataList}
                       setdataList={setDataList}
                       Key={'Employee'}
+                      IsInsured
                     />
                   </CardContent>
                 </Card>
