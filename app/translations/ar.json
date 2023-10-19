@@ -1461,6 +1461,10 @@
 
   "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "نوع الإجازة",
 
+  "boilerplate.containers.Payroll.insurance.saveConfirmMessage": "قيمة الربط الأساسي تزيد على الحد الاقصى له ، هل تريد الاستمرار؟",
+  "boilerplate.containers.Payroll.insurance.updateSalaryRoundingMessage": "تقريب القيمة: سيتم تجاهل القيم الأقل من أو تساوي 20 وسيتم تقريب القيم الأكبر إلى 100",
+  "boilerplate.containers.Payroll.insurance.updateByValue": "تعديل القيمة",
+  "boilerplate.containers.Payroll.insurance.updateByPercent": "تعديل بنسبة %",
   "boilerplate.containers.Payroll.insurance.government": "المحافظة",
   "boilerplate.containers.Payroll.insurance.ownerName": "اسم المالك",
   "boilerplate.containers.Payroll.insurance.actions": "الاجراءت",

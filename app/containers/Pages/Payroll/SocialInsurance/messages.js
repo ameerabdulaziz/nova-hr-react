@@ -139,4 +139,20 @@ export default defineMessages({
     id: `${scope}.showSpecialInsuranceValueOnly`,
     defaultMessage: 'showSpecialInsuranceValueOnly',
   },
+  updateByPercent: {
+    id: `${scope}.updateByPercent`,
+    defaultMessage: 'updateByPercent',
+  },
+  updateByValue: {
+    id: `${scope}.updateByValue`,
+    defaultMessage: 'updateByValue',
+  },
+  updateSalaryRoundingMessage: {
+    id: `${scope}.updateSalaryRoundingMessage`,
+    defaultMessage: 'updateSalaryRoundingMessage',
+  },
+  saveConfirmMessage: {
+    id: `${scope}.saveConfirmMessage`,
+    defaultMessage: 'saveConfirmMessage',
+  },
 });
