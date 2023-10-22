@@ -3,6 +3,7 @@ import {
   Grid
 } from '@mui/material';
 import { format } from 'date-fns';
+import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -161,29 +162,30 @@ function BalanceUpdateLog(props) {
   };
 
   return (
-    <PayRollPaperBlock
-      isLoading={isLoading}
-      whiteBg
-      icon='border_color'
-      title={Title}
-      desc=''
-    >
-      <Grid container spacing={3} mb={3}>
-        <Grid item xs={12} md={12}>
-          <Search setsearchData={setFormInfo} searchData={formInfo} />
-        </Grid>
+    <PayRollPaperBlock isLoading={isLoading} >
+      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={12}>
+            <Search
+              setsearchData={setFormInfo}
+              searchData={formInfo}
+            />
+          </Grid>
 
-        <Grid item md={2}>
-          <Button
-            variant='contained'
-            size='medium'
-            color='primary'
-            onClick={onSearchBtnClick}
-          >
-            <FormattedMessage {...messages.search} />
-          </Button>
+          <Grid item md={2}>
+
+            <Button
+              variant='contained'
+              size='medium'
+              color='primary'
+              onClick={onSearchBtnClick}
+            >
+              <FormattedMessage {...messages.search} />
+            </Button>
+
+          </Grid>
         </Grid>
-      </Grid>
+      </PapperBlock>
 
       <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
