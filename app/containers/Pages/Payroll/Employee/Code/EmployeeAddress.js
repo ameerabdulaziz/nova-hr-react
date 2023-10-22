@@ -133,9 +133,8 @@ function EmployeeAddress(props) {
   ];
 
   return (
-    
+    <div>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-      
         <Grid
           container
           spacing={1}
@@ -171,15 +170,16 @@ function EmployeeAddress(props) {
             />
           </Grid>
         </Grid>
-
-        <div className={classes.root}>
-          <EditTable
-            anchorTable={anchorTable}
-            title={employee}
-            API={EmployeeAddressData(employee.id)}
-          />
-        </div>
       </PapperBlock>
+
+      <div className={classes.root}>
+        <EditTable
+          anchorTable={anchorTable}
+          title={employee}
+          API={EmployeeAddressData(employee.id)}
+        />
+      </div>
+    </div>
   );
 }
 

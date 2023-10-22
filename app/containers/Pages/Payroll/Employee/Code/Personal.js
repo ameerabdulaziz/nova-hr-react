@@ -1,82 +1,78 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
-import { PapperBlock } from 'enl-components';
-import EmployeeData from '../api/EmployeeData';
-import messages from '../messages';
-import Payrollmessages from '../../messages';
-import { useSelector } from 'react-redux';
-import notif from 'enl-api/ui/notifMessage';
-import { toast } from 'react-hot-toast';
-import Avatar from '@mui/material/Avatar';
-import Hidden from '@mui/material/Hidden';
-import Tooltip from '@mui/material/Tooltip';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { useHistory } from "react-router-dom";
+import { PapperBlock } from "enl-components";
+import EmployeeData from "../api/EmployeeData";
+import messages from "../messages";
+import Payrollmessages from "../../messages";
+import { useSelector } from "react-redux";
+import notif from "enl-api/ui/notifMessage";
+import { toast } from "react-hot-toast";
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import { injectIntl, FormattedMessage } from "react-intl";
 
 import {
   Button,
   Grid,
   TextField,
   Autocomplete,
-  Card,
-  CardContent,
-} from '@mui/material';
-import useStyles from '../../Style';
-import Dropzone from 'react-dropzone';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import GeneralListApis from '../../api/GeneralListApis';
-import { format } from 'date-fns';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
-import Type from 'enl-styles/Typography.scss';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import Typography from '@mui/material/Typography';
-import avatarApi from 'enl-api/images/avatars';
-import { useLocation } from 'react-router-dom';
+} from "@mui/material";
+import useStyles from "../../Style";
+import Dropzone from "react-dropzone";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import GeneralListApis from "../../api/GeneralListApis";
+import { format } from "date-fns";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import Type from "enl-styles/Typography.scss";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import Typography from "@mui/material/Typography";
+import avatarApi from "enl-api/images/avatars";
+import { useLocation } from "react-router-dom";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
+
 function Personal(props) {
   const history = useHistory();
   // const ref = useRef(null);
   const location = useLocation();
 
   const { empid } =
-    location.state == null ? { id: 0, name: '' } : location.state;
+    location.state == null ? { id: 0, name: "" } : location.state;
   const id = location.state == null ? 0 : empid.id;
   let dropzoneRef;
   const [progress, setProgress] = useState(false);
   const { intl, pristine } = props;
-  const [processing, setprocessing] = useState(false);
-  const [delprocessing, setdelprocessing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { classes } = useStyles();
-  const title = localStorage.getItem('MenuName');
+  const Title = localStorage.getItem("MenuName");
 
-  const [employeeCode, setemployeeCode] = useState('');
-  const [machineCode, setmachineCode] = useState('');
-  const [eRPCode, seteRPCode] = useState('');
+  const [employeeCode, setemployeeCode] = useState("");
+  const [machineCode, setmachineCode] = useState("");
+  const [eRPCode, seteRPCode] = useState("");
   const [reportTo, setreportTo] = useState({});
   const [reportToList, setreportToList] = useState([]);
-  const [MachineCode, setMachineCode] = useState('');
-  const [arName, setarName] = useState('');
-  const [enName, setenName] = useState('');
-  const [motherName, setmotherName] = useState('');
+  const [MachineCode, setMachineCode] = useState("");
+  const [arName, setarName] = useState("");
+  const [enName, setenName] = useState("");
+  const [motherName, setmotherName] = useState("");
   const [organizationId, setorganizationId] = useState({});
   const [organizationList, setorganizationList] = useState([]);
   const [jobId, setjobId] = useState({});
   const [jobList, setjobList] = useState([]);
-  const [jobLevelId, setjobLevelId] = useState({ id: 0, name: '' });
+  const [jobLevelId, setjobLevelId] = useState({ id: 0, name: "" });
   const [jobLevelList, setjobLevelList] = useState([]);
-  const [hiringDate, sethiringDate] = useState('');
+  const [hiringDate, sethiringDate] = useState("");
   const [controlParameterId, setcontrolParameterId] = useState({});
   const [controlParameterList, setcontrolParameterList] = useState([]);
   const [identityTypeId, setidentityTypeId] = useState({});
   const [identityTypeList, setidentityTypeList] = useState([]);
-  const [identityIssuingDate, setidentityIssuingDate] = useState('');
-  const [identityExpiry, setidentityExpiry] = useState('');
-  const [identityNumber, setidentityNumber] = useState('');
-  const [identityIssuingAuth, setidentityIssuingAuth] = useState('');
+  const [identityIssuingDate, setidentityIssuingDate] = useState("");
+  const [identityExpiry, setidentityExpiry] = useState("");
+  const [identityNumber, setidentityNumber] = useState("");
+  const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
   const [genderId, setgenderId] = useState({});
   const [genderList, setgenderList] = useState([]);
 
@@ -84,7 +80,7 @@ function Personal(props) {
   const [nationalityList, setnationalityList] = useState([]);
   const [religionId, setreligionId] = useState({});
   const [religionList, setreligionList] = useState([]);
-  const [birthDate, setbirthDate] = useState('');
+  const [birthDate, setbirthDate] = useState("");
 
   const [birthGovId, setbirthGovId] = useState({});
   const [birthGovList, setbirthGovList] = useState([]);
@@ -112,10 +108,10 @@ function Personal(props) {
   const [img, setImg] = useState(avatarApi[9]);
 
   const [files] = useState([]);
-  const acceptedFiles = ['image/jpeg', 'image/png', 'image/bmp'];
+  const acceptedFiles = ["image/jpeg", "image/png", "image/bmp"];
   const fileSizeLimit = 300000;
   const imgPreview = (img1) => {
-    if (typeof img1 !== 'string' && img1 !== '') {
+    if (typeof img1 !== "string" && img1 !== "") {
       return URL.createObjectURL(img1);
     }
     return img1;
@@ -125,7 +121,7 @@ function Personal(props) {
     const filesLimit = 2;
     oldFiles = oldFiles.concat(filesVal);
     if (oldFiles.length > filesLimit) {
-      console.log('Cannot upload more than ' + filesLimit + ' items.');
+      console.log("Cannot upload more than " + filesLimit + " items.");
     } else {
       setImg(filesVal[0]);
     }
@@ -136,43 +132,42 @@ function Personal(props) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setprocessing(true);
+      setIsLoading(true);
 
-      
       const data = {
         id: id ?? 0,
         employeeCode: employeeCode,
-        eRPCode: eRPCode ?? '',
-        machineCode: machineCode ?? '',
-        reportTo: reportTo.id ?? '',
-        machineCode: machineCode ?? '',
+        eRPCode: eRPCode ?? "",
+        machineCode: machineCode ?? "",
+        reportTo: reportTo.id ?? "",
+        machineCode: machineCode ?? "",
         arName: arName,
         enName: enName,
-        motherName: motherName ?? '',
-        organizationId: organizationId.id ?? '',
-        jobId: jobId.id ?? '',
-        jobLevelId: jobLevelId.id ?? '',
-        hiringDate: hiringDate ?? '',
-        controlParameterId: controlParameterId.id ?? '',
-        identityTypeId: identityTypeId.id ?? '',
-        identityIssuingDate: identityIssuingDate ?? '',
-        identityExpiry: identityExpiry ?? '',
-        identityNumber: identityNumber ?? '',
-        identityIssuingAuth: identityIssuingAuth ?? '',
-        genderId: genderId.id ?? '',
-        nationalityId: nationalityId.id ?? '',
-        religionId: religionId.id ?? '',
-        birthDate: birthDate ?? '',
-        birthGovId: birthGovId.id ?? '',
-        birthCityId: birthCityId.id ?? '',
-        socialStatusId: socialStatusId.id ?? '',
-        sonNo: sonNo ?? '',
-        militaryStatusId: militaryStatusId.id ?? '',
+        motherName: motherName ?? "",
+        organizationId: organizationId.id ?? "",
+        jobId: jobId.id ?? "",
+        jobLevelId: jobLevelId.id ?? "",
+        hiringDate: hiringDate ?? "",
+        controlParameterId: controlParameterId.id ?? "",
+        identityTypeId: identityTypeId.id ?? "",
+        identityIssuingDate: identityIssuingDate ?? "",
+        identityExpiry: identityExpiry ?? "",
+        identityNumber: identityNumber ?? "",
+        identityIssuingAuth: identityIssuingAuth ?? "",
+        genderId: genderId.id ?? "",
+        nationalityId: nationalityId.id ?? "",
+        religionId: religionId.id ?? "",
+        birthDate: birthDate ?? "",
+        birthGovId: birthGovId.id ?? "",
+        birthCityId: birthCityId.id ?? "",
+        socialStatusId: socialStatusId.id ?? "",
+        sonNo: sonNo ?? "",
+        militaryStatusId: militaryStatusId.id ?? "",
         //photoUrl: photoUrl,
         isInsured: isInsured ?? false,
         isSpecialNeeds: isSpecialNeeds ?? false,
-        saluteId: saluteId.id ?? '',
-        statusId: statusId.id ?? '',
+        saluteId: saluteId.id ?? "",
+        statusId: statusId.id ?? "",
         isResident: isResident ?? false,
         image: img == avatarApi[9] ? null : img,
         userId: 0,
@@ -186,9 +181,9 @@ function Personal(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
-    setprocessing(false);
   };
 
   //   const clear = (e) => {
@@ -230,161 +225,180 @@ function Personal(props) {
 
   useEffect(() => {
     async function fetchData() {
-      setProgress(true);
-      
-      const employeedata = await GeneralListApis(locale).GetEmployeeList();
-      setreportToList(employeedata || []);
+      try {
+        const employeedata = await GeneralListApis(locale).GetEmployeeList();
+        setreportToList(employeedata || []);
 
-      const Jobdata = await GeneralListApis(locale).GetJobList();
-      setjobList(Jobdata || []);
+        const Jobdata = await GeneralListApis(locale).GetJobList();
+        setjobList(Jobdata || []);
 
-      const Jobleveldata = await GeneralListApis(locale).GetJobLevelList();
-      setjobLevelList(Jobleveldata || []);
+        const Jobleveldata = await GeneralListApis(locale).GetJobLevelList();
+        setjobLevelList(Jobleveldata || []);
 
-      const organizationdata = await GeneralListApis(
-        locale
-      ).GetDepartmentList();
-      setorganizationList(organizationdata || []);
+        const organizationdata = await GeneralListApis(
+          locale
+        ).GetDepartmentList();
+        setorganizationList(organizationdata || []);
 
-      const ControlParameterdata = await GeneralListApis(
-        locale
-      ).GetControlParameterList();
-      setcontrolParameterList(ControlParameterdata || []);
+        const ControlParameterdata = await GeneralListApis(
+          locale
+        ).GetControlParameterList();
+        setcontrolParameterList(ControlParameterdata || []);
 
-      const identityTypedata = await GeneralListApis(
-        locale
-      ).GetIdentityTypeList();
-      setidentityTypeList(identityTypedata || []);
+        const identityTypedata = await GeneralListApis(
+          locale
+        ).GetIdentityTypeList();
+        setidentityTypeList(identityTypedata || []);
 
-      const Genderdata = await GeneralListApis(locale).GetGenderList();
-      setgenderList(Genderdata || []);
+        const Genderdata = await GeneralListApis(locale).GetGenderList();
+        setgenderList(Genderdata || []);
 
-      const Nationalitydata = await GeneralListApis(
-        locale
-      ).GetNationalityList();
-      setnationalityList(Nationalitydata || []);
+        const Nationalitydata = await GeneralListApis(
+          locale
+        ).GetNationalityList();
+        setnationalityList(Nationalitydata || []);
 
-      const religiondata = await GeneralListApis(locale).GetReligionList();
-      setreligionList(religiondata || []);
+        const religiondata = await GeneralListApis(locale).GetReligionList();
+        setreligionList(religiondata || []);
 
-      const BirthGovdata = await GeneralListApis(locale).GetGovernmentList();
-      setbirthGovList(BirthGovdata || []);
+        const BirthGovdata = await GeneralListApis(locale).GetGovernmentList();
+        setbirthGovList(BirthGovdata || []);
 
-      const BirthCitydata = await GeneralListApis(locale).GetCityList();
-      setbirthCityList(BirthCitydata || []);
+        const BirthCitydata = await GeneralListApis(locale).GetCityList();
+        setbirthCityList(BirthCitydata || []);
 
-      const socialStatusdata = await GeneralListApis(
-        locale
-      ).GetSocialStatusList();
-      setsocialStatusList(socialStatusdata || []);
+        const socialStatusdata = await GeneralListApis(
+          locale
+        ).GetSocialStatusList();
+        setsocialStatusList(socialStatusdata || []);
 
-      const MilitaryStatusdata = await GeneralListApis(
-        locale
-      ).GetMilitaryStatusList();
-      setmilitaryStatusList(MilitaryStatusdata || []);
+        const MilitaryStatusdata = await GeneralListApis(
+          locale
+        ).GetMilitaryStatusList();
+        setmilitaryStatusList(MilitaryStatusdata || []);
 
-      const Salutedata = await GeneralListApis(locale).GetSaluteList();
-      setsaluteList(Salutedata || []);
-      const Statusdata = await GeneralListApis(locale).GetEmpStatusList();
-      setstatusList(Statusdata || []);
-      if (id > 0) {
-        const dataApi = await EmployeeData(locale).GetList(id);
+        const Salutedata = await GeneralListApis(locale).GetSaluteList();
+        setsaluteList(Salutedata || []);
+        const Statusdata = await GeneralListApis(locale).GetEmpStatusList();
+        setstatusList(Statusdata || []);
+        if (id > 0) {
+          const dataApi = await EmployeeData(locale).GetList(id);
 
-        if (dataApi) {
-          // setid(dataApi.id);
-          setemployeeCode(dataApi.employeeCode);
-          seteRPCode(dataApi.eRPCode);
-          setmachineCode(dataApi.machineCode);
-          setreportTo({
-            id: dataApi.reportTo,
-            name: dataApi.reportToName,
-          });
-          setMachineCode(dataApi.MachineCode);
-          setarName(dataApi.arName);
-          setenName(dataApi.enName);
-          setmotherName(dataApi.motherName);
-          setorganizationId({
-            id: dataApi.organizationId,
-            name: dataApi.organizationName,
-          });
-          setjobId({
-            id: dataApi.jobId,
-            name: dataApi.jobName,
-          });
-          setjobLevelId({
-            id: dataApi.jobLevelId,
-            name: dataApi.jobLevelName,
-          });
-          sethiringDate(dataApi.hiringDate);
-          setcontrolParameterId({
-            id: dataApi.controlParameterId,
-            name: dataApi.controlParameterName,
-          });
-          setidentityTypeId({
-            id: dataApi.identityTypeId,
-            name: dataApi.identityTypeName,
-          });
-          setidentityIssuingDate(dataApi.identityIssuingDate);
-          setidentityExpiry(dataApi.identityExpiry);
-          setidentityNumber(dataApi.identityNumber);
-          setidentityIssuingAuth(dataApi.identityIssuingAuth);
-          setgenderId({
-            id: dataApi.genderId,
-            name: dataApi.genderName,
-          });
-          setnationalityId({
-            id: dataApi.nationalityId,
-            name: dataApi.nationalityName,
-          });
-          setreligionId({
-            id: dataApi.religionId,
-            name: dataApi.religionName,
-          });
-          setbirthDate(dataApi.birthDate);
-          setbirthGovId({
-            id: dataApi.birthGovId,
-            name: dataApi.birthGovName,
-          });
-          setbirthCityId({
-            id: dataApi.birthCityId,
-            name: dataApi.birthCityName,
-          });
-          setsocialStatusId({
-            id: dataApi.socialStatusId,
-            name: dataApi.socialStatusName,
-          });
-          setsonNo(dataApi.sonNo);
-          setmilitaryStatusId({
-            id: dataApi.militaryStatusId,
-            name: dataApi.militaryStatusName,
-          });
-          setisInsured(dataApi.isInsured);
-          setisSpecialNeeds(dataApi.isSpecialNeeds);
-          setsaluteId({
-            id: dataApi.saluteId,
-            name: dataApi.saluteName,
-          });
-          setstatusId({
-            id: dataApi.statusId,
-            name: dataApi.statusName,
-          });
-          setisResident(dataApi.isResident);
-          let empimg =
-            dataApi.photo == null
-              ? avatarApi[9]
-              : `data:image/jpeg;base64,${dataApi.photo}`;
-          setImg(empimg);
+          if (dataApi) {
+            // setid(dataApi.id);
+            setemployeeCode(dataApi.employeeCode);
+            seteRPCode(dataApi.eRPCode);
+            setmachineCode(dataApi.machineCode);
+            setreportTo({
+              id: dataApi.reportTo,
+              name: dataApi.reportToName,
+            });
+            setMachineCode(dataApi.MachineCode);
+            setarName(dataApi.arName);
+            setenName(dataApi.enName);
+            setmotherName(dataApi.motherName);
+            setorganizationId({
+              id: dataApi.organizationId,
+              name: dataApi.organizationName,
+            });
+            setjobId({
+              id: dataApi.jobId,
+              name: dataApi.jobName,
+            });
+            setjobLevelId({
+              id: dataApi.jobLevelId,
+              name: dataApi.jobLevelName,
+            });
+            sethiringDate(dataApi.hiringDate);
+            setcontrolParameterId({
+              id: dataApi.controlParameterId,
+              name: dataApi.controlParameterName,
+            });
+            setidentityTypeId({
+              id: dataApi.identityTypeId,
+              name: dataApi.identityTypeName,
+            });
+            setidentityIssuingDate(dataApi.identityIssuingDate);
+            setidentityExpiry(dataApi.identityExpiry);
+            setidentityNumber(dataApi.identityNumber);
+            setidentityIssuingAuth(dataApi.identityIssuingAuth);
+            setgenderId({
+              id: dataApi.genderId,
+              name: dataApi.genderName,
+            });
+            setnationalityId({
+              id: dataApi.nationalityId,
+              name: dataApi.nationalityName,
+            });
+            setreligionId({
+              id: dataApi.religionId,
+              name: dataApi.religionName,
+            });
+            setbirthDate(dataApi.birthDate);
+            setbirthGovId({
+              id: dataApi.birthGovId,
+              name: dataApi.birthGovName,
+            });
+            setbirthCityId({
+              id: dataApi.birthCityId,
+              name: dataApi.birthCityName,
+            });
+            setsocialStatusId({
+              id: dataApi.socialStatusId,
+              name: dataApi.socialStatusName,
+            });
+            setsonNo(dataApi.sonNo);
+            setmilitaryStatusId({
+              id: dataApi.militaryStatusId,
+              name: dataApi.militaryStatusName,
+            });
+            setisInsured(dataApi.isInsured);
+            setisSpecialNeeds(dataApi.isSpecialNeeds);
+            setsaluteId({
+              id: dataApi.saluteId,
+              name: dataApi.saluteName,
+            });
+            setstatusId({
+              id: dataApi.statusId,
+              name: dataApi.statusName,
+            });
+            setisResident(dataApi.isResident);
+            let empimg =
+              dataApi.photo == null
+                ? avatarApi[9]
+                : `data:image/jpeg;base64,${dataApi.photo}`;
+            setImg(empimg);
+          }
+          //else clear();
         }
-        //else clear();
+      } catch (err) {
+      } finally {
+        setIsLoading(false);
       }
-      setProgress(false);
     }
     // if (employee > 0);
     fetchData();
   }, []);
+
   return (
-    <div>
-      <PapperBlock whiteBg icon="border_color" title={title} desc={''}>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={1}>
             <Grid item xs={12} sm container>
@@ -420,7 +434,6 @@ function Personal(props) {
                       name="eRPCode"
                       value={eRPCode}
                       onChange={(e) => {
-                        
                         seteRPCode(e.target.value);
                       }}
                       label={intl.formatMessage(messages.eRPCode)}
@@ -457,18 +470,17 @@ function Personal(props) {
                       }}
                       isOptionEqualToValue={(option, value) =>
                         value.id === 0 ||
-                        value.id === '' ||
+                        value.id === "" ||
                         option.id === value.id
                       }
                       getOptionLabel={(option) =>
-                        option.name ? option.name : ''
+                        option.name ? option.name : ""
                       }
                       onChange={(event, value) => {
-                          setstatusId({
-                            id: value !== null?value.id:0,
-                            name: value !== null?value.name:'',
-                          });
-                        
+                        setstatusId({
+                          id: value !== null ? value.id : 0,
+                          name: value !== null ? value.name : "",
+                        });
                       }}
                       renderInput={(params) => (
                         <TextField
@@ -489,8 +501,7 @@ function Personal(props) {
                         label={intl.formatMessage(messages.hiringDate)}
                         value={hiringDate}
                         onChange={(date) => {
-                          
-                          sethiringDate(format(new Date(date), 'yyyy-MM-dd'));
+                          sethiringDate(format(new Date(date), "yyyy-MM-dd"));
                         }}
                         className={classes.field}
                         renderInput={(params) => (
@@ -568,7 +579,7 @@ function Personal(props) {
                 </Typography>
                 <Dropzone
                   className={classes.hiddenDropzone}
-                  accept={acceptedFiles.join(',')}
+                  accept={acceptedFiles.join(",")}
                   acceptClassName="stripes"
                   onDrop={onDrop}
                   // maxSize={fileSizeLimit}
@@ -627,19 +638,17 @@ function Personal(props) {
                     }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
-                      value.id === '' ||
+                      value.id === "" ||
                       option.id === value.id
                     }
                     getOptionLabel={(option) =>
-                      option.name ? option.name : ''
+                      option.name ? option.name : ""
                     }
                     onChange={(event, value) => {
-                      
-                        setidentityTypeId({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
-                     
+                      setidentityTypeId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -692,9 +701,8 @@ function Personal(props) {
                       value={identityIssuingDate}
                       required
                       onChange={(date) => {
-                        
                         setidentityIssuingDate(
-                          format(new Date(date), 'yyyy-MM-dd')
+                          format(new Date(date), "yyyy-MM-dd")
                         );
                       }}
                       className={classes.field}
@@ -711,8 +719,7 @@ function Personal(props) {
                       required
                       value={identityExpiry}
                       onChange={(date) => {
-                        
-                        setidentityExpiry(format(new Date(date), 'yyyy-MM-dd'));
+                        setidentityExpiry(format(new Date(date), "yyyy-MM-dd"));
                       }}
                       className={classes.field}
                       renderInput={(params) => (
@@ -735,16 +742,14 @@ function Personal(props) {
                   name: genderId.name,
                 }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === '' || option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  
-                    setgenderId({
-                      id: value !== null?value.id:0,
-                        name: value !== null?value.name:'',
-                    });
-                  
+                  setgenderId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -766,16 +771,14 @@ function Personal(props) {
                   name: nationalityId.name,
                 }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === '' || option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  
-                    setnationalityId({
-                      id: value !== null?value.id:0,
-                        name: value !== null?value.name:'',
-                    });
-                 
+                  setnationalityId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -797,16 +800,14 @@ function Personal(props) {
                   name: religionId.name,
                 }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === '' || option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  
-                    setreligionId({
-                      id: value !== null?value.id:0,
-                      name: value !== null?value.name:'',
-                    });
-                  
+                  setreligionId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -826,8 +827,7 @@ function Personal(props) {
                   label={intl.formatMessage(messages.birthDate)}
                   value={birthDate}
                   onChange={(date) => {
-                    
-                    setbirthDate(format(new Date(date), 'yyyy-MM-dd'));
+                    setbirthDate(format(new Date(date), "yyyy-MM-dd"));
                   }}
                   className={classes.field}
                   renderInput={(params) => (
@@ -845,16 +845,14 @@ function Personal(props) {
                   name: birthGovId.name,
                 }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === '' || option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  
-                    setbirthGovId({
-                      id: value !== null?value.id:0,
-                      name: value !== null?value.name:'',
-                    });
-                  
+                  setbirthGovId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -876,16 +874,14 @@ function Personal(props) {
                   name: birthCityId.name,
                 }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === '' || option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  
-                    setbirthCityId({
-                      id: value !== null?value.id:0,
-                      name: value !== null?value.name:'',
-                    });
-                  
+                  setbirthCityId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -926,19 +922,17 @@ function Personal(props) {
                     }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
-                      value.id === '' ||
+                      value.id === "" ||
                       option.id === value.id
                     }
                     getOptionLabel={(option) =>
-                      option.name ? option.name : ''
+                      option.name ? option.name : ""
                     }
                     onChange={(event, value) => {
-                      
-                        setsocialStatusId({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
-                     
+                      setsocialStatusId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -973,19 +967,17 @@ function Personal(props) {
                     }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
-                      value.id === '' ||
+                      value.id === "" ||
                       option.id === value.id
                     }
                     getOptionLabel={(option) =>
-                      option.name ? option.name : ''
+                      option.name ? option.name : ""
                     }
                     onChange={(event, value) => {
-                      
-                        setmilitaryStatusId({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
-                     
+                      setmilitaryStatusId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1011,19 +1003,17 @@ function Personal(props) {
                     }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
-                      value.id === '' ||
+                      value.id === "" ||
                       option.id === value.id
                     }
                     getOptionLabel={(option) =>
-                      option.name ? option.name : ''
+                      option.name ? option.name : ""
                     }
                     onChange={(event, value) => {
-                      
-                        setorganizationId({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
-                      
+                      setorganizationId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1046,19 +1036,17 @@ function Personal(props) {
                     }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
-                      value.id === '' ||
+                      value.id === "" ||
                       option.id === value.id
                     }
                     getOptionLabel={(option) =>
-                      option.name ? option.name : ''
+                      option.name ? option.name : ""
                     }
                     onChange={(event, value) => {
-                     
-                        setcontrolParameterId({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
-                     
+                      setcontrolParameterId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1080,19 +1068,17 @@ function Personal(props) {
                     value={{ id: jobId.id, name: jobId.name }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
-                      value.id === '' ||
+                      value.id === "" ||
                       option.id === value.id
                     }
                     getOptionLabel={(option) =>
-                      option.name ? option.name : ''
+                      option.name ? option.name : ""
                     }
                     onChange={(event, value) => {
-                      
-                        setjobId({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
-                      
+                      setjobId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1104,7 +1090,7 @@ function Personal(props) {
                       />
                     )}
                   />
-                </Grid>{' '}
+                </Grid>{" "}
                 <Grid item xs={12} md={4}>
                   <Autocomplete
                     id="ddljobLevelId"
@@ -1112,19 +1098,17 @@ function Personal(props) {
                     value={{ id: jobLevelId.id, name: jobLevelId.name }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
-                      value.id === '' ||
+                      value.id === "" ||
                       option.id === value.id
                     }
                     getOptionLabel={(option) =>
-                      option.name ? option.name : ''
+                      option.name ? option.name : ""
                     }
                     onChange={(event, value) => {
-                      
-                        setjobLevelId({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
-                     
+                      setjobLevelId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -1144,40 +1128,19 @@ function Personal(props) {
             </Grid>
 
             <Grid item xs={12} md={1}>
-              <Button
-                variant="contained"
-                color="secondary"
-                type="submit"
-                disabled={processing}
-              >
-                {processing && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
+              <Button variant="contained" color="secondary" type="submit">
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
             <Grid item xs={12} md={1}>
-              <Button
-                type="button"
-                disabled={processing}
-                onClick={() => oncancel()}
-              >
-                {delprocessing && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
+              <Button type="button" onClick={() => oncancel()}>
                 <FormattedMessage {...Payrollmessages.cancel} />
               </Button>
             </Grid>
           </Grid>
         </form>
       </PapperBlock>
-    </div>
+    </Box>
   );
 }
 export default injectIntl(Personal);

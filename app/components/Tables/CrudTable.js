@@ -18,6 +18,7 @@ function CrudTable(props) {
  const fetchData = useDispatch();
   const getdata =  async () => {
     try {
+    setIsLoading(true);
     if(API)
     {
       const data =  await API.GetList(anchorTable);      

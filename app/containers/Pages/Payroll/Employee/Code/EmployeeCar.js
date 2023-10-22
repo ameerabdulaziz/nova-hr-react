@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Paper from "@mui/material/Paper";
+import { PapperBlock } from "enl-components";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import EmployeeCarData from "../api/EmployeeCarData";
@@ -152,6 +151,7 @@ function EmployeeCar(props) {
         position: "relative",
       }}
     >
+      <PapperBlock whiteBg icon="border_color" title={title} desc="">
       <Backdrop
         sx={{
           color: "primary.main",
@@ -171,10 +171,7 @@ function EmployeeCar(props) {
         justifyContent="center"
       >
         <Grid item xs={12} md={6}>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-              {title}
-            </Typography>
+          
             <Autocomplete
               id="ddlEmp"
               options={employeeList}
@@ -191,7 +188,7 @@ function EmployeeCar(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant="standard"
+                  variant="outlined"
                   {...params}
                   name="employee"
                   //  value={employee.id}
@@ -326,9 +323,10 @@ function EmployeeCar(props) {
                 </Button>
               </div>
             </form>
-          </Paper>
+          
         </Grid>
       </Grid>
+      </PapperBlock>
     </Box>
   );
 }
