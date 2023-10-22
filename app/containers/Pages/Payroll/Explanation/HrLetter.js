@@ -14,7 +14,7 @@ import { format } from "date-fns";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../Component/PayRollLoader";
 
 function HrLetter(props) {
   const { intl } = props;
@@ -63,24 +63,9 @@ function HrLetter(props) {
     });
   }
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
@@ -175,7 +160,7 @@ function HrLetter(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 HrLetter.propTypes = {

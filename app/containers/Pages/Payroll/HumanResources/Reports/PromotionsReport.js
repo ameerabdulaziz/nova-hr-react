@@ -4,22 +4,16 @@ import ApiData from "../api/PromotionsData";
 import { useSelector } from "react-redux";
 import {
   Button,
-  Grid,
-  TextField,
-  Autocomplete,
-  Backdrop,
-  CircularProgress,
-  Box,
+  Grid
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
 import { format } from "date-fns";
-import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
-import { toast } from "react-hot-toast";
 import Search from "../../Component/Search";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function PromotionsReport(props) {
   const { intl } = props;
@@ -139,24 +133,9 @@ function PromotionsReport(props) {
     },
   };
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
           <Search
@@ -185,7 +164,7 @@ function PromotionsReport(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

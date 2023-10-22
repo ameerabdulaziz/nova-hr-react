@@ -18,7 +18,7 @@ import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 import { useLocation } from "react-router-dom";
 import Payrollmessages from "../../messages";
 
@@ -205,24 +205,9 @@ function EmployeeDocuments({ intl }) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+        
         <Grid container spacing={1} alignItems="flex-start" direction="row">
           <Grid item xs={1} sm={6}>
             <Autocomplete
@@ -280,7 +265,7 @@ function EmployeeDocuments({ intl }) {
         }`}
         callFun={DeleteFun}
       />
-    </Box>
+    </PayRollLoader>
   );
 }
 

@@ -20,7 +20,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { format } from "date-fns";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function EmployeeContract(props) {
   const { intl, pristine } = props;
@@ -185,24 +185,9 @@ function EmployeeContract(props) {
     fetchData();
   }, [employee]);
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <Grid
           container
           spacing={3}
@@ -459,7 +444,7 @@ function EmployeeContract(props) {
           </Grid>
         </Grid>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 export default injectIntl(EmployeeContract);

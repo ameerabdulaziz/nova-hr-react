@@ -12,8 +12,8 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { format } from "date-fns";
 import { PapperBlock } from "enl-components";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
 import Payrollmessages from "../../messages";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function EmployeeDataReport({ intl }) {
   const title = localStorage.getItem("MenuName");
@@ -302,25 +302,8 @@ function EmployeeDataReport({ intl }) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title={""}
@@ -331,7 +314,7 @@ function EmployeeDataReport({ intl }) {
           />
         </div>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

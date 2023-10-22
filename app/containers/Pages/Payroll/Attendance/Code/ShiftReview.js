@@ -26,7 +26,7 @@ import MUIDataTable from "mui-datatables";
 import ApiData from "../api/ShiftEmployeeData";
 import style from "../../../../../../app/styles/styles.scss";
 import Payrollmessages from "../../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function ShiftReview(props) {
   const { intl } = props;
@@ -314,24 +314,9 @@ function ShiftReview(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+      
         <Grid container spacing={3} alignItems="flex-start" direction="row">
           <Grid item xs={12} md={12}>
             <Card className={classes.card}>
@@ -459,7 +444,7 @@ function ShiftReview(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 ShiftReview.propTypes = {

@@ -11,7 +11,7 @@ import { Grid, TextField, Autocomplete } from "@mui/material";
 import { format } from "date-fns";
 
 function Search(props) {
-  const { intl, setsearchData, searchData, notShowDate } = props;
+  const { intl, setsearchData, searchData, notShowDate,setIsLoading } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
   const [OrganizationList, setOrganizationList] = useState([]);
@@ -51,12 +51,16 @@ function Search(props) {
   }, []);
 
   async function fetchData() {
+    try{
+      setIsLoading(true);
     const employees = await GeneralListApis(locale).GetEmployeeList();
     setEmployeeList(employees);
     const organizations = await GeneralListApis(locale).GetDepartmentList();
     setOrganizationList(organizations);
     const status = await GeneralListApis(locale).GetEmpStatusList();
     setStatusList(status);
+    }catch(err){}
+    finally{setIsLoading(false);}
   }
   useEffect(() => {
     fetchData();

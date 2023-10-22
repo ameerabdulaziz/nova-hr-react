@@ -15,7 +15,7 @@ import AddButton from "../../Component/AddButton";
 import { format } from 'date-fns';
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function MissionTrxList(props) {
   const { intl } = props;
@@ -193,24 +193,9 @@ function MissionTrxList(props) {
   };
   
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title=""
@@ -228,7 +213,7 @@ function MissionTrxList(props) {
           callFun={deleterow}
         />
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

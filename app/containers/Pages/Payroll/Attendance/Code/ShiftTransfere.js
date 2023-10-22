@@ -25,9 +25,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../api/ShiftEmployeeData";
-import style from "../../../../../../app/styles/styles.scss";
 import Payrollmessages from "../../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import CheckIcon from "@mui/icons-material/Check";
@@ -337,25 +336,8 @@ function ShiftTransfere(props) {
     },
   };
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
         <Grid container spacing={3} alignItems="flex-start" direction="row">
           <Grid item xs={12} md={5}>
             <Card className={classes.card}>
@@ -698,7 +680,7 @@ function ShiftTransfere(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 export default injectIntl(ShiftTransfere);

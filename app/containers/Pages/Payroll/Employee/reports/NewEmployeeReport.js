@@ -1,10 +1,7 @@
 import {
   Autocomplete,
-  Backdrop,
-  Box,
   Button,
   Checkbox,
-  CircularProgress,
   FormControlLabel,
   Grid,
   TextField,
@@ -24,6 +21,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import API from '../api/NewEmployeeReportData';
 import messages from '../messages';
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function NewEmployeeReport(props) {
   const { intl } = props;
@@ -265,25 +263,8 @@ function NewEmployeeReport(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <Backdrop
-          sx={{
-            color: 'primary.main',
-            zIndex: 10,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.69)',
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
             <Autocomplete
@@ -380,7 +361,7 @@ function NewEmployeeReport(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

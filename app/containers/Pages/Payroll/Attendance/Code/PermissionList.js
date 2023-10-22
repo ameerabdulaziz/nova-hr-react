@@ -6,16 +6,19 @@ import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
 import messages from "../messages";
-import { FormattedMessage } from "react-intl";
+import { injectIntl,FormattedMessage } from "react-intl";
 import style from "../../../../../../app/styles/styles.scss";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import useStyles from "../../Style";
+import { PapperBlock } from "enl-components";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
 import PayRollLoader from "../../Component/PayRollLoader";
 
-function PermissionList() {
+
+function PermissionList(props) {
+  const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
@@ -24,6 +27,7 @@ function PermissionList() {
   const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  
   const handleClickOpen = (item) => {
     debugger;
     setOpenParentPopup(true);
@@ -47,6 +51,7 @@ function PermissionList() {
         toast.error(response.statusText);
       }
     } catch (err) {
+      
     } finally {
       setIsLoading(false);
     }
@@ -159,24 +164,28 @@ function PermissionList() {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        
+        <div className={classes.CustomMUIDataTable}>
+          <MUIDataTable
+            title=""
+            data={data}
+            columns={columns}
+            options={options}
+          />
+        </div>
+        <AlertPopup
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(
+            Payrollmessages.deleteMessage
+          )}${deleteItem}`}
+          callFun={deleterow}
         />
-      </div>
-      <AlertPopup
-        handleClose={handleClose}
-        open={openParentPopup}
-        messageData={`${intl.formatMessage(
-          Payrollmessages.deleteMessage
-        )}${deleteItem}`}
-        callFun={deleterow}
-      />
+      </PapperBlock>
     </PayRollLoader>
   );
 }
 
-export default PermissionList;
+export default injectIntl(PermissionList);
+

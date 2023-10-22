@@ -11,7 +11,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { Button, Grid, TextField } from "@mui/material";
 import useStyles from "../Style";
 import PropTypes from "prop-types";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../Component/PayRollLoader";
 
 function Complaint(props) {
   const { intl } = props;
@@ -58,24 +58,9 @@ function Complaint(props) {
     });
   }
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
@@ -153,7 +138,7 @@ function Complaint(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 Complaint.propTypes = {

@@ -29,7 +29,7 @@ import printJS from "print-js";
 import { format } from "date-fns";
 import { ServerURL } from "../../api/ServerConfig";
 import SaveButton from "../../Component/SaveButton";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function CreateAndEditEmployeeDocuments(props) {
   const [id, setid] = useState(0);
@@ -235,12 +235,7 @@ function CreateAndEditEmployeeDocuments(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -255,18 +250,6 @@ function CreateAndEditEmployeeDocuments(props) {
         }
         desc={""}
       >
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid
@@ -584,7 +567,7 @@ function CreateAndEditEmployeeDocuments(props) {
         validImageTypes={validImageTypes}
         validPDFTypes={validPDFTypes}
       />
-    </Box>
+    </PayRollLoader>
   );
 }
 

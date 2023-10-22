@@ -16,7 +16,7 @@ import messages from "../messages";
 import Payrollmessages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { useLocation } from "react-router-dom";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function EmployeeCar(props) {
   const { intl, pristine } = props;
@@ -145,24 +145,9 @@ function EmployeeCar(props) {
     // if (!data.length) { fetchData(); }
   }, [employee.id]);
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-      <Backdrop
-        sx={{
-          color: "primary.main",
-          zIndex: 10,
-          position: "absolute",
-          backgroundColor: "rgba(255, 255, 255, 0.69)",
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+     
       <Grid
         container
         spacing={3}
@@ -327,7 +312,7 @@ function EmployeeCar(props) {
         </Grid>
       </Grid>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

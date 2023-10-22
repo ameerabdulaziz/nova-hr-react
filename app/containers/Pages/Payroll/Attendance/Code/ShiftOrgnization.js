@@ -37,7 +37,7 @@ import NamePopup from "../../Component/NamePopup";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import AlertPopup from "../../Component/AlertPopup";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function ShiftOrgnization(props) {
   const { intl } = props;
@@ -448,24 +448,9 @@ function ShiftOrgnization(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <NamePopup
           handleClose={handleCloseNamePopup}
           open={OpenPopup}
@@ -789,7 +774,7 @@ function ShiftOrgnization(props) {
           )}${deleteItem}`}
           callFun={deleterow}
         />
-    </Box>
+    </PayRollLoader>
   );
 }
 ShiftOrgnization.propTypes = {

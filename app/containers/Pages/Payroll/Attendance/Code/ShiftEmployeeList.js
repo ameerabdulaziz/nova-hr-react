@@ -20,7 +20,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { format } from "date-fns";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function ShiftEmployeeList(props) {
   const { intl } = props;
@@ -297,24 +297,8 @@ function ShiftEmployeeList(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+    <PayRollLoader isLoading={isLoading}>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">       
         <div>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
@@ -355,7 +339,7 @@ function ShiftEmployeeList(props) {
               options={options}
             />
           </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

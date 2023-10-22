@@ -5,9 +5,6 @@ import { useSelector } from "react-redux";
 import {
   Button,
   Grid,
-  Backdrop,
-  CircularProgress,
-  Box,
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -16,21 +13,17 @@ import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
-import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function followStaffContracts(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const [Permission, setPermission] = useState("");
-  const [PermissionsList, setPermissionsList] = useState([]);
-  const [Status, setStatus] = useState("");
-  const [Deleted, setDeleted] = useState("");
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchData, setsearchData] = useState({
     FromDate: null,
     ToDate: null,
@@ -62,18 +55,7 @@ function followStaffContracts(props) {
     }
   };
 
-  async function fetchData() {
-    try {
-      const Permissions = await GeneralListApis(locale).GetPermissionList();
-      setPermissionsList(Permissions);
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
-    }
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
+ 
 
   const columns = [
     {
@@ -144,30 +126,15 @@ function followStaffContracts(props) {
     },
   };
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
+       
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
+               setIsLoading={setIsLoading}
             ></Search>
           </Grid>
     
@@ -193,7 +160,7 @@ function followStaffContracts(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

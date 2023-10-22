@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { PapperBlock } from "enl-components";
 import { injectIntl } from "react-intl";
 import MUIDataTable from "mui-datatables";
-import { FormattedMessage } from "react-intl";
 import Toolbar from "@mui/material/Toolbar";
 import FormControl from "@mui/material/FormControl";
 import Tooltip from "@mui/material/Tooltip";
@@ -16,7 +15,7 @@ import ApiData from "../api/ShiftEmployeeData";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { read, utils } from "xlsx";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 import Payrollmessages from "../../messages";
 
@@ -109,24 +108,9 @@ function ShiftImport({ intl }) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <div className={`${classes.root} ${classes2.btnsContainer}`}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.spacer} />
@@ -216,7 +200,7 @@ function ShiftImport({ intl }) {
           )}
         </div>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

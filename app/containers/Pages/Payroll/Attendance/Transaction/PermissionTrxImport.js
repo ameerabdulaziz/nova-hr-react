@@ -16,7 +16,7 @@ import ApiData from "../api/PermissionTrxData";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { read, utils } from "xlsx";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function PermissionTrxImport({ intl }) {
   const { classes, cx } = useStyles();
@@ -100,24 +100,9 @@ function PermissionTrxImport({ intl }) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <div className={`${classes.root} ${classes2.btnsContainer}`}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.spacer} />
@@ -207,7 +192,7 @@ function PermissionTrxImport({ intl }) {
           )}
         </div>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

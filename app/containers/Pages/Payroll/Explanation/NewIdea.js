@@ -5,7 +5,6 @@ import Payrollmessages from '../messages';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
-import { useHistory } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import {Button ,Grid,TextField,Autocomplete} from "@mui/material";
 import useStyles from '../Style';
@@ -13,7 +12,7 @@ import PropTypes from 'prop-types';
 import GeneralListApis from '../api/GeneralListApis';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../Component/PayRollLoader";
 
 
 
@@ -86,24 +85,9 @@ function NewIdea(props) {
     fetchData();
   }, []);
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+        
         <form onSubmit={handleSubmit}>
             <Grid
                 container
@@ -225,7 +209,7 @@ function NewIdea(props) {
         </form>
         </PapperBlock>
     
-    </Box>
+    </PayRollLoader>
   );
 }
 NewIdea.propTypes = {

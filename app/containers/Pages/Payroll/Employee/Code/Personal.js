@@ -32,7 +32,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Typography from "@mui/material/Typography";
 import avatarApi from "enl-api/images/avatars";
 import { useLocation } from "react-router-dom";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function Personal(props) {
   const history = useHistory();
@@ -381,24 +381,9 @@ function Personal(props) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+        
         <form onSubmit={handleSubmit}>
           <Grid container spacing={1}>
             <Grid item xs={12} sm container>
@@ -1140,7 +1125,7 @@ function Personal(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 export default injectIntl(Personal);

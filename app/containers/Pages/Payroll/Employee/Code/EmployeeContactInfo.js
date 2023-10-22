@@ -14,7 +14,7 @@ import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
 import notif from "enl-api/ui/notifMessage";
 import { useLocation } from "react-router-dom";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 const email = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? "Invalid email"
@@ -128,24 +128,9 @@ function EmployeeContactInfo(props) {
     }
   };
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+      
         <Grid
           container
           spacing={3}
@@ -300,7 +285,7 @@ function EmployeeContactInfo(props) {
           </Grid>
         </Grid>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

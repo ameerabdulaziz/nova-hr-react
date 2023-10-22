@@ -6,7 +6,6 @@ import Payrollmessages from "../../messages";
 import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
-import { useHistory } from "react-router-dom";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
 import {
   Button,
@@ -26,8 +25,8 @@ import { format } from "date-fns";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import NameList from "../../Component/NameList";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
 import AlertPopup from "../../Component/AlertPopup";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function MissionTrxCreate(props) {
   const { intl } = props;
@@ -247,25 +246,10 @@ function MissionTrxCreate(props) {
     }
   }
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
+       
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={7}>
@@ -612,7 +596,7 @@ function MissionTrxCreate(props) {
           callFun={handleDelete}
         />
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 MissionTrxCreate.propTypes = {
