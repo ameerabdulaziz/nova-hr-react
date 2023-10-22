@@ -155,4 +155,94 @@ export default defineMessages({
     id: `${scope}.saveConfirmMessage`,
     defaultMessage: 'saveConfirmMessage',
   },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'employeeId',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  endDate: {
+    id: `${scope}.endDate`,
+    defaultMessage: 'endDate',
+  },
+  reason: {
+    id: `${scope}.reason`,
+    defaultMessage: 'reason',
+  },
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: 'notes',
+  },
+  lastUpdateBy: {
+    id: `${scope}.lastUpdateBy`,
+    defaultMessage: 'lastUpdateBy',
+  },
+  lastUpdate: {
+    id: `${scope}.lastUpdate`,
+    defaultMessage: 'lastUpdate',
+  },
+  StopInsuranceCreateTitle: {
+    id: `${scope}.StopInsuranceCreateTitle`,
+    defaultMessage: 'StopInsuranceCreateTitle',
+  },
+  StopInsuranceEditTitle: {
+    id: `${scope}.StopInsuranceEditTitle`,
+    defaultMessage: 'StopInsuranceEditTitle',
+  },
+  // Stop Insurance Report
+  EmpCode: {
+    id: `${scope}.EmpCode`,
+    defaultMessage: 'Emp.Code',
+  },
+  InsuranceEndDate: {
+    id: `${scope}.InsuranceEndDate`,
+    defaultMessage: 'Insurance End Date',
+  },
+  InsuranceReasone: {
+    id: `${scope}.InsuranceReasone`,
+    defaultMessage: 'Insurance Reasone',
+  },
+  orgName: {
+    id: `${scope}.orgName`,
+    defaultMessage: 'Organization',
+  },
+  // Insurance Follow
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'Employee Name',
+  },
+  hiringDate: {
+    id: `${scope}.hiringDate`,
+    defaultMessage: 'Hiring Date',
+  },
+  job: {
+    id: `${scope}.job`,
+    defaultMessage: 'Job',
+  },
+  birthDate: {
+    id: `${scope}.birthDate`,
+    defaultMessage: 'birthDate',
+  },
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: 'Notes',
+  },
+  BranchName: {
+    id: `${scope}.BranchName`,
+    defaultMessage: 'Branch Name',
+  },
+  HrNotes: {
+    id: `${scope}.HrNotes`,
+    defaultMessage: 'Hr Notes',
+  },
+  Company: {
+    id: `${scope}.Company`,
+    defaultMessage: 'Company',
+  },
+  InsuranceStatus: {
+    id: `${scope}.InsuranceStatus`,
+    defaultMessage: 'InsuranceStatus',
+  },
 });

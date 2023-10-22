@@ -1351,6 +1351,20 @@ export const SInsuranceOrgnizationCreate = loadable(
   }
 );
 
+export const StopInsurance = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Transaction/StopInsurance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const StopInsuranceCreate = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/Transaction/StopInsuranceCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const SocialInsuranceData = loadable(
   () => import('./Pages/Payroll/SocialInsurance/Transaction/SocialInsuranceData'),
   {
@@ -1360,6 +1374,20 @@ export const SocialInsuranceData = loadable(
 
 export const UpdateInsuranceSalary = loadable(
   () => import('./Pages/Payroll/SocialInsurance/Transaction/UpdateInsuranceSalary'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const StopInsuranceReport = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/StopInsuranceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const InsuranceFollow = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/InsuranceFollow'),
   {
     fallback: <Loading />,
   }

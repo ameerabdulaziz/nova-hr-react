@@ -261,7 +261,11 @@ import {
   SocialInsuranceData,
   EmploymentDocsDetails,
   UpdateInsuranceSalary,
-  EmploymentDocs
+  EmploymentDocs,
+  StopInsurance,
+  StopInsuranceCreate,
+  StopInsuranceReport,
+  InsuranceFollow
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1004,6 +1008,8 @@ function Application(props) {
           component={ImportLeaveBalance}
         />
 
+         {/* Insurance */}
+
         <Route
           path='/app/Pages/insurance/InsuranceOffices'
           component={InsuranceOffices}
@@ -1048,7 +1054,32 @@ function Application(props) {
           path='/app/Pages/insurance/UpdateInsuranceSalary'
           component={UpdateInsuranceSalary}
         />
+        <Route
+          path='/app/Pages/insurance/StopInsuranceReport'
+          component={StopInsuranceReport}
+        />
 
+
+
+        <Route
+          path='/app/Pages/insurance/Insurancefollow'
+          component={InsuranceFollow}
+        />
+
+        <Route
+          path='/app/Pages/insurance/StopInsurance'
+          component={StopInsurance}
+        />
+
+        <Route
+          path='/app/Pages/insurance/StopInsuranceCreate'
+          component={StopInsuranceCreate}
+        />
+
+        <Route
+          path='/app/Pages/insurance/StopInsuranceEdit'
+          component={StopInsuranceCreate}
+        />
         {/* Default */}
         <Route component={NotFound} />
       </Switch>
