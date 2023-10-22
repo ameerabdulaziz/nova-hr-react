@@ -66,7 +66,7 @@ const InsuranceFormPopUp = ({
                     // label={intl.formatMessage(messages.arName)}
                     type="text"
                     fullWidth
-                    variant="standard"
+                    variant="outlined"
                     onChange={(e)=>setNote(e.target.value)}
                     // required={locale === "ar" ? true : false}
                 />

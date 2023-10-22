@@ -295,7 +295,7 @@ function EmpBankDetail(props) {
                       renderInput={(params) => (
                         <TextField
                           margin="normal"
-                          variant="standard"
+                          variant="outlined"
                           {...params}
                           name="bank"
                           label="Bank" //{intl.formatMessage(messages.bank)}

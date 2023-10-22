@@ -113,7 +113,7 @@ const handleChange = (event, row) => {
                                   style={{width:'200px'}}
                                   id="stepId"
                                   name="stepId"
-                                  variant="standard"
+                                  variant="outlined"
                                   value={row.stepId}
                                   onChange={(e) => handleChange(e,row)}    
                                   > 

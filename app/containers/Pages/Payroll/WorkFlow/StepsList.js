@@ -162,7 +162,7 @@ const handleChange = (event, row) => {
                                   style={{width:'150px'}}
                                   id="approvalType"
                                   name="approvalType"
-                                  variant="standard"
+                                  variant="outlined"
                                   value={row.approvalType}
                                   onChange={(e) => handleChange(e,row)}    
                                  >                                
