@@ -16,6 +16,7 @@ import ApiData from "../api/MissionTrxData";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { read, utils } from "xlsx";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function MissionTrxImport({ intl }) {
   const { classes, cx } = useStyles();
@@ -27,28 +28,35 @@ function MissionTrxImport({ intl }) {
   const [file, setFile] = useState("");
   const Title = localStorage.getItem("MenuName");
   let columns = [];
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleImport = ($event) => {
-    const files = $event.target.files;
+    try {
+      setIsLoading(true);
+      const files = $event.target.files;
 
-    if (files.length) {
-      const file = files[0];
-      const reader = new FileReader();
+      if (files.length) {
+        const file = files[0];
+        const reader = new FileReader();
 
-      reader.onload = (event) => {
-        const wb = read(event.target.result);
-        const sheets = wb.SheetNames;
+        reader.onload = (event) => {
+          const wb = read(event.target.result);
+          const sheets = wb.SheetNames;
 
-        if (sheets.length) {
-          const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
-            raw: false,
-          });
-          setFileData(rows);
-          rows.map((item) => setCols(Object.keys(item)));
-        }
-      };
-      reader.readAsArrayBuffer(file);
-      setFileTitle(file.name.split(".")[0]);
+          if (sheets.length) {
+            const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
+              raw: false,
+            });
+            setFileData(rows);
+            rows.map((item) => setCols(Object.keys(item)));
+          }
+        };
+        reader.readAsArrayBuffer(file);
+        setFileTitle(file.name.split(".")[0]);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
     }
   };
   const resetDataFun = () => {
@@ -60,6 +68,7 @@ function MissionTrxImport({ intl }) {
 
   const submitFun = async (e) => {
     try {
+      setIsLoading(true);
       let response = await ApiData(locale).SaveList(fileData);
 
       if (response.status == 200) {
@@ -69,7 +78,8 @@ function MissionTrxImport({ intl }) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.response.data);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,8 +105,24 @@ function MissionTrxImport({ intl }) {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <div className={`${classes.root} ${classes2.btnsContainer}`}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.spacer} />
@@ -186,7 +212,7 @@ function MissionTrxImport({ intl }) {
           )}
         </div>
       </PapperBlock>
-    </div>
+    </Box>
   );
 }
 

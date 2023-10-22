@@ -26,6 +26,7 @@ import useStyles from '../Style';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import Payrollmessages from '../messages';
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function UserMenu(props) {
   
@@ -40,7 +41,8 @@ function UserMenu(props) {
   const [MenuList, setMenuList] = useState([]);
   const [menu, setmenu] = useState();
   const locale = useSelector(state => state.language.locale);
-  const Title = localStorage.getItem("MenuName");
+  const Title = localStorage.getItem("MenuName");  
+  const [isLoading, setIsLoading] = useState(true);
   
 
 const handlepermcheckboxAll = (event) => {
@@ -144,6 +146,7 @@ async function on_submit() {
       return
     }
     try {
+      setIsLoading(true);
       let response = await  UserMenuData().SaveUserMenu({
         'employee':employee,
         'dataList':dataList,
@@ -155,8 +158,8 @@ async function on_submit() {
           toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
     }
+    finally {setIsLoading(false);}
   }
 
   const GetUserMenuList = useCallback(async () => {
@@ -167,11 +170,12 @@ async function on_submit() {
         setdataList([]);
         return
       }
+      setIsLoading(true);
       const data = await UserMenuData().GetUserMenuList(locale,employee);
       setdataList(data || []);
     } catch (err) {
-      toast.error(err);
     }
+    finally{setIsLoading(false);}
   });
 
 
@@ -184,8 +188,8 @@ async function on_submit() {
       setMenuList(data.parentMenu || []);
       
     } catch (err) {
-      toast.error(err);
     }
+    finally{setIsLoading(false);}
   }, []);
 
   useEffect(() => {
@@ -198,7 +202,24 @@ async function on_submit() {
   }, []);
 
   return (
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <div>
             <Grid container spacing={3}>            
                 <Grid item xs={6} md={3}>
@@ -422,6 +443,7 @@ async function on_submit() {
             </div>
         </div>       
       </PapperBlock>
+      </Box>
   );
 }
   

@@ -15,13 +15,12 @@ import useStyles from '../../Style';
 import PropTypes from 'prop-types';
 import { useLocation } from "react-router-dom";
 import SaveButton from '../../Component/SaveButton';
-
-
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function PenaltyCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);  
-  const [processing, setprocessing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation()
   const { id } = location.state??0;
   const { classes } = useStyles();
@@ -129,10 +128,9 @@ function PenaltyCreate(props) {
     e.preventDefault();   
   
     try {
-      setprocessing(true); 
+      setIsLoading(true); 
       if(dataTable.length== 0) {
         toast.error("ُEnter Details data");
-        setprocessing(false); 
         return ;
       }
       let response = await  ApiData(locale).SaveData(data,dataTable);
@@ -144,17 +142,20 @@ function PenaltyCreate(props) {
           toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
-      
     }
-    setprocessing(false); 
+    finally{
+      setIsLoading(false); 
+    }
   }
   const fetchData = useCallback(async () => {
-    
+    try {
     const dataApi = await ApiData(locale).GetPenalty(id??0);
     setElementList(dataApi.ElementList);
     
     setdata(dataApi.finaldata);
+    }
+    catch(err) {}
+    finally {setIsLoading(false);}
   });
  
   useEffect(() => {    
@@ -162,9 +163,26 @@ function PenaltyCreate(props) {
   }, []);
 
   return (
-    <div>
-        <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.createPenaltyTitle):intl.formatMessage(messages.updatePenaltyTitle)} desc={""}>
-          <form onSubmit={handleSubmit}>
+    <Box
+    sx={{
+      zIndex: 100,
+      position: "relative",
+    }}
+  >
+    <PapperBlock whiteBg icon="border_color" title={data.id==0?intl.formatMessage(messages.createPenaltyTitle):intl.formatMessage(messages.updatePenaltyTitle)} desc={""}>
+          
+      <Backdrop
+        sx={{
+          color: "primary.main",
+          zIndex: 10,
+          position: "absolute",
+          backgroundColor: "rgba(255, 255, 255, 0.69)",
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+        <form onSubmit={handleSubmit}>
               <Grid
                   container
                   spacing={3}
@@ -255,7 +273,7 @@ function PenaltyCreate(props) {
                         />  
                   </Grid>
                   <Grid item xs={12} md={1}>
-                      <SaveButton Id={id} processing={processing} />
+                      <SaveButton Id={id} />
                   </Grid>
                   <Grid item xs={12} md={1}>
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >
@@ -278,7 +296,7 @@ function PenaltyCreate(props) {
           </form>
         </PapperBlock>
     
-    </div>
+    </Box>
   );
 }
 PenaltyCreate.propTypes = {

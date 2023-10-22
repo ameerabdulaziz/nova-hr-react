@@ -15,6 +15,9 @@ import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
 
+import Payrollmessages from "../../messages";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
+
 function Organization({ intl }) {
   const title = brand.name + " - Organization";
   const description = brand.desc;
@@ -23,24 +26,28 @@ function Organization({ intl }) {
   const [dataTable, setDataTable] = useState([]);
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [processing, setProcessing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const locale = useSelector((state) => state.language.locale);
 
   const getdata = async () => {
-    const data = await OrganizationData(locale).GetList();
+    try {
+      const data = await OrganizationData(locale).GetList();
 
-    // this used to convert boolean values to string before store it in redux until table can read the values
-    let newData = data.map((items) => {
-      Object.keys(items).forEach((val) => {
-        if (typeof items[val] == "boolean") {
-          items[val] = String(items[val]);
-        }
+      // this used to convert boolean values to string before store it in redux until table can read the values
+      let newData = data.map((items) => {
+        Object.keys(items).forEach((val) => {
+          if (typeof items[val] == "boolean") {
+            items[val] = String(items[val]);
+          }
+        });
+        return items;
       });
-      return items;
-    });
 
-    setDataTable(newData);
+      setDataTable(newData);
+    } catch (e) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -117,15 +124,22 @@ function Organization({ intl }) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
-    page: 0,
-    // searchOpen: true,
     selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
+    page: 0,
     customToolbar: () => (
       <div className={style.customToolbarBtn}>
         <AddButton url={"/app/Pages/MainData/OrganizationCreate"}></AddButton>
       </div>
     ),
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
 
   const handleClickOpen = (item) => {
@@ -138,9 +152,8 @@ function Organization({ intl }) {
   };
 
   const DeleteFun = async () => {
-    setSubmitting(true);
-    setProcessing(true);
     try {
+      setIsLoading(true);
       let response = await OrganizationData().Delete(deleteItem);
 
       if (response.status == 200) {
@@ -149,28 +162,32 @@ function Organization({ intl }) {
       } else {
         toast.error(response.statusText);
       }
-
-      setSubmitting(false);
-      setProcessing(false);
     } catch (err) {
-      toast.error(notif.error);
-      setSubmitting(false);
-      setProcessing(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
 
-      <div className={classes.root}>
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title={intl.formatMessage(messages.OrganizationsList)}
@@ -180,17 +197,17 @@ function Organization({ intl }) {
             className={style.tableSty}
           />
         </div>
-      </div>
 
-      <AlertPopup
-        handleClose={handleClose}
-        open={openParentPopup}
-        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${locale === "en" ? deleteItem[2] : deleteItem[1]}`}
-        callFun={DeleteFun}
-        submitting={submitting}
-        processing={processing}
-      />
-    </div>
+        <AlertPopup
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${
+            locale === "en" ? deleteItem[2] : deleteItem[1]
+          }`}
+          callFun={DeleteFun}
+        />
+      </PapperBlock>
+    </Box>
   );
 }
 

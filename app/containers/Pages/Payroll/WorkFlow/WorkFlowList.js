@@ -1,126 +1,135 @@
-import React, { useEffect, useState } from 'react';
-import MUIDataTable from 'mui-datatables';
-import ApiData from './api/WorkFlowData';
-import { useSelector } from 'react-redux';
-import Tooltip from '@mui/material/Tooltip';
-import EditIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
+import React, { useEffect, useState } from "react";
+import MUIDataTable from "mui-datatables";
+import ApiData from "./api/WorkFlowData";
+import { useSelector } from "react-redux";
+import Tooltip from "@mui/material/Tooltip";
+import AddIcon from "@mui/icons-material/Add";
+import Button from "@mui/material/Button";
+import messages from "./messages";
+import { FormattedMessage } from "react-intl";
+import { useHistory } from "react-router-dom";
+import style from "../../../../../app/styles/styles.scss";
+import notif from "enl-api/ui/notifMessage";
+import { toast } from "react-hot-toast";
+import useStyles from "../Style";
+import EditButton from "../Component/EditButton";
+import DeleteButton from "../Component/DeleteButton";
+import { PapperBlock } from "enl-components";
+import AlertPopup from "../Component/AlertPopup";
 import Payrollmessages from '../messages';
-import messages from './messages';
-import { FormattedMessage } from 'react-intl';
-import { useHistory,Link} from "react-router-dom";
-import style from '../../../../../app/styles/styles.scss';
-import IconButton from '@mui/material/IconButton';
-import notif from 'enl-api/ui/notifMessage';
-import { toast } from 'react-hot-toast';
-import useStyles from '../Style';
-import { PapperBlock } from 'enl-components';
-
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function WorkFlowList() {
-  const history=useHistory();  
+  const history = useHistory();
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
-  
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [deleteItem, setDeleteItem] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  async function deleterow(id) {
-  
+  const handleClickOpen = (item) => {
+    debugger;
+    setOpenParentPopup(true);
+    setDeleteItem(item);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
+
+  async function deleterow() {
     try {
-     
-      let response = await  ApiData(locale).Delete(id);
+      debugger;
+      setIsLoading(true);
+      let response = await ApiData(locale).Delete(deleteItem);
 
-      if (response.status==200) {
+      if (response.status == 200) {
         toast.success(notif.saved);
         fetchData();
-
       } else {
-          toast.error(response.statusText);
+        toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
   }
+
   async function fetchData() {
-    const dataApi = await ApiData(locale).GetList();
-    setdata(dataApi);
+    try {
+      const dataApi = await ApiData(locale).GetList();
+      setdata(dataApi);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   }
-  useEffect(() => {    
+
+  useEffect(() => {
     fetchData();
   }, []);
-  
+
   const columns = [
     {
-      name: 'id',
+      name: "id",
       options: {
         filter: false,
       },
     },
     {
-      name: 'arName',
-      label:<FormattedMessage {...Payrollmessages['arName']} />,
+      name: "arName",
+      label: <FormattedMessage {...Payrollmessages["arName"]} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'enName',
-      label:<FormattedMessage {...Payrollmessages['enName']} />,
+      name: "enName",
+      label: <FormattedMessage {...Payrollmessages["enName"]} />,
       options: {
         filter: true,
       },
     },
-    
+
     {
-      name: 'documentName',
-      label: <FormattedMessage {...messages['documentName']} />,
+      name: "documentName",
+      label: <FormattedMessage {...messages["documentName"]} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'Actions',
+      name: "Actions",
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log('tableMeta =', tableMeta);
           return (
             <div className={style.actionsSty}>
-              <IconButton
-                aria-label="Edit"
-                size="large"
-              >
-                <Link to={{ pathname: "/app/Pages/WF/WorkFlowEdit", state: {id: tableMeta.rowData[0],},}}>
-                    <EditIcon />
-                  </Link>
-              </IconButton>
-
-              <IconButton
-                className={classes.button}
-                aria-label="Delete"
-                size="large"
-                onClick={() => deleterow(tableMeta.rowData[0])}
-              >
-                <DeleteIcon />
-              </IconButton>
+              <EditButton
+                param={{ id: tableMeta.rowData[0] }}
+                url={"/app/Pages/WF/WorkFlowEdit"}
+              ></EditButton>
+              <DeleteButton
+                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
+              ></DeleteButton>
             </div>
           );
+          
         },
       },
     },
-
-    
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: true,
     onSearchClose: () => {
@@ -131,66 +140,63 @@ function WorkFlowList() {
         <Button
           variant="contained"
           onClick={() => {
-            
             history.push(`/app/Pages/WF/WorkFlowCreate`);
           }}
           color="secondary"
           className={classes.button}
         >
           <AddIcon />
-            <FormattedMessage {...Payrollmessages.add} />
+          <FormattedMessage {...Payrollmessages.add} />
         </Button>
       </Tooltip>
     ),
-    customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
-      
-      <div>
-     
-        <Tooltip title={'Delete'} cursor="pointer" className="mr-6">
-          <IconButton
-            onClick={async() => {
-              
-              const list=[];
-              for(let i=0; i<selectedRows.data.length; i++) {
-              list.push(data[selectedRows.data[i].dataIndex].id);
-              }
-              try {
-                
-                 let response = await  ApiData(locale).DeleteList(list);
-           
-                 if (response.status==200) {
-                   toast.success(notif.saved);
-                   fetchData();
-                 } else {
-                     toast.error(response.statusText);
-                 }
-               } catch (err) {
-                 toast.error(notif.error);
-               }
-            }}
-          >
-            <DeleteIcon></DeleteIcon>
-            {/* <ActionDelete></ActionDelete> */}
-          </IconButton>
-        </Tooltip>
-       
-      </div>
-    ),
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
 
-  
-
   return (
-    <PapperBlock whiteBg icon="border_color" title={Title} desc=""> 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+
+        <div className={classes.CustomMUIDataTable}>
+          <MUIDataTable
+            title=""
+            data={data}
+            columns={columns}
+            options={options}
+          />
+        </div>
+        <AlertPopup
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(
+            Payrollmessages.deleteMessage
+          )}${deleteItem}`}
+          callFun={deleterow}
         />
-      </div>
-    </PapperBlock>
+      </PapperBlock>
+    </Box>
   );
 }
 

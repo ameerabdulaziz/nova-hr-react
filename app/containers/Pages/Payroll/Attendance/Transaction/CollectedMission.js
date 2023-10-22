@@ -23,19 +23,17 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../api/GeneralListApis";
 import { format } from "date-fns";
-import { useLocation } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import NameList from "../../Component/NameList";
 import { Backdrop, CircularProgress, Box } from "@mui/material";
+import AlertPopup from "../../Component/AlertPopup";
 
 function MissionTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  const location = useLocation();
   const { classes } = useStyles();
   const Title = localStorage.getItem("MenuName");
-
   const [data, setdata] = useState({
     fromDate: format(new Date(), "yyyy-MM-dd"),
     toDate: format(new Date(), "yyyy-MM-dd"),
@@ -54,10 +52,20 @@ function MissionTrxCreate(props) {
     employeesId: [],
     isNotUpdate: false,
   });
-
   const [dataList, setdataList] = useState([]);
-  const [MissionsList, setMissionsList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [MissionsList, setMissionsList] = useState([]);  
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleClickOpen = (item) => {
+    debugger;
+    setOpenParentPopup(true);
+    setDeleteItem(item);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
 
   const handleChange = (event) => {
     if (event.target.name == "notes")
@@ -179,6 +187,7 @@ function MissionTrxCreate(props) {
       setIsLoading(false);
     }
   };
+
   const handleReset = async (e) => {
     setdataList([]);
     setdata({
@@ -202,7 +211,6 @@ function MissionTrxCreate(props) {
   };
   async function fetchData() {
     try {
-      setIsLoading(true);
       const Missions = await GeneralListApis(locale).GetMissionList(locale);
       setMissionsList(Missions);
     } catch (err) {
@@ -219,7 +227,6 @@ function MissionTrxCreate(props) {
     try {
       setIsLoading(true);
       if (data.missionId && data.startTime && data.endTime) {
-        setpreviewprocessing(true);
         const result = await ApiData(locale).getMissions(data);
 
         setdataList(
@@ -233,7 +240,6 @@ function MissionTrxCreate(props) {
 
         if (result.mission) setdata(result.mission);
         else handleReset();
-        setpreviewprocessing(false);
       } else toast.error("Enter Mission, Start, End Time");
     } catch (err) {
     } finally {
@@ -568,14 +574,8 @@ function MissionTrxCreate(props) {
                 style={{ width: 100 }}
                 color="primary"
                 onClick={getData}
-                disabled={previewprocessing}
               >
-                {previewprocessing && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
+               
                 <FormattedMessage {...Payrollmessages.preview} />
               </Button>
             </Grid>
@@ -586,14 +586,7 @@ function MissionTrxCreate(props) {
                 size="medium"
                 style={{ width: 100 }}
                 color="secondary"
-                disabled={processing}
               >
-                {processing && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
@@ -603,20 +596,21 @@ function MissionTrxCreate(props) {
                 size="medium"
                 style={{ width: 100 }}
                 color="primary"
-                onClick={handleDelete}
-                disabled={deleteprocessing}
+                onClick={handleClickOpen}
               >
-                {deleteprocessing && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
                 <FormattedMessage {...Payrollmessages.delete} />
               </Button>
             </Grid>
           </Grid>
         </form>
+        <AlertPopup
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(
+            Payrollmessages.deleteMessage
+          )}`}
+          callFun={handleDelete}
+        />
       </PapperBlock>
     </Box>
   );

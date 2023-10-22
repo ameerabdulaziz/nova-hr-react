@@ -50,7 +50,6 @@ function UniformReceiveList(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -61,7 +60,6 @@ function UniformReceiveList(props) {
       const dataApi = await ApiData(locale).GetList(2);
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }

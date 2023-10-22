@@ -20,13 +20,15 @@ import { useLocation } from "react-router-dom";
 import EmployeeData from "../../Component/EmployeeData";
 import SaveButton from "../../Component/SaveButton";
 
+import { Backdrop, CircularProgress, Box } from "@mui/material";
+
 function UniformReceiveCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const { id } = location.state ?? 0;
   const { classes } = useStyles();
-  const [processing, setprocessing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setdata] = useState({
     id: 0,
     date: format(new Date(), "yyyy-MM-dd"),
@@ -62,31 +64,35 @@ function UniformReceiveCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setprocessing(true);
+      setIsLoading(true);
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
         toast.success(notif.saved);
         history.push(`/app/Pages/HR/UniformReceive`);
       } else {
-        toast.error(response.statusText);
       }
     } catch (err) {
     } finally {
-      setprocessing(false);
+      setIsLoading(false);
     }
   };
   async function oncancel() {
     history.push(`/app/Pages/HR/UniformReceive`);
   }
   async function fetchData() {
-    const custodies = await GeneralListApis(locale).GetUniformList(locale);
-    setUniformList(custodies);
+    try {
+      const custodies = await GeneralListApis(locale).GetUniformList(locale);
+      setUniformList(custodies);
 
-    if (id) {
-      const dataApi = await ApiData(locale).Get(id, 2);
+      if (id) {
+        const dataApi = await ApiData(locale).Get(id, 2);
 
-      setdata(dataApi);
+        setdata(dataApi);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -95,7 +101,12 @@ function UniformReceiveCreate(props) {
   }, []);
 
   return (
-    <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -106,6 +117,18 @@ function UniformReceiveCreate(props) {
         }
         desc={""}
       >
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={2}>
@@ -198,7 +221,7 @@ function UniformReceiveCreate(props) {
             </Grid>
             <Grid item xs={12} md={4}></Grid>
             <Grid item xs={12} md={1}>
-              <SaveButton Id={id} processing={processing} />
+              <SaveButton />
             </Grid>
             <Grid item xs={12} md={1}>
               <Button
@@ -213,7 +236,7 @@ function UniformReceiveCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </div>
+    </Box>
   );
 }
 UniformReceiveCreate.propTypes = {

@@ -57,7 +57,6 @@ function UniformDeliveryReport(props) {
       const dataApi = await ApiData(locale).GetReport(formData);
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +67,6 @@ function UniformDeliveryReport(props) {
       const uniforms = await GeneralListApis(locale).GetUniformList(locale);
       setUniformList(uniforms);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -135,7 +133,9 @@ function UniformDeliveryReport(props) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     onSearchClose: () => {

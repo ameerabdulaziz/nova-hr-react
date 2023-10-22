@@ -3,23 +3,16 @@ import {Button} from "@mui/material";
 import Payrollmessages from '../messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
-import CircularProgress from '@mui/material/CircularProgress';
 
 function SaveButton(props) {
   
-  const {intl,Id,processing} = props;
-  const {classes,cx} = useStyles();  
+  const {intl,Id} = props;
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
   
   return (
       <div>
-        <Button variant="contained" type="submit" size="medium" color="secondary" disabled={(Id?!Menu.isUpdate:!Menu.isAdd)||processing} >
-            {processing && (
-            <CircularProgress
-                size={24}
-                className={classes.buttonProgress}
-            />
-            )} 
+        <Button variant="contained" type="submit" size="medium" color="secondary" disabled={(Id?!Menu.isUpdate:!Menu.isAdd)} >
+            
             <FormattedMessage {...Payrollmessages.save} /> 
             
         </Button>

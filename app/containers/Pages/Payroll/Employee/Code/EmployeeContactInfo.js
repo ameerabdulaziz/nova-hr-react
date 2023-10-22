@@ -1,57 +1,49 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import EmployeeContactInfoData from '../api/EmployeeContactInfoData';
-import { toast } from 'react-hot-toast';
-import { useSelector, useDispatch } from 'react-redux';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import messages from '../messages';
-import GeneralListApis from '../../api/GeneralListApis';
-import { Autocomplete } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
-import LinearProgress from '@mui/material/LinearProgress';
-import Payrollmessages from '../../messages';
-import useStyles from '../../Style';
-import notif from 'enl-api/ui/notifMessage';
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import EmployeeContactInfoData from "../api/EmployeeContactInfoData";
+import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { injectIntl, FormattedMessage } from "react-intl";
+import messages from "../messages";
+import GeneralListApis from "../../api/GeneralListApis";
+import { Autocomplete } from "@mui/material";
+import Payrollmessages from "../../messages";
+import useStyles from "../../Style";
+import notif from "enl-api/ui/notifMessage";
+import { useLocation } from "react-router-dom";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 const email = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-    ? 'Invalid email'
+    ? "Invalid email"
     : undefined;
 
 function EmployeeContactInfo(props) {
-  const history = useHistory();
   const location = useLocation();
-  const { empid } = location.state ?? { id: 0, name: '' };
+  const { empid } = location.state ?? { id: 0, name: "" };
   const { intl, pristine } = props;
-  const title = localStorage.getItem('MenuName');
-  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
+  const title = localStorage.getItem("MenuName");
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
+  const [isLoading, setIsLoading] = useState(true);
   const [employeeList, setEmployeeList] = useState([]);
   const [id, setid] = useState(0);
-  const [telPhone, settelPhone] = useState('');
-  const [mobile, setmobile] = useState('');
-  const [workMobile, setworkMobile] = useState('');
-  const [relativesPhoneNo, setrelativesPhoneNo] = useState('');
-  const [mail, setmail] = useState('');
-  const [workEmail, setworkEmail] = useState('');
+  const [telPhone, settelPhone] = useState("");
+  const [mobile, setmobile] = useState("");
+  const [workMobile, setworkMobile] = useState("");
+  const [relativesPhoneNo, setrelativesPhoneNo] = useState("");
+  const [mail, setmail] = useState("");
+  const [workEmail, setworkEmail] = useState("");
   const trueBool = true;
   const { classes } = useStyles();
-  // const { pristine, submitting, init } = props;
   const locale = useSelector((state) => state.language.locale);
-  const [progress, setProgress] = useState(false);
-  const [processing, setprocessing] = useState(false);
-  const [delprocessing, setdelprocessing] = useState(false);
 
   const handleSubmit = async (e) => {
     try {
-      
       e.preventDefault();
-      setprocessing(true);
+      setIsLoading(true);
       const data = {
         id: id,
         employeeId: employee.id,
@@ -71,58 +63,59 @@ function EmployeeContactInfo(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
-    setprocessing(false);
   };
   const clear = (e) => {
     setid(0);
-    settelPhone('');
-    setmobile('');
-    setworkMobile('');
-    setrelativesPhoneNo('');
-    setmail('');
-    setworkEmail('');
+    settelPhone("");
+    setmobile("");
+    setworkMobile("");
+    setrelativesPhoneNo("");
+    setmail("");
+    setworkEmail("");
   };
   const GetLookup = useCallback(async () => {
     try {
-      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employeedata || []);
     } catch (err) {
-      toast.error(err);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
+
   useEffect(() => {
     GetLookup();
   }, []);
 
   useEffect(() => {
     async function fetchData() {
-      setProgress(true);
-      const dataApi = await EmployeeContactInfoData().GetList(employee.id);
+      try {
+        setIsLoading(true);
+        const dataApi = await EmployeeContactInfoData().GetList(employee.id);
 
-      if (dataApi.length > 0) {
-        setid(dataApi[0].id);
-        setrelativesPhoneNo(dataApi[0].relativesPhoneNo);
-        setworkMobile(dataApi[0].workMobile);
-        setmobile(dataApi[0].mobile);
-        settelPhone(dataApi[0].telPhone);
-        setmail(dataApi[0].email);
-        setworkEmail(dataApi[0].workEmail);
-      } else clear();
-
-      setProgress(false);
+        if (dataApi.length > 0) {
+          setid(dataApi[0].id);
+          setrelativesPhoneNo(dataApi[0].relativesPhoneNo);
+          setworkMobile(dataApi[0].workMobile);
+          setmobile(dataApi[0].mobile);
+          settelPhone(dataApi[0].telPhone);
+          setmail(dataApi[0].email);
+          setworkEmail(dataApi[0].workEmail);
+        } else clear();
+      } catch (e) {
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchData();
-    // if (!data.length) { fetchData(); }
   }, [employee]);
+
   const deletedata = async (e) => {
     try {
-      
-      // e.preventDefault();
-
-      setdelprocessing(true);
+      setIsLoading(true);
       const dataApi = await EmployeeContactInfoData().Delete(id);
       if (dataApi.status == 200) {
         clear();
@@ -131,12 +124,28 @@ function EmployeeContactInfo(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
-    setdelprocessing(false);
   };
   return (
-    <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <Backdrop
+        sx={{
+          color: "primary.main",
+          zIndex: 10,
+          position: "absolute",
+          backgroundColor: "rgba(255, 255, 255, 0.69)",
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid
         container
         spacing={3}
@@ -154,16 +163,14 @@ function EmployeeContactInfo(props) {
               options={employeeList}
               value={{ id: employee.id, name: employee.name }}
               isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === '' || option.id === value.id
+                value.id === 0 || value.id === "" || option.id === value.id
               }
-              getOptionLabel={(option) => (option.name ? option.name : '')}
+              getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                
-                  setEmployee({
-                    id: value !== null?value.id:0,
-                    name: value !== null?value.name:'',
-                  });
-                
+                setEmployee({
+                  id: value !== null ? value.id : 0,
+                  name: value !== null ? value.name : "",
+                });
               }}
               renderInput={(params) => (
                 <TextField
@@ -176,15 +183,7 @@ function EmployeeContactInfo(props) {
                 />
               )}
             />
-            {progress && (
-              <div>
-                {' '}
-                <LinearProgress />
-                <br />
-                <LinearProgress color="secondary" />
-                <br />
-              </div>
-            )}
+
             <form onSubmit={handleSubmit}>
               <div>
                 <TextField
@@ -249,7 +248,7 @@ function EmployeeContactInfo(props) {
               <div>
                 <TextField
                   type="email"
-                  error={email === 'Invalid email'}
+                  error={email === "Invalid email"}
                   id="mail"
                   name="mail"
                   value={mail}
@@ -267,7 +266,7 @@ function EmployeeContactInfo(props) {
               <div>
                 <TextField
                   type="email"
-                  error={email === 'Invalid email'}
+                  error={email === "Invalid email"}
                   id="workEmail"
                   name="workEmail"
                   value={workEmail}
@@ -288,27 +287,15 @@ function EmployeeContactInfo(props) {
                     variant="contained"
                     color="secondary"
                     type="submit"
-                    disabled={employee.id === 0 || processing || delprocessing}
+                    disabled={employee.id === 0}
                   >
-                    {processing && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
                     <FormattedMessage {...Payrollmessages.save} />
                   </Button>
                   <Button
                     type="button"
-                    disabled={employee.id === 0 || pristine || processing}
+                    disabled={employee.id === 0}
                     onClick={() => deletedata()}
                   >
-                    {delprocessing && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
                     <FormattedMessage {...Payrollmessages.delete} />
                   </Button>
                 </div>
@@ -317,7 +304,7 @@ function EmployeeContactInfo(props) {
           </Paper>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }
 

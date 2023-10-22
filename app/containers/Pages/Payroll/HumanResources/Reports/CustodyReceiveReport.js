@@ -56,7 +56,6 @@ function CustodyReceiveReport(props) {
       const dataApi = await ApiData(locale).GetReport(formData);
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.response.data);
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +66,6 @@ function CustodyReceiveReport(props) {
       const custodies = await GeneralListApis(locale).GetCustodyList(locale);
       setcustodyList(custodies);
     } catch (err) {
-      toast.error(err.response.data);
     } finally {
       setIsLoading(false);
     }
@@ -134,7 +132,9 @@ function CustodyReceiveReport(props) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     onSearchClose: () => {

@@ -77,14 +77,14 @@ function NamePopup(props) {
         );
       }
     } catch (err) {
-      toast.error(err);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    if (open) GetList();
+    if (open) 
+    GetList();
   }, [open]);
 
   const columns = [

@@ -1,76 +1,84 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import { Helmet } from 'react-helmet';
-import brand from 'enl-api/dummy/brand';
-import { PapperBlock } from 'enl-components';
-import ApiData from '../api/PenaltyTransData';
-import messages from '../messages';
-import Payrollmessages from '../../messages';
-import { useSelector } from 'react-redux';
-import notif from 'enl-api/ui/notifMessage';
-import { toast } from 'react-hot-toast';
-import { useHistory } from 'react-router-dom';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import {Button,  Grid,  TextField,  Autocomplete,  Card,  CardContent,  FormControl,  Tooltip,} from '@mui/material';
-import useStyles from '../../Style';
-import PropTypes from 'prop-types';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import GeneralListApis from '../../api/GeneralListApis';
-import { format } from 'date-fns';
-import { useLocation } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { ServerURL } from '../../api/ServerConfig';
-import { NavLink } from 'react-router-dom';
-import EmployeeData from '../../Component/EmployeeData';
-import SaveButton from '../../Component/SaveButton';
+import React, { useState, useEffect, useCallback } from "react";
+import { makeStyles } from "tss-react/mui";
+import { Helmet } from "react-helmet";
+import brand from "enl-api/dummy/brand";
+import { PapperBlock } from "enl-components";
+import ApiData from "../api/PenaltyTransData";
+import messages from "../messages";
+import Payrollmessages from "../../messages";
+import { useSelector } from "react-redux";
+import notif from "enl-api/ui/notifMessage";
+import { toast } from "react-hot-toast";
+import { useHistory } from "react-router-dom";
+import { injectIntl, intlShape, FormattedMessage } from "react-intl";
+import {
+  Button,
+  Grid,
+  TextField,
+  Autocomplete,
+  Card,
+  CardContent,
+  FormControl,
+  Tooltip,
+} from "@mui/material";
+import useStyles from "../../Style";
+import PropTypes from "prop-types";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import GeneralListApis from "../../api/GeneralListApis";
+import { format } from "date-fns";
+import { useLocation } from "react-router-dom";
+import AddIcon from "@mui/icons-material/Add";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { ServerURL } from "../../api/ServerConfig";
+import { NavLink } from "react-router-dom";
+import EmployeeData from "../../Component/EmployeeData";
+import SaveButton from "../../Component/SaveButton";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function PenaltyTransCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  
-
   const location = useLocation();
   const { id } = location.state ?? 0;
-  const [processing, setprocessing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { classes, cx } = useStyles();
-  const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+  const smUp = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const [data, setdata] = useState({
     id: 0,
-    date: format(new Date(), 'yyyy-MM-dd'),
-    docName: '',
-    employeeId: '',
-    employeeName: '',
-    elementId: '',
-    elementName: '',
-    monthId: '',
-    monthName: '',
-    note: '',
-    penaltyDetailId: '',
-    penaltyTypeId: '',
-    penaltyTypeName: '',
-    penaltyId: '',
-    penaltyName: '',
-    superEmployeeId: '',
-    superEmployeeName: '',
-    value: '',
-    yearId: '',
-    yearName: '',
-    job: '',
-    organization: '',
-    hiringDate: '',
-    superJob: '',
-    superOrganization: '',
-    superHiringDate: '',
-    month: '',
-    sixMonth: '',
-    year: '',
-    hiringDateNo: '',
-    lastDate: '',
+    date: format(new Date(), "yyyy-MM-dd"),
+    docName: "",
+    employeeId: "",
+    employeeName: "",
+    elementId: "",
+    elementName: "",
+    monthId: "",
+    monthName: "",
+    note: "",
+    penaltyDetailId: "",
+    penaltyTypeId: "",
+    penaltyTypeName: "",
+    penaltyId: "",
+    penaltyName: "",
+    superEmployeeId: "",
+    superEmployeeName: "",
+    value: "",
+    yearId: "",
+    yearName: "",
+    job: "",
+    organization: "",
+    hiringDate: "",
+    superJob: "",
+    superOrganization: "",
+    superHiringDate: "",
+    month: "",
+    sixMonth: "",
+    year: "",
+    hiringDateNo: "",
+    lastDate: "",
     uploadedFile: null,
-    docName: '',
+    docName: "",
   });
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
@@ -80,15 +88,13 @@ function PenaltyTransCreate(props) {
   const history = useHistory();
 
   const handleChange = (event) => {
-    
-
-    if (event.target.name == 'note')
+    if (event.target.name == "note")
       setdata((prevFilters) => ({
         ...prevFilters,
         note: event.target.value,
       }));
 
-    if (event.target.name == 'value')
+    if (event.target.name == "value")
       setdata((prevFilters) => ({
         ...prevFilters,
         value: event.target.value,
@@ -97,8 +103,7 @@ function PenaltyTransCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      
-      setprocessing(true);
+      setIsLoading(true);
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -108,25 +113,30 @@ function PenaltyTransCreate(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.response.data);
+    } finally {
+      setIsLoading(false);
     }
   };
   async function oncancel() {
     history.push(`/app/Pages/HR/PenaltyTrans`);
   }
   async function fetchData() {
-    
-    const years = await GeneralListApis(locale).GetYears();
-    setYearList(years);
+    try {
+      const years = await GeneralListApis(locale).GetYears();
+      setYearList(years);
 
-    const months = await GeneralListApis(locale).GetMonths();
-    setMonthList(months);
+      const months = await GeneralListApis(locale).GetMonths();
+      setMonthList(months);
 
-    const penalties = await GeneralListApis(locale).GetPenaltyList();
-    setPenaltyList(penalties);
+      const penalties = await GeneralListApis(locale).GetPenaltyList();
+      setPenaltyList(penalties);
 
-    const dataApi = await ApiData(locale).Get(id ?? 0);
-    if (dataApi.id != 0) setdata(dataApi);
+      const dataApi = await ApiData(locale).Get(id ?? 0);
+      if (dataApi.id != 0) setdata(dataApi);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -134,38 +144,48 @@ function PenaltyTransCreate(props) {
   }, []);
 
   async function getPenaltyData(id) {
-    
     if (!id) {
       setdata((prevFilters) => ({
         ...prevFilters,
         elementId: 0,
-        elementName: '',
+        elementName: "",
         penaltyDetailId: 0,
         penaltyTypeId: 0,
-        penaltyTypeName: '',
-        value: '',
+        penaltyTypeName: "",
+        value: "",
       }));
       setPenaltyTypeList([]);
       return;
     }
-    const result = await ApiData(locale).GetPenaltyTypesListByPenltyId(
-      id,
-      data.employeeId
-    );
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      elementId: result.elementId,
-      elementName: result.elementName,
-      penaltyDetailId: result.selected.penaltyDetailId,
-      penaltyTypeId: result.selected.id,
-      penaltyTypeName: result.selected.name,
-      value: result.selected.value,
-    }));
-    setPenaltyTypeList(result.penaltyTypeList);
+    try {
+      setIsLoading(true);
+      const result = await ApiData(locale).GetPenaltyTypesListByPenltyId(
+        id,
+        data.employeeId
+      );
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        elementId: result.elementId,
+        elementName: result.elementName,
+        penaltyDetailId: result.selected.penaltyDetailId,
+        penaltyTypeId: result.selected.id,
+        penaltyTypeName: result.selected.name,
+        value: result.selected.value,
+      }));
+      setPenaltyTypeList(result.penaltyTypeList);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
-    <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -174,8 +194,20 @@ function PenaltyTransCreate(props) {
             ? intl.formatMessage(messages.createRewardTitle)
             : intl.formatMessage(messages.updateRewardTitle)
         }
-        desc={''}
+        desc={""}
       >
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
@@ -184,10 +216,9 @@ function PenaltyTransCreate(props) {
                   label={intl.formatMessage(messages.date)}
                   value={data.date}
                   onChange={(date) => {
-                    
                     setdata((prevFilters) => ({
                       ...prevFilters,
-                      date: format(new Date(date), 'yyyy-MM-dd'),
+                      date: format(new Date(date), "yyyy-MM-dd"),
                     }));
                   }}
                   className={classes.field}
@@ -203,16 +234,16 @@ function PenaltyTransCreate(props) {
                 options={YearList}
                 value={{ id: data.yearId, name: data.yearName }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === '' || option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      yearId: value !== null?value.id:0,
-                      yearName: value !== null?value.name:'',
-                    }));
-                  }}
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    yearId: value !== null ? value.id : 0,
+                    yearName: value !== null ? value.name : "",
+                  }));
+                }}
                 renderInput={(params) => (
                   <TextField
                     variant="outlined"
@@ -230,17 +261,15 @@ function PenaltyTransCreate(props) {
                 options={MonthList}
                 value={{ id: data.monthId, name: data.monthName }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === '' || option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      monthId: value !== null?value.id:0,
-                      monthName: value !== null?value.name:'',
-                    }));
-                 
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    monthId: value !== null ? value.id : 0,
+                    monthName: value !== null ? value.name : "",
+                  }));
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -268,14 +297,13 @@ function PenaltyTransCreate(props) {
                           classes.iconSmall
                         )}
                       />
-                      {smUp && ' '} Upload
+                      {smUp && " "} Upload
                       <input
                         hidden
                         type="file"
                         name="file"
                         id="inputGroupFile"
                         onChange={(e) => {
-                          
                           setdata((prevFilters) => ({
                             ...prevFilters,
                             uploadedFile: e.target.files[0],
@@ -335,12 +363,10 @@ function PenaltyTransCreate(props) {
                         isSuper={true}
                       ></EmployeeData>
                     </Grid>
-
                   </Grid>
                 </CardContent>
               </Card>
             </Grid>
-            
 
             <Grid item xs={12} md={6}>
               <Autocomplete
@@ -348,18 +374,17 @@ function PenaltyTransCreate(props) {
                 options={PenaltyList}
                 value={{ id: data.penaltyId, name: data.penaltyName }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === '' || option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      penaltyId: value !== null?value.id:0,
-                      penaltyName: value !== null?value.name:'',
-                    }));
-                    getPenaltyData(value !== null?value.id:0);
-                 }}
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    penaltyId: value !== null ? value.id : 0,
+                    penaltyName: value !== null ? value.name : "",
+                  }));
+                  getPenaltyData(value !== null ? value.id : 0);
+                }}
                 renderInput={(params) => (
                   <TextField
                     variant="outlined"
@@ -393,20 +418,18 @@ function PenaltyTransCreate(props) {
                 }}
                 isOptionEqualToValue={(option, value) =>
                   value.penaltyDetailId === 0 ||
-                  value.penaltyDetailId === '' ||
+                  value.penaltyDetailId === "" ||
                   option.penaltyDetailId === value.penaltyDetailId
                 }
-                getOptionLabel={(option) => (option.name ? option.name : '')}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      penaltyTypeId: value !== null?value.id:0,
-                      penaltyTypeName:value !== null? value.name:'',
-                      penaltyDetailId: value.penaltyDetailId,
-                      value: value !== null?value.value:'',
-                    }));
-                  
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    penaltyTypeId: value !== null ? value.id : 0,
+                    penaltyTypeName: value !== null ? value.name : "",
+                    penaltyDetailId: value.penaltyDetailId,
+                    value: value !== null ? value.value : "",
+                  }));
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -446,7 +469,7 @@ function PenaltyTransCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={1}>
-              <SaveButton Id={id} processing={processing} />
+              <SaveButton Id={id} />
             </Grid>
             <Grid item xs={12} md={1}>
               <Button
@@ -461,7 +484,7 @@ function PenaltyTransCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </div>
+    </Box>
   );
 }
 PenaltyTransCreate.propTypes = {

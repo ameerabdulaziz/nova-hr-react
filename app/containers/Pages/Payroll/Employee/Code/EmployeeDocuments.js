@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
 import brand from "enl-api/dummy/brand";
 import { injectIntl } from "react-intl";
 import EmployeeDocumentsData from "../api/EmployeeDocumentsData";
@@ -7,7 +6,6 @@ import MUIDataTable from "mui-datatables";
 import messages from "../messages";
 import useStyles from "../../Style";
 import { useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
 import style from "../../../../../styles/styles.scss";
 import AlertPopup from "../../Component/AlertPopup";
 import GeneralListApis from "../../api/GeneralListApis";
@@ -20,27 +18,32 @@ import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
+import { useLocation } from "react-router-dom";
+import Payrollmessages from "../../messages";
 
 function EmployeeDocuments({ intl }) {
-  const title = brand.name + " - EmployeeDocuments";
-  const description = brand.desc;
+  const Title = localStorage.getItem("MenuName");
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const history = useHistory();
   const [dataTable, setDataTable] = useState([]);
   const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [processing, setProcessing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [employee, setEmployee] = useState("");
   const [employeeList, setEmployeeList] = useState([]);
   const { state } = useLocation();
   const employeeID = state?.employeeId;
+  const [deleteItem, setDeleteItem] = useState("");
 
   const getdata = async () => {
-    const employees = await GeneralListApis(locale).GetEmployeeList(locale);
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList(locale);
 
-    setEmployeeList(employees);
+      setEmployeeList(employees);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -125,18 +128,19 @@ function EmployeeDocuments({ intl }) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: true,
     selectableRows: "none",
     customToolbar: () => (
-      <div className={style.customToolbarBtn}>
+      <span>
         <AddButton
           url={"/app/Pages/Employee/EmployeeDocumentsCreate"}
           param={{ employeeId: employee }}
           disabled={employee ? false : true}
         ></AddButton>
-      </div>
+      </span>
     ),
   };
 
@@ -150,9 +154,8 @@ function EmployeeDocuments({ intl }) {
   };
 
   const DeleteFun = async () => {
-    setSubmitting(true);
-    setProcessing(true);
     try {
+      setIsLoading(true);
       let response = await EmployeeDocumentsData().Delete(deleteItem);
 
       if (response.status == 200) {
@@ -161,120 +164,123 @@ function EmployeeDocuments({ intl }) {
       } else {
         toast.error(response.statusText);
       }
-
-      setSubmitting(false);
-      setProcessing(false);
+      setIsLoading(false);
     } catch (err) {
-      toast.error(notif.error);
-      setSubmitting(false);
-      setProcessing(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const employeeChangeFun = async (id) => {
     if (id) {
-      const data = await EmployeeDocumentsData().GetList(id, locale);
+      try {
+        setIsLoading(true);
+        const data = await EmployeeDocumentsData().GetList(id, locale);
 
-      let newData = data.map((items) => {
-        Object.keys(items).forEach((val) => {
-          // this used to convert boolean values to string  until table can read the values
-          if (typeof items[val] == "boolean") {
-            items[val] = String(items[val]);
-          }
+        let newData = data.map((items) => {
+          Object.keys(items).forEach((val) => {
+            // this used to convert boolean values to string  until table can read the values
+            if (typeof items[val] == "boolean") {
+              items[val] = String(items[val]);
+            }
 
-          // used to make table read date Data as a date
-          if (
-            val === "startDate" ||
-            val === "endDate" ||
-            val === "followDate"
-          ) {
-            items[val] = new Date(items[val]).toLocaleDateString();
-          }
+            // used to make table read date Data as a date
+            if (
+              val === "startDate" ||
+              val === "endDate" ||
+              val === "followDate"
+            ) {
+              items[val] = new Date(items[val]).toLocaleDateString();
+            }
+          });
+          return items;
         });
-        return items;
-      });
 
-      setDataTable(newData);
+        setDataTable(newData);
+      } catch (err) {
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
   return (
-    <div>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
-      <div className={classes.root}>
-        <PapperBlock
-          whiteBg
-          icon="border_color"
-          title={intl.formatMessage(messages.EmployeeDocuments)}
-          desc=""
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
         >
-          <Grid container spacing={1} alignItems="flex-start" direction="row">
-            <Grid item xs={1} sm={6}>
-              <Autocomplete
-                id="ddlEmp"
-                options={employeeList}
-                value={
-                  employee
-                    ? employeeList.find((item) => item.id === employee)
-                    : null
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Grid container spacing={1} alignItems="flex-start" direction="row">
+          <Grid item xs={1} sm={6}>
+            <Autocomplete
+              id="ddlEmp"
+              options={employeeList}
+              value={
+                employee
+                  ? employeeList.find((item) => item.id === employee)
+                  : null
+              }
+              getOptionLabel={(option) => (option ? option.name : "")}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.id}>
+                    {option.name}
+                  </li>
+                );
+              }}
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setEmployee(value.id);
+                } else {
+                  setEmployee(0);
                 }
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option.id}>
-                      {option.name}
-                    </li>
-                  );
-                }}
-                onChange={(event, value) => {
-                  if (value !== null) {
-                    setEmployee(value.id);
-                  } else {
-                    setEmployee(0);
-                  }
-                  employeeChangeFun(value !== null ? value.id : null);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="employee"
-                    value={employee}
-                    label={intl.formatMessage(messages.chooseEmp)}
-                    margin="normal"
-                  />
-                )}
-              />
-            </Grid>
-          </Grid>
-
-          <div className={classes.CustomMUIDataTable}>
-            <MUIDataTable
-              data={dataTable}
-              columns={columns}
-              options={options}
-              className={style.tableSty}
+                employeeChangeFun(value !== null ? value.id : null);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  name="employee"
+                  value={employee}
+                  label={intl.formatMessage(messages.chooseEmp)}
+                  margin="normal"
+                />
+              )}
             />
-          </div>
-        </PapperBlock>
+          </Grid>
+        </Grid>
+      </PapperBlock>
+      <div className={classes.CustomMUIDataTable}>
+        <MUIDataTable
+          data={dataTable}
+          columns={columns}
+          options={options}
+          className={style.tableSty}
+        />
       </div>
 
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${deleteItem[1]}`}
+        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${
+          deleteItem[1]
+        }`}
         callFun={DeleteFun}
-        submitting={submitting}
-        processing={processing}
       />
-    </div>
+    </Box>
   );
 }
 

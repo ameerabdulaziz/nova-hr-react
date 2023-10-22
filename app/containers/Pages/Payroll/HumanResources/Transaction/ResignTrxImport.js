@@ -16,6 +16,7 @@ import ApiData from "../api/ResignTrxData";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { read, utils } from "xlsx";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function ResignTrxImport({ intl }) {
   const { classes, cx } = useStyles();
@@ -26,6 +27,7 @@ function ResignTrxImport({ intl }) {
   const [fileTitle, setFileTitle] = useState("");
   const [file, setFile] = useState("");
   const Title = localStorage.getItem("MenuName");
+  const [isLoading, setIsLoading] = useState(false);
   let columns = [];
 
   const handleImport = ($event) => {
@@ -60,6 +62,7 @@ function ResignTrxImport({ intl }) {
 
   const submitFun = async (e) => {
     try {
+      setIsLoading(true);
       let response = await ApiData(locale).SaveList(fileData);
 
       if (response.status == 200) {
@@ -69,7 +72,8 @@ function ResignTrxImport({ intl }) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.response.data);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,15 +92,33 @@ function ResignTrxImport({ intl }) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     selectableRowsHeader: false,
-    selectableRows: "none",
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+
         <div className={`${classes.root} ${classes2.btnsContainer}`}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.spacer} />
@@ -187,7 +209,7 @@ function ResignTrxImport({ intl }) {
           )}
         </div>
       </PapperBlock>
-    </div>
+    </Box>
   );
 }
 

@@ -57,7 +57,6 @@ function EmpCourseReport(props) {
 
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +67,6 @@ function EmpCourseReport(props) {
       const Courses = await GeneralListApis(locale).GetCourseList();
       setCourseList(Courses);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -134,7 +132,9 @@ function EmpCourseReport(props) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     onSearchClose: () => {

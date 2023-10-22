@@ -105,7 +105,7 @@ function AttentionList(props) {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
+          
           return (
             <div className={style.actionsSty}>
               <EditButton

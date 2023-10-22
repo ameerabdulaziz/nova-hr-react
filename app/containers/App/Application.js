@@ -886,20 +886,7 @@ function Application(props) {
         <Route path='/app/maps/map-traffic' component={TrafficIndicator} />
         <Route path='/app/maps/street-view' component={StreetViewMap} />
 
-        {/* Req */}
-
-        <Route
-          path='/app/Pages/Request/PermissionsCreate'
-          component={CreatePermission}
-        />
-
-        <Route
-          path='/app/Pages/Request/PermissionsEdit'
-          component={EditPermission}
-        />
-
-        <Route path='/app/Pages/Request/Permissions' component={Permissions} />
-
+       
         {/* Vacations */}
 
         <Route

@@ -52,7 +52,6 @@ function CustodyReceiveList(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -62,7 +61,6 @@ function CustodyReceiveList(props) {
       const dataApi = await ApiData(locale).GetList(2);
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }

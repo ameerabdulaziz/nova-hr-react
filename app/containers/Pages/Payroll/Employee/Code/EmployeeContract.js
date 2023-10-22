@@ -1,53 +1,43 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { toast } from 'react-hot-toast';
-import notif from 'enl-api/ui/notifMessage';
-import { useSelector } from 'react-redux';
-import GeneralListApis from '../../api/GeneralListApis';
-import { Autocomplete } from '@mui/material';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import messages from '../messages';
-import Payrollmessages from '../../messages';
-import useStyles from '../../Style';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import EmployeeContractData from '../api/EmployeeContractData';
-import CircularProgress from '@mui/material/CircularProgress';
-import LinearProgress from '@mui/material/LinearProgress';
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
+import React, { useState, useEffect, useCallback } from "react";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { toast } from "react-hot-toast";
+import notif from "enl-api/ui/notifMessage";
+import { useSelector } from "react-redux";
+import GeneralListApis from "../../api/GeneralListApis";
+import { Autocomplete } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import messages from "../messages";
+import Payrollmessages from "../../messages";
+import useStyles from "../../Style";
+import { injectIntl, FormattedMessage } from "react-intl";
+import EmployeeContractData from "../api/EmployeeContractData";
+import { useLocation } from "react-router-dom";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { format } from "date-fns";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 function EmployeeContract(props) {
   const { intl, pristine } = props;
-  const [processing, setprocessing] = useState(false);
-  const [delprocessing, setdelprocessing] = useState(false);
-  const history = useHistory();
+
   const location = useLocation();
-  const { empid } = location.state ?? { id: 0, name: '' };
+  const { empid } = location.state ?? { id: 0, name: "" };
   const { classes } = useStyles();
-  const title = localStorage.getItem('MenuName');
-  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
+  const title = localStorage.getItem("MenuName");
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
   const [id, setid] = useState(0);
-  const [hiringDate, sethiringDate] = useState('');
   const [isKinship, setisKinship] = useState(false);
   const [notHasMission, setnotHasMission] = useState(false);
   const [hasAlternativeEmp, sethasAlternativeEmp] = useState(false);
-  const [contractStartDate, setcontractStartDate] = useState('');
-  const [contractEndDate, setcontractEndDate] = useState('');
-
-  const [jobId, setjobId] = useState({});
-  const [jobList, setjobList] = useState([]);
-
-  const [jobLevelId, setjobLevelId] = useState({});
-  const [jobLevelList, setjobLevelList] = useState([]);
+  const [contractStartDate, setcontractStartDate] = useState("");
+  const [contractEndDate, setcontractEndDate] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const [hiringSourceId, sethiringSourceId] = useState({});
   const [hiringSourceList, sethiringSourceList] = useState([]);
@@ -61,32 +51,27 @@ function EmployeeContract(props) {
   const [contractTypeId, setcontractTypeId] = useState({});
   const [contractTypeList, setcontractTypeList] = useState([]);
 
-  const [ruleTemplateId, setruleTemplateId] = useState({});
-  const [ruleTemplateList, setruleTemplateList] = useState([]);
-
   const [employeeList, setemployeeList] = useState([]);
 
   const locale = useSelector((state) => state.language.locale);
 
-  const [progress, setProgress] = useState(false);
   const [required, setRequired] = useState({ required: false });
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setprocessing(true);
+      setIsLoading(true);
 
-      
       const data = {
         id: id,
         employeeId: employee.id,
 
-        hiringSourceId: hiringSourceId.id ?? '',
+        hiringSourceId: hiringSourceId.id ?? "",
         isKinship: isKinship,
-        kinshipLinkId: kinshipLinkId.id ?? '',
-        kinshipEmpId: kinshipEmpId.id ?? '',
+        kinshipLinkId: kinshipLinkId.id ?? "",
+        kinshipEmpId: kinshipEmpId.id ?? "",
         hasAlternativeEmp: hasAlternativeEmp,
-        contractTypeId: contractTypeId.id ?? '',
+        contractTypeId: contractTypeId.id ?? "",
         contractStartDate: contractStartDate,
         contractEndDate: contractEndDate,
         notHasMission: notHasMission,
@@ -100,16 +85,13 @@ function EmployeeContract(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
-    setprocessing(false);
   };
   const deletedata = async (e) => {
     try {
-      
-      // e.preventDefault();
-
-      setdelprocessing(true);
+      setIsLoading(true);
       const dataApi = await EmployeeContractData(locale).Delete(id);
       if (dataApi.status == 200) {
         clear();
@@ -118,9 +100,9 @@ function EmployeeContract(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
-    setdelprocessing(false);
   };
   const clear = (e) => {
     setid(0);
@@ -130,13 +112,12 @@ function EmployeeContract(props) {
     setkinshipEmpId({});
     sethasAlternativeEmp(false);
     setcontractTypeId({});
-    setcontractStartDate(format(new Date(), 'yyyy-MM-dd'));
-    setcontractEndDate(format(new Date(), 'yyyy-MM-dd'));
+    setcontractStartDate(format(new Date(), "yyyy-MM-dd"));
+    setcontractEndDate(format(new Date(), "yyyy-MM-dd"));
     setnotHasMission(false);
   };
   const GetLookup = useCallback(async () => {
     try {
-      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setemployeeList(employeedata || []);
       setkinshipEmpList(employeedata || []);
@@ -157,50 +138,71 @@ function EmployeeContract(props) {
 
       //  const kinshipEmpdata = await GeneralListApis(locale).GetEmployeeList();
     } catch (err) {
-      toast.error(err);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
+
   useEffect(() => {
     GetLookup();
   }, []);
 
   useEffect(() => {
     async function fetchData() {
-      setProgress(true);
-      const dataApi = await EmployeeContractData(locale).GetList(employee.id);
-      
-      if (dataApi.length > 0) {
-        setid(dataApi[0].id);
+      try {
+        setIsLoading(true);
+        const dataApi = await EmployeeContractData(locale).GetList(employee.id);
 
-        sethiringSourceId({
-          id: dataApi[0].hiringSourceId,
-          name: dataApi[0].hiringSourceName,
-        });
-        setisKinship(dataApi[0].isKinship);
-        setkinshipLinkId({
-          id: dataApi[0].kinshipLinkId,
-          name: dataApi[0].kinshipLinkName,
-        });
-        setkinshipEmpId({
-          id: dataApi[0].kinshipEmpId,
-          name: dataApi[0].kinshipEmpName,
-        });
-        sethasAlternativeEmp(dataApi[0].hasAlternativeEmp);
-        setcontractTypeId({
-          id: dataApi[0].contractTypeId,
-          name: dataApi[0].contractTypeName,
-        });
-        setcontractStartDate(dataApi[0].contractStartDate);
-        setcontractEndDate(dataApi[0].contractEndDate);
-        setnotHasMission(dataApi[0].notHasMission);
-      } else clear();
+        if (dataApi.length > 0) {
+          setid(dataApi[0].id);
 
-      setProgress(false);
+          sethiringSourceId({
+            id: dataApi[0].hiringSourceId,
+            name: dataApi[0].hiringSourceName,
+          });
+          setisKinship(dataApi[0].isKinship);
+          setkinshipLinkId({
+            id: dataApi[0].kinshipLinkId,
+            name: dataApi[0].kinshipLinkName,
+          });
+          setkinshipEmpId({
+            id: dataApi[0].kinshipEmpId,
+            name: dataApi[0].kinshipEmpName,
+          });
+          sethasAlternativeEmp(dataApi[0].hasAlternativeEmp);
+          setcontractTypeId({
+            id: dataApi[0].contractTypeId,
+            name: dataApi[0].contractTypeName,
+          });
+          setcontractStartDate(dataApi[0].contractStartDate);
+          setcontractEndDate(dataApi[0].contractEndDate);
+          setnotHasMission(dataApi[0].notHasMission);
+        } else clear();
+      } catch (e) {
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchData();
   }, [employee]);
   return (
-    <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <Backdrop
+        sx={{
+          color: "primary.main",
+          zIndex: 10,
+          position: "absolute",
+          backgroundColor: "rgba(255, 255, 255, 0.69)",
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid
         container
         spacing={3}
@@ -219,16 +221,14 @@ function EmployeeContract(props) {
               options={employeeList}
               value={{ id: employee.id, name: employee.name }}
               isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === '' || option.id === value.id
+                value.id === 0 || value.id === "" || option.id === value.id
               }
-              getOptionLabel={(option) => (option.name ? option.name : '')}
+              getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                
-                  setEmployee({
-                    id: value !== null?value.id:0,
-                    name: value !== null?value.name:'',
-                  });
-                
+                setEmployee({
+                  id: value !== null ? value.id : 0,
+                  name: value !== null ? value.name : "",
+                });
               }}
               renderInput={(params) => (
                 <TextField
@@ -241,15 +241,7 @@ function EmployeeContract(props) {
                 />
               )}
             />
-            {progress && (
-              <div>
-                {' '}
-                <LinearProgress />
-                <br />
-                <LinearProgress color="secondary" />
-                <br />
-              </div>
-            )}
+
             <form onSubmit={handleSubmit}>
               <br />
 
@@ -262,14 +254,12 @@ function EmployeeContract(props) {
                     id: hiringSourceId.id,
                     name: hiringSourceId.name,
                   }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
-                    
-                      sethiringSourceId({
-                        id: value !== null?value.id:0,
-                        name: value !== null?value.name:"",
-                      });
-                    
+                    sethiringSourceId({
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : "",
+                    });
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -311,14 +301,12 @@ function EmployeeContract(props) {
                     name: kinshipLinkId.name,
                   }}
                   {...required}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
-                    
-                      setkinshipLinkId({
-                        id: value !== null?value.id:0,
-                        name: value !== null?value.name:'',
-                      });
-                    
+                    setkinshipLinkId({
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : "",
+                    });
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -342,14 +330,12 @@ function EmployeeContract(props) {
                     id: kinshipEmpId.id,
                     name: kinshipEmpId.name,
                   }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
-                    
-                      setkinshipEmpId({
-                        id: value !== null?value.id:0,
-                        name: value !== null?value.name:'',
-                      });
-                   
+                    setkinshipEmpId({
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : "",
+                    });
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -387,14 +373,12 @@ function EmployeeContract(props) {
                     id: contractTypeId.id,
                     name: contractTypeId.name,
                   }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
-                    
-                      setcontractTypeId({
-                        id: value !== null?value.id:0,
-                        name: value !== null?value.name:'',
-                      });
-                    
+                    setcontractTypeId({
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : "",
+                    });
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -415,9 +399,8 @@ function EmployeeContract(props) {
                     label={intl.formatMessage(messages.contractStartDate)}
                     value={contractStartDate}
                     onChange={(date) => {
-                      
                       setcontractStartDate(
-                        format(new Date(date), 'yyyy-MM-dd')
+                        format(new Date(date), "yyyy-MM-dd")
                       );
                     }}
                     className={classes.field}
@@ -434,8 +417,7 @@ function EmployeeContract(props) {
                     label={intl.formatMessage(messages.contractEndDate)}
                     value={contractEndDate}
                     onChange={(date) => {
-                      
-                      setcontractEndDate(format(new Date(date), 'yyyy-MM-dd'));
+                      setcontractEndDate(format(new Date(date), "yyyy-MM-dd"));
                     }}
                     className={classes.field}
                     renderInput={(params) => (
@@ -466,27 +448,15 @@ function EmployeeContract(props) {
                   variant="contained"
                   color="secondary"
                   type="submit"
-                  disabled={employee.id === 0 || processing || delprocessing}
+                  disabled={employee.id === 0}
                 >
-                  {processing && (
-                    <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                  )}
                   <FormattedMessage {...Payrollmessages.save} />
                 </Button>
                 <Button
                   type="button"
-                  disabled={employee.id === 0 || pristine || processing}
+                  disabled={employee.id === 0 || pristine}
                   onClick={() => deletedata()}
                 >
-                  {delprocessing && (
-                    <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                  )}
                   <FormattedMessage {...Payrollmessages.delete} />
                 </Button>
               </div>
@@ -494,7 +464,7 @@ function EmployeeContract(props) {
           </Paper>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }
 export default injectIntl(EmployeeContract);

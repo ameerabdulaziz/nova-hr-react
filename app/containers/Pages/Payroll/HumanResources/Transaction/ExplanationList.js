@@ -43,7 +43,6 @@ function ExplanationList(props) {
       );
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -66,7 +65,6 @@ function ExplanationList(props) {
       );
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }

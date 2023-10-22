@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import GeneralListApis from '../api/GeneralListApis';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { Backdrop, CircularProgress, Box } from "@mui/material";
 
 
 
@@ -20,8 +21,8 @@ function NewIdea(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { classes } = useStyles();
-  const Title = localStorage.getItem("MenuName");
-  
+  const Title = localStorage.getItem("MenuName");  
+  const [isLoading, setIsLoading] = useState(false);  
   const [EmployeeList, setEmployeeList] = useState([]);
   const [TypeList, setTypeList] = useState([]);
   const [data, setdata] = useState({
@@ -34,13 +35,12 @@ function NewIdea(props) {
     "directedToName":"",
     "meetingReq":false,
   });
-  const history=useHistory();  
 
   const handleSubmit = async (e) => {
     
     e.preventDefault();   
     try{
-        
+        setIsLoading(true);
       let response = await  ApiData(locale).SaveEnquiry(data);
 
       if (response.status==200) {
@@ -59,8 +59,8 @@ function NewIdea(props) {
           toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.response.data);
     }
+    finally {setIsLoading(false);}
   }
   async function oncancel(){
     setdata({
@@ -86,8 +86,24 @@ function NewIdea(props) {
     fetchData();
   }, []);
   return (
-    <div>
-        <PapperBlock whiteBg icon="border_color" title={Title} desc={""}>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <form onSubmit={handleSubmit}>
             <Grid
                 container
@@ -209,7 +225,7 @@ function NewIdea(props) {
         </form>
         </PapperBlock>
     
-    </div>
+    </Box>
   );
 }
 NewIdea.propTypes = {

@@ -49,7 +49,6 @@ function NewsList(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -60,7 +59,6 @@ function NewsList(props) {
       const dataApi = await ApiData(locale).GetList();
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }

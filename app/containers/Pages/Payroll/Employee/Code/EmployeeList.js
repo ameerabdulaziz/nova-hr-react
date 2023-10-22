@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { injectIntl, FormattedMessage } from "react-intl";
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import MUIDataTable from 'mui-datatables';
 import ApiData from '../api/PersonalData';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CheckBox, IndeterminateCheckBoxRounded } from '@mui/icons-material';
 import messages from '../messages';
-import { FormattedMessage } from 'react-intl';
 import style from '../../../../../styles/styles.scss';
 import useStyles from '../../Style';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -17,8 +17,13 @@ import DeleteButton from '../../Component/DeleteButton';
 import AddButton from '../../Component/AddButton';
 import notif from 'enl-api/ui/notifMessage';
 import { toast } from 'react-hot-toast';
+import { Backdrop, CircularProgress, Box } from "@mui/material";
+import AlertPopup from "../../Component/AlertPopup";
+import Payrollmessages from "../../messages";
+import { PapperBlock } from "enl-components";
 
-function EmployeeList() {
+function EmployeeList(props) {
+  const { intl } = props;
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
@@ -26,7 +31,20 @@ function EmployeeList() {
   const handleClickOpt = (event) => setAnchorElOpt(event.currentTarget);
   const handleCloseOpt = () => setAnchorElOpt(null);
   const [employeeid, setemployeeid] = useState({});
-  const title = localStorage.getItem('MenuName');
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [deleteItem, setDeleteItem] = useState("");
+  const [isLoading, setIsLoading] = useState(true);  
+  const Title = localStorage.getItem("MenuName");
+
+  const handleClickOpen = (item) => {
+    debugger;
+    setOpenParentPopup(true);
+    setDeleteItem(item);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
 
   const optionsOpt = [
     { name: 'Personal', url: 'Personal' },
@@ -43,15 +61,20 @@ function EmployeeList() {
   ];
 
   async function fetchData() {
+    try {
     const dataApi = await ApiData(locale).GetList();
     setdata(dataApi);
+    } catch (err) {}
+    finally {setIsLoading(false);}
   }
   useEffect(() => {
     fetchData();
   }, []);
-  async function deleterow(id) {
+
+  async function deleterow() {
     try {
-      let response = await ApiData(locale).Delete(id);
+      setIsLoading(true);
+      let response = await ApiData(locale).Delete(deleteItem);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -60,8 +83,9 @@ function EmployeeList() {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+      
     }
+    finally {setIsLoading(false);}
   }
   const columns = [
     {
@@ -148,7 +172,7 @@ function EmployeeList() {
           return (
             <div className={style.actionsSty}>
               <DeleteButton
-                clickfnc={() => deleterow(tableMeta.rowData[0])}
+                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
               ></DeleteButton>
 
               <IconButton
@@ -205,7 +229,8 @@ function EmployeeList() {
     filterType: 'dropdown',
     responsive: 'vertical',
     print: true,
-    rowsPerPage: 100,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: true,
     selectableRows: 'none',
@@ -215,20 +240,56 @@ function EmployeeList() {
     customToolbar: () => (
       <AddButton url={'/app/Pages/Employee/Personal'}></AddButton>
     ),
+    textLabels: {
+      body: {
+        noMatch: isLoading
+          ? intl.formatMessage(Payrollmessages.loading)
+          : intl.formatMessage(Payrollmessages.noMatchingRecord),
+      },
+    },
   };
 
   const { classes } = useStyles();
 
   return (
+    <Box
+    sx={{
+      zIndex: 100,
+      position: "relative",
+    }}
+  >
+    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+      <Backdrop
+        sx={{
+          color: "primary.main",
+          zIndex: 10,
+          position: "absolute",
+          backgroundColor: "rgba(255, 255, 255, 0.69)",
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     <div className={classes.CustomMUIDataTable}>
       <MUIDataTable
-        title={title ?? ''}
+        title={""}
         data={data}
         columns={columns}
         options={options}
       />
     </div>
+    <AlertPopup
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(
+            Payrollmessages.deleteMessage
+          )}${deleteItem}`}
+          callFun={deleterow}
+        />
+    </PapperBlock>
+    </Box>
   );
 }
 
-export default EmployeeList;
+
+export default injectIntl(EmployeeList);

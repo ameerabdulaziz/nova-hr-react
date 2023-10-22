@@ -72,7 +72,6 @@ function ResignTrxReport(props) {
 
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +82,6 @@ function ResignTrxReport(props) {
       const resigns = await GeneralListApis(locale).GetResignReasonList(locale);
       setResignList(resigns);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -174,7 +172,9 @@ function ResignTrxReport(props) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     onSearchClose: () => {

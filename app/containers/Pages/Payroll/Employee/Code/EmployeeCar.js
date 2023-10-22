@@ -1,43 +1,38 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import EmployeeCarData from '../api/EmployeeCarData';
-import { toast } from 'react-hot-toast';
-import notif from 'enl-api/ui/notifMessage';
-import { useSelector, useDispatch } from 'react-redux';
-import GeneralListApis from '../../api/GeneralListApis';
-import { Autocomplete } from '@mui/material';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import useStyles from '../../Style';
-import messages from '../messages';
-import Payrollmessages from '../../messages';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import CircularProgress from '@mui/material/CircularProgress';
-import LinearProgress from '@mui/material/LinearProgress';
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import EmployeeCarData from "../api/EmployeeCarData";
+import { toast } from "react-hot-toast";
+import notif from "enl-api/ui/notifMessage";
+import { useSelector } from "react-redux";
+import GeneralListApis from "../../api/GeneralListApis";
+import { Autocomplete } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import useStyles from "../../Style";
+import messages from "../messages";
+import Payrollmessages from "../../messages";
+import { injectIntl, FormattedMessage } from "react-intl";
+import { useLocation } from "react-router-dom";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
+
 function EmployeeCar(props) {
   const { intl, pristine } = props;
-  const history = useHistory();
   const location = useLocation();
-  const { empid } = location.state ?? { id: 0, name: '' };
-  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
-  
-  const [processing, setprocessing] = useState(false);
-  const [delprocessing, setdelprocessing] = useState(false);
-  const [progress, setProgress] = useState(false);
-  const title = localStorage.getItem('MenuName');
+  const { empid } = location.state ?? { id: 0, name: "" };
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
+  const [isLoading, setIsLoading] = useState(true);
+  const title = localStorage.getItem("MenuName");
   const [id, setid] = useState();
-  const [carModel, setcarModel] = useState('');
-  const [manufactureYear, setmanufactureYear] = useState('');
-  const [licenseNo, setlicenseNo] = useState('');
-  const [trafficUnit, settrafficUnit] = useState('');
+  const [carModel, setcarModel] = useState("");
+  const [manufactureYear, setmanufactureYear] = useState("");
+  const [licenseNo, setlicenseNo] = useState("");
+  const [trafficUnit, settrafficUnit] = useState("");
   const [hasLicense, sethasLicense] = useState(false);
-  const [licenseGradeId, setlicenseGradeId] = useState({ id: 0, name: '' });
+  const [licenseGradeId, setlicenseGradeId] = useState({ id: 0, name: "" });
   const [gradelist, setgradelist] = useState([]);
   const [employeeList, setemployeeList] = useState([]);
   const [required, setRequired] = useState({ required: false });
@@ -50,8 +45,8 @@ function EmployeeCar(props) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setprocessing(true);
-      
+      setIsLoading(true);
+
       const data = {
         id: id,
         employeeId: employee.id,
@@ -60,7 +55,7 @@ function EmployeeCar(props) {
         licenseNo: licenseNo,
         trafficUnit: trafficUnit,
         hasLicense: hasLicense,
-        licenseGradeId: licenseGradeId.id ?? '',
+        licenseGradeId: licenseGradeId.id ?? "",
       };
 
       const dataApi = await EmployeeCarData().Save(data);
@@ -69,16 +64,15 @@ function EmployeeCar(props) {
 
         toast.success(notif.saved);
       } else {
-        toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
-    setprocessing(false);
   };
   const deletedata = async (e) => {
     try {
-      setdelprocessing(true);
+      setIsLoading(true);
       const dataApi = await EmployeeCarData().Delete(id);
       if (dataApi.status == 200) {
         clear();
@@ -87,33 +81,33 @@ function EmployeeCar(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
+    } finally {
+      setIsLoading(false);
     }
-    setdelprocessing(false);
   };
   const clear = (e) => {
     setid(0);
-    setlicenseNo('');
-    setlicenseGradeId({ id: 0, name: '' });
+    setlicenseNo("");
+    setlicenseGradeId({ id: 0, name: "" });
     sethasLicense(false);
-    setcarModel('');
-    setmanufactureYear('');
-    settrafficUnit('');
+    setcarModel("");
+    setmanufactureYear("");
+    settrafficUnit("");
     // setgradelist();
   };
   const GetLookup = useCallback(async () => {
     try {
-      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setemployeeList(employeedata || []);
       const LicenseGradedata = await GeneralListApis(
         locale
       ).GetLicenseGradeList();
       setgradelist(LicenseGradedata || []);
-      
+
       //setEmployee(empid);
     } catch (err) {
-      toast.error(err);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -123,34 +117,52 @@ function EmployeeCar(props) {
 
   useEffect(() => {
     async function fetchData() {
-      setProgress(true);
-      // You can await here
-      
-      const dataApi = await EmployeeCarData(locale).GetList(employee.id);
+      try {
+        setIsLoading(true);
+        const dataApi = await EmployeeCarData(locale).GetList(employee.id);
 
-      if (dataApi.length > 0) {
-        setid(dataApi[0].id);
-        settrafficUnit(dataApi[0].trafficUnit);
-        setlicenseNo(dataApi[0].licenseNo);
-        setmanufactureYear(dataApi[0].manufactureYear);
-        setcarModel(dataApi[0].carModel);
-        sethasLicense(dataApi[0].hasLicense);
-        setlicenseGradeId({
-          id: dataApi[0].licenseGradeId,
-          name: dataApi[0].gradeName,
-        });
-        // { id: 0, name: '' }
-        // setgradelist(dataApi[0].gradeList);
-      } else {
-        clear();
+        if (dataApi.length > 0) {
+          setid(dataApi[0].id);
+          settrafficUnit(dataApi[0].trafficUnit);
+          setlicenseNo(dataApi[0].licenseNo);
+          setmanufactureYear(dataApi[0].manufactureYear);
+          setcarModel(dataApi[0].carModel);
+          sethasLicense(dataApi[0].hasLicense);
+          setlicenseGradeId({
+            id: dataApi[0].licenseGradeId,
+            name: dataApi[0].gradeName,
+          });
+          // { id: 0, name: '' }
+          // setgradelist(dataApi[0].gradeList);
+        } else {
+          clear();
+        }
+      } catch (e) {
+      } finally {
+        setIsLoading(false);
       }
-      setProgress(false);
     }
     fetchData();
     // if (!data.length) { fetchData(); }
   }, [employee.id]);
   return (
-    <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <Backdrop
+        sx={{
+          color: "primary.main",
+          zIndex: 10,
+          position: "absolute",
+          backgroundColor: "rgba(255, 255, 255, 0.69)",
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid
         container
         spacing={3}
@@ -168,18 +180,15 @@ function EmployeeCar(props) {
               options={employeeList}
               value={{ id: employee.id, name: employee.name }}
               isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === '' || option.id === value.id
+                value.id === 0 || value.id === "" || option.id === value.id
               }
-              getOptionLabel={(option) => (option.name ? option.name : '')}
+              getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                
-                  setEmployee({
-                    id: value !== null?value.id:0,
-                    name: value !== null?value.name:'',
-                  });
-                
+                setEmployee({
+                  id: value !== null ? value.id : 0,
+                  name: value !== null ? value.name : "",
+                });
               }}
-             
               renderInput={(params) => (
                 <TextField
                   variant="standard"
@@ -191,15 +200,7 @@ function EmployeeCar(props) {
                 />
               )}
             />
-            {progress && (
-              <div>
-                {' '}
-                <LinearProgress />
-                <br />
-                <LinearProgress color="secondary" />
-                <br />
-              </div>
-            )}
+
             <form onSubmit={handleSubmit}>
               <div>
                 <TextField
@@ -284,16 +285,14 @@ function EmployeeCar(props) {
                   options={gradelist}
                   value={{ id: licenseGradeId.id, name: licenseGradeId.name }}
                   isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === '' || option.id === value.id
+                    value.id === 0 || value.id === "" || option.id === value.id
                   }
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
-                    
-                      setlicenseGradeId({
-                        id: value !== null?value.id:0,
-                        name: value !== null?value.name:'',
-                      });
-                    
+                    setlicenseGradeId({
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : "",
+                    });
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -314,27 +313,15 @@ function EmployeeCar(props) {
                   variant="contained"
                   color="secondary"
                   type="submit"
-                  disabled={employee.id === 0 || processing || delprocessing}
+                  disabled={employee.id === 0}
                 >
-                  {processing && (
-                    <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                  )}
                   <FormattedMessage {...Payrollmessages.save} />
                 </Button>
                 <Button
                   type="button"
-                  disabled={employee.id === 0 || pristine || processing}
+                  disabled={employee.id === 0 || pristine}
                   onClick={() => deletedata()}
                 >
-                  {delprocessing && (
-                    <CircularProgress
-                      size={24}
-                      className={classes.buttonProgress}
-                    />
-                  )}
                   <FormattedMessage {...Payrollmessages.delete} />
                 </Button>
               </div>
@@ -342,7 +329,7 @@ function EmployeeCar(props) {
           </Paper>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }
 

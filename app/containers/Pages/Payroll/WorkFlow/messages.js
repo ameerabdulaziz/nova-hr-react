@@ -29,6 +29,13 @@ export default defineMessages({
     id: `${scope}.actionType`,
     defaultMessage: 'actionType',
   },
-
+  workFlowCreateTitle:{
+    id: `${scope}.workFlowCreateTitle`,
+    defaultMessage: 'workFlowCreateTitle',
+  },
+  workFlowUpdateTitle:{
+    id: `${scope}.workFlowUpdateTitle`,
+    defaultMessage: 'workFlowUpdateTitle',
+  }
   
 });

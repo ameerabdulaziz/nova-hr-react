@@ -58,7 +58,6 @@ function EmployeeQualification(props) {
       const data = await UserMenuData().GetUserMenuLookup(locale);
       setEmployeeList(data.employees || []);
     } catch (err) {
-      toast.error(err);
     }
   }, []);
 

@@ -1130,6 +1130,9 @@
   "boilerplate.containers.Payroll.Workflow.nextStep": "المرحلة التالية",
   "boilerplate.containers.Payroll.Workflow.approval": "الموافقة",
   "boilerplate.containers.Payroll.Workflow.actionType": "القرار",
+  "boilerplate.containers.Payroll.Workflow.workFlowCreateTitle": "اضافة دورة عمل",
+  "boilerplate.containers.Payroll.Workflow.workFlowUpdateTitle": "تعديل دورة عمل",
+  
 
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.Employee.personal.employeename": "اسم الموظف",

@@ -63,7 +63,6 @@ function PenaltyTransReport(props) {
 
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -74,7 +73,6 @@ function PenaltyTransReport(props) {
       const penalties = await GeneralListApis(locale).GetPenaltyList(locale);
       setPenaltyList(penalties);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -182,7 +180,9 @@ function PenaltyTransReport(props) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     onSearchClose: () => {

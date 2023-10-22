@@ -1090,6 +1090,10 @@
   "boilerplate.containers.Payroll.Workflow.nextStep": "Next Step",
   "boilerplate.containers.Payroll.Workflow.approval": "Approval",
   "boilerplate.containers.Payroll.Workflow.actionType": "Action",
+  
+  "boilerplate.containers.Payroll.Workflow.workFlowCreateTitle": "Add WorkFlow",
+  "boilerplate.containers.Payroll.Workflow.workFlowUpdateTitle": "Upate WorkFlow",
+  
 
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "Employee Code",
   "boilerplate.containers.Payroll.Employee.personal.employeename": "Employee Name",

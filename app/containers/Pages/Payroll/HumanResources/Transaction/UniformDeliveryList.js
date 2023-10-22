@@ -50,7 +50,6 @@ function UniformDeliveryList(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -61,7 +60,6 @@ function UniformDeliveryList(props) {
       const dataApi = await ApiData(locale).GetList(1);
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }

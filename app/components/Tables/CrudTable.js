@@ -11,25 +11,25 @@ function CrudTable(props) {
     anchorTable,    
     dataInit,
     API,
-    IsNotSave,isNotAdd
+    IsNotSave,isNotAdd,setIsLoading
   } = props;
   
- console.log("CrudTable");
  const branch = 'crudTableDemo' ;
  const fetchData = useDispatch();
   const getdata =  async () => {
+    try {
     if(API)
     {
-      
-      const data =  await API.GetList(anchorTable);
-      
+      const data =  await API.GetList(anchorTable);      
       fetchData(fetchAction(data.finaldata?data.finaldata:data,
         data.anchorTable?data.anchorTable:anchorTable ,
-        branch));
-      
+        branch));      
     }
     else
       fetchData(fetchAction(dataInit,anchorTable?anchorTable:anchor, branch));
+  }
+  catch (e) {}
+  finally{setIsLoading(false)}
   };
   
   useEffect(() => {

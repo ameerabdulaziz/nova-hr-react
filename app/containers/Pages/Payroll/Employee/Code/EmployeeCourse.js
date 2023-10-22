@@ -39,7 +39,6 @@ function EmployeeCourse(props) {
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employeedata || []);
     } catch (err) {
-      toast.error(err);
     }
   }, []);
 
