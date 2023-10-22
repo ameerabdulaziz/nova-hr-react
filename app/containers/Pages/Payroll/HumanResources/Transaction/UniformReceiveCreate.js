@@ -19,8 +19,7 @@ import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 import EmployeeData from "../../Component/EmployeeData";
 import SaveButton from "../../Component/SaveButton";
-
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function UniformReceiveCreate(props) {
   const { intl } = props;
@@ -101,12 +100,7 @@ function UniformReceiveCreate(props) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -117,18 +111,6 @@ function UniformReceiveCreate(props) {
         }
         desc={""}
       >
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={2}>
@@ -236,7 +218,7 @@ function UniformReceiveCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 UniformReceiveCreate.propTypes = {

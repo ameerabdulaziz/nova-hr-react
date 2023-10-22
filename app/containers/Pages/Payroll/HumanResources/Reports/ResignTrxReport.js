@@ -6,10 +6,7 @@ import {
   Button,
   Grid,
   TextField,
-  Autocomplete,
-  Backdrop,
-  CircularProgress,
-  Box,
+  Autocomplete
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -18,12 +15,12 @@ import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
-import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import style from "../../../../../../app/styles/styles.scss";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function ResignTrxReport(props) {
   const { intl } = props;
@@ -189,30 +186,14 @@ function ResignTrxReport(props) {
     },
   };
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
+              setIsLoading={setIsLoading}
             ></Search>
           </Grid>
           <Grid item xs={12} md={4}>
@@ -259,7 +240,7 @@ function ResignTrxReport(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

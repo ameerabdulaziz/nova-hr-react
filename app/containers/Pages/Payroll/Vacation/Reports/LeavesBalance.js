@@ -141,6 +141,7 @@ function LeavesBalance(props) {
               setsearchData={setFormInfo}
               searchData={formInfo}
               notShowDate={true}
+              setIsLoading={setIsLoading}
             />
           </Grid>
 

@@ -21,7 +21,7 @@ function PromotionsReport(props) {
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchData, setsearchData] = useState({
     FromDate: null,
     ToDate: null,
@@ -141,6 +141,7 @@ function PromotionsReport(props) {
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
+              setIsLoading={setIsLoading}
             ></Search>
           </Grid>
           <Grid item xs={12} md={2}>

@@ -5,21 +5,21 @@ import {
   FormControlLabel,
   Grid,
   Stack,
-  TextField
-} from '@mui/material';
-import { format } from 'date-fns';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
-import React, { useEffect, useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import Search from '../../Component/Search';
-import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
-import payrollMessages from '../../messages';
-import API from '../api/LeaveTrxReportData';
-import messages from '../messages';
-import PayRollLoader from '../../Component/PayRollLoader';
+  TextField,
+} from "@mui/material";
+import { format } from "date-fns";
+import { PapperBlock } from "enl-components";
+import MUIDataTable from "mui-datatables";
+import React, { useEffect, useState } from "react";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import Search from "../../Component/Search";
+import useStyles from "../../Style";
+import GeneralListApis from "../../api/GeneralListApis";
+import payrollMessages from "../../messages";
+import API from "../api/LeaveTrxReportData";
+import messages from "../messages";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function LeaveTrxReport(props) {
   const { intl } = props;
@@ -31,94 +31,94 @@ function LeaveTrxReport(props) {
   const [VacationsList, setVacationsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const Title = localStorage.getItem('MenuName');
+  const Title = localStorage.getItem("MenuName");
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
     ToDate: null,
-    EmployeeId: '',
+    EmployeeId: "",
     EmpStatusId: 1,
-    OrganizationId: '',
+    OrganizationId: "",
     VacationId: [],
     InsertDate: false,
   });
 
   const columns = [
     {
-      name: 'id',
+      name: "id",
       options: {
         filter: false,
         display: false,
       },
     },
     {
-      name: 'organizationName',
+      name: "organizationName",
       label: <FormattedMessage {...messages.organization} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'employeeId',
+      name: "employeeId",
       label: <FormattedMessage {...messages.employeeId} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'employeeName',
+      name: "employeeName",
       label: <FormattedMessage {...messages.employeeName} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'hiringDate',
+      name: "hiringDate",
       label: <FormattedMessage {...messages.hiringDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {
-      name: 'vacationName',
+      name: "vacationName",
       label: <FormattedMessage {...messages.vacationName} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'fromDate',
+      name: "fromDate",
       label: <FormattedMessage {...messages.fromdate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {
-      name: 'toDate',
+      name: "toDate",
       label: <FormattedMessage {...messages.todate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {
-      name: 'daysCount',
+      name: "daysCount",
       label: <FormattedMessage {...messages.daysCount} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'dayEqual',
+      name: "dayEqual",
       label: <FormattedMessage {...messages.dayDeducedBy} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'trxDate',
+      name: "trxDate",
       label: <FormattedMessage {...messages.registrationDate} />,
       options: {
         filter: true,
@@ -127,14 +127,14 @@ function LeaveTrxReport(props) {
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
     rowsPerPage: 50,
     rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
-    selectableRows: 'none',
+    selectableRows: "none",
     serverSide: true,
     onSearchClose: () => {
       // some logic
@@ -159,7 +159,8 @@ function LeaveTrxReport(props) {
     }
   }
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
+  const formateDate = (date) =>
+    date ? format(new Date(date), "yyyy-MM-dd") : null;
 
   const fetchTableData = async () => {
     try {
@@ -171,7 +172,7 @@ function LeaveTrxReport(props) {
       formData.ToDate = formateDate(formData.ToDate);
 
       Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
+        formData[key] = formData[key] === null ? "" : formData[key];
       });
 
       const dataApi = await API(locale).GetReport(formData);
@@ -195,15 +196,19 @@ function LeaveTrxReport(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-            <Search setsearchData={setFormInfo} searchData={formInfo} />
+            <Search
+              setsearchData={setFormInfo}
+              searchData={formInfo}
+              setIsLoading={setIsLoading}
+            />
           </Grid>
 
           <Grid item xs={12} md={4}>
             <Autocomplete
-              id='vacationId'
+              id="vacationId"
               options={VacationsList}
               multiple
               getOptionLabel={(option) => option.name}
@@ -214,16 +219,16 @@ function LeaveTrxReport(props) {
                 }));
               }}
               sx={{
-                '.MuiInputBase-root': {
-                  paddingTop: '8px',
-                  paddingBottom: '8px',
+                ".MuiInputBase-root": {
+                  paddingTop: "8px",
+                  paddingBottom: "8px",
                 },
               }}
               renderInput={(params) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   {...params}
-                  name='VacationId'
+                  name="VacationId"
                   required
                   label={intl.formatMessage(messages.vacationType)}
                 />
@@ -233,25 +238,26 @@ function LeaveTrxReport(props) {
 
           <Grid item md={5}>
             <Stack
-              direction='row'
-              alignItems='center'
-              justifyContent='space-between'
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
             >
               <FormControlLabel
                 control={<Checkbox />}
-                onChange={(evt) => setFormInfo((prev) => ({
-                  ...prev,
-                  InsertDate: evt.target.checked,
-                }))
+                onChange={(evt) =>
+                  setFormInfo((prev) => ({
+                    ...prev,
+                    InsertDate: evt.target.checked,
+                  }))
                 }
                 checked={formInfo.InsertDate}
                 label={intl.formatMessage(messages.filterOnRegistrationHistory)}
               />
 
               <Button
-                variant='contained'
-                size='medium'
-                color='primary'
+                variant="contained"
+                size="medium"
+                color="primary"
                 onClick={onSearchBtnClick}
               >
                 <FormattedMessage {...messages.search} />
@@ -263,7 +269,7 @@ function LeaveTrxReport(props) {
 
       <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
-          title=''
+          title=""
           data={tableData}
           columns={columns}
           options={options}

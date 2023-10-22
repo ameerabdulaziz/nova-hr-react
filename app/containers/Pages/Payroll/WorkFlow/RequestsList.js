@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import ApiData from "./api/WorkFlowData";
 import { useSelector } from "react-redux";
-import Tooltip from "@mui/material/Tooltip";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import CloseIcon from "@mui/icons-material/Close";
-import AddIcon from "@mui/icons-material/Add";
 import Payrollmessages from "../messages";
 import messages from "./messages";
-import { useHistory, Link } from "react-router-dom";
 import style from "../../../../../app/styles/styles.scss";
 import IconButton from "@mui/material/IconButton";
 import notif from "enl-api/ui/notifMessage";
@@ -22,10 +19,8 @@ import GeneralListApis from "../api/GeneralListApis";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-
-import { Backdrop, CircularProgress, Box } from "@mui/material";
-
 import { format } from "date-fns";
+import PayRollLoader from "../Component/PayRollLoader";
 
 function RequestsList(props) {
   const { intl } = props;
@@ -170,24 +165,9 @@ function RequestsList(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+        
         <div>
           <Grid container spacing={3}>
             <Grid item xs={12} md={2}>
@@ -295,7 +275,7 @@ function RequestsList(props) {
           </div>
         </div>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

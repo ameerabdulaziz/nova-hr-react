@@ -13,8 +13,6 @@ import {
   Grid,
   TextField,
   Autocomplete,
-  Card,
-  CardContent,
 } from "@mui/material";
 import useStyles from "../../Style";
 import PropTypes from "prop-types";
@@ -28,7 +26,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import EmployeeData from "../../Component/EmployeeData";
 import SaveButton from "../../Component/SaveButton";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function ResignTrxCreate(props) {
   const { intl } = props;
@@ -156,12 +154,7 @@ function ResignTrxCreate(props) {
   }
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -172,17 +165,7 @@ function ResignTrxCreate(props) {
         }
         desc={""}
       >
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+        
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
@@ -411,7 +394,7 @@ function ResignTrxCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 ResignTrxCreate.propTypes = {

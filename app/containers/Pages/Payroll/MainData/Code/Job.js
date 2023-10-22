@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
-import brand from "enl-api/dummy/brand";
 import { injectIntl } from "react-intl";
 import JobData from "../api/JobData";
 import MUIDataTable from "mui-datatables";
 import messages from "../messages";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import useStyles from "../../Style";
 import { useSelector } from "react-redux";
-
 import style from "../../../../../styles/styles.scss";
 import AlertPopup from "../../Component/AlertPopup";
 import { toast } from "react-hot-toast";
@@ -16,9 +12,9 @@ import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
 import Payrollmessages from "../../messages";
 import { PapperBlock } from "enl-components";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function Job({ intl }) {
   const { classes, cx } = useStyles();
@@ -205,24 +201,9 @@ function Job({ intl }) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title={intl.formatMessage(messages.JobsList)}
@@ -242,7 +223,7 @@ function Job({ intl }) {
           callFun={DeleteFun}
         />
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

@@ -23,7 +23,7 @@ function followStaffContracts(props) {
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchData, setsearchData] = useState({
     FromDate: null,
     ToDate: null,

@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { makeStyles } from "tss-react/mui";
-import { Helmet } from "react-helmet";
-import brand from "enl-api/dummy/brand";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/PenaltyTransData";
 import messages from "../messages";
@@ -35,7 +32,7 @@ import { ServerURL } from "../../api/ServerConfig";
 import { NavLink } from "react-router-dom";
 import EmployeeData from "../../Component/EmployeeData";
 import SaveButton from "../../Component/SaveButton";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function PenaltyTransCreate(props) {
   const { intl } = props;
@@ -180,12 +177,7 @@ function PenaltyTransCreate(props) {
   }
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -196,18 +188,6 @@ function PenaltyTransCreate(props) {
         }
         desc={""}
       >
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
@@ -484,7 +464,7 @@ function PenaltyTransCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 PenaltyTransCreate.propTypes = {

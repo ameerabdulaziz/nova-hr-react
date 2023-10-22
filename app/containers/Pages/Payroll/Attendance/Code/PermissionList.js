@@ -164,8 +164,7 @@ function PermissionList(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">        
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title=""

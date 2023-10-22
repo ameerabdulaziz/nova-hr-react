@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import GeneralListApis from "../../api/GeneralListApis";
 import NameList from "../../Component/NameList";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function DirectManager(props) {
   const { intl } = props;
@@ -86,25 +86,8 @@ function DirectManager(props) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
         <Grid container spacing={3}>
           <Grid item xs={6} md={3}>
             <Autocomplete
@@ -145,7 +128,7 @@ function DirectManager(props) {
           </Grid>
         </Grid>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

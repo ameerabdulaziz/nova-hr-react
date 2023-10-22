@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CrudTable, Notification } from 'enl-components';
 import useStyles from '../../Pages/Payroll/Style';
 import {  closeNotifAction, resetStateAction} from '../reducers/crudTbActions';
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Pages/Payroll/Component/PayRollLoader";
 
 function EditTable(props) {
   const {anchorTable,title,API,IsNotSave,isNotAdd} = props;
@@ -30,23 +30,7 @@ function EditTable(props) {
   
   console.log("Edittable");
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+    <PayRollLoader isLoading={isLoading}>        
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
       {/* <div className={classes.rootTable}> */}
       <div className={classes.CustomMUIDataTable}>
@@ -62,7 +46,7 @@ function EditTable(props) {
           setIsLoading={setIsLoading}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

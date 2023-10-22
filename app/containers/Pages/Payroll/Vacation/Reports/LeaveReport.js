@@ -1,17 +1,17 @@
-import { Button, Grid } from '@mui/material';
-import { format } from 'date-fns';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
-import Search from '../../Component/Search';
-import useStyles from '../../Style';
-import payrollMessages from '../../messages';
-import API from '../api/LeaveReportData';
-import messages from '../messages';
+import { Button, Grid } from "@mui/material";
+import { format } from "date-fns";
+import { PapperBlock } from "enl-components";
+import MUIDataTable from "mui-datatables";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import PayRollLoader from "../../Component/PayRollLoader";
+import Search from "../../Component/Search";
+import useStyles from "../../Style";
+import payrollMessages from "../../messages";
+import API from "../api/LeaveReportData";
+import messages from "../messages";
 
 function LeaveReport(props) {
   const { intl } = props;
@@ -20,91 +20,91 @@ function LeaveReport(props) {
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
 
-  const Title = localStorage.getItem('MenuName');
+  const Title = localStorage.getItem("MenuName");
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
     ToDate: null,
-    EmployeeId: '',
+    EmployeeId: "",
     EmpStatusId: 1,
-    OrganizationId: '',
+    OrganizationId: "",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [columns, setColumns] = useState([
     {
-      name: 'id',
+      name: "id",
       options: {
         filter: false,
         display: false,
       },
     },
     {
-      name: 'organizationName',
+      name: "organizationName",
       label: <FormattedMessage {...messages.organization} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'employeeId',
+      name: "employeeId",
       label: <FormattedMessage {...messages.employeeId} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'employeeName',
+      name: "employeeName",
       label: <FormattedMessage {...messages.employeeName} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'hiringDate',
+      name: "hiringDate",
       label: <FormattedMessage {...messages.hiringDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {
-      name: 'annCurrentBa',
+      name: "annCurrentBa",
       label: <FormattedMessage {...messages.annualBalance} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'postedBal',
+      name: "postedBal",
       label: <FormattedMessage {...messages.postedBalance} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'annOpen',
+      name: "annOpen",
       label: <FormattedMessage {...messages.annualOpen} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'annCurrentBa',
+      name: "annCurrentBa",
       label: <FormattedMessage {...messages.annualBalance} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'postedBal',
+      name: "postedBal",
       label: <FormattedMessage {...messages.postedBalance} />,
       options: {
         filter: true,
       },
     },
     {
-      name: 'annOpen',
+      name: "annOpen",
       label: <FormattedMessage {...messages.annualOpen} />,
       options: {
         filter: true,
@@ -113,14 +113,14 @@ function LeaveReport(props) {
   ]);
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
     rowsPerPage: 50,
     rowsPerPageOptions: [10, 15, 50, 100],
     page: 0,
     searchOpen: false,
-    selectableRows: 'none',
+    selectableRows: "none",
     serverSide: true,
     onSearchClose: () => {
       // some logic
@@ -135,7 +135,7 @@ function LeaveReport(props) {
   };
 
   // TODO: replace it with real format until api fix
-  const formateDate = (date) => (format(new Date(date), 'yyyy-MM-dd'));
+  const formateDate = (date) => format(new Date(date), "yyyy-MM-dd");
 
   const fetchTableData = async () => {
     try {
@@ -146,7 +146,7 @@ function LeaveReport(props) {
       formData.ToDate = formateDate(formData.ToDate);
 
       Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
+        formData[key] = formData[key] === null ? "" : formData[key];
       });
 
       const dataApi = await API(locale).GetReport(formData);
@@ -199,17 +199,21 @@ function LeaveReport(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-            <Search setsearchData={setFormInfo} searchData={formInfo} />
+            <Search
+              setsearchData={setFormInfo}
+              searchData={formInfo}
+              setIsLoading={setIsLoading}
+            />
           </Grid>
 
           <Grid item md={3}>
             <Button
-              variant='contained'
-              size='medium'
-              color='primary'
+              variant="contained"
+              size="medium"
+              color="primary"
               onClick={onSearchBtnClick}
             >
               <FormattedMessage {...messages.search} />
@@ -220,7 +224,7 @@ function LeaveReport(props) {
 
       <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
-          title=''
+          title=""
           data={tableData}
           columns={columns}
           options={options}

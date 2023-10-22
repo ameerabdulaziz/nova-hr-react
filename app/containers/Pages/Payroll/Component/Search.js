@@ -52,7 +52,6 @@ function Search(props) {
 
   async function fetchData() {
     try{
-      setIsLoading(true);
     const employees = await GeneralListApis(locale).GetEmployeeList();
     setEmployeeList(employees);
     const organizations = await GeneralListApis(locale).GetDepartmentList();

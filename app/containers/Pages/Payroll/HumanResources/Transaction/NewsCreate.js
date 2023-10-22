@@ -28,6 +28,7 @@ import useStyles from "../../Style";
 import SaveButton from "../../Component/SaveButton";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function NewsCreate(props) {
   const { intl } = props;
@@ -103,12 +104,7 @@ function NewsCreate(props) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -119,18 +115,6 @@ function NewsCreate(props) {
         }
         desc={""}
       >
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
         <form onSubmit={handleSubmit}>
           <Grid container alignItems={"initial"} spacing={3}>
             <Grid
@@ -324,7 +308,7 @@ function NewsCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 NewsCreate.propTypes = {

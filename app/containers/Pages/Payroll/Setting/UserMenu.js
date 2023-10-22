@@ -26,7 +26,7 @@ import useStyles from '../Style';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import Payrollmessages from '../messages';
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../Component/PayRollLoader";
 
 function UserMenu(props) {
   
@@ -202,24 +202,9 @@ async function on_submit() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+       
         <div>
             <Grid container spacing={3}>            
                 <Grid item xs={6} md={3}>
@@ -443,7 +428,7 @@ async function on_submit() {
             </div>
         </div>       
       </PapperBlock>
-      </Box>
+      </PayRollLoader>
   );
 }
   

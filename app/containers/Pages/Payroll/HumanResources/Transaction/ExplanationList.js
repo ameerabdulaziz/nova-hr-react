@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../../Explanation/api/ExplanationData";
 import { useSelector } from "react-redux";
-import { Button, Grid, TextField, Autocomplete,Backdrop, CircularProgress, Box  } from "@mui/material";
+import { Button, Grid, TextField, Autocomplete } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -13,9 +13,9 @@ import GeneralListApis from "../../api/GeneralListApis";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
-import { toast } from "react-hot-toast";
 import EditButton from "../../Component/EditButton";
 import style from "../../../../../../app/styles/styles.scss";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function ExplanationList(props) {
   const { intl } = props;
@@ -165,25 +165,9 @@ function ExplanationList(props) {
     },
   };
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <div>
-          <Backdrop
-            sx={{
-              color: "primary.main",
-              zIndex: 10,
-              position: "absolute",
-              backgroundColor: "rgba(255, 255, 255, 0.69)",
-            }}
-            open={isLoading}
-          >
-            <CircularProgress color="inherit" />
-          </Backdrop>
+        <div>          
           <Grid container spacing={3}>
             <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -286,7 +270,7 @@ function ExplanationList(props) {
           </div>
         </div>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

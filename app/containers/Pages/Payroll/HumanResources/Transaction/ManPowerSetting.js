@@ -23,7 +23,7 @@ import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import GeneralListApis from "../../api/GeneralListApis";
 import NamePopup from "../../Component/NamePopup";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function ManPowerSetting(props) {
   const { intl } = props;
@@ -158,25 +158,9 @@ function ManPowerSetting(props) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
+       
         <NamePopup handleClose={handleClose} open={OpenPopup} Key="Job" />
         <div>
           <Grid container spacing={3}>
@@ -321,7 +305,7 @@ function ManPowerSetting(props) {
           </div>
         </div>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

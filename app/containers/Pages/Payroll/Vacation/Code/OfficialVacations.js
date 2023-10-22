@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
-import brand from "enl-api/dummy/brand";
 import { injectIntl } from "react-intl";
 import OfficialVacationsData from "../api/OfficialVacationsData";
 import MUIDataTable from "mui-datatables";
@@ -15,13 +13,10 @@ import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
-import { CircularProgress } from "@mui/material";
-import { Backdrop } from "@mui/material";
-import { Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function OfficialVacations({ intl }) {
-  const title = brand.name + " - OfficialVacations";
-  const description = brand.desc;
+  const Title = localStorage.getItem("MenuName");
   const { classes, cx } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [dataTable, setDataTable] = useState([]);
@@ -158,33 +153,8 @@ function OfficialVacations({ intl }) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-      <Backdrop
-        sx={{
-          color: 'primary.main',
-          zIndex: 10,
-          position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.69)',
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color='inherit' />
-      </Backdrop>
-
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
-      <div className={classes.root}>
+    <PayRollLoader isLoading={isLoading}>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title={intl.formatMessage(messages.OfficialVacations)}
@@ -194,17 +164,19 @@ function OfficialVacations({ intl }) {
             className={style.tableSty}
           />
         </div>
-      </div>
 
-      <AlertPopup
-        handleClose={handleClose}
-        open={openParentPopup}
-        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${deleteItem[1]}`}
-        callFun={DeleteFun}
-        submitting={submitting}
-        processing={processing}
-      />
-    </Box>
+        <AlertPopup
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${
+            deleteItem[1]
+          }`}
+          callFun={DeleteFun}
+          submitting={submitting}
+          processing={processing}
+        />
+      </PapperBlock>
+    </PayRollLoader>
   );
 }
 

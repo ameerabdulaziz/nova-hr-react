@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "./api/WorkFlowData";
 import messages from "./messages";
@@ -14,8 +14,7 @@ import {
   TextField,
   Autocomplete,
   Card,
-  CardContent,
-  Typography,
+  CardContent,  
 } from "@mui/material";
 import useStyles from "../Style";
 import PropTypes from "prop-types";
@@ -24,7 +23,7 @@ import NameList from "../Component/NameList";
 import StepsList from "./StepsList";
 import ActionsList from "./ActionsList";
 import GeneralListApis from "../api/GeneralListApis";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../Component/PayRollLoader";
 
 function WorkFlowCreate(props) {
   const { intl } = props;
@@ -32,7 +31,6 @@ function WorkFlowCreate(props) {
   const location = useLocation();
   const { id } = location.state ?? 0;
   const { classes } = useStyles();
-  const Title = localStorage.getItem("MenuName");
 
   const [data, setdata] = useState({
     id: 0,
@@ -129,12 +127,7 @@ function WorkFlowCreate(props) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -145,17 +138,6 @@ function WorkFlowCreate(props) {
         }
         desc={""}
       >
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={12}>
@@ -299,7 +281,7 @@ function WorkFlowCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 WorkFlowCreate.propTypes = {

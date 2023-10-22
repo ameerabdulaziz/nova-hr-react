@@ -212,6 +212,7 @@ function EmploymentDocsDetails(props) {
               setsearchData={setsearchData}
               searchData={searchData}
               notShowDate={true}
+              setIsLoading={setIsLoading}
             ></Search>
           </Grid>
 

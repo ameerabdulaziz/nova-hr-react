@@ -14,7 +14,8 @@ import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
 import { format } from "date-fns";
 import AlertPopup from "../../Component/AlertPopup";
-import Payrollmessages from "../../messages";import PayRollLoader from "../../Component/PayRollLoader";
+import Payrollmessages from "../../messages";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 
 function PermissionTrxList(props) {

@@ -15,7 +15,7 @@ import AddButton from "../../Component/AddButton";
 import { format } from 'date-fns';
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function EmpCourseList(props) {
   const { intl } = props;
@@ -168,12 +168,7 @@ function EmpCourseList(props) {
   };
   
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Backdrop
           sx={{
@@ -203,7 +198,7 @@ function EmpCourseList(props) {
           callFun={deleterow}
         />
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

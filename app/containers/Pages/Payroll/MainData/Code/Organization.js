@@ -14,15 +14,12 @@ import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
-
 import Payrollmessages from "../../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function Organization({ intl }) {
-  const title = brand.name + " - Organization";
-  const description = brand.desc;
+  const title = localStorage.getItem("MenuName");
   const { classes } = useStyles();
-
   const [dataTable, setDataTable] = useState([]);
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
@@ -169,25 +166,8 @@ function Organization({ intl }) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
+    <PayRollLoader isLoading={isLoading}>
+      <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title={intl.formatMessage(messages.OrganizationsList)}
@@ -207,7 +187,7 @@ function Organization({ intl }) {
           callFun={DeleteFun}
         />
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

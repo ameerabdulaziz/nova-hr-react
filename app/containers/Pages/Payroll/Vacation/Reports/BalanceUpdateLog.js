@@ -164,7 +164,11 @@ function BalanceUpdateLog(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-            <Search setsearchData={setFormInfo} searchData={formInfo} />
+            <Search
+              setsearchData={setFormInfo}
+              searchData={formInfo}
+              setIsLoading={setIsLoading}
+            />
           </Grid>
 
           <Grid item md={2}>

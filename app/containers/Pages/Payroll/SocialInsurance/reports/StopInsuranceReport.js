@@ -158,6 +158,7 @@ function StopInsuranceReport(props) {
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
+               setIsLoading={setIsLoading}
             ></Search>
           </Grid>
 
