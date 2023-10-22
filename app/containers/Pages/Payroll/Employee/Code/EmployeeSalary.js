@@ -1,44 +1,38 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { toast } from 'react-hot-toast';
-import notif from 'enl-api/ui/notifMessage';
-import { useSelector } from 'react-redux';
-import GeneralListApis from '../../api/GeneralListApis';
-import { Autocomplete } from '@mui/material';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import messages from '../messages';
-import Payrollmessages from '../../messages';
-import useStyles from '../../Style';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import EmployeeSalaryData from '../api/EmployeeSalaryData';
-import CircularProgress from '@mui/material/CircularProgress';
-import LinearProgress from '@mui/material/LinearProgress';
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { toast } from "react-hot-toast";
+import notif from "enl-api/ui/notifMessage";
+import { useSelector } from "react-redux";
+import GeneralListApis from "../../api/GeneralListApis";
+import { Autocomplete } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import messages from "../messages";
+import useStyles from "../../Style";
+import { injectIntl, FormattedMessage } from "react-intl";
+import EmployeeSalaryData from "../api/EmployeeSalaryData";
+import { useLocation } from "react-router-dom";
+import Payrollmessages from "../../messages";
+import { Backdrop, CircularProgress, Box } from "@mui/material";
+import { PapperBlock } from "enl-components";
+
+
 function EmployeeSalary(props) {
   const { intl, pristine } = props;
-  const history = useHistory();
+  const Title = localStorage.getItem("MenuName");
   const location = useLocation();
-  const { empid } =
-    location.state == null ? { id: 0, name: '' } : location.state;
-  const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
-  const [processing, setprocessing] = useState(false);
-  const [delprocessing, setdelprocessing] = useState(false);
-  const [progress, setProgress] = useState(false);
+  const { empid } =location.state == null ? { id: 0, name: "" } : location.state;
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
+  const [isLoading, setIsLoading] = useState(true);
   const { classes } = useStyles();
-  const title = localStorage.getItem('MenuName');
-
   const [id, setid] = useState(0);
   const [isBnkTransfer, setisBnkTransfer] = useState(false);
   const [taxable, settaxable] = useState(false);
   const [isConsultant, setisConsultant] = useState(false);
   const [isHours, setisHours] = useState(false);
-  const [hourPrice, sethourPrice] = useState('');
+  const [hourPrice, sethourPrice] = useState("");
   const [isNotApplyAttRule, setisNotApplyAttRule] = useState(false);
   const [isMoneyOvertime, setisMoneyOvertime] = useState(false);
   const [isVacationOvertime, setisVacationOvertime] = useState(false);
@@ -51,9 +45,9 @@ function EmployeeSalary(props) {
   const [required, setRequired] = useState({ required: false });
 
   const locale = useSelector((state) => state.language.locale);
-  let centiveFromname0 = locale == 'en' ? 'From first day' : 'من أول يوم تعيين';
-  let centiveFromname3 = locale == 'en' ? 'After 3 months' : 'بعد 3 شهور';
-  let centiveFromname6 = locale == 'en' ? 'After 6 months' : 'بعد 6 شهور';
+  let centiveFromname0 = locale == "en" ? "From first day" : "من أول يوم تعيين";
+  let centiveFromname3 = locale == "en" ? "After 3 months" : "بعد 3 شهور";
+  let centiveFromname6 = locale == "en" ? "After 6 months" : "بعد 6 شهور";
   const incentiveFromlist = [
     { id: 0, name: centiveFromname0 },
     { id: 3, name: centiveFromname3 },
@@ -64,9 +58,8 @@ function EmployeeSalary(props) {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setprocessing(true);
+      setIsLoading(true);
 
-      
       const data = {
         id: id,
         employeeId: employee.id,
@@ -78,8 +71,8 @@ function EmployeeSalary(props) {
         isNotApplyAttRule: isNotApplyAttRule,
         isMoneyOvertime: isMoneyOvertime,
         isVacationOvertime: isVacationOvertime,
-        salaryStructureId: salaryStructureId.id ?? '',
-        incentiveFrom: incentiveFrom.id ?? '',
+        salaryStructureId: salaryStructureId.id ?? "",
+        incentiveFrom: incentiveFrom.id ?? "",
         hasMonthlyBouns: hasMonthlyBouns,
         hasTransfereAllowance: hasTransfereAllowance,
       };
@@ -92,16 +85,14 @@ function EmployeeSalary(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
     }
-    setprocessing(false);
+    finally {
+      setIsLoading(false);
+    }
   };
   const deletedata = async (e) => {
     try {
-      
-      // e.preventDefault();
-
-      setdelprocessing(true);
+      setIsLoading(true);
       const dataApi = await EmployeeSalaryData().Delete(id);
       if (dataApi.status == 200) {
         clear();
@@ -110,9 +101,9 @@ function EmployeeSalary(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
     }
-    setdelprocessing(false);
+    finally {
+    setIsLoading(false);}
   };
   const clear = (e) => {
     setid(0);
@@ -120,7 +111,7 @@ function EmployeeSalary(props) {
     settaxable(false);
     setisConsultant(false);
     setisHours(false);
-    sethourPrice('');
+    sethourPrice("");
     setisNotApplyAttRule(false);
     setisMoneyOvertime(false);
     setisVacationOvertime(false);
@@ -131,7 +122,6 @@ function EmployeeSalary(props) {
   };
   const GetLookup = useCallback(async () => {
     try {
-      
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setemployeeList(employeedata || []);
 
@@ -140,8 +130,8 @@ function EmployeeSalary(props) {
       ).GetSalaryStructureList();
       setsalaryStructurelist(salaryStructuredata || []);
     } catch (err) {
-      toast.error(err);
     }
+    finally {setIsLoading(false);}
   }, []);
   useEffect(() => {
     GetLookup();
@@ -149,7 +139,8 @@ function EmployeeSalary(props) {
 
   useEffect(() => {
     async function fetchData() {
-      setProgress(true);
+      try {
+      setIsLoading(true);
       const dataApi = await EmployeeSalaryData(locale).GetList(employee.id);
 
       if (dataApi.length > 0) {
@@ -173,44 +164,57 @@ function EmployeeSalary(props) {
           name: dataApi[0].incentiveFromName,
         });
       } else clear();
-
-      setProgress(false);
+    }catch(err){}
+    finally {setIsLoading(false);}
+      
     }
     fetchData();
   }, [employee]);
+
   return (
-    <div>
-      <Grid
-        container
-        spacing={3}
-        alignItems="flex-start"
-        direction="row"
-        justifyContent="center"
-      >
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-              {title}
-            </Typography>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Grid
+          container
+          spacing={3}
+          alignItems="flex-start"
+          direction="row"
+          justifyContent="center"
+        >
+          <Grid item xs={12} md={6}>
             <Autocomplete
               id="ddlEmp"
               options={employeeList}
               value={{ id: employee.id, name: employee.name }}
               isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === '' || option.id === value.id
+                value.id === 0 || value.id === "" || option.id === value.id
               }
-              getOptionLabel={(option) => (option.name ? option.name : '')}
+              getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                
-                  setEmployee({
-                    id: value !== null?value.id:0,
-                    name: value !== null?value.name:'',
-                  });
-               
+                setEmployee({
+                  id: value !== null ? value.id : 0,
+                  name: value !== null ? value.name : "",
+                });
               }}
               renderInput={(params) => (
                 <TextField
-                  variant="standard"
+                  variant="outlined"
                   {...params}
                   name="employee"
                   //  value={employee.id}
@@ -219,15 +223,7 @@ function EmployeeSalary(props) {
                 />
               )}
             />
-            {progress && (
-              <div>
-                {' '}
-                <LinearProgress />
-                <br />
-                <LinearProgress color="secondary" />
-                <br />
-              </div>
-            )}
+
             <form onSubmit={handleSubmit}>
               <div>
                 <FormControlLabel
@@ -378,16 +374,13 @@ function EmployeeSalary(props) {
                     id: salaryStructureId.id,
                     name: salaryStructureId.name,
                   }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
-                    
-                    
-                      setsalaryStructureId((prevFilters) => ({
-                        ...prevFilters,
-                        id: value !== null?value.id:0,
-                        name: value !== null?value.name:'',
-                      }));
-                    
+                    setsalaryStructureId((prevFilters) => ({
+                      ...prevFilters,
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : "",
+                    }));
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -410,15 +403,13 @@ function EmployeeSalary(props) {
                     id: incentiveFrom.id,
                     name: incentiveFrom.name,
                   }}
-                  getOptionLabel={(option) => (option.name ? option.name : '')}
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
-                    
-                      setincentiveFrom((prevFilters) => ({
-                        ...prevFilters,
-                        id: value !== null?value.id:0,
-                        name: value !== null?value.name:'',
-                      }));
-                    
+                    setincentiveFrom((prevFilters) => ({
+                      ...prevFilters,
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : "",
+                    }));
                   }}
                   renderInput={(params) => (
                     <TextField
@@ -438,36 +429,25 @@ function EmployeeSalary(props) {
                     variant="contained"
                     color="secondary"
                     type="submit"
-                    disabled={employee.id === 0 || processing || delprocessing}
+                    disabled={employee.id === 0}
                   >
-                    {processing && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
+                    
                     <FormattedMessage {...Payrollmessages.save} />
                   </Button>
                   <Button
                     type="button"
-                    disabled={employee.id === 0 || pristine || processing}
+                    disabled={employee.id === 0}
                     onClick={() => deletedata()}
                   >
-                    {delprocessing && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.buttonProgress}
-                      />
-                    )}
                     <FormattedMessage {...Payrollmessages.delete} />
                   </Button>
                 </div>
               </div>
             </form>
-          </Paper>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </PapperBlock>
+    </Box>
   );
 }
 export default injectIntl(EmployeeSalary);

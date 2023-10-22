@@ -67,10 +67,11 @@ function ImportFile({ intl }) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 10,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 15, 50, 100],
+    selectableRows: "none",
     page: 0,
     selectableRowsHeader: false,
-    selectableRows: "none",
   };
 
   //////////////////

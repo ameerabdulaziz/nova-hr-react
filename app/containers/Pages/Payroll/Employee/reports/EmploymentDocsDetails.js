@@ -81,7 +81,6 @@ function EmploymentDocsDetails(props) {
       const dataApi = await ApiData(locale).GetEmploymentDocsDetailsReport(formData, DocumentTypeData);
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -93,7 +92,6 @@ function EmploymentDocsDetails(props) {
 
       setDocumentTypesList(Documents)
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }

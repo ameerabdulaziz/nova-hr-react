@@ -57,7 +57,6 @@ function followStaffContracts(props) {
       const dataApi = await ApiData(locale).GetReport(formData);
       setdata(dataApi);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +67,6 @@ function followStaffContracts(props) {
       const Permissions = await GeneralListApis(locale).GetPermissionList();
       setPermissionsList(Permissions);
     } catch (err) {
-      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }

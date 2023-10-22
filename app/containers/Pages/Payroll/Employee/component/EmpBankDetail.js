@@ -173,7 +173,6 @@ function EmpBankDetail(props) {
         toast.error(dataApi.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
     }
   };
   const addContact = (item) => {
@@ -213,7 +212,6 @@ function EmpBankDetail(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      toast.error(notif.error);
     }
   }
   return (

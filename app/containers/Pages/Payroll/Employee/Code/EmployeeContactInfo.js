@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import { PapperBlock } from "enl-components";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import EmployeeContactInfoData from "../api/EmployeeContactInfoData";
@@ -135,29 +134,26 @@ function EmployeeContactInfo(props) {
         position: "relative",
       }}
     >
-      <Backdrop
-        sx={{
-          color: "primary.main",
-          zIndex: 10,
-          position: "absolute",
-          backgroundColor: "rgba(255, 255, 255, 0.69)",
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <Grid
-        container
-        spacing={3}
-        alignItems="flex-start"
-        direction="row"
-        justifyContent="center"
-      >
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-              {title}
-            </Typography>
+      <PapperBlock whiteBg icon="border_color" title={title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Grid
+          container
+          spacing={3}
+          alignItems="flex-start"
+          direction="row"
+          justifyContent="center"
+        >
+          <Grid item xs={12} md={6}>
             <Autocomplete
               id="ddlEmp"
               options={employeeList}
@@ -174,7 +170,7 @@ function EmployeeContactInfo(props) {
               }}
               renderInput={(params) => (
                 <TextField
-                  variant="standard"
+                  variant="outlined"
                   {...params}
                   name="employee"
                   //  value={employee.id}
@@ -301,9 +297,9 @@ function EmployeeContactInfo(props) {
                 </div>
               </div>
             </form>
-          </Paper>
+          </Grid>
         </Grid>
-      </Grid>
+      </PapperBlock>
     </Box>
   );
 }

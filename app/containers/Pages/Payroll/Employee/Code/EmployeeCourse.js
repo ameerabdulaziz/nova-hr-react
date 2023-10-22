@@ -120,16 +120,9 @@ function EmployeeCourse(props) {
 
   return (
     <div>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
+      
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-        <div className={classes.root}>
+       
           <Grid
             container
             spacing={1}
@@ -148,7 +141,7 @@ function EmployeeCourse(props) {
                 }}
                 renderInput={(params) => (
                   <TextField
-                    variant="standard"
+                    variant="outlined"
                     {...params}
                     name="employee"
                     value={employee}
@@ -159,13 +152,12 @@ function EmployeeCourse(props) {
               />
             </Grid>
           </Grid>
+          </PapperBlock>
           <EditTable
             anchorTable={anchorTable}
             title={employee}
             API={EmployeeCourseData(employee)}
           />
-        </div>
-      </PapperBlock>
     </div>
   );
 }
