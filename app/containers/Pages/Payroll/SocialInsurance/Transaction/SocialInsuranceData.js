@@ -160,11 +160,11 @@ function SocialInsuranceData(props) {
 
     if ((formInfo.c1inNo || formInfo.c6inNo)) {
       if (insuredState.socialInsuranceId) {
-        const { attachment, ...reset } = errors;
+        const { insuranceNumber, ...reset } = errors;
 
         errors = reset;
       } else {
-        errors.attachment = 'Insurance Number Is Required';
+        errors.insuranceNumber = intl.formatMessage(messages.insuranceNumberIsRequire);
       }
     }
 

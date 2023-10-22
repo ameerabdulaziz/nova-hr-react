@@ -245,4 +245,8 @@ export default defineMessages({
     id: `${scope}.InsuranceStatus`,
     defaultMessage: 'InsuranceStatus',
   },
+  insuranceNumberIsRequire: {
+    id: `${scope}.insuranceNumberIsRequire`,
+    defaultMessage: 'insuranceNumberIsRequire',
+  },
 });
