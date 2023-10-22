@@ -17,6 +17,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import {Card ,CardContent} from "@mui/material";
+import PayRollLoader from "../../Component/PayRollLoader";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import SaveButton from '../../Component/SaveButton';
@@ -54,6 +55,7 @@ function CreateVacationType(props) {
   const history=useHistory(); 
   const { intl } = props;
   const { classes } = useStyles();
+  const [isLoading, setIsLoading] = useState(false);
 
 
 
@@ -61,6 +63,8 @@ function CreateVacationType(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true)
+    setIsLoading(true);
+
     const data = {
       id: id,
       enName: EnName ? EnName : "",
@@ -94,13 +98,12 @@ function CreateVacationType(props) {
       if (response.status==200) {
         toast.success(notif.saved);
         history.push(`/app/Pages/vac/VacationsTypes`);
-      } else {
-          toast.error(response.statusText);
       }
-      setProcessing(false)
     } catch (err) {
-      toast.error(notif.error);
+      //
+    } finally {
       setProcessing(false)
+      setIsLoading(false);
     }
     
   };
@@ -108,38 +111,53 @@ function CreateVacationType(props) {
 
 
 const getdata =  async () => {
+  setIsLoading(true);
 
-  const elements = await GeneralListApis(locale).GetElementList(locale);    
+  try {    
+    const elements = await GeneralListApis(locale).GetElementList(locale);    
+  
+    setElementsData(elements)
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
 
-  setElementsData(elements)
 };
 
 const getEditdata =  async () => {
+  setIsLoading(true);
 
-  const data =  await VacationsTypesData().GetDataById(ID,locale);
+  try {
+    const data =  await VacationsTypesData().GetDataById(ID,locale);
 
 
-  setid(data ? data.id : "")
-  setVacationName(data ? data.arName : "")
-  setEnName(data ? data.enName : "")
-  setDayValue(data ? data.eleDayVal : "")
-  setElements((data && data.elementId ? elementsData.find((item)=> item.id === data.elementId) : ""))
-  setShortcut(data ? data.app : "")
-  setMaximum(data ? data.maxDayNo : "")
-  setSalaryDeduction(data ? data.deducted : "")
-  setAnnualVacationDeduction(data ? data.isYearBalance : "")
-  setHalfDay(data ? data.halfDay : "")
-  setGovernmentSickVacation(data ? data.governmentSick : "")
-  setHasBalance(data ? data.hasBalance : "")
-  setTransferToTheNextYear(data ? data.balanceIsPostedToNextYear : "")
-  setMaternityVacation(data ? data.maternity : "")
-  setCalculatedAsAWorkingDay(data ? data.workDay : "")
-  setHideItForTheEmployee(data ? data.webInvisible : "")
-  setDonotApplayOfficialHolidaysRules(data ? data.dontVacRoule : "")
-  setAffectsTheIncentiveCalculation(data ? data.affectHafez : "")
-  setDoesnotTakeAWeekOff(data ? data.dontCalcWeekEnd : "")
-  setAnnualInAdvance(data ? data.newHiringVac : "")
-  setAttachFile(data ? data.attachFile : "")
+    setid(data ? data.id : "")
+    setVacationName(data ? data.arName : "")
+    setEnName(data ? data.enName : "")
+    setDayValue(data ? data.eleDayVal : "")
+    setElements((data && data.elementId ? elementsData.find((item)=> item.id === data.elementId) : ""))
+    setShortcut(data ? data.app : "")
+    setMaximum(data ? data.maxDayNo : "")
+    setSalaryDeduction(data ? data.deducted : "")
+    setAnnualVacationDeduction(data ? data.isYearBalance : "")
+    setHalfDay(data ? data.halfDay : "")
+    setGovernmentSickVacation(data ? data.governmentSick : "")
+    setHasBalance(data ? data.hasBalance : "")
+    setTransferToTheNextYear(data ? data.balanceIsPostedToNextYear : "")
+    setMaternityVacation(data ? data.maternity : "")
+    setCalculatedAsAWorkingDay(data ? data.workDay : "")
+    setHideItForTheEmployee(data ? data.webInvisible : "")
+    setDonotApplayOfficialHolidaysRules(data ? data.dontVacRoule : "")
+    setAffectsTheIncentiveCalculation(data ? data.affectHafez : "")
+    setDoesnotTakeAWeekOff(data ? data.dontCalcWeekEnd : "")
+    setAnnualInAdvance(data ? data.newHiringVac : "")
+    setAttachFile(data ? data.attachFile : "")
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
 
 };
 
@@ -162,7 +180,8 @@ useEffect(() => {
 
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
+
       <PapperBlock whiteBg icon="border_color" 
           title={ID ?  
                     intl.formatMessage(messages.EditVacationType)
@@ -608,7 +627,7 @@ useEffect(() => {
       </PapperBlock>         
 
      
-    </div>
+    </PayRollLoader>
   );
 }
 

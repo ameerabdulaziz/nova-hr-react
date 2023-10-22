@@ -1,17 +1,12 @@
-import {
-  Backdrop,
-  Box,
-  Button,
-  CircularProgress,
-  Grid
-} from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import PayRollLoader from '../../Component/PayRollLoader';
 import Search from '../../Component/Search';
 import useStyles from '../../Style';
 import payrollMessages from '../../messages';
@@ -139,7 +134,8 @@ function LeaveReport(props) {
     },
   };
 
-  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
+  // TODO: replace it with real format until api fix
+  const formateDate = (date) => (format(new Date(date), 'yyyy-MM-dd'));
 
   const fetchTableData = async () => {
     try {
@@ -159,10 +155,19 @@ function LeaveReport(props) {
         const clonedColumn = [...columns];
 
         const {
-          employeeId, employeeName, annCurrentBa, employeeCode, hiringDate, organizationName, organizationId, annOpen, postedBal, ...reset
+          employeeId,
+          employeeName,
+          annCurrentBa,
+          employeeCode,
+          hiringDate,
+          organizationName,
+          organizationId,
+          annOpen,
+          postedBal,
+          ...reset
         } = dataApi[0];
 
-        Object.keys(reset).forEach(key => {
+        Object.keys(reset).forEach((key) => {
           clonedColumn.push({
             name: key,
             label: key,
@@ -193,38 +198,18 @@ function LeaveReport(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: 'primary.main',
-            zIndex: 10,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.69)',
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-
+    <PayRollLoader isLoading={isLoading}>
+      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-            <Search
-              setsearchData={setFormInfo}
-              searchData={formInfo}
-            />
+            <Search setsearchData={setFormInfo} searchData={formInfo} />
           </Grid>
 
           <Grid item md={3}>
             <Button
-              variant="contained"
-              size="medium"
-              color="primary"
+              variant='contained'
+              size='medium'
+              color='primary'
               onClick={onSearchBtnClick}
             >
               <FormattedMessage {...messages.search} />
@@ -235,13 +220,13 @@ function LeaveReport(props) {
 
       <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
-          title=""
+          title=''
           data={tableData}
           columns={columns}
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

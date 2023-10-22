@@ -24,6 +24,7 @@ import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SaveButton from '../../Component/SaveButton';
+import PayRollLoader from '../../Component/PayRollLoader';
 
 
 
@@ -33,7 +34,7 @@ function CreateOfficialVacation(props) {
   const [vacationDesEN, setVacationDesEN] = useState('');
   const [vacationDesAR, setVacationDesAR] = useState('');
   const [element, setElement] = useState('');
-  const [submitting ,setSubmitting] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
   const [ElementsData, setElementsData] = useState([]);
@@ -52,7 +53,7 @@ function CreateOfficialVacation(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
+    setIsLoading(true)
     setProcessing(true)
 
     let elementsData = ""
@@ -86,11 +87,12 @@ function CreateOfficialVacation(props) {
       } else {
           toast.error(response.statusText);
       }
-      setSubmitting(false)
+      setIsLoading(false)
       setProcessing(false)
     } catch (err) {
-      toast.error(notif.error);
-      setSubmitting(false)
+      //
+    } finally {
+      setIsLoading(false)
       setProcessing(false)
     }
     
@@ -99,22 +101,36 @@ function CreateOfficialVacation(props) {
 
 
 const getdata =  async () => {
+  setIsLoading(true);
 
-  const elements = await GeneralListApis(locale).GetControlParameterList(locale);    
-
-  setElementsData(elements)
+  try {
+    const elements = await GeneralListApis(locale).GetControlParameterList(locale);    
+  
+    setElementsData(elements)
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 const getEditdata =  async () => {
+  setIsLoading(true);
 
-  const data =  await OfficialVacationsData().GetDataById(ID,locale);
+  try {
+    const data =  await OfficialVacationsData().GetDataById(ID,locale);
 
 
-  setid(data ? data.id : "")
-  setDate(data ? data.vacationDate : "") 
-  setVacationDesAR(data ? data.arName : "")
-  setVacationDesEN(data ? data.enName : "")
-  setElement(data ? data.controlParameterList: "")
+    setid(data ? data.id : "")
+    setDate(data ? data.vacationDate : "") 
+    setVacationDesAR(data ? data.arName : "")
+    setVacationDesEN(data ? data.enName : "")
+    setElement(data ? data.controlParameterList: "")
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 
@@ -139,7 +155,8 @@ useEffect(() => {
 
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
+
       <PapperBlock whiteBg icon="border_color" 
           title={ID ?  
                     intl.formatMessage(messages.EditOfficialVacation)
@@ -314,8 +331,7 @@ useEffect(() => {
           </form>
       </PapperBlock>         
 
-     
-    </div>
+    </PayRollLoader>
   );
 }
 

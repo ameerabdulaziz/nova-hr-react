@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
+import PayRollLoader from "../../Component/PayRollLoader";
 import useStyles from "../../Style";
 import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
@@ -35,22 +36,31 @@ function ReplaceAnnualLeaveBalance({ intl }) {
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
 
   const getdata = async () => {
-    const data = await ReplaceAnnualLeaveBalanceData(locale).GetList();
+    setIsLoading(true);
 
-    let newData = data.map((items) => {
-      Object.keys(items).forEach((val) => {
-        // used to make table read date Data as a date
-        if (val === "trxDate") {
-          items[val] = new Date(items[val]).toLocaleDateString();
-        }
+    try {
+      const data = await ReplaceAnnualLeaveBalanceData(locale).GetList();
+  
+      let newData = data.map((items) => {
+        Object.keys(items).forEach((val) => {
+          // used to make table read date Data as a date
+          if (val === "trxDate") {
+            items[val] = new Date(items[val]).toLocaleDateString();
+          }
+        });
+        return items;
       });
-      return items;
-    });
-
-    setDataTable(newData);
+  
+      setDataTable(newData);
+    } catch (error) {
+      // 
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   useEffect(() => {
@@ -165,6 +175,7 @@ function ReplaceAnnualLeaveBalance({ intl }) {
 
   const DeleteFun = async () => {
     setSubmitting(true);
+    setIsLoading(true);
     setProcessing(true);
 
     try {
@@ -173,21 +184,21 @@ function ReplaceAnnualLeaveBalance({ intl }) {
       if (response.status == 200) {
         toast.success(notif.saved);
         getdata();
-      } else {
-        toast.error(response.statusText);
       }
 
       setSubmitting(false);
       setProcessing(false);
     } catch (err) {
-      toast.error(notif.error);
+      //
+    } finally {
       setSubmitting(false);
       setProcessing(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -216,7 +227,7 @@ function ReplaceAnnualLeaveBalance({ intl }) {
         submitting={submitting}
         processing={processing}
       />
-    </div>
+    </PayRollLoader>
   );
 }
 

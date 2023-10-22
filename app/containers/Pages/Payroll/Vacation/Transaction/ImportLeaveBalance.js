@@ -28,6 +28,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { async } from '@dabeng/react-orgchart';
 import GeneralListApis from '../../api/GeneralListApis';
+import PayRollLoader from '../../Component/PayRollLoader';
 
 
 
@@ -46,7 +47,7 @@ function ImportLeaveBalance({intl }) {
   const [processing, setprocessing] = useState(false);
   const [VacationType, setVacationType] = useState(null);
   const [LeavesList, setLeavesList] = useState([]);
-  
+  const [isLoading, setIsLoading] = useState(false);
 
   
 
@@ -160,19 +161,20 @@ jsonFileData.forEach( async (val, index) => {
   {
   try{
         setprocessing(true); 
+        setIsLoading(false);
           let response = await  ApiData(locale).SaveList(jsonFileData,VacationType);
   
           if (response.status==200) {
             toast.success(notif.saved);
             resetDataFun();
-          } else {
-              toast.error(response.statusText);
           }
   
           setprocessing(false);
         } catch (err) {
+          //
+        } finally {
           setprocessing(false);
-          toast.error(err.response.data);
+          setIsLoading(false);
         }
   }
     
@@ -252,7 +254,7 @@ jsonFileData.forEach( async (val, index) => {
     responsive: 'vertical',
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     selectableRows: "none",
     page: 0,
     selectableRowsHeader: false,
@@ -261,8 +263,15 @@ jsonFileData.forEach( async (val, index) => {
 
 
   const getVacTypeList = async () => {
-    const Leaves = await GeneralListApis(locale).GetVacList(true);
-    setLeavesList(Leaves);
+    try {
+      setIsLoading(true);
+      const Leaves = await GeneralListApis(locale).GetVacList(true);
+      setLeavesList(Leaves);
+    } catch (error) {
+      // 
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect( ()=>{
@@ -274,7 +283,7 @@ jsonFileData.forEach( async (val, index) => {
 
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div className={`${classes.root} ${classes2.btnsContainer}`}  >
@@ -445,7 +454,7 @@ jsonFileData.forEach( async (val, index) => {
           
         </div>
       </PapperBlock>
-    </div>
+    </PayRollLoader>
   );
 }
 

@@ -21,6 +21,7 @@ import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function StopInsuranceReport(props) {
   const { intl } = props;
@@ -71,7 +72,7 @@ function StopInsuranceReport(props) {
       const Permissions = await GeneralListApis(locale).GetPermissionList();
       setPermissionsList(Permissions);
     } catch (err) {
-      toast.error(err.message);
+      // toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -133,7 +134,7 @@ function StopInsuranceReport(props) {
     responsive: "vertical",
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     selectableRows: "none",
     searchOpen: false,
@@ -149,24 +150,8 @@ function StopInsuranceReport(props) {
     },
   };
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
 
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
@@ -227,7 +212,7 @@ function StopInsuranceReport(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

@@ -17,6 +17,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import {Card ,CardContent} from "@mui/material";
 import SaveButton from '../../Component/SaveButton';
+import PayRollLoader from '../../Component/PayRollLoader';
 
 
 
@@ -38,6 +39,7 @@ function LeaveOpenBalance(props) {
   const [LeaveData, setLeaveData] = useState([]);
   const { intl } = props;
   const { classes } = useStyles();
+  const [isLoading, setIsLoading] = useState(true);
 
 
 
@@ -45,6 +47,7 @@ function LeaveOpenBalance(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true)
+    setIsLoading(true);
 
 
     const data = {
@@ -67,13 +70,12 @@ function LeaveOpenBalance(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-      } else {
-          toast.error(response.statusText);
       }
-      setProcessing(false)
     } catch (err) {
-      toast.error(notif.error);
+      //
+    } finally {
       setProcessing(false)
+      setIsLoading(false);
     }
     
   };
@@ -81,25 +83,39 @@ function LeaveOpenBalance(props) {
 
 
 const getdata =  async () => {
+  setIsLoading(true);
 
-  const EmployeeList = await GeneralListApis(locale).GetEmployeeList(locale);    
-  const LeaveList = await GeneralListApis(locale).GetVacList(true);    
-
-  setEmployeeData(EmployeeList)
-  setLeaveData(LeaveList)
+  try {
+    const EmployeeList = await GeneralListApis(locale).GetEmployeeList(locale);    
+    const LeaveList = await GeneralListApis(locale).GetVacList(true);    
+  
+    setEmployeeData(EmployeeList)
+    setLeaveData(LeaveList)
+  } catch (error) {
+    // 
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 const getEditdata =  async () => {
+  setIsLoading(true);
 
-  const data =  await LeaveOpenBalanceData().GetDataById(Employee.id,LeaveType.id);
-
-  setid(data ? data.id : "")
-  setDay(data ? data.vacCount : "") 
-  setOpenBalance(data ? data.vacBalance : "") 
-  setBalance(data ? data.currentBalance : "") 
-  setPostedBalance(data ? data.postedBal : "") 
-  setYearId(data ? data.yearId : "") 
-  setOldBal(data ? data.oldBal : "") 
+  try {
+    const data =  await LeaveOpenBalanceData().GetDataById(Employee.id,LeaveType.id);
+  
+    setid(data ? data.id : "")
+    setDay(data ? data.vacCount : "") 
+    setOpenBalance(data ? data.vacBalance : "") 
+    setBalance(data ? data.currentBalance : "") 
+    setPostedBalance(data ? data.postedBal : "") 
+    setYearId(data ? data.yearId : "") 
+    setOldBal(data ? data.oldBal : "") 
+  } catch (error) {
+    // 
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 
@@ -119,7 +135,7 @@ useEffect(() => {
   
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" 
           title={ intl.formatMessage(messages.LeavesOpenBalanceTitle) } 
           desc={""}>
@@ -363,7 +379,7 @@ useEffect(() => {
       </PapperBlock>         
 
      
-    </div>
+    </PayRollLoader>
   );
 }
 

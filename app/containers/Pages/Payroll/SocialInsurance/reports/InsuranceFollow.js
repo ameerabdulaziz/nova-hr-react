@@ -13,6 +13,7 @@ import {
   Tooltip
 } from "@mui/material";
 import messages from "../messages";
+import PayRollLoader from "../../Component/PayRollLoader";
 import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
 import { format } from "date-fns";
@@ -175,7 +176,7 @@ function InsuranceNotifications(props) {
     responsive: "vertical",
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     selectableRows: "none",
     searchOpen: false,
@@ -210,24 +211,8 @@ function InsuranceNotifications(props) {
 
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
-    >
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
 
         <Grid container spacing={2}>
 
@@ -318,7 +303,7 @@ function InsuranceNotifications(props) {
         callFun={createHrNotesFun}
       />
 
-    </Box>
+    </PayRollLoader>
   );
 }
 

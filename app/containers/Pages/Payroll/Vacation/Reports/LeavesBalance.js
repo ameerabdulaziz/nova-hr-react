@@ -1,13 +1,14 @@
 import {
-  Backdrop, Box, Button, CircularProgress, Grid
+  Button,
+  Grid
 } from '@mui/material';
 import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
-import React, { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import PayRollLoader from '../../Component/PayRollLoader';
 import Search from '../../Component/Search';
 import useStyles from '../../Style';
 import payrollMessages from '../../messages';
@@ -81,7 +82,7 @@ function LeavesBalance(props) {
     responsive: 'vertical',
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     selectableRows: 'none',
@@ -101,13 +102,11 @@ function LeavesBalance(props) {
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
-      var formData = {
-       
-        EmployeeId: formInfo.EmployeeId,
-        OrganizationId: formInfo.OrganizationId,
+      const formData = {
+        ...formInfo,
         StatusId: formInfo.EmpStatusId,
       };
-      
+
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? '' : formData[key];
       });
@@ -118,7 +117,7 @@ function LeavesBalance(props) {
 
       // setTableData(dataApi);
     } catch (error) {
-      toast.error(JSON.stringify(error.response.data));
+      //
     } finally {
       setIsLoading(false);
     }
@@ -132,32 +131,17 @@ function LeavesBalance(props) {
     fetchTableData();
   };
 
-
-
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <Backdrop
-          sx={{
-            color: 'primary.main',
-            zIndex: 10,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.69)',
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
+    <PayRollLoader isLoading={isLoading}>
 
+      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-            <Search setsearchData={setFormInfo}
-              searchData={formInfo} notShowDate={true} />
+            <Search
+              setsearchData={setFormInfo}
+              searchData={formInfo}
+              notShowDate={true}
+            />
           </Grid>
 
           <Grid item md={2}>
@@ -181,7 +165,7 @@ function LeavesBalance(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

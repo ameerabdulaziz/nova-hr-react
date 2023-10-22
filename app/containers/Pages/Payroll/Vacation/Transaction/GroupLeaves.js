@@ -18,6 +18,7 @@ import { format } from "date-fns";
 import CircularProgress from '@mui/material/CircularProgress';
 import NameList from '../../Component/NameList';
 import style from '../../../../../styles/styles.scss'
+import PayRollLoader from '../../Component/PayRollLoader';
 
 
 function GroupLeaves(props) {
@@ -41,7 +42,7 @@ function GroupLeaves(props) {
   const [processing, setprocessing] = useState(false);
   const [previewprocessing, setpreviewprocessing] = useState(false);
   const [deleteprocessing, setdeleteprocessing] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
 
 
 
@@ -139,6 +140,7 @@ else if(type === "endDate")
     try{
        
       setprocessing(true); 
+      setIsLoading(true);
       var SelectedIds = dataList.filter((row) => row.isSelected==true).map((obj) => {return  obj.id;});
       data.employeesId=SelectedIds ;
 
@@ -161,20 +163,21 @@ else if(type === "endDate")
         toast.error(intl.formatMessage(messages.employeesErrorMes));
     }
     
-        setprocessing(false);
     }
     catch (err) {
-      setprocessing(false);
-      toast.error(err.response.data);
+        //   toast.error(err.response.data);
+    } finally {
+        setprocessing(false);
+        setIsLoading(false);
     }
   }
 
   
   const handleDelete = async (e) => {
     setdeleteprocessing(true);
+    setIsLoading(true);
     try{
        
-      setdeleteprocessing(true); 
      
     let response = await  ApiData(locale).DeleteAll(data);
 
@@ -183,17 +186,16 @@ else if(type === "endDate")
         toast.success(notif.saved);
         handleReset();
     }
-    else 
-    {
-        toast.error(response.statusText);
-    }
-    
-    setdeleteprocessing(false);
 
-    }
-    catch (err) {
-      setprocessing(false);
-      toast.error(err.response.data);
+    
+    
+}
+catch (err) {
+    //
+} finally {
+        setdeleteprocessing(false);
+        setprocessing(false);
+        setIsLoading(false);
     }
   }
 
@@ -212,9 +214,15 @@ else if(type === "endDate")
   }
   async function fetchData() {
     
-    
-    const Leaves = await GeneralListApis(locale).GetVacList(false,true);
-    setLeavesList(Leaves);
+    try {
+        setIsLoading(true);
+        const Leaves = await GeneralListApis(locale).GetVacList(false,true);
+        setLeavesList(Leaves);
+    } catch (error) {
+        // 
+    } finally {
+        setIsLoading(false);
+    }
   }
   
   useEffect(() => {    
@@ -225,34 +233,41 @@ async function getData() {
     
     // if(data.VacCode && data.fromdate&&data.Todate) {
     setpreviewprocessing(true);
-    const result = await ApiData(locale).getVacations(data);
-
-        if(result.employees.length !== 0 &&  result.vacation !== null)
-        {
+    setIsLoading(true);
+    try {
+        const result = await ApiData(locale).getVacations(data);
     
-        setdataList(result.employees.map((obj) => {
-            return {
-                ...obj,
-                isSelected: true,
-            }}) || []);
-
-            
-            if(result.vacation)
+            if(result.employees.length !== 0 &&  result.vacation !== null)
             {
-                setdata(result.vacation);
+        
+            setdataList(result.employees.map((obj) => {
+                return {
+                    ...obj,
+                    isSelected: true,
+                }}) || []);
+    
+                
+                if(result.vacation)
+                {
+                    setdata(result.vacation);
+                }
+                else
+                {
+                    handleReset();
+                }
                 setpreviewprocessing(false);
             }
             else
             {
-                handleReset();
                 setpreviewprocessing(false);
             }
-        }
-        else
-        {
-            toast.error(intl.formatMessage(messages.noDataError))
-            setpreviewprocessing(false);
-        }
+        
+    } catch (error) {
+        // 
+    } finally {
+        setIsLoading(false);
+        setpreviewprocessing(false);
+    }
     // }
     // else
     // toast.error("Enter Leave Type, Start, End Date")
@@ -261,7 +276,7 @@ async function getData() {
 
   
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
         <PapperBlock whiteBg icon="border_color" title={Title} desc={""}>
         <form onSubmit={handleSubmit}>
             <Grid
@@ -454,7 +469,7 @@ async function getData() {
         </form>
         </PapperBlock>
     
-    </div>
+    </PayRollLoader>
   );
 }
 GroupLeaves.propTypes = {

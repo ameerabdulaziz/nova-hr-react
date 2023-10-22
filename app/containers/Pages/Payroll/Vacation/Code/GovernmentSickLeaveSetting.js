@@ -15,8 +15,9 @@ import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import {Card ,CardContent} from "@mui/material";
+import {Backdrop, Box, Card ,CardContent, CircularProgress} from "@mui/material";
 import SaveButton from '../../Component/SaveButton';
+import PayRollLoader from '../../Component/PayRollLoader';
 
 
 
@@ -35,6 +36,7 @@ function GovernmentSickLeaveSetting(props) {
   const [DayValue3, setDayValue3] = useState('');
   const [DaysNumber4, setDaysNumber4] = useState('');
   const [DayValue4, setDayValue4] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
   const [GovernmentSickVacData, setGovernmentSickVacData] = useState([]);
@@ -48,6 +50,7 @@ function GovernmentSickLeaveSetting(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true)
+    setIsLoading(true);
 
 
     const data = {
@@ -73,13 +76,12 @@ function GovernmentSickLeaveSetting(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-      } else {
-          toast.error(response.statusText);
       }
-      setProcessing(false)
     } catch (err) {
-      toast.error(notif.error);
+      //
+    } finally {
       setProcessing(false)
+      setIsLoading(false);
     }
     
   };
@@ -88,29 +90,46 @@ function GovernmentSickLeaveSetting(props) {
 
 const getdata =  async () => {
 
-  const GovernmentSickVacList = await GeneralListApis(locale).GetGovernmentSickVacList(locale);    
-  const ElementListByType = await GeneralListApis(locale).GetElementListByType(2);    
+  try {
+    setIsLoading(true);
 
-  setGovernmentSickVacData(GovernmentSickVacList)
-  setElementListByTypeData(ElementListByType)
+    const GovernmentSickVacList = await GeneralListApis(locale).GetGovernmentSickVacList(locale);    
+    const ElementListByType = await GeneralListApis(locale).GetElementListByType(2);    
+  
+    setGovernmentSickVacData(GovernmentSickVacList)
+    setElementListByTypeData(ElementListByType)
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
+
 };
 
 const getEditdata =  async () => {
 
-  const data =  await GovernmentSickLeaveSettingData().GetDataById(GovernmentSickVac.id,locale);
+  try {
+    setIsLoading(true);
+    const data =  await GovernmentSickLeaveSettingData().GetDataById(GovernmentSickVac.id,locale);
+  
+    setid(data ? data.id : "")
+    setElementListByType(data && data.elementId && data.elementName ? {id: data.elementId, name: data.elementName} : null)
+    setYearly(data ? data.yearlyOpt : false) 
+    setEvery3Years(data ? data.yerar3Opt : false) 
+    setDaysNumber1(data ? data.no1Choice : "") 
+    setDayValue1(data ? data.no1Value : "") 
+    setDaysNumber2(data ? data.no2Choice : "") 
+    setDayValue2(data ? data.no2Value : "") 
+    setDaysNumber3(data ? data.no3Choice : "") 
+    setDayValue3(data ? data.no3Value : "") 
+    setDaysNumber4(data ? data.no4Choice : "") 
+    setDayValue4(data ? data.no4Value : "") 
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
 
-  setid(data ? data.id : "")
-  setElementListByType(data && data.elementId && data.elementName ? {id: data.elementId, name: data.elementName} : null)
-  setYearly(data ? data.yearlyOpt : false) 
-  setEvery3Years(data ? data.yerar3Opt : false) 
-  setDaysNumber1(data ? data.no1Choice : "") 
-  setDayValue1(data ? data.no1Value : "") 
-  setDaysNumber2(data ? data.no2Choice : "") 
-  setDayValue2(data ? data.no2Value : "") 
-  setDaysNumber3(data ? data.no3Choice : "") 
-  setDayValue3(data ? data.no3Value : "") 
-  setDaysNumber4(data ? data.no4Choice : "") 
-  setDayValue4(data ? data.no4Value : "") 
 };
 
 
@@ -129,7 +148,7 @@ useEffect(() => {
 
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" 
           title={ intl.formatMessage(messages.GovernmentSickLeaveSetting) } 
           desc={""}>
@@ -478,7 +497,7 @@ useEffect(() => {
       </PapperBlock>         
 
      
-    </div>
+    </PayRollLoader>
   );
 }
 

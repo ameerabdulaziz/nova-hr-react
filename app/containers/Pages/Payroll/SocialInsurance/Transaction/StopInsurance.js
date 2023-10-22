@@ -1,4 +1,3 @@
-import { Backdrop, Box, CircularProgress } from '@mui/material';
 import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
@@ -9,8 +8,10 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
 import AddButton from '../../Component/AddButton';
+import AlertPopup from '../../Component/AlertPopup';
 import DeleteButton from '../../Component/DeleteButton';
 import EditButton from '../../Component/EditButton';
+import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
 import payrollMessages from '../../messages';
 import api from '../api/StopInsuranceData';
@@ -22,6 +23,8 @@ function StopInsurance(props) {
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [deleteItem, setDeleteItem] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
 
@@ -32,26 +35,35 @@ function StopInsurance(props) {
       const response = await api(locale).GetList();
       setTableData(response);
     } catch (error) {
-    //  toast.error(JSON.stringify(error.response.data));
+    //
     } finally {
       setIsLoading(false);
     }
   };
 
-  const deleteRow = async (id) => {
+  const deleteRow = async () => {
     setIsLoading(true);
 
     try {
-      await api(locale).delete(id);
+      await api(locale).delete(deleteItem);
 
       toast.success(notif.saved);
 
       fetchTableData();
     } catch (err) {
-    //  toast.error(JSON.stringify(err));
+    //
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const onDeleteBtnClick = (item) => {
+    setOpenParentPopup(true);
+    setDeleteItem(item);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
   };
 
   useEffect(() => {
@@ -117,7 +129,7 @@ function StopInsurance(props) {
               url={'/app/Pages/insurance/StopInsuranceEdit'}
             />
 
-            <DeleteButton clickfnc={() => deleteRow(tableMeta.rowData[0])} />
+            <DeleteButton clickfnc={() => onDeleteBtnClick(tableMeta.rowData[0])} />
           </div>
         ),
       },
@@ -129,7 +141,7 @@ function StopInsurance(props) {
     responsive: 'vertical',
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: true,
     selectableRows: 'none',
@@ -149,23 +161,16 @@ function StopInsurance(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-      <Backdrop
-        sx={{
-          color: 'primary.main',
-          zIndex: 10,
-          position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.69)',
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+    <PayRollLoader isLoading={isLoading}>
+
+      <AlertPopup
+        handleClose={handleClose}
+        open={openParentPopup}
+        messageData={`${intl.formatMessage(
+          payrollMessages.deleteMessage
+        )}${deleteItem}`}
+        callFun={deleteRow}
+      />
 
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div className={classes.CustomMUIDataTable}>
@@ -177,7 +182,7 @@ function StopInsurance(props) {
           />
         </div>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

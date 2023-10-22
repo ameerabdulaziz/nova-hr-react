@@ -1,9 +1,6 @@
 import {
-  Backdrop,
-  Box,
   Card,
   CardContent,
-  CircularProgress,
   FormControlLabel,
   Grid,
   InputAdornment,
@@ -19,6 +16,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import AlertPopup from '../../Component/AlertPopup';
 import NameList from '../../Component/NameList';
+import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import api from '../api/UpdateInsuranceSalaryData';
@@ -59,7 +57,7 @@ function UpdateInsuranceSalary(props) {
 
       toast.success(notif.saved);
     } catch (error) {
-      // toast.error(JSON.stringify(error.response.data ?? error));
+      //
     } finally {
       setProcessing(false);
       setIsLoading(false);
@@ -83,7 +81,7 @@ function UpdateInsuranceSalary(props) {
       const office = await api(locale).GetInsuMaxLimits();
       setMaxLimit(office);
     } catch (err) {
-      // toast.error(JSON.stringify(err));
+      //
     } finally {
       setIsLoading(false);
     }
@@ -105,23 +103,7 @@ function UpdateInsuranceSalary(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-      <Backdrop
-        sx={{
-          color: 'primary.main',
-          zIndex: 10,
-          position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.69)',
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color='inherit' />
-      </Backdrop>
+    <PayRollLoader isLoading={isLoading}>
 
       <AlertPopup
         handleClose={handleClose}
@@ -214,7 +196,7 @@ function UpdateInsuranceSalary(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

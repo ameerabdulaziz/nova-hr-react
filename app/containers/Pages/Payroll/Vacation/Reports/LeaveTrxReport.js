@@ -1,10 +1,7 @@
 import {
   Autocomplete,
-  Backdrop,
-  Box,
   Button,
   Checkbox,
-  CircularProgress,
   FormControlLabel,
   Grid,
   Stack,
@@ -13,8 +10,7 @@ import {
 import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
-import React, { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import Search from '../../Component/Search';
@@ -23,6 +19,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import API from '../api/LeaveTrxReportData';
 import messages from '../messages';
+import PayRollLoader from '../../Component/PayRollLoader';
 
 function LeaveTrxReport(props) {
   const { intl } = props;
@@ -134,7 +131,7 @@ function LeaveTrxReport(props) {
     responsive: 'vertical',
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     selectableRows: 'none',
@@ -156,13 +153,13 @@ function LeaveTrxReport(props) {
       const Vacations = await GeneralListApis(locale).GetVacList();
       setVacationsList(Vacations);
     } catch (error) {
-      toast.error(JSON.stringify(error.response.data));
+      //
     } finally {
       setIsLoading(false);
     }
   }
 
-  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
+  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const fetchTableData = async () => {
     try {
@@ -181,7 +178,7 @@ function LeaveTrxReport(props) {
 
       setTableData(dataApi);
     } catch (error) {
-      toast.error(JSON.stringify(error.response.data));
+      //
     } finally {
       setIsLoading(false);
     }
@@ -196,34 +193,12 @@ function LeaveTrxReport(props) {
     fetchTableData();
   };
 
-
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <Backdrop
-          sx={{
-            color: 'primary.main',
-            zIndex: 10,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.69)',
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
-            <Search
-            setsearchData={setFormInfo}
-            searchData={formInfo}
-            />
+            <Search setsearchData={setFormInfo} searchData={formInfo} />
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -284,7 +259,6 @@ function LeaveTrxReport(props) {
             </Stack>
           </Grid>
         </Grid>
-
       </PapperBlock>
 
       <div className={classes.CustomMUIDataTable}>
@@ -295,7 +269,7 @@ function LeaveTrxReport(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 

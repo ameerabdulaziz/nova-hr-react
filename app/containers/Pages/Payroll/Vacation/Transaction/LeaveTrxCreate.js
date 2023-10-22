@@ -1,12 +1,9 @@
 import {
   Autocomplete,
-  Backdrop,
-  Box,
   Button,
   Card,
   CardContent,
   Checkbox,
-  CircularProgress,
   FormControlLabel,
   Grid,
   Stack,
@@ -25,6 +22,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import EmployeeData from '../../Component/EmployeeData';
+import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import VacationBalancePopup from '../../Component/VacationBalance';
 import useStyles from '../../Style';
@@ -111,7 +109,7 @@ function LeaveTrxCreate(props) {
         });
       }
     } catch (err) {
-      toast.error(JSON.stringify(err.response.data));
+      //
     } finally {
       setIsLoading(false);
     }
@@ -126,7 +124,7 @@ function LeaveTrxCreate(props) {
         ).GetAlternativeEmployeeList(formInfo.employeeId);
         setAlternativeEmployeeList(alternativeEmployeeResponse);
       } catch (error) {
-        toast.error(JSON.stringify(error.response.data ?? error));
+        //
       } finally {
         setIsLoading(false);
       }
@@ -221,7 +219,7 @@ function LeaveTrxCreate(props) {
         toast.success(notif.saved);
         history.push('/app/Pages/vac/LeaveTrx');
       } catch (error) {
-        toast.error(JSON.stringify(error.response.data ?? error));
+        //
       } finally {
         setProcessing(false);
         setIsLoading(false);
@@ -296,24 +294,7 @@ function LeaveTrxCreate(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-      <Backdrop
-        sx={{
-          color: 'primary.main',
-          zIndex: 10,
-          position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.69)',
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color='inherit' />
-      </Backdrop>
-
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon='border_color'
@@ -659,7 +640,7 @@ function LeaveTrxCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 
