@@ -1,17 +1,13 @@
 import {
-  Backdrop,
-  Box,
   Button,
-  CircularProgress,
   Grid
 } from '@mui/material';
 import { format } from 'date-fns';
-import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
-import React, { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import PayRollPaperBlock from '../../Component/PayRollPaperBlock';
 import Search from '../../Component/Search';
 import useStyles from '../../Style';
 import payrollMessages from '../../messages';
@@ -29,11 +25,11 @@ function BalanceUpdateLog(props) {
   const Title = localStorage.getItem('MenuName');
 
   const [formInfo, setFormInfo] = useState({
-    fromDate: null,
-    toDate: null,
-    EmployeeId: null,
-    OrganizationId: null,
-    statusId: null,
+    FromDate: null,
+    ToDate: null,
+    EmployeeId: '',
+    OrganizationId: '',
+    EmpStatusId: 1,
   });
 
   const columns = [
@@ -115,7 +111,7 @@ function BalanceUpdateLog(props) {
     responsive: 'vertical',
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     selectableRows: 'none',
@@ -132,15 +128,15 @@ function BalanceUpdateLog(props) {
     },
   };
 
-  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
+  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
       const formData = { ...formInfo };
 
-      formData.fromDate = formateDate(formData.fromDate);
-      formData.toDate = formateDate(formData.toDate);
+      formData.FromDate = formateDate(formData.FromDate);
+      formData.ToDate = formateDate(formData.ToDate);
 
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? '' : formData[key];
@@ -150,7 +146,7 @@ function BalanceUpdateLog(props) {
 
       setTableData(dataApi);
     } catch (error) {
-      toast.error(JSON.stringify(error.response.data));
+      //
     } finally {
       setIsLoading(false);
     }
@@ -165,46 +161,29 @@ function BalanceUpdateLog(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
+    <PayRollPaperBlock
+      isLoading={isLoading}
+      whiteBg
+      icon='border_color'
+      title={Title}
+      desc=''
     >
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <Backdrop
-          sx={{
-            color: 'primary.main',
-            zIndex: 10,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.69)',
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={12}><Search
-              setsearchData={setFormInfo}
-              searchData={formInfo}
-            ></Search>
-          </Grid>
-
-          <Grid item md={2}>
-
-            <Button
-              variant='contained'
-              size='medium'
-              color='primary'
-              onClick={onSearchBtnClick}
-            >
-              <FormattedMessage {...messages.search} />
-            </Button>
-
-          </Grid>
+      <Grid container spacing={3} mb={3}>
+        <Grid item xs={12} md={12}>
+          <Search setsearchData={setFormInfo} searchData={formInfo} />
         </Grid>
-      </PapperBlock>
+
+        <Grid item md={2}>
+          <Button
+            variant='contained'
+            size='medium'
+            color='primary'
+            onClick={onSearchBtnClick}
+          >
+            <FormattedMessage {...messages.search} />
+          </Button>
+        </Grid>
+      </Grid>
 
       <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
@@ -214,7 +193,7 @@ function BalanceUpdateLog(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollPaperBlock>
   );
 }
 
