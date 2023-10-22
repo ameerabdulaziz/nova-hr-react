@@ -1,13 +1,10 @@
 import {
   Autocomplete,
-  Backdrop,
-  Box,
   Button,
   Card,
   CardContent,
-  CircularProgress,
   Grid,
-  TextField,
+  TextField
 } from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
@@ -16,6 +13,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -122,24 +120,7 @@ function SInsuranceOrgnizationCreate(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-      <Backdrop
-        sx={{
-          color: 'primary.main',
-          zIndex: 10,
-          position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.69)',
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color='inherit' />
-      </Backdrop>
-
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon='border_color'
@@ -379,7 +360,7 @@ function SInsuranceOrgnizationCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

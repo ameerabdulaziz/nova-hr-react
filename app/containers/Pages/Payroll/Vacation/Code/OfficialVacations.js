@@ -15,6 +15,9 @@ import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
+import { CircularProgress } from "@mui/material";
+import { Backdrop } from "@mui/material";
+import { Box } from "@mui/material";
 
 function OfficialVacations({ intl }) {
   const title = brand.name + " - OfficialVacations";
@@ -25,27 +28,34 @@ function OfficialVacations({ intl }) {
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
 
   const getdata = async () => {
-    const data = await OfficialVacationsData(locale).GetList();
+    setIsLoading(true);
 
-    let newData = data.map((items) => {
-      Object.keys(items).forEach((val) => {
-        // this used to convert boolean values to string until table can read the values
-        if (typeof items[val] == "boolean") {
-          items[val] = String(items[val]);
-        }
+    try {
+      const data = await OfficialVacationsData(locale).GetList();
 
-        // used to make table read date Data as a date
-        if (val === "vacationDate") {
-          items[val] = new Date(items[val]).toLocaleDateString();
-        }
+      let newData = data.map((items) => {
+        Object.keys(items).forEach((val) => {
+          // this used to convert boolean values to string until table can read the values
+          if (typeof items[val] == "boolean") {
+            items[val] = String(items[val]);
+          }
+          // used to make table read date Data as a date
+          if (val === "vacationDate") {
+            items[val] = new Date(items[val]).toLocaleDateString();
+          }
+        });
+        return items;
       });
-      return items;
-    });
-
-    setDataTable(newData);
+      setDataTable(newData);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -105,10 +115,9 @@ function OfficialVacations({ intl }) {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
-    selectableRows: "none",
     page: 0,
+    rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
     // searchOpen: true,
     selectableRows: "none",
     customToolbar: () => (
@@ -129,6 +138,7 @@ function OfficialVacations({ intl }) {
 
   const DeleteFun = async () => {
     setSubmitting(true);
+    setIsLoading(true);
     setProcessing(true);
 
     try {
@@ -137,21 +147,35 @@ function OfficialVacations({ intl }) {
       if (response.status == 200) {
         toast.success(notif.saved);
         getdata();
-      } else {
-        toast.error(response.statusText);
       }
-
-      setSubmitting(false);
-      setProcessing(false);
     } catch (err) {
-      toast.error(notif.error);
+      //
+    } finally {
       setSubmitting(false);
       setProcessing(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        zIndex: 100,
+        position: 'relative',
+      }}
+    >
+      <Backdrop
+        sx={{
+          color: 'primary.main',
+          zIndex: 10,
+          position: 'absolute',
+          backgroundColor: 'rgba(255, 255, 255, 0.69)',
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color='inherit' />
+      </Backdrop>
+
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -180,7 +204,7 @@ function OfficialVacations({ intl }) {
         submitting={submitting}
         processing={processing}
       />
-    </div>
+    </Box>
   );
 }
 

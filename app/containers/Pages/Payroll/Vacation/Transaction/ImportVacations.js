@@ -24,6 +24,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { object } from 'prop-types';
 import messages from '../messages';
 import {Grid} from "@mui/material";
+import PayRollLoader from '../../Component/PayRollLoader';
 
 
 
@@ -36,6 +37,7 @@ function ImportVacations({intl }) {
   const [jsonFileData, setJsonFileData] = useState([]);
   const [fileTitle, setFileTitle] = useState("");
   const [file, setFile] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [fileApiLock, setFileApiLock] = useState(false);
   const Title = localStorage.getItem("MenuName");  
   let columns = []
@@ -154,6 +156,7 @@ jsonFileData.forEach( async (val, index) => {
   {
   try{
         setprocessing(true); 
+        setIsLoading(true);
           let response = await  ApiData(locale).SaveList(jsonFileData);
   
           if (response.status==200) {
@@ -163,10 +166,11 @@ jsonFileData.forEach( async (val, index) => {
               toast.error(response.statusText);
           }
   
-          setprocessing(false);
         } catch (err) {
+          //
+        } finally {
+          setIsLoading(false);
           setprocessing(false);
-          toast.error(err.response.data);
         }
   }
     
@@ -246,7 +250,7 @@ jsonFileData.forEach( async (val, index) => {
     responsive: 'vertical',
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     selectableRows: "none",
     page: 0,
     selectableRowsHeader: false,
@@ -255,7 +259,7 @@ jsonFileData.forEach( async (val, index) => {
 
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div className={`${classes.root} ${classes2.btnsContainer}`}  >
@@ -382,7 +386,7 @@ jsonFileData.forEach( async (val, index) => {
           
         </div>
       </PapperBlock>
-    </div>
+    </PayRollLoader>
   );
 }
 

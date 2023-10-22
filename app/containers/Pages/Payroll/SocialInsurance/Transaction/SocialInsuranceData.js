@@ -1,15 +1,12 @@
 import {
   Autocomplete,
-  Backdrop,
-  Box,
   Card,
   CardContent,
   Checkbox,
-  CircularProgress,
   FormControlLabel,
   Grid,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -20,6 +17,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
+import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import api from '../api/SocialInsuranceData';
@@ -103,7 +101,7 @@ function SocialInsuranceData(props) {
       const organizations = await api(locale).GetSInsuranceOrgnization();
       setBranchInsuranceList(organizations);
     } catch (err) {
-      toast.error(JSON.stringify(err));
+      //
     } finally {
       setIsLoading(false);
     }
@@ -148,7 +146,7 @@ function SocialInsuranceData(props) {
           c6inDate: response.c6inDate,
         }));
       } catch (error) {
-        toast.error(JSON.stringify(error.response.data ?? error));
+        //
       } finally {
         setIsLoading(false);
       }
@@ -189,7 +187,7 @@ function SocialInsuranceData(props) {
 
         toast.success(notif.saved);
       } catch (error) {
-        toast.error(JSON.stringify(error.response.data ?? error));
+        //
       } finally {
         setProcessing(false);
         setIsLoading(false);
@@ -221,23 +219,7 @@ function SocialInsuranceData(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-      <Backdrop
-        sx={{
-          color: 'primary.main',
-          zIndex: 10,
-          position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.69)',
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color='inherit' />
-      </Backdrop>
+    <PayRollLoader isLoading={isLoading}>
 
       <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
         <form onSubmit={onFormSubmit}>
@@ -656,7 +638,7 @@ function SocialInsuranceData(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 

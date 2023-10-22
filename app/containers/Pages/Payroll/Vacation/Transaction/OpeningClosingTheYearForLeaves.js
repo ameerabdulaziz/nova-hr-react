@@ -21,6 +21,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from "date-fns";
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import PayRollLoader from '../../Component/PayRollLoader';
 
 
 
@@ -32,6 +33,7 @@ function OpeningClosingTheYearForLeaves(props) {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [submittingOpenYear ,setSubmittingOpenYear] = useState(false)
   const [submittingCloseYear ,setSubmittingCloseYear] = useState(false)
   const [processingCloseYear ,setProcessingCloseYear] = useState(false)
@@ -46,19 +48,33 @@ function OpeningClosingTheYearForLeaves(props) {
 
 
 const getdata =  async () => {
+  setIsLoading(true);
 
-  const Organizationlist = await GeneralListApis(locale).GetBranchList(locale);  
-  const YearList =  await await GeneralListApis(locale).GetYears();   
-
-  setOrganizationData(Organizationlist)
-  setYearData(YearList)
+  try {
+    const Organizationlist = await GeneralListApis(locale).GetBranchList(locale);  
+    const YearList =  await await GeneralListApis(locale).GetYears();   
+  
+    setOrganizationData(Organizationlist)
+    setYearData(YearList)
+  } catch (error) {
+    // 
+  }finally {
+    setIsLoading(false);
+  }
 };
 
 const getDataById =  async () => {
+  setIsLoading(true);
 
-  const data =  await OpeningClosingTheYearForLeavesData().GetDataById(Organization.id,Year.id);
+  try {
+    const data =  await OpeningClosingTheYearForLeavesData().GetDataById(Organization.id,Year.id);
 
-  setApiData(data)
+    setApiData(data)
+  } catch (error) {
+    // 
+  }finally {
+    setIsLoading(false);
+  }
 };
 
 
@@ -78,6 +94,7 @@ useEffect(() => {
   const openYearFun = async () => {
     setSubmittingOpenYear(true)
     setProcessingOpenYear(true)
+    setIsLoading(true);
 
     const data = {
         organizationId: Organization.id,
@@ -99,15 +116,13 @@ useEffect(() => {
 
           if (response.status==200) {
             toast.success(notif.saved);
-          } else {
-              toast.error(response.statusText);
           }
-          setSubmittingOpenYear(false)
-          setProcessingOpenYear(false)
         } catch (err) {
-          toast.error( err.response &&  err.response.data ? intl.formatMessage( ErrorMessages[err.response.data]) : notif.error );
+          // 
+        } finally {
           setSubmittingOpenYear(false)
           setProcessingOpenYear(false)
+          setIsLoading(false);
         }
   }
 
@@ -116,6 +131,7 @@ useEffect(() => {
    
     setSubmittingCloseYear(true)
     setProcessingCloseYear(true)
+    setIsLoading(true);
 
     const data = {
       organizationId: Organization.id,
@@ -140,12 +156,13 @@ useEffect(() => {
           } else {
               toast.error(response.statusText);
           }
-          setSubmittingCloseYear(false)
-          setProcessingCloseYear(false)
+
         } catch (err) {
-          toast.error( err.response &&  err.response.data ? intl.formatMessage( ErrorMessages[err.response.data]) : notif.error );
+          // 
+        }finally {
           setSubmittingCloseYear(false)
           setProcessingCloseYear(false)
+          setIsLoading(false);
         }
   }
 
@@ -162,7 +179,7 @@ useEffect(() => {
   
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" 
           title={ intl.formatMessage(messages.OpeningClosingYearForLeaves) } 
           desc={""}>
@@ -359,7 +376,7 @@ useEffect(() => {
       </PapperBlock>         
 
      
-    </div>
+    </PayRollLoader>
   );
 }
 

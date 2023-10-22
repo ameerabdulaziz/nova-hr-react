@@ -24,6 +24,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from "date-fns";
 import SaveButton from '../../Component/SaveButton';
+import PayRollLoader from '../../Component/PayRollLoader';
 
 
 
@@ -48,6 +49,7 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
   const [EmployeeData, setEmployeeData] = useState([]);
   const [TempletData, setTempletData] = useState([]);
   const [ElementData, setElementData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [YearData, setYearData] = useState([]);
   const [MonthData, setMonthData] = useState([]);
   const { intl } = props;
@@ -62,7 +64,7 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true)
-
+    setIsLoading(true);
 
     const data = {
         id: id,
@@ -84,13 +86,12 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
       if (response.status==200) {
         toast.success(notif.saved);
         history.push(`/app/Pages/vac/ReplaceAnnualLeaveBalance`);
-      } else {
-          toast.error(response.statusText);
       }
-      setProcessing(false)
     } catch (err) {
-        toast.error( err.response &&  err.response.data ? intl.formatMessage( ErrorMessages[err.response.data]) : notif.error );
-      setProcessing(false)
+        //
+    } finally {
+        setProcessing(false)
+        setIsLoading(false);
     }
     
   };
@@ -99,44 +100,59 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
 
 const getdata =  async () => {
 
-  const EmployeeList = await GeneralListApis(locale).GetEmployeeList(locale);      
-  const TemplateList =  await await GeneralListApis(locale).GetPayTemplateList();  
-  const YearList =  await await GeneralListApis(locale).GetYears();  
-  const MonthList =  await await GeneralListApis(locale).GetMonths();  
+    setIsLoading(true);
 
-  setEmployeeData(EmployeeList)
-  setTempletData(TemplateList)
-  setYearData(YearList)
-  setMonthData(MonthList)
+    try {        
+        const EmployeeList = await GeneralListApis(locale).GetEmployeeList(locale);      
+        const TemplateList =  await await GeneralListApis(locale).GetPayTemplateList();  
+        const YearList =  await await GeneralListApis(locale).GetYears();  
+        const MonthList =  await await GeneralListApis(locale).GetMonths();  
+    
+        setEmployeeData(EmployeeList)
+        setTempletData(TemplateList)
+        setYearData(YearList)
+        setMonthData(MonthList)
+    } catch (error) {
+        // 
+    } finally {
+        setProcessing(false)
+        setIsLoading(false);
+    }
+
 };
 
 const getEditdata =  async () => {
+    setIsLoading(true);
 
-  const data =  await ReplaceAnnualLeaveBalanceData(locale).GetDataById(ID);
-
-
-
-    setid(data ? data.id : "")
-    setDate(data ? data.trxDate : "") 
-    setEmployee(data && data.employeeId && EmployeeData.find((item)=> item.id === data.employeeId) !== undefined  ? 
-        EmployeeData.find((item)=> item.id === data.employeeId)
-    : null) 
-    setJob(data ? data.jobName : "") 
-    setDepartment(data ? data.organizationName : "") 
-    setHiringDate(data ? data.hiringDate : "") 
-    setTemplet(data && data.payTemplateId && TempletData.find((item)=> item.id === data.payTemplateId) !== undefined ?
-         TempletData.find((item)=> item.id === data.payTemplateId) 
-         : null) 
-    setElement(data && data.elementId && data.elementName ? {id: data.elementId, name: data.elementName} : null) 
-    setYear(data && data.yearId && YearData.find((item)=> item.id === data.yearId) !== undefined ? 
-        YearData.find((item)=> item.id === data.yearId) 
+    try {
+        const data =  await ReplaceAnnualLeaveBalanceData(locale).GetDataById(ID);
+        setid(data ? data.id : "")
+        setDate(data ? data.trxDate : "") 
+        setEmployee(data && data.employeeId && EmployeeData.find((item)=> item.id === data.employeeId) !== undefined  ? 
+            EmployeeData.find((item)=> item.id === data.employeeId)
         : null) 
-    setMonth(data && data.monthId &&  MonthData.find((item)=> item.id === data.monthId) !== undefined ? 
-        MonthData.find((item)=> item.id === data.monthId) 
-        : null) 
-    setCurrentBalance(data ? data.vacCurrBal : "") 
-    setBalanceToReplace(data ? data.vacBalRep : "") 
-    setRecSerial(data ? data.recSerial : 0)
+        setJob(data ? data.jobName : "") 
+        setDepartment(data ? data.organizationName : "") 
+        setHiringDate(data ? data.hiringDate : "") 
+        setTemplet(data && data.payTemplateId && TempletData.find((item)=> item.id === data.payTemplateId) !== undefined ?
+             TempletData.find((item)=> item.id === data.payTemplateId) 
+             : null) 
+        setElement(data && data.elementId && data.elementName ? {id: data.elementId, name: data.elementName} : null) 
+        setYear(data && data.yearId && YearData.find((item)=> item.id === data.yearId) !== undefined ? 
+            YearData.find((item)=> item.id === data.yearId) 
+            : null) 
+        setMonth(data && data.monthId &&  MonthData.find((item)=> item.id === data.monthId) !== undefined ? 
+            MonthData.find((item)=> item.id === data.monthId) 
+            : null) 
+        setCurrentBalance(data ? data.vacCurrBal : "") 
+        setBalanceToReplace(data ? data.vacBalRep : "") 
+        setRecSerial(data ? data.recSerial : 0)
+    } catch (error) {
+        // 
+    }  finally {
+        setProcessing(false)
+        setIsLoading(false);
+    }
 };
 
 
@@ -211,7 +227,7 @@ function oncancel(){
 
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" 
            title={ID ?  
             intl.formatMessage(messages.EditReplaceAnnualLeaveBalance)
@@ -682,7 +698,7 @@ function oncancel(){
       </PapperBlock>         
 
      
-    </div>
+    </PayRollLoader>
   );
 }
 

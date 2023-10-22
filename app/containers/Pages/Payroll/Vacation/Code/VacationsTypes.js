@@ -17,6 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function VacationsTypes({ intl }) {
   const title = brand.name + " - VacationsTypes";
@@ -26,20 +27,30 @@ function VacationsTypes({ intl }) {
   const [dataTable, setDataTable] = useState([]);
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
   const getdata = async () => {
-    const data = await VacationsTypesData(locale).GetList();
+    setIsLoading(true);
 
-    let newData = data.map((items) => {
-      Object.keys(items).forEach((val) => {
-        // used to make table read date Data as a date
-        if (val === "vacationDate") {
-          items[val] = new Date(items[val]).toLocaleDateString();
-        }
+    try {
+      const data = await VacationsTypesData(locale).GetList();
+
+      let newData = data.map((items) => {
+        Object.keys(items).forEach((val) => {
+          // used to make table read date Data as a date
+          if (val === "vacationDate") {
+            items[val] = new Date(items[val]).toLocaleDateString();
+          }
+        });
+        return items;
       });
-      return items;
-    });
 
-    setDataTable(newData);
+      setDataTable(newData);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -196,23 +207,25 @@ function VacationsTypes({ intl }) {
   };
 
   const DeleteFun = async () => {
+    setIsLoading(true);
+
     try {
       let response = await VacationsTypesData().Delete(deleteItem);
 
       if (response.status == 200) {
         toast.success(notif.saved);
         getdata();
-      } else {
-        toast.error(response.statusText);
       }
-
     } catch (err) {
-      toast.error(notif.error);
+      //
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
+
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -239,7 +252,7 @@ function VacationsTypes({ intl }) {
         messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${deleteItem[1]}`}
         callFun={DeleteFun}
       />
-    </div>
+    </PayRollLoader>
   );
 }
 

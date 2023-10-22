@@ -1,18 +1,15 @@
 import {
   Autocomplete,
-  Backdrop,
-  Box,
   Button,
-  CircularProgress,
   Grid,
   TextField
 } from '@mui/material';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
@@ -98,7 +95,7 @@ function OpeningLeaveBalancesReport(props) {
     responsive: 'vertical',
     print: true,
     rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
+    rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: false,
     selectableRows: 'none',
@@ -126,7 +123,7 @@ function OpeningLeaveBalancesReport(props) {
       const yearResponse = await GeneralListApis(locale).GetYears();
       setYearsList(yearResponse);
     } catch (error) {
-      toast.error(JSON.stringify(error));
+      //
     } finally {
       setIsLoading(false);
     }
@@ -145,7 +142,7 @@ function OpeningLeaveBalancesReport(props) {
 
       setTableData(dataApi);
     } catch (error) {
-      toast.error(JSON.stringify(error.response.data));
+      //
     } finally {
       setIsLoading(false);
     }
@@ -161,26 +158,8 @@ function OpeningLeaveBalancesReport(props) {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: 'relative',
-      }}
-    >
-
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <Backdrop
-          sx={{
-            color: 'primary.main',
-            zIndex: 10,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.69)',
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color='inherit' />
-        </Backdrop>
-
         <Grid container spacing={3}>
 
           <Grid item xs={12} md={3}>
@@ -268,7 +247,6 @@ function OpeningLeaveBalancesReport(props) {
 
           </Grid>
         </Grid>
-
       </PapperBlock>
 
       <div className={classes.table}>
@@ -279,7 +257,7 @@ function OpeningLeaveBalancesReport(props) {
           options={options}
         />
       </div>
-    </Box>
+    </PayRollLoader>
   );
 }
 
