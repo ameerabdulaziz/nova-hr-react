@@ -1,8 +1,7 @@
 import { Backdrop, Box, CircularProgress } from '@mui/material';
-import { PapperBlock } from 'enl-components';
 import React from 'react';
 
-function PayRollPaperBlock({ isLoading, children, ...resetProps }) {
+function PayRollPaperBlock({ isLoading, children }) {
   return (
     <Box
       sx={{
@@ -22,7 +21,7 @@ function PayRollPaperBlock({ isLoading, children, ...resetProps }) {
         <CircularProgress color='inherit' />
       </Backdrop>
 
-      <PapperBlock {...resetProps}>{children}</PapperBlock>
+      {children}
     </Box>
   );
 }
