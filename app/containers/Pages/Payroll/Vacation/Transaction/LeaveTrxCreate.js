@@ -187,7 +187,7 @@ function LeaveTrxCreate(props) {
 
           errors = reset;
         } else {
-          errors.date = 'fromDate must be less than toDate';
+          errors.date = intl.formatMessage(messages.fromDateLessThanToDate);
         }
       }
     }
@@ -198,7 +198,7 @@ function LeaveTrxCreate(props) {
 
         errors = reset;
       } else {
-        errors.attachment = 'Attachment Is Required';
+        errors.attachment = intl.formatMessage(messages.attachmentIsRequire);
       }
     }
 

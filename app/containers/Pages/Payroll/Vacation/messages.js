@@ -483,6 +483,14 @@ export default defineMessages({
     id: `${scope}.insuranceDate`,
     defaultMessage: 'insuranceDate',
   },
+  attachmentIsRequire: {
+    id: `${scope}.attachmentIsRequire`,
+    defaultMessage: 'attachmentIsRequire',
+  },
+  fromDateLessThanToDate: {
+    id: `${scope}.fromDateLessThanToDate`,
+    defaultMessage: 'fromDateLessThanToDate',
+  },
   // ImportVacations
   FileIsEmpty: {
     id: `${scope}.Transaction.FileIsEmpty`,
