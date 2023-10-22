@@ -11,10 +11,9 @@ import style from "../../../../../../app/styles/styles.scss";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import useStyles from "../../Style";
-import { PapperBlock } from "enl-components";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollPaperBlock from '../../Component/PayRollPaperBlock';
 
 
 function PermissionList() {
@@ -162,24 +161,13 @@ function PermissionList() {
   };
 
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
+    <PayRollPaperBlock
+      isLoading={isLoading}
+      whiteBg
+      icon="border_color"
+      title={Title}
+      desc=""
     >
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title=""
@@ -196,8 +184,7 @@ function PermissionList() {
           )}${deleteItem}`}
           callFun={deleterow}
         />
-      </PapperBlock>
-    </Box>
+      </PayRollPaperBlock>
   );
 }
 

@@ -8,14 +8,13 @@ import style from "../../../../../../app/styles/styles.scss";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import useStyles from "../../Style";
-import { PapperBlock } from "enl-components";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
 import { format } from "date-fns";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollPaperBlock from '../../Component/PayRollPaperBlock';
 
 function PermissionTrxList(props) {
   const { intl } = props;
@@ -182,44 +181,32 @@ function PermissionTrxList(props) {
       },
     },
   };
-  
+
   return (
-    <Box
-      sx={{
-        zIndex: 100,
-        position: "relative",
-      }}
+    <PayRollPaperBlock
+      isLoading={isLoading}
+      whiteBg
+      icon="border_color"
+      title={Title}
+      desc=""
     >
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Backdrop
-          sx={{
-            color: "primary.main",
-            zIndex: 10,
-            position: "absolute",
-            backgroundColor: "rgba(255, 255, 255, 0.69)",
-          }}
-          open={isLoading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>
-        <AlertPopup
-          handleClose={handleClose}
-          open={openParentPopup}
-          messageData={`${intl.formatMessage(
-            Payrollmessages.deleteMessage
-          )}${deleteItem}`}
-          callFun={deleterow}
+      <div className={classes.CustomMUIDataTable}>
+        <MUIDataTable
+          title=""
+          data={data}
+          columns={columns}
+          options={options}
         />
-      </PapperBlock>
-    </Box>
+      </div>
+      <AlertPopup
+        handleClose={handleClose}
+        open={openParentPopup}
+        messageData={`${intl.formatMessage(
+          Payrollmessages.deleteMessage
+        )}${deleteItem}`}
+        callFun={deleterow}
+      />
+    </PayRollPaperBlock>
   );
 }
 
