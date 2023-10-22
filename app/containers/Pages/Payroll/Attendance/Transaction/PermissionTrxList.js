@@ -14,7 +14,7 @@ import AddButton from "../../Component/AddButton";
 import { format } from "date-fns";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
-import PayRollPaperBlock from '../../Component/PayRollPaperBlock';
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function PermissionTrxList(props) {
   const { intl } = props;
@@ -183,13 +183,7 @@ function PermissionTrxList(props) {
   };
 
   return (
-    <PayRollPaperBlock
-      isLoading={isLoading}
-      whiteBg
-      icon="border_color"
-      title={Title}
-      desc=""
-    >
+    <PayRollLoader isLoading={isLoading}>
       <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
           title=""
@@ -206,7 +200,7 @@ function PermissionTrxList(props) {
         )}${deleteItem}`}
         callFun={deleterow}
       />
-    </PayRollPaperBlock>
+    </PayRollLoader>
   );
 }
 

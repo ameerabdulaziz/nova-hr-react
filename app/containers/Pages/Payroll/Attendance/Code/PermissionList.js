@@ -13,8 +13,7 @@ import { toast } from "react-hot-toast";
 import useStyles from "../../Style";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
-import PayRollPaperBlock from '../../Component/PayRollPaperBlock';
-
+import PayRollLoader from "../../Component/PayRollLoader";
 
 function PermissionList() {
   const { classes } = useStyles();
@@ -25,7 +24,6 @@ function PermissionList() {
   const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  
   const handleClickOpen = (item) => {
     debugger;
     setOpenParentPopup(true);
@@ -49,7 +47,6 @@ function PermissionList() {
         toast.error(response.statusText);
       }
     } catch (err) {
-      
     } finally {
       setIsLoading(false);
     }
@@ -161,30 +158,24 @@ function PermissionList() {
   };
 
   return (
-    <PayRollPaperBlock
-      isLoading={isLoading}
-      whiteBg
-      icon="border_color"
-      title={Title}
-      desc=""
-    >
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>
-        <AlertPopup
-          handleClose={handleClose}
-          open={openParentPopup}
-          messageData={`${intl.formatMessage(
-            Payrollmessages.deleteMessage
-          )}${deleteItem}`}
-          callFun={deleterow}
+    <PayRollLoader isLoading={isLoading}>
+      <div className={classes.CustomMUIDataTable}>
+        <MUIDataTable
+          title=""
+          data={data}
+          columns={columns}
+          options={options}
         />
-      </PayRollPaperBlock>
+      </div>
+      <AlertPopup
+        handleClose={handleClose}
+        open={openParentPopup}
+        messageData={`${intl.formatMessage(
+          Payrollmessages.deleteMessage
+        )}${deleteItem}`}
+        callFun={deleterow}
+      />
+    </PayRollLoader>
   );
 }
 
