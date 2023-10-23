@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/RewardTransData";
 import messages from "../messages";
@@ -58,6 +58,7 @@ function RewardTransCreate(props) {
     value: "",
     yearId: "",
     yearName: "",
+    superEmployeeId:"",
   });
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
@@ -65,27 +66,31 @@ function RewardTransCreate(props) {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleEmpChange = useCallback((id) => {
-    
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      employeeId: id,
-    }));    
-},[]);
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));
+    if (name == "superEmployeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        superEmployeeId: id,
+      }));
+  }, []);
 
-  const handleChange = (event,name) => {
-    
-      if (event.target.name == "note")
-        setdata((prevFilters) => ({
-          ...prevFilters,
-          note: event.target.value,
-        }));
+  const handleChange = (event, name) => {
+    if (event.target.name == "note")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        note: event.target.value,
+      }));
 
-      if (event.target.name == "value")
-        setdata((prevFilters) => ({
-          ...prevFilters,
-          value: event.target.value,
-        }));
+    if (event.target.name == "value")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        value: event.target.value,
+      }));
   };
 
   const handleSubmit = async (e) => {
@@ -374,13 +379,16 @@ function RewardTransCreate(props) {
               </Card>
             </Grid>
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
+              <EmployeeData
+                handleEmpChange={handleEmpChange}
+                id={data.employeeId}
+              ></EmployeeData>
             </Grid>
             <Grid item xs={12} md={12}>
               <EmployeeData
-                data={data}
-                setdata={setdata}
-                isSuper={true}
+                handleEmpChange={handleEmpChange}
+                id={data.superEmployeeId}
+                isSuper={true}                
               ></EmployeeData>
             </Grid>
 

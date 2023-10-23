@@ -47,7 +47,6 @@ function PenaltyTransCreate(props) {
     date: format(new Date(), "yyyy-MM-dd"),
     docName: "",
     employeeId: "",
-    employeeName: "",
     elementId: "",
     elementName: "",
     monthId: "",
@@ -59,16 +58,9 @@ function PenaltyTransCreate(props) {
     penaltyId: "",
     penaltyName: "",
     superEmployeeId: "",
-    superEmployeeName: "",
     value: "",
     yearId: "",
     yearName: "",
-    job: "",
-    organization: "",
-    hiringDate: "",
-    superJob: "",
-    superOrganization: "",
-    superHiringDate: "",
     month: "",
     sixMonth: "",
     year: "",
@@ -83,6 +75,19 @@ function PenaltyTransCreate(props) {
   const [PenaltyTypeList, setPenaltyTypeList] = useState([]);
 
   const history = useHistory();
+
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      employeeId: id,
+    }));
+  if (name == "superEmployeeId")
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      superEmployeeId: id,
+    }));
+  }, []);
 
   const handleChange = (event) => {
     if (event.target.name == "note")
@@ -318,8 +323,7 @@ function PenaltyTransCreate(props) {
                   >
                     <Grid item xs={12} md={12}>
                       <EmployeeData
-                        data={data}
-                        setdata={setdata}
+                        handleEmpChange={handleEmpChange} id={data.employeeId}
                         GetEmployeePenalties={true}
                       ></EmployeeData>
                     </Grid>
@@ -338,9 +342,9 @@ function PenaltyTransCreate(props) {
                   >
                     <Grid item xs={12} md={12}>
                       <EmployeeData
-                        data={data}
-                        setdata={setdata}
+                        handleEmpChange={handleEmpChange}
                         isSuper={true}
+                        id={data.superEmployeeId}
                       ></EmployeeData>
                     </Grid>
                   </Grid>

@@ -62,11 +62,12 @@ function PermissionTrxCreate(props) {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleEmpChange = useCallback((id) => {
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      employeeId: id,
-    }));
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));
   }, []);
 
   const handleChange = (event) => {
@@ -290,7 +291,7 @@ function PermissionTrxCreate(props) {
               />
             </Grid>
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
             </Grid>
 
             <Grid item xs={12} md={4}>

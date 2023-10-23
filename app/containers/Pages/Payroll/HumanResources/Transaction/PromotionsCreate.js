@@ -46,6 +46,14 @@ function PromotionsCreate(props) {
   const [JobList, setJobList] = useState([]);
   const history = useHistory();
 
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -98,7 +106,6 @@ function PromotionsCreate(props) {
         }
         desc={""}
       >
-        
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
@@ -122,9 +129,9 @@ function PromotionsCreate(props) {
 
             <Grid item xs={12} md={12}>
               <EmployeeData
-                data={data}
-                setdata={setdata}
+                handleEmpChange={handleEmpChange}
                 GetSalary={true}
+                id={data.employeeId}
               ></EmployeeData>
             </Grid>
 

@@ -6,28 +6,28 @@ import {
   FormControlLabel,
   Grid,
   TextField,
-  Typography
-} from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import EmployeeData from '../../Component/EmployeeData';
-import PayRollLoader from '../../Component/PayRollLoader';
-import SaveButton from '../../Component/SaveButton';
-import useStyles from '../../Style';
-import api from '../api/SocialInsuranceData';
-import messages from '../messages';
+  Typography,
+} from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import EmployeeData from "../../Component/EmployeeData";
+import PayRollLoader from "../../Component/PayRollLoader";
+import SaveButton from "../../Component/SaveButton";
+import useStyles from "../../Style";
+import api from "../api/SocialInsuranceData";
+import messages from "../messages";
 
 function SocialInsuranceData(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
-  const Title = localStorage.getItem('MenuName');
+  const Title = localStorage.getItem("MenuName");
   const { classes } = useStyles();
 
   const [insuranceOfficeList, setInsuranceOfficeList] = useState([]);
@@ -40,55 +40,55 @@ function SocialInsuranceData(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [formInfo, setFormInfo] = useState({
-    employeeId: '',
+    employeeId: "",
     HasAlternativeEmp: false,
 
-    insNotes: '',
+    insNotes: "",
     showSpecialInsurance: false,
 
     ka3bDate: null,
-    ka3bNo: '',
+    ka3bNo: "",
 
-    c1inNo: '',
-    c6inNo: '',
+    c1inNo: "",
+    c6inNo: "",
     c1inDate: null,
     c6inDate: null,
   });
 
   const [insuredState, setInsuredState] = useState({
     insuranceDate: null,
-    socialInsuranceId: '',
+    socialInsuranceId: "",
     insuJobId: null,
     insuOfficeId: null,
-    mainSalary: '',
+    mainSalary: "",
     branchInsurance: null,
-    insGrossSalary: '',
-    mainSalaryNew: '',
+    insGrossSalary: "",
+    mainSalaryNew: "",
   });
   const [fixedShareState, setFixedShareState] = useState({
-    empFixedShare: '',
-    compFixedShare: '',
+    empFixedShare: "",
+    compFixedShare: "",
   });
 
-  const handleEmpChange = useCallback((id) => {
-    
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      employeeId: id,
-    }));    
-},[]);
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));
+  }, []);
 
   const onInsuredNumericInputChange = (evt) => {
     setInsuredState((prev) => ({
       ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
     }));
   };
 
   const onFixedShareNumericInputChange = (evt) => {
     setFixedShareState((prev) => ({
       ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
     }));
   };
 
@@ -162,13 +162,15 @@ function SocialInsuranceData(props) {
 
     const errors = {};
 
-    if ((formInfo.c1inNo || formInfo.c6inNo)) {
+    if (formInfo.c1inNo || formInfo.c6inNo) {
       if (insuredState.socialInsuranceId) {
         const { insuranceNumber, ...reset } = errors;
 
         errors = reset;
       } else {
-        errors.insuranceNumber = intl.formatMessage(messages.insuranceNumberIsRequire);
+        errors.insuranceNumber = intl.formatMessage(
+          messages.insuranceNumberIsRequire
+        );
       }
     }
 
@@ -218,18 +220,17 @@ function SocialInsuranceData(props) {
   const onNumericInputChange = (evt) => {
     setFormInfo((prev) => ({
       ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
     }));
   };
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
-      <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
+      <PapperBlock whiteBg icon="border_color" desc="" title={Title}>
         <form onSubmit={onFormSubmit}>
-          <Grid container spacing={3} direction='row'>
+          <Grid container spacing={3} direction="row">
             <Grid item xs={12} md={12}>
-              <EmployeeData  handleEmpChange={handleEmpChange} />
+              <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId} />
             </Grid>
 
             <Grid item xs={12}>
@@ -238,18 +239,18 @@ function SocialInsuranceData(props) {
                   <Grid
                     container
                     spacing={3}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12}>
                       <TextField
-                        name='insNotes'
+                        name="insNotes"
                         value={formInfo.insNotes}
                         required
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.hrNotes)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                         multiline
                         rows={1}
                       />
@@ -276,19 +277,19 @@ function SocialInsuranceData(props) {
                     container
                     spacing={3}
                     mt={0}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='socialInsuranceId'
+                        name="socialInsuranceId"
                         value={insuredState.socialInsuranceId}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.insuranceNumber)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
 
@@ -308,7 +309,7 @@ function SocialInsuranceData(props) {
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              variant='outlined'
+                              variant="outlined"
                               required
                             />
                           )}
@@ -325,9 +326,10 @@ function SocialInsuranceData(props) {
                             (alt) => alt.id === insuredState.insuOfficeId
                           ) ?? null
                         }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        isOptionEqualToValue={(option, value) =>
+                          option.id === value.id
                         }
-                        getOptionLabel={(option) => (option ? option.name : '')}
+                        getOptionLabel={(option) => (option ? option.name : "")}
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
@@ -353,9 +355,10 @@ function SocialInsuranceData(props) {
                             (alt) => alt.id === insuredState.insuJobId
                           ) ?? null
                         }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        isOptionEqualToValue={(option, value) =>
+                          option.id === value.id
                         }
-                        getOptionLabel={(option) => (option ? option.name : '')}
+                        getOptionLabel={(option) => (option ? option.name : "")}
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
@@ -374,14 +377,14 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='mainSalary'
+                        name="mainSalary"
                         value={insuredState.mainSalary}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.insuranceSalary)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
 
@@ -394,9 +397,10 @@ function SocialInsuranceData(props) {
                             (alt) => alt.id === insuredState.branchInsurance
                           ) ?? null
                         }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        isOptionEqualToValue={(option, value) =>
+                          option.id === value.id
                         }
-                        getOptionLabel={(option) => (option ? option.name : '')}
+                        getOptionLabel={(option) => (option ? option.name : "")}
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
@@ -415,27 +419,27 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='insGrossSalary'
+                        name="insGrossSalary"
                         value={insuredState.insGrossSalary}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.grossSalary)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='mainSalaryNew'
+                        name="mainSalaryNew"
                         value={insuredState.mainSalaryNew}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.mainSalary)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
                   </Grid>
@@ -450,7 +454,8 @@ function SocialInsuranceData(props) {
                     control={
                       <Checkbox
                         checked={isCalculateInsurance}
-                        onChange={(evt) => setIsCalculateInsurance(evt.target.checked)
+                        onChange={(evt) =>
+                          setIsCalculateInsurance(evt.target.checked)
                         }
                       />
                     }
@@ -463,37 +468,37 @@ function SocialInsuranceData(props) {
                     my={0}
                     container
                     spacing={3}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='empFixedShare'
+                        name="empFixedShare"
                         value={fixedShareState.empFixedShare}
                         required
                         disabled={!isCalculateInsurance}
                         onChange={onFixedShareNumericInputChange}
                         label={intl.formatMessage(messages.employeeFixedShare)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='compFixedShare'
+                        name="compFixedShare"
                         value={fixedShareState.compFixedShare}
                         required
                         disabled={!isCalculateInsurance}
                         onChange={onFixedShareNumericInputChange}
                         label={intl.formatMessage(messages.companyFixedShare)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
                   </Grid>
 
-                  <Typography mt={3} color='gray'>
+                  <Typography mt={3} color="gray">
                     <FormattedMessage
                       {...messages.percentageInsuranceSalaryMessage}
                     />
@@ -509,17 +514,17 @@ function SocialInsuranceData(props) {
                     container
                     mb={3}
                     spacing={3}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='c1inNo'
+                        name="c1inNo"
                         value={formInfo.c1inNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.c1IncomingNumber)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
 
@@ -536,10 +541,7 @@ function SocialInsuranceData(props) {
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant='outlined'
-                            />
+                            <TextField {...params} variant="outlined" />
                           )}
                         />
                       </LocalizationProvider>
@@ -549,17 +551,17 @@ function SocialInsuranceData(props) {
                   <Grid
                     container
                     spacing={3}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='c6inNo'
+                        name="c6inNo"
                         value={formInfo.c6inNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.c6IncomingNumber)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
 
@@ -576,10 +578,7 @@ function SocialInsuranceData(props) {
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant='outlined'
-                            />
+                            <TextField {...params} variant="outlined" />
                           )}
                         />
                       </LocalizationProvider>
@@ -595,8 +594,8 @@ function SocialInsuranceData(props) {
                   <Grid
                     container
                     spacing={3}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12} md={3}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -611,7 +610,7 @@ function SocialInsuranceData(props) {
                           }}
                           className={classes.field}
                           renderInput={(params) => (
-                            <TextField {...params} variant='outlined' />
+                            <TextField {...params} variant="outlined" />
                           )}
                         />
                       </LocalizationProvider>
@@ -619,12 +618,12 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='ka3bNo'
+                        name="ka3bNo"
                         value={formInfo.ka3bNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.workLetterNumber)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                       />
                     </Grid>
                   </Grid>

@@ -325,7 +325,7 @@ function LeaveTrxCreate(props) {
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction="row">
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleChange} />
+              <EmployeeData handleEmpChange={handleChange} id={data.employeeId}/>
             </Grid>
 
             <Grid item xs={12} md={12}>

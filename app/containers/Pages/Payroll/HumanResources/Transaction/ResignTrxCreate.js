@@ -8,12 +8,7 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, FormattedMessage } from "react-intl";
-import {
-  Button,
-  Grid,
-  TextField,
-  Autocomplete,
-} from "@mui/material";
+import { Button, Grid, TextField, Autocomplete } from "@mui/material";
 import useStyles from "../../Style";
 import PropTypes from "prop-types";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -39,7 +34,6 @@ function ResignTrxCreate(props) {
     id: 0,
     date: format(new Date(), "yyyy-MM-dd"),
     employeeId: "",
-    employeeName: "",
     resignReasonId: "",
     resignReasonName: "",
     note: "",
@@ -53,10 +47,6 @@ function ResignTrxCreate(props) {
     vacSettlValue: "",
     lworkingDay: format(new Date(), "yyyy-MM-dd"),
     isStop: false,
-    job: "",
-    organization: "",
-    hiringDate: "",
-    workingYears: "",
   });
 
   const [PayTemplateList, setPayTemplateList] = useState([]);
@@ -65,6 +55,14 @@ function ResignTrxCreate(props) {
   const [ResignList, setResignList] = useState([]);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));
+  }, []);
 
   const handleChange = (event) => {
     if (event.target.name == "note")
@@ -165,7 +163,6 @@ function ResignTrxCreate(props) {
         }
         desc={""}
       >
-        
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
@@ -224,9 +221,9 @@ function ResignTrxCreate(props) {
             </Grid>
             <Grid item xs={12} md={12}>
               <EmployeeData
-                data={data}
-                setdata={setdata}
+                handleEmpChange={handleEmpChange}
                 GetworkingYears={true}
+                id={data.employeeId}
               ></EmployeeData>
             </Grid>
 

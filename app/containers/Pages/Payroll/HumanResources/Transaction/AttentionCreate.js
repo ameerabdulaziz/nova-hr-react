@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/AttentionData";
 import messages from "../messages";
@@ -39,11 +39,12 @@ function AttentionCreate(props) {
 
   const history = useHistory();
 
-  const handleEmpChange = useCallback((id) => {
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      employeeId: id,
-    }));
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));
   }, []);
 
   const handleSubmit = async (e) => {
@@ -117,7 +118,7 @@ function AttentionCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
             </Grid>
 
             <Grid item xs={12} md={8}>

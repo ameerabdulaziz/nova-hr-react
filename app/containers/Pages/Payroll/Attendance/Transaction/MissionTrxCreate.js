@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/MissionTrxData";
 import messages from "../messages";
@@ -52,105 +52,103 @@ function MissionTrxCreate(props) {
     isOverTime: false,
     isMustAttend: false,
     transportationExpenses: "",
-    notes: "",    
+    notes: "",
   });
   const [MissionsList, setMissionsList] = useState([]);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleEmpChange = useCallback((id) => {
-    
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      employeeId: id,
-    }));    
-},[]);
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));    
+  }, []);
 
   const handleChange = (event) => {
-   
-      if (event.target.name == "notes")
-        setdata((prevFilters) => ({
-          ...prevFilters,
-          notes: event.target.value,
-        }));
+    if (event.target.name == "notes")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        notes: event.target.value,
+      }));
 
-      if (event.target.name == "transportationExpenses")
-        setdata((prevFilters) => ({
-          ...prevFilters,
-          transportationExpenses: event.target.value,
-        }));
+    if (event.target.name == "transportationExpenses")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        transportationExpenses: event.target.value,
+      }));
 
-      if (event.target.name == "missionDestination")
-        setdata((prevFilters) => ({
-          ...prevFilters,
-          missionDestination: event.target.value,
-        }));
+    if (event.target.name == "missionDestination")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        missionDestination: event.target.value,
+      }));
 
-      if (event.target.name == "startTime") {
-        if (data.endTime != "") {
-          var diff = Math.round(
-            (new Date(
-              0,
-              0,
-              0,
-              data.endTime.split(":")[0],
-              data.endTime.split(":")[1]
-            ) -
-              new Date(
-                0,
-                0,
-                0,
-                event.target.value.split(":")[0],
-                event.target.value.split(":")[1]
-              )) /
-              60000
-          );
-
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            startTime: event.target.value,
-            minutesCount: diff,
-          }));
-        } else
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            startTime: event.target.value,
-          }));
-      }
-
-      if (event.target.name == "endTime") {
-        if (data.startTime != "") {
-          var diff = Math.round(
-            (new Date(
+    if (event.target.name == "startTime") {
+      if (data.endTime != "") {
+        var diff = Math.round(
+          (new Date(
+            0,
+            0,
+            0,
+            data.endTime.split(":")[0],
+            data.endTime.split(":")[1]
+          ) -
+            new Date(
               0,
               0,
               0,
               event.target.value.split(":")[0],
               event.target.value.split(":")[1]
-            ) -
-              new Date(
-                0,
-                0,
-                0,
-                data.startTime.split(":")[0],
-                data.startTime.split(":")[1]
-              )) /
-              60000
-          );
+            )) /
+            60000
+        );
 
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            endTime: event.target.value,
-            minutesCount: diff,
-          }));
-        } else
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            endTime: event.target.value,
-          }));
-      }
-    } ;
-    
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          startTime: event.target.value,
+          minutesCount: diff,
+        }));
+      } else
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          startTime: event.target.value,
+        }));
+    }
+
+    if (event.target.name == "endTime") {
+      if (data.startTime != "") {
+        var diff = Math.round(
+          (new Date(
+            0,
+            0,
+            0,
+            event.target.value.split(":")[0],
+            event.target.value.split(":")[1]
+          ) -
+            new Date(
+              0,
+              0,
+              0,
+              data.startTime.split(":")[0],
+              data.startTime.split(":")[1]
+            )) /
+            60000
+        );
+
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          endTime: event.target.value,
+          minutesCount: diff,
+        }));
+      } else
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          endTime: event.target.value,
+        }));
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -288,7 +286,7 @@ function MissionTrxCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
             </Grid>
 
             <Grid item xs={12} md={4}>
