@@ -97,21 +97,21 @@ function EmployeeList(props) {
     },
     {
       name: 'employeeCode',
-      label: <FormattedMessage {...messages['employeeCode']} />,
+      label: intl.formatMessage(messages.employeeCode),
       options: {
         filter: true,
       },
     },
     {
       name: 'enName',
-      label: <FormattedMessage {...messages['employeename']} />,
+      label: intl.formatMessage(messages.employeename),
       options: {
         filter: true,
       },
     },
     {
       name: 'statusName',
-      label: <FormattedMessage {...messages['status']} />,
+      label: intl.formatMessage(messages.status),
       options: {
         filter: true,
       },
@@ -119,35 +119,35 @@ function EmployeeList(props) {
 
     {
       name: 'identityNumber',
-      label: <FormattedMessage {...messages['identitynumber']} />,
+      label: intl.formatMessage(messages.identitynumber),
       options: {
         filter: true,
       },
     },
     {
       name: 'organizationName',
-      label: <FormattedMessage {...messages['organization']} />,
+      label: intl.formatMessage(messages.organization),
       options: {
         filter: true,
       },
     },
     {
       name: 'reportToName',
-      label: <FormattedMessage {...messages['reportto']} />,
+      label: intl.formatMessage(messages.reportto),
       options: {
         filter: true,
       },
     },
     {
       name: 'jobName',
-      label: <FormattedMessage {...messages['jobname']} />,
+      label: intl.formatMessage(messages.jobname),
       options: {
         filter: true,
       },
     },
     {
       name: 'isInsured',
-      label: <FormattedMessage {...messages['isinsured']} />,
+      label: intl.formatMessage(messages.isinsured),
       options: {
         filter: true,
         customBodyRender: (value) => {
@@ -164,11 +164,11 @@ function EmployeeList(props) {
 
     {
       name: 'Actions',
+      label: "Actions",
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log('tableMeta =', tableMeta);
           return (
             <div className={style.actionsSty}>
               <DeleteButton

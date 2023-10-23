@@ -173,7 +173,7 @@ const createJobDetailsFun = async (arVal,enVal, jobDetailsType) => {
 
 
 function oncancel(){
-  history.push(`/app/Pages/MainData/job`);
+  history.push(`/app/Pages/MainData/Job`);
 }
 
 

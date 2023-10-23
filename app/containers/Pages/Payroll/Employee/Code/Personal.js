@@ -58,40 +58,40 @@ function Personal(props) {
   const [arName, setarName] = useState("");
   const [enName, setenName] = useState("");
   const [motherName, setmotherName] = useState("");
-  const [organizationId, setorganizationId] = useState({});
+  const [organizationId, setorganizationId] = useState("");
   const [organizationList, setorganizationList] = useState([]);
-  const [jobId, setjobId] = useState({});
+  const [jobId, setjobId] = useState("");
   const [jobList, setjobList] = useState([]);
   const [jobLevelId, setjobLevelId] = useState({ id: 0, name: "" });
   const [jobLevelList, setjobLevelList] = useState([]);
   const [hiringDate, sethiringDate] = useState("");
-  const [controlParameterId, setcontrolParameterId] = useState({});
+  const [controlParameterId, setcontrolParameterId] = useState("");
   const [controlParameterList, setcontrolParameterList] = useState([]);
-  const [identityTypeId, setidentityTypeId] = useState({});
+  const [identityTypeId, setidentityTypeId] = useState("");
   const [identityTypeList, setidentityTypeList] = useState([]);
   const [identityIssuingDate, setidentityIssuingDate] = useState("");
   const [identityExpiry, setidentityExpiry] = useState("");
   const [identityNumber, setidentityNumber] = useState("");
   const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
-  const [genderId, setgenderId] = useState({});
+  const [genderId, setgenderId] = useState("");
   const [genderList, setgenderList] = useState([]);
 
-  const [nationalityId, setnationalityId] = useState({});
+  const [nationalityId, setnationalityId] = useState("");
   const [nationalityList, setnationalityList] = useState([]);
-  const [religionId, setreligionId] = useState({});
+  const [religionId, setreligionId] = useState("");
   const [religionList, setreligionList] = useState([]);
   const [birthDate, setbirthDate] = useState("");
 
-  const [birthGovId, setbirthGovId] = useState({});
+  const [birthGovId, setbirthGovId] = useState("");
   const [birthGovList, setbirthGovList] = useState([]);
 
-  const [birthCityId, setbirthCityId] = useState({});
+  const [birthCityId, setbirthCityId] = useState("");
   const [birthCityList, setbirthCityList] = useState([]);
-  const [socialStatusId, setsocialStatusId] = useState({});
+  const [socialStatusId, setsocialStatusId] = useState("");
   const [socialStatusList, setsocialStatusList] = useState([]);
   const [sonNo, setsonNo] = useState(0);
 
-  const [militaryStatusId, setmilitaryStatusId] = useState({});
+  const [militaryStatusId, setmilitaryStatusId] = useState("");
   const [militaryStatusList, setmilitaryStatusList] = useState([]);
   const [isInsured, setisInsured] = useState(false);
   const [isSpecialNeeds, setisSpecialNeeds] = useState(false);
@@ -99,7 +99,7 @@ function Personal(props) {
 
   const [saluteId, setsaluteId] = useState({});
   const [saluteList, setsaluteList] = useState([]);
-  const [statusId, setstatusId] = useState({});
+  const [statusId, setstatusId] = useState("");
   const [statusList, setstatusList] = useState([]);
 
   const locale = useSelector((state) => state.language.locale);
@@ -448,10 +448,17 @@ function Personal(props) {
                     <Autocomplete
                       disabled
                       id="ddlstatusId"
-                      options={statusList || []}
-                      value={{
+                      options={statusList || []} 
+                      value={statusId.length != 0 ?{
                         id: statusId.id,
                         name: statusId.name,
+                      } : null}
+                      renderOption={(props, option) => {
+                        return (
+                          <li {...props} key={option.id}>
+                            {option.name}
+                          </li>
+                        );
                       }}
                       isOptionEqualToValue={(option, value) =>
                         value.id === 0 ||
@@ -617,9 +624,16 @@ function Personal(props) {
                     id="ddlidentityType"
                     required
                     options={identityTypeList || []}
-                    value={{
+                    value={identityTypeId.length !== 0 ? {
                       id: identityTypeId.id,
                       name: identityTypeId.name,
+                    }: null}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
                     }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
@@ -722,9 +736,16 @@ function Personal(props) {
               <Autocomplete
                 id="ddlGenderId"
                 options={genderList || []}
-                value={{
+                value={genderId.length !== 0 ?{
                   id: genderId.id,
                   name: genderId.name,
+                }: null}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
                 }}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
@@ -751,9 +772,16 @@ function Personal(props) {
               <Autocomplete
                 id="ddlNationalityId"
                 options={nationalityList || []}
-                value={{
+                value={nationalityId.length !== 0 ?{
                   id: nationalityId.id,
                   name: nationalityId.name,
+                }: null}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
                 }}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
@@ -780,9 +808,16 @@ function Personal(props) {
               <Autocomplete
                 id="ddlreligionId"
                 options={religionList || []}
-                value={{
+                value={religionId.length !== 0 ?{
                   id: religionId.id,
                   name: religionId.name,
+                }: null}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
                 }}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
@@ -825,9 +860,16 @@ function Personal(props) {
               <Autocomplete
                 id="ddlbirthGovId"
                 options={birthGovList || []}
-                value={{
+                value={birthGovId.length !== 0 ?{
                   id: birthGovId.id,
                   name: birthGovId.name,
+                }: null}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
                 }}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
@@ -854,9 +896,16 @@ function Personal(props) {
               <Autocomplete
                 id="ddlbirthcityId"
                 options={birthCityList || []}
-                value={{
+                value={birthCityId.length !== 0 ?{
                   id: birthCityId.id,
                   name: birthCityId.name,
+                }: null}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
                 }}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
@@ -901,9 +950,16 @@ function Personal(props) {
                   <Autocomplete
                     id="ddlsocialStatusId"
                     options={socialStatusList || []}
-                    value={{
+                    value={socialStatusId.length !== 0 ?{
                       id: socialStatusId.id,
                       name: socialStatusId.name,
+                    }: null}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
                     }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
@@ -946,9 +1002,16 @@ function Personal(props) {
                   <Autocomplete
                     id="ddlmilitaryStatusId"
                     options={militaryStatusList || []}
-                    value={{
+                    value={militaryStatusId.length !== 0 ?{
                       id: militaryStatusId.id,
                       name: militaryStatusId.name,
+                    }: null}
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
                     }}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
@@ -982,15 +1045,22 @@ function Personal(props) {
                   <Autocomplete
                     id="ddlorganization"
                     options={organizationList || []}
-                    value={{
+                    value={organizationId.length !== 0 ?{
                       id: organizationId.id,
                       name: organizationId.name,
-                    }}
+                    }: null}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
                       value.id === "" ||
                       option.id === value.id
                     }
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
+                    }}
                     getOptionLabel={(option) =>
                       option.name ? option.name : ""
                     }
@@ -1015,15 +1085,22 @@ function Personal(props) {
                   <Autocomplete
                     id="ddlcontrolParameterId"
                     options={controlParameterList || []}
-                    value={{
+                    value={controlParameterId.length !== 0 ?{
                       id: controlParameterId.id,
                       name: controlParameterId.name,
-                    }}
+                    }: null}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
                       value.id === "" ||
                       option.id === value.id
                     }
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
+                    }}
                     getOptionLabel={(option) =>
                       option.name ? option.name : ""
                     }
@@ -1050,12 +1127,19 @@ function Personal(props) {
                     id="ddljobid"
                     required
                     options={jobList || []}
-                    value={{ id: jobId.id, name: jobId.name }}
+                    value={jobId.length !== 0 ?{ id: jobId.id, name: jobId.name }:null}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
                       value.id === "" ||
                       option.id === value.id
                     }
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
+                    }}
                     getOptionLabel={(option) =>
                       option.name ? option.name : ""
                     }
@@ -1086,6 +1170,13 @@ function Personal(props) {
                       value.id === "" ||
                       option.id === value.id
                     }
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
+                    }}
                     getOptionLabel={(option) =>
                       option.name ? option.name : ""
                     }

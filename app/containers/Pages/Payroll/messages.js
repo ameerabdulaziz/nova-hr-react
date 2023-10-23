@@ -408,11 +408,11 @@ employeeId: {
     defaultMessage: 'Import',
   },
   deleteMessage: {
-    id: `${scope}.codes.deleteMessage`,
+    id: `${scope}.deleteMessage`,
     defaultMessage: 'Are You Sure You Want To Delete',
   },
   confirmation: {
-    id: `${scope}.codes.confirmation`,
+    id: `${scope}.confirmation`,
     defaultMessage: 'confirmation message',
   },
   applynewshift: {

@@ -5,7 +5,7 @@ import { injectIntl } from "react-intl";
 import OrganizationData from "../api/OrganizationData";
 import MUIDataTable from "mui-datatables";
 import messages from "../messages";
-import useStyles from "../../../../../components/Tables/tableStyle-jss";
+import useStyles from "../../Style";
 import { useSelector } from "react-redux";
 import style from "../../../../../styles/styles.scss";
 import AlertPopup from "../../Component/AlertPopup";
@@ -16,6 +16,7 @@ import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
 import Payrollmessages from "../../messages";
 import PayRollLoader from "../../Component/PayRollLoader";
+import { PapperBlock } from 'enl-components';
 
 function Organization({ intl }) {
   const title = localStorage.getItem("MenuName");
