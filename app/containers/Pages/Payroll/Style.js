@@ -1,6 +1,7 @@
 import { makeStyles } from 'tss-react/mui';
 import { lighten, darken, alpha } from '@mui/material/styles';
-const useMainStyles = makeStyles()((theme) => ({
+import { auto } from '@popperjs/core';
+const useMainStyles = makeStyles()((theme,_params,classes) => ({
   
   CustomMUIDataTable: {
     '& .MuiToolbar-root':{background:theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light},
@@ -183,6 +184,39 @@ const useMainStyles = makeStyles()((theme) => ({
       /* background: 'none', */
       color: theme.palette.secondary.main,
     },
+  },
+  cover: {
+    [`& .${classes.name}, & .${classes.subheading}`]: {
+      color: theme.palette.common.white
+    },
+    position: 'relative',
+    width: '100%',
+    overflow: 'hidden',
+    height: auto,
+    backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.primary.dark, 0.8) : theme.palette.primary.dark,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundSize: 'cover',
+    textAlign: 'center',
+    boxShadow: theme.shadows[7],
+    backgroundPosition: 'bottom center',
+    borderRadius: theme.rounded.medium,
+  },
+  profileTab: {
+    marginTop: -48,
+    [theme.breakpoints.down('sm')]: {
+      marginTop: -48,
+    },
+    borderRadius: `0 0 ${theme.rounded.medium} ${theme.rounded.medium}`,
+    background: alpha(theme.palette.background.paper, 0.8),
+    position: 'relative'
+  },
+  content: {
+    background: alpha(theme.palette.secondary.main, 0.3),
+    height: '100%',
+    width: '100%',
+    padding: `30px ${theme.spacing(3)} 60px`
   },
 }));
 

@@ -265,7 +265,8 @@ import {
   StopInsurance,
   StopInsuranceCreate,
   StopInsuranceReport,
-  InsuranceFollow
+  InsuranceFollow,
+  RulesList,RulesCreate
 } from '../pageListAsync';
 
 function Application(props) {
@@ -784,6 +785,10 @@ function Application(props) {
           path='/app/Pages/Att/CollectedMission'
           component={CollectedMission}
         />
+        <Route path='/app/Pages/Att/Rules' component={RulesList} />
+        <Route path='/app/Pages/Att/RulesCreate' component={RulesCreate} />
+        <Route path='/app/Pages/Att/RulesEdit' component={RulesCreate} />
+
 
         {/* WorkFlow */}
         <Route path='/app/Pages/WF/WorkFlowList' component={WorkFlowList} />

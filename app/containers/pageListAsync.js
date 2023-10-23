@@ -971,6 +971,20 @@ export const CollectedMission = loadable(
   }
 );
 
+
+export const RulesList = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/AttRulesList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const RulesCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/AttRulesCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
