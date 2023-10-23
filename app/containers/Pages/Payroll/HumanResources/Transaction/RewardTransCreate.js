@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/RewardTransData";
 import messages from "../messages";
@@ -46,7 +46,6 @@ function RewardTransCreate(props) {
     date: format(new Date(), "yyyy-MM-dd"),
     docName: "",
     employeeId: "",
-    employeeName: "",
     elementId: "",
     elementName: "",
     monthId: "",
@@ -56,8 +55,6 @@ function RewardTransCreate(props) {
     payTemplateName: "",
     rewardsId: "",
     rewardsName: "",
-    superEmployeeId: "",
-    superEmployeeName: "",
     value: "",
     yearId: "",
     yearName: "",
@@ -68,19 +65,29 @@ function RewardTransCreate(props) {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleChange = (event) => {
-    if (event.target.name == "note")
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        note: event.target.value,
-      }));
+  const handleEmpChange = useCallback((id) => {
+    
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      employeeId: id,
+    }));    
+},[]);
 
-    if (event.target.name == "value")
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        value: event.target.value,
-      }));
+  const handleChange = (event,name) => {
+    
+      if (event.target.name == "note")
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          note: event.target.value,
+        }));
+
+      if (event.target.name == "value")
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          value: event.target.value,
+        }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -367,7 +374,7 @@ function RewardTransCreate(props) {
               </Card>
             </Grid>
             <Grid item xs={12} md={12}>
-              <EmployeeData data={data} setdata={setdata}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
             </Grid>
             <Grid item xs={12} md={12}>
               <EmployeeData

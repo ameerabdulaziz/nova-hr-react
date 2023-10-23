@@ -8,10 +8,11 @@ import GeneralListApis from '../api/GeneralListApis';
 import { useSelector } from 'react-redux';
 
 function EmployeeData(props) {
-  const {intl,data,setdata,isSuper,GetEmployeePenalties,GetSalary,GetworkingYears} = props;
+  const {intl,handleEmpChange,isSuper,GetEmployeePenalties,GetSalary,GetworkingYears} = props;
   const {classes,cx} = useStyles();  
   const locale = useSelector((state) => state.language.locale);
   const [EmployeeList, setEmployeeList] = useState([]);
+  const [data, setdata] = useState({});
 
     async function fetchData() {
   
@@ -24,10 +25,10 @@ function EmployeeData(props) {
   useEffect(() => {    
     fetchData();
   }, []);
-
+alert('Employees');
   async function getEmployeeData(id) 
   {
-    
+    handleEmpChange(id,"employeeId");
     if (!id){
         if(isSuper)
             setdata((prevFilters) => ({
@@ -80,6 +81,7 @@ function EmployeeData(props) {
         })); 
     else
     {
+        
         setdata((prevFilters) => ({
             ...prevFilters,
             job:empdata.jobName,
@@ -87,6 +89,7 @@ function EmployeeData(props) {
             hiringDate:empdata.hiringDate===null ? "" :empdata.hiringDate,
             HasAlternativeEmp:empdata.hasAlternativeEmp            
         })); 
+        handleEmpChange(empdata.hasAlternativeEmp,"HasAlternativeEmp");
         if(GetEmployeePenalties)
         {
             const result = await GeneralListApis(locale).GetEmployeePenalties(id);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/CustodyTrxData";
 import messages from "../messages";
@@ -35,18 +35,21 @@ function CustodyReceiveCreate(props) {
     custodyId: "",
     custodyName: "",
     employeeId: "",
-    employeeName: "",
     notes: "",
     itemSerial: "",
     custCount: "",
     custodyPrice: "",
-    job: "",
-    organization: "",
-    hiringDate: "",
   });
 
   const [CustodyList, setCustodyList] = useState([]);
   const history = useHistory();
+
+  const handleEmpChange = useCallback((id) => {
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      employeeId: id,
+    }));
+  }, []);
 
   const handleChange = (event) => {
     if (event.target.name == "notes")
@@ -148,7 +151,7 @@ function CustodyReceiveCreate(props) {
             <Grid item xs={12} md={10}></Grid>
 
             <Grid item xs={12} md={6}>
-              <EmployeeData data={data} setdata={setdata}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
             </Grid>
             <Grid item xs={12} md={6}></Grid>
             <Grid item xs={12} md={4}>

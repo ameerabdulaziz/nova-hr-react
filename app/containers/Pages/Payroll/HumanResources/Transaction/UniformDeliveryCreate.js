@@ -35,18 +35,20 @@ function UniformDeliveryCreate(props) {
     uniformId: "",
     uniformName: "",
     employeeId: "",
-    employeeName: "",
     notes: "",
     quantity: "",
     uniformPrice: "",
-    job: "",
-    organization: "",
-    hiringDate: "",
   });
-
   const [UniformList, setUniformList] = useState([]);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleEmpChange = useCallback((id) => {
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      employeeId: id,
+    }));
+  }, []);
 
   const handleChange = (event) => {
     if (event.target.name == "notes")
@@ -136,7 +138,7 @@ function UniformDeliveryCreate(props) {
             <Grid item xs={12} md={10}></Grid>
 
             <Grid item xs={12} md={6}>
-              <EmployeeData data={data} setdata={setdata}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
             </Grid>
             <Grid item xs={12} md={6}></Grid>
             <Grid item xs={12} md={4}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/LayOffNoticeData";
 import messages from "../messages";
@@ -32,13 +32,16 @@ function LayOffNoticeCreate(props) {
     noticeDate: format(new Date(), "yyyy-MM-dd"),
     reason: "",
     employeeId: "",
-    employeeName: "",
-    job: "",
-    organization: "",
-    hiringDate: "",
   });
 
   const history = useHistory();
+
+  const handleEmpChange = useCallback((id) => {
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      employeeId: id,
+    }));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,7 +90,6 @@ function LayOffNoticeCreate(props) {
         }
         desc={""}
       >
-        
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
@@ -110,7 +112,7 @@ function LayOffNoticeCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={12}>
-              <EmployeeData data={data} setdata={setdata}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
             </Grid>
 
             <Grid item xs={12} md={8}>

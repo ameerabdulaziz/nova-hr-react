@@ -40,7 +40,6 @@ function PermissionTrxCreate(props) {
     id: 0,
     date: format(new Date(), "yyyy-MM-dd"),
     employeeId: "",
-    employeeName: "",
     permissionId: "",
     permissionName: "",
     startTime: "",
@@ -55,9 +54,6 @@ function PermissionTrxCreate(props) {
     dedRased: false,
     prasedMin: "",
     notes: "",
-    job: "",
-    organization: "",
-    hiringDate: "",
     maxRepeated: "",
     maxMinuteNo: "",
   });
@@ -65,6 +61,13 @@ function PermissionTrxCreate(props) {
   const [PermissionsList, setPermissionsList] = useState([]);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleEmpChange = useCallback((id) => {
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      employeeId: id,
+    }));
+  }, []);
 
   const handleChange = (event) => {
     if (event.target.name == "notes")
@@ -287,7 +290,7 @@ function PermissionTrxCreate(props) {
               />
             </Grid>
             <Grid item xs={12} md={12}>
-              <EmployeeData data={data} setdata={setdata}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
             </Grid>
 
             <Grid item xs={12} md={4}>

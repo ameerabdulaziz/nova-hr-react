@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/UniformTrxData";
 import messages from "../messages";
@@ -35,17 +35,20 @@ function UniformReceiveCreate(props) {
     uniformId: "",
     uniformName: "",
     employeeId: "",
-    employeeName: "",
     notes: "",
     quantity: "",
     uniformPrice: "",
-    job: "",
-    organization: "",
-    hiringDate: "",
   });
 
   const [UniformList, setUniformList] = useState([]);
   const history = useHistory();
+
+  const handleEmpChange = useCallback((id) => {
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      employeeId: id,
+    }));
+  }, []);
 
   const handleChange = (event) => {
     if (event.target.name == "notes")
@@ -134,7 +137,7 @@ function UniformReceiveCreate(props) {
             <Grid item xs={12} md={10}></Grid>
 
             <Grid item xs={12} md={8}>
-              <EmployeeData data={data} setdata={setdata}></EmployeeData>
+              <EmployeeData handleEmpChange={handleEmpChange}></EmployeeData>
             </Grid>
             <Grid item xs={12} md={4}></Grid>
             <Grid item xs={12} md={4}>

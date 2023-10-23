@@ -41,10 +41,6 @@ function SocialInsuranceData(props) {
   const [processing, setProcessing] = useState(false);
   const [formInfo, setFormInfo] = useState({
     employeeId: '',
-    employeeName: '',
-    hiringDate: null,
-    job: '',
-    organization: '',
     HasAlternativeEmp: false,
 
     insNotes: '',
@@ -73,6 +69,14 @@ function SocialInsuranceData(props) {
     empFixedShare: '',
     compFixedShare: '',
   });
+
+  const handleEmpChange = useCallback((id) => {
+    
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      employeeId: id,
+    }));    
+},[]);
 
   const onInsuredNumericInputChange = (evt) => {
     setInsuredState((prev) => ({
@@ -225,7 +229,7 @@ function SocialInsuranceData(props) {
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
             <Grid item xs={12} md={12}>
-              <EmployeeData data={formInfo} setdata={setFormInfo} />
+              <EmployeeData  handleEmpChange={handleEmpChange} />
             </Grid>
 
             <Grid item xs={12}>
