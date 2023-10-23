@@ -178,7 +178,7 @@ function EmployeeExperince(props) {
       </PapperBlock>
       <EditTable
         anchorTable={anchorTable}
-        title={employee}
+        title={employee.name}
         API={EmployeeExperinceData(employee.id)}
       />
     </div>

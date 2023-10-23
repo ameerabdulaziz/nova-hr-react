@@ -153,8 +153,8 @@ function EmployeeAddress(props) {
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
                 setEmployee({
-                  id: value !== null ? value.id : "",
-                  name: value.name,
+                  id: value !== null ? value.id : 0,
+                  name: value !== null ? value.name : "",
                 });
               }}
               renderInput={(params) => (
@@ -175,7 +175,7 @@ function EmployeeAddress(props) {
       <div className={classes.root}>
         <EditTable
           anchorTable={anchorTable}
-          title={employee}
+          title={employee.name}
           API={EmployeeAddressData(employee.id)}
         />
       </div>
