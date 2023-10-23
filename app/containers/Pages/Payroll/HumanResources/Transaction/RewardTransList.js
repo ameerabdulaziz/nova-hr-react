@@ -78,7 +78,7 @@ function RewardTransList(props) {
     },
     {
       name: "date",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -86,35 +86,35 @@ function RewardTransList(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "superEmployeeName",
-      label: <FormattedMessage {...messages["superEmployeeName"]} />,
+      label: intl.formatMessage(messages.superEmployeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "elementName",
-      label: <FormattedMessage {...messages["elementName"]} />,
+      label: intl.formatMessage(messages.elementName),
       options: {
         filter: true,
       },
     },
     {
       name: "rewardsName",
-      label: <FormattedMessage {...messages["rewardsName"]} />,
+      label: intl.formatMessage(messages.rewardsName),
       options: {
         filter: true,
       },
     },
     {
       name: "value",
-      label: <FormattedMessage {...messages["value"]} />,
+      label: intl.formatMessage(messages.value),
       options: {
         filter: true,
       },
@@ -122,34 +122,35 @@ function RewardTransList(props) {
 
     {
       name: "note",
-      label: <FormattedMessage {...messages["note"]} />,
+      label: intl.formatMessage(messages.note),
       options: {
         filter: true,
       },
     },
     {
       name: "step",
-      label: <FormattedMessage {...Payrollmessages["step"]} />,
+      label: intl.formatMessage(Payrollmessages.step),
       options: {
         filter: true,
       },
     },
     {
       name: "status",
-      label: <FormattedMessage {...Payrollmessages["status"]} />,
+      label: intl.formatMessage(Payrollmessages.status),
       options: {
         filter: true,
       },
     },
     {
       name: "approvedEmp",
-      label: <FormattedMessage {...Payrollmessages["approvedEmp"]} />,
+      label: intl.formatMessage(Payrollmessages.approvedEmp),
       options: {
         filter: true,
       },
     },
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 

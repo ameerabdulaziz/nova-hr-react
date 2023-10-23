@@ -419,4 +419,8 @@ employeeId: {
     id: `${scope}.applynewshift`,
     defaultMessage: 'Apply New Shift',
   },
+  Actions: {
+    id: `${scope}.Actions`,
+    defaultMessage: 'Actions',
+  },
 });

@@ -79,27 +79,28 @@ function PenaltyList(props) {
     },
     {
       name: "enName",
-      label: <FormattedMessage {...messages["enName"]} />,
+      label: intl.formatMessage(messages.enName),
       options: {
         filter: true,
       },
     },
     {
       name: "arName",
-      label: <FormattedMessage {...messages["arName"]} />,
+      label: intl.formatMessage(messages.arName),
       options: {
         filter: true,
       },
     },
     {
       name: "elementName",
-      label: <FormattedMessage {...messages["elementName"]} />,
+      label: intl.formatMessage(messages.elementName),
       options: {
         filter: true,
       },
     },
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 
