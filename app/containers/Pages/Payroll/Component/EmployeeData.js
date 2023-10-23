@@ -25,7 +25,6 @@ function EmployeeData(props) {
   useEffect(() => {    
     fetchData();
   }, []);
-alert('Employees');
   async function getEmployeeData(id) 
   {
     handleEmpChange(id,"employeeId");
