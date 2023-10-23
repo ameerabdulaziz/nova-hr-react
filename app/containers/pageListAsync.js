@@ -1400,3 +1400,10 @@ export const EmergencyBenefitList = loadable(
   }
 );
 
+export const InsuranceFormStatus = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/InsuranceFormStatus'),
+  {
+    fallback: <Loading />,
+  }
+);
+

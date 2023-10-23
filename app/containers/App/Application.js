@@ -267,6 +267,7 @@ import {
   StopInsuranceReport,
   InsuranceFollow,
   EmergencyBenefitList,
+  InsuranceFormStatus,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1085,6 +1086,11 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/EmergencyBenefitList'
           component={EmergencyBenefitList}
+        />
+
+        <Route
+          path='/app/Pages/insurance/InsuranceFormStatus'
+          component={InsuranceFormStatus}
         />
         {/* Default */}
         <Route component={NotFound} />
