@@ -12,7 +12,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import notif from "enl-api/ui/notifMessage";
 import { PapperBlock } from "enl-components";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
@@ -72,7 +72,7 @@ function SocialInsuranceData(props) {
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")
-      setdata((prevFilters) => ({
+    setFormInfo((prevFilters) => ({
         ...prevFilters,
         employeeId: id,
       }));
@@ -160,7 +160,7 @@ function SocialInsuranceData(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const errors = {};
+    let errors = {};
 
     if (formInfo.c1inNo || formInfo.c6inNo) {
       if (insuredState.socialInsuranceId) {
@@ -230,7 +230,7 @@ function SocialInsuranceData(props) {
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction="row">
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId} />
+              <EmployeeData handleEmpChange={handleEmpChange} id={formInfo.employeeId} />
             </Grid>
 
             <Grid item xs={12}>

@@ -89,13 +89,13 @@ function LeaveTrxCreate(props) {
 
   const handleChange = useCallback((id,name) => {
     if(name=="employeeId")
-    setdata((prevFilters) => ({
+    setFormInfo((prevFilters) => ({
       ...prevFilters,
       employeeId: id,
     }));
 
     if(name=="HasAlternativeEmp")
-    setdata((prevFilters) => ({
+    setFormInfo((prevFilters) => ({
       ...prevFilters,
       HasAlternativeEmp: id,
     }));
@@ -325,7 +325,7 @@ function LeaveTrxCreate(props) {
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction="row">
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleChange} id={data.employeeId}/>
+              <EmployeeData handleEmpChange={handleChange} id={formInfo.employeeId}/>
             </Grid>
 
             <Grid item xs={12} md={12}>
