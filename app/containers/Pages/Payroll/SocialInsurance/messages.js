@@ -249,4 +249,28 @@ export default defineMessages({
     id: `${scope}.insuranceNumberIsRequire`,
     defaultMessage: 'insuranceNumberIsRequire',
   },
+  onlyInsured: {
+    id: `${scope}.onlyInsured`,
+    defaultMessage: 'onlyInsured',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'year',
+  },
+  month: {
+    id: `${scope}.month`,
+    defaultMessage: 'month',
+  },
+  basicSalary: {
+    id: `${scope}.basicSalary`,
+    defaultMessage: 'basicSalary',
+  },
+  percent1: {
+    id: `${scope}.percent1`,
+    defaultMessage: 'percent1',
+  },
+  employeeNumber: {
+    id: `${scope}.employeeNumber`,
+    defaultMessage: 'employeeNumber',
+  },
 });

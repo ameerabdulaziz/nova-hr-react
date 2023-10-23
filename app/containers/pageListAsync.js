@@ -1392,3 +1392,11 @@ export const InsuranceFollow = loadable(
     fallback: <Loading />,
   }
 );
+
+export const EmergencyBenefitList = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/EmergencyBenefitList'),
+  {
+    fallback: <Loading />,
+  }
+);
+
