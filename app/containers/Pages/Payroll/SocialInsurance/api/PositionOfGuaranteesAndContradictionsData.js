@@ -10,6 +10,12 @@ const PositionOfGuaranteesAndContradictionsData = (locale) => {
     return data.data;
   };
 
+  api.GetSInsuranceOffices = async () => {
+    const data = await axiosInstance.get(`SinsuranceOffices/GetListModel/${locale}`);
+
+    return data.data;
+  };
+
   return api;
 };
 

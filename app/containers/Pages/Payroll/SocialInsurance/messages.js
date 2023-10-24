@@ -273,4 +273,32 @@ export default defineMessages({
     id: `${scope}.employeeNumber`,
     defaultMessage: 'employeeNumber',
   },
+  hiredFromAtLeast3Months: {
+    id: `${scope}.hiredFromAtLeast3Months`,
+    defaultMessage: 'hiredFromAtLeast3Months',
+  },
+  age: {
+    id: `${scope}.age`,
+    defaultMessage: 'age',
+  },
+  all: {
+    id: `${scope}.all`,
+    defaultMessage: 'all',
+  },
+  '60AndUp': {
+    id: `${scope}.60AndUp`,
+    defaultMessage: '60AndUp',
+  },
+  lessThan60: {
+    id: `${scope}.lessThan60`,
+    defaultMessage: 'lessThan60',
+  },
+  employeeAgeAtEndOfMonth: {
+    id: `${scope}.employeeAgeAtEndOfMonth`,
+    defaultMessage: 'employeeAgeAtEndOfMonth',
+  },
+  socialInsuranceID: {
+    id: `${scope}.socialInsuranceID`,
+    defaultMessage: 'socialInsuranceID',
+  },
 });
