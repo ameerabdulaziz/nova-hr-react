@@ -1414,3 +1414,10 @@ export const PositionOfGuaranteesAndContradictions = loadable(
   }
 );
 
+export const SocialInsuranceReport = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/SocialInsuranceReports'),
+  {
+    fallback: <Loading />,
+  }
+);
+
