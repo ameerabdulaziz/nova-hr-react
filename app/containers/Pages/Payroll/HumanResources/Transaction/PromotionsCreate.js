@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../api/PromotionsData";
 import messages from "../messages";
