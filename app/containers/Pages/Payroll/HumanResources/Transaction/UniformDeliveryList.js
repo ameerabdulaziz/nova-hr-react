@@ -28,7 +28,7 @@ function UniformDeliveryList(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleClickOpen = (item) => {
-    debugger;
+
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -39,7 +39,7 @@ function UniformDeliveryList(props) {
 
   async function deleterow() {
     try {
-      debugger;
+
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -71,14 +71,14 @@ function UniformDeliveryList(props) {
   const columns = [
     {
       name: "id",
-      label: <FormattedMessage {...Payrollmessages["id"]} />,
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "date",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
+      label: intl.formatMessage(Payrollmessages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -86,7 +86,7 @@ function UniformDeliveryList(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
@@ -94,39 +94,39 @@ function UniformDeliveryList(props) {
 
     {
       name: "uniformName",
-      label: <FormattedMessage {...messages["uniformName"]} />,
+      label: intl.formatMessage(messages.uniformName),
       options: {
         filter: true,
       },
     },
     {
       name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
+      label: intl.formatMessage(Payrollmessages.notes),
       options: {
         filter: true,
       },
     },
     {
       name: "quantity",
-      label: <FormattedMessage {...Payrollmessages["count"]} />,
+      label: intl.formatMessage(Payrollmessages.count),
       options: {
         filter: true,
       },
     },
     {
       name: "uniformPrice",
-      label: <FormattedMessage {...Payrollmessages["price"]} />,
+      label: intl.formatMessage(Payrollmessages.price),
       options: {
         filter: true,
       },
     },
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton

@@ -57,7 +57,7 @@ function PenaltyList(props) {
 
   async function fetchData() {
     try {
-      const dataApi = await ApiData(locale).GetList();
+      const dataApi = await ApiData(locale).GetPenaltyList();
       setdata(dataApi);
     } catch (err) {
     } finally {
@@ -105,7 +105,6 @@ function PenaltyList(props) {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton

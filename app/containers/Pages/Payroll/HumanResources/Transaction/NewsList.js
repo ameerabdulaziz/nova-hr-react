@@ -71,13 +71,14 @@ function NewsList(props) {
   const columns = [
     {
       name: "id",
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "fromDate",
-      label: <FormattedMessage {...Payrollmessages["fromdate"]} />,
+      label: intl.formatMessage(Payrollmessages.fromdate),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -85,7 +86,7 @@ function NewsList(props) {
     },
     {
       name: "toDate",
-      label: <FormattedMessage {...Payrollmessages["todate"]} />,
+      label: intl.formatMessage(Payrollmessages.todate),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -93,21 +94,21 @@ function NewsList(props) {
     },
     {
       name: "header",
-      label: <FormattedMessage {...Payrollmessages["title"]} />,
+      label: intl.formatMessage(Payrollmessages.title),
       options: {
         filter: true,
       },
     },
     {
       name: "details",
-      label: <FormattedMessage {...Payrollmessages["details"]} />,
+      label: intl.formatMessage(Payrollmessages.details),
       options: {
         filter: true,
       },
     },
     {
       name: "newsTypeName",
-      label: <FormattedMessage {...Payrollmessages["type"]} />,
+      label: intl.formatMessage(Payrollmessages.type),
       options: {
         filter: true,
       },
@@ -115,11 +116,11 @@ function NewsList(props) {
 
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton
