@@ -645,7 +645,7 @@ function Application(props) {
         />
         <Route
           path='/app/Pages/HR/UniformReceiveEdit'
-          component={UniformDeliveryCreate}
+          component={UniformReceiveCreate}
         />
         <Route
           path='/app/Pages/HR/UniformDeliveryReport'

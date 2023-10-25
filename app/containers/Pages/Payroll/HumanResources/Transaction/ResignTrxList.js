@@ -28,7 +28,7 @@ function ResignTrxList(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleClickOpen = (item) => {
-    debugger;
+
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -39,7 +39,7 @@ function ResignTrxList(props) {
 
   async function deleterow() {
     try {
-      debugger;
+
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -78,7 +78,7 @@ function ResignTrxList(props) {
     },
     {
       name: "date",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -87,14 +87,14 @@ function ResignTrxList(props) {
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "resignReasonName",
-      label: <FormattedMessage {...messages["resignReasonName"]} />,
+      label: intl.formatMessage(messages.resignReasonName),
       options: {
         filter: true,
       },
@@ -102,7 +102,7 @@ function ResignTrxList(props) {
 
     {
       name: "lworkingDay",
-      label: <FormattedMessage {...messages["lworkingDay"]} />,
+      label: intl.formatMessage(messages.lworkingDay),
       options: {
         filter: true,
       },
@@ -110,18 +110,18 @@ function ResignTrxList(props) {
 
     {
       name: "note",
-      label: <FormattedMessage {...messages["note"]} />,
+      label: intl.formatMessage(messages.note),
       options: {
         filter: true,
       },
     },
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton

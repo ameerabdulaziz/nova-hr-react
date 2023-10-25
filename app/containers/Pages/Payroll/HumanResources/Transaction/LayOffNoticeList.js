@@ -28,7 +28,7 @@ function LayOffNoticeList(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleClickOpen = (item) => {
-    debugger;
+
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -39,7 +39,7 @@ function LayOffNoticeList(props) {
 
   async function deleterow() {
     try {
-      debugger;
+
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -57,7 +57,7 @@ function LayOffNoticeList(props) {
 
   async function fetchData() {
     try {
-      debugger;
+
       const dataApi = await ApiData(locale).GetList();
       setdata(dataApi);
     } catch (err) {
@@ -79,7 +79,7 @@ function LayOffNoticeList(props) {
     },
     {
       name: "noticeDate",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -87,25 +87,25 @@ function LayOffNoticeList(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "reason",
-      label: <FormattedMessage {...messages["reason"]} />,
+      label: intl.formatMessage(messages.reason),
       options: {
         filter: true,
       },
     },
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton
