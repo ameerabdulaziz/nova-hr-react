@@ -1500,5 +1500,18 @@
   "boilerplate.containers.Payroll.insurance.BranchName": "Branch Name",
   "boilerplate.containers.Payroll.insurance.HrNotes": "Hr Notes",
   "boilerplate.containers.Payroll.insurance.Company": "Company",
-  "boilerplate.containers.Payroll.insurance.InsuranceStatus": "Insurance Status"
+  "boilerplate.containers.Payroll.insurance.InsuranceStatus": "Insurance Status",
+
+  "boilerplate.containers.Payroll.medicalInsurance.certificateIssuedDate": "Certificate Issue Date",
+  "boilerplate.containers.Payroll.medicalInsurance.certificateExpireDate": "Certificate Expire Date",
+  "boilerplate.containers.Payroll.medicalInsurance.medicalCert": "Medical Cert",
+  "boilerplate.containers.Payroll.medicalInsurance.privateMedicalInsurance": "Private Medical Insurance",
+  "boilerplate.containers.Payroll.medicalInsurance.governmentMedicalInsurance": "Government Medical Insurance",
+  "boilerplate.containers.Payroll.medicalInsurance.insuranceCategory": "Insurance Category",
+  "boilerplate.containers.Payroll.medicalInsurance.insuranceCompany": "Insurance Company",
+  "boilerplate.containers.Payroll.medicalInsurance.hrNotes": "HR Notes",
+  "boilerplate.containers.Payroll.medicalInsurance.familyCount": "Family Count",
+  "boilerplate.containers.Payroll.medicalInsurance.medicalEndDate": "Medical End Date",
+  "boilerplate.containers.Payroll.medicalInsurance.medicalCardNumber": "Medical Card Number",
+  "boilerplate.containers.Payroll.medicalInsurance.cardExpireDate": "Card Expire Date"
 }

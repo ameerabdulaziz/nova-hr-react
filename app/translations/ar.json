@@ -1538,6 +1538,19 @@
   "boilerplate.containers.Payroll.insurance.BranchName": "اسم الفرع",
   "boilerplate.containers.Payroll.insurance.HrNotes": "ملاحظات المسؤول",
   "boilerplate.containers.Payroll.insurance.Company": "الشركه",
-  "boilerplate.containers.Payroll.insurance.InsuranceStatus": "حالة التأمين"
+  "boilerplate.containers.Payroll.insurance.InsuranceStatus": "حالة التأمين",
+
+  "boilerplate.containers.Payroll.medicalInsurance.certificateIssuedDate": "تاريخ اصدار الشهادة",
+  "boilerplate.containers.Payroll.medicalInsurance.privateMedicalInsurance": "التامين الطبي الخاص",
+  "boilerplate.containers.Payroll.medicalInsurance.certificateExpireDate": "تاريخ انتهاء الشهادة",
+  "boilerplate.containers.Payroll.medicalInsurance.medicalCert": "بطاقة صحية",
+  "boilerplate.containers.Payroll.medicalInsurance.governmentMedicalInsurance": "التامين الطبي الحكومي",
+  "boilerplate.containers.Payroll.medicalInsurance.hrNotes": "ملاحظات المسؤول",
+  "boilerplate.containers.Payroll.medicalInsurance.insuranceCategory": "فئة التأمين الصحي",
+  "boilerplate.containers.Payroll.medicalInsurance.insuranceCompany": "شركة التأمين",
+  "boilerplate.containers.Payroll.medicalInsurance.familyCount": "عدد افراد الاسرة المؤمن عليهم",
+  "boilerplate.containers.Payroll.medicalInsurance.medicalEndDate": "تاريخ انتهاء التامين",
+  "boilerplate.containers.Payroll.medicalInsurance.medicalCardNumber": "رقم البطاقة العلاجية",
+  "boilerplate.containers.Payroll.medicalInsurance.cardExpireDate": "تاريخ انتهاء البطاقة"
 
 }

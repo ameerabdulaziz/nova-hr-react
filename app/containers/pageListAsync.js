@@ -1421,3 +1421,10 @@ export const SocialInsuranceReport = loadable(
   }
 );
 
+// Medical Insurance
+export const MedicalInsuranceData = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/MedicalInsuranceData'),
+  {
+    fallback: <Loading />,
+  }
+);
