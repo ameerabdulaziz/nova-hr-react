@@ -1435,3 +1435,10 @@ export const InsuranceCompanies = loadable(
     fallback: <Loading />,
   }
 );
+
+export const MinsuranceCategory = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/MinsuranceCategory'),
+  {
+    fallback: <Loading />,
+  }
+);

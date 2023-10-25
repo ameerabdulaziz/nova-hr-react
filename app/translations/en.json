@@ -843,6 +843,8 @@
   "boilerplate.components.tables.codes.newEmployeeName": "New Manger",
   "boilerplate.components.tables.codes.job": "Job",
   "boilerplate.components.tables.codes.categoryName": "Category",
+  "boilerplate.components.tables.codes.registrationPrice": "Registration Price",
+  "boilerplate.components.tables.codes.familyMemberValue": "Family Member Value",
   "boilerplate.components.tables.codes.price": "Price",
   "boilerplate.components.tables.codes.transportaion": "Transportaion",
 

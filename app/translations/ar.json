@@ -843,6 +843,8 @@
   "boilerplate.components.tables.codes.newEmployeeName": "المدير الجديد",
   "boilerplate.components.tables.codes.job": "الوظيفة",
   "boilerplate.components.tables.codes.categoryName": "التصنيف",
+  "boilerplate.components.tables.codes.registrationPrice": "سعر التسجيل",
+  "boilerplate.components.tables.codes.familyMemberValue": "قيمة أفراد العائلة",
   "boilerplate.components.tables.codes.price": "السعر",
   "boilerplate.components.tables.codes.transportaion": "انتقالات",
 
