@@ -77,7 +77,7 @@ function ExplanationReport(props) {
   const columns = [
     {
       name: "id",
-      label: <FormattedMessage {...Payrollmessages["id"]} />,
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
@@ -85,7 +85,7 @@ function ExplanationReport(props) {
     
     {
       name: "questionDate",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
+      label: intl.formatMessage(Payrollmessages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -93,21 +93,21 @@ function ExplanationReport(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "job",
-      label: <FormattedMessage {...messages["job"]} />,
+      label: intl.formatMessage(messages.job),
       options: {
         filter: true,
       },
     },
     {
       name: "questionDate",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -115,28 +115,28 @@ function ExplanationReport(props) {
     },
     {
       name: "expTypeName",
-      label: <FormattedMessage {...Payrollmessages["type"]} />,
+      label: intl.formatMessage(Payrollmessages.type),
       options: {
         filter: true,
       },
     },
     {
       name: "questionTitle",
-      label: <FormattedMessage {...Payrollmessages["title"]} />,
+      label: intl.formatMessage(Payrollmessages.title),
       options: {
         filter: true,
       },
     },
     {
       name: "questionDetails",
-      label: <FormattedMessage {...Payrollmessages["details"]} />,
+      label: intl.formatMessage(Payrollmessages.details),
       options: {
         filter: true,
       },
     },
     {
       name: "response",
-      label: <FormattedMessage {...messages["response"]} />,
+      label: intl.formatMessage(messages.response),
       options: {
         filter: true,
       },

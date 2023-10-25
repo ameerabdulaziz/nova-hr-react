@@ -62,7 +62,7 @@ function PromotionsReport(props) {
     },
     {
       name: "date",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -70,42 +70,42 @@ function PromotionsReport(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "oldJob",
-      label: <FormattedMessage {...messages["oldJob"]} />,
+      label: intl.formatMessage(messages.oldJob),
       options: {
         filter: true,
       },
     },
     {
       name: "oldElemVal",
-      label: <FormattedMessage {...messages["oldElemVal"]} />,
+      label: intl.formatMessage(messages.oldElemVal),
       options: {
         filter: true,
       },
     },
     {
       name: "job",
-      label: <FormattedMessage {...messages["job"]} />,
+      label: intl.formatMessage(messages.job),
       options: {
         filter: true,
       },
     },
     {
       name: "elemVal",
-      label: <FormattedMessage {...messages["value"]} />,
+      label: intl.formatMessage(messages.value),
       options: {
         filter: true,
       },
     },
     {
       name: "reason",
-      label: <FormattedMessage {...messages["reason"]} />,
+      label: intl.formatMessage(messages.reason),
       options: {
         filter: true,
       },

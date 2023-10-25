@@ -75,14 +75,14 @@ function UniformDeliveryReport(props) {
   const columns = [
     {
       name: "id",
-      label: <FormattedMessage {...Payrollmessages["id"]} />,
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "date",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
+      label: intl.formatMessage(Payrollmessages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -90,7 +90,7 @@ function UniformDeliveryReport(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
@@ -98,28 +98,28 @@ function UniformDeliveryReport(props) {
 
     {
       name: "uniformName",
-      label: <FormattedMessage {...messages["uniformName"]} />,
+      label: intl.formatMessage(messages.uniformName),
       options: {
         filter: true,
       },
     },
     {
       name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
+      label: intl.formatMessage(Payrollmessages.notes),
       options: {
         filter: true,
       },
     },
     {
       name: "quantity",
-      label: <FormattedMessage {...Payrollmessages["count"]} />,
+      label: intl.formatMessage(Payrollmessages.count),
       options: {
         filter: true,
       },
     },
     {
       name: "uniformPrice",
-      label: <FormattedMessage {...Payrollmessages["price"]} />,
+      label: intl.formatMessage(Payrollmessages.price),
       options: {
         filter: true,
       },

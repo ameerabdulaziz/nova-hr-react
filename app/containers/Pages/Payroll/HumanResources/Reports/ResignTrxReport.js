@@ -90,13 +90,14 @@ function ResignTrxReport(props) {
   const columns = [
     {
       name: "id",
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "date",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -105,14 +106,14 @@ function ResignTrxReport(props) {
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "resignReasonName",
-      label: <FormattedMessage {...messages["resignReasonName"]} />,
+      label: intl.formatMessage(messages.resignReasonName),
       options: {
         filter: true,
       },
@@ -120,7 +121,7 @@ function ResignTrxReport(props) {
 
     {
       name: "lworkingDay",
-      label: <FormattedMessage {...messages["lworkingDay"]} />,
+      label: intl.formatMessage(messages.lworkingDay),
       options: {
         filter: true,
         customBodyRender: (value) => value?format(new Date(value), "yyyy-MM-dd"):value,
@@ -129,28 +130,28 @@ function ResignTrxReport(props) {
 
     {
       name: "note",
-      label: <FormattedMessage {...messages["note"]} />,
+      label: intl.formatMessage(messages.note),
       options: {
         filter: true,
       },
     },
     {
       name: "settlementV",
-      label: <FormattedMessage {...messages["settlementV"]} />,
+      label: intl.formatMessage(messages.settlementV),
       options: {
         filter: true,
       },
     },
     {
       name: "vacSettlValue",
-      label: <FormattedMessage {...messages["vacSettlValue"]} />,
+      label: intl.formatMessage(messages.vacSettlValue),
       options: {
         filter: true,
       },
     },
     {
       name: "isStop",
-      label: <FormattedMessage {...Payrollmessages["isStop"]} />,
+      label: intl.formatMessage(Payrollmessages.isStop),
       options: {
         filter: true,
         customBodyRender: (value) => CheckBox(value),
@@ -158,7 +159,7 @@ function ResignTrxReport(props) {
     },
     {
       name: "source",
-      label: <FormattedMessage {...messages["source"]} />,
+      label: intl.formatMessage(messages.source),
       options: {
         filter: true,
       },
