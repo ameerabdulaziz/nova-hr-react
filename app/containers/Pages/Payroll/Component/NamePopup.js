@@ -36,6 +36,7 @@ function NamePopup(props) {
         SelectedRows.push({
           id: EmployeeList[allRowsSelected[i].dataIndex].id,
           name: EmployeeList[allRowsSelected[i].dataIndex].name,
+          fixedElementsSilimit: EmployeeList[allRowsSelected[i].dataIndex].fixedElementsSilimit,
           organizationName:
             EmployeeList[allRowsSelected[i].dataIndex].organizationName || "",
           isSelected: true,
@@ -57,6 +58,7 @@ function NamePopup(props) {
             return {
               id: obj.id,
               name: obj.name,
+              fixedElementsSilimit: obj.fixedElementsSilimit,
               organizationName: obj.organizationName,
               jobName: obj.jobName,
               isSelected: false,

@@ -1429,6 +1429,27 @@ export const MedicalInsuranceData = loadable(
   }
 );
 
+export const InsuranceCompanies = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/InsuranceCompanies'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MinsuranceCategory = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/MinsuranceCategory'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MinsuranceCenters = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/MinsuranceCenters'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const staffMedicalInsuranceReport = loadable(
   () => import('./Pages/Payroll/MedicalInsurance/Reports/staffMedicalInsuranceReport'),
   {

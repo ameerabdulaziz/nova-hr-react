@@ -271,7 +271,10 @@ import {
   PositionOfGuaranteesAndContradictions,
   SocialInsuranceReport,
   MedicalInsuranceData,
-  staffMedicalInsuranceReport
+  staffMedicalInsuranceReport,
+  InsuranceCompanies,
+  MinsuranceCategory,
+  MinsuranceCenters,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1112,6 +1115,26 @@ function Application(props) {
         <Route
           path='/app/Pages/Minsurance/MedicalInsuranceData'
           component={MedicalInsuranceData}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceData'
+          component={MedicalInsuranceData}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/InsuranceCompanies'
+          component={InsuranceCompanies}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MinsuranceCategory'
+          component={MinsuranceCategory}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MinsuranceCenters'
+          component={MinsuranceCenters}
         />
 
         <Route
