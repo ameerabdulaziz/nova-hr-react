@@ -74,21 +74,21 @@ function CustodyReceiveReport(props) {
   const columns = [
     {
       name: "id",
-      label: <FormattedMessage {...Payrollmessages["id"]} />,
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "date",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
+      label: intl.formatMessage(Payrollmessages.date),
       options: {
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
@@ -96,14 +96,14 @@ function CustodyReceiveReport(props) {
 
     {
       name: "custodyName",
-      label: <FormattedMessage {...messages["custodyName"]} />,
+      label: intl.formatMessage(messages.custodyName),
       options: {
         filter: true,
       },
     },
     {
       name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
+      label: intl.formatMessage(Payrollmessages.notes),
       options: {
         filter: true,
       },
@@ -111,14 +111,14 @@ function CustodyReceiveReport(props) {
 
     {
       name: "custCount",
-      label: <FormattedMessage {...Payrollmessages["count"]} />,
+      label: intl.formatMessage(Payrollmessages.count),
       options: {
         filter: true,
       },
     },
     {
       name: "custodyPrice",
-      label: <FormattedMessage {...Payrollmessages["price"]} />,
+      label: intl.formatMessage(Payrollmessages.price),
       options: {
         filter: true,
       },

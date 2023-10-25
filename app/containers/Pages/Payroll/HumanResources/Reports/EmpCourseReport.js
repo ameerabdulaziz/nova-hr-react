@@ -75,27 +75,28 @@ function EmpCourseReport(props) {
   const columns = [
     {
       name: "id",
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "courseName",
-      label: <FormattedMessage {...messages["courseName"]} />,
+      label: intl.formatMessage(messages.courseName),
       options: {
         filter: true,
       },
     },
     {
       name: "startDate",
-      label: <FormattedMessage {...Payrollmessages["fromdate"]} />,
+      label: intl.formatMessage(Payrollmessages.fromdate),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -103,7 +104,7 @@ function EmpCourseReport(props) {
     },
     {
       name: "finishDate",
-      label: <FormattedMessage {...Payrollmessages["todate"]} />,
+      label: intl.formatMessage(Payrollmessages.todate),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -111,14 +112,14 @@ function EmpCourseReport(props) {
     },
     {
       name: "courseCost",
-      label: <FormattedMessage {...Payrollmessages["price"]} />,
+      label: intl.formatMessage(Payrollmessages.price),
       options: {
         filter: true,
       },
     },
     {
       name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
+      label: intl.formatMessage(Payrollmessages.notes),
       options: {
         filter: true,
       },
