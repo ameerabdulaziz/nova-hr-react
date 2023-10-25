@@ -1428,3 +1428,10 @@ export const MedicalInsuranceData = loadable(
     fallback: <Loading />,
   }
 );
+
+export const staffMedicalInsuranceReport = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/staffMedicalInsuranceReport'),
+  {
+    fallback: <Loading />,
+  }
+);

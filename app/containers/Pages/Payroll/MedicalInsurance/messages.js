@@ -51,4 +51,37 @@ export default defineMessages({
     id: `${scope}.hrNotes`,
     defaultMessage: 'hrNotes',
   },
+  // staffMedicalInsuranceReport
+  MedicalTypes: {
+    id: `${scope}.MedicalTypes`,
+    defaultMessage: 'MedicalTypes',
+  },
+  MedicalInsuranceCenters: {
+    id: `${scope}.MedicalInsuranceCenters`,
+    defaultMessage: 'MedicalInsuranceCenters',
+  },
+  totalValue: {
+    id: `${scope}.totalValue`,
+    defaultMessage: 'totalValue',
+  },
+  employeeShare: {
+    id: `${scope}.employeeShare`,
+    defaultMessage: 'employeeShare',
+  },
+  fromDate: {
+    id: `${scope}.fromDate`,
+    defaultMessage: 'fromDate',
+  },
+  orgName: {
+    id: `${scope}.orgName`,
+    defaultMessage: 'Organization',
+  },
+  EmpCode: {
+    id: `${scope}.EmpCode`,
+    defaultMessage: 'Emp.Code',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'Employee Name',
+  },
 });

@@ -1551,6 +1551,14 @@
   "boilerplate.containers.Payroll.medicalInsurance.familyCount": "عدد افراد الاسرة المؤمن عليهم",
   "boilerplate.containers.Payroll.medicalInsurance.medicalEndDate": "تاريخ انتهاء التامين",
   "boilerplate.containers.Payroll.medicalInsurance.medicalCardNumber": "رقم البطاقة العلاجية",
-  "boilerplate.containers.Payroll.medicalInsurance.cardExpireDate": "تاريخ انتهاء البطاقة"
+  "boilerplate.containers.Payroll.medicalInsurance.cardExpireDate": "تاريخ انتهاء البطاقة",
+  "boilerplate.containers.Payroll.medicalInsurance.MedicalTypes": "استفادات التامين الطبى",
+  "boilerplate.containers.Payroll.medicalInsurance.MedicalInsuranceCenters": "المركز الطبى",
+  "boilerplate.containers.Payroll.medicalInsurance.totalValue": "اجمالى القيمة",
+  "boilerplate.containers.Payroll.medicalInsurance.employeeShare": "نصيب الموظف",
+  "boilerplate.containers.Payroll.medicalInsurance.fromDate": "من تاريخ",
+  "boilerplate.containers.Payroll.medicalInsurance.orgName": "القسم",
+  "boilerplate.containers.Payroll.medicalInsurance.EmpCode": "كود الموظف",
+  "boilerplate.containers.Payroll.medicalInsurance.employeeName": "اسم الموظف"
 
 }

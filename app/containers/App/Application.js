@@ -271,6 +271,7 @@ import {
   PositionOfGuaranteesAndContradictions,
   SocialInsuranceReport,
   MedicalInsuranceData,
+  staffMedicalInsuranceReport
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1106,9 +1107,16 @@ function Application(props) {
           component={SocialInsuranceReport}
         />
 
+        {/*Medical Insurance */}
+
         <Route
           path='/app/Pages/Minsurance/MedicalInsuranceData'
           component={MedicalInsuranceData}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/staffMedicalInsuranceReport'
+          component={staffMedicalInsuranceReport}
         />
         {/* Default */}
         <Route component={NotFound} />

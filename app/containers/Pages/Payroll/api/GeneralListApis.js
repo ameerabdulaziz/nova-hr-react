@@ -346,6 +346,22 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetMedicalInsuranceCentersList = async () => {
+    const result = await axiosInstance.get(
+      `MinsuranceCenters/GetListModel/${locale}`
+    );
+
+    return result.data;
+  };
+
+  Apis.GetMedicalInsuranceItemList = async () => {
+    const result = await axiosInstance.get(
+      `MinsuranceItem/GetListModel/${locale}`
+    );
+
+    return result.data;
+  };
+
   return Apis;
 };
 
