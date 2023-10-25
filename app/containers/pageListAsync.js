@@ -1442,3 +1442,10 @@ export const MinsuranceCategory = loadable(
     fallback: <Loading />,
   }
 );
+
+export const MinsuranceCenters = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/MinsuranceCenters'),
+  {
+    fallback: <Loading />,
+  }
+);
