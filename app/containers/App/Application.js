@@ -24,7 +24,8 @@ import {
   IdentityType,
   Courses,
   ResignReason,
-  InsuranceRegion
+  InsuranceRegion,
+  MinsuranceItem,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -1140,6 +1141,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Minsurance/staffMedicalInsuranceReport'
           component={staffMedicalInsuranceReport}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MinsuranceItem'
+          component={MinsuranceItem}
         />
         {/* Default */}
         <Route component={NotFound} />
