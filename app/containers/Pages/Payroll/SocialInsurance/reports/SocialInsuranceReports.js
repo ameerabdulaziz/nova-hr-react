@@ -1,12 +1,22 @@
 import {
-  Autocomplete, Button, Checkbox, FormControlLabel, Grid, TextField
+  Autocomplete,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Tooltip,
 } from '@mui/material';
 import { format } from 'date-fns';
+import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import InsuranceFormPopUp from '../../Component/InsuranceFormPopUp';
 import PayRollLoader from '../../Component/PayRollLoader';
 import Search from '../../Component/Search';
 import useStyles from '../../Style';
@@ -22,6 +32,8 @@ function SocialInsuranceReport(props) {
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [hrNotesRowId, setHrNotesRowId] = useState('');
+  const [isHRNotesPopupOpen, setIsHRNotesPopupOpen] = useState(false);
 
   const [officeList, setOfficeList] = useState([]);
   const [yearList, setYearList] = useState([]);
@@ -55,34 +67,49 @@ function SocialInsuranceReport(props) {
     age: null,
 
     ThreeMonths: false,
-    IsInsured: false
+    IsInsured: false,
   });
+
+  const onHRNotesClick = (rowId) => {
+    setHrNotesRowId(rowId);
+    setIsHRNotesPopupOpen(true);
+  };
+
+  const closeHRNotesPopup = () => {
+    setIsHRNotesPopupOpen(false);
+  };
 
   const columns = [
     {
+      name: 'id',
+      options: {
+        display: false,
+      },
+    },
+    {
       name: 'organizationName',
-      label: <FormattedMessage {...messages.organizationName} />,
+      label: intl.formatMessage(messages.organizationName),
       options: {
         filter: true,
       },
     },
     {
       name: 'employeeCode',
-      label: <FormattedMessage {...messages.employeeId} />,
+      label: intl.formatMessage(messages.employeeId),
       options: {
         filter: true,
       },
     },
     {
       name: 'employeeName',
-      label: <FormattedMessage {...messages.employeeName} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: 'birthDate',
-      label: <FormattedMessage {...messages.birthDate} />,
+      label: intl.formatMessage(messages.birthDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -90,14 +117,14 @@ function SocialInsuranceReport(props) {
     },
     {
       name: 'staffAge',
-      label: <FormattedMessage {...messages.employeeAgeAtEndOfMonth} />,
+      label: intl.formatMessage(messages.employeeAgeAtEndOfMonth),
       options: {
         filter: true,
       },
     },
     {
       name: 'hiringDate',
-      label: <FormattedMessage {...messages.hiringDate} />,
+      label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -105,21 +132,21 @@ function SocialInsuranceReport(props) {
     },
     {
       name: 'insuOffice',
-      label: <FormattedMessage {...messages.insuranceOffice} />,
+      label: intl.formatMessage(messages.insuranceOffice),
       options: {
         filter: true,
       },
     },
     {
       name: 'socialInsuranceID',
-      label: <FormattedMessage {...messages.socialInsuranceID} />,
+      label: intl.formatMessage(messages.socialInsuranceID),
       options: {
         filter: true,
       },
     },
     {
       name: 'insuranceDate',
-      label: <FormattedMessage {...messages.insuranceDate} />,
+      label: intl.formatMessage(messages.insuranceDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -127,28 +154,37 @@ function SocialInsuranceReport(props) {
     },
     {
       name: 'insuJobName',
-      label: <FormattedMessage {...messages.insuranceJob} />,
+      label: intl.formatMessage(messages.insuranceJob),
       options: {
         filter: true,
       },
     },
     {
       name: 'srcNotes',
-      label: <FormattedMessage {...messages.hrNotes} />,
+      label: intl.formatMessage(messages.hrNotes),
       options: {
         filter: true,
+        customBodyRender: (value, tableMeta) => (
+          <Tooltip
+            placement='top'
+            title={intl.formatMessage(payrollMessages.edit)}
+            onClick={() => onHRNotesClick(tableMeta.rowData[0])}
+          >
+            <span>{value}</span>
+          </Tooltip>
+        ),
       },
     },
     {
       name: 'c1inNo',
-      label: <FormattedMessage {...messages.c1IncomingNumber} />,
+      label: intl.formatMessage(messages.c1IncomingNumber),
       options: {
         filter: true,
       },
     },
     {
       name: 'c1inDate',
-      label: <FormattedMessage {...messages.c1DeliverDate} />,
+      label: intl.formatMessage(messages.c1DeliverDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -156,14 +192,14 @@ function SocialInsuranceReport(props) {
     },
     {
       name: 'c6inNo',
-      label: <FormattedMessage {...messages.c6IncomingNumber} />,
+      label: intl.formatMessage(messages.c6IncomingNumber),
       options: {
         filter: true,
       },
     },
     {
       name: 'c6inDate',
-      label: <FormattedMessage {...messages.c6DeliverDate} />,
+      label: intl.formatMessage(messages.c6DeliverDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -171,7 +207,7 @@ function SocialInsuranceReport(props) {
     },
     {
       name: 'ka3bDate',
-      label: <FormattedMessage {...messages.workLetterDate} />,
+      label: intl.formatMessage(messages.workLetterDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -179,7 +215,7 @@ function SocialInsuranceReport(props) {
     },
     {
       name: 'ka3bNo',
-      label: <FormattedMessage {...messages.workLetterNumber} />,
+      label: intl.formatMessage(messages.workLetterNumber),
       options: {
         filter: true,
       },
@@ -252,13 +288,40 @@ function SocialInsuranceReport(props) {
     }
   };
 
+  const createHRNotes = async (notes) => {
+    try {
+      setIsLoading(true);
+      const formData = {
+        id: hrNotesRowId,
+        notes,
+      };
+
+      await api(locale).AddHRNotes(formData);
+
+      toast.success(notif.saved);
+
+      fetchTableData();
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
     fetchTableData();
   };
+
   return (
     <PayRollLoader isLoading={isLoading}>
+      <InsuranceFormPopUp
+        handleClose={closeHRNotesPopup}
+        open={isHRNotesPopupOpen}
+        callFun={createHRNotes}
+      />
+
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
@@ -349,7 +412,8 @@ function SocialInsuranceReport(props) {
                 value={
                   ageList.find((item) => item.value === formInfo.age) ?? null
                 }
-                isOptionEqualToValue={(option, value) => option.value === value.value}
+                isOptionEqualToValue={(option, value) => option.value === value.value
+                }
                 getOptionLabel={(option) => (option ? option.label : '')}
                 onChange={(_, value) => {
                   setFormInfo((prev) => ({
@@ -367,8 +431,7 @@ function SocialInsuranceReport(props) {
             </Grid>
 
             <Grid item md={12}>
-              <Grid container spacing={2} >
-
+              <Grid container spacing={2}>
                 <Grid item md={3}>
                   <FormControlLabel
                     control={
@@ -402,7 +465,6 @@ function SocialInsuranceReport(props) {
                     label={intl.formatMessage(messages.hiredFromAtLeast3Months)}
                   />
                 </Grid>
-
               </Grid>
             </Grid>
 
@@ -426,5 +488,9 @@ function SocialInsuranceReport(props) {
     </PayRollLoader>
   );
 }
+
+SocialInsuranceReport.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(SocialInsuranceReport);

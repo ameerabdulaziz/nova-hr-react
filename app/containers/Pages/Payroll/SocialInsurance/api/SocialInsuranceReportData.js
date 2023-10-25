@@ -16,6 +16,12 @@ const SocialInsuranceReportData = (locale) => {
     return data.data;
   };
 
+  api.AddHRNotes = async (params) => {
+    const data = await axiosInstance.post(`SInsuranceReport/AddNotesInFollowReport/${params.id}?Notes=${params.notes}`);
+
+    return data;
+  };
+
   return api;
 };
 
