@@ -90,7 +90,7 @@ function staffMedicalInsuranceReport(props) {
       },
     },
     {
-      name: "departments",
+      name: "organizationName",
       label: intl.formatMessage(messages.orgName),
       options: {
         filter: true,
@@ -113,21 +113,21 @@ function staffMedicalInsuranceReport(props) {
       },
     },
     {
-        name: "MedicalTypes",
+        name: "medItemName",
         label: intl.formatMessage(messages.MedicalTypes),
         options: {
           filter: true,
         },
       },
       {
-        name: "MedicalInsuranceCenters",
+        name: "medCentName",
         label: intl.formatMessage(messages.MedicalInsuranceCenters),
         options: {
           filter: true,
         },
       },
       {
-        name: "totalValue",
+        name: "totalvalue",
         label: intl.formatMessage(messages.totalValue),
         options: {
           filter: true,
@@ -141,7 +141,7 @@ function staffMedicalInsuranceReport(props) {
         },
       },
     {
-      name: "fromDate",
+      name: "trxDate",
       label: intl.formatMessage(messages.fromDate),
       options: {
         filter: true,
