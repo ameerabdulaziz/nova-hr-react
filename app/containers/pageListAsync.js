@@ -1428,3 +1428,10 @@ export const MedicalInsuranceData = loadable(
     fallback: <Loading />,
   }
 );
+
+export const InsuranceCompanies = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/InsuranceCompanies'),
+  {
+    fallback: <Loading />,
+  }
+);
