@@ -280,6 +280,7 @@ import {
   MedicalInsuranceSubscription,
   MedicalInsuranceSubscriptionCreate,
   medicalInsSubscriptionReport,
+  medicalInsuranceListReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1176,6 +1177,10 @@ function Application(props) {
           component={medicalInsSubscriptionReport}
         />
 
+        <Route
+          path='/app/Pages/Minsurance/medicalInsuranceListReport'
+          component={medicalInsuranceListReport}
+        />
 
         {/* Default */}
         <Route component={NotFound} />

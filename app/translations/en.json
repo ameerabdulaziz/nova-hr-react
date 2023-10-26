@@ -1546,5 +1546,7 @@
   "boilerplate.containers.Payroll.medicalInsurance.companyShare": "Company Share",
   "boilerplate.containers.Payroll.medicalInsurance.subMonths": "sub.Months",
   "boilerplate.containers.Payroll.medicalInsurance.InsuranceCompany": "Insurance Company",
-  "boilerplate.containers.Payroll.medicalInsurance.medicalInsuranceCategory": "Medical Insurance Category"
+  "boilerplate.containers.Payroll.medicalInsurance.medicalInsuranceCategory": "Medical Insurance Category",
+  "boilerplate.containers.Payroll.medicalInsurance.privlMedCareNumber": "Priv.Medi.Care Number",
+  "boilerplate.containers.Payroll.medicalInsurance.All": "All"
 }

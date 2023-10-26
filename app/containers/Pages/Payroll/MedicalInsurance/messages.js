@@ -5,7 +5,7 @@ export const scope = 'boilerplate.containers.Payroll.medicalInsurance';
 export default defineMessages({
   governmentMedicalInsurance: {
     id: `${scope}.governmentMedicalInsurance`,
-    defaultMessage: 'governmentMedicalInsurance',
+    defaultMessage: 'government Medical Insurance',
   },
   medicalCardNumber: {
     id: `${scope}.medicalCardNumber`,
@@ -29,7 +29,7 @@ export default defineMessages({
   },
   privateMedicalInsurance: {
     id: `${scope}.privateMedicalInsurance`,
-    defaultMessage: 'privateMedicalInsurance',
+    defaultMessage: 'private Medical Insurance',
   },
   medicalEndDate: {
     id: `${scope}.medicalEndDate`,
@@ -174,4 +174,13 @@ export default defineMessages({
     id: `${scope}.medicalInsuranceCategory`,
     defaultMessage: 'Medical Insurance Category',
   },
+  privlMedCareNumber: {
+    id: `${scope}.privlMedCareNumber`,
+    defaultMessage: 'Priv.Medi.Care Number',
+  },
+  All: {
+    id: `${scope}.All`,
+    defaultMessage: 'All',
+  },
+
 });

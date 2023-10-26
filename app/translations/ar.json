@@ -1581,9 +1581,10 @@
   "boilerplate.containers.Payroll.medicalInsurance.employeeName": "اسم الموظف",
   "boilerplate.containers.Payroll.medicalInsurance.SubscriptionDate": "تاريخ الاشتراك",
   "boilerplate.containers.Payroll.medicalInsurance.SubscriptionMonthlyFees": "رسوم الاشتراك الشهرى",
-  "boilerplate.containers.Payroll.medicalInsurance.companyShare": "نصيب الشركه",
   "boilerplate.containers.Payroll.medicalInsurance.subMonths": "شهور الاشتراك",
   "boilerplate.containers.Payroll.medicalInsurance.InsuranceCompany": "شركة التامين",
-  "boilerplate.containers.Payroll.medicalInsurance.medicalInsuranceCategory": "فئة التامين الصحى"
+  "boilerplate.containers.Payroll.medicalInsurance.medicalInsuranceCategory": "فئة التامين الصحى",
+  "boilerplate.containers.Payroll.medicalInsurance.privlMedCareNumber": "رقم البطاقة العلاجية",
+  "boilerplate.containers.Payroll.medicalInsurance.All": "الكل"
 
 }

@@ -1485,4 +1485,11 @@ export const medicalInsSubscriptionReport = loadable(
   }
 );
 
+export const medicalInsuranceListReport = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/medicalInsuranceListReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
