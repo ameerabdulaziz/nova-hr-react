@@ -362,6 +362,18 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetMinsuranceCompanyList = async () => {
+    const result = await axiosInstance.get(`MinsuranceCompany/GetListModel/${locale}`);
+
+    return result.data;
+  };
+
+  Apis.GetMinsuranceCategoryList = async () => {
+    const result = await axiosInstance.get(`MinsuranceCategory/GetListModel/${locale}`);
+
+    return result.data;
+  };
+
   return Apis;
 };
 
