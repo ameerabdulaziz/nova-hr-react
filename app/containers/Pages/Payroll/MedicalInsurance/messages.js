@@ -149,6 +149,27 @@ export default defineMessages({
     id: `${scope}.actions`,
     defaultMessage: 'actions',
   },
+  // medicalInsSubscriptionReport
+  SubscriptionDate: {
+    id: `${scope}.SubscriptionDate`,
+    defaultMessage: 'Subscription Date',
+  },
+  SubscriptionMonthlyFees: {
+    id: `${scope}.SubscriptionMonthlyFees`,
+    defaultMessage: 'Subscription Monthly Fees',
+  },
+  subMonths: {
+    id: `${scope}.subMonths`,
+    defaultMessage: 'sub.Months',
+  },
+  InsuranceCompany: {
+    id: `${scope}.InsuranceCompany`,
+    defaultMessage: 'Insurance Company',
+  },
+  medicalInsuranceCategory: {
+    id: `${scope}.medicalInsuranceCategory`,
+    defaultMessage: 'Medical Insurance Category',
+  },
   familyMemberValue: {
     id: `${scope}.familyMemberValue`,
     defaultMessage: 'familyMemberValue',

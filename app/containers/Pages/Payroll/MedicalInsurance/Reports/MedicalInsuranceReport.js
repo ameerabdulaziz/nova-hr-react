@@ -32,7 +32,6 @@ function MedicalInsuranceReport(props) {
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
   const [ToDate, setToDate] = useState(null);
-  const [regex, setRegex] = useState(/^\d{2}(\/|-)\d{2}(\/|-)\d{4}$/);
   const [searchData, setsearchData] = useState({
     // FromDate: null,
     // ToDate: null,

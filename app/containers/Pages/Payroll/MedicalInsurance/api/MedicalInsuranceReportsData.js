@@ -24,6 +24,14 @@ const MedicalInsuranceReportsData = (locale) => {
     return result;
   };
 
+  api.GetMedicalInsSubscriptionReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`MinsuranceReport/GetMInsSubscriptionReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
 
 
   return api;
