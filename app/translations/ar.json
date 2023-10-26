@@ -1569,6 +1569,7 @@
   "boilerplate.containers.Payroll.medicalInsurance.wifeNumbers": "عدد الازواج",
   "boilerplate.containers.Payroll.medicalInsurance.childrenNumbers": "عدد الابناء",
   "boilerplate.containers.Payroll.medicalInsurance.year": "السنة",
+  "boilerplate.containers.Payroll.medicalInsurance.familyMemberValue": "قيمة اشتراك فرد الاسرة",
   "boilerplate.containers.Payroll.medicalInsurance.orgName": "القسم",
   "boilerplate.containers.Payroll.medicalInsurance.actions": "الاجراءات",
   "boilerplate.containers.Payroll.medicalInsurance.EmpCode": "كود الموظف",

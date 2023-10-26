@@ -149,4 +149,8 @@ export default defineMessages({
     id: `${scope}.actions`,
     defaultMessage: 'actions',
   },
+  familyMemberValue: {
+    id: `${scope}.familyMemberValue`,
+    defaultMessage: 'familyMemberValue',
+  },
 });

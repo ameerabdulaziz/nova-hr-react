@@ -4,7 +4,7 @@ const API = (locale) => {
 
   api.GetList = async () => {
     const data = await axiosInstance.get(
-      `MedicalInsuranceSubscription/GetAllData/${locale}`
+      `MinsuranceSubscription/GetList/${locale}`
     );
     const result = data.data;
 
@@ -13,7 +13,7 @@ const API = (locale) => {
 
   api.GetById = async (id) => {
     const data = await axiosInstance.get(
-      `MedicalInsuranceSubscription/GetAllData/${locale}?id=${id}`
+      `MinsuranceSubscription/Get/${id}/${locale}`
     );
     const result = data.data;
 
@@ -21,22 +21,13 @@ const API = (locale) => {
   };
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('MedicalInsuranceSubscription', body);
-
-    return result;
-  };
-
-  api.update = async (id, body) => {
-    const result = await axiosInstance.put(
-      `MedicalInsuranceSubscription/${id}`,
-      body
-    );
+    const result = await axiosInstance.post(`MinsuranceSubscription/Save/${locale}`, body);
 
     return result;
   };
 
   api.delete = async (id) => {
-    const data = await axiosInstance.delete(`MedicalInsuranceSubscription/${id}`);
+    const data = await axiosInstance.delete(`MinsuranceSubscription/Delete/${id}`);
     return data;
   };
 
