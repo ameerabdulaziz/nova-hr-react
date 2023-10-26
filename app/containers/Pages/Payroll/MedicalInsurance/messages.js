@@ -158,10 +158,6 @@ export default defineMessages({
     id: `${scope}.SubscriptionMonthlyFees`,
     defaultMessage: 'Subscription Monthly Fees',
   },
-  companyShare: {
-    id: `${scope}.companyShare`,
-    defaultMessage: 'Company Share',
-  },
   subMonths: {
     id: `${scope}.subMonths`,
     defaultMessage: 'sub.Months',
@@ -173,6 +169,10 @@ export default defineMessages({
   medicalInsuranceCategory: {
     id: `${scope}.medicalInsuranceCategory`,
     defaultMessage: 'Medical Insurance Category',
+  },
+  familyMemberValue: {
+    id: `${scope}.familyMemberValue`,
+    defaultMessage: 'familyMemberValue',
   },
   privlMedCareNumber: {
     id: `${scope}.privlMedCareNumber`,

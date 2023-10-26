@@ -1,5 +1,6 @@
 import {
   Autocomplete,
+  Button,
   Card,
   CardContent,
   Grid, TextField
@@ -10,19 +11,26 @@ import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
+import GeneralListApis from '../../api/GeneralListApis';
+import payrollMessages from '../../messages';
+import api from '../api/MedicalInsuranceSubscriptionData';
 import messages from '../messages';
 
 function MedicalInsuranceSubscriptionCreate(props) {
   const { intl } = props;
   const { classes } = useStyles();
+  const location = useLocation();
+  const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
+  const id = location.state?.id ?? 0;
 
   const title = localStorage.getItem('MenuName');
 
@@ -33,27 +41,36 @@ function MedicalInsuranceSubscriptionCreate(props) {
   const [employeeList, setEmployeeList] = useState([
   ]);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [fixedBoxState, setFixedBoxState] = useState({
+    cmpFees: '',
+    subMonthlyFees: '',
+    familyMemberValue: ''
+  });
+
   const [formInfo, setFormInfo] = useState({
+    id,
+
     employeeId: '',
-    subscriptionDate: null,
-    insuranceCompany: '',
-    insuranceCategory: '',
+    employeeName: '',
+    subDate: null,
+    insCmpId: '',
+    medInsuCatId: '',
 
-    year: '',
-    month: '',
+    yearId: '',
+    monthId: '',
 
-    companyShare: '',
-    employeeShare: '',
+    cmpFees: '',
+    subMonthlyFees: '',
 
-    childrenNumbers: '',
+    childrenNo: '',
     childrenValue: '',
 
-    fatherNumbers: '',
-    fatherValue: '',
+    fathersNo: '',
+    fathersValue: '',
 
-    wifeValue: '',
-    wifeNumbers: '',
+    wivesValue: '',
+    wivesNo: '',
   });
 
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
@@ -63,22 +80,55 @@ function MedicalInsuranceSubscriptionCreate(props) {
 
     const formData = { ...formInfo };
 
-    formData.subscriptionDate = formateDate(formData.subscriptionDate);
+    formData.subDate = formateDate(formData.subDate);
 
     setIsLoading(true);
 
-    console.log(formData);
-
     try {
-      // await api(locale).save(formData);
+      await api(locale).save(formData);
 
       toast.success(notif.saved);
+      history.push('/app/Pages/Minsurance/MedicalInsuranceSubscription');
     } catch (error) {
       //
     } finally {
       setIsLoading(false);
     }
   };
+
+  async function fetchNeededData() {
+    setIsLoading(true);
+
+    try {
+      const years = await GeneralListApis(locale).GetYears();
+      setYearList(years);
+
+      const months = await GeneralListApis(locale).GetMonths();
+      setMonthsList(months);
+
+      const category = await GeneralListApis(locale).GetMinsuranceCategoryList();
+      setInsuranceCategoryList(category);
+
+      const company = await GeneralListApis(locale).GetMinsuranceCompanyList();
+      setInsuranceCompanyList(company);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList(false);
+      setEmployeeList(employees);
+
+      if (id !== 0) {
+        const dataApi = await api(locale).GetById(id);
+        setFormInfo(dataApi);
+      }
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
 
   const onNumericInputChange = (evt) => {
     setFormInfo((prev) => ({
@@ -95,17 +145,21 @@ function MedicalInsuranceSubscriptionCreate(props) {
     setFormInfo((prev) => ({ ...prev, [name]: value !== null ? value.id : null }));
   };
 
+  const onCancelBtnClick = () => {
+    history.push('/app/Pages/Minsurance/MedicalInsuranceSubscription');
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <Card className={classes.card}>
                 <CardContent>
 
                   <Grid container spacing={3} direction='row'>
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <Autocomplete
                         options={employeeList}
                         value={
@@ -115,7 +169,9 @@ function MedicalInsuranceSubscriptionCreate(props) {
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id}
                         getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')}
+                        onChange={(_, value) => {
+                          setFormInfo((prev) => ({ ...prev, employeeId: value !== null ? value.id : null, employeeName: value !== null ? value.name : null }));
+                        }}
                         renderInput={(params) => (
                           <TextField
                             required
@@ -126,17 +182,17 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <Autocomplete
                         options={insuranceCompanyList}
                         value={
                           insuranceCompanyList.find(
-                            (item) => item.id === formInfo.insuranceCompany
+                            (item) => item.id === formInfo.insCmpId
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id}
                         getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'insuranceCompany')}
+                        onChange={(_, value) => onAutoCompleteChange(value, 'insCmpId')}
                         renderInput={(params) => (
                           <TextField
                             required
@@ -147,15 +203,15 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <Autocomplete
                         options={insuranceCategoryList}
                         value={
                           insuranceCategoryList.find(
-                            (item) => item.id === formInfo.insuranceCategory
+                            (item) => item.id === formInfo.medInsuCatId
                           ) ?? null
                         }
-                        onChange={(_, value) => onAutoCompleteChange(value, 'insuranceCategory')}
+                        onChange={(_, value) => onAutoCompleteChange(value, 'medInsuCatId')}
                         isOptionEqualToValue={(option, value) => option.id === value.id}
                         getOptionLabel={(option) => (option ? option.name : '')}
                         renderInput={(params) => (
@@ -168,12 +224,12 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(messages.subscriptionDate)}
-                          value={formInfo.subscriptionDate}
-                          onChange={date => onDatePickerChange(date, 'subscriptionDate')}
+                          value={formInfo.subDate}
+                          onChange={date => onDatePickerChange(date, 'subDate')}
                           className={classes.field}
                           renderInput={(params) => (
                             <TextField required {...params} variant='outlined' />
@@ -182,15 +238,15 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <Autocomplete
                         options={yearList}
                         value={
                           yearList.find(
-                            (item) => item.id === formInfo.year
+                            (item) => item.id === formInfo.yearId
                           ) ?? null
                         }
-                        onChange={(_, value) => onAutoCompleteChange(value, 'year')}
+                        onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
                         isOptionEqualToValue={(option, value) => option.id === value.id}
                         getOptionLabel={(option) => (option ? option.name : '')}
                         renderInput={(params) => (
@@ -203,15 +259,15 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <Autocomplete
                         options={monthsList}
                         value={
                           monthsList.find(
-                            (item) => item.id === formInfo.month
+                            (item) => item.id === formInfo.monthId
                           ) ?? null
                         }
-                        onChange={(_, value) => onAutoCompleteChange(value, 'month')}
+                        onChange={(_, value) => onAutoCompleteChange(value, 'monthId')}
                         isOptionEqualToValue={(option, value) => option.id === value.id}
                         getOptionLabel={(option) => (option ? option.name : '')}
                         renderInput={(params) => (
@@ -224,10 +280,10 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
-                        name='employeeShare'
-                        value={formInfo.employeeShare}
+                        name='subMonthlyFees'
+                        value={formInfo.subMonthlyFees}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.employeeShare)}
                         className={classes.field}
@@ -235,10 +291,10 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
-                        name='companyShare'
-                        value={formInfo.companyShare}
+                        name='cmpFees'
+                        value={formInfo.cmpFees}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.companyShare)}
                         className={classes.field}
@@ -249,20 +305,18 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   </Grid>
                 </CardContent>
               </Card>
-            </Grid>
 
-            <Grid item xs={12}>
-              <Card className={classes.card}>
+              <Card className={classes.card} sx={{mt: 3}} >
                 <CardContent>
 
                   <Grid container spacing={3} direction='row'>
 
                     <Grid item md={12}>
                       <Grid container spacing={3} direction='row'>
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={6}>
                           <TextField
-                            name='fatherNumbers'
-                            value={formInfo.fatherNumbers}
+                            name='fathersNo'
+                            value={formInfo.fathersNo}
                             onChange={onNumericInputChange}
                             label={intl.formatMessage(messages.fatherNumbers)}
                             className={classes.field}
@@ -270,10 +324,10 @@ function MedicalInsuranceSubscriptionCreate(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={6}>
                           <TextField
-                            name='fatherValue'
-                            value={formInfo.fatherValue}
+                            name='fathersValue'
+                            value={formInfo.fathersValue}
                             onChange={onNumericInputChange}
                             label={intl.formatMessage(messages.value)}
                             className={classes.field}
@@ -285,10 +339,10 @@ function MedicalInsuranceSubscriptionCreate(props) {
 
                     <Grid item md={12}>
                       <Grid container spacing={3} direction='row'>
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={6}>
                           <TextField
-                            name='wifeNumbers'
-                            value={formInfo.wifeNumbers}
+                            name='wivesNo'
+                            value={formInfo.wivesNo}
                             onChange={onNumericInputChange}
                             label={intl.formatMessage(messages.wifeNumbers)}
                             className={classes.field}
@@ -296,10 +350,10 @@ function MedicalInsuranceSubscriptionCreate(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={6}>
                           <TextField
-                            name='wifeValue'
-                            value={formInfo.wifeValue}
+                            name='wivesValue'
+                            value={formInfo.wivesValue}
                             onChange={onNumericInputChange}
                             label={intl.formatMessage(messages.value)}
                             className={classes.field}
@@ -311,10 +365,10 @@ function MedicalInsuranceSubscriptionCreate(props) {
 
                     <Grid item md={12}>
                       <Grid container spacing={3} direction='row'>
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={6}>
                           <TextField
-                            name='childrenNumbers'
-                            value={formInfo.childrenNumbers}
+                            name='childrenNo'
+                            value={formInfo.childrenNo}
                             onChange={onNumericInputChange}
                             label={intl.formatMessage(messages.childrenNumbers)}
                             className={classes.field}
@@ -322,7 +376,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={6}>
                           <TextField
                             name='childrenValue'
                             value={formInfo.childrenValue}
@@ -340,8 +394,68 @@ function MedicalInsuranceSubscriptionCreate(props) {
               </Card>
             </Grid>
 
+            <Grid item md={6}>
+
+              <Card className={classes.card}>
+                <CardContent>
+
+                  <Grid container spacing={3} direction='row'>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        name='subMonthlyFees'
+                        disabled
+                        value={fixedBoxState.subMonthlyFees}
+                        label={intl.formatMessage(messages.employeeShare)}
+                        className={classes.field}
+                        variant='outlined'
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        name='cmpFees'
+                        disabled
+                        value={fixedBoxState.cmpFees}
+                        label={intl.formatMessage(messages.companyShare)}
+                        className={classes.field}
+                        variant='outlined'
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        name='subMonthlyFees'
+                        disabled
+                        value={fixedBoxState.familyMemberValue}
+                        label={intl.formatMessage(messages.familyMemberValue)}
+                        className={classes.field}
+                        variant='outlined'
+                      />
+                    </Grid>
+
+                  </Grid>
+                </CardContent>
+              </Card>
+
+            </Grid>
+
             <Grid item xs={12}>
-              <SaveButton processing={isLoading} />
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={1}>
+                  <SaveButton Id={id} processing={isLoading} />
+                </Grid>
+
+                <Grid item xs={12} md={1}>
+                  <Button
+                    variant='contained'
+                    size='medium'
+                    color='primary'
+                    onClick={onCancelBtnClick}
+                  >
+                    <FormattedMessage {...payrollMessages.cancel} />
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </form>

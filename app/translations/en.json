@@ -1528,6 +1528,7 @@
   "boilerplate.containers.Payroll.medicalInsurance.fatherNumbers": "Father Numbers",
   "boilerplate.containers.Payroll.medicalInsurance.wifeNumbers": "Wife Numbers",
   "boilerplate.containers.Payroll.medicalInsurance.childrenNumbers": "Children Numbers",
+  "boilerplate.containers.Payroll.medicalInsurance.familyMemberValue": "Family Member Value",
   "boilerplate.containers.Payroll.medicalInsurance.value": "Value",
   "boilerplate.containers.Payroll.medicalInsurance.employeeId": "Employee Id",
   "boilerplate.containers.Payroll.medicalInsurance.lastUpdateBy": "Last Update By",

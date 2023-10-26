@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
@@ -88,15 +89,16 @@ function MedicalInsuranceSubscription(props) {
     },
 
     {
-      name: 'subscriptionDate',
+      name: 'subDate',
       label: intl.formatMessage(messages.subscriptionDate),
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
       },
     },
 
     {
-      name: 'employeeShare',
+      name: 'subMonthlyFees',
       label: intl.formatMessage(messages.employeeShare),
       options: {
         filter: true,
@@ -104,29 +106,30 @@ function MedicalInsuranceSubscription(props) {
     },
 
     {
-      name: 'companyShare',
+      name: 'cmpFees',
       label: intl.formatMessage(messages.companyShare),
       options: {
         filter: true,
       },
     },
     {
-      name: 'lastUpdateBy',
+      name: 'updUser',
       label: intl.formatMessage(messages.lastUpdateBy),
       options: {
         filter: true,
       },
     },
     {
-      name: 'lastUpdate',
+      name: 'updDate',
       label: intl.formatMessage(messages.lastUpdate),
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
       },
     },
     {
       name: 'Actions',
-      label: <FormattedMessage {...messages.actions} />,
+      label: intl.formatMessage(messages.actions),
       options: {
         filter: false,
         customBodyRender: (value, tableMeta) => (
