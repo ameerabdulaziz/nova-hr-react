@@ -1558,9 +1558,21 @@
   "boilerplate.containers.Payroll.medicalInsurance.MedicalInsuranceCenters": "المركز الطبى",
   "boilerplate.containers.Payroll.medicalInsurance.totalValue": "اجمالى القيمة",
   "boilerplate.containers.Payroll.medicalInsurance.employeeShare": "نصيب الموظف",
+  "boilerplate.containers.Payroll.medicalInsurance.companyShare": "نصيب الشركة",
   "boilerplate.containers.Payroll.medicalInsurance.fromDate": "من تاريخ",
+  "boilerplate.containers.Payroll.medicalInsurance.subscriptionDate": "تاريخ الاشتراك",
+  "boilerplate.containers.Payroll.medicalInsurance.value": "القيمة",
+  "boilerplate.containers.Payroll.medicalInsurance.employeeId": "كود الموظف",
+  "boilerplate.containers.Payroll.medicalInsurance.month": "الشهر",
+  "boilerplate.containers.Payroll.medicalInsurance.fatherNumbers": "عدد الاباء",
+  "boilerplate.containers.Payroll.medicalInsurance.wifeNumbers": "عدد الازواج",
+  "boilerplate.containers.Payroll.medicalInsurance.childrenNumbers": "عدد الابناء",
+  "boilerplate.containers.Payroll.medicalInsurance.year": "السنة",
   "boilerplate.containers.Payroll.medicalInsurance.orgName": "القسم",
+  "boilerplate.containers.Payroll.medicalInsurance.actions": "الاجراءات",
   "boilerplate.containers.Payroll.medicalInsurance.EmpCode": "كود الموظف",
+  "boilerplate.containers.Payroll.medicalInsurance.lastUpdateBy": "اخر تحديث بواسطة",
+  "boilerplate.containers.Payroll.medicalInsurance.lastUpdate": "اخر تعديل",
   "boilerplate.containers.Payroll.medicalInsurance.employeeName": "اسم الموظف"
 
 }
