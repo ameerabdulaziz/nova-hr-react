@@ -105,4 +105,29 @@ export default defineMessages({
     id: `${scope}.orgName`,
     defaultMessage: 'orgName',
   },
+  // medicalInsSubscriptionReport
+  SubscriptionDate: {
+    id: `${scope}.SubscriptionDate`,
+    defaultMessage: 'Subscription Date',
+  },
+  SubscriptionMonthlyFees: {
+    id: `${scope}.SubscriptionMonthlyFees`,
+    defaultMessage: 'Subscription Monthly Fees',
+  },
+  companyShare: {
+    id: `${scope}.companyShare`,
+    defaultMessage: 'Company Share',
+  },
+  subMonths: {
+    id: `${scope}.subMonths`,
+    defaultMessage: 'sub.Months',
+  },
+  InsuranceCompany: {
+    id: `${scope}.InsuranceCompany`,
+    defaultMessage: 'Insurance Company',
+  },
+  medicalInsuranceCategory: {
+    id: `${scope}.medicalInsuranceCategory`,
+    defaultMessage: 'Medical Insurance Category',
+  },
 });

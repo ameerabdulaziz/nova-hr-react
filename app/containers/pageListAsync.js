@@ -1463,3 +1463,12 @@ export const MedicalInsuranceReport = loadable(
     fallback: <Loading />,
   }
 );
+
+export const medicalInsSubscriptionReport = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/medicalInsSubscriptionReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+

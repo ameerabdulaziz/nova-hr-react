@@ -1566,6 +1566,12 @@
   "boilerplate.containers.Payroll.medicalInsurance.hiringDate": "تاريخ التعيين",
   "boilerplate.containers.Payroll.medicalInsurance.insuranceDate": "تاريح التأمين",
   "boilerplate.containers.Payroll.medicalInsurance.birthDate": "تاريخ الميلاد",
-  "boilerplate.containers.Payroll.medicalInsurance.job": "الوظيفة"
+  "boilerplate.containers.Payroll.medicalInsurance.job": "الوظيفة",
+  "boilerplate.containers.Payroll.medicalInsurance.SubscriptionDate": "تاريخ الاشتراك",
+  "boilerplate.containers.Payroll.medicalInsurance.SubscriptionMonthlyFees": "رسوم الاشتراك الشهرى",
+  "boilerplate.containers.Payroll.medicalInsurance.companyShare": "نصيب الشركه",
+  "boilerplate.containers.Payroll.medicalInsurance.subMonths": "شهور الاشتراك",
+  "boilerplate.containers.Payroll.medicalInsurance.InsuranceCompany": "شركة التامين",
+  "boilerplate.containers.Payroll.medicalInsurance.medicalInsuranceCategory": "فئة التامين الصحى"
 
 }
