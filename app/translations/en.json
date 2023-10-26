@@ -938,6 +938,7 @@
   "boilerplate.containers.Payroll.confirmation": "Confirmation Message",  
   "boilerplate.containers.Payroll.applynewshift": "Apply new shift",
   "boilerplate.containers.Payroll.Actions": "Actions",
+  "boilerplate.containers.Payroll.EditHrNotes": "Edit Hr Notes",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
@@ -1496,7 +1497,7 @@
   "boilerplate.containers.Payroll.insurance.InsuranceReasone": "Insurance Reasone",
   "boilerplate.containers.Payroll.insurance.orgName": "orgName",
   "boilerplate.containers.Payroll.insurance.hiringDate": "Hiring Date",
-  "boilerplate.containers.Payroll.insurance.job": "job",
+  "boilerplate.containers.Payroll.insurance.job": "Job",
   "boilerplate.containers.Payroll.insurance.birthDate": "Birth Date",
   "boilerplate.containers.Payroll.insurance.notes": "Notes",
   "boilerplate.containers.Payroll.insurance.BranchName": "Branch Name",
@@ -1535,5 +1536,9 @@
   "boilerplate.containers.Payroll.medicalInsurance.year": "Year",
   "boilerplate.containers.Payroll.medicalInsurance.orgName": "orgName",
   "boilerplate.containers.Payroll.medicalInsurance.EmpCode": "Emp.Code",
-  "boilerplate.containers.Payroll.medicalInsurance.employeeName": "Employee Name"
+  "boilerplate.containers.Payroll.medicalInsurance.employeeName": "Employee Name",
+  "boilerplate.containers.Payroll.medicalInsurance.hiringDate": "Hiring Date",
+  "boilerplate.containers.Payroll.medicalInsurance.insuranceDate": "Insurance Date",
+  "boilerplate.containers.Payroll.medicalInsurance.birthDate": "Birth Date",
+  "boilerplate.containers.Payroll.medicalInsurance.job": "Job"
 }

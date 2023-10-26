@@ -960,6 +960,7 @@
   "boilerplate.containers.Payroll.confirmation": "رسالة تأكيدية",
   "boilerplate.containers.Payroll.applynewshift": "تطبيق الوردية الجديده",
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
+  "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
   
   
   
@@ -1571,6 +1572,10 @@
   "boilerplate.containers.Payroll.medicalInsurance.orgName": "القسم",
   "boilerplate.containers.Payroll.medicalInsurance.actions": "الاجراءات",
   "boilerplate.containers.Payroll.medicalInsurance.EmpCode": "كود الموظف",
+  "boilerplate.containers.Payroll.medicalInsurance.hiringDate": "تاريخ التعيين",
+  "boilerplate.containers.Payroll.medicalInsurance.insuranceDate": "تاريح التأمين",
+  "boilerplate.containers.Payroll.medicalInsurance.birthDate": "تاريخ الميلاد",
+  "boilerplate.containers.Payroll.medicalInsurance.job": "الوظيفة",
   "boilerplate.containers.Payroll.medicalInsurance.lastUpdateBy": "اخر تحديث بواسطة",
   "boilerplate.containers.Payroll.medicalInsurance.lastUpdate": "اخر تعديل",
   "boilerplate.containers.Payroll.medicalInsurance.employeeName": "اسم الموظف"
