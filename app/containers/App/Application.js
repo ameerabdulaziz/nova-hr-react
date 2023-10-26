@@ -277,6 +277,8 @@ import {
   MinsuranceCategory,
   MinsuranceCenters,
   MedicalInsuranceReport,
+  MedicalInsuranceSubscription,
+  MedicalInsuranceSubscriptionCreate,
   medicalInsSubscriptionReport,
 } from '../pageListAsync';
 
@@ -1155,6 +1157,20 @@ function Application(props) {
           component={MedicalInsuranceReport}
         />
 
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceSubscription'
+          component={MedicalInsuranceSubscription}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceSubscriptionCreate'
+          component={MedicalInsuranceSubscriptionCreate}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceSubscriptionEdit'
+          component={MedicalInsuranceSubscriptionCreate}
+        />
         <Route
           path='/app/Pages/Minsurance/medicalInsSubscriptionReport'
           component={medicalInsSubscriptionReport}

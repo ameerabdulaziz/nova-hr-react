@@ -101,9 +101,53 @@ export default defineMessages({
     id: `${scope}.job`,
     defaultMessage: 'Job',
   },
-  orgName: {
-    id: `${scope}.orgName`,
-    defaultMessage: 'orgName',
+  subscriptionDate: {
+    id: `${scope}.subscriptionDate`,
+    defaultMessage: 'subscriptionDate',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'year',
+  },
+  month: {
+    id: `${scope}.month`,
+    defaultMessage: 'month',
+  },
+  companyShare: {
+    id: `${scope}.companyShare`,
+    defaultMessage: 'companyShare',
+  },
+  fatherNumbers: {
+    id: `${scope}.fatherNumbers`,
+    defaultMessage: 'fatherNumbers',
+  },
+  wifeNumbers: {
+    id: `${scope}.wifeNumbers`,
+    defaultMessage: 'wifeNumbers',
+  },
+  childrenNumbers: {
+    id: `${scope}.childrenNumbers`,
+    defaultMessage: 'childrenNumbers',
+  },
+  value: {
+    id: `${scope}.value`,
+    defaultMessage: 'value',
+  },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'employeeId',
+  },
+  lastUpdateBy: {
+    id: `${scope}.lastUpdateBy`,
+    defaultMessage: 'lastUpdateBy',
+  },
+  lastUpdate: {
+    id: `${scope}.lastUpdate`,
+    defaultMessage: 'lastUpdate',
+  },
+  actions: {
+    id: `${scope}.actions`,
+    defaultMessage: 'actions',
   },
   // medicalInsSubscriptionReport
   SubscriptionDate: {
