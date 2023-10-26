@@ -84,4 +84,25 @@ export default defineMessages({
     id: `${scope}.employeeName`,
     defaultMessage: 'Employee Name',
   },
+  // MedicalInsuranceReport
+  hiringDate: {
+    id: `${scope}.hiringDate`,
+    defaultMessage: 'Hiring Date',
+  },
+  insuranceDate: {
+    id: `${scope}.insuranceDate`,
+    defaultMessage: 'Insurance Date',
+  },
+  birthDate: {
+    id: `${scope}.birthDate`,
+    defaultMessage: 'Birth Date',
+  },
+  job: {
+    id: `${scope}.job`,
+    defaultMessage: 'Job',
+  },
+  orgName: {
+    id: `${scope}.orgName`,
+    defaultMessage: 'orgName',
+  },
 });

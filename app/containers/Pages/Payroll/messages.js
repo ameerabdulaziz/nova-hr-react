@@ -423,4 +423,8 @@ employeeId: {
     id: `${scope}.Actions`,
     defaultMessage: 'Actions',
   },
+  EditHrNotes: {
+    id: `${scope}.EditHrNotes`,
+    defaultMessage: 'Edit Hr Notes',
+  },
 });

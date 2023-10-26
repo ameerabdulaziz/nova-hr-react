@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
-// import messages from '../../containers/Pages/Payroll/MainData/messages';
+import messages from '../MedicalInsurance/messages';
 
 import Payrollmessages from '../messages';
 import PropTypes from 'prop-types';
@@ -20,11 +20,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 const InsuranceFormPopUp = ({
     handleClose,
     open,
-    keyVal,
+
     callFun,
-    Title,
     intl,
-    submitting,
     processing
 }) => {
 
@@ -49,26 +47,19 @@ const InsuranceFormPopUp = ({
                     handleClose()
                 }}>
                 <DialogTitle>
-                    Edit Hr Notes
-                    {/* <FormattedMessage {...messages.ADD} />  {Title} */}
+                    
+                    <FormattedMessage {...Payrollmessages.EditHrNotes} />
                     </DialogTitle>
                 <DialogContent>
-                {/* <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We
-                    will send updates occasionally.
-                </DialogContentText> */}
                 
                 <TextField
-                    // autoFocus
                     margin="dense"
                     id="name"
-                    label="hrNotes"
-                    // label={intl.formatMessage(messages.arName)}
+                    label={intl.formatMessage(messages.hrNotes)}
                     type="text"
                     fullWidth
                     variant="outlined"
                     onChange={(e)=>setNote(e.target.value)}
-                    // required={locale === "ar" ? true : false}
                 />
                 
                 </DialogContent>
@@ -79,7 +70,6 @@ const InsuranceFormPopUp = ({
 
                 <Button 
                 type="submit" 
-                // disabled={submitting || processing}
                 >
                     {processing && (
                     <CircularProgress
