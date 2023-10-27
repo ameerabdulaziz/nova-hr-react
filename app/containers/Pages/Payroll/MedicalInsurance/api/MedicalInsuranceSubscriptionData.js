@@ -20,14 +20,26 @@ const API = (locale) => {
     return result;
   };
 
+  api.MinsuranceCategory = async (id) => {
+    const data = await axiosInstance.get(`MinsuranceCategory/${id}`);
+    const result = data.data;
+
+    return result;
+  };
+
   api.save = async (body) => {
-    const result = await axiosInstance.post(`MinsuranceSubscription/Save/${locale}`, body);
+    const result = await axiosInstance.post(
+      `MinsuranceSubscription/Save/${locale}`,
+      body
+    );
 
     return result;
   };
 
   api.delete = async (id) => {
-    const data = await axiosInstance.delete(`MinsuranceSubscription/Delete/${id}`);
+    const data = await axiosInstance.delete(
+      `MinsuranceSubscription/Delete/${id}`
+    );
     return data;
   };
 
