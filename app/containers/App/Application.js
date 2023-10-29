@@ -281,6 +281,7 @@ import {
   MedicalInsuranceSubscriptionCreate,
   medicalInsSubscriptionReport,
   medicalInsuranceListReport,
+  MissionReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -798,6 +799,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/CollectedMission'
           component={CollectedMission}
+        />
+
+        <Route
+          path='/app/Pages/Att/MissionReport'
+          component={MissionReport}
         />
 
         {/* WorkFlow */}

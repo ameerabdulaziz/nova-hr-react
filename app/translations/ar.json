@@ -961,6 +961,7 @@
   "boilerplate.containers.Payroll.applynewshift": "تطبيق الوردية الجديده",
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
+  "boilerplate.containers.Payroll.dateErrorMes": "يجب اختيار تاريخ البدا وتاريخ الانتهاء",
   
   
   
@@ -1124,6 +1125,12 @@
   "boilerplate.containers.Payroll.Attendance.mission":"مأمورية",
   "boilerplate.containers.Payroll.Attendance.shiftVacancy":"اجازةوردية",
   "boilerplate.containers.Payroll.Attendance.absence":"غياب",
+  "boilerplate.containers.Payroll.Attendance.branchName":"اسم الفرع",
+  "boilerplate.containers.Payroll.Attendance.orgName":"الادارة",
+    "boilerplate.containers.Payroll.Attendance.job":"الوظيفة",
+    "boilerplate.containers.Payroll.Attendance.EmpCode": "كود الموظف",
+    "boilerplate.containers.Payroll.Attendance.employeeName":"اسم الموظف",
+    "boilerplate.containers.Payroll.Attendance.missionDays":"ايام المأمورية",
   
   
   

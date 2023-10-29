@@ -427,4 +427,8 @@ employeeId: {
     id: `${scope}.EditHrNotes`,
     defaultMessage: 'Edit Hr Notes',
   },
+  dateErrorMes: {
+    id: `${scope}.dateErrorMes`,
+    defaultMessage: 'Must To Choose FromDate And EndDate',
+  },
 });

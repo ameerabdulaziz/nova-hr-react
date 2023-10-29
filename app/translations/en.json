@@ -939,6 +939,7 @@
   "boilerplate.containers.Payroll.applynewshift": "Apply new shift",
   "boilerplate.containers.Payroll.Actions": "Actions",
   "boilerplate.containers.Payroll.EditHrNotes": "Edit Hr Notes",
+  "boilerplate.containers.Payroll.dateErrorMes": "Must To Choose From Date And End Date",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
@@ -1088,6 +1089,12 @@
   "boilerplate.containers.Payroll.Attendance.shiftName":"Shift Name",  
   "boilerplate.containers.Payroll.Attendance.EmployeeShiftCreateTitle":"Add Employee Shift",
   "boilerplate.containers.Payroll.Attendance.EmployeeShiftUpdateTitle":"Update Employee Shift",
+  "boilerplate.containers.Payroll.Attendance.branchName":"Branch Name",
+  "boilerplate.containers.Payroll.Attendance.orgName":"Organization",
+  "boilerplate.containers.Payroll.Attendance.job":"Job",
+  "boilerplate.containers.Payroll.Attendance.EmpCode":"Emp.Code",
+  "boilerplate.containers.Payroll.Attendance.employeeName":"Employee Name",
+  "boilerplate.containers.Payroll.Attendance.missionDays":"Mission Days",
   
   "boilerplate.containers.Payroll.Workflow.documentName": "Document Name",
   "boilerplate.containers.Payroll.Workflow.step": "Step",

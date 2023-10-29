@@ -971,6 +971,13 @@ export const CollectedMission = loadable(
   }
 );
 
+export const MissionReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/MissionReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
