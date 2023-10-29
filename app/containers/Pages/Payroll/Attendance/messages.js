@@ -280,4 +280,9 @@ missionDays: {
   id: `${scope}.missionDays`,
   defaultMessage: 'Mission Days',
 },
+// EmployeeShiftReport
+weekend: {
+  id: `${scope}.weekend`,
+  defaultMessage: 'Weekend',
+},
 });

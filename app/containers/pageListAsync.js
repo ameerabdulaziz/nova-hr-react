@@ -978,6 +978,13 @@ export const MissionReport = loadable(
   }
 );
 
+export const EmployeeShiftReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeeShiftReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

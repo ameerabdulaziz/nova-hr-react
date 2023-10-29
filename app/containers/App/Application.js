@@ -282,6 +282,7 @@ import {
   medicalInsSubscriptionReport,
   medicalInsuranceListReport,
   MissionReport,
+  EmployeeShiftReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -804,6 +805,12 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/MissionReport'
           component={MissionReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/EmployeeShiftReport'
+          component={EmployeeShiftReport}
         />
 
         {/* WorkFlow */}
