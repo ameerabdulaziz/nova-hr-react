@@ -863,6 +863,9 @@
   "boilerplate.components.tables.codes.grade": "التقدير",
   "boilerplate.components.tables.codes.membershipNo": "رقم عضوية النفابة",
 
+  
+
+
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",
@@ -957,6 +960,10 @@
   "boilerplate.containers.Payroll.deleteMessage": "هل أنت متأكد أنك تريد حذف",
   "boilerplate.containers.Payroll.confirmation": "رسالة تأكيدية",
   "boilerplate.containers.Payroll.applynewshift": "تطبيق الوردية الجديده",
+  "boilerplate.containers.Payroll.employees": "عرض الموظفين",
+  "boilerplate.containers.Payroll.VacationName": "الاجازة",
+  
+  
   
   
   
@@ -1120,6 +1127,180 @@
   "boilerplate.containers.Payroll.Attendance.mission":"مأمورية",
   "boilerplate.containers.Payroll.Attendance.shiftVacancy":"اجازةوردية",
   "boilerplate.containers.Payroll.Attendance.absence":"غياب",
+
+  "boilerplate.containers.Payroll.Attendance.AbsenceRules":"محددات الغياب",
+  "boilerplate.containers.Payroll.Attendance.DelayRules":"محددات مرات التأخير والوقت المتمم",
+  "boilerplate.containers.Payroll.Attendance.TimeDelayRules":"محددات التأخير بالوقت",
+  "boilerplate.containers.Payroll.Attendance.OtherRules":"محددات اخرى",
+  "boilerplate.containers.Payroll.Attendance.OverTiemRules":"محددات الوقت الاضافى",
+  "boilerplate.containers.Payroll.Attendance.MaxOverTiemRules":"الحد الاقصى للاضافى",
+  "boilerplate.containers.Payroll.Attendance.VacationsRules":"قواعد الاجازات",
+  "boilerplate.containers.Payroll.Attendance.workhoursRules":"ساعات العمل والعمالة اليومية",
+  "boilerplate.containers.Payroll.Attendance.AttRulesCreateTitle":"اضافة قواعد الحضور والانصراف",
+  "boilerplate.containers.Payroll.Attendance.AttRulesUpdateTitle":"تعديل قواعد الحضور والانصراف",
+
+  "boilerplate.containers.Payroll.Attendance.ChoiceOne":"الخيار الاول",
+  "boilerplate.containers.Payroll.Attendance.ChoiceTwo":"الخيار الثانى",
+  "boilerplate.containers.Payroll.Attendance.ChoiceThree":"الخيار الثالث",
+  "boilerplate.containers.Payroll.Attendance.ChoiceFour":"الخيار الرابع",
+
+  
+  "boilerplate.containers.Payroll.Attendance.DayOne":"اليوم الاول",
+  "boilerplate.containers.Payroll.Attendance.DayTwo":"اليوم الثانى",
+  "boilerplate.containers.Payroll.Attendance.DayThree":"اليوم الثالث",
+  "boilerplate.containers.Payroll.Attendance.DayFour":"اليوم الرابع",  
+  "boilerplate.containers.Payroll.Attendance.DayFive":"اليوم الخامس", 
+  
+  "boilerplate.containers.Payroll.Attendance.ConAbsenceAsOneDay":"الغياب يحسب بالواقعه وليس باليوم(ايام الغياب المتصلة تحسب واقعة واحده)",  
+  "boilerplate.containers.Payroll.Attendance.Absence3more":"الغياب المتصل يلغى الاجازة الاسبوعية ",
+  "boilerplate.containers.Payroll.Attendance.Firstelement":"العنصر الاول",
+  "boilerplate.containers.Payroll.Attendance.Secondelement":"العنصر الثانى",
+
+  "boilerplate.containers.Payroll.Attendance.perDelayFirstElem":"عنصر مرات التأخير",  
+  "boilerplate.containers.Payroll.Attendance.allowedPerCount":"عدد المرات المسموح بها بدون جزاء",
+  "boilerplate.containers.Payroll.Attendance.lateafterAllowed":"حساب وقت التأخير بعد الوقت المسموح به",  
+  "boilerplate.containers.Payroll.Attendance.lateinWeekEndMiss":"حساب تأخير فى عطلة نهاية الاسبوع فى حالة المأمورية",  
+  "boilerplate.containers.Payroll.Attendance.allowedNoOfDelay":"قيم خصم مرات التأخير بعد العدد المسموح",  
+  "boilerplate.containers.Payroll.Attendance.perDelaySecondElem":"عنصر الوقت المتمم",
+  "boilerplate.containers.Payroll.Attendance.lessTimestartFromMin":"الوقت المتمم فى اليوم يحتسب من الدقيقة",
+  "boilerplate.containers.Payroll.Attendance.minusMinuteFrom":"الوقت المتمم فى الشهر يحتسب من الدقيقة",
+  "boilerplate.containers.Payroll.Attendance.TimeOne":"المرة الاول",
+  "boilerplate.containers.Payroll.Attendance.TimeTwo":"المرة الثانى",
+  "boilerplate.containers.Payroll.Attendance.TimeThree":"المرة الثالثة",
+  "boilerplate.containers.Payroll.Attendance.TimeFour":"المرة الرابعة",  
+  "boilerplate.containers.Payroll.Attendance.TimeFive":"المرة الخامسة",  
+  "boilerplate.containers.Payroll.Attendance.MotamemElement":"قيمة عنصر المتمم المقابلة لليوم",  
+  "boilerplate.containers.Payroll.Attendance.MotamemCalcScenario":"سيناريو حساب الوقت المتمم",
+  "boilerplate.containers.Payroll.Attendance.calclateTimeWithCount":"خصم وقت التأخير",
+  "boilerplate.containers.Payroll.Attendance.calcLessTimeOnWeekEnd":"حساب وقت متمم فى الاجازة الاسبوعية",
+  "boilerplate.containers.Payroll.Attendance.calcLessTimeOnHoliday":"حساب وقت متمم فى الاجازة الرسمية",  
+  "boilerplate.containers.Payroll.Attendance.timesSetting":"شرائح الوقت",
+  "boilerplate.containers.Payroll.Attendance.perRoll2":"احتساب كل اذن على حدة",
+  "boilerplate.containers.Payroll.Attendance.perRoll1":"احتساب كل الاذون شهريا",
+  "boilerplate.containers.Payroll.Attendance.lateTimeEle":"عنصر جزاء التأخير",
+  "boilerplate.containers.Payroll.Attendance.lateTimeMinusEl":"عتصر وقت التأخير",  
+  "boilerplate.containers.Payroll.Attendance.lateTimeMinusElVal":"قيمة العنصر المقابلة",
+  "boilerplate.containers.Payroll.Attendance.calcLateByTime":"احتساب التأخير بالوقت",
+  "boilerplate.containers.Payroll.Attendance.lessAsLate":"المتمم يعاكل مثل التأخير",
+  "boilerplate.containers.Payroll.Attendance.lateTimeOnMonth":"احتساب التأخير على اجمالى الشهر",
+  "boilerplate.containers.Payroll.Attendance.perCompensated":"الاذن يلغى وقت التأخير والانصراف المبكر من كشف الحضور",
+
+  
+  "boilerplate.containers.Payroll.Attendance.maxLatePerMinutes":"اجمالى المسموح فى الشهر بالدقيقة",
+  "boilerplate.containers.Payroll.Attendance.maxLatePerNo":"الحد الاقصى لعدد الاذون",
+  "boilerplate.containers.Payroll.Attendance.maxPerRoll1":"الحد الاقصى للاذن الواحد",
+  
+  
+  "boilerplate.containers.Payroll.Attendance.lateAfterMinOver":"الحد الادنى للسهر",
+  "boilerplate.containers.Payroll.Attendance.lateAfterOver":"السماح للموظف بالتأخير فى اليوم التالى للسهر بحد اقصى",
+  
+
+  
+  "boilerplate.containers.Payroll.Attendance.fromMin": "من دقيقة",  
+  "boilerplate.containers.Payroll.Attendance.toMin": "الى دقيقة",  
+  "boilerplate.containers.Payroll.Attendance.factor": "المعامل",  
+  "boilerplate.containers.Payroll.Attendance.discTime": "يخصم تأخير",  
+  "boilerplate.containers.Payroll.Attendance.discValue": "الوقت المخصوم",  
+  "boilerplate.containers.Payroll.Attendance.discPer": "يخصم من اجمالى الاذون",  
+  "boilerplate.containers.Payroll.Attendance.doneOnce": "ينفذ مرة واحده",  
+  "boilerplate.containers.Payroll.Attendance.discPervalue": "يخصم بقيمة",  
+  "boilerplate.containers.Payroll.Attendance.frstTime": "اول مرة",  
+  "boilerplate.containers.Payroll.Attendance.secondTime": "ثانى مرة",  
+  "boilerplate.containers.Payroll.Attendance.thirdTime": "ثالث مرة",
+  "boilerplate.containers.Payroll.Attendance.fourthTime": "رابع مرة",
+  "boilerplate.containers.Payroll.Attendance.lateparam": "شرائح التأخير",
+
+  "boilerplate.containers.Payroll.Attendance.PenaltyElem": "جزاء عدم تسجيل دخول او خروج",  
+  "boilerplate.containers.Payroll.Attendance.AllowForForgetAtt": "مرات السماح بدون جزاء",  
+  "boilerplate.containers.Payroll.Attendance.PenaltyDayVal": "جزاء عدم تسجيل الدخول للمرة الاولى",  
+  "boilerplate.containers.Payroll.Attendance.PenaltyDayValOut": "جزاء عدم تسجيل الخروج للمرة الاولى",
+  "boilerplate.containers.Payroll.Attendance.MissionTime": "تحديث وقت الحضور والانصراف بوقت المأمورية",
+  "boilerplate.containers.Payroll.Attendance.TrnsportaionEle": "بدل انتقال مأموريات",
+  "boilerplate.containers.Payroll.Attendance.BranchTransportaionEl": "بدل انتقال الفروع",
+  "boilerplate.containers.Payroll.Attendance.StoppageElem": "عنصر الايقاف",
+  "boilerplate.containers.Payroll.Attendance.DeletionElem": "عنصر الالغاء",
+  "boilerplate.containers.Payroll.Attendance.StoppageDayVal": "قيمة العنصر لليوم",
+  "boilerplate.containers.Payroll.Attendance.Overtimeparam": "اعدادات الاضافى",
+  "boilerplate.containers.Payroll.Attendance.Vacparam": "اعدادات الاجازات على الويب",
+  "boilerplate.containers.Payroll.Attendance.InFromDate": "تقدم فى نفس اليوم",
+  "boilerplate.containers.Payroll.Attendance.AfterFromDate": "تقدم بعد ميعادها",
+  "boilerplate.containers.Payroll.Attendance.AfterDaysNo": "بحد اقصى",
+  "boilerplate.containers.Payroll.Attendance.BeforeD": "تقدم قبل/يوم",
+
+  "boilerplate.containers.Payroll.Attendance.salaryOnWorkD": "حساب المرتب على حسب ايام العمل",
+  "boilerplate.containers.Payroll.Attendance.hoursPerDay": "ساعات العمل المطلوبة فى اليوم",
+  "boilerplate.containers.Payroll.Attendance.monthDays": "ساعات العمل المطلوبة فى الشهر",
+  "boilerplate.containers.Payroll.Attendance.updateInAfter": "تقريب الحضور للساعه التالية اذا كان التأخير اكبر من ... دقيقة",
+  "boilerplate.containers.Payroll.Attendance.updateOutBefore": "تقريب الانصراف للساعه السابقة اذا كان الخروج قبل ... دقيقة",
+  "boilerplate.containers.Payroll.Attendance.overTimeElem": "عنصر الاضافى العادى",
+  "boilerplate.containers.Payroll.Attendance.usualOverTimeH": "اليوم العادى نهارى",
+  "boilerplate.containers.Payroll.Attendance.usualOverTimeHNight": "اليوم العادى الليلى",
+  "boilerplate.containers.Payroll.Attendance.shiftvacOverTimeEl": "عنصر الاضافى فى الاجازات الاسبوعيه",  
+  "boilerplate.containers.Payroll.Attendance.shiftVacOverTimeH": "الاضافى افى اجازة الوردية",
+  "boilerplate.containers.Payroll.Attendance.vacOverTimeEl": "عنصر الاضافى فى الاجازات الرسمية",  
+  "boilerplate.containers.Payroll.Attendance.vacOverTimeH": "الاضافى فى الاجازات" ,
+  "boilerplate.containers.Payroll.Attendance.worKNighElem": "عنصر السهر" ,  
+  "boilerplate.containers.Payroll.Attendance.worKNighDayVal": "قيمة العنصر المقابلة لليوم" ,  
+  "boilerplate.containers.Payroll.Attendance.overtimestartFromMin": " الاضافى من الدقيقة" ,
+
+  "boilerplate.containers.Payroll.Attendance.morOverTime": "احتساب وقت اضافى صباحى" ,  
+  "boilerplate.containers.Payroll.Attendance.shift24": "احتساب بدل راحة عن العمل فى الورديات 10ساعات(24 دقيقة)" ,  
+  "boilerplate.containers.Payroll.Attendance.init_RepVacBalance_EveryMonth": "تحويل بدل الراحة لوقت اضافى" ,  
+  "boilerplate.containers.Payroll.Attendance.overTimeOnShift": "الاضافى يحسب بناء على وردية العمل" ,
+  "boilerplate.containers.Payroll.Attendance.overTimeApprov": "يجب الموافقة على الوقت الاضافى ليحتسب فى المرتب" ,
+  "boilerplate.containers.Payroll.Attendance.maxOvertimeHrsShiftVacDay":"للوقت الاضافى فى يوم اجازة الوردية(ساعات)",
+  "boilerplate.containers.Payroll.Attendance.maxOvertimeHrsOrdinaryDay":"للوقت الاضافى فى اليوم العادى (ساعات)",
+  "boilerplate.containers.Payroll.Attendance.maxOvertimeHrsPerMonth":"للوقت الاضافى فى الشهر (ساعات)",
+  "boilerplate.containers.Payroll.Attendance.calcShiftOverTAsDay":"يحتسب بيوم كامل - يتم حساب الحد الاقصى",
+  "boilerplate.containers.Payroll.Attendance.maxOvertimeHrsOfficialVacDay":"للوقت الاضافى فى يوم اجازة رسمية(ساعات)",
+  "boilerplate.containers.Payroll.Attendance.calcOfficialOverTAsDay":"يحتسب بيوم كامل - يتم حساب الحد الاقصى",
+  "boilerplate.containers.Payroll.Attendance.overTimeApprDown":"تقريب الاضافى لاقل نصف ساعه",
+  "boilerplate.containers.Payroll.Attendance.overTimeAppr":"تقريب الاضافى لاقرب  ساعه",
+  "boilerplate.containers.Payroll.Attendance.overTimeApprLabel":"عند اختيار خاصية تقريب الاضافى يتم الحساب كالتالى:",
+  "boilerplate.containers.Payroll.Attendance.overTimeApprLabel2":"1- فى حالة الاضافى اقل من 30 دقيقة لايحسب",
+  "boilerplate.containers.Payroll.Attendance.overTimeApprLabel3":"2- يساوى 30 دقيقة يحسب 30 دقيقة",
+  "boilerplate.containers.Payroll.Attendance.overTimeApprLabel4":"3- اكثر من 30 دقيقة يحسب 60 دقيقة",
+
+  
+  "boilerplate.containers.Payroll.Attendance.ovTiFromOut":"احتساب الاضافى والمتمم بالمقارنة بوقت الخروج",
+  "boilerplate.containers.Payroll.Attendance.ovTiFromOutLabel":"عند اختيار هذه الخاصية يتم حساب الاضافى والمتممبمقارنة وقت خروج الموظف بوقت انتهاء الورديه ويحسب الفارق كاضافى او متمم. لايجوز اختيار هذا المحدد فى حالة ان ساعات الورديةمتغيرة حسب كل موظف",
+  "boilerplate.containers.Payroll.Attendance.vacPenEle":"عنصر الاجازه",
+  "boilerplate.containers.Payroll.Attendance.vacPen":"القيمة/مرة",
+  "boilerplate.containers.Payroll.Attendance.vacBalanceFromMonth":"الاجازات متاحه بعد",
+  "boilerplate.containers.Payroll.Attendance.annualBal":"رصيد الاجازة السنوية",
+  "boilerplate.containers.Payroll.Attendance.trainingPeriodHasBalance":"يحتسب رصيد اجازات ",
+  "boilerplate.containers.Payroll.Attendance.excludeVacDays":"عدد ايام الاجازات لايتضمن العطلة الاسبوعبه",
+  "boilerplate.containers.Payroll.Attendance.vacBalaMonthly":"رصيد الاجازات المتاحة يعتمد على شهور العمل الفعلية",
+  "boilerplate.containers.Payroll.Attendance.weekendSalary":"العطلات الاسبوعية تحسب يوم عمل",
+  "boilerplate.containers.Payroll.Attendance.vac_before_SD":"قبل اجازة الوردية/يوم",
+  "boilerplate.containers.Payroll.Attendance.vac_before_OV":"قبل اجازة رسمية/يوم",
+
+  "boilerplate.containers.Payroll.Attendance.vac_after_SD":"بعد اجازة الوردية/يوم",
+  "boilerplate.containers.Payroll.Attendance.vac_after_OV":"بعد اجازة رسمية/يوم",
+  "boilerplate.containers.Payroll.Attendance.calcVacAuto":"حساب الاجازات على حسب ايام العمل",
+  
+  "boilerplate.containers.Payroll.Attendance.workDays":"ايام العمل",
+  
+  "boilerplate.containers.Payroll.Attendance.vacEquiv":"Vacation equivalent",
+
+  
+  
+  
+  
+
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
   
   
   

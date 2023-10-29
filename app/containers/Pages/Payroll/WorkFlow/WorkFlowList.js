@@ -6,7 +6,7 @@ import Tooltip from "@mui/material/Tooltip";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import messages from "./messages";
-import { FormattedMessage } from "react-intl";
+import { injectIntl,FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
 import style from "../../../../../app/styles/styles.scss";
 import notif from "enl-api/ui/notifMessage";
@@ -19,7 +19,8 @@ import AlertPopup from "../Component/AlertPopup";
 import Payrollmessages from '../messages';
 import PayRollLoader from "../Component/PayRollLoader";
 
-function WorkFlowList() {
+function WorkFlowList(props) {
+  const { intl } = props;
   const history = useHistory();
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -183,4 +184,5 @@ function WorkFlowList() {
   );
 }
 
-export default WorkFlowList;
+
+export default injectIntl(WorkFlowList);

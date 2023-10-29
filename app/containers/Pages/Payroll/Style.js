@@ -36,11 +36,33 @@ const useMainStyles = makeStyles()((theme,_params,classes) => ({
     flexGrow: 1,
     padding: 30,
   },
-  rootTable: {
+ /*  rootTable: {
     width: '100%',
     marginTop: theme.spacing(3),
     overflowX: 'auto',
-  },
+  }, */
+
+  
+group: {
+  width: 'auto',
+  height: 'auto',
+  display: 'flex',
+  flexWrap: 'nowrap',
+  flexDirection: 'row',
+},
+rootTable: {
+"& .MuiTableHead-root": {
+  background:
+    theme.palette.mode === "dark"
+      ? theme.palette.secondary.dark
+      : theme.palette.secondary.light,
+},
+"& .MuiTable-root":
+    {
+      margin: "0px !Important",
+    },
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important",
+},
   table: {
     minWidth: 700,
   },
@@ -84,10 +106,11 @@ const useMainStyles = makeStyles()((theme,_params,classes) => ({
     border: 0,
     clear: 'both',
     display: 'block',
-    width: '96%',
+    width: '100%',
     backgroundColor: '#ecece9',
     height: '1px',
-  },
+    marginBottom: '1em'
+  }, 
   field: {
     width: '100%',
   },
@@ -212,12 +235,15 @@ const useMainStyles = makeStyles()((theme,_params,classes) => ({
     background: alpha(theme.palette.background.paper, 0.8),
     position: 'relative'
   },
-  content: {
+  headercontent: {
     background: alpha(theme.palette.secondary.main, 0.3),
     height: '100%',
     width: '100%',
     padding: `30px ${theme.spacing(3)} 60px`
   },
+  redLabel: {
+    color: "red",
+  }
 }));
 
 export default useMainStyles;

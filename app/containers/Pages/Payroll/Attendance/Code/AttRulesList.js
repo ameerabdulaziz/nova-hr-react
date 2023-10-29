@@ -92,49 +92,6 @@ function AttRulesList(props) {
         filter: true,
       },
     },
-
-    {
-      name: "startTime",
-      label: <FormattedMessage {...messages["startTime"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "endTime",
-      label: <FormattedMessage {...messages["endTime"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "shft2d",
-      label: <FormattedMessage {...messages["shft2d"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "shft10Hours",
-      label: <FormattedMessage {...messages["shft10Hours"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "hoursFromEmp",
-      label: <FormattedMessage {...messages["hoursFromEmp"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "webHide",
-      label: <FormattedMessage {...messages["webHide"]} />,
-      options: {
-        filter: true,
-      },
-    },
     {
       name: "Actions",
       options: {
@@ -146,7 +103,7 @@ function AttRulesList(props) {
             <div className={style.actionsSty}>
               <EditButton
                 param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/Att/AttRulesEdit"}
+                url={"/app/Pages/Att/RulesEdit"}
               ></EditButton>
               <DeleteButton
                 clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
@@ -171,7 +128,7 @@ function AttRulesList(props) {
       //some logic
     },
     customToolbar: () => (
-      <AddButton url={"/app/Pages/Att/AttRulesCreate"}></AddButton>
+      <AddButton url={"/app/Pages/Att/RulesCreate"}></AddButton>
     ),
     textLabels: {
       body: {

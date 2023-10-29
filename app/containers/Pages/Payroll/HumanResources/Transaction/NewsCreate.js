@@ -281,8 +281,9 @@ function NewsCreate(props) {
                     </div>
                   </FormControl>
                 </Grid>
-
-                <hr className={classes.hr} />
+                <Grid item xs={12} md={12}>
+                  <hr className={classes.hr} />
+                </Grid>
                 <Grid item xs={12} md={12}>
                   <NameList
                     dataList={EmployeeList}

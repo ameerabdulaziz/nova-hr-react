@@ -19,9 +19,19 @@ const AttRulesData = (locale) => {
     return data.data;
 
   };
+
+  Apis.GetControlParaVac = async (id) => {
+    
+    const data = await axiosInstance.get(`AttRules/GetControlParaVac/${id??0}/${locale}`);
+    
+    return data.data ;
+
+  };
+
+  
   Apis.Save = async (data) => {
     
-
+debugger ;
     const result = await axiosInstance.post("AttRules/Save",data);
     return result;
   };

@@ -27,33 +27,6 @@ const PenaltyDetailData = (locale,id) => {
 
   };
 
-  PenaltyDetailApis.Save = async (Item) => {
-    
-    const ElementId = elementList.find((ele) => ele.name === Item.elementName).id;
-    const PayTemplateId = payTemplate.find((ele) => ele.name === Item.payTemplateName).id;
-    const data = {
-      id: Item.id,
-      arName: Item.name,
-      enName: Item.enName,
-      ElementId: ElementId,
-      PayTemplateId: PayTemplateId,
-      value:Item.value
-    };
-
-    const result =
-      Item.id === 0
-        ? await axiosInstance.post('HrPenaltyDetail', data)
-        : await axiosInstance.put(`HrPenaltyDetail/${Item.id}`, data);
-    return result;
-  };
-
-  PenaltyDetailApis.Delete = async (Item) => {
-    // 
-
-    const data = await axiosInstance.delete(`HrPenaltyDetail/${Item.id}`);
-    return data;
-  };
-
   return PenaltyDetailApis;
 };
 

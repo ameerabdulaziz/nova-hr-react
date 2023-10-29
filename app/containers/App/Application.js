@@ -791,7 +791,7 @@ function Application(props) {
 
 
         {/* WorkFlow */}
-        <Route path='/app/Pages/WF/WorkFlowList' component={WorkFlowList} />
+        <Route path='/app/Pages/WF/WorkFlow' component={WorkFlowList} />
         <Route path='/app/Pages/WF/WorkFlowCreate' component={WorkFlowCreate} />
         <Route path='/app/Pages/WF/WorkFlowEdit' component={WorkFlowCreate} />
         <Route path='/app/Pages/WF/RequestsList' component={RequestsList} />
