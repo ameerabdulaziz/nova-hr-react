@@ -301,4 +301,12 @@ export default defineMessages({
     id: `${scope}.socialInsuranceID`,
     defaultMessage: 'socialInsuranceID',
   },
+  toDate: {
+    id: `${scope}.toDate`,
+    defaultMessage: 'toDate',
+  },
+  gender: {
+    id: `${scope}.gender`,
+    defaultMessage: 'gender',
+  },
 });

@@ -282,6 +282,7 @@ import {
   medicalInsSubscriptionReport,
   medicalInsuranceListReport,
   MissionReport,
+  Form2Insurance,
   EmployeeShiftReport,
 } from '../pageListAsync';
 
@@ -1127,6 +1128,11 @@ function Application(props) {
         <Route
           path='/app/Pages/insurance/SocialInsuranceReport'
           component={SocialInsuranceReport}
+        />
+
+        <Route
+          path='/app/Pages/insurance/Form2Insurance'
+          component={Form2Insurance}
         />
 
         {/*Medical Insurance */}
