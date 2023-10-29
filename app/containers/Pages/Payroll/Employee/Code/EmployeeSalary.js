@@ -36,9 +36,9 @@ function EmployeeSalary(props) {
   const [isNotApplyAttRule, setisNotApplyAttRule] = useState(false);
   const [isMoneyOvertime, setisMoneyOvertime] = useState(false);
   const [isVacationOvertime, setisVacationOvertime] = useState(false);
-  const [salaryStructureId, setsalaryStructureId] = useState({});
+  const [salaryStructureId, setsalaryStructureId] = useState("");
   const [salaryStructurelist, setsalaryStructurelist] = useState([]);
-  const [incentiveFrom, setincentiveFrom] = useState({});
+  const [incentiveFrom, setincentiveFrom] = useState("");
   const [hasMonthlyBouns, sethasMonthlyBouns] = useState(false);
   const [hasTransfereAllowance, sethasTransfereAllowance] = useState(false);
   const [employeeList, setemployeeList] = useState([]);
@@ -115,8 +115,8 @@ function EmployeeSalary(props) {
     setisNotApplyAttRule(false);
     setisMoneyOvertime(false);
     setisVacationOvertime(false);
-    setsalaryStructureId({});
-    setincentiveFrom({});
+    setsalaryStructureId("");
+    setincentiveFrom("");
     sethasMonthlyBouns(false);
     sethasTransfereAllowance(false);
   };
@@ -149,7 +149,7 @@ function EmployeeSalary(props) {
         settaxable(dataApi[0].taxable);
         setisConsultant(dataApi[0].isConsultant);
         setisHours(dataApi[0].isHours);
-        sethourPrice(dataApi[0].hourPrice);
+        sethourPrice(dataApi[0].hourPrice ? dataApi[0].hourPrice : "");
         setisNotApplyAttRule(dataApi[0].isNotApplyAttRule);
         setisMoneyOvertime(dataApi[0].isMoneyOvertime);
         setisVacationOvertime(dataApi[0].isVacationOvertime);
@@ -355,10 +355,13 @@ function EmployeeSalary(props) {
                   id="ddlsalaryStructureId"
                   required
                   options={salaryStructurelist}
-                  value={{
+                  value={salaryStructureId.length !== 0 ?{
                     id: salaryStructureId.id,
                     name: salaryStructureId.name,
-                  }}
+                  }: null}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
                   getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
                     setsalaryStructureId((prevFilters) => ({
@@ -384,10 +387,13 @@ function EmployeeSalary(props) {
                 <Autocomplete
                   id="ddlincentiveFrom"
                   options={incentiveFromlist}
-                  value={{
+                  value={incentiveFrom.length !== 0 ?{
                     id: incentiveFrom.id,
                     name: incentiveFrom.name,
-                  }}
+                  }: null}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
                   getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
                     setincentiveFrom((prevFilters) => ({

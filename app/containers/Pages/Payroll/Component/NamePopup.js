@@ -36,6 +36,7 @@ function NamePopup(props) {
         SelectedRows.push({
           id: EmployeeList[allRowsSelected[i].dataIndex].id,
           name: EmployeeList[allRowsSelected[i].dataIndex].name,
+          fixedElementsSilimit: EmployeeList[allRowsSelected[i].dataIndex].fixedElementsSilimit,
           organizationName:
             EmployeeList[allRowsSelected[i].dataIndex].organizationName || "",
           isSelected: true,
@@ -57,6 +58,7 @@ function NamePopup(props) {
             return {
               id: obj.id,
               name: obj.name,
+              fixedElementsSilimit: obj.fixedElementsSilimit,
               organizationName: obj.organizationName,
               jobName: obj.jobName,
               isSelected: false,
@@ -90,14 +92,14 @@ function NamePopup(props) {
   const columns = [
     {
       name: "id",
-      label: <FormattedMessage {...Payrollmessages["id"]} />,
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "name",
-      label: <FormattedMessage {...Payrollmessages["name"]} />,
+      label: intl.formatMessage(Payrollmessages.name),
       options: {
         filter: true,
       },
@@ -107,14 +109,14 @@ function NamePopup(props) {
     columns.push(
       {
         name: "jobName",
-        label: <FormattedMessage {...Payrollmessages["job"]} />,
+        label: intl.formatMessage(Payrollmessages.job),
         options: {
           filter: true,
         },
       },
       {
         name: "organizationName",
-        label: <FormattedMessage {...Payrollmessages["organizationName"]} />,
+        label: intl.formatMessage(Payrollmessages.organizationName),
         options: {
           filter: true,
         },
@@ -127,6 +129,8 @@ function NamePopup(props) {
     responsive: "vertical",
     print: true,
     rowsPerPage: 50,
+    rowsPerPageOptions: [10, 50, 100],
+    // rowsPerPage: 50,
     page: 0,
     searchOpen: true,
     onSearchClose: () => {
@@ -139,7 +143,8 @@ function NamePopup(props) {
         </Grid>
       </div>
     ),
-    onRowsSelect: (curRowSelected, allRowsSelected) => {
+    onRowSelectionChange: (curRowSelected, allRowsSelected) => {
+      // onRowsSelect: (curRowSelected, allRowsSelected) => {
       handleSelect(allRowsSelected);
     },
   };
@@ -150,7 +155,7 @@ function NamePopup(props) {
         open={open}
         fullWidth
         PaperProps={{
-          overflowY: "clip !important",
+          overflowy: "clip !important",
         }}
         maxWidth="md"
         onClose={() => CloseClick()}

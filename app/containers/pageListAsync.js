@@ -984,6 +984,20 @@ export const RulesCreate = loadable(
     fallback: <Loading />,
   }
 );
+export const MissionReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/MissionReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeShiftReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeeShiftReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
@@ -1406,3 +1420,111 @@ export const InsuranceFollow = loadable(
     fallback: <Loading />,
   }
 );
+
+export const Form2Insurance = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/Form2Insurance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmergencyBenefitList = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/EmergencyBenefitList'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const InsuranceFormStatus = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/InsuranceFormStatus'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const PositionOfGuaranteesAndContradictions = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/PositionOfGuaranteesAndContradictions'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const SocialInsuranceReport = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/SocialInsuranceReports'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+// Medical Insurance
+export const MedicalInsuranceData = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/MedicalInsuranceData'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const InsuranceCompanies = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/InsuranceCompanies'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MinsuranceCategory = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/MinsuranceCategory'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MinsuranceCenters = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/code/MinsuranceCenters'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const staffMedicalInsuranceReport = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/staffMedicalInsuranceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MedicalInsuranceReport = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/MedicalInsuranceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MedicalInsuranceSubscription = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/MedicalInsuranceSubscription'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MedicalInsuranceSubscriptionCreate = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/MedicalInsuranceSubscriptionCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const medicalInsSubscriptionReport = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/medicalInsSubscriptionReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const medicalInsuranceListReport = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/medicalInsuranceListReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+

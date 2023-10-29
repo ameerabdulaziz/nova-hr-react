@@ -270,7 +270,7 @@ function ManPowerSetting(props) {
                     return (
                       <TableRow
                         hover
-                        key={row.id}
+                        key={row.jobId}
                         sx={{ height: 1 }}
                         style={{ padding: "0px" }}
                       >

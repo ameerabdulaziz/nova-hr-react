@@ -38,16 +38,16 @@ function EmployeeContract(props) {
   const [contractEndDate, setcontractEndDate] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const [hiringSourceId, sethiringSourceId] = useState({});
+  const [hiringSourceId, sethiringSourceId] = useState("");
   const [hiringSourceList, sethiringSourceList] = useState([]);
 
-  const [kinshipLinkId, setkinshipLinkId] = useState({});
+  const [kinshipLinkId, setkinshipLinkId] = useState("");
   const [kinshipLinkList, setkinshipLinkList] = useState([]);
 
-  const [kinshipEmpId, setkinshipEmpId] = useState({});
+  const [kinshipEmpId, setkinshipEmpId] = useState("");
   const [kinshipEmpList, setkinshipEmpList] = useState([]);
 
-  const [contractTypeId, setcontractTypeId] = useState({});
+  const [contractTypeId, setcontractTypeId] = useState("");
   const [contractTypeList, setcontractTypeList] = useState([]);
 
   const [employeeList, setemployeeList] = useState([]);
@@ -105,12 +105,12 @@ function EmployeeContract(props) {
   };
   const clear = (e) => {
     setid(0);
-    sethiringSourceId({});
+    sethiringSourceId("");
     setisKinship(false);
-    setkinshipLinkId({});
-    setkinshipEmpId({});
+    setkinshipLinkId("");
+    setkinshipEmpId("");
     sethasAlternativeEmp(false);
-    setcontractTypeId({});
+    setcontractTypeId("");
     setcontractStartDate(format(new Date(), "yyyy-MM-dd"));
     setcontractEndDate(format(new Date(), "yyyy-MM-dd"));
     setnotHasMission(false);
@@ -230,10 +230,13 @@ function EmployeeContract(props) {
                   id="ddlhiringSourceId"
                   required
                   options={hiringSourceList}
-                  value={{
+                  value={hiringSourceId.length !== 0 ?{
                     id: hiringSourceId.id,
                     name: hiringSourceId.name,
-                  }}
+                  }: null}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
                   getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
                     sethiringSourceId({
@@ -276,10 +279,13 @@ function EmployeeContract(props) {
                   id="ddkinshipLinkId"
                   required
                   options={kinshipLinkList}
-                  value={{
+                  value={kinshipLinkId.length !== 0 ?{
                     id: kinshipLinkId.id,
                     name: kinshipLinkId.name,
-                  }}
+                  }: null}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
                   {...required}
                   getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
@@ -306,10 +312,13 @@ function EmployeeContract(props) {
                   id="ddlkinshipEmpId"
                   {...required}
                   options={kinshipEmpList}
-                  value={{
+                  value={kinshipEmpId.length !== 0 ?{
                     id: kinshipEmpId.id,
                     name: kinshipEmpId.name,
-                  }}
+                  }: null}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
                   getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
                     setkinshipEmpId({
@@ -349,10 +358,13 @@ function EmployeeContract(props) {
                   id="ddlcontractTypeId"
                   required
                   options={contractTypeList}
-                  value={{
+                  value={contractTypeId.length !== 0 ?{
                     id: contractTypeId.id,
                     name: contractTypeId.name,
-                  }}
+                  }: null}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
                   getOptionLabel={(option) => (option.name ? option.name : "")}
                   onChange={(event, value) => {
                     setcontractTypeId({

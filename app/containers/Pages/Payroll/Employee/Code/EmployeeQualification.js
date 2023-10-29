@@ -198,7 +198,7 @@ function EmployeeQualification(props) {
       </PapperBlock>
       <EditTable
         anchorTable={anchorTable}
-        title={employee}
+        title={employee.name}
         API={EmployeeQualificationData(employee.id)}
       />
     </div>

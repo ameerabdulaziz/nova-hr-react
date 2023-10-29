@@ -100,3 +100,11 @@ export const InsuranceRegion = (props) => (
     {...props}
   />
 );
+
+export const MinsuranceItem = (props) => (
+  <MainDataGeneralCode
+    text='Insurance Item'
+    table='MinsuranceItem'
+    {...props}
+  />
+);

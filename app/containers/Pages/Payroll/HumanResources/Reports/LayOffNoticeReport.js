@@ -55,13 +55,14 @@ function LayOffNoticeReport(props) {
   const columns = [
     {
       name: "id",
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "noticeDate",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -69,14 +70,14 @@ function LayOffNoticeReport(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "reason",
-      label: <FormattedMessage {...messages["reason"]} />,
+      label: intl.formatMessage(messages.reason),
       options: {
         filter: true,
       },

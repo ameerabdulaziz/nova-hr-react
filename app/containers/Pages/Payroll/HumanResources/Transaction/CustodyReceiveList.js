@@ -74,14 +74,14 @@ function CustodyReceiveList(props) {
   const columns = [
     {
       name: "id",
-      label: <FormattedMessage {...Payrollmessages["id"]} />,
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "date",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
+      label: intl.formatMessage(Payrollmessages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -89,7 +89,7 @@ function CustodyReceiveList(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
@@ -97,46 +97,46 @@ function CustodyReceiveList(props) {
 
     {
       name: "custodyName",
-      label: <FormattedMessage {...messages["custodyName"]} />,
+      label: intl.formatMessage(messages.custodyName),
       options: {
         filter: true,
       },
     },
     {
       name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
+      label: intl.formatMessage(Payrollmessages.notes),
       options: {
         filter: true,
       },
     },
     {
       name: "itemSerial",
-      label: <FormattedMessage {...messages["itemSerial"]} />,
+      label: intl.formatMessage(messages.itemSerial),
       options: {
         filter: true,
       },
     },
     {
       name: "custCount",
-      label: <FormattedMessage {...Payrollmessages["count"]} />,
+      label: intl.formatMessage(Payrollmessages.count),
       options: {
         filter: true,
       },
     },
     {
       name: "CustodyPrice",
-      label: <FormattedMessage {...Payrollmessages["price"]} />,
+      label: intl.formatMessage(Payrollmessages.price),
       options: {
         filter: true,
       },
     },
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton

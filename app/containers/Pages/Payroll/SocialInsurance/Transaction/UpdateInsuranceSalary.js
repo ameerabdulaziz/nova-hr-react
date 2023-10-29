@@ -10,7 +10,8 @@ import {
 } from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
-import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -32,7 +33,6 @@ function UpdateInsuranceSalary(props) {
   const [openParentPopup, setOpenParentPopup] = useState(false);
 
   const [updateBy, setUpdateBy] = useState('value');
-  const [maxLimit, setMaxLimit] = useState(0);
   const [isValueRounding, setIsValueRounding] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -67,33 +67,18 @@ function UpdateInsuranceSalary(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    if (parseFloat(formInfo.NewMainSal) > maxLimit) {
+    const isSalaryValid = [].every(item => parseFloat(formInfo.NewMainSal) > item?.fixedElementsSilimit);
+
+    if (isSalaryValid) {
       setOpenParentPopup(true);
     } else {
       saveInsurance();
     }
   };
 
-  const fetchNeededData = async () => {
-    setIsLoading(true);
-
-    try {
-      const office = await api(locale).GetInsuMaxLimits();
-      setMaxLimit(office);
-    } catch (err) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleClose = () => {
     setOpenParentPopup(false);
   };
-
-  useEffect(() => {
-    fetchNeededData();
-  }, []);
 
   const onNumericInputChange = (evt) => {
     setFormInfo((prev) => ({
@@ -199,5 +184,9 @@ function UpdateInsuranceSalary(props) {
     </PayRollLoader>
   );
 }
+
+UpdateInsuranceSalary.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(UpdateInsuranceSalary);

@@ -24,7 +24,8 @@ import {
   IdentityType,
   Courses,
   ResignReason,
-  InsuranceRegion
+  InsuranceRegion,
+  MinsuranceItem,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -266,7 +267,24 @@ import {
   StopInsuranceCreate,
   StopInsuranceReport,
   InsuranceFollow,
-  RulesList,RulesCreate
+  RulesList,RulesCreate,
+  EmergencyBenefitList,
+  InsuranceFormStatus,
+  PositionOfGuaranteesAndContradictions,
+  SocialInsuranceReport,
+  MedicalInsuranceData,
+  staffMedicalInsuranceReport,
+  InsuranceCompanies,
+  MinsuranceCategory,
+  MinsuranceCenters,
+  MedicalInsuranceReport,
+  MedicalInsuranceSubscription,
+  MedicalInsuranceSubscriptionCreate,
+  medicalInsSubscriptionReport,
+  medicalInsuranceListReport,
+  MissionReport,
+  Form2Insurance,
+  EmployeeShiftReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -641,7 +659,7 @@ function Application(props) {
         />
         <Route
           path='/app/Pages/HR/UniformReceiveEdit'
-          component={UniformDeliveryCreate}
+          component={UniformReceiveCreate}
         />
         <Route
           path='/app/Pages/HR/UniformDeliveryReport'
@@ -789,6 +807,17 @@ function Application(props) {
         <Route path='/app/Pages/Att/RulesCreate' component={RulesCreate} />
         <Route path='/app/Pages/Att/RulesEdit' component={RulesCreate} />
 
+
+        <Route
+          path='/app/Pages/Att/MissionReport'
+          component={MissionReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/EmployeeShiftReport'
+          component={EmployeeShiftReport}
+        />
 
         {/* WorkFlow */}
         <Route path='/app/Pages/WF/WorkFlow' component={WorkFlowList} />
@@ -1085,6 +1114,98 @@ function Application(props) {
           path='/app/Pages/insurance/StopInsuranceEdit'
           component={StopInsuranceCreate}
         />
+
+        <Route
+          path='/app/Pages/insurance/EmergencyBenefitList'
+          component={EmergencyBenefitList}
+        />
+
+        <Route
+          path='/app/Pages/insurance/InsuranceFormStatus'
+          component={InsuranceFormStatus}
+        />
+
+        <Route
+          path='/app/Pages/insurance/PositionOfGuaranteesAndContradictions'
+          component={PositionOfGuaranteesAndContradictions}
+        />
+
+        <Route
+          path='/app/Pages/insurance/SocialInsuranceReport'
+          component={SocialInsuranceReport}
+        />
+
+        <Route
+          path='/app/Pages/insurance/Form2Insurance'
+          component={Form2Insurance}
+        />
+
+        {/*Medical Insurance */}
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceData'
+          component={MedicalInsuranceData}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceData'
+          component={MedicalInsuranceData}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/InsuranceCompanies'
+          component={InsuranceCompanies}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MinsuranceCategory'
+          component={MinsuranceCategory}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MinsuranceCenters'
+          component={MinsuranceCenters}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/staffMedicalInsuranceReport'
+          component={staffMedicalInsuranceReport}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MinsuranceItem'
+          component={MinsuranceItem}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceReport'
+          component={MedicalInsuranceReport}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceSubscription'
+          component={MedicalInsuranceSubscription}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceSubscriptionCreate'
+          component={MedicalInsuranceSubscriptionCreate}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/MedicalInsuranceSubscriptionEdit'
+          component={MedicalInsuranceSubscriptionCreate}
+        />
+        <Route
+          path='/app/Pages/Minsurance/medicalInsSubscriptionReport'
+          component={medicalInsSubscriptionReport}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/medicalInsuranceListReport'
+          component={medicalInsuranceListReport}
+        />
+
         {/* Default */}
         <Route component={NotFound} />
       </Switch>

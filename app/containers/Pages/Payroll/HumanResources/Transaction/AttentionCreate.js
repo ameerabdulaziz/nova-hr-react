@@ -28,7 +28,7 @@ function AttentionCreate(props) {
   const { id } = location.state ?? 0;
 
   const { classes } = useStyles();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [data, setdata] = useState({
     id: 0,
@@ -71,6 +71,7 @@ function AttentionCreate(props) {
   async function fetchData() {
     if (id) {
       try {
+        setIsLoading(true);
         const dataApi = await ApiData(locale).Get(id);
         setdata(dataApi);
       } catch (err) {

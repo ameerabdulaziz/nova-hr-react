@@ -28,7 +28,7 @@ function PromotionsList(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleClickOpen = (item) => {
-    debugger;
+
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -39,7 +39,7 @@ function PromotionsList(props) {
 
   async function deleterow() {
     try {
-      debugger;
+
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -80,7 +80,7 @@ function PromotionsList(props) {
     },
     {
       name: "date",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages.date),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -88,53 +88,53 @@ function PromotionsList(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "job",
-      label: <FormattedMessage {...messages["oldJob"]} />,
+      label: intl.formatMessage(messages.oldJob),
       options: {
         filter: true,
       },
     },
     {
       name: "oldElemVal",
-      label: <FormattedMessage {...messages["oldElemVal"]} />,
+      label: intl.formatMessage(messages.oldElemVal),
       options: {
         filter: true,
       },
     },
     {
       name: "newJob",
-      label: <FormattedMessage {...messages["job"]} />,
+      label: intl.formatMessage(messages.job),
       options: {
         filter: true,
       },
     },
     {
       name: "elemVal",
-      label: <FormattedMessage {...messages["value"]} />,
+      label: intl.formatMessage(messages.value),
       options: {
         filter: true,
       },
     },
     {
       name: "reason",
-      label: <FormattedMessage {...messages["reason"]} />,
+      label: intl.formatMessage(messages.reason),
       options: {
         filter: true,
       },
     },
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton

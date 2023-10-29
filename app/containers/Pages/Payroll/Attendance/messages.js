@@ -789,5 +789,38 @@ vacEquiv: {
   id: `${scope}.vacEquiv`,
   defaultMessage: 'vacEquiv',
 },
+// MissionReport
+branchName: {
+  id: `${scope}.branchName`,
+  defaultMessage: 'Branch Name',
+},
+orgName: {
+  id: `${scope}.orgName`,
+  defaultMessage: 'Organization',
+},
+section: {
+  id: `${scope}.section`,
+  defaultMessage: 'section',
+},
+job: {
+  id: `${scope}.job`,
+  defaultMessage: 'Job',
+},
+EmpCode: {
+  id: `${scope}.EmpCode`,
+  defaultMessage: 'Emp.Code',
+},
+employeeName: {
+  id: `${scope}.employeeName`,
+  defaultMessage: 'Employee Name',
+},
+missionDays: {
+  id: `${scope}.missionDays`,
+  defaultMessage: 'Mission Days',
+},
+weekend: {
+  id: `${scope}.weekend`,
+  defaultMessage: 'Weekend',
+},
 });
 

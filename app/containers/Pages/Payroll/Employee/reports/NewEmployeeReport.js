@@ -52,49 +52,49 @@ function NewEmployeeReport(props) {
     },
     {
       name: 'organizationName',
-      label: <FormattedMessage {...messages.organization} />,
+      label: intl.formatMessage(messages.organization),
       options: {
         filter: true,
       },
     },
     {
       name: 'employeeId',
-      label: <FormattedMessage {...messages.employeeCode} />,
+      label: intl.formatMessage(messages.employeeCode),
       options: {
         filter: true,
       },
     },
     {
       name: 'employeeName',
-      label: <FormattedMessage {...messages.employeename} />,
+      label: intl.formatMessage(messages.employeename),
       options: {
         filter: true,
       },
     },
     {
       name: 'variableSalary',
-      label: <FormattedMessage {...messages.insuranceSalary} />,
+      label: intl.formatMessage(messages.insuranceSalary),
       options: {
         filter: true,
       },
     },
     {
       name: 'mainSalary',
-      label: <FormattedMessage {...messages.basicSalary} />,
+      label: intl.formatMessage(messages.basicSalary),
       options: {
         filter: true,
       },
     },
     {
       name: 'jobName',
-      label: <FormattedMessage {...messages.jopTitle} />,
+      label: intl.formatMessage(messages.jopTitle),
       options: {
         filter: true,
       },
     },
     {
       name: 'hiringDate',
-      label: <FormattedMessage {...messages.hiringDate} />,
+      label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -102,21 +102,21 @@ function NewEmployeeReport(props) {
     },
     {
       name: 'qualification',
-      label: <FormattedMessage {...messages.qualification} />,
+      label: intl.formatMessage(messages.qualification),
       options: {
         filter: true,
       },
     },
     {
       name: 'address',
-      label: <FormattedMessage {...messages.address} />,
+      label: intl.formatMessage(messages.address),
       options: {
         filter: true,
       },
     },
     {
       name: 'insuranceDate',
-      label: <FormattedMessage {...messages.insuranceDate} />,
+      label: intl.formatMessage(messages.insuranceDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -124,49 +124,49 @@ function NewEmployeeReport(props) {
     },
     {
       name: 'taxable',
-      label: <FormattedMessage {...messages.taxableStuff} />,
+      label: intl.formatMessage(messages.taxableStuff),
       options: {
         filter: true,
       },
     },
     {
       name: 'postOverTime',
-      label: <FormattedMessage {...messages.postOverTime} />,
+      label: intl.formatMessage(messages.postOverTime),
       options: {
         filter: true,
       },
     },
     {
       name: 'netSal',
-      label: <FormattedMessage {...messages.netSalary} />,
+      label: intl.formatMessage(messages.netSalary),
       options: {
         filter: true,
       },
     },
     {
       name: 'grossSalary',
-      label: <FormattedMessage {...messages.grossSalary} />,
+      label: intl.formatMessage(messages.grossSalary),
       options: {
         filter: true,
       },
     },
     {
       name: 'siEmpShareFix',
-      label: <FormattedMessage {...messages.insuranceShare} />,
+      label: intl.formatMessage(messages.insuranceShare),
       options: {
         filter: true,
       },
     },
     {
       name: 'religion',
-      label: <FormattedMessage {...messages.religion} />,
+      label: intl.formatMessage(messages.religion),
       options: {
         filter: true,
       },
     },
     {
       name: 'qualificationDate',
-      label: <FormattedMessage {...messages.qualificationDate} />,
+      label: intl.formatMessage(messages.qualificationDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -174,14 +174,14 @@ function NewEmployeeReport(props) {
     },
     {
       name: 'idCardNumber',
-      label: <FormattedMessage {...messages.idCardNumber} />,
+      label: intl.formatMessage(messages.idCardNumber),
       options: {
         filter: true,
       },
     },
     {
       name: 'birthDate',
-      label: <FormattedMessage {...messages.birthDate} />,
+      label: intl.formatMessage(messages.birthDate),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
@@ -189,7 +189,7 @@ function NewEmployeeReport(props) {
     },
     {
       name: 'gender',
-      label: <FormattedMessage {...messages.gender} />,
+      label: intl.formatMessage(messages.gender),
       options: {
         filter: true,
       },

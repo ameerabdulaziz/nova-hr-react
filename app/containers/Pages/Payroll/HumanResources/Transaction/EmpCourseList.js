@@ -16,6 +16,8 @@ import { format } from 'date-fns';
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
 import PayRollLoader from "../../Component/PayRollLoader";
+import { Backdrop } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function EmpCourseList(props) {
   const { intl } = props;
@@ -28,7 +30,7 @@ function EmpCourseList(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleClickOpen = (item) => {
-    debugger;
+
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -39,7 +41,7 @@ function EmpCourseList(props) {
 
   async function deleterow() {
     try {
-      debugger;
+
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -72,27 +74,28 @@ function EmpCourseList(props) {
   const columns = [
     {
       name: "id",
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...messages["employeeName"]} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: "courseName",
-      label: <FormattedMessage {...messages["courseName"]} />,
+      label: intl.formatMessage(messages.courseName),
       options: {
         filter: true,
       },
     },
     {
       name: "startDate",
-      label: <FormattedMessage {...Payrollmessages["fromdate"]} />,
+      label: intl.formatMessage(Payrollmessages.fromdate),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -100,7 +103,7 @@ function EmpCourseList(props) {
     },
     {
       name: "finishDate",
-      label: <FormattedMessage {...Payrollmessages["todate"]} />,
+      label: intl.formatMessage(Payrollmessages.todate),
       options: {
         filter: true,
         customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
@@ -108,14 +111,14 @@ function EmpCourseList(props) {
     },
     {
       name: "CourseCost",
-      label: <FormattedMessage {...Payrollmessages["price"]} />,
+      label: intl.formatMessage(Payrollmessages.price),
       options: {
         filter: true,
       },
     },
     {
       name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
+      label: intl.formatMessage(Payrollmessages.notes),
       options: {
         filter: true,
       },
@@ -123,11 +126,11 @@ function EmpCourseList(props) {
 
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton

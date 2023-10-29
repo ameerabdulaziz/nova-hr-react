@@ -68,6 +68,14 @@ export default defineMessages({
     id: `${scope}.codes.employeeShare`,
     defaultMessage: 'employeeShare',
   },
+  familyMemberValue: {
+    id: `${scope}.codes.familyMemberValue`,
+    defaultMessage: 'familyMemberValue',
+  },
+  registrationPrice: {
+    id: `${scope}.codes.registrationPrice`,
+    defaultMessage: 'registrationPrice',
+  },
   toAge: {
     id: `${scope}.codes.toAge`,
     defaultMessage: 'toAge',

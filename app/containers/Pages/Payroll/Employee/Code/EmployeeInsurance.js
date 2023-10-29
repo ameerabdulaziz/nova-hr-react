@@ -184,7 +184,7 @@ function EmployeeInsurance(props) {
       </PapperBlock>
       <EditTable
         anchorTable={anchorTable}
-        title={employee}
+        title={employee.name}
         API={EmployeeInsuranceData(employee.id)}
       />
     </div>

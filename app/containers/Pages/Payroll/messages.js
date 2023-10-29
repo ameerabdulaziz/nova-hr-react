@@ -426,6 +426,18 @@ employeeId: {
   VacationName:{
     id: `${scope}.VacationName`,
     defaultMessage: 'VacationName',
-  }
+  },
   
+  Actions: {
+    id: `${scope}.Actions`,
+    defaultMessage: 'Actions',
+  },
+  EditHrNotes: {
+    id: `${scope}.EditHrNotes`,
+    defaultMessage: 'Edit Hr Notes',
+  },
+  dateErrorMes: {
+    id: `${scope}.dateErrorMes`,
+    defaultMessage: 'Must To Choose FromDate And EndDate',
+  },
 });
