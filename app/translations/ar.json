@@ -1732,6 +1732,9 @@
   "boilerplate.containers.Payroll.insurance.notes": "ملاحظات",
   "boilerplate.containers.Payroll.insurance.BranchName": "اسم الفرع",
   "boilerplate.containers.Payroll.insurance.HrNotes": "ملاحظات المسؤول",
+  "boilerplate.containers.Payroll.insurance.totalFixed": "اجمالي المرتب الثابت",
+  "boilerplate.containers.Payroll.insurance.orderBy": "ترتيب حسب",
+  "boilerplate.containers.Payroll.insurance.totalVariable": "اجمالي المرتب المتغير",
   "boilerplate.containers.Payroll.insurance.Company": "الشركه",
   "boilerplate.containers.Payroll.insurance.InsuranceStatus": "حالة التأمين",
 
