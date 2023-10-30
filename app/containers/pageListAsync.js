@@ -1535,4 +1535,17 @@ export const medicalInsuranceListReport = loadable(
   }
 );
 
+export const EmployeeMedicalBenefitsCreate = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/EmployeeMedicalBenefitsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeMedicalBenefits = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Reports/EmployeeMedicalBenefits'),
+  {
+    fallback: <Loading />,
+  }
+);
 
