@@ -1102,6 +1102,10 @@
   "boilerplate.containers.Payroll.Attendance.employeeName":"Employee Name",
   "boilerplate.containers.Payroll.Attendance.missionDays":"Mission Days",
   "boilerplate.containers.Payroll.Attendance.weekend":"Weekend",
+
+  "boilerplate.containers.Payroll.Attendance.absence":"Absence",
+  "boilerplate.containers.Payroll.Attendance.shift":"shift",
+  "boilerplate.containers.Payroll.Attendance.includingEmployeesWithoutAttendanceRule":"Including Employees Without Attendance Rule",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",
