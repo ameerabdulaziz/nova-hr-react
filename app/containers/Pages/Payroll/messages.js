@@ -438,6 +438,6 @@ employeeId: {
   },
   dateErrorMes: {
     id: `${scope}.dateErrorMes`,
-    defaultMessage: 'Must To Choose FromDate And EndDate',
+    defaultMessage: 'Must To Choose From Date And To Date',
   },
 });

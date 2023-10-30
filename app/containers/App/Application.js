@@ -286,6 +286,7 @@ import {
   Form2Insurance,
   EmployeeShiftReport,
   DetailedReportAbsences,
+  EmployeesWithoutShiftsReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -823,6 +824,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/DetailedReportAbsences'
           component={DetailedReportAbsences}
+        />
+
+        <Route
+          path='/app/Pages/Att/EmployeesWithoutShiftsReport'
+          component={EmployeesWithoutShiftsReport}
         />
 
         {/* WorkFlow */}

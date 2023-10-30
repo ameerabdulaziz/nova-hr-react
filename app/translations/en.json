@@ -944,7 +944,7 @@
   "boilerplate.containers.Payroll.VacationName": "Vacation",
   "boilerplate.containers.Payroll.Actions": "Actions",
   "boilerplate.containers.Payroll.EditHrNotes": "Edit Hr Notes",
-  "boilerplate.containers.Payroll.dateErrorMes": "Must To Choose From Date And End Date",
+  "boilerplate.containers.Payroll.dateErrorMes": "Must To Choose From Date And To Date",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
