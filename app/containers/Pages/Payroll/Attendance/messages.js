@@ -827,5 +827,13 @@ absence: {
   id: `${scope}.absence`,
   defaultMessage: 'Absence',
 },
+shift: {
+  id: `${scope}.shift`,
+  defaultMessage: 'Shift',
+},
+includingEmployeesWithoutAttendanceRule: {
+  id: `${scope}.includingEmployeesWithoutAttendanceRule`,
+  defaultMessage: 'includingEmployeesWithoutAttendanceRule',
+},
 });
 

@@ -26,10 +26,8 @@ function DetailedReportAbsences(props) {
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [ShiftList, setShiftList] = useState([]);
-  const [MinsuranceCategoryList, setMinsuranceCategoryList] = useState([]);
   const [Deleted, setDeleted] = useState("");
   const [Shift, setShift] = useState("");
-  const [MedicalInsuranceCategory, setMedicalInsuranceCategory] = useState("");
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
@@ -99,7 +97,6 @@ function DetailedReportAbsences(props) {
       },
     {
         name: "job",
-        // label: "job",
         label: intl.formatMessage(messages.job),
         options: {
           filter: true,
@@ -107,7 +104,6 @@ function DetailedReportAbsences(props) {
       },
     {
       name: "employeeCode",
-    //   label: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
       options: {
         filter: true,
@@ -115,7 +111,6 @@ function DetailedReportAbsences(props) {
     },
     {
       name: "employeeName",
-    //   label: "employeeName",
       label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
@@ -124,7 +119,6 @@ function DetailedReportAbsences(props) {
     
     {
       name: "shiftDate",
-    //   label: "absence",
       label: intl.formatMessage(messages.absence),
       options: {
         filter: true,
@@ -186,8 +180,7 @@ function DetailedReportAbsences(props) {
                   variant="outlined"
                   {...params}
                   name="shift"
-                  label="shift"
-                //   label={intl.formatMessage(messages.InsuranceCompany)}
+                  label={intl.formatMessage(messages.shift)}
                 />
               )}
             />
@@ -195,7 +188,7 @@ function DetailedReportAbsences(props) {
 
       
 
-          <Grid item md={3}>
+          <Grid item md={4}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -208,8 +201,7 @@ function DetailedReportAbsences(props) {
                         }}
                       />
                     }
-                    label="including employees without attendance rule"
-                    // label={intl.formatMessage(messages.All)}
+                    label={intl.formatMessage(messages.includingEmployeesWithoutAttendanceRule)}
                   />
             </Grid>
 

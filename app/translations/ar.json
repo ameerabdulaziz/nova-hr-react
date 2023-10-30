@@ -1314,6 +1314,8 @@
     "boilerplate.containers.Payroll.Attendance.missionDays":"ايام المأمورية",
     "boilerplate.containers.Payroll.Attendance.weekend":"الاجازه الاسبوعية",
     "boilerplate.containers.Payroll.Attendance.absence":"الغياب",
+    "boilerplate.containers.Payroll.Attendance.shift":"الوردية",
+    "boilerplate.containers.Payroll.Attendance.includingEmployeesWithoutAttendanceRule":"يشمل الموظفين الذين لا تنطبق عليهم القواعد",
   
   
   
