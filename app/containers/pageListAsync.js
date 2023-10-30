@@ -971,11 +971,32 @@ export const CollectedMission = loadable(
   }
 );
 
+
+export const RulesList = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/AttRulesList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const RulesCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/AttRulesCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
 export const MissionReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/MissionReport'),
   {
     fallback: <Loading />,
   }
+);
+
+export const EmployeeShiftReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeeShiftReport'),
+  {
+    fallback: <Loading />,
+  }
+  
 );
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////

@@ -251,6 +251,544 @@ absence: {
   id: `${scope}.absence`,
   defaultMessage: 'absence',
 },
+AbsenceRules: {
+  id: `${scope}.AbsenceRules`,
+  defaultMessage: 'AbsenceRules',
+},
+DelayRules: {
+  id: `${scope}.DelayRules`,
+  defaultMessage: 'DelayRules',
+},
+TimeDelayRules: {
+  id: `${scope}.TimeDelayRules`,
+  defaultMessage: 'TimeDelayRules',
+},
+OtherRules: {
+  id: `${scope}.OtherRules`,
+  defaultMessage: 'OtherRules',
+},
+OverTiemRules: {
+  id: `${scope}.OverTiemRules`,
+  defaultMessage: 'OverTiemRules',
+},
+MaxOverTiemRules: {
+  id: `${scope}.MaxOverTiemRules`,
+  defaultMessage: 'MaxOverTiemRules',
+},
+VacationsRules: {
+  id: `${scope}.VacationsRules`,
+  defaultMessage: 'VacationsRules',
+},
+workhoursRules: {
+  id: `${scope}.workhoursRules`,
+  defaultMessage: 'workhoursRules',
+},
+AttRulesCreateTitle: {
+  id: `${scope}.AttRulesCreateTitle`,
+  defaultMessage: 'AttRulesCreateTitle',
+},
+AttRulesUpdateTitle: {
+  id: `${scope}.AttRulesUpdateTitle`,
+  defaultMessage: 'AttRulesUpdateTitle',
+},
+ChoiceOne: {
+  id: `${scope}.ChoiceOne`,
+  defaultMessage: 'ChoiceOne',
+},
+ChoiceTwo: {
+  id: `${scope}.ChoiceTwo`,
+  defaultMessage: 'ChoiceTwo',
+},
+ChoiceThree: {
+  id: `${scope}.ChoiceThree`,
+  defaultMessage: 'ChoiceThree',
+},
+ChoiceFour: {
+  id: `${scope}.ChoiceFour`,
+  defaultMessage: 'ChoiceFour',
+},
+DayOne: {
+  id: `${scope}.DayOne`,
+  defaultMessage: 'AbsFstElDayOne',
+},
+DayTwo: {
+  id: `${scope}.DayTwo`,
+  defaultMessage: 'AbsFstElDayTwo',
+},
+DayThree: {
+  id: `${scope}.DayThree`,
+  defaultMessage: 'AbsFstElDayThree',
+},
+DayFour: {
+  id: `${scope}.DayFour`,
+  defaultMessage: 'AbsFstElDayFour',
+},
+DayFive: {
+  id: `${scope}.DayFive`,
+  defaultMessage: 'AbsFstElDay5',
+},
+ConAbsenceAsOneDay: {
+  id: `${scope}.ConAbsenceAsOneDay`,
+  defaultMessage: 'ConAbsenceAsOneDay',
+},
+Absence3more: {
+  id: `${scope}.Absence3more`,
+  defaultMessage: 'Absence3more',
+},
+Firstelement: {
+  id: `${scope}.Firstelement`,
+  defaultMessage: 'Firstelement',
+},
+Secondelement: {
+  id: `${scope}.Secondelement`,
+  defaultMessage: 'Secondelement',
+},
+perDelayFirstElem: {
+  id: `${scope}.perDelayFirstElem`,
+  defaultMessage: 'perDelayFirstElem',
+},
+allowedPerCount: {
+  id: `${scope}.allowedPerCount`,
+  defaultMessage: 'allowedPerCount',
+},
+lateafterAllowed: {
+  id: `${scope}.lateafterAllowed`,
+  defaultMessage: 'lateafterAllowed',
+},
+lateinWeekEndMiss: {
+  id: `${scope}.lateinWeekEndMiss`,
+  defaultMessage: 'lateinWeekEndMiss',
+},
+allowedNoOfDelay: {
+  id: `${scope}.allowedNoOfDelay`,
+  defaultMessage: 'allowedNoOfDelay',
+},
+perDelaySecondElem: {
+  id: `${scope}.perDelaySecondElem`,
+  defaultMessage: 'perDelaySecondElem',
+},
+lessTimestartFromMin: {
+  id: `${scope}.lessTimestartFromMin`,
+  defaultMessage: 'lessTimestartFromMin',
+},
+minusMinuteFrom: {
+  id: `${scope}.minusMinuteFrom`,
+  defaultMessage: 'minusMinuteFrom',
+},
+MotamemElement: {
+  id: `${scope}.MotamemElement`,
+  defaultMessage: 'MotamemElement',
+},
+TimeOne: {
+  id: `${scope}.TimeOne`,
+  defaultMessage: 'TimeOne',
+},
+TimeTwo: {
+  id: `${scope}.TimeTwo`,
+  defaultMessage: 'TimeTwo',
+},
+TimeThree: {
+  id: `${scope}.TimeThree`,
+  defaultMessage: 'TimeThree',
+},
+TimeFour: {
+  id: `${scope}.TimeFour`,
+  defaultMessage: 'TimeFour',
+},
+TimeFive: {
+  id: `${scope}.TimeFive`,
+  defaultMessage: 'TimeFive',
+},
+MotamemCalcScenario: {
+  id: `${scope}.MotamemCalcScenario`,
+  defaultMessage: 'MotamemCalcScenario',
+},
+calclateTimeWithCount: {
+  id: `${scope}.calclateTimeWithCount`,
+  defaultMessage: 'calclateTimeWithCount',
+},
+calcLessTimeOnWeekEnd: {
+  id: `${scope}.calcLessTimeOnWeekEnd`,
+  defaultMessage: 'calcLessTimeOnWeekEnd',
+},
+calcLessTimeOnHoliday: {
+  id: `${scope}.calcLessTimeOnHoliday`,
+  defaultMessage: 'calcLessTimeOnHoliday',
+},
+timesSetting: {
+  id: `${scope}.timesSetting`,
+  defaultMessage: 'timesSetting',
+},
+
+perRoll1: {
+  id: `${scope}.perRoll1`,
+  defaultMessage: 'perRoll1',
+},
+perRoll2: {
+  id: `${scope}.perRoll2`,
+  defaultMessage: 'perRoll2',
+},
+lateTimeEle: {
+  id: `${scope}.lateTimeEle`,
+  defaultMessage: 'lateTimeEle',
+},
+lateTimeMinusEl: {
+  id: `${scope}.lateTimeMinusEl`,
+  defaultMessage: 'lateTimeMinusEl',
+},
+lateTimeMinusElVal: {
+  id: `${scope}.lateTimeMinusElVal`,
+  defaultMessage: 'lateTimeMinusElVal',
+},
+calcLateByTime: {
+  id: `${scope}.calcLateByTime`,
+  defaultMessage: 'calcLateByTime',
+},
+lessAsLate: {
+  id: `${scope}.lessAsLate`,
+  defaultMessage: 'lessAsLate',
+},
+lateTimeOnMonth: {
+  id: `${scope}.lateTimeOnMonth`,
+  defaultMessage: 'lateTimeOnMonth',
+},
+perCompensated: {
+  id: `${scope}.perCompensated`,
+  defaultMessage: 'perCompensated',
+},
+maxLatePerMinutes:{
+  id: `${scope}.maxLatePerMinutes`,
+  defaultMessage: 'maxLatePerMinutes',
+},
+maxLatePerNo: {
+  id: `${scope}.maxLatePerNo`,
+  defaultMessage: 'maxLatePerNo',
+},
+maxPerRoll1: {
+  id: `${scope}.maxPerRoll1`,
+  defaultMessage: 'maxPerRoll1',
+},
+lateAfterMinOver: {
+  id: `${scope}.lateAfterMinOver`,
+  defaultMessage: 'lateAfterMinOver',
+},
+lateAfterOver: {
+  id: `${scope}.lateAfterOver`,
+  defaultMessage: 'lateAfterOver',
+},
+
+fromMin: {
+  id: `${scope}.fromMin`,
+  defaultMessage: 'fromMin',
+},
+toMin: {
+  id: `${scope}.toMin`,
+  defaultMessage: 'toMin',
+},
+factor: {
+  id: `${scope}.factor`,
+  defaultMessage: 'factor',
+},
+discTime: {
+  id: `${scope}.discTime`,
+  defaultMessage: 'discTime',
+},
+discValue: {
+  id: `${scope}.discValue`,
+  defaultMessage: 'discValue',
+},
+discPer: {
+  id: `${scope}.discPer`,
+  defaultMessage: 'discPer',
+},
+doneOnce: {
+  id: `${scope}.doneOnce`,
+  defaultMessage: 'doneOnce',
+},
+discPervalue: {
+  id: `${scope}.discPervalue`,
+  defaultMessage: 'discPervalue',
+},
+frstTime: {
+  id: `${scope}.frstTime`,
+  defaultMessage: 'frstTime',
+},
+secondTime: {
+  id: `${scope}.secondTime`,
+  defaultMessage: 'secondTime',
+},
+thirdTime: {
+  id: `${scope}.thirdTime`,
+  defaultMessage: 'thirdTime',
+},
+fourthTime: {
+  id: `${scope}.fourthTime`,
+  defaultMessage: 'fourthTime',
+},
+lateparam: {
+  id: `${scope}.lateparam`,
+  defaultMessage: 'lateparam',
+},
+PenaltyElem: {
+  id: `${scope}.PenaltyElem`,
+  defaultMessage: 'PenaltyElem',
+},
+AllowForForgetAtt: {
+  id: `${scope}.AllowForForgetAtt`,
+  defaultMessage: 'AllowForForgetAtt',
+},
+PenaltyDayVal: {
+  id: `${scope}.PenaltyDayVal`,
+  defaultMessage: 'PenaltyDayVal',
+},
+PenaltyDayValOut: {
+  id: `${scope}.PenaltyDayValOut`,
+  defaultMessage: 'PenaltyDayValOut',
+},
+MissionTime: {
+  id: `${scope}.MissionTime`,
+  defaultMessage: 'MissionTime',
+},
+TrnsportaionEle: {
+  id: `${scope}.TrnsportaionEle`,
+  defaultMessage: 'TrnsportaionEle',
+},
+BranchTransportaionEl: {
+  id: `${scope}.BranchTransportaionEl`,
+  defaultMessage: 'BranchTransportaionEl',
+},
+StoppageElem: {
+  id: `${scope}.StoppageElem`,
+  defaultMessage: 'StoppageElem',
+},
+DeletionElem: {
+  id: `${scope}.DeletionElem`,
+  defaultMessage: 'DeletionElem',
+},
+StoppageDayVal: {
+  id: `${scope}.StoppageDayVal`,
+  defaultMessage: 'StoppageDayVal',
+},
+Overtimeparam: {
+  id: `${scope}.Overtimeparam`,
+  defaultMessage: 'Overtimeparam',
+},
+Vacparam: {
+  id: `${scope}.Vacparam`,
+  defaultMessage: 'Vacparam',
+},
+InFromDate: {
+  id: `${scope}.InFromDate`,
+  defaultMessage: 'InFromDate',
+},
+AfterFromDate: {
+  id: `${scope}.AfterFromDate`,
+  defaultMessage: 'AfterFromDate',
+},
+AfterDaysNo: {
+  id: `${scope}.AfterDaysNo`,
+  defaultMessage: 'AfterDaysNo',
+},
+BeforeD: {
+  id: `${scope}.BeforeD`,
+  defaultMessage: 'BeforeD',
+},
+salaryOnWorkD: {
+  id: `${scope}.salaryOnWorkD`,
+  defaultMessage: 'salaryOnWorkD',
+},
+hoursPerDay: {
+  id: `${scope}.hoursPerDay`,
+  defaultMessage: 'hoursPerDay',
+},
+monthDays: {
+  id: `${scope}.monthDays`,
+  defaultMessage: 'monthDays',
+},
+updateInAfter: {
+  id: `${scope}.updateInAfter`,
+  defaultMessage: 'updateInAfter',
+},
+updateOutBefore: {
+  id: `${scope}.updateOutBefore`,
+  defaultMessage: 'updateOutBefore',
+},
+overTimeElem: {
+  id: `${scope}.overTimeElem`,
+  defaultMessage: 'overTimeElem',
+},
+usualOverTimeH: {
+  id: `${scope}.usualOverTimeH`,
+  defaultMessage: 'usualOverTimeH',
+},
+usualOverTimeHNight: {
+  id: `${scope}.usualOverTimeHNight`,
+  defaultMessage: 'usualOverTimeHNight',
+},
+shiftvacOverTimeEl: {
+  id: `${scope}.shiftvacOverTimeEl`,
+  defaultMessage: 'shiftvacOverTimeEl',
+},
+shiftVacOverTimeH: {
+  id: `${scope}.shiftVacOverTimeH`,
+  defaultMessage: 'shiftVacOverTimeH',
+},
+vacOverTimeEl: {
+  id: `${scope}.vacOverTimeEl`,
+  defaultMessage: 'vacOverTimeEl',
+},
+vacOverTimeH: {
+  id: `${scope}.vacOverTimeH`,
+  defaultMessage: 'vacOverTimeH',
+},
+worKNighElem: {
+  id: `${scope}.worKNighElem`,
+  defaultMessage: 'worKNighElem',
+},
+worKNighDayVal: {
+  id: `${scope}.worKNighDayVal`,
+  defaultMessage: 'worKNighDayVal',
+},
+overtimestartFromMin: {
+  id: `${scope}.overtimestartFromMin`,
+  defaultMessage: 'overtimestartFromMin',
+},
+morOverTime: {
+  id: `${scope}.morOverTime`,
+  defaultMessage: 'morOverTime',
+},
+shift24: {
+  id: `${scope}.shift24`,
+  defaultMessage: 'shift24',
+},
+init_RepVacBalance_EveryMonth: {
+  id: `${scope}.init_RepVacBalance_EveryMonth`,
+  defaultMessage: 'init_RepVacBalance_EveryMonth',
+},
+overTimeOnShift: {
+  id: `${scope}.overTimeOnShift`,
+  defaultMessage: 'overTimeOnShift',
+},
+overTimeApprov: {
+  id: `${scope}.overTimeApprov`,
+  defaultMessage: 'overTimeApprov',
+},
+maxOvertimeHrsShiftVacDay: {
+  id: `${scope}.maxOvertimeHrsShiftVacDay`,
+  defaultMessage: 'maxOvertimeHrsShiftVacDay',
+},
+maxOvertimeHrsOrdinaryDay: {
+  id: `${scope}.maxOvertimeHrsOrdinaryDay`,
+  defaultMessage: 'maxOvertimeHrsOrdinaryDay',
+},
+maxOvertimeHrsPerMonth: {
+  id: `${scope}.maxOvertimeHrsPerMonth`,
+  defaultMessage: 'maxOvertimeHrsPerMonth',
+},
+calcShiftOverTAsDay: {
+  id: `${scope}.calcShiftOverTAsDay`,
+  defaultMessage: 'calcShiftOverTAsDay',
+},
+maxOvertimeHrsOfficialVacDay: {
+  id: `${scope}.maxOvertimeHrsOfficialVacDay`,
+  defaultMessage: 'maxOvertimeHrsOfficialVacDay',
+},
+calcOfficialOverTAsDay: {
+  id: `${scope}.calcOfficialOverTAsDay`,
+  defaultMessage: 'calcOfficialOverTAsDay',
+},
+overTimeApprDown: {
+  id: `${scope}.overTimeApprDown`,
+  defaultMessage: 'overTimeApprDown',
+},
+overTimeAppr: {
+  id: `${scope}.overTimeAppr`,
+  defaultMessage: 'overTimeAppr',
+},
+overTimeApprLabel: {
+  id: `${scope}.overTimeApprLabel`,
+  defaultMessage: 'overTimeApprLabel',
+},
+overTimeApprLabel2: {
+  id: `${scope}.overTimeApprLabel2`,
+  defaultMessage: 'overTimeApprLabel2',
+},
+overTimeApprLabel3: {
+  id: `${scope}.overTimeApprLabel3`,
+  defaultMessage: 'overTimeApprLabel3',
+},
+overTimeApprLabel4: {
+  id: `${scope}.overTimeApprLabel4`,
+  defaultMessage: 'overTimeApprLabel4',
+},
+ovTiFromOut: {
+  id: `${scope}.ovTiFromOut`,
+  defaultMessage: 'ovTiFromOut',
+},
+ovTiFromOutLabel: {
+  id: `${scope}.ovTiFromOutLabel`,
+  defaultMessage: 'ovTiFromOutLabel',
+},
+vacPenEle: {
+  id: `${scope}.vacPenEle`,
+  defaultMessage: 'vacPenEle',
+},
+vacPen: {
+  id: `${scope}.vacPen`,
+  defaultMessage: 'vacPen',
+},
+vacBalanceFromMonth: {
+  id: `${scope}.vacBalanceFromMonth`,
+  defaultMessage: 'vacBalanceFromMonth',
+},
+annualBal: {
+  id: `${scope}.annualBal`,
+  defaultMessage: 'annualBal',
+},
+trainingPeriodHasBalance: {
+  id: `${scope}.trainingPeriodHasBalance`,
+  defaultMessage: 'trainingPeriodHasBalance',
+},
+excludeVacDays: {
+  id: `${scope}.excludeVacDays`,
+  defaultMessage: 'excludeVacDays',
+},
+vacBalaMonthly: {
+  id: `${scope}.vacBalaMonthly`,
+  defaultMessage: 'vacBalaMonthly',
+},
+weekendSalary: {
+  id: `${scope}.weekendSalary`,
+  defaultMessage: 'weekendSalary',
+},
+vac_before_SD: {
+  id: `${scope}.vac_before_SD`,
+  defaultMessage: 'vac_before_SD',
+},
+vac_before_OV: {
+  id: `${scope}.vac_before_OV`,
+  defaultMessage: 'vac_before_OV',
+},
+vac_after_SD: {
+  id: `${scope}.vac_after_SD`,
+  defaultMessage: 'vac_after_SD',
+},
+vac_after_OV: {
+  id: `${scope}.vac_after_OV`,
+  defaultMessage: 'vac_after_OV',
+},
+calcVacAuto: {
+  id: `${scope}.calcVacAuto`,
+  defaultMessage: 'calcVacAuto',
+},
+workDays: {
+  id: `${scope}.workDays`,
+  defaultMessage: 'workDays',
+},
+vacEquiv: {
+  id: `${scope}.vacEquiv`,
+  defaultMessage: 'vacEquiv',
+},
 // MissionReport
 branchName: {
   id: `${scope}.branchName`,
@@ -280,4 +818,9 @@ missionDays: {
   id: `${scope}.missionDays`,
   defaultMessage: 'Mission Days',
 },
+weekend: {
+  id: `${scope}.weekend`,
+  defaultMessage: 'Weekend',
+},
 });
+

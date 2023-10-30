@@ -267,6 +267,7 @@ import {
   StopInsuranceCreate,
   StopInsuranceReport,
   InsuranceFollow,
+  RulesList,RulesCreate,
   EmergencyBenefitList,
   InsuranceFormStatus,
   PositionOfGuaranteesAndContradictions,
@@ -283,6 +284,7 @@ import {
   medicalInsuranceListReport,
   MissionReport,
   Form2Insurance,
+  EmployeeShiftReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -801,14 +803,24 @@ function Application(props) {
           path='/app/Pages/Att/CollectedMission'
           component={CollectedMission}
         />
+        <Route path='/app/Pages/Att/Rules' component={RulesList} />
+        <Route path='/app/Pages/Att/RulesCreate' component={RulesCreate} />
+        <Route path='/app/Pages/Att/RulesEdit' component={RulesCreate} />
+
 
         <Route
           path='/app/Pages/Att/MissionReport'
           component={MissionReport}
         />
 
+
+        <Route
+          path='/app/Pages/Att/EmployeeShiftReport'
+          component={EmployeeShiftReport}
+        />
+
         {/* WorkFlow */}
-        <Route path='/app/Pages/WF/WorkFlowList' component={WorkFlowList} />
+        <Route path='/app/Pages/WF/WorkFlow' component={WorkFlowList} />
         <Route path='/app/Pages/WF/WorkFlowCreate' component={WorkFlowCreate} />
         <Route path='/app/Pages/WF/WorkFlowEdit' component={WorkFlowCreate} />
         <Route path='/app/Pages/WF/RequestsList' component={RequestsList} />

@@ -11,6 +11,15 @@ const MedicalInsuranceReportsData = (locale) => {
   };
 
 
+  api.GetEmployeeShiftReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttShiftEmployee/GetEmployeeShiftReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+
   return api;
 };
 

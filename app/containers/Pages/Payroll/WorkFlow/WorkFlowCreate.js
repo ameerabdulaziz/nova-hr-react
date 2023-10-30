@@ -257,14 +257,7 @@ function WorkFlowCreate(props) {
                 size="medium"
                 style={{ width: 100 }}
                 color="secondary"
-                disabled={processing}
               >
-                {processing && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>

@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
-import ApiData from "./api/WorkFlowData";
+import ApiData from "../api/AttRulesData";
 import { useSelector } from "react-redux";
-import Tooltip from "@mui/material/Tooltip";
-import AddIcon from "@mui/icons-material/Add";
-import Button from "@mui/material/Button";
-import messages from "./messages";
-import { injectIntl,FormattedMessage } from "react-intl";
-import { useHistory } from "react-router-dom";
-import style from "../../../../../app/styles/styles.scss";
+import messages from "../messages";
+import { injectIntl, FormattedMessage } from "react-intl";
+import style from "../../../../../../app/styles/styles.scss";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
-import useStyles from "../Style";
-import EditButton from "../Component/EditButton";
-import DeleteButton from "../Component/DeleteButton";
+import useStyles from "../../Style";
 import { PapperBlock } from "enl-components";
-import AlertPopup from "../Component/AlertPopup";
-import Payrollmessages from '../messages';
-import PayRollLoader from "../Component/PayRollLoader";
+import EditButton from "../../Component/EditButton";
+import DeleteButton from "../../Component/DeleteButton";
+import AddButton from "../../Component/AddButton";
+import AlertPopup from "../../Component/AlertPopup";
+import Payrollmessages from "../../messages";
+import PayRollLoader from "../../Component/PayRollLoader";
 
-function WorkFlowList(props) {
+function AttRulesList(props) {
   const { intl } = props;
-  const history = useHistory();
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
@@ -30,6 +26,8 @@ function WorkFlowList(props) {
   const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  
+  
   const handleClickOpen = (item) => {
     debugger;
     setOpenParentPopup(true);
@@ -53,6 +51,7 @@ function WorkFlowList(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
+      
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +66,6 @@ function WorkFlowList(props) {
       setIsLoading(false);
     }
   }
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -86,17 +84,10 @@ function WorkFlowList(props) {
         filter: true,
       },
     },
+
     {
       name: "enName",
       label: <FormattedMessage {...Payrollmessages["enName"]} />,
-      options: {
-        filter: true,
-      },
-    },
-
-    {
-      name: "documentName",
-      label: <FormattedMessage {...messages["documentName"]} />,
       options: {
         filter: true,
       },
@@ -107,18 +98,18 @@ function WorkFlowList(props) {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
+          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton
                 param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/WF/WorkFlowEdit"}
+                url={"/app/Pages/Att/RulesEdit"}
               ></EditButton>
               <DeleteButton
                 clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
               ></DeleteButton>
             </div>
           );
-          
         },
       },
     },
@@ -137,19 +128,7 @@ function WorkFlowList(props) {
       //some logic
     },
     customToolbar: () => (
-      <Tooltip title="Add New">
-        <Button
-          variant="contained"
-          onClick={() => {
-            history.push(`/app/Pages/WF/WorkFlowCreate`);
-          }}
-          color="secondary"
-          className={classes.button}
-        >
-          <AddIcon />
-          <FormattedMessage {...Payrollmessages.add} />
-        </Button>
-      </Tooltip>
+      <AddButton url={"/app/Pages/Att/RulesCreate"}></AddButton>
     ),
     textLabels: {
       body: {
@@ -163,6 +142,7 @@ function WorkFlowList(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title=""
@@ -184,5 +164,4 @@ function WorkFlowList(props) {
   );
 }
 
-
-export default injectIntl(WorkFlowList);
+export default injectIntl(AttRulesList);
