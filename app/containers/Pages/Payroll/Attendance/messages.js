@@ -822,5 +822,10 @@ weekend: {
   id: `${scope}.weekend`,
   defaultMessage: 'Weekend',
 },
+// DetailedReportAbsences
+absence: {
+  id: `${scope}.absence`,
+  defaultMessage: 'Absence',
+},
 });
 
