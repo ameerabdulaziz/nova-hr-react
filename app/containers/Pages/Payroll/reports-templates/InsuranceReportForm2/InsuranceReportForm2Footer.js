@@ -96,8 +96,8 @@ function InsuranceReportForm2Footer(props) {
 }
 
 InsuranceReportForm2Footer.propTypes = {
-  totalSalary: PropTypes.number.isRequired,
-  totalEmployee: PropTypes.number.isRequired,
+  totalSalary: PropTypes.string.isRequired,
+  totalEmployee: PropTypes.string.isRequired,
 };
 
 InsuranceReportForm2Footer.defaultProps = {

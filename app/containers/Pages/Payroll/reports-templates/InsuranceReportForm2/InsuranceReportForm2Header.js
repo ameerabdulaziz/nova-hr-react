@@ -47,6 +47,7 @@ function InsuranceReportForm2Header(props) {
               sx={{
                 border: '2px solid black',
                 p: '3px 20px',
+                minHeight: 20
               }}
             >
               {organizationId}
@@ -133,7 +134,7 @@ function InsuranceReportForm2Header(props) {
 }
 
 InsuranceReportForm2Header.propTypes = {
-  organizationId: PropTypes.number.isRequired,
+  organizationId: PropTypes.string.isRequired,
   organizationName: PropTypes.string.isRequired,
 };
 

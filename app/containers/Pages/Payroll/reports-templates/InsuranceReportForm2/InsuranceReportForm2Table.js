@@ -57,18 +57,18 @@ function InsuranceReportForm2Table(props) {
         </TableHead>
         <TableBody>
           {rows.map((row) => {
-            const subscriptionDate = new Date(row.subscriptionDate);
+            const subscriptionDate = new Date(row.insuranceDate);
 
             return (
               <TableRow key={row.id}>
                 <StyledTableCell component='th' scope='row' align='center'>
-                  {toArabicDigits(row.insuranceNumber)}
+                  {toArabicDigits(row.socialInsuranceID)}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
                   {row.employeeName}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
-                  {toArabicDigits(row.nationalId)}
+                  {toArabicDigits(row.identityNumber)}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
                   {toArabicDigits(subscriptionDate.getDate())}
@@ -80,10 +80,10 @@ function InsuranceReportForm2Table(props) {
                   {toArabicDigits(subscriptionDate.getFullYear())}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
-                  {toArabicDigits(row.insuranceSubscriptionFee)}
+                  {toArabicDigits(row.insGrossSalary)}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
-                  {toArabicDigits(row.totalSalary)}
+                  {toArabicDigits(row.mainSalaryNew)}
                 </StyledTableCell>
               </TableRow>
             );
