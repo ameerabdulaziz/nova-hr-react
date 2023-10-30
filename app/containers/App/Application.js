@@ -286,6 +286,8 @@ import {
   Form2Insurance,
   EmployeeShiftReport,
   DetailedReportAbsences,
+  EmployeeMedicalBenefits,
+  EmployeeMedicalBenefitsCreate,
   EmployeesWithoutShiftsReport,
 } from '../pageListAsync';
 
@@ -1216,6 +1218,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Minsurance/medicalInsuranceListReport'
           component={medicalInsuranceListReport}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/EmployeeMedicalBenefits'
+          component={EmployeeMedicalBenefits}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/EmployeeMedicalBenefitsCreate'
+          component={EmployeeMedicalBenefitsCreate}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/EmployeeMedicalBenefitsEdit'
+          component={EmployeeMedicalBenefitsCreate}
         />
 
         {/* Default */}
