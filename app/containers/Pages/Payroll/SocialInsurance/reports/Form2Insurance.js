@@ -201,7 +201,7 @@ function Form2Insurance(props) {
       <>
         <InsuranceReportForm2
           rows={tableData}
-          organizationId={formInfo.InsuranceOrg ?? 0}
+          organizationId={formInfo.InsuranceOrg || 0}
           totalSalary={extraData.total ?? 0}
           organizationName={
             organizationList.find((item) => item.id === formInfo.InsuranceOrg)
