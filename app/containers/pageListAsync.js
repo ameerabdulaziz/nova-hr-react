@@ -971,7 +971,6 @@ export const CollectedMission = loadable(
   }
 );
 
-
 export const RulesList = loadable(
   () => import('./Pages/Payroll/Attendance/Code/AttRulesList'),
   {
@@ -996,7 +995,7 @@ export const EmployeeShiftReport = loadable(
   {
     fallback: <Loading />,
   }
-  
+
 );
 
 export const DetailedReportAbsences = loadable(
@@ -1004,7 +1003,7 @@ export const DetailedReportAbsences = loadable(
   {
     fallback: <Loading />,
   }
-  
+
 );
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////
@@ -1176,8 +1175,6 @@ export const TermsConditions = loadable(
   }
 );
 
-
-
 /// Vac ///////////////////////
 
 export const CreateVacationType = loadable(
@@ -1347,8 +1344,6 @@ export const ImportLeaveBalance = loadable(
     fallback: <Loading />,
   }
 );
-
-
 
 // Social Insurance
 
@@ -1536,16 +1531,15 @@ export const medicalInsuranceListReport = loadable(
 );
 
 export const EmployeeMedicalBenefitsCreate = loadable(
-  () => import('./Pages/Payroll/MedicalInsurance/Reports/EmployeeMedicalBenefitsCreate'),
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/EmployeeMedicalBenefitsCreate'),
   {
     fallback: <Loading />,
   }
 );
 
 export const EmployeeMedicalBenefits = loadable(
-  () => import('./Pages/Payroll/MedicalInsurance/Reports/EmployeeMedicalBenefits'),
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/EmployeeMedicalBenefits'),
   {
     fallback: <Loading />,
   }
 );
-
