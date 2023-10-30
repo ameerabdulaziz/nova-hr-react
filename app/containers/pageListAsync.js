@@ -1006,6 +1006,14 @@ export const DetailedReportAbsences = loadable(
 
 );
 
+export const EmployeesWithoutShiftsReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeesWithoutShiftsReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

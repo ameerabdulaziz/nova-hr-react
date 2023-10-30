@@ -14,7 +14,7 @@ const MedicalInsuranceReportsData = (locale) => {
   api.GetEmployeeShiftReport = async (params) => {
     const queryString = new URLSearchParams(params);
 
-    const data = await axiosInstance.get(`AttShiftEmployee/GetEmployeeShiftReport/${locale}?${queryString}`);
+    const data = await axiosInstance.get(`/AttReport/GetEmployeeShiftReport/${locale}?${queryString}`);
 
     return data.data;
   };
@@ -23,6 +23,14 @@ const MedicalInsuranceReportsData = (locale) => {
     const queryString = new URLSearchParams(params);
 
     const data = await axiosInstance.get(`AttReport/GetDetailsAbsenceReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.EmployeesWithoutShiftsReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetEmployeeWithoutShiftReport/${locale}?${queryString}`);
 
     return data.data;
   };
