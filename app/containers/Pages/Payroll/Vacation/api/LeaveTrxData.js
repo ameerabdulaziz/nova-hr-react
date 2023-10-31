@@ -44,7 +44,7 @@ const LeaveTrxData = (locale) => {
   }, new FormData());
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('VacVacationTrx/Save', body);
+    const result = await axiosInstance.post('VacVacationTrx/Save', getFormData(body));
 
     return result;
   };

@@ -14,7 +14,47 @@ const MedicalInsuranceReportsData = (locale) => {
   api.GetEmployeeShiftReport = async (params) => {
     const queryString = new URLSearchParams(params);
 
-    const data = await axiosInstance.get(`AttShiftEmployee/GetEmployeeShiftReport/${locale}?${queryString}`);
+    const data = await axiosInstance.get(`/AttReport/GetEmployeeShiftReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.GetDetailedReportAbsences = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetDetailsAbsenceReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.EmployeesWithoutShiftsReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetEmployeeWithoutShiftReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.OverTimeDetailsReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetOverTimeDetailsReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.AbsenceReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetAbsenceReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.EarlyAttendanceReport = async (params, bodyData) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.post(`AttReport/GetEarlyAttendanceReport/${locale}?${queryString}`, bodyData);
 
     return data.data;
   };
@@ -22,5 +62,7 @@ const MedicalInsuranceReportsData = (locale) => {
 
   return api;
 };
+
+
 
 export default MedicalInsuranceReportsData;

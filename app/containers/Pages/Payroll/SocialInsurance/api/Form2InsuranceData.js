@@ -1,5 +1,5 @@
 import axiosInstance from '../../api/axios';
-const SocialInsuranceData = (locale) => {
+const Form2ReportData = (locale) => {
   const api = {};
 
   api.GetSInsuranceOffices = async () => {
@@ -17,7 +17,7 @@ const SocialInsuranceData = (locale) => {
   api.GetList = async (params) => {
     const queryString = new URLSearchParams(params);
 
-    const data = await axiosInstance.post(`SInsuranceReport/GetForm2Report/${locale}?${queryString}`);
+    const data = await axiosInstance.get(`SInsuranceReport/GetForm2Report/${locale}?${queryString}`);
 
     return data.data;
   };
@@ -25,4 +25,4 @@ const SocialInsuranceData = (locale) => {
   return api;
 };
 
-export default SocialInsuranceData;
+export default Form2ReportData;

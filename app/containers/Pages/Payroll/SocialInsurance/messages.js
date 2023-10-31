@@ -309,4 +309,16 @@ export default defineMessages({
     id: `${scope}.gender`,
     defaultMessage: 'gender',
   },
+  totalFixed: {
+    id: `${scope}.totalFixed`,
+    defaultMessage: 'totalFixed',
+  },
+  totalVariable: {
+    id: `${scope}.totalVariable`,
+    defaultMessage: 'totalVariable',
+  },
+  orderBy: {
+    id: `${scope}.orderBy`,
+    defaultMessage: 'orderBy',
+  },
 });

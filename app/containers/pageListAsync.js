@@ -971,7 +971,6 @@ export const CollectedMission = loadable(
   }
 );
 
-
 export const RulesList = loadable(
   () => import('./Pages/Payroll/Attendance/Code/AttRules/AttRulesList'),
   {
@@ -996,8 +995,49 @@ export const EmployeeShiftReport = loadable(
   {
     fallback: <Loading />,
   }
+
+);
+
+export const DetailedReportAbsences = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/DetailedReportAbsences'),
+  {
+    fallback: <Loading />,
+  }
+
+);
+
+export const EmployeesWithoutShiftsReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeesWithoutShiftsReport'),
+  {
+    fallback: <Loading />,
+  }
   
 );
+
+export const OverTimeDetailsReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/OverTimeDetailsReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
+export const AbsenceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/AbsenceReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
+export const EarlyAttendanceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EarlyAttendanceReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
@@ -1168,8 +1208,6 @@ export const TermsConditions = loadable(
   }
 );
 
-
-
 /// Vac ///////////////////////
 
 export const CreateVacationType = loadable(
@@ -1339,8 +1377,6 @@ export const ImportLeaveBalance = loadable(
     fallback: <Loading />,
   }
 );
-
-
 
 // Social Insurance
 
@@ -1527,4 +1563,30 @@ export const medicalInsuranceListReport = loadable(
   }
 );
 
+export const EmployeeMedicalBenefitsCreate = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/EmployeeMedicalBenefitsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
 
+export const EmployeeMedicalBenefits = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/EmployeeMedicalBenefits'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const StopMedicalInsurance = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/StopMedicalInsurance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const StopMedicalInsuranceCreate = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/StopMedicalInsuranceCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

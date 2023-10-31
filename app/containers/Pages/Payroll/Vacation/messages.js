@@ -491,6 +491,10 @@ export default defineMessages({
     id: `${scope}.fromDateLessThanToDate`,
     defaultMessage: 'fromDateLessThanToDate',
   },
+  uploadFileErrorMes: {
+    id: `${scope}.uploadFileErrorMes`,
+    defaultMessage: 'The File Is too Large',
+  },
   // ImportVacations
   FileIsEmpty: {
     id: `${scope}.Transaction.FileIsEmpty`,

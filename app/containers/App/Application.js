@@ -285,6 +285,15 @@ import {
   MissionReport,
   Form2Insurance,
   EmployeeShiftReport,
+  DetailedReportAbsences,
+  EmployeeMedicalBenefits,
+  EmployeeMedicalBenefitsCreate,
+  EmployeesWithoutShiftsReport,
+  OverTimeDetailsReport,
+  AbsenceReport,
+  StopMedicalInsurance,
+  StopMedicalInsuranceCreate,
+  EarlyAttendanceReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -819,6 +828,32 @@ function Application(props) {
           component={EmployeeShiftReport}
         />
 
+        <Route
+          path='/app/Pages/Att/DetailedReportAbsences'
+          component={DetailedReportAbsences}
+        />
+
+        <Route
+          path='/app/Pages/Att/EmployeesWithoutShiftsReport'
+          component={EmployeesWithoutShiftsReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/OverTimeDetailsReport'
+          component={OverTimeDetailsReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/AbsenceReport'
+          component={AbsenceReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/EarlyAttendanceReport'
+          component={EarlyAttendanceReport}
+        />
+
+
         {/* WorkFlow */}
         <Route path='/app/Pages/WF/WorkFlow' component={WorkFlowList} />
         <Route path='/app/Pages/WF/WorkFlowCreate' component={WorkFlowCreate} />
@@ -1204,6 +1239,36 @@ function Application(props) {
         <Route
           path='/app/Pages/Minsurance/medicalInsuranceListReport'
           component={medicalInsuranceListReport}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/EmployeeMedicalBenefits'
+          component={EmployeeMedicalBenefits}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/EmployeeMedicalBenefitsCreate'
+          component={EmployeeMedicalBenefitsCreate}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/EmployeeMedicalBenefitsEdit'
+          component={EmployeeMedicalBenefitsCreate}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/StopMedicalInsurance'
+          component={StopMedicalInsurance}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/StopMedicalInsuranceCreate'
+          component={StopMedicalInsuranceCreate}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/StopMedicalInsuranceEdit'
+          component={StopMedicalInsuranceCreate}
         />
 
         {/* Default */}

@@ -822,5 +822,61 @@ weekend: {
   id: `${scope}.weekend`,
   defaultMessage: 'Weekend',
 },
+// DetailedReportAbsences
+absence: {
+  id: `${scope}.absence`,
+  defaultMessage: 'Absence',
+},
+shift: {
+  id: `${scope}.shift`,
+  defaultMessage: 'Shift',
+},
+includingEmployeesWithoutAttendanceRule: {
+  id: `${scope}.includingEmployeesWithoutAttendanceRule`,
+  defaultMessage: 'includingEmployeesWithoutAttendanceRule',
+},
+// OverTimeDetailsReport
+AttendanceDate: {
+  id: `${scope}.AttendanceDate`,
+  defaultMessage: 'Attendance Date',
+},
+overTime: {
+  id: `${scope}.overTime`,
+  defaultMessage: 'OverTime',
+},
+leave: {
+  id: `${scope}.leave`,
+  defaultMessage: 'Leave',
+},
+modifiedOvertime: {
+  id: `${scope}.modifiedOvertime`,
+  defaultMessage: 'Modified Overtime',
+},
+All: {
+  id: `${scope}.All`,
+  defaultMessage: 'All',
+},
+LeavesAndWeekendOnly: {
+  id: `${scope}.LeavesAndWeekendOnly`,
+  defaultMessage: 'Leaves And Weekend Only',
+},
+workDevsOnly: {
+  id: `${scope}.workDevsOnly`,
+  defaultMessage: 'Work Devs Only',
+},
+UpdatedOnly: {
+  id: `${scope}.UpdatedOnly`,
+  defaultMessage: 'Updated Only',
+},
+// AbsenceReport
+attendanceRule: {
+  id: `${scope}.attendanceRule`,
+  defaultMessage: 'Including employees without attendance rule',
+},
+// EarlyAttendanceReport
+earlyAttMinutes: {
+  id: `${scope}.earlyAttMinutes`,
+  defaultMessage: 'Early Attendance Miuntes',
+},
 });
 
