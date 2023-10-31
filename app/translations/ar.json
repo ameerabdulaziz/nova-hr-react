@@ -1272,17 +1272,50 @@
 
   "boilerplate.containers.Payroll.Attendance.vacEquiv": "Vacation equivalent",
 
-  "boilerplate.containers.Payroll.Attendance.branchName": "اسم الفرع",
-  "boilerplate.containers.Payroll.Attendance.orgName": "الادارة",
-  "boilerplate.containers.Payroll.Attendance.job": "الوظيفة",
-  "boilerplate.containers.Payroll.Attendance.EmpCode": "كود الموظف",
-  "boilerplate.containers.Payroll.Attendance.employeeName": "اسم الموظف",
-  "boilerplate.containers.Payroll.Attendance.missionDays": "ايام المأمورية",
-  "boilerplate.containers.Payroll.Attendance.weekend": "الاجازه الاسبوعية",
-  "boilerplate.containers.Payroll.Attendance.absence": "الغياب",
-  "boilerplate.containers.Payroll.Attendance.shift": "الوردية",
-  "boilerplate.containers.Payroll.Attendance.includingEmployeesWithoutAttendanceRule": "يشمل الموظفين الذين لا تنطبق عليهم القواعد",
+  
+  
+  
+  
 
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  "boilerplate.containers.Payroll.Attendance.branchName":"اسم الفرع",
+  "boilerplate.containers.Payroll.Attendance.orgName":"الادارة",
+    "boilerplate.containers.Payroll.Attendance.job":"الوظيفة",
+    "boilerplate.containers.Payroll.Attendance.EmpCode": "كود الموظف",
+    "boilerplate.containers.Payroll.Attendance.employeeName":"اسم الموظف",
+    "boilerplate.containers.Payroll.Attendance.missionDays":"ايام المأمورية",
+    "boilerplate.containers.Payroll.Attendance.weekend":"الاجازه الاسبوعية",
+    "boilerplate.containers.Payroll.Attendance.absence":"الغياب",
+    "boilerplate.containers.Payroll.Attendance.shift":"الوردية",
+    "boilerplate.containers.Payroll.Attendance.includingEmployeesWithoutAttendanceRule":"يشمل الموظفين الذين لا تنطبق عليهم القواعد",
+
+    "boilerplate.containers.Payroll.Attendance.AttendanceDate":"تاريخ الحضور",
+    "boilerplate.containers.Payroll.Attendance.overTime":"الوقت الاضافى - ق",
+    "boilerplate.containers.Payroll.Attendance.leave":"اجازة",
+    "boilerplate.containers.Payroll.Attendance.modifiedOvertime":"الوقت الاضافى المعدل",
+    "boilerplate.containers.Payroll.Attendance.All":"الكل",
+    "boilerplate.containers.Payroll.Attendance.LeavesAndWeekendOnly":"العطلات فقط",
+    "boilerplate.containers.Payroll.Attendance.workDevsOnly":"ايام العمل فقط",
+    "boilerplate.containers.Payroll.Attendance.UpdatedOnly":"المعدل فقط",
+
+    "boilerplate.containers.Payroll.Attendance.attendanceRule":"يشمل الموظفين الذين لا تنطبق عليهم القواعد",
+  
+  
+  
+  
+  
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
   "boilerplate.containers.Payroll.Workflow.step": "المرحلة",
   "boilerplate.containers.Payroll.Workflow.nextStep": "المرحلة التالية",
