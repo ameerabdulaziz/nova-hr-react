@@ -1451,6 +1451,7 @@
   "boilerplate.containers.Payroll.Request.Transaction.checkIn": "No check In",
   "boilerplate.containers.Payroll.Request.Transaction.checkOut": "No Check Out",
 
+  "boilerplate.containers.Payroll.vac.uploadFileErrorMes": "The File Is too Large",
   "boilerplate.containers.Payroll.vac.employeeName": "Employee Name",
   "boilerplate.containers.Payroll.vac.attachmentIsRequire": "Attachment Is Require",
   "boilerplate.containers.Payroll.vac.department": "Department",

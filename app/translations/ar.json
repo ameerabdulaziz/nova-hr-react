@@ -1515,6 +1515,7 @@
   "boilerplate.containers.Payroll.vac.code.AnnualInAdvance": "سنوى مقدم",
   "boilerplate.containers.Payroll.vac.code.MustAttachFile": "يلزم ارفاق ملف",
 
+  "boilerplate.containers.Payroll.vac.uploadFileErrorMes": "الملف كبير للغاية",
   "boilerplate.containers.Payroll.vac.organization": "الادارة",
   "boilerplate.containers.Payroll.vac.registrationDate": "تاريخ التسجيل",
   "boilerplate.containers.Payroll.vac.dayDeducedBy": "اليوم يخصم ب",

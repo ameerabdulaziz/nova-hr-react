@@ -26,10 +26,12 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import SaveButton from "../../Component/SaveButton";
 import VacationBalancePopup from "../../Component/VacationBalance";
 import useStyles from "../../Style";
+import PropTypes from 'prop-types';
 import GeneralListApis from "../../api/GeneralListApis";
 import Payrollmessages from "../../messages";
 import api from "../api/LeaveTrxData";
 import messages from "../messages";
+import { ServerURL } from "../../api/ServerConfig";
 
 function LeaveTrxCreate(props) {
   const { intl } = props;
@@ -60,15 +62,16 @@ function LeaveTrxCreate(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [isAttachmentPopupOpen, setIsAttachmentPopupOpen] = useState(false);
+  const [uploadedFile, SetuploadedFile] = useState(null)
   const [formInfo, setFormInfo] = useState({
     id,
 
     employeeId: "",
     HasAlternativeEmp: false,
 
-    vacDayChange: null,
-    vacDocPath: null,
-    replaceDate: null,
+    vacDayChange: '',
+    vacDocPath: '',
+    ReplaceDate: '',
     alternativeTask: null,
 
     trxDate: null,
@@ -77,7 +80,7 @@ function LeaveTrxCreate(props) {
     daysCount: "",
     dayDeducedBy: "",
     tel: "",
-    attachment: null,
+    doc: null,
     vacReson: "",
     address: "",
     notes: "",
@@ -118,6 +121,7 @@ function LeaveTrxCreate(props) {
             name: dataApi.vacationName,
           },
         });
+        SetuploadedFile(`${ServerURL}Doc/VacDoc/${dataApi.vacDocPath}`);
       }
     } catch (err) {
       //
@@ -187,7 +191,32 @@ function LeaveTrxCreate(props) {
 
     let errors = {};
 
-    const formData = { ...formInfo };
+    const formData = {
+      id,
+
+      employeeId: formInfo.employeeId,
+      HasAlternativeEmp: formInfo.HasAlternativeEmp,
+
+      VacDayChange: formInfo.vacDayChange ?? '',
+      vacDocPath: formInfo.vacDocPath,
+      ReplaceDate: formInfo.ReplaceDate ?? '',
+      alternativeTask: formInfo.alternativeTask,
+
+      trxDate: formInfo.trxDate,
+      fromDate: formInfo.fromDate,
+      toDate: formInfo.toDate,
+      daysCount: formInfo.daysCount,
+      dayDeducedBy: formInfo.dayDeducedBy,
+      tel: formInfo.tel,
+      doc: formInfo.doc,
+      vacReson: formInfo.vacReson,
+      address: formInfo.address,
+      notes: formInfo.notes,
+      exemptEntryRec: formInfo.exemptEntryRec,
+      exemptLeaveRec: formInfo.exemptLeaveRec ?? '',
+      alternativeStaff: formInfo.alternativeStaff,
+      vacCode: formInfo.vacCode,
+    };
 
     if (formInfo.vacCode !== 5) {
       if (formInfo.fromDate && formInfo.toDate) {
@@ -205,12 +234,14 @@ function LeaveTrxCreate(props) {
     }
 
     if (formInfo.vacCode === 5) {
-      if (formInfo.attachment) {
-        const { attachment, ...reset } = errors;
+      if (!formInfo.vacDocPath) {
+        if (formInfo.doc) {
+          const { doc, ...reset } = errors;
 
-        errors = reset;
-      } else {
-        errors.attachment = intl.formatMessage(messages.attachmentIsRequire);
+          errors = reset;
+        } else {
+          errors.doc = intl.formatMessage(messages.attachmentIsRequire);
+        }
       }
     }
 
@@ -223,15 +254,7 @@ function LeaveTrxCreate(props) {
       setIsLoading(true);
 
       try {
-        const {
-          hiringDate,
-          employeeName,
-          job,
-          organization,
-          dayDeducedBy,
-          ...reset
-        } = formData;
-        await api(locale).save(reset);
+        await api(locale).save(formData);
 
         toast.success(notif.saved);
         history.push("/app/Pages/vac/LeaveTrx");
@@ -299,15 +322,30 @@ function LeaveTrxCreate(props) {
 
   const getAttachmentType = () => {
     // documentUrl
-    if (formInfo.attachment && typeof formInfo.attachment === "string") {
-      return formInfo.attachment?.split(".").pop().toLowerCase().trim();
+    if (uploadedFile && typeof uploadedFile === "string") {
+      return uploadedFile?.split(".").pop().toLowerCase().trim();
     }
 
-    if (formInfo.attachment instanceof File) {
-      return formInfo.attachment.type;
+    if (uploadedFile instanceof File) {
+      return uploadedFile.type;
     }
 
     return "pdf";
+  };
+
+  const onDocumentInputChange = evt => {
+    // check if uploaded file is larger than 1MB
+    if (evt.target.files[0]) {
+      if (evt.target.files[0].size < 10000000) {
+        setFormInfo((prev) => ({
+          ...prev,
+          doc: evt.target.files?.[0],
+        }));
+        SetuploadedFile(evt.target.files[0]);
+      } else {
+        toast.error(intl.formatMessage(messages.uploadFileErrorMes));
+      }
+    }
   };
 
   return (
@@ -442,12 +480,7 @@ function LeaveTrxCreate(props) {
                             id="attachment-button-file"
                             type="file"
                             style={{ display: "none" }}
-                            onChange={(evt) =>
-                              setFormInfo((prev) => ({
-                                ...prev,
-                                attachment: evt.target.files?.[0],
-                              }))
-                            }
+                            onChange={onDocumentInputChange}
                           />
                           <label htmlFor="attachment-button-file">
                             <Button variant="contained" component="span">
@@ -458,7 +491,7 @@ function LeaveTrxCreate(props) {
                           </label>
                         </div>
 
-                        {formInfo.attachment && (
+                        {formInfo.vacDocPath && (
                           <Button
                             variant="outlined"
                             component="span"
@@ -473,7 +506,7 @@ function LeaveTrxCreate(props) {
                         handleClose={onAttachmentPopupClose}
                         open={isAttachmentPopupOpen}
                         uploadedFileType={getAttachmentType()}
-                        uploadedFile={formInfo.attachment}
+                        uploadedFile={uploadedFile}
                         validImageTypes={validImageTypes}
                         validPDFTypes={validPDFTypes}
                       />
@@ -678,5 +711,9 @@ function LeaveTrxCreate(props) {
     </PayRollLoader>
   );
 }
+
+LeaveTrxCreate.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(LeaveTrxCreate);
