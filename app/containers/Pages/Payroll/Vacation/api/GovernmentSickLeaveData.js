@@ -26,7 +26,7 @@ const API = (locale) => {
   }, new FormData());
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('VacVacationTrx/SaveVacGovSick', body);
+    const result = await axiosInstance.post('VacVacationTrx/SaveVacGovSick', getFormData(body));
 
     return result;
   };

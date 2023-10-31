@@ -28,6 +28,8 @@ import SaveButton from "../../Component/SaveButton";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
 import Payrollmessages from "../../messages";
+import { ServerURL } from "../../api/ServerConfig";
+import PropTypes from 'prop-types';
 import api from "../api/GovernmentSickLeaveData";
 import messages from "../messages";
 
@@ -57,6 +59,7 @@ function GovernmentSickLeaveCreate(props) {
   const [vacationsList, setVacationsList] = useState([]);
   const [monthsList, setMonthsList] = useState([]);
   const [yearsList, setYearsList] = useState([]);
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [alternativeEmployeeList, setAlternativeEmployeeList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -70,9 +73,9 @@ function GovernmentSickLeaveCreate(props) {
     yearId: null,
     monthId: null,
 
-    vacDayChange: null,
+    VacDayChange: '',
     vacDocPath: null,
-    replaceDate: null,
+    ReplaceDate: '',
     alternativeTask: null,
 
     trxDate: null,
@@ -81,7 +84,7 @@ function GovernmentSickLeaveCreate(props) {
     daysCount: "",
     dayDeducedBy: "",
     tel: "",
-    attachment: null,
+    doc: null,
     vacReson: "",
     address: "",
     notes: "",
@@ -123,6 +126,9 @@ function GovernmentSickLeaveCreate(props) {
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
         setFormInfo(dataApi);
+        if (dataApi.vacDocPath) {
+          setUploadedFile(`${ServerURL}Doc/VacDoc/${dataApi.vacDocPath}`);
+        }
       }
     } catch (err) {
       //
@@ -211,12 +217,14 @@ function GovernmentSickLeaveCreate(props) {
     }
 
     if (formInfo.vacCode === 5) {
-      if (formInfo.attachment) {
-        const { attachment, ...reset } = errors;
+      if (!formInfo.vacDocPath) {
+        if (formInfo.doc) {
+          const { attachment, ...reset } = errors;
 
-        errors = reset;
-      } else {
-        errors.attachment = intl.formatMessage(messages.attachmentIsRequire);
+          errors = reset;
+        } else {
+          errors.attachment = intl.formatMessage(messages.attachmentIsRequire);
+        }
       }
     }
 
@@ -229,15 +237,33 @@ function GovernmentSickLeaveCreate(props) {
       setIsLoading(true);
 
       try {
-        const {
-          hiringDate,
-          employeeName,
-          job,
-          organization,
-          dayDeducedBy,
-          ...reset
-        } = formData;
-        await api(locale).save(reset);
+        await api(locale).save({
+          id,
+          employeeId: formData.employeeId,
+          HasAlternativeEmp: formData.HasAlternativeEmp,
+
+          yearId: formData.yearId,
+          monthId: formData.monthId,
+
+          VacDayChange: formData.VacDayChange ?? '',
+          vacDocPath: formData.vacDocPath,
+          ReplaceDate: formData.ReplaceDate ?? '',
+          alternativeTask: formData.alternativeTask,
+
+          trxDate: formData.trxDate,
+          fromDate: formData.fromDate,
+          toDate: formData.toDate,
+          daysCount: formData.daysCount,
+          dayDeducedBy: formData.dayDeducedBy,
+          tel: formData.tel,
+          doc: formData.doc,
+          vacReson: formData.vacReson,
+          address: formData.address,
+          notes: formData.notes,
+          deductAnual: formData.deductAnual,
+          alternativeStaff: formData.alternativeStaff,
+          vacCode: formData.vacCode,
+        });
 
         toast.success(notif.saved);
         history.push("/app/Pages/vac/GovernmentSickLeave");
@@ -305,15 +331,30 @@ function GovernmentSickLeaveCreate(props) {
 
   const getAttachmentType = () => {
     // documentUrl
-    if (formInfo.attachment && typeof formInfo.attachment === "string") {
-      return formInfo.attachment?.split(".").pop().toLowerCase().trim();
+    if (uploadedFile && typeof uploadedFile === "string") {
+      return uploadedFile?.split(".").pop().toLowerCase().trim();
     }
 
-    if (formInfo.attachment instanceof File) {
-      return formInfo.attachment.type;
+    if (uploadedFile instanceof File) {
+      return uploadedFile.type;
     }
 
     return "pdf";
+  };
+
+  const onDocumentInputChange = evt => {
+    // check if uploaded file is larger than 1MB
+    if (evt.target.files[0]) {
+      if (evt.target.files[0].size < 10000000) {
+        setFormInfo((prev) => ({
+          ...prev,
+          doc: evt.target.files?.[0],
+        }));
+        setUploadedFile(evt.target.files[0]);
+      } else {
+        toast.error(intl.formatMessage(messages.uploadFileErrorMes));
+      }
+    }
   };
 
   return (
@@ -381,13 +422,7 @@ function GovernmentSickLeaveCreate(props) {
                             option.id === value.id
                           }
                           onChange={onVacationChange}
-                          sx={{
-                            ".MuiInputBase-root": {
-                              paddingTop: "8px",
-                              paddingBottom: "8px",
-                            },
-                            width: "100%",
-                          }}
+                          fullWidth
                           renderInput={(params) => (
                             <TextField
                               required
@@ -498,12 +533,7 @@ function GovernmentSickLeaveCreate(props) {
                             id="attachment-button-file"
                             type="file"
                             style={{ display: "none" }}
-                            onChange={(evt) =>
-                              setFormInfo((prev) => ({
-                                ...prev,
-                                attachment: evt.target.files?.[0],
-                              }))
-                            }
+                            onChange={onDocumentInputChange}
                           />
                           <label htmlFor="attachment-button-file">
                             <Button variant="contained" component="span">
@@ -514,7 +544,7 @@ function GovernmentSickLeaveCreate(props) {
                           </label>
                         </div>
 
-                        {formInfo.attachment && (
+                        {uploadedFile && (
                           <Button
                             component="span"
                             onClick={onAttachmentPopupBtnClick}
@@ -528,7 +558,7 @@ function GovernmentSickLeaveCreate(props) {
                         handleClose={onAttachmentPopupClose}
                         open={isAttachmentPopupOpen}
                         uploadedFileType={getAttachmentType()}
-                        uploadedFile={formInfo.attachment}
+                        uploadedFile={uploadedFile}
                         validImageTypes={validImageTypes}
                         validPDFTypes={validPDFTypes}
                       />
@@ -705,5 +735,9 @@ function GovernmentSickLeaveCreate(props) {
     </PayRollLoader>
   );
 }
+
+GovernmentSickLeaveCreate.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(GovernmentSickLeaveCreate);
