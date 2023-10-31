@@ -182,5 +182,20 @@ export default defineMessages({
     id: `${scope}.All`,
     defaultMessage: 'All',
   },
-
+  serial: {
+    id: `${scope}.serial`,
+    defaultMessage: 'serial',
+  },
+  applicationDate: {
+    id: `${scope}.applicationDate`,
+    defaultMessage: 'applicationDate',
+  },
+  medicalCenterId: {
+    id: `${scope}.medicalCenterId`,
+    defaultMessage: 'medicalCenterId',
+  },
+  medicalCenterName: {
+    id: `${scope}.medicalCenterName`,
+    defaultMessage: 'medicalCenterName',
+  },
 });
