@@ -1576,3 +1576,17 @@ export const EmployeeMedicalBenefits = loadable(
     fallback: <Loading />,
   }
 );
+
+export const StopMedicalInsurance = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/StopMedicalInsurance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const StopMedicalInsuranceCreate = loadable(
+  () => import('./Pages/Payroll/MedicalInsurance/Transaction/StopMedicalInsuranceCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

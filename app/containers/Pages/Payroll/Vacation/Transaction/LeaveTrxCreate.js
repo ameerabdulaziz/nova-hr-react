@@ -62,7 +62,7 @@ function LeaveTrxCreate(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [isAttachmentPopupOpen, setIsAttachmentPopupOpen] = useState(false);
-  const [uploadedFile, SetuploadedFile] = useState(null)
+  const [uploadedFile, setUploadedFile] = useState(null)
   const [formInfo, setFormInfo] = useState({
     id,
 
@@ -121,7 +121,9 @@ function LeaveTrxCreate(props) {
             name: dataApi.vacationName,
           },
         });
-        SetuploadedFile(`${ServerURL}Doc/VacDoc/${dataApi.vacDocPath}`);
+        if (dataApi.vacDocPath) {
+          setUploadedFile(`${ServerURL}Doc/VacDoc/${dataApi.vacDocPath}`);
+        }
       }
     } catch (err) {
       //
@@ -341,7 +343,7 @@ function LeaveTrxCreate(props) {
           ...prev,
           doc: evt.target.files?.[0],
         }));
-        SetuploadedFile(evt.target.files[0]);
+        setUploadedFile(evt.target.files[0]);
       } else {
         toast.error(intl.formatMessage(messages.uploadFileErrorMes));
       }
@@ -491,7 +493,7 @@ function LeaveTrxCreate(props) {
                           </label>
                         </div>
 
-                        {formInfo.vacDocPath && (
+                        {uploadedFile && (
                           <Button
                             variant="outlined"
                             component="span"

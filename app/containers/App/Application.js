@@ -291,6 +291,8 @@ import {
   EmployeesWithoutShiftsReport,
   OverTimeDetailsReport,
   AbsenceReport,
+  StopMedicalInsurance,
+  StopMedicalInsuranceCreate,
   EarlyAttendanceReport,
 } from '../pageListAsync';
 
@@ -1252,6 +1254,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Minsurance/EmployeeMedicalBenefitsEdit'
           component={EmployeeMedicalBenefitsCreate}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/StopMedicalInsurance'
+          component={StopMedicalInsurance}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/StopMedicalInsuranceCreate'
+          component={StopMedicalInsuranceCreate}
+        />
+
+        <Route
+          path='/app/Pages/Minsurance/StopMedicalInsuranceEdit'
+          component={StopMedicalInsuranceCreate}
         />
 
         {/* Default */}
