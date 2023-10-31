@@ -873,5 +873,10 @@ attendanceRule: {
   id: `${scope}.attendanceRule`,
   defaultMessage: 'Including employees without attendance rule',
 },
+// EarlyAttendanceReport
+earlyAttMinutes: {
+  id: `${scope}.earlyAttMinutes`,
+  defaultMessage: 'Early Attendance Miuntes',
+},
 });
 

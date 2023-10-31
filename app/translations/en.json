@@ -1115,6 +1115,8 @@
   "boilerplate.containers.Payroll.Attendance.UpdatedOnly":"Updated Only",
 
   "boilerplate.containers.Payroll.Attendance.attendanceRule":"Including employees without attendance rule",
+
+  "boilerplate.containers.Payroll.Attendance.earlyAttMinutes":"Early Attendance Miuntes",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

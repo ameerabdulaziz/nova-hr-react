@@ -291,6 +291,7 @@ import {
   EmployeesWithoutShiftsReport,
   OverTimeDetailsReport,
   AbsenceReport,
+  EarlyAttendanceReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -844,6 +845,12 @@ function Application(props) {
           path='/app/Pages/Att/AbsenceReport'
           component={AbsenceReport}
         />
+
+        <Route
+          path='/app/Pages/Att/EarlyAttendanceReport'
+          component={EarlyAttendanceReport}
+        />
+
 
         {/* WorkFlow */}
         <Route path='/app/Pages/WF/WorkFlow' component={WorkFlowList} />

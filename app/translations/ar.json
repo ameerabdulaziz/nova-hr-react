@@ -1311,6 +1311,8 @@
     "boilerplate.containers.Payroll.Attendance.UpdatedOnly":"المعدل فقط",
 
     "boilerplate.containers.Payroll.Attendance.attendanceRule":"يشمل الموظفين الذين لا تنطبق عليهم القواعد",
+
+    "boilerplate.containers.Payroll.Attendance.earlyAttMinutes":"تقرير الحضور المبكر",
   
   
   

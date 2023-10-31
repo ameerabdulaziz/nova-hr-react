@@ -1030,6 +1030,15 @@ export const AbsenceReport = loadable(
   
 );
 
+export const EarlyAttendanceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EarlyAttendanceReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
