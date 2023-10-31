@@ -198,4 +198,20 @@ export default defineMessages({
     id: `${scope}.medicalCenterName`,
     defaultMessage: 'medicalCenterName',
   },
+  endDate: {
+    id: `${scope}.endDate`,
+    defaultMessage: 'endDate',
+  },
+  reason: {
+    id: `${scope}.reason`,
+    defaultMessage: 'reason',
+  },
+  addedBy: {
+    id: `${scope}.addedBy`,
+    defaultMessage: 'addedBy',
+  },
+  insertDate: {
+    id: `${scope}.insertDate`,
+    defaultMessage: 'insertDate',
+  },
 });
