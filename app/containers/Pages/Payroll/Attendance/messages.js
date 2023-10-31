@@ -868,5 +868,10 @@ UpdatedOnly: {
   id: `${scope}.UpdatedOnly`,
   defaultMessage: 'Updated Only',
 },
+// AbsenceReport
+attendanceRule: {
+  id: `${scope}.attendanceRule`,
+  defaultMessage: 'Including employees without attendance rule',
+},
 });
 

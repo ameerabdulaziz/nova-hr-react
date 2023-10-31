@@ -1022,6 +1022,14 @@ export const OverTimeDetailsReport = loadable(
   
 );
 
+export const AbsenceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/AbsenceReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

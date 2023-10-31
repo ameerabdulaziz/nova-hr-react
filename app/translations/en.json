@@ -1113,6 +1113,8 @@
   "boilerplate.containers.Payroll.Attendance.LeavesAndWeekendOnly":"Leaves And Weekend Only",
   "boilerplate.containers.Payroll.Attendance.workDevsOnly":"Work Devs Only",
   "boilerplate.containers.Payroll.Attendance.UpdatedOnly":"Updated Only",
+
+  "boilerplate.containers.Payroll.Attendance.attendanceRule":"Including employees without attendance rule",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

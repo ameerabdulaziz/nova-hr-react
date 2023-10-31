@@ -17,6 +17,9 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
+import style from "../../../../../styles/styles.scss";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 function OverTimeDetailsReport(props) {
   const { intl } = props;
@@ -114,8 +117,26 @@ function OverTimeDetailsReport(props) {
       label: intl.formatMessage(messages.leave),
       options: {
         filter: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <div className={style.actionsSty}>
+              {value ? (
+                <CheckIcon style={{ color: "#3f51b5" }} />
+              ) : (
+                <CloseIcon style={{ color: "#717171" }} />
+              )}
+            </div>
+          );
+        },
       },
     },
+    // {
+    //   name: "vac",
+    //   label: intl.formatMessage(messages.leave),
+    //   options: {
+    //     filter: true,
+    //   },
+    // },
     {
       name: "overTimeTotal",
       label: intl.formatMessage(messages.modifiedOvertime),

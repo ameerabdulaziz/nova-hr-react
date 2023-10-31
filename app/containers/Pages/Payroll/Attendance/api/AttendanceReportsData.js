@@ -43,6 +43,14 @@ const MedicalInsuranceReportsData = (locale) => {
     return data.data;
   };
 
+  api.AbsenceReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetAbsenceReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
 
   return api;
 };

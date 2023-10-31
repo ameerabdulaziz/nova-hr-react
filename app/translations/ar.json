@@ -1309,6 +1309,8 @@
     "boilerplate.containers.Payroll.Attendance.LeavesAndWeekendOnly":"العطلات فقط",
     "boilerplate.containers.Payroll.Attendance.workDevsOnly":"ايام العمل فقط",
     "boilerplate.containers.Payroll.Attendance.UpdatedOnly":"المعدل فقط",
+
+    "boilerplate.containers.Payroll.Attendance.attendanceRule":"يشمل الموظفين الذين لا تنطبق عليهم القواعد",
   
   
   
