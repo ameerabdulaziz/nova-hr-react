@@ -38,7 +38,7 @@ function StopMedicalInsuranceCreate(props) {
 
     employeeId: '',
     trxDate: null,
-    InsReason: '',
+    insReason: '',
     notes: '',
   });
 
@@ -153,8 +153,8 @@ function StopMedicalInsuranceCreate(props) {
 
                 <Grid item xs={12}>
                   <TextField
-                    name='InsReason'
-                    value={formInfo.InsReason}
+                    name='insReason'
+                    value={formInfo.insReason}
                     onChange={onInputChange}
                     label={intl.formatMessage(messages.reason)}
                     className={classes.field}

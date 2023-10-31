@@ -89,7 +89,7 @@ function StopMedicalInsurance(props) {
     },
 
     {
-      name: 'endDate',
+      name: 'mediEndDate',
       label: intl.formatMessage(messages.endDate),
       options: {
         filter: true,
@@ -98,7 +98,7 @@ function StopMedicalInsurance(props) {
     },
 
     {
-      name: 'reason',
+      name: 'insReason',
       label: intl.formatMessage(messages.reason),
       options: {
         filter: true,
@@ -114,7 +114,7 @@ function StopMedicalInsurance(props) {
     },
 
     {
-      name: 'addedBy',
+      name: 'insUser',
       label: intl.formatMessage(messages.addedBy),
       options: {
         filter: true,
@@ -122,7 +122,7 @@ function StopMedicalInsurance(props) {
     },
 
     {
-      name: 'insertDate',
+      name: 'insDate',
       label: intl.formatMessage(messages.insertDate),
       options: {
         filter: true,
@@ -131,7 +131,7 @@ function StopMedicalInsurance(props) {
     },
 
     {
-      name: 'lastUpdateBy',
+      name: 'updUser',
       label: intl.formatMessage(messages.lastUpdateBy),
       options: {
         filter: true,
@@ -139,7 +139,7 @@ function StopMedicalInsurance(props) {
     },
 
     {
-      name: 'lastUpdate',
+      name: 'updDate',
       label: intl.formatMessage(messages.lastUpdate),
       options: {
         filter: true,
