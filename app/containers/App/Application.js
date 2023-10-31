@@ -293,7 +293,7 @@ import {
   AbsenceReport,
   StopMedicalInsurance,
   StopMedicalInsuranceCreate,
-  EarlyAttendanceReport,
+  EarlyAttendanceReport,DeviceCreate,DeviceList
 } from '../pageListAsync';
 
 function Application(props) {
@@ -816,6 +816,19 @@ function Application(props) {
         <Route path='/app/Pages/Att/RulesCreate' component={RulesCreate} />
         <Route path='/app/Pages/Att/RulesEdit' component={RulesCreate} />
 
+
+        <Route
+          path='/app/Pages/Att/Device'
+          component={DeviceList}
+        />
+        <Route
+          path='/app/Pages/Att/DeviceCreate'
+          component={DeviceCreate}
+        />
+        <Route
+          path='/app/Pages/Att/DeviceEdit'
+          component={DeviceCreate}
+        />
 
         <Route
           path='/app/Pages/Att/MissionReport'

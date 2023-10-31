@@ -878,5 +878,34 @@ earlyAttMinutes: {
   id: `${scope}.earlyAttMinutes`,
   defaultMessage: 'Early Attendance Miuntes',
 },
+ip: {
+  id: `${scope}.ip`,
+  defaultMessage: 'ip',
+},
+port: {
+  id: `${scope}.port`,
+  defaultMessage: 'port',
+},
+serialNumber: {
+  id: `${scope}.serialNumber`,
+  defaultMessage: 'serialNumber',
+},
+transportaion: {
+  id: `${scope}.transportaion`,
+  defaultMessage: 'transportaion',
+},
+DeviceCreateTitle: {
+  id: `${scope}.DeviceCreateTitle`,
+  defaultMessage: 'DeviceCreateTitle',
+},
+DeviceUpdateTitle: {
+  id: `${scope}.DeviceUpdateTitle`,
+  defaultMessage: 'DeviceUpdateTitle',
+},
+devicePass: {
+  id: `${scope}.devicePass`,
+  defaultMessage: 'devicePass',
+},
+
 });
 

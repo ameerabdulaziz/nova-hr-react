@@ -983,6 +983,18 @@ export const RulesCreate = loadable(
     fallback: <Loading />,
   }
 );
+export const DeviceList = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/Device/DeviceList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const DeviceCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/Device/DeviceCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
 export const MissionReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/MissionReport'),
   {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect,useMemo } from "react";
 import { PapperBlock } from "enl-components";
-import ApiData from "../../api/PermissionData";
+import ApiData from "../../api/DeviceData";
 import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 import { useSelector } from "react-redux";
@@ -13,19 +13,14 @@ import {
   Grid,
   TextField,
   Autocomplete,
-  Card,
-  CardContent,
 } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { useLocation } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
-function PermissionCreate(props) {
+function DeviceCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
@@ -36,19 +31,25 @@ function PermissionCreate(props) {
     id: 0,
     arName: "",
     enName: "",
-    shortName: "",
-    isDeducted: false,
-    elementId: null,
-    elementName: "",
-    deductedValue: "",
-    maxRepeated: "",
-    maxMinuteNo: "",
-    isDeductAnnual: false,
+    ip: "",
+    port: "",
+    devicePass: "",
+    serialNumber: "",
+    transportaion: "",
+    shiftId: "",
+    deviceType: "",
   });
-  const [ElementList, setElementList] = useState([]);
-  const history = useHistory();
-  const [isLoading, setIsLoading] = useState(true);
+  const [ShiftList, setShiftList] = useState([]);
+  const TypeList = useMemo(() => {
+    return [
+      { id: 1, name: "Default Way" },
+      { id: 2, name: "Alternative Way"},
+    ];
+  }, []);
 
+  const history = useHistory();
+  
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = (event) => {
     if (event.target.name == "arName")
@@ -63,31 +64,38 @@ function PermissionCreate(props) {
         enName: event.target.value,
       }));
 
-    if (event.target.name == "shortName")
+    if (event.target.name == "ip")
       setdata((prevFilters) => ({
         ...prevFilters,
-        shortName: event.target.value,
+        ip: event.target.value,
       }));
 
-    if (event.target.name == "deductedValue")
+    if (event.target.name == "port")
       setdata((prevFilters) => ({
         ...prevFilters,
-        deductedValue: event.target.value,
+        port: event.target.value,
       }));
 
-    if (event.target.name == "maxRepeated") {
+    if (event.target.name == "devicePass") {
       setdata((prevFilters) => ({
         ...prevFilters,
-        maxRepeated: event.target.value,
+        devicePass: event.target.value,
       }));
     }
-    if (event.target.name == "maxMinuteNo") {
+    if (event.target.name == "serialNumber") {
       setdata((prevFilters) => ({
         ...prevFilters,
-        maxMinuteNo: event.target.value,
+        serialNumber: event.target.value,
+      }));
+    }
+    if (event.target.name == "transportaion") {
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        transportaion: event.target.value,
       }));
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -96,7 +104,7 @@ function PermissionCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Att/PermissionList`);
+        history.push(`/app/Pages/Att/Device`);
       } else {
         toast.error(response.statusText);
       }
@@ -106,20 +114,20 @@ function PermissionCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Att/PermissionList`);
+    history.push(`/app/Pages/Att/Device`);
   }
   async function fetchData() {
-    try{
-    const elements = await GeneralListApis(locale).GetElementList(locale);
-    setElementList(elements);
+    try {
+    const shifts = await GeneralListApis(locale).GetShiftList(locale);
+    setShiftList(shifts);
 
     if (id) {
       const dataApi = await ApiData(locale).Get(id ?? 0);
       setdata(dataApi);
     }
   }
-  catch (e) {}
-  finally {setIsLoading(false);}
+    catch (err) {}
+    finally {setIsLoading(false);}
   }
 
   useEffect(() => {
@@ -133,8 +141,8 @@ function PermissionCreate(props) {
         icon="border_color"
         title={
           data.id == 0
-            ? intl.formatMessage(messages.PermissionCreateTitle)
-            : intl.formatMessage(messages.PermissionUpdateTitle)
+            ? intl.formatMessage(messages.DeviceCreateTitle)
+            : intl.formatMessage(messages.DeviceUpdateTitle)
         }
         desc={""}
       >
@@ -164,71 +172,68 @@ function PermissionCreate(props) {
             </Grid>
             <Grid item xs={12} md={6}>
               <TextField
-                id="shortName"
-                name="shortName"
-                value={data.shortName}
+                id="ip"
+                name="ip"
+                value={data.ip}
                 onChange={(e) => handleChange(e)}
-                label={intl.formatMessage(messages.shortName)}
+                label={intl.formatMessage(messages.ip)}
                 className={classes.field}
                 variant="outlined"
               />
             </Grid>
             <Grid item xs={12} md={3}>
               <TextField
-                id="maxMinuteNo"
-                name="maxMinuteNo"
-                value={data.maxMinuteNo}
+                id="port"
+                name="port"
+                value={data.port}
                 onChange={(e) => handleChange(e)}
-                label={intl.formatMessage(messages.maxMinuteNo)}
+                label={intl.formatMessage(messages.port)}
                 className={classes.field}
                 variant="outlined"
               />
             </Grid>
             <Grid item xs={12} md={3}>
               <TextField
-                id="maxRepeated"
-                name="maxRepeated"
-                value={data.maxRepeated}
+                id="devicePass"
+                name="devicePass"
+                type="password"
+                value={data.devicePass}
                 onChange={(e) => handleChange(e)}
-                label={intl.formatMessage(messages.maxRepeated)}
+                label={intl.formatMessage(messages.devicePass)}
+                className={classes.field}
+                variant="outlined"
+                autoComplete="new-password"
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                id="serialNumber"
+                name="serialNumber"
+                value={data.serialNumber}
+                onChange={(e) => handleChange(e)}
+                label={intl.formatMessage(messages.serialNumber)}
                 className={classes.field}
                 variant="outlined"
               />
             </Grid>
-
-            <Grid item xs={12} md={9}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={4}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={data.isDeducted}
-                            onChange={(e) =>
-                              setdata((prevFilters) => ({
-                                ...prevFilters,
-                                isDeducted: e.target.checked,
-                                isDeductAnnual: !e.target.checked,
-                              }))
-                            }
-                            value={data.isDeducted}
-                            color="primary"
-                          />
-                        }
-                        label={intl.formatMessage(messages.isDeducted)}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={6}>
+              <TextField
+                id="transportaion"
+                name="transportaion"
+                value={data.transportaion}
+                onChange={(e) => handleChange(e)}
+                label={intl.formatMessage(messages.transportaion)}
+                className={classes.field}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
                       <Autocomplete
-                        id="elementid"
-                        options={ElementList}
-                        value={{ id: data.elementId, name: data.elementName }}
+                        id="shiftId"
+                        options={ShiftList}
+                        value={ShiftList.find(
+                          (item) => item.id === data.shiftId
+                        )||null}
                         isOptionEqualToValue={(option, value) =>
                           value.id === 0 ||
                           value.id === "" ||
@@ -240,63 +245,50 @@ function PermissionCreate(props) {
                         onChange={(event, value) => {
                           setdata((prevFilters) => ({
                             ...prevFilters,
-                            elementId: value !== null ? value.id : null,
-                            elementName: value !== null ? value.name : "",
+                            shiftId: value !== null ? value.id : null,
                           }));
                         }}
-                        disabled={!data.isDeducted}
                         renderInput={(params) => (
                           <TextField
                             variant="outlined"
                             {...params}
-                            name="elementid"
-                            required={data.isDeducted}
-                            disabled={!data.isDeducted}
-                            label={intl.formatMessage(Payrollmessages.element)}
+                            name="shiftId"
+                            required
                           />
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="deductedValue"
-                        name="deductedValue"
-                        value={data.deductedValue}
-                        onChange={(e) => handleChange(e)}
-                        label={intl.formatMessage(messages.deductedValue)}
-                        className={classes.field}
-                        variant="outlined"
-                        disabled={!data.isDeducted}
-                        required={data.isDeducted}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={data.isDeductAnnual}
-                            onChange={(e) =>
-                              setdata((prevFilters) => ({
-                                ...prevFilters,
-                                isDeductAnnual: e.target.checked,
-                                isDeducted: !e.target.checked,
-                                deductedValue: "",
-                                elementId: null,
-                                elementName: "",
-                              }))
-                            }
-                            value={data.isDeductAnnual}
-                            color="primary"
-                          />
+                    <Grid item xs={12} md={6}>
+                      <Autocomplete
+                        id="deviceType"
+                        options={TypeList}
+                        value={TypeList.find(
+                          (item) => item.id === data.deviceType
+                        )||null}
+                        isOptionEqualToValue={(option, value) =>
+                          value.id === 0 ||
+                          value.id === "" ||
+                          option.id === value.id
                         }
-                        label={intl.formatMessage(messages.isDeductAnnual)}
+                        getOptionLabel={(option) =>
+                          option.name ? option.name : ""
+                        }
+                        onChange={(event, value) => {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            deviceType: value !== null ? value.id : null,
+                          }));
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="deviceType"
+                            required
+                          />
+                        )}
                       />
                     </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={3}></Grid>
             <Grid item xs={12} md={1}>
               <Button
                 variant="contained"
@@ -304,7 +296,6 @@ function PermissionCreate(props) {
                 size="medium"
                 color="secondary"
               >
-               
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
@@ -324,7 +315,7 @@ function PermissionCreate(props) {
     </PayRollLoader>
   );
 }
-PermissionCreate.propTypes = {
+DeviceCreate.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(PermissionCreate);
+export default injectIntl(DeviceCreate);
