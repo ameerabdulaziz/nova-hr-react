@@ -35,6 +35,14 @@ const MedicalInsuranceReportsData = (locale) => {
     return data.data;
   };
 
+  api.OverTimeDetailsReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetOverTimeDetailsReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
 
   return api;
 };

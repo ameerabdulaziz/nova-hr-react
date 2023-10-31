@@ -1015,6 +1015,14 @@ export const EmployeesWithoutShiftsReport = loadable(
   
 );
 
+export const OverTimeDetailsReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/OverTimeDetailsReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

@@ -1106,6 +1106,15 @@
   "boilerplate.containers.Payroll.Attendance.absence":"Absence",
   "boilerplate.containers.Payroll.Attendance.shift":"shift",
   "boilerplate.containers.Payroll.Attendance.includingEmployeesWithoutAttendanceRule":"Including Employees Without Attendance Rule",
+
+  "boilerplate.containers.Payroll.Attendance.AttendanceDate":"Attendance Date",
+  "boilerplate.containers.Payroll.Attendance.overTime":"OverTime-MM",
+  "boilerplate.containers.Payroll.Attendance.leave":"Leave",
+  "boilerplate.containers.Payroll.Attendance.modifiedOvertime":"Modified Overtime",
+  "boilerplate.containers.Payroll.Attendance.All":"All",
+  "boilerplate.containers.Payroll.Attendance.LeavesAndWeekendOnly":"Leaves And Weekend Only",
+  "boilerplate.containers.Payroll.Attendance.workDevsOnly":"Work Devs Only",
+  "boilerplate.containers.Payroll.Attendance.UpdatedOnly":"Updated Only",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",
