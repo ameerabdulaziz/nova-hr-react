@@ -22,7 +22,7 @@ import MaxOverTiemRules from "./Component/MaxOverTiemRules";
 import OtherRules from "./Component/OtherRules";
 import TimeDelayRules from "./Component/TimeDelayRules";
 import VacationsRules from "./Component/VacationsRules";
-import WorkhoursRules from "./Component/workhoursRules";
+import WorkhoursRules from "./Component/WorkHoursRules";
 import GeneralListApis from "../../../api/GeneralListApis";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
