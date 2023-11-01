@@ -69,7 +69,7 @@ function StopMedicalInsuranceCreate(props) {
     setIsLoading(true);
 
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList(false);
+      const employees = await GeneralListApis(locale).GetEmployeeList(false, true);
       setEmployeeList(employees);
 
       if (id !== 0) {
