@@ -1117,6 +1117,8 @@
   "boilerplate.containers.Payroll.Attendance.UpdatedOnly":"Updated Only",
 
   "boilerplate.containers.Payroll.Attendance.attendanceRule":"Including employees without attendance rule",
+
+  "boilerplate.containers.Payroll.Attendance.earlyAttMinutes":"Early Attendance Miuntes",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",
@@ -1270,6 +1272,15 @@
   "boilerplate.containers.Payroll.Attendance.workDays": "Work Days",
 
   "boilerplate.containers.Payroll.Attendance.vacEquiv": "Vacation equivalent",
+  
+  "boilerplate.containers.Payroll.Attendance.ip":"Ip",
+  "boilerplate.containers.Payroll.Attendance.port":"Port",
+  "boilerplate.containers.Payroll.Attendance.serialNumber":"Serial Number",
+  "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",
+  
+  "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",
+  "boilerplate.containers.Payroll.transportaion.DeviceCreateTitle":"Add Device",
+  "boilerplate.containers.Payroll.transportaion.devicePass":"Device Password",
 
   "boilerplate.containers.Payroll.Workflow.documentName": "Document Name",
   "boilerplate.containers.Payroll.Workflow.step": "Step",

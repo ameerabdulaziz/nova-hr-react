@@ -1313,7 +1313,17 @@
     "boilerplate.containers.Payroll.Attendance.UpdatedOnly":"المعدل فقط",
 
     "boilerplate.containers.Payroll.Attendance.attendanceRule":"يشمل الموظفين الذين لا تنطبق عليهم القواعد",
-  
+
+    "boilerplate.containers.Payroll.Attendance.earlyAttMinutes":"تقرير الحضور المبكر",
+    "boilerplate.containers.Payroll.Attendance.ip":"Ip",
+    "boilerplate.containers.Payroll.Attendance.port":"البورت",
+    "boilerplate.containers.Payroll.Attendance.serialNumber":"الرقم التسلسلى",
+    "boilerplate.containers.Payroll.transportaion.ip":"النقل",
+    "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"تعديل اجهزة البصمة",
+    "boilerplate.containers.Payroll.transportaion.DeviceCreateTitle":"اضافة اجهزة البصمه",
+    "boilerplate.containers.Payroll.transportaion.devicePass":"كلمة المرور",
+    
+    
   
   
   
