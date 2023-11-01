@@ -1066,6 +1066,8 @@
   "boilerplate.containers.Payroll.Attendance.PermissionTrxCreateTitle": "اضافة اذن",
   "boilerplate.containers.Payroll.Attendance.PermissionTrxUpdateTitle": "تعديل اذن",
   "boilerplate.containers.Payroll.Attendance.minutesCount": "عدد الدقائق",
+  "boilerplate.containers.Payroll.Attendance.totalNumberOfMinutes": "إجمالي عدد الدقائق",
+  "boilerplate.containers.Payroll.Attendance.subscriptionDate": "تاريخ التسجيل",
   "boilerplate.containers.Payroll.Attendance.startTime": "من الساعه",
   "boilerplate.containers.Payroll.Attendance.endTime": "الى الساعه",
   "boilerplate.containers.Payroll.Attendance.exemptEntryRec": "اعفاء من تسجيل الدخول",

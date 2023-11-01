@@ -873,5 +873,14 @@ attendanceRule: {
   id: `${scope}.attendanceRule`,
   defaultMessage: 'Including employees without attendance rule',
 },
+
+  subscriptionDate: {
+    id: `${scope}.subscriptionDate`,
+    defaultMessage: 'subscriptionDate',
+  },
+  totalNumberOfMinutes: {
+    id: `${scope}.totalNumberOfMinutes`,
+    defaultMessage: 'totalNumberOfMinutes',
+  },
 });
 

@@ -293,6 +293,8 @@ import {
   AbsenceReport,
   StopMedicalInsurance,
   StopMedicalInsuranceCreate,
+  OvertimeHoursRequest,
+  OvertimeHoursRequestCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -845,6 +847,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/AbsenceReport'
           component={AbsenceReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/OvertimeHoursRequest'
+          component={OvertimeHoursRequest}
+        />
+
+        <Route
+          path='/app/Pages/Att/OvertimeHoursRequestCreate'
+          component={OvertimeHoursRequestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Att/OvertimeHoursRequestEdit'
+          component={OvertimeHoursRequestCreate}
         />
 
         {/* WorkFlow */}

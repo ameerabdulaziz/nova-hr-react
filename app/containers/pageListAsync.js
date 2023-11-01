@@ -1030,6 +1030,20 @@ export const AbsenceReport = loadable(
   
 );
 
+export const OvertimeHoursRequest = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/OvertimeHoursRequest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const OvertimeHoursRequestCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/OvertimeHoursRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
