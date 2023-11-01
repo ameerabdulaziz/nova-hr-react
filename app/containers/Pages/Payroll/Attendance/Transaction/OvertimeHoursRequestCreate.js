@@ -4,9 +4,11 @@ import {
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from 'date-fns';
+import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
@@ -15,7 +17,7 @@ import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
-// import api from '../api/OvertimeHoursRequestData';
+import api from '../api/OvertimeHoursRequestData';
 import messages from '../messages';
 
 function OvertimeHoursRequestCreate(props) {
@@ -35,7 +37,7 @@ function OvertimeHoursRequestCreate(props) {
     id,
 
     employeeId: '',
-    date: null,
+    trxDate: null,
     startTime: '',
     endTime: '',
     minutesCount: '',
@@ -47,18 +49,23 @@ function OvertimeHoursRequestCreate(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const formData = { ...formInfo };
+    const formData = {
+      id,
 
-    formData.date = formateDate(formData.date);
+      employeeId: formInfo.employeeId,
+      trxDate: formateDate(formInfo.trxDate),
+      startTime: formInfo.startTime,
+      endTime: formInfo.endTime,
+      minutesCount: formInfo.minutesCount,
+      notes: formInfo.notes,
+    };
 
     setIsLoading(true);
 
-    console.log(formData);
-
     try {
-      // await api(locale).save(formData);
-      // toast.success(notif.saved);
-      // history.push('/app/Pages/Att/OvertimeHoursRequest');
+      await api(locale).save(formData);
+      toast.success(notif.saved);
+      history.push('/app/Pages/Att/OvertimeHoursRequest');
     } catch (error) {
       //
     } finally {
@@ -70,12 +77,16 @@ function OvertimeHoursRequestCreate(props) {
     setIsLoading(true);
 
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList(false, true);
+      const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
 
       if (id !== 0) {
-        // const dataApi = await api(locale).GetById(id);
-        // setFormInfo(dataApi);
+        const dataApi = await api(locale).GetById(id);
+        setFormInfo({
+          ...dataApi,
+          startTime: format(new Date(dataApi.startTime), 'hh:mm:ss'),
+          endTime: format(new Date(dataApi.endTime), 'hh:mm:ss'),
+        });
       }
     } catch (error) {
       //
@@ -195,8 +206,8 @@ function OvertimeHoursRequestCreate(props) {
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.date)}
-                  value={formInfo.date}
-                  onChange={(date) => onDatePickerChange(date, 'date')}
+                  value={formInfo.trxDate}
+                  onChange={(date) => onDatePickerChange(date, 'trxDate')}
                   className={classes.field}
                   renderInput={(params) => (
                     <TextField required {...params} variant='outlined' />

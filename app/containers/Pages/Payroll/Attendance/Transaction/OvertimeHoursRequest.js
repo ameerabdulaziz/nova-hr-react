@@ -13,7 +13,7 @@ import EditButton from '../../Component/EditButton';
 import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
 import payrollMessages from '../../messages';
-// import api from '../api/OvertimeHoursRequestData';
+import api from '../api/OvertimeHoursRequestData';
 import messages from '../messages';
 
 function OvertimeHoursRequest(props) {
@@ -31,8 +31,8 @@ function OvertimeHoursRequest(props) {
     setIsLoading(true);
 
     try {
-      // const response = await api(locale).GetList();
-      // setTableData(response);
+      const response = await api(locale).GetList();
+      setTableData(response);
     } catch (error) {
       //
     } finally {
@@ -44,7 +44,7 @@ function OvertimeHoursRequest(props) {
     setIsLoading(true);
 
     try {
-      // await api(locale).delete(deleteItem);
+      await api(locale).delete(deleteItem);
 
       fetchTableData();
     } catch (err) {
@@ -81,7 +81,7 @@ function OvertimeHoursRequest(props) {
     },
 
     {
-      name: 'subscriptionDate',
+      name: 'trxDate',
       label: intl.formatMessage(messages.subscriptionDate),
       options: {
         filter: true,
@@ -94,6 +94,7 @@ function OvertimeHoursRequest(props) {
       label: intl.formatMessage(messages.startTime),
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? format(new Date(value), 'hh:mm:ss aa') : ''),
       },
     },
 
@@ -102,11 +103,12 @@ function OvertimeHoursRequest(props) {
       label: intl.formatMessage(payrollMessages.endTime),
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? format(new Date(value), 'hh:mm:ss aa') : ''),
       },
     },
 
     {
-      name: 'totalNumberOfMinutes',
+      name: 'minutesCount',
       label: intl.formatMessage(messages.totalNumberOfMinutes),
       options: {
         filter: true,
