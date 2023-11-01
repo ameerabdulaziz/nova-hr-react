@@ -134,6 +134,29 @@ function LeaveTrxList(props) {
         filter: true,
       },
     },
+
+    {
+      name: 'step',
+      label: intl.formatMessage(payrollMessages.step),
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'status',
+      label: intl.formatMessage(payrollMessages.status),
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: 'approvedEmp',
+      label: intl.formatMessage(payrollMessages.approvedEmp),
+      options: {
+        filter: true,
+      },
+    },
+
     {
       name: 'Actions',
       label: <FormattedMessage {...messages.actions} />,
