@@ -264,7 +264,6 @@ function OvertimeHoursRequestCreate(props) {
                 label={intl.formatMessage(payrollMessages.notes)}
                 className={classes.field}
                 variant='outlined'
-                required
                 multiline
                 rows={1}
               />
