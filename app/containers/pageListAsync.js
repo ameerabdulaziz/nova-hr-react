@@ -1073,6 +1073,14 @@ export const OvertimeHoursRequestCreate = loadable(
   }
 );
 
+
+export const EmployeeLessTimeReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeeLessTimeReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

@@ -1122,6 +1122,8 @@
 
   "boilerplate.containers.Payroll.Attendance.outTime":"Out Time",
   "boilerplate.containers.Payroll.Attendance.earlyLeaveMin":"Early Leave Min",
+
+  "boilerplate.containers.Payroll.Attendance.permission":"Permission",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

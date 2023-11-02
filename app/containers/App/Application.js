@@ -299,6 +299,7 @@ import {
   OvertimeHoursRequest,
   OvertimeHoursRequestCreate,
   EarlyLeavingReport,
+  EmployeeLessTimeReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -889,6 +890,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/EarlyLeavingReport'
           component={EarlyLeavingReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/EmployeeLessTimeReport'
+          component={EmployeeLessTimeReport}
         />
 
 

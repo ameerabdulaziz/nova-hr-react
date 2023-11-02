@@ -887,6 +887,7 @@ earlyLeaveMin: {
   id: `${scope}.earlyLeaveMin`,
   defaultMessage: 'Early Leave Min',
 },
+// OvertimeHoursRequest
 ip: {
   id: `${scope}.ip`,
   defaultMessage: 'ip',
@@ -923,6 +924,11 @@ devicePass: {
   totalNumberOfMinutes: {
     id: `${scope}.totalNumberOfMinutes`,
     defaultMessage: 'totalNumberOfMinutes',
+  },
+  // EmployeeLessTimeReport
+  permission: {
+    id: `${scope}.permission`,
+    defaultMessage: 'Permission',
   },
 });
 
