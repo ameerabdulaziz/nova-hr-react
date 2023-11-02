@@ -1081,6 +1081,13 @@ export const EmployeeLessTimeReport = loadable(
   }
 );
 
+export const EmployeeAttendanceTemplateReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeeAttendanceTemplateReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

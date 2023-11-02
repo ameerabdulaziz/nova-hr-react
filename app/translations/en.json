@@ -1124,6 +1124,10 @@
   "boilerplate.containers.Payroll.Attendance.earlyLeaveMin":"Early Leave Min",
 
   "boilerplate.containers.Payroll.Attendance.permission":"Permission",
+
+  "boilerplate.containers.Payroll.Attendance.TampleteName":"Tamplete Name",
+  "boilerplate.containers.Payroll.Attendance.attendanceRulesNotApplied":"Attendance Rules Not Applied",
+  "boilerplate.containers.Payroll.Attendance.noAttendanceRule":"No Attendance Rule",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

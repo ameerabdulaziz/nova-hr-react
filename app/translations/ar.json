@@ -1329,6 +1329,10 @@
     "boilerplate.containers.Payroll.Attendance.earlyLeaveMin":"دقائق الانصراف المبكر",
 
     "boilerplate.containers.Payroll.Attendance.permission":"اذن",
+
+    "boilerplate.containers.Payroll.Attendance.TampleteName":"اسم النموذج",
+    "boilerplate.containers.Payroll.Attendance.attendanceRulesNotApplied":"لا ينطبق عليه قواعد الحضور",
+    "boilerplate.containers.Payroll.Attendance.noAttendanceRule":"بدون نموذج",
   
   
   

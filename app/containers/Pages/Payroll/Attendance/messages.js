@@ -930,5 +930,18 @@ devicePass: {
     id: `${scope}.permission`,
     defaultMessage: 'Permission',
   },
+  // EmployeeAttendanceTemplateReport
+  TampleteName: {
+    id: `${scope}.TampleteName`,
+    defaultMessage: 'Tamplete Name',
+  },
+  attendanceRulesNotApplied: {
+    id: `${scope}.attendanceRulesNotApplied`,
+    defaultMessage: 'Attendance Rules Not Applied',
+  },
+  noAttendanceRule: {
+    id: `${scope}.noAttendanceRule`,
+    defaultMessage: 'No Attendance Rule',
+  },
 });
 

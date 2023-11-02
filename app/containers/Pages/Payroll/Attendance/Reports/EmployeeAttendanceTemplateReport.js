@@ -6,7 +6,9 @@ import {
   Button,
   Grid,
   TextField,
-  Autocomplete
+  Autocomplete,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -18,62 +20,54 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { toast } from "react-hot-toast";
 
-function MissionReport(props) {
+function EmployeeAttendanceTemplate(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const [Mission, setMission] = useState("");
-  const [MissionsList, setMissionsList] = useState([]);
+  const [Tamplete, setTamplete] = useState("");
+  const [TampleteList, setTampleteList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
   const [searchData, setsearchData] = useState({
-    FromDate: null,
-    ToDate: null,
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    attendanceRulesNotApplied: false,
+    noAttendanceRule: false,
   });
   
 
   const handleSearch = async (e) => {
-    if(searchData.FromDate !== null && searchData.ToDate !== null)
-    {
 
     
     try {
       setIsLoading(true);
       var formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
         EmployeeId: searchData.EmployeeId,
-        MissionId: Mission,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
+        ParaTempId: Tamplete,
+        chkNoTemp: searchData.attendanceRulesNotApplied,
+        chkNoAttRule: searchData.noAttendanceRule
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
-      const dataApi = await ApiData(locale).GetMissionReport(formData);
+      const dataApi = await ApiData(locale).EmployeeAttendanceTemplateReport(formData);
       setdata(dataApi);
     } catch (err) {
     } finally {
       setIsLoading(false);
-    }
-    }
-    else
-    {
-        toast.error(intl.formatMessage(Payrollmessages.dateErrorMes));
     }
   };
 
   async function fetchData() {
     try {
       
-      const Missions = await GeneralListApis(locale).GetMissionList();
-      setMissionsList(Missions);
+      const tamplete = await GeneralListApis(locale).GetControlParameterList();
+      setTampleteList(tamplete);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -85,10 +79,38 @@ function MissionReport(props) {
 
   const columns = [
     {
-      name: "missionId",
+      name: "employeeId",
       label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
+      },
+    },
+    {
+      name: "controlParameter",
+      label: intl.formatMessage(messages.TampleteName),
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: "employeeCode",
+      label: intl.formatMessage(messages.EmpCode),
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: "employeeName",
+      label: intl.formatMessage(messages.employeeName),
+      options: {
+        filter: true,
+      },
+    },
+    {
+      name: "job",
+      label: intl.formatMessage(messages.job),
+      options: {
+        filter: true,
       },
     },
     {
@@ -98,41 +120,7 @@ function MissionReport(props) {
           filter: true,
         },
       },
-      {
-        name: "job",
-        label: intl.formatMessage(messages.job),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "employeeCode",
-        label: intl.formatMessage(messages.EmpCode),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "employeeName",
-        label: intl.formatMessage(messages.employeeName),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "dayscount",
-        label: intl.formatMessage(messages.missionDays),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "missionName",
-        label: intl.formatMessage(messages.missionName),
-        options: {
-          filter: true,
-        },
-      },
+      
   ];
   const options = {
     filterType: "dropdown",
@@ -164,30 +152,68 @@ function MissionReport(props) {
               setsearchData={setsearchData}
               searchData={searchData}
               setIsLoading={setIsLoading}
+              notShowDate={true}
             ></Search>
           </Grid>
           <Grid item xs={12} md={4}>
             <Autocomplete
               id="MissionId"
-              options={MissionsList}
+              options={TampleteList}
               isOptionEqualToValue={(option, value) =>
                 value.id === 0 || value.id === "" || option.id === value.id
               }
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                setMission(value == null ? "" : value.id);
+                setTamplete(value == null ? "" : value.id);
               }}
               renderInput={(params) => (
                 <TextField
                   variant="outlined"
                   {...params}
-                  name="MissionId"
-                  // required
-                  label={intl.formatMessage(messages.missionName)}
+                  name="TampleteName"
+                  label={intl.formatMessage(messages.TampleteName)}
                 />
               )}
             />
           </Grid>
+
+          <Grid item md={3}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={searchData.attendanceRulesNotApplied}
+                        onChange={(evt) => {
+                          setsearchData((prev) => ({
+                            ...prev,
+                            attendanceRulesNotApplied: evt.target.checked,
+                            noAttendanceRule: false,
+
+                          }));
+                        }}
+                      />
+                    }
+                    label={intl.formatMessage(messages.attendanceRulesNotApplied)}
+                  />
+            </Grid>
+
+          
+            <Grid item md={2}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={searchData.noAttendanceRule}
+                        onChange={(evt) => {
+                          setsearchData((prev) => ({
+                            ...prev,
+                            attendanceRulesNotApplied: false,
+                            noAttendanceRule: evt.target.checked,
+                          }));
+                        }}
+                      />
+                    }
+                    label={intl.formatMessage(messages.noAttendanceRule)}
+                  />
+            </Grid>
 
          
 
@@ -216,6 +242,6 @@ function MissionReport(props) {
   );
 }
 
-MissionReport.propTypes = { intl: PropTypes.object.isRequired };
+EmployeeAttendanceTemplate.propTypes = { intl: PropTypes.object.isRequired };
 
-export default injectIntl(MissionReport);
+export default injectIntl(EmployeeAttendanceTemplate);

@@ -75,6 +75,15 @@ const MedicalInsuranceReportsData = (locale) => {
     return data.data;
   };
 
+  api.EmployeeAttendanceTemplateReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetEmployeeParamReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+  
+
 
   return api;
 };
