@@ -1066,6 +1066,8 @@
   "boilerplate.containers.Payroll.Attendance.PermissionTrxCreateTitle": "اضافة اذن",
   "boilerplate.containers.Payroll.Attendance.PermissionTrxUpdateTitle": "تعديل اذن",
   "boilerplate.containers.Payroll.Attendance.minutesCount": "عدد الدقائق",
+  "boilerplate.containers.Payroll.Attendance.totalNumberOfMinutes": "إجمالي عدد الدقائق",
+  "boilerplate.containers.Payroll.Attendance.subscriptionDate": "تاريخ التسجيل",
   "boilerplate.containers.Payroll.Attendance.startTime": "من الساعه",
   "boilerplate.containers.Payroll.Attendance.endTime": "الى الساعه",
   "boilerplate.containers.Payroll.Attendance.exemptEntryRec": "اعفاء من تسجيل الدخول",
@@ -1313,6 +1315,15 @@
     "boilerplate.containers.Payroll.Attendance.attendanceRule":"يشمل الموظفين الذين لا تنطبق عليهم القواعد",
 
     "boilerplate.containers.Payroll.Attendance.earlyAttMinutes":"تقرير الحضور المبكر",
+    "boilerplate.containers.Payroll.Attendance.ip":"Ip",
+    "boilerplate.containers.Payroll.Attendance.port":"البورت",
+    "boilerplate.containers.Payroll.Attendance.serialNumber":"الرقم التسلسلى",
+    "boilerplate.containers.Payroll.transportaion.ip":"النقل",
+    "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"تعديل اجهزة البصمة",
+    "boilerplate.containers.Payroll.transportaion.DeviceCreateTitle":"اضافة اجهزة البصمه",
+    "boilerplate.containers.Payroll.transportaion.devicePass":"كلمة المرور",
+    
+    
 
     "boilerplate.containers.Payroll.Attendance.outTime":"وقت الانصراف",
     "boilerplate.containers.Payroll.Attendance.earlyLeaveMin":"دقائق الانصراف المبكر",

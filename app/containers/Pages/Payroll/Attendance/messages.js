@@ -887,5 +887,42 @@ earlyLeaveMin: {
   id: `${scope}.earlyLeaveMin`,
   defaultMessage: 'Early Leave Min',
 },
+ip: {
+  id: `${scope}.ip`,
+  defaultMessage: 'ip',
+},
+port: {
+  id: `${scope}.port`,
+  defaultMessage: 'port',
+},
+serialNumber: {
+  id: `${scope}.serialNumber`,
+  defaultMessage: 'serialNumber',
+},
+transportaion: {
+  id: `${scope}.transportaion`,
+  defaultMessage: 'transportaion',
+},
+DeviceCreateTitle: {
+  id: `${scope}.DeviceCreateTitle`,
+  defaultMessage: 'DeviceCreateTitle',
+},
+DeviceUpdateTitle: {
+  id: `${scope}.DeviceUpdateTitle`,
+  defaultMessage: 'DeviceUpdateTitle',
+},
+devicePass: {
+  id: `${scope}.devicePass`,
+  defaultMessage: 'devicePass',
+},
+
+  subscriptionDate: {
+    id: `${scope}.subscriptionDate`,
+    defaultMessage: 'subscriptionDate',
+  },
+  totalNumberOfMinutes: {
+    id: `${scope}.totalNumberOfMinutes`,
+    defaultMessage: 'totalNumberOfMinutes',
+  },
 });
 

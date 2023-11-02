@@ -294,6 +294,10 @@ import {
   StopMedicalInsurance,
   StopMedicalInsuranceCreate,
   EarlyAttendanceReport,
+  DeviceCreate,
+  DeviceList,
+  OvertimeHoursRequest,
+  OvertimeHoursRequestCreate,
   EarlyLeavingReport,
 } from '../pageListAsync';
 
@@ -819,6 +823,19 @@ function Application(props) {
 
 
         <Route
+          path='/app/Pages/Att/Device'
+          component={DeviceList}
+        />
+        <Route
+          path='/app/Pages/Att/DeviceCreate'
+          component={DeviceCreate}
+        />
+        <Route
+          path='/app/Pages/Att/DeviceEdit'
+          component={DeviceCreate}
+        />
+
+        <Route
           path='/app/Pages/Att/MissionReport'
           component={MissionReport}
         />
@@ -854,6 +871,21 @@ function Application(props) {
           component={EarlyAttendanceReport}
         />
 
+
+        <Route
+          path='/app/Pages/Att/OvertimeHoursRequest'
+          component={OvertimeHoursRequest}
+        />
+
+        <Route
+          path='/app/Pages/Att/OvertimeHoursRequestCreate'
+          component={OvertimeHoursRequestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Att/OvertimeHoursRequestEdit'
+          component={OvertimeHoursRequestCreate}
+        />
         <Route
           path='/app/Pages/Att/EarlyLeavingReport'
           component={EarlyLeavingReport}
