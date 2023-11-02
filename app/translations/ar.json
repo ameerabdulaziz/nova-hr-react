@@ -1313,6 +1313,9 @@
     "boilerplate.containers.Payroll.Attendance.attendanceRule":"يشمل الموظفين الذين لا تنطبق عليهم القواعد",
 
     "boilerplate.containers.Payroll.Attendance.earlyAttMinutes":"تقرير الحضور المبكر",
+
+    "boilerplate.containers.Payroll.Attendance.outTime":"وقت الانصراف",
+    "boilerplate.containers.Payroll.Attendance.earlyLeaveMin":"دقائق الانصراف المبكر",
   
   
   

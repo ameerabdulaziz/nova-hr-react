@@ -294,6 +294,7 @@ import {
   StopMedicalInsurance,
   StopMedicalInsuranceCreate,
   EarlyAttendanceReport,
+  EarlyLeavingReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -851,6 +852,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/EarlyAttendanceReport'
           component={EarlyAttendanceReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/EarlyLeavingReport'
+          component={EarlyLeavingReport}
         />
 
 

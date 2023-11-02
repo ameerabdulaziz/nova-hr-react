@@ -878,5 +878,14 @@ earlyAttMinutes: {
   id: `${scope}.earlyAttMinutes`,
   defaultMessage: 'Early Attendance Miuntes',
 },
+// EarlyLeavingReport
+outTime: {
+  id: `${scope}.outTime`,
+  defaultMessage: 'Out Time',
+},
+earlyLeaveMin: {
+  id: `${scope}.earlyLeaveMin`,
+  defaultMessage: 'Early Leave Min',
+},
 });
 

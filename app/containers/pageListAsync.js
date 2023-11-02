@@ -1038,6 +1038,14 @@ export const EarlyAttendanceReport = loadable(
   
 );
 
+export const EarlyLeavingReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EarlyLeavingReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
