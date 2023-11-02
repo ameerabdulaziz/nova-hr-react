@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
   Button,
   Grid,
-  Autocomplete,
   TextField,
-  Checkbox,
+  Autocomplete,
   FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -21,43 +21,41 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 
-function DetailedReportAbsences(props) {
+function EmployeeAttendanceTemplate(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const [ShiftList, setShiftList] = useState([]);
-  const [Deleted, setDeleted] = useState("");
-  const [Shift, setShift] = useState("");
+  const [Tamplete, setTamplete] = useState("");
+  const [TampleteList, setTampleteList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
   const [searchData, setsearchData] = useState({
-    FromDate: null,
-    ToDate: null,
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
-    chkNoRules: false,
+    attendanceRulesNotApplied: false,
+    noAttendanceRule: false,
   });
-
+  
 
   const handleSearch = async (e) => {
+
+    
     try {
       setIsLoading(true);
-      let formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
+      var formData = {
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
-        EmpStatusId: searchData.EmpStatusId,
-        ShiftCode:  Shift,
-        chkNoRules: searchData.chkNoRules ? true: "",
-          };
+        EmployeeStatusId: searchData.EmpStatusId,
+        ParaTempId: Tamplete,
+        chkNoTemp: searchData.attendanceRulesNotApplied,
+        chkNoAttRule: searchData.noAttendanceRule
+      };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
-
-      const dataApi = await ApiData(locale).GetDetailedReportAbsences(formData);
+      const dataApi = await ApiData(locale).EmployeeAttendanceTemplateReport(formData);
       setdata(dataApi);
     } catch (err) {
     } finally {
@@ -67,10 +65,9 @@ function DetailedReportAbsences(props) {
 
   async function fetchData() {
     try {
-      const shift = await GeneralListApis(locale).GetShiftList();
-
-      setShiftList(shift);
-
+      
+      const tamplete = await GeneralListApis(locale).GetControlParameterList();
+      setTampleteList(tamplete);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -82,26 +79,19 @@ function DetailedReportAbsences(props) {
 
   const columns = [
     {
-      name: "id",
-        label: intl.formatMessage(Payrollmessages.id),
+      name: "employeeId",
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
-        display: false,
+        filter: false,
       },
     },
     {
-        name: "organizationName",
-        label: intl.formatMessage(messages.orgName),
-        options: {
-          filter: true,
-        },
+      name: "controlParameter",
+      label: intl.formatMessage(messages.TampleteName),
+      options: {
+        filter: true,
       },
-    {
-        name: "job",
-        label: intl.formatMessage(messages.job),
-        options: {
-          filter: true,
-        },
-      },
+    },
     {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
@@ -116,26 +106,30 @@ function DetailedReportAbsences(props) {
         filter: true,
       },
     },
-    
     {
-      name: "shiftDate",
-      label: intl.formatMessage(messages.absence),
+      name: "job",
+      label: intl.formatMessage(messages.job),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
-    
-    
+    {
+        name: "organizationName",
+        label: intl.formatMessage(messages.orgName),
+        options: {
+          filter: true,
+        },
+      },
+      
   ];
   const options = {
     filterType: "dropdown",
     responsive: "vertical",
     print: true,
+    selectableRows: "none",
     rowsPerPage: 50,
     rowsPerPageOptions: [10, 50, 100],
     page: 0,
-    selectableRows: "none",
     searchOpen: false,
     onSearchClose: () => {
       //some logic
@@ -148,66 +142,80 @@ function DetailedReportAbsences(props) {
       },
     },
   };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
-            <Search
-               setsearchData={setsearchData}
-               searchData={searchData}
-               setIsLoading={setIsLoading}
+          <Search
+              setsearchData={setsearchData}
+              searchData={searchData}
+              setIsLoading={setIsLoading}
+              notShowDate={true}
             ></Search>
           </Grid>
-
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={4}>
             <Autocomplete
-              id="shift"
-              name="shift"
-              options={ShiftList}
+              id="MissionId"
+              options={TampleteList}
               isOptionEqualToValue={(option, value) =>
                 value.id === 0 || value.id === "" || option.id === value.id
               }
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                setShift(
-                  value == null ? "" : value.id == null ? "" : value.id
-                );
+                setTamplete(value == null ? "" : value.id);
               }}
               renderInput={(params) => (
                 <TextField
                   variant="outlined"
                   {...params}
-                  name="shift"
-                  label={intl.formatMessage(messages.shift)}
+                  name="TampleteName"
+                  label={intl.formatMessage(messages.TampleteName)}
                 />
               )}
             />
           </Grid>
 
-      
-
-          <Grid item md={4}>
+          <Grid item md={3}>
                   <FormControlLabel
                     control={
                       <Checkbox
-                        checked={searchData.chkNoRules}
+                        checked={searchData.attendanceRulesNotApplied}
                         onChange={(evt) => {
                           setsearchData((prev) => ({
                             ...prev,
-                            chkNoRules: evt.target.checked,
+                            attendanceRulesNotApplied: evt.target.checked,
+                            noAttendanceRule: false,
+
                           }));
                         }}
                       />
                     }
-                    label={intl.formatMessage(messages.includingEmployeesWithoutAttendanceRule)}
+                    label={intl.formatMessage(messages.attendanceRulesNotApplied)}
                   />
             </Grid>
 
+          
+            <Grid item md={2}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={searchData.noAttendanceRule}
+                        onChange={(evt) => {
+                          setsearchData((prev) => ({
+                            ...prev,
+                            attendanceRulesNotApplied: false,
+                            noAttendanceRule: evt.target.checked,
+                          }));
+                        }}
+                      />
+                    }
+                    label={intl.formatMessage(messages.noAttendanceRule)}
+                  />
+            </Grid>
 
-           
-    
+         
 
           <Grid item xs={12} md={2}>
             <Button
@@ -234,6 +242,6 @@ function DetailedReportAbsences(props) {
   );
 }
 
-DetailedReportAbsences.propTypes = { intl: PropTypes.object.isRequired };
+EmployeeAttendanceTemplate.propTypes = { intl: PropTypes.object.isRequired };
 
-export default injectIntl(DetailedReportAbsences);
+export default injectIntl(EmployeeAttendanceTemplate);

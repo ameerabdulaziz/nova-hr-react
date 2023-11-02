@@ -1086,6 +1086,20 @@ export const ReviewOvertime = loadable(
   }
 );
 
+export const EmployeeAttendanceTemplateReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeeAttendanceTemplateReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ManHoursReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/ManHoursReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

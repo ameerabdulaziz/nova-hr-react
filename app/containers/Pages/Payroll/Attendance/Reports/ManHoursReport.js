@@ -7,8 +7,6 @@ import {
   Grid,
   Autocomplete,
   TextField,
-  Checkbox,
-  FormControlLabel,
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -21,7 +19,7 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 
-function DetailedReportAbsences(props) {
+function ManHoursReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -37,7 +35,6 @@ function DetailedReportAbsences(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
-    chkNoRules: false,
   });
 
 
@@ -49,15 +46,14 @@ function DetailedReportAbsences(props) {
         ToDate: searchData.ToDate,
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
-        EmpStatusId: searchData.EmpStatusId,
-        ShiftCode:  Shift,
-        chkNoRules: searchData.chkNoRules ? true: "",
+        EmployeeStatusId: searchData.EmpStatusId,
+        shiftcode:  Shift,
           };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
 
-      const dataApi = await ApiData(locale).GetDetailedReportAbsences(formData);
+      const dataApi = await ApiData(locale).ManHoursReport(formData);
       setdata(dataApi);
     } catch (err) {
     } finally {
@@ -96,10 +92,18 @@ function DetailedReportAbsences(props) {
         },
       },
     {
-        name: "job",
-        label: intl.formatMessage(messages.job),
+        name: "shiftName",
+        label: intl.formatMessage(messages.shift),
         options: {
           filter: true,
+        },
+      },
+      {
+        name: "shiftDate",
+        label: intl.formatMessage(messages.date),
+        options: {
+          filter: true,
+               customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
         },
       },
     {
@@ -116,15 +120,27 @@ function DetailedReportAbsences(props) {
         filter: true,
       },
     },
-    
     {
-      name: "shiftDate",
-      label: intl.formatMessage(messages.absence),
+      name: "shifttime",
+      label: intl.formatMessage(messages.shiftHours),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
       },
     },
+    {
+        name: "worktime",
+        label: intl.formatMessage(messages.workingHours),
+        options: {
+          filter: true,
+        },
+      },
+      {
+        name: "accurate",
+        label: intl.formatMessage(messages.verificationRate),
+        options: {
+          filter: true,
+        },
+      },
     
     
   ];
@@ -186,29 +202,6 @@ function DetailedReportAbsences(props) {
             />
           </Grid>
 
-      
-
-          <Grid item md={4}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={searchData.chkNoRules}
-                        onChange={(evt) => {
-                          setsearchData((prev) => ({
-                            ...prev,
-                            chkNoRules: evt.target.checked,
-                          }));
-                        }}
-                      />
-                    }
-                    label={intl.formatMessage(messages.includingEmployeesWithoutAttendanceRule)}
-                  />
-            </Grid>
-
-
-           
-    
-
           <Grid item xs={12} md={2}>
             <Button
               variant="contained"
@@ -234,6 +227,6 @@ function DetailedReportAbsences(props) {
   );
 }
 
-DetailedReportAbsences.propTypes = { intl: PropTypes.object.isRequired };
+ManHoursReport.propTypes = { intl: PropTypes.object.isRequired };
 
-export default injectIntl(DetailedReportAbsences);
+export default injectIntl(ManHoursReport);

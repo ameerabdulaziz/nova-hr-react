@@ -930,6 +930,20 @@ devicePass: {
     id: `${scope}.permission`,
     defaultMessage: 'Permission',
   },
+  // EmployeeAttendanceTemplateReport
+  TampleteName: {
+    id: `${scope}.TampleteName`,
+    defaultMessage: 'Tamplete Name',
+  },
+  attendanceRulesNotApplied: {
+    id: `${scope}.attendanceRulesNotApplied`,
+    defaultMessage: 'Attendance Rules Not Applied',
+  },
+  noAttendanceRule: {
+    id: `${scope}.noAttendanceRule`,
+    defaultMessage: 'No Attendance Rule',
+  },
+  // ReviewOvertime
   accruedLeave: {
     id: `${scope}.accruedLeave`,
     defaultMessage: 'accruedLeave',
@@ -946,5 +960,23 @@ devicePass: {
     id: `${scope}.requestSerial`,
     defaultMessage: 'requestSerial',
   },
+  // ManHoursReport
+  shiftHours: {
+    id: `${scope}.shiftHours`,
+    defaultMessage: 'Shift Hours',
+  },
+  workingHours: {
+    id: `${scope}.workingHours`,
+    defaultMessage: 'Working Hours',
+  },
+  date: {
+    id: `${scope}.date`,
+    defaultMessage: 'Date',
+  },
+  verificationRate: {
+    id: `${scope}.verificationRate`,
+    defaultMessage: 'Verification Rate',
+  },
+
 });
 

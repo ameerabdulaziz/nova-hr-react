@@ -301,6 +301,8 @@ import {
   EarlyLeavingReport,
   EmployeeLessTimeReport,
   ReviewOvertime,
+  EmployeeAttendanceTemplateReport,
+  ManHoursReport,
   JobAdvertisement,
   JobAdvertisementCreate
 } from '../pageListAsync';
@@ -902,6 +904,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/EmployeeLessTimeReport'
           component={EmployeeLessTimeReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/EmployeeAttendanceTemplate'
+          component={EmployeeAttendanceTemplateReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/ManHoursReport'
+          component={ManHoursReport}
         />
 
 

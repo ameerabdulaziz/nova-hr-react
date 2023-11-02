@@ -182,7 +182,7 @@ function MissionReport(props) {
                   variant="outlined"
                   {...params}
                   name="MissionId"
-                  required
+                  // required
                   label={intl.formatMessage(messages.missionName)}
                 />
               )}
