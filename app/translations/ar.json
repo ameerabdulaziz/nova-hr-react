@@ -795,6 +795,7 @@
   "boilerplate.containers.Ecommerce.Checkout.invoice_title": "فاتورة قابلة للتحرير",
   "boilerplate.containers.Ecommerce.Checkout.invoice_desc": "فاتورة HTML قابلة للتحرير / قابلة للطباعة",
   "boilerplate.components.tables.codes.code": "الكود",
+  "boilerplate.components.tables.codes.requirements": "المتطلبات",
   "boilerplate.components.tables.codes.name": "الاسم بالعربية",
   "boilerplate.components.tables.codes.enname": "الاسم بالانجليزية",
   "boilerplate.components.tables.codes.govname": "المحافطة",
@@ -1807,5 +1808,17 @@
   "boilerplate.containers.Payroll.medicalInsurance.InsuranceCompany": "شركة التامين",
   "boilerplate.containers.Payroll.medicalInsurance.medicalInsuranceCategory": "فئة التامين الصحى",
   "boilerplate.containers.Payroll.medicalInsurance.privlMedCareNumber": "رقم البطاقة العلاجية",
-  "boilerplate.containers.Payroll.medicalInsurance.All": "الكل"
+  "boilerplate.containers.Payroll.medicalInsurance.All": "الكل",
+
+  "boilerplate.containers.Payroll.recruitment.jobName": "اسم الوظيقة",
+  "boilerplate.containers.Payroll.recruitment.jobCode": "كود الوظيفة",
+  "boilerplate.containers.Payroll.recruitment.experience": "سنوات الخبرة",
+  "boilerplate.containers.Payroll.recruitment.organization": "الادارة",
+  "boilerplate.containers.Payroll.recruitment.department": "المنظمة",
+  "boilerplate.containers.Payroll.recruitment.enterDetailsData": "أدخل بيانات التفاصيل",
+  "boilerplate.containers.Payroll.recruitment.branch": "الفرع",
+  "boilerplate.containers.Payroll.recruitment.division": "القسم",
+  "boilerplate.containers.Payroll.recruitment.description": "الوصف",
+  "boilerplate.containers.Payroll.recruitment.section": "القطاع",
+  "boilerplate.containers.Payroll.recruitment.expireDate": "تاريخ الانتهاء"
 }
