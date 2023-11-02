@@ -1328,6 +1328,12 @@
     "boilerplate.containers.Payroll.transportaion.devicePass":"كلمة المرور",
     
     
+
+    "boilerplate.containers.Payroll.Attendance.outTime":"وقت الانصراف",
+    "boilerplate.containers.Payroll.Attendance.earlyLeaveMin":"دقائق الانصراف المبكر",
+
+    "boilerplate.containers.Payroll.Attendance.permission":"اذن",
+  
   
   
   

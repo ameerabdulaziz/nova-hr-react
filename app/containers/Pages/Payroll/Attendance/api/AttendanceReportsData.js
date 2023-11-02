@@ -59,6 +59,22 @@ const MedicalInsuranceReportsData = (locale) => {
     return data.data;
   };
 
+  api.EarlyLeavingReport = async (params, bodyData) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.post(`AttReport/GetEarlyLeaveReport/${locale}?${queryString}`, bodyData);
+
+    return data.data;
+  };
+
+  api.EmployeeLessTimeReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetLessTimeReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
 
   return api;
 };

@@ -14,6 +14,7 @@ import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
 import PayRollLoader from "../../Component/PayRollLoader";
+import { PapperBlock } from "enl-components";
 
 function OfficialVacations({ intl }) {
   const Title = localStorage.getItem("MenuName");
