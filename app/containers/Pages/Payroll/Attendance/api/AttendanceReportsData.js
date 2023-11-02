@@ -67,10 +67,10 @@ const MedicalInsuranceReportsData = (locale) => {
     return data.data;
   };
 
-  api.EmployeeLessTimeReport = async (params, bodyData) => {
+  api.EmployeeLessTimeReport = async (params) => {
     const queryString = new URLSearchParams(params);
 
-    const data = await axiosInstance.get(`AttReport/GetLessTimeReport/${locale}?${queryString}`, bodyData);
+    const data = await axiosInstance.get(`AttReport/GetLessTimeReport/${locale}?${queryString}`);
 
     return data.data;
   };
