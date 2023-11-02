@@ -915,5 +915,21 @@ devicePass: {
     id: `${scope}.totalNumberOfMinutes`,
     defaultMessage: 'totalNumberOfMinutes',
   },
+  accruedLeave: {
+    id: `${scope}.accruedLeave`,
+    defaultMessage: 'accruedLeave',
+  },
+  accruedLeaveMin: {
+    id: `${scope}.accruedLeaveMin`,
+    defaultMessage: 'accruedLeaveMin',
+  },
+  showWeekendOnly: {
+    id: `${scope}.showWeekendOnly`,
+    defaultMessage: 'showWeekendOnly',
+  },
+  requestSerial: {
+    id: `${scope}.requestSerial`,
+    defaultMessage: 'requestSerial',
+  },
 });
 

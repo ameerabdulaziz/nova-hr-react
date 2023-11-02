@@ -1065,6 +1065,13 @@ export const OvertimeHoursRequestCreate = loadable(
   }
 );
 
+export const ReviewOvertime = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/ReviewOvertime'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
