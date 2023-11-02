@@ -1072,10 +1072,15 @@ export const OvertimeHoursRequestCreate = loadable(
     fallback: <Loading />,
   }
 );
-
-
 export const EmployeeLessTimeReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/EmployeeLessTimeReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ReviewOvertime = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/ReviewOvertime'),
   {
     fallback: <Loading />,
   }
