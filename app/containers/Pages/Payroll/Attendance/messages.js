@@ -960,5 +960,23 @@ devicePass: {
     id: `${scope}.requestSerial`,
     defaultMessage: 'requestSerial',
   },
+  // ManHoursReport
+  shiftHours: {
+    id: `${scope}.shiftHours`,
+    defaultMessage: 'Shift Hours',
+  },
+  workingHours: {
+    id: `${scope}.workingHours`,
+    defaultMessage: 'Working Hours',
+  },
+  date: {
+    id: `${scope}.date`,
+    defaultMessage: 'Date',
+  },
+  verificationRate: {
+    id: `${scope}.verificationRate`,
+    defaultMessage: 'Verification Rate',
+  },
+
 });
 

@@ -302,6 +302,7 @@ import {
   EmployeeLessTimeReport,
   ReviewOvertime,
   EmployeeAttendanceTemplateReport,
+  ManHoursReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -906,6 +907,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/EmployeeAttendanceTemplate'
           component={EmployeeAttendanceTemplateReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/ManHoursReport'
+          component={ManHoursReport}
         />
 
 

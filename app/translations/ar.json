@@ -1337,6 +1337,11 @@
     "boilerplate.containers.Payroll.Attendance.TampleteName":"اسم النموذج",
     "boilerplate.containers.Payroll.Attendance.attendanceRulesNotApplied":"لا ينطبق عليه قواعد الحضور",
     "boilerplate.containers.Payroll.Attendance.noAttendanceRule":"بدون نموذج",
+
+    "boilerplate.containers.Payroll.Attendance.shiftHours":"ساعات الوردية",
+    "boilerplate.containers.Payroll.Attendance.workingHours":"ساعات العمل",
+    "boilerplate.containers.Payroll.Attendance.verificationRate":"نسبة التحقق %",
+    "boilerplate.containers.Payroll.Attendance.date":"التاريخ",
   
   
   

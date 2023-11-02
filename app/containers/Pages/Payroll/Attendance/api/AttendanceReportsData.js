@@ -82,6 +82,14 @@ const MedicalInsuranceReportsData = (locale) => {
 
     return data.data;
   };
+
+  api.ManHoursReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetManHourReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
   
 
 
