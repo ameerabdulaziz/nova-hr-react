@@ -1637,3 +1637,18 @@ export const StopMedicalInsuranceCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+// Recruitment
+export const JobAdvertisement = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/JobAdvertisement'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobAdvertisementCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/JobAdvertisementCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

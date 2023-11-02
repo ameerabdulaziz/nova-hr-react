@@ -56,6 +56,10 @@ export default defineMessages({
     id: `${scope}.codes.jobCode`,
     defaultMessage: 'jobCode',
   },
+  requirements: {
+    id: `${scope}.codes.requirements`,
+    defaultMessage: 'requirements',
+  },
   salaryLimit: {
     id: `${scope}.codes.salaryLimit`,
     defaultMessage: 'salaryLimit',

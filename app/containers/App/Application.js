@@ -301,6 +301,8 @@ import {
   EarlyLeavingReport,
   EmployeeLessTimeReport,
   ReviewOvertime,
+  JobAdvertisement,
+  JobAdvertisementCreate
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1318,6 +1320,22 @@ function Application(props) {
         <Route
           path='/app/Pages/Minsurance/StopMedicalInsuranceEdit'
           component={StopMedicalInsuranceCreate}
+        />
+
+        {/* JobAdvertisement */}
+        <Route
+          path='/app/Pages/Recruitment/JobAdvertisement'
+          component={JobAdvertisement}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobAdvertisementCreate'
+          component={JobAdvertisementCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobAdvertisementEdit'
+          component={JobAdvertisementCreate}
         />
 
         {/* Default */}
