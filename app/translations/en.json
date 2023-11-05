@@ -1294,9 +1294,13 @@
   
   "boilerplate.containers.Payroll.Attendance.ip":"Ip",
   "boilerplate.containers.Payroll.Attendance.port":"Port",
-  "boilerplate.containers.Payroll.Attendance.serialNumber":"Serial Number",
-  "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",
-  
+  "boilerplate.containers.Payroll.Attendance.serialNumber":"Serial Number",  
+  "boilerplate.containers.Payroll.Attendance.testConnection":"Test Connection",
+
+
+
+
+  "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
   "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",
   "boilerplate.containers.Payroll.transportaion.DeviceCreateTitle":"Add Device",
   "boilerplate.containers.Payroll.transportaion.devicePass":"Device Password",

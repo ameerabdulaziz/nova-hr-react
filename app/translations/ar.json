@@ -1128,7 +1128,6 @@
   "boilerplate.containers.Payroll.Attendance.per": "اذن",
   "boilerplate.containers.Payroll.Attendance.mission": "مأمورية",
   "boilerplate.containers.Payroll.Attendance.shiftVacancy": "اجازةوردية",
-  "boilerplate.containers.Payroll.Attendance.absence": "غياب",
 
   "boilerplate.containers.Payroll.Attendance.AbsenceRules": "محددات الغياب",
   "boilerplate.containers.Payroll.Attendance.DelayRules": "محددات مرات التأخير والوقت المتمم",
@@ -1343,7 +1342,7 @@
     "boilerplate.containers.Payroll.Attendance.workingHours":"ساعات العمل",
     "boilerplate.containers.Payroll.Attendance.verificationRate":"نسبة التحقق %",
     "boilerplate.containers.Payroll.Attendance.date":"التاريخ",
-  
+    "boilerplate.containers.Payroll.Attendance.testConnection":"اختبار الاتصال",
   
   
   

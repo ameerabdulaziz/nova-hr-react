@@ -977,6 +977,9 @@ devicePass: {
     id: `${scope}.verificationRate`,
     defaultMessage: 'Verification Rate',
   },
-
+  testConnection: {
+    id: `${scope}.testConnection`,
+    defaultMessage: 'test Connection',
+  },
 });
 
