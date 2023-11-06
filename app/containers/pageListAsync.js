@@ -1100,6 +1100,13 @@ export const ManHoursReport = loadable(
   }
 );
 
+export const AttendanceRatioReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/AttendanceRatioReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

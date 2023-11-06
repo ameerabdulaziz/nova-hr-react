@@ -1138,6 +1138,11 @@
   "boilerplate.containers.Payroll.Attendance.workingHours":"Working Hours",
   "boilerplate.containers.Payroll.Attendance.verificationRate":"Verification Rate %",
   "boilerplate.containers.Payroll.Attendance.date":"date",
+
+  "boilerplate.containers.Payroll.Attendance.totalWorking":"Total Working",
+  "boilerplate.containers.Payroll.Attendance.fromDateErrorMes":"Must to choose From Date",
+  "boilerplate.containers.Payroll.Attendance.currentAttendance":"Current Attendance",
+  "boilerplate.containers.Payroll.Attendance.diff":"Diff",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

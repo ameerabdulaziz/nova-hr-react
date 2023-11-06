@@ -977,9 +977,27 @@ devicePass: {
     id: `${scope}.verificationRate`,
     defaultMessage: 'Verification Rate',
   },
+  // DeviceCreate
   testConnection: {
     id: `${scope}.testConnection`,
     defaultMessage: 'test Connection',
+  },
+  // AttendanceRatioReport
+  fromDateErrorMes: {
+    id: `${scope}.fromDateErrorMes`,
+    defaultMessage: 'Must to choose From Date',
+  },
+  totalWorking: {
+    id: `${scope}.totalWorking`,
+    defaultMessage: 'Total Working',
+  },
+  currentAttendance: {
+    id: `${scope}.currentAttendance`,
+    defaultMessage: 'Current Attendance',
+  },
+  diff: {
+    id: `${scope}.diff`,
+    defaultMessage: 'Diff',
   },
 });
 

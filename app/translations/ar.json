@@ -1343,6 +1343,11 @@
     "boilerplate.containers.Payroll.Attendance.verificationRate":"نسبة التحقق %",
     "boilerplate.containers.Payroll.Attendance.date":"التاريخ",
     "boilerplate.containers.Payroll.Attendance.testConnection":"اختبار الاتصال",
+
+    "boilerplate.containers.Payroll.Attendance.totalWorking":"عدد العاملين",
+    "boilerplate.containers.Payroll.Attendance.fromDateErrorMes":"يجب اختيار تاريخ البدا",
+    "boilerplate.containers.Payroll.Attendance.currentAttendance":"قوة العمل",
+    "boilerplate.containers.Payroll.Attendance.diff":"الفرق",
   
   
   
