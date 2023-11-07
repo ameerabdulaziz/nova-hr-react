@@ -999,5 +999,14 @@ devicePass: {
     id: `${scope}.diff`,
     defaultMessage: 'Diff',
   },
+  // MonthlyAttendanceReport 
+  dateWithPeriodErrorMes: {
+    id: `${scope}.dateWithPeriodErrorMes`,
+    defaultMessage: 'Must to choose From Date And To Date , The date must not exceed 30 days',
+  },
+  showVacationName: {
+    id: `${scope}.showVacationName`,
+    defaultMessage: 'Show vacation name',
+  },
 });
 

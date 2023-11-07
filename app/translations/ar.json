@@ -1349,7 +1349,8 @@
     "boilerplate.containers.Payroll.Attendance.currentAttendance":"قوة العمل",
     "boilerplate.containers.Payroll.Attendance.diff":"الفرق",
   
-  
+    "boilerplate.containers.Payroll.Attendance.dateWithPeriodErrorMes":"يجب اختيار تاريخ البدا و تاريخ الانتهاء , الفترة يجب أن لا تتخطى ٣٠ يوم",
+    "boilerplate.containers.Payroll.Attendance.showVacationName":"عرض اسماء الاجازات",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
