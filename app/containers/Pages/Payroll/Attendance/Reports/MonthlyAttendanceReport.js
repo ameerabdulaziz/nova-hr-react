@@ -74,7 +74,9 @@ function MonthlyAttendanceReport(props) {
 
 
   const handleSearch = async (e) => {
-    if(searchData.FromDate !== null && searchData.ToDate !== null )
+
+    let subDate = Math.abs(new Date( searchData.ToDate ) - new Date( searchData.FromDate ) )  /(1000 * 3600 * 24) + 1
+    if(searchData.FromDate !== null && searchData.ToDate !== null && subDate <= 30)
     {
         let columnsArr = []
 
