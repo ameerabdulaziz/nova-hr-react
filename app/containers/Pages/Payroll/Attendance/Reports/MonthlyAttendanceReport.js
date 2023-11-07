@@ -233,7 +233,7 @@ function MonthlyAttendanceReport(props) {
           </Grid>
 
       
-          <Grid item md={4}>
+          <Grid item md={3} lg={2}>
                   <FormControlLabel
                     control={
                       <Checkbox

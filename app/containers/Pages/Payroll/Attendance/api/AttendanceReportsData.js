@@ -1,5 +1,5 @@
 import axiosInstance from '../../api/axios';
-const MedicalInsuranceReportsData = (locale) => {
+const AttendanceReportsData = (locale) => {
   const api = {};
 
   api.GetMissionReport = async (params) => {
@@ -106,6 +106,15 @@ const MedicalInsuranceReportsData = (locale) => {
 
     return data.data;
   };
+
+
+  api.AttendanceDeviceReportApi = async (params, bodyData) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.post(`AttReport/GetAttendanceDeviceReport/${locale}?${queryString}`, bodyData);
+
+    return data.data;
+  };
   
 
 
@@ -114,4 +123,4 @@ const MedicalInsuranceReportsData = (locale) => {
 
 
 
-export default MedicalInsuranceReportsData;
+export default AttendanceReportsData;

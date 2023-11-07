@@ -307,6 +307,7 @@ import {
   JobAdvertisementCreate,
   AttendanceRatioReport,
   MonthlyAttendanceReport,
+  AttendanceDeviceReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -927,6 +928,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/MonthlyAttendanceReport'
           component={MonthlyAttendanceReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/AttendanceDeviceReport'
+          component={AttendanceDeviceReport}
         />
 
 

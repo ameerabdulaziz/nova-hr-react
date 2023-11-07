@@ -1114,6 +1114,13 @@ export const MonthlyAttendanceReport = loadable(
   }
 );
 
+export const AttendanceDeviceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/AttendanceDeviceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

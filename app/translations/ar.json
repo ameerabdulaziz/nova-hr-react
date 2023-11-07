@@ -1351,6 +1351,11 @@
   
     "boilerplate.containers.Payroll.Attendance.dateWithPeriodErrorMes":"يجب اختيار تاريخ البدا و تاريخ الانتهاء , الفترة يجب أن لا تتخطى ٣٠ يوم",
     "boilerplate.containers.Payroll.Attendance.showVacationName":"عرض اسماء الاجازات",
+
+    "boilerplate.containers.Payroll.Attendance.device":"اسم الجهاز",
+    "boilerplate.containers.Payroll.Attendance.recordCount":"عدد القراءات",
+    "boilerplate.containers.Payroll.Attendance.MinDate":"اول تاريخ",
+    "boilerplate.containers.Payroll.Attendance.MaxDate":"اخر تاريخ",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

@@ -1008,5 +1008,22 @@ devicePass: {
     id: `${scope}.showVacationName`,
     defaultMessage: 'Show vacation name',
   },
+  // AttendanceDeviceReport
+  device: {
+    id: `${scope}.device`,
+    defaultMessage: 'Device',
+  },
+  recordCount: {
+    id: `${scope}.recordCount`,
+    defaultMessage: 'Record Count',
+  },
+  MinDate: {
+    id: `${scope}.MinDate`,
+    defaultMessage: 'Min Date',
+  },
+  MaxDate: {
+    id: `${scope}.MaxDate`,
+    defaultMessage: 'Max Date',
+  },
 });
 
