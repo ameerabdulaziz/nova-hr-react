@@ -1151,6 +1151,12 @@
   "boilerplate.containers.Payroll.Attendance.recordCount":"Record Count",
   "boilerplate.containers.Payroll.Attendance.MinDate":"Min Date",
   "boilerplate.containers.Payroll.Attendance.MaxDate":"Max Date",
+
+  "boilerplate.containers.Payroll.Attendance.daysCount":"Days Count",
+  "boilerplate.containers.Payroll.Attendance.dateErrorMes":"Must To Choose From Date And To Date",
+  "boilerplate.containers.Payroll.Attendance.fromDate":"From Date",
+  "boilerplate.containers.Payroll.Attendance.toDate":"To Date",
+  "boilerplate.containers.Payroll.Attendance.EmployeesWithAttendenceRules":"Employees With Attendence Rules",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

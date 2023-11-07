@@ -1025,5 +1025,26 @@ devicePass: {
     id: `${scope}.MaxDate`,
     defaultMessage: 'Max Date',
   },
+  // ContinuousAbsenceReport
+  daysCount: {
+    id: `${scope}.daysCount`,
+    defaultMessage: 'Days Count',
+  },
+  dateErrorMes: {
+    id: `${scope}.dateErrorMes`,
+    defaultMessage: 'Must To Choose From Date And To Date',
+  },
+  fromDate: {
+    id: `${scope}.fromDate`,
+    defaultMessage: 'From Date',
+  },
+  toDate: {
+    id: `${scope}.toDate`,
+    defaultMessage: 'To Date',
+  },
+  EmployeesWithAttendenceRules: {
+    id: `${scope}.EmployeesWithAttendenceRules`,
+    defaultMessage: 'Employees With Attendence Rules',
+  },
 });
 

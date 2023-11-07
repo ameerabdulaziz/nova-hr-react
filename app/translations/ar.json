@@ -1356,6 +1356,12 @@
     "boilerplate.containers.Payroll.Attendance.recordCount":"عدد القراءات",
     "boilerplate.containers.Payroll.Attendance.MinDate":"اول تاريخ",
     "boilerplate.containers.Payroll.Attendance.MaxDate":"اخر تاريخ",
+
+    "boilerplate.containers.Payroll.Attendance.daysCount":"عدد الايام",
+    "boilerplate.containers.Payroll.Attendance.dateErrorMes":"يجب اختيار تاريخ البدا وتاريخ الانتهاء",
+    "boilerplate.containers.Payroll.Attendance.fromDate":"من تاريح",
+    "boilerplate.containers.Payroll.Attendance.toDate":"الي تاريخ",
+    "boilerplate.containers.Payroll.Attendance.EmployeesWithAttendenceRules":"الخاضعين لقواعد الحضور فقط",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
