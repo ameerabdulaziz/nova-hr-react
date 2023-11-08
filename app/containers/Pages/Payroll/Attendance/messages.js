@@ -1084,5 +1084,22 @@ devicePass: {
     id: `${scope}.notes`,
     defaultMessage: 'Notes',
   },
+  // BreakTimeReport
+  brackTime: {
+    id: `${scope}.brackTime`,
+    defaultMessage: 'Brack Time',
+  },
+  totalOverTime: {
+    id: `${scope}.totalOverTime`,
+    defaultMessage: 'Total Over Time',
+  },
+  perDepartment: {
+    id: `${scope}.perDepartment`,
+    defaultMessage: 'Per Department',
+  },
+  details: {
+    id: `${scope}.details`,
+    defaultMessage: 'Details',
+  },
 });
 

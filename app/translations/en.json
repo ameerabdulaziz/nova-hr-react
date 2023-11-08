@@ -1167,6 +1167,11 @@
   "boilerplate.containers.Payroll.Attendance.signIn":"Sign In",
   "boilerplate.containers.Payroll.Attendance.signOut":"Sign Out",
   "boilerplate.containers.Payroll.Attendance.notes":"Notes",
+
+  "boilerplate.containers.Payroll.Attendance.brackTime":"Brack Time",
+  "boilerplate.containers.Payroll.Attendance.totalOverTime":"Total Over Time",
+  "boilerplate.containers.Payroll.Attendance.perDepartment":"Per Department",
+  "boilerplate.containers.Payroll.Attendance.details":"Details",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

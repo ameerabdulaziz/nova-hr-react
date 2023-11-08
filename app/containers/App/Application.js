@@ -311,6 +311,7 @@ import {
   ContinuousAbsenceReport,
   RegisterInAndOutReport,
   ManualAttendanceReport,
+  BreakTimeReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -951,6 +952,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/ManualAttendanceReport'
           component={ManualAttendanceReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/GetBreakTimeReport'
+          component={BreakTimeReport}
         />
 
 

@@ -1372,6 +1372,11 @@
     "boilerplate.containers.Payroll.Attendance.signIn":"وقت الحضور",
     "boilerplate.containers.Payroll.Attendance.signOut":"وقت الانصراف",
     "boilerplate.containers.Payroll.Attendance.notes":"ملاحظات",
+
+    "boilerplate.containers.Payroll.Attendance.brackTime":"وقت الراحه",
+    "boilerplate.containers.Payroll.Attendance.totalOverTime":"اجمالى الوقت",
+    "boilerplate.containers.Payroll.Attendance.perDepartment":"مجمع باليوم",
+    "boilerplate.containers.Payroll.Attendance.details":"تفصيلي",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

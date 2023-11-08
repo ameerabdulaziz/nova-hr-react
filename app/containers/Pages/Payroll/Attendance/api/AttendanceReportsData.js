@@ -139,6 +139,14 @@ const AttendanceReportsData = (locale) => {
 
     return data.data;
   };
+
+  api.BreakTimeReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetBreakTimeReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
   
 
 
