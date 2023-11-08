@@ -1367,6 +1367,11 @@
     "boilerplate.containers.Payroll.Attendance.SignInOnly":"لا يوجد توقيع حضور",
     "boilerplate.containers.Payroll.Attendance.SignOutOnly":"لا يوجد توقيع انصراف",
     "boilerplate.containers.Payroll.Attendance.NotAttendanceForTheDay":"لا يوجد اي توقيع",
+
+    "boilerplate.containers.Payroll.Attendance.serial":"مسلسل",
+    "boilerplate.containers.Payroll.Attendance.signIn":"وقت الحضور",
+    "boilerplate.containers.Payroll.Attendance.signOut":"وقت الانصراف",
+    "boilerplate.containers.Payroll.Attendance.notes":"ملاحظات",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

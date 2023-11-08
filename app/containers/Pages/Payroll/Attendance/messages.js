@@ -1067,5 +1067,22 @@ devicePass: {
     id: `${scope}.NotAttendanceForTheDay`,
     defaultMessage: 'Not Attendance For The Day',
   },
+  // ManualAttendanceReport
+  serial: {
+    id: `${scope}.serial`,
+    defaultMessage: 'Serial',
+  },
+  signIn: {
+    id: `${scope}.signIn`,
+    defaultMessage: 'Sign In',
+  },
+  signOut: {
+    id: `${scope}.signOut`,
+    defaultMessage: 'Sign Out',
+  },
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: 'Notes',
+  },
 });
 
