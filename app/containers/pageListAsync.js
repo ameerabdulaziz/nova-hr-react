@@ -1128,6 +1128,13 @@ export const ContinuousAbsenceReport = loadable(
   }
 );
 
+export const RegisterInAndOutReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/RegisterInAndOutReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

@@ -1157,6 +1157,11 @@
   "boilerplate.containers.Payroll.Attendance.fromDate":"From Date",
   "boilerplate.containers.Payroll.Attendance.toDate":"To Date",
   "boilerplate.containers.Payroll.Attendance.EmployeesWithAttendenceRules":"Employees With Attendence Rules",
+
+  "boilerplate.containers.Payroll.Attendance.inTime":"In Time",
+  "boilerplate.containers.Payroll.Attendance.SignInOnly":"Sign In Only",
+  "boilerplate.containers.Payroll.Attendance.SignOutOnly":"Sign Out Only",
+  "boilerplate.containers.Payroll.Attendance.NotAttendanceForTheDay":"Not Attendance For The Day",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

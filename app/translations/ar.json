@@ -1362,6 +1362,11 @@
     "boilerplate.containers.Payroll.Attendance.fromDate":"من تاريح",
     "boilerplate.containers.Payroll.Attendance.toDate":"الي تاريخ",
     "boilerplate.containers.Payroll.Attendance.EmployeesWithAttendenceRules":"الخاضعين لقواعد الحضور فقط",
+
+    "boilerplate.containers.Payroll.Attendance.inTime":"وقت الحضور",
+    "boilerplate.containers.Payroll.Attendance.SignInOnly":"لا يوجد توقيع حضور",
+    "boilerplate.containers.Payroll.Attendance.SignOutOnly":"لا يوجد توقيع انصراف",
+    "boilerplate.containers.Payroll.Attendance.NotAttendanceForTheDay":"لا يوجد اي توقيع",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

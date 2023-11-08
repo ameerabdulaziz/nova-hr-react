@@ -1046,5 +1046,26 @@ devicePass: {
     id: `${scope}.EmployeesWithAttendenceRules`,
     defaultMessage: 'Employees With Attendence Rules',
   },
+  // RegisterInAndOutReport
+  inTime: {
+    id: `${scope}.inTime`,
+    defaultMessage: 'In Time',
+  },
+  outTime: {
+    id: `${scope}.outTime`,
+    defaultMessage: 'Out Time',
+  },
+  SignInOnly: {
+    id: `${scope}.SignInOnly`,
+    defaultMessage: 'Sign In Only',
+  },
+  SignOutOnly: {
+    id: `${scope}.SignOutOnly`,
+    defaultMessage: 'Sign Out Only',
+  },
+  NotAttendanceForTheDay: {
+    id: `${scope}.NotAttendanceForTheDay`,
+    defaultMessage: 'Not Attendance For The Day',
+  },
 });
 

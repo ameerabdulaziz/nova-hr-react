@@ -309,6 +309,7 @@ import {
   MonthlyAttendanceReport,
   AttendanceDeviceReport,
   ContinuousAbsenceReport,
+  RegisterInAndOutReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -939,6 +940,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/ContinuousAbsenceReport'
           component={ContinuousAbsenceReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/RegisterInAndOutReport'
+          component={RegisterInAndOutReport}
         />
 
 

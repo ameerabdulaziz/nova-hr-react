@@ -123,6 +123,14 @@ const AttendanceReportsData = (locale) => {
 
     return data.data;
   };
+
+  api.RegisterInAndOutReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetRegisterInOutReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
   
 
 
