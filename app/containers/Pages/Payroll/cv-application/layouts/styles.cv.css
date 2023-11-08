@@ -1,0 +1,237 @@
+body.cv-layout-dark {
+	background-color: #181c31;
+	color: #fff;
+}
+
+body.cv-layout-dark .cv-layout .cv-section {
+	background-color: #1c2136;
+}
+
+body.cv-layout-dark .cv-layout .cv-job-card ,body.cv-layout-dark  .cv-layout .cv-form-card{
+	background-color: #181c31;
+}
+
+body.cv-layout-dark #app {
+	background-color: #181c31 !important;
+}
+
+body.cv-layout-dark .MuiDivider-root.MuiDivider-fullWidth.MuiDivider-vertical {
+	border-color: gray;
+}
+
+body.cv-layout-dark .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+	background-color: #181c31;
+	color: white;
+}
+
+body.cv-layout-dark .MuiChip-root.MuiChip-filled.MuiChip-sizeSmall {
+	color: white;
+	background-color: #1c2136;
+}
+
+.MuiChip-root.MuiChip-filled.MuiChip-sizeSmall {
+	transition: none;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+	box-shadow: none;
+}
+
+.MuiTypography-root.MuiTypography-h6.MuiDialogTitle-root {
+	margin-bottom: 10px;
+}
+
+.cv-layout {
+	--main-color: #4e6bff;
+}
+
+.cv-layout img {
+	max-width: 100%;
+}
+
+.cv-layout .link {
+	color: #a7acb2;
+	transition: 0.3s;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.cv-layout .link svg {
+	font-size: 1.8rem;
+}
+
+.cv-layout .link:hover {
+	color: var(--main-color);
+}
+
+.cv-layout .cv-btn {
+	text-decoration: none;
+	background-color: var(--main-color);
+	border-radius: 20rem;
+	color: #fff;
+	cursor: pointer;
+	padding: 0.75rem 2rem;
+	font-size: 1rem;
+	font-weight: normal;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cv-layout .cv-container {
+	width: 100%;
+	padding-right: 0.75rem;
+	padding-left: 0.75rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+@media (min-width: 576px) {
+	.cv-layout .cv-container {
+		max-width: 540px;
+	}
+}
+
+@media (min-width: 768px) {
+	.cv-layout .cv-container {
+		max-width: 720px;
+	}
+}
+
+@media (min-width: 992px) {
+	.cv-layout .cv-container {
+		max-width: 960px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.cv-layout .cv-container {
+		max-width: 1140px;
+	}
+}
+
+@media (min-width: 1400px) {
+	.cv-layout .cv-container {
+		max-width: 1320px;
+	}
+}
+
+/* form card */
+.cv-layout .cv-form-card {
+	box-shadow: 0 0 #0000, 0 0 #0000, 0px 8px 70px rgba(0, 0, 0, 0.05);
+	padding: 2.5rem;
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+.cv-layout .cv-form-card .title {
+	color: var(--main-color);
+	text-decoration: none;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+/* section component */
+.cv-layout .cv-section {
+	padding-top: 7.5rem;
+	padding-bottom: 7.5rem;
+	background-color: rgb(244, 247, 250);
+	position: relative;
+	overflow: hidden;
+	z-index: 2;
+}
+
+.cv-layout .cv-section.reduce-padding{
+	padding: 2rem 0;
+}
+
+.cv-layout .cv-section .shapes .shape-06 {
+	top: 5%;
+	left: 10%;
+	position: absolute;
+	z-index: -1;
+}
+
+.cv-layout .cv-section .shapes .shape-03 {
+	top: 25%;
+	left: 20%;
+	position: absolute;
+	z-index: -1;
+}
+
+.cv-layout .cv-section .shapes .shape-07 {
+	right: 5%;
+	width: 6.25rem;
+	position: absolute;
+	z-index: -1;
+	bottom: 10%;
+}
+
+.cv-layout .cv-section .shapes .shape-12 {
+	left: 0;
+	position: absolute;
+	z-index: -1;
+	bottom: 0;
+}
+
+.cv-layout .cv-section .shapes .shape-13 {
+	top: 0;
+	position: absolute;
+	z-index: -1;
+	right: 0;
+}
+
+/* job card */
+.cv-layout .cv-job-card {
+	box-shadow: 0 0 #0000, 0 0 #0000, 0px 8px 70px rgba(0, 0, 0, 0.05);
+	padding: 2.5rem;
+	border-radius: 10px;
+	background-color: #fff;
+	text-decoration: none;
+	display: block;
+	height: 100%;
+}
+
+.cv-layout .cv-job-card .title {
+	color: var(--main-color);
+	text-decoration: none;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+/* navbar */
+.cv-layout nav.cv-navbar .theme-icon {
+	color: #a8a6a6;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.cv-layout nav.cv-navbar .theme-icon svg {
+	font-size: 2rem;
+}
+
+.cv-layout nav.cv-navbar .logo {
+	width: 130px;
+}
+
+/* footer */
+.cv-layout footer.cv-footer {
+	padding: 30px 0;
+}
+
+.cv-layout footer.cv-footer .logo {
+	width: 130px;
+}
+
+.cv-layout footer.cv-footer .social-media-icon {
+	color: #d1d8e0;
+	transition: 0.3s;
+}
+
+.cv-layout footer.cv-footer .social-media-icon svg {
+	font-size: 1.8rem;
+}
+
+.cv-layout footer.cv-footer .social-media-icon:hover {
+	color: var(--main-color);
+}

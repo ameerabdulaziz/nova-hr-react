@@ -1666,3 +1666,17 @@ export const JobAdvertisementCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const JobVacation = loadable(
+  () => import('./Pages/Payroll/cv-application/JobVacation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobVacationApplication = loadable(
+  () => import('./Pages/Payroll/cv-application/JobVacationApplication'),
+  {
+    fallback: <Loading />,
+  }
+);

@@ -6,6 +6,7 @@ import Auth from './Auth';
 import Application from './Application';
 import LandingCorporate from './Landing';
 import ThemeWrapper from './ThemeWrapper';
+import PublicRoutes from './PublicRoutes';
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
@@ -16,6 +17,7 @@ function App(props) {
       <Router history={history}>
         <Switch>
           {/* <Route path="/" exact component={LandingCorporate} /> */}
+          <Route path="/public" component={PublicRoutes} />
           <Route path="/app" component={Application} />
           <Route component={Auth} />
           <Route component={NotFound} />
