@@ -304,7 +304,11 @@ import {
   EmployeeAttendanceTemplateReport,
   ManHoursReport,
   JobAdvertisement,
-  JobAdvertisementCreate
+  JobAdvertisementCreate,
+  AttendanceRatioReport,
+  MonthlyAttendanceReport,
+  AttendanceDeviceReport,
+  ContinuousAbsenceReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -914,6 +918,27 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/ManHoursReport'
           component={ManHoursReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/AttendanceRatioReport'
+          component={AttendanceRatioReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/MonthlyAttendanceReport'
+          component={MonthlyAttendanceReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/AttendanceDeviceReport'
+          component={AttendanceDeviceReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/ContinuousAbsenceReport'
+          component={ContinuousAbsenceReport}
         />
 
 

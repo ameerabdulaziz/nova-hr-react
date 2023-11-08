@@ -1,5 +1,5 @@
 import axiosInstance from '../../api/axios';
-const MedicalInsuranceReportsData = (locale) => {
+const AttendanceReportsData = (locale) => {
   const api = {};
 
   api.GetMissionReport = async (params) => {
@@ -90,6 +90,39 @@ const MedicalInsuranceReportsData = (locale) => {
 
     return data.data;
   };
+
+  api.AttendanceRatioReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetManPowerReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.MonthlyAttendanceReport = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetMonthlyAttendanceReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+
+  api.AttendanceDeviceReportApi = async (params, bodyData) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.post(`AttReport/GetAttendanceDeviceReport/${locale}?${queryString}`, bodyData);
+
+    return data.data;
+  };
+
+  api.ContinuousAbsenceReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetContinuousAbsenceReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
   
 
 
@@ -98,4 +131,4 @@ const MedicalInsuranceReportsData = (locale) => {
 
 
 
-export default MedicalInsuranceReportsData;
+export default AttendanceReportsData;

@@ -1138,6 +1138,25 @@
   "boilerplate.containers.Payroll.Attendance.workingHours":"Working Hours",
   "boilerplate.containers.Payroll.Attendance.verificationRate":"Verification Rate %",
   "boilerplate.containers.Payroll.Attendance.date":"date",
+
+  "boilerplate.containers.Payroll.Attendance.totalWorking":"Total Working",
+  "boilerplate.containers.Payroll.Attendance.fromDateErrorMes":"Must to choose From Date",
+  "boilerplate.containers.Payroll.Attendance.currentAttendance":"Current Attendance",
+  "boilerplate.containers.Payroll.Attendance.diff":"Diff",
+
+  "boilerplate.containers.Payroll.Attendance.dateWithPeriodErrorMes":"Must to choose From Date And To Date , The date must not exceed 30 days",
+  "boilerplate.containers.Payroll.Attendance.showVacationName":"Show vacation name",
+
+  "boilerplate.containers.Payroll.Attendance.device":"Device",
+  "boilerplate.containers.Payroll.Attendance.recordCount":"Record Count",
+  "boilerplate.containers.Payroll.Attendance.MinDate":"Min Date",
+  "boilerplate.containers.Payroll.Attendance.MaxDate":"Max Date",
+
+  "boilerplate.containers.Payroll.Attendance.daysCount":"Days Count",
+  "boilerplate.containers.Payroll.Attendance.dateErrorMes":"Must To Choose From Date And To Date",
+  "boilerplate.containers.Payroll.Attendance.fromDate":"From Date",
+  "boilerplate.containers.Payroll.Attendance.toDate":"To Date",
+  "boilerplate.containers.Payroll.Attendance.EmployeesWithAttendenceRules":"Employees With Attendence Rules",
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",
@@ -1294,9 +1313,13 @@
   
   "boilerplate.containers.Payroll.Attendance.ip":"Ip",
   "boilerplate.containers.Payroll.Attendance.port":"Port",
-  "boilerplate.containers.Payroll.Attendance.serialNumber":"Serial Number",
-  "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",
-  
+  "boilerplate.containers.Payroll.Attendance.serialNumber":"Serial Number",  
+  "boilerplate.containers.Payroll.Attendance.testConnection":"Test Connection",
+
+
+
+
+  "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
   "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",
   "boilerplate.containers.Payroll.transportaion.DeviceCreateTitle":"Add Device",
   "boilerplate.containers.Payroll.transportaion.devicePass":"Device Password",

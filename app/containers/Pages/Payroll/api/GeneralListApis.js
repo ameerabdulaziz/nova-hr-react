@@ -374,6 +374,12 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetDeviceList = async () => {
+    const result = await axiosInstance.get(`AttDevice/GetListModel/${locale}`);
+
+    return result.data;
+  };
+
   return Apis;
 };
 

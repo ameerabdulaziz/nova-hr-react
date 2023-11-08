@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../../api/DeviceData";
 import messages from "../../messages";
@@ -8,12 +8,7 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
-import {
-  Button,
-  Grid,
-  TextField,
-  Autocomplete,
-} from "@mui/material";
+import { Button, Grid, TextField, Autocomplete } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
@@ -43,12 +38,12 @@ function DeviceCreate(props) {
   const TypeList = useMemo(() => {
     return [
       { id: 1, name: "Default Way" },
-      { id: 2, name: "Alternative Way"},
+      { id: 2, name: "Alternative Way" },
     ];
   }, []);
 
   const history = useHistory();
-  
+
   const [isLoading, setIsLoading] = useState(true);
 
   const handleChange = (event) => {
@@ -116,18 +111,41 @@ function DeviceCreate(props) {
   async function oncancel() {
     history.push(`/app/Pages/Att/Device`);
   }
+
+  const ontestConnection = async (e) => {
+    try {
+      debugger;
+      if (data.ip && data.port && data.devicePass) {
+        setIsLoading(true);
+        let response = await ApiData(locale).testConnection(data);
+
+        if (response.status == 200) {
+          if (response.data.includes("Unable")) toast.error(response.data);
+          else toast.success(response.data);
+        } else {
+          toast.error(response.statusText);
+        }
+      } else {
+        toast.error("enter IP,Port and Password");
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
   async function fetchData() {
     try {
-    const shifts = await GeneralListApis(locale).GetShiftList(locale);
-    setShiftList(shifts);
+      const shifts = await GeneralListApis(locale).GetShiftList(locale);
+      setShiftList(shifts);
 
-    if (id) {
-      const dataApi = await ApiData(locale).Get(id ?? 0);
-      setdata(dataApi);
+      if (id) {
+        const dataApi = await ApiData(locale).Get(id ?? 0);
+        setdata(dataApi);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
     }
-  }
-    catch (err) {}
-    finally {setIsLoading(false);}
   }
 
   useEffect(() => {
@@ -228,67 +246,59 @@ function DeviceCreate(props) {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        id="shiftId"
-                        options={ShiftList}
-                        value={ShiftList.find(
-                          (item) => item.id === data.shiftId
-                        )||null}
-                        isOptionEqualToValue={(option, value) =>
-                          value.id === 0 ||
-                          value.id === "" ||
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) =>
-                          option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            shiftId: value !== null ? value.id : null,
-                          }));
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="shiftId"
-                            required
-                          />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        id="deviceType"
-                        options={TypeList}
-                        value={TypeList.find(
-                          (item) => item.id === data.deviceType
-                        )||null}
-                        isOptionEqualToValue={(option, value) =>
-                          value.id === 0 ||
-                          value.id === "" ||
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) =>
-                          option.name ? option.name : ""
-                        }
-                        onChange={(event, value) => {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            deviceType: value !== null ? value.id : null,
-                          }));
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="deviceType"
-                            required
-                          />
-                        )}
-                      />
-                    </Grid>
+              <Autocomplete
+                id="shiftId"
+                options={ShiftList}
+                value={
+                  ShiftList.find((item) => item.id === data.shiftId) || null
+                }
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    shiftId: value !== null ? value.id : null,
+                  }));
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="shiftId"
+                    required
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Autocomplete
+                id="deviceType"
+                options={TypeList}
+                value={
+                  TypeList.find((item) => item.id === data.deviceType) || null
+                }
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    deviceType: value !== null ? value.id : null,
+                  }));
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="deviceType"
+                    required
+                  />
+                )}
+              />
+            </Grid>
             <Grid item xs={12} md={1}>
               <Button
                 variant="contained"
@@ -299,7 +309,17 @@ function DeviceCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item xs={12} md={2}>
+              <Button
+                variant="contained"
+                size="medium"
+                color="secondary"
+                onClick={ontestConnection}
+              >
+                <FormattedMessage {...messages.testConnection} />
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={2}>
               <Button
                 variant="contained"
                 size="medium"

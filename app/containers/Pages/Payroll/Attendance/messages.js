@@ -977,6 +977,74 @@ devicePass: {
     id: `${scope}.verificationRate`,
     defaultMessage: 'Verification Rate',
   },
-
+  // DeviceCreate
+  testConnection: {
+    id: `${scope}.testConnection`,
+    defaultMessage: 'test Connection',
+  },
+  // AttendanceRatioReport
+  fromDateErrorMes: {
+    id: `${scope}.fromDateErrorMes`,
+    defaultMessage: 'Must to choose From Date',
+  },
+  totalWorking: {
+    id: `${scope}.totalWorking`,
+    defaultMessage: 'Total Working',
+  },
+  currentAttendance: {
+    id: `${scope}.currentAttendance`,
+    defaultMessage: 'Current Attendance',
+  },
+  diff: {
+    id: `${scope}.diff`,
+    defaultMessage: 'Diff',
+  },
+  // MonthlyAttendanceReport 
+  dateWithPeriodErrorMes: {
+    id: `${scope}.dateWithPeriodErrorMes`,
+    defaultMessage: 'Must to choose From Date And To Date , The date must not exceed 30 days',
+  },
+  showVacationName: {
+    id: `${scope}.showVacationName`,
+    defaultMessage: 'Show vacation name',
+  },
+  // AttendanceDeviceReport
+  device: {
+    id: `${scope}.device`,
+    defaultMessage: 'Device',
+  },
+  recordCount: {
+    id: `${scope}.recordCount`,
+    defaultMessage: 'Record Count',
+  },
+  MinDate: {
+    id: `${scope}.MinDate`,
+    defaultMessage: 'Min Date',
+  },
+  MaxDate: {
+    id: `${scope}.MaxDate`,
+    defaultMessage: 'Max Date',
+  },
+  // ContinuousAbsenceReport
+  daysCount: {
+    id: `${scope}.daysCount`,
+    defaultMessage: 'Days Count',
+  },
+  dateErrorMes: {
+    id: `${scope}.dateErrorMes`,
+    defaultMessage: 'Must To Choose From Date And To Date',
+  },
+  fromDate: {
+    id: `${scope}.fromDate`,
+    defaultMessage: 'From Date',
+  },
+  toDate: {
+    id: `${scope}.toDate`,
+    defaultMessage: 'To Date',
+  },
+  EmployeesWithAttendenceRules: {
+    id: `${scope}.EmployeesWithAttendenceRules`,
+    defaultMessage: 'Employees With Attendence Rules',
+  },
 });
 

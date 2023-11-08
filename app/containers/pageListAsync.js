@@ -1100,6 +1100,34 @@ export const ManHoursReport = loadable(
   }
 );
 
+export const AttendanceRatioReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/AttendanceRatioReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MonthlyAttendanceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/MonthlyAttendanceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const AttendanceDeviceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/AttendanceDeviceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ContinuousAbsenceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/ContinuousAbsenceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

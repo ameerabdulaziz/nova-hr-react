@@ -1128,7 +1128,6 @@
   "boilerplate.containers.Payroll.Attendance.per": "اذن",
   "boilerplate.containers.Payroll.Attendance.mission": "مأمورية",
   "boilerplate.containers.Payroll.Attendance.shiftVacancy": "اجازةوردية",
-  "boilerplate.containers.Payroll.Attendance.absence": "غياب",
 
   "boilerplate.containers.Payroll.Attendance.AbsenceRules": "محددات الغياب",
   "boilerplate.containers.Payroll.Attendance.DelayRules": "محددات مرات التأخير والوقت المتمم",
@@ -1343,9 +1342,26 @@
     "boilerplate.containers.Payroll.Attendance.workingHours":"ساعات العمل",
     "boilerplate.containers.Payroll.Attendance.verificationRate":"نسبة التحقق %",
     "boilerplate.containers.Payroll.Attendance.date":"التاريخ",
+    "boilerplate.containers.Payroll.Attendance.testConnection":"اختبار الاتصال",
+
+    "boilerplate.containers.Payroll.Attendance.totalWorking":"عدد العاملين",
+    "boilerplate.containers.Payroll.Attendance.fromDateErrorMes":"يجب اختيار تاريخ البدا",
+    "boilerplate.containers.Payroll.Attendance.currentAttendance":"قوة العمل",
+    "boilerplate.containers.Payroll.Attendance.diff":"الفرق",
   
-  
-  
+    "boilerplate.containers.Payroll.Attendance.dateWithPeriodErrorMes":"يجب اختيار تاريخ البدا و تاريخ الانتهاء , الفترة يجب أن لا تتخطى ٣٠ يوم",
+    "boilerplate.containers.Payroll.Attendance.showVacationName":"عرض اسماء الاجازات",
+
+    "boilerplate.containers.Payroll.Attendance.device":"اسم الجهاز",
+    "boilerplate.containers.Payroll.Attendance.recordCount":"عدد القراءات",
+    "boilerplate.containers.Payroll.Attendance.MinDate":"اول تاريخ",
+    "boilerplate.containers.Payroll.Attendance.MaxDate":"اخر تاريخ",
+
+    "boilerplate.containers.Payroll.Attendance.daysCount":"عدد الايام",
+    "boilerplate.containers.Payroll.Attendance.dateErrorMes":"يجب اختيار تاريخ البدا وتاريخ الانتهاء",
+    "boilerplate.containers.Payroll.Attendance.fromDate":"من تاريح",
+    "boilerplate.containers.Payroll.Attendance.toDate":"الي تاريخ",
+    "boilerplate.containers.Payroll.Attendance.EmployeesWithAttendenceRules":"الخاضعين لقواعد الحضور فقط",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
