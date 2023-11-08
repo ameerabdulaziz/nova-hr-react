@@ -45,7 +45,7 @@ function BreakTimeReport(props) {
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
-        Type: searchData.perDepartment ? 1 : searchData.details ? 2 : null
+        Type: searchData.perDepartment ? 2 : searchData.details ? 1 : null
           };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
