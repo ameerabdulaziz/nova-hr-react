@@ -147,6 +147,14 @@ const AttendanceReportsData = (locale) => {
 
     return data.data;
   };
+
+  api.StatisticalReport2Api = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetStatisticalReport2/${locale}?${queryString}`);
+
+    return data.data;
+  };
   
 
 

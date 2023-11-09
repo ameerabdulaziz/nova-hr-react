@@ -312,6 +312,7 @@ import {
   RegisterInAndOutReport,
   ManualAttendanceReport,
   BreakTimeReport,
+  StatisticalReport2,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -957,6 +958,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/GetBreakTimeReport'
           component={BreakTimeReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/StatisticalReport2'
+          component={StatisticalReport2}
         />
 
 

@@ -1149,6 +1149,13 @@ export const BreakTimeReport = loadable(
   }
 );
 
+export const StatisticalReport2 = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/StatisticalReport2'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

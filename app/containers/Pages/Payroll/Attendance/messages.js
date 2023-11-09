@@ -1101,5 +1101,138 @@ devicePass: {
     id: `${scope}.details`,
     defaultMessage: 'Details',
   },
+  // StatisticalReport2
+  Code: {
+    id: `${scope}.Code`,
+    defaultMessage: 'Code',
+  },
+  vacBalance: {
+    id: `${scope}.vacBalance`,
+    defaultMessage: 'Vac.Balance',
+  },
+  Absence: {
+    id: `${scope}.Absence`,
+    defaultMessage: 'Absence',
+  },
+  leaves: {
+    id: `${scope}.leaves`,
+    defaultMessage: 'leaves',
+  },
+  casualL: {
+    id: `${scope}.casualL`,
+    defaultMessage: 'Casual L.',
+  },
+  deductedL: {
+    id: `${scope}.deductedL`,
+    defaultMessage: 'Deducted L.',
+  },
+  payedL: {
+    id: `${scope}.payedL`,
+    defaultMessage: 'Payed L.',
+  },
+  sickL: {
+    id: `${scope}.sickL`,
+    defaultMessage: 'Sick L.',
+  },
+  workedOfficial: {
+    id: `${scope}.workedOfficial`,
+    defaultMessage: 'Worked Official',
+  },
+  Official: {
+    id: `${scope}.Official`,
+    defaultMessage: 'Official',
+  },
+  workedOfficialT: {
+    id: `${scope}.workedOfficialT`,
+    defaultMessage: 'Worked Official T.',
+  },
+  workedWeekendCount: {
+    id: `${scope}.workedWeekendCount`,
+    defaultMessage: 'Worked Weekend Count',
+  },
+  Weekend: {
+    id: `${scope}.Weekend`,
+    defaultMessage: 'Weekend',
+  },
+  workedWeekendT: {
+    id: `${scope}.workedWeekendT`,
+    defaultMessage: 'Worked Weekend T.',
+  },
+  missingSignIn: {
+    id: `${scope}.missingSignIn`,
+    defaultMessage: 'Missing Sign In',
+  },
+  missingSignOut: {
+    id: `${scope}.missingSignOut`,
+    defaultMessage: 'Missing Sign Out',
+  },
+  total: {
+    id: `${scope}.total`,
+    defaultMessage: 'Total',
+  },
+  dayPermissionC: {
+    id: `${scope}.dayPermissionC`,
+    defaultMessage: 'Day Permission C.',
+  },
+  dayPermissionT: {
+    id: `${scope}.dayPermissionT`,
+    defaultMessage: 'Day Permission T.',
+  },
+  nightPermissionC: {
+    id: `${scope}.nightPermissionC`,
+    defaultMessage: 'Night Permission C.',
+  },
+  nightPermissionT: {
+    id: `${scope}.nightPermissionT`,
+    defaultMessage: 'Night Permission T.',
+  },
+  lateCount: {
+    id: `${scope}.lateCount`,
+    defaultMessage: 'Late Count',
+  },
+  lateTime: {
+    id: `${scope}.lateTime`,
+    defaultMessage: 'Late Time',
+  },
+  leaveEarlyC: {
+    id: `${scope}.leaveEarlyC`,
+    defaultMessage: 'Leave Early C.',
+  },
+  leaveEarlyT: {
+    id: `${scope}.leaveEarlyT`,
+    defaultMessage: 'Leave Early T.',
+  },
+  dayMissionsCount: {
+    id: `${scope}.dayMissionsCount`,
+    defaultMessage: 'Day Missions Count',
+  },
+  dayMissionT: {
+    id: `${scope}.dayMissionT`,
+    defaultMessage: 'Day Mission T',
+  },
+  nightMissionC: {
+    id: `${scope}.nightMissionC`,
+    defaultMessage: 'Night Mission C.',
+  },
+  nightMissionT: {
+    id: `${scope}.nightMissionT`,
+    defaultMessage: 'Night Mission T.',
+  },
+  fullDayMissions: {
+    id: `${scope}.fullDayMissions`,
+    defaultMessage: 'Full Day Missions',
+  },
+  overTimeC: {
+    id: `${scope}.overTimeC`,
+    defaultMessage: 'OverTime C.',
+  },
+  overTimeT: {
+    id: `${scope}.overTimeT`,
+    defaultMessage: 'OverTime T.',
+  },
+  confirmedOverTime: {
+    id: `${scope}.confirmedOverTime`,
+    defaultMessage: 'Confirmed OverTime',
+  },
 });
 
