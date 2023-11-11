@@ -1898,6 +1898,8 @@
   "boilerplate.containers.Payroll.recruitment.section": "القطاع",
   "boilerplate.containers.Payroll.recruitment.expireDate": "تاريخ الانتهاء",
 
+  "boilerplate.containers.Payroll.cv.home": "المنزل",
+  "boilerplate.containers.Payroll.cv.site": "المكتب",
   "boilerplate.containers.Payroll.cv.email": "البريد الإلكتروني",
   "boilerplate.containers.Payroll.cv.phone": "الهاتف",
   "boilerplate.containers.Payroll.cv.contact": "أبق علي تواصل",

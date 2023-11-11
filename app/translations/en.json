@@ -1859,6 +1859,8 @@
   "boilerplate.containers.Payroll.recruitment.description": "Description",
   "boilerplate.containers.Payroll.recruitment.section": "Section",
 
+  "boilerplate.containers.Payroll.cv.home": "Home",
+  "boilerplate.containers.Payroll.cv.site": "Site",
   "boilerplate.containers.Payroll.cv.email": "Email",
   "boilerplate.containers.Payroll.cv.phone": "Phone",
   "boilerplate.containers.Payroll.cv.contact": "Contact",

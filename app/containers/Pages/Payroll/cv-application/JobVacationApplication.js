@@ -24,11 +24,11 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FileViewerPopup from '../../../../components/Popup/fileViewerPopup';
 import PayRollLoader from '../Component/PayRollLoader';
+import GeneralListApis from '../api/GeneralListApis';
 import CoursesPopup from './components/CoursesPopup';
 import ExperiencePopup from './components/ExperiencePopup';
 import Section from './components/Section';
 import messages from './messages';
-import GeneralListApis from '../api/GeneralListApis';
 
 function JobVacationApplication(props) {
   const { intl } = props;
@@ -46,7 +46,16 @@ function JobVacationApplication(props) {
   const [jobList, setJobList] = useState([]);
   const [socialStatusList, setSocialStatusList] = useState([]);
   const [genderList, setGenderList] = useState([]);
-  const [workTypesList, setWorkTypesList] = useState([]);
+  const [workTypesList, setWorkTypesList] = useState([
+    {
+      id: 1,
+      name: intl.formatMessage(messages.site),
+    },
+    {
+      id: 2,
+      name: intl.formatMessage(messages.home),
+    },
+  ]);
   const [graduationGradList, setGraduationGradList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
 
@@ -100,8 +109,26 @@ function JobVacationApplication(props) {
       const departments = await GeneralListApis(locale).GetDepartmentList();
       setDepartmentList(departments);
 
+      const militaryStatus = await GeneralListApis(locale).GetMilitaryStatusList();
+      setMilitaryStatusList(militaryStatus);
+
       const jobs = await GeneralListApis(locale).GetJobList();
       setJobList(jobs);
+
+      const gender = await GeneralListApis(locale).GetGenderList();
+      setGenderList(gender);
+
+      const socialStatus = await GeneralListApis(locale).GetSocialStatusList();
+      setSocialStatusList(socialStatus);
+
+      const grads = await GeneralListApis(locale).GetGradeList();
+      setGraduationGradList(grads);
+
+      const qualification = await GeneralListApis(locale).GetQualificationsList();
+      setQualificationList(qualification);
+
+      const IDTypes = await GeneralListApis(locale).GetIdentityTypeList();
+      setIDTypeList(IDTypes);
     } catch (error) {
       //
     } finally {
