@@ -181,6 +181,13 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetQualificationsList = async () => {
+    const result = await axiosInstance.get(
+      `MdQualifications/GetListModel/${locale}`
+    );
+    return result.data;
+  };
+
   Apis.GetIdentityTypeList = async () => {
     const result = await axiosInstance.get(
       `MdIdentityType/GetListModel/${locale}`
