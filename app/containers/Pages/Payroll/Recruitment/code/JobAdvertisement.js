@@ -66,6 +66,7 @@ function JobAdvertisement(props) {
   const columns = [
     {
       name: 'id',
+      label: intl.formatMessage(messages.id),
       options: {
         filter: false,
       },

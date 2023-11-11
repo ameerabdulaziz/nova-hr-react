@@ -13,12 +13,13 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { EditTable } from '../../../../Tables/demos';
+import AlertPopup from '../../Component/AlertPopup';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
-import api from '../api/JobAdvertisementData';
+import api, { tableData } from '../api/JobAdvertisementData';
 import messages from '../messages';
 
 function JobAdvertisementCreate(props) {
@@ -32,44 +33,65 @@ function JobAdvertisementCreate(props) {
 
   const title = localStorage.getItem('MenuName');
 
+  const [openParentPopup, setOpenParentPopup] = useState(false);
   const [jobList, setJobList] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [confirmMessage, setConfirmMessage] = useState('');
 
   const [formInfo, setFormInfo] = useState({
     id,
 
-    JobId: '',
-    ExpireDate: new Date(),
-    JobAdvertisementCode: '',
-    JobDescription: '',
-    Experiance: '',
-    OrganizationId: '',
+    jobId: '',
+    expireDate: new Date(),
+    jobAdvertisementCode: '',
+    jobDescription: '',
+    experiance: '',
+    organizationId: '',
+    recJobRequirement: [],
   });
 
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
+  const save = async () => {
+    setIsLoading(true);
+
+    const formData = { ...formInfo };
+
+    formData.expireDate = formateDate(formData.expireDate);
+    formData.recJobRequirement = dataTable.map((item) => ({
+      description: item.description,
+      jobAdvertisementId: id,
+      id: item.index,
+    }));
+
+    try {
+      await api(locale).save(formData);
+      toast.success(notif.saved);
+      history.push('/app/Pages/Recruitment/JobAdvertisement');
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    if (dataTable.length === 0) {
-      toast.error(intl.formatMessage(messages.enterDetailsData));
-    } else {
-      const formData = { ...formInfo };
+    setIsLoading(true);
 
-      formData.ExpireDate = formateDate(formData.ExpireDate);
-
-      setIsLoading(true);
-
-      try {
-        await api(locale).save(formData);
-        toast.success(notif.saved);
-        history.push('/app/Pages/Recruitment/JobAdvertisement');
-      } catch (error) {
-        //
-      } finally {
+    try {
+      const response = await api(locale).CheckManPower(formInfo.organizationId, formInfo.jobId);
+      if (response) {
+        setOpenParentPopup(true);
         setIsLoading(false);
+        setConfirmMessage(response);
+      } else {
+        save();
       }
+    } catch (error) {
+      //
     }
   };
 
@@ -80,18 +102,19 @@ function JobAdvertisementCreate(props) {
       const organizations = await GeneralListApis(locale).GetDepartmentList();
       setOrganizationList(organizations);
 
-      const jobs = await GeneralListApis(locale).GetJobList();
+      const jobs = await api(locale).GetJobList();
       setJobList(jobs);
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
-        setFormInfo(prev=>({
+        setFormInfo((prev) => ({
           ...prev,
-          Experiance: dataApi.experiance,
-          ExpireDate: dataApi.expireDate,
-          JobId: dataApi.job,
-          JobAdvertisementCode: dataApi.jobAdvertisementCode,
-          JobDescription: dataApi.jobDescription,
-          OrganizationId: dataApi.OrganizationId,
+          experiance: dataApi.experiance,
+          expireDate: dataApi.expireDate,
+          jobId: dataApi.jobId,
+          jobAdvertisementCode: dataApi.jobAdvertisementCode,
+          jobDescription: dataApi.jobDescription,
+          recJobRequirement: dataApi.recJobRequirement,
+          organizationId: dataApi.organizationId,
         }));
       }
     } catch (error) {
@@ -126,8 +149,8 @@ function JobAdvertisementCreate(props) {
   const onJobAutoCompleteChange = (value) => {
     setFormInfo((prev) => ({
       ...prev,
-      JobId: value !== null ? value.id : null,
-      JobAdvertisementCode: value !== null ? value.id : null,
+      jobId: value !== null ? value.id : null,
+      jobAdvertisementCode: value !== null ? value.id : null,
     }));
   };
 
@@ -151,7 +174,7 @@ function JobAdvertisementCreate(props) {
       hidden: true,
     },
     {
-      name: 'requirements',
+      name: 'description',
       label: 'requirements',
       type: 'text',
       initialValue: '',
@@ -176,8 +199,20 @@ function JobAdvertisementCreate(props) {
     },
   ];
 
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
+
+      <AlertPopup
+        handleClose={handleClose}
+        open={openParentPopup}
+        messageData={confirmMessage}
+        callFun={save}
+      />
+
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' desc='' title={title}>
           <Grid container spacing={3} direction='row'>
@@ -185,7 +220,7 @@ function JobAdvertisementCreate(props) {
               <Autocomplete
                 options={jobList}
                 value={
-                  jobList.find((item) => item.id === formInfo.JobId) ?? null
+                  jobList.find((item) => item.id === formInfo.jobId) ?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -207,9 +242,9 @@ function JobAdvertisementCreate(props) {
 
             <Grid item xs={12} md={4}>
               <TextField
-                name='JobAdvertisementCode'
+                name='jobAdvertisementCode'
                 onChange={onInputChange}
-                value={formInfo.JobAdvertisementCode}
+                value={formInfo.jobAdvertisementCode}
                 label={intl.formatMessage(messages.jobCode)}
                 className={classes.field}
                 variant='outlined'
@@ -220,8 +255,8 @@ function JobAdvertisementCreate(props) {
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DatePicker
                   label={intl.formatMessage(messages.expireDate)}
-                  value={formInfo.ExpireDate}
-                  onChange={(date) => onDatePickerChange(date, 'ExpireDate')}
+                  value={formInfo.expireDate}
+                  onChange={(date) => onDatePickerChange(date, 'expireDate')}
                   className={classes.field}
                   renderInput={(params) => (
                     <TextField required {...params} variant='outlined' />
@@ -232,8 +267,8 @@ function JobAdvertisementCreate(props) {
 
             <Grid item xs={12} md={4}>
               <TextField
-                name='Experiance'
-                value={formInfo.Experiance}
+                name='experiance'
+                value={formInfo.experiance}
                 onChange={onNumericInputChange}
                 label={intl.formatMessage(messages.experience)}
                 className={classes.field}
@@ -247,12 +282,12 @@ function JobAdvertisementCreate(props) {
                 options={organizationList}
                 value={
                   organizationList.find(
-                    (item) => item.id === formInfo.OrganizationId
+                    (item) => item.id === formInfo.organizationId
                   ) ?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onAutoCompleteChange(value, 'OrganizationId')
+                onChange={(_, value) => onAutoCompleteChange(value, 'organizationId')
                 }
                 renderInput={(params) => (
                   <TextField
@@ -266,8 +301,8 @@ function JobAdvertisementCreate(props) {
 
             <Grid item xs={12}>
               <TextField
-                name='JobDescription'
-                value={formInfo.JobDescription}
+                name='jobDescription'
+                value={formInfo.jobDescription}
                 onChange={onInputChange}
                 label={intl.formatMessage(messages.description)}
                 className={classes.field}
@@ -301,8 +336,8 @@ function JobAdvertisementCreate(props) {
 
         <EditTable
           anchorTable={anchorTable}
-          title=''
-          // API={tableData(locale, id)}
+          title={`${id}/${formInfo.jobId || 0}/${locale}`}
+          API={tableData(`${id}/${formInfo.jobId || 0}/${locale}`)}
           IsNotSave={true}
         />
       </form>
