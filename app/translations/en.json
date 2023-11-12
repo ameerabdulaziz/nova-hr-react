@@ -1849,9 +1849,11 @@
   "boilerplate.containers.Payroll.medicalInsurance.privlMedCareNumber": "Priv.Medi.Care Number",
   "boilerplate.containers.Payroll.medicalInsurance.All": "All",
 
+  "boilerplate.containers.Payroll.recruitment.id": "Id",
   "boilerplate.containers.Payroll.recruitment.jobName": "Job Name",
   "boilerplate.containers.Payroll.recruitment.jobCode": "Job Code",
   "boilerplate.containers.Payroll.recruitment.experience": "Experience",
+  "boilerplate.containers.Payroll.recruitment.expireDate": "Expire Date",
   "boilerplate.containers.Payroll.recruitment.department": "Department",
   "boilerplate.containers.Payroll.recruitment.organization": "Organization",
   "boilerplate.containers.Payroll.recruitment.branch": "Branch",
@@ -1860,6 +1862,8 @@
   "boilerplate.containers.Payroll.recruitment.description": "Description",
   "boilerplate.containers.Payroll.recruitment.section": "Section",
 
+  "boilerplate.containers.Payroll.cv.home": "Home",
+  "boilerplate.containers.Payroll.cv.site": "Site",
   "boilerplate.containers.Payroll.cv.email": "Email",
   "boilerplate.containers.Payroll.cv.phone": "Phone",
   "boilerplate.containers.Payroll.cv.contact": "Contact",

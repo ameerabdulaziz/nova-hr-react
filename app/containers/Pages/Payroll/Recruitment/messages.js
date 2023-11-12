@@ -48,4 +48,8 @@ export default defineMessages({
     id: `${scope}.enterDetailsData`,
     defaultMessage: 'enterDetailsData',
   },
+  id: {
+    id: `${scope}.id`,
+    defaultMessage: 'id',
+  },
 });

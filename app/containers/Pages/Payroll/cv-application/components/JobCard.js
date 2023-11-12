@@ -7,7 +7,7 @@ import {
   DialogTitle,
   Divider,
   Stack,
-  Typography,
+  Typography
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -30,30 +30,31 @@ function JobCard(props) {
   return (
     <div className='cv-job-card'>
       <Link to={`/public/JobVacation/Application/${job.id}`} className='title'>
-        {job.title}
+        {job.job}
       </Link>
 
       <Stack direction='row' gap={1} alignItems='center'>
         <Typography variant='body2' color='gray'>
-          {job.code}
+          {job.jobAdvertisementCode}
         </Typography>
 
         <Divider orientation='vertical' flexItem />
 
         <Typography variant='body2' color='gray'>
-          {job.experience} {intl.formatMessage(messages.yearsOfExperience)}
+          {job.organizationName}
         </Typography>
+
       </Stack>
 
       <Typography variant='body2' color='gray'>
-        {job.organization}
+        {job.experiance} {intl.formatMessage(messages.yearsOfExperience)}
       </Typography>
 
       <Typography variant='body2' mt={2}>
-        {job.description.substr(0, 80)}
+        {job.jobDescription.substr(0, 80)}
       </Typography>
 
-      {job.requirement.length > 0 && (
+      {job.jobRequirementList.length > 0 && (
         <Stack
           mt={2}
           direction='row'
@@ -61,7 +62,7 @@ function JobCard(props) {
           alignItems='center'
           flexWrap='wrap'
         >
-          {job.requirement.slice(0, 5).map((item, index) => (
+          {job.jobRequirementList.slice(0, 5).map((item, index) => (
             <Chip label={item} size='small' key={index} />
           ))}
         </Stack>
@@ -79,33 +80,33 @@ function JobCard(props) {
         PaperProps={{
           sx: (th) => ({
             [th.breakpoints.down('md')]: {
-              width: '100%'
+              width: '100%',
             },
-            width: '500%'
+            width: '500%',
           }),
         }}
       >
-        <DialogTitle>{job.title}</DialogTitle>
+        <DialogTitle>{job.job}</DialogTitle>
         <DialogContent>
           <Stack direction='row' gap={1} alignItems='center'>
             <Typography variant='body2' color='gray'>
-              {job.code}
+              {job.jobAdvertisementCode}
             </Typography>
 
             <Divider orientation='vertical' flexItem />
 
             <Typography variant='body2' color='gray'>
-              {job.organization}
+              {job.organizationName}
             </Typography>
 
             <Divider orientation='vertical' flexItem />
 
             <Typography variant='body2' color='gray'>
-              {job.experience} {intl.formatMessage(messages.yearsOfExperience)}
+              {job.experiance} {intl.formatMessage(messages.yearsOfExperience)}
             </Typography>
           </Stack>
 
-          {job.requirement.length > 0 && (
+          {job.jobRequirementList.length > 0 && (
             <Stack
               mt={2}
               direction='row'
@@ -113,19 +114,21 @@ function JobCard(props) {
               alignItems='center'
               flexWrap='wrap'
             >
-              {job.requirement.map((item, index) => (
+              {job.jobRequirementList.map((item, index) => (
                 <Chip label={item} size='small' key={index} />
               ))}
             </Stack>
           )}
 
           <Typography variant='body2' mt={2}>
-            {job.description}
+            {job.jobDescription}
           </Typography>
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={closePopup}>{intl.formatMessage(messages.close)}</Button>
+          <Button onClick={closePopup}>
+            {intl.formatMessage(messages.close)}
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

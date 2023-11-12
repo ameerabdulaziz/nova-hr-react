@@ -231,4 +231,12 @@ export default defineMessages({
     id: `${scope}.backToJobVacation`,
     defaultMessage: 'backToJobVacation',
   },
+  site: {
+    id: `${scope}.site`,
+    defaultMessage: 'site',
+  },
+  home: {
+    id: `${scope}.home`,
+    defaultMessage: 'home',
+  },
 });

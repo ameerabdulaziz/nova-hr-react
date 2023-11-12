@@ -1888,6 +1888,7 @@
   "boilerplate.containers.Payroll.medicalInsurance.privlMedCareNumber": "رقم البطاقة العلاجية",
   "boilerplate.containers.Payroll.medicalInsurance.All": "الكل",
 
+  "boilerplate.containers.Payroll.recruitment.id": "الكود",
   "boilerplate.containers.Payroll.recruitment.jobName": "اسم الوظيقة",
   "boilerplate.containers.Payroll.recruitment.jobCode": "كود الوظيفة",
   "boilerplate.containers.Payroll.recruitment.experience": "سنوات الخبرة",
@@ -1900,6 +1901,8 @@
   "boilerplate.containers.Payroll.recruitment.section": "القطاع",
   "boilerplate.containers.Payroll.recruitment.expireDate": "تاريخ الانتهاء",
 
+  "boilerplate.containers.Payroll.cv.home": "المنزل",
+  "boilerplate.containers.Payroll.cv.site": "المكتب",
   "boilerplate.containers.Payroll.cv.email": "البريد الإلكتروني",
   "boilerplate.containers.Payroll.cv.phone": "الهاتف",
   "boilerplate.containers.Payroll.cv.contact": "أبق علي تواصل",
