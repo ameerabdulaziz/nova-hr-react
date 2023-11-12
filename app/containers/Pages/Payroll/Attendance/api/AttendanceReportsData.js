@@ -155,6 +155,14 @@ const AttendanceReportsData = (locale) => {
 
     return data.data;
   };
+
+  api.WorkinHoursByTimeReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetWorkinHoursByTimeReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
   
 
 
