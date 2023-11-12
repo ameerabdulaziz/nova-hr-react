@@ -17,7 +17,7 @@ function PublicRoutes() {
         <Switch>
           <Route path='/public/JobVacation/' exact component={JobVacation} />
           <Route
-            path='/public/JobVacation/Application/:jobId'
+            path='/public/JobVacation/Application/'
             exact
             component={JobVacationApplication}
           />

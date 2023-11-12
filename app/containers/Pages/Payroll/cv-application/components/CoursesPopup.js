@@ -10,19 +10,36 @@ import {
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import messages from '../messages';
 
 function CoursesPopup(props) {
   const {
-    intl, isOpen, setIsOpen, onSave, selectedCourse
+    intl, isOpen, setIsOpen, onSave, selectedCourse, setSelectedCourse
   } = props;
 
   const [formInfo, setFormInfo] = useState({
-    title: '',
+    courseName: '',
     endDate: null,
+    id: null,
   });
+
+  useEffect(() => {
+    if (isOpen && selectedCourse) {
+      setFormInfo({
+        courseName: selectedCourse?.courseName || '',
+        endDate: selectedCourse?.endDate || null,
+        id: selectedCourse?.id || null,
+      });
+    } else {
+      setFormInfo({
+        courseName: '',
+        endDate: null,
+        id: null,
+      });
+    }
+  }, [isOpen]);
 
   const onInputChange = (evt) => {
     setFormInfo((prev) => ({
@@ -37,11 +54,13 @@ function CoursesPopup(props) {
 
   const onCoursesPopupClose = () => {
     setIsOpen(false);
+    setSelectedCourse(null);
   };
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
     onSave(formInfo);
+
     setIsOpen(false);
   };
 
@@ -68,8 +87,8 @@ function CoursesPopup(props) {
         <Grid container mt={1} spacing={2}>
           <Grid item xs={12} lg={6}>
             <TextField
-              name='title'
-              value={formInfo.title}
+              name='courseName'
+              value={formInfo.courseName}
               onChange={onInputChange}
               label={intl.formatMessage(messages.courseTitle)}
               fullWidth
@@ -108,6 +127,7 @@ CoursesPopup.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
+  setSelectedCourse: PropTypes.func.isRequired,
   selectedCourse: PropTypes.object,
   intl: PropTypes.object.isRequired,
 };

@@ -7,7 +7,12 @@ body.cv-layout-dark .cv-layout .cv-section {
 	background-color: #1c2136;
 }
 
-body.cv-layout-dark .cv-layout .cv-job-card ,body.cv-layout-dark  .cv-layout .cv-form-card{
+body.cv-layout-dark .cv-layout .single-course .title {
+	color: #fff;
+}
+
+body.cv-layout-dark .cv-layout .cv-job-card,
+body.cv-layout-dark .cv-layout .cv-form-card {
 	background-color: #181c31;
 }
 
@@ -141,7 +146,7 @@ body.cv-layout-dark .MuiChip-root.MuiChip-filled.MuiChip-sizeSmall {
 	z-index: 2;
 }
 
-.cv-layout .cv-section.reduce-padding{
+.cv-layout .cv-section.reduce-padding {
 	padding: 2rem 0;
 }
 
@@ -192,9 +197,70 @@ body.cv-layout-dark .MuiChip-root.MuiChip-filled.MuiChip-sizeSmall {
 	height: 100%;
 }
 
+/* course card */
+.cv-layout .single-course {
+	border: 1px solid #ddd;
+	padding: 1rem;
+	border-radius: 10px;
+	position: relative;
+	height: 100%;
+}
+
+.cv-layout .single-course .title {
+	color: #000;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.cv-layout .single-course .date {
+	color: #a8a6a6;
+	font-size: 0.9rem;
+}
+
+.cv-layout .create-edit-card .action-btn {
+	font-size: 0.7rem;
+	position: absolute;
+	top: -12px;
+	background-color: #eee;
+}
+
+.cv-layout .create-edit-card .action-btn.edit-btn {
+	right: 5px;
+}
+
+.cv-layout .create-edit-card .action-btn.delete-btn {
+	right: 35px;
+}
+
+.cv-layout .create-edit-card .action-btn svg {
+	font-size: 1rem;
+}
+
+/* experience card */
+.cv-layout .single-exp-card {
+	border: 1px solid #ddd;
+	padding: 1rem;
+	border-radius: 10px;
+	position: relative;
+	height: 100%;
+}
+
+.cv-layout .single-exp-card .title {
+	color: #000;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.cv-layout .single-exp-card .info {
+	color: #a8a6a6;
+	font-size: 0.9rem;
+}
+
+/* job card */
 .cv-layout .cv-job-card .title {
 	color: var(--main-color);
 	text-decoration: none;
+	cursor: pointer;
 	font-size: 1.2rem;
 	font-weight: bold;
 }

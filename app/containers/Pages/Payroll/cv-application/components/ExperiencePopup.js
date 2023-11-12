@@ -11,7 +11,7 @@ import {
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import messages from '../messages';
 
@@ -24,16 +24,42 @@ function ExperiencePopup(props) {
     setIsOpen,
     onSave,
     selectedWorkExperience,
+    setSelectedWorkExperience,
   } = props;
 
   const [formInfo, setFormInfo] = useState({
     jobId: null,
-    department: null,
-    workPlace: '',
-    startDate: null,
-    endDate: null,
+    departmentId: null,
+    companyName: '',
+    fromDate: null,
+    toDate: null,
     leaveReason: '',
+    id: null,
   });
+
+  useEffect(() => {
+    if (isOpen && selectedWorkExperience) {
+      setFormInfo({
+        jobId: selectedWorkExperience?.jobId || null,
+        departmentId: selectedWorkExperience?.departmentId || null,
+        companyName: selectedWorkExperience?.companyName || '',
+        fromDate: selectedWorkExperience?.fromDate || null,
+        toDate: selectedWorkExperience?.toDate || null,
+        leaveReason: selectedWorkExperience?.leaveReason || '',
+        id: selectedWorkExperience?.id || null,
+      });
+    } else {
+      setFormInfo({
+        jobId: null,
+        departmentId: null,
+        companyName: '',
+        fromDate: null,
+        toDate: null,
+        leaveReason: '',
+        id: null,
+      });
+    }
+  }, [isOpen]);
 
   const onAutoCompleteChange = (value, name) => {
     setFormInfo((prev) => ({
@@ -55,11 +81,13 @@ function ExperiencePopup(props) {
 
   const onExperiencePopupClose = () => {
     setIsOpen(false);
+    setSelectedWorkExperience(null);
   };
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
     onSave(formInfo);
+
     setIsOpen(false);
   };
 
@@ -113,12 +141,12 @@ function ExperiencePopup(props) {
               options={departmentList}
               value={
                 departmentList.find(
-                  (item) => item.id === formInfo.department
+                  (item) => item.id === formInfo.departmentId
                 ) ?? null
               }
               isOptionEqualToValue={(option, value) => option.id === value.id}
               getOptionLabel={(option) => (option ? option.name : '')}
-              onChange={(_, value) => onAutoCompleteChange(value, 'department')}
+              onChange={(_, value) => onAutoCompleteChange(value, 'departmentId')}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -136,8 +164,8 @@ function ExperiencePopup(props) {
 
           <Grid item xs={12} lg={6}>
             <TextField
-              name='workPlace'
-              value={formInfo.workPlace}
+              name='companyName'
+              value={formInfo.companyName}
               onChange={onInputChange}
               label={intl.formatMessage(messages.workPlace)}
               fullWidth
@@ -160,8 +188,8 @@ function ExperiencePopup(props) {
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DatePicker
                 label={intl.formatMessage(messages.startDate)}
-                value={formInfo.startDate}
-                onChange={(date) => onDatePickerChange(date, 'startDate')}
+                value={formInfo.fromDate}
+                onChange={(date) => onDatePickerChange(date, 'fromDate')}
                 renderInput={(params) => (
                   <TextField {...params} fullWidth variant='outlined' />
                 )}
@@ -173,8 +201,8 @@ function ExperiencePopup(props) {
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DatePicker
                 label={intl.formatMessage(messages.endDate)}
-                value={formInfo.endDate}
-                onChange={(date) => onDatePickerChange(date, 'endDate')}
+                value={formInfo.toDate}
+                onChange={(date) => onDatePickerChange(date, 'toDate')}
                 renderInput={(params) => (
                   <TextField {...params} fullWidth variant='outlined' />
                 )}
@@ -201,6 +229,7 @@ ExperiencePopup.propTypes = {
   departmentList: PropTypes.array.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
+  setSelectedWorkExperience: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   selectedWorkExperience: PropTypes.object,
   intl: PropTypes.object.isRequired,

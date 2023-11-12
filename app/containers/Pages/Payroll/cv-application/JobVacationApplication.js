@@ -1,3 +1,4 @@
+import { BorderColor, Delete } from '@mui/icons-material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import BadgeIcon from '@mui/icons-material/Badge';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
@@ -10,21 +11,25 @@ import {
   FormControlLabel,
   FormGroup,
   Grid,
+  IconButton,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { format } from 'date-fns';
+import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router';
 import FileViewerPopup from '../../../../components/Popup/fileViewerPopup';
 import PayRollLoader from '../Component/PayRollLoader';
 import GeneralListApis from '../api/GeneralListApis';
+import API from './api';
 import CoursesPopup from './components/CoursesPopup';
 import ExperiencePopup from './components/ExperiencePopup';
 import Section from './components/Section';
@@ -32,8 +37,21 @@ import messages from './messages';
 
 function JobVacationApplication(props) {
   const { intl } = props;
+  const history = useHistory();
+  const location = useLocation();
+  const id = location.state?.id ?? 0;
   const locale = useSelector((state) => state.language.locale);
   const validPDFTypes = ['application/pdf', '.pdf', 'pdf'];
+  const workTypesList = [
+    {
+      id: 1,
+      name: intl.formatMessage(messages.site),
+    },
+    {
+      id: 2,
+      name: intl.formatMessage(messages.home),
+    },
+  ];
 
   const [isCVPopupOpen, setIsCVPopupOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,16 +63,6 @@ function JobVacationApplication(props) {
   const [jobList, setJobList] = useState([]);
   const [socialStatusList, setSocialStatusList] = useState([]);
   const [genderList, setGenderList] = useState([]);
-  const [workTypesList, setWorkTypesList] = useState([
-    {
-      id: 1,
-      name: intl.formatMessage(messages.site),
-    },
-    {
-      id: 2,
-      name: intl.formatMessage(messages.home),
-    },
-  ]);
   const [graduationGradList, setGraduationGradList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
 
@@ -66,39 +74,44 @@ function JobVacationApplication(props) {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isCoursePopupOpen, setIsCoursePopupOpen] = useState(false);
 
+  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
+
   const [formInfo, setFormInfo] = useState({
-    fullName: '',
+    id: 0,
+    jobApplicarionId: id,
+
+    empName: '',
     email: '',
     phone: '',
-    militaryStatus: null,
-    avatar: null,
-    cv: null,
-    gender: null,
+    militaryStatusId: null,
+    Image: null,
+    cvdoc: null,
+    genderId: null,
 
-    IDType: null,
-    idNumber: '',
+    identityTypeId: null,
+    idcardNumber: '',
     issuePlace: '',
-    issueDate: null,
+    idcardIssuingDate: null,
 
-    socialStatus: null,
-    childrenNumber: '',
+    socialStatusId: null,
+    childrenNo: '',
     birthDate: null,
     address: '',
-    relativePhoneNumber: '',
-    hasDrivingLicense: false,
-    hasCar: false,
+    relativesPhone: '',
+    drivingLicense: false,
+    haveCar: false,
 
-    qualification: null,
-    graduationPlace: '',
-    graduationDate: null,
+    qualificationId: null,
+    QualificationRelease: '',
+    QualificationDate: null,
     computerSkills: null,
-    graduationGrade: null,
+    GraduationStatusId: null,
 
     jobId: null,
-    salary: '',
-    insuranceNumber: '',
-    linkSource: null,
-    workType: null,
+    expectedSalary: '',
+    SocialInsuranceId: '',
+    sourceLink: null,
+    workingFrom: null,
   });
 
   async function fetchNeededData() {
@@ -108,7 +121,9 @@ function JobVacationApplication(props) {
       const departments = await GeneralListApis(locale).GetDepartmentList();
       setDepartmentList(departments);
 
-      const militaryStatus = await GeneralListApis(locale).GetMilitaryStatusList();
+      const militaryStatus = await GeneralListApis(
+        locale
+      ).GetMilitaryStatusList();
       setMilitaryStatusList(militaryStatus);
 
       const jobs = await GeneralListApis(locale).GetJobList();
@@ -123,13 +138,17 @@ function JobVacationApplication(props) {
       const grads = await GeneralListApis(locale).GetGradeList();
       setGraduationGradList(grads);
 
-      const qualification = await GeneralListApis(locale).GetQualificationsList();
+      const qualification = await GeneralListApis(
+        locale
+      ).GetQualificationsList();
       setQualificationList(qualification);
 
       const IDTypes = await GeneralListApis(locale).GetIdentityTypeList();
       setIDTypeList(IDTypes);
 
-      const linkSources = await GeneralListApis(locale).GetRecHiringSourceList();
+      const linkSources = await GeneralListApis(
+        locale
+      ).GetRecHiringSourceList();
       setLinkSourceList(linkSources);
     } catch (error) {
       //
@@ -141,6 +160,18 @@ function JobVacationApplication(props) {
   useEffect(() => {
     fetchNeededData();
   }, []);
+
+  useEffect(() => {
+    if (selectedCourse) {
+      setIsCoursePopupOpen(true);
+    }
+  }, [selectedCourse]);
+
+  useEffect(() => {
+    if (selectedWorkExperience) {
+      setIsExperiencePopupOpen(true);
+    }
+  }, [selectedWorkExperience]);
 
   const onCVPopupClose = () => {
     setIsCVPopupOpen(false);
@@ -172,7 +203,6 @@ function JobVacationApplication(props) {
     if (selectedWorkExperience) {
       const clonedWorkExp = [...workExperience];
       const index = clonedWorkExp.findIndex((exp) => exp.id === experience.id);
-
       if (index !== -1) {
         clonedWorkExp[index] = experience;
         setWorkExperience(clonedWorkExp);
@@ -181,6 +211,8 @@ function JobVacationApplication(props) {
     } else {
       setWorkExperience((prev) => [...prev, { ...experience, id: uuid() }]);
     }
+
+    setIsExperiencePopupOpen(false);
   };
 
   const onExperienceRemove = (id) => {
@@ -206,6 +238,8 @@ function JobVacationApplication(props) {
     } else {
       setCourses((prev) => [...prev, { ...course, id: uuid() }]);
     }
+
+    setIsCoursePopupOpen(false);
   };
 
   const onCourseRemove = (id) => {
@@ -214,8 +248,16 @@ function JobVacationApplication(props) {
 
     if (indexToRemove !== -1) {
       clonedCourses.splice(indexToRemove, 1);
-      setWorkExperience(clonedCourses);
+      setCourses(clonedCourses);
     }
+  };
+
+  const onCourseEdit = (course) => {
+    setSelectedCourse(course);
+  };
+
+  const onExperienceEdit = (exp) => {
+    setSelectedWorkExperience(exp);
   };
 
   const onExperiencePopupBtnClick = () => {
@@ -226,10 +268,37 @@ function JobVacationApplication(props) {
     setIsCoursePopupOpen(true);
   };
 
-  const onFormSubmit = (evt) => {
+  const onFormSubmit = async (evt) => {
     evt.preventDefault();
+    setIsLoading(true);
 
-    console.log(formInfo);
+    const formData = { ...formInfo };
+
+    formData.idcardIssuingDate = formateDate(formInfo.idcardIssuingDate);
+    formData.QualificationDate = formateDate(formInfo.QualificationDate);
+    formData.birthDate = formateDate(formInfo.birthDate);
+
+    formData.recJobApplicationCourse = courses.map((course) => ({
+      ...course,
+      endDate: formateDate(course.endDate),
+      jobApplicarionId: id,
+    }));
+
+    formData.RecJobApplicationExperience = workExperience.map((exp) => ({
+      ...exp,
+      fromDate: formateDate(exp.fromDate),
+      toDate: formateDate(exp.toDate),
+      jobApplicarionId: id,
+    }));
+
+    try {
+      await API(locale).save(formData);
+      toast.success(notif.saved);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const onInputChange = (evt) => {
@@ -269,7 +338,7 @@ function JobVacationApplication(props) {
       if (evt.target.files[0].size < 10000000) {
         setFormInfo((prev) => ({
           ...prev,
-          avatar: evt.target.files[0],
+          Image: evt.target.files[0],
         }));
       } else {
         toast.error(intl.formatMessage(messages.uploadedFileIsLargerThan1MB));
@@ -281,9 +350,13 @@ function JobVacationApplication(props) {
     if (evt.target.files[0]) {
       setFormInfo((prev) => ({
         ...prev,
-        cv: evt.target.files[0],
+        cvdoc: evt.target.files[0],
       }));
     }
+  };
+
+  const onBackToVacationBtnClick = () => {
+    history.push('/public/JobVacation');
   };
 
   return (
@@ -296,6 +369,7 @@ function JobVacationApplication(props) {
           setIsOpen={setIsExperiencePopupOpen}
           onSave={onExperienceSave}
           selectedWorkExperience={selectedWorkExperience}
+          setSelectedWorkExperience={setSelectedWorkExperience}
         />
 
         <CoursesPopup
@@ -303,6 +377,7 @@ function JobVacationApplication(props) {
           setIsOpen={setIsCoursePopupOpen}
           onSave={onCourseSave}
           selectedCourse={selectedCourse}
+          setSelectedCourse={setSelectedCourse}
         />
 
         <form onSubmit={onFormSubmit}>
@@ -313,8 +388,7 @@ function JobVacationApplication(props) {
                   <Button
                     variant='text'
                     startIcon={<ArrowBackIosNewIcon />}
-                    component={Link}
-                    to='/public/JobVacation'
+                    onClick={onBackToVacationBtnClick}
                   >
                     {intl.formatMessage(messages.backToJobVacation)}
                   </Button>
@@ -332,8 +406,8 @@ function JobVacationApplication(props) {
                       <Grid container spacing={2}>
                         <Grid item xs={12} md={6}>
                           <TextField
-                            name='fullName'
-                            value={formInfo.fullName}
+                            name='empName'
+                            value={formInfo.empName}
                             onChange={onInputChange}
                             label={intl.formatMessage(messages.fullName)}
                             fullWidth
@@ -371,14 +445,14 @@ function JobVacationApplication(props) {
                             options={militaryStatusList}
                             value={
                               militaryStatusList.find(
-                                (item) => item.id === formInfo.militaryStatus
+                                (item) => item.id === formInfo.militaryStatusId
                               ) ?? null
                             }
                             isOptionEqualToValue={(option, value) => option.id === value.id
                             }
                             getOptionLabel={(option) => (option ? option.name : '')
                             }
-                            onChange={(_, value) => onAutoCompleteChange(value, 'militaryStatus')
+                            onChange={(_, value) => onAutoCompleteChange(value, 'militaryStatusId')
                             }
                             renderInput={(params) => (
                               <TextField
@@ -402,14 +476,14 @@ function JobVacationApplication(props) {
                             options={genderList}
                             value={
                               genderList.find(
-                                (item) => item.id === formInfo.gender
+                                (item) => item.id === formInfo.genderId
                               ) ?? null
                             }
                             isOptionEqualToValue={(option, value) => option.id === value.id
                             }
                             getOptionLabel={(option) => (option ? option.name : '')
                             }
-                            onChange={(_, value) => onAutoCompleteChange(value, 'gender')
+                            onChange={(_, value) => onAutoCompleteChange(value, 'genderId')
                             }
                             renderInput={(params) => (
                               <TextField
@@ -427,7 +501,11 @@ function JobVacationApplication(props) {
                         </Grid>
 
                         <Grid item xs={12} md={7}>
-                          <Stack direction='row' alignItems='center' spacing={2}>
+                          <Stack
+                            direction='row'
+                            alignItems='center'
+                            spacing={2}
+                          >
                             <div>
                               <input
                                 accept='.pdf, .doc, .docx'
@@ -436,13 +514,19 @@ function JobVacationApplication(props) {
                                 style={{ display: 'none' }}
                                 onChange={onCVInputChange}
                               />
-                              <label htmlFor='cv-button-file' className='cv-btn'>
+                              <label
+                                htmlFor='cv-button-file'
+                                className='cv-btn'
+                              >
                                 {intl.formatMessage(messages.uploadCV)}
                               </label>
                             </div>
 
-                            {formInfo.cv && (
-                              <span className='link' onClick={onCVPopupBtnClick}>
+                            {formInfo.cvdoc && (
+                              <span
+                                className='link'
+                                onClick={onCVPopupBtnClick}
+                              >
                                 {intl.formatMessage(messages.preview)}
                               </span>
                             )}
@@ -452,7 +536,7 @@ function JobVacationApplication(props) {
                             handleClose={onCVPopupClose}
                             open={isCVPopupOpen}
                             uploadedFileType='pdf'
-                            uploadedFile={formInfo.cv}
+                            uploadedFile={formInfo.cvdoc}
                             validImageTypes={[]}
                             validPDFTypes={validPDFTypes}
                           />
@@ -481,20 +565,30 @@ function JobVacationApplication(props) {
                           })}
                         >
                           <Grid item>
-                            <label className='link' htmlFor='avatar-button-file'>
+                            <label
+                              className='link'
+                              htmlFor='avatar-button-file'
+                            >
                               {intl.formatMessage(messages.uploadImage)}
                             </label>
                           </Grid>
 
                           <Grid item>
-                            <label className='link' htmlFor='avatar-button-file'>
+                            <label
+                              className='link'
+                              htmlFor='avatar-button-file'
+                            >
                               <Avatar
                                 src={
-                                  formInfo.avatar
-                                    ? URL.createObjectURL(formInfo.avatar)
+                                  formInfo.Image
+                                    ? URL.createObjectURL(formInfo.Image)
                                     : undefined
                                 }
-                                sx={{ width: 80, height: 80, cursor: 'pointer' }}
+                                sx={{
+                                  width: 80,
+                                  height: 80,
+                                  cursor: 'pointer',
+                                }}
                               />
                             </label>
                           </Grid>
@@ -517,13 +611,13 @@ function JobVacationApplication(props) {
                         options={IDTypeList}
                         value={
                           IDTypeList.find(
-                            (item) => item.id === formInfo.IDType
+                            (item) => item.id === formInfo.identityTypeId
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
                         }
                         getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'IDType')
+                        onChange={(_, value) => onAutoCompleteChange(value, 'identityTypeId')
                         }
                         renderInput={(params) => (
                           <TextField
@@ -541,8 +635,8 @@ function JobVacationApplication(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='idNumber'
-                        value={formInfo.idNumber}
+                        name='idcardNumber'
+                        value={formInfo.idcardNumber}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.IDNumber)}
                         fullWidth
@@ -565,11 +659,15 @@ function JobVacationApplication(props) {
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(messages.issueDate)}
-                          value={formInfo.issueDate}
-                          onChange={(date) => onDatePickerChange(date, 'issueDate')
+                          value={formInfo.idcardIssuingDate}
+                          onChange={(date) => onDatePickerChange(date, 'idcardIssuingDate')
                           }
                           renderInput={(params) => (
-                            <TextField {...params} fullWidth variant='outlined' />
+                            <TextField
+                              {...params}
+                              fullWidth
+                              variant='outlined'
+                            />
                           )}
                         />
                       </LocalizationProvider>
@@ -590,13 +688,13 @@ function JobVacationApplication(props) {
                         options={socialStatusList}
                         value={
                           socialStatusList.find(
-                            (item) => item.id === formInfo.socialStatus
+                            (item) => item.id === formInfo.socialStatusId
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
                         }
                         getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'socialStatus')
+                        onChange={(_, value) => onAutoCompleteChange(value, 'socialStatusId')
                         }
                         renderInput={(params) => (
                           <TextField
@@ -614,8 +712,8 @@ function JobVacationApplication(props) {
 
                     <Grid item xs={12} md={4}>
                       <TextField
-                        name='childrenNumber'
-                        value={formInfo.childrenNumber}
+                        name='childrenNo'
+                        value={formInfo.childrenNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.childrenNumber)}
                         fullWidth
@@ -631,7 +729,11 @@ function JobVacationApplication(props) {
                           onChange={(date) => onDatePickerChange(date, 'birthDate')
                           }
                           renderInput={(params) => (
-                            <TextField {...params} fullWidth variant='outlined' />
+                            <TextField
+                              {...params}
+                              fullWidth
+                              variant='outlined'
+                            />
                           )}
                         />
                       </LocalizationProvider>
@@ -650,8 +752,8 @@ function JobVacationApplication(props) {
 
                     <Grid item xs={12} md={4}>
                       <TextField
-                        name='relativePhoneNumber'
-                        value={formInfo.relativePhoneNumber}
+                        name='relativesPhone'
+                        value={formInfo.relativesPhone}
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.relativePhoneNumber)}
                         fullWidth
@@ -664,7 +766,7 @@ function JobVacationApplication(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              value={formInfo.hasDrivingLicense}
+                              value={formInfo.drivingLicense}
                               onChange={onCheckboxChange}
                             />
                           }
@@ -673,7 +775,7 @@ function JobVacationApplication(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              value={formInfo.hasCar}
+                              value={formInfo.haveCar}
                               onChange={onCheckboxChange}
                             />
                           }
@@ -697,13 +799,13 @@ function JobVacationApplication(props) {
                         options={qualificationList}
                         value={
                           qualificationList.find(
-                            (item) => item.id === formInfo.qualification
+                            (item) => item.id === formInfo.qualificationId
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
                         }
                         getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'qualification')
+                        onChange={(_, value) => onAutoCompleteChange(value, 'qualificationId')
                         }
                         renderInput={(params) => (
                           <TextField
@@ -722,9 +824,9 @@ function JobVacationApplication(props) {
 
                     <Grid item xs={12} md={4}>
                       <TextField
-                        name='graduationPlace'
+                        name='QualificationRelease'
                         required
-                        value={formInfo.graduationPlace}
+                        value={formInfo.QualificationRelease}
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.graduationPlace)}
                         fullWidth
@@ -737,13 +839,13 @@ function JobVacationApplication(props) {
                         options={graduationGradList}
                         value={
                           graduationGradList.find(
-                            (item) => item.id === formInfo.graduationGrade
+                            (item) => item.id === formInfo.GraduationStatusId
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
                         }
                         getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'graduationGrade')
+                        onChange={(_, value) => onAutoCompleteChange(value, 'GraduationStatusId')
                         }
                         renderInput={(params) => (
                           <TextField
@@ -764,8 +866,8 @@ function JobVacationApplication(props) {
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(messages.graduationDate)}
-                          value={formInfo.graduationDate}
-                          onChange={(date) => onDatePickerChange(date, 'graduationDate')
+                          value={formInfo.QualificationDate}
+                          onChange={(date) => onDatePickerChange(date, 'QualificationDate')
                           }
                           renderInput={(params) => (
                             <TextField
@@ -833,10 +935,42 @@ function JobVacationApplication(props) {
                   </Grid>
 
                   {workExperience.length > 0 ? (
-                    <Grid container mt={0} spacing={3}>
+                    <Grid container mt={0} spacing={3} alignItems='stretch'>
                       {workExperience.map((exp) => (
                         <Grid item xs={12} key={exp.id} md={4}>
-                          {exp.id}{' '}
+                          <div className='single-exp-card create-edit-card '>
+                            <IconButton
+                              size='small'
+                              className='action-btn edit-btn'
+                              aria-label='edit'
+                              onClick={() => onExperienceEdit(exp)}
+                            >
+                              <BorderColor />
+                            </IconButton>
+
+                            <IconButton
+                              size='small'
+                              className='action-btn delete-btn'
+                              color='error'
+                              aria-label='delete'
+                              onClick={() => onExperienceRemove(exp.id)}
+                            >
+                              <Delete />
+                            </IconButton>
+
+                            <div className='title'>
+                              {jobList.find((item) => item.id === exp.jobId)
+                                ?.name ?? null}
+                            </div>
+                            <span className='info'>
+                              {formateDate(exp.fromDate)} - {formateDate(exp.toDate)}
+                            </span>
+
+                            <div>
+                              {departmentList.find((item) => item.id === exp.departmentId)
+                                ?.name ?? null}
+                            </div>
+                          </div>
                         </Grid>
                       ))}
                     </Grid>
@@ -885,10 +1019,34 @@ function JobVacationApplication(props) {
                   </Grid>
 
                   {courses.length > 0 ? (
-                    <Grid container mt={0} spacing={3}>
+                    <Grid container mt={0} spacing={3} alignItems='stretch'>
                       {courses.map((course) => (
                         <Grid item xs={12} key={course.id} md={4}>
-                          {course.id}
+                          <div className='single-course create-edit-card'>
+                            <IconButton
+                              size='small'
+                              className='action-btn edit-btn'
+                              aria-label='edit'
+                              onClick={() => onCourseEdit(course)}
+                            >
+                              <BorderColor />
+                            </IconButton>
+
+                            <IconButton
+                              size='small'
+                              className='action-btn delete-btn'
+                              color='error'
+                              aria-label='delete'
+                              onClick={() => onCourseRemove(course.id)}
+                            >
+                              <Delete />
+                            </IconButton>
+
+                            <div className='title'>{course.courseName}</div>
+                            <span className='date'>
+                              {formateDate(course.endDate)}
+                            </span>
+                          </div>
                         </Grid>
                       ))}
                     </Grid>
@@ -923,7 +1081,7 @@ function JobVacationApplication(props) {
                         options={jobList}
                         value={
                           jobList.find((item) => item.id === formInfo.jobId)
-                        ?? null
+                          ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
                         }
@@ -950,13 +1108,13 @@ function JobVacationApplication(props) {
                         options={workTypesList}
                         value={
                           workTypesList.find(
-                            (item) => item.id === formInfo.workType
+                            (item) => item.id === formInfo.workingFrom
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
                         }
                         getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'workType')
+                        onChange={(_, value) => onAutoCompleteChange(value, 'workingFrom')
                         }
                         renderInput={(params) => (
                           <TextField
@@ -975,8 +1133,8 @@ function JobVacationApplication(props) {
 
                     <Grid item xs={12} md={4}>
                       <TextField
-                        name='salary'
-                        value={formInfo.salary}
+                        name='expectedSalary'
+                        value={formInfo.expectedSalary}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.expectedSalary)}
                         fullWidth
@@ -986,8 +1144,8 @@ function JobVacationApplication(props) {
 
                     <Grid item xs={12} md={4}>
                       <TextField
-                        name='insuranceNumber'
-                        value={formInfo.insuranceNumber}
+                        name='SocialInsuranceId'
+                        value={formInfo.SocialInsuranceId}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.insuranceNumber)}
                         fullWidth
@@ -1000,13 +1158,13 @@ function JobVacationApplication(props) {
                         options={linkSourceList}
                         value={
                           linkSourceList.find(
-                            (item) => item.id === formInfo.linkSource
+                            (item) => item.id === formInfo.sourceLink
                           ) ?? null
                         }
                         isOptionEqualToValue={(option, value) => option.id === value.id
                         }
                         getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'linkSource')
+                        onChange={(_, value) => onAutoCompleteChange(value, 'sourceLink')
                         }
                         renderInput={(params) => (
                           <TextField
