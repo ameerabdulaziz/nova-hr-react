@@ -41,7 +41,6 @@ function JobVacationApplication(props) {
   const [militaryStatusList, setMilitaryStatusList] = useState([]);
   const [IDTypeList, setIDTypeList] = useState([]);
   const [qualificationList, setQualificationList] = useState([]);
-  const [computerSkillsList, setComputerSkillsList] = useState([]);
   const [linkSourceList, setLinkSourceList] = useState([]);
   const [jobList, setJobList] = useState([]);
   const [socialStatusList, setSocialStatusList] = useState([]);
@@ -129,6 +128,9 @@ function JobVacationApplication(props) {
 
       const IDTypes = await GeneralListApis(locale).GetIdentityTypeList();
       setIDTypeList(IDTypes);
+
+      const linkSources = await GeneralListApis(locale).GetRecHiringSourceList();
+      setLinkSourceList(linkSources);
     } catch (error) {
       //
     } finally {
@@ -779,9 +781,9 @@ function JobVacationApplication(props) {
 
                     <Grid item xs={12} md={4}>
                       <Autocomplete
-                        options={computerSkillsList}
+                        options={graduationGradList}
                         value={
-                          computerSkillsList.find(
+                          graduationGradList.find(
                             (item) => item.id === formInfo.computerSkills
                           ) ?? null
                         }
