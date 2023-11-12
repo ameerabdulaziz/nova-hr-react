@@ -313,6 +313,7 @@ import {
   ManualAttendanceReport,
   BreakTimeReport,
   StatisticalReport2,
+  WorkinHoursByTimeReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -963,6 +964,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/StatisticalReport2'
           component={StatisticalReport2}
+        />
+
+        <Route
+          path='/app/Pages/Att/WorkinHoursByTime'
+          component={WorkinHoursByTimeReport}
         />
 
 

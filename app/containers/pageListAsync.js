@@ -1156,6 +1156,13 @@ export const StatisticalReport2 = loadable(
   }
 );
 
+export const WorkinHoursByTimeReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/WorkinHoursByTimeReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

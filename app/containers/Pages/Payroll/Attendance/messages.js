@@ -1234,5 +1234,10 @@ devicePass: {
     id: `${scope}.confirmedOverTime`,
     defaultMessage: 'Confirmed OverTime',
   },
+  // WorkinHoursByTimeReport
+  totalWorkHours: {
+    id: `${scope}.totalWorkHours`,
+    defaultMessage: 'Total Work Hours',
+  },
 });
 

@@ -1411,6 +1411,9 @@
     "boilerplate.containers.Payroll.Attendance.overTimeC":"عدد مرات الاضافى",
     "boilerplate.containers.Payroll.Attendance.overTimeT":"اجمالى وقت الاضافى",
     "boilerplate.containers.Payroll.Attendance.confirmedOverTime":"اجمالى وقت الاضافى المعتمد",
+
+
+    "boilerplate.containers.Payroll.Attendance.totalWorkHours":"اجمالى عدد ساعات العمل",
     
   
   

@@ -1137,7 +1137,7 @@
   "boilerplate.containers.Payroll.Attendance.shiftHours":"Shift Hours",
   "boilerplate.containers.Payroll.Attendance.workingHours":"Working Hours",
   "boilerplate.containers.Payroll.Attendance.verificationRate":"Verification Rate %",
-  "boilerplate.containers.Payroll.Attendance.date":"date",
+  "boilerplate.containers.Payroll.Attendance.date":"Date",
 
   "boilerplate.containers.Payroll.Attendance.totalWorking":"Total Working",
   "boilerplate.containers.Payroll.Attendance.fromDateErrorMes":"Must to choose From Date",
@@ -1206,6 +1206,9 @@
   "boilerplate.containers.Payroll.Attendance.overTimeC":"OverTime C.",
   "boilerplate.containers.Payroll.Attendance.overTimeT":"OverTime T.",
   "boilerplate.containers.Payroll.Attendance.confirmedOverTime":"Confirmed OverTime",
+
+
+  "boilerplate.containers.Payroll.Attendance.totalWorkHours":"Total Work Hours",
 
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
