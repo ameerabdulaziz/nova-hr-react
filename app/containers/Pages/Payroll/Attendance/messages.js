@@ -1430,5 +1430,10 @@ devicePass: {
     id: `${scope}.nightOverTimeValue`,
     defaultMessage: 'Night OverTime Value',
   },
+  // WorkinLeavesReport
+  GroupByDepartmentSection: {
+    id: `${scope}.GroupByDepartmentSection`,
+    defaultMessage: 'Group By Department / Section',
+  },
 });
 

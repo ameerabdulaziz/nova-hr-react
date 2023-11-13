@@ -1184,6 +1184,13 @@ export const OverTimeDayNightReport = loadable(
   }
 );
 
+export const WorkinLeavesReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/WorkinLeavesReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

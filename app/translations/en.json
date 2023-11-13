@@ -1263,6 +1263,9 @@
   "boilerplate.containers.Payroll.Attendance.dayOverTimeValue":"Day OverTime Value",
   "boilerplate.containers.Payroll.Attendance.nightOverTimeValue":"Night OverTime Value",
 
+
+  "boilerplate.containers.Payroll.Attendance.GroupByDepartmentSection":"Group By Department / Section",
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

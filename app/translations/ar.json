@@ -1467,6 +1467,9 @@
     "boilerplate.containers.Payroll.Attendance.vacationValue":"وقت الراحة",
     "boilerplate.containers.Payroll.Attendance.dayOverTimeValue":"النهارى المحسوب",
     "boilerplate.containers.Payroll.Attendance.nightOverTimeValue":"الليلى المحسوب",
+
+
+    "boilerplate.containers.Payroll.Attendance.GroupByDepartmentSection":"مجمع بالادارة / القسم",
     
   
   

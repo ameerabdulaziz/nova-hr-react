@@ -317,6 +317,7 @@ import {
   OverTimeReport,
   WorkinLeavesDetailsReport,
   OverTimeDayNightReport,
+  WorkinLeavesReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -987,6 +988,12 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/OverTimeDayNightReport'
           component={OverTimeDayNightReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/WorkinLeavesReport'
+          component={WorkinLeavesReport}
         />
 
 
