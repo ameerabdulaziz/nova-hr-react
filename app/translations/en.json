@@ -1249,6 +1249,12 @@
   "boilerplate.containers.Payroll.Attendance.Day30":"Day(s)30",
   "boilerplate.containers.Payroll.Attendance.Day31":"Day(s)31",
 
+
+  "boilerplate.containers.Payroll.Attendance.accruedLeaveHours":"Accrued Leave Hours",
+  "boilerplate.containers.Payroll.Attendance.byDays":"By Days",
+  "boilerplate.containers.Payroll.Attendance.regularWorkDay":"Regular Work Day",
+  "boilerplate.containers.Payroll.Attendance.weekendAndOfficial":"Weekend And Official",
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

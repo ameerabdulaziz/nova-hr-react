@@ -171,6 +171,14 @@ const AttendanceReportsData = (locale) => {
 
     return data.data;
   };
+
+  api.WorkinLeavesDetailsReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetWorkinLeavesDetailsReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
   
 
 

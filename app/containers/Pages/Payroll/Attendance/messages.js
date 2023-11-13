@@ -1388,5 +1388,22 @@ devicePass: {
     id: `${scope}.Day31`,
     defaultMessage: 'Day(s)31',
   },
+  // WorkinLeavesDetailsReport
+  accruedLeaveHours: {
+    id: `${scope}.accruedLeaveHours`,
+    defaultMessage: 'Accrued Leave Hours',
+  },
+  byDays: {
+    id: `${scope}.byDays`,
+    defaultMessage: 'By Days',
+  },
+  regularWorkDay: {
+    id: `${scope}.regularWorkDay`,
+    defaultMessage: 'regular Work Day',
+  },
+  weekendAndOfficial: {
+    id: `${scope}.weekendAndOfficial`,
+    defaultMessage: 'weekend And Official',
+  },
 });
 

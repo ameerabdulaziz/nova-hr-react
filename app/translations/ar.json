@@ -1453,6 +1453,12 @@
     "boilerplate.containers.Payroll.Attendance.Day29":"يوم 29",
     "boilerplate.containers.Payroll.Attendance.Day30":"يوم 30",
     "boilerplate.containers.Payroll.Attendance.Day31":"يوم 31",
+
+
+    "boilerplate.containers.Payroll.Attendance.accruedLeaveHours":"بدل الراحة بالساعة",
+    "boilerplate.containers.Payroll.Attendance.byDays":"باليوم",
+    "boilerplate.containers.Payroll.Attendance.regularWorkDay":"ايالم العمل العادية",
+    "boilerplate.containers.Payroll.Attendance.weekendAndOfficial":"ايام العطلات",
     
   
   
