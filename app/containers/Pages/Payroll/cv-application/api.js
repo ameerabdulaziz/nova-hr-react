@@ -1,13 +1,19 @@
 import axiosInstance from '../api/axios';
 
-const getFormData = object => Object.entries(object).reduce((fd, [key, val]) => {
-  if (Array.isArray(val)) {
-    val.forEach(v => fd.append(key, v));
-  } else {
-    fd.append(key, val);
-  }
-  return fd;
-}, new FormData());
+function getFormData(fdObject = {}) {
+  return Object.entries(fdObject).reduce((fdInstance, [fdObjectKey, fdObjectValue]) => {
+    if (Array.isArray(fdObjectValue)) {
+      fdObjectValue.forEach((arrayItem, index) => {
+        Object.keys(arrayItem).forEach(key => {
+          fdInstance.append(`${fdObjectKey}[${index}].${key}`, arrayItem[key]);
+        });
+      });
+    } else {
+      fdInstance.append(fdObjectKey, fdObjectValue);
+    }
+    return fdInstance;
+  }, new FormData());
+}
 
 const API = (locale) => {
   const api = {};
@@ -15,6 +21,14 @@ const API = (locale) => {
   api.GetJobList = async () => {
     const response = await axiosInstance.get(
       `RecJobApplication/GetList/${locale}`
+    );
+
+    return response.data;
+  };
+
+  api.GetCompanyData = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetCompanyData/${locale}`
     );
 
     return response.data;

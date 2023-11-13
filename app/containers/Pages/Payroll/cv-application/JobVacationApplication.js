@@ -21,25 +21,28 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
 import FileViewerPopup from '../../../../components/Popup/fileViewerPopup';
+import { ThemeContext } from '../../../App/ThemeWrapper';
 import PayRollLoader from '../Component/PayRollLoader';
 import GeneralListApis from '../api/GeneralListApis';
 import API from './api';
 import CoursesPopup from './components/CoursesPopup';
 import ExperiencePopup from './components/ExperiencePopup';
 import Section from './components/Section';
+import Layout from './layouts/Layout.cv';
 import messages from './messages';
 
 function JobVacationApplication(props) {
   const { intl } = props;
   const history = useHistory();
-  const location = useLocation();
-  const id = location.state?.id ?? 0;
+  const changeMode = useContext(ThemeContext);
+  const { jobApplicarionId = 0, JobId = 0 } = useParams();
   const locale = useSelector((state) => state.language.locale);
   const validPDFTypes = ['application/pdf', '.pdf', 'pdf'];
   const workTypesList = [
@@ -54,7 +57,9 @@ function JobVacationApplication(props) {
   ];
 
   const [isCVPopupOpen, setIsCVPopupOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [config, setConfig] = useState({});
 
   const [militaryStatusList, setMilitaryStatusList] = useState([]);
   const [IDTypeList, setIDTypeList] = useState([]);
@@ -78,7 +83,7 @@ function JobVacationApplication(props) {
 
   const [formInfo, setFormInfo] = useState({
     id: 0,
-    jobApplicarionId: id,
+    jobApplicarionId,
 
     empName: '',
     email: '',
@@ -107,7 +112,7 @@ function JobVacationApplication(props) {
     computerSkills: null,
     GraduationStatusId: null,
 
-    jobId: null,
+    jobId: JobId !== 0 ? parseInt(JobId, 10) : null,
     expectedSalary: '',
     SocialInsuranceId: '',
     sourceLink: null,
@@ -150,6 +155,9 @@ function JobVacationApplication(props) {
         locale
       ).GetRecHiringSourceList();
       setLinkSourceList(linkSources);
+
+      const configResponse = await API(locale).GetCompanyData();
+      setConfig(configResponse);
     } catch (error) {
       //
     } finally {
@@ -278,18 +286,22 @@ function JobVacationApplication(props) {
     formData.QualificationDate = formateDate(formInfo.QualificationDate);
     formData.birthDate = formateDate(formInfo.birthDate);
 
-    formData.recJobApplicationCourse = courses.map((course) => ({
-      ...course,
-      endDate: formateDate(course.endDate),
-      jobApplicarionId: id,
-    }));
+    formData.recJobApplicationCourse = courses.map(
+      ({ id: _id, ...course }) => ({
+        ...course,
+        endDate: formateDate(course.endDate),
+        jobApplicarionId,
+      })
+    );
 
-    formData.RecJobApplicationExperience = workExperience.map((exp) => ({
-      ...exp,
-      fromDate: formateDate(exp.fromDate),
-      toDate: formateDate(exp.toDate),
-      jobApplicarionId: id,
-    }));
+    formData.RecJobApplicationExperience = workExperience.map(
+      ({ id: _id, ...exp }) => ({
+        ...exp,
+        fromDate: formateDate(exp.fromDate),
+        toDate: formateDate(exp.toDate),
+        jobApplicarionId,
+      })
+    );
 
     try {
       await API(locale).save(formData);
@@ -361,842 +373,847 @@ function JobVacationApplication(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <Section>
-        <ExperiencePopup
-          jobList={jobList}
-          departmentList={departmentList}
-          isOpen={isExperiencePopupOpen}
-          setIsOpen={setIsExperiencePopupOpen}
-          onSave={onExperienceSave}
-          selectedWorkExperience={selectedWorkExperience}
-          setSelectedWorkExperience={setSelectedWorkExperience}
-        />
+      <Layout isLoading={isLoading} config={config} changeMode={changeMode}>
+        <Section>
+          <ExperiencePopup
+            jobList={jobList}
+            departmentList={departmentList}
+            isOpen={isExperiencePopupOpen}
+            setIsOpen={setIsExperiencePopupOpen}
+            onSave={onExperienceSave}
+            selectedWorkExperience={selectedWorkExperience}
+            setSelectedWorkExperience={setSelectedWorkExperience}
+          />
 
-        <CoursesPopup
-          isOpen={isCoursePopupOpen}
-          setIsOpen={setIsCoursePopupOpen}
-          onSave={onCourseSave}
-          selectedCourse={selectedCourse}
-          setSelectedCourse={setSelectedCourse}
-        />
+          <CoursesPopup
+            isOpen={isCoursePopupOpen}
+            setIsOpen={setIsCoursePopupOpen}
+            onSave={onCourseSave}
+            selectedCourse={selectedCourse}
+            setSelectedCourse={setSelectedCourse}
+          />
 
-        <form onSubmit={onFormSubmit}>
-          <div className='cv-container'>
-            <Grid container m={0} rowSpacing={2} justifyContent='center'>
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <Button
-                    variant='text'
-                    startIcon={<ArrowBackIosNewIcon />}
-                    onClick={onBackToVacationBtnClick}
-                  >
-                    {intl.formatMessage(messages.backToJobVacation)}
-                  </Button>
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <div className='title'>
-                    {intl.formatMessage(messages.personalInfo)}
+          <form onSubmit={onFormSubmit}>
+            <div className='cv-container'>
+              <Grid container m={0} rowSpacing={2} justifyContent='center'>
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <Button
+                      variant='text'
+                      startIcon={<ArrowBackIosNewIcon />}
+                      onClick={onBackToVacationBtnClick}
+                    >
+                      {intl.formatMessage(messages.backToJobVacation)}
+                    </Button>
                   </div>
+                </Grid>
 
-                  <Grid container mt={1} spacing={2}>
-                    <Grid item xs={12} md={8}>
-                      <Grid container spacing={2}>
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='empName'
-                            value={formInfo.empName}
-                            onChange={onInputChange}
-                            label={intl.formatMessage(messages.fullName)}
-                            fullWidth
-                            variant='outlined'
-                            required
-                          />
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <div className='title'>
+                      {intl.formatMessage(messages.personalInfo)}
+                    </div>
+
+                    <Grid container mt={1} spacing={2}>
+                      <Grid item xs={12} md={8}>
+                        <Grid container spacing={2}>
+                          <Grid item xs={12} md={6}>
+                            <TextField
+                              name='empName'
+                              value={formInfo.empName}
+                              onChange={onInputChange}
+                              label={intl.formatMessage(messages.fullName)}
+                              fullWidth
+                              variant='outlined'
+                              required
+                            />
+                          </Grid>
+
+                          <Grid item xs={12} md={6}>
+                            <TextField
+                              name='email'
+                              value={formInfo.email}
+                              onChange={onInputChange}
+                              label={intl.formatMessage(messages.email)}
+                              fullWidth
+                              variant='outlined'
+                              required
+                            />
+                          </Grid>
+
+                          <Grid item xs={12} md={6}>
+                            <TextField
+                              name='phone'
+                              value={formInfo.phone}
+                              onChange={onInputChange}
+                              label={intl.formatMessage(messages.phone)}
+                              fullWidth
+                              variant='outlined'
+                              required
+                            />
+                          </Grid>
+
+                          <Grid item xs={12} md={6}>
+                            <Autocomplete
+                              options={militaryStatusList}
+                              value={
+                                militaryStatusList.find(
+                                  (item) => item.id === formInfo.militaryStatusId
+                                ) ?? null
+                              }
+                              isOptionEqualToValue={(option, value) => option.id === value.id
+                              }
+                              getOptionLabel={(option) => (option ? option.name : '')
+                              }
+                              onChange={(_, value) => onAutoCompleteChange(value, 'militaryStatusId')
+                              }
+                              renderInput={(params) => (
+                                <TextField
+                                  required
+                                  {...params}
+                                  label={intl.formatMessage(
+                                    messages.militaryStatus
+                                  )}
+                                />
+                              )}
+                              renderOption={(propsOption, option) => (
+                                <li {...propsOption} key={option.id}>
+                                  {option.name}
+                                </li>
+                              )}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12} md={6}>
+                            <Autocomplete
+                              options={genderList}
+                              value={
+                                genderList.find(
+                                  (item) => item.id === formInfo.genderId
+                                ) ?? null
+                              }
+                              isOptionEqualToValue={(option, value) => option.id === value.id
+                              }
+                              getOptionLabel={(option) => (option ? option.name : '')
+                              }
+                              onChange={(_, value) => onAutoCompleteChange(value, 'genderId')
+                              }
+                              renderInput={(params) => (
+                                <TextField
+                                  required
+                                  {...params}
+                                  label={intl.formatMessage(messages.gender)}
+                                />
+                              )}
+                              renderOption={(propsOption, option) => (
+                                <li {...propsOption} key={option.id}>
+                                  {option.name}
+                                </li>
+                              )}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12} md={7}>
+                            <Stack
+                              direction='row'
+                              alignItems='center'
+                              spacing={2}
+                            >
+                              <div>
+                                <input
+                                  accept='.pdf, .doc, .docx'
+                                  id='cv-button-file'
+                                  type='file'
+                                  style={{ display: 'none' }}
+                                  onChange={onCVInputChange}
+                                />
+                                <label
+                                  htmlFor='cv-button-file'
+                                  className='cv-btn'
+                                >
+                                  {intl.formatMessage(messages.uploadCV)}
+                                </label>
+                              </div>
+
+                              {formInfo.cvdoc && (
+                                <span
+                                  className='link'
+                                  onClick={onCVPopupBtnClick}
+                                >
+                                  {intl.formatMessage(messages.preview)}
+                                </span>
+                              )}
+                            </Stack>
+
+                            <FileViewerPopup
+                              handleClose={onCVPopupClose}
+                              open={isCVPopupOpen}
+                              uploadedFileType='pdf'
+                              uploadedFile={formInfo.cvdoc}
+                              validImageTypes={[]}
+                              validPDFTypes={validPDFTypes}
+                            />
+                          </Grid>
                         </Grid>
+                      </Grid>
 
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='email'
-                            value={formInfo.email}
-                            onChange={onInputChange}
-                            label={intl.formatMessage(messages.email)}
-                            fullWidth
-                            variant='outlined'
-                            required
+                      <Grid item xs={12} md={4}>
+                        <div>
+                          <input
+                            accept='image/*'
+                            id='avatar-button-file'
+                            type='file'
+                            style={{ display: 'none' }}
+                            onChange={onAvatarInputChange}
                           />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='phone'
-                            value={formInfo.phone}
-                            onChange={onInputChange}
-                            label={intl.formatMessage(messages.phone)}
-                            fullWidth
-                            variant='outlined'
-                            required
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                          <Autocomplete
-                            options={militaryStatusList}
-                            value={
-                              militaryStatusList.find(
-                                (item) => item.id === formInfo.militaryStatusId
-                              ) ?? null
-                            }
-                            isOptionEqualToValue={(option, value) => option.id === value.id
-                            }
-                            getOptionLabel={(option) => (option ? option.name : '')
-                            }
-                            onChange={(_, value) => onAutoCompleteChange(value, 'militaryStatusId')
-                            }
-                            renderInput={(params) => (
-                              <TextField
-                                required
-                                {...params}
-                                label={intl.formatMessage(
-                                  messages.militaryStatus
-                                )}
-                              />
-                            )}
-                            renderOption={(propsOption, option) => (
-                              <li {...propsOption} key={option.id}>
-                                {option.name}
-                              </li>
-                            )}
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                          <Autocomplete
-                            options={genderList}
-                            value={
-                              genderList.find(
-                                (item) => item.id === formInfo.genderId
-                              ) ?? null
-                            }
-                            isOptionEqualToValue={(option, value) => option.id === value.id
-                            }
-                            getOptionLabel={(option) => (option ? option.name : '')
-                            }
-                            onChange={(_, value) => onAutoCompleteChange(value, 'genderId')
-                            }
-                            renderInput={(params) => (
-                              <TextField
-                                required
-                                {...params}
-                                label={intl.formatMessage(messages.gender)}
-                              />
-                            )}
-                            renderOption={(propsOption, option) => (
-                              <li {...propsOption} key={option.id}>
-                                {option.name}
-                              </li>
-                            )}
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} md={7}>
-                          <Stack
-                            direction='row'
-                            alignItems='center'
+                          <Grid
+                            container
                             spacing={2}
+                            alignItems='center'
+                            sx={(th) => ({
+                              justifyContent: 'flex-end',
+                              [th.breakpoints.down('md')]: {
+                                justifyContent: 'flex-start',
+                              },
+                            })}
                           >
-                            <div>
-                              <input
-                                accept='.pdf, .doc, .docx'
-                                id='cv-button-file'
-                                type='file'
-                                style={{ display: 'none' }}
-                                onChange={onCVInputChange}
-                              />
+                            <Grid item>
                               <label
-                                htmlFor='cv-button-file'
-                                className='cv-btn'
-                              >
-                                {intl.formatMessage(messages.uploadCV)}
-                              </label>
-                            </div>
-
-                            {formInfo.cvdoc && (
-                              <span
                                 className='link'
-                                onClick={onCVPopupBtnClick}
+                                htmlFor='avatar-button-file'
                               >
-                                {intl.formatMessage(messages.preview)}
-                              </span>
-                            )}
-                          </Stack>
+                                {intl.formatMessage(messages.uploadImage)}
+                              </label>
+                            </Grid>
 
-                          <FileViewerPopup
-                            handleClose={onCVPopupClose}
-                            open={isCVPopupOpen}
-                            uploadedFileType='pdf'
-                            uploadedFile={formInfo.cvdoc}
-                            validImageTypes={[]}
-                            validPDFTypes={validPDFTypes}
+                            <Grid item>
+                              <label
+                                className='link'
+                                htmlFor='avatar-button-file'
+                              >
+                                <Avatar
+                                  src={
+                                    formInfo.Image
+                                      ? URL.createObjectURL(formInfo.Image)
+                                      : undefined
+                                  }
+                                  sx={{
+                                    width: 80,
+                                    height: 80,
+                                    cursor: 'pointer',
+                                  }}
+                                />
+                              </label>
+                            </Grid>
+                          </Grid>
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <div className='title'>
+                      {intl.formatMessage(messages.personalIDInfo)}
+                    </div>
+
+                    <Grid container mt={1} spacing={2}>
+                      <Grid item xs={12} md={3}>
+                        <Autocomplete
+                          options={IDTypeList}
+                          value={
+                            IDTypeList.find(
+                              (item) => item.id === formInfo.identityTypeId
+                            ) ?? null
+                          }
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option ? option.name : '')}
+                          onChange={(_, value) => onAutoCompleteChange(value, 'identityTypeId')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label={intl.formatMessage(messages.IDType)}
+                            />
+                          )}
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={3}>
+                        <TextField
+                          name='idcardNumber'
+                          value={formInfo.idcardNumber}
+                          onChange={onNumericInputChange}
+                          label={intl.formatMessage(messages.IDNumber)}
+                          fullWidth
+                          variant='outlined'
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={3}>
+                        <TextField
+                          name='issuePlace'
+                          value={formInfo.issuePlace}
+                          onChange={onInputChange}
+                          label={intl.formatMessage(messages.issuePlace)}
+                          fullWidth
+                          variant='outlined'
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={3}>
+                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                          <DatePicker
+                            label={intl.formatMessage(messages.issueDate)}
+                            value={formInfo.idcardIssuingDate}
+                            onChange={(date) => onDatePickerChange(date, 'idcardIssuingDate')
+                            }
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                fullWidth
+                                variant='outlined'
+                              />
+                            )}
                           />
-                        </Grid>
+                        </LocalizationProvider>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <div className='title'>
+                      {intl.formatMessage(messages.personalExtraInfo)}
+                    </div>
+
+                    <Grid container mt={1} spacing={2}>
+                      <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          options={socialStatusList}
+                          value={
+                            socialStatusList.find(
+                              (item) => item.id === formInfo.socialStatusId
+                            ) ?? null
+                          }
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option ? option.name : '')}
+                          onChange={(_, value) => onAutoCompleteChange(value, 'socialStatusId')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label={intl.formatMessage(messages.socialStatus)}
+                            />
+                          )}
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          name='childrenNo'
+                          value={formInfo.childrenNo}
+                          onChange={onNumericInputChange}
+                          label={intl.formatMessage(messages.childrenNumber)}
+                          fullWidth
+                          variant='outlined'
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                          <DatePicker
+                            label={intl.formatMessage(messages.birthDate)}
+                            value={formInfo.birthDate}
+                            onChange={(date) => onDatePickerChange(date, 'birthDate')
+                            }
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                fullWidth
+                                variant='outlined'
+                              />
+                            )}
+                          />
+                        </LocalizationProvider>
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          name='address'
+                          value={formInfo.address}
+                          onChange={onInputChange}
+                          label={intl.formatMessage(messages.address)}
+                          fullWidth
+                          variant='outlined'
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          name='relativesPhone'
+                          value={formInfo.relativesPhone}
+                          onChange={onInputChange}
+                          label={intl.formatMessage(messages.relativePhoneNumber)}
+                          fullWidth
+                          variant='outlined'
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} lg={7}>
+                        <FormGroup>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                value={formInfo.drivingLicense}
+                                onChange={onCheckboxChange}
+                              />
+                            }
+                            label={intl.formatMessage(messages.hasDrivingLicense)}
+                          />
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                value={formInfo.haveCar}
+                                onChange={onCheckboxChange}
+                              />
+                            }
+                            label={intl.formatMessage(messages.hasCar)}
+                          />
+                        </FormGroup>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <div className='title'>
+                      {intl.formatMessage(messages.educationalInfo)}
+                    </div>
+
+                    <Grid container mt={1} spacing={2}>
+                      <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          options={qualificationList}
+                          value={
+                            qualificationList.find(
+                              (item) => item.id === formInfo.qualificationId
+                            ) ?? null
+                          }
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option ? option.name : '')}
+                          onChange={(_, value) => onAutoCompleteChange(value, 'qualificationId')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              required
+                              label={intl.formatMessage(messages.qualification)}
+                            />
+                          )}
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          name='QualificationRelease'
+                          required
+                          value={formInfo.QualificationRelease}
+                          onChange={onInputChange}
+                          label={intl.formatMessage(messages.graduationPlace)}
+                          fullWidth
+                          variant='outlined'
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          options={graduationGradList}
+                          value={
+                            graduationGradList.find(
+                              (item) => item.id === formInfo.GraduationStatusId
+                            ) ?? null
+                          }
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option ? option.name : '')}
+                          onChange={(_, value) => onAutoCompleteChange(value, 'GraduationStatusId')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              required
+                              label={intl.formatMessage(messages.graduationGrade)}
+                            />
+                          )}
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                          <DatePicker
+                            label={intl.formatMessage(messages.graduationDate)}
+                            value={formInfo.QualificationDate}
+                            onChange={(date) => onDatePickerChange(date, 'QualificationDate')
+                            }
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                fullWidth
+                                required
+                                variant='outlined'
+                              />
+                            )}
+                          />
+                        </LocalizationProvider>
+                      </Grid>
+
+                      <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          options={graduationGradList}
+                          value={
+                            graduationGradList.find(
+                              (item) => item.id === formInfo.computerSkills
+                            ) ?? null
+                          }
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option ? option.name : '')}
+                          onChange={(_, value) => onAutoCompleteChange(value, 'computerSkills')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label={intl.formatMessage(messages.computerSkills)}
+                            />
+                          )}
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                        />
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <Grid
+                      container
+                      justifyContent='space-between'
+                      alignItems='center'
+                    >
+                      <Grid item>
+                        <div className='title'>
+                          {intl.formatMessage(messages.workExperienceInfo)}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        <button
+                          className='cv-btn'
+                          type='button'
+                          onClick={onExperiencePopupBtnClick}
+                        >
+                          {intl.formatMessage(messages.addExperience)}
+                        </button>
                       </Grid>
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
-                      <div>
-                        <input
-                          accept='image/*'
-                          id='avatar-button-file'
-                          type='file'
-                          style={{ display: 'none' }}
-                          onChange={onAvatarInputChange}
-                        />
-                        <Grid
-                          container
-                          spacing={2}
-                          alignItems='center'
-                          sx={(th) => ({
-                            justifyContent: 'flex-end',
-                            [th.breakpoints.down('md')]: {
-                              justifyContent: 'flex-start',
-                            },
-                          })}
+                    {workExperience.length > 0 ? (
+                      <Grid container mt={0} spacing={3} alignItems='stretch'>
+                        {workExperience.map((exp) => (
+                          <Grid item xs={12} key={exp.id} md={4}>
+                            <div className='single-exp-card create-edit-card '>
+                              <IconButton
+                                size='small'
+                                className='action-btn edit-btn'
+                                aria-label='edit'
+                                onClick={() => onExperienceEdit(exp)}
+                              >
+                                <BorderColor />
+                              </IconButton>
+
+                              <IconButton
+                                size='small'
+                                className='action-btn delete-btn'
+                                color='error'
+                                aria-label='delete'
+                                onClick={() => onExperienceRemove(exp.id)}
+                              >
+                                <Delete />
+                              </IconButton>
+
+                              <div className='title'>
+                                {jobList.find((item) => item.id === exp.jobId)
+                                  ?.name ?? null}
+                              </div>
+                              <span className='info'>
+                                {formateDate(exp.fromDate)} -{' '}
+                                {formateDate(exp.toDate)}
+                              </span>
+
+                              <div>
+                                {departmentList.find(
+                                  (item) => item.id === exp.departmentId
+                                )?.name ?? null}
+                              </div>
+                            </div>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    ) : (
+                      <Stack
+                        direction='row'
+                        sx={{ minHeight: 200 }}
+                        alignItems='center'
+                        justifyContent='center'
+                        textAlign='center'
+                      >
+                        <Box>
+                          <HomeRepairServiceIcon
+                            sx={{ color: '#a7acb2', fontSize: 30 }}
+                          />
+                          <Typography color='#a7acb2' variant='body1'>
+                            {intl.formatMessage(messages.noExperience)}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                    )}
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <Grid
+                      container
+                      justifyContent='space-between'
+                      alignItems='center'
+                    >
+                      <Grid item>
+                        <div className='title'>
+                          {intl.formatMessage(messages.coursesInfo)}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        <button
+                          className='cv-btn'
+                          type='button'
+                          onClick={onCoursePopupBtnClick}
                         >
-                          <Grid item>
-                            <label
-                              className='link'
-                              htmlFor='avatar-button-file'
-                            >
-                              {intl.formatMessage(messages.uploadImage)}
-                            </label>
-                          </Grid>
-
-                          <Grid item>
-                            <label
-                              className='link'
-                              htmlFor='avatar-button-file'
-                            >
-                              <Avatar
-                                src={
-                                  formInfo.Image
-                                    ? URL.createObjectURL(formInfo.Image)
-                                    : undefined
-                                }
-                                sx={{
-                                  width: 80,
-                                  height: 80,
-                                  cursor: 'pointer',
-                                }}
-                              />
-                            </label>
-                          </Grid>
-                        </Grid>
-                      </div>
-                    </Grid>
-                  </Grid>
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <div className='title'>
-                    {intl.formatMessage(messages.personalIDInfo)}
-                  </div>
-
-                  <Grid container mt={1} spacing={2}>
-                    <Grid item xs={12} md={3}>
-                      <Autocomplete
-                        options={IDTypeList}
-                        value={
-                          IDTypeList.find(
-                            (item) => item.id === formInfo.identityTypeId
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'identityTypeId')
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label={intl.formatMessage(messages.IDType)}
-                          />
-                        )}
-                        renderOption={(propsOption, option) => (
-                          <li {...propsOption} key={option.id}>
-                            {option.name}
-                          </li>
-                        )}
-                      />
+                          {intl.formatMessage(messages.addCourse)}
+                        </button>
+                      </Grid>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name='idcardNumber'
-                        value={formInfo.idcardNumber}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.IDNumber)}
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </Grid>
+                    {courses.length > 0 ? (
+                      <Grid container mt={0} spacing={3} alignItems='stretch'>
+                        {courses.map((course) => (
+                          <Grid item xs={12} key={course.id} md={4}>
+                            <div className='single-course create-edit-card'>
+                              <IconButton
+                                size='small'
+                                className='action-btn edit-btn'
+                                aria-label='edit'
+                                onClick={() => onCourseEdit(course)}
+                              >
+                                <BorderColor />
+                              </IconButton>
 
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name='issuePlace'
-                        value={formInfo.issuePlace}
-                        onChange={onInputChange}
-                        label={intl.formatMessage(messages.issuePlace)}
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </Grid>
+                              <IconButton
+                                size='small'
+                                className='action-btn delete-btn'
+                                color='error'
+                                aria-label='delete'
+                                onClick={() => onCourseRemove(course.id)}
+                              >
+                                <Delete />
+                              </IconButton>
 
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.issueDate)}
-                          value={formInfo.idcardIssuingDate}
-                          onChange={(date) => onDatePickerChange(date, 'idcardIssuingDate')
-                          }
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              fullWidth
-                              variant='outlined'
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                  </Grid>
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <div className='title'>
-                    {intl.formatMessage(messages.personalExtraInfo)}
-                  </div>
-
-                  <Grid container mt={1} spacing={2}>
-                    <Grid item xs={12} md={4}>
-                      <Autocomplete
-                        options={socialStatusList}
-                        value={
-                          socialStatusList.find(
-                            (item) => item.id === formInfo.socialStatusId
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'socialStatusId')
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label={intl.formatMessage(messages.socialStatus)}
-                          />
-                        )}
-                        renderOption={(propsOption, option) => (
-                          <li {...propsOption} key={option.id}>
-                            {option.name}
-                          </li>
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        name='childrenNo'
-                        value={formInfo.childrenNo}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.childrenNumber)}
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.birthDate)}
-                          value={formInfo.birthDate}
-                          onChange={(date) => onDatePickerChange(date, 'birthDate')
-                          }
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              fullWidth
-                              variant='outlined'
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        name='address'
-                        value={formInfo.address}
-                        onChange={onInputChange}
-                        label={intl.formatMessage(messages.address)}
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        name='relativesPhone'
-                        value={formInfo.relativesPhone}
-                        onChange={onInputChange}
-                        label={intl.formatMessage(messages.relativePhoneNumber)}
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} lg={7}>
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              value={formInfo.drivingLicense}
-                              onChange={onCheckboxChange}
-                            />
-                          }
-                          label={intl.formatMessage(messages.hasDrivingLicense)}
-                        />
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              value={formInfo.haveCar}
-                              onChange={onCheckboxChange}
-                            />
-                          }
-                          label={intl.formatMessage(messages.hasCar)}
-                        />
-                      </FormGroup>
-                    </Grid>
-                  </Grid>
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <div className='title'>
-                    {intl.formatMessage(messages.educationalInfo)}
-                  </div>
-
-                  <Grid container mt={1} spacing={2}>
-                    <Grid item xs={12} md={4}>
-                      <Autocomplete
-                        options={qualificationList}
-                        value={
-                          qualificationList.find(
-                            (item) => item.id === formInfo.qualificationId
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'qualificationId')
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            required
-                            label={intl.formatMessage(messages.qualification)}
-                          />
-                        )}
-                        renderOption={(propsOption, option) => (
-                          <li {...propsOption} key={option.id}>
-                            {option.name}
-                          </li>
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        name='QualificationRelease'
-                        required
-                        value={formInfo.QualificationRelease}
-                        onChange={onInputChange}
-                        label={intl.formatMessage(messages.graduationPlace)}
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <Autocomplete
-                        options={graduationGradList}
-                        value={
-                          graduationGradList.find(
-                            (item) => item.id === formInfo.GraduationStatusId
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'GraduationStatusId')
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            required
-                            label={intl.formatMessage(messages.graduationGrade)}
-                          />
-                        )}
-                        renderOption={(propsOption, option) => (
-                          <li {...propsOption} key={option.id}>
-                            {option.name}
-                          </li>
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.graduationDate)}
-                          value={formInfo.QualificationDate}
-                          onChange={(date) => onDatePickerChange(date, 'QualificationDate')
-                          }
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              fullWidth
-                              required
-                              variant='outlined'
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <Autocomplete
-                        options={graduationGradList}
-                        value={
-                          graduationGradList.find(
-                            (item) => item.id === formInfo.computerSkills
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'computerSkills')
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label={intl.formatMessage(messages.computerSkills)}
-                          />
-                        )}
-                        renderOption={(propsOption, option) => (
-                          <li {...propsOption} key={option.id}>
-                            {option.name}
-                          </li>
-                        )}
-                      />
-                    </Grid>
-                  </Grid>
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <Grid
-                    container
-                    justifyContent='space-between'
-                    alignItems='center'
-                  >
-                    <Grid item>
-                      <div className='title'>
-                        {intl.formatMessage(messages.workExperienceInfo)}
-                      </div>
-                    </Grid>
-                    <Grid item>
-                      <button
-                        className='cv-btn'
-                        type='button'
-                        onClick={onExperiencePopupBtnClick}
-                      >
-                        {intl.formatMessage(messages.addExperience)}
-                      </button>
-                    </Grid>
-                  </Grid>
-
-                  {workExperience.length > 0 ? (
-                    <Grid container mt={0} spacing={3} alignItems='stretch'>
-                      {workExperience.map((exp) => (
-                        <Grid item xs={12} key={exp.id} md={4}>
-                          <div className='single-exp-card create-edit-card '>
-                            <IconButton
-                              size='small'
-                              className='action-btn edit-btn'
-                              aria-label='edit'
-                              onClick={() => onExperienceEdit(exp)}
-                            >
-                              <BorderColor />
-                            </IconButton>
-
-                            <IconButton
-                              size='small'
-                              className='action-btn delete-btn'
-                              color='error'
-                              aria-label='delete'
-                              onClick={() => onExperienceRemove(exp.id)}
-                            >
-                              <Delete />
-                            </IconButton>
-
-                            <div className='title'>
-                              {jobList.find((item) => item.id === exp.jobId)
-                                ?.name ?? null}
+                              <div className='title'>{course.courseName}</div>
+                              <span className='date'>
+                                {formateDate(course.endDate)}
+                              </span>
                             </div>
-                            <span className='info'>
-                              {formateDate(exp.fromDate)} - {formateDate(exp.toDate)}
-                            </span>
-
-                            <div>
-                              {departmentList.find((item) => item.id === exp.departmentId)
-                                ?.name ?? null}
-                            </div>
-                          </div>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  ) : (
-                    <Stack
-                      direction='row'
-                      sx={{ minHeight: 200 }}
-                      alignItems='center'
-                      justifyContent='center'
-                      textAlign='center'
-                    >
-                      <Box>
-                        <HomeRepairServiceIcon
-                          sx={{ color: '#a7acb2', fontSize: 30 }}
-                        />
-                        <Typography color='#a7acb2' variant='body1'>
-                          {intl.formatMessage(messages.noExperience)}
-                        </Typography>
-                      </Box>
-                    </Stack>
-                  )}
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <Grid
-                    container
-                    justifyContent='space-between'
-                    alignItems='center'
-                  >
-                    <Grid item>
-                      <div className='title'>
-                        {intl.formatMessage(messages.coursesInfo)}
-                      </div>
-                    </Grid>
-                    <Grid item>
-                      <button
-                        className='cv-btn'
-                        type='button'
-                        onClick={onCoursePopupBtnClick}
+                          </Grid>
+                        ))}
+                      </Grid>
+                    ) : (
+                      <Stack
+                        direction='row'
+                        sx={{ minHeight: 200 }}
+                        alignItems='center'
+                        justifyContent='center'
+                        textAlign='center'
                       >
-                        {intl.formatMessage(messages.addCourse)}
-                      </button>
-                    </Grid>
-                  </Grid>
-
-                  {courses.length > 0 ? (
-                    <Grid container mt={0} spacing={3} alignItems='stretch'>
-                      {courses.map((course) => (
-                        <Grid item xs={12} key={course.id} md={4}>
-                          <div className='single-course create-edit-card'>
-                            <IconButton
-                              size='small'
-                              className='action-btn edit-btn'
-                              aria-label='edit'
-                              onClick={() => onCourseEdit(course)}
-                            >
-                              <BorderColor />
-                            </IconButton>
-
-                            <IconButton
-                              size='small'
-                              className='action-btn delete-btn'
-                              color='error'
-                              aria-label='delete'
-                              onClick={() => onCourseRemove(course.id)}
-                            >
-                              <Delete />
-                            </IconButton>
-
-                            <div className='title'>{course.courseName}</div>
-                            <span className='date'>
-                              {formateDate(course.endDate)}
-                            </span>
-                          </div>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  ) : (
-                    <Stack
-                      direction='row'
-                      sx={{ minHeight: 200 }}
-                      alignItems='center'
-                      justifyContent='center'
-                      textAlign='center'
-                    >
-                      <Box>
-                        <BadgeIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
-                        <Typography color='#a7acb2' variant='body1'>
-                          {intl.formatMessage(messages.noCourses)}
-                        </Typography>
-                      </Box>
-                    </Stack>
-                  )}
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <div className='title'>
-                    {intl.formatMessage(messages.jobInfo)}
+                        <Box>
+                          <BadgeIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
+                          <Typography color='#a7acb2' variant='body1'>
+                            {intl.formatMessage(messages.noCourses)}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                    )}
                   </div>
+                </Grid>
 
-                  <Grid container mt={1} spacing={2}>
-                    <Grid item xs={12} md={4}>
-                      <Autocomplete
-                        options={jobList}
-                        value={
-                          jobList.find((item) => item.id === formInfo.jobId)
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <div className='title'>
+                      {intl.formatMessage(messages.jobInfo)}
+                    </div>
+
+                    <Grid container mt={1} spacing={2}>
+                      <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          options={jobList}
+                          disabled={Boolean(formInfo.jobId)}
+                          value={
+                            jobList.find((item) => item.id === formInfo.jobId)
                           ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'jobId')
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            required
-                            label={intl.formatMessage(messages.jobTitle)}
-                          />
-                        )}
-                        renderOption={(propsOption, option) => (
-                          <li {...propsOption} key={option.id}>
-                            {option.name}
-                          </li>
-                        )}
-                      />
-                    </Grid>
+                          }
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option ? option.name : '')}
+                          onChange={(_, value) => onAutoCompleteChange(value, 'jobId')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              required
+                              label={intl.formatMessage(messages.jobTitle)}
+                            />
+                          )}
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                        />
+                      </Grid>
 
-                    <Grid item xs={12} md={4}>
-                      <Autocomplete
-                        options={workTypesList}
-                        value={
-                          workTypesList.find(
-                            (item) => item.id === formInfo.workingFrom
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'workingFrom')
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            required
-                            label={intl.formatMessage(messages.workType)}
-                          />
-                        )}
-                        renderOption={(propsOption, option) => (
-                          <li {...propsOption} key={option.id}>
-                            {option.name}
-                          </li>
-                        )}
-                      />
-                    </Grid>
+                      <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          options={workTypesList}
+                          value={
+                            workTypesList.find(
+                              (item) => item.id === formInfo.workingFrom
+                            ) ?? null
+                          }
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option ? option.name : '')}
+                          onChange={(_, value) => onAutoCompleteChange(value, 'workingFrom')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              required
+                              label={intl.formatMessage(messages.workType)}
+                            />
+                          )}
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                        />
+                      </Grid>
 
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        name='expectedSalary'
-                        value={formInfo.expectedSalary}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.expectedSalary)}
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </Grid>
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          name='expectedSalary'
+                          value={formInfo.expectedSalary}
+                          onChange={onNumericInputChange}
+                          label={intl.formatMessage(messages.expectedSalary)}
+                          fullWidth
+                          variant='outlined'
+                        />
+                      </Grid>
 
-                    <Grid item xs={12} md={4}>
-                      <TextField
-                        name='SocialInsuranceId'
-                        value={formInfo.SocialInsuranceId}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.insuranceNumber)}
-                        fullWidth
-                        variant='outlined'
-                      />
-                    </Grid>
+                      <Grid item xs={12} md={4}>
+                        <TextField
+                          name='SocialInsuranceId'
+                          value={formInfo.SocialInsuranceId}
+                          onChange={onNumericInputChange}
+                          label={intl.formatMessage(messages.insuranceNumber)}
+                          fullWidth
+                          variant='outlined'
+                        />
+                      </Grid>
 
-                    <Grid item xs={12} md={4}>
-                      <Autocomplete
-                        options={linkSourceList}
-                        value={
-                          linkSourceList.find(
-                            (item) => item.id === formInfo.sourceLink
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'sourceLink')
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            required
-                            label={intl.formatMessage(messages.linkSource)}
-                          />
-                        )}
-                        renderOption={(propsOption, option) => (
-                          <li {...propsOption} key={option.id}>
-                            {option.name}
-                          </li>
-                        )}
-                      />
+                      <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          options={linkSourceList}
+                          value={
+                            linkSourceList.find(
+                              (item) => item.id === formInfo.sourceLink
+                            ) ?? null
+                          }
+                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option ? option.name : '')}
+                          onChange={(_, value) => onAutoCompleteChange(value, 'sourceLink')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              required
+                              label={intl.formatMessage(messages.linkSource)}
+                            />
+                          )}
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </div>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <Stack direction='row' justifyContent='center'>
+                      <button className='cv-btn' type='submit'>
+                        {intl.formatMessage(messages.submitApplication)}
+                      </button>
+                    </Stack>
+                  </div>
+                </Grid>
               </Grid>
-
-              <Grid item xs={12}>
-                <div className='cv-form-card'>
-                  <Stack direction='row' justifyContent='center'>
-                    <button className='cv-btn' type='submit'>
-                      {intl.formatMessage(messages.submitApplication)}
-                    </button>
-                  </Stack>
-                </div>
-              </Grid>
-            </Grid>
-          </div>
-        </form>
-      </Section>
+            </div>
+          </form>
+        </Section>
+      </Layout>
     </PayRollLoader>
   );
 }

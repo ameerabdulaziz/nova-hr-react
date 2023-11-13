@@ -1989,6 +1989,7 @@
   "boilerplate.containers.Payroll.cv.addCourse": "إضافة دورة",
   "boilerplate.containers.Payroll.cv.editCourse": "تعديل الدورة",
   "boilerplate.containers.Payroll.cv.noCourses": "لا توجد دورات",
+  "boilerplate.containers.Payroll.cv.noJobs": "لا توجد وظائف",
   "boilerplate.containers.Payroll.cv.jobInfo": "معلومات الوظيفة",
   "boilerplate.containers.Payroll.cv.jobTitle": "المسمى الوظيفي",
   "boilerplate.containers.Payroll.cv.workType": "نوع العمل",

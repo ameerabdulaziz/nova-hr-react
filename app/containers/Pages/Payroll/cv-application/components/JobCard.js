@@ -12,12 +12,11 @@ import {
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import messages from '../messages';
 
 function JobCard(props) {
   const { job, intl } = props;
-  const history = useHistory();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const closePopup = () => {
@@ -28,17 +27,11 @@ function JobCard(props) {
     setIsPopupOpen(true);
   };
 
-  const onTitleClick = () => {
-    history.push('/public/JobVacation/Application/', {
-      id: job.id
-    });
-  };
-
   return (
     <div className='cv-job-card'>
-      <div onClick={onTitleClick} className='title'>
+      <Link to={`/public/JobVacation/Application/${job.id}/${job.jobId}`} className='title'>
         {job.job}
-      </div>
+      </Link>
 
       <Stack direction='row' gap={1} alignItems='center'>
         <Typography variant='body2' color='gray'>

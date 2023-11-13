@@ -239,4 +239,8 @@ export default defineMessages({
     id: `${scope}.home`,
     defaultMessage: 'home',
   },
+  noJobs: {
+    id: `${scope}.noJobs`,
+    defaultMessage: 'noJobs',
+  },
 });
