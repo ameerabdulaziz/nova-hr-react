@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Footer from './Footer.cv';
@@ -5,17 +6,8 @@ import Navbar from './Navbar.cv';
 
 import './styles.cv.css';
 
-const CONFIG = {
-  logo: 'https://base-tailwind.preview.uideck.com/images/logo-light.svg',
-  description:
-    'Join with 5000+ Startups Growing with Base, It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.',
-  email: ' example@gmail.com',
-  phone: '01015081861',
-  title: 'Base',
-};
-
 function CVApplicationLayout(props) {
-  const { changeMode } = props;
+  const { changeMode, config, isLoading } = props;
 
   const [theme, setTheme] = useState('light');
 
@@ -32,19 +24,27 @@ function CVApplicationLayout(props) {
   };
 
   return (
-    <div className='cv-layout'>
-      <Navbar config={CONFIG} theme={theme} changeTheme={changeTheme} />
+    <>
+      {isLoading ? (
+        <Box sx={{ minHeight: 500 }}></Box>
+      ) : (
+        <div className='cv-layout'>
+          <Navbar config={config} theme={theme} changeTheme={changeTheme} />
 
-      {props.children}
+          {props.children}
 
-      <Footer config={CONFIG} />
-    </div>
+          <Footer config={config} />
+        </div>
+      )}
+    </>
   );
 }
 
 CVApplicationLayout.propTypes = {
   children: PropTypes.element.isRequired,
-  changeMode: PropTypes.func.isRequired
+  changeMode: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  config: PropTypes.object.isRequired,
 };
 
 export default CVApplicationLayout;

@@ -12,6 +12,14 @@ import { Link } from 'react-router-dom';
 function NavbarCV(props) {
   const { config, theme, changeTheme } = props;
 
+  const getLogoUrl = () => {
+    if (typeof config.logo !== 'string' && config.logo) {
+      return URL.createObjectURL(config.logo);
+    }
+
+    return config.logo;
+  };
+
   return (
     <nav className='cv-navbar'>
       <div className='cv-container'>
@@ -23,7 +31,7 @@ function NavbarCV(props) {
         >
           <Grid item xs={3}>
             <Link to='/public/JobVacation/'>
-              <img src={config.logo} alt='favicon' className='logo' />
+              <img src={getLogoUrl()} alt={config.companyName} className='logo' />
             </Link>
           </Grid>
 

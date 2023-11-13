@@ -7,6 +7,15 @@ import messages from '../messages';
 
 function FooterCV(props) {
   const { config, intl } = props;
+  const today = new Date();
+
+  const getLogoUrl = () => {
+    if (typeof config.logo !== 'string' && config.logo) {
+      return URL.createObjectURL(config.logo);
+    }
+
+    return config.logo;
+  };
 
   return (
     <footer className='cv-footer'>
@@ -14,15 +23,16 @@ function FooterCV(props) {
         <Grid container spacing={4}>
           <Grid item md={6}>
             <Link to='/public/JobVacation/'>
-              <img src={config.logo} alt='favicon' className='logo' />
+              <img src={getLogoUrl()} alt={config.companyName} className='logo' />
             </Link>
 
             <Typography color='#A7ACB2' my={3}>
-              {config.description}
+              {config.companyOverView}
             </Typography>
 
             <Typography color='#A7ACB2'>
-              © 2023 {config.title}. {intl.formatMessage(messages.allRightReserved)}
+              © {today.getFullYear()} {config.companyName}.{' '}
+              {intl.formatMessage(messages.allRightReserved)}
             </Typography>
           </Grid>
 
@@ -43,8 +53,8 @@ function FooterCV(props) {
               {intl.formatMessage(messages.email)}
             </Typography>
 
-            <a title='Home' href={`mailto:${config.email}`} className='link'>
-              {config.email}
+            <a title='Home' href={`mailto:${config.mail}`} className='link'>
+              {config.mail}
             </a>
           </Grid>
         </Grid>

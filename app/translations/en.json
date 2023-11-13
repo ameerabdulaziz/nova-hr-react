@@ -1960,6 +1960,7 @@
   "boilerplate.containers.Payroll.cv.coursesInfo": "Courses Info",
   "boilerplate.containers.Payroll.cv.addCourse": "Add Course",
   "boilerplate.containers.Payroll.cv.editCourse": "Edit Course",
+  "boilerplate.containers.Payroll.cv.noJobs": "No Jobs",
   "boilerplate.containers.Payroll.cv.noCourses": "No Courses",
   "boilerplate.containers.Payroll.cv.jobInfo": "Job Info",
   "boilerplate.containers.Payroll.cv.jobTitle": "Job Title",
