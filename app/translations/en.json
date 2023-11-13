@@ -1255,6 +1255,14 @@
   "boilerplate.containers.Payroll.Attendance.regularWorkDay":"Regular Work Day",
   "boilerplate.containers.Payroll.Attendance.weekendAndOfficial":"Weekend And Official",
 
+
+  "boilerplate.containers.Payroll.Attendance.modifiedOverTime":"Modified OverTime",
+  "boilerplate.containers.Payroll.Attendance.dayOverTime":"Day OverTime",
+  "boilerplate.containers.Payroll.Attendance.nightOverTime":"Night OverTime",
+  "boilerplate.containers.Payroll.Attendance.vacationValue":"Vacation Value",
+  "boilerplate.containers.Payroll.Attendance.dayOverTimeValue":"Day OverTime Value",
+  "boilerplate.containers.Payroll.Attendance.nightOverTimeValue":"Night OverTime Value",
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",
