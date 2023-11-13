@@ -1405,5 +1405,30 @@ devicePass: {
     id: `${scope}.weekendAndOfficial`,
     defaultMessage: 'weekend And Official',
   },
+  // OverTimeDayNightReport
+  modifiedOverTime: {
+    id: `${scope}.modifiedOverTime`,
+    defaultMessage: 'Modified OverTime',
+  },
+  dayOverTime: {
+    id: `${scope}.dayOverTime`,
+    defaultMessage: 'Day OverTime',
+  },
+  nightOverTime: {
+    id: `${scope}.nightOverTime`,
+    defaultMessage: 'Night OverTime',
+  },
+  vacationValue: {
+    id: `${scope}.vacationValue`,
+    defaultMessage: 'Vacation Value',
+  },
+  dayOverTimeValue: {
+    id: `${scope}.dayOverTimeValue`,
+    defaultMessage: 'Day OverTime Value',
+  },
+  nightOverTimeValue: {
+    id: `${scope}.nightOverTimeValue`,
+    defaultMessage: 'Night OverTime Value',
+  },
 });
 

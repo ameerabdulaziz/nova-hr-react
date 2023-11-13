@@ -1459,6 +1459,14 @@
     "boilerplate.containers.Payroll.Attendance.byDays":"باليوم",
     "boilerplate.containers.Payroll.Attendance.regularWorkDay":"ايالم العمل العادية",
     "boilerplate.containers.Payroll.Attendance.weekendAndOfficial":"ايام العطلات",
+
+
+    "boilerplate.containers.Payroll.Attendance.modifiedOverTime":"الوقت الاضافى المعدل",
+    "boilerplate.containers.Payroll.Attendance.dayOverTime":"النهارى",
+    "boilerplate.containers.Payroll.Attendance.nightOverTime":"الليلى",
+    "boilerplate.containers.Payroll.Attendance.vacationValue":"وقت الراحة",
+    "boilerplate.containers.Payroll.Attendance.dayOverTimeValue":"النهارى المحسوب",
+    "boilerplate.containers.Payroll.Attendance.nightOverTimeValue":"الليلى المحسوب",
     
   
   

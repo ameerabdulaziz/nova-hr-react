@@ -99,7 +99,13 @@ function PermissionTrxReport(props) {
         filter: true,
       },
     },
-
+    {
+      name: "employeeCode",
+      label: intl.formatMessage(messages.EmpCode),
+      options: {
+        filter: true,
+      },
+    },
     {
       name: "permissionName",
       label: <FormattedMessage {...messages["permissionName"]} />,
