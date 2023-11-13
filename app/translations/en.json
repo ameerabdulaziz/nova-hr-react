@@ -1266,6 +1266,13 @@
 
   "boilerplate.containers.Payroll.Attendance.GroupByDepartmentSection":"Group By Department / Section",
 
+
+  "boilerplate.containers.Payroll.Attendance.TotalReport":"Total Report",
+  "boilerplate.containers.Payroll.Attendance.shiftCode":"Shift Code",
+  "boilerplate.containers.Payroll.Attendance.shiftStart":"Shift Start",
+  "boilerplate.containers.Payroll.Attendance.lateness":"Lateness",
+  "boilerplate.containers.Payroll.Attendance.LateCount":"Late Count",
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

@@ -1470,6 +1470,13 @@
 
 
     "boilerplate.containers.Payroll.Attendance.GroupByDepartmentSection":"مجمع بالادارة / القسم",
+
+
+    "boilerplate.containers.Payroll.Attendance.TotalReport":"تقرير اجمالى",
+    "boilerplate.containers.Payroll.Attendance.shiftCode":"كود الورديه",
+    "boilerplate.containers.Payroll.Attendance.shiftStart":"بداية الوردية",
+    "boilerplate.containers.Payroll.Attendance.lateness":"التاخير",
+    "boilerplate.containers.Payroll.Attendance.LateCount":"مرات التاخير",
     
   
   

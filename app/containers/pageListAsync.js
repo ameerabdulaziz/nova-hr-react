@@ -1191,6 +1191,13 @@ export const WorkinLeavesReport = loadable(
   }
 );
 
+export const LateAttendanceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/LateAttendanceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

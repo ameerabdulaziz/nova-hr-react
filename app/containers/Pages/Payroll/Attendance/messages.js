@@ -1435,5 +1435,26 @@ devicePass: {
     id: `${scope}.GroupByDepartmentSection`,
     defaultMessage: 'Group By Department / Section',
   },
+  // LateAttendanceReport
+  TotalReport: {
+    id: `${scope}.TotalReport`,
+    defaultMessage: 'Total Report',
+  },
+  shiftCode: {
+    id: `${scope}.shiftCode`,
+    defaultMessage: 'Shift Code',
+  },
+  shiftStart: {
+    id: `${scope}.shiftStart`,
+    defaultMessage: 'Shift Start',
+  },
+  lateness: {
+    id: `${scope}.lateness`,
+    defaultMessage: 'Lateness',
+  },
+  LateCount: {
+    id: `${scope}.LateCount`,
+    defaultMessage: 'Late Count',
+  },
 });
 
