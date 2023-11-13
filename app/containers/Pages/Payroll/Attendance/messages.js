@@ -1239,5 +1239,154 @@ devicePass: {
     id: `${scope}.totalWorkHours`,
     defaultMessage: 'Total Work Hours',
   },
+  // OverTimeReport
+  IncludeLeavesAndShiftLeaves: {
+    id: `${scope}.IncludeLeavesAndShiftLeaves`,
+    defaultMessage: 'Include Leaves And Shift Leaves',
+  },
+  perEmployee: {
+    id: `${scope}.perEmployee`,
+    defaultMessage: 'Per Employee',
+  },
+  perEmployeeDay: {
+    id: `${scope}.perEmployeeDay`,
+    defaultMessage: 'Per Employee / Day',
+  },
+  PerDepartment: {
+    id: `${scope}.PerDepartment`,
+    defaultMessage: 'Per Department',
+  },
+  ExtraTime: {
+    id: `${scope}.ExtraTime`,
+    defaultMessage: 'ExtraTime',
+  },
+  ManualExtraTime: {
+    id: `${scope}.ManualExtraTime`,
+    defaultMessage: 'Manual ExtraTime',
+  },
+  Day1: {
+    id: `${scope}.Day1`,
+    defaultMessage: 'Day(s)1',
+  },
+  Day2: {
+    id: `${scope}.Day2`,
+    defaultMessage: 'Day(s)2',
+  },
+  Day3: {
+    id: `${scope}.Day3`,
+    defaultMessage: 'Day(s)3',
+  },
+  Day4: {
+    id: `${scope}.Day4`,
+    defaultMessage: 'Day(s)4',
+  },
+  day5: {
+    id: `${scope}.day5`,
+    defaultMessage: 'Day(s)5',
+  },
+  Day6: {
+    id: `${scope}.Day6`,
+    defaultMessage: 'Day(s)6',
+  },
+  Day7: {
+    id: `${scope}.Day7`,
+    defaultMessage: 'Day(s)7',
+  },
+  Day8: {
+    id: `${scope}.Day8`,
+    defaultMessage: 'Day(s)8',
+  },
+  Day9: {
+    id: `${scope}.Day9`,
+    defaultMessage: 'Day(s)9',
+  },
+  Day10: {
+    id: `${scope}.Day10`,
+    defaultMessage: 'Day(s)10',
+  },
+  Day11: {
+    id: `${scope}.Day11`,
+    defaultMessage: 'Day(s)11',
+  },
+  Day12: {
+    id: `${scope}.Day12`,
+    defaultMessage: 'Day(s)12',
+  },
+  Day13: {
+    id: `${scope}.Day13`,
+    defaultMessage: 'Day(s)13',
+  },
+  Day14: {
+    id: `${scope}.Day14`,
+    defaultMessage: 'Day(s)14',
+  },
+  Day15: {
+    id: `${scope}.Day15`,
+    defaultMessage: 'Day(s)15',
+  },
+  Day16: {
+    id: `${scope}.Day16`,
+    defaultMessage: 'Day(s)16',
+  },
+  Day17: {
+    id: `${scope}.Day17`,
+    defaultMessage: 'Day(s)17',
+  },
+  Day18: {
+    id: `${scope}.Day18`,
+    defaultMessage: 'Day(s)18',
+  },
+  Day19: {
+    id: `${scope}.Day19`,
+    defaultMessage: 'Day(s)19',
+  },
+  Day20: {
+    id: `${scope}.Day20`,
+    defaultMessage: 'Day(s)20',
+  },
+  Day21: {
+    id: `${scope}.Day21`,
+    defaultMessage: 'Day(s)21',
+  },
+  Day22: {
+    id: `${scope}.Day22`,
+    defaultMessage: 'Day(s)22',
+  },
+  Day23: {
+    id: `${scope}.Day23`,
+    defaultMessage: 'Day(s)23',
+  },
+  Day24: {
+    id: `${scope}.Day24`,
+    defaultMessage: 'Day(s)24',
+  },
+  Day25: {
+    id: `${scope}.Day25`,
+    defaultMessage: 'Day(s)25',
+  },
+  Day26: {
+    id: `${scope}.Day26`,
+    defaultMessage: 'Day(s)26',
+  },
+  Day27: {
+    id: `${scope}.Day27`,
+    defaultMessage: 'Day(s)27',
+  },
+  Day28: {
+    id: `${scope}.Day28`,
+    defaultMessage: 'Day(s)28',
+  },
+  Day29: {
+    id: `${scope}.Day29`,
+    defaultMessage: 'Day(s)29',
+  },
+  Day30: {
+    id: `${scope}.Day30`,
+    defaultMessage: 'Day(s)30',
+  },
+  Day31: {
+    id: `${scope}.Day31`,
+    defaultMessage: 'Day(s)31',
+  },
 });
 

@@ -76,7 +76,7 @@ function StatisticalReport2(props) {
           label: intl.formatMessage(messages.Code),
           options: {
             filter: true,
-            setCellProps: () => ({
+            setCellProps: () => ({ // used to make columns freze
               style: {
                 whiteSpace: "nowrap",
                 position: "sticky",
@@ -88,7 +88,7 @@ function StatisticalReport2(props) {
                 paddingRight: 20
               }
             }),
-            setCellHeaderProps: () => ({
+            setCellHeaderProps: () => ({ // used to make columns freze
               style: {
                 whiteSpace: "nowrap",
                 position: "sticky",
@@ -107,7 +107,7 @@ function StatisticalReport2(props) {
           label: intl.formatMessage(messages.employeeName),
           options: {
             filter: true,
-            setCellProps: () => ({
+            setCellProps: () => ({ // used to make columns freze
               style: {
                 whiteSpace: "nowrap",
                 position: "sticky",
@@ -119,7 +119,7 @@ function StatisticalReport2(props) {
                 paddingRight: 20
               }
             }),
-            setCellHeaderProps: () => ({
+            setCellHeaderProps: () => ({ // used to make columns freze
               style: {
                 whiteSpace: "nowrap",
                 position: "sticky",
@@ -138,7 +138,7 @@ function StatisticalReport2(props) {
           label: intl.formatMessage(messages.orgName),
           options: {
             filter: true,
-            setCellProps: () => ({
+            setCellProps: () => ({ // used to make columns freze
               style: {
                 whiteSpace: "nowrap",
                 position: "sticky",
@@ -150,7 +150,7 @@ function StatisticalReport2(props) {
                 paddingRight: 20
               }
             }),
-            setCellHeaderProps: () => ({
+            setCellHeaderProps: () => ({ // used to make columns freze
               style: {
                 whiteSpace: "nowrap",
                 position: "sticky",
@@ -169,7 +169,7 @@ function StatisticalReport2(props) {
             label: intl.formatMessage(messages.vacBalance),
             options: {
               filter: true,
-              setCellProps: () => ({
+              setCellProps: () => ({ // used to make columns freze
                 style: {
                   whiteSpace: "nowrap",
                   position: "sticky",
@@ -181,7 +181,7 @@ function StatisticalReport2(props) {
                 paddingRight: 20
                 }
               }),
-              setCellHeaderProps: () => ({
+              setCellHeaderProps: () => ({ // used to make columns freze
                 style: {
                   whiteSpace: "nowrap",
                   position: "sticky",

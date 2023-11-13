@@ -1163,6 +1163,13 @@ export const WorkinHoursByTimeReport = loadable(
   }
 );
 
+export const OverTimeReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/OverTimeReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

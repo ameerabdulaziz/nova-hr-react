@@ -314,6 +314,7 @@ import {
   BreakTimeReport,
   StatisticalReport2,
   WorkinHoursByTimeReport,
+  OverTimeReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -969,6 +970,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/WorkinHoursByTime'
           component={WorkinHoursByTimeReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/OverTimeReport'
+          component={OverTimeReport}
         />
 
 
