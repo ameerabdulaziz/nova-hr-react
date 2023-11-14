@@ -1,12 +1,11 @@
 import {
-  Autocomplete,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Grid,
-  TextField,
+  TextField
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -18,8 +17,6 @@ import messages from '../messages';
 function ExperiencePopup(props) {
   const {
     intl,
-    jobList,
-    departmentList,
     isOpen,
     setIsOpen,
     onSave,
@@ -28,8 +25,8 @@ function ExperiencePopup(props) {
   } = props;
 
   const [formInfo, setFormInfo] = useState({
-    jobId: null,
-    departmentId: null,
+    jobName: '',
+    departmentName: '',
     companyName: '',
     fromDate: null,
     toDate: null,
@@ -40,8 +37,8 @@ function ExperiencePopup(props) {
   useEffect(() => {
     if (isOpen && selectedWorkExperience) {
       setFormInfo({
-        jobId: selectedWorkExperience?.jobId || null,
-        departmentId: selectedWorkExperience?.departmentId || null,
+        jobName: selectedWorkExperience?.jobName || '',
+        departmentName: selectedWorkExperience?.departmentName || '',
         companyName: selectedWorkExperience?.companyName || '',
         fromDate: selectedWorkExperience?.fromDate || null,
         toDate: selectedWorkExperience?.toDate || null,
@@ -50,8 +47,8 @@ function ExperiencePopup(props) {
       });
     } else {
       setFormInfo({
-        jobId: null,
-        departmentId: null,
+        jobName: '',
+        departmentName: '',
         companyName: '',
         fromDate: null,
         toDate: null,
@@ -60,13 +57,6 @@ function ExperiencePopup(props) {
       });
     }
   }, [isOpen]);
-
-  const onAutoCompleteChange = (value, name) => {
-    setFormInfo((prev) => ({
-      ...prev,
-      [name]: value !== null ? value.id : null,
-    }));
-  };
 
   const onInputChange = (evt) => {
     setFormInfo((prev) => ({
@@ -115,50 +105,24 @@ function ExperiencePopup(props) {
       <DialogContent>
         <Grid container mt={1} spacing={2}>
           <Grid item xs={12} lg={6}>
-            <Autocomplete
-              options={jobList}
-              value={jobList.find((item) => item.id === formInfo.jobId) ?? null}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              getOptionLabel={(option) => (option ? option.name : '')}
-              onChange={(_, value) => onAutoCompleteChange(value, 'jobId')}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  required
-                  label={intl.formatMessage(messages.jobTitle)}
-                />
-              )}
-              renderOption={(propsOption, option) => (
-                <li {...propsOption} key={option.id}>
-                  {option.name}
-                </li>
-              )}
+            <TextField
+              name='jobName'
+              value={formInfo.jobName}
+              onChange={onInputChange}
+              label={intl.formatMessage(messages.jobTitle)}
+              fullWidth
+              variant='outlined'
             />
           </Grid>
 
           <Grid item xs={12} lg={6}>
-            <Autocomplete
-              options={departmentList}
-              value={
-                departmentList.find(
-                  (item) => item.id === formInfo.departmentId
-                ) ?? null
-              }
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              getOptionLabel={(option) => (option ? option.name : '')}
-              onChange={(_, value) => onAutoCompleteChange(value, 'departmentId')}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  required
-                  label={intl.formatMessage(messages.department)}
-                />
-              )}
-              renderOption={(propsOption, option) => (
-                <li {...propsOption} key={option.id}>
-                  {option.name}
-                </li>
-              )}
+            <TextField
+              name='departmentName'
+              value={formInfo.departmentName}
+              onChange={onInputChange}
+              label={intl.formatMessage(messages.department)}
+              fullWidth
+              variant='outlined'
             />
           </Grid>
 
@@ -225,8 +189,6 @@ function ExperiencePopup(props) {
 }
 
 ExperiencePopup.propTypes = {
-  jobList: PropTypes.array.isRequired,
-  departmentList: PropTypes.array.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
   setSelectedWorkExperience: PropTypes.func.isRequired,

@@ -58,6 +58,7 @@ function JobVacationApplication(props) {
 
   const [isCVPopupOpen, setIsCVPopupOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [config, setConfig] = useState({});
 
@@ -69,7 +70,6 @@ function JobVacationApplication(props) {
   const [socialStatusList, setSocialStatusList] = useState([]);
   const [genderList, setGenderList] = useState([]);
   const [graduationGradList, setGraduationGradList] = useState([]);
-  const [departmentList, setDepartmentList] = useState([]);
 
   const [workExperience, setWorkExperience] = useState([]);
   const [isExperiencePopupOpen, setIsExperiencePopupOpen] = useState(false);
@@ -121,11 +121,9 @@ function JobVacationApplication(props) {
 
   async function fetchNeededData() {
     setIsLoading(true);
+    setIsSubmitting(true);
 
     try {
-      const departments = await GeneralListApis(locale).GetDepartmentList();
-      setDepartmentList(departments);
-
       const militaryStatus = await GeneralListApis(
         locale
       ).GetMilitaryStatusList();
@@ -162,6 +160,7 @@ function JobVacationApplication(props) {
       //
     } finally {
       setIsLoading(false);
+      setIsSubmitting(false);
     }
   }
 
@@ -278,7 +277,7 @@ function JobVacationApplication(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     const formData = { ...formInfo };
 
@@ -306,10 +305,11 @@ function JobVacationApplication(props) {
     try {
       await API(locale).save(formData);
       toast.success(notif.saved);
+      history.push('/public/ApplicationUnderReviewing');
     } catch (error) {
       //
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -372,12 +372,10 @@ function JobVacationApplication(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoader isLoading={isSubmitting}>
       <Layout isLoading={isLoading} config={config} changeMode={changeMode}>
         <Section>
           <ExperiencePopup
-            jobList={jobList}
-            departmentList={departmentList}
             isOpen={isExperiencePopupOpen}
             setIsOpen={setIsExperiencePopupOpen}
             onSave={onExperienceSave}
@@ -926,166 +924,6 @@ function JobVacationApplication(props) {
 
                 <Grid item xs={12}>
                   <div className='cv-form-card'>
-                    <Grid
-                      container
-                      justifyContent='space-between'
-                      alignItems='center'
-                    >
-                      <Grid item>
-                        <div className='title'>
-                          {intl.formatMessage(messages.workExperienceInfo)}
-                        </div>
-                      </Grid>
-                      <Grid item>
-                        <button
-                          className='cv-btn'
-                          type='button'
-                          onClick={onExperiencePopupBtnClick}
-                        >
-                          {intl.formatMessage(messages.addExperience)}
-                        </button>
-                      </Grid>
-                    </Grid>
-
-                    {workExperience.length > 0 ? (
-                      <Grid container mt={0} spacing={3} alignItems='stretch'>
-                        {workExperience.map((exp) => (
-                          <Grid item xs={12} key={exp.id} md={4}>
-                            <div className='single-exp-card create-edit-card '>
-                              <IconButton
-                                size='small'
-                                className='action-btn edit-btn'
-                                aria-label='edit'
-                                onClick={() => onExperienceEdit(exp)}
-                              >
-                                <BorderColor />
-                              </IconButton>
-
-                              <IconButton
-                                size='small'
-                                className='action-btn delete-btn'
-                                color='error'
-                                aria-label='delete'
-                                onClick={() => onExperienceRemove(exp.id)}
-                              >
-                                <Delete />
-                              </IconButton>
-
-                              <div className='title'>
-                                {jobList.find((item) => item.id === exp.jobId)
-                                  ?.name ?? null}
-                              </div>
-                              <span className='info'>
-                                {formateDate(exp.fromDate)} -{' '}
-                                {formateDate(exp.toDate)}
-                              </span>
-
-                              <div>
-                                {departmentList.find(
-                                  (item) => item.id === exp.departmentId
-                                )?.name ?? null}
-                              </div>
-                            </div>
-                          </Grid>
-                        ))}
-                      </Grid>
-                    ) : (
-                      <Stack
-                        direction='row'
-                        sx={{ minHeight: 200 }}
-                        alignItems='center'
-                        justifyContent='center'
-                        textAlign='center'
-                      >
-                        <Box>
-                          <HomeRepairServiceIcon
-                            sx={{ color: '#a7acb2', fontSize: 30 }}
-                          />
-                          <Typography color='#a7acb2' variant='body1'>
-                            {intl.formatMessage(messages.noExperience)}
-                          </Typography>
-                        </Box>
-                      </Stack>
-                    )}
-                  </div>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <div className='cv-form-card'>
-                    <Grid
-                      container
-                      justifyContent='space-between'
-                      alignItems='center'
-                    >
-                      <Grid item>
-                        <div className='title'>
-                          {intl.formatMessage(messages.coursesInfo)}
-                        </div>
-                      </Grid>
-                      <Grid item>
-                        <button
-                          className='cv-btn'
-                          type='button'
-                          onClick={onCoursePopupBtnClick}
-                        >
-                          {intl.formatMessage(messages.addCourse)}
-                        </button>
-                      </Grid>
-                    </Grid>
-
-                    {courses.length > 0 ? (
-                      <Grid container mt={0} spacing={3} alignItems='stretch'>
-                        {courses.map((course) => (
-                          <Grid item xs={12} key={course.id} md={4}>
-                            <div className='single-course create-edit-card'>
-                              <IconButton
-                                size='small'
-                                className='action-btn edit-btn'
-                                aria-label='edit'
-                                onClick={() => onCourseEdit(course)}
-                              >
-                                <BorderColor />
-                              </IconButton>
-
-                              <IconButton
-                                size='small'
-                                className='action-btn delete-btn'
-                                color='error'
-                                aria-label='delete'
-                                onClick={() => onCourseRemove(course.id)}
-                              >
-                                <Delete />
-                              </IconButton>
-
-                              <div className='title'>{course.courseName}</div>
-                              <span className='date'>
-                                {formateDate(course.endDate)}
-                              </span>
-                            </div>
-                          </Grid>
-                        ))}
-                      </Grid>
-                    ) : (
-                      <Stack
-                        direction='row'
-                        sx={{ minHeight: 200 }}
-                        alignItems='center'
-                        justifyContent='center'
-                        textAlign='center'
-                      >
-                        <Box>
-                          <BadgeIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
-                          <Typography color='#a7acb2' variant='body1'>
-                            {intl.formatMessage(messages.noCourses)}
-                          </Typography>
-                        </Box>
-                      </Stack>
-                    )}
-                  </div>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <div className='cv-form-card'>
                     <div className='title'>
                       {intl.formatMessage(messages.jobInfo)}
                     </div>
@@ -1197,6 +1035,163 @@ function JobVacationApplication(props) {
                         />
                       </Grid>
                     </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <Grid
+                      container
+                      justifyContent='space-between'
+                      alignItems='center'
+                    >
+                      <Grid item>
+                        <div className='title'>
+                          {intl.formatMessage(messages.workExperienceInfo)}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        <button
+                          className='cv-btn'
+                          type='button'
+                          onClick={onExperiencePopupBtnClick}
+                        >
+                          {intl.formatMessage(messages.addExperience)}
+                        </button>
+                      </Grid>
+                    </Grid>
+
+                    {workExperience.length > 0 ? (
+                      <Grid container mt={0} spacing={3} alignItems='stretch'>
+                        {workExperience.map((exp) => (
+                          <Grid item xs={12} key={exp.id} md={4}>
+                            <div className='single-exp-card create-edit-card '>
+                              <IconButton
+                                size='small'
+                                className='action-btn edit-btn'
+                                aria-label='edit'
+                                onClick={() => onExperienceEdit(exp)}
+                              >
+                                <BorderColor />
+                              </IconButton>
+
+                              <IconButton
+                                size='small'
+                                className='action-btn delete-btn'
+                                color='error'
+                                aria-label='delete'
+                                onClick={() => onExperienceRemove(exp.id)}
+                              >
+                                <Delete />
+                              </IconButton>
+
+                              <div className='title'>
+                                {exp.jobName}
+                              </div>
+                              <span className='info'>
+                                {formateDate(exp.fromDate)} -{' '}
+                                {formateDate(exp.toDate)}
+                              </span>
+
+                              <div>
+                                {exp.departmentName}
+                              </div>
+                            </div>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    ) : (
+                      <Stack
+                        direction='row'
+                        sx={{ minHeight: 200 }}
+                        alignItems='center'
+                        justifyContent='center'
+                        textAlign='center'
+                      >
+                        <Box>
+                          <HomeRepairServiceIcon
+                            sx={{ color: '#a7acb2', fontSize: 30 }}
+                          />
+                          <Typography color='#a7acb2' variant='body1'>
+                            {intl.formatMessage(messages.noExperience)}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                    )}
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <Grid
+                      container
+                      justifyContent='space-between'
+                      alignItems='center'
+                    >
+                      <Grid item>
+                        <div className='title'>
+                          {intl.formatMessage(messages.coursesInfo)}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        <button
+                          className='cv-btn'
+                          type='button'
+                          onClick={onCoursePopupBtnClick}
+                        >
+                          {intl.formatMessage(messages.addCourse)}
+                        </button>
+                      </Grid>
+                    </Grid>
+
+                    {courses.length > 0 ? (
+                      <Grid container mt={0} spacing={3} alignItems='stretch'>
+                        {courses.map((course) => (
+                          <Grid item xs={12} key={course.id} md={4}>
+                            <div className='single-course create-edit-card'>
+                              <IconButton
+                                size='small'
+                                className='action-btn edit-btn'
+                                aria-label='edit'
+                                onClick={() => onCourseEdit(course)}
+                              >
+                                <BorderColor />
+                              </IconButton>
+
+                              <IconButton
+                                size='small'
+                                className='action-btn delete-btn'
+                                color='error'
+                                aria-label='delete'
+                                onClick={() => onCourseRemove(course.id)}
+                              >
+                                <Delete />
+                              </IconButton>
+
+                              <div className='title'>{course.courseName}</div>
+                              <span className='date'>
+                                {formateDate(course.endDate)}
+                              </span>
+                            </div>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    ) : (
+                      <Stack
+                        direction='row'
+                        sx={{ minHeight: 200 }}
+                        alignItems='center'
+                        justifyContent='center'
+                        textAlign='center'
+                      >
+                        <Box>
+                          <BadgeIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
+                          <Typography color='#a7acb2' variant='body1'>
+                            {intl.formatMessage(messages.noCourses)}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                    )}
                   </div>
                 </Grid>
 

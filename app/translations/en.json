@@ -1941,6 +1941,8 @@
   "boilerplate.containers.Payroll.cv.gender": "Gender",
   "boilerplate.containers.Payroll.cv.uploadCV": "Upload CV",
   "boilerplate.containers.Payroll.cv.preview": "Preview",
+  "boilerplate.containers.Payroll.cv.CVUnderReviewing": "Your CV under review",
+  "boilerplate.containers.Payroll.cv.previewCV": "Preview CV",
   "boilerplate.containers.Payroll.cv.uploadImage": "Upload Image",
   "boilerplate.containers.Payroll.cv.personalIDInfo": "Personal ID Info",
   "boilerplate.containers.Payroll.cv.IDType": "ID Type",

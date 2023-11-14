@@ -1765,6 +1765,13 @@ export const JobAdvertisementCreate = loadable(
   }
 );
 
+export const JobApplicationPreview = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobApplicationPreview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobVacation = loadable(
   () => import('./Pages/Payroll/cv-application/JobVacation'),
   {
@@ -1774,6 +1781,13 @@ export const JobVacation = loadable(
 
 export const JobVacationApplication = loadable(
   () => import('./Pages/Payroll/cv-application/JobVacationApplication'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ApplicationUnderReviewing = loadable(
+  () => import('./Pages/Payroll/cv-application/ApplicationUnderReviewing'),
   {
     fallback: <Loading />,
   }

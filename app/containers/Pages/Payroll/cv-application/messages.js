@@ -243,4 +243,12 @@ export default defineMessages({
     id: `${scope}.noJobs`,
     defaultMessage: 'noJobs',
   },
+  previewCV: {
+    id: `${scope}.previewCV`,
+    defaultMessage: 'previewCV',
+  },
+  CVUnderReviewing: {
+    id: `${scope}.CVUnderReviewing`,
+    defaultMessage: 'CVUnderReviewing',
+  },
 });
