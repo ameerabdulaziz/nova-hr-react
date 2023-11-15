@@ -112,14 +112,7 @@ function LateAttendanceReport(props) {
   {
     columns = [
         {
-          name: "id",
-            label: intl.formatMessage(Payrollmessages.id),
-          options: {
-            display: false,
-          },
-        },
-        {
-            name: "shiftCode",
+            name: "shiftId",
             label: intl.formatMessage(messages.shiftCode),
             options: {
               filter: true,
@@ -188,13 +181,6 @@ function LateAttendanceReport(props) {
               filter: true,
             },
           }, 
-          {
-            name: "branchName",
-            label: intl.formatMessage(messages.branchName),
-            options: {
-              filter: true,
-            },
-          }, 
       ];
       
   }
@@ -203,13 +189,6 @@ function LateAttendanceReport(props) {
   if(searchData.type === 2)
   {
     columns = [
-        {
-          name: "id",
-            label: intl.formatMessage(Payrollmessages.id),
-          options: {
-            display: false,
-          },
-        },
         {
           name: "organizationName",
           label: intl.formatMessage(messages.orgName),
@@ -246,20 +225,12 @@ function LateAttendanceReport(props) {
             },
           }, 
           {
-            name: "branchName",
-            label: intl.formatMessage(messages.branchName),
-            options: {
-              filter: true,
-            },
-          }, 
-          {
             name: "lateCount",
             label: intl.formatMessage(messages.LateCount),
             options: {
               filter: true,
             },
           }, 
-        
       ];
   }
 
@@ -267,13 +238,6 @@ function LateAttendanceReport(props) {
   if(searchData.type === 3)
   {
     columns = [
-        {
-          name: "id",
-            label: intl.formatMessage(Payrollmessages.id),
-          options: {
-            display: false,
-          },
-        },
         {
           name: "organizationName",
           label: intl.formatMessage(messages.orgName),
