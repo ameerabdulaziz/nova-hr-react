@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
-import AddButton from '../../Component/AddButton';
-import AlertPopup from '../../Component/AlertPopup';
-import DeleteButton from '../../Component/DeleteButton';
-import EditButton from '../../Component/EditButton';
-import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
-import payrollMessages from '../../messages';
-import api from '../api/OvertimeHoursRequestData';
-import messages from '../messages';
+import style from '../../../../../../styles/styles.scss';
+import AddButton from '../../../Component/AddButton';
+import AlertPopup from '../../../Component/AlertPopup';
+import DeleteButton from '../../../Component/DeleteButton';
+import EditButton from '../../../Component/EditButton';
+import PayRollLoader from '../../../Component/PayRollLoader';
+import useStyles from '../../../Style';
+import payrollMessages from '../../../messages';
+import api from '../../api/OvertimeHoursRequestData';
+import messages from '../../messages';
 
 function OvertimeHoursRequest(props) {
   const { intl } = props;

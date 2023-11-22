@@ -16,13 +16,13 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
-import Search from '../../Component/Search';
-import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
-import payrollMessages from '../../messages';
-import api from '../api/ReviewOvertimeData';
-import messages from '../messages';
+import PayRollLoader from '../../../Component/PayRollLoader';
+import Search from '../../../Component/Search';
+import useStyles from '../../../Style';
+import GeneralListApis from '../../../api/GeneralListApis';
+import payrollMessages from '../../../messages';
+import api from '../../api/ReviewOvertimeData';
+import messages from '../../../messages';
 
 function ReviewOvertime(props) {
   const { intl } = props;

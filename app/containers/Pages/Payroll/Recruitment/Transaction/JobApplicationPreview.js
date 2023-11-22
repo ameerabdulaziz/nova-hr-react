@@ -87,7 +87,7 @@ function JobApplicationPreview(props) {
     setIsLoading(true);
 
     try {
-      const response = await api(locale).GetById(15);
+      const response = await api(locale).GetById(id);
       setFormInfo({
         empName: response.empName,
         email: response.email,

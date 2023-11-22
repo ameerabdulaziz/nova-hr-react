@@ -1060,14 +1060,14 @@ export const EarlyLeavingReport = loadable(
 
 
 export const OvertimeHoursRequest = loadable(
-  () => import('./Pages/Payroll/Attendance/Transaction/OvertimeHoursRequest'),
+  () => import('./Pages/Payroll/Attendance/Transaction/Overtime/OvertimeHoursRequest'),
   {
     fallback: <Loading />,
   }
 );
 
 export const OvertimeHoursRequestCreate = loadable(
-  () => import('./Pages/Payroll/Attendance/Transaction/OvertimeHoursRequestCreate'),
+  () => import('./Pages/Payroll/Attendance/Transaction/Overtime/OvertimeHoursRequestCreate'),
   {
     fallback: <Loading />,
   }
@@ -1080,7 +1080,13 @@ export const EmployeeLessTimeReport = loadable(
 );
 
 export const ReviewOvertime = loadable(
-  () => import('./Pages/Payroll/Attendance/Transaction/ReviewOvertime'),
+  () => import('./Pages/Payroll/Attendance/Transaction/Overtime/ReviewOvertime'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const RemoveEmployeeSign = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/RemoveEmployeeSign'),
   {
     fallback: <Loading />,
   }
