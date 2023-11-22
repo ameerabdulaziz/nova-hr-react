@@ -322,6 +322,7 @@ import {
   JobApplicationPreview,
   RemoveEmployeeSign,
   DetailedAttendanceReport,
+  MonthlyAttendanceSummaryReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1014,6 +1015,12 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/TimeTableDetailsReport'
           component={DetailedAttendanceReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/MonthlyAttReport'
+          component={MonthlyAttendanceSummaryReport}
         />
 
 

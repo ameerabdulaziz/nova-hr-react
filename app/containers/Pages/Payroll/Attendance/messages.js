@@ -1589,5 +1589,30 @@ devicePass: {
     id: `${scope}.DetailedAttendanceReport`,
     defaultMessage: 'Detailed Attendance Report',
   },
+  // MonthlyAttendanceSummaryReport
+  lateHoursNotAuth: {
+    id: `${scope}.lateHoursNotAuth`,
+    defaultMessage: 'Late Hours Not Auth',
+  },
+  lateHoursAuth: {
+    id: `${scope}.lateHoursAuth`,
+    defaultMessage: 'Late Hours Auth',
+  },
+  leaveEarlyNotAuth: {
+    id: `${scope}.leaveEarlyNotAuth`,
+    defaultMessage: 'Leave Early Not Auth',
+  },
+  leaveEarlyAuth: {
+    id: `${scope}.leaveEarlyAuth`,
+    defaultMessage: 'leave Early Auth',
+  },
+  weekendOverTime: {
+    id: `${scope}.weekendOverTime`,
+    defaultMessage: 'Weekend OverTime',
+  },
+  officialVacationOverTime: {
+    id: `${scope}.officialVacationOverTime`,
+    defaultMessage: 'Official Vacation OverTime',
+  },
 });
 

@@ -1309,6 +1309,16 @@
   "boilerplate.containers.Payroll.Attendance.PrintByDate": "Print By Date",
   "boilerplate.containers.Payroll.Attendance.DetailedAttendanceReport": "Detailed Attendance Report",
 
+
+
+  "boilerplate.containers.Payroll.Attendance.lateHoursNotAuth": "Late Hours Not Auth",
+  "boilerplate.containers.Payroll.Attendance.lateHoursAuth": "Late Hours Auth",
+  "boilerplate.containers.Payroll.Attendance.leaveEarlyNotAuth": "Leave Early Not Auth",
+  "boilerplate.containers.Payroll.Attendance.leaveEarlyAuth": "leaveEarlyAuth",
+  "boilerplate.containers.Payroll.Attendance.weekendOverTime": "Weekend OverTime",
+  "boilerplate.containers.Payroll.Attendance.officialVacationOverTime": "Official Vacation OverTime",
+
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",
