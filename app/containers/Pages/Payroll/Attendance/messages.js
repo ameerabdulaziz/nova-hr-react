@@ -241,7 +241,7 @@ per: {
 },
 mission: {
   id: `${scope}.mission`,
-  defaultMessage: 'mission',
+  defaultMessage: 'Mission',
 },
 shiftVacancy: {
   id: `${scope}.shiftVacancy`,
@@ -1455,6 +1455,139 @@ devicePass: {
   LateCount: {
     id: `${scope}.LateCount`,
     defaultMessage: 'Late Count',
+  },
+  // DetailedAttendanceReport
+  shiftEnd: {
+    id: `${scope}.shiftEnd`,
+    defaultMessage: 'Shift End',
+  },
+  day: {
+    id: `${scope}.day`,
+    defaultMessage: 'Day',
+  },
+  insuranceNumber: {
+    id: `${scope}.insuranceNumber`,
+    defaultMessage: 'Insurance Number',
+  },
+  OverTime: {
+    id: `${scope}.OverTime`,
+    defaultMessage: 'OverTime',
+  },
+  AccruedLeave: {
+    id: `${scope}.AccruedLeave`,
+    defaultMessage: 'Accrued Leave',
+  },
+  DetailedAttendanceAndLeaveReport: {
+    id: `${scope}.DetailedAttendanceAndLeaveReport`,
+    defaultMessage: 'Detailed attendance and leave report',
+  },
+  Employee: {
+    id: `${scope}.Employee`,
+    defaultMessage: 'Employee',
+  },
+  Name: {
+    id: `${scope}.Name`,
+    defaultMessage: 'Name',
+  },
+  InsuranceNo: {
+    id: `${scope}.InsuranceNo`,
+    defaultMessage: 'Insurance No',
+  },
+  Report: {
+    id: `${scope}.Report`,
+    defaultMessage: 'Report',
+  },
+  PrintDate: {
+    id: `${scope}.PrintDate`,
+    defaultMessage: 'Print Date',
+  },
+  printTime: {
+    id: `${scope}.printTime`,
+    defaultMessage: 'print Time',
+  },
+  compilationWith: {
+    id: `${scope}.compilationWith`,
+    defaultMessage: 'Compilation with',
+  },
+  Manual: {
+    id: `${scope}.Manual`,
+    defaultMessage: 'Manual',
+  },
+  TotalOfLatenessAndLessTime: {
+    id: `${scope}.TotalOfLatenessAndLessTime`,
+    defaultMessage: 'Total of lateness and lessTime',
+  },
+  Hour: {
+    id: `${scope}.Hour`,
+    defaultMessage: 'Hour',
+  },
+  Normal: {
+    id: `${scope}.Normal`,
+    defaultMessage: 'Normal',
+  },
+  Minute: {
+    id: `${scope}.Minute`,
+    defaultMessage: 'Minute',
+  },
+  Total: {
+    id: `${scope}.Total`,
+    defaultMessage: 'Total',
+  },
+  LeavesDays: {
+    id: `${scope}.LeavesDays`,
+    defaultMessage: 'Leaves Days',
+  },
+  Leaves: {
+    id: `${scope}.Leaves`,
+    defaultMessage: 'leaves',
+  },
+  Day: {
+    id: `${scope}.Day`,
+    defaultMessage: 'Day',
+  },
+  WorkingDays: {
+    id: `${scope}.WorkingDays`,
+    defaultMessage: 'Working Days',
+  },
+  Work: {
+    id: `${scope}.Work`,
+    defaultMessage: 'Work',
+  },
+  WithoutEmployeesWhoDoNotMeetTheAttendanceRules: {
+    id: `${scope}.WithoutEmployeesWhoDoNotMeetTheAttendanceRules`,
+    defaultMessage: 'Without Employees Who Do Not Meet The Attendance Rules',
+  },
+  insuredEmployeesOnly: {
+    id: `${scope}.insuredEmployeesOnly`,
+    defaultMessage: 'Insured Employees Only',
+  },
+  showPresentEmployeeOnly: {
+    id: `${scope}.showPresentEmployeeOnly`,
+    defaultMessage: 'Show Present Employee Only',
+  },
+  ShowViolationsOnly: {
+    id: `${scope}.ShowViolationsOnly`,
+    defaultMessage: 'Show Violations Only',
+  },
+  showFingerprintDevice: {
+    id: `${scope}.showFingerprintDevice`,
+    defaultMessage: 'Show Fingerprint Device',
+  },
+  printPicture: {
+    id: `${scope}.printPicture`,
+    defaultMessage: 'Print Picture',
+  },
+  PrintByEmployee: {
+    id: `${scope}.PrintByEmployee`,
+    defaultMessage: 'Print By Employee',
+  },
+  PrintByDate: {
+    id: `${scope}.PrintByDate`,
+    defaultMessage: 'Print By Date',
+  },
+  DetailedAttendanceReport: {
+    id: `${scope}.DetailedAttendanceReport`,
+    defaultMessage: 'Detailed Attendance Report',
   },
 });
 

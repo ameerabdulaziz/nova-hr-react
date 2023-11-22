@@ -206,6 +206,14 @@ const AttendanceReportsData = (locale) => {
   };
   
 
+  api.DetailedAttendanceReportApi = async (params,EmpPrint,DatePrint) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetTimeTableDetailsReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
 
   return api;
 };

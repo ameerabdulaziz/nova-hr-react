@@ -1,0 +1,187 @@
+.headerContainer
+{
+    page-break-before: always;
+    padding: 20px 20px 10px 20px;
+}
+
+
+.headerContainer,
+.FooterContainer
+{
+    background-color: #ffffff;
+
+    div
+    {
+        h1
+        {
+            border-bottom: 2px solid #000;
+            margin: 0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            font-size: 25px;
+        }
+    }
+
+    
+    & > div:nth-child(2)
+    {
+        & > div
+        {
+            & > div:nth-child(1)
+            {
+
+                img
+                {
+                    width: 70px;
+                    margin-bottom: 30px;
+                }
+            }
+
+        }
+
+        
+    }
+
+    .sectionSty
+    {
+        padding-top: 15px;
+
+       & > div:nth-child(1)
+        {
+            p
+            {
+                font-size: 10px;
+                font-weight: bold;
+                border-bottom: 2px solid #000;
+                width: 100%;
+                margin-bottom: 5px;
+                padding-bottom: 5px;
+            }
+        }
+
+        div
+        {
+            span
+            {
+                font-size: 1vw;
+                font-weight: bold;
+            }
+
+            div
+            {
+                padding-top: 15px;
+            }
+        }
+    }
+
+    .imgSectionSty
+    {
+        display: flex;
+        justify-content: center;
+
+        img
+        {
+            width: 25%;
+        }
+    }
+}
+
+
+.DateHeaderContainer
+{
+    & > div:nth-child(2)
+    {
+        & > div
+        {
+            justify-content: space-between;
+        }
+    }
+}
+
+
+
+.tableContainerSty
+{
+    background-color: #ffffff;
+    padding: 10px 20px 10px 20px;
+
+    table
+    {
+        margin: 0;
+    }
+
+    th
+    {
+        font-size: 1.2vw !important;
+        background-color: #c4c1bc;
+        border: 1px solid #000;
+        font-weight: bolder;
+        padding: 3px 0.5%;
+        white-space: nowrap;
+    }
+
+    td
+    {
+        font-size: 10px !important;
+        background-color: #ffffff;
+        border: 1px solid #000;
+        padding: 3px 0.5%;
+
+        svg
+        {
+            height: auto;
+            width: 12px;
+        }
+    }
+}
+
+
+.FooterContainer
+{
+    padding: 10px 20px 20px 20px;
+
+    .footerSecSectionSty
+    {
+        
+       & > div:nth-child(2),
+       & > div:nth-child(3)
+        {
+           & > div:nth-child(2)
+            {
+                border-right: 1px solid #000;
+                padding-top: 0;
+                margin-top: 16px;
+                padding-left: 1%;
+                padding-right: 1%;
+            }
+    }
+
+    p
+    {
+        border-bottom: 1px solid #000000;
+        width: 100%;
+        padding-bottom: 5px;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+    }
+
+    .footerSectionSty
+    {
+        & > div:nth-child(1)
+        {
+            margin-bottom: 15px;
+        }
+        div
+        {
+            margin-left: 0;
+          
+
+           & > div
+            {
+                padding-left: 5%;
+            }
+        }
+    }
+
+}

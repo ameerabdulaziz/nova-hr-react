@@ -320,6 +320,7 @@ import {
   WorkinLeavesReport,
   LateAttendanceReport,
   JobApplicationPreview,
+  DetailedAttendanceReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1002,6 +1003,12 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/LateAttendanceReport'
           component={LateAttendanceReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/TimeTableDetailsReport'
+          component={DetailedAttendanceReport}
         />
 
 
