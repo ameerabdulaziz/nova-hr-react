@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
@@ -78,8 +78,7 @@ function MonthlyAttendanceSummaryReport(props) {
         },
       },
       {
-        name: "workingDays", //
-        // label: "workingDays",
+        name: "WrDays",
         label: intl.formatMessage(messages.WorkingDays),
         options: {
           filter: true,
@@ -87,7 +86,6 @@ function MonthlyAttendanceSummaryReport(props) {
       },
       {
         name: "lateNotAuth",
-        // label: "lateHoursNotAuth",
         label: intl.formatMessage(messages.lateHoursNotAuth),
         options: {
           filter: true,
@@ -95,7 +93,6 @@ function MonthlyAttendanceSummaryReport(props) {
       },
       {
         name: "lateAuth",
-        // label: "lateHoursAuth",
         label: intl.formatMessage(messages.lateHoursAuth),
         options: {
           filter: true,
@@ -103,7 +100,6 @@ function MonthlyAttendanceSummaryReport(props) {
       },
       {
         name: "earlyLeaveNotAuth",
-        // label: "leaveEarlyNotAuth",
         label: intl.formatMessage(messages.leaveEarlyNotAuth),
         options: {
           filter: true,
@@ -111,7 +107,6 @@ function MonthlyAttendanceSummaryReport(props) {
       },
       {
         name: "earlyLeaveAuth",
-        // label: "leaveEarlyAuth",
         label: intl.formatMessage(messages.leaveEarlyAuth),
         options: {
           filter: true,
@@ -119,31 +114,27 @@ function MonthlyAttendanceSummaryReport(props) {
       },
     {
         name: "breakTime",
-        // label: "brackTime",
         label: intl.formatMessage(messages.brackTime),
         options: {
           filter: true,
         },
       },
       {
-        name: "meeting", //
-        label: "meeting",
-        // label: intl.formatMessage(messages.meeting),
+        name: "mFullDay",
+        label: intl.formatMessage(messages.mission),
         options: {
           filter: true,
         },
       },
       {
         name: "absent",
-        label: "absent(D)",
-        // label: intl.formatMessage(messages.job),
+        label: intl.formatMessage(messages.absence),
         options: {
           filter: true,
         },
       },
       {
         name: "overTime",
-        // label: "overTime",
         label: intl.formatMessage(messages.OverTime),
         options: {
           filter: true,
@@ -151,15 +142,13 @@ function MonthlyAttendanceSummaryReport(props) {
       },
       {
         name: "weekEndOver",
-        // label: "weekendOverTime",
         label: intl.formatMessage(messages.weekendOverTime),
         options: {
           filter: true,
         },
       },
       {
-        name: "holidayOver", //
-        // label: "officialVacationOverTime",
+        name: "holidayOver",
         label: intl.formatMessage(messages.officialVacationOverTime),
         options: {
           filter: true,

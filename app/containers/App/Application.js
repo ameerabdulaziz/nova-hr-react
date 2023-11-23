@@ -1021,7 +1021,7 @@ function Application(props) {
 
 
         <Route
-          path='/app/Pages/Att/MonthlyAttReport'
+          path='/app/Pages/Att/MonthlyAttSummaryReport'
           component={MonthlyAttendanceSummaryReport}
         />
 
