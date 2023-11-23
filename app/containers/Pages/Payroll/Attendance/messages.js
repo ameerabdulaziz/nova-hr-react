@@ -1614,47 +1614,6 @@ devicePass: {
     id: `${scope}.officialVacationOverTime`,
     defaultMessage: 'Official Vacation OverTime',
   },
-  // MonthlyStatisticsReport
-  RegularVacation: {
-    id: `${scope}.RegularVacation`,
-    defaultMessage: 'Regular Vacation',
-  },
-  CasualVacation: {
-    id: `${scope}.CasualVacation`,
-    defaultMessage: 'Casual Vacation',
-  },
-  DiscountedVacation: {
-    id: `${scope}.DiscountedVacation`,
-    defaultMessage: 'Discounted Vacation',
-  },
-  officialVacation: {
-    id: `${scope}.officialVacation`,
-    defaultMessage: 'Official Vacation',
-  },
-  deathVacation: {
-    id: `${scope}.deathVacation`,
-    defaultMessage: 'Death Vacation',
-  },
-  PaidVacation: {
-    id: `${scope}.PaidVacation`,
-    defaultMessage: 'Paid Vacation',
-  },
-  Satisfying100: {
-    id: `${scope}.Satisfying100`,
-    defaultMessage: 'Satisfying 100%',
-  },
-  MaternityVacation: {
-    id: `${scope}.MaternityVacation`,
-    defaultMessage: 'Maternity Vacation',
-  },
-  deported: {
-    id: `${scope}.deported`,
-    defaultMessage: 'Deported',
-  },
-  OfficialVacationAllowance: {
-    id: `${scope}.OfficialVacationAllowance`,
-    defaultMessage: 'Official Vacation Allowance',
-  },
   // DeviceLogReport
   DisplayDeviceName: {
     id: `${scope}.DisplayDeviceName`,

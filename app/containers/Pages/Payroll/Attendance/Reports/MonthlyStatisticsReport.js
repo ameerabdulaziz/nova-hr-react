@@ -93,22 +93,20 @@ function MonthlyStatisticsReport(props) {
       },
       {
         name: "workDays",
-        // label: "workingDays",
         label: intl.formatMessage(messages.WorkingDays),
         options: {
           filter: true,
         },
       },
       {
-        name: "weekEnd", //
-        // label: "workingDays",
+        name: "shifyVac",
         label: intl.formatMessage(messages.weekend),
         options: {
           filter: true,
         },
       },
       {
-        name: "lateMin", //
+        name: "lateMin",
         label: intl.formatMessage(messages.lateness),
         options: {
           filter: true,
@@ -116,7 +114,6 @@ function MonthlyStatisticsReport(props) {
       },
       {
         name: "absence",
-        // label: "lateHoursAuth",
         label: intl.formatMessage(messages.absence),
         options: {
           filter: true,
@@ -136,87 +133,33 @@ function MonthlyStatisticsReport(props) {
           filter: true,
         },
       },
-    {
-        name: "RegularVacation", //
-        // label: "brackTime",
-        label: intl.formatMessage(messages.RegularVacation),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "Casual vacation", //
-        // label: "meeting",
-        label: intl.formatMessage(messages.CasualVacation),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "Discounted vacation",//
-        // label: "absent(D)",
-        label: intl.formatMessage(messages.DiscountedVacation),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "Official vacation",//
-        // label: "overTime",
-        label: intl.formatMessage(messages.officialVacation),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "deathVacation",//
-        // label: "weekendOverTime",
-        label: intl.formatMessage(messages.deathVacation),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "PaidVacation", //
-        // label: "officialVacationOverTime",
-        label: intl.formatMessage(messages.PaidVacation),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "Satisfying100", //
-        // label: "officialVacationOverTime",
-        label: intl.formatMessage(messages.Satisfying100),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "MaternityVacation", //
-        // label: "officialVacationOverTime",
-        label: intl.formatMessage(messages.MaternityVacation),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "deported", //
-        // label: "officialVacationOverTime",
-        label: intl.formatMessage(messages.deported),
-        options: {
-          filter: true,
-        },
-      },
-      {
-        name: "OfficialVacationAllowance", //
-        // label: "officialVacationOverTime",
-        label: intl.formatMessage(messages.OfficialVacationAllowance),
-        options: {
-          filter: true,
-        },
-      },
   ];
+
+  // used to generate columns depend on api data
+  if(data.length !== 0)
+  {
+      Object.keys(data[0]).map((key)=>{
+
+        let keyCheck =  columns.some(function(col) {
+              return col.name === key;
+            })
+          if(!keyCheck)
+          {
+              columns.push({
+                  name: key,
+                  label: key,
+                options: {
+                  filter: true,
+                },
+              })
+          }
+      }) 
+      
+  }
+
+
+
+
   const options = {
     filterType: "dropdown",
     responsive: "vertical",
