@@ -1319,6 +1319,18 @@
   "boilerplate.containers.Payroll.Attendance.officialVacationOverTime": "Official Vacation OverTime",
 
 
+  "boilerplate.containers.Payroll.Attendance.RegularVacation": "Regular Vacation",
+  "boilerplate.containers.Payroll.Attendance.CasualVacation": "Casual Vacation",
+  "boilerplate.containers.Payroll.Attendance.DiscountedVacation": "Discounted Vacation",
+  "boilerplate.containers.Payroll.Attendance.officialVacation": "Official Vacation",
+  "boilerplate.containers.Payroll.Attendance.deathVacation": "Death Vacation",
+  "boilerplate.containers.Payroll.Attendance.PaidVacation": "Paid Vacation",
+  "boilerplate.containers.Payroll.Attendance.Satisfying100": "Satisfying 100%",
+  "boilerplate.containers.Payroll.Attendance.MaternityVacation": "Maternity Vacation",
+  "boilerplate.containers.Payroll.Attendance.deported": "Deported",
+  "boilerplate.containers.Payroll.Attendance.OfficialVacationAllowance": "Official Vacation Allowance",
+
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

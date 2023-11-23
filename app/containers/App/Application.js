@@ -323,6 +323,7 @@ import {
   RemoveEmployeeSign,
   DetailedAttendanceReport,
   MonthlyAttendanceSummaryReport,
+  MonthlyStatisticsReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1021,6 +1022,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/MonthlyAttReport'
           component={MonthlyAttendanceSummaryReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/MonthlyStatisticsReport'
+          component={MonthlyStatisticsReport}
         />
 
 

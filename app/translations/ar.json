@@ -1521,6 +1521,19 @@
     "boilerplate.containers.Payroll.Attendance.leaveEarlyAuth": "خروج مبكر بإذن",
     "boilerplate.containers.Payroll.Attendance.weekendOverTime": "اضافى عطلة الاسبوع",
     "boilerplate.containers.Payroll.Attendance.officialVacationOverTime": "اضافى ايام الاجازة",
+
+
+
+    "boilerplate.containers.Payroll.Attendance.RegularVacation": "اجازة اعتيادى",
+    "boilerplate.containers.Payroll.Attendance.CasualVacation": "اجازة عارضة",
+    "boilerplate.containers.Payroll.Attendance.DiscountedVacation": "اجازة بالخصم",
+    "boilerplate.containers.Payroll.Attendance.officialVacation": "اجازة رسمية",
+    "boilerplate.containers.Payroll.Attendance.deathVacation": "اجازة وفاه",
+    "boilerplate.containers.Payroll.Attendance.PaidVacation": "اجازة مدفوهة الاجر",
+    "boilerplate.containers.Payroll.Attendance.Satisfying100": "مرضى 100%",
+    "boilerplate.containers.Payroll.Attendance.MaternityVacation": "اجازة وضع",
+    "boilerplate.containers.Payroll.Attendance.deported": "مرحل",
+    "boilerplate.containers.Payroll.Attendance.OfficialVacationAllowance": "بدل اجازات رسمية",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

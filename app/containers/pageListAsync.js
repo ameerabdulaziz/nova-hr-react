@@ -1220,6 +1220,13 @@ export const MonthlyAttendanceSummaryReport = loadable(
   }
 );
 
+export const MonthlyStatisticsReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/MonthlyStatisticsReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
