@@ -1477,6 +1477,11 @@
     "boilerplate.containers.Payroll.Attendance.shiftStart":"بداية الوردية",
     "boilerplate.containers.Payroll.Attendance.lateness":"التاخير",
     "boilerplate.containers.Payroll.Attendance.LateCount":"مرات التاخير",
+    "boilerplate.containers.Payroll.Attendance.BothCheckInOut":"تسجيل حضور وانصراف",
+    "boilerplate.containers.Payroll.Attendance.checkIn":"تسجيل حضور فقط",
+    "boilerplate.containers.Payroll.Attendance.checkOut":"تسجيل انصراف فقط",    
+  "boilerplate.containers.Payroll.Attendance.isNotUpdateAtt": "فى حالة وجود سطر للموظف لا تقم بالتعديل",
+    
     
   
   

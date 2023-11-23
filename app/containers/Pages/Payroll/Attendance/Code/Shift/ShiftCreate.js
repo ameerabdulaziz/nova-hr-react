@@ -118,7 +118,7 @@ function ShiftCreate(props) {
     }
     if (event.target.name == "startTime") {
       if (data.endTime != "") {
-        var diff = Math.round(
+        var diff = 
           (new Date(
             0,
             0,
@@ -134,7 +134,6 @@ function ShiftCreate(props) {
               event.target.value.split(":")[1]
             )) /
             3600000
-        );
 
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -150,7 +149,7 @@ function ShiftCreate(props) {
 
     if (event.target.name == "endTime") {
       if (data.startTime != "") {
-        var diff = Math.round(
+        var diff = 
           (new Date(
             0,
             0,
@@ -166,8 +165,6 @@ function ShiftCreate(props) {
               data.startTime.split(":")[1]
             )) /
             3600000
-        );
-
         setdata((prevFilters) => ({
           ...prevFilters,
           endTime: event.target.value,

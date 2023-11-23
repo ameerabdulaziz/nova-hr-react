@@ -1456,5 +1456,21 @@ devicePass: {
     id: `${scope}.LateCount`,
     defaultMessage: 'Late Count',
   },
+  BothCheckInOut: {
+    id: `${scope}.BothCheckInOut`,
+    defaultMessage: 'BothCheckInOut',
+  },
+  checkIn: {
+    id: `${scope}.checkIn`,
+    defaultMessage: 'checkIn',
+  },
+  checkOut: {
+    id: `${scope}.checkOut`,
+    defaultMessage: 'checkOut',
+  },
+  isNotUpdateAtt: {
+    id: `${scope}.isNotUpdateAtt`,
+    defaultMessage: 'isNotUpdateAtt',
+  },
 });
 

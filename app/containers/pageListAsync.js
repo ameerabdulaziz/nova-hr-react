@@ -1091,6 +1091,12 @@ export const RemoveEmployeeSign = loadable(
     fallback: <Loading />,
   }
 );
+export const EmployeeAttendance = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/EmployeeAttendance'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 export const EmployeeAttendanceTemplateReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/EmployeeAttendanceTemplateReport'),

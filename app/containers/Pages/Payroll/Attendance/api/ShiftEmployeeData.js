@@ -49,8 +49,8 @@ const ShiftEmployeeData = (locale) => {
   };
   
   
-  Apis.GetEmpAttendance = async (FromDate,ToDate, EmployeeId, OrganizationId) => {
-    const data = await axiosInstance.get(`AttEmployeeAttendance/GetEmpAttendance/${locale}?FromDate=${FromDate!=null?FromDate:""}&ToDate=${ToDate!=null?ToDate:""}&EmployeeId=${EmployeeId}&OrganizationId=${OrganizationId}`);
+  Apis.GetEmpAttendance = async (FromDate,ToDate, EmployeeId, OrganizationId,EmployeeStatusId,ShiftId) => {
+    const data = await axiosInstance.get(`AttEmployeeAttendance/GetEmpAttendance/${locale}?FromDate=${FromDate!=null?FromDate:""}&ToDate=${ToDate!=null?ToDate:""}&EmployeeId=${EmployeeId}&OrganizationId=${OrganizationId}&EmployeeStatusId=${EmployeeStatusId}&ShiftId=${ShiftId}`);
     const result = data.data;
     
     return result;

@@ -1431,7 +1431,11 @@
   "boilerplate.containers.Payroll.Attendance.port":"Port",
   "boilerplate.containers.Payroll.Attendance.serialNumber":"Serial Number",  
   "boilerplate.containers.Payroll.Attendance.testConnection":"Test Connection",
-
+  "boilerplate.containers.Payroll.Attendance.BothCheckInOut":"Check In and Out",
+  "boilerplate.containers.Payroll.Attendance.checkIn":"Check In only",
+  "boilerplate.containers.Payroll.Attendance.checkOut":"Check out only",
+  
+  "boilerplate.containers.Payroll.Attendance.isNotUpdateAtt": "Not Update Existing Attendance",
 
 
 

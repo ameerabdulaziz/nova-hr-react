@@ -210,7 +210,7 @@ function ShiftOrgnization(props) {
         ...prevFilters,
         startTime: result.startTime,
         endTime: result.endTime,
-        workHours: Math.round(
+        workHours:
           (new Date(
             0,
             0,
@@ -226,7 +226,6 @@ function ShiftOrgnization(props) {
               result.startTime.split(":")[1]
             )) /
             3600000
-        ),
       }));
       const dataApi = await ApiData(locale).GetList("", id, "");
       setdataList(dataApi || []);
@@ -486,7 +485,7 @@ function ShiftOrgnization(props) {
                             shiftId: value !== null ? value.id : 0,
                             shiftName: value !== null ? value.name : "",
                           }));
-                          getShiftData(value.id);
+                          getShiftData(value !== null ? value.id : 0);
                         }}
                         renderInput={(params) => (
                           <TextField
@@ -509,7 +508,7 @@ function ShiftOrgnization(props) {
                         value={data.startTime}
                         label={intl.formatMessage(messages.startTime)}
                         type="time"
-                        onChange={(e) => handleChange(e)}
+                        disabled
                         className={classes.field}
                         InputLabelProps={{
                           shrink: true,
@@ -523,7 +522,7 @@ function ShiftOrgnization(props) {
                         value={data.endTime}
                         label={intl.formatMessage(messages.endTime)}
                         type="time"
-                        onChange={(e) => handleChange(e)}
+                        disabled
                         className={classes.field}
                         InputLabelProps={{
                           shrink: true,

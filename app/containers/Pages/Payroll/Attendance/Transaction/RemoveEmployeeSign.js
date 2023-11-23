@@ -20,6 +20,7 @@ import style from "../../../../../styles/styles.scss";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { toast } from "react-hot-toast";
+import GeneralListApis from "../../api/GeneralListApis";
 
 function RemoveEmployeeSign(props) {
   const { intl } = props;
@@ -74,14 +75,28 @@ function RemoveEmployeeSign(props) {
 
   const handleSearch = async (e) => {
     try {
+        debugger ;
       setIsLoading(true);
+      let DeviceData = ""
+    if(Device !== "")
+    {
+        
+        Device.map((ele, index)=>{
+            DeviceData+= `${ele.id}`
+        if(index + 1 !== Device.length)
+        {
+            DeviceData+= ","
+        }
+      })
+    }
+
       var formData = {
         FromDate: searchData.FromDate,
         ToDate: searchData.ToDate,
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
-        DevNo: Device,
+        DevNo: DeviceData,
         DelRec: Deleted,
       };
       Object.keys(formData).forEach((key) => {
@@ -125,7 +140,8 @@ function RemoveEmployeeSign(props) {
   }
   async function fetchData() {
     try {
-      const devices = await ApiData(locale).GetDeviceList();
+      const devices = await GeneralListApis
+      (locale).GetDeviceList();
       setDeviceList(devices);
     } catch (err) {
     } finally {
@@ -186,7 +202,7 @@ function RemoveEmployeeSign(props) {
               )}
             />
           </Grid>
-
+          
           <Grid item xs={12} md={2}>
             <Autocomplete
               id="DeleteList"
@@ -215,7 +231,7 @@ function RemoveEmployeeSign(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={1}>
             <Button
               variant="contained"
               size="medium"
@@ -244,7 +260,7 @@ function RemoveEmployeeSign(props) {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell style={{ width: "5px", padding: "0px" }}>
+                  <TableCell style={{ width: "5px", padding: "0px",textAlign:"center"  }}>
                     <Checkbox
                       checked={
                         data.length > 0 &&
@@ -266,25 +282,28 @@ function RemoveEmployeeSign(props) {
                       onChange={handlepermcheckboxAll}
                     />
                   </TableCell>
-                  <TableCell style={{ width: "5px", padding: "0px" }}>
+                  <TableCell style={{ width: "5px", padding: "0px",textAlign:"center" }}>
                     <FormattedMessage {...Payrollmessages.id} />
                   </TableCell>
-                  <TableCell style={{ width: "20px", padding: "0px" }}>
+                  <TableCell style={{ width: "20px", padding: "0px",textAlign:"center" }}>
                     <FormattedMessage {...Payrollmessages.organizationName} />
                   </TableCell>
-                  <TableCell style={{ width: "20px", padding: "0px" }}>
+                  <TableCell style={{ width: "10px", padding: "0px",textAlign:"center" }}>
                     <FormattedMessage {...Payrollmessages.employeeId} />
                   </TableCell>
-                  <TableCell style={{ width: "20px", padding: "0px" }}>
+                  <TableCell style={{ width: "20px", padding: "0px",textAlign:"center" }}>
                     <FormattedMessage {...Payrollmessages.employeeName} />
                   </TableCell>
-                  <TableCell style={{ width: "20px", padding: "0px" }}>
+                  <TableCell style={{ width: "15px", padding: "0px",textAlign:"center" }}>
                     <FormattedMessage {...messages.device} />
                   </TableCell> 
-                  <TableCell style={{ width: "20px", padding: "0px" }}>
+                  <TableCell style={{ width: "15px", padding: "0px",textAlign:"center" }}>
+                    <FormattedMessage {...Payrollmessages.date} />
+                  </TableCell> 
+                  <TableCell style={{ width: "5px", padding: "0px",textAlign:"center" }}>
                     <FormattedMessage {...Payrollmessages.delete} />
                   </TableCell>                  
-                  <TableCell style={{ width: "20px", padding: "0px" }}>
+                  <TableCell style={{ width: "25px", padding: "0px",textAlign:"center" }}>
                     <FormattedMessage {...Payrollmessages.notes} />
                   </TableCell>
                 </TableRow>
@@ -295,11 +314,11 @@ function RemoveEmployeeSign(props) {
                     return (
                       <TableRow
                         hover
-                        key={row.jobId}
+                        key={row.id}
                         sx={{ height: 1 }}
                         style={{ padding: "0px" }}
                       >
-                        <TableCell style={{ width: "5px", padding: "0px" }}>
+                        <TableCell style={{ width: "5px", padding: "0px",textAlign:"center" }}>
                           <Checkbox
                             checked={row.isSelected}
                             color="primary"
@@ -308,35 +327,38 @@ function RemoveEmployeeSign(props) {
                             value={row.isSelected}
                           />
                         </TableCell>
-                        <TableCell style={{ width: "5px", padding: "0px" }}>
+                        <TableCell style={{ width: "5px", padding: "0px",textAlign:"center" }}>
                           {row.id}
                         </TableCell>
-                        <TableCell style={{ width: "20px", padding: "0px" }}>
+                        <TableCell style={{ width: "20px", padding: "0px",textAlign:"center" }}>
                           {row.organizationName}
                         </TableCell>
-                        <TableCell style={{ width: "20px", padding: "0px" }}>
+                        <TableCell style={{ width: "10px", padding: "0px",textAlign:"center" }}>
                           {row.employeeId}
                         </TableCell>
-                        <TableCell style={{ width: "20px", padding: "0px" }}>
+                        <TableCell style={{ width: "20px", padding: "0px",textAlign:"center" }}>
                           {row.employeeName}
                         </TableCell>                       
-                        <TableCell style={{ width: "20px", padding: "0px" }}>
+                        <TableCell style={{ width: "15px", padding: "0px",textAlign:"center" }}>
                           {row.devName}
                         </TableCell>
-                        <TableCell style={{ width: "20px", padding: "0px" }}>
+                        <TableCell style={{ width: "15px", padding: "0px" ,textAlign:"center"}}>
+                          {format(new Date(row.trxDateTime2), "yyyy-MM-dd HH:mm:ss")}
+                        </TableCell>
+                        
+                        <TableCell style={{ width: "5px", padding: "0px",textAlign:"center" }}>
                           <input
                             name="isDeleted"
                             type="checkbox"
-                            value={row.isDeleted}
                             checked={row.isDeleted}
                             onChange={(event) => handleEnableOne(event, row)}
                           ></input>
                         </TableCell>
-                        <TableCell style={{ width: "20px", padding: "0px" }}>
+                        <TableCell style={{ width: "25px", padding: "0px",textAlign:"center" }}>
                           <input
                             name="notes"
                             type="text"
-                            value={row.notes}
+                            value={row.notes??""}
                             onChange={(event) => handleEnableOne(event, row)}
                           ></input>
                         </TableCell>
