@@ -29,7 +29,7 @@ import { Grid } from '@mui/material';
                     <Grid item xs={4} className={`${style.sectionSty} ${style.imgSectionSty}`}>
 
                   {Data.details[0].employeeImage !== null && (
-                    <img src={`data:image/webp;base64,${Data.details[0].employeeImage}`} />
+                    <img src={`data:image/jpeg;base64,${Data.details[0].employeeImage}`} />
                   )}    
                     </Grid>
 
