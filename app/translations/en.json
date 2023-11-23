@@ -1492,6 +1492,8 @@
   "boilerplate.containers.Payroll.Attendance.checkOut":"Check out only",
   
   "boilerplate.containers.Payroll.Attendance.isNotUpdateAtt": "Not Update Existing Attendance",
+  
+  "boilerplate.containers.Payroll.Attendance.Location": "Location",
 
 
 

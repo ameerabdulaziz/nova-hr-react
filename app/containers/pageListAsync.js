@@ -1097,7 +1097,12 @@ export const EmployeeAttendance = loadable(
     fallback: <Loading />,
   }
 );
-
+export const EmployeeLocation = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/EmployeeLocation'),
+  {
+    fallback: <Loading />,
+  }
+);
 export const EmployeeAttendanceTemplateReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/EmployeeAttendanceTemplateReport'),
   {

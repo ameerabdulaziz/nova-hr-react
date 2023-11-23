@@ -393,6 +393,11 @@ const GeneralListApis = (locale) => {
 
     return result.data;
   };
+  Apis.GetLocationList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetLocationList/${locale}`);
+
+    return result.data;
+  };
 
   return Apis;
 };

@@ -160,7 +160,6 @@ function ManPowerSetting(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
         <NamePopup handleClose={handleClose} open={OpenPopup} Key="Job" />
         <div>
           <Grid container spacing={3}>
@@ -224,85 +223,95 @@ function ManPowerSetting(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
+            <Grid item xs={12} md={12}>
+              <div className={classes.rootTable}>
+                <Table
+                  className={cx(css.tableCrud, classes.table, classes.stripped)}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ width: "5px", padding: "0px" }}>
+                        <Checkbox
+                          checked={
+                            dataList.length > 0 &&
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length === dataList.length
+                              ? true
+                              : false
+                          }
+                          color="primary"
+                          name="AllSelect"
+                          indeterminate={
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length > 0 &&
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length < dataList.length
+                              ? true
+                              : false
+                          }
+                          onChange={handlepermcheckboxAll}
+                        />
+                      </TableCell>
+                      <TableCell style={{ width: "5px", padding: "0px" }}>
+                        <FormattedMessage {...Payrollmessages.id} />
+                      </TableCell>
+                      <TableCell style={{ width: "20px", padding: "0px" }}>
+                        <FormattedMessage {...messages.job} />
+                      </TableCell>
+                      <TableCell style={{ width: "20px", padding: "0px" }}>
+                        <FormattedMessage {...messages.idealManPower} />
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {dataList.length !== 0 &&
+                      dataList.map((row) => {
+                        return (
+                          <TableRow
+                            hover
+                            key={row.jobId}
+                            sx={{ height: 1 }}
+                            style={{ padding: "0px" }}
+                          >
+                            <TableCell style={{ width: "5px", padding: "0px" }}>
+                              <Checkbox
+                                checked={row.isSelected}
+                                color="primary"
+                                name="isselected"
+                                onChange={(event) =>
+                                  handleEnableOne(event, row)
+                                }
+                                value={row.isSelected}
+                              />
+                            </TableCell>
+                            <TableCell style={{ width: "5px", padding: "0px" }}>
+                              {row.jobId}
+                            </TableCell>
+                            <TableCell
+                              style={{ width: "20px", padding: "0px" }}
+                            >
+                              {row.jobName}
+                            </TableCell>
+                            <TableCell
+                              style={{ width: "20px", padding: "0px" }}
+                            >
+                              <input
+                                name="idealManPower"
+                                type="text"
+                                value={row.idealManPower}
+                                onChange={(event) =>
+                                  handleEnableOne(event, row)
+                                }
+                              ></input>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </div>
+            </Grid>
           </Grid>
-          <div className={classes.rootTable}>
-            <Table
-              className={cx(css.tableCrud, classes.table, classes.stripped)}
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{ width: "5px", padding: "0px" }}>
-                    <Checkbox
-                      checked={
-                        dataList.length > 0 &&
-                        dataList.filter((crow) => crow.isSelected == true)
-                          .length === dataList.length
-                          ? true
-                          : false
-                      }
-                      color="primary"
-                      name="AllSelect"
-                      indeterminate={
-                        dataList.filter((crow) => crow.isSelected == true)
-                          .length > 0 &&
-                        dataList.filter((crow) => crow.isSelected == true)
-                          .length < dataList.length
-                          ? true
-                          : false
-                      }
-                      onChange={handlepermcheckboxAll}
-                    />
-                  </TableCell>
-                  <TableCell style={{ width: "5px", padding: "0px" }}>
-                    <FormattedMessage {...Payrollmessages.id} />
-                  </TableCell>
-                  <TableCell style={{ width: "20px", padding: "0px" }}>
-                    <FormattedMessage {...messages.job} />
-                  </TableCell>
-                  <TableCell style={{ width: "20px", padding: "0px" }}>
-                    <FormattedMessage {...messages.idealManPower} />
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {dataList.length !== 0 &&
-                  dataList.map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        key={row.jobId}
-                        sx={{ height: 1 }}
-                        style={{ padding: "0px" }}
-                      >
-                        <TableCell style={{ width: "5px", padding: "0px" }}>
-                          <Checkbox
-                            checked={row.isSelected}
-                            color="primary"
-                            name="isselected"
-                            onChange={(event) => handleEnableOne(event, row)}
-                            value={row.isSelected}
-                          />
-                        </TableCell>
-                        <TableCell style={{ width: "5px", padding: "0px" }}>
-                          {row.jobId}
-                        </TableCell>
-                        <TableCell style={{ width: "20px", padding: "0px" }}>
-                          {row.jobName}
-                        </TableCell>
-                        <TableCell style={{ width: "20px", padding: "0px" }}>
-                          <input
-                            name="idealManPower"
-                            type="text"
-                            value={row.idealManPower}
-                            onChange={(event) => handleEnableOne(event, row)}
-                          ></input>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </div>
         </div>
       </PapperBlock>
     </PayRollLoader>

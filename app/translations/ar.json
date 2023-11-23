@@ -1537,6 +1537,8 @@
     "boilerplate.containers.Payroll.Attendance.AllTransactions": "كل التوقيعات",
     "boilerplate.containers.Payroll.Attendance.FingerType": "نوع البصمة",
     "boilerplate.containers.Payroll.Attendance.DeviceType": "الجهاز",
+    "boilerplate.containers.Payroll.Attendance.Location": "الموقع",
+    
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

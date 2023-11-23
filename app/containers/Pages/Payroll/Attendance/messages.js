@@ -1655,5 +1655,9 @@ devicePass: {
     id: `${scope}.isNotUpdateAtt`,
     defaultMessage: 'isNotUpdateAtt',
   },
+  Location: {
+    id: `${scope}.Location`,
+    defaultMessage: 'Location',
+  },
 });
 
