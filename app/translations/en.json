@@ -1331,6 +1331,14 @@
   "boilerplate.containers.Payroll.Attendance.OfficialVacationAllowance": "Official Vacation Allowance",
 
 
+  "boilerplate.containers.Payroll.Attendance.DisplayDeviceName": "Display Device Name",
+  "boilerplate.containers.Payroll.Attendance.DisplayDeleted": "Display Deleted",
+  "boilerplate.containers.Payroll.Attendance.GroupByDate": "Group By Date",
+  "boilerplate.containers.Payroll.Attendance.AllTransactions": "All Transactions",
+  "boilerplate.containers.Payroll.Attendance.FingerType": "Finger Type",
+  "boilerplate.containers.Payroll.Attendance.DeviceType": "Device Type",
+
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",

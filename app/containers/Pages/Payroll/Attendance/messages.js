@@ -1655,5 +1655,30 @@ devicePass: {
     id: `${scope}.OfficialVacationAllowance`,
     defaultMessage: 'Official Vacation Allowance',
   },
+  // DeviceLogReport
+  DisplayDeviceName: {
+    id: `${scope}.DisplayDeviceName`,
+    defaultMessage: 'Display Device Name',
+  },
+  DisplayDeleted: {
+    id: `${scope}.DisplayDeleted`,
+    defaultMessage: 'Display Deleted',
+  },
+  GroupByDate: {
+    id: `${scope}.GroupByDate`,
+    defaultMessage: 'Group By Date',
+  },
+  AllTransactions: {
+    id: `${scope}.AllTransactions`,
+    defaultMessage: 'All Transactions',
+  },
+  FingerType: {
+    id: `${scope}.FingerType`,
+    defaultMessage: 'Finger Type',
+  },
+  DeviceType: {
+    id: `${scope}.DeviceType`,
+    defaultMessage: 'Device Type',
+  },
 });
 

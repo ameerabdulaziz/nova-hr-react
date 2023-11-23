@@ -231,6 +231,14 @@ const AttendanceReportsData = (locale) => {
     return data.data;
   };
 
+  api.DeviceLogReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetAttLogReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
 
   return api;
 };

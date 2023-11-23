@@ -1534,6 +1534,14 @@
     "boilerplate.containers.Payroll.Attendance.MaternityVacation": "اجازة وضع",
     "boilerplate.containers.Payroll.Attendance.deported": "مرحل",
     "boilerplate.containers.Payroll.Attendance.OfficialVacationAllowance": "بدل اجازات رسمية",
+
+
+    "boilerplate.containers.Payroll.Attendance.DisplayDeviceName": "عرض اسم الجهاز",
+    "boilerplate.containers.Payroll.Attendance.DisplayDeleted": "عرض المحذوف",
+    "boilerplate.containers.Payroll.Attendance.GroupByDate": "عرض اول واخر توقيع في اليوم",
+    "boilerplate.containers.Payroll.Attendance.AllTransactions": "كل التوقيعات",
+    "boilerplate.containers.Payroll.Attendance.FingerType": "نوع البصمة",
+    "boilerplate.containers.Payroll.Attendance.DeviceType": "الجهاز",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

@@ -324,6 +324,7 @@ import {
   DetailedAttendanceReport,
   MonthlyAttendanceSummaryReport,
   MonthlyStatisticsReport,
+  DeviceLogReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1027,6 +1028,12 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/MonthlyStatisticsReport'
           component={MonthlyStatisticsReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/AttLogReport'
+          component={DeviceLogReport}
         />
 
 

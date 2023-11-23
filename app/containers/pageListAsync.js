@@ -1227,6 +1227,13 @@ export const MonthlyStatisticsReport = loadable(
   }
 );
 
+export const DeviceLogReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/DeviceLogReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
