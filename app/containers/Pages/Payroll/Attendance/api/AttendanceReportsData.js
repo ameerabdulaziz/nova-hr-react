@@ -206,6 +206,39 @@ const AttendanceReportsData = (locale) => {
   };
   
 
+  api.DetailedAttendanceReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetTimeTableDetailsReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+
+  api.MonthlyAttendanceSummaryReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetMonthlyAttReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.MonthlyStatisticsReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetMonthlyStatistics/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.DeviceLogReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetAttLogReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
 
   return api;
 };

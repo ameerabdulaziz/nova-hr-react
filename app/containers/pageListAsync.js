@@ -1210,6 +1210,36 @@ export const LateAttendanceReport = loadable(
   }
 );
 
+
+export const DetailedAttendanceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/DetailedAttendanceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+export const MonthlyAttendanceSummaryReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/MonthlyAttendanceSummaryReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MonthlyStatisticsReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/MonthlyStatisticsReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const DeviceLogReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/DeviceLogReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

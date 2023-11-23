@@ -1483,6 +1483,60 @@
   "boilerplate.containers.Payroll.Attendance.isNotUpdateAtt": "فى حالة وجود سطر للموظف لا تقم بالتعديل",
     
     
+
+
+    "boilerplate.containers.Payroll.Attendance.shiftEnd":"نهاية الوردية",
+    "boilerplate.containers.Payroll.Attendance.day":"اليوم",
+    "boilerplate.containers.Payroll.Attendance.insuranceNumber":"الرقم التأمينى",
+    "boilerplate.containers.Payroll.Attendance.OverTime":"اضافى",
+    "boilerplate.containers.Payroll.Attendance.AccruedLeave":"بدل راحه",
+    "boilerplate.containers.Payroll.Attendance.DetailedAttendanceAndLeaveReport": "تقرير الحضور و الانصراف التفصيلي",
+    "boilerplate.containers.Payroll.Attendance.Employee": "الموظف",
+    "boilerplate.containers.Payroll.Attendance.Name": "الاسم",
+    "boilerplate.containers.Payroll.Attendance.InsuranceNo": "الرقم التامينى",
+    "boilerplate.containers.Payroll.Attendance.Report": "التقرير",
+    "boilerplate.containers.Payroll.Attendance.PrintDate": "تاريخ الطباعة",
+    "boilerplate.containers.Payroll.Attendance.printTime": "وقت الطباعة",
+    "boilerplate.containers.Payroll.Attendance.compilationWith": "تجميع ب",
+    "boilerplate.containers.Payroll.Attendance.Manual": "يدوي",
+    "boilerplate.containers.Payroll.Attendance.TotalOfLatenessAndLessTime": "إجمالى التاخير والمتمم",
+    "boilerplate.containers.Payroll.Attendance.Hour": "ساعه",
+    "boilerplate.containers.Payroll.Attendance.Normal": "عادى",
+    "boilerplate.containers.Payroll.Attendance.Minute": "دقيقة",
+    "boilerplate.containers.Payroll.Attendance.Total": "الاجمالى",
+    "boilerplate.containers.Payroll.Attendance.LeavesDays": "أيام الاجازات",
+    "boilerplate.containers.Payroll.Attendance.Leaves": "اجازات",
+    "boilerplate.containers.Payroll.Attendance.Day": "يوم",
+    "boilerplate.containers.Payroll.Attendance.WorkingDays": "أيام العمل",
+    "boilerplate.containers.Payroll.Attendance.Work": "عمل",
+    "boilerplate.containers.Payroll.Attendance.WithoutEmployeesWhoDoNotMeetTheAttendanceRules": "بدون الموظفين الذين لا تنطبق عليهم القواعد",
+    "boilerplate.containers.Payroll.Attendance.insuredEmployeesOnly": "المؤمن عليهم فقط",
+    "boilerplate.containers.Payroll.Attendance.showPresentEmployeeOnly": "عرض الحضور فقط",
+    "boilerplate.containers.Payroll.Attendance.ShowViolationsOnly": "عرض المخالفات فقط",
+    "boilerplate.containers.Payroll.Attendance.showFingerprintDevice": "عرض جهاز البصمة",
+    "boilerplate.containers.Payroll.Attendance.printPicture": "طباعة صورة",
+    "boilerplate.containers.Payroll.Attendance.PrintByEmployee": "طباعة بالموظف",
+    "boilerplate.containers.Payroll.Attendance.PrintByDate": "طباعة بالتاريخ",
+    "boilerplate.containers.Payroll.Attendance.DetailedAttendanceReport": "تقرير الحضور والانصراف التفصيلى",
+
+
+
+    "boilerplate.containers.Payroll.Attendance.lateHoursNotAuth": "تاخير بدون اذن",
+    "boilerplate.containers.Payroll.Attendance.lateHoursAuth": "تاخير بإذن",
+    "boilerplate.containers.Payroll.Attendance.leaveEarlyNotAuth": "خروج مبكر بدون اذن",
+    "boilerplate.containers.Payroll.Attendance.leaveEarlyAuth": "خروج مبكر بإذن",
+    "boilerplate.containers.Payroll.Attendance.weekendOverTime": "اضافى عطلة الاسبوع",
+    "boilerplate.containers.Payroll.Attendance.officialVacationOverTime": "اضافى ايام الاجازة",
+
+
+
+
+    "boilerplate.containers.Payroll.Attendance.DisplayDeviceName": "عرض اسم الجهاز",
+    "boilerplate.containers.Payroll.Attendance.DisplayDeleted": "عرض المحذوف",
+    "boilerplate.containers.Payroll.Attendance.GroupByDate": "عرض اول واخر توقيع في اليوم",
+    "boilerplate.containers.Payroll.Attendance.AllTransactions": "كل التوقيعات",
+    "boilerplate.containers.Payroll.Attendance.FingerType": "نوع البصمة",
+    "boilerplate.containers.Payroll.Attendance.DeviceType": "الجهاز",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

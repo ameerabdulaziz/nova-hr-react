@@ -321,7 +321,11 @@ import {
   LateAttendanceReport,
   JobApplicationPreview,
   RemoveEmployeeSign,
-  EmployeeAttendance
+  EmployeeAttendance,
+  DetailedAttendanceReport,
+  MonthlyAttendanceSummaryReport,
+  MonthlyStatisticsReport,
+  DeviceLogReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1013,6 +1017,29 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/LateAttendanceReport'
           component={LateAttendanceReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/TimeTableDetailsReport'
+          component={DetailedAttendanceReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/MonthlyAttSummaryReport'
+          component={MonthlyAttendanceSummaryReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/MonthlyStatisticsReport'
+          component={MonthlyStatisticsReport}
+        />
+
+
+        <Route
+          path='/app/Pages/Att/AttLogReport'
+          component={DeviceLogReport}
         />
 
 

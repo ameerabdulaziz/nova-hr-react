@@ -1273,6 +1273,62 @@
   "boilerplate.containers.Payroll.Attendance.lateness":"Lateness",
   "boilerplate.containers.Payroll.Attendance.LateCount":"Late Count",
 
+
+  "boilerplate.containers.Payroll.Attendance.shiftEnd":"Shift End",
+  "boilerplate.containers.Payroll.Attendance.day":"Day",
+  "boilerplate.containers.Payroll.Attendance.insuranceNumber":"Insurance Number",
+  "boilerplate.containers.Payroll.Attendance.OverTime":"Over Time",
+  "boilerplate.containers.Payroll.Attendance.AccruedLeave":"Accrued Leave",
+  "boilerplate.containers.Payroll.Attendance.mission": "Mission",
+  "boilerplate.containers.Payroll.Attendance.DetailedAttendanceAndLeaveReport": "Detailed attendance and leave report",
+  "boilerplate.containers.Payroll.Attendance.Employee": "Employee",
+  "boilerplate.containers.Payroll.Attendance.Name": "Name",
+  "boilerplate.containers.Payroll.Attendance.InsuranceNo": "Insurance No",
+  "boilerplate.containers.Payroll.Attendance.Report": "Report",
+  "boilerplate.containers.Payroll.Attendance.PrintDate": "Print Date",
+  "boilerplate.containers.Payroll.Attendance.printTime": "print Time",
+  "boilerplate.containers.Payroll.Attendance.compilationWith": "Compilation With",
+  "boilerplate.containers.Payroll.Attendance.Manual": "Manual",
+  "boilerplate.containers.Payroll.Attendance.TotalOfLatenessAndLessTime": "Total of lateness and lessTime",
+  "boilerplate.containers.Payroll.Attendance.Hour": "Hour",
+  "boilerplate.containers.Payroll.Attendance.Normal": "Normal",
+  "boilerplate.containers.Payroll.Attendance.Minute": "Minute",
+  "boilerplate.containers.Payroll.Attendance.Total": "Total",
+  "boilerplate.containers.Payroll.Attendance.LeavesDays": "Leaves Days",
+  "boilerplate.containers.Payroll.Attendance.Leaves": "Leaves",
+  "boilerplate.containers.Payroll.Attendance.Day": "Day",
+  "boilerplate.containers.Payroll.Attendance.WorkingDays": "Working Days",
+  "boilerplate.containers.Payroll.Attendance.Work": "Work",
+  "boilerplate.containers.Payroll.Attendance.WithoutEmployeesWhoDoNotMeetTheAttendanceRules": "Without Employees Who Do Not Meet The Attendance Rules",
+  "boilerplate.containers.Payroll.Attendance.insuredEmployeesOnly": "Insured Employees Only",
+  "boilerplate.containers.Payroll.Attendance.showPresentEmployeeOnly": "Show Present Employee Only",
+  "boilerplate.containers.Payroll.Attendance.ShowViolationsOnly": "Show Violations Only",
+  "boilerplate.containers.Payroll.Attendance.showFingerprintDevice": "Show Fingerprint Device",
+  "boilerplate.containers.Payroll.Attendance.printPicture": "Print Picture",
+  "boilerplate.containers.Payroll.Attendance.PrintByEmployee": "Print By Employee",
+  "boilerplate.containers.Payroll.Attendance.PrintByDate": "Print By Date",
+  "boilerplate.containers.Payroll.Attendance.DetailedAttendanceReport": "Detailed Attendance Report",
+
+
+
+  "boilerplate.containers.Payroll.Attendance.lateHoursNotAuth": "Late Hours Not Auth",
+  "boilerplate.containers.Payroll.Attendance.lateHoursAuth": "Late Hours Auth",
+  "boilerplate.containers.Payroll.Attendance.leaveEarlyNotAuth": "Leave Early Not Auth",
+  "boilerplate.containers.Payroll.Attendance.leaveEarlyAuth": "leave Early Auth",
+  "boilerplate.containers.Payroll.Attendance.weekendOverTime": "Weekend OverTime",
+  "boilerplate.containers.Payroll.Attendance.officialVacationOverTime": "Official Vacation OverTime",
+
+
+
+
+  "boilerplate.containers.Payroll.Attendance.DisplayDeviceName": "Display Device Name",
+  "boilerplate.containers.Payroll.Attendance.DisplayDeleted": "Display Deleted",
+  "boilerplate.containers.Payroll.Attendance.GroupByDate": "Group By Date",
+  "boilerplate.containers.Payroll.Attendance.AllTransactions": "All Transactions",
+  "boilerplate.containers.Payroll.Attendance.FingerType": "Finger Type",
+  "boilerplate.containers.Payroll.Attendance.DeviceType": "Device Type",
+
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",
