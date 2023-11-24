@@ -1538,6 +1538,9 @@
     "boilerplate.containers.Payroll.Attendance.FingerType": "نوع البصمة",
     "boilerplate.containers.Payroll.Attendance.DeviceType": "الجهاز",
     "boilerplate.containers.Payroll.Attendance.Location": "الموقع",
+    "boilerplate.containers.Payroll.Attendance.isDrop": "الغاء فترة لموظف",
+    "boilerplate.containers.Payroll.Attendance.isStop": "ايقاف فترة لموظف",
+    
     
   
   

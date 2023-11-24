@@ -48,9 +48,13 @@ function EmployeeAttendance(props) {
   const [TimeInOrOut, setTimeInOrOut] = useState(1);
   const [IsVac, setIsVac] = useState(false);
   const [IsNotUpdate, setIsNotUpdate] = useState(false);
+  const [IsStop, setIsStop] = useState(false);
+  const [IsDrop, setIsDrop] = useState(false);
+
+  const [Notes, setNotes] = useState("");
   const [searchData, setsearchData] = useState({
-    FromDate: null,
-    ToDate: null,
+    FromDate: format(new Date(), "yyyy-MM-dd"),
+    ToDate: format(new Date(), "yyyy-MM-dd"),
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
@@ -88,6 +92,9 @@ function EmployeeAttendance(props) {
           shiftCode: data.shiftId,
           isVac: IsVac,
           isNotUpdate: IsNotUpdate,
+          IsStop: IsStop,
+          IsDrop: IsDrop,
+          Notes: Notes,
           timeInOrOut: TimeInOrOut,
           employeesId: EmployeesId,
         };
@@ -105,7 +112,7 @@ function EmployeeAttendance(props) {
         setIsLoading(false);
       }
     },
-    [data,searchData,IsNotUpdate,TimeInOrOut,IsVac]
+    [data, searchData, IsNotUpdate, IsStop, IsDrop, Notes, TimeInOrOut, IsVac]
   );
 
   const handleClickOpenNamePopup = () => {
@@ -159,7 +166,10 @@ function EmployeeAttendance(props) {
           timeIn: data.startTime,
           timeOut: data.endTime,
           shiftCode: data.shiftId,
-          isVac: IsVac,
+          shiftVacancy: IsVac,
+          dropDay: IsDrop,
+          stopD: IsStop,
+          notes: Notes,
           timeInOrOut: TimeInOrOut,
         });
       }
@@ -189,21 +199,46 @@ function EmployeeAttendance(props) {
     }
   }
   const handleChange = (event) => {
-    if(event.target.name == "isnotUpdate")
-    {
-      setIsNotUpdate(event.target.checked)
+    if (event.target.name == "notes") {
+      setNotes(event.target.value);
     }
-    if(event.target.name == "isVac")
-    {
+
+    if (event.target.name == "isDrop") {
+      setIsDrop(event.target.checked);
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        startTime: "",
+        endTime: "",
+        workHours: 0,
+      }));
+    }
+    if (event.target.name == "isStop") {
+      setIsStop(event.target.checked);
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        startTime: "",
+        endTime: "",
+        workHours: 0,
+      }));
+    }
+    if (event.target.name == "isnotUpdate") {
+      setIsNotUpdate(event.target.checked);
+    }
+    if (event.target.name == "isVac") {
       setIsVac(event.target.checked);
-                                setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  startTime: "",
-                                  endTime: "",
-                                  workHours: 0,
-                                }));
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        startTime: "",
+        endTime: "",
+        workHours: 0,
+      }));
     }
-    if (event.target.name == "timeInOrOut") setTimeInOrOut(event.target.value);
+    if (event.target.name == "timeInOrOut") {
+      setTimeInOrOut(event.target.value);
+      setIsVac(false);
+      setIsStop(false);
+      setIsDrop(false);
+    }
     debugger;
     if (event.target.name == "startTime") {
       if (data.endTime != "") {
@@ -278,7 +313,7 @@ function EmployeeAttendance(props) {
         searchData.EmployeeId,
         searchData.OrganizationId,
         searchData.EmpStatusId,
-        ""//data.shiftId
+        "" //data.shiftId
       );
       setdataList(dataApi);
     } catch (err) {
@@ -418,6 +453,13 @@ function EmployeeAttendance(props) {
         filter: true,
       },
     },
+    {
+      name: "notes",
+      label: <FormattedMessage {...messages["notes"]} />,
+      options: {
+        filter: true,
+      },
+    },
 
     {
       name: "Actions",
@@ -453,40 +495,34 @@ function EmployeeAttendance(props) {
     },
     customToolbar: () => (
       <div>
-        <Button
-          variant="contained"
-          size="medium"
-          color="secondary"
-          disabled={!data.shiftId}
-          onClick={handleClickOpenNamePopup}
-        >
-          <FormattedMessage {...Payrollmessages.chooseEmp} />
-        </Button>
-
-        <Button
-          variant="contained"
-          size="medium"
-          color="primary"
-          onClick={handleSearch}
-        >
-          <FormattedMessage {...Payrollmessages.search} />
-        </Button>
+        <div className={classes.selectEmpButton}>
+          <Button
+            variant="contained"
+            size="medium"
+            color="secondary"
+            onClick={handleClickOpenNamePopup}
+          >
+            <FormattedMessage {...Payrollmessages.chooseEmp} />
+          </Button>
+        </div>
+        <div className={classes.searchButton}>
+          <Button
+            variant="contained"
+            size="medium"
+            color="primary"
+            onClick={handleSearch}
+          >
+            <FormattedMessage {...Payrollmessages.search} />
+          </Button>
+        </div>
       </div>
     ),
     customToolbarSelect: (selectedRows) => (
       <div>
-        {/* <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              onClick={() => handleUpdate(selectedRows)}
-            >
-              <FormattedMessage {...Payrollmessages.apply} />
-            </Button> */}
         <Grid container spacing={1} alignItems="flex-start" direction="row">
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={6}>
             <Tooltip
-              title={intl.formatMessage(Payrollmessages.applynewshift)}
+              title={intl.formatMessage(Payrollmessages.apply)}
               cursor="pointer"
               className="mr-6"
             >
@@ -495,7 +531,7 @@ function EmployeeAttendance(props) {
               ></DeleteButton>
             </Tooltip>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={6}>
             <Tooltip
               title={intl.formatMessage(Payrollmessages.applynewshift)}
               cursor="pointer"
@@ -627,6 +663,17 @@ function EmployeeAttendance(props) {
                             variant="outlined"
                           />
                         </Grid>
+                        <Grid item xs={12} md={12}>
+                          <TextField
+                            id="notes"
+                            name="notes"
+                            value={Notes}
+                            onChange={(e) => handleChange(e)}
+                            label={intl.formatMessage(messages.notes)}
+                            className={classes.field}
+                            variant="outlined"
+                          />
+                        </Grid>
                       </Grid>
                     </Grid>
 
@@ -668,9 +715,36 @@ function EmployeeAttendance(props) {
                               onChange={(e) => handleChange(e)}
                               name="isVac"
                               color="primary"
+                              checked={IsVac}
                             />
                           }
                           label={intl.formatMessage(messages.weekend)}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={12}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              onChange={(e) => handleChange(e)}
+                              name="isStop"
+                              color="primary"
+                              checked={IsStop}
+                            />
+                          }
+                          label={intl.formatMessage(messages.isStop)}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={12}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              onChange={(e) => handleChange(e)}
+                              name="isDrop"
+                              color="primary"
+                              checked={IsDrop}
+                            />
+                          }
+                          label={intl.formatMessage(messages.isDrop)}
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>

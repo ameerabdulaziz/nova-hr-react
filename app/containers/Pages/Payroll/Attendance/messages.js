@@ -1659,5 +1659,14 @@ devicePass: {
     id: `${scope}.Location`,
     defaultMessage: 'Location',
   },
+  isStop: {
+    id: `${scope}.isStop`,
+    defaultMessage: 'isStop',
+  },
+  isDrop: {
+    id: `${scope}.isDrop`,
+    defaultMessage: 'isDrop',
+  },
+  
 });
 

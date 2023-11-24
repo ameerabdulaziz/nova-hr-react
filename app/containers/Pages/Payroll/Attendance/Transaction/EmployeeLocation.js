@@ -35,8 +35,7 @@ function EmployeeLocation(props) {
   const [dataList, setdataList] = useState([]);
   const [Location, setLocation] = useState(0);
   const [FromDate, setFromDate] = useState(format(new Date(), "yyyy-MM-dd"));
-  const [ToDate, setToDate] = useState(format(new Date(), "yyyy-MM-dd")
-  );
+  const [ToDate, setToDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [LocationList, setLocationList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
   const [OpenPopup, setOpenPopup] = useState(false);
@@ -50,7 +49,7 @@ function EmployeeLocation(props) {
           setdataList((prev) => [
             ...prev,
             {
-              id:0,
+              id: 0,
               employeeId: row.id,
               employeeName: row.name,
               fromDate: FromDate,
@@ -102,7 +101,10 @@ function EmployeeLocation(props) {
     }
     try {
       setIsLoading(true);
-      let response = await EmployeeLocationData(locale).SaveList(dataList,Location);
+      let response = await EmployeeLocationData(locale).SaveList(
+        dataList,
+        Location
+      );
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -117,9 +119,8 @@ function EmployeeLocation(props) {
   }
 
   const handleSearch = async (e) => {
-
     try {
-      if (!Location || !FromDate || !ToDate ) {
+      if (!Location || !FromDate || !ToDate) {
         toast.error("Please Enter Location & dates");
         return;
       }
@@ -258,106 +259,199 @@ function EmployeeLocation(props) {
               </Button>
             </Grid>
             <Grid item xs={12} md={12}>
-            <div className={classes.rootTable}>
-            <Table
-              className={cx(css.tableCrud, classes.table, classes.stripped)}
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{ width: "5px", padding: "0px",textAlign:"center"   }}>
-                    <Checkbox
-                      checked={
-                        dataList.length > 0 &&
-                        dataList.filter((crow) => crow.isSelected == true)
-                          .length === dataList.length
-                          ? true
-                          : false
-                      }
-                      color="primary"
-                      name="AllSelect"
-                      indeterminate={
-                        dataList.filter((crow) => crow.isSelected == true)
-                          .length > 0 &&
-                        dataList.filter((crow) => crow.isSelected == true)
-                          .length < dataList.length
-                          ? true
-                          : false
-                      }
-                      onChange={handlepermcheckboxAll}
-                    />
-                  </TableCell>
-                  <TableCell style={{ width: "5px", padding: "0px",textAlign:"center"   }}>
-                    <FormattedMessage {...Payrollmessages.id} />
-                  </TableCell>
-                  <TableCell style={{ width: "5px", padding: "0px",textAlign:"center"   }}>
-                    <FormattedMessage {...Payrollmessages.employeeId} />
-                  </TableCell>
-                  <TableCell style={{ width: "20px", padding: "0px" ,textAlign:"center"  }}>
-                    <FormattedMessage {...messages.employeeName} />
-                  </TableCell>
-                  <TableCell style={{ width: "15px", padding: "0px",textAlign:"center"   }}>
-                    <FormattedMessage {...messages.fromDate} />
-                  </TableCell>
-                  <TableCell style={{ width: "15px", padding: "0px",textAlign:"center"   }}>
-                    <FormattedMessage {...messages.toDate} />
-                  </TableCell>
-                  <TableCell style={{ width: "30px", padding: "0px",textAlign:"center"   }}>
-                    <FormattedMessage {...messages.notes} />
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {dataList.length !== 0 &&
-                  dataList.map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        key={row.employeeId}
-                        sx={{ height: 1 }}
-                        style={{ padding: "0px" }}
+              <div className={classes.rootTable}>
+                <Table
+                  className={cx(css.tableCrud, classes.table, classes.stripped)}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          width: "5px",
+                          padding: "0px",
+                          textAlign: "center",
+                        }}
                       >
-                        <TableCell style={{ width: "5px", padding: "0px",textAlign:"center"   }}>
-                          <Checkbox
-                            checked={row.isSelected}
-                            color="primary"
-                            name="isselected"
-                            onChange={(event) => handleEnableOne(event, row)}
-                            value={row.isSelected}
-                          />
-                        </TableCell>
-                        <TableCell style={{ width: "5px", padding: "0px",textAlign:"center"   }}>
-                          {row.id}
-                        </TableCell>
-                        <TableCell style={{ width: "5px", padding: "0px",textAlign:"center"   }}>
-                          {row.employeeId}
-                        </TableCell>
-                        <TableCell style={{ width: "20px", padding: "0px",textAlign:"center"   }}>
-                          {row.employeeName}
-                        </TableCell>
-                        <TableCell style={{ width: "15px", padding: "0px",textAlign:"center"   }}>
-                          {format(new Date(row.fromDate), "yyyy-MM-dd HH:mm:ss")}
-                        </TableCell>
-                        <TableCell style={{ width: "15px", padding: "0px",textAlign:"center"   }}>
-                          {format(new Date(row.toDate), "yyyy-MM-dd HH:mm:ss")}
-                        </TableCell>
-                        <TableCell style={{ width: "30px", padding: "0px",textAlign:"center"   }}>
-                          <input
-                          style={{width: "80%"}}
-                            name="notes"
-                            type="text"
-                            value={row.notes}
-                            onChange={(event) => handleEnableOne(event, row)}
-                          ></input>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </div>
+                        <Checkbox
+                          checked={
+                            dataList.length > 0 &&
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length === dataList.length
+                              ? true
+                              : false
+                          }
+                          color="primary"
+                          name="AllSelect"
+                          indeterminate={
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length > 0 &&
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length < dataList.length
+                              ? true
+                              : false
+                          }
+                          onChange={handlepermcheckboxAll}
+                        />
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          width: "5px",
+                          padding: "0px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <FormattedMessage {...Payrollmessages.id} />
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          width: "5px",
+                          padding: "0px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <FormattedMessage {...Payrollmessages.employeeId} />
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          width: "20px",
+                          padding: "0px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <FormattedMessage {...messages.employeeName} />
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          width: "15px",
+                          padding: "0px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <FormattedMessage {...messages.fromDate} />
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          width: "15px",
+                          padding: "0px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <FormattedMessage {...messages.toDate} />
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          width: "30px",
+                          padding: "0px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <FormattedMessage {...messages.notes} />
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {dataList.length !== 0 &&
+                      dataList.map((row) => {
+                        return (
+                          <TableRow
+                            hover
+                            key={row.employeeId}
+                            sx={{ height: 1 }}
+                            style={{ padding: "0px" }}
+                          >
+                            <TableCell
+                              style={{
+                                width: "5px",
+                                padding: "0px",
+                                textAlign: "center",
+                              }}
+                            >
+                              <Checkbox
+                                checked={row.isSelected}
+                                color="primary"
+                                name="isselected"
+                                onChange={(event) =>
+                                  handleEnableOne(event, row)
+                                }
+                                value={row.isSelected}
+                              />
+                            </TableCell>
+                            <TableCell
+                              style={{
+                                width: "5px",
+                                padding: "0px",
+                                textAlign: "center",
+                              }}
+                            >
+                              {row.id}
+                            </TableCell>
+                            <TableCell
+                              style={{
+                                width: "5px",
+                                padding: "0px",
+                                textAlign: "center",
+                              }}
+                            >
+                              {row.employeeId}
+                            </TableCell>
+                            <TableCell
+                              style={{
+                                width: "20px",
+                                padding: "0px",
+                                textAlign: "center",
+                              }}
+                            >
+                              {row.employeeName}
+                            </TableCell>
+                            <TableCell
+                              style={{
+                                width: "15px",
+                                padding: "0px",
+                                textAlign: "center",
+                              }}
+                            >
+                              {format(
+                                new Date(row.fromDate),
+                                "yyyy-MM-dd HH:mm:ss"
+                              )}
+                            </TableCell>
+                            <TableCell
+                              style={{
+                                width: "15px",
+                                padding: "0px",
+                                textAlign: "center",
+                              }}
+                            >
+                              {format(
+                                new Date(row.toDate),
+                                "yyyy-MM-dd HH:mm:ss"
+                              )}
+                            </TableCell>
+                            <TableCell
+                              style={{
+                                width: "30px",
+                                padding: "0px",
+                                textAlign: "center",
+                              }}
+                            >
+                              <input
+                                style={{ width: "80%" }}
+                                name="notes"
+                                type="text"
+                                value={row.notes}
+                                onChange={(event) =>
+                                  handleEnableOne(event, row)
+                                }
+                              ></input>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </div>
             </Grid>
           </Grid>
-          
         </div>
       </PapperBlock>
     </PayRollLoader>
