@@ -27,6 +27,7 @@ import {
   InsuranceRegion,
   MinsuranceItem,
   RecHiringSource,
+  RecJobGrade,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -332,6 +333,7 @@ import {
   RecHrTest,
   AttendanceRatiosStatementsReport,
   RecEvaluation,
+  HRApplication,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1502,6 +1504,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/RecHiringSource'
           component={RecHiringSource}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecJobGrade'
+          component={RecJobGrade}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HRApplication'
+          component={HRApplication}
         />
 
         <Route

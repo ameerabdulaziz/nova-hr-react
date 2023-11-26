@@ -116,3 +116,11 @@ export const RecHiringSource = (props) => (
     {...props}
   />
 );
+
+export const RecJobGrade = (props) => (
+  <MainDataGeneralCode
+    text='Recruitment Job Grade'
+    table='RecJobGrade'
+    {...props}
+  />
+);
