@@ -1540,6 +1540,9 @@
     "boilerplate.containers.Payroll.Attendance.Location": "الموقع",
     "boilerplate.containers.Payroll.Attendance.isDrop": "الغاء فترة لموظف",
     "boilerplate.containers.Payroll.Attendance.isStop": "ايقاف فترة لموظف",
+    "boilerplate.containers.Payroll.Attendance.getData": "سحب البيانات",
+    "boilerplate.containers.Payroll.Attendance.lastLog": "تاريخ اخر سحب",
+    
     
     
   

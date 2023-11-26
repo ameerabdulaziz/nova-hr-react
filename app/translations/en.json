@@ -1496,6 +1496,9 @@
   "boilerplate.containers.Payroll.Attendance.Location": "Location",
   "boilerplate.containers.Payroll.Attendance.isDrop": "Delete Period for Employee",
   "boilerplate.containers.Payroll.Attendance.isStop": "Stop Period for Employee",
+  
+  "boilerplate.containers.Payroll.Attendance.getData": "Get Data",  
+  "boilerplate.containers.Payroll.Attendance.lastLog": "Last date logged",
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
   "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",

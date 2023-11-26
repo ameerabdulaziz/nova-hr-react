@@ -1667,6 +1667,14 @@ devicePass: {
     id: `${scope}.isDrop`,
     defaultMessage: 'isDrop',
   },
+  getData : {
+    id: `${scope}.getData`,
+    defaultMessage: 'getData',
+  },
+  lastLog: {
+    id: `${scope}.lastLog`,
+    defaultMessage: 'lastLog',
+  },
   
 });
 

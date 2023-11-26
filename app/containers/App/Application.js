@@ -326,7 +326,8 @@ import {
   MonthlyAttendanceSummaryReport,
   MonthlyStatisticsReport,
   DeviceLogReport,
-  EmployeeLocation
+  EmployeeLocation,
+  DataFromAllDevices
 } from '../pageListAsync';
 
 function Application(props) {
@@ -915,6 +916,10 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/EmployeeLocation'
           component={EmployeeLocation}
+        />
+        <Route
+          path='/app/Pages/Att/DataFromAllDevices'
+          component={DataFromAllDevices}
         />
 
         

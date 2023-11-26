@@ -36,6 +36,12 @@ const DeviceData = (locale) => {
     const result = await axiosInstance.get(`AttDevice/TestConnection/${data.ip}/${data.port}/${data.devicePass}`);
     return result;
   };
+  Apis.ReadAllDevices = async (data) => {
+    debugger;
+    const result = await axiosInstance.post(`AttDevice/ReadAllDevices/`,data);
+    return result;
+  };
+  
   
   return Apis;
 };
