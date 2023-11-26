@@ -1245,6 +1245,14 @@ export const DeviceLogReport = loadable(
   }
 );
 
+
+export const AttendanceRatiosStatementsReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/AttendanceRatiosStatementsReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

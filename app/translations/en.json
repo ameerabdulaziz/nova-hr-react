@@ -1332,6 +1332,27 @@
   "boilerplate.containers.Payroll.Attendance.DeviceType": "Device Type",
 
 
+  "boilerplate.containers.Payroll.Attendance.MonthWorkDays": "Month Work Days",
+  "boilerplate.containers.Payroll.Attendance.MonthWorkHours": "Month Work Hours",
+  "boilerplate.containers.Payroll.Attendance.monthOffLeave": "Month Off Leave",
+  "boilerplate.containers.Payroll.Attendance.requiredDays": "Required Days",
+  "boilerplate.containers.Payroll.Attendance.requiredWorkH": "Required Work H",
+  "boilerplate.containers.Payroll.Attendance.notPayedLeave": "Not Payed Leave",
+  "boilerplate.containers.Payroll.Attendance.annualLeave": "Annual Leave",
+  "boilerplate.containers.Payroll.Attendance.sickLeave": "Sick Leave",
+  "boilerplate.containers.Payroll.Attendance.specialLeave": "Special Leave",
+  "boilerplate.containers.Payroll.Attendance.casualLeave": "Casual Leave",
+  "boilerplate.containers.Payroll.Attendance.leaveHours": "Leave Hours",
+  "boilerplate.containers.Payroll.Attendance.lateHours": "Late Hours",
+  "boilerplate.containers.Payroll.Attendance.actWorkHours": "Act. Work Hours",
+  "boilerplate.containers.Payroll.Attendance.percentage": "Percentage",
+  "boilerplate.containers.Payroll.Attendance.workLeaveHours": "work + Leave Hours",
+  "boilerplate.containers.Payroll.Attendance.withLeavePerc": "with Leave Perc.",
+  "boilerplate.containers.Payroll.Attendance.deductedEmployeeOnly": "Deducted Employee Only",
+  "boilerplate.containers.Payroll.Attendance.DaysDeduction": "Days Deduction",
+  "boilerplate.containers.Payroll.Attendance.CompanyRatio": "Company Ratio",
+
+
   
   "boilerplate.containers.Payroll.Attendance.AbsenceRules":"Absence ",
   "boilerplate.containers.Payroll.Attendance.DelayRules":"Delay ",
