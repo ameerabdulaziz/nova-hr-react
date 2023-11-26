@@ -26,6 +26,7 @@ import {
   ResignReason,
   InsuranceRegion,
   MinsuranceItem,
+  RecHiringSource,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -328,6 +329,7 @@ import {
   DeviceLogReport,
   EmployeeLocation,
   JobRequirements,
+  RecHrTest,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1477,6 +1479,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/JobRequirements'
           component={JobRequirements}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecHrTest'
+          component={RecHrTest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecHiringSource'
+          component={RecHiringSource}
         />
 
         <Route

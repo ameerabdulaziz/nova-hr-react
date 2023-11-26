@@ -108,3 +108,11 @@ export const MinsuranceItem = (props) => (
     {...props}
   />
 );
+
+export const RecHiringSource = (props) => (
+  <MainDataGeneralCode
+    text='Recruitment Hiring Source'
+    table='RecHiringSource'
+    {...props}
+  />
+);
