@@ -331,6 +331,7 @@ import {
   JobRequirements,
   RecHrTest,
   AttendanceRatiosStatementsReport,
+  RecEvaluation,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1491,6 +1492,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/RecHrTest'
           component={RecHrTest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecEvaluation'
+          component={RecEvaluation}
         />
 
         <Route

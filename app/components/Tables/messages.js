@@ -303,4 +303,12 @@ export default defineMessages({
     id: `${scope}.codes.enDesc`,
     defaultMessage: 'enDesc',
   },
+  elJob: {
+    id: `${scope}.codes.elJob`,
+    defaultMessage: 'elJob',
+  },
+  elPercent: {
+    id: `${scope}.codes.elPercent`,
+    defaultMessage: 'elPercent',
+  },
 });

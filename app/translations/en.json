@@ -803,6 +803,8 @@
   "boilerplate.components.tables.codes.enDesc": "English Description",
   "boilerplate.components.tables.codes.finalGrad": "Final Grade",
   "boilerplate.components.tables.codes.insuranceOffices": "Insurance Offices",
+  "boilerplate.components.tables.codes.elJob": "Element Job",
+  "boilerplate.components.tables.codes.elPercent": "Element Percent",
   "boilerplate.components.tables.codes.action": "Action",
   "boilerplate.components.tables.codes.address": "Address",
   "boilerplate.components.tables.codes.note": "Notes",
