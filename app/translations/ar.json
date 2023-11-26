@@ -1477,6 +1477,12 @@
     "boilerplate.containers.Payroll.Attendance.shiftStart":"بداية الوردية",
     "boilerplate.containers.Payroll.Attendance.lateness":"التاخير",
     "boilerplate.containers.Payroll.Attendance.LateCount":"مرات التاخير",
+    "boilerplate.containers.Payroll.Attendance.BothCheckInOut":"تسجيل حضور وانصراف",
+    "boilerplate.containers.Payroll.Attendance.checkIn":"تسجيل حضور فقط",
+    "boilerplate.containers.Payroll.Attendance.checkOut":"تسجيل انصراف فقط",    
+  "boilerplate.containers.Payroll.Attendance.isNotUpdateAtt": "فى حالة وجود سطر للموظف لا تقم بالتعديل",
+    
+    
 
 
     "boilerplate.containers.Payroll.Attendance.shiftEnd":"نهاية الوردية",
@@ -1531,6 +1537,13 @@
     "boilerplate.containers.Payroll.Attendance.AllTransactions": "كل التوقيعات",
     "boilerplate.containers.Payroll.Attendance.FingerType": "نوع البصمة",
     "boilerplate.containers.Payroll.Attendance.DeviceType": "الجهاز",
+    "boilerplate.containers.Payroll.Attendance.Location": "الموقع",
+    "boilerplate.containers.Payroll.Attendance.isDrop": "الغاء فترة لموظف",
+    "boilerplate.containers.Payroll.Attendance.isStop": "ايقاف فترة لموظف",
+    
+    
+  
+  
 
 
     "boilerplate.containers.Payroll.Attendance.MonthWorkDays": "ايام العمل الشهرية",

@@ -149,7 +149,7 @@ function ShiftTransfere(props) {
         ...prevFilters,
         startTime: result.startTime,
         endTime: result.endTime,
-        workHours: Math.round(
+        workHours: 
           (new Date(
             0,
             0,
@@ -165,7 +165,6 @@ function ShiftTransfere(props) {
               result.startTime.split(":")[1]
             )) /
             3600000
-        ),
       }));
       const dataApi = await ApiData(locale).GetList(
         "",
@@ -406,7 +405,7 @@ function ShiftTransfere(props) {
                       value={data.startTime}
                       label={intl.formatMessage(messages.startTime)}
                       type="time"
-                      onChange={(e) => handleChange(e)}
+                      disabled
                       className={classes.field}
                       InputLabelProps={{
                         shrink: true,
@@ -420,7 +419,7 @@ function ShiftTransfere(props) {
                       value={data.endTime}
                       label={intl.formatMessage(messages.endTime)}
                       type="time"
-                      onChange={(e) => handleChange(e)}
+                      disabled
                       className={classes.field}
                       InputLabelProps={{
                         shrink: true,
@@ -431,13 +430,8 @@ function ShiftTransfere(props) {
                     <TextField
                       id="workHours"
                       name="workHours"
+                      disabled
                       value={data.workHours}
-                      onChange={(e) => {
-                        setdata((prevFilters) => ({
-                          ...prevFilters,
-                          workHours: e.target.value,
-                        }));
-                      }}
                       label={intl.formatMessage(messages.hours)}
                       className={classes.field}
                       variant="outlined"

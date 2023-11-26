@@ -103,7 +103,7 @@ function ShiftEmployeeCreate(props) {
       ...prevFilters,
       startTime: result.startTime,
       endTime: result.endTime,
-      workHours: Math.round(
+      workHours: 
         (new Date(
           0,
           0,
@@ -119,7 +119,6 @@ function ShiftEmployeeCreate(props) {
             result.startTime.split(":")[1]
           )) /
           3600000
-      ),
     }));
   }
   return (

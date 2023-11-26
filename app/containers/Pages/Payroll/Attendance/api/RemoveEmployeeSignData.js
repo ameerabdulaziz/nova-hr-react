@@ -13,14 +13,11 @@ const RemoveEmployeeSignData = (locale) => {
     return result;
   };
 
-  Apis.GetDeviceList = async () => {
-    const data = await axiosInstance.get(`AttDevice/GetListModel/${locale}`);
-    const result = data.data;
-
-    return result;
-  };
-  Apis.GetList = async () => {
-    const data = await axiosInstance.get(`AttDevice/GetList/${locale}`);
+  
+  Apis.GetList = async (params) => {
+    const queryString = new URLSearchParams(params);
+    
+    const data = await axiosInstance.get(`AttDevice/GetList/${locale}?${queryString}`);
     const result = data.data;
 
     return result;

@@ -26,6 +26,7 @@ import {
   ResignReason,
   InsuranceRegion,
   MinsuranceItem,
+  RecHiringSource,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -321,10 +322,14 @@ import {
   LateAttendanceReport,
   JobApplicationPreview,
   RemoveEmployeeSign,
+  EmployeeAttendance,
   DetailedAttendanceReport,
   MonthlyAttendanceSummaryReport,
   MonthlyStatisticsReport,
   DeviceLogReport,
+  EmployeeLocation,
+  JobRequirements,
+  RecHrTest,
   AttendanceRatiosStatementsReport,
 } from '../pageListAsync';
 
@@ -906,6 +911,17 @@ function Application(props) {
           path='/app/Pages/Att/RemoveEmployeeSign'
           component={RemoveEmployeeSign}
         />
+         <Route
+          path='/app/Pages/Att/EmployeeAttendance'
+          component={EmployeeAttendance}
+        />
+
+        <Route
+          path='/app/Pages/Att/EmployeeLocation'
+          component={EmployeeLocation}
+        />
+
+        
 
         <Route
           path='/app/Pages/Att/OvertimeHoursRequest'
@@ -1465,6 +1481,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/JobAdvertisement'
           component={JobAdvertisement}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobRequirements'
+          component={JobRequirements}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecHrTest'
+          component={RecHrTest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecHiringSource'
+          component={RecHiringSource}
         />
 
         <Route

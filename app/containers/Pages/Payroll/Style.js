@@ -243,7 +243,14 @@ rootTable: {
   },
   redLabel: {
     color: "red",
+  },
+  selectEmpButton: {
+    width:"80%",float:"left"
+  },
+  searchButton: {
+    width:"20%",float:"left"
   }
+  
 }));
 
 export default useMainStyles;

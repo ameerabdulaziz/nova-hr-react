@@ -1716,5 +1716,34 @@ devicePass: {
     id: `${scope}.CompanyRatio`,
     defaultMessage: 'Company Ratio',
   },
+  BothCheckInOut: {
+    id: `${scope}.BothCheckInOut`,
+    defaultMessage: 'BothCheckInOut',
+  },
+  checkIn: {
+    id: `${scope}.checkIn`,
+    defaultMessage: 'checkIn',
+  },
+  checkOut: {
+    id: `${scope}.checkOut`,
+    defaultMessage: 'checkOut',
+  },
+  isNotUpdateAtt: {
+    id: `${scope}.isNotUpdateAtt`,
+    defaultMessage: 'isNotUpdateAtt',
+  },
+  Location: {
+    id: `${scope}.Location`,
+    defaultMessage: 'Location',
+  },
+  isStop: {
+    id: `${scope}.isStop`,
+    defaultMessage: 'isStop',
+  },
+  isDrop: {
+    id: `${scope}.isDrop`,
+    defaultMessage: 'isDrop',
+  },
+  
 });
 

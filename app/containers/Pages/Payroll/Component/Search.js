@@ -152,18 +152,13 @@ function Search(props) {
             id="EmpStatusId"
             options={statusList}
             value={
-              statusList.length > 0
+              statusList.length > 0 && statusList.find((item) => item.id === searchData.EmpStatusId)!==undefined
                 ? statusList.find((item) => item.id === searchData.EmpStatusId)
                 : { id: 0, name: "" }
             }
-            isOptionEqualToValue={(option, value) =>
-              value.id === 0 || value.id === "" || option.id === value.id
-            }
+            isOptionEqualToValue={(option, value) =>{return option.id === value.id || value.id === 0 || value.id === ""}}
             getOptionLabel={(option) => (option.name ? option.name : "")}
-            onChange={(event, value) => {
-              
-              handleChange("statusId", value == null ? "" : value.id);
-            }}
+            onChange={(event, value) => {handleChange("statusId", value == null ? "" : value.id);}}
             renderInput={(params) => (
               <TextField
                 variant="outlined"

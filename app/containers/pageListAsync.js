@@ -1091,7 +1091,18 @@ export const RemoveEmployeeSign = loadable(
     fallback: <Loading />,
   }
 );
-
+export const EmployeeAttendance = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/EmployeeAttendance'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmployeeLocation = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/EmployeeLocation'),
+  {
+    fallback: <Loading />,
+  }
+);
 export const EmployeeAttendanceTemplateReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/EmployeeAttendanceTemplateReport'),
   {
@@ -1811,6 +1822,13 @@ export const JobAdvertisementCreate = loadable(
 
 export const JobApplicationPreview = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/JobApplicationPreview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobRequirements = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/JobRequirements'),
   {
     fallback: <Loading />,
   }
