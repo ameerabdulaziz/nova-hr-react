@@ -1826,6 +1826,13 @@ export const JobRequirements = loadable(
   }
 );
 
+export const RecHrTest = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/RecHrTest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobVacation = loadable(
   () => import('./Pages/Payroll/cv-application/JobVacation'),
   {
