@@ -10,7 +10,7 @@ import useStyles from "../../Style";
 import { PapperBlock } from "enl-components";
 import Payrollmessages from "../../messages";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { Button,Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 function DataFromAllDevices(props) {
   const { intl } = props;
@@ -33,7 +33,7 @@ function DataFromAllDevices(props) {
 
   async function handleGetData(selectedRows) {
     try {
-        debugger;
+      debugger;
       const params = [];
       for (let i = 0; i < selectedRows.data.length; i++) {
         params.push(data[selectedRows.data[i].dataIndex].id);
@@ -41,14 +41,13 @@ function DataFromAllDevices(props) {
       if (params.length > 0) {
         setIsLoading(true);
         let response = await ApiData(locale).ReadAllDevices(params);
-        var messages="";
+        var messages = "";
         if (response.status == 200) {
-        for(let i = 0; i < response.data.length; i++) {
-         messages += response.data[i]+"\n" ;
-          
-        }
-        toast.success(messages);
-            fetchData();
+          for (let i = 0; i < response.data.length; i++) {
+            messages += response.data[i] + "\n";
+          }
+          toast.success(messages);
+          fetchData();
         } else {
           toast.error(response.statusText);
         }
@@ -106,7 +105,7 @@ function DataFromAllDevices(props) {
       label: <FormattedMessage {...messages["lastLog"]} />,
       options: {
         filter: true,
-       /*  customBodyRender: (value) =>
+        /*  customBodyRender: (value) =>
           value == null ? "" : format(new Date(value), "yyyy-MM-dd HH:mm"), */
       },
     },

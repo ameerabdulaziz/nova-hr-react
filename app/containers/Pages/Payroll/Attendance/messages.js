@@ -1639,6 +1639,83 @@ devicePass: {
     id: `${scope}.DeviceType`,
     defaultMessage: 'Device Type',
   },
+  // AttendanceRatiosStatementsReport
+  MonthWorkDays: {
+    id: `${scope}.MonthWorkDays`,
+    defaultMessage: 'Month Work Days',
+  },
+  MonthWorkHours: {
+    id: `${scope}.MonthWorkHours`,
+    defaultMessage: 'Month Work Hours',
+  },
+  monthOffLeave: {
+    id: `${scope}.monthOffLeave`,
+    defaultMessage: 'Month Off Leave',
+  },
+  requiredDays: {
+    id: `${scope}.requiredDays`,
+    defaultMessage: 'Required Days',
+  },
+  requiredWorkH: {
+    id: `${scope}.requiredWorkH`,
+    defaultMessage: 'Required Work H',
+  },
+  notPayedLeave: {
+    id: `${scope}.notPayedLeave`,
+    defaultMessage: 'Not Payed Leave',
+  },
+  annualLeave: {
+    id: `${scope}.annualLeave`,
+    defaultMessage: 'Annual Leave',
+  },
+  sickLeave: {
+    id: `${scope}.sickLeave`,
+    defaultMessage: 'Sick Leave',
+  },
+  specialLeave: {
+    id: `${scope}.specialLeave`,
+    defaultMessage: 'Special Leave',
+  },
+  casualLeave: {
+    id: `${scope}.casualLeave`,
+    defaultMessage: 'Casual Leave',
+  },
+  leaveHours: {
+    id: `${scope}.leaveHours`,
+    defaultMessage: 'leave Hours',
+  },
+  lateHours: {
+    id: `${scope}.lateHours`,
+    defaultMessage: 'Late Hours',
+  },
+  actWorkHours: {
+    id: `${scope}.actWorkHours`,
+    defaultMessage: 'Act Work Hours',
+  },
+  percentage: {
+    id: `${scope}.percentage`,
+    defaultMessage: 'Percentage',
+  },
+  workLeaveHours: {
+    id: `${scope}.workLeaveHours`,
+    defaultMessage: 'Work + Leave Hours',
+  },
+  withLeavePerc: {
+    id: `${scope}.withLeavePerc`,
+    defaultMessage: 'with Leave Perc.',
+  },
+  deductedEmployeeOnly: {
+    id: `${scope}.deductedEmployeeOnly`,
+    defaultMessage: 'Deducted Employee Only',
+  },
+  DaysDeduction: {
+    id: `${scope}.DaysDeduction`,
+    defaultMessage: 'Days Deduction',
+  },
+  CompanyRatio: {
+    id: `${scope}.CompanyRatio`,
+    defaultMessage: 'Company Ratio',
+  },
   BothCheckInOut: {
     id: `${scope}.BothCheckInOut`,
     defaultMessage: 'BothCheckInOut',

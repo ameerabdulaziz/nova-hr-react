@@ -108,3 +108,19 @@ export const MinsuranceItem = (props) => (
     {...props}
   />
 );
+
+export const RecHiringSource = (props) => (
+  <MainDataGeneralCode
+    text='Recruitment Hiring Source'
+    table='RecHiringSource'
+    {...props}
+  />
+);
+
+export const RecJobGrade = (props) => (
+  <MainDataGeneralCode
+    text='Recruitment Job Grade'
+    table='RecJobGrade'
+    {...props}
+  />
+);

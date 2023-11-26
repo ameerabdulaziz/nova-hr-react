@@ -1251,6 +1251,14 @@ export const DeviceLogReport = loadable(
   }
 );
 
+
+export const AttendanceRatiosStatementsReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/AttendanceRatiosStatementsReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
@@ -1820,6 +1828,27 @@ export const JobAdvertisementCreate = loadable(
 
 export const JobApplicationPreview = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/JobApplicationPreview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobRequirements = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/JobRequirements'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const RecHrTest = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/RecHrTest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const RecEvaluation = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/RecEvaluation'),
   {
     fallback: <Loading />,
   }

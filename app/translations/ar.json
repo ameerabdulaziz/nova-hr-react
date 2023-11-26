@@ -813,6 +813,11 @@
   "boilerplate.components.tables.codes.contractperiod": "مدة العقد",
   "boilerplate.components.tables.codes.symbol": "الرمز",
   "boilerplate.components.tables.codes.currency": "العملة",
+  "boilerplate.components.tables.codes.arDesc": "الوصف بالعربية",
+  "boilerplate.components.tables.codes.enDesc": "الوصف بالانجليزية",
+  "boilerplate.components.tables.codes.finalGrad": "التقدير النهائي",
+  "boilerplate.components.tables.codes.elJob": "الوظيفة",
+  "boilerplate.components.tables.codes.elPercent": "النسبة",
   "boilerplate.components.tables.codes.month": "الشهر",
   "boilerplate.components.tables.codes.year": "السنة",
   "boilerplate.components.tables.codes.rate": "المعدل",
@@ -1545,6 +1550,29 @@
     
     
     
+  
+  
+
+
+    "boilerplate.containers.Payroll.Attendance.MonthWorkDays": "ايام العمل الشهرية",
+    "boilerplate.containers.Payroll.Attendance.MonthWorkHours": "عدد ساعات العمل الشهرية",
+    "boilerplate.containers.Payroll.Attendance.monthOffLeave": "اجازة اسبوعية ورسمية",
+    "boilerplate.containers.Payroll.Attendance.requiredDays": "ايام العمل المقررة",
+    "boilerplate.containers.Payroll.Attendance.requiredWorkH": "ساعات العمل المقررة",
+    "boilerplate.containers.Payroll.Attendance.notPayedLeave": "اجازة بدون اجر",
+    "boilerplate.containers.Payroll.Attendance.annualLeave": "اجازات سنوية",
+    "boilerplate.containers.Payroll.Attendance.sickLeave": "اجازات مرضية",
+    "boilerplate.containers.Payroll.Attendance.specialLeave": "اجازات خاصة",
+    "boilerplate.containers.Payroll.Attendance.casualLeave": "اجازات عارضة",
+    "boilerplate.containers.Payroll.Attendance.leaveHours": "ساعات الاجازات",
+    "boilerplate.containers.Payroll.Attendance.lateHours": "ساعات التاخير",
+    "boilerplate.containers.Payroll.Attendance.actWorkHours": "ساعات العمل الفعلية",
+    "boilerplate.containers.Payroll.Attendance.percentage": "النسبة المئوية",
+    "boilerplate.containers.Payroll.Attendance.workLeaveHours": "ساعات العمل والاجازات",
+    "boilerplate.containers.Payroll.Attendance.withLeavePerc": "النسبة المئوية بلاجازات",
+    "boilerplate.containers.Payroll.Attendance.deductedEmployeeOnly": "المخصوم منهم فقط",
+    "boilerplate.containers.Payroll.Attendance.DaysDeduction": "الخصم باليوم",
+    "boilerplate.containers.Payroll.Attendance.CompanyRatio": "نسب الشركة",
   
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

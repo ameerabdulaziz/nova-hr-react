@@ -291,5 +291,24 @@ export default defineMessages({
     id: `${scope}.codes.transportaion`,
     defaultMessage: 'transportaion',
   },
- 
+  arDesc: {
+    id: `${scope}.codes.arDesc`,
+    defaultMessage: 'arDesc',
+  },
+  finalGrad: {
+    id: `${scope}.codes.finalGrad`,
+    defaultMessage: 'finalGrad',
+  },
+  enDesc: {
+    id: `${scope}.codes.enDesc`,
+    defaultMessage: 'enDesc',
+  },
+  elJob: {
+    id: `${scope}.codes.elJob`,
+    defaultMessage: 'elJob',
+  },
+  elPercent: {
+    id: `${scope}.codes.elPercent`,
+    defaultMessage: 'elPercent',
+  },
 });

@@ -26,6 +26,8 @@ import {
   ResignReason,
   InsuranceRegion,
   MinsuranceItem,
+  RecHiringSource,
+  RecJobGrade,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -327,7 +329,12 @@ import {
   MonthlyStatisticsReport,
   DeviceLogReport,
   EmployeeLocation,
-  DataFromAllDevices
+  DataFromAllDevices,
+  JobRequirements,
+  RecHrTest,
+  AttendanceRatiosStatementsReport,
+  RecEvaluation,
+  HRApplication,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1055,6 +1062,12 @@ function Application(props) {
         />
 
 
+        <Route
+          path='/app/Pages/Att/TimeAttendRatio'
+          component={AttendanceRatiosStatementsReport}
+        />
+
+
         {/* WorkFlow */}
         <Route path='/app/Pages/WF/WorkFlow' component={WorkFlowList} />
         <Route path='/app/Pages/WF/WorkFlowCreate' component={WorkFlowCreate} />
@@ -1476,6 +1489,36 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/JobAdvertisement'
           component={JobAdvertisement}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobRequirements'
+          component={JobRequirements}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecHrTest'
+          component={RecHrTest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecEvaluation'
+          component={RecEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecHiringSource'
+          component={RecHiringSource}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecJobGrade'
+          component={RecJobGrade}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HRApplication'
+          component={HRApplication}
         />
 
         <Route
