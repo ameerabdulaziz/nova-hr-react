@@ -89,8 +89,8 @@ function JobRequirements(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
-        <Grid container alignItems='flex-start' direction='row'>
-          <Grid item sm={6}>
+        <Grid container direction='row'>
+          <Grid item xs={12} md={4}>
             <Autocomplete
               options={jobsList}
               value={selectedJob}
