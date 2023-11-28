@@ -1848,6 +1848,13 @@ export const RecEvaluation = loadable(
   }
 );
 
+export const HRApplicationEvaluation = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/HRApplicationEvaluation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobVacation = loadable(
   () => import('./Pages/Payroll/cv-application/JobVacation'),
   {

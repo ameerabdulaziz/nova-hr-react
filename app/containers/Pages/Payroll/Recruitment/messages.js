@@ -52,4 +52,130 @@ export default defineMessages({
     id: `${scope}.id`,
     defaultMessage: 'id',
   },
+
+  // HRApplicationEvaluation
+  applicantName: {
+    id: `${scope}.applicantName`,
+    defaultMessage: 'applicantName',
+  },
+  applicantDate: {
+    id: `${scope}.applicantDate`,
+    defaultMessage: 'applicantDate',
+  },
+  hrStatus: {
+    id: `${scope}.hrStatus`,
+    defaultMessage: 'hrStatus',
+  },
+  technicalStatus: {
+    id: `${scope}.technicalStatus`,
+    defaultMessage: 'technicalStatus',
+  },
+  managerialStatus: {
+    id: `${scope}.managerialStatus`,
+    defaultMessage: 'managerialStatus',
+  },
+  JobAdv: {
+    id: `${scope}.JobAdv`,
+    defaultMessage: 'JobAdv',
+  },
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  accepted: {
+    id: `${scope}.accepted`,
+    defaultMessage: 'accepted',
+  },
+  waitingList: {
+    id: `${scope}.waitingList`,
+    defaultMessage: 'waitingList',
+  },
+  dataBank: {
+    id: `${scope}.dataBank`,
+    defaultMessage: 'dataBank',
+  },
+  jobOffer: {
+    id: `${scope}.jobOffer`,
+    defaultMessage: 'jobOffer',
+  },
+  rejected: {
+    id: `${scope}.rejected`,
+    defaultMessage: 'rejected',
+  },
+  blackList: {
+    id: `${scope}.blackList`,
+    defaultMessage: 'blackList',
+  },
+  idNumber: {
+    id: `${scope}.idNumber`,
+    defaultMessage: 'idNumber',
+  },
+  gender: {
+    id: `${scope}.gender`,
+    defaultMessage: 'gender',
+  },
+  workFrom: {
+    id: `${scope}.workFrom`,
+    defaultMessage: 'workFrom',
+  },
+  graduationGrade: {
+    id: `${scope}.graduationGrade`,
+    defaultMessage: 'graduationGrade',
+  },
+  fromAge: {
+    id: `${scope}.fromAge`,
+    defaultMessage: 'fromAge',
+  },
+  toAge: {
+    id: `${scope}.toAge`,
+    defaultMessage: 'toAge',
+  },
+  pending: {
+    id: `${scope}.pending`,
+    defaultMessage: 'pending',
+  },
+  downloadCV: {
+    id: `${scope}.downloadCV`,
+    defaultMessage: 'downloadCV',
+  },
+  sendRejectMail: {
+    id: `${scope}.sendRejectMail`,
+    defaultMessage: 'sendRejectMail',
+  },
+  updateStatus: {
+    id: `${scope}.updateStatus`,
+    defaultMessage: 'updateStatus',
+  },
+  viewApplicationForm: {
+    id: `${scope}.viewApplicationForm`,
+    defaultMessage: 'viewApplicationForm',
+  },
+  confirm: {
+    id: `${scope}.confirm`,
+    defaultMessage: 'confirm',
+  },
+  reason: {
+    id: `${scope}.reason`,
+    defaultMessage: 'reason',
+  },
+  technical: {
+    id: `${scope}.technical`,
+    defaultMessage: 'technical',
+  },
+  managerialLevel: {
+    id: `${scope}.managerialLevel`,
+    defaultMessage: 'managerialLevel',
+  },
+  managerNotReviewCV: {
+    id: `${scope}.managerNotReviewCV`,
+    defaultMessage: 'managerNotReviewCV',
+  },
+  site: {
+    id: `${scope}.site`,
+    defaultMessage: 'site',
+  },
+  home: {
+    id: `${scope}.home`,
+    defaultMessage: 'home',
+  },
 });

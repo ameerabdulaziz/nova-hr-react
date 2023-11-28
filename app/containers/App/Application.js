@@ -333,7 +333,7 @@ import {
   RecHrTest,
   AttendanceRatiosStatementsReport,
   RecEvaluation,
-  HRApplication,
+  HRApplicationEvaluation,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1512,8 +1512,8 @@ function Application(props) {
         />
 
         <Route
-          path='/app/Pages/Recruitment/HRApplication'
-          component={HRApplication}
+          path='/app/Pages/Recruitment/HRApplicationEvaluation'
+          component={HRApplicationEvaluation}
         />
 
         <Route

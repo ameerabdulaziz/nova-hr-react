@@ -293,6 +293,30 @@ const GeneralListApis = (locale) => {
 
     return result.data;
   };
+  Apis.GetTechLevelList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetTechLevelList/${locale}`);
+
+    return result.data;
+  };
+
+  Apis.GetManagerialLevelList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetManagerialLevelList/${locale}`);
+
+    return result.data;
+  };
+
+  Apis.GetApplicationStatusList = async (addpending=false, top2=false) => {
+    const result = await axiosInstance.get(`GeneralList/GetApplicationStatusList/${locale}?addpending=${addpending}&top2=${top2}`);
+
+    return result.data;
+  };
+
+  Apis.GetJobAdvList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetJobAdvList`);
+
+    return result.data;
+  };
+
   Apis.GetGradeList = async () => {
     const result = await axiosInstance.get(`MdGrade/GetListModel/${locale}`);
 
