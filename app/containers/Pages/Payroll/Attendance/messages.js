@@ -1752,6 +1752,34 @@ devicePass: {
     id: `${scope}.lastLog`,
     defaultMessage: 'lastLog',
   },
+  tcp: {
+    id: `${scope}.tcp`,
+    defaultMessage: 'tcp',
+  },
+  access: {
+    id: `${scope}.access`,
+    defaultMessage: 'access',
+  },
+  excell: {
+    id: `${scope}.excell`,
+    defaultMessage: 'excell',
+  },
+  txt: {
+    id: `${scope}.txt`,
+    defaultMessage: 'txt',
+  },
+  csv: {
+    id: `${scope}.csv`,
+    defaultMessage: 'csv',
+  },
+  firstform: {
+    id: `${scope}.firstform`,
+    defaultMessage: 'firstform',
+  },
+  secondform: {
+    id: `${scope}.secondform`,
+    defaultMessage: 'secondform',
+  },
   
 });
 

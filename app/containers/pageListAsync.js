@@ -1109,6 +1109,12 @@ export const DataFromAllDevices = loadable(
     fallback: <Loading />,
   }
 );
+export const GetAttLog = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/GetAttLog'),
+  {
+    fallback: <Loading />,
+  }
+);
 export const EmployeeAttendanceTemplateReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/EmployeeAttendanceTemplateReport'),
   {

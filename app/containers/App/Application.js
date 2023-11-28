@@ -335,6 +335,7 @@ import {
   AttendanceRatiosStatementsReport,
   RecEvaluation,
   HRApplication,
+  GetAttLog
 } from '../pageListAsync';
 
 function Application(props) {
@@ -927,6 +928,10 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/DataFromAllDevices'
           component={DataFromAllDevices}
+        />
+        <Route
+          path='/app/Pages/Att/GetAttLog'
+          component={GetAttLog}
         />
 
         

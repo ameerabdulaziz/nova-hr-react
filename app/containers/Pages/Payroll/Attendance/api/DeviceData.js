@@ -41,6 +41,18 @@ const DeviceData = (locale) => {
     const result = await axiosInstance.post(`AttDevice/ReadAllDevices/`,data);
     return result;
   };
+
+  Apis.ReadAttLog = async (deviceId) => {
+    debugger;
+    const result = await axiosInstance.get(`AttDevice/ReadAttLog/${deviceId}?isDate=true`);
+    return result.data;
+  };
+  Apis.SaveAttLog = async (data,deviceid) => {
+    debugger;
+    const result = await axiosInstance.post(`AttDevice/SaveAttLog/${deviceid}`,data);
+    return result;
+  };
+  
   
   
   return Apis;
