@@ -329,10 +329,13 @@ import {
   MonthlyStatisticsReport,
   DeviceLogReport,
   EmployeeLocation,
+  DataFromAllDevices,
   JobRequirements,
   RecHrTest,
   AttendanceRatiosStatementsReport,
   RecEvaluation,
+  HRApplication,
+  GetAttLog,
   HRApplicationEvaluation,
 } from '../pageListAsync';
 
@@ -923,6 +926,14 @@ function Application(props) {
           path='/app/Pages/Att/EmployeeLocation'
           component={EmployeeLocation}
         />
+        <Route
+          path='/app/Pages/Att/DataFromAllDevices'
+          component={DataFromAllDevices}
+        />
+        <Route
+          path='/app/Pages/Att/GetAttLog'
+          component={GetAttLog}
+        />
 
         
 
@@ -1509,6 +1520,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/RecJobGrade'
           component={RecJobGrade}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HRApplication'
+          component={HRApplication}
         />
 
         <Route

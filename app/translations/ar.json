@@ -971,6 +971,8 @@
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
   "boilerplate.containers.Payroll.dateErrorMes": "يجب اختيار تاريخ البدا وتاريخ الانتهاء",
+  "boilerplate.containers.Payroll.FileIsEmpty": "لايوجد بيانات",
+  
 
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
   "boilerplate.containers.Payroll.Setting.menuName": "اسم القائمة",
@@ -1545,6 +1547,17 @@
     "boilerplate.containers.Payroll.Attendance.Location": "الموقع",
     "boilerplate.containers.Payroll.Attendance.isDrop": "الغاء فترة لموظف",
     "boilerplate.containers.Payroll.Attendance.isStop": "ايقاف فترة لموظف",
+    "boilerplate.containers.Payroll.Attendance.getData": "سحب البيانات",
+    "boilerplate.containers.Payroll.Attendance.lastLog": "تاريخ اخر سحب",
+
+    "boilerplate.containers.Payroll.Attendance.tcp": "TCP/IP",
+    "boilerplate.containers.Payroll.Attendance.access": "Access Database",
+    "boilerplate.containers.Payroll.Attendance.excell": "Excell Sheet",
+    "boilerplate.containers.Payroll.Attendance.txt": "TXT File",
+    "boilerplate.containers.Payroll.Attendance.csv": "CSV File",
+    "boilerplate.containers.Payroll.Attendance.firstform": "النموذج الاول",
+    "boilerplate.containers.Payroll.Attendance.secondform": "505",
+    
     
     
   
