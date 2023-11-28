@@ -117,7 +117,7 @@ function HRApplicationEvaluation(props) {
     appFirstStatus: null,
     reason: '',
     techEmpList: [],
-    managerialLevel: null,
+    secStaff: null,
     notTechnicalReview: false,
     databnkjob: null,
   });
@@ -477,7 +477,7 @@ function HRApplicationEvaluation(props) {
       appFirstStatus: null,
       reason: '',
       techEmpList: [],
-      managerialLevel: null,
+      secStaff: null,
       notTechnicalReview: false,
       databnkjob: null,
     });
@@ -500,7 +500,7 @@ function HRApplicationEvaluation(props) {
     }
 
     if (popupState.appFirstStatus !== 1 || popupState.appFirstStatus !== 3) {
-      popupData.managerialLevel = null;
+      popupData.secStaff = null;
       popupData.techEmpList = null;
     }
 
@@ -602,7 +602,7 @@ function HRApplicationEvaluation(props) {
                     options={managerialLevelList}
                     value={
                       managerialLevelList.find(
-                        (item) => item.id === popupState.managerialLevel
+                        (item) => item.id === popupState.secStaff
                       ) ?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
@@ -613,7 +613,7 @@ function HRApplicationEvaluation(props) {
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompletePopupChange(value, 'managerialLevel')
+                    onChange={(_, value) => onAutoCompletePopupChange(value, 'secStaff')
                     }
                     renderInput={(params) => (
                       <TextField
