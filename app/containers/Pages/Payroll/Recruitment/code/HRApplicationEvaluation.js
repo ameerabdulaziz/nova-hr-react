@@ -284,10 +284,17 @@ function HRApplicationEvaluation(props) {
         customBodyRender: (_, tableMeta) => {
           const row = tableData[tableMeta.rowIndex];
 
-          const isMailSend =						(row.appFirstStatus === 2
-							|| row.techStatus === 2
-							|| row.secStatus === 2)
-						&& !row.mailSend;
+          let isMailSend = true;
+
+          if (!row.mailSend) {
+            if (
+              row.appFirstStatus === 2
+              || row.techStatus === 2
+              || row.secStatus === 2
+            ) {
+              isMailSend = false;
+            }
+          }
 
           return (
             <div>
@@ -485,7 +492,7 @@ function HRApplicationEvaluation(props) {
 
   const onPopupFormSubmit = async (evt) => {
     evt.preventDefault();
-    setIsPopupOpen(false);
+    onPopupClose();
 
     const popupData = { ...popupState, ids: selectedRowsId };
 
@@ -501,7 +508,7 @@ function HRApplicationEvaluation(props) {
 
     if (popupState.appFirstStatus !== 1 || popupState.appFirstStatus !== 3) {
       popupData.secStaff = null;
-      popupData.techEmpList = null;
+      popupData.techEmpList = [];
     }
 
     setIsLoading(true);
@@ -572,7 +579,7 @@ function HRApplicationEvaluation(props) {
                   options={jobList}
                   value={
                     jobList.find((item) => item.id === popupState.databnkjob)
-										?? null
+                    ?? null
                   }
                   isOptionEqualToValue={(option, value) => option.id === value.id
                   }
@@ -587,7 +594,6 @@ function HRApplicationEvaluation(props) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      required
                       label={intl.formatMessage(messages.jobName)}
                     />
                   )}
@@ -595,7 +601,7 @@ function HRApplicationEvaluation(props) {
               </Grid>
             )}
             {(popupState.appFirstStatus === 1
-							|| popupState.appFirstStatus === 3) && (
+              || popupState.appFirstStatus === 3) && (
               <>
                 <Grid item xs={12} md={6}>
                   <Autocomplete
@@ -825,7 +831,7 @@ function HRApplicationEvaluation(props) {
                     options={jobAdvList}
                     value={
                       jobAdvList.find((item) => item.id === formInfo.JobAdv)
-											?? null
+                      ?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
@@ -873,7 +879,7 @@ function HRApplicationEvaluation(props) {
                     options={statusList}
                     value={
                       statusList.find((item) => item.id === formInfo.Status)
-											?? null
+                      ?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
