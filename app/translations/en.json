@@ -2025,7 +2025,7 @@
   "boilerplate.containers.Payroll.recruitment.description": "Description",
   "boilerplate.containers.Payroll.recruitment.section": "Section",
   "boilerplate.containers.Payroll.recruitment.applicantName": "Applicant Name",
-  "boilerplate.containers.Payroll.recruitment.applicantDate": "Applicant Date",
+  "boilerplate.containers.Payroll.recruitment.applicationDate": "Application Date",
   "boilerplate.containers.Payroll.recruitment.hrStatus": "HR Status",
   "boilerplate.containers.Payroll.recruitment.technicalStatus": "Technical Status",
   "boilerplate.containers.Payroll.recruitment.managerialStatus": "Managerial Status",

@@ -58,9 +58,9 @@ export default defineMessages({
     id: `${scope}.applicantName`,
     defaultMessage: 'applicantName',
   },
-  applicantDate: {
-    id: `${scope}.applicantDate`,
-    defaultMessage: 'applicantDate',
+  applicationDate: {
+    id: `${scope}.applicationDate`,
+    defaultMessage: 'applicationDate',
   },
   hrStatus: {
     id: `${scope}.hrStatus`,

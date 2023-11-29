@@ -1874,6 +1874,13 @@ export const TechApplicationReview = loadable(
   }
 );
 
+export const SecApplicationReview = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/SecApplicationReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobVacation = loadable(
   () => import('./Pages/Payroll/cv-application/JobVacation'),
   {

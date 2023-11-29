@@ -2069,7 +2069,7 @@
   "boilerplate.containers.Payroll.recruitment.section": "القطاع",
   "boilerplate.containers.Payroll.recruitment.expireDate": "تاريخ الانتهاء",
   "boilerplate.containers.Payroll.recruitment.applicantName": "اسم التطبيق",
-  "boilerplate.containers.Payroll.recruitment.applicantDate": "تاريخ مقدم الطلب",
+  "boilerplate.containers.Payroll.recruitment.applicationDate": "تاريخ الطلب",
   "boilerplate.containers.Payroll.recruitment.hrStatus": "حالة الموارد البشرية",
   "boilerplate.containers.Payroll.recruitment.technicalStatus": "الحالة الفنية",
   "boilerplate.containers.Payroll.recruitment.managerialStatus": "الحالة الإدارية",
