@@ -1861,7 +1861,14 @@ export const RecEvaluation = loadable(
 );
 
 export const HRApplicationEvaluation = loadable(
-  () => import('./Pages/Payroll/Recruitment/code/HRApplicationEvaluation'),
+  () => import('./Pages/Payroll/Recruitment/Transaction/HRApplicationEvaluation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TechApplicationReview = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/TechApplicationReview'),
   {
     fallback: <Loading />,
   }
