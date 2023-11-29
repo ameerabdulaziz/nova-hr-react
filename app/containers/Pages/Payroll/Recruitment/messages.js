@@ -186,4 +186,8 @@ export default defineMessages({
     id: `${scope}.phone`,
     defaultMessage: 'phone',
   },
+  comment: {
+    id: `${scope}.comment`,
+    defaultMessage: 'comment',
+  },
 });

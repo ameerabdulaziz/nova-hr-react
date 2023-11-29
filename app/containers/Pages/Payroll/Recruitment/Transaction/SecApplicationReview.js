@@ -13,6 +13,11 @@ import {
   Grid,
   Menu,
   MenuItem,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   TextField,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -48,6 +53,7 @@ function SecApplicationReview(props) {
   const [openedDropdown, setOpenedDropdown] = useState({});
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
+  const [selectedRowEmployee, setSelectedRowEmployee] = useState([]);
 
   const [statusPopupList, setStatusPopupList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -92,10 +98,13 @@ function SecApplicationReview(props) {
     fetchNeededData();
   }, []);
 
-  const onDropdownClose = (rowIndex) => setOpenedDropdown((prev) => ({
-    ...prev,
-    [rowIndex]: null,
-  }));
+  const onDropdownClose = (rowIndex) => {
+    setSelectedRowEmployee([]);
+    setOpenedDropdown((prev) => ({
+      ...prev,
+      [rowIndex]: null,
+    }));
+  };
 
   const onPreviewCVBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
@@ -108,8 +117,9 @@ function SecApplicationReview(props) {
 
   const onUpdateStatusBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
-    setSelectedRowsId([id]);
+    const row = tableData[rowIndex];
+    setSelectedRowsId([row.id]);
+    setSelectedRowEmployee(row.techStatusList);
     setIsPopupOpen(true);
   };
 
@@ -359,8 +369,39 @@ function SecApplicationReview(props) {
           <FormattedMessage {...payrollMessages.Actions} />
         </DialogTitle>
 
-        <DialogContent sx={{ pt: '10px !important' }}>
-          <Grid container spacing={2}>
+        <DialogContent>
+          <Table size='small'>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <FormattedMessage {...payrollMessages.employeeName} />
+                </TableCell>
+                <TableCell>
+                  <FormattedMessage {...payrollMessages.status} />
+                </TableCell>
+                <TableCell>
+                  <FormattedMessage {...messages.comment} />
+                </TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {selectedRowEmployee?.map((row) => (
+                <TableRow
+                  key={row.techEmp}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component='th' scope='row'>
+                    {row.techEmp}
+                  </TableCell>
+                  <TableCell>{row.status}</TableCell>
+                  <TableCell>{row.comment}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          <Grid container spacing={2} mt={0}>
             <Grid item xs={12} md={6}>
               <Autocomplete
                 options={statusPopupList}
