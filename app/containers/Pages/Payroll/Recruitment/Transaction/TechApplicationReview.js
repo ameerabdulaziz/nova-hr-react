@@ -78,7 +78,7 @@ function TechApplicationReview(props) {
     try {
       const popupStatus = await GeneralListApis(
         locale
-      ).GetApplicationStatusList();
+      ).GetApplicationStatusList(false, true);
       setStatusPopupList(popupStatus);
     } catch (error) {
       //
@@ -124,7 +124,7 @@ function TechApplicationReview(props) {
 
     {
       name: 'appDate',
-      label: intl.formatMessage(messages.applicantDate),
+      label: intl.formatMessage(messages.applicationDate),
       options: {
         filter: true,
         customBodyRender: formateDate,

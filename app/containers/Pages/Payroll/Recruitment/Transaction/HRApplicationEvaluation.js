@@ -237,7 +237,7 @@ function HRApplicationEvaluation(props) {
 
     {
       name: 'appDate',
-      label: intl.formatMessage(messages.applicantDate),
+      label: intl.formatMessage(messages.applicationDate),
       options: {
         filter: true,
         customBodyRender: formateDate,
