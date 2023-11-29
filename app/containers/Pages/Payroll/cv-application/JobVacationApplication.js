@@ -83,7 +83,7 @@ function JobVacationApplication(props) {
 
   const [formInfo, setFormInfo] = useState({
     id: 0,
-    jobApplicarionId,
+    JobAdvertisementID: jobApplicarionId,
 
     empName: '',
     email: '',
@@ -95,7 +95,7 @@ function JobVacationApplication(props) {
 
     identityTypeId: null,
     idcardNumber: '',
-    issuePlace: '',
+    IdcardIssuingAuth: '',
     idcardIssuingDate: null,
 
     socialStatusId: null,
@@ -289,7 +289,8 @@ function JobVacationApplication(props) {
       ({ id: _id, ...course }) => ({
         ...course,
         endDate: formateDate(course.endDate),
-        jobApplicarionId,
+        jobApplicarionId: 0,
+        id: 0,
       })
     );
 
@@ -298,7 +299,8 @@ function JobVacationApplication(props) {
         ...exp,
         fromDate: formateDate(exp.fromDate),
         toDate: formateDate(exp.toDate),
-        jobApplicarionId,
+        jobApplicarionId: 0,
+        id: 0,
       })
     );
 
@@ -657,8 +659,8 @@ function JobVacationApplication(props) {
 
                       <Grid item xs={12} md={3}>
                         <TextField
-                          name='issuePlace'
-                          value={formInfo.issuePlace}
+                          name='IdcardIssuingAuth'
+                          value={formInfo.IdcardIssuingAuth}
                           onChange={onInputChange}
                           label={intl.formatMessage(messages.issuePlace)}
                           fullWidth
