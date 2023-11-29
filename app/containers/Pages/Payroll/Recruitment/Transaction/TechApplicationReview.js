@@ -140,8 +140,16 @@ function TechApplicationReview(props) {
     },
 
     {
-      name: 'hrStatus',
-      label: intl.formatMessage(messages.hrStatus),
+      name: 'phone',
+      label: intl.formatMessage(messages.phone),
+      options: {
+        filter: true,
+      },
+    },
+
+    {
+      name: 'email',
+      label: intl.formatMessage(messages.email),
       options: {
         filter: true,
       },
@@ -149,15 +157,7 @@ function TechApplicationReview(props) {
 
     {
       name: 'techStatus',
-      label: intl.formatMessage(messages.technicalStatus),
-      options: {
-        filter: true,
-      },
-    },
-
-    {
-      name: 'secStatus',
-      label: intl.formatMessage(messages.managerialStatus),
+      label: intl.formatMessage(messages.status),
       options: {
         filter: true,
       },

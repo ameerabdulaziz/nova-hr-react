@@ -2055,6 +2055,8 @@
   "boilerplate.containers.Payroll.recruitment.blackList": "Black List",
   "boilerplate.containers.Payroll.recruitment.site": "Site",
   "boilerplate.containers.Payroll.recruitment.home": "Home",
+  "boilerplate.containers.Payroll.recruitment.email": "Email",
+  "boilerplate.containers.Payroll.recruitment.phone": "Phone",
 
   "boilerplate.containers.Payroll.cv.home": "Home",
   "boilerplate.containers.Payroll.cv.site": "Site",

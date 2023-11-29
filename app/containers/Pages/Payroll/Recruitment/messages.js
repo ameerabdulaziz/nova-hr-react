@@ -178,4 +178,12 @@ export default defineMessages({
     id: `${scope}.home`,
     defaultMessage: 'home',
   },
+  email: {
+    id: `${scope}.email`,
+    defaultMessage: 'home',
+  },
+  phone: {
+    id: `${scope}.phone`,
+    defaultMessage: 'phone',
+  },
 });
