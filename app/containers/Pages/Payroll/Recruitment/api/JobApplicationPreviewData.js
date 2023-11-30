@@ -4,7 +4,7 @@ const API = (locale) => {
 
   api.GetById = async (id) => {
     const data = await axiosInstance.get(
-      `RecJobApplication/GetJobApplication/${id}/${locale}`
+      `RecJobApplicationEvaluation/GetApplicationForm/${id}/${locale}`
     );
     const result = data.data;
 
