@@ -284,18 +284,6 @@ function HRApplicationEvaluation(props) {
         customBodyRender: (_, tableMeta) => {
           const row = tableData[tableMeta.rowIndex];
 
-          let isMailSend = false;
-
-          if (!row.mailSend) {
-            if (
-              row.appFirstStatus === 2
-              || row.techStatus === 2
-              || row.secStatus === 2
-            ) {
-              isMailSend = false;
-            }
-          }
-
           return (
             <div>
               <IconButton
@@ -385,13 +373,18 @@ function HRApplicationEvaluation(props) {
 
                 <MenuItem
                   onClick={() => onSendRejectMailBtnClick(tableMeta.rowIndex)}
-                  disabled={isMailSend}
+                  disabled={
+                    row.mailSend
+										|| (row.appFirstStatus !== 2
+											&& row.techStatus !== 2
+											&& row.secStatus !== 2)
+                  }
                 >
                   <ListItemIcon>
                     <UnsubscribeIcon fontSize='small' />
                   </ListItemIcon>
                   <ListItemText>
-                    {isMailSend && '(sended) '}
+                    {row.mailSend && '(sended) '}
                     {intl.formatMessage(messages.sendRejectMail)}
                   </ListItemText>
                 </MenuItem>
@@ -494,27 +487,29 @@ function HRApplicationEvaluation(props) {
     evt.preventDefault();
     onPopupClose();
 
-    const popupData = { ...popupState, ids: selectedRowsId };
-
-    popupData.techEmpList = popupData.techEmpList.map((item) => item.id);
-
-    if (popupState.appFirstStatus === 1) {
-      popupData.reason = '';
-    }
+    const body = {
+      ids: selectedRowsId,
+      appFirstStatus: popupState.appFirstStatus,
+      notTechnicalReview: popupState.notTechnicalReview,
+    };
 
     if (popupState.appFirstStatus === 6) {
-      popupData.databnkjob = null;
+      body.databnkjob = popupState.databnkjob;
     }
 
-    if (popupState.appFirstStatus !== 1 || popupState.appFirstStatus !== 3) {
-      popupData.secStaff = null;
-      popupData.techEmpList = [];
+    if (popupState.appFirstStatus === 1 || popupState.appFirstStatus === 3) {
+      body.secStaff = popupState.secStaff;
+      body.techEmpList = popupState.techEmpList.map((item) => item.id);
+    }
+
+    if (popupState.appFirstStatus !== 1) {
+      body.reason = popupState.reason;
     }
 
     setIsLoading(true);
 
     try {
-      await api(locale).SaveHR(popupData);
+      await api(locale).SaveHR(body);
       toast.success(notif.updated);
     } catch (error) {
       //
@@ -579,7 +574,7 @@ function HRApplicationEvaluation(props) {
                   options={jobList}
                   value={
                     jobList.find((item) => item.id === popupState.databnkjob)
-                    ?? null
+										?? null
                   }
                   isOptionEqualToValue={(option, value) => option.id === value.id
                   }
@@ -600,8 +595,9 @@ function HRApplicationEvaluation(props) {
                 />
               </Grid>
             )}
+
             {(popupState.appFirstStatus === 1
-              || popupState.appFirstStatus === 3) && (
+							|| popupState.appFirstStatus === 3) && (
               <>
                 <Grid item xs={12} md={6}>
                   <Autocomplete
@@ -831,7 +827,7 @@ function HRApplicationEvaluation(props) {
                     options={jobAdvList}
                     value={
                       jobAdvList.find((item) => item.id === formInfo.JobAdv)
-                      ?? null
+											?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
@@ -879,7 +875,7 @@ function HRApplicationEvaluation(props) {
                     options={statusList}
                     value={
                       statusList.find((item) => item.id === formInfo.Status)
-                      ?? null
+											?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
