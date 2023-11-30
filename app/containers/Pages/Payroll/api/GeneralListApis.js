@@ -305,14 +305,20 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetApplicationStatusList = async (addpending=false, top2=false) => {
+  Apis.GetApplicationStatusList = async (addpending = false, top2 = false) => {
     const result = await axiosInstance.get(`GeneralList/GetApplicationStatusList/${locale}?addpending=${addpending}&top2=${top2}`);
 
     return result.data;
   };
 
   Apis.GetJobAdvList = async () => {
-    const result = await axiosInstance.get(`GeneralList/GetJobAdvList`);
+    const result = await axiosInstance.get('GeneralList/GetJobAdvList');
+
+    return result.data;
+  };
+
+  Apis.GetCallStatusList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetCallStatusList/${locale}`);
 
     return result.data;
   };
