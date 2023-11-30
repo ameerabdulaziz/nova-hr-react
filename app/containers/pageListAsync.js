@@ -1867,6 +1867,13 @@ export const HRApplicationEvaluation = loadable(
   }
 );
 
+export const HRInterviewEvaluation = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/HRInterviewEvaluation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const TechApplicationReview = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/TechApplicationReview'),
   {
