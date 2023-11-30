@@ -284,7 +284,7 @@ function HRApplicationEvaluation(props) {
         customBodyRender: (_, tableMeta) => {
           const row = tableData[tableMeta.rowIndex];
 
-          let isMailSend = true;
+          let isMailSend = false;
 
           if (!row.mailSend) {
             if (
