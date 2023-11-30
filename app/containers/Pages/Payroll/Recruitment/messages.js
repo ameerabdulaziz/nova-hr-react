@@ -190,4 +190,12 @@ export default defineMessages({
     id: `${scope}.comment`,
     defaultMessage: 'comment',
   },
+  callStatus: {
+    id: `${scope}.callStatus`,
+    defaultMessage: 'callStatus',
+  },
+  interviewTime: {
+    id: `${scope}.interviewTime`,
+    defaultMessage: 'interviewTime',
+  },
 });
