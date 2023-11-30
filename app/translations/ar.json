@@ -2103,6 +2103,7 @@
   "boilerplate.containers.Payroll.recruitment.comment": "تعليق",
   "boilerplate.containers.Payroll.recruitment.phone": "رقم الهاتف",
   "boilerplate.containers.Payroll.recruitment.interviewTime": "وقت المقابلة",
+  "boilerplate.containers.Payroll.recruitment.sendInterviewTimeMail": "إرسال بريد وقت المقابلة",
   "boilerplate.containers.Payroll.recruitment.callStatus": "حالة المكالمة",
 
   "boilerplate.containers.Payroll.cv.home": "المنزل",

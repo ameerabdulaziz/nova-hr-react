@@ -23,6 +23,16 @@ const API = (locale) => {
     return result;
   };
 
+  api.SendInterviewTimeMail = async (id) => {
+    const data = await axiosInstance.post(
+      `RecJobApplicationEvaluation/SendInterviewTimeMail/${id}`
+    );
+
+    const result = data.data;
+
+    return result;
+  };
+
   return api;
 };
 

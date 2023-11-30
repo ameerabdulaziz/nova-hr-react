@@ -198,4 +198,8 @@ export default defineMessages({
     id: `${scope}.interviewTime`,
     defaultMessage: 'interviewTime',
   },
+  sendInterviewTimeMail: {
+    id: `${scope}.sendInterviewTimeMail`,
+    defaultMessage: 'sendInterviewTimeMail',
+  },
 });

@@ -2058,6 +2058,7 @@
   "boilerplate.containers.Payroll.recruitment.email": "Email",
   "boilerplate.containers.Payroll.recruitment.phone": "Phone",
   "boilerplate.containers.Payroll.recruitment.comment": "Comment",
+  "boilerplate.containers.Payroll.recruitment.sendInterviewTimeMail": "Send Interview Time Mail",
   "boilerplate.containers.Payroll.recruitment.interviewTime": "Interview Time",
   "boilerplate.containers.Payroll.recruitment.callStatus": "Call Status",
 

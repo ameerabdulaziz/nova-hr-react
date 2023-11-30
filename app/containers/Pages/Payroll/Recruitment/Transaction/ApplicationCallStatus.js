@@ -2,6 +2,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
+import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Autocomplete,
@@ -79,9 +80,7 @@ function ApplicationCallStatus(props) {
     setIsLoading(true);
 
     try {
-      const popupStatus = await GeneralListApis(
-        locale
-      ).GetCallStatusList();
+      const popupStatus = await GeneralListApis(locale).GetCallStatusList();
       setStatusPopupList(popupStatus);
     } catch (error) {
       //
@@ -114,6 +113,23 @@ function ApplicationCallStatus(props) {
     const id = tableData[rowIndex]?.id;
     setSelectedRowsId([id]);
     setIsPopupOpen(true);
+  };
+
+  const onSendInterviewTimeBtnClick = async (rowIndex) => {
+    onDropdownClose(rowIndex);
+    const id = tableData[rowIndex]?.id;
+    setIsLoading(true);
+
+    try {
+      await api(locale).SendInterviewTimeMail(id);
+      toast.success(notif.sent);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+
+      await fetchTableData();
+    }
   };
 
   const columns = [
@@ -275,6 +291,23 @@ function ApplicationCallStatus(props) {
                   </ListItemIcon>
                   <ListItemText>
                     {intl.formatMessage(messages.downloadCV)}
+                  </ListItemText>
+                </MenuItem>
+
+                <MenuItem
+                  onClick={() => onSendInterviewTimeBtnClick(tableMeta.rowIndex)
+                  }
+                  disabled={
+                    row.mailSend
+                    || (row.interviewTime == null && row.callStatusId !== 3)
+                  }
+                >
+                  <ListItemIcon>
+                    <UnsubscribeIcon fontSize='small' />
+                  </ListItemIcon>
+                  <ListItemText>
+                    {row.mailSend && '(sended) '}
+                    {intl.formatMessage(messages.sendInterviewTimeMail)}
                   </ListItemText>
                 </MenuItem>
               </Menu>
