@@ -12,7 +12,16 @@ const API = (locale) => {
     return result;
   };
 
-  api.SaveHR = async (body) => {
+  api.GetById = async (id) => {
+    const data = await axiosInstance.get(
+      `RecJobApplicationInterview/Get/${id}/${locale}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
+  api.save = async (body) => {
     const data = await axiosInstance.post(
       'RecJobApplicationInterview/SaveHR',
       body

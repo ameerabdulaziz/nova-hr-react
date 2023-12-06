@@ -341,6 +341,7 @@ import {
   SecApplicationReview,
   ApplicationCallStatus,
   HRInterviewEvaluation,
+  HRInterviewEvaluationEdit,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1554,6 +1555,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/HRInterviewEvaluation'
           component={HRInterviewEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HRInterviewEvaluationEdit'
+          component={HRInterviewEvaluationEdit}
         />
 
         <Route
