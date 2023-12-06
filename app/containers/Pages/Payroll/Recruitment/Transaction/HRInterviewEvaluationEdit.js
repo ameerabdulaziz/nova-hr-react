@@ -51,8 +51,8 @@ function HRInterviewEvaluationEdit(props) {
     idcardNumber: ' ',
     qualificationName: '',
 
-    appStatus: null,
-    notes: '',
+    status: null,
+    comment: '',
   });
 
   async function fetchNeededData() {
@@ -112,8 +112,8 @@ function HRInterviewEvaluationEdit(props) {
     const formData = {
       id,
 
-      appStatus: formInfo.appStatus,
-      notes: formInfo.notes,
+      status: formInfo.status,
+      comment: formInfo.comment,
 
       JobEvaluationList: jobEvaluationMapped,
       HrtestList: hrTestsMapped,
@@ -434,7 +434,7 @@ function HRInterviewEvaluationEdit(props) {
                     options={statusList}
                     value={
                       statusList.find(
-                        (item) => item.id === formInfo.appStatus
+                        (item) => item.id === formInfo.status
                       ) ?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
@@ -445,7 +445,7 @@ function HRInterviewEvaluationEdit(props) {
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'appStatus')
+                    onChange={(_, value) => onAutoCompleteChange(value, 'status')
                     }
                     renderInput={(params) => (
                       <TextField
@@ -461,9 +461,9 @@ function HRInterviewEvaluationEdit(props) {
                   <Grid container>
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='notes'
+                        name='comment'
                         onChange={onInputChange}
-                        value={formInfo.notes}
+                        value={formInfo.comment}
                         label={intl.formatMessage(messages.comment)}
                         className={classes.field}
                         variant='outlined'
