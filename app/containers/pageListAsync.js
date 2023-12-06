@@ -1881,6 +1881,20 @@ export const HRInterviewEvaluationEdit = loadable(
   }
 );
 
+export const ManagerInterviewEvaluation = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/ManagerInterviewEvaluation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ManagerInterviewEvaluationEdit = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/ManagerInterviewEvaluationEdit'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const TechApplicationReview = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/TechApplicationReview'),
   {

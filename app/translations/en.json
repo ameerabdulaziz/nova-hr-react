@@ -2059,6 +2059,7 @@
   "boilerplate.containers.Payroll.recruitment.phone": "Phone",
   "boilerplate.containers.Payroll.recruitment.finalGrade": "Final Grade",
   "boilerplate.containers.Payroll.recruitment.grade": "Grade",
+  "boilerplate.containers.Payroll.recruitment.interviewStatus": "Interview Status",
   "boilerplate.containers.Payroll.recruitment.jobEvaluation": "Job Evaluation",
   "boilerplate.containers.Payroll.recruitment.hrTests": "Hr Tests",
   "boilerplate.containers.Payroll.recruitment.qualification": "Qualification",

@@ -342,6 +342,8 @@ import {
   ApplicationCallStatus,
   HRInterviewEvaluation,
   HRInterviewEvaluationEdit,
+  ManagerInterviewEvaluation,
+  ManagerInterviewEvaluationEdit
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1560,6 +1562,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/HRInterviewEvaluationEdit'
           component={HRInterviewEvaluationEdit}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ManagerInterviewEvaluation'
+          component={ManagerInterviewEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ManagerInterviewEvaluationEdit'
+          component={ManagerInterviewEvaluationEdit}
         />
 
         <Route

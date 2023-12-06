@@ -2106,6 +2106,7 @@
   "boilerplate.containers.Payroll.recruitment.hrTests": "اختبارات الموارد البشرية",
   "boilerplate.containers.Payroll.recruitment.grade": "الدرجة",
   "boilerplate.containers.Payroll.recruitment.qualification": "المؤهل",
+  "boilerplate.containers.Payroll.recruitment.interviewStatus": "حالة المقابلة",
   "boilerplate.containers.Payroll.recruitment.employeeName": "اسم الموظف",
   "boilerplate.containers.Payroll.recruitment.phone": "رقم الهاتف",
   "boilerplate.containers.Payroll.recruitment.interviewTime": "وقت المقابلة",

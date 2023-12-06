@@ -226,4 +226,8 @@ export default defineMessages({
     id: `${scope}.jobEvaluation`,
     defaultMessage: 'jobEvaluation',
   },
+  interviewStatus: {
+    id: `${scope}.interviewStatus`,
+    defaultMessage: 'interviewStatus',
+  },
 });
