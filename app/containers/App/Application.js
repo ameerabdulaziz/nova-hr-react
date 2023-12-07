@@ -27,7 +27,7 @@ import {
   InsuranceRegion,
   MinsuranceItem,
   RecHiringSource,
-  RecJobGrade,
+  RecJobGrade
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -343,6 +343,9 @@ import {
   HRInterviewEvaluation,
   HRInterviewEvaluationEdit,
   ManagerInterviewEvaluation,
+  RegisterLocation,
+  RegisterLocationCreate,
+  RegisterLocationEdit,
   ManagerInterviewEvaluationEdit,
   HiringRequest,
   HiringRequestCreate,
@@ -935,16 +938,16 @@ function Application(props) {
           path='/app/Pages/Att/EmployeeLocation'
           component={EmployeeLocation}
         />
+
         <Route
           path='/app/Pages/Att/DataFromAllDevices'
           component={DataFromAllDevices}
         />
+
         <Route
           path='/app/Pages/Att/GetAttLog'
           component={GetAttLog}
         />
-
-        
 
         <Route
           path='/app/Pages/Att/OvertimeHoursRequest'
@@ -1080,6 +1083,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/TimeAttendRatio'
           component={AttendanceRatiosStatementsReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/RegisterLocation'
+          component={RegisterLocation}
+        />
+
+        <Route
+          path='/app/Pages/Att/RegisterLocationCreate'
+          component={RegisterLocationCreate}
+        />
+
+        <Route
+          path='/app/Pages/Att/RegisterLocationEdit'
+          component={RegisterLocationEdit}
         />
 
 

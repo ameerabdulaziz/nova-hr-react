@@ -1265,6 +1265,28 @@ export const AttendanceRatiosStatementsReport = loadable(
   }
 );
 
+
+export const RegisterLocationCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/Registerlocation/RegisterLocationCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const RegisterLocationEdit = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/Registerlocation/RegisterLocationCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const RegisterLocation = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/Registerlocation/RegisterLocation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

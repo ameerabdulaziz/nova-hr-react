@@ -1780,6 +1780,42 @@ devicePass: {
     id: `${scope}.secondform`,
     defaultMessage: 'secondform',
   },
-  
+  // RegisterLocation
+  Address: {
+    id: `${scope}.Address`,
+    defaultMessage: 'Address',
+  },
+  Latitude: {
+    id: `${scope}.Latitude`,
+    defaultMessage: 'Latitude',
+  },
+  longitude: {
+    id: `${scope}.longitude`,
+    defaultMessage: 'Longitude',
+  },
+  Distance: {
+    id: `${scope}.Distance`,
+    defaultMessage: 'Distance',
+  },
+  RegisterLocationEdit: {
+    id: `${scope}.RegisterLocationEdit`,
+    defaultMessage: 'Edit Register Location',
+  },
+  RegisterLocationCreate: {
+    id: `${scope}.RegisterLocationCreate`,
+    defaultMessage: 'Create Register Location',
+  },
+  SearchLocation: {
+    id: `${scope}.SearchLocation`,
+    defaultMessage: 'Search Location',
+  },
+  MustToMakeThePointInsideTheDrawnArea: {
+    id: `${scope}.MustToMakeThePointInsideTheDrawnArea`,
+    defaultMessage: 'Must to make the point inside the drawn area',
+  },
+  selectShapeFiristToDeleteIt: {
+    id: `${scope}.selectShapeFiristToDeleteIt`,
+    defaultMessage: 'Select shape firist to delete it',
+  },
 });
 

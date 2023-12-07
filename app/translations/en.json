@@ -1535,6 +1535,17 @@
   "boilerplate.containers.Payroll.Attendance.firstform": "First Form",
   "boilerplate.containers.Payroll.Attendance.secondform": "505",
 
+  "boilerplate.containers.Payroll.Attendance.Address": "Address",
+  "boilerplate.containers.Payroll.Attendance.Latitude": "Latitude",
+  "boilerplate.containers.Payroll.Attendance.longitude": "Longitude",
+  "boilerplate.containers.Payroll.Attendance.Distance": "Distance",
+  "boilerplate.containers.Payroll.Attendance.RegisterLocationEdit": "Edit Register Location",
+  "boilerplate.containers.Payroll.Attendance.RegisterLocationCreate": "Create Register Location",
+  "boilerplate.containers.Payroll.Attendance.SearchLocation": "Search Location",
+  "boilerplate.containers.Payroll.Attendance.MustToMakeThePointInsideTheDrawnArea": "Must to make the point inside the drawn area",
+  "boilerplate.containers.Payroll.Attendance.selectShapeFiristToDeleteIt": "Select shape firist to delete it",
+
+
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
   "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",
   "boilerplate.containers.Payroll.transportaion.DeviceCreateTitle":"Add Device",
