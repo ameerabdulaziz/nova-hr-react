@@ -27,6 +27,7 @@ import {
   InsuranceRegion,
   MinsuranceItem,
   RecHiringSource,
+  RecJobGrade
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -331,6 +332,17 @@ import {
   JobRequirements,
   RecHrTest,
   AttendanceRatiosStatementsReport,
+  RecEvaluation,
+  HRApplication,
+  GetAttLog,
+  HRApplicationEvaluation,
+  TechApplicationReview,
+  SecApplicationReview,
+  ApplicationCallStatus,
+  HRInterviewEvaluation,
+  HRInterviewEvaluationEdit,
+  ManagerInterviewEvaluation,
+  ManagerInterviewEvaluationEdit,
   RegisterLocation,
   RegisterLocationCreate,
   RegisterLocationEdit,
@@ -1514,6 +1526,56 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/RecHiringSource'
           component={RecHiringSource}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecJobGrade'
+          component={RecJobGrade}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HRApplication'
+          component={HRApplication}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HRApplicationEvaluation'
+          component={HRApplicationEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/TechApplicationReview'
+          component={TechApplicationReview}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/SecApplicationReview'
+          component={SecApplicationReview}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ApplicationCallStatus'
+          component={ApplicationCallStatus}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HRInterviewEvaluation'
+          component={HRInterviewEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HRInterviewEvaluationEdit'
+          component={HRInterviewEvaluationEdit}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ManagerInterviewEvaluation'
+          component={ManagerInterviewEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ManagerInterviewEvaluationEdit'
+          component={ManagerInterviewEvaluationEdit}
         />
 
         <Route

@@ -4,7 +4,7 @@ const API = (locale) => {
 
   api.GetList = async () => {
     const data = await axiosInstance.get(
-      `RecJobApplicationInterview/GetHRList/${locale}`
+      `RecJobApplicationInterview/GetTechList/${locale}`
     );
 
     const result = data.data;
@@ -14,7 +14,7 @@ const API = (locale) => {
 
   api.GetById = async (id) => {
     const data = await axiosInstance.get(
-      `RecJobApplicationInterview/Get/${id}/${locale}`
+      `RecJobApplicationInterview/GetTechData/${id}/${locale}`
     );
     const result = data.data;
 
@@ -23,18 +23,8 @@ const API = (locale) => {
 
   api.save = async (body) => {
     const data = await axiosInstance.post(
-      'RecJobApplicationInterview/SaveHR',
+      'RecJobApplicationInterview/Save',
       body
-    );
-
-    const result = data.data;
-
-    return result;
-  };
-
-  api.SendRejectionMail = async (id) => {
-    const data = await axiosInstance.post(
-      `RecJobApplicationInterview/SendRejectionMail/${id}`
     );
 
     const result = data.data;

@@ -202,4 +202,32 @@ export default defineMessages({
     id: `${scope}.sendInterviewTimeMail`,
     defaultMessage: 'sendInterviewTimeMail',
   },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  qualification: {
+    id: `${scope}.qualification`,
+    defaultMessage: 'qualification',
+  },
+  grade: {
+    id: `${scope}.grade`,
+    defaultMessage: 'grade',
+  },
+  finalGrade: {
+    id: `${scope}.finalGrade`,
+    defaultMessage: 'finalGrade',
+  },
+  hrTests: {
+    id: `${scope}.hrTests`,
+    defaultMessage: 'hrTests',
+  },
+  jobEvaluation: {
+    id: `${scope}.jobEvaluation`,
+    defaultMessage: 'jobEvaluation',
+  },
+  interviewStatus: {
+    id: `${scope}.interviewStatus`,
+    defaultMessage: 'interviewStatus',
+  },
 });

@@ -1,7 +1,6 @@
 import DownloadIcon from '@mui/icons-material/Download';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   ListItemIcon,
@@ -11,12 +10,10 @@ import {
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { format } from 'date-fns';
-import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -24,10 +21,10 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
 import { ServerURL } from '../../api/ServerConfig';
 import payrollMessages from '../../messages';
-import api from '../api/HRInterviewEvaluationData';
+import api from '../api/ManagerInterviewEvaluationData';
 import messages from '../messages';
 
-function HRInterviewEvaluation(props) {
+function ManagerInterviewEvaluation(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const history = useHistory();
@@ -68,7 +65,7 @@ function HRInterviewEvaluation(props) {
     onDropdownClose(rowIndex);
     const id = tableData[rowIndex]?.id;
 
-    history.push('/app/Pages/Recruitment/HRInterviewEvaluationEdit', {
+    history.push('/app/Pages/Recruitment/ManagerInterviewEvaluationEdit', {
       id,
     });
   };
@@ -80,23 +77,6 @@ function HRInterviewEvaluation(props) {
     history.push('/app/Pages/Recruitment/JobApplicationPreview', {
       id,
     });
-  };
-
-  const onSendRejectMailBtnClick = async (rowIndex) => {
-    onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
-    setIsLoading(true);
-
-    try {
-      await api(locale).SendRejectionMail(id);
-      toast.success(notif.sent);
-    } catch (error) {
-      //
-    } finally {
-      setIsLoading(false);
-
-      await fetchTableData();
-    }
   };
 
   const columns = [
@@ -135,7 +115,7 @@ function HRInterviewEvaluation(props) {
 
     {
       name: 'techStatus',
-      label: intl.formatMessage(messages.technicalStatus),
+      label: intl.formatMessage(messages.interviewStatus),
       options: {
         filter: true,
       },
@@ -235,24 +215,6 @@ function HRInterviewEvaluation(props) {
                     {intl.formatMessage(messages.downloadCV)}
                   </ListItemText>
                 </MenuItem>
-
-                <MenuItem
-                  onClick={() => onSendRejectMailBtnClick(tableMeta.rowIndex)}
-                  disabled={
-                    row.mailSend
-										|| (row.appFirstStatus !== 2
-											&& row.techStatus !== 2
-											&& row.secStatus !== 2)
-                  }
-                >
-                  <ListItemIcon>
-                    <UnsubscribeIcon fontSize='small' />
-                  </ListItemIcon>
-                  <ListItemText>
-                    {row.mailSend && '(sended) '}
-                    {intl.formatMessage(messages.sendRejectMail)}
-                  </ListItemText>
-                </MenuItem>
               </Menu>
             </div>
           );
@@ -295,8 +257,8 @@ function HRInterviewEvaluation(props) {
   );
 }
 
-HRInterviewEvaluation.propTypes = {
+ManagerInterviewEvaluation.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(HRInterviewEvaluation);
+export default injectIntl(ManagerInterviewEvaluation);
