@@ -27,7 +27,6 @@ import {
   InsuranceRegion,
   MinsuranceItem,
   RecHiringSource,
-  RecJobGrade,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -329,18 +328,12 @@ import {
   MonthlyStatisticsReport,
   DeviceLogReport,
   EmployeeLocation,
-  DataFromAllDevices,
   JobRequirements,
   RecHrTest,
   AttendanceRatiosStatementsReport,
-  RecEvaluation,
-  HRApplication,
-  GetAttLog,
-  HRApplicationEvaluation,
-  TechApplicationReview,
-  SecApplicationReview,
-  ApplicationCallStatus,
-  HRInterviewEvaluation,
+  RegisterLocation,
+  RegisterLocationCreate,
+  RegisterLocationEdit,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -930,14 +923,6 @@ function Application(props) {
           path='/app/Pages/Att/EmployeeLocation'
           component={EmployeeLocation}
         />
-        <Route
-          path='/app/Pages/Att/DataFromAllDevices'
-          component={DataFromAllDevices}
-        />
-        <Route
-          path='/app/Pages/Att/GetAttLog'
-          component={GetAttLog}
-        />
 
         
 
@@ -1075,6 +1060,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/TimeAttendRatio'
           component={AttendanceRatiosStatementsReport}
+        />
+
+        <Route
+          path='/app/Pages/Att/RegisterLocation'
+          component={RegisterLocation}
+        />
+
+        <Route
+          path='/app/Pages/Att/RegisterLocationCreate'
+          component={RegisterLocationCreate}
+        />
+
+        <Route
+          path='/app/Pages/Att/RegisterLocationEdit'
+          component={RegisterLocationEdit}
         />
 
 
@@ -1512,48 +1512,8 @@ function Application(props) {
         />
 
         <Route
-          path='/app/Pages/Recruitment/RecEvaluation'
-          component={RecEvaluation}
-        />
-
-        <Route
           path='/app/Pages/Recruitment/RecHiringSource'
           component={RecHiringSource}
-        />
-
-        <Route
-          path='/app/Pages/Recruitment/RecJobGrade'
-          component={RecJobGrade}
-        />
-
-        <Route
-          path='/app/Pages/Recruitment/HRApplication'
-          component={HRApplication}
-        />
-
-        <Route
-          path='/app/Pages/Recruitment/HRApplicationEvaluation'
-          component={HRApplicationEvaluation}
-        />
-
-        <Route
-          path='/app/Pages/Recruitment/TechApplicationReview'
-          component={TechApplicationReview}
-        />
-
-        <Route
-          path='/app/Pages/Recruitment/SecApplicationReview'
-          component={SecApplicationReview}
-        />
-
-        <Route
-          path='/app/Pages/Recruitment/ApplicationCallStatus'
-          component={ApplicationCallStatus}
-        />
-
-        <Route
-          path='/app/Pages/Recruitment/HRInterviewEvaluation'
-          component={HRInterviewEvaluation}
         />
 
         <Route

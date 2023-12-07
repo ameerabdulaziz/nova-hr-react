@@ -1560,7 +1560,15 @@
     
     
     
-  
+    "boilerplate.containers.Payroll.Attendance.Address": "العنوان",
+    "boilerplate.containers.Payroll.Attendance.Latitude": "خطوط الطول",
+    "boilerplate.containers.Payroll.Attendance.longitude": "خطوط العرض",
+    "boilerplate.containers.Payroll.Attendance.Distance": "المسافة",
+    "boilerplate.containers.Payroll.Attendance.RegisterLocationEdit": "تعديل تسجيل الموقع",
+    "boilerplate.containers.Payroll.Attendance.RegisterLocationCreate": "اضافة تسجيل الموقع",
+    "boilerplate.containers.Payroll.Attendance.SearchLocation": "البحث عن الموقع",
+    "boilerplate.containers.Payroll.Attendance.MustToMakeThePointInsideTheDrawnArea": "يجب أن تكون النقطة داخل المنطقة المرسومة",
+    "boilerplate.containers.Payroll.Attendance.selectShapeFiristToDeleteIt": "حدد الشكل أولاً لحذفه",
   
 
 
