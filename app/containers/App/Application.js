@@ -329,6 +329,7 @@ import {
   MonthlyStatisticsReport,
   DeviceLogReport,
   EmployeeLocation,
+  DataFromAllDevices,
   JobRequirements,
   RecHrTest,
   AttendanceRatiosStatementsReport,
@@ -936,7 +937,15 @@ function Application(props) {
           component={EmployeeLocation}
         />
 
-        
+        <Route
+          path='/app/Pages/Att/DataFromAllDevices'
+          component={DataFromAllDevices}
+        />
+
+        <Route
+          path='/app/Pages/Att/GetAttLog'
+          component={GetAttLog}
+        />
 
         <Route
           path='/app/Pages/Att/OvertimeHoursRequest'
@@ -1521,6 +1530,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/RecHrTest'
           component={RecHrTest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecEvaluation'
+          component={RecEvaluation}
         />
 
         <Route
