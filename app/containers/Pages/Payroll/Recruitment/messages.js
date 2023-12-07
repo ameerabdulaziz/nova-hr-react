@@ -230,4 +230,52 @@ export default defineMessages({
     id: `${scope}.interviewStatus`,
     defaultMessage: 'interviewStatus',
   },
+  contractDuration: {
+    id: `${scope}.contractDuration`,
+    defaultMessage: 'contractDuration',
+  },
+  salaryInGross: {
+    id: `${scope}.salaryInGross`,
+    defaultMessage: 'salaryInGross',
+  },
+  benefits: {
+    id: `${scope}.benefits`,
+    defaultMessage: 'benefits',
+  },
+  tools: {
+    id: `${scope}.tools`,
+    defaultMessage: 'tools',
+  },
+  comments: {
+    id: `${scope}.comments`,
+    defaultMessage: 'comments',
+  },
+  startDate: {
+    id: `${scope}.startDate`,
+    defaultMessage: 'startDate',
+  },
+  position: {
+    id: `${scope}.position`,
+    defaultMessage: 'position',
+  },
+  assignTo: {
+    id: `${scope}.assignTo`,
+    defaultMessage: 'assignTo',
+  },
+  addSalaryElements: {
+    id: `${scope}.addSalaryElements`,
+    defaultMessage: 'addSalaryElements',
+  },
+  reportingTo: {
+    id: `${scope}.reportingTo`,
+    defaultMessage: 'reportingTo',
+  },
+  elementName: {
+    id: `${scope}.elementName`,
+    defaultMessage: 'elementName',
+  },
+  value: {
+    id: `${scope}.value`,
+    defaultMessage: 'value',
+  },
 });

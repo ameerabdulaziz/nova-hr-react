@@ -1895,6 +1895,20 @@ export const ManagerInterviewEvaluationEdit = loadable(
   }
 );
 
+export const HiringRequest = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const HiringRequestCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const TechApplicationReview = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/TechApplicationReview'),
   {

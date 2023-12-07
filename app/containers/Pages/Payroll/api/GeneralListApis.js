@@ -305,6 +305,12 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetMgrSuperEmpList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetMgrSuperEmpList/${locale}`);
+
+    return result.data;
+  };
+
   Apis.GetApplicationStatusList = async (addpending = false, top2 = false) => {
     const result = await axiosInstance.get(`GeneralList/GetApplicationStatusList/${locale}?addpending=${addpending}&top2=${top2}`);
 
