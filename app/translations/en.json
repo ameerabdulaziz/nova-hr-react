@@ -1545,6 +1545,19 @@
   "boilerplate.containers.Payroll.Attendance.MustToMakeThePointInsideTheDrawnArea": "Must to make the point inside the drawn area",
   "boilerplate.containers.Payroll.Attendance.selectShapeFiristToDeleteIt": "Select shape firist to delete it",
 
+  
+  "boilerplate.containers.Payroll.Payroll.LoanSettingTitle": "Add Loan Setting",    
+  "boilerplate.containers.Payroll.Payroll.LoanSettingUpdateTitle": "Update Loan Setting",  
+  "boilerplate.containers.Payroll.Payroll.safeLoan": "Loan paid directly from safe",
+  "boilerplate.containers.Payroll.Payroll.payTemplate": "Pay Template",
+  "boilerplate.containers.Payroll.Payroll.payTemplateElement": "Pay Element",
+  "boilerplate.containers.Payroll.Payroll.deductElement": "Deduction Element",
+  "boilerplate.containers.Payroll.Payroll.deductPurchaseElement": "Purchase Element",
+  "boilerplate.containers.Payroll.Payroll.safe": "Safe Deposit",  
+  "boilerplate.containers.Payroll.Payroll.maxLoan": "Maximum Loan Value",
+  "boilerplate.containers.Payroll.Payroll.copytoAllBr": "Copy To All Branches",
+
+
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
   "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",

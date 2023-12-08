@@ -1591,7 +1591,19 @@
     "boilerplate.containers.Payroll.Attendance.deductedEmployeeOnly": "المخصوم منهم فقط",
     "boilerplate.containers.Payroll.Attendance.DaysDeduction": "الخصم باليوم",
     "boilerplate.containers.Payroll.Attendance.CompanyRatio": "نسب الشركة",
-  
+
+    
+    "boilerplate.containers.Payroll.Payroll.LoanSettingTitle": "اضافة قواعد السلف",    
+    "boilerplate.containers.Payroll.Payroll.LoanSettingUpdateTitle": "تعديل قواعد السلف",
+    "boilerplate.containers.Payroll.Payroll.safeLoan": "تصرف السلف مباشرة من الخزنة",
+    "boilerplate.containers.Payroll.Payroll.payTemplate": "قالب الصرف",
+    "boilerplate.containers.Payroll.Payroll.payTemplateElement": "عنصر الصرف",
+    "boilerplate.containers.Payroll.Payroll.deductElement": "عنصر الخصم من المرتب",
+    "boilerplate.containers.Payroll.Payroll.deductPurchaseElement": "عنصر الخصم للمشتريات",
+    "boilerplate.containers.Payroll.Payroll.safe": "خزنة الصرف",
+    "boilerplate.containers.Payroll.Payroll.maxLoan": "الحد الاقصى للسلفة",
+    "boilerplate.containers.Payroll.Payroll.copytoAllBr": "نسخ لكل الفروع",
+    
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
   "boilerplate.containers.Payroll.Workflow.step": "المرحلة",

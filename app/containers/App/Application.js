@@ -334,7 +334,7 @@ import {
   RecHrTest,
   AttendanceRatiosStatementsReport,
   RecEvaluation,
-  HRApplication,
+  /* HRApplication, */
   GetAttLog,
   HRApplicationEvaluation,
   TechApplicationReview,
@@ -349,6 +349,7 @@ import {
   ManagerInterviewEvaluationEdit,
   HiringRequest,
   HiringRequestCreate,
+  LoanSetting
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1100,6 +1101,9 @@ function Application(props) {
           component={RegisterLocationEdit}
         />
 
+        {/* Payroll */}
+        <Route path='/app/Pages/Payroll/LoanSetting' component={LoanSetting} />
+        
 
         {/* WorkFlow */}
         <Route path='/app/Pages/WF/WorkFlow' component={WorkFlowList} />
@@ -1549,10 +1553,10 @@ function Application(props) {
           component={RecJobGrade}
         />
 
-        <Route
+        {/* <Route
           path='/app/Pages/Recruitment/HRApplication'
           component={HRApplication}
-        />
+        /> */}
 
         <Route
           path='/app/Pages/Recruitment/HRApplicationEvaluation'

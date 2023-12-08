@@ -382,6 +382,7 @@ const GeneralListApis = (locale) => {
   };
 
   Apis.GetBranchList = async () => {
+    debugger ;
     const data = await axiosInstance.get(
       `GeneralList/GetBranchList/${locale}`
     );
@@ -431,6 +432,11 @@ const GeneralListApis = (locale) => {
   };
   Apis.GetLocationList = async () => {
     const result = await axiosInstance.get(`GeneralList/GetLocationList/${locale}`);
+
+    return result.data;
+  };
+  Apis.GetSafeList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetSafeList/${locale}`);
 
     return result.data;
   };
