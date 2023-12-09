@@ -3,9 +3,15 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {
   Autocomplete,
   Button,
-  Card,
-  CardContent, Checkbox,
+  Checkbox,
   Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   TextField,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -46,8 +52,8 @@ function HiringRequestCreate(props) {
   const [salaryElementsList, setSalaryElementsList] = useState([]);
   const [selectedSalaryList, setSelectedSalaryList] = useState([]);
   const [setting, setSetting] = useState({
-    canSave: false,
-    makeJobOffer: false
+    canSave: true,
+    makeJobOffer: true,
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -55,11 +61,11 @@ function HiringRequestCreate(props) {
   const [formInfo, setFormInfo] = useState({
     id,
 
-    date: null,
+    hiringRequestDate: null,
+    candidateName: '',
     startDate: null,
-    applicatnId: null,
-    hiringReqAssignEmployee: [],
-    notes: '',
+    JobApplicarionId: null,
+    RecHiringReqAssignEmployee: [],
     reportTo: null,
     positionId: null,
     departmentId: null,
@@ -77,10 +83,21 @@ function HiringRequestCreate(props) {
 
     const formData = {
       ...formInfo,
-      date: formateDate(formInfo.date),
+      hiringRequestDate: formateDate(formInfo.hiringRequestDate),
       startDate: formateDate(formInfo.startDate),
-      salaryelement: selectedSalaryList
     };
+
+    formData.RecHiringRequestSalaryElement = selectedSalaryList.map((item) => ({
+      ...item,
+      id: 0,
+      hiringRequestId: id,
+    }));
+
+    formData.RecHiringReqAssignEmployee =			formData.RecHiringReqAssignEmployee.map((item) => ({
+			  id: 0,
+			  hiringRequestId: id,
+			  employeeId: item.id,
+    }));
 
     setIsLoading(true);
 
@@ -119,13 +136,25 @@ function HiringRequestCreate(props) {
 
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
-        setFormInfo({ ...dataApi, hiringReqAssignEmployee: dataApi.hiringReqAssignEmployee.map(item => ({ id: item.employeeId, name: item.employeeName })) });
 
-        setSelectedSalaryList(dataApi.salaryelement);
+        setFormInfo({
+          ...dataApi,
+          RecHiringReqAssignEmployee: dataApi.hiringReqAssignEmployee.map(
+            (item) => ({
+              ...item,
+              id: item.employeeId,
+              name: item.employeeName,
+            })
+          ),
+        });
+
+        setSelectedSalaryList(
+          dataApi.salaryelement.map((item) => ({ ...item, id: item.elementId }))
+        );
 
         setSetting({
           canSave: dataApi.canSave,
-          makeJobOffer: dataApi.makeJobOffer
+          makeJobOffer: dataApi.makeJobOffer,
         });
       }
     } catch (error) {
@@ -161,17 +190,24 @@ function HiringRequestCreate(props) {
     history.push('/app/Pages/Recruitment/HiringRequest');
   };
 
+  const onNumericInputChange = (evt) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
+    }));
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <Autocomplete
                 options={applicantsList}
                 value={
                   applicantsList.find(
-                    (item) => item.id === formInfo.applicatnId
+                    (item) => item.id === formInfo.JobApplicarionId
                   ) ?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -181,7 +217,7 @@ function HiringRequestCreate(props) {
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'applicatnId')
+                onChange={(_, value) => onAutoCompleteChange(value, 'JobApplicarionId')
                 }
                 renderInput={(params) => (
                   <TextField
@@ -193,12 +229,24 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
+              <TextField
+                value={formInfo.candidateName}
+                label={intl.formatMessage(messages.applicantName)}
+                name='candidateName'
+                required
+                onChange={onInputChange}
+                className={classes.field}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={4}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.date)}
-                  value={formInfo.date}
-                  onChange={(date) => onDatePickerChange(date, 'date')}
+                  value={formInfo.hiringRequestDate}
+                  onChange={(date) => onDatePickerChange(date, 'hiringRequestDate')
+                  }
                   className={classes.field}
                   renderInput={(params) => (
                     <TextField required {...params} variant='outlined' />
@@ -207,7 +255,7 @@ function HiringRequestCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <Autocomplete
                 options={reportList}
                 value={
@@ -232,7 +280,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <Autocomplete
                 options={positionList}
                 value={
@@ -259,7 +307,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <Autocomplete
                 options={departmentList}
                 value={
@@ -286,7 +334,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DatePicker
                   label={intl.formatMessage(messages.startDate)}
@@ -300,24 +348,24 @@ function HiringRequestCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <TextField
                 value={formInfo.contractDuration}
                 label={intl.formatMessage(messages.contractDuration)}
                 name='contractDuration'
                 required
-                onChange={onInputChange}
+                onChange={onNumericInputChange}
                 className={classes.field}
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <TextField
                 value={formInfo.salary}
                 label={intl.formatMessage(messages.salaryInGross)}
                 name='salary'
                 required
-                onChange={onInputChange}
+                onChange={onNumericInputChange}
                 className={classes.field}
               />
             </Grid>
@@ -330,7 +378,7 @@ function HiringRequestCreate(props) {
                 className={`${style.AutocompleteMulSty} ${
                   locale === 'ar' ? style.AutocompleteMulStyAR : null
                 }`}
-                value={formInfo.hiringReqAssignEmployee}
+                value={formInfo.RecHiringReqAssignEmployee}
                 renderOption={(props, option, { selected }) => (
                   <li {...props}>
                     <Checkbox
@@ -346,7 +394,7 @@ function HiringRequestCreate(props) {
                 onChange={(_, value) => {
                   setFormInfo((prev) => ({
                     ...prev,
-                    hiringReqAssignEmployee: value,
+                    RecHiringReqAssignEmployee: value,
                   }));
                 }}
                 renderInput={(params) => (
@@ -402,25 +450,67 @@ function HiringRequestCreate(props) {
 
             <Grid item xs={12} md={12}>
               <Grid item xs={12} md={12}>
-                <Card className={classes.card}>
-                  <CardContent>
-                    <SalaryElements
-                      dataList={selectedSalaryList}
-                      setDataList={setSelectedSalaryList}
-                      salaryElementsList={salaryElementsList}
-                    />
-                  </CardContent>
-                </Card>
+                <SalaryElements
+                  dataList={selectedSalaryList}
+                  setDataList={setSelectedSalaryList}
+                  salaryElementsList={salaryElementsList}
+                />
               </Grid>
             </Grid>
+
+            {formInfo.RecHiringReqAssignEmployee.some(
+              (item) => item.statusName !== null
+            ) && id !== 0 && (
+              <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={12}>
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 500 }}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>
+                            {intl.formatMessage(messages.employeeName)}
+                          </TableCell>
+                          <TableCell>
+                            {intl.formatMessage(messages.status)}
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {formInfo.RecHiringReqAssignEmployee.map(
+                          (row, index) => (
+                            <TableRow
+                              key={index}
+                              sx={{
+                                '&:last-child td, &:last-child th': {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component='th' scope='row'>
+                                {row.employeeName}
+                              </TableCell>
+                              <TableCell>{row.statusName}</TableCell>
+                            </TableRow>
+                          )
+                        )}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Grid>
+              </Grid>
+            )}
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={1}>
-                  <Button variant="contained" type="submit" size="medium" color="secondary" disabled={id !== 0 ? !setting.canSave : false } >
-
+                  <Button
+                    variant='contained'
+                    type='submit'
+                    size='medium'
+                    color='secondary'
+                    disabled={id !== 0 ? !setting.canSave : false}
+                  >
                     <FormattedMessage {...payrollMessages.save} />
-
                   </Button>
                 </Grid>
 
