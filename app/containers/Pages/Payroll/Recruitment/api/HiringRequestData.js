@@ -32,10 +32,15 @@ const API = (locale) => {
   };
 
   api.save = async (body) => {
-    const data = await axiosInstance.post(
-      'RecHiringRequest/SaveHr',
-      body
-    );
+    const data = await axiosInstance.post('RecHiringRequest/SaveHr', body);
+
+    const result = data.data;
+
+    return result;
+  };
+
+  api.delete = async (id) => {
+    const data = await axiosInstance.delete(`RecHiringRequest/Delete/${id}`);
 
     const result = data.data;
 
