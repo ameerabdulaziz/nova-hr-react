@@ -349,7 +349,9 @@ import {
   ManagerInterviewEvaluationEdit,
   HiringRequest,
   HiringRequestCreate,
-  LoanSetting
+  LoanSetting,
+  HiringRequestEvaluation,
+  HiringRequestEvaluationEdit,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1611,6 +1613,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/HiringRequestEdit'
           component={HiringRequestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HiringRequestEvaluation'
+          component={HiringRequestEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HiringRequestEvaluationEdit'
+          component={HiringRequestEvaluationEdit}
         />
 
         <Route
