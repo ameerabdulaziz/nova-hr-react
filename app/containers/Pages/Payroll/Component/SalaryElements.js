@@ -25,25 +25,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import messages from '../Recruitment/messages';
 import payrollMessages from '../messages';
 
-const uuid = () => {
-  const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
-
-  return (
-    S4()
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + S4()
-    + S4()
-  );
-};
-
 function SalaryElements(props) {
   const {
     intl, dataList, setDataList, salaryElementsList
@@ -86,7 +67,7 @@ function SalaryElements(props) {
   }, [selectedRow]);
 
   const getMappedSalaryItems = useCallback(() => {
-    const selectedIds = dataList.map((item) => item.element);
+    const selectedIds = dataList.map((item) => item.id);
 
     const allExceptUsed = salaryElementsList.filter(
       (item) => !selectedIds.includes(item.id)
@@ -138,7 +119,7 @@ function SalaryElements(props) {
     if (selectedRow !== null) {
       dataListCopy[selectedRow] = popupState;
     } else {
-      dataListCopy.push({ ...popupState, id: uuid() });
+      dataListCopy.push({ ...popupState, id: popupState.elementId });
     }
 
     setDataList(dataListCopy);
