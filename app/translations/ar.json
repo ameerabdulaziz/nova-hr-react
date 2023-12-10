@@ -1603,6 +1603,9 @@
     "boilerplate.containers.Payroll.Payroll.safe": "خزنة الصرف",
     "boilerplate.containers.Payroll.Payroll.maxLoan": "الحد الاقصى للسلفة",
     "boilerplate.containers.Payroll.Payroll.copytoAllBr": "نسخ لكل الفروع",
+    "boilerplate.containers.Payroll.Payroll.calcInsuranceWithThisTemplate": "يتضمن حساب التأمينات الاجتماعية",
+    "boilerplate.containers.Payroll.Payroll.rPT_details": "التقرير التفصيلى",
+    "boilerplate.containers.Payroll.Payroll.sMSMSG": "نص الرسالة",
     
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

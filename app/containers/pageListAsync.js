@@ -1294,6 +1294,20 @@ export const LoanSetting = loadable(
     fallback: <Loading />,
   }
 );
+export const PayTemplateList = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/PayTemplate/PayTemplateList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const PayTemplateCreate = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/PayTemplate/PayTemplateCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+PayTemplate
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

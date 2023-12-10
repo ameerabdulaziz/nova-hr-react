@@ -1555,7 +1555,10 @@
   "boilerplate.containers.Payroll.Payroll.deductPurchaseElement": "Purchase Element",
   "boilerplate.containers.Payroll.Payroll.safe": "Safe Deposit",  
   "boilerplate.containers.Payroll.Payroll.maxLoan": "Maximum Loan Value",
-  "boilerplate.containers.Payroll.Payroll.copytoAllBr": "Copy To All Branches",
+  "boilerplate.containers.Payroll.Payroll.copytoAllBr": "Copy To All Branches",  
+  "boilerplate.containers.Payroll.Payroll.calcInsuranceWithThisTemplate": "Include Soicail Insurance",
+  "boilerplate.containers.Payroll.Payroll.rPT_details": "Detailed Report",
+  "boilerplate.containers.Payroll.Payroll.sMSMSG": "SMS Message ",
 
 
 

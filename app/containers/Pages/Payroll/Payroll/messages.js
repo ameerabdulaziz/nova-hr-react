@@ -49,5 +49,18 @@ export default defineMessages({
     id: `${scope}.copytoAllBr`,
     defaultMessage: 'copytoAllBr',
   },
+  calcInsuranceWithThisTemplate  : {
+    id: `${scope}.calcInsuranceWithThisTemplate`,
+    defaultMessage: 'calcInsuranceWithThisTemplate',
+  },
+  rPT_details: {
+    id: `${scope}.rPT_details`,
+    defaultMessage: 'rPT_details',
+  },
+  sMSMSG: {
+    id: `${scope}.sMSMSG`,
+    defaultMessage: 'sMSMSG',
+  },
+  
 });
 
