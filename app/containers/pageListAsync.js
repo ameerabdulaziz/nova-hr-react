@@ -1952,6 +1952,13 @@ export const JobOffer = loadable(
   }
 );
 
+export const JobOfferStatus = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferStatus'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobOfferCreate = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferCreate'),
   {

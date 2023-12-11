@@ -298,4 +298,20 @@ export default defineMessages({
     id: `${scope}.salaryStructure`,
     defaultMessage: 'salaryStructure',
   },
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: 'notes',
+  },
+  offerStatus: {
+    id: `${scope}.offerStatus`,
+    defaultMessage: 'offerStatus',
+  },
+  date: {
+    id: `${scope}.date`,
+    defaultMessage: 'date',
+  },
+  serial: {
+    id: `${scope}.serial`,
+    defaultMessage: 'serial',
+  },
 });

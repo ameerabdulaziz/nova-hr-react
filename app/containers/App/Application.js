@@ -355,6 +355,7 @@ import {
   JobOffer,
   JobOfferCreate,
   BranchSalarySetting,
+  JobOfferStatus,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1623,6 +1624,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/JobOffer'
           component={JobOffer}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOfferStatus'
+          component={JobOfferStatus}
         />
 
         <Route
