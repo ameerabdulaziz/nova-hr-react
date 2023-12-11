@@ -278,4 +278,24 @@ export default defineMessages({
     id: `${scope}.value`,
     defaultMessage: 'value',
   },
+  offerDate: {
+    id: `${scope}.offerDate`,
+    defaultMessage: 'offerDate',
+  },
+  job: {
+    id: `${scope}.job`,
+    defaultMessage: 'job',
+  },
+  contractType: {
+    id: `${scope}.contractType`,
+    defaultMessage: 'contractType',
+  },
+  commession: {
+    id: `${scope}.commession`,
+    defaultMessage: 'commession',
+  },
+  salaryStructure: {
+    id: `${scope}.salaryStructure`,
+    defaultMessage: 'salaryStructure',
+  },
 });

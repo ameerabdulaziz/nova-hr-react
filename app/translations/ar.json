@@ -2078,7 +2078,12 @@
 
   "boilerplate.containers.Payroll.recruitment.id": "الكود",
   "boilerplate.containers.Payroll.recruitment.jobName": "اسم الوظيقة",
+  "boilerplate.containers.Payroll.recruitment.salaryStructure": "هيكلية الرواتب",
+  "boilerplate.containers.Payroll.recruitment.commession": "اللجنة",
+  "boilerplate.containers.Payroll.recruitment.contractType": "نوع العقد",
   "boilerplate.containers.Payroll.recruitment.jobCode": "كود الوظيفة",
+  "boilerplate.containers.Payroll.recruitment.job": "الوظيفة",
+  "boilerplate.containers.Payroll.recruitment.offerDate": "تاريخ الطلب",
   "boilerplate.containers.Payroll.recruitment.experience": "سنوات الخبرة",
   "boilerplate.containers.Payroll.recruitment.organization": "الادارة",
   "boilerplate.containers.Payroll.recruitment.department": "المنظمة",

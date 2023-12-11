@@ -1938,6 +1938,20 @@ export const HiringRequestCreate = loadable(
   }
 );
 
+export const JobOffer = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobOffer'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobOfferCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const HiringRequestEvaluation = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequestEvaluation'),
   {

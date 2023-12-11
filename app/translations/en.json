@@ -2038,6 +2038,11 @@
 
   "boilerplate.containers.Payroll.recruitment.id": "Id",
   "boilerplate.containers.Payroll.recruitment.jobName": "Job Name",
+  "boilerplate.containers.Payroll.recruitment.contractType": "Contract Type",
+  "boilerplate.containers.Payroll.recruitment.job": "Job",
+  "boilerplate.containers.Payroll.recruitment.salaryStructure": "Salary Structure",
+  "boilerplate.containers.Payroll.recruitment.commession": "Commession",
+  "boilerplate.containers.Payroll.recruitment.offerDate": "Offer Date",
   "boilerplate.containers.Payroll.recruitment.jobCode": "Job Code",
   "boilerplate.containers.Payroll.recruitment.experience": "Experience",
   "boilerplate.containers.Payroll.recruitment.expireDate": "Expire Date",
