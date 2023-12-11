@@ -1945,6 +1945,20 @@ export const HiringRequestCreate = loadable(
   }
 );
 
+export const HiringRequestEvaluation = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequestEvaluation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const HiringRequestEvaluationEdit = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequestEvaluationEdit'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const TechApplicationReview = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/TechApplicationReview'),
   {
