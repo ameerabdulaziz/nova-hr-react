@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-// import OfficialVacationsData from '../api/OfficialVacationsData';
+import BranchSalarySettingData from '../api/BranchSalarySettingData';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss'
 import {  useHistory, useLocation  } from 'react-router-dom';
@@ -172,6 +172,25 @@ useEffect(() => {
     fetchData();
   }, []);
 
+
+
+ const departmentChangeFun = async (id) => {
+    if (id) {
+      const list = await BranchSalarySettingData().Get(id);
+
+      // setdata({
+      //   brCode: 0,
+      //   payTemplateId: 0,
+      //   payTemplateElementId: 0,
+      //   debtElemId: 0,
+      //   purchElemId: 0,
+      //   safeId: 0,
+      //   smalloanLimit: "",
+      //   autoToSafe: false,
+      // });
+    }
+  }
+
 console.log("brCode =", brCode)
 
   return (
@@ -212,6 +231,7 @@ console.log("brCode =", brCode)
                 // }}
                 onChange={(event, value) => {
                   setBrCode(value !== null ? value.id : null)
+                  departmentChangeFun(value !== null ? value.id : null)
               }}
                 renderInput={(params) => (
                   <TextField

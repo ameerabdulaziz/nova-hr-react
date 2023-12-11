@@ -352,7 +352,7 @@ import {
   LoanSetting,
   HiringRequestEvaluation,
   HiringRequestEvaluationEdit,
-  BranchSalarySetting
+  BranchSalarySetting,
 } from '../pageListAsync';
 
 function Application(props) {
