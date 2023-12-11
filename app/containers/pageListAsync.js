@@ -1294,6 +1294,13 @@ export const LoanSetting = loadable(
     fallback: <Loading />,
   }
 );
+
+export const BranchSalarySetting = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/BranchSalarySetting'),
+  {
+    fallback: <Loading />,
+  }
+);
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
