@@ -349,7 +349,8 @@ import {
   ManagerInterviewEvaluationEdit,
   HiringRequest,
   HiringRequestCreate,
-  LoanSetting
+  LoanSetting,
+  BranchSalarySetting
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1103,6 +1104,8 @@ function Application(props) {
 
         {/* Payroll */}
         <Route path='/app/Pages/Payroll/LoanSetting' component={LoanSetting} />
+
+        <Route path='/app/Pages/Payroll/BranchSalarySetting' component={BranchSalarySetting} />
         
 
         {/* WorkFlow */}
