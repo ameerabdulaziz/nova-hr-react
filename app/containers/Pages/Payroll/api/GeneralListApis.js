@@ -382,7 +382,7 @@ const GeneralListApis = (locale) => {
   };
 
   Apis.GetBranchList = async () => {
-    debugger ;
+
     const data = await axiosInstance.get(
       `GeneralList/GetBranchList/${locale}`
     );

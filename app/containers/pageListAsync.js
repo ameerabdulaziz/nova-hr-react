@@ -1343,6 +1343,13 @@ export const ElementsCreate = loadable(
   }
 );
 
+
+export const BranchSalarySetting = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/BranchSalarySetting'),
+  {
+    fallback: <Loading />,
+  }
+);
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
@@ -1982,6 +1989,41 @@ export const HiringRequest = loadable(
 
 export const HiringRequestCreate = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobOffer = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobOffer'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobOfferStatus = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferStatus'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobOfferCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const HiringRequestEvaluation = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequestEvaluation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const HiringRequestEvaluationEdit = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequestEvaluationEdit'),
   {
     fallback: <Loading />,
   }

@@ -350,7 +350,13 @@ import {
   HiringRequest,
   HiringRequestCreate,
   LoanSetting,PayTemplateList,PayTemplateCreate,Items,ElementTaxIns,SalaryStructureList,SalaryStructureCreate,
-  ElementsList,ElementsCreate
+  ElementsList,ElementsCreate,
+  HiringRequestEvaluation,
+  HiringRequestEvaluationEdit,
+  JobOffer,
+  JobOfferCreate,
+  BranchSalarySetting,
+  JobOfferStatus,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1118,6 +1124,8 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/ElementsEdit' component={ElementsCreate} />
         
         
+
+        <Route path='/app/Pages/Payroll/BranchSalarySetting' component={BranchSalarySetting} />
         
 
         {/* WorkFlow */}
@@ -1626,6 +1634,36 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/HiringRequestEdit'
           component={HiringRequestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOffer'
+          component={JobOffer}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOfferStatus'
+          component={JobOfferStatus}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOfferCreate'
+          component={JobOfferCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOfferEdit'
+          component={JobOfferCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HiringRequestEvaluation'
+          component={HiringRequestEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/HiringRequestEvaluationEdit'
+          component={HiringRequestEvaluationEdit}
         />
 
         <Route
