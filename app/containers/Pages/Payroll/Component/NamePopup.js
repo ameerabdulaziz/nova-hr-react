@@ -17,12 +17,12 @@ import GeneralListApis from "../api/GeneralListApis";
 import MUIDataTable from "mui-datatables";
 
 function NamePopup(props) {
-  const { intl, IsInsured } = props;
+  const { intl, IsInsured, withoutSalaryStructure } = props;
   const [isLoading, setIsLoading] = useState(false);
   const { classes, cx } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
-  const { handleClose, open, Key } = props;
+  const { handleClose, open, Key, ElementType, ElementId } = props;
   var SelectedRows = [];
   const CloseClick = async () => {
     //handleClose(EmployeeList.filter((row) => row.isSelected==true));
@@ -36,7 +36,8 @@ function NamePopup(props) {
         SelectedRows.push({
           id: EmployeeList[allRowsSelected[i].dataIndex].id,
           name: EmployeeList[allRowsSelected[i].dataIndex].name,
-          fixedElementsSilimit: EmployeeList[allRowsSelected[i].dataIndex].fixedElementsSilimit,
+          fixedElementsSilimit:
+            EmployeeList[allRowsSelected[i].dataIndex].fixedElementsSilimit,
           organizationName:
             EmployeeList[allRowsSelected[i].dataIndex].organizationName || "",
           isSelected: true,
@@ -47,12 +48,15 @@ function NamePopup(props) {
     }
   }
 
-  const GetList = useCallback(async () => {
+  const GetList = async () => {
     try {
       setIsLoading(true);
       var data = [];
       if (Key == "Employee") {
-        data = await GeneralListApis(locale).GetEmployeeListComponent(IsInsured||false);
+        data = await GeneralListApis(locale).GetEmployeeListComponent(
+          IsInsured || false,
+          withoutSalaryStructure || false
+        );
         setEmployeeList(
           data.map((obj) => {
             return {
@@ -77,16 +81,36 @@ function NamePopup(props) {
             };
           })
         );
+      } else if (Key == "Element") {
+        debugger;
+        var result = await GeneralListApis(locale).GetElementListByType(
+          ElementType,
+          0
+        );
+
+        if (ElementId) {
+          data = result.filter((x) => x.id != ElementId);
+        }
+        else
+        data = result ;
+        setEmployeeList(
+          data.map((obj) => {
+            return {
+              id: obj.id,
+              name: obj.name,
+              isSelected: false,
+            };
+          })
+        );
       }
     } catch (err) {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
-    if (open) 
-    GetList();
+    if (open) GetList();
   }, [open]);
 
   const columns = [

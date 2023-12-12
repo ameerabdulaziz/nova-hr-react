@@ -46,6 +46,7 @@ function LoanSetting(props) {
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(true);
 
+  const Title = localStorage.getItem("MenuName");
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -138,11 +139,7 @@ function LoanSetting(props) {
       <PapperBlock
         whiteBg
         icon="border_color"
-        title={
-          data.id == 0
-            ? intl.formatMessage(messages.LoanSettingTitle)
-            : intl.formatMessage(messages.LoanSettingUpdateTitle)
-        }
+        title={Title}
         desc={""}
       >
         <form onSubmit={handleSubmit}>

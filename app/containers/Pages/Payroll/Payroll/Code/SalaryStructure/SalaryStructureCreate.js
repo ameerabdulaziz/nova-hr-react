@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { PapperBlock } from "enl-components";
-import ApiData from "../../api/PayTemplateData";
+import ApiData from "../../api/SalaryStructureData";
 import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 import { useSelector } from "react-redux";
@@ -8,16 +8,24 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
-import { Button, Grid, TextField, Checkbox ,Card,CardContent} from "@mui/material";
+import {
+  Button,
+  Grid,
+  TextField,
+  Autocomplete,
+  Card,
+  CardContent,
+} from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import glApis from "../../../api/GeneralListApis";
 import NamePopup from "../../../Component/NamePopup";
 import PayRollLoader from "../../../Component/PayRollLoader";
-import ElementTable from "./ElementTable";
+import ElementTable from "../PayTemplate/ElementTable";
+import NameList from "../../../Component/NameList";
 
-function PayTemplateCreate(props) {
+function SalaryStructureCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
@@ -25,15 +33,15 @@ function PayTemplateCreate(props) {
   const { classes, cx } = useStyles();
   const [isLoading, setIsLoading] = useState(true);
   const [OpenPopup, setOpenPopup] = useState(false);
+  const [ElemList, setElemList] = useState([]);
+  const [employees, setemployees] = useState([]);
   const [data, setdata] = useState({
     id: 0,
     arName: "",
     enName: "",
-    calcInsuranceWithThisTemplate: false,
-    rptDetails: "",
-    smsmsg: "",
-    addElement: [],
-    deductElements: [],
+    mainElementId: 0,
+    elements: [],
+    employees: [],
   });
 
   const history = useHistory();
@@ -41,65 +49,37 @@ function PayTemplateCreate(props) {
   const [Type, setType] = useState(0);
 
   const handleCloseNamePopup = useCallback(
-    async (Employeesdata) => {
+    async (datalist) => {
       debugger;
       setOpenPopup(false);
       try {
         setIsLoading(true);
-        if (Type === 1) {
-          var addElement = [];
-          for (var i = 0; i < data.addElement.length; i++) {
-            addElement.push(data.addElement[i]);
-          }
-          for (var i = 0; i < Employeesdata.length; i++) {
-            if (
-              addElement.filter((x) => x.elementId == Employeesdata[i].id)
-                .length == 0
-            ) {
-              addElement.push({
-                id: 0,
-                elementId: Employeesdata[i].id,
-                elementName: Employeesdata[i].name,
-                PayTemplateId: data.id,
-                sort: 0,
-                isSelected: true,
-              });
-            }
-          }
-
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            addElement: addElement,
-          }));
-        } else {
-          var deductElements = [];
-          for (var i = 0; i < data.deductElements.length; i++) {
-            deductElements.push(data.deductElements[i]);
-          }
-          for (var i = 0; i < Employeesdata.length; i++) {
-            if (
-              deductElements.filter((x) => x.elementId == Employeesdata[i].id)
-                .length == 0
-            ) {
-              deductElements.push({
-                id: 0,
-                elementId: Employeesdata[i].id,
-                elementName: Employeesdata[i].name,
-                PayTemplateId: data.id,
-                sort: 0,
-                isSelected: true,
-              });
-            }
-          }
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            deductElements: deductElements,
-          }));
+        var elements = [];
+        for (var i = 0; i < data.elements.length; i++) {
+          elements.push(data.elements[i]);
         }
+        for (var i = 0; i < datalist.length; i++) {
+          if (
+            elements.filter((x) => x.elementId == datalist[i].id).length == 0
+          ) {
+            elements.push({
+              id: 0,
+              elementId: datalist[i].id,
+              elementName: datalist[i].name,
+              salaryStructureId: data.salaryStructureId,
+              elePercent: 0,
+              isSelected: true,
+            });
+          }
+        }
+
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          elements: elements,
+        }));
       } catch (err) {
       } finally {
         setIsLoading(false);
-        setOpenPopup(false);
       }
     },
     [data, Type]
@@ -114,20 +94,30 @@ function PayTemplateCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      debugger ;
       setIsLoading(true);
+      data.elements = data.elements.filter((x) => x.isSelected == true);
 
-      var deductElements = data.deductElements.filter(
-        (x) => x.isSelected == true
-      );
-      var addElement = data.addElement.filter((x) => x.isSelected == true);
-      data.addElement = addElement;
-      data.deductElements = deductElements;
+      if(data.elements.filter((x) => x.elementId == data.mainElementId).length > 0)
+      {
+        toast.error("لا يمكن اختيار عنصر المرتب الاساسي كعنصر فرعي");
+        return;
+      }      
+
+      var total = data.elements.reduce((n, { elePercent }) => parseInt(n) + parseInt(elePercent), 0);
+
+      if(total!==100)
+      {
+        toast.error("Total Percentage Must Equal 100");
+        return;
+      }
+      data.employees = employees.filter((x) => x.isSelected == true);
 
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Payroll/PayTemplate`);
+        history.push(`/app/Pages/Payroll/SalaryStructure`);
       } else {
         toast.error(response.statusText);
       }
@@ -137,13 +127,30 @@ function PayTemplateCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Payroll/PayTemplate`);
+    history.push(`/app/Pages/Payroll/SalaryStructure`);
   }
   async function fetchData() {
     try {
+      const list2 = await glApis(locale).GetElementList(0, 0);
+      setElemList(list2);
+
       if (id) {
         const dataApi = await ApiData(locale).Get(id ?? 0);
-
+        setemployees(
+          dataApi.employees.map((obj) => {
+            return {
+              ...obj,
+              isSelected: true,
+            };
+          })
+        );
+        var elements = dataApi.elements.map((obj) => {
+          return {
+            ...obj,
+            isSelected: true,
+          };
+        });
+        dataApi.elements=elements ;
         setdata(dataApi);
       }
     } catch (err) {
@@ -163,8 +170,8 @@ function PayTemplateCreate(props) {
         icon="border_color"
         title={
           data.id == 0
-            ? intl.formatMessage(messages.PayTemplateCreateTitle)
-            : intl.formatMessage(messages.PayTemplateUpdateTitle)
+            ? intl.formatMessage(messages.SalaryStructureCreateTitle)
+            : intl.formatMessage(messages.SalaryStructureUpdateTitle)
         }
         desc={""}
       >
@@ -172,7 +179,7 @@ function PayTemplateCreate(props) {
           handleClose={handleCloseNamePopup}
           open={OpenPopup}
           Key={"Element"}
-          ElementType={Type}
+          ElementType={0}
         />
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
@@ -209,58 +216,35 @@ function PayTemplateCreate(props) {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField
-                id="smsmsg"
-                name="smsmsg"
-                value={data.smsmsg}
-                onChange={(e) =>
+              <Autocomplete
+                id="ElemList"
+                options={ElemList}
+                value={
+                  ElemList.find((item) => item.id === data.mainElementId) ||
+                  null
+                }
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
                   setdata((prevFilters) => ({
                     ...prevFilters,
-                    smsmsg: e.target.value,
-                  }))
-                }
-                label={intl.formatMessage(messages.sMSMSG)}
-                className={classes.field}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="rptDetails"
-                name="rptDetails"
-                value={data.rptDetails}
-                onChange={(e) =>
-                  setdata((prevFilters) => ({
-                    ...prevFilters,
-                    rptDetails: e.target.value,
-                  }))
-                }
-                label={intl.formatMessage(messages.rPT_details)}
-                className={classes.field}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={data.calcInsuranceWithThisTemplate || null}
-                    onChange={(e) =>
-                      setdata((prevFilters) => ({
-                        ...prevFilters,
-                        calcInsuranceWithThisTemplate: e.target.checked,
-                      }))
-                    }
-                    value={data.calcInsuranceWithThisTemplate || null}
-                    color="primary"
+                    mainElementId: value !== null ? value.id : null,
+                  }));
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="DebtElem"
+                    required
+                    label={intl.formatMessage(Payrollmessages.element)}
                   />
-                }
-                label={intl.formatMessage(
-                  messages.calcInsuranceWithThisTemplate
                 )}
               />
             </Grid>
-
+            <Grid item xs={12} md={6}></Grid>
             <Grid item xs={12} md={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
@@ -271,16 +255,16 @@ function PayTemplateCreate(props) {
                           variant="contained"
                           size="medium"
                           color="secondary"
-                          onClick={() => handleClickOpenNamePopup(1)}
+                          onClick={() => handleClickOpenNamePopup(5)}
                         >
                           <FormattedMessage {...messages.addElement2} />
                         </Button>
                       </Grid>
                       <Grid item xs={6} md={12}>
                         <ElementTable
-                          dataList={data.addElement}
+                          dataList={data.elements}
                           setdataList={setdata}
-                          Type={1}
+                          Type={5}
                         />
                       </Grid>
                     </Grid>
@@ -288,30 +272,16 @@ function PayTemplateCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-
             <Grid item xs={12} md={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
-                    <Grid container spacing={3}>
-                      <Grid item xs={6} md={2}>
-                        <Button
-                          variant="contained"
-                          size="medium"
-                          color="secondary"
-                          onClick={() => handleClickOpenNamePopup(2)}
-                        >
-                          <FormattedMessage {...messages.deductElement2} />
-                        </Button>
-                      </Grid>
-                      <Grid item xs={6} md={12}>
-                        <ElementTable
-                          dataList={data.deductElements}
-                          setdataList={setdata}
-                          Type={2}
-                        />
-                      </Grid>
-                    </Grid>
+                    <NameList
+                      dataList={employees}
+                      setdataList={setemployees}
+                      Key={"Employee"}
+                      withoutSalaryStructure={true}
+                    />
                   </CardContent>
                 </Card>
               </Grid>
@@ -342,7 +312,7 @@ function PayTemplateCreate(props) {
     </PayRollLoader>
   );
 }
-PayTemplateCreate.propTypes = {
+SalaryStructureCreate.propTypes = {
   intl: PropTypes.object.isRequired,
 };
-export default injectIntl(PayTemplateCreate);
+export default injectIntl(SalaryStructureCreate);

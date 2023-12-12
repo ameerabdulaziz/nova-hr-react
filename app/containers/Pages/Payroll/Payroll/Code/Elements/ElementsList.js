@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
-import ApiData from "../../api/PayTemplateData";
+import ApiData from "../../api/ElementsData";
 import { useSelector } from "react-redux";
 import messages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
@@ -19,7 +19,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
 
-function PayTemplateList(props) {
+function ElementsList(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -109,31 +109,7 @@ function PayTemplateList(props) {
         filter: true,
       },
     },
-
-    {
-      name: "calcInsuranceWithThisTemplate",
-      label: <FormattedMessage {...messages["calcInsuranceWithThisTemplate"]} />,
-      options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),   
-      },
-    },
     
-    {
-      name: "rptDetails",
-      label: <FormattedMessage {...messages["rPT_details"]} />,
-      options: {
-        filter: true,
-           
-      },
-    },
-    {
-      name: "smsmsg",
-      label: <FormattedMessage {...messages["sMSMSG"]} />,
-      options: {
-        filter: true,
-      },
-    },
     {
       name: "Actions",
       options: {
@@ -145,7 +121,7 @@ function PayTemplateList(props) {
             <div className={style.actionsSty}>
               <EditButton
                 param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/Payroll/PayTemplateEdit"}
+                url={"/app/Pages/Payroll/ElementsEdit"}
               ></EditButton>
               <DeleteButton
                 clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
@@ -170,7 +146,7 @@ function PayTemplateList(props) {
       //some logic
     },
     customToolbar: () => (
-      <AddButton url={"/app/Pages/Payroll/PayTemplateCreate"}></AddButton>
+      <AddButton url={"/app/Pages/Payroll/ElementsCreate"}></AddButton>
     ),
     textLabels: {
       body: {
@@ -206,4 +182,4 @@ function PayTemplateList(props) {
   );
 }
 
-export default injectIntl(PayTemplateList);
+export default injectIntl(ElementsList);

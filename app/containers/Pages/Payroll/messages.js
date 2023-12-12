@@ -444,5 +444,18 @@ employeeId: {
     id: `${scope}.FileIsEmpty`,
     defaultMessage: 'Must To Choose From Date And To Date',
   },
+  sort: {
+    id: `${scope}.sort`,
+    defaultMessage: 'sort',
+  },
+  percentage: {
+    id: `${scope}.percentage`,
+    defaultMessage: 'percentage',
+  },
+  relation: {
+    id: `${scope}.relation`,
+    defaultMessage: 'relation',
+  },
+  
  
 });

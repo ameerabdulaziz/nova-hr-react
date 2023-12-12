@@ -145,7 +145,7 @@ function ManPowerSetting(props) {
 
   useEffect(() => {
     var temp = dataList.filter((row) => row.isSelected == true);
-    var total = temp.reduce((n, { idealManPower }) => n + idealManPower, 0);
+    var total = temp.reduce((n, { idealManPower }) => parseInt(n) + parseInt(idealManPower), 0);
     settotalIdealManPower(total);
   }, [dataList]);
 

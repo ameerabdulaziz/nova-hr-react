@@ -811,6 +811,12 @@ export const LayOffNoticeReport = loadable(
     fallback: <Loading />,
   }
 );
+export const Items = loadable(
+  () => import('./Pages/Payroll/HumanResources/Code/Items'),
+  {
+    fallback: <Loading />,
+  }
+);
 export const AttentionReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/AttentionReport'),
   {
@@ -1306,8 +1312,37 @@ export const PayTemplateCreate = loadable(
     fallback: <Loading />,
   }
 );
+export const ElementTaxIns = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/ElementTaxIns'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const SalaryStructureList = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/SalaryStructure/SalaryStructureList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const SalaryStructureCreate = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/SalaryStructure/SalaryStructureCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ElementsList = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/Elements/ElementsList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ElementsCreate = loadable(
+  () => import('./Pages/Payroll/Payroll/Code/Elements/ElementsCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
 
-PayTemplate
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

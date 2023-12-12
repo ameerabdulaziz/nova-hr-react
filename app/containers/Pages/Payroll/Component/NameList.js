@@ -17,7 +17,7 @@ import useStyles from "../Style";
 import NamePopup from "./NamePopup";
 
 function NameList(props) {
-  const { intl, dataList, setdataList, Key } = props;
+  const { intl, dataList, setdataList, Key ,withoutSalaryStructure} = props;
   const { classes, cx } = useStyles();
   const [OpenPopup, setOpenPopup] = useState(false);
 
@@ -61,14 +61,14 @@ function NameList(props) {
 
   return (
     <div>
-      <NamePopup handleClose={handleClose} open={OpenPopup} Key={Key} />
+      <NamePopup handleClose={handleClose} open={OpenPopup} Key={Key} withoutSalaryStructure={withoutSalaryStructure} />
       <div>
         <Grid container spacing={3}>
           <Grid item xs={6} md={2}>
             <Button
               variant="contained"
               size="medium"
-              color="primary"
+              color="secondary"
               onClick={handleClickOpen}
             >
               <FormattedMessage
@@ -88,7 +88,7 @@ function NameList(props) {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{ width: "5px", padding: "0px" }}>
+                    <TableCell style={{ width: "25%", padding: "0px" }}>
                       <Checkbox
                         checked={
                           dataList.length > 0 &&
@@ -110,10 +110,10 @@ function NameList(props) {
                         onChange={handlepermcheckboxAll}
                       />
                     </TableCell>
-                    <TableCell style={{ width: "5px", padding: "0px" }}>
+                    <TableCell style={{ width: "25%", padding: "0px" }}>
                       <FormattedMessage {...Payrollmessages.id} />
                     </TableCell>
-                    <TableCell style={{ width: "20px", padding: "0px" }}>
+                    <TableCell style={{ width: "50%", padding: "0px" }}>
                       <FormattedMessage {...Payrollmessages.name} />
                     </TableCell>
                   </TableRow>
@@ -128,7 +128,7 @@ function NameList(props) {
                           sx={{ height: 1 }}
                           style={{ padding: "0px" }}
                         >
-                          <TableCell style={{ width: "5px", padding: "0px" }}>
+                          <TableCell style={{ width: "25%", padding: "0px" }}>
                             <Checkbox
                               checked={row.isSelected}
                               color="primary"
@@ -137,10 +137,10 @@ function NameList(props) {
                               value={row.isSelected}
                             />
                           </TableCell>
-                          <TableCell style={{ width: "5px", padding: "0px" }}>
+                          <TableCell style={{ width: "25%", padding: "0px" }}>
                             {row.id}
                           </TableCell>
-                          <TableCell style={{ width: "20px", padding: "0px" }}>
+                          <TableCell style={{ width: "50%", padding: "0px" }}>
                             {row.name}
                           </TableCell>
                         </TableRow>

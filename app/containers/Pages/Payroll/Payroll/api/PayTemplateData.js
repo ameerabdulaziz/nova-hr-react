@@ -1,13 +1,13 @@
 import axiosInstance from '../../api/axios';
 
 
-const ShiftData = (locale) => {
+const PayTemplateData = (locale) => {
   const Apis = {};
 
 
   Apis.GetList = async () => {
     
-    const data = await axiosInstance.get(`PayrollPayTemplate/GetList/${locale}`);
+    const data = await axiosInstance.get(`PayrollPayTemplate/GetList`);
     const result = data.data;    
     return result;
   };
@@ -42,4 +42,4 @@ const ShiftData = (locale) => {
   return Apis;
 };
 
-export default ShiftData;
+export default PayTemplateData;
