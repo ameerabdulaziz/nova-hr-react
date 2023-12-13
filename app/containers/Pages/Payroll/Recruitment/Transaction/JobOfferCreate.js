@@ -1,17 +1,20 @@
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
-  Autocomplete, Button, Grid, TextField
+  Autocomplete, Box, Button, Grid, TextField
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
+import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import { useReactToPrint } from 'react-to-print';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SalaryElements from '../../Component/SalaryElements';
 import useStyles from '../../Style';
@@ -126,9 +129,7 @@ function JobOfferCreate(props) {
         );
         setApplicantsList(applicant);
       } else {
-        const applicant = await api(locale).GetApplicantList(
-
-        );
+        const applicant = await api(locale).GetApplicantList();
         setApplicantsList(applicant);
       }
     } catch (error) {
@@ -491,6 +492,11 @@ function JobOfferCreate(props) {
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={1}>
+                  <PrintJS
+                    body={'<div contenteditable="true" translate="no" class="ProseMirror" tabindex="0" spellcheck="false"><h2 style="text-align: center">Welcome to Circle rich text editor 💯</h2><p><code>Editor</code> focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. Supports all of its features:</p><ul><li><p>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s></p></li><li><p>Headings (h1-h6)</p></li><li><p>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</p></li><li><p>Ordered and bullet lists</p></li><li><p>Text align (left, center, justify, right)</p></li><li><p>Words &amp; characters counter</p></li><li><p>Horizontal line &amp; Line break &amp; Blockquote</p></li><li><p><a target="_blank" rel="noopener noreferrer nofollow" class="text-aurora no-underline hover:underline text-aurora no-underline hover:underline text-aurora no-underline hover:underline" href="https://mantine-lime.vercel.app/">Link</a> &amp; Unlink text.</p></li><li><p>Emoji picker 😀</p></li><li><p><span style="font-family: Tajawal, sans-serif;text-align: right">يدعم اللغة العربية</span></p></li></ul><p><br><br class="ProseMirror-trailingBreak"></p><p>With the Typography extension, The editor understands &gt;&gt; what you mean &lt;&lt; and adds correct characters to your text — it\'s like a "typography nerd" on your side.</p><p>Try it out and type <code>(c)</code>, <code>-&gt;</code>, <code>&gt;&gt;</code>, <code>1/2</code>, <code>!=</code>, <code>--</code> or <code>1x1</code> here:</p><p><br><br class="ProseMirror-trailingBreak"></p></div>'}
+                  />
+                </Grid>
+                <Grid item xs={12} md={1}>
                   <Button
                     variant='contained'
                     type='submit'
@@ -519,6 +525,88 @@ function JobOfferCreate(props) {
     </PayRollLoader>
   );
 }
+
+const PrintJS = injectIntl((props) => {
+  const { body = '' } = props;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const documentTitle =		'Job Offer ' + format(new Date(), 'yyyy-MM-dd hh_mm_ss');
+
+  const onBeforeGetContent = () => {
+    setIsLoading(true);
+  };
+
+  const onAfterPrint = () => {
+    setIsLoading(false);
+  };
+
+  const onPrintError = () => {
+    setIsLoading(false);
+  };
+
+  const printDivRef = useRef(null);
+
+  const printJS = useReactToPrint({
+    content: () => printDivRef?.current,
+    onBeforeGetContent,
+    onAfterPrint,
+    onPrintError,
+    documentTitle,
+  });
+
+  const onPrintClick = async () => {
+    printJS();
+  };
+
+  return (
+    <>
+      <LoadingButton
+        onClick={onPrintClick}
+        color='primary'
+        loading={isLoading}
+        variant='outlined'
+      >
+        <FormattedMessage {...payrollMessages.Print} />
+      </LoadingButton>
+
+      <Box
+        ref={printDivRef}
+        sx={{
+          display: 'none',
+          '@media print': {
+            display: 'block',
+          },
+          p: 4,
+          ul: {
+            listStyleType: 'disc',
+            px: '1rem',
+          },
+          ol: {
+            listStyleType: 'decimal',
+            px: '1rem',
+          },
+          '& > p': {
+            mb: '0.3rem',
+          },
+          code: {
+            fontFamily: 'monospace',
+            overflowWrap: 'break-word',
+            background: 'rgb(241, 241, 241)',
+            borderRadius: '3px',
+            padding: '1px 3px',
+          },
+        }}
+      >
+        {parse(body)}
+      </Box>
+    </>
+  );
+});
+
+PrintJS.propTypes = {
+  intl: PropTypes.object.isRequired,
+  body: PropTypes.string.isRequired,
+};
 
 JobOfferCreate.propTypes = {
   intl: PropTypes.object.isRequired,
