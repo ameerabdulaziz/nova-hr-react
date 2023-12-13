@@ -351,7 +351,8 @@ import {
   ManagerInterviewEvaluationEdit,
   HiringRequest,
   HiringRequestCreate,
-  LoanSetting,
+  LoanSetting,PayTemplateList,PayTemplateCreate,Items,ElementTaxIns,SalaryStructureList,SalaryStructureCreate,
+  ElementsList,ElementsCreate,
   HiringRequestEvaluation,
   HiringRequestEvaluationEdit,
   JobOffer,
@@ -789,6 +790,7 @@ function Application(props) {
           path='/app/Pages/HR/LayOffNoticeReport'
           component={LayOffNoticeReport}
         />
+        <Route path='/app/Pages/HR/Items' component={Items} />
 
         {/* Attendance */}
         <Route
@@ -1114,6 +1116,19 @@ function Application(props) {
 
         {/* Payroll */}
         <Route path='/app/Pages/Payroll/LoanSetting' component={LoanSetting} />
+        <Route path='/app/Pages/Payroll/PayTemplate' component={PayTemplateList} />
+        <Route path='/app/Pages/Payroll/PayTemplateCreate' component={PayTemplateCreate} />
+        <Route path='/app/Pages/Payroll/PayTemplateEdit' component={PayTemplateCreate} />
+        <Route path='/app/Pages/Payroll/ElementTaxIns' component={ElementTaxIns} />
+        
+        <Route path='/app/Pages/Payroll/SalaryStructure' component={SalaryStructureList} />
+        <Route path='/app/Pages/Payroll/SalaryStructureCreate' component={SalaryStructureCreate} />
+        <Route path='/app/Pages/Payroll/SalaryStructureEdit' component={SalaryStructureCreate} />
+        <Route path='/app/Pages/Payroll/Elements' component={ElementsList} />
+        <Route path='/app/Pages/Payroll/ElementsCreate' component={ElementsCreate} />
+        <Route path='/app/Pages/Payroll/ElementsEdit' component={ElementsCreate} />
+        
+        
 
         <Route path='/app/Pages/Payroll/BranchSalarySetting' component={BranchSalarySetting} />
         

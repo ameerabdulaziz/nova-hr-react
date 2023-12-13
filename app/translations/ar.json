@@ -972,6 +972,13 @@
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
   "boilerplate.containers.Payroll.dateErrorMes": "يجب اختيار تاريخ البدا وتاريخ الانتهاء",
   "boilerplate.containers.Payroll.FileIsEmpty": "لايوجد بيانات",
+  "boilerplate.containers.Payroll.sort": "ترتيب العرض",
+  "boilerplate.containers.Payroll.percentage": "النسبة",
+  
+  "boilerplate.containers.Payroll.relation": "العلاقه",
+  
+  
+  
   
 
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
@@ -1606,6 +1613,87 @@
     "boilerplate.containers.Payroll.Payroll.safe": "خزنة الصرف",
     "boilerplate.containers.Payroll.Payroll.maxLoan": "الحد الاقصى للسلفة",
     "boilerplate.containers.Payroll.Payroll.copytoAllBr": "نسخ لكل الفروع",
+    "boilerplate.containers.Payroll.Payroll.calcInsuranceWithThisTemplate": "يتضمن حساب التأمينات الاجتماعية",
+    "boilerplate.containers.Payroll.Payroll.rPT_details": "التقرير التفصيلى",
+    "boilerplate.containers.Payroll.Payroll.sMSMSG": "نص الرسالة",
+    "boilerplate.containers.Payroll.Payroll.PayTemplateCreateTitle": "اضافة قوالب الصرف",
+    "boilerplate.containers.Payroll.Payroll.PayTemplateUpdateTitle": "تعديل قوالب الصرف",
+    "boilerplate.containers.Payroll.Payroll.addElement2": "الاستحقاقات",
+    "boilerplate.containers.Payroll.Payroll.deductElement2": "الاستقطاعات",
+    "boilerplate.containers.Payroll.Payroll.Taxelement": "عناصر الضريبة",
+    "boilerplate.containers.Payroll.Payroll.Inselement": "عناصر التأمينات",
+    
+    "boilerplate.containers.Payroll.Payroll.SalaryStructureUpdateTitle": "تعديل نماذج المرتبات",
+    "boilerplate.containers.Payroll.Payroll.SalaryStructureCreateTitle": "اضافة نماذج المرتبات",
+    "boilerplate.containers.Payroll.Payroll.ShortName": "الاسم المختصر",
+    "boilerplate.containers.Payroll.Payroll.ElementsCreateTitle": "اضافة عناصر",
+    "boilerplate.containers.Payroll.Payroll.ElementsUpdateTitle": "تعديل عناصر",
+
+    "boilerplate.containers.Payroll.Payroll.variable": "متغير",
+    "boilerplate.containers.Payroll.Payroll.Percentage": "نسبة",
+    "boilerplate.containers.Payroll.Payroll.constant": "ثابت",
+    "boilerplate.containers.Payroll.Payroll.Value": "قيمة",
+    "boilerplate.containers.Payroll.Payroll.refElement": "العناصر المنسب اليها",
+    "boilerplate.containers.Payroll.Payroll.basicElement": "اضافة عنصر اساسى",
+    "boilerplate.containers.Payroll.Payroll.displayOrder": "ترتيب العرض",
+    "boilerplate.containers.Payroll.Payroll.minDailyWorkHours": "الحد الادنى لساعات العمل",
+    "boilerplate.containers.Payroll.Payroll.elementTaxFreeLimit": "الحد الاقصى لاعفاء من الضريبة",
+    "boilerplate.containers.Payroll.Payroll.Allowance": "استحقاق",
+    "boilerplate.containers.Payroll.Payroll.Deduct": "استقطاع",
+    "boilerplate.containers.Payroll.Payroll.maxRepeat": "حد التكرار الاقصى",    
+    "boilerplate.containers.Payroll.Payroll.elementRepeat": "للعنصر حد اقصى للتكرار شهريا",
+    
+    "boilerplate.containers.Payroll.Payroll.salayElememt": "عنصر قالب مفردات المرتب",
+    "boilerplate.containers.Payroll.Payroll.refranceElement": "عنصر استرشادى",
+    "boilerplate.containers.Payroll.Payroll.relatedToWorkdays": "مرتبط بايام العمل",
+    
+    
+    "boilerplate.containers.Payroll.Payroll.inWeb": "يظهر فى تقارير الويب",
+    "boilerplate.containers.Payroll.Payroll.calcIneachTemplate": "يحتسب فى كل قالب على حده",
+    "boilerplate.containers.Payroll.Payroll.percentOfDaily": "منسب لاجر اليوم",
+    "boilerplate.containers.Payroll.Payroll.defaultValue": "القيمة الافتراضية",
+    "boilerplate.containers.Payroll.Payroll.elemMaxMin": "قيمة العنصر له حد ادنى واقصى",
+    "boilerplate.containers.Payroll.Payroll.min": "الحد الادنى",
+    "boilerplate.containers.Payroll.Payroll.max": "الحد الاقصى",
+    "boilerplate.containers.Payroll.Payroll.calcValMin": "الحد الادنى للقيمة المحسوبة",
+    "boilerplate.containers.Payroll.Payroll.calcValMax": "الحد الاقصى للقيمة المحسوبة",
+    
+    
+    
+    
+    
+    
+  
+
+
+
+    "boilerplate.containers.Payroll.Payroll.payrollMainParameters": "ثوابت الاجور",
+    "boilerplate.containers.Payroll.Payroll.Department": "القسم",
+    "boilerplate.containers.Payroll.Payroll.TaxeParameters": "الضرائب",
+    "boilerplate.containers.Payroll.Payroll.PersonalExemption": "قيمة الاعفاء الشخصى",
+    "boilerplate.containers.Payroll.Payroll.specialNeedsExemption": "قيمة اعفاء متحدى الاعاقة",
+    "boilerplate.containers.Payroll.Payroll.FirstBracketLimit": "حد الشريحة الاولى",
+    "boilerplate.containers.Payroll.Payroll.FirstBracketTax": "الضريبة على الشريحة الاولى",
+    "boilerplate.containers.Payroll.Payroll.SecondBracketLimit": "حد الشريحة الثانية",
+    "boilerplate.containers.Payroll.Payroll.SecondBracketTax": "الضريبة على الشريحة الثانية",
+    "boilerplate.containers.Payroll.Payroll.ThirdBracketLimit": "حد الشريحة الثالثة",
+    "boilerplate.containers.Payroll.Payroll.ThirdBracketTax": "الضريبة على الشريحة الثالثة",
+    "boilerplate.containers.Payroll.Payroll.FourthBracketLimit": "حد الشريحة الرابعة",
+    "boilerplate.containers.Payroll.Payroll.FourthBracketTax": "الضريبة على الشريحة الرابعة",
+    "boilerplate.containers.Payroll.Payroll.FifthBracketLimit": "حد الشريحة الخامسه",
+    "boilerplate.containers.Payroll.Payroll.FifthBracketTax": "الضريبة على الشريحة الخامسة",
+    "boilerplate.containers.Payroll.Payroll.SixthBracketLimit": "حد الشريحة السادسة",
+    "boilerplate.containers.Payroll.Payroll.SixthBracketTax": "الشريبة على الشريحة السادسة",
+    "boilerplate.containers.Payroll.Payroll.seventhBracketLimit": "حد الشريحة السابعة",
+    "boilerplate.containers.Payroll.Payroll.seventhBracketTax": "الضريبة على الشريحة السابعة",
+    "boilerplate.containers.Payroll.Payroll.EighthBracketLimit": "حد الشريحة الثامنة",
+    "boilerplate.containers.Payroll.Payroll.EighthBracketTax": "الضريبة على الشريحة الثامنة",
+    "boilerplate.containers.Payroll.Payroll.EpidemicsContribution": "Epidemics Contribution",
+    "boilerplate.containers.Payroll.Payroll.DisplayName": "المسمى في شريط القبض",
+    "boilerplate.containers.Payroll.Payroll.FixedElementsSILimit": "الحد الاقصى لربط التامينات على العناصر الثابتة",
+    "boilerplate.containers.Payroll.Payroll.CompanyShare": "حصة الشركة من التامينات",
+    "boilerplate.containers.Payroll.Payroll.TheEmployeesShareOfSI": "حصة الموظف من التامينات على الثابت",
+    "boilerplate.containers.Payroll.Payroll.SocialInsuranceParameters": "التامينات الاجتماعية",
     
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

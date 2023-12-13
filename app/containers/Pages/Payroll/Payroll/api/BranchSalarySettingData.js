@@ -10,18 +10,17 @@ const BranchSalarySettingData = () => {
     return data.data;
   };
 
-//   Apis.Save = async (data) => {
+  Apis.Save = async (data) => {
 
-   
-//       const result = await axiosInstance.post("PayrollLoanSetting/Save", data);
-//       return result;
-//   };
-//   Apis.CopyToAllBranches = async (id) => {
+      const result = await axiosInstance.post("PayrollBranchSallarySetting/Save", data);
+      return result;
+  };
+  Apis.CopyToAllBranches = async (id) => {
 
     
-//       const result = await axiosInstance.post(`PayrollLoanSetting/CopyToAllBranches/${id}`);
-//       return result;
-//   };
+      const result = await axiosInstance.post(`PayrollLoanSetting/CopyToAllBranches/${id}`);
+      return result;
+  };
   
   return Apis;
 };
