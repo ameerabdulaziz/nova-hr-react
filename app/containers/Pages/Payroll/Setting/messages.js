@@ -96,5 +96,16 @@ export default defineMessages({
   resetpassword:{
     id: `${scope}.resetpassword`,
     defaultMessage: 'Reset Password',
-  }
+  },
+
+  // SettingMailSmsForm
+  formTypeName: {
+    id: `${scope}.formTypeName`,
+    defaultMessage: 'formTypeName',
+  },
+
+  subject: {
+    id: `${scope}.subject`,
+    defaultMessage: 'subject',
+  },
 });

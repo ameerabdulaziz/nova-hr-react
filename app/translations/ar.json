@@ -979,6 +979,8 @@
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
   "boilerplate.containers.Payroll.Setting.update": "تعديل",
   "boilerplate.containers.Payroll.Setting.add": "اضافة",
+  "boilerplate.containers.Payroll.Setting.subject": "الموضوع",
+  "boilerplate.containers.Payroll.Setting.formTypeName": "اسم نوع النموذج",
   "boilerplate.containers.Payroll.Setting.view": "عرض",
   "boilerplate.containers.Payroll.Setting.print": "طباعة",
   "boilerplate.containers.Payroll.Setting.favorites": "المفضلة",

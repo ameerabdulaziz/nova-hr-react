@@ -505,6 +505,21 @@ export const SettingResetPassword = loadable(
     fallback: <Loading />,
   }
 );
+
+export const SettingMailSmsForm = loadable(
+  () => import('./Pages/Payroll/Setting/SettingMailSmsForm'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const SettingMailSmsFormCreate = loadable(
+  () => import('./Pages/Payroll/Setting/SettingMailSmsFormCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // HR////////////////////////////////////////////////////////////////////////////////////////
 
 export const TrainingCenter = loadable(
