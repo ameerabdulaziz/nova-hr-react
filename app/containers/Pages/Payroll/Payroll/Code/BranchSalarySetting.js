@@ -280,6 +280,7 @@ function BranchSalarySetting(props) {
                             <TextField
                                 name="PersonalExemption"
                                 id="PersonalExemption"
+                                type="number"
                                 placeholder={intl.formatMessage(messages.PersonalExemption)}
                                 label={intl.formatMessage(messages.PersonalExemption)}
                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -301,6 +302,7 @@ function BranchSalarySetting(props) {
                             <TextField
                                 name="specialNeedsExemption"
                                 id="specialNeedsExemption"
+                                type="number"
                                 placeholder={intl.formatMessage(messages.specialNeedsExemption)}
                                 label={intl.formatMessage(messages.specialNeedsExemption)}
                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -332,6 +334,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="FirstBracketLimit"
                                                 id="FirstBracketLimit"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.FirstBracketLimit)}
                                                 label={intl.formatMessage(messages.FirstBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -351,6 +354,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="FirstBracketTax"
                                                 id="FirstBracketTax"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.FirstBracketTax)}
                                                 label={intl.formatMessage(messages.FirstBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -377,6 +381,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="SecondBracketLimit"
                                                 id="SecondBracketLimit"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.SecondBracketLimit)}
                                                 label={intl.formatMessage(messages.SecondBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -396,6 +401,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="SecondBracketTax"
                                                 id="SecondBracketTax"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.SecondBracketTax)}
                                                 label={intl.formatMessage(messages.SecondBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -430,6 +436,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="ThirdBracketLimit"
                                                 id="ThirdBracketLimit"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.ThirdBracketLimit)}
                                                 label={intl.formatMessage(messages.ThirdBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -449,6 +456,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="ThirdBracketTax"
                                                 id="ThirdBracketTax"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.ThirdBracketTax)}
                                                 label={intl.formatMessage(messages.ThirdBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -475,6 +483,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="FourthBracketLimit"
                                                 id="FourthBracketLimit"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.FourthBracketLimit)}
                                                 label={intl.formatMessage(messages.FourthBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -494,6 +503,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="FourthBracketTax"
                                                 id="FourthBracketTax"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.FourthBracketTax)}
                                                 label={intl.formatMessage(messages.FourthBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -528,6 +538,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="FifthBracketLimit"
                                                 id="FifthBracketLimit"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.FifthBracketLimit)}
                                                 label={intl.formatMessage(messages.FifthBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -547,6 +558,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="FifthBracketTax"
                                                 id="FifthBracketTax"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.FifthBracketTax)}
                                                 label={intl.formatMessage(messages.FifthBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -573,6 +585,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="SixthBracketLimit"
                                                 id="SixthBracketLimit"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.SixthBracketLimit)}
                                                 label={intl.formatMessage(messages.SixthBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -592,6 +605,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="SixthBracketTax"
                                                 id="SixthBracketTax"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.SixthBracketTax)}
                                                 label={intl.formatMessage(messages.SixthBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -626,6 +640,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="seventhBracketLimit"
                                                 id="seventhBracketLimit"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.seventhBracketLimit)}
                                                 label={intl.formatMessage(messages.seventhBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -645,6 +660,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="seventhBracketTax"
                                                 id="seventhBracketTax"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.seventhBracketTax)}
                                                 label={intl.formatMessage(messages.seventhBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -671,6 +687,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="EighthBracketLimit"
                                                 id="EighthBracketLimit"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.EighthBracketLimit)}
                                                 label={intl.formatMessage(messages.EighthBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -690,6 +707,7 @@ function BranchSalarySetting(props) {
                                             <TextField
                                                 name="EighthBracketTax"
                                                 id="EighthBracketTax"
+                                                type="number"
                                                 placeholder={intl.formatMessage(messages.EighthBracketTax)}
                                                 label={intl.formatMessage(messages.EighthBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -731,6 +749,7 @@ function BranchSalarySetting(props) {
                             <TextField
                                 name="EpidemicsContribution"
                                 id="EpidemicsContribution"
+                                type="number"
                                 placeholder={intl.formatMessage(messages.EpidemicsContribution)}
                                 label={intl.formatMessage(messages.EpidemicsContribution)}
                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -759,6 +778,7 @@ function BranchSalarySetting(props) {
                             <TextField
                                 name="DisplayName"
                                 id="DisplayName"
+                                type="number"
                                 placeholder={intl.formatMessage(messages.DisplayName)}
                                 label={intl.formatMessage(messages.DisplayName)}
                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -808,6 +828,7 @@ function BranchSalarySetting(props) {
                             <TextField
                                 name="FixedElementsSILimit"
                                 id="FixedElementsSILimit"
+                                type="number"
                                 placeholder={intl.formatMessage(messages.FixedElementsSILimit)}
                                 label={intl.formatMessage(messages.FixedElementsSILimit)}
                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -827,6 +848,7 @@ function BranchSalarySetting(props) {
                             <TextField
                                 name="CompanyShare"
                                 id="CompanyShare"
+                                type="number"
                                 placeholder={intl.formatMessage(messages.CompanyShare)}
                                 label={intl.formatMessage(messages.CompanyShare)}
                                 className={`${classes.field} ${style.fieldsSty}`}
@@ -854,6 +876,7 @@ function BranchSalarySetting(props) {
                             <TextField
                                 name="TheEmployeesShareOfSI"
                                 id="TheEmployeesShareOfSI"
+                                type="number"
                                 placeholder={intl.formatMessage(messages.TheEmployeesShareOfSI)}
                                 label={intl.formatMessage(messages.TheEmployeesShareOfSI)}
                                 className={`${classes.field} ${style.fieldsSty}`}
