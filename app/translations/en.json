@@ -956,6 +956,7 @@
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
   "boilerplate.containers.Payroll.Setting.delete": "Delete",
   "boilerplate.containers.Payroll.Setting.subject": "Subject",
+  "boilerplate.containers.Payroll.Setting.addDecorator": "Add Decorator",
   "boilerplate.containers.Payroll.Setting.formTypeName": "Form Type Name",
   "boilerplate.containers.Payroll.Setting.update": "Update",
   "boilerplate.containers.Payroll.Setting.add": "Add",

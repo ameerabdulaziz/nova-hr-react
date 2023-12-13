@@ -978,6 +978,7 @@
   "boilerplate.containers.Payroll.Setting.menuName": "اسم القائمة",
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
   "boilerplate.containers.Payroll.Setting.update": "تعديل",
+  "boilerplate.containers.Payroll.Setting.addDecorator": "إضافة ديكوريتور",
   "boilerplate.containers.Payroll.Setting.add": "اضافة",
   "boilerplate.containers.Payroll.Setting.subject": "الموضوع",
   "boilerplate.containers.Payroll.Setting.formTypeName": "اسم نوع النموذج",

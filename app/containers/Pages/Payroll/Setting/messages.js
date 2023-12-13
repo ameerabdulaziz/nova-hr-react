@@ -108,4 +108,8 @@ export default defineMessages({
     id: `${scope}.subject`,
     defaultMessage: 'subject',
   },
+  addDecorator: {
+    id: `${scope}.addDecorator`,
+    defaultMessage: 'addDecorator',
+  },
 });

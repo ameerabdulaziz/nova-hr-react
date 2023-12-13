@@ -23,6 +23,8 @@ import payrollMessages from '../../messages';
 import api from '../api/JobOfferData';
 import messages from '../messages';
 
+import 'react-quill/dist/quill.snow.css';
+
 function JobOfferCreate(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -41,6 +43,35 @@ function JobOfferCreate(props) {
   const [salaryStructureList, setSalaryStructureList] = useState([]);
   const [salaryElementsList, setSalaryElementsList] = useState([]);
   const [selectedSalaryList, setSelectedSalaryList] = useState([]);
+
+  const [isPrintLoading, setIsPrintLoading] = useState(false);
+  const documentTitle = 'Job Offer ' + format(new Date(), 'yyyy-MM-dd hh_mm_ss');
+
+  const onBeforeGetContent = () => {
+    setIsPrintLoading(true);
+  };
+
+  const onAfterPrint = () => {
+    setIsPrintLoading(false);
+  };
+
+  const onPrintError = () => {
+    setIsPrintLoading(false);
+  };
+
+  const printDivRef = useRef(null);
+
+  const printJS = useReactToPrint({
+    content: () => printDivRef?.current,
+    onBeforeGetContent,
+    onAfterPrint,
+    onPrintError,
+    documentTitle,
+  });
+
+  const onPrintClick = async () => {
+    printJS();
+  };
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -492,9 +523,33 @@ function JobOfferCreate(props) {
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={1}>
-                  <PrintJS
-                    body={'<div contenteditable="true" translate="no" class="ProseMirror" tabindex="0" spellcheck="false"><h2 style="text-align: center">Welcome to Circle rich text editor 💯</h2><p><code>Editor</code> focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. Supports all of its features:</p><ul><li><p>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s></p></li><li><p>Headings (h1-h6)</p></li><li><p>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</p></li><li><p>Ordered and bullet lists</p></li><li><p>Text align (left, center, justify, right)</p></li><li><p>Words &amp; characters counter</p></li><li><p>Horizontal line &amp; Line break &amp; Blockquote</p></li><li><p><a target="_blank" rel="noopener noreferrer nofollow" class="text-aurora no-underline hover:underline text-aurora no-underline hover:underline text-aurora no-underline hover:underline" href="https://mantine-lime.vercel.app/">Link</a> &amp; Unlink text.</p></li><li><p>Emoji picker 😀</p></li><li><p><span style="font-family: Tajawal, sans-serif;text-align: right">يدعم اللغة العربية</span></p></li></ul><p><br><br class="ProseMirror-trailingBreak"></p><p>With the Typography extension, The editor understands &gt;&gt; what you mean &lt;&lt; and adds correct characters to your text — it\'s like a "typography nerd" on your side.</p><p>Try it out and type <code>(c)</code>, <code>-&gt;</code>, <code>&gt;&gt;</code>, <code>1/2</code>, <code>!=</code>, <code>--</code> or <code>1x1</code> here:</p><p><br><br class="ProseMirror-trailingBreak"></p></div>'}
-                  />
+                  <LoadingButton
+                    onClick={onPrintClick}
+                    color='primary'
+                    loading={isPrintLoading}
+                    variant='outlined'
+                  >
+                    <FormattedMessage {...payrollMessages.Print} />
+                  </LoadingButton>
+
+                  <Box
+                    ref={printDivRef}
+                    sx={{
+                      display: 'none',
+                      '@media print': {
+                        display: 'block',
+                      },
+                      p: 4,
+                    }}
+                  >
+                    <div className='ql-snow' style={{ direction: 'ltr' }} >
+                      <div className='ql-editor'>
+                        {parse(
+                          '<p>Dear&nbsp;Mr/Mrs.&nbsp; @Name@</p><p><br></p><p>Pursuant to the discretion and approvals of the Upper Management of Arkas Egyptwe desire to work with you under the extent of following general details, title,and salary regarding our relevant open position at Arkas Egypt.</p><p><br></p><p>If you should accept our offer, we’re pleased to inform you that your employment will commence as of&nbsp; @job@</p><p><br></p><p><br></p><p><strong>Title</strong>:&nbsp;@job@</p><p><strong>Starting Date</strong>:&nbsp;06 December 2023</p><p><strong>Salary</strong>:&nbsp;@salary@&nbsp;EGP Net Monthly(to be paid monthly by direct deposit.)</p><p><strong>Benefits</strong>:&nbsp;We are offering you the following benefits (after 3 months’ probation period)</p><p><br></p><p><br></p><ul><li>21 days’ annual vacations (starting after 6 months from your hiring date)</li><li>2 monthly permission (2 hours / permission)</li><li>Medical insurance (AXA)</li><li>Bounces (Ramadan – Eid El-Fitr –Eid El-Adha – Arabic new year - Birth of the Prophet - Financial year bonus)</li><li>Social insurance</li></ul><p><br></p><p><br></p><p><strong>Reports to</strong>:&nbsp;Mr/Mrs&nbsp;Eman Hussain Al Hamdan</p><p><strong>Duration</strong>:&nbsp;غير محدد المدة</p><p><strong>Probation Period</strong>:&nbsp;3 months starting from the first working day.</p><p><br></p><p><br></p><p>After expiration of the probationary period, this clause ends automatically, without any advancenotice on.</p><p><br></p><p>This letter is not a contract or guarantee of employment for a definite amount of time.</p><p><br></p><p>We expect you to confirm your acceptance by signing, dating, and returning the copy of this letter. You are expected to respond not later than&nbsp;16 December 2023</p><p><br></p><p>We look forward to having you on board!</p><p><br></p><p><strong>Kind Regards,</strong></p><p><strong>Esraa Shawky</strong></p><p><strong>HR Supervisor</strong></p>'
+                        )}
+                      </div>
+                    </div>
+                  </Box>
                 </Grid>
                 <Grid item xs={12} md={1}>
                   <Button
@@ -525,88 +580,6 @@ function JobOfferCreate(props) {
     </PayRollLoader>
   );
 }
-
-const PrintJS = injectIntl((props) => {
-  const { body = '' } = props;
-
-  const [isLoading, setIsLoading] = useState(false);
-  const documentTitle =		'Job Offer ' + format(new Date(), 'yyyy-MM-dd hh_mm_ss');
-
-  const onBeforeGetContent = () => {
-    setIsLoading(true);
-  };
-
-  const onAfterPrint = () => {
-    setIsLoading(false);
-  };
-
-  const onPrintError = () => {
-    setIsLoading(false);
-  };
-
-  const printDivRef = useRef(null);
-
-  const printJS = useReactToPrint({
-    content: () => printDivRef?.current,
-    onBeforeGetContent,
-    onAfterPrint,
-    onPrintError,
-    documentTitle,
-  });
-
-  const onPrintClick = async () => {
-    printJS();
-  };
-
-  return (
-    <>
-      <LoadingButton
-        onClick={onPrintClick}
-        color='primary'
-        loading={isLoading}
-        variant='outlined'
-      >
-        <FormattedMessage {...payrollMessages.Print} />
-      </LoadingButton>
-
-      <Box
-        ref={printDivRef}
-        sx={{
-          display: 'none',
-          '@media print': {
-            display: 'block',
-          },
-          p: 4,
-          ul: {
-            listStyleType: 'disc',
-            px: '1rem',
-          },
-          ol: {
-            listStyleType: 'decimal',
-            px: '1rem',
-          },
-          '& > p': {
-            mb: '0.3rem',
-          },
-          code: {
-            fontFamily: 'monospace',
-            overflowWrap: 'break-word',
-            background: 'rgb(241, 241, 241)',
-            borderRadius: '3px',
-            padding: '1px 3px',
-          },
-        }}
-      >
-        {parse(body)}
-      </Box>
-    </>
-  );
-});
-
-PrintJS.propTypes = {
-  intl: PropTypes.object.isRequired,
-  body: PropTypes.string.isRequired,
-};
 
 JobOfferCreate.propTypes = {
   intl: PropTypes.object.isRequired,

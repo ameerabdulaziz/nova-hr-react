@@ -1,27 +1,20 @@
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import {
   Autocomplete,
-  Box,
   Button,
   Grid,
-  IconButton,
   Menu,
   MenuItem,
-  TextField
+  TextField,
 } from '@mui/material';
-import { EditorState, Modifier } from 'draft-js';
-import { stateToHTML } from 'draft-js-export-html';
-import { stateFromHTML } from 'draft-js-import-html';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
-import useEmailStyles from 'enl-components/Email/email-jss';
 import 'enl-styles/vendors/react-draft-wysiwyg/react-draft-wysiwyg.css';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { Editor } from 'react-draft-wysiwyg';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import ReactQuill from 'react-quill';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import PayRollLoader from '../Component/PayRollLoader';
@@ -29,18 +22,21 @@ import payrollMessages from '../messages';
 import api from './api/SettingMailSmsFormData';
 import messages from './messages';
 
+import 'react-quill/dist/quill.snow.css';
+
 function SettingMailSmsFormCreate(props) {
   const { intl } = props;
-  const { classes: emailClasses } = useEmailStyles();
   const location = useLocation();
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
   const id = location.state?.id ?? 0;
+  const reactQuillRef = useRef(null);
 
   const title = localStorage.getItem('MenuName');
 
   const [formTypesList, setFormTypesList] = useState([]);
-  const [dropdownList, setDropdownList] = useState([]);
+  const [decoratorList, setDecoratorList] = useState([]);
+  const [decoratorMenuAnchorEl, setDecoratorMenuAnchorEl] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -49,29 +45,24 @@ function SettingMailSmsFormCreate(props) {
 
     formTypeId: null,
     subject: '',
-    body: EditorState.createEmpty(),
+    body: '',
   });
 
   useEffect(() => {
     if (formInfo.formTypeId) {
-      setDropdownList(formTypesList.find(
-        (item) => item.id === formInfo.formTypeId
-      )?.keyList);
+      setDecoratorList(
+        formTypesList.find((item) => item.id === formInfo.formTypeId)?.keyList
+      );
     }
   }, [formInfo.formTypeId]);
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const formData = {
-      ...formInfo,
-      body: stateToHTML(formInfo.body.getCurrentContent()),
-    };
-
     setIsLoading(true);
 
     try {
-      await api(locale).save(formData);
+      await api(locale).save(formInfo);
       toast.success(notif.saved);
       history.push('/app/Pages/Setting/SettingMailSmsForm');
     } catch (error) {
@@ -90,11 +81,7 @@ function SettingMailSmsFormCreate(props) {
 
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
-
-        setFormInfo({
-          ...dataApi,
-          body: EditorState.createWithContent(stateFromHTML(dataApi.body)),
-        });
+        setFormInfo(dataApi);
       }
     } catch (error) {
       //
@@ -130,6 +117,26 @@ function SettingMailSmsFormCreate(props) {
 
   const onCancelBtnClick = () => {
     history.push('/app/Pages/Setting/SettingMailSmsForm');
+  };
+
+  const onAddDecoratorBtnClick = (event) => {
+    setDecoratorMenuAnchorEl(event.currentTarget);
+  };
+  const closeDecoratorDropdown = () => {
+    setDecoratorMenuAnchorEl(null);
+  };
+
+  const onDecoratorItemClick = async (key) => {
+    if (reactQuillRef.current) {
+      const cursorPosition = reactQuillRef.current.getSelection()?.index;
+
+      if (cursorPosition) {
+        reactQuillRef.current.insertText(cursorPosition, key);
+        reactQuillRef.current.setSelection(cursorPosition + 1);
+      }
+    }
+
+    closeDecoratorDropdown();
   };
 
   return (
@@ -176,21 +183,92 @@ function SettingMailSmsFormCreate(props) {
             </Grid>
 
             <Grid item xs={12}>
-              <Editor
-                editorState={formInfo.body}
-                editorClassName={emailClasses.textEditor}
-                toolbarClassName={emailClasses.toolbarEditor}
-                onEditorStateChange={onEditorChange}
-                toolbar={{
-                  options: [
-                    'inline',
-                    'blockType',
-                    'fontSize',
-                    'list',
-                    'textAlign',
-                  ],
+              {decoratorList.length > 0 && (
+                <Button
+                  variant='contained'
+                  size='medium'
+                  color='primary'
+                  onClick={onAddDecoratorBtnClick}
+                  sx={{ mb: 2 }}
+                >
+                  {intl.formatMessage(messages.addDecorator)}
+                </Button>
+              )}
+
+              <Menu
+                anchorEl={decoratorMenuAnchorEl}
+                open={Boolean(decoratorMenuAnchorEl)}
+                onClose={closeDecoratorDropdown}
+                slotProps={{
+                  paper: {
+                    elevation: 0,
+                    sx: {
+                      overflow: 'visible',
+                      minWidth: 200,
+                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                      mt: 1.5,
+                      '& .MuiAvatar-root': {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                      },
+                      '&:before': {
+                        content: '""',
+                        display: 'block',
+                        position: 'absolute',
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: 'background.paper',
+                        transform: 'translateY(-50%) rotate(45deg)',
+                        zIndex: 0,
+                      },
+                    },
+                  },
                 }}
-                toolbarCustomButtons={[<MentionDropdown key='mention' dropdownList={dropdownList} />]}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              >
+                {decoratorList.map((item) => (
+                  <MenuItem
+                    onClick={() => onDecoratorItemClick(item.key)}
+                    key={item.id}
+                  >
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Menu>
+
+              <ReactQuill
+                theme='snow'
+                value={formInfo.body}
+                onChange={onEditorChange}
+                style={{
+                  direction: 'ltr',
+                }}
+                modules={{
+                  toolbar: {
+                    container: [
+                      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                      [
+                        { list: 'ordered' },
+                        { list: 'bullet' },
+                        { indent: '-1' },
+                        { indent: '+1' },
+                      ],
+                      [{ script: 'sub' }, { script: 'super' }],
+                      [{ color: [] }, { background: [] }],
+                      ['link'],
+                      [{ direction: 'rtl' }, 'clean'],
+                    ],
+                  },
+                }}
+                ref={(ref) => {
+                  reactQuillRef.current = ref?.getEditor();
+                }}
               />
             </Grid>
 
@@ -223,133 +301,21 @@ function SettingMailSmsFormCreate(props) {
         </form>
       </PapperBlock>
 
-      <PapperBlock
-        whiteBg
-        icon='border_color'
-        desc=''
-        title={intl.formatMessage(payrollMessages.preview)}
-      >
-        <Box
-          sx={{
-          // display: 'none',
-            '@media print': {
-              display: 'block',
-            },
-            ul: {
-              listStyleType: 'disc',
-              px: '1rem',
-            },
-            ol: {
-              listStyleType: 'decimal',
-              px: '1rem',
-            },
-            '& > p': {
-              mb: '0.3rem'
-            },
-            code: {
-              fontFamily: 'monospace',
-              overflowWrap: 'break-word',
-              background: 'rgb(241, 241, 241)',
-              borderRadius: '3px',
-              padding: '1px 3px',
-            }
-          }}
+      {formInfo.body && (
+        <PapperBlock
+          whiteBg
+          icon='border_color'
+          desc=''
+          title={intl.formatMessage(payrollMessages.preview)}
         >
-          {parse(stateToHTML(formInfo.body.getCurrentContent()))}
-        </Box>
-      </PapperBlock>
+          <div className='ql-snow' style={{ direction: 'ltr' }} >
+            <div className='ql-editor'>{parse(formInfo.body)}</div>
+          </div>
+        </PapperBlock>
+      )}
     </PayRollLoader>
   );
 }
-
-const MentionDropdown = (props) => {
-  const { editorState, onChange, dropdownList = [] } = props;
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const onBtnClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const closeDropdown = () => {
-    setAnchorEl(null);
-  };
-
-  const onItemClick = async (key) => {
-    const contentState = Modifier.replaceText(
-      editorState.getCurrentContent(),
-      editorState.getSelection(),
-      key,
-      editorState.getCurrentInlineStyle(),
-    );
-
-    await onChange(EditorState.push(editorState, contentState, 'insert-characters'));
-
-    closeDropdown();
-  };
-
-  if (dropdownList.length === 0) { return null; }
-
-  return (
-    <>
-      <IconButton onClick={onBtnClick}>
-        <AlternateEmailIcon />
-      </IconButton>
-
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={closeDropdown}
-        slotProps={{
-          paper: {
-            elevation: 0,
-            sx: {
-              overflow: 'visible',
-              minWidth: 200,
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '& .MuiAvatar-root': {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              '&:before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
-            },
-          }
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-
-        {
-          dropdownList.map((item) => (
-            <MenuItem onClick={() => onItemClick(item.key)} key={item.id} >
-              {item.name}
-            </MenuItem>
-          ))
-        }
-
-      </Menu>
-    </>
-
-  );
-};
-
-MentionDropdown.propTypes = {
-  editorState: PropTypes.object,
-  dropdownList: PropTypes.array.isRequired,
-  onChange: PropTypes.func,
-};
 
 SettingMailSmsFormCreate.propTypes = {
   intl: PropTypes.object.isRequired,
