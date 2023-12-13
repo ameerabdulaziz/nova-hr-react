@@ -11,46 +11,54 @@ import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../messages';
-import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
 import GeneralListApis from '../../api/GeneralListApis'; 
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from "date-fns";
-import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SaveButton from '../../Component/SaveButton';
 import PayRollLoader from '../../Component/PayRollLoader';
-
 import {Box, Card ,CardContent, InputAdornment } from "@mui/material";
-
-
 
 
 
 function BranchSalarySetting(props) {
   const [id, setid] = useState(0);
-  const [vacationDesEN, setVacationDesEN] = useState('');
-  const [vacationDesAR, setVacationDesAR] = useState('');
-  const [element, setElement] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
-  const [ElementsData, setElementsData] = useState([]);
-  const [date, setDate] = useState(null);
   const { state } = useLocation()
-  const  ID  = state?.id
   const history=useHistory(); 
   const { intl } = props;
-  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-  const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const { classes } = useStyles();
   const [BranchList, setBranchList] = useState([]);
-  const [brCode, setBrCode] = useState();
+  const [brCode, setBrCode] = useState(null);
+  const [data, setdata] = useState({
+    PersonalExemption: "",
+    specialNeedsExemption: "",
+    FirstBracketLimit: "",
+    FirstBracketTax: "",
+    SecondBracketLimit: "",
+    SecondBracketTax: "",
+    ThirdBracketLimit: "",
+    ThirdBracketTax: "",
+    FourthBracketLimit: "",
+    FourthBracketTax: "",
+    FifthBracketLimit: "",
+    FifthBracketTax: "",
+    SixthBracketLimit: "",
+    SixthBracketTax: "",
+    seventhBracketLimit: "",
+    seventhBracketTax: "",
+    EighthBracketLimit: "",
+    EighthBracketTax: "",
+    EpidemicsContribution: "",
+    DisplayName: "",
+    FixedElementsSILimit: "",
+    CompanyShare: "",
+    TheEmployeesShareOfSI: "",
+  });
 
 
 
@@ -60,109 +68,85 @@ function BranchSalarySetting(props) {
     setIsLoading(true)
     setProcessing(true)
 
-    let elementsData = ""
-// used to reformat elements data ( combobox ) before send it to api
-    element.map((ele, index)=>{
-      elementsData+= `${ele.id}`
-      if(index + 1 !== element.length)
-      {
-        elementsData+= ","
-      }
-    })
-
-
-    const data = {
-      id: id,
-      arName: vacationDesAR ? vacationDesAR : "",
-      enName: vacationDesEN ? vacationDesEN : "",
-      vacationDate: date,
-      parsId: elementsData,
+    const apiData = {
+      brCode: brCode,
+      personalexemption: data.PersonalExemption,
+      personalexemption2:  data.specialNeedsExemption,
+      firstbracketlimit:  data.FirstBracketLimit,
+      firstbrackettax:  data.FirstBracketTax,
+      secondbracketlimit:  data.SecondBracketLimit,
+      secondbrackettax: data.SecondBracketTax,
+      thirdbracketlimit:  data.ThirdBracketLimit,
+      thirdbrackettax: data.ThirdBracketTax,
+      fourthbracketlimit: data.FourthBracketLimit,
+      fourthbracketTax:  data.FourthBracketTax,
+      fifthbracketlimit: data.FifthBracketLimit,
+      fifthbracketTax:  data.FifthBracketTax,
+      bracketlimit6: data.SixthBracketLimit,
+      bracketTax6:  data.SixthBracketTax,
+      bracketlimit7:  data.seventhBracketLimit,
+      bracketTax7:   data.seventhBracketTax,
+      bracketlimit8: data.EighthBracketLimit,
+      bracketTax8:  data.EighthBracketTax,
+      covidP:  data.EpidemicsContribution,
+      covidLbl:   data.DisplayName,
+      fixedElementsSilimit:  data.FixedElementsSILimit,
+      fixedElementsCompRate:  data.CompanyShare,
+      fixedElementsEmpRate:  data.TheEmployeesShareOfSI,
     };
 
 
+    try {
+      let response = await BranchSalarySettingData().Save(apiData);
 
-
-    // try {
-    //   let response = await OfficialVacationsData().Save(data);
-
-    //   if (response.status==200) {
-    //     toast.success(notif.saved);
-    //     history.push(`/app/Pages/vac/OfficialVacations`);
-    //   } else {
-    //       toast.error(response.statusText);
-    //   }
-    //   setIsLoading(false)
-    //   setProcessing(false)
-    // } catch (err) {
-    //   //
-    // } finally {
-    //   setIsLoading(false)
-    //   setProcessing(false)
-    // }
+      if (response.status==200) {
+        toast.success(notif.saved);
+        setBrCode(null)
+        setdata({
+          PersonalExemption: "",
+          specialNeedsExemption: "",
+          FirstBracketLimit: "",
+          FirstBracketTax: "",
+          SecondBracketLimit: "",
+          SecondBracketTax: "",
+          ThirdBracketLimit: "",
+          ThirdBracketTax: "",
+          FourthBracketLimit: "",
+          FourthBracketTax: "",
+          FifthBracketLimit: "",
+          FifthBracketTax: "",
+          SixthBracketLimit: "",
+          SixthBracketTax: "",
+          seventhBracketLimit: "",
+          seventhBracketTax: "",
+          EighthBracketLimit: "",
+          EighthBracketTax: "",
+          EpidemicsContribution: "",
+          DisplayName: "",
+          FixedElementsSILimit: "",
+          CompanyShare: "",
+          TheEmployeesShareOfSI: "",
+        })
+      } else {
+          toast.error(response.statusText);
+      }
+      setIsLoading(false)
+      setProcessing(false)
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false)
+      setProcessing(false)
+    }
     
   };
  
-
-
-const getdata =  async () => {
-  setIsLoading(true);
-
-  try {
-    const elements = await GeneralListApis(locale).GetControlParameterList(locale);    
-  
-    setElementsData(elements)
-  } catch (error) {
-    //
-  } finally {
-    setIsLoading(false);
-  }
-};
-
-const getEditdata =  async () => {
-  setIsLoading(true);
-
-//   try {
-//     const data =  await OfficialVacationsData().GetDataById(ID,locale);
-
-
-//     setid(data ? data.id : "")
-//     setDate(data ? data.vacationDate : "") 
-//     setVacationDesAR(data ? data.arName : "")
-//     setVacationDesEN(data ? data.enName : "")
-//     setElement(data ? data.controlParameterList: "")
-//   } catch (error) {
-//     //
-//   } finally {
-//     setIsLoading(false);
-//   }
-};
-
-
-useEffect(() => {
-  getdata();
-}, []);
-
-useEffect(() => {
-  if(ID)
-  {
-    getEditdata()
-  }
-  }, [ID]);
-
-
-
-  function oncancel(){
-    history.push(`/app/Pages/vac/OfficialVacations`);
-  }
-
-
 
   async function fetchData() {
     try {
       const list1 = await GeneralListApis(locale).GetBranchList();
       setBranchList(list1);
     } catch (err) {
-      console.log("err =", err)
     } finally {
       setIsLoading(false);
     }
@@ -176,80 +160,101 @@ useEffect(() => {
 
  const departmentChangeFun = async (id) => {
     if (id) {
-      const list = await BranchSalarySettingData().Get(id);
+      const dataList = await BranchSalarySettingData().Get(id);
 
-      // setdata({
-      //   brCode: 0,
-      //   payTemplateId: 0,
-      //   payTemplateElementId: 0,
-      //   debtElemId: 0,
-      //   purchElemId: 0,
-      //   safeId: 0,
-      //   smalloanLimit: "",
-      //   autoToSafe: false,
-      // });
+      setdata({
+        PersonalExemption: dataList.personalexemption  ? dataList.personalexemption : "",
+        specialNeedsExemption: dataList.personalexemption2  ? dataList.personalexemption2 : "" ,
+        FirstBracketLimit: dataList.firstbracketlimit  ? dataList.firstbracketlimit : "" ,
+        FirstBracketTax: dataList.firstbrackettax  ? dataList.firstbrackettax : "" ,
+        SecondBracketLimit: dataList.secondbracketlimit  ? dataList.secondbracketlimit : "" ,
+        SecondBracketTax: dataList.secondbrackettax  ? dataList.secondbrackettax : "" ,
+        ThirdBracketLimit: dataList.thirdbracketlimit  ? dataList.thirdbracketlimit : "" ,
+        ThirdBracketTax: dataList.thirdbrackettax  ? dataList.thirdbrackettax : "" ,
+        FourthBracketLimit: dataList.fourthbracketlimit  ? dataList.fourthbracketlimit : "" ,
+        FourthBracketTax: dataList.fourthbracketTax  ? dataList.fourthbracketTax : "" ,
+        FifthBracketLimit: dataList.fifthbracketlimit  ? dataList.fifthbracketlimit : "" ,
+        FifthBracketTax: dataList.fifthbracketTax  ? dataList.fifthbracketTax : "" ,
+        SixthBracketLimit: dataList.bracketlimit6  ? dataList.bracketlimit6 : "" ,
+        SixthBracketTax: dataList.bracketTax6  ? dataList.bracketTax6 : "" ,
+        seventhBracketLimit: dataList.bracketlimit7  ? dataList.bracketlimit7 : "" ,
+        seventhBracketTax: dataList.bracketTax7  ? dataList.bracketTax7 : "" ,
+        EighthBracketLimit: dataList.bracketlimit8  ? dataList.bracketlimit8 : "" ,
+        EighthBracketTax: dataList.bracketTax8  ? dataList.bracketTax8 : "" ,
+        EpidemicsContribution: dataList.covidP  ? dataList.covidP : "" ,
+        DisplayName: dataList.covidLbl  ? dataList.covidLbl : "" ,
+        FixedElementsSILimit: dataList.fixedElementsSilimit  ? dataList.fixedElementsSilimit : "" ,
+        CompanyShare: dataList.fixedElementsCompRate  ? dataList.fixedElementsCompRate : "" ,
+        TheEmployeesShareOfSI: dataList.fixedElementsEmpRate  ? dataList.fixedElementsEmpRate : "",
+      });
     }
   }
 
-console.log("brCode =", brCode)
+
+
+  async function onCopy() {
+    
+    try {
+      setIsLoading(true);
+      let response = await BranchSalarySettingData().CopyToAllBranches(brCode);
+
+      if (response.status == 200) {
+        toast.success(notif.saved);
+      } else {
+        toast.error(response.statusText);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
 
       <PapperBlock whiteBg icon="border_color" 
-          title={
-            "BranchSalarySetting"
-            // ID ?  
-            //         intl.formatMessage(messages.EditOfficialVacation)
-            //       :  
-            //         intl.formatMessage(messages.CreateOfficialVacation)
-               } 
+          title={ intl.formatMessage(messages.payrollMainParameters)  } 
           desc={""}>
             <form onSubmit={handleSubmit}>
 
-
-
-
-            <Grid item xs={12} md={6}>
-              <Autocomplete
-                id="brCode"
-                options={BranchList}
-                // value={
-                //   BranchList.find((item) => item.id === data.brCode) || null
-                // }
-                isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === "" || option.id === value.id
-                }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
-                // onChange={(event, value) => {
-                //   // getLoanSetting(value !== null ? value.id : null);
-                //   // setdata((prevFilters) => ({
-                //   //   ...prevFilters,
-                //   //   brCode: value !== null ? value.id : null,
-                //   // }));
-                //   setBrCode(value !== null ? value.id : null)
-                // }}
-                onChange={(event, value) => {
-                  setBrCode(value !== null ? value.id : null)
-                  departmentChangeFun(value !== null ? value.id : null)
-              }}
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="brCode"
-                    required
-                    label={intl.formatMessage(Payrollmessages.organizationName)}
+            <Grid
+              container
+              spacing={3}
+              alignItems="flex-start"
+              direction="row">
+                <Grid item xs={12} md={3}>
+                  <Autocomplete
+                    id="brCode"
+                    options={BranchList}
+                    value={
+                      
+                      BranchList.find((item) => item.id === brCode) || null
+                    }
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" || option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option.name ? option.name : "")}
+                    onChange={(event, value) => {
+                      setBrCode(value !== null ? value.id : null)
+                      departmentChangeFun(value !== null ? value.id : null)
+                  }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        name="brCode"
+                        required
+                        label={intl.formatMessage(messages.Department)}
+                      />
+                    )}
                   />
-                )}
-              />
+                </Grid>
             </Grid>
  
 
-
-
-  <Box component="fieldset" style={{border: "1px solid #c4c4c4", padding: "30px", paddingTop: "40px", width: "45%"}}>
-      <legend>Taxe parameters</legend>
+  <Box component="fieldset" style={{border: "1px solid #c4c4c4", padding: "30px", paddingTop: "40px", marginTop: "20px"}}>
+      <legend><FormattedMessage {...messages.TaxeParameters} /></legend>
       
         <Grid
               container
@@ -264,28 +269,29 @@ console.log("brCode =", brCode)
                     className={style.gridSty}
                     > 
 
-                        <Grid item xs={12}  md={12} 
+                        <Grid item xs={12}  md={6} 
                         container
                         spacing={3}
                         alignItems="flex-start"
                         direction="row"
-                        // className={style.gridSty}
                         > 
                             
                         <Grid item xs={12}  md={6}> 
                             <TextField
                                 name="PersonalExemption"
                                 id="PersonalExemption"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                placeholder="Personal exemption"
-                                label="Personal exemption"
-                                // required
+                                placeholder={intl.formatMessage(messages.PersonalExemption)}
+                                label={intl.formatMessage(messages.PersonalExemption)}
                                 className={`${classes.field} ${style.fieldsSty}`}
                                 margin="normal"
                                 variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                value={data.PersonalExemption}
+                                onChange={(e) => {
+                                  setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    PersonalExemption: e.target.value,
+                                  }));
+                                }}
                             />
                         </Grid>
 
@@ -295,22 +301,22 @@ console.log("brCode =", brCode)
                             <TextField
                                 name="specialNeedsExemption"
                                 id="specialNeedsExemption"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                placeholder="Special Needs Exemption"
-                                label="Special Needs Exemption"
-                                // required
+                                placeholder={intl.formatMessage(messages.specialNeedsExemption)}
+                                label={intl.formatMessage(messages.specialNeedsExemption)}
                                 className={`${classes.field} ${style.fieldsSty}`}
                                 margin="normal"
                                 variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                value={data.specialNeedsExemption}
+                                onChange={(e) => {
+                                  setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    specialNeedsExemption: e.target.value,
+                                  }));
+                                }}
                             />
                         </Grid>
 
                         </Grid>
-
-                        {/* <Grid item xs={12}  md={12}></Grid> */}
 
                         <Grid item xs={12}  md={12}> 
                             <Card className={classes.card}>
@@ -321,22 +327,23 @@ console.log("brCode =", brCode)
                                     spacing={3}
                                     alignItems="flex-start"
                                     direction="row"
-                                    // className={style.EmployeeDaysDeduction}
                                     >
-                                        <Grid item xs={12}  md={8}> 
+                                        <Grid item xs={12}  md={4}> 
                                             <TextField
                                                 name="FirstBracketLimit"
                                                 id="FirstBracketLimit"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="First bracket Limit"
-                                                label="First bracket Limit"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.FirstBracketLimit)}
+                                                label={intl.formatMessage(messages.FirstBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.FirstBracketLimit}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    FirstBracketLimit: e.target.value,
+                                                  }));
+                                                }}
                                             />
                                         </Grid>
 
@@ -344,16 +351,18 @@ console.log("brCode =", brCode)
                                             <TextField
                                                 name="FirstBracketTax"
                                                 id="FirstBracketTax"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                // placeholder="First Bracket Tax"
-                                                label="First Bracket Tax"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.FirstBracketTax)}
+                                                label={intl.formatMessage(messages.FirstBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.FirstBracketTax}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    FirstBracketTax: e.target.value,
+                                                  }));
+                                                }}
                                                 InputProps={{
                                                     endAdornment: (
                                                       <InputAdornment position="end">
@@ -363,46 +372,42 @@ console.log("brCode =", brCode)
                                                   }}
                                             />
                                         </Grid>
-                                    </Grid>
 
-                                    <Grid item xs={12}  md={12} 
-                                    container
-                                    spacing={3}
-                                    alignItems="flex-start"
-                                    direction="row"
-                                    className={style.EmployeeDaysDeduction}
-                                    >
-                                        <Grid item xs={12}  md={8}> 
+                                        <Grid item xs={12}  md={4}> 
                                             <TextField
                                                 name="SecondBracketLimit"
                                                 id="SecondBracketLimit"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Second bracket Limit"
-                                                label="Second bracket Limit"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.SecondBracketLimit)}
+                                                label={intl.formatMessage(messages.SecondBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.SecondBracketLimit}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    SecondBracketLimit: e.target.value,
+                                                  }));
+                                                }}
                                             />
                                         </Grid>
 
-                                        <Grid item xs={12}  md={4}> 
+                                        <Grid item xs={12}  md={2}> 
                                             <TextField
                                                 name="SecondBracketTax"
                                                 id="SecondBracketTax"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Second Bracket Tax"
-                                                label="Second Bracket Tax"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.SecondBracketTax)}
+                                                label={intl.formatMessage(messages.SecondBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.SecondBracketTax}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    SecondBracketTax: e.target.value,
+                                                  }));
+                                                }}
                                                 InputProps={{
                                                     endAdornment: (
                                                       <InputAdornment position="end">
@@ -421,37 +426,41 @@ console.log("brCode =", brCode)
                                     direction="row"
                                     className={style.EmployeeDaysDeduction}
                                     >
-                                        <Grid item xs={12}  md={8}> 
+                                        <Grid item xs={12}  md={4}> 
                                             <TextField
                                                 name="ThirdBracketLimit"
                                                 id="ThirdBracketLimit"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Third bracket Limit"
-                                                label="Third bracket Limit"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.ThirdBracketLimit)}
+                                                label={intl.formatMessage(messages.ThirdBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.ThirdBracketLimit}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    ThirdBracketLimit: e.target.value,
+                                                  }));
+                                                }}
                                             />
                                         </Grid>
 
-                                        <Grid item xs={12}  md={4}> 
+                                        <Grid item xs={12}  md={2}> 
                                             <TextField
                                                 name="ThirdBracketTax"
                                                 id="ThirdBracketTax"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Third Bracket Tax"
-                                                label="Third Bracket Tax"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.ThirdBracketTax)}
+                                                label={intl.formatMessage(messages.ThirdBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.ThirdBracketTax}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    ThirdBracketTax: e.target.value,
+                                                  }));
+                                                }}
                                                 InputProps={{
                                                     endAdornment: (
                                                       <InputAdornment position="end">
@@ -461,46 +470,42 @@ console.log("brCode =", brCode)
                                                   }}
                                             />
                                         </Grid>
-                                    </Grid>
 
-                                    <Grid item xs={12}  md={12} 
-                                    container
-                                    spacing={3}
-                                    alignItems="flex-start"
-                                    direction="row"
-                                    className={style.EmployeeDaysDeduction}
-                                    >
-                                        <Grid item xs={12}  md={8}> 
+                                        <Grid item xs={12}  md={4}> 
                                             <TextField
                                                 name="FourthBracketLimit"
                                                 id="FourthBracketLimit"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Fourth bracket Limit"
-                                                label="Fourth bracket Limit"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.FourthBracketLimit)}
+                                                label={intl.formatMessage(messages.FourthBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.FourthBracketLimit}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    FourthBracketLimit: e.target.value,
+                                                  }));
+                                                }}
                                             />
                                         </Grid>
 
-                                        <Grid item xs={12}  md={4}> 
+                                        <Grid item xs={12}  md={2}> 
                                             <TextField
                                                 name="FourthBracketTax"
                                                 id="FourthBracketTax"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Fourth Bracket Tax"
-                                                label="Fourth Bracket Tax"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.FourthBracketTax)}
+                                                label={intl.formatMessage(messages.FourthBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.FourthBracketTax}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    FourthBracketTax: e.target.value,
+                                                  }));
+                                                }}
                                                 InputProps={{
                                                     endAdornment: (
                                                       <InputAdornment position="end">
@@ -519,37 +524,41 @@ console.log("brCode =", brCode)
                                     direction="row"
                                     className={style.EmployeeDaysDeduction}
                                     >
-                                        <Grid item xs={12}  md={8}> 
+                                        <Grid item xs={12}  md={4}> 
                                             <TextField
                                                 name="FifthBracketLimit"
                                                 id="FifthBracketLimit"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Fifth bracket Limit"
-                                                label="Fifth bracket Limit"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.FifthBracketLimit)}
+                                                label={intl.formatMessage(messages.FifthBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.FifthBracketLimit}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    FifthBracketLimit: e.target.value,
+                                                  }));
+                                                }}
                                             />
                                         </Grid>
 
-                                        <Grid item xs={12}  md={4}> 
+                                        <Grid item xs={12}  md={2}> 
                                             <TextField
                                                 name="FifthBracketTax"
                                                 id="FifthBracketTax"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Fifth Bracket Tax"
-                                                label="Fifth Bracket Tax"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.FifthBracketTax)}
+                                                label={intl.formatMessage(messages.FifthBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.FifthBracketTax}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    FifthBracketTax: e.target.value,
+                                                  }));
+                                                }}
                                                 InputProps={{
                                                     endAdornment: (
                                                       <InputAdornment position="end">
@@ -559,46 +568,42 @@ console.log("brCode =", brCode)
                                                   }}
                                             />
                                         </Grid>
-                                    </Grid>
 
-                                    <Grid item xs={12}  md={12} 
-                                    container
-                                    spacing={3}
-                                    alignItems="flex-start"
-                                    direction="row"
-                                    className={style.EmployeeDaysDeduction}
-                                    >
-                                        <Grid item xs={12}  md={8}> 
+                                        <Grid item xs={12}  md={4}> 
                                             <TextField
                                                 name="SixthBracketLimit"
                                                 id="SixthBracketLimit"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Sixth bracket Limit"
-                                                label="Sixth bracket Limit"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.SixthBracketLimit)}
+                                                label={intl.formatMessage(messages.SixthBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.SixthBracketLimit}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    SixthBracketLimit: e.target.value,
+                                                  }));
+                                                }}
                                             />
                                         </Grid>
 
-                                        <Grid item xs={12}  md={4}> 
+                                        <Grid item xs={12}  md={2}> 
                                             <TextField
                                                 name="SixthBracketTax"
                                                 id="SixthBracketTax"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Sixth Bracket Tax"
-                                                label="Sixth Bracket Tax"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.SixthBracketTax)}
+                                                label={intl.formatMessage(messages.SixthBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.SixthBracketTax}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    SixthBracketTax: e.target.value,
+                                                  }));
+                                                }}
                                                 InputProps={{
                                                     endAdornment: (
                                                       <InputAdornment position="end">
@@ -617,37 +622,41 @@ console.log("brCode =", brCode)
                                     direction="row"
                                     className={style.EmployeeDaysDeduction}
                                     >
-                                        <Grid item xs={12}  md={8}> 
+                                        <Grid item xs={12}  md={4}> 
                                             <TextField
                                                 name="seventhBracketLimit"
                                                 id="seventhBracketLimit"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Seventh bracket Limit"
-                                                label="Seventh bracket Limit"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.seventhBracketLimit)}
+                                                label={intl.formatMessage(messages.seventhBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.seventhBracketLimit}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    seventhBracketLimit: e.target.value,
+                                                  }));
+                                                }}
                                             />
                                         </Grid>
 
-                                        <Grid item xs={12}  md={4}> 
+                                        <Grid item xs={12}  md={2}> 
                                             <TextField
                                                 name="seventhBracketTax"
                                                 id="seventhBracketTax"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Seventh Bracket Tax"
-                                                label="Seventh Bracket Tax"
-                                                // required
+                                                placeholder={intl.formatMessage(messages.seventhBracketTax)}
+                                                label={intl.formatMessage(messages.seventhBracketTax)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.seventhBracketTax}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    seventhBracketTax: e.target.value,
+                                                  }));
+                                                }}
                                                 InputProps={{
                                                     endAdornment: (
                                                       <InputAdornment position="end">
@@ -657,46 +666,42 @@ console.log("brCode =", brCode)
                                                   }}
                                             />
                                         </Grid>
-                                    </Grid>
-
-                                    <Grid item xs={12}  md={12} 
-                                    container
-                                    spacing={3}
-                                    alignItems="flex-start"
-                                    direction="row"
-                                    className={style.EmployeeDaysDeduction}
-                                    >
-                                        <Grid item xs={12}  md={8}> 
-                                            <TextField
-                                                name="EighthBracketLimit"
-                                                id="EighthBracketLimit"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Eighth bracket Limit"
-                                                label="Eighth bracket Limit"
-                                                // required
-                                                className={`${classes.field} ${style.fieldsSty}`}
-                                                margin="normal"
-                                                variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
-                                            />
-                                        </Grid>
 
                                         <Grid item xs={12}  md={4}> 
                                             <TextField
-                                                name="EighthBracketTax"
-                                                id="EighthBracketTax"
-                                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                                placeholder="Eighth Bracket Tax"
-                                                label="Eighth Bracket Tax"
-                                                // required
+                                                name="EighthBracketLimit"
+                                                id="EighthBracketLimit"
+                                                placeholder={intl.formatMessage(messages.EighthBracketLimit)}
+                                                label={intl.formatMessage(messages.EighthBracketLimit)}
                                                 className={`${classes.field} ${style.fieldsSty}`}
                                                 margin="normal"
                                                 variant="outlined"
-                                                value={vacationDesAR}
-                                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                                value={data.EighthBracketLimit}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    EighthBracketLimit: e.target.value,
+                                                  }));
+                                                }}
+                                            />
+                                        </Grid>
+
+                                        <Grid item xs={12}  md={2}> 
+                                            <TextField
+                                                name="EighthBracketTax"
+                                                id="EighthBracketTax"
+                                                placeholder={intl.formatMessage(messages.EighthBracketTax)}
+                                                label={intl.formatMessage(messages.EighthBracketTax)}
+                                                className={`${classes.field} ${style.fieldsSty}`}
+                                                margin="normal"
+                                                variant="outlined"
+                                                value={data.EighthBracketTax}
+                                                onChange={(e) => {
+                                                  setdata((prevFilters) => ({
+                                                    ...prevFilters,
+                                                    EighthBracketTax: e.target.value,
+                                                  }));
+                                                }}
                                                 InputProps={{
                                                     endAdornment: (
                                                       <InputAdornment position="end">
@@ -715,28 +720,29 @@ console.log("brCode =", brCode)
                         </Grid>
 
 
-                        <Grid item xs={12}  md={12} 
+                        <Grid item xs={12}  md={6} 
                         container
                         spacing={3}
                         alignItems="flex-start"
                         direction="row"
-                        // className={style.gridSty}
                         > 
                             
                         <Grid item xs={12}  md={6}> 
                             <TextField
                                 name="EpidemicsContribution"
                                 id="EpidemicsContribution"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                placeholder="Epidemics Contribution"
-                                label="Epidemics Contribution"
-                                // required
+                                placeholder={intl.formatMessage(messages.EpidemicsContribution)}
+                                label={intl.formatMessage(messages.EpidemicsContribution)}
                                 className={`${classes.field} ${style.fieldsSty}`}
                                 margin="normal"
                                 variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                value={data.EpidemicsContribution}
+                                onChange={(e) => {
+                                  setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    EpidemicsContribution: e.target.value,
+                                  }));
+                                }}
                                 InputProps={{
                                     endAdornment: (
                                       <InputAdornment position="end">
@@ -753,16 +759,18 @@ console.log("brCode =", brCode)
                             <TextField
                                 name="DisplayName"
                                 id="DisplayName"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                placeholder="Display Name"
-                                label="Display Name"
-                                // required
+                                placeholder={intl.formatMessage(messages.DisplayName)}
+                                label={intl.formatMessage(messages.DisplayName)}
                                 className={`${classes.field} ${style.fieldsSty}`}
                                 margin="normal"
                                 variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                value={data.DisplayName}
+                                onChange={(e) => {
+                                  setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    DisplayName: e.target.value,
+                                  }));
+                                }}
                             />
                         </Grid>
 
@@ -775,8 +783,8 @@ console.log("brCode =", brCode)
 
 
 
-    <Box component="fieldset" style={{border: "1px solid #c4c4c4", padding: "30px", paddingTop: "40px",marginTop: "20px", width: "45%"}}>
-      <legend>Social insurance  parameters</legend>
+    <Box component="fieldset" maxWidth="lg" style={{border: "1px solid #c4c4c4", padding: "30px", paddingTop: "40px",marginTop: "20px"}}>
+      <legend><FormattedMessage {...messages.SocialInsuranceParameters} /></legend>
       
         <Grid
             container
@@ -795,40 +803,42 @@ console.log("brCode =", brCode)
                     spacing={3}
                     alignItems="flex-start"
                     direction="row"
-                    // className={style.gridSty}
-                    // style={{justifyContent: "center"}}
                     > 
-                        <Grid item xs={12} md={4}> 
+                        <Grid item xs={12} md={5}> 
                             <TextField
                                 name="FixedElementsSILimit"
                                 id="FixedElementsSILimit"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                placeholder="Fixed elements SI limit"
-                                label="Fixed elements SI limit"
-                                // required
+                                placeholder={intl.formatMessage(messages.FixedElementsSILimit)}
+                                label={intl.formatMessage(messages.FixedElementsSILimit)}
                                 className={`${classes.field} ${style.fieldsSty}`}
                                 margin="normal"
                                 variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                value={data.FixedElementsSILimit}
+                                onChange={(e) => {
+                                  setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    FixedElementsSILimit: e.target.value,
+                                  }));
+                                }}
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={4}> 
+                        <Grid item xs={12} md={3}> 
                             <TextField
                                 name="CompanyShare"
                                 id="CompanyShare"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                // placeholder="Company share"
-                                label="Company share"
-                                // required
+                                placeholder={intl.formatMessage(messages.CompanyShare)}
+                                label={intl.formatMessage(messages.CompanyShare)}
                                 className={`${classes.field} ${style.fieldsSty}`}
                                 margin="normal"
                                 variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                value={data.CompanyShare}
+                                onChange={(e) => {
+                                  setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    CompanyShare: e.target.value,
+                                  }));
+                                }}
                                 InputProps={{
                                     endAdornment: (
                                       <InputAdornment position="end">
@@ -840,20 +850,22 @@ console.log("brCode =", brCode)
                         </Grid>
 
                         
-                        <Grid item xs={12} md={4}> 
+                        <Grid item xs={12} md={3}> 
                             <TextField
-                                name="TheEmployee'sShareOfSI"
-                                id="sShareOfSI"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                // placeholder="The employee's share of SI"
-                                label="The employee's share of SI"
-                                // required
+                                name="TheEmployeesShareOfSI"
+                                id="TheEmployeesShareOfSI"
+                                placeholder={intl.formatMessage(messages.TheEmployeesShareOfSI)}
+                                label={intl.formatMessage(messages.TheEmployeesShareOfSI)}
                                 className={`${classes.field} ${style.fieldsSty}`}
                                 margin="normal"
                                 variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
+                                value={data.TheEmployeesShareOfSI}
+                                onChange={(e) => {
+                                  setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    TheEmployeesShareOfSI: e.target.value,
+                                  }));
+                                }}
                                 InputProps={{
                                     endAdornment: (
                                       <InputAdornment position="end">
@@ -865,214 +877,9 @@ console.log("brCode =", brCode)
                         </Grid>
                     </Grid>
 
-                    {/* <Grid item xs={12}  md={12} 
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                    // className={style.gridSty}
-                    // style={{justifyContent: "center"}}
-                    > 
-                        <Grid item xs={12} md={4}> 
-                            <TextField
-                                name="CompanyShare"
-                                id="CompanyShare"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                // placeholder="Company share"
-                                label="Company share"
-                                // required
-                                className={`${classes.field} ${style.fieldsSty}`}
-                                margin="normal"
-                                variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
-                                InputProps={{
-                                    endAdornment: (
-                                      <InputAdornment position="end">
-                                        %
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} md={4}> 
-                            <TextField
-                                name="TheEmployee'sShareOfSI"
-                                id="sShareOfSI"
-                                //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                                //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                                // placeholder="The employee's share of SI"
-                                label="The employee's share of SI"
-                                // required
-                                className={`${classes.field} ${style.fieldsSty}`}
-                                margin="normal"
-                                variant="outlined"
-                                value={vacationDesAR}
-                                onChange={(e) => setVacationDesAR(e.target.value)}
-                                InputProps={{
-                                    endAdornment: (
-                                      <InputAdornment position="end">
-                                        %
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
-                        </Grid>
-                    </Grid> */}
-
                 </Grid>
         </Grid>
     </Box>
-
-
-
-
-{/* //////////////////////////////// */}
-
-
-            {/* <Grid
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row">
-            
-              <Grid item xs={12}  md={12} 
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-                className={style.gridSty}
-                > 
-                    
-                <Grid item xs={12}  md={4}> 
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
-                        label={intl.formatMessage(Payrollmessages.date)}
-                        value={date}
-                        onChange={(date) => { setDate( format(new Date(date), "yyyy-MM-dd"))}}
-                        className={classes.field}
-                        renderInput={(params) => <TextField {...params} variant="outlined"  required/>}
-                      />
-                  </LocalizationProvider>
-            
-                </Grid>
-                
-              </Grid>
-
-              <Grid item xs={12}  md={12} 
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-              className={style.gridSty}
-              > 
-                    
-                <Grid item xs={12}  md={4}> 
-                  <TextField
-                      name="vacationDescriptionAr"
-                      id="vacationDescriptionAr"
-                    //   placeholder={intl.formatMessage(messages.vacationDescriptionAr) }
-                    //   label={intl.formatMessage(messages.vacationDescriptionAr)}
-                    placeholder="vacationDescriptionAr"
-                      label="vacationDescriptionAr"
-                      required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={vacationDesAR}
-                      onChange={(e) => setVacationDesAR(e.target.value)}
-                  />
-              
-                </Grid>
-                
-              </Grid>
-                    
-              <Grid item xs={12}  md={12} 
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-              className={style.gridSty}
-              > 
-                    
-                <Grid item xs={12}  md={4}> 
-                  <TextField
-                      name="vacationDescriptionEN"
-                      id="vacationDescriptionEN"
-                    //   placeholder={intl.formatMessage(messages.vacationDescriptionEN) }
-                    //   label={intl.formatMessage(messages.vacationDescriptionEN)}
-                    placeholder="vacationDescriptionEN"
-                      label="vacationDescriptionEN"
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={vacationDesEN}
-                      onChange={(e) => setVacationDesEN(e.target.value)}
-                  />
-                </Grid>
-                
-              </Grid>
-
-               
-
-                <Grid item xs={12}  md={12} 
-                  container
-                  spacing={3}
-                  alignItems="flex-start"
-                  direction="row"
-                  className={style.gridSty}
-                  > 
-                    
-                  <Grid item xs={12}  md={4}> 
-                    <Autocomplete
-                          multiple  
-                          className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
-                          id="checkboxes-tags-demo"
-                          value={element.length != 0 && element !== null ? element : []}   
-                          isOptionEqualToValue={(option, value) => option.id === value.id}
-                          options={ElementsData.length != 0 ? ElementsData: []}
-                          disableCloseOnSelect
-                          getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        onChange={(event, value) => {
-                          if (value !== null) {
-                            setElement(value);
-                          } else {
-                            setElement("");
-                          }
-                      }}
-                          renderOption={(props, option, { selected }) => (
-                            <li {...props}>
-                              <Checkbox
-                                icon={icon}
-                                checkedIcon={checkedIcon}
-                                style={{ marginRight: 8 }}
-                                checked={selected}
-                              />
-                              {option.name}
-                            </li>
-                          )}
-                          style={{ width: 500 }}
-                          renderInput={(params) => (
-                            <TextField {...params} 
-                            // placeholder={intl.formatMessage(messages.Elements) }
-                            // label={intl.formatMessage(messages.Elements)}
-                            placeholder="Elements"
-                            label="Elements"
-                            />
-                          )}
-                        />
-              
-                  </Grid>
-                
-              </Grid>
-
-            </Grid> */}
-
 
               <Grid
                 container
@@ -1091,13 +898,19 @@ console.log("brCode =", brCode)
                 <Grid item xs={3}  md={5} lg={3}>                  
                     <SaveButton Id={id} processing={processing} />
                 </Grid>
-                <Grid item xs={3}  md={5} lg={3}>
-                    <Button variant="contained" size="medium" color="primary" 
-                    onClick={oncancel}
-                     >
-                       <FormattedMessage {...Payrollmessages.cancel} /> 
-                    </Button>
+
+                <Grid item xs={12} md={2}>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={onCopy}
+                    disabled={brCode? false : true}
+                  >
+                    <FormattedMessage {...messages.copytoAllBr} />
+                  </Button>
                 </Grid>
+
                 </Grid>
               </Grid>
           </form>
