@@ -82,7 +82,10 @@ function SalaryElements(props) {
       (item) => item.id === selectedRowData.elementId
     );
 
-    return [...allExceptUsed, selectedElement];
+    if (selectedElement) {
+      return [...allExceptUsed, selectedElement];
+    }
+    return allExceptUsed;
   }, [dataList, salaryElementsList, selectedRow]);
 
   const onAutoCompletePopupChange = (value, name) => {
@@ -237,8 +240,9 @@ function SalaryElements(props) {
                 >
                   <TableCell component='th' scope='row'>
                     {
-                      salaryElementsList.find((item) => item.id === row.elementId)
-                        ?.name
+                      salaryElementsList.find(
+                        (item) => item.id === row.elementId
+                      )?.name
                     }
                   </TableCell>
                   <TableCell>{row.elementVal}</TableCell>

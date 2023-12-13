@@ -349,10 +349,14 @@ import {
   ManagerInterviewEvaluationEdit,
   HiringRequest,
   HiringRequestCreate,
-  LoanSetting,
+  LoanSetting,PayTemplateList,PayTemplateCreate,Items,ElementTaxIns,SalaryStructureList,SalaryStructureCreate,
+  ElementsList,ElementsCreate,
   HiringRequestEvaluation,
   HiringRequestEvaluationEdit,
+  JobOffer,
+  JobOfferCreate,
   BranchSalarySetting,
+  JobOfferStatus,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -781,6 +785,7 @@ function Application(props) {
           path='/app/Pages/HR/LayOffNoticeReport'
           component={LayOffNoticeReport}
         />
+        <Route path='/app/Pages/HR/Items' component={Items} />
 
         {/* Attendance */}
         <Route
@@ -1106,6 +1111,19 @@ function Application(props) {
 
         {/* Payroll */}
         <Route path='/app/Pages/Payroll/LoanSetting' component={LoanSetting} />
+        <Route path='/app/Pages/Payroll/PayTemplate' component={PayTemplateList} />
+        <Route path='/app/Pages/Payroll/PayTemplateCreate' component={PayTemplateCreate} />
+        <Route path='/app/Pages/Payroll/PayTemplateEdit' component={PayTemplateCreate} />
+        <Route path='/app/Pages/Payroll/ElementTaxIns' component={ElementTaxIns} />
+        
+        <Route path='/app/Pages/Payroll/SalaryStructure' component={SalaryStructureList} />
+        <Route path='/app/Pages/Payroll/SalaryStructureCreate' component={SalaryStructureCreate} />
+        <Route path='/app/Pages/Payroll/SalaryStructureEdit' component={SalaryStructureCreate} />
+        <Route path='/app/Pages/Payroll/Elements' component={ElementsList} />
+        <Route path='/app/Pages/Payroll/ElementsCreate' component={ElementsCreate} />
+        <Route path='/app/Pages/Payroll/ElementsEdit' component={ElementsCreate} />
+        
+        
 
         <Route path='/app/Pages/Payroll/BranchSalarySetting' component={BranchSalarySetting} />
         
@@ -1616,6 +1634,26 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/HiringRequestEdit'
           component={HiringRequestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOffer'
+          component={JobOffer}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOfferStatus'
+          component={JobOfferStatus}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOfferCreate'
+          component={JobOfferCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobOfferEdit'
+          component={JobOfferCreate}
         />
 
         <Route
