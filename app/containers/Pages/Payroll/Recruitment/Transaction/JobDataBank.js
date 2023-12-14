@@ -1,6 +1,6 @@
 import DownloadIcon from '@mui/icons-material/Download';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { Menu, MenuItem } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -162,7 +162,7 @@ function JobDataBank(props) {
               >
                 <MenuItem onClick={() => onSaveBtnClick(tableMeta.rowIndex)}>
                   <ListItemIcon>
-                    <VisibilityIcon fontSize='small' />
+                    <SystemUpdateAltIcon fontSize='small' />
                   </ListItemIcon>
 
                   <ListItemText>
