@@ -45,6 +45,7 @@ function JobOfferCreate(props) {
   const [selectedSalaryList, setSelectedSalaryList] = useState([]);
 
   const [isPrintLoading, setIsPrintLoading] = useState(false);
+  const [printContent, setPrintContent] = useState('');
   const documentTitle = 'Job Offer ' + format(new Date(), 'yyyy-MM-dd hh_mm_ss');
 
   const onBeforeGetContent = () => {
@@ -69,10 +70,6 @@ function JobOfferCreate(props) {
     documentTitle,
   });
 
-  const onPrintClick = async () => {
-    printJS();
-  };
-
   const [isLoading, setIsLoading] = useState(true);
 
   const [formInfo, setFormInfo] = useState({
@@ -92,6 +89,23 @@ function JobOfferCreate(props) {
   });
 
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
+
+  const onPrintClick = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await api(locale).print(id);
+      setPrintContent(response);
+
+      setTimeout(() => {
+        printJS();
+      }, 1);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -522,35 +536,33 @@ function JobOfferCreate(props) {
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={1}>
-                  <LoadingButton
-                    onClick={onPrintClick}
-                    color='primary'
-                    loading={isPrintLoading}
-                    variant='outlined'
-                  >
-                    <FormattedMessage {...payrollMessages.Print} />
-                  </LoadingButton>
+                {id !== 0 && (
+                  <Grid item xs={12} md={1}>
+                    <LoadingButton
+                      onClick={onPrintClick}
+                      color='primary'
+                      loading={isPrintLoading}
+                      variant='outlined'
+                    >
+                      <FormattedMessage {...payrollMessages.Print} />
+                    </LoadingButton>
 
-                  <Box
-                    ref={printDivRef}
-                    sx={{
-                      display: 'none',
-                      '@media print': {
-                        display: 'block',
-                      },
-                      p: 4,
-                    }}
-                  >
-                    <div className='ql-snow' style={{ direction: 'ltr' }} >
-                      <div className='ql-editor'>
-                        {parse(
-                          '<p>Dear&nbsp;Mr/Mrs.&nbsp; @Name@</p><p><br></p><p>Pursuant to the discretion and approvals of the Upper Management of Arkas Egyptwe desire to work with you under the extent of following general details, title,and salary regarding our relevant open position at Arkas Egypt.</p><p><br></p><p>If you should accept our offer, we’re pleased to inform you that your employment will commence as of&nbsp; @job@</p><p><br></p><p><br></p><p><strong>Title</strong>:&nbsp;@job@</p><p><strong>Starting Date</strong>:&nbsp;06 December 2023</p><p><strong>Salary</strong>:&nbsp;@salary@&nbsp;EGP Net Monthly(to be paid monthly by direct deposit.)</p><p><strong>Benefits</strong>:&nbsp;We are offering you the following benefits (after 3 months’ probation period)</p><p><br></p><p><br></p><ul><li>21 days’ annual vacations (starting after 6 months from your hiring date)</li><li>2 monthly permission (2 hours / permission)</li><li>Medical insurance (AXA)</li><li>Bounces (Ramadan – Eid El-Fitr –Eid El-Adha – Arabic new year - Birth of the Prophet - Financial year bonus)</li><li>Social insurance</li></ul><p><br></p><p><br></p><p><strong>Reports to</strong>:&nbsp;Mr/Mrs&nbsp;Eman Hussain Al Hamdan</p><p><strong>Duration</strong>:&nbsp;غير محدد المدة</p><p><strong>Probation Period</strong>:&nbsp;3 months starting from the first working day.</p><p><br></p><p><br></p><p>After expiration of the probationary period, this clause ends automatically, without any advancenotice on.</p><p><br></p><p>This letter is not a contract or guarantee of employment for a definite amount of time.</p><p><br></p><p>We expect you to confirm your acceptance by signing, dating, and returning the copy of this letter. You are expected to respond not later than&nbsp;16 December 2023</p><p><br></p><p>We look forward to having you on board!</p><p><br></p><p><strong>Kind Regards,</strong></p><p><strong>Esraa Shawky</strong></p><p><strong>HR Supervisor</strong></p>'
-                        )}
+                    <Box
+                      ref={printDivRef}
+                      sx={{
+                        display: 'none',
+                        '@media print': {
+                          display: 'block',
+                        },
+                        p: 4,
+                      }}
+                    >
+                      <div className='ql-snow' style={{ direction: 'ltr' }}>
+                        <div className='ql-editor'>{parse(printContent)}</div>
                       </div>
-                    </div>
-                  </Box>
-                </Grid>
+                    </Box>
+                  </Grid>
+                )}
                 <Grid item xs={12} md={1}>
                   <Button
                     variant='contained'
