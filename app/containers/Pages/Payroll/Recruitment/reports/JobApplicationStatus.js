@@ -130,7 +130,7 @@ function JobApplicationStatus(props) {
     },
 
     {
-      name: 'hrAppStatus',
+      name: 'hrStatus',
       label: intl.formatMessage(messages.hrAppStatus),
       options: {
         filter: true,
@@ -138,7 +138,7 @@ function JobApplicationStatus(props) {
     },
 
     {
-      name: 'managerAppStatus',
+      name: 'mgrAppStatus',
       label: intl.formatMessage(messages.managerAppStatus),
       options: {
         filter: true,
@@ -154,7 +154,7 @@ function JobApplicationStatus(props) {
     },
 
     {
-      name: 'technicalInterviewStatus',
+      name: 'techInterviewStatus',
       label: intl.formatMessage(messages.technicalInterviewStatus),
       options: {
         filter: true,
