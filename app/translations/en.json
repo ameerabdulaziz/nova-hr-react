@@ -2117,7 +2117,10 @@
   "boilerplate.containers.Payroll.medicalInsurance.privlMedCareNumber": "Priv.Medi.Care Number",
   "boilerplate.containers.Payroll.medicalInsurance.All": "All",
 
+  "boilerplate.containers.Payroll.recruitment.grossSalary": "Gross Salary",
   "boilerplate.containers.Payroll.recruitment.id": "Id",
+  "boilerplate.containers.Payroll.recruitment.candidateName": "Candidate Name",
+  "boilerplate.containers.Payroll.recruitment.setHiringDate": "Set Hiring Date",
   "boilerplate.containers.Payroll.recruitment.jobName": "Job Name",
   "boilerplate.containers.Payroll.recruitment.contractType": "Contract Type",
   "boilerplate.containers.Payroll.recruitment.job": "Job",

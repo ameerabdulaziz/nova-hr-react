@@ -314,4 +314,16 @@ export default defineMessages({
     id: `${scope}.serial`,
     defaultMessage: 'serial',
   },
+  setHiringDate: {
+    id: `${scope}.setHiringDate`,
+    defaultMessage: 'setHiringDate',
+  },
+  grossSalary: {
+    id: `${scope}.grossSalary`,
+    defaultMessage: 'grossSalary',
+  },
+  candidateName: {
+    id: `${scope}.candidateName`,
+    defaultMessage: 'candidateName',
+  },
 });

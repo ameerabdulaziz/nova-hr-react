@@ -2168,8 +2168,11 @@
   "boilerplate.containers.Payroll.medicalInsurance.All": "الكل",
 
   "boilerplate.containers.Payroll.recruitment.id": "الكود",
+  "boilerplate.containers.Payroll.recruitment.candidateName": "اسم المرشح",
   "boilerplate.containers.Payroll.recruitment.jobName": "اسم الوظيقة",
+  "boilerplate.containers.Payroll.recruitment.setHiringDate": "تحديد تاريخ التوظيف",
   "boilerplate.containers.Payroll.recruitment.salaryStructure": "هيكلية الرواتب",
+  "boilerplate.containers.Payroll.recruitment.grossSalary": "الراتب الكلى",
   "boilerplate.containers.Payroll.recruitment.commession": "اللجنة",
   "boilerplate.containers.Payroll.recruitment.contractType": "نوع العقد",
   "boilerplate.containers.Payroll.recruitment.jobCode": "كود الوظيفة",

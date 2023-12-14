@@ -2016,6 +2016,13 @@ export const JobOffer = loadable(
   }
 );
 
+export const Employment = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/Employment'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobOfferStatus = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferStatus'),
   {
