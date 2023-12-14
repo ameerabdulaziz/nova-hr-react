@@ -2030,6 +2030,13 @@ export const JobDataBank = loadable(
   }
 );
 
+export const JobApplicationStatus = loadable(
+  () => import('./Pages/Payroll/Recruitment/reports/JobApplicationStatus'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobOfferStatus = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferStatus'),
   {

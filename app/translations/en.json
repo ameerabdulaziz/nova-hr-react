@@ -2119,6 +2119,10 @@
 
   "boilerplate.containers.Payroll.recruitment.grossSalary": "Gross Salary",
   "boilerplate.containers.Payroll.recruitment.id": "Id",
+  "boilerplate.containers.Payroll.recruitment.technicalInterviewStatus": "Technical Interview Status",
+  "boilerplate.containers.Payroll.recruitment.hrAppStatus": "Hr App Status",
+  "boilerplate.containers.Payroll.recruitment.managerAppStatus": "Manager App Status",
+  "boilerplate.containers.Payroll.recruitment.hrInterviewStatus": "Hr Interview Status",
   "boilerplate.containers.Payroll.recruitment.candidateName": "Candidate Name",
   "boilerplate.containers.Payroll.recruitment.setHiringDate": "Set Hiring Date",
   "boilerplate.containers.Payroll.recruitment.jobName": "Job Name",

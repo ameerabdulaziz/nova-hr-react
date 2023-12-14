@@ -326,4 +326,20 @@ export default defineMessages({
     id: `${scope}.candidateName`,
     defaultMessage: 'candidateName',
   },
+  hrAppStatus: {
+    id: `${scope}.hrAppStatus`,
+    defaultMessage: 'hrAppStatus',
+  },
+  managerAppStatus: {
+    id: `${scope}.managerAppStatus`,
+    defaultMessage: 'managerAppStatus',
+  },
+  hrInterviewStatus: {
+    id: `${scope}.hrInterviewStatus`,
+    defaultMessage: 'hrInterviewStatus',
+  },
+  technicalInterviewStatus: {
+    id: `${scope}.technicalInterviewStatus`,
+    defaultMessage: 'technicalInterviewStatus',
+  },
 });

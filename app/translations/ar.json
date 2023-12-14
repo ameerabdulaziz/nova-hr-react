@@ -2169,7 +2169,11 @@
 
   "boilerplate.containers.Payroll.recruitment.id": "الكود",
   "boilerplate.containers.Payroll.recruitment.candidateName": "اسم المرشح",
+  "boilerplate.containers.Payroll.recruitment.technicalInterviewStatus": "حالة المقابله(الفنى)",
   "boilerplate.containers.Payroll.recruitment.jobName": "اسم الوظيقة",
+  "boilerplate.containers.Payroll.recruitment.hrAppStatus": "حالة الطلب(شئون العاملين)",
+  "boilerplate.containers.Payroll.recruitment.managerAppStatus": "حالة الطلب(المدير)",
+  "boilerplate.containers.Payroll.recruitment.hrInterviewStatus": "حالة المقابله(شئون العاملين)",
   "boilerplate.containers.Payroll.recruitment.setHiringDate": "تحديد تاريخ التوظيف",
   "boilerplate.containers.Payroll.recruitment.salaryStructure": "هيكلية الرواتب",
   "boilerplate.containers.Payroll.recruitment.grossSalary": "الراتب الكلى",
