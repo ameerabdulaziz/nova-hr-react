@@ -2023,6 +2023,13 @@ export const Employment = loadable(
   }
 );
 
+export const JobDataBank = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobDataBank'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobOfferStatus = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferStatus'),
   {

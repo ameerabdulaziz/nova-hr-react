@@ -359,7 +359,8 @@ import {
   JobOfferCreate,
   BranchSalarySetting,
   JobOfferStatus,
-  Employment
+  Employment,
+  JobDataBank,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1585,6 +1586,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/Employment'
           component={Employment}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobDataBank'
+          component={JobDataBank}
         />
 
         {/* <Route
