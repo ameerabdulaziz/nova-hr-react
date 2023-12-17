@@ -40,7 +40,7 @@ function JobApplicationStatus(props) {
     FromDate: null,
     ToDate: null,
     JobId: null,
-    StatusId: 0,
+    StatusId: null,
   });
 
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
