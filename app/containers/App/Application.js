@@ -363,7 +363,9 @@ import {
   JobDataBank,
   JobApplicationStatus,
   EmploymentRequest,
-  EmploymentRequestCreate
+  EmploymentRequestCreate,
+  ReviewEmploymentRequest,
+  ReviewEmploymentRequestCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1614,6 +1616,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/EmploymentRequestEdit'
           component={EmploymentRequestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ReviewEmploymentRequest'
+          component={ReviewEmploymentRequest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ReviewEmploymentRequestEdit'
+          component={ReviewEmploymentRequestCreate}
         />
 
         {/* <Route

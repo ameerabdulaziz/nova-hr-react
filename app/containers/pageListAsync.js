@@ -2065,6 +2065,20 @@ export const EmploymentRequestCreate = loadable(
   }
 );
 
+export const ReviewEmploymentRequest = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/ReviewEmploymentRequest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ReviewEmploymentRequestCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/ReviewEmploymentRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const HiringRequestEvaluation = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/HiringRequestEvaluation'),
   {

@@ -574,4 +574,20 @@ export default defineMessages({
     id: `${scope}.educationMajor`,
     defaultMessage: 'educationMajor',
   },
+  positionType: {
+    id: `${scope}.positionType`,
+    defaultMessage: 'positionType',
+  },
+  createEmploymentRequest: {
+    id: `${scope}.createEmploymentRequest`,
+    defaultMessage: 'createEmploymentRequest',
+  },
+  viewEmploymentRequest: {
+    id: `${scope}.viewEmploymentRequest`,
+    defaultMessage: 'viewEmploymentRequest',
+  },
+  createJobAdvertisement: {
+    id: `${scope}.createJobAdvertisement`,
+    defaultMessage: 'createJobAdvertisement',
+  },
 });
