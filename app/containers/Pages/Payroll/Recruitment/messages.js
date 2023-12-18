@@ -342,4 +342,236 @@ export default defineMessages({
     id: `${scope}.technicalInterviewStatus`,
     defaultMessage: 'technicalInterviewStatus',
   },
+  insertDate: {
+    id: `${scope}.insertDate`,
+    defaultMessage: 'insertDate',
+  },
+  generalInformation: {
+    id: `${scope}.generalInformation`,
+    defaultMessage: 'generalInformation',
+  },
+  salaryRange: {
+    id: `${scope}.salaryRange`,
+    defaultMessage: 'salaryRange',
+  },
+  jobDescription: {
+    id: `${scope}.jobDescription`,
+    defaultMessage: 'jobDescription',
+  },
+  noJobDescription: {
+    id: `${scope}.noJobDescription`,
+    defaultMessage: 'noJobDescription',
+  },
+  editDescription: {
+    id: `${scope}.editDescription`,
+    defaultMessage: 'editDescription',
+  },
+  addDescription: {
+    id: `${scope}.addDescription`,
+    defaultMessage: 'addDescription',
+  },
+  addDescriptionInfo: {
+    id: `${scope}.addDescriptionInfo`,
+    defaultMessage: 'Please Add The List Of Responsibilities To The Job',
+  },
+  jobKnowledge: {
+    id: `${scope}.jobKnowledge`,
+    defaultMessage: 'jobKnowledge',
+  },
+  noKnowledgeDescription: {
+    id: `${scope}.noKnowledgeDescription`,
+    defaultMessage: 'noKnowledgeDescription',
+  },
+  editKnowledge: {
+    id: `${scope}.editKnowledge`,
+    defaultMessage: 'editKnowledge',
+  },
+  addKnowledge: {
+    id: `${scope}.addKnowledge`,
+    defaultMessage: 'addKnowledge',
+  },
+  knowledge: {
+    id: `${scope}.knowledge`,
+    defaultMessage: 'knowledge',
+  },
+  addKnowledgeInfo: {
+    id: `${scope}.addKnowledgeInfo`,
+    defaultMessage: 'Please Add The Areas Of Knowledge That The Candidate Shall Know',
+  },
+  jobSkill: {
+    id: `${scope}.jobSkill`,
+    defaultMessage: 'jobSkill',
+  },
+  noSkill: {
+    id: `${scope}.noSkill`,
+    defaultMessage: 'noSkill',
+  },
+  editSkill: {
+    id: `${scope}.editSkill`,
+    defaultMessage: 'editSkill',
+  },
+  addSkill: {
+    id: `${scope}.addSkill`,
+    defaultMessage: 'addSkill',
+  },
+  skill: {
+    id: `${scope}.skill`,
+    defaultMessage: 'skill',
+  },
+  addSkillInfo: {
+    id: `${scope}.addSkillInfo`,
+    defaultMessage: 'Please Add And Edit The List Of Skills Required And Specify The Required Level',
+  },
+  close: {
+    id: `${scope}.close`,
+    defaultMessage: 'close',
+  },
+  save: {
+    id: `${scope}.save`,
+    defaultMessage: 'save',
+  },
+  vacanciesNumber: {
+    id: `${scope}.vacanciesNumber`,
+    defaultMessage: 'vacanciesNumber',
+  },
+  subordinatesNumber: {
+    id: `${scope}.subordinatesNumber`,
+    defaultMessage: 'subordinatesNumber',
+  },
+  newPosition: {
+    id: `${scope}.newPosition`,
+    defaultMessage: 'newPosition',
+  },
+  replacementPosition: {
+    id: `${scope}.replacementPosition`,
+    defaultMessage: 'replacementPosition',
+  },
+  newReplacementOrPosition: {
+    id: `${scope}.newReplacementOrPosition`,
+    defaultMessage: 'newReplacementOrPosition',
+  },
+  level: {
+    id: `${scope}.level`,
+    defaultMessage: 'level',
+  },
+  arabic: {
+    id: `${scope}.arabic`,
+    defaultMessage: 'arabic',
+  },
+  english: {
+    id: `${scope}.english`,
+    defaultMessage: 'english',
+  },
+  other: {
+    id: `${scope}.other`,
+    defaultMessage: 'other',
+  },
+  languages: {
+    id: `${scope}.languages`,
+    defaultMessage: 'languages',
+  },
+  otherLanguage: {
+    id: `${scope}.otherLanguage`,
+    defaultMessage: 'otherLanguage',
+  },
+  languageInfo: {
+    id: `${scope}.languageInfo`,
+    defaultMessage: 'Please Tick The Language That Is Required And Specify The Required Level',
+  },
+  jobSpecifications: {
+    id: `${scope}.jobSpecifications`,
+    defaultMessage: 'jobSpecifications',
+  },
+  male: {
+    id: `${scope}.male`,
+    defaultMessage: 'male',
+  },
+  female: {
+    id: `${scope}.female`,
+    defaultMessage: 'female',
+  },
+  any: {
+    id: `${scope}.any`,
+    defaultMessage: 'any',
+  },
+  age: {
+    id: `${scope}.age`,
+    defaultMessage: 'age',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'year',
+  },
+  jobType: {
+    id: `${scope}.jobType`,
+    defaultMessage: 'jobType',
+  },
+  fullTime: {
+    id: `${scope}.fullTime`,
+    defaultMessage: 'fullTime',
+  },
+  partTime: {
+    id: `${scope}.partTime`,
+    defaultMessage: 'partTime',
+  },
+  temp: {
+    id: `${scope}.temp`,
+    defaultMessage: 'temp',
+  },
+  training: {
+    id: `${scope}.training`,
+    defaultMessage: 'training',
+  },
+  jobLevel: {
+    id: `${scope}.jobLevel`,
+    defaultMessage: 'jobLevel',
+  },
+  junior: {
+    id: `${scope}.junior`,
+    defaultMessage: 'junior',
+  },
+  senior: {
+    id: `${scope}.senior`,
+    defaultMessage: 'senior',
+  },
+  supervisor: {
+    id: `${scope}.supervisor`,
+    defaultMessage: 'supervisor',
+  },
+  manager: {
+    id: `${scope}.manager`,
+    defaultMessage: 'manager',
+  },
+  director: {
+    id: `${scope}.director`,
+    defaultMessage: 'director',
+  },
+  educationLevel: {
+    id: `${scope}.educationLevel`,
+    defaultMessage: 'educationLevel',
+  },
+  highSchool: {
+    id: `${scope}.highSchool`,
+    defaultMessage: 'highSchool',
+  },
+  bachelorDegree: {
+    id: `${scope}.bachelorDegree`,
+    defaultMessage: 'bachelorDegree',
+  },
+  diploma: {
+    id: `${scope}.diploma`,
+    defaultMessage: 'diploma',
+  },
+  masters: {
+    id: `${scope}.masters`,
+    defaultMessage: 'masters',
+  },
+  'dpa-phd': {
+    id: `${scope}.dpa-phd`,
+    defaultMessage: 'dpa-phd',
+  },
+  educationMajor: {
+    id: `${scope}.educationMajor`,
+    defaultMessage: 'educationMajor',
+  },
 });
