@@ -1705,6 +1705,7 @@
   "boilerplate.containers.Payroll.Workflow.workFlowUpdateTitle": "تعديل دورة عمل",
 
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "كود الموظف",
+  "boilerplate.containers.Payroll.Employee.personal.employeeCodeAlreadyExistReplacedWithNewCode": "رمز الموظف موجود بالفعل، وتم استبداله برمز جديد",
   "boilerplate.containers.Payroll.Employee.personal.employeename": "اسم الموظف",
   "boilerplate.containers.Payroll.Employee.personal.status": "الحالة",
   "boilerplate.containers.Payroll.Employee.personal.taxableStuff": "الاشياء الخاضعة للضريبة",

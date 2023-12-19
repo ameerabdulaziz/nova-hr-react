@@ -1654,6 +1654,7 @@
   "boilerplate.containers.Payroll.Workflow.workFlowUpdateTitle": "Upate WorkFlow",
 
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "Employee Code",
+  "boilerplate.containers.Payroll.Employee.personal.employeeCodeAlreadyExistReplacedWithNewCode": "Employee Code Already Exist, Replaced With New Code",
   "boilerplate.containers.Payroll.Employee.personal.employeename": "Employee Name",
   "boilerplate.containers.Payroll.Employee.personal.grossSalary": "Gross Salary",
   "boilerplate.containers.Payroll.Employee.personal.insuranceShare": "Insurance Share",

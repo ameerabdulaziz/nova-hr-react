@@ -11,6 +11,14 @@ const EmployeeData = (locale) => {
     return result;
   };
 
+  Apis.checkEmpCodeExist = async (code) => {
+    const data = await axiosInstance.get(
+      `EmpEmployee/checkEmpCodeExist?empcode=${code}`
+    );
+
+    return data.data;
+  };
+
   const getFormData = (object) =>
     Object.entries(object).reduce((fd, [key, val]) => {
       if (Array.isArray(val)) {

@@ -50,6 +50,7 @@ function Personal(props) {
   const Title = localStorage.getItem("MenuName");
 
   const [employeeCode, setemployeeCode] = useState("");
+  const [checkEmployeeCode, setCheckEmployeeCode] = useState(true);
   const [machineCode, setmachineCode] = useState("");
   const [eRPCode, seteRPCode] = useState("");
   const [reportTo, setreportTo] = useState({});
@@ -129,6 +130,43 @@ function Personal(props) {
   async function oncancel() {
     history.push(`/app/Pages/Employee/EmployeeList`);
   }
+
+  const fetchEmployeeCode = async (code) => {
+    setIsLoading(true);
+
+    try {
+      const response = await EmployeeData(locale).checkEmpCodeExist(code);
+
+      const isEqual = response === parseInt(code, 10);
+
+      if (!isEqual) {
+        toast.success(intl.formatMessage(messages.employeeCodeAlreadyExistReplacedWithNewCode));
+        setemployeeCode(response);
+        setCheckEmployeeCode(false);
+      }
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (employeeCode) {
+      if (checkEmployeeCode) {
+        const timeoutId = setTimeout(() => {
+          fetchEmployeeCode(employeeCode);
+        }, 500);
+
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      }
+
+      setCheckEmployeeCode(true);
+    }
+  }, [employeeCode]);
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();

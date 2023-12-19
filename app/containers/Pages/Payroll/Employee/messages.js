@@ -12,6 +12,10 @@ export default defineMessages({
     id: `${scope}.personal.employeeCode`,
     defaultMessage: 'Code',
   },
+  employeeCodeAlreadyExistReplacedWithNewCode: {
+    id: `${scope}.personal.employeeCodeAlreadyExistReplacedWithNewCode`,
+    defaultMessage: 'employeeCodeAlreadyExistReplacedWithNewCode',
+  },
   employeename: {
     id: `${scope}.personal.employeename`,
     defaultMessage: 'Name',
