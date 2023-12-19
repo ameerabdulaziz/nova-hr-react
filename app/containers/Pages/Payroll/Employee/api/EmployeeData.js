@@ -19,6 +19,12 @@ const EmployeeData = (locale) => {
     return data.data;
   };
 
+  Apis.GetBranchList = async () => {
+    const data = await axiosInstance.get(`EmpEmployee/GetBranchList/${locale}`);
+    const result = data.data;
+    return result;
+  };
+
   const getFormData = (object) =>
     Object.entries(object).reduce((fd, [key, val]) => {
       if (Array.isArray(val)) {

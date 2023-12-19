@@ -16,6 +16,18 @@ export default defineMessages({
     id: `${scope}.personal.employeeCodeAlreadyExistReplacedWithNewCode`,
     defaultMessage: 'employeeCodeAlreadyExistReplacedWithNewCode',
   },
+  workEmail: {
+    id: `${scope}.personal.workEmail`,
+    defaultMessage: 'workEmail',
+  },
+  isHR: {
+    id: `${scope}.personal.isHR`,
+    defaultMessage: 'isHR',
+  },
+  branches: {
+    id: `${scope}.personal.branches`,
+    defaultMessage: 'branches',
+  },
   employeename: {
     id: `${scope}.personal.employeename`,
     defaultMessage: 'Name',

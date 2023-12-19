@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { PapperBlock } from "enl-components";
 import EmployeeData from "../api/EmployeeData";
 import messages from "../messages";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Payrollmessages from "../../messages";
 import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
@@ -16,6 +18,7 @@ import {
   Grid,
   TextField,
   Autocomplete,
+  Checkbox,
 } from "@mui/material";
 import useStyles from "../../Style";
 import Dropzone from "react-dropzone";
@@ -24,6 +27,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../api/GeneralListApis";
 import { format } from "date-fns";
+import style from '../../../../../styles/styles.scss';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Type from "enl-styles/Typography.scss";
@@ -76,12 +80,16 @@ function Personal(props) {
   const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
   const [genderId, setgenderId] = useState("");
   const [genderList, setgenderList] = useState([]);
+  const [branchList, setBranchList] = useState([]);
 
   const [nationalityId, setnationalityId] = useState("");
   const [nationalityList, setnationalityList] = useState([]);
   const [religionId, setreligionId] = useState("");
   const [religionList, setreligionList] = useState([]);
   const [birthDate, setbirthDate] = useState("");
+  const [workEmail, setWorkEmail] = useState('');
+  const [isHR, setIsHR] = useState(false);
+  const [hrBranchList, setHrBranchList] = useState([])
 
   const [birthGovId, setbirthGovId] = useState("");
   const [birthGovList, setbirthGovList] = useState([]);
@@ -209,6 +217,9 @@ function Personal(props) {
         isResident: isResident ?? false,
         image: img == avatarApi[9] ? null : img,
         userId: 0,
+        workEmail,
+        isHr: isHR,
+        hrBranchList: hrBranchList.map(item => item.id)
       };
 
       const dataApi = await EmployeeData(locale).Saveform(data);
@@ -279,7 +290,8 @@ function Personal(props) {
           socialStatusdata,
           MilitaryStatusdata,
           Salutedata,
-          Statusdata
+          Statusdata,
+          branches
         ] = await Promise.all([
           GeneralListApis(locale).GetEmployeeList(),
           GeneralListApis(locale).GetJobList(),
@@ -296,7 +308,10 @@ function Personal(props) {
           GeneralListApis(locale).GetMilitaryStatusList(),
           GeneralListApis(locale).GetSaluteList(),
           GeneralListApis(locale).GetEmpStatusList(),
+          EmployeeData(locale).GetBranchList(),
         ]);
+
+        setBranchList(branches || []);
 
         setreportToList(employeedata || []);
 
@@ -332,8 +347,12 @@ function Personal(props) {
           const dataApi = await EmployeeData(locale).GetList(id);
 
           if (dataApi) {
+            setCheckEmployeeCode(false);
             // setid(dataApi.id);
-            setemployeeCode(dataApi.employeeCode);
+            setemployeeCode(dataApi.employeeCode ?? '');
+            setWorkEmail(dataApi.workEmail ?? '');
+            setHrBranchList(dataApi.hrBranchList ?? []);
+            setIsHR(dataApi.isHr);
             seteRPCode(dataApi.eRPCode);
             setmachineCode(dataApi.machineCode);
             setreportTo({
@@ -887,7 +906,21 @@ function Personal(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}></Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="workEmail"
+                type="email"
+                value={workEmail}
+                required
+                onChange={(e) => setWorkEmail(e.target.value)}
+                label={intl.formatMessage(messages.workEmail)}
+                className={classes.field}
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}></Grid>
             <Grid item xs={6} md={2}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
@@ -1240,6 +1273,56 @@ function Personal(props) {
                         name="jobLevelId"
                         required
                         label={intl.formatMessage(messages.joblevel)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={12}>
+                  <hr />
+                </Grid>
+
+                <Grid item md={2} xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={isHR}
+                        name='isHR'
+                        onChange={(evt) => setIsHR(evt.target.checked)}
+                      />
+                    }
+                    label={intl.formatMessage(messages.isHR)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <Autocomplete
+                    options={branchList}
+                    multiple
+                    disabled={!isHR}
+                    disableCloseOnSelect
+                    className={`${style.AutocompleteMulSty} ${
+                      locale === 'ar' ? style.AutocompleteMulStyAR : null
+                    }`}
+                    value={hrBranchList}
+                    renderOption={(props, option, { selected }) => (
+                      <li {...props}>
+                        <Checkbox
+                          icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                          checkedIcon={<CheckBoxIcon fontSize='small' />}
+                          style={{ marginRight: 8 }}
+                          checked={selected}
+                        />
+                        {option.name}
+                      </li>
+                    )}
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    onChange={(_, value) => setHrBranchList(value) }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        disabled={!isHR}
+                        label={intl.formatMessage(messages.branches)}
                       />
                     )}
                   />
