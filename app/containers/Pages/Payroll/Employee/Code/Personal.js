@@ -264,61 +264,70 @@ function Personal(props) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const employeedata = await GeneralListApis(locale).GetEmployeeList();
+        const [
+          employeedata,
+          Jobdata,
+          Jobleveldata,
+          organizationdata,
+          ControlParameterdata,
+          identityTypedata,
+          Genderdata,
+          Nationalitydata,
+          religiondata,
+          BirthGovdata,
+          BirthCitydata,
+          socialStatusdata,
+          MilitaryStatusdata,
+          Salutedata,
+          Statusdata
+        ] = await Promise.all([
+          GeneralListApis(locale).GetEmployeeList(),
+          GeneralListApis(locale).GetJobList(),
+          GeneralListApis(locale).GetJobLevelList(),
+          GeneralListApis(locale).GetDepartmentList(),
+          GeneralListApis(locale).GetControlParameterList(),
+          GeneralListApis(locale).GetIdentityTypeList(),
+          GeneralListApis(locale).GetGenderList(),
+          GeneralListApis(locale).GetNationalityList(),
+          GeneralListApis(locale).GetReligionList(),
+          GeneralListApis(locale).GetGovernmentList(),
+          GeneralListApis(locale).GetCityList(),
+          GeneralListApis(locale).GetSocialStatusList(),
+          GeneralListApis(locale).GetMilitaryStatusList(),
+          GeneralListApis(locale).GetSaluteList(),
+          GeneralListApis(locale).GetEmpStatusList(),
+        ]);
+
         setreportToList(employeedata || []);
 
-        const Jobdata = await GeneralListApis(locale).GetJobList();
         setjobList(Jobdata || []);
 
-        const Jobleveldata = await GeneralListApis(locale).GetJobLevelList();
         setjobLevelList(Jobleveldata || []);
 
-        const organizationdata = await GeneralListApis(
-          locale
-        ).GetDepartmentList();
         setorganizationList(organizationdata || []);
 
-        const ControlParameterdata = await GeneralListApis(
-          locale
-        ).GetControlParameterList();
         setcontrolParameterList(ControlParameterdata || []);
 
-        const identityTypedata = await GeneralListApis(
-          locale
-        ).GetIdentityTypeList();
         setidentityTypeList(identityTypedata || []);
 
-        const Genderdata = await GeneralListApis(locale).GetGenderList();
         setgenderList(Genderdata || []);
 
-        const Nationalitydata = await GeneralListApis(
-          locale
-        ).GetNationalityList();
         setnationalityList(Nationalitydata || []);
 
-        const religiondata = await GeneralListApis(locale).GetReligionList();
         setreligionList(religiondata || []);
 
-        const BirthGovdata = await GeneralListApis(locale).GetGovernmentList();
         setbirthGovList(BirthGovdata || []);
 
-        const BirthCitydata = await GeneralListApis(locale).GetCityList();
         setbirthCityList(BirthCitydata || []);
 
-        const socialStatusdata = await GeneralListApis(
-          locale
-        ).GetSocialStatusList();
         setsocialStatusList(socialStatusdata || []);
 
-        const MilitaryStatusdata = await GeneralListApis(
-          locale
-        ).GetMilitaryStatusList();
         setmilitaryStatusList(MilitaryStatusdata || []);
 
-        const Salutedata = await GeneralListApis(locale).GetSaluteList();
         setsaluteList(Salutedata || []);
-        const Statusdata = await GeneralListApis(locale).GetEmpStatusList();
+
         setstatusList(Statusdata || []);
+
         if (id > 0) {
           const dataApi = await EmployeeData(locale).GetList(id);
 
