@@ -27,7 +27,8 @@ import {
   InsuranceRegion,
   MinsuranceItem,
   RecHiringSource,
-  RecJobGrade
+  RecJobGrade,
+  AsCategory,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -1733,6 +1734,12 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/JobApplicationPreview'
           component={JobApplicationPreview}
+        />
+
+        {/* Assessment */}
+        <Route
+          path='/app/Pages/Assessment/AsCategory'
+          component={AsCategory}
         />
 
         {/* Default */}
