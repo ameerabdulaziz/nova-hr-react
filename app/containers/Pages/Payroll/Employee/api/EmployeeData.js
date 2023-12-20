@@ -1,6 +1,31 @@
 import axiosInstance from '../../api/axios';
+
+function getFormData(fdObject = {}) {
+  return Object.entries(fdObject).reduce(
+    (fdInstance, [fdObjectKey, fdObjectValue]) => {
+      if (Array.isArray(fdObjectValue)) {
+        fdObjectValue.forEach((arrayItem, index) => {
+          if (typeof arrayItem === 'object') {
+            Object.keys(arrayItem).forEach((key) => {
+              fdInstance.append(
+                `${fdObjectKey}[${index}].${key}`,
+                arrayItem[key]
+              );
+            });
+          } else {
+            fdInstance.append(`${fdObjectKey}[${index}]`, arrayItem);
+          }
+        });
+      } else {
+        fdInstance.append(fdObjectKey, fdObjectValue);
+      }
+      return fdInstance;
+    },
+    new FormData()
+  );
+}
+
 const EmployeeData = (locale) => {
-  
   const Apis = {};
 
   Apis.GetList = async (employeeId) => {
@@ -25,16 +50,6 @@ const EmployeeData = (locale) => {
     return result;
   };
 
-  const getFormData = (object) =>
-    Object.entries(object).reduce((fd, [key, val]) => {
-      if (Array.isArray(val)) {
-        val.forEach((v) => fd.append(key, v));
-      } else {
-        fd.append(key, val);
-      }
-      return fd;
-    }, new FormData());
-
   Apis.Saveform = async (data) => {
     const result = await axiosInstance.post(
       'EmpEmployee/Save',
@@ -44,15 +59,12 @@ const EmployeeData = (locale) => {
   };
 
   Apis.Save = async (data) => {
-    const result =
-      data.id === 0
-        ? await axiosInstance.post('EmpEmployee', data)
-        : await axiosInstance.put(`EmpEmployee/${data.id}`, data);
+    const result =			data.id === 0
+			  ? await axiosInstance.post('EmpEmployee', data)
+			  : await axiosInstance.put(`EmpEmployee/${data.id}`, data);
     return result;
   };
   Apis.Delete = async (id) => {
-    
-
     const data = await axiosInstance.delete(`EmpEmployee/${id}`);
     return data;
   };
