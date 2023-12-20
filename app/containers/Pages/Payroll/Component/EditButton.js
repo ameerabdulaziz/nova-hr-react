@@ -9,7 +9,7 @@ import useStyles from '../Style';
 
 function EditButton(props) {
   
-  const {intl,url,param} = props;
+  const {intl,url,param,disabled} = props;
   const { classes } = useStyles();
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
    
@@ -17,7 +17,7 @@ function EditButton(props) {
       <div>
         <Tooltip title={intl.formatMessage(Payrollmessages.edit)} cursor="pointer" className="mr-6">     
           <IconButton
-            disabled={!Menu.isUpdate}
+            disabled={!Menu.isUpdate||disabled}
             aria-label={intl.formatMessage(Payrollmessages.edit)}
             size="large"
             color="secondary"

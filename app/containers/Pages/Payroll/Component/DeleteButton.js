@@ -8,7 +8,7 @@ import Payrollmessages from '../messages';
 
 function DeleteButton(props) {
   
-  const {intl,clickfnc} = props; 
+  const {intl,clickfnc,disabled} = props; 
   const { classes } = useStyles();
   const Menu = JSON.parse(localStorage.getItem("Menu")) ;  
    
@@ -16,7 +16,7 @@ function DeleteButton(props) {
       <div>
         <Tooltip title={intl.formatMessage(Payrollmessages.delete)} cursor="pointer" className="mr-6">       
           <IconButton
-            disabled={!Menu.isDelete}
+            disabled={!Menu.isDelete||disabled}
             className={classes.button}
             aria-label={intl.formatMessage(Payrollmessages.delete)}
             size="large"

@@ -456,6 +456,21 @@ employeeId: {
     id: `${scope}.relation`,
     defaultMessage: 'relation',
   },
-  
+  branch: {
+    id: `${scope}.branch`,
+    defaultMessage: 'branch',
+  },
+  value: {
+    id: `${scope}.value`,
+    defaultMessage: 'value',
+  },
+  Postyear: {
+    id: `${scope}.Postyear`,
+    defaultMessage: 'Postyear',
+  },
+  Postmonth: {
+    id: `${scope}.Postmonth`,
+    defaultMessage: 'Postmonth',
+  },
  
 });

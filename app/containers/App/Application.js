@@ -357,6 +357,8 @@ import {
   JobOfferCreate,
   BranchSalarySetting,
   JobOfferStatus,
+  ElementValList,ElementValCreate,ElementVlaImport,
+  LoanTrxList,LoanTrxCreate,LoanReqList,LoanReqCreate,LoanPostpone
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1122,6 +1124,19 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/Elements' component={ElementsList} />
         <Route path='/app/Pages/Payroll/ElementsCreate' component={ElementsCreate} />
         <Route path='/app/Pages/Payroll/ElementsEdit' component={ElementsCreate} />
+
+        <Route path='/app/Pages/Payroll/ElementVal' component={ElementValList} />
+        <Route path='/app/Pages/Payroll/ElementValCreate' component={ElementValCreate} />
+        <Route path='/app/Pages/Payroll/ElementValEdit' component={ElementValCreate} />
+        <Route path='/app/Pages/Payroll/ElementVlaImport' component={ElementVlaImport} />
+
+        <Route path='/app/Pages/Payroll/LoanTrx' component={LoanTrxList} />
+        <Route path='/app/Pages/Payroll/LoanTrxCreate' component={LoanTrxCreate} />
+        <Route path='/app/Pages/Payroll/LoanTrxEdit' component={LoanTrxCreate} />
+        <Route path='/app/Pages/Payroll/LoanPostpone' component={LoanPostpone} />
+        <Route path='/app/Pages/Payroll/LoanReq' component={LoanReqList} />
+        <Route path='/app/Pages/Payroll/LoanReqCreate' component={LoanReqCreate} />
+        <Route path='/app/Pages/Payroll/LoanReqEdit' component={LoanReqCreate} />
         
         
 

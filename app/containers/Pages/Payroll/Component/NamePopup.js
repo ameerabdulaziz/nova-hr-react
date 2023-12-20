@@ -17,7 +17,7 @@ import GeneralListApis from "../api/GeneralListApis";
 import MUIDataTable from "mui-datatables";
 
 function NamePopup(props) {
-  const { intl, IsInsured, withoutSalaryStructure } = props;
+  const { intl, IsInsured, withoutSalaryStructure ,branchId} = props;
   const [isLoading, setIsLoading] = useState(false);
   const { classes, cx } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -55,7 +55,8 @@ function NamePopup(props) {
       if (Key == "Employee") {
         data = await GeneralListApis(locale).GetEmployeeListComponent(
           IsInsured || false,
-          withoutSalaryStructure || false
+          withoutSalaryStructure || false,
+          branchId||false
         );
         setEmployeeList(
           data.map((obj) => {

@@ -208,5 +208,88 @@ export default defineMessages({
     id: `${scope}.calcValMax`,
     defaultMessage: "calcValMax",
   },
-
+  val: {
+    id: `${scope}.val`,
+    defaultMessage: "val",
+  },
+  elementType: {
+    id: `${scope}.elementType`,
+    defaultMessage: 'elementType',
+  },
+  elementMode: {
+    id: `${scope}.elementMode`,
+    defaultMessage: 'elementMode',
+  },
+  source: {
+    id: `${scope}.source`,
+    defaultMessage: 'source',
+  },
+  newval: {
+    id: `${scope}.newval`,
+    defaultMessage: "newval",
+  },
+  ElementValCreateTitle: {
+    id: `${scope}.ElementValCreateTitle`,
+    defaultMessage: "ElementValCreateTitle",
+  },
+  ElementValCreateTitle: {
+    id: `${scope}.ElementValCreateTitle`,
+    defaultMessage: "ElementValCreateTitle",
+  },
+  ElementValUpdateTitle: {
+    id: `${scope}.ElementValUpdateTitle`,
+    defaultMessage: "ElementValUpdateTitle",
+  },
+  isNotUpdate: {
+    id: `${scope}.isNotUpdate`,
+    defaultMessage: "isNotUpdate",
+  },
+  deductionYear: {
+    id: `${scope}.deductionYear`,
+    defaultMessage: "deductionYear",
+  },
+  deductionMonth: {
+    id: `${scope}.deductionMonth`,
+    defaultMessage: "deductionMonth",
+  },
+  nativeTotalValue: {
+    id: `${scope}.nativeTotalValue`,
+    defaultMessage: "nativeTotalValue",
+  },
+ totalValue: {
+    id: `${scope}.totalValue`,
+    defaultMessage: "totalValue",
+  },
+  paysNo: {
+    id: `${scope}.paysNo`,
+    defaultMessage: "paysNo",
+  },
+  payvalue: {
+    id: `${scope}.payvalue`,
+    defaultMessage: "payvalue",
+  },
+  lineNo: {
+    id: `${scope}.lineNo`,
+    defaultMessage: "lineNo",
+  },
+  isPaid: {
+    id: `${scope}.isPaid`,
+    defaultMessage: "isPaid",
+  },
+  recalculate: {
+    id: `${scope}.recalculate`,
+    defaultMessage: "recalculate",
+  },
+  post: {
+    id: `${scope}.post`,
+    defaultMessage: "post",
+  },
+  LoanTrxCreateTitle: {
+    id: `${scope}.LoanTrxCreateTitle`,
+    defaultMessage: "LoanTrxCreateTitle",
+  },
+  LoanTrxUpdateTitle: {
+    id: `${scope}.LoanTrxUpdateTitle`,
+    defaultMessage: "LoanTrxUpdateTitle",
+  },
 });
