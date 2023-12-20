@@ -112,4 +112,36 @@ export default defineMessages({
     id: `${scope}.addDecorator`,
     defaultMessage: 'addDecorator',
   },
+  vacation: {
+    id: `${scope}.vacation`,
+    defaultMessage: 'vacation',
+  },
+  permission: {
+    id: `${scope}.permission`,
+    defaultMessage: 'permission',
+  },
+  mission: {
+    id: `${scope}.mission`,
+    defaultMessage: 'mission',
+  },
+  penalty: {
+    id: `${scope}.penalty`,
+    defaultMessage: 'penalty',
+  },
+  overTime: {
+    id: `${scope}.overTime`,
+    defaultMessage: 'overTime',
+  },
+  reward: {
+    id: `${scope}.reward`,
+    defaultMessage: 'reward',
+  },
+  organization: {
+    id: `${scope}.organization`,
+    defaultMessage: 'organization',
+  },
+  select: {
+    id: `${scope}.select`,
+    defaultMessage: 'select',
+  },
 });

@@ -520,6 +520,14 @@ export const SettingMailSmsFormCreate = loadable(
   }
 );
 
+
+export const HrPermission = loadable(
+  () => import('./Pages/Payroll/Setting/HrPermission'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // HR////////////////////////////////////////////////////////////////////////////////////////
 
 export const TrainingCenter = loadable(
