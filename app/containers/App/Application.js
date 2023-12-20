@@ -131,6 +131,7 @@ import {
   SettingResetPassword,
   SettingMailSmsForm,
   SettingMailSmsFormCreate,
+  HrPermission,
   Organization,
   CreateOrganization,
   EditOrganization,
@@ -569,6 +570,7 @@ function Application(props) {
         <Route path='/app/Pages/Setting/MailSetting' component={MailSetting} />
         <Route path='/app/Pages/Setting/SMSSetting' component={SMSSetting} />
         <Route path='/app/Pages/Setting/SettingMailSmsForm' component={SettingMailSmsForm} />
+        <Route path='/app/Pages/Setting/HrPermission' component={HrPermission} />
         <Route path='/app/Pages/Setting/SettingMailSmsFormCreate' component={SettingMailSmsFormCreate} />
         <Route path='/app/Pages/Setting/SettingMailSmsFormEdit' component={SettingMailSmsFormCreate} />
         <Route
