@@ -219,7 +219,7 @@ function Personal(props) {
         userId: 0,
         workEmail,
         isHr: isHR,
-        hrBranchList: hrBranchList.map(item => item.id)
+        hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
       const dataApi = await EmployeeData(locale).Saveform(data);
