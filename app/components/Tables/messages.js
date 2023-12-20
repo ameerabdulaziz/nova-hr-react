@@ -311,4 +311,16 @@ export default defineMessages({
     id: `${scope}.codes.elPercent`,
     defaultMessage: 'elPercent',
   },
+  choiceGrade: {
+    id: `${scope}.codes.choiceGrade`,
+    defaultMessage: 'choiceGrade',
+  },
+  from: {
+    id: `${scope}.codes.from`,
+    defaultMessage: 'from',
+  },
+  to: {
+    id: `${scope}.codes.to`,
+    defaultMessage: 'to',
+  },
 });

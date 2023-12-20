@@ -368,6 +368,7 @@ import {
   EmploymentRequestCreate,
   ReviewEmploymentRequest,
   ReviewEmploymentRequestCreate,
+  AsChoice
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1740,6 +1741,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/AsCategory'
           component={AsCategory}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsChoice'
+          component={AsChoice}
         />
 
         {/* Default */}

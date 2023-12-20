@@ -2142,3 +2142,10 @@ export const ApplicationUnderReviewing = loadable(
     fallback: <Loading />,
   }
 );
+
+export const AsChoice = loadable(
+  () => import('./Pages/Payroll/Assessment/code/AsChoice'),
+  {
+    fallback: <Loading />,
+  }
+);
