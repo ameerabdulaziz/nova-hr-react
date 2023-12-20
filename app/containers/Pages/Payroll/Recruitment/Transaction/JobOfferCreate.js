@@ -1,17 +1,20 @@
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
-  Autocomplete, Button, Grid, TextField
+  Autocomplete, Box, Button, Grid, TextField
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
+import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import { useReactToPrint } from 'react-to-print';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SalaryElements from '../../Component/SalaryElements';
 import useStyles from '../../Style';
@@ -19,6 +22,8 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/JobOfferData';
 import messages from '../messages';
+
+import 'react-quill/dist/quill.snow.css';
 
 function JobOfferCreate(props) {
   const { intl } = props;
@@ -39,6 +44,32 @@ function JobOfferCreate(props) {
   const [salaryElementsList, setSalaryElementsList] = useState([]);
   const [selectedSalaryList, setSelectedSalaryList] = useState([]);
 
+  const [isPrintLoading, setIsPrintLoading] = useState(false);
+  const [printContent, setPrintContent] = useState('');
+  const documentTitle = 'Job Offer ' + format(new Date(), 'yyyy-MM-dd hh_mm_ss');
+
+  const onBeforeGetContent = () => {
+    setIsPrintLoading(true);
+  };
+
+  const onAfterPrint = () => {
+    setIsPrintLoading(false);
+  };
+
+  const onPrintError = () => {
+    setIsPrintLoading(false);
+  };
+
+  const printDivRef = useRef(null);
+
+  const printJS = useReactToPrint({
+    content: () => printDivRef?.current,
+    onBeforeGetContent,
+    onAfterPrint,
+    onPrintError,
+    documentTitle,
+  });
+
   const [isLoading, setIsLoading] = useState(true);
 
   const [formInfo, setFormInfo] = useState({
@@ -58,6 +89,23 @@ function JobOfferCreate(props) {
   });
 
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
+
+  const onPrintClick = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await api(locale).print(id);
+      setPrintContent(response);
+
+      setTimeout(() => {
+        printJS();
+      }, 1);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -126,9 +174,7 @@ function JobOfferCreate(props) {
         );
         setApplicantsList(applicant);
       } else {
-        const applicant = await api(locale).GetApplicantList(
-
-        );
+        const applicant = await api(locale).GetApplicantList();
         setApplicantsList(applicant);
       }
     } catch (error) {
@@ -490,6 +536,33 @@ function JobOfferCreate(props) {
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
+                {id !== 0 && (
+                  <Grid item xs={12} md={1}>
+                    <LoadingButton
+                      onClick={onPrintClick}
+                      color='primary'
+                      loading={isPrintLoading}
+                      variant='outlined'
+                    >
+                      <FormattedMessage {...payrollMessages.Print} />
+                    </LoadingButton>
+
+                    <Box
+                      ref={printDivRef}
+                      sx={{
+                        display: 'none',
+                        '@media print': {
+                          display: 'block',
+                        },
+                        p: 4,
+                      }}
+                    >
+                      <div className='ql-snow' style={{ direction: 'ltr' }}>
+                        <div className='ql-editor'>{parse(printContent)}</div>
+                      </div>
+                    </Box>
+                  </Grid>
+                )}
                 <Grid item xs={12} md={1}>
                   <Button
                     variant='contained'

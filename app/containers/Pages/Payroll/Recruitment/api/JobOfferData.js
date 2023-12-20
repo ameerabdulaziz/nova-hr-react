@@ -54,6 +54,16 @@ const API = (locale) => {
     return result;
   };
 
+  api.print = async (id) => {
+    const data = await axiosInstance.get(
+      `RecJobOffer/GetPrint/${id}/${locale}`
+    );
+
+    const result = data.data;
+
+    return result;
+  };
+
   api.delete = async (id) => {
     const data = await axiosInstance.delete(`RecJobOffer/Delete/${id}`);
     const result = data.data;

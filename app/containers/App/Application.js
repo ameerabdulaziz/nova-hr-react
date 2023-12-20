@@ -27,7 +27,8 @@ import {
   InsuranceRegion,
   MinsuranceItem,
   RecHiringSource,
-  RecJobGrade
+  RecJobGrade,
+  AsCategory,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -129,6 +130,9 @@ import {
   MailSetting,
   SMSSetting,
   SettingResetPassword,
+  SettingMailSmsForm,
+  SettingMailSmsFormCreate,
+  HrPermission,
   Organization,
   CreateOrganization,
   EditOrganization,
@@ -358,7 +362,15 @@ import {
   BranchSalarySetting,
   JobOfferStatus,
   ElementValList,ElementValCreate,ElementVlaImport,
-  LoanTrxList,LoanTrxCreate,LoanReqList,LoanReqCreate,LoanPostpone
+  LoanTrxList,LoanTrxCreate,LoanReqList,LoanReqCreate,LoanPostpone,
+  Employment,
+  JobDataBank,
+  JobApplicationStatus,
+  EmploymentRequest,
+  EmploymentRequestCreate,
+  ReviewEmploymentRequest,
+  ReviewEmploymentRequestCreate,
+  AsChoice
 } from '../pageListAsync';
 
 function Application(props) {
@@ -561,6 +573,10 @@ function Application(props) {
         <Route path='/app/Pages/Setting/UserMenu' component={UserMenu} />
         <Route path='/app/Pages/Setting/MailSetting' component={MailSetting} />
         <Route path='/app/Pages/Setting/SMSSetting' component={SMSSetting} />
+        <Route path='/app/Pages/Setting/SettingMailSmsForm' component={SettingMailSmsForm} />
+        <Route path='/app/Pages/Setting/HrPermission' component={HrPermission} />
+        <Route path='/app/Pages/Setting/SettingMailSmsFormCreate' component={SettingMailSmsFormCreate} />
+        <Route path='/app/Pages/Setting/SettingMailSmsFormEdit' component={SettingMailSmsFormCreate} />
         <Route
           path='/app/Pages/Setting/ResetPassword'
           component={SettingResetPassword}
@@ -1591,6 +1607,46 @@ function Application(props) {
           component={RecJobGrade}
         />
 
+        <Route
+          path='/app/Pages/Recruitment/Employment'
+          component={Employment}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobDataBank'
+          component={JobDataBank}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/JobApplicationStatus'
+          component={JobApplicationStatus}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/EmploymentRequest'
+          component={EmploymentRequest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/EmploymentRequestCreate'
+          component={EmploymentRequestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/EmploymentRequestEdit'
+          component={EmploymentRequestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ReviewEmploymentRequest'
+          component={ReviewEmploymentRequest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/ReviewEmploymentRequestEdit'
+          component={ReviewEmploymentRequestCreate}
+        />
+
         {/* <Route
           path='/app/Pages/Recruitment/HRApplication'
           component={HRApplication}
@@ -1694,6 +1750,17 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/JobApplicationPreview'
           component={JobApplicationPreview}
+        />
+
+        {/* Assessment */}
+        <Route
+          path='/app/Pages/Assessment/AsCategory'
+          component={AsCategory}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsChoice'
+          component={AsChoice}
         />
 
         {/* Default */}

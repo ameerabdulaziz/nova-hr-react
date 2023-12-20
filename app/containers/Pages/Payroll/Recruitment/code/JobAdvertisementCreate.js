@@ -31,6 +31,9 @@ function JobAdvertisementCreate(props) {
   const dataTable = useSelector((state) => state.crudTableDemo.dataTable);
   const id = location.state?.id ?? 0;
 
+  const employmentComments = location.state?.employmentComments ?? '';
+  const employmentId = location.state?.employmentId ?? 0;
+
   const title = localStorage.getItem('MenuName');
 
   const [openParentPopup, setOpenParentPopup] = useState(false);
@@ -49,6 +52,9 @@ function JobAdvertisementCreate(props) {
     experiance: '',
     organizationId: '',
     recJobRequirement: [],
+
+    employmentComments,
+    employmentId,
   });
 
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);

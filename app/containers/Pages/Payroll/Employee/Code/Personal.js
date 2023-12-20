@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { PapperBlock } from "enl-components";
 import EmployeeData from "../api/EmployeeData";
 import messages from "../messages";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Payrollmessages from "../../messages";
 import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
@@ -16,6 +18,7 @@ import {
   Grid,
   TextField,
   Autocomplete,
+  Checkbox,
 } from "@mui/material";
 import useStyles from "../../Style";
 import Dropzone from "react-dropzone";
@@ -24,6 +27,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../api/GeneralListApis";
 import { format } from "date-fns";
+import style from '../../../../../styles/styles.scss';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Type from "enl-styles/Typography.scss";
@@ -50,6 +54,7 @@ function Personal(props) {
   const Title = localStorage.getItem("MenuName");
 
   const [employeeCode, setemployeeCode] = useState("");
+  const [checkEmployeeCode, setCheckEmployeeCode] = useState(true);
   const [machineCode, setmachineCode] = useState("");
   const [eRPCode, seteRPCode] = useState("");
   const [reportTo, setreportTo] = useState({});
@@ -75,12 +80,16 @@ function Personal(props) {
   const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
   const [genderId, setgenderId] = useState("");
   const [genderList, setgenderList] = useState([]);
+  const [branchList, setBranchList] = useState([]);
 
   const [nationalityId, setnationalityId] = useState("");
   const [nationalityList, setnationalityList] = useState([]);
   const [religionId, setreligionId] = useState("");
   const [religionList, setreligionList] = useState([]);
   const [birthDate, setbirthDate] = useState("");
+  const [workEmail, setWorkEmail] = useState('');
+  const [isHR, setIsHR] = useState(false);
+  const [hrBranchList, setHrBranchList] = useState([])
 
   const [birthGovId, setbirthGovId] = useState("");
   const [birthGovList, setbirthGovList] = useState([]);
@@ -129,6 +138,43 @@ function Personal(props) {
   async function oncancel() {
     history.push(`/app/Pages/Employee/EmployeeList`);
   }
+
+  const fetchEmployeeCode = async (code) => {
+    setIsLoading(true);
+
+    try {
+      const response = await EmployeeData(locale).checkEmpCodeExist(code);
+
+      const isEqual = response === parseInt(code, 10);
+
+      if (!isEqual) {
+        toast.success(intl.formatMessage(messages.employeeCodeAlreadyExistReplacedWithNewCode));
+        setemployeeCode(response);
+        setCheckEmployeeCode(false);
+      }
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (employeeCode) {
+      if (checkEmployeeCode) {
+        const timeoutId = setTimeout(() => {
+          fetchEmployeeCode(employeeCode);
+        }, 500);
+
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      }
+
+      setCheckEmployeeCode(true);
+    }
+  }, [employeeCode]);
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -171,6 +217,9 @@ function Personal(props) {
         isResident: isResident ?? false,
         image: img == avatarApi[9] ? null : img,
         userId: 0,
+        workEmail,
+        isHr: isHR,
+        hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
       const dataApi = await EmployeeData(locale).Saveform(data);
@@ -226,67 +275,84 @@ function Personal(props) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const employeedata = await GeneralListApis(locale).GetEmployeeList();
+        const [
+          employeedata,
+          Jobdata,
+          Jobleveldata,
+          organizationdata,
+          ControlParameterdata,
+          identityTypedata,
+          Genderdata,
+          Nationalitydata,
+          religiondata,
+          BirthGovdata,
+          BirthCitydata,
+          socialStatusdata,
+          MilitaryStatusdata,
+          Salutedata,
+          Statusdata,
+          branches
+        ] = await Promise.all([
+          GeneralListApis(locale).GetEmployeeList(),
+          GeneralListApis(locale).GetJobList(),
+          GeneralListApis(locale).GetJobLevelList(),
+          GeneralListApis(locale).GetDepartmentList(),
+          GeneralListApis(locale).GetControlParameterList(),
+          GeneralListApis(locale).GetIdentityTypeList(),
+          GeneralListApis(locale).GetGenderList(),
+          GeneralListApis(locale).GetNationalityList(),
+          GeneralListApis(locale).GetReligionList(),
+          GeneralListApis(locale).GetGovernmentList(),
+          GeneralListApis(locale).GetCityList(),
+          GeneralListApis(locale).GetSocialStatusList(),
+          GeneralListApis(locale).GetMilitaryStatusList(),
+          GeneralListApis(locale).GetSaluteList(),
+          GeneralListApis(locale).GetEmpStatusList(),
+          EmployeeData(locale).GetBranchList(),
+        ]);
+
+        setBranchList(branches || []);
+
         setreportToList(employeedata || []);
 
-        const Jobdata = await GeneralListApis(locale).GetJobList();
         setjobList(Jobdata || []);
 
-        const Jobleveldata = await GeneralListApis(locale).GetJobLevelList();
         setjobLevelList(Jobleveldata || []);
 
-        const organizationdata = await GeneralListApis(
-          locale
-        ).GetDepartmentList();
         setorganizationList(organizationdata || []);
 
-        const ControlParameterdata = await GeneralListApis(
-          locale
-        ).GetControlParameterList();
         setcontrolParameterList(ControlParameterdata || []);
 
-        const identityTypedata = await GeneralListApis(
-          locale
-        ).GetIdentityTypeList();
         setidentityTypeList(identityTypedata || []);
 
-        const Genderdata = await GeneralListApis(locale).GetGenderList();
         setgenderList(Genderdata || []);
 
-        const Nationalitydata = await GeneralListApis(
-          locale
-        ).GetNationalityList();
         setnationalityList(Nationalitydata || []);
 
-        const religiondata = await GeneralListApis(locale).GetReligionList();
         setreligionList(religiondata || []);
 
-        const BirthGovdata = await GeneralListApis(locale).GetGovernmentList();
         setbirthGovList(BirthGovdata || []);
 
-        const BirthCitydata = await GeneralListApis(locale).GetCityList();
         setbirthCityList(BirthCitydata || []);
 
-        const socialStatusdata = await GeneralListApis(
-          locale
-        ).GetSocialStatusList();
         setsocialStatusList(socialStatusdata || []);
 
-        const MilitaryStatusdata = await GeneralListApis(
-          locale
-        ).GetMilitaryStatusList();
         setmilitaryStatusList(MilitaryStatusdata || []);
 
-        const Salutedata = await GeneralListApis(locale).GetSaluteList();
         setsaluteList(Salutedata || []);
-        const Statusdata = await GeneralListApis(locale).GetEmpStatusList();
+
         setstatusList(Statusdata || []);
+
         if (id > 0) {
           const dataApi = await EmployeeData(locale).GetList(id);
 
           if (dataApi) {
+            setCheckEmployeeCode(false);
             // setid(dataApi.id);
-            setemployeeCode(dataApi.employeeCode);
+            setemployeeCode(dataApi.employeeCode ?? '');
+            setWorkEmail(dataApi.workEmail ?? '');
+            setHrBranchList(dataApi.hrBranchList ?? []);
+            setIsHR(dataApi.isHr);
             seteRPCode(dataApi.eRPCode);
             setmachineCode(dataApi.machineCode);
             setreportTo({
@@ -840,7 +906,21 @@ function Personal(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}></Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="workEmail"
+                type="email"
+                value={workEmail}
+                required
+                onChange={(e) => setWorkEmail(e.target.value)}
+                label={intl.formatMessage(messages.workEmail)}
+                className={classes.field}
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}></Grid>
             <Grid item xs={6} md={2}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
@@ -1193,6 +1273,56 @@ function Personal(props) {
                         name="jobLevelId"
                         required
                         label={intl.formatMessage(messages.joblevel)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={12}>
+                  <hr />
+                </Grid>
+
+                <Grid item md={2} xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={isHR}
+                        name='isHR'
+                        onChange={(evt) => setIsHR(evt.target.checked)}
+                      />
+                    }
+                    label={intl.formatMessage(messages.isHR)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <Autocomplete
+                    options={branchList}
+                    multiple
+                    disabled={!isHR}
+                    disableCloseOnSelect
+                    className={`${style.AutocompleteMulSty} ${
+                      locale === 'ar' ? style.AutocompleteMulStyAR : null
+                    }`}
+                    value={hrBranchList}
+                    renderOption={(props, option, { selected }) => (
+                      <li {...props}>
+                        <Checkbox
+                          icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                          checkedIcon={<CheckBoxIcon fontSize='small' />}
+                          style={{ marginRight: 8 }}
+                          checked={selected}
+                        />
+                        {option.name}
+                      </li>
+                    )}
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    onChange={(_, value) => setHrBranchList(value) }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        disabled={!isHR}
+                        label={intl.formatMessage(messages.branches)}
                       />
                     )}
                   />

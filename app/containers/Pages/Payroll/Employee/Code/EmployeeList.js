@@ -27,14 +27,18 @@ function EmployeeList(props) {
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const [anchorElOpt, setAnchorElOpt] = useState(null);
-  const handleClickOpt = (event) => setAnchorElOpt(event.currentTarget);
-  const handleCloseOpt = () => setAnchorElOpt(null);
   const [employeeid, setemployeeid] = useState({});
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);  
   const Title = localStorage.getItem("MenuName");
+
+  const [openedDropdown, setOpenedDropdown] = useState({});
+
+  const closeDropdown = (rowIndex) => setOpenedDropdown((prev) => ({
+    ...prev,
+    [rowIndex]: null,
+  }));
 
   const handleClickOpen = (item) => {
     debugger;
@@ -181,43 +185,72 @@ function EmployeeList(props) {
                 aria-haspopup="true"
                 //onClick={handleClick}
                 //   onClick={handleClickOpt}
-                onClick={(e) => {
+                onClick={(evt) => {
+                  setOpenedDropdown((prev) => ({
+                    ...prev,
+                    [tableMeta.rowIndex]: evt.currentTarget,
+                  }));
                   setemployeeid({
                     id: tableMeta.rowData[0],
                     name: tableMeta.rowData[2],
                   });
-                  setAnchorElOpt(e.currentTarget);
                 }}
                 size="large"
               >
                 <MoreVertIcon />
-                <Menu
-                  id="long-menu"
-                  anchorEl={anchorElOpt}
-                  open={Boolean(anchorElOpt)}
-                  onClose={handleCloseOpt}
-                  PaperProps={{
-                    style: {
-                      // maxHeight: 48 * 4.5,
-                      width: 200,
-                    },
-                  }}
-                >
-                  {optionsOpt.map((option) => (
-                    <MenuItem
-                      key={option.name}
-                      onClick={() => {
-                        history.push(`/app/Pages/Employee/${option.url}`, {
-                          empid: employeeid,
-                        });
-                        setAnchorElOpt(null);
-                      }}
-                    >
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </Menu>
               </IconButton>
+
+              <Menu
+                id="long-menu"
+                anchorEl={openedDropdown[tableMeta.rowIndex]}
+                open={Boolean(openedDropdown[tableMeta.rowIndex])}
+                onClose={() => closeDropdown(tableMeta.rowIndex)}
+                slotProps={{
+                  paper: {
+                    elevation: 0,
+                    sx: {
+                      overflow: 'visible',
+                      width: 200,
+                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                      mt: 1.5,
+                      '& .MuiAvatar-root': {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                      },
+                      '&:before': {
+                        content: '""',
+                        display: 'block',
+                        position: 'absolute',
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: 'background.paper',
+                        transform: 'translateY(-50%) rotate(45deg)',
+                        zIndex: 0,
+                      },
+                    },
+                  },
+                }}
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              >
+                {optionsOpt.map((option) => (
+                  <MenuItem
+                    key={option.name}
+                    onClick={() => {
+                      closeDropdown(tableMeta.rowIndex)
+                      history.push(`/app/Pages/Employee/${option.url}`, {
+                        empid: employeeid,
+                      });
+                    }}
+                  >
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </Menu>
             </div>
           );
         },

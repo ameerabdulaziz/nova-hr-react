@@ -505,6 +505,29 @@ export const SettingResetPassword = loadable(
     fallback: <Loading />,
   }
 );
+
+export const SettingMailSmsForm = loadable(
+  () => import('./Pages/Payroll/Setting/SettingMailSmsForm'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const SettingMailSmsFormCreate = loadable(
+  () => import('./Pages/Payroll/Setting/SettingMailSmsFormCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+export const HrPermission = loadable(
+  () => import('./Pages/Payroll/Setting/HrPermission'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // HR////////////////////////////////////////////////////////////////////////////////////////
 
 export const TrainingCenter = loadable(
@@ -2052,6 +2075,27 @@ export const JobOffer = loadable(
   }
 );
 
+export const Employment = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/Employment'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobDataBank = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/JobDataBank'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobApplicationStatus = loadable(
+  () => import('./Pages/Payroll/Recruitment/reports/JobApplicationStatus'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const JobOfferStatus = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferStatus'),
   {
@@ -2061,6 +2105,34 @@ export const JobOfferStatus = loadable(
 
 export const JobOfferCreate = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/JobOfferCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmploymentRequest = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/EmploymentRequest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmploymentRequestCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/EmploymentRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ReviewEmploymentRequest = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/ReviewEmploymentRequest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ReviewEmploymentRequestCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/Transaction/ReviewEmploymentRequestCreate'),
   {
     fallback: <Loading />,
   }
@@ -2117,6 +2189,13 @@ export const JobVacationApplication = loadable(
 
 export const ApplicationUnderReviewing = loadable(
   () => import('./Pages/Payroll/cv-application/ApplicationUnderReviewing'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const AsChoice = loadable(
+  () => import('./Pages/Payroll/Assessment/code/AsChoice'),
   {
     fallback: <Loading />,
   }

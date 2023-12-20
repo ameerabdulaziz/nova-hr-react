@@ -109,7 +109,7 @@ export default defineMessages({
     id: `${scope}.variable`,
     defaultMessage: "variable",
   },
- 
+
   constant: {
     id: `${scope}.constant`,
     defaultMessage: "constant",
@@ -214,15 +214,15 @@ export default defineMessages({
   },
   elementType: {
     id: `${scope}.elementType`,
-    defaultMessage: 'elementType',
+    defaultMessage: "elementType",
   },
   elementMode: {
     id: `${scope}.elementMode`,
-    defaultMessage: 'elementMode',
+    defaultMessage: "elementMode",
   },
   source: {
     id: `${scope}.source`,
-    defaultMessage: 'source',
+    defaultMessage: "source",
   },
   newval: {
     id: `${scope}.newval`,
@@ -256,7 +256,7 @@ export default defineMessages({
     id: `${scope}.nativeTotalValue`,
     defaultMessage: "nativeTotalValue",
   },
- totalValue: {
+  totalValue: {
     id: `${scope}.totalValue`,
     defaultMessage: "totalValue",
   },
@@ -291,5 +291,115 @@ export default defineMessages({
   LoanTrxUpdateTitle: {
     id: `${scope}.LoanTrxUpdateTitle`,
     defaultMessage: "LoanTrxUpdateTitle",
+  },
+
+  // BranchSalarySetting
+  payrollMainParameters: {
+    id: `${scope}.payrollMainParameters`,
+    defaultMessage: "Payroll Main Parameters",
+  },
+  Department: {
+    id: `${scope}.Department`,
+    defaultMessage: "Department",
+  },
+  TaxeParameters: {
+    id: `${scope}.TaxeParameters`,
+    defaultMessage: "Taxe Parameters",
+  },
+  PersonalExemption: {
+    id: `${scope}.PersonalExemption`,
+    defaultMessage: "Personal Exemption",
+  },
+  specialNeedsExemption: {
+    id: `${scope}.specialNeedsExemption`,
+    defaultMessage: "Special Needs Exemption",
+  },
+  FirstBracketLimit: {
+    id: `${scope}.FirstBracketLimit`,
+    defaultMessage: "First Bracket Limit",
+  },
+  FirstBracketTax: {
+    id: `${scope}.FirstBracketTax`,
+    defaultMessage: "First Bracket Tax",
+  },
+  SecondBracketLimit: {
+    id: `${scope}.SecondBracketLimit`,
+    defaultMessage: "Second Bracket Limit",
+  },
+  SecondBracketTax: {
+    id: `${scope}.SecondBracketTax`,
+    defaultMessage: "Second Bracket Tax",
+  },
+  ThirdBracketLimit: {
+    id: `${scope}.ThirdBracketLimit`,
+    defaultMessage: "Third Bracket Limit",
+  },
+  ThirdBracketTax: {
+    id: `${scope}.ThirdBracketTax`,
+    defaultMessage: "Third Bracket Tax",
+  },
+  FourthBracketLimit: {
+    id: `${scope}.FourthBracketLimit`,
+    defaultMessage: "Fourth Bracket Limit",
+  },
+  FourthBracketTax: {
+    id: `${scope}.FourthBracketTax`,
+    defaultMessage: "Fourth Bracket Tax",
+  },
+  FifthBracketLimit: {
+    id: `${scope}.FifthBracketLimit`,
+    defaultMessage: "Fifth Bracket Limit",
+  },
+  FifthBracketTax: {
+    id: `${scope}.FifthBracketTax`,
+    defaultMessage: "Fifth Bracket Tax",
+  },
+  SixthBracketLimit: {
+    id: `${scope}.SixthBracketLimit`,
+    defaultMessage: "Sixth Bracket Limit",
+  },
+  SixthBracketTax: {
+    id: `${scope}.SixthBracketTax`,
+    defaultMessage: "Sixth Bracket Tax",
+  },
+  seventhBracketLimit: {
+    id: `${scope}.seventhBracketLimit`,
+    defaultMessage: "seventh Bracket Limit",
+  },
+  seventhBracketTax: {
+    id: `${scope}.seventhBracketTax`,
+    defaultMessage: "seventh Bracket Tax",
+  },
+  EighthBracketLimit: {
+    id: `${scope}.EighthBracketLimit`,
+    defaultMessage: "Eighth Bracket Limit",
+  },
+  EighthBracketTax: {
+    id: `${scope}.EighthBracketTax`,
+    defaultMessage: "Eighth Bracket Tax",
+  },
+  EpidemicsContribution: {
+    id: `${scope}.EpidemicsContribution`,
+    defaultMessage: "Epidemics Contribution",
+  },
+  DisplayName: {
+    id: `${scope}.DisplayName`,
+    defaultMessage: "Display Name",
+  },
+  FixedElementsSILimit: {
+    id: `${scope}.FixedElementsSILimit`,
+    defaultMessage: "Fixed Elements SI Limit",
+  },
+  CompanyShare: {
+    id: `${scope}.CompanyShare`,
+    defaultMessage: "Company Share",
+  },
+  TheEmployeesShareOfSI: {
+    id: `${scope}.TheEmployeesShareOfSI`,
+    defaultMessage: "The Employee's Share Of SI",
+  },
+  SocialInsuranceParameters: {
+    id: `${scope}.SocialInsuranceParameters`,
+    defaultMessage: "Social Insurance Parameters",
   },
 });
