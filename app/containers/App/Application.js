@@ -370,7 +370,9 @@ import {
   EmploymentRequestCreate,
   ReviewEmploymentRequest,
   ReviewEmploymentRequestCreate,
-  AsChoice
+  AsChoice,
+  AsTemplate,
+  AsTemplateCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1761,6 +1763,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/AsChoice'
           component={AsChoice}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsTemplate'
+          component={AsTemplate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsTemplateCreate'
+          component={AsTemplateCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsTemplateEdit'
+          component={AsTemplateCreate}
         />
 
         {/* Default */}

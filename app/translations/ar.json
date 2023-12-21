@@ -2426,5 +2426,13 @@
   "boilerplate.containers.Payroll.cv.department": "القسم",
   "boilerplate.containers.Payroll.cv.workPlace": "مكان العمل",
   "boilerplate.containers.Payroll.cv.leaveReason": "سبب الاستقالة",
-  "boilerplate.containers.Payroll.cv.startDate": "تاريخ البدء"
+  "boilerplate.containers.Payroll.cv.startDate": "تاريخ البدء",
+
+  "boilerplate.containers.Payroll.assessment.templateName": "اسم القالب",
+"boilerplate.containers.Payroll.assessment.arTemplateName": "اسم القالب بالعربية",
+"boilerplate.containers.Payroll.assessment.months": "الشهور",
+"boilerplate.containers.Payroll.assessment.jobs": "الوظائف",
+"boilerplate.containers.Payroll.assessment.isPropation": "فترة تجريبية",
+"boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "قالب فترة التجربة"
+
 }
