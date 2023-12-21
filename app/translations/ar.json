@@ -966,7 +966,7 @@
   "boilerplate.containers.Payroll.Import": "استيراد",
   "boilerplate.containers.Payroll.reset": "إعادة الضبط",
   "boilerplate.containers.Payroll.deleteMessage": "هل أنت متأكد أنك تريد حذف",
-  "boilerplate.containers.Payroll.confirmation": "رسالة تأكيدية",
+  "boilerplate.containers.Payroll.confirmation": "هل تريد الحفظ",
   "boilerplate.containers.Payroll.applynewshift": "تطبيق الوردية الجديده",
   "boilerplate.containers.Payroll.employees": "عرض الموظفين",
   "boilerplate.containers.Payroll.VacationName": "الاجازة",
@@ -979,6 +979,11 @@
   "boilerplate.containers.Payroll.percentage": "النسبة",
   
   "boilerplate.containers.Payroll.relation": "العلاقه",
+  "boilerplate.containers.Payroll.branch": "الشركة",
+  "boilerplate.containers.Payroll.Postmonth": "ترحيل لشهر",
+  "boilerplate.containers.Payroll.Postyear": "ترحيل لسنة",
+  
+  
   
   
   
@@ -1668,6 +1673,37 @@
     "boilerplate.containers.Payroll.Payroll.max": "الحد الاقصى",
     "boilerplate.containers.Payroll.Payroll.calcValMin": "الحد الادنى للقيمة المحسوبة",
     "boilerplate.containers.Payroll.Payroll.calcValMax": "الحد الاقصى للقيمة المحسوبة",
+    "boilerplate.containers.Payroll.Payroll.val": "القيمة/العدد",
+    "boilerplate.containers.Payroll.Payroll.elementType": "نوع العنصر",
+    "boilerplate.containers.Payroll.Payroll.elementMode": "طبيعة العنصر",
+    "boilerplate.containers.Payroll.Payroll.source": "المصدر",
+    "boilerplate.containers.Payroll.Payroll.newval": "ادخال عناصر للموظفين",
+    "boilerplate.containers.Payroll.Payroll.ElementValCreateTitle": "اضافة عناصر للموظفين",
+    "boilerplate.containers.Payroll.Payroll.ElementValUpdateTitle": "تعديل عناصر للموظفين",    
+    "boilerplate.containers.Payroll.Payroll.isNotUpdate": "فى حالة وجود العنصر لا تقم بالتعديل",
+    "boilerplate.containers.Payroll.Payroll.deductionMonth": "شهر الخصم",
+    "boilerplate.containers.Payroll.Payroll.deductionYear": "سنة الخصم",
+    "boilerplate.containers.Payroll.Payroll.post": "ترحيل",
+    "boilerplate.containers.Payroll.Payroll.recalculate": "اعادة حساب",
+    "boilerplate.containers.Payroll.Payroll.LoanTrxCreateTitle": "اضافة سلف ",
+    "boilerplate.containers.Payroll.Payroll.LoanTrxUpdateTitle": "تعديل سلف",
+    
+    
+
+    "boilerplate.containers.Payroll.Payroll.nativeTotalValue": "اصل السلفة",
+    "boilerplate.containers.Payroll.Payroll.totalValue": "قيمة الاقساط",
+    "boilerplate.containers.Payroll.Payroll.paysNo": "عدد الاقساط",
+    "boilerplate.containers.Payroll.Payroll.payvalue": "قيمة القسط",
+    "boilerplate.containers.Payroll.Payroll.lineNo": "رقم السطر",
+    "boilerplate.containers.Payroll.Payroll.isPaid": "مسدد",
+    
+    
+    
+    
+    
+  
+    
+    
     
     
     

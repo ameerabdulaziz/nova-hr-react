@@ -1335,6 +1335,26 @@ export const PayTemplateCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const ElementValList = loadable(
+  () => import('./Pages/Payroll/Payroll/Transaction/ElementVal/ElementValList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ElementValCreate = loadable(
+  () => import('./Pages/Payroll/Payroll/Transaction/ElementVal/ElementValCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const ElementVlaImport = loadable(
+  () => import('./Pages/Payroll/Payroll/Transaction/ElementVal/ElementVlaImport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ElementTaxIns = loadable(
   () => import('./Pages/Payroll/Payroll/Code/ElementTaxIns'),
   {
@@ -1373,6 +1393,37 @@ export const BranchSalarySetting = loadable(
     fallback: <Loading />,
   }
 );
+
+export const LoanTrxList = loadable(
+  () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const LoanTrxCreate = loadable(
+  () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const LoanReqList = loadable(
+  () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanReqList'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const LoanReqCreate = loadable(
+  () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanReqCreate'),
+  {
+    fallback: <Loading />,
+  });
+
+  export const LoanPostpone = loadable(
+    () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanPostpone'),
+    {
+      fallback: <Loading />,
+    });
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),

@@ -18,16 +18,17 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetEmployeeList = async (IsInsured, medicalInsured) => {
+  Apis.GetEmployeeList = async (IsInsured, medicalInsured,branchId) => {
+    debugger;
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeList/${locale}?IsInsured=${IsInsured?true:false}&PrivMedCareInsured=${medicalInsured ? true : false}`
+      `GeneralList/GetEmployeeList/${locale}?IsInsured=${IsInsured?true:false}&PrivMedCareInsured=${medicalInsured ? true : false}&branchId=${branchId ? branchId : ""}`
     );
 
     return result.data;
   };
-  Apis.GetEmployeeListComponent = async (IsInsured,withoutSalaryStructure) => {
+  Apis.GetEmployeeListComponent = async (IsInsured,withoutSalaryStructure,branchId) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeListComponent/${locale}?IsInsured=${IsInsured?true:false}&withoutSalaryStructure=${withoutSalaryStructure ? true : false}`
+      `GeneralList/GetEmployeeListComponent/${locale}?IsInsured=${IsInsured?true:false}&withoutSalaryStructure=${withoutSalaryStructure ? true : false}&branchId=${branchId ? branchId : ""}`
     );
 
     return result.data;
@@ -437,6 +438,11 @@ const GeneralListApis = (locale) => {
   };
   Apis.GetSafeList = async () => {
     const result = await axiosInstance.get(`GeneralList/GetSafeList/${locale}`);
+
+    return result.data;
+  };
+  Apis.getOpenMonth = async ( OrganizationId, EmployeeId) => {
+    const result = await axiosInstance.get(`GeneralList/getOpenMonth/${locale}/${OrganizationId}/${EmployeeId}`);
 
     return result.data;
   };

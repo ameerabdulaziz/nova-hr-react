@@ -91,6 +91,7 @@ rootTable: {
     borderWidth: '1px',
     padding: '10px',
     borderColor: 'rgba(0, 0, 0, 0.20);',
+    marginTop: '10px'
   },
   content: {
     width: '100%',
