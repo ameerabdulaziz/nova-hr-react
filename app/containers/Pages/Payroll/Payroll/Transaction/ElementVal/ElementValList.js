@@ -43,7 +43,7 @@ function ElementValList(props) {
   const Title = localStorage.getItem("MenuName");
   const [dataList, setdataList] = useState([]);
   const [notes, setnotes] = useState("");
-  const [isNotUpdate, setisNotUpdate] = useState(false);
+  const [isNotUpdate, setisNotUpdate] = useState(true);
   const [newValue, setNewValue] = useState("");
   const [elementData, setElementData] = useState({
     id: 0,
