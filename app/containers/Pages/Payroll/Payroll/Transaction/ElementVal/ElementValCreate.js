@@ -71,10 +71,15 @@ function ElementValCreate(props) {
       setIsLoading(true);
 
       let response = await ApiData(locale).Save(data);
-
+      
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Payroll/ElementVal`);
+        history.push(`/app/Pages/Payroll/ElementVal` ,{
+          branchId: data.branchId,
+          employeeId: data.employeeId,
+          payTemplateId: data.payTemplateId,
+          elementId: data.elementId,
+        });
       } else {
         toast.error(response.statusText);
       }
@@ -118,6 +123,14 @@ function ElementValCreate(props) {
 
   async function getElementList(id) {
     try {
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        elementId: 0,
+        elementMaxVal: "",
+        elementMinVal: "",
+        elementModeId: "",
+        defaultVal: "",
+      }));
       if (!id) {
         setElementList([]);
         return;

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import AddButton from "../../../Component/AddButton";
+import { useLocation } from "react-router-dom";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
 import {
   Button,
@@ -17,9 +18,10 @@ import {
   CardContent,
   Box,
   FormControl,
-  FormControlLabel,
   Radio,
   RadioGroup,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
@@ -41,6 +43,7 @@ function ElementValList(props) {
   const Title = localStorage.getItem("MenuName");
   const [dataList, setdataList] = useState([]);
   const [notes, setnotes] = useState("");
+  const [isNotUpdate, setisNotUpdate] = useState(false);
   const [newValue, setNewValue] = useState("");
   const [elementData, setElementData] = useState({
     id: 0,
@@ -54,6 +57,11 @@ function ElementValList(props) {
   const [PayTemplateId, setPayTemplateId] = useState(0);
   const [BranchList, setBranchList] = useState([]);
   const [BranchId, setBranchId] = useState(0);
+  const { state } = useLocation();
+  const BranchIdState = state?.branchId;
+  const EmployeeIdState = state?.employeeId;
+  const PayTemplateIdState = state?.payTemplateId;
+  const ElementIdState = state?.elementId;
   const [EmployeeList, setEmployeeList] = useState([]);
   const [EmployeeId, setEmployeeId] = useState(0);
   const [elementList, setElementList] = useState([]);
@@ -70,6 +78,41 @@ function ElementValList(props) {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      const data = {
+        id: 0,
+        employeeId: EmployeeId,
+        payTemplateId: PayTemplateId,
+        elementId: elementData.id,
+        elementModeId: elementData.elementModeId,
+        yearId: OpenMonth.yearId,
+        monthId: OpenMonth.monthId,
+        transDate: format(new Date(), "yyyy-MM-dd"),
+        elemVal: newValue,
+        notes: notes,
+      };
+      let response = await ApiData(locale).Save(data);
+
+      if (response.status == 200) {
+        toast.success(notif.saved);
+        const result = await ApiData(locale).GetList(
+          BranchId,
+          EmployeeId,
+          PayTemplateId,
+          elementData.id
+        );
+        setdataList(result || []);
+      } else {
+        toast.error(response.statusText);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
       setOpenPopup(false);
@@ -78,20 +121,25 @@ function ElementValList(props) {
         setIsLoading(true);
         const data = Employeesdata.map((obj) => ({
           id: 0,
+          branchId: BranchId,
           employeeId: obj.id,
           payTemplateId: PayTemplateId,
           elementId: elementData.id,
+          elementModeId: elementData.elementModeId,
           yearId: OpenMonth.yearId,
           monthId: OpenMonth.monthId,
           transDate: format(new Date(), "yyyy-MM-dd"),
           elemVal: newValue,
           notes: notes,
           trxSorce: "GRB",
+          isNotUpdate: isNotUpdate,
         }));
         let response = await ApiData(locale).SaveList(data);
 
         if (response.status == 200) {
-          toast.success(notif.saved);
+          if (response.data == "Success") toast.success(notif.saved);
+          else
+            toast.success("Employees Ids :" + response.data + " not inserted");
           const result = await ApiData(locale).GetList(
             BranchId,
             EmployeeId,
@@ -107,7 +155,7 @@ function ElementValList(props) {
         setIsLoading(false);
       }
     },
-    [elementData, notes, newValue, PayTemplateId]
+    [elementData, notes, newValue, PayTemplateId, isNotUpdate]
   );
 
   const handleClickOpenNamePopup = () => {
@@ -181,6 +229,29 @@ function ElementValList(props) {
 
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(PayList);
+      debugger;
+      if (BranchIdState) {
+        setBranchId(BranchIdState);
+        getOpenMonth(BranchIdState);
+      }
+      if (EmployeeIdState) {
+        setEmployeeId(EmployeeIdState);
+        changeEmployee(EmployeeIdState);
+      }
+      if (PayTemplateIdState) {
+        setPayTemplateId(PayTemplateIdState);
+        getElementList(PayTemplateIdState);
+      }
+      if (ElementIdState) {
+        getElementData(ElementIdState);
+      }
+      if (BranchIdState)
+        handleSearch(
+          BranchIdState,
+          EmployeeIdState,
+          PayTemplateIdState,
+          ElementIdState
+        );
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -217,13 +288,6 @@ function ElementValList(props) {
         monthName: result.monthName,
         yearName: result.yearName,
       });
-      const result1 = await ApiData(locale).GetList(
-        id,
-        EmployeeId,
-        PayTemplateId,
-        elementData.id
-      );
-      setdataList(result1 || []);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -233,13 +297,6 @@ function ElementValList(props) {
     try {
       setIsLoading(true);
       setEmployeeId(id);
-      const result1 = await ApiData(locale).GetList(
-        BranchId,
-        id,
-        PayTemplateId,
-        elementData.id
-      );
-      setdataList(result1 || []);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -250,6 +307,13 @@ function ElementValList(props) {
       debugger;
 
       setIsLoading(true);
+      setElementData({
+        elementId: 0,
+        elementMaxVal: "",
+        elementMinVal: "",
+        elementModeId: "",
+        defaultVal: "",
+      });
       if (!id) {
         setElementList([]);
       } else {
@@ -258,13 +322,6 @@ function ElementValList(props) {
         );
         setElementList(result);
       }
-      const result1 = await ApiData(locale).GetList(
-        BranchId,
-        EmployeeId,
-        id,
-        elementData.id
-      );
-      setdataList(result1 || []);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -292,18 +349,31 @@ function ElementValList(props) {
           defaultVal: result.defaultVal,
         });
       }
-      const result1 = await ApiData(locale).GetList(
-        BranchId,
-        EmployeeId,
-        PayTemplateId,
-        id
-      );
-      setdataList(result1 || []);
     } catch (err) {
     } finally {
       setIsLoading(false);
     }
   }
+
+  const handleSearch = async (brId, empId, payId, eleId) => {
+    try {
+      setIsLoading(true);
+      var result1 = [];
+      if (empId)
+        result1 = await ApiData(locale).GetList(brId, empId, payId, eleId);
+      else
+        result1 = await ApiData(locale).GetList(
+          BranchId,
+          EmployeeId,
+          PayTemplateId,
+          elementData.id
+        );
+      setdataList(result1 || []);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const columns = [
     {
       name: "id",
@@ -569,7 +639,7 @@ function ElementValList(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={9}>
                       <Autocomplete
                         id="employeeId"
                         options={EmployeeList}
@@ -604,6 +674,16 @@ function ElementValList(props) {
                           />
                         )}
                       />
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                      <Button
+                        variant="contained"
+                        size="medium"
+                        color="primary"
+                        onClick={handleSearch}
+                      >
+                        <FormattedMessage {...Payrollmessages.search} />
+                      </Button>
                     </Grid>
                   </Grid>
                   <Grid
@@ -777,7 +857,7 @@ function ElementValList(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={12} md={1.5}>
                     <TextField
                       id="Val"
                       name="Val"
@@ -791,7 +871,7 @@ function ElementValList(props) {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={3.5}>
                     <TextField
                       id="Notes"
                       name="Notes"
@@ -804,6 +884,19 @@ function ElementValList(props) {
                       }}
                     />
                   </Grid>
+                  <Grid item xs={12} md={4}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={isNotUpdate || null}
+                          onChange={(e) => setisNotUpdate(e.target.checked)}
+                          value={isNotUpdate || null}
+                          color="primary"
+                        />
+                      }
+                      label={intl.formatMessage(messages.isNotUpdate)}
+                    />
+                  </Grid>
                   <Grid item xs={12} md={2}>
                     <Button
                       variant="contained"
@@ -813,6 +906,17 @@ function ElementValList(props) {
                       disabled={newValue ? false : true}
                     >
                       <FormattedMessage {...Payrollmessages.chooseEmp} />
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12} md={1}>
+                    <Button
+                      variant="contained"
+                      size="medium"
+                      color="secondary"
+                      onClick={handleSave}
+                      disabled={newValue && EmployeeId ? false : true}
+                    >
+                      <FormattedMessage {...Payrollmessages.save} />
                     </Button>
                   </Grid>
                 </Grid>

@@ -10,7 +10,9 @@ import {
   TextField,
   Card,
   CardContent,
-  Autocomplete,FormControlLabel,Checkbox
+  Autocomplete,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -54,7 +56,7 @@ function ElementVlaImport({ intl }) {
     yearId: "",
     monthName: "",
     yearName: "",
-    isNotUpdate:false,
+    isNotUpdate: false,
   });
 
   const handleImport = ($event) => {
@@ -89,29 +91,32 @@ function ElementVlaImport({ intl }) {
 
   const handleSubmit = async (e) => {
     try {
-        debugger;
+      debugger;
       e.preventDefault();
       setIsLoading(true);
-      
+
       const dataParam = fileData.map((obj) => ({
         id: 0,
+        branchId: data.branchId,
         employeeId: obj.EmployeeId,
         payTemplateId: data.payTemplateId,
         elementId: data.elementId,
+        elementModeId: data.elementModeId,
         yearId: data.yearId,
         monthId: data.monthId,
         transDate: obj.TransDate,
         elemVal: obj.ElemVal,
         notes: obj.Notes,
         trxSorce: "EXL",
-        isNotUpdate:data.isNotUpdate
+        isNotUpdate: data.isNotUpdate,
       }));
 
       debugger;
       let response = await ApiData(locale).SaveList(dataParam);
 
       if (response.status == 200) {
-        toast.success(notif.saved);
+        if (response.data == "Success") toast.success(notif.saved);
+        else toast.success("Employees Ids :" + response.data + " not inserted");
         resetDataFun();
       } else {
         toast.error(response.statusText);
@@ -153,12 +158,21 @@ function ElementVlaImport({ intl }) {
 
   async function getElementList(id) {
     try {
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        elementId: 0,
+        elementMaxVal: "",
+        elementMinVal: "",
+        elementModeId: "",
+        defaultVal: "",
+      }));
       if (!id) {
         setElementList([]);
         return;
       }
       setIsLoading(true);
       const result = await GeneralListApis(locale).GetElementListByTemplate(id);
+
       setElementList(result);
     } catch (err) {
     } finally {
@@ -202,7 +216,6 @@ function ElementVlaImport({ intl }) {
       setBranchList(BrList);
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(PayList);
-     
     } catch (err) {
     } finally {
       setIsLoading(false);
