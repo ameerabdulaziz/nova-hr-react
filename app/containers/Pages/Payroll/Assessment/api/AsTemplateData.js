@@ -6,18 +6,33 @@ const API = (locale) => {
     const data = await axiosInstance.get(
       'AsTemplate/GetList/'
     );
-    const result = data.data;
 
-    return result;
+    return data.data;
+  };
+
+  api.GetCompetencyList = async () => {
+    const data = await axiosInstance.get(
+      `AsTemplate/GetCompetencyList/${locale}`
+    );
+
+    return data.data;
   };
 
   api.GetById = async (id) => {
     const data = await axiosInstance.get(
-      `AsTemplate/GetAllData/${locale}?id=${id}`
+      `AsTemplate/Get/${locale}/${id}`
     );
-    const result = data.data;
 
-    return result;
+    return data.data;
+  };
+
+  api.GetEmployee = async (id, jobs, probationPeriod) => {
+    const data = await axiosInstance.post(
+      `AsTemplate/GetEmployee/${locale}/${id}/${probationPeriod}`,
+      jobs
+    );
+
+    return data.data;
   };
 
   api.save = async (body) => {
@@ -28,6 +43,7 @@ const API = (locale) => {
 
   api.delete = async (id) => {
     const data = await axiosInstance.delete(`AsTemplate/${id}`);
+
     return data;
   };
 
