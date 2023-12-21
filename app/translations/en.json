@@ -2340,5 +2340,12 @@
   "boilerplate.containers.Payroll.cv.department": "Department",
   "boilerplate.containers.Payroll.cv.workPlace": "Work Place",
   "boilerplate.containers.Payroll.cv.leaveReason": "Leave Reason",
-  "boilerplate.containers.Payroll.cv.startDate": "Start Date"
+  "boilerplate.containers.Payroll.cv.startDate": "Start Date",
+
+  "boilerplate.containers.Payroll.assessment.templateName": "Template Name",
+  "boilerplate.containers.Payroll.assessment.arTemplateName": "Arabic Template Name",
+  "boilerplate.containers.Payroll.assessment.months": "Months",
+  "boilerplate.containers.Payroll.assessment.jobs": "Jobs",
+  "boilerplate.containers.Payroll.assessment.isPropation": "Is Propation",
+  "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "Probation Period Template"
 }

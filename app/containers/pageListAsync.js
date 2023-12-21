@@ -2149,3 +2149,17 @@ export const AsChoice = loadable(
     fallback: <Loading />,
   }
 );
+
+export const AsTemplate = loadable(
+  () => import('./Pages/Payroll/Assessment/code/AsTemplate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const AsTemplateCreate = loadable(
+  () => import('./Pages/Payroll/Assessment/code/AsTemplateCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
