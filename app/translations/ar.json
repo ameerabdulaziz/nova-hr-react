@@ -982,6 +982,11 @@
   "boilerplate.containers.Payroll.branch": "الشركة",
   "boilerplate.containers.Payroll.Postmonth": "ترحيل لشهر",
   "boilerplate.containers.Payroll.Postyear": "ترحيل لسنة",
+
+  "boilerplate.containers.Payroll.monthName": "الشهر",
+  "boilerplate.containers.Payroll.yearName": "السنة",
+  "boilerplate.containers.Payroll.totalvalue": "اجمالى القسط",
+  "boilerplate.containers.Payroll.paysNo": "عدد الاقساط",
   
   
   

@@ -422,7 +422,7 @@ function LoanTrxCreate(props) {
                             setdata((prevFilters) => ({
                               ...prevFilters,
                               totalvalue: e.target.value,
-                              payvalue: (data.paysNo && data.totalvalue)?data.totalvalue / data.paysNo:0,
+                              payvalue: (data.paysNo && data.totalvalue)?e.target.value/ data.paysNo:0,
                             }));
                             handleApply(data.paysNo,data.stYearName,data.monthId,e.target.value) 
                           }}

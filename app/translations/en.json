@@ -962,6 +962,11 @@
   "boilerplate.containers.Payroll.Postmonth": "Postpone to Month",
   "boilerplate.containers.Payroll.Postyear": "Postpone to Year",
 
+  
+  "boilerplate.containers.Payroll.monthName": "Month",
+  "boilerplate.containers.Payroll.yearName": "Year",
+  "boilerplate.containers.Payroll.totalvalue": "Total Loan",
+  "boilerplate.containers.Payroll.paysNo": "Loan No",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",

@@ -22,6 +22,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { format } from "date-fns";
 import PayRollLoader from "../Component/PayRollLoader";
 
+
 function RequestsList(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -103,7 +104,7 @@ function RequestsList(props) {
     cols.length !== 0
       ? cols.map((item) => ({
           name: item,
-          //label: <FormattedMessage {...Payrollmessages[item]} />,
+          label: <FormattedMessage {...Payrollmessages[item]} />,
           options: {
             filter: true,
           },

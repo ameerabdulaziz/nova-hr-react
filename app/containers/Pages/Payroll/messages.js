@@ -473,4 +473,20 @@ employeeId: {
     defaultMessage: 'Postmonth',
   },
  
+  monthName: {
+    id: `${scope}.monthName`,
+    defaultMessage: 'monthName',
+  },
+  yearName: {
+    id: `${scope}.yearName`,
+    defaultMessage: 'yearName',
+  },
+  totalvalue: {
+    id: `${scope}.totalValue`,
+    defaultMessage: "totalValue",
+  },
+  paysNo: {
+    id: `${scope}.paysNo`,
+    defaultMessage: "paysNo",
+  },
 });
