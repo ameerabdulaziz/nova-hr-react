@@ -36,7 +36,7 @@ const API = (locale) => {
   };
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('AsTemplate', body);
+    const result = await axiosInstance.post('AsTemplate/save', body);
 
     return result;
   };

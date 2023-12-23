@@ -2,6 +2,7 @@ import { Delete } from '@mui/icons-material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DescriptionIcon from '@mui/icons-material/Description';
+import PeopleIcon from '@mui/icons-material/People';
 import {
   Autocomplete,
   Box,
@@ -35,6 +36,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/AsTemplateData';
 import CompetencyPopup from '../components/AsTemplate/CompetencyPopup';
+import StuffPopup from '../components/AsTemplate/StuffPopup';
 import messages from '../messages';
 
 function AsTemplateCreate(props) {
@@ -46,11 +48,23 @@ function AsTemplateCreate(props) {
 
   const id = location.state?.id ?? 0;
 
+  const probationPeriodList = [
+    {
+      id: 0,
+      name: intl.formatMessage(messages.true),
+    },
+    {
+      id: 1,
+      name: intl.formatMessage(messages.false),
+    }
+  ];
+
   const [jobList, setJobList] = useState([]);
   const [competencyList, setCompetencyList] = useState([]);
   const [monthList, setMonthList] = useState([]);
 
   const [isCompetencyPopupOpen, setIsCompetencyPopupOpen] = useState(false);
+  const [isStuffPopupOpen, setIsStuffPopupOpen] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [formInfo, setFormInfo] = useState({
@@ -60,13 +74,14 @@ function AsTemplateCreate(props) {
     arTemplateName: '',
     months: [],
     jobs: [],
-    probationPeriod: false,
+    probationPeriod: null,
     showStyles: false,
     addExample: false,
     description: '',
     arDescription: '',
 
     competency: [],
+    stuff: [],
   });
 
   const fetchNeededData = async () => {
@@ -171,6 +186,38 @@ function AsTemplateCreate(props) {
     }
   };
 
+  const onStuffPopupBtnClick = async () => {
+    if (formInfo.probationPeriod !== null) {
+ 
+       setIsStuffPopupOpen(true);
+  
+    } else {
+      toast.error(intl.formatMessage(messages.probationPeriodValueIsRequired));
+    }
+  };
+
+  const onStuffSave = (items) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      stuff: items
+    }));
+
+    setIsStuffPopupOpen(false);
+  };
+
+  const onStuffRemove = (id) => {
+    const clonedItems = [...formInfo.stuff];
+    const indexToRemove = clonedItems.findIndex((item) => item.id === id);
+
+    if (indexToRemove !== -1) {
+      clonedItems.splice(indexToRemove, 1);
+      setFormInfo((prev) => ({
+        ...prev,
+        stuff: clonedItems,
+      }));
+    }
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <CompetencyPopup
@@ -179,6 +226,15 @@ function AsTemplateCreate(props) {
         onSave={onCompetencySave}
         selectedCompetency={formInfo.competency}
         competencyList={competencyList}
+      />
+
+      <StuffPopup
+        isOpen={isStuffPopupOpen}
+        setIsOpen={setIsStuffPopupOpen}
+        onSave={onStuffSave}
+        selectedStuff={formInfo.stuff}
+        jobList={jobList}
+        probationPeriod={Boolean(formInfo.probationPeriod)}
       />
 
       <form onSubmit={onFormSubmit}>
@@ -190,7 +246,7 @@ function AsTemplateCreate(props) {
                   {intl.formatMessage(messages.templateInfo)}
                 </Typography>
 
-                <Grid container spacing={3} direction='row'>
+                <Grid container spacing={3} mt={0} direction='row'>
                   <Grid item xs={12} md={3}>
                     <TextField
                       name='templateName'
@@ -276,17 +332,26 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item md={4} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={formInfo.probationPeriod}
-                          onChange={onCheckboxChange}
-                          name='probationPeriod'
-                        />
+                  <Grid item xs={12} md={4}>
+                    <Autocomplete
+                      options={probationPeriodList}
+                      value={
+                        probationPeriodList.find((item) => item.id === formInfo.probationPeriod) ?? null
                       }
-                      label={intl.formatMessage(
-                        messages.probationPeriodTemplate
+                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      onChange={(_, value) => onAutoCompleteChange(value, 'probationPeriod')}
+                      renderInput={(params) => (
+                        <TextField
+                          required
+                          {...params}
+                          label={intl.formatMessage(messages.probationPeriodTemplate)}
+                        />
+                      )}
+                      renderOption={(propsOption, option) => (
+                        <li {...propsOption} key={option.id}>
+                          {option.name}
+                        </li>
                       )}
                     />
                   </Grid>
@@ -328,6 +393,7 @@ function AsTemplateCreate(props) {
                   container
                   justifyContent='space-between'
                   alignItems='center'
+                  mb={3}
                 >
                   <Grid item>
                     <Typography variant='h6'>
@@ -346,8 +412,8 @@ function AsTemplateCreate(props) {
                 </Grid>
 
                 {formInfo.competency.length > 0 ? (
-                  <TableContainer>
-                    <Table sx={{ minWidth: 650 }}>
+                  <TableContainer >
+                    <Table sx={{ minWidth: 650 }} size='small' >
                       <TableHead>
                         <TableRow>
                           <TableCell>
@@ -412,158 +478,92 @@ function AsTemplateCreate(props) {
           <Grid item xs={12}>
             <Card>
               <CardContent sx={{ p: '16px!important' }}>
-                <Typography variant='h6'>
-                  {intl.formatMessage(messages.templateInfo)}
-                </Typography>
-
-                <Grid container spacing={3} direction='row'>
-                  <Grid item xs={12}></Grid>
-
-                  <Grid item xs={12} md={3}>
-                    <TextField
-                      name='templateName'
-                      value={formInfo.templateName}
-                      required
-                      onChange={onInputChange}
-                      label={intl.formatMessage(messages.templateName)}
-                      fullWidth
-                      variant='outlined'
-                    />
+                <Grid
+                  container
+                  justifyContent='space-between'
+                  alignItems='center'
+                  mb={3}
+                >
+                  <Grid item>
+                    <Typography variant='h6'>
+                      {intl.formatMessage(messages.stuffInfo)}
+                    </Typography>
                   </Grid>
-
-                  <Grid item xs={12} md={3}>
-                    <TextField
-                      name='arTemplateName'
-                      value={formInfo.arTemplateName}
-                      required
-                      onChange={onInputChange}
-                      label={intl.formatMessage(messages.arTemplateName)}
-                      fullWidth
-                      variant='outlined'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <Autocomplete
-                      options={monthList}
-                      multiple
-                      disableCloseOnSelect
-                      className={`${style.AutocompleteMulSty} ${
-                        locale === 'ar' ? style.AutocompleteMulStyAR : null
-                      }`}
-                      value={formInfo.months}
-                      renderOption={(props, option, { selected }) => (
-                        <li {...props}>
-                          <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                            checkedIcon={<CheckBoxIcon fontSize='small' />}
-                            style={{ marginRight: 8 }}
-                            checked={selected}
-                          />
-                          {option.name}
-                        </li>
-                      )}
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      onChange={(_, value) => onMultiAutoCompleteChange(value, 'months')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          required
-                          label={intl.formatMessage(messages.months)}
-                        />
-                      )}
-                    />
-                  </Grid>
-                  {/*
-      <Grid item xs={12} md={6}>
-        <Autocomplete
-          options={jobList}
-          multiple
-          disableCloseOnSelect
-          className={`${style.AutocompleteMulSty} ${
-            locale === 'ar' ? style.AutocompleteMulStyAR : null
-          }`}
-          value={formInfo.jobs}
-          renderOption={(props, option, { selected }) => (
-            <li {...props}>
-              <Checkbox
-                icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                checkedIcon={<CheckBoxIcon fontSize='small' />}
-                style={{ marginRight: 8 }}
-                checked={selected}
-              />
-              {option.name}
-            </li>
-          )}
-          getOptionLabel={(option) => (option ? option.name : '')}
-          onChange={(_, value) => onMultiAutoCompleteChange(value, 'jobs')}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              required
-              label={intl.formatMessage(messages.jobs)}
-            />
-          )}
-        />
-      </Grid> */}
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      name='description'
-                      value={formInfo.description}
-                      onChange={onInputChange}
-                      label={intl.formatMessage(messages.description)}
-                      fullWidth
-                      variant='outlined'
-                      required
-                      multiline
-                      rows={1}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      name='arDescription'
-                      value={formInfo.arDescription}
-                      onChange={onInputChange}
-                      label={intl.formatMessage(messages.arDescription)}
-                      fullWidth
-                      variant='outlined'
-                      required
-                      multiline
-                      rows={1}
-                    />
-                  </Grid>
-
-                  <Grid item md={4} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={formInfo.probationPeriod}
-                          onChange={onCheckboxChange}
-                          name='probationPeriod'
-                        />
-                      }
-                      label={intl.formatMessage(
-                        messages.probationPeriodTemplate
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item md={4} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={formInfo.showStyles}
-                          onChange={onCheckboxChange}
-                          name='showStyles'
-                        />
-                      }
-                      label={intl.formatMessage(messages.showStyles)}
-                    />
+                  <Grid item>
+                    <Button
+                      variant='contained'
+                      onClick={onStuffPopupBtnClick}
+                      color='primary'
+                    >
+                      {intl.formatMessage(messages.addOrChangeStuff)}
+                    </Button>
                   </Grid>
                 </Grid>
+
+                {formInfo.stuff.length > 0 ? (
+                  <TableContainer >
+                    <Table sx={{ minWidth: 650 }} size='small' >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>
+                            {intl.formatMessage(messages.departmentName)}
+                          </TableCell>
+                          <TableCell>
+                            {intl.formatMessage(messages.jobName)}
+                          </TableCell>
+                          <TableCell>
+                            {intl.formatMessage(messages.employeeName)}
+                          </TableCell>
+                          <TableCell>
+                            {intl.formatMessage(messages.actions)}
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+
+                      <TableBody>
+                        {formInfo.stuff.map((stuff) => (
+                          <TableRow
+                            key={stuff.employeeId}
+                            sx={{
+                              '&:last-child td, &:last-child th': { border: 0 },
+                            }}
+                          >
+                            <TableCell component='th' scope='row'>
+                              {stuff.organizationName}
+                            </TableCell>
+                            <TableCell>{stuff.jobName}</TableCell>
+                            <TableCell>{stuff.employeeName}</TableCell>
+                            <TableCell>
+                              <IconButton
+                                color='error'
+                                onClick={() => onStuffRemove(stuff.id)}
+                              >
+                                <Delete />
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                ) : (
+                  <Stack
+                    direction='row'
+                    sx={{ minHeight: 200 }}
+                    alignItems='center'
+                    justifyContent='center'
+                    textAlign='center'
+                  >
+                    <Box>
+                      <PeopleIcon
+                        sx={{ color: '#a7acb2', fontSize: 30 }}
+                      />
+                      <Typography color='#a7acb2' variant='body1'>
+                        {intl.formatMessage(messages.noStuffFound)}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                )}
               </CardContent>
             </Card>
           </Grid>

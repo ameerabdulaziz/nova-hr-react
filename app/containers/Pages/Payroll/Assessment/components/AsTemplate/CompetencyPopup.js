@@ -1,13 +1,15 @@
+import DescriptionIcon from '@mui/icons-material/Description';
 import {
   Box,
   Button,
   Checkbox,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Stack,
   TextField,
+  Typography,
 } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -182,9 +184,22 @@ function CompetencyPopup(props) {
             </Table>
           </TableContainer>
         ) : (
-          <Box sx={{ display: 'flex', justifyContent: 'center', my: 10 }}>
-            <CircularProgress />
-          </Box>
+          <Stack
+            direction='row'
+            sx={{ minHeight: 200 }}
+            alignItems='center'
+            justifyContent='center'
+            textAlign='center'
+          >
+            <Box>
+              <DescriptionIcon
+                sx={{ color: '#a7acb2', fontSize: 30 }}
+              />
+              <Typography color='#a7acb2' variant='body1'>
+                {intl.formatMessage(messages.noCompetencyFound)}
+              </Typography>
+            </Box>
+          </Stack>
         )}
       </DialogContent>
 
