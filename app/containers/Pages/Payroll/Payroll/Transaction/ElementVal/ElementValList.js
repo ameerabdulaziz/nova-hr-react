@@ -70,13 +70,19 @@ function ElementValList(props) {
     yearId: "",
     monthName: "",
     yearName: "",
+    stYearId: "",
+    stYearName: "",
+    stMonthId: "",
+    stMonthName: "",
   });
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
   const [elementCalcMethodId, setelementCalcMethodId] = useState(1);
   const [newElemVal, setnewElemVal] = useState("");
-
   const [isLoading, setIsLoading] = useState(true);
+  const [yearList, setYearList] = useState([]);
+  const [monthList, setMonthList] = useState([]);
+  const [OrignalMonthList, setOrignalMonthList] = useState([]);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -221,9 +227,77 @@ function ElementValList(props) {
       setIsLoading(false);
     }
   }
-
-  async function Getookup() {
+  async function handlePost(selectedRows) {
     try {
+      const ids = [];
+      for (let i = 0; i < selectedRows.data.length; i++) {
+        ids.push(dataList[selectedRows.data[i].dataIndex].id);
+      }
+      if (ids.length > 0) {
+        setIsLoading(true);
+        let response = await ApiData(locale).PostponetoNextMonth(ids);
+        if (response.status == 200) {
+          toast.success(notif.saved);
+          const result = await ApiData(locale).GetList(
+            BranchId,
+            EmployeeId,
+            PayTemplateId,
+            elementData.id
+          );
+          setdataList(result || []);
+        } else {
+          toast.error(response.statusText);
+        }
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function CopytoSpecifiedMonth(selectedRows) {
+    try {
+      if (!OpenMonth.stMonthId || !OpenMonth.stYearId) {
+        toast.error("year must Enter Month & Year");
+        return;
+      }
+      const ids = [];
+      for (let i = 0; i < selectedRows.data.length; i++) {
+        ids.push(dataList[selectedRows.data[i].dataIndex].id);
+      }
+      if (ids.length > 0) {
+        setIsLoading(true);
+        let response = await ApiData(locale).CopytoSpecifiedMonth(
+          ids,
+          OpenMonth.stYearId,
+          OpenMonth.stMonthId
+        );
+        if (response.status == 200) {
+          toast.success(notif.saved);
+          const result = await ApiData(locale).GetList(
+            BranchId,
+            EmployeeId,
+            PayTemplateId,
+            elementData.id
+          );
+          setdataList(result || []);
+        } else {
+          toast.error(response.statusText);
+        }
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function GetLookup() {
+    try {
+      const years = await GeneralListApis(locale).GetYears();
+      setYearList(years);
+      const months = await GeneralListApis(locale).GetMonths();
+      setOrignalMonthList(months);
+
       const BrList = await GeneralListApis(locale).GetBranchList();
       setBranchList(BrList);
 
@@ -259,15 +333,50 @@ function ElementValList(props) {
   }
 
   useEffect(() => {
-    Getookup();
+    GetLookup();
   }, []);
 
+  async function changeYear(value) {
+    if (value !== null) {
+      setOpenMonth((prevFilters) => ({
+        ...prevFilters,
+        stYearId: value.id,
+        stYearName: value.name,
+        stMonthId: 0,
+        stmonthName: "",
+      }));
+      if (value.id != OpenMonth.yearId) setMonthList(OrignalMonthList);
+      else setMonthList(OrignalMonthList.filter((row) => row.id >= OpenMonth.monthId));
+    } else
+      setOpenMonth((prevFilters) => ({
+        ...prevFilters,
+        stYearId: 0,
+        stYearName: "",
+        stMonthId: 0,
+        stMonthName: "",
+      }));
+  }
+  async function changeMonth(value) {
+    debugger;
+
+    setOpenMonth((prevFilters) => ({
+      ...prevFilters,
+      stMonthId: value !== null ? value.id : 0,
+      stMonthName: value !== null ? value.name : 0,
+    }));
+  }
   async function getOpenMonth(id) {
     try {
       if (!id) {
         setOpenMonth({
           monthId: "",
+          monthName: "",
           yearId: "",
+          yearName: "",
+          stYearId: "",
+          stYearName: "",
+          stMonthId: "",
+          stMonthName: "",
         });
         setdataList([]);
         setEmployeeList([]);
@@ -287,7 +396,18 @@ function ElementValList(props) {
         yearId: result.yearId,
         monthName: result.monthName,
         yearName: result.yearName,
+        stYearId: result.yearId,
+        stYearName: result.yearName,
+        stMonthId: result.monthId,
+        stMonthName: result.monthName,
       });
+      debugger;
+      setYearList(
+        yearList.filter(
+          (row) => parseInt(row.name) >= parseInt(result.yearName)
+        )
+      );
+      setMonthList(OrignalMonthList.filter((row) => row.id >= result.id));
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -494,56 +614,184 @@ function ElementValList(props) {
     ),
 
     customToolbarSelect: (selectedRows) => (
-      <div style={{ width: "80%" }}>
+      <div style={{ width: "90%" }}>
         <Grid container spacing={1} alignItems="flex-start" direction="row">
-          <Grid item md={3} xs={12}>
-            <FormControl variant="standard" component="fieldset" required>
-              <RadioGroup
-                row
-                name="elementCalcMethodId"
-                aria-label="Direction"
-                value={elementCalcMethodId || null}
-                onChange={(e) => {
-                  debugger;
-                  setelementCalcMethodId(e.target.value);
-                }}
-              >
-                <FormControlLabel
-                  value="1"
-                  control={<Radio />}
-                  label={intl.formatMessage(messages.Value)}
-                />
-                <FormControlLabel
-                  value="2"
-                  control={<Radio />}
-                  label={intl.formatMessage(messages.Percentage)}
-                />
-              </RadioGroup>
-            </FormControl>
-          </Grid>
-          <Grid item md={2} xs={12}>
-            <TextField
-              id="newElemVal"
-              name="newElemVal"
-              value={newElemVal}
-              label={intl.formatMessage(messages.val)}
-              className={classes.field}
-              variant="outlined"
-              onChange={(e) => {
-                setnewElemVal(e.target.value);
+          <Grid item md={7} xs={12}>
+            <Box
+              component="fieldset"
+              style={{
+                border: "1px solid #c4c4c4",
+                borderRadius: "10px",
+                padding: "10px",
+                width: "100%",
               }}
-            />
-          </Grid>
-          <Grid item md={2} xs={12}>
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              className="mr-6"
-              onClick={() => handleUpdate(selectedRows)}
             >
-              <FormattedMessage {...Payrollmessages.apply} />
-            </Button>
+              <legend></legend>
+              <Grid
+                container
+                spacing={2}
+                alignItems="flex-start"
+                direction="row"
+              >
+                <Grid item md={5} xs={12}>
+                  <FormControl variant="standard" component="fieldset" required>
+                    <RadioGroup
+                      row
+                      name="elementCalcMethodId"
+                      aria-label="Direction"
+                      value={elementCalcMethodId || null}
+                      onChange={(e) => {
+                        debugger;
+                        setelementCalcMethodId(e.target.value);
+                      }}
+                    >
+                      <FormControlLabel
+                        value="1"
+                        control={<Radio />}
+                        label={intl.formatMessage(messages.Value)}
+                      />
+                      <FormControlLabel
+                        value="2"
+                        control={<Radio />}
+                        label={intl.formatMessage(messages.Percentage)}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+                <Grid item md={3} xs={12}>
+                  <TextField
+                    id="newElemVal"
+                    name="newElemVal"
+                    value={newElemVal}
+                    label={intl.formatMessage(messages.val)}
+                    className={classes.field}
+                    variant="outlined"
+                    onChange={(e) => {
+                      setnewElemVal(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item md={2} xs={12}>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    className="mr-6"
+                    onClick={() => handleUpdate(selectedRows)}
+                  >
+                    <FormattedMessage {...Payrollmessages.apply} />
+                  </Button>
+                </Grid>
+                <Grid item md={2} xs={12}>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    className="mr-6"
+                    onClick={() => handlePost(selectedRows)}
+                  >
+                    <FormattedMessage {...messages.post} />
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+          <Grid item md={5} xs={12}>
+            <Box
+              component="fieldset"
+              style={{
+                border: "1px solid #c4c4c4",
+                borderRadius: "10px",
+                padding: "10px",
+                width: "100%",
+              }}
+            >
+              <legend></legend>
+              <Grid
+                container
+                spacing={2}
+                alignItems="flex-start"
+                direction="row"
+              >
+                <Grid item xs={12} md={4}>
+                  <Autocomplete
+                    id="stYearName"
+                    options={yearList}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 ||
+                      value.id === "" ||
+                      option.id === value.id
+                    }
+                    getOptionLabel={(option) =>
+                      option.name ? option.name : ""
+                    }
+                    value={
+                      OpenMonth.stYearId
+                        ? yearList.find(
+                            (item) => item.id === OpenMonth.stYearId
+                          )
+                        : null
+                    }
+                    onChange={(event, value) => {
+                      changeYear(value);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        name="stYearName"
+                        required
+                        label={intl.formatMessage(Payrollmessages.Postyear)}
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Autocomplete
+                    id="stMonthName"
+                    options={monthList}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 ||
+                      value.id === "" ||
+                      option.id === value.id
+                    }
+                    getOptionLabel={(option) =>
+                      option.name ? option.name : ""
+                    }
+                    value={
+                      OpenMonth.stMonthId
+                        ? monthList.find(
+                            (item) => item.id === OpenMonth.stMonthId
+                          )
+                        : null
+                    }
+                    onChange={(event, value) => {
+                      changeMonth(value);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        name="stMonthName"
+                        required
+                        label={intl.formatMessage(Payrollmessages.Postmonth)}
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item md={1} xs={12}>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    className="mr-6"
+                    onClick={() => CopytoSpecifiedMonth(selectedRows)}
+                  >
+                    <FormattedMessage {...Payrollmessages.copy} />
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
           </Grid>
         </Grid>
       </div>

@@ -489,4 +489,8 @@ employeeId: {
     id: `${scope}.paysNo`,
     defaultMessage: "paysNo",
   },
+  copy: {
+    id: `${scope}.copy`,
+    defaultMessage: "copy",
+  },
 });

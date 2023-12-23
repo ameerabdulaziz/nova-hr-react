@@ -967,6 +967,7 @@
   "boilerplate.containers.Payroll.yearName": "Year",
   "boilerplate.containers.Payroll.totalvalue": "Total Loan",
   "boilerplate.containers.Payroll.paysNo": "Loan No",
+  "boilerplate.containers.Payroll.copy": "Copy",
 
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",

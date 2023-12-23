@@ -43,6 +43,15 @@ const ElementValData = (locale) => {
     const result = await axiosInstance.post(`PayrollEmpElementVal/UpdateList?Value=${Value}&Type=${Type}`, data);
     return result;
   };
+  Apis.PostponetoNextMonth = async (data,Value,Type) => {
+    const result = await axiosInstance.post(`PayrollEmpElementVal/PostponetoNextMonth`, data);
+    return result;
+  };
+  Apis.CopytoSpecifiedMonth = async (data, YearId, MonthId) => {
+    const result = await axiosInstance.post(`PayrollEmpElementVal/CopytoSpecifiedMonth?YearId=${YearId}&MonthId=${MonthId}`, data);
+    return result;
+  };
+  
   Apis.SaveList = async (data) => {
     const result = await axiosInstance.post("PayrollEmpElementVal/SaveList", data);
     return result;

@@ -40,6 +40,8 @@ function LoanPostpone(props) {
   const [EmployeeId, setEmployeeId] = useState(0);
   const [yearList, setYearList] = useState([]);
   const [monthList, setMonthList] = useState([]);
+  const [OrignalMonthList, setOrignalMonthList] = useState([]);
+
   const [OpenMonth, setOpenMonth] = useState({
     monthId: "",
     yearId: "",
@@ -93,7 +95,7 @@ function LoanPostpone(props) {
       const years = await GeneralListApis(locale).GetYears();
       setYearList(years);
       const months = await GeneralListApis(locale).GetMonths();
-      setMonthList(months);
+      setOrignalMonthList(months);
 
       const BrList = await GeneralListApis(locale).GetBranchList();
       setBranchList(BrList);
@@ -147,6 +149,13 @@ function LoanPostpone(props) {
           EmployeeId
         );
         setdataList(result1 || []);
+        
+        setYearList(
+          yearList.filter(
+            (row) => parseInt(row.name) >= parseInt(result.yearName)
+          )
+        );
+        setMonthList(OrignalMonthList.filter((row) => row.id >= result.id));
       }
     } catch (err) {
     } finally {
@@ -174,40 +183,34 @@ function LoanPostpone(props) {
   );
 
   async function changeYear(value) {
-    if (value != null && value.id < OpenMonth.yearId) {
-      toast.error("year must be grater than or equal opne Year");
+    debugger;
+    if (value !== null) {
       setOpenMonth((prevFilters) => ({
         ...prevFilters,
-        stYearId: OpenMonth.yearId,
-        stYearName: OpenMonth.yearName,
+        stYearId: value.id,
+        stYearName: value.name,
+        stMonthId: 0,
+        stmonthName: "",
       }));
-    } else {
+      if (value.id != OpenMonth.yearId) setMonthList(OrignalMonthList);
+      else setMonthList(OrignalMonthList.filter((row) => row.id >= OpenMonth.monthId));
+    } else
       setOpenMonth((prevFilters) => ({
         ...prevFilters,
-        stYearId: value !== null ? value.id : 0,
-        stYearName: value !== null ? value.name : "",
+        stYearId: 0,
+        stYearName: "",
+        stMonthId: 0,
+        stMonthName: "",
       }));
-    }
   }
   async function changeMonth(value) {
-    if (
-      value != null &&
-      value.id < OpenMonth.monthId &&
-      OpenMonth.stYearId < OpenMonth.yearId
-    ) {
-      toast.error("month must be grater than or equal opne Month");
-      setOpenMonth((prevFilters) => ({
-        ...prevFilters,
-        stMonthId: OpenMonth.monthId,
-        stMonthName: OpenMonth.monthName,
-      }));
-    } else {
-      setOpenMonth((prevFilters) => ({
-        ...prevFilters,
-        stMonthId: value !== null ? value.id : 0,
-        stMonthName: value !== null ? value.name : 0,
-      }));
-    }
+    debugger;
+
+    setOpenMonth((prevFilters) => ({
+      ...prevFilters,
+      stMonthId: value !== null ? value.id : 0,
+      stMonthName: value !== null ? value.name : 0,
+    }));
   }
 
   const columns = [
@@ -393,6 +396,7 @@ function LoanPostpone(props) {
                         getOptionLabel={(option) =>
                           option.name ? option.name : ""
                         }
+                        getOptionDisabled={(option) => !OpenMonth.yearId}
                         value={
                           OpenMonth.stYearId
                             ? yearList.find(
@@ -409,6 +413,7 @@ function LoanPostpone(props) {
                             {...params}
                             name="stYearName"
                             required
+                            disabled={ !OpenMonth.yearId}
                             label={intl.formatMessage(Payrollmessages.Postyear)}
                           />
                         )}
@@ -426,6 +431,7 @@ function LoanPostpone(props) {
                         getOptionLabel={(option) =>
                           option.name ? option.name : ""
                         }
+                        getOptionDisabled={(option) => !OpenMonth.yearId}
                         value={
                           OpenMonth.stMonthId
                             ? monthList.find(
@@ -442,6 +448,7 @@ function LoanPostpone(props) {
                             {...params}
                             name="stMonthName"
                             required
+                            disabled={ !OpenMonth.yearId}
                             label={intl.formatMessage(
                               Payrollmessages.Postmonth
                             )}
