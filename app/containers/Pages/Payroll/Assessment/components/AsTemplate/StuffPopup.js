@@ -1,0 +1,344 @@
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import PeopleIcon from '@mui/icons-material/People';
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import PropTypes from 'prop-types';
+import React, {
+  useCallback, useEffect, useMemo, useState
+} from 'react';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import style from '../../../../../../styles/styles.scss';
+import PayRollLoader from '../../../Component/PayRollLoader';
+import API from '../../api/AsTemplateData';
+import messages from '../../messages';
+
+function StuffPopup(props) {
+  const {
+    intl,
+    isOpen,
+    setIsOpen,
+    onSave,
+    selectedStuff,
+    jobList,
+    probationPeriod
+  } = props;
+
+  const locale = useSelector((state) => state.language.locale);
+  const location = useLocation();
+  const templateId = location.state?.id ?? 0;
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [formInfo, setFormInfo] = useState([]);
+  const [filters, setFilters] = useState({
+    jobs: [],
+    query: ''
+  });
+
+  useEffect(() => {
+    if (isOpen) {
+      setFormInfo(selectedStuff);
+    } else {
+      setFormInfo([]);
+      setRowsPerPage(10);
+      setPage(0);
+      setFilters({
+        jobs: [],
+        query: ''
+      });
+    }
+  }, [isOpen]);
+
+  const fetchEmployees = async () => {
+    setIsLoading(true);
+
+    try {
+      const jobs = filters.jobs.map(item => item.id);
+
+      const dataApi = await API(locale).GetEmployee(templateId, jobs, probationPeriod);
+      setFormInfo(dataApi.map(item => ({ ...item, isSelect: false })));
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const visibleRows = useMemo(
+    () => formInfo.slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage,
+    ),
+    [page, rowsPerPage, formInfo],
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchEmployees();
+    }
+  }, [filters.jobs]);
+
+  const onPopupClose = () => {
+    setIsOpen(false);
+  };
+
+  const onFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    onSave(formInfo.filter((item) => item.isSelect));
+
+    setIsOpen(false);
+  };
+
+  const onCheckboxChange = (evt, index) => {
+    const clonedItems = [...formInfo];
+    clonedItems[index].isSelect = evt.target.checked;
+
+    setFormInfo(clonedItems);
+  };
+
+  const onAllCheckboxChange = (evt) => {
+    setFormInfo(visibleRows.map((item) => ({ ...item, isSelect: evt.target.checked }))
+    );
+  };
+
+  const onMultiAutoCompleteChange = (value, name) => {
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const onInputChange = (evt) => {
+    setFilters((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
+  };
+
+  const isAllSelect = useCallback(
+    () => visibleRows.every((item) => item.isSelect),
+    [visibleRows]
+  );
+
+  const isSomeSelect = useCallback(() => {
+    const filtered = formInfo.filter((item) => item.isSelect).length;
+
+    return filtered > 0 && filtered < formInfo.length;
+  }, [formInfo]);
+
+  const onPageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const onRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  return (
+    <Dialog
+      open={isOpen}
+      component='form'
+      onSubmit={onFormSubmit}
+      PaperProps={{
+        sx: (th) => ({
+          [th.breakpoints.down('md')]: {
+            width: '100%',
+          },
+          width: '80vw',
+          maxWidth: '80vw',
+        }),
+      }}
+    >
+      <DialogTitle>
+        {intl.formatMessage(messages.addOrChangeStuff)}
+      </DialogTitle>
+
+      <DialogContent>
+
+        <PayRollLoader isLoading={isLoading}>
+
+          <Grid container mb={3} gap={3} pt={2} >
+
+            <Grid item xs={12} md={6}>
+              <TextField
+                name='query'
+                value={filters.query}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.employeeName)}
+                fullWidth
+                variant='outlined'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={12}>
+              <Autocomplete
+                options={jobList}
+                multiple
+                disableCloseOnSelect
+                className={`${style.AutocompleteMulSty} ${
+                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                }`}
+                value={filters.jobs}
+                renderOption={(optionProps, option, { selected }) => (
+                  <li {...optionProps} key={optionProps.id} >
+                    <Checkbox
+                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option.name}
+                  </li>
+                )}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(_, value) => onMultiAutoCompleteChange(value, 'jobs')
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(messages.jobName)}
+                  />
+                )}
+              />
+            </Grid>
+
+          </Grid>
+
+          {formInfo.length > 0 ? (
+            <>
+              <TableContainer>
+                <Table size='small' sx={{ minWidth: 700 }}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ width: 30 }}>
+                        <Checkbox
+                          checked={isAllSelect()}
+                          onChange={onAllCheckboxChange}
+                          indeterminate={isSomeSelect()}
+                          name='all'
+                        />
+                      </TableCell>
+
+                      <TableCell>
+                        {intl.formatMessage(messages.employeeName)}
+                      </TableCell>
+
+                      <TableCell >
+                        {intl.formatMessage(messages.jobName)}
+                      </TableCell>
+
+                      <TableCell >
+                        {intl.formatMessage(messages.departmentName)}
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+
+                  <TableBody>
+                    {visibleRows.map((competency, index) => (
+                      <TableRow
+                        key={competency.employeeId}
+                        sx={{
+                          '&:last-child td, &:last-child th': { border: 0 },
+                        }}
+                      >
+                        <TableCell>
+                          <Checkbox
+                            checked={formInfo[index].isSelect}
+                            onChange={(evt) => onCheckboxChange(evt, index)}
+                            name='isSelect'
+                          />
+                        </TableCell>
+                        <TableCell component='th' scope='row'>
+                          {competency.employeeName}
+                        </TableCell>
+
+                        <TableCell component='th' scope='row'>
+                          {competency.jobName}
+                        </TableCell>
+
+                        <TableCell component='th' scope='row'>
+                          {competency.organizationName}
+                        </TableCell>
+
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[10, 25, 50]}
+                component="div"
+                count={formInfo.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={onPageChange}
+                onRowsPerPageChange={onRowsPerPageChange}
+              /></>
+          ) : (
+            <Stack
+              direction='row'
+              sx={{ minHeight: 200 }}
+              alignItems='center'
+              justifyContent='center'
+              textAlign='center'
+            >
+              <Box>
+                <PeopleIcon
+                  sx={{ color: '#a7acb2', fontSize: 30 }}
+                />
+                <Typography color='#a7acb2' variant='body1'>
+                  {intl.formatMessage(messages.noStuffFound)}
+                </Typography>
+              </Box>
+            </Stack>
+          )}
+        </PayRollLoader>
+
+      </DialogContent>
+
+      <DialogActions>
+        <Button onClick={onPopupClose}>
+          {intl.formatMessage(messages.close)}
+        </Button>
+        <Button type='submit' variant='contained'>
+          {intl.formatMessage(messages.save)}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
+StuffPopup.propTypes = {
+  intl: PropTypes.object.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  jobList: PropTypes.array.isRequired,
+  selectedStuff: PropTypes.array.isRequired,
+  probationPeriod: PropTypes.bool.isRequired,
+};
+
+export default injectIntl(StuffPopup);

@@ -79,4 +79,40 @@ export default defineMessages({
     id: `${scope}.addExample`,
     defaultMessage: 'addExample',
   },
+  noStuffFound: {
+    id: `${scope}.noStuffFound`,
+    defaultMessage: 'noStuffFound',
+  },
+  departmentName: {
+    id: `${scope}.departmentName`,
+    defaultMessage: 'departmentName',
+  },
+  jobName: {
+    id: `${scope}.jobName`,
+    defaultMessage: 'jobName',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  addOrChangeStuff: {
+    id: `${scope}.addOrChangeStuff`,
+    defaultMessage: 'addOrChangeStuff',
+  },
+  stuffInfo: {
+    id: `${scope}.stuffInfo`,
+    defaultMessage: 'stuffInfo',
+  },
+  true: {
+    id: `${scope}.true`,
+    defaultMessage: 'true',
+  },
+  false: {
+    id: `${scope}.false`,
+    defaultMessage: 'false',
+  },
+  probationPeriodValueIsRequired: {
+    id: `${scope}.probationPeriodValueIsRequired`,
+    defaultMessage: 'probationPeriodValueIsRequired',
+  },
 });
