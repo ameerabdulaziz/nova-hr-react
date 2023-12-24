@@ -456,6 +456,41 @@ employeeId: {
     id: `${scope}.relation`,
     defaultMessage: 'relation',
   },
-  
+  branch: {
+    id: `${scope}.branch`,
+    defaultMessage: 'branch',
+  },
+  value: {
+    id: `${scope}.value`,
+    defaultMessage: 'value',
+  },
+  Postyear: {
+    id: `${scope}.Postyear`,
+    defaultMessage: 'Postyear',
+  },
+  Postmonth: {
+    id: `${scope}.Postmonth`,
+    defaultMessage: 'Postmonth',
+  },
  
+  monthName: {
+    id: `${scope}.monthName`,
+    defaultMessage: 'monthName',
+  },
+  yearName: {
+    id: `${scope}.yearName`,
+    defaultMessage: 'yearName',
+  },
+  totalvalue: {
+    id: `${scope}.totalValue`,
+    defaultMessage: "totalValue",
+  },
+  paysNo: {
+    id: `${scope}.paysNo`,
+    defaultMessage: "paysNo",
+  },
+  copy: {
+    id: `${scope}.copy`,
+    defaultMessage: "copy",
+  },
 });

@@ -27,7 +27,8 @@ import {
   InsuranceRegion,
   MinsuranceItem,
   RecHiringSource,
-  RecJobGrade
+  RecJobGrade,
+  AsCategory,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -360,6 +361,8 @@ import {
   JobOfferCreate,
   BranchSalarySetting,
   JobOfferStatus,
+  ElementValList,ElementValCreate,ElementVlaImport,
+  LoanTrxList,LoanTrxCreate,LoanReqList,LoanReqCreate,LoanPostpone,
   Employment,
   JobDataBank,
   JobApplicationStatus,
@@ -367,6 +370,10 @@ import {
   EmploymentRequestCreate,
   ReviewEmploymentRequest,
   ReviewEmploymentRequestCreate,
+  AsChoice,
+  AsTemplate,
+  AsTemplateCreate,
+  EmployeeAssessment,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1136,6 +1143,19 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/Elements' component={ElementsList} />
         <Route path='/app/Pages/Payroll/ElementsCreate' component={ElementsCreate} />
         <Route path='/app/Pages/Payroll/ElementsEdit' component={ElementsCreate} />
+
+        <Route path='/app/Pages/Payroll/ElementVal' component={ElementValList} />
+        <Route path='/app/Pages/Payroll/ElementValCreate' component={ElementValCreate} />
+        <Route path='/app/Pages/Payroll/ElementValEdit' component={ElementValCreate} />
+        <Route path='/app/Pages/Payroll/ElementVlaImport' component={ElementVlaImport} />
+
+        <Route path='/app/Pages/Payroll/LoanTrx' component={LoanTrxList} />
+        <Route path='/app/Pages/Payroll/LoanTrxCreate' component={LoanTrxCreate} />
+        <Route path='/app/Pages/Payroll/LoanTrxEdit' component={LoanTrxCreate} />
+        <Route path='/app/Pages/Payroll/LoanPostpone' component={LoanPostpone} />
+        <Route path='/app/Pages/Payroll/LoanReq' component={LoanReqList} />
+        <Route path='/app/Pages/Payroll/LoanReqCreate' component={LoanReqCreate} />
+        <Route path='/app/Pages/Payroll/LoanReqEdit' component={LoanReqCreate} />
         
         
 
@@ -1733,6 +1753,37 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/JobApplicationPreview'
           component={JobApplicationPreview}
+        />
+
+        {/* Assessment */}
+        <Route
+          path='/app/Pages/Assessment/AsCategory'
+          component={AsCategory}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsChoice'
+          component={AsChoice}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsTemplate'
+          component={AsTemplate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsTemplateCreate'
+          component={AsTemplateCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AsTemplateEdit'
+          component={AsTemplateCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/EmployeeAssessment'
+          component={EmployeeAssessment}
         />
 
         {/* Default */}

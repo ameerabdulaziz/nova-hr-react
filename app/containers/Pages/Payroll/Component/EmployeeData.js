@@ -22,6 +22,7 @@ function EmployeeData(props) {
     GetSalary,
     GetworkingYears,
     id,
+    branchId
   } = props;
   const { classes, cx } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -29,7 +30,7 @@ function EmployeeData(props) {
   const [data, setdata] = useState("");
 
   async function fetchData() {
-    const employees = await GeneralListApis(locale).GetEmployeeList();
+    const employees = await GeneralListApis(locale).GetEmployeeList(false,false,branchId);
 
     setEmployeeList(employees);
   }
@@ -37,8 +38,8 @@ function EmployeeData(props) {
   useEffect(() => {
 
     fetchData();
-    if (id) getEmployeeData(id);
-  }, [id]);
+    getEmployeeData(id);
+  }, [id,branchId]);
   async function getEmployeeData(id, name) {
     if (!id) {
       if (isSuper) {

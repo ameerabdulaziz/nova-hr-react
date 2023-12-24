@@ -795,6 +795,9 @@
   "boilerplate.containers.Ecommerce.Checkout.invoice_title": "فاتورة قابلة للتحرير",
   "boilerplate.containers.Ecommerce.Checkout.invoice_desc": "فاتورة HTML قابلة للتحرير / قابلة للطباعة",
   "boilerplate.components.tables.codes.code": "الكود",
+  "boilerplate.components.tables.codes.from": "من",
+  "boilerplate.components.tables.codes.to": "الي",
+  "boilerplate.components.tables.codes.choiceGrade": "درجة الاختيار",
   "boilerplate.components.tables.codes.requirements": "المتطلبات",
   "boilerplate.components.tables.codes.name": "الاسم بالعربية",
   "boilerplate.components.tables.codes.enname": "الاسم بالانجليزية",
@@ -963,7 +966,7 @@
   "boilerplate.containers.Payroll.Import": "استيراد",
   "boilerplate.containers.Payroll.reset": "إعادة الضبط",
   "boilerplate.containers.Payroll.deleteMessage": "هل أنت متأكد أنك تريد حذف",
-  "boilerplate.containers.Payroll.confirmation": "رسالة تأكيدية",
+  "boilerplate.containers.Payroll.confirmation": "هل تريد الحفظ",
   "boilerplate.containers.Payroll.applynewshift": "تطبيق الوردية الجديده",
   "boilerplate.containers.Payroll.employees": "عرض الموظفين",
   "boilerplate.containers.Payroll.VacationName": "الاجازة",
@@ -976,6 +979,17 @@
   "boilerplate.containers.Payroll.percentage": "النسبة",
   
   "boilerplate.containers.Payroll.relation": "العلاقه",
+  "boilerplate.containers.Payroll.branch": "الشركة",
+  "boilerplate.containers.Payroll.Postmonth": "ترحيل لشهر",
+  "boilerplate.containers.Payroll.Postyear": "ترحيل لسنة",
+
+  "boilerplate.containers.Payroll.monthName": "الشهر",
+  "boilerplate.containers.Payroll.yearName": "السنة",
+  "boilerplate.containers.Payroll.totalvalue": "اجمالى القسط",
+  "boilerplate.containers.Payroll.paysNo": "عدد الاقساط",
+  "boilerplate.containers.Payroll.copy": "نسخ",
+  
+  
   
   
   
@@ -1665,6 +1679,37 @@
     "boilerplate.containers.Payroll.Payroll.max": "الحد الاقصى",
     "boilerplate.containers.Payroll.Payroll.calcValMin": "الحد الادنى للقيمة المحسوبة",
     "boilerplate.containers.Payroll.Payroll.calcValMax": "الحد الاقصى للقيمة المحسوبة",
+    "boilerplate.containers.Payroll.Payroll.val": "القيمة/العدد",
+    "boilerplate.containers.Payroll.Payroll.elementType": "نوع العنصر",
+    "boilerplate.containers.Payroll.Payroll.elementMode": "طبيعة العنصر",
+    "boilerplate.containers.Payroll.Payroll.source": "المصدر",
+    "boilerplate.containers.Payroll.Payroll.newval": "ادخال عناصر للموظفين",
+    "boilerplate.containers.Payroll.Payroll.ElementValCreateTitle": "اضافة عناصر للموظفين",
+    "boilerplate.containers.Payroll.Payroll.ElementValUpdateTitle": "تعديل عناصر للموظفين",    
+    "boilerplate.containers.Payroll.Payroll.isNotUpdate": "فى حالة وجود العنصر لا تقم بالتعديل",
+    "boilerplate.containers.Payroll.Payroll.deductionMonth": "شهر الخصم",
+    "boilerplate.containers.Payroll.Payroll.deductionYear": "سنة الخصم",
+    "boilerplate.containers.Payroll.Payroll.post": "ترحيل",
+    "boilerplate.containers.Payroll.Payroll.recalculate": "اعادة حساب",
+    "boilerplate.containers.Payroll.Payroll.LoanTrxCreateTitle": "اضافة سلف ",
+    "boilerplate.containers.Payroll.Payroll.LoanTrxUpdateTitle": "تعديل سلف",
+    
+    
+
+    "boilerplate.containers.Payroll.Payroll.nativeTotalValue": "اصل السلفة",
+    "boilerplate.containers.Payroll.Payroll.totalValue": "قيمة الاقساط",
+    "boilerplate.containers.Payroll.Payroll.paysNo": "عدد الاقساط",
+    "boilerplate.containers.Payroll.Payroll.payvalue": "قيمة القسط",
+    "boilerplate.containers.Payroll.Payroll.lineNo": "رقم السطر",
+    "boilerplate.containers.Payroll.Payroll.isPaid": "مسدد",
+    
+    
+    
+    
+    
+  
+    
+    
     
     
     
@@ -2387,5 +2432,36 @@
   "boilerplate.containers.Payroll.cv.department": "القسم",
   "boilerplate.containers.Payroll.cv.workPlace": "مكان العمل",
   "boilerplate.containers.Payroll.cv.leaveReason": "سبب الاستقالة",
-  "boilerplate.containers.Payroll.cv.startDate": "تاريخ البدء"
+  "boilerplate.containers.Payroll.cv.startDate": "تاريخ البدء",
+
+  "boilerplate.containers.Payroll.assessment.templateName": "اسم القالب",
+  "boilerplate.containers.Payroll.assessment.arTemplateName": "اسم القالب بالعربية",
+  "boilerplate.containers.Payroll.assessment.months": "الشهور",
+  "boilerplate.containers.Payroll.assessment.jobs": "الوظائف",
+  "boilerplate.containers.Payroll.assessment.isPropation": "فترة تجريبية",
+  "boilerplate.containers.Payroll.assessment.templateInfo": "معلومات القالب",
+  "boilerplate.containers.Payroll.assessment.description": "الوصف",
+  "boilerplate.containers.Payroll.assessment.arDescription": "الوصف بالعربية",
+  "boilerplate.containers.Payroll.assessment.showStyles": "عرض الأنماط",
+  "boilerplate.containers.Payroll.assessment.noCompetencyFound": "لم يتم العثور على كفاءة",
+  "boilerplate.containers.Payroll.assessment.competencyInfo": "معلومات الكفاءة",
+  "boilerplate.containers.Payroll.assessment.addOrChangeCompetency": "إضافة أو تغيير الكفاءة",
+  "boilerplate.containers.Payroll.assessment.competencyName": "اسم الكفاءة",
+  "boilerplate.containers.Payroll.assessment.totalGrade": "الدرجة الإجمالية",
+  "boilerplate.containers.Payroll.assessment.actions": "الإجراءات",
+  "boilerplate.containers.Payroll.assessment.save": "حفظ",
+  "boilerplate.containers.Payroll.assessment.close": "إغلاق",
+  "boilerplate.containers.Payroll.assessment.addExample": "إضافة مثال",
+  "boilerplate.containers.Payroll.assessment.noStuffFound": "لم يتم العثور على موظفين",
+  "boilerplate.containers.Payroll.assessment.departmentName": "اسم القسم",
+  "boilerplate.containers.Payroll.assessment.jobName": "اسم الوظيفة",
+  "boilerplate.containers.Payroll.assessment.employeeName": "اسم الموظف",
+  "boilerplate.containers.Payroll.assessment.addOrChangeStuff": "إضافة أو تغيير الموظفين",
+  "boilerplate.containers.Payroll.assessment.stuffInfo": "معلومات الموظفين",
+  "boilerplate.containers.Payroll.assessment.oneByOne": "واحدا تلو الآخر",
+  "boilerplate.containers.Payroll.assessment.list": "قائمة",
+  "boilerplate.containers.Payroll.assessment.true": "صحيح",
+  "boilerplate.containers.Payroll.assessment.false": "خاطئ",
+  "boilerplate.containers.Payroll.assessment.probationPeriodValueIsRequired": "مطلوب قيمة فترة الاختبار",
+  "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "قالب فترة التجربة"
 }

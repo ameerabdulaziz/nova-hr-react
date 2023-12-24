@@ -124,3 +124,11 @@ export const RecJobGrade = (props) => (
     {...props}
   />
 );
+
+export const AsCategory = (props) => (
+  <MainDataGeneralCode
+    text='Assessment Category'
+    table='AsCategory'
+    {...props}
+  />
+);
