@@ -249,7 +249,21 @@ rootTable: {
   },
   searchButton: {
     width:"20%",float:"left"
-  }
+  },
+
+ examMainSty:{
+  backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light,
+  
+},
+
+textSty:{
+  color:theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light
+},
+
+containerSty:{
+  border: "1px solid",
+  borderColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light
+},
   
 }));
 
