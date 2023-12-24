@@ -1688,6 +1688,12 @@
   "boilerplate.containers.Payroll.Payroll.remainLoansValue": "Remain Loans Value",
   "boilerplate.containers.Payroll.Payroll.newLoansValue":  "New Loans Value",
   "boilerplate.containers.Payroll.Payroll.newPayNo":"New PayNo",
+  "boilerplate.containers.Payroll.Payroll.quantity": "Quantity",
+  "boilerplate.containers.Payroll.Payroll.AddItem": "Add Items",
+  "boilerplate.containers.Payroll.Payroll.EmpPrice": "Employee Price",
+  
+  "boilerplate.containers.Payroll.Payroll.PurchaseTrxCreateTitle": "Add Employee Purchase",
+  "boilerplate.containers.Payroll.Payroll.PurchaseTrxUpdateTitle": "Update Employee Purchase",
 
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

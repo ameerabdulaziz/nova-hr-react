@@ -1752,6 +1752,14 @@
     "boilerplate.containers.Payroll.Payroll.remainLoansValue": "قيمة الاقساط المتبقية",
     "boilerplate.containers.Payroll.Payroll.newLoansValue":  "قيمة الاقساط الجديده",
     "boilerplate.containers.Payroll.Payroll.newPayNo": "عدد الاقساط الجديده",
+    "boilerplate.containers.Payroll.Payroll.quantity": "الكمية",
+    "boilerplate.containers.Payroll.Payroll.AddItem": "الكمية",
+    "boilerplate.containers.Payroll.Payroll.EmpPrice": "السعر للموظف",
+
+    "boilerplate.containers.Payroll.Payroll.PurchaseTrxCreateTitle": "اضافة مشتريات الموظف",
+    "boilerplate.containers.Payroll.Payroll.PurchaseTrxUpdateTitle": "تعديل مشتريات الموظف",
+    
+    
     
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

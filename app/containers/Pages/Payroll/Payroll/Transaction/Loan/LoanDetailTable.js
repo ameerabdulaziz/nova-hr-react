@@ -1,4 +1,4 @@
-import React, { memo,useState } from "react";
+import React, { memo, useState } from "react";
 import css from "enl-styles/Table.scss";
 import {
   Checkbox,
@@ -15,6 +15,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import useStyles from "../../../Style";
 import messages from "../../messages";
 import ApiData from "../../api/LoanTrxData";
+import ApiData2 from "../../api/PurchaseTrxData";
 import { useSelector } from "react-redux";
 import AlertPopup from "../../../Component/AlertPopup";
 import { toast } from "react-hot-toast";
@@ -60,10 +61,18 @@ function LoanDetailTable(props) {
   };
   const handlePost = async (row) => {
     debugger;
-    const dataApi = await ApiData(locale).PostponeOneLoan(
-      row.id,
-      row.loanTraxId
-    );
+    var dataApi;
+    if (row.loanTraxId)
+      dataApi = await ApiData(locale).PostponeOneLoan(
+        row.id,
+        row.loanTraxId || row.purchaseTraxId
+      );
+    else
+      dataApi = await ApiData2(locale).PostponeOneLoan(
+        row.id,
+        row.purchaseTraxId
+      );
+
     if (dataApi.message) toast.error(dataApi.message);
     else
       setdataList((prevFilters) => ({
@@ -72,11 +81,19 @@ function LoanDetailTable(props) {
       }));
   };
   const handleRecalculate = async (row) => {
-    const dataApi = await ApiData(locale).RecalculateLoan(
-      row.id,
-      row.loanTraxId,
-      row.payVal
-    );
+    var dataApi;
+    if (row.loanTraxId)
+      dataApi = await ApiData(locale).RecalculateLoan(
+        row.id,
+        row.loanTraxId || row.purchaseTraxId,
+        row.payVal
+      );
+    else
+      dataApi = await ApiData2(locale).RecalculateLoan(
+        row.id,
+        row.purchaseTraxId,
+        row.payVal
+      );
     if (dataApi.message) toast.error(dataApi.message);
     else
       setdataList((prevFilters) => ({

@@ -491,7 +491,7 @@ function ElementsCreate(props) {
               <Grid item md={3} xs={12}>
                 <Card className={classes.card}>
                   <CardContent>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={2}>
                       <Grid item md={12} xs={12}>
                         <Card className={classes.card}>
                           <CardContent>

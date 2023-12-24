@@ -447,6 +447,11 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetItemList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetItemList/${locale}`);
+    return result.data;
+  };
+
   return Apis;
 };
 

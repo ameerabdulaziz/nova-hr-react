@@ -32,14 +32,14 @@ const PurchaseTrxData = (locale) => {
   
   Apis.PostponeOneLoan = async (Id,LoanTraxId) => {
     
-    const data = await axiosInstance.get(`PayrollPurchaseTrx/PostponeOneLoan/${locale}?Id=${Id}&LoanTraxId=${LoanTraxId}`);
+    const data = await axiosInstance.get(`PayrollPurchaseTrx/PostponeOneLoan/${locale}?Id=${Id}&PurchaseTraxId=${LoanTraxId}`);
     const result = data.data;    
     return result;
   };
 
   Apis.RecalculateLoan = async (Id,LoanTraxId,NewValue) => {
     
-    const data = await axiosInstance.get(`PayrollPurchaseTrx/RecalculateLoan/${locale}?Id=${Id}&LoanTraxId=${LoanTraxId}&NewValue=${NewValue}`);
+    const data = await axiosInstance.get(`PayrollPurchaseTrx/RecalculateLoan/${locale}?Id=${Id}&PurchaseTraxId=${LoanTraxId}&NewValue=${NewValue}`);
     const result = data.data;    
     return result;
   };

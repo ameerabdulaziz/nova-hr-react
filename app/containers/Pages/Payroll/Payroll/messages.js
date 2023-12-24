@@ -418,5 +418,24 @@ export default defineMessages({
     id: `${scope}.newPayNo`,
     defaultMessage: "newPayNo",
   },
-  
+  quantity: {
+    id: `${scope}.quantity`,
+    defaultMessage: "quantity",
+  },
+  AddItem: {
+    id: `${scope}.AddItem`,
+    defaultMessage: "AddItem",
+  },
+  EmpPrice: {
+    id: `${scope}.EmpPrice`,
+    defaultMessage: "EmpPrice",
+  },
+  PurchaseTrxCreateTitle: {
+    id: `${scope}.PurchaseTrxCreateTitle`,
+    defaultMessage: "PurchaseTrxCreateTitle",
+  },
+  PurchaseTrxUpdateTitle: {
+    id: `${scope}.PurchaseTrxUpdateTitle`,
+    defaultMessage: "PurchaseTrxUpdateTitle",
+  },
 });

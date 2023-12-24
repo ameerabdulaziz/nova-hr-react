@@ -17,7 +17,7 @@ import GeneralListApis from "../api/GeneralListApis";
 import MUIDataTable from "mui-datatables";
 
 function NamePopup(props) {
-  const { intl, IsInsured, withoutSalaryStructure ,branchId} = props;
+  const { intl, IsInsured, withoutSalaryStructure, branchId } = props;
   const [isLoading, setIsLoading] = useState(false);
   const { classes, cx } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -40,6 +40,7 @@ function NamePopup(props) {
             EmployeeList[allRowsSelected[i].dataIndex].fixedElementsSilimit,
           organizationName:
             EmployeeList[allRowsSelected[i].dataIndex].organizationName || "",
+          sellPrice: EmployeeList[allRowsSelected[i].dataIndex].sellPrice || "",
           isSelected: true,
         });
       }
@@ -56,7 +57,7 @@ function NamePopup(props) {
         data = await GeneralListApis(locale).GetEmployeeListComponent(
           IsInsured || false,
           withoutSalaryStructure || false,
-          branchId||false
+          branchId || false
         );
         setEmployeeList(
           data.map((obj) => {
@@ -91,14 +92,23 @@ function NamePopup(props) {
 
         if (ElementId) {
           data = result.filter((x) => x.id != ElementId);
-        }
-        else
-        data = result ;
+        } else data = result;
         setEmployeeList(
           data.map((obj) => {
             return {
               id: obj.id,
               name: obj.name,
+              isSelected: false,
+            };
+          })
+        );
+      } else if (Key == "Items") {
+        data = await GeneralListApis(locale).GetItemList();
+
+        setEmployeeList(
+          data.map((obj) => {
+            return {
+              ...obj,
               isSelected: false,
             };
           })
@@ -147,6 +157,15 @@ function NamePopup(props) {
         },
       }
     );
+  }
+  if (Key == "Items") {
+    columns.push({
+      name: "sellPrice",
+      label: intl.formatMessage(Payrollmessages.price),
+      options: {
+        filter: true,
+      },
+    });
   }
 
   const options = {
