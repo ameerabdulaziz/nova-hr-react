@@ -10,9 +10,13 @@ import {
   Card,
   CardContent,
   Checkbox,
+  FormControl,
   FormControlLabel,
+  FormLabel,
   Grid,
   IconButton,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Typography,
@@ -25,7 +29,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -50,13 +54,13 @@ function AsTemplateCreate(props) {
 
   const probationPeriodList = [
     {
-      id: 0,
+      id: 1,
       name: intl.formatMessage(messages.true),
     },
     {
-      id: 1,
+      id: 0,
       name: intl.formatMessage(messages.false),
-    }
+    },
   ];
 
   const [jobList, setJobList] = useState([]);
@@ -64,24 +68,24 @@ function AsTemplateCreate(props) {
   const [monthList, setMonthList] = useState([]);
 
   const [isCompetencyPopupOpen, setIsCompetencyPopupOpen] = useState(false);
-  const [isStuffPopupOpen, setIsStuffPopupOpen] = useState(false);
+  const [isEmployeePopupOpen, setIsEmployeePopupOpen] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [formInfo, setFormInfo] = useState({
     id,
 
-    templateName: '',
-    arTemplateName: '',
-    months: [],
-    jobs: [],
-    probationPeriod: null,
-    showStyles: false,
-    addExample: false,
-    description: '',
+    enName: '',
+    arName: '',
+    asTemplateMonth: [],
+    isPropation: null,
+    showStyle: 1,
+    exampleRequired: false,
+    enDescription: '',
     arDescription: '',
 
-    competency: [],
-    stuff: [],
+    asTemplateCompetency: [],
+    asTemplateEmployee: [],
+    asTemplateJob: [],
   });
 
   const fetchNeededData = async () => {
@@ -89,7 +93,7 @@ function AsTemplateCreate(props) {
 
     try {
       const jobs = await GeneralListApis(locale).GetJobsList();
-      setJobList(jobs);
+      setJobList(jobs.map(item => ({ id: item.jobId, name: item.name })));
 
       const months = await GeneralListApis(locale).GetMonths();
       setMonthList(months);
@@ -99,7 +103,25 @@ function AsTemplateCreate(props) {
 
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
-        setFormInfo(dataApi);
+        const mappedData = {
+          ...dataApi,
+          isPropation: dataApi.isPropation ? 1 : 0,
+          asTemplateCompetency: dataApi.asTemplateCompetency.map((item) => ({
+            id: item.competencyId,
+            name: item.name,
+            totalGrade: item.totalGrade,
+          })),
+          asTemplateMonth: dataApi.asTemplateMonth.map((item) => ({
+            id: item.monthId,
+            name: item.name,
+          })),
+          asTemplateEmployee: dataApi.asTemplateEmployee.map((item) => ({
+            ...item,
+            isSelect: true,
+          }))
+        };
+
+        setFormInfo(mappedData);
       }
     } catch (err) {
       //
@@ -112,6 +134,26 @@ function AsTemplateCreate(props) {
     evt.preventDefault();
 
     const formData = { ...formInfo };
+
+    formData.isPropation = Boolean(formData.isPropation);
+
+    formData.asTemplateMonth = formData.asTemplateMonth.map((item) => ({
+      monthId: item.id,
+      name: item.name,
+    }));
+
+    formData.asTemplateEmployee = formData.asTemplateEmployee.map((item) => ({
+      employeeId: item.employeeId,
+      name: item.employeeName,
+    }));
+
+    formData.asTemplateCompetency = formData.asTemplateCompetency.map(
+      (item) => ({
+        competencyId: item.id,
+        name: item.name,
+        totalGrade: item.totalGrade,
+      })
+    );
 
     setIsLoading(true);
 
@@ -126,6 +168,33 @@ function AsTemplateCreate(props) {
       setIsLoading(false);
     }
   };
+
+  const fetchEmployees = useCallback(async () => {
+    setIsLoading(true);
+
+    const jobsIds = formInfo.asTemplateJob.map((item) => item.id);
+
+    const employeeIds = formInfo.asTemplateEmployee.map((item) => item.employeeId);
+
+    try {
+      const dataApi = await api(locale).GetEmployee(
+        id,
+        jobsIds,
+        Boolean(formInfo.isPropation)
+      );
+
+      const mappedEmployee = dataApi.map((item) => {
+        const isSelect = employeeIds.includes(item.employeeId);
+        return { ...item, isSelect };
+      });
+
+      setFormInfo(prev => ({ ...prev, asTemplateEmployee: mappedEmployee }));
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }, [formInfo]);
 
   useEffect(() => {
     fetchNeededData();
@@ -144,6 +213,28 @@ function AsTemplateCreate(props) {
       ...prev,
       [evt.target.name]: evt.target.checked,
     }));
+  };
+
+  const onRadioInputChange = (evt) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.value,
+    }));
+  };
+
+  const onJobsAutoCompleteChange = (value, name) => {
+    if (formInfo.isPropation !== null) {
+      setFormInfo((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+
+      if (formInfo.asTemplateJob.length > 0 && formInfo.isPropation !== null) {
+        fetchEmployees();
+      }
+    } else {
+      toast.error(intl.formatMessage(messages.probationPeriodValueIsRequired));
+    }
   };
 
   const onMultiAutoCompleteChange = (value, name) => {
@@ -167,55 +258,51 @@ function AsTemplateCreate(props) {
   const onCompetencySave = (items) => {
     setFormInfo((prev) => ({
       ...prev,
-      competency: items
+      asTemplateCompetency: items,
     }));
 
     setIsCompetencyPopupOpen(false);
   };
 
   const onCompetencyRemove = (id) => {
-    const clonedItems = [...formInfo.competency];
+    const clonedItems = [...formInfo.asTemplateCompetency];
     const indexToRemove = clonedItems.findIndex((item) => item.id === id);
 
     if (indexToRemove !== -1) {
       clonedItems.splice(indexToRemove, 1);
       setFormInfo((prev) => ({
         ...prev,
-        competency: clonedItems,
+        asTemplateCompetency: clonedItems,
       }));
     }
   };
 
-  const onStuffPopupBtnClick = async () => {
-    if (formInfo.probationPeriod !== null) {
- 
-       setIsStuffPopupOpen(true);
-  
+  const onEmployeePopupBtnClick = async () => {
+    if (formInfo.isPropation !== null) {
+      setIsEmployeePopupOpen(true);
     } else {
       toast.error(intl.formatMessage(messages.probationPeriodValueIsRequired));
     }
   };
 
-  const onStuffSave = (items) => {
+  const onEmployeeSave = (items) => {
     setFormInfo((prev) => ({
       ...prev,
-      stuff: items
+      asTemplateEmployee: items,
     }));
 
-    setIsStuffPopupOpen(false);
+    setIsEmployeePopupOpen(false);
   };
 
-  const onStuffRemove = (id) => {
-    const clonedItems = [...formInfo.stuff];
-    const indexToRemove = clonedItems.findIndex((item) => item.id === id);
+  const onEmployeeRemove = (index) => {
+    const clonedItems = [...formInfo.asTemplateEmployee];
 
-    if (indexToRemove !== -1) {
-      clonedItems.splice(indexToRemove, 1);
-      setFormInfo((prev) => ({
-        ...prev,
-        stuff: clonedItems,
-      }));
-    }
+    clonedItems.splice(index, 1);
+
+    setFormInfo((prev) => ({
+      ...prev,
+      asTemplateEmployee: clonedItems,
+    }));
   };
 
   return (
@@ -224,17 +311,17 @@ function AsTemplateCreate(props) {
         isOpen={isCompetencyPopupOpen}
         setIsOpen={setIsCompetencyPopupOpen}
         onSave={onCompetencySave}
-        selectedCompetency={formInfo.competency}
+        selectedCompetency={formInfo.asTemplateCompetency}
         competencyList={competencyList}
       />
 
       <StuffPopup
-        isOpen={isStuffPopupOpen}
-        setIsOpen={setIsStuffPopupOpen}
-        onSave={onStuffSave}
-        selectedStuff={formInfo.stuff}
+        isOpen={isEmployeePopupOpen}
+        setIsOpen={setIsEmployeePopupOpen}
+        onSave={onEmployeeSave}
+        selectedStuff={formInfo.asTemplateEmployee}
         jobList={jobList}
-        probationPeriod={Boolean(formInfo.probationPeriod)}
+        probationPeriod={Boolean(formInfo.isPropation)}
       />
 
       <form onSubmit={onFormSubmit}>
@@ -247,10 +334,10 @@ function AsTemplateCreate(props) {
                 </Typography>
 
                 <Grid container spacing={3} mt={0} direction='row'>
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={4}>
                     <TextField
-                      name='templateName'
-                      value={formInfo.templateName}
+                      name='enName'
+                      value={formInfo.enName}
                       required
                       onChange={onInputChange}
                       label={intl.formatMessage(messages.templateName)}
@@ -259,10 +346,10 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={4}>
                     <TextField
-                      name='arTemplateName'
-                      value={formInfo.arTemplateName}
+                      name='arName'
+                      value={formInfo.arName}
                       required
                       onChange={onInputChange}
                       label={intl.formatMessage(messages.arTemplateName)}
@@ -271,43 +358,40 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                     <Autocomplete
-                      options={monthList}
-                      multiple
-                      disableCloseOnSelect
-                      className={`${style.AutocompleteMulSty} ${
-                        locale === 'ar' ? style.AutocompleteMulStyAR : null
-                      }`}
-                      value={formInfo.months}
-                      renderOption={(props, option, { selected }) => (
-                        <li {...props}>
-                          <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                            checkedIcon={<CheckBoxIcon fontSize='small' />}
-                            style={{ marginRight: 8 }}
-                            checked={selected}
-                          />
-                          {option.name}
-                        </li>
-                      )}
+                      options={probationPeriodList}
+                      value={
+                        probationPeriodList.find(
+                          (item) => item.id === formInfo.isPropation
+                        ) ?? null
+                      }
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
                       getOptionLabel={(option) => (option ? option.name : '')}
-                      onChange={(_, value) => onMultiAutoCompleteChange(value, 'months')
+                      onChange={(_, value) => onAutoCompleteChange(value, 'isPropation')
                       }
                       renderInput={(params) => (
                         <TextField
-                          {...params}
                           required
-                          label={intl.formatMessage(messages.months)}
+                          {...params}
+                          label={intl.formatMessage(
+                            messages.probationPeriodTemplate
+                          )}
                         />
+                      )}
+                      renderOption={(propsOption, option) => (
+                        <li {...propsOption} key={option.id}>
+                          {option.name}
+                        </li>
                       )}
                     />
                   </Grid>
 
                   <Grid item xs={12} md={6}>
                     <TextField
-                      name='description'
-                      value={formInfo.description}
+                      name='enDescription'
+                      value={formInfo.enDescription}
                       onChange={onInputChange}
                       label={intl.formatMessage(messages.description)}
                       fullWidth
@@ -332,50 +416,104 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={6}>
                     <Autocomplete
-                      options={probationPeriodList}
-                      value={
-                        probationPeriodList.find((item) => item.id === formInfo.probationPeriod) ?? null
+                      options={jobList}
+                      multiple
+                      disableCloseOnSelect
+                      className={`${style.AutocompleteMulSty} ${
+                        locale === 'ar' ? style.AutocompleteMulStyAR : null
+                      }`}
+                      isOptionEqualToValue={(option, value) => option.id === value.id
                       }
-                      isOptionEqualToValue={(option, value) => option.id === value.id}
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'probationPeriod')}
-                      renderInput={(params) => (
-                        <TextField
-                          required
-                          {...params}
-                          label={intl.formatMessage(messages.probationPeriodTemplate)}
-                        />
-                      )}
-                      renderOption={(propsOption, option) => (
-                        <li {...propsOption} key={option.id}>
+                      value={formInfo.asTemplateJob}
+                      renderOption={(props, option, { selected }) => (
+                        <li {...props} >
+                          <Checkbox
+                            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                            checkedIcon={<CheckBoxIcon fontSize='small' />}
+                            style={{ marginRight: 8 }}
+                            checked={selected}
+                          />
                           {option.name}
                         </li>
                       )}
-                    />
-                  </Grid>
-
-                  <Grid item md={4} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={formInfo.showStyles}
-                          onChange={onCheckboxChange}
-                          name='showStyles'
-                        />
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      onChange={(_, value) => onJobsAutoCompleteChange(value, 'asTemplateJob')
                       }
-                      label={intl.formatMessage(messages.showStyles)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={intl.formatMessage(messages.jobs)}
+                        />
+                      )}
                     />
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Autocomplete
+                      options={monthList}
+                      multiple
+                      disableCloseOnSelect
+                      className={`${style.AutocompleteMulSty} ${
+                        locale === 'ar' ? style.AutocompleteMulStyAR : null
+                      }`}
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
+                      value={formInfo.asTemplateMonth}
+                      renderOption={(props, option, { selected }) => (
+                        <li {...props} >
+                          <Checkbox
+                            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                            checkedIcon={<CheckBoxIcon fontSize='small' />}
+                            style={{ marginRight: 8 }}
+                            checked={selected}
+                          />
+                          {option.name}
+                        </li>
+                      )}
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      onChange={(_, value) => onMultiAutoCompleteChange(value, 'asTemplateMonth')
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={intl.formatMessage(messages.months)}
+                        />
+                      )}
+                    />
+                  </Grid>
+
+                  <Grid item md={4} xs={12}>
+                    <FormControl>
+                      <FormLabel>{intl.formatMessage(messages.showStyles)}</FormLabel>
+                      <RadioGroup
+                        row
+                        value={formInfo.showStyle}
+                        onChange={onRadioInputChange}
+                        name='showStyle'
+                      >
+                        <FormControlLabel
+                          value='1'
+                          control={<Radio />}
+                          label={intl.formatMessage(messages.oneByOne)}
+                        />
+                        <FormControlLabel
+                          value='2'
+                          control={<Radio />}
+                          label={intl.formatMessage(messages.list)}
+                        />
+                      </RadioGroup>
+                    </FormControl>
                   </Grid>
 
                   <Grid item md={4} xs={12}>
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={formInfo.addExample}
+                          checked={formInfo.exampleRequired}
                           onChange={onCheckboxChange}
-                          name='addExample'
+                          name='exampleRequired'
                         />
                       }
                       label={intl.formatMessage(messages.addExample)}
@@ -411,9 +549,9 @@ function AsTemplateCreate(props) {
                   </Grid>
                 </Grid>
 
-                {formInfo.competency.length > 0 ? (
-                  <TableContainer >
-                    <Table sx={{ minWidth: 650 }} size='small' >
+                {formInfo.asTemplateCompetency.length > 0 ? (
+                  <TableContainer>
+                    <Table sx={{ minWidth: 650 }} size='small'>
                       <TableHead>
                         <TableRow>
                           <TableCell>
@@ -429,7 +567,7 @@ function AsTemplateCreate(props) {
                       </TableHead>
 
                       <TableBody>
-                        {formInfo.competency.map((competency) => (
+                        {formInfo.asTemplateCompetency.map((competency) => (
                           <TableRow
                             key={competency.id}
                             sx={{
@@ -443,7 +581,8 @@ function AsTemplateCreate(props) {
                             <TableCell>
                               <IconButton
                                 color='error'
-                                onClick={() => onCompetencyRemove(competency.id)}
+                                onClick={() => onCompetencyRemove(competency.id)
+                                }
                               >
                                 <Delete />
                               </IconButton>
@@ -492,7 +631,7 @@ function AsTemplateCreate(props) {
                   <Grid item>
                     <Button
                       variant='contained'
-                      onClick={onStuffPopupBtnClick}
+                      onClick={onEmployeePopupBtnClick}
                       color='primary'
                     >
                       {intl.formatMessage(messages.addOrChangeStuff)}
@@ -500,9 +639,9 @@ function AsTemplateCreate(props) {
                   </Grid>
                 </Grid>
 
-                {formInfo.stuff.length > 0 ? (
-                  <TableContainer >
-                    <Table sx={{ minWidth: 650 }} size='small' >
+                {formInfo.asTemplateEmployee.length > 0 ? (
+                  <TableContainer>
+                    <Table sx={{ minWidth: 650 }} size='small'>
                       <TableHead>
                         <TableRow>
                           <TableCell>
@@ -521,22 +660,22 @@ function AsTemplateCreate(props) {
                       </TableHead>
 
                       <TableBody>
-                        {formInfo.stuff.map((stuff) => (
+                        {formInfo.asTemplateEmployee.map((employee, index) => (
                           <TableRow
-                            key={stuff.employeeId}
+                            key={employee.employeeId}
                             sx={{
                               '&:last-child td, &:last-child th': { border: 0 },
                             }}
                           >
                             <TableCell component='th' scope='row'>
-                              {stuff.organizationName}
+                              {employee.organizationName}
                             </TableCell>
-                            <TableCell>{stuff.jobName}</TableCell>
-                            <TableCell>{stuff.employeeName}</TableCell>
+                            <TableCell>{employee.jobName}</TableCell>
+                            <TableCell>{employee.employeeName}</TableCell>
                             <TableCell>
                               <IconButton
                                 color='error'
-                                onClick={() => onStuffRemove(stuff.id)}
+                                onClick={() => onEmployeeRemove(index)}
                               >
                                 <Delete />
                               </IconButton>
@@ -555,9 +694,7 @@ function AsTemplateCreate(props) {
                     textAlign='center'
                   >
                     <Box>
-                      <PeopleIcon
-                        sx={{ color: '#a7acb2', fontSize: 30 }}
-                      />
+                      <PeopleIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
                       <Typography color='#a7acb2' variant='body1'>
                         {intl.formatMessage(messages.noStuffFound)}
                       </Typography>

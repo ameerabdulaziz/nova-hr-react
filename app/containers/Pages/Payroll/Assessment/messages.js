@@ -115,4 +115,12 @@ export default defineMessages({
     id: `${scope}.probationPeriodValueIsRequired`,
     defaultMessage: 'probationPeriodValueIsRequired',
   },
+  oneByOne: {
+    id: `${scope}.oneByOne`,
+    defaultMessage: 'oneByOne',
+  },
+  list: {
+    id: `${scope}.list`,
+    defaultMessage: 'list',
+  },
 });
