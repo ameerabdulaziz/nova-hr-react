@@ -373,7 +373,8 @@ import {
   AsChoice,
   AsTemplate,
   AsTemplateCreate,
-  PurchaseTrxList,PurchaseTrxCreate
+  PurchaseTrxList,PurchaseTrxCreate,
+  EmployeeAssessment,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1784,6 +1785,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/AsTemplateEdit'
           component={AsTemplateCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/EmployeeAssessment'
+          component={EmployeeAssessment}
         />
 
         {/* Default */}

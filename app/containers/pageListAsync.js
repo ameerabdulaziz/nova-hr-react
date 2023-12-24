@@ -2208,6 +2208,15 @@ export const ApplicationUnderReviewing = loadable(
   }
 );
 
+/// Assessment ///////////////////////
+
+export const EmployeeAssessment = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/EmployeeAssessment'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const AsChoice = loadable(
   () => import('./Pages/Payroll/Assessment/code/AsChoice'),
   {

@@ -1,6 +1,6 @@
 import axiosInstance from "../../api/axios";
 
-const ExamData = (locale) => {
+const EmployeeAssessmentData = (locale) => {
   const Apis = {};
 
 
@@ -25,4 +25,4 @@ const ExamData = (locale) => {
   return Apis;
 };
 
-export default ExamData;
+export default EmployeeAssessmentData;

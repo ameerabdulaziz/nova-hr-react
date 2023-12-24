@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import ExamData from '../api/ExamData';
+import EmployeeAssessmentData from '../api/EmployeeAssessmentData';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss'
 import {  useHistory, useLocation  } from 'react-router-dom';
@@ -39,11 +39,13 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 // import Textarea from '@mui/joy/Textarea';
 // import  TextareaAutosize  from '@mui/base/TextareaAutosize';
 import { TextareaAutosize } from '@mui/base';
-import examLogo from '../../Assets/exam-logo.png';
+import examLogo from '../../Assets/Employee-Assessment/exam-logo.png';
 import  ExamQuestionNextAndPrev  from '../../Component/ExamQuestionNextAndPrev';
+import  ExamQuestionWithoutNextAndPrev  from '../../Component/ExamQuestionWithoutNextAndPrev';
+import  logo  from '../../Assets/Employee-Assessment/1.png';
 
 
-function BranchSalarySetting(props) {
+function EmployeeAssessment(props) {
   const [id, setid] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [processing ,setProcessing] = useState(false)
@@ -52,7 +54,7 @@ function BranchSalarySetting(props) {
   const history=useHistory(); 
   const { intl } = props;
   const { classes } = useStyles();
-  const [examData, setExamData] = useState();
+
   const [brCode, setBrCode] = useState(null);
   const [data, setdata] = useState({
     PersonalExemption: "",
@@ -80,8 +82,575 @@ function BranchSalarySetting(props) {
     TheEmployeesShareOfSI: "",
   });
 
-
+// ///////////
+const [examData, setExamData] = useState();
   const [startExam, setStartExam] = useState(false);
+  const [endExam, setEndExam] = useState(false);
+  const [examQuestionsData, setExamQuestionsData] = useState([])
+
+  // ///
+  const [questionNum, setQuestionNum] = useState(0)
+    const [question, setQuestion] = useState()
+    const [choices, setChoices] = useState()
+    const [questionsAnswers, setQuestionsAnswers] = useState({checkedVal : null, textareaVal: ""})
+
+
+    const testDate =     {
+      "assessmentId": 0,
+      "staffTrainingReq": "",
+      "templateName": "Assessment for emplouee evaluation",
+      "templateDesc": "“The content has been classified as confidential and may be legally protected from disclosure, you are hereby notified that any use, dissemination, copying, or storage of this content or its attachments is strictly prohibited. In case of any disclosure of this content, you will be subjected to an HR Investigation.”",
+      "showStyle": 1,
+      "exampleRequired": true,
+      "isClosed": false,
+      "choiceList": [
+          {
+              "id": 1,
+              "name": "Weak",
+              "fromPer": 0.0,
+              "toPer": 25.0,
+              "choiceGrade": 0.0
+          },
+          {
+              "id": 2,
+              "name": "Moderate",
+              "fromPer": 26.0,
+              "toPer": 50.0,
+              "choiceGrade": 0.0
+          },
+          {
+              "id": 3,
+              "name": "Strong",
+              "fromPer": 51.0,
+              "toPer": 75.0,
+              "choiceGrade": 0.0
+          },
+          {
+              "id": 4,
+              "name": "Very Strong",
+              "fromPer": 76.0,
+              "toPer": 89.0,
+              "choiceGrade": 0.0
+          },
+          {
+              "id": 5,
+              "name": "Exceptional",
+              "fromPer": 90.0,
+              "toPer": 100.0,
+              "choiceGrade": 0.0
+          },
+          {
+              "id": 6,
+              "name": "ght",
+              "fromPer": 12.0,
+              "toPer": 12.0,
+              "choiceGrade": 12.0
+          },
+          {
+              "id": 7,
+              "name": "11111",
+              "fromPer": 451.0,
+              "toPer": 451.0,
+              "choiceGrade": 1.0
+          }
+      ],
+      "competencyList": [
+          {
+              "competencyId": 3,
+              "competency": "Understanding of Scope & Deliverable",
+              "totalGrade": 10.0,
+              "categoryId": 2,
+              "category": "Core Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 4,
+              "competency": "Control of Personal Work Plan (time management & productivity)",
+              "totalGrade": 10.0,
+              "categoryId": 2,
+              "category": "Core Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 5,
+              "competency": "Leadership Skills & Decision Making",
+              "totalGrade": 10.0,
+              "categoryId": 2,
+              "category": "Core Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 6,
+              "competency": "Basic Technical Knowledge of Associated Trades",
+              "totalGrade": 10.0,
+              "categoryId": 3,
+              "category": "Technical Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 7,
+              "competency": "Coordination Skills with Associated Trades",
+              "totalGrade": 10.0,
+              "categoryId": 3,
+              "category": "Technical Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 8,
+              "competency": "Multi-faceted Problem Solving",
+              "totalGrade": 10.0,
+              "categoryId": 3,
+              "category": "Technical Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 9,
+              "competency": "Establishing and Maintaining Good & Efficient Relations with Project Stakeholders",
+              "totalGrade": 10.0,
+              "categoryId": 4,
+              "category": "Functional Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 10,
+              "competency": "Recognition & Management of Firm Responsibilities",
+              "totalGrade": 10.0,
+              "categoryId": 4,
+              "category": "Functional Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 11,
+              "competency": "Ability to Meet Firm Objectives",
+              "totalGrade": 10.0,
+              "categoryId": 5,
+              "category": "Organizational Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": false
+          },
+          {
+              "competencyId": 12,
+              "competency": "Hard Work",
+              "totalGrade": 10.0,
+              "categoryId": 5,
+              "category": "Organizational Competencies",
+              "employeeChoiceID": null,
+              "employeeExample": "",
+              "notEffective": true
+          }
+      ]
+  }
+
+console.log("testDate =", testDate);
+
+    useEffect(()=>{
+      if(examData)
+      {
+        setQuestion(examData?.competencyList[0])
+        setChoices(examData?.choiceList)
+      }
+    },[examData])
+
+
+
+    const addAndUpdateQuestions = () => {
+
+      // add
+        if(!examQuestionsData.some(el => el.question.competencyId === question.competencyId)
+        && questionsAnswers.checkedVal !== null
+        // && questionsAnswers.textareaVal.length !== 0
+        )
+        {
+        setExamQuestionsData(prveState => [...prveState, 
+        {
+            question: question,
+            checkedVal:  questionsAnswers.checkedVal,
+            textarea: questionsAnswers.textareaVal
+        }
+        ])
+        } 
+
+        // update
+        if(examQuestionsData.some(el => el.question.competencyId === question.competencyId)
+        && questionsAnswers.checkedVal !== null
+        // && questionsAnswers.textareaVal.length !== 0
+        )
+        {
+        setExamQuestionsData(prveState => 
+          
+          prveState.map((que)=> {
+            console.log("que2 =",que);
+            if(que.question.competencyId === question.competencyId)
+            {
+            return {...que, 
+                
+                    // question: question,
+                    checkedVal:  questionsAnswers.checkedVal,
+                    textarea: questionsAnswers.textareaVal
+                
+              }
+            }
+            return que
+          })
+
+
+          // /////////////////////////////
+          
+          // [...prveState, 
+          // {
+          //     question: question,
+          //     checkedVal:  choices.filter((choice) => choice.id === Number( e.target.value))
+          //     // checkedVal: e.target.value
+          // }
+          // ]
+          )
+        }
+    }
+
+
+    const nextQueFun = () => {
+      if(examData?.competencyList.length !== questionNum + 1)
+      {
+          setQuestionNum(  questionNum + 1 )
+          setQuestion(examData?.competencyList[questionNum + 1])
+
+
+          addAndUpdateQuestions()
+
+      
+      // setQuestionNum((prevState) => ({
+      //     ...prevState,
+      //     questionNum: questionNum + 1
+      // }))
+      // setQuestion(examData?.competencyList[questionNum]?.competency)
+
+// ////////////////
+
+// // add
+// if(!examQuestionsData.some(el => el.question.competencyId === question.competencyId)
+//   && questionsAnswers.checkedVal !== null
+//   // && questionsAnswers.textareaVal.length !== 0
+// )
+// {
+// setExamQuestionsData(prveState => [...prveState, 
+//   {
+//       question: question,
+//       checkedVal:  questionsAnswers.checkedVal,
+//       textarea: questionsAnswers.textareaVal
+//   }
+//   ])
+// } 
+
+// // update
+// if(examQuestionsData.some(el => el.question.competencyId === question.competencyId)
+//   && questionsAnswers.checkedVal !== null
+//   // && questionsAnswers.textareaVal.length !== 0
+// )
+// {
+//   setExamQuestionsData(prveState => 
+    
+//     prveState.map((que)=> {
+//       console.log("que2 =",que);
+//       if(que.question.competencyId === question.competencyId)
+//       {
+//        return {...que, 
+          
+//               // question: question,
+//               checkedVal:  questionsAnswers.checkedVal,
+//               textarea: questionsAnswers.textareaVal
+          
+//         }
+//       }
+//       return que
+//     })
+
+
+//     // /////////////////////////////
+    
+//     // [...prveState, 
+//     // {
+//     //     question: question,
+//     //     checkedVal:  choices.filter((choice) => choice.id === Number( e.target.value))
+//     //     // checkedVal: e.target.value
+//     // }
+//     // ]
+//     )
+// }
+
+
+setQuestionsAnswers({
+  checkedVal : examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
+    examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum + 1].competencyId)].checkedVal  
+    // choices.find((choice) => choice.id === Number( examQuestionsData[questionNum - 1].checkedVal.id))  
+    : null
+    ,
+  textareaVal: examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
+    examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum + 1].competencyId)].textarea 
+    : ""
+    // examQuestionsData[questionNum - 1].textarea : ""
+})
+// setQuestionsAnswers({
+//   checkedVal : examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
+//     choices.find((choice) => choice.id === Number( examQuestionsData[questionNum + 1].checkedVal.id))  
+//     : null
+//     ,
+//   textareaVal: examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
+//     examQuestionsData[questionNum + 1].textarea : ""
+// })
+// setQuestionsAnswers({checkedVal : null, textareaVal: ""})
+      }
+
+
+      if(examData?.competencyList.length === questionNum + 1)
+      {
+        setEndExam(true)
+        // setStartExam(false)
+      }
+  }
+
+
+
+
+  const prevQueFun = () => {
+    if(questionNum  !== 0)
+    {
+        setQuestionNum(  questionNum - 1 )
+        setQuestion(examData?.competencyList[questionNum - 1])
+
+        addAndUpdateQuestions()
+
+    
+    // setQuestionNum((prevState) => ({
+    //     ...prevState,
+    //     questionNum: questionNum + 1
+    // }))
+    // setQuestion(examData?.competencyList[questionNum]?.competency)
+
+// ////////////////
+
+// // add
+// if(!examQuestionsData.some(el => el.question.competencyId === question.competencyId)
+//   && questionsAnswers.checkedVal !== null
+// )
+// {
+// setExamQuestionsData(prveState => [...prveState, 
+// {
+//     question: question,
+//     checkedVal:  questionsAnswers.checkedVal,
+//     textarea: questionsAnswers.textareaVal
+// }
+// ])
+// } 
+
+// // update
+// if(examQuestionsData.some(el => el.question.competencyId === question.competencyId)
+//   && questionsAnswers.checkedVal !== null
+// )
+// {
+// setExamQuestionsData(prveState => 
+  
+//   prveState.map((que)=> {
+//     console.log("que2 =",que);
+//     if(que.question.competencyId === question.competencyId)
+//     {
+//      return {...que, 
+        
+//             // question: question,
+//             checkedVal:  questionsAnswers.checkedVal,
+//             textarea: questionsAnswers.textareaVal
+        
+//       }
+//     }
+//     return que
+//   })
+
+
+//   // /////////////////////////////
+  
+//   // [...prveState, 
+//   // {
+//   //     question: question,
+//   //     checkedVal:  choices.filter((choice) => choice.id === Number( e.target.value))
+//   //     // checkedVal: e.target.value
+//   // }
+//   // ]
+//   )
+// }
+
+console.log("prev =", examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum - 1].competencyId));
+console.log("prev2 =", examData?.competencyList[questionNum - 1]);
+console.log("prev3 =", examQuestionsData[questionNum - 1]);
+console.log("prev4 =", examQuestionsData);
+console.log("prev45 =", questionNum - 1);
+console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum - 1].competencyId));
+
+setQuestionsAnswers({
+  checkedVal : examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum - 1].competencyId) ? 
+    examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum - 1].competencyId)].checkedVal  
+    // choices.find((choice) => choice.id === Number( examQuestionsData[questionNum - 1].checkedVal.id))  
+    : null
+    ,
+  textareaVal: examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum - 1].competencyId) ? 
+    examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum - 1].competencyId)].textarea 
+    : ""
+    // examQuestionsData[questionNum - 1].textarea : ""
+})
+// setQuestionsAnswers({checkedVal : null, textareaVal: ""})
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  const saveQuestions = (e, type) => {
+
+    if(type === "radio")
+    {
+      setQuestionsAnswers(prveState => (
+        {
+          ...prveState,
+          checkedVal: choices.find((choice) => choice.id === Number( e.target.value))
+      }
+      ))
+    }
+
+    if(type === "textarea")
+    {
+      setQuestionsAnswers(prveState => (
+        {
+          ...prveState,
+          textareaVal: e.target.value
+      }
+      ))
+    }
+
+
+    // console.log("tesrt =",choices.filter((choice) => choice.id === Number( e.target.value)));
+    console.log("que =", examQuestionsData.some(el => el.question.competencyId === question.competencyId));
+
+    // if(examQuestionsData.length === 0 )
+    // {
+    //   setExamQuestionsData(prveState => [...prveState, 
+    //     {
+    //         question: question,
+    //         checkedVal:  choices.find((choice) => choice.id === Number( e.target.value))
+    //         // checkedVal: e.target.value
+    //     }
+    //     ])
+    // }
+
+
+    // //////////////////////
+
+    // if(!examQuestionsData.some(el => el.question.competencyId === question.competencyId))
+    // {
+    //   setExamQuestionsData(prveState => [...prveState, 
+    //     {
+    //         question: question,
+    //         checkedVal:  choices.find((choice) => choice.id === Number( e.target.value))
+    //         // checkedVal: e.target.value
+    //     }
+    //     ])
+    // } 
+
+    //  if(examQuestionsData.some(el => el.question.competencyId === question.competencyId))
+    //   {
+    //     setExamQuestionsData(prveState => 
+          
+    //       prveState.map((que)=> {
+    //         console.log("que2 =",que);
+    //         if(que.question.competencyId === question.competencyId)
+    //         {
+    //          return {...que, 
+                
+    //                 // question: question,
+    //                 checkedVal:  choices.find((choice) => choice.id === Number( e.target.value))
+    //                 // checkedVal: e.target.value
+                
+    //           }
+    //         }
+    //         return que
+    //       })
+
+
+    //       // /////////////////////////////
+          
+    //       // [...prveState, 
+    //       // {
+    //       //     question: question,
+    //       //     checkedVal:  choices.filter((choice) => choice.id === Number( e.target.value))
+    //       //     // checkedVal: e.target.value
+    //       // }
+    //       // ]
+    //       )
+    //   }
+    
+    
+  }
+ 
+
+  // ///////////
+
+  const saveAllQuestions = (e, type,index) => {
+
+    if(type === "radio")
+    {
+      setQuestionsAnswers(prveState => (
+        {
+          ...prveState,
+          [`que${index + 1}`] : {
+            ...prveState[`que${index + 1}`],
+            checkedVal: choices.find((choice) => choice.id === Number( e.target.value))
+          }
+      }
+      ))
+    }
+
+    if(type === "textarea")
+    {
+      setQuestionsAnswers(prveState => (
+        {
+          ...prveState,
+          [`que${index + 1}`] : {
+            ...prveState[`que${index + 1}`],
+          textareaVal: e.target.value
+          }
+      }
+      ))
+    }
+    console.log("que =", examQuestionsData.some(el => el.question.competencyId === question.competencyId));
+
+  }
+
+
+
+
+  /////////////////////
 
 
 
@@ -166,13 +735,14 @@ function BranchSalarySetting(props) {
  
 
   async function fetchData() {
-    try {
-      const examQuestionsData = await ExamData(locale).Get();
-      setExamData(examQuestionsData[0]);
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
-    }
+    setExamData(testDate);
+    // try {
+    //   const examQuestionsData = await EmployeeAssessmentData(locale).Get();
+    //   setExamData(examQuestionsData[0]);
+    // } catch (err) {
+    // } finally {
+    //   setIsLoading(false);
+    // }
   }
 
   useEffect(() => {
@@ -234,6 +804,9 @@ function BranchSalarySetting(props) {
 
 
   console.log("examData =",examData);
+  console.log("startExam =",startExam);
+  console.log("endExam =",endExam);
+  console.log("question =",question);
 
   return (
     <PayRollLoader isLoading={isLoading} whiteBg icon="border_color" >
@@ -250,7 +823,8 @@ function BranchSalarySetting(props) {
                 direction="row"
                 // style={{display:"contents"}}
                 >
-                  <Grid item xs={12} className={`${style.gridContainerSty} ${!startExam? style.HideContainers : style.showContainers }`}  
+                  {( startExam && !endExam) && (
+                  <Grid item xs={12} className={`${style.gridContainerSty} ${!startExam ? style.HideContainers : style.showContainers }`}  
                   // style={Object.assign({},
                   //    !startExam?  {display: 'none'} : {display: 'block'},
                   //   //  {padding:"0"}
@@ -270,7 +844,7 @@ function BranchSalarySetting(props) {
                                 variant="contained"
                                 size="medium"
                                 color="primary"
-                                //  onClick={() => setStartExam(true)}
+                                 onClick={() => setEndExam(true)}
                                  >
                                   End Exam</Button>
                                   </div>
@@ -278,7 +852,9 @@ function BranchSalarySetting(props) {
                             
                         </div>               
                     </Grid>
+                    )}
                     {/* /////////////// */}
+                    {!startExam && (
                     <Grid item xs={12}  md={6} className={`${style.gridContainerSty} ${startExam? style.HideContainers : style.showContainers }`}  
                     // style={Object.assign({},
                     //  startExam?  {display: 'none'} : {display: 'block'},
@@ -287,7 +863,7 @@ function BranchSalarySetting(props) {
                       > 
                     {/* <Grid item xs={12}  md={6} style={startExam?  {display: 'none'} : {display: 'block'}} >  */}
                         <div className={`${style.mainContainer} ${classes.examMainSty}`}>
-                        <div>
+                        {/* <div>
                             <img src='https://www.ansonika.com/wilio/img/logo.png' />
                             <div>
                                 <FacebookOutlinedIcon />
@@ -295,29 +871,36 @@ function BranchSalarySetting(props) {
                                 <GoogleIcon/>
                                 <LinkedInIcon/>
                             </div>
-                            </div>
+                            </div> */}
                             <div>
                                 <img src='https://www.ansonika.com/wilio/img/info_graphic_1.svg' />
                                 <h1>{examData?.templateName}</h1>
                                 {/* <h1>Satisfaction Survey</h1> */}
+                                <p>
+                                    {/* {examData?.templateDesc} */}
+                                </p>
                                 {/* <p>
                                     Tation argumentum et usu, dicit viderer evertitur te has. Eu dictas concludaturque usu, facete detracto patrioque an per, lucilius pertinacia eu vel. Adhuc invidunt duo ex. Eu tantas dolorum ullamcorper qui.
                                 </p> */}
 
-                                <Button 
+                                {/* <Button 
                                 variant="contained"
                                 size="medium"
                                 color="primary"
                                 >
                                   Purchase this template
-                                </Button>
+                             
+                                </Button> */}
                                 {/* <button>Purchase this template</button> */}
                             </div>
 
                             
                         </div>               
                     </Grid>
+                    )}
 
+
+                  {!startExam && (
                     <Grid item xs={12} md={6} className={`${style.gridContainerSty} ${startExam? style.HideContainers : style.showContainers }`}  
                     // style={Object.assign({},
                     //  startExam?  {display: 'none'} : {display: 'block'},
@@ -328,6 +911,7 @@ function BranchSalarySetting(props) {
                     
                     <div className={`${style.startExamContainer}`}>
                     <div>
+                                
                                 <img src={examLogo} />
                                 <h1 className={`${classes.textSty}`}>{examData?.templateName}</h1>
                                 <p>
@@ -345,6 +929,7 @@ function BranchSalarySetting(props) {
                             </div>
                     </div>
                     </Grid>
+                    )}
 
                     {/* <Grid item xs={12}  className={`${!startExam? style.HideContainers : style.showContainers }`}
                     // style={!startExam?  {display: 'none'} : {display: 'block'}}
@@ -460,13 +1045,64 @@ function BranchSalarySetting(props) {
 
                     {/* ///// */}
 {/* !startExam? style.HideContainers : style.showContainers */}
+
+
+
+
                     {
-                      startExam && (
-                        <ExamQuestionNextAndPrev />
+                      (startExam && !endExam) && (
+                        <ExamQuestionNextAndPrev 
+                        examData={examData} 
+                        setEndExam={setEndExam}
+                        setStartExam={setStartExam}
+                        examQuestionsData={examQuestionsData}
+                        setExamQuestionsData={setExamQuestionsData}
+                        questionNum={questionNum}
+                        setQuestionNum={setQuestionNum}
+                        question={question}
+                        setQuestion={setQuestion}
+                        choices={choices}
+                        setChoices={setChoices}
+                        questionsAnswers={questionsAnswers}
+                        setQuestionsAnswers={setQuestionsAnswers}
+                        nextQueFun={nextQueFun}
+                        prevQueFun={prevQueFun}
+                        saveQuestions={saveQuestions}
+                        // question={question}
+                        // setQuestion={setQuestion}
+                        />
                       )
                     }
 
+
+                  {/* {examData?.competencyList.map((Qui,index)=>( */}
+
+                    
+                    <ExamQuestionWithoutNextAndPrev 
+                      examData={examData} 
+                      // setEndExam={setEndExam}
+                      // setStartExam={setStartExam}
+                      examQuestionsData={examQuestionsData}
+                      // setExamQuestionsData={setExamQuestionsData}
+                      questionNum={questionNum}
+                      // setQuestionNum={setQuestionNum}
+                      // question={Qui}
+                      question={question}
+                      // setQuestion={setQuestion}
+                      choices={choices}
+                      // setChoices={setChoices}
+                      questionsAnswers={questionsAnswers}
+                      // setQuestionsAnswers={setQuestionsAnswers}
+                      nextQueFun={nextQueFun}
+                      prevQueFun={prevQueFun}
+                      saveAllQuestions={saveAllQuestions}
+                      // category={(examData?.competencyList[index - 1].category !== examData?.competencyList[index].category) ? examData?.competencyList[index].category : null}
+                    />
+                  {/* ))} */}
+
 {/* /////////// */}
+
+                    {endExam && (
                     <Grid item xs={12} >
                       <div className={ `${style.resultContainerSty} ${classes.containerSty}`}>
                         <div className={`${classes.examMainSty}`}>
@@ -482,9 +1118,9 @@ function BranchSalarySetting(props) {
 
                           <div>
                             <Box >
-                              <CircularProgress variant="determinate" value={100} />
-                              <CircularProgress variant="determinate" value={90} />
-                              <Typography position='absolute' className={`${classes.textSty}`}>{90}%</Typography>
+                              <CircularProgress variant="determinate" value={100}  />
+                              <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(examQuestionsData.length*100)/examData?.competencyList.length} />
+                              <Typography position='absolute' className={`${classes.textSty}`}>{(examQuestionsData.length*100)/examData?.competencyList.length}%</Typography>
                           </Box>
                             <Typography >completed questions</Typography>
 
@@ -538,6 +1174,7 @@ function BranchSalarySetting(props) {
                         {/* </div> */}
                       </div>
                     </Grid>
+                    )}
 
                 </Grid>
             </CardContent>
@@ -611,8 +1248,8 @@ function BranchSalarySetting(props) {
   );
 }
 
-BranchSalarySetting.propTypes = {
+EmployeeAssessment.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(BranchSalarySetting); 
+export default injectIntl(EmployeeAssessment); 

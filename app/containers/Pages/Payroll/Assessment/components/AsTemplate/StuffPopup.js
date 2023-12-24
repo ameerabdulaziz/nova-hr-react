@@ -42,7 +42,7 @@ function StuffPopup(props) {
     onSave,
     selectedStuff,
     jobList,
-    probationPeriod
+    probationPeriod,
   } = props;
 
   const locale = useSelector((state) => state.language.locale);
@@ -53,34 +53,71 @@ function StuffPopup(props) {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [formInfo, setFormInfo] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState([]);
+  const [employeeApi, setEmployeeApi] = useState([]);
   const [filters, setFilters] = useState({
     jobs: [],
-    query: ''
+    query: '',
   });
+
+  const resetData = () => {
+    setSelectedEmployee([]);
+    setRowsPerPage(10);
+    setPage(0);
+    setFilters({
+      jobs: [],
+      query: '',
+    });
+  };
 
   useEffect(() => {
     if (isOpen) {
-      setFormInfo(selectedStuff);
+      setEmployeeApi(selectedStuff);
     } else {
-      setFormInfo([]);
-      setRowsPerPage(10);
-      setPage(0);
-      setFilters({
-        jobs: [],
-        query: ''
-      });
+      resetData();
     }
   }, [isOpen]);
+
+  const getEmployees = useCallback(() => {
+    const selectedEmployeeIds = selectedEmployee.map((item) => item.employeeId);
+
+    const allEmployee = [...selectedEmployee];
+
+    employeeApi.forEach((employee) => {
+      if (employee.isSelect) {
+        if (!selectedEmployeeIds.includes(employee.employeeId)) {
+          allEmployee.push(employee);
+        }
+      }
+    });
+
+    return allEmployee;
+  }, [employeeApi, selectedEmployee]);
 
   const fetchEmployees = async () => {
     setIsLoading(true);
 
-    try {
-      const jobs = filters.jobs.map(item => item.id);
+    const jobsIds = filters.jobs.map((item) => item.id);
 
-      const dataApi = await API(locale).GetEmployee(templateId, jobs, probationPeriod);
-      setFormInfo(dataApi.map(item => ({ ...item, isSelect: false })));
+    const employees = getEmployees();
+
+    setSelectedEmployee(employees);
+
+    const employeeIds = employees.map((item) => item.employeeId);
+
+    try {
+      const dataApi = await API(locale).GetEmployee(
+        templateId,
+        jobsIds,
+        probationPeriod
+      );
+
+      const mappedEmployee = dataApi.map((item) => {
+        const isSelect = employeeIds.includes(item.employeeId);
+        return { ...item, isSelect };
+      });
+
+      setEmployeeApi(mappedEmployee);
     } catch (err) {
       //
     } finally {
@@ -88,13 +125,28 @@ function StuffPopup(props) {
     }
   };
 
-  const visibleRows = useMemo(
-    () => formInfo.slice(
+  const visibleRows = useMemo(() => {
+    let filteredData = [...employeeApi];
+
+    if (filters.query.length !== 0) {
+      filteredData = filteredData.filter(
+        (item) => item.organizationName
+          .toLowerCase()
+          .includes(filters.query.toLowerCase())
+          || item.employeeName
+            .toLowerCase()
+            .includes(filters.query.toLowerCase())
+          || item.jobName
+            .toLowerCase()
+            .includes(filters.query.toLowerCase())
+      );
+    }
+
+    return filteredData.slice(
       page * rowsPerPage,
-      page * rowsPerPage + rowsPerPage,
-    ),
-    [page, rowsPerPage, formInfo],
-  );
+      page * rowsPerPage + rowsPerPage
+    );
+  }, [page, rowsPerPage, employeeApi, filters.query]);
 
   useEffect(() => {
     if (isOpen) {
@@ -109,21 +161,42 @@ function StuffPopup(props) {
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
-    onSave(formInfo.filter((item) => item.isSelect));
+    const employees = getEmployees();
+
+    onSave(employees);
 
     setIsOpen(false);
   };
 
   const onCheckboxChange = (evt, index) => {
-    const clonedItems = [...formInfo];
-    clonedItems[index].isSelect = evt.target.checked;
+    const clonedItems = [...employeeApi];
+    const employee = visibleRows[index];
 
-    setFormInfo(clonedItems);
+    const employeeIndex = clonedItems.findIndex(
+      (item) => item.employeeId === employee.employeeId
+    );
+
+    if (employeeIndex !== -1) {
+      clonedItems[employeeIndex].isSelect = evt.target.checked;
+    }
+
+    setEmployeeApi(clonedItems);
   };
 
   const onAllCheckboxChange = (evt) => {
-    setFormInfo(visibleRows.map((item) => ({ ...item, isSelect: evt.target.checked }))
-    );
+    const clonedItems = [...employeeApi];
+
+    visibleRows.forEach((employee) => {
+      const employeeIndex = clonedItems.findIndex(
+        (item) => item.employeeId === employee.employeeId
+      );
+
+      if (employeeIndex !== -1) {
+        clonedItems[employeeIndex].isSelect = evt.target.checked;
+      }
+    });
+
+    setEmployeeApi(clonedItems);
   };
 
   const onMultiAutoCompleteChange = (value, name) => {
@@ -143,10 +216,10 @@ function StuffPopup(props) {
   );
 
   const isSomeSelect = useCallback(() => {
-    const filtered = formInfo.filter((item) => item.isSelect).length;
+    const filtered = visibleRows.filter((item) => item.isSelect).length;
 
-    return filtered > 0 && filtered < formInfo.length;
-  }, [formInfo]);
+    return filtered > 0 && filtered < visibleRows.length;
+  }, [visibleRows]);
 
   const onPageChange = (event, newPage) => {
     setPage(newPage);
@@ -172,16 +245,11 @@ function StuffPopup(props) {
         }),
       }}
     >
-      <DialogTitle>
-        {intl.formatMessage(messages.addOrChangeStuff)}
-      </DialogTitle>
+      <DialogTitle>{intl.formatMessage(messages.addOrChangeStuff)}</DialogTitle>
 
       <DialogContent>
-
         <PayRollLoader isLoading={isLoading}>
-
-          <Grid container mb={3} gap={3} pt={2} >
-
+          <Grid container mb={3} gap={3} pt={2}>
             <Grid item xs={12} md={6}>
               <TextField
                 name='query'
@@ -203,7 +271,7 @@ function StuffPopup(props) {
                 }`}
                 value={filters.jobs}
                 renderOption={(optionProps, option, { selected }) => (
-                  <li {...optionProps} key={optionProps.id} >
+                  <li {...optionProps} key={optionProps.id}>
                     <Checkbox
                       icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
                       checkedIcon={<CheckBoxIcon fontSize='small' />}
@@ -224,10 +292,9 @@ function StuffPopup(props) {
                 )}
               />
             </Grid>
-
           </Grid>
 
-          {formInfo.length > 0 ? (
+          {employeeApi.length > 0 ? (
             <>
               <TableContainer>
                 <Table size='small' sx={{ minWidth: 700 }}>
@@ -246,11 +313,11 @@ function StuffPopup(props) {
                         {intl.formatMessage(messages.employeeName)}
                       </TableCell>
 
-                      <TableCell >
+                      <TableCell>
                         {intl.formatMessage(messages.jobName)}
                       </TableCell>
 
-                      <TableCell >
+                      <TableCell>
                         {intl.formatMessage(messages.departmentName)}
                       </TableCell>
                     </TableRow>
@@ -266,7 +333,7 @@ function StuffPopup(props) {
                       >
                         <TableCell>
                           <Checkbox
-                            checked={formInfo[index].isSelect}
+                            checked={visibleRows[index].isSelect}
                             onChange={(evt) => onCheckboxChange(evt, index)}
                             name='isSelect'
                           />
@@ -282,7 +349,6 @@ function StuffPopup(props) {
                         <TableCell component='th' scope='row'>
                           {competency.organizationName}
                         </TableCell>
-
                       </TableRow>
                     ))}
                   </TableBody>
@@ -290,13 +356,14 @@ function StuffPopup(props) {
               </TableContainer>
               <TablePagination
                 rowsPerPageOptions={[10, 25, 50]}
-                component="div"
-                count={formInfo.length}
+                component='div'
+                count={employeeApi.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={onPageChange}
                 onRowsPerPageChange={onRowsPerPageChange}
-              /></>
+              />
+            </>
           ) : (
             <Stack
               direction='row'
@@ -306,9 +373,7 @@ function StuffPopup(props) {
               textAlign='center'
             >
               <Box>
-                <PeopleIcon
-                  sx={{ color: '#a7acb2', fontSize: 30 }}
-                />
+                <PeopleIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
                 <Typography color='#a7acb2' variant='body1'>
                   {intl.formatMessage(messages.noStuffFound)}
                 </Typography>
@@ -316,7 +381,6 @@ function StuffPopup(props) {
             </Stack>
           )}
         </PayRollLoader>
-
       </DialogContent>
 
       <DialogActions>
