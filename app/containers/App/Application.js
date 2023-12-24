@@ -373,6 +373,7 @@ import {
   AsChoice,
   AsTemplate,
   AsTemplateCreate,
+  PurchaseTrxList,PurchaseTrxCreate
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1155,6 +1156,11 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/LoanReq' component={LoanReqList} />
         <Route path='/app/Pages/Payroll/LoanReqCreate' component={LoanReqCreate} />
         <Route path='/app/Pages/Payroll/LoanReqEdit' component={LoanReqCreate} />
+
+        
+        <Route path='/app/Pages/Payroll/PurchaseTrx' component={PurchaseTrxList} />
+        <Route path='/app/Pages/Payroll/PurchaseTrxCreate' component={PurchaseTrxCreate} />
+        <Route path='/app/Pages/Payroll/PurchaseTrxEdit' component={PurchaseTrxCreate} />
         
         
 

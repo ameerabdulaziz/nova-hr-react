@@ -1683,6 +1683,12 @@
   "boilerplate.containers.Payroll.Payroll.TheEmployeesShareOfSI": "The Employee's Share Of SI",
   "boilerplate.containers.Payroll.Payroll.SocialInsuranceParameters": "Social Insurance Parameters",
 
+  
+  "boilerplate.containers.Payroll.Payroll.remainLoansNo": "Remain Loans No",
+  "boilerplate.containers.Payroll.Payroll.remainLoansValue": "Remain Loans Value",
+  "boilerplate.containers.Payroll.Payroll.newLoansValue":  "New Loans Value",
+  "boilerplate.containers.Payroll.Payroll.newPayNo":"New PayNo",
+
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
   "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",

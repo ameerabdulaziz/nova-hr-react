@@ -407,7 +407,7 @@ function ElementValList(props) {
           (row) => parseInt(row.name) >= parseInt(result.yearName)
         )
       );
-      setMonthList(OrignalMonthList.filter((row) => row.id >= result.id));
+      setMonthList(OrignalMonthList.filter((row) => row.id >= result.monthId));
     } catch (err) {
     } finally {
       setIsLoading(false);

@@ -402,4 +402,21 @@ export default defineMessages({
     id: `${scope}.SocialInsuranceParameters`,
     defaultMessage: "Social Insurance Parameters",
   },
+  remainLoansNo: {
+    id: `${scope}.remainLoansNo`,
+    defaultMessage: "remainLoansNo",
+  },
+  remainLoansValue: {
+    id: `${scope}.remainLoansValue`,
+    defaultMessage: "remainLoansValue",
+  },
+  newLoansValue: {
+    id: `${scope}.newLoansValue`,
+    defaultMessage: "newLoansValue",
+  },
+  newPayNo: {
+    id: `${scope}.newPayNo`,
+    defaultMessage: "newPayNo",
+  },
+  
 });

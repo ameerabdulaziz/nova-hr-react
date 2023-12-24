@@ -1747,6 +1747,11 @@
     "boilerplate.containers.Payroll.Payroll.CompanyShare": "حصة الشركة من التامينات",
     "boilerplate.containers.Payroll.Payroll.TheEmployeesShareOfSI": "حصة الموظف من التامينات على الثابت",
     "boilerplate.containers.Payroll.Payroll.SocialInsuranceParameters": "التامينات الاجتماعية",
+
+    "boilerplate.containers.Payroll.Payroll.remainLoansNo": "عدد الاقساط المتبقية",
+    "boilerplate.containers.Payroll.Payroll.remainLoansValue": "قيمة الاقساط المتبقية",
+    "boilerplate.containers.Payroll.Payroll.newLoansValue":  "قيمة الاقساط الجديده",
+    "boilerplate.containers.Payroll.Payroll.newPayNo": "عدد الاقساط الجديده",
     
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

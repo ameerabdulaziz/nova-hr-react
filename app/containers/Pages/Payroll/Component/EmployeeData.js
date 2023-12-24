@@ -22,7 +22,7 @@ function EmployeeData(props) {
     GetSalary,
     GetworkingYears,
     id,
-    branchId
+    branchId,isdisabled
   } = props;
   const { classes, cx } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -154,6 +154,7 @@ function EmployeeData(props) {
                   id: isSuper ? data.superEmployeeId : data.employeeId,
                   name: isSuper ? data.superEmployeeName : data.employeeName,
                 }: null}
+                getOptionDisabled={(option) => isdisabled??false}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
                 }

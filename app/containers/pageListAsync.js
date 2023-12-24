@@ -1424,6 +1424,20 @@ export const LoanReqCreate = loadable(
     {
       fallback: <Loading />,
     });
+
+    export const PurchaseTrxList = loadable(
+      () => import('./Pages/Payroll/Payroll/Transaction/Purchase/PurchaseTrxList'),
+      {
+        fallback: <Loading />,
+      }
+    );
+    export const PurchaseTrxCreate = loadable(
+      () => import('./Pages/Payroll/Payroll/Transaction/Purchase/PurchaseTrxCreate'),
+      {
+        fallback: <Loading />,
+      }
+    );
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
