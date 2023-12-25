@@ -127,4 +127,12 @@ export default defineMessages({
     id: `${scope}.probationPeriodConfirm`,
     defaultMessage: 'are you sure, change probation value will remove exist employee ??',
   },
+  arCompetencyName: {
+    id: `${scope}.arCompetencyName`,
+    defaultMessage: 'arCompetencyName',
+  },
+  category: {
+    id: `${scope}.category`,
+    defaultMessage: 'category',
+  },
 });

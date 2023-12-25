@@ -170,35 +170,6 @@ function AsTemplateCreate(props) {
     }
   };
 
-  const fetchEmployees = async (employees, jobs, isPropation) => {
-    setIsLoading(true);
-
-    const jobsIds = jobs.map((item) => item.id);
-
-    const employeeIds = employees.map((item) => item.employeeId);
-
-    try {
-      const dataApi = await api(locale).GetEmployee(
-        id,
-        jobsIds,
-        Boolean(isPropation)
-      );
-
-      const mappedEmployee = dataApi
-        .filter((item) => !employeeIds.includes(item.employeeId))
-        .map((item) => ({ ...item, isSelect: true }));
-
-      setFormInfo((prev) => ({
-        ...prev,
-        asTemplateEmployee: [...prev.asTemplateEmployee, ...mappedEmployee],
-      }));
-    } catch (err) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
     fetchNeededData();
   }, []);
@@ -223,25 +194,6 @@ function AsTemplateCreate(props) {
       ...prev,
       [evt.target.name]: evt.target.value,
     }));
-  };
-
-  const onJobsAutoCompleteChange = (value, name) => {
-    if (formInfo.isPropation !== null) {
-      setFormInfo((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-
-      if (formInfo.isPropation !== null) {
-        fetchEmployees(
-          formInfo.asTemplateEmployee,
-          value,
-          formInfo.isPropation
-        );
-      }
-    } else {
-      toast.error(intl.formatMessage(messages.probationPeriodValueIsRequired));
-    }
   };
 
   const onMultiAutoCompleteChange = (value, name) => {
@@ -279,6 +231,7 @@ function AsTemplateCreate(props) {
       ...prev,
       isPropation: isPropationValue !== null ? isPropationValue.id : null,
       asTemplateEmployee: [],
+      asTemplateJob: [],
     }));
   };
 
@@ -385,40 +338,6 @@ function AsTemplateCreate(props) {
 
                   <Grid item xs={12} md={6}>
                     <Autocomplete
-                      options={jobList}
-                      multiple
-                      disableCloseOnSelect
-                      className={`${style.AutocompleteMulSty} ${
-                        locale === 'ar' ? style.AutocompleteMulStyAR : null
-                      }`}
-                      isOptionEqualToValue={(option, value) => option.id === value.id
-                      }
-                      value={formInfo.asTemplateJob}
-                      renderOption={(props, option, { selected }) => (
-                        <li {...props} key={props.id}>
-                          <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                            checkedIcon={<CheckBoxIcon fontSize='small' />}
-                            style={{ marginRight: 8 }}
-                            checked={selected}
-                          />
-                          {option.name}
-                        </li>
-                      )}
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      onChange={(_, value) => onJobsAutoCompleteChange(value, 'asTemplateJob')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label={intl.formatMessage(messages.jobs)}
-                        />
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <Autocomplete
                       options={monthList}
                       multiple
                       disableCloseOnSelect
@@ -451,7 +370,7 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item md={4} xs={12}>
+                  <Grid item md={3} xs={12}>
                     <FormControl>
                       <FormLabel>
                         {intl.formatMessage(messages.showStyles)}
@@ -476,7 +395,7 @@ function AsTemplateCreate(props) {
                     </FormControl>
                   </Grid>
 
-                  <Grid item md={4} xs={12}>
+                  <Grid item md={3} xs={12}>
                     <FormControlLabel
                       control={
                         <Checkbox
