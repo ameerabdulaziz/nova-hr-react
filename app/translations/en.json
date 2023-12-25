@@ -2412,6 +2412,7 @@
   "boilerplate.containers.Payroll.assessment.true": "True",
   "boilerplate.containers.Payroll.assessment.false": "False",
   "boilerplate.containers.Payroll.assessment.oneByOne": "One By One",
+  "boilerplate.containers.Payroll.assessment.probationPeriodConfirm": "Are you sure, change probation period template value will remove exist employee ??",
   "boilerplate.containers.Payroll.assessment.list": "List",
   "boilerplate.containers.Payroll.assessment.probationPeriodValueIsRequired": "Probation Period Value Is Required",
   "boilerplate.containers.Payroll.assessment.isPropation": "Is Propation",

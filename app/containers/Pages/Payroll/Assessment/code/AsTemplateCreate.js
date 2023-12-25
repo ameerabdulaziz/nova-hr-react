@@ -1,8 +1,5 @@
-import { Delete } from '@mui/icons-material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import DescriptionIcon from '@mui/icons-material/Description';
-import PeopleIcon from '@mui/icons-material/People';
 import {
   Autocomplete,
   Box,
@@ -14,33 +11,27 @@ import {
   FormControlLabel,
   FormLabel,
   Grid,
-  IconButton,
   Radio,
   RadioGroup,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import style from '../../../../../styles/styles.scss';
+import AlertPopup from '../../Component/AlertPopup';
 import PayRollLoader from '../../Component/PayRollLoader';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/AsTemplateData';
-import CompetencyPopup from '../components/AsTemplate/CompetencyPopup';
-import StuffPopup from '../components/AsTemplate/StuffPopup';
+import CompetencyInfo from '../components/AsTemplate/CompetencyInfo';
+import StuffInfo from '../components/AsTemplate/StuffInfo';
 import messages from '../messages';
 
 function AsTemplateCreate(props) {
@@ -51,6 +42,8 @@ function AsTemplateCreate(props) {
   const history = useHistory();
 
   const id = location.state?.id ?? 0;
+
+  const submitBtnRef = useRef(null);
 
   const probationPeriodList = [
     {
@@ -67,10 +60,9 @@ function AsTemplateCreate(props) {
   const [competencyList, setCompetencyList] = useState([]);
   const [monthList, setMonthList] = useState([]);
 
-  const [isCompetencyPopupOpen, setIsCompetencyPopupOpen] = useState(false);
-  const [isEmployeePopupOpen, setIsEmployeePopupOpen] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
+  const [isPropationValue, setIsPropationValue] = useState(null);
   const [formInfo, setFormInfo] = useState({
     id,
 
@@ -93,7 +85,7 @@ function AsTemplateCreate(props) {
 
     try {
       const jobs = await GeneralListApis(locale).GetJobsList();
-      setJobList(jobs.map(item => ({ id: item.jobId, name: item.name })));
+      setJobList(jobs);
 
       const months = await GeneralListApis(locale).GetMonths();
       setMonthList(months);
@@ -118,7 +110,11 @@ function AsTemplateCreate(props) {
           asTemplateEmployee: dataApi.asTemplateEmployee.map((item) => ({
             ...item,
             isSelect: true,
-          }))
+          })),
+          asTemplateJob: dataApi.asTemplateJob.map((item) => ({
+            id: item.jobId,
+            name: item.name,
+          })),
         };
 
         setFormInfo(mappedData);
@@ -139,6 +135,11 @@ function AsTemplateCreate(props) {
 
     formData.asTemplateMonth = formData.asTemplateMonth.map((item) => ({
       monthId: item.id,
+      name: item.name,
+    }));
+
+    formData.asTemplateJob = formData.asTemplateJob.map((item) => ({
+      jobId: item.id,
       name: item.name,
     }));
 
@@ -169,32 +170,34 @@ function AsTemplateCreate(props) {
     }
   };
 
-  const fetchEmployees = useCallback(async () => {
+  const fetchEmployees = async (employees, jobs, isPropation) => {
     setIsLoading(true);
 
-    const jobsIds = formInfo.asTemplateJob.map((item) => item.id);
+    const jobsIds = jobs.map((item) => item.id);
 
-    const employeeIds = formInfo.asTemplateEmployee.map((item) => item.employeeId);
+    const employeeIds = employees.map((item) => item.employeeId);
 
     try {
       const dataApi = await api(locale).GetEmployee(
         id,
         jobsIds,
-        Boolean(formInfo.isPropation)
+        Boolean(isPropation)
       );
 
-      const mappedEmployee = dataApi.map((item) => {
-        const isSelect = employeeIds.includes(item.employeeId);
-        return { ...item, isSelect };
-      });
+      const mappedEmployee = dataApi
+        .filter((item) => !employeeIds.includes(item.employeeId))
+        .map((item) => ({ ...item, isSelect: true }));
 
-      setFormInfo(prev => ({ ...prev, asTemplateEmployee: mappedEmployee }));
+      setFormInfo((prev) => ({
+        ...prev,
+        asTemplateEmployee: [...prev.asTemplateEmployee, ...mappedEmployee],
+      }));
     } catch (err) {
       //
     } finally {
       setIsLoading(false);
     }
-  }, [formInfo]);
+  };
 
   useEffect(() => {
     fetchNeededData();
@@ -229,8 +232,12 @@ function AsTemplateCreate(props) {
         [name]: value,
       }));
 
-      if (formInfo.asTemplateJob.length > 0 && formInfo.isPropation !== null) {
-        fetchEmployees();
+      if (formInfo.isPropation !== null) {
+        fetchEmployees(
+          formInfo.asTemplateEmployee,
+          value,
+          formInfo.isPropation
+        );
       }
     } else {
       toast.error(intl.formatMessage(messages.probationPeriodValueIsRequired));
@@ -244,89 +251,49 @@ function AsTemplateCreate(props) {
     }));
   };
 
-  const onAutoCompleteChange = (value, name) => {
-    setFormInfo((prev) => ({
-      ...prev,
-      [name]: value !== null ? value.id : null,
-    }));
-  };
+  const onProbationAutoCompleteChange = (value) => {
+    setIsPropationValue(value);
 
-  const onCompetencyPopupBtnClick = () => {
-    setIsCompetencyPopupOpen(true);
-  };
-
-  const onCompetencySave = (items) => {
-    setFormInfo((prev) => ({
-      ...prev,
-      asTemplateCompetency: items,
-    }));
-
-    setIsCompetencyPopupOpen(false);
-  };
-
-  const onCompetencyRemove = (id) => {
-    const clonedItems = [...formInfo.asTemplateCompetency];
-    const indexToRemove = clonedItems.findIndex((item) => item.id === id);
-
-    if (indexToRemove !== -1) {
-      clonedItems.splice(indexToRemove, 1);
+    if (formInfo.isPropation === null) {
       setFormInfo((prev) => ({
         ...prev,
-        asTemplateCompetency: clonedItems,
+        isPropation: value !== null ? value.id : null,
       }));
     }
-  };
 
-  const onEmployeePopupBtnClick = async () => {
     if (formInfo.isPropation !== null) {
-      setIsEmployeePopupOpen(true);
-    } else {
-      toast.error(intl.formatMessage(messages.probationPeriodValueIsRequired));
+      setIsConfirmPopupOpen(true);
     }
   };
 
-  const onEmployeeSave = (items) => {
-    setFormInfo((prev) => ({
-      ...prev,
-      asTemplateEmployee: items,
-    }));
-
-    setIsEmployeePopupOpen(false);
+  const onSubmitBtnClick = () => {
+    submitBtnRef.current.click();
   };
 
-  const onEmployeeRemove = (index) => {
-    const clonedItems = [...formInfo.asTemplateEmployee];
+  const closeConfirmPopup = () => {
+    setIsConfirmPopupOpen(false);
+  };
 
-    clonedItems.splice(index, 1);
-
+  const confirmChangeProbationValue = async () => {
     setFormInfo((prev) => ({
       ...prev,
-      asTemplateEmployee: clonedItems,
+      isPropation: isPropationValue !== null ? isPropationValue.id : null,
+      asTemplateEmployee: [],
     }));
   };
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <CompetencyPopup
-        isOpen={isCompetencyPopupOpen}
-        setIsOpen={setIsCompetencyPopupOpen}
-        onSave={onCompetencySave}
-        selectedCompetency={formInfo.asTemplateCompetency}
-        competencyList={competencyList}
+      <AlertPopup
+        handleClose={closeConfirmPopup}
+        open={isConfirmPopupOpen}
+        messageData={intl.formatMessage(messages.probationPeriodConfirm)}
+        callFun={confirmChangeProbationValue}
       />
 
-      <StuffPopup
-        isOpen={isEmployeePopupOpen}
-        setIsOpen={setIsEmployeePopupOpen}
-        onSave={onEmployeeSave}
-        selectedStuff={formInfo.asTemplateEmployee}
-        jobList={jobList}
-        probationPeriod={Boolean(formInfo.isPropation)}
-      />
-
-      <form onSubmit={onFormSubmit}>
-        <Grid container spacing={3} mt={0} direction='row'>
-          <Grid item xs={12}>
+      <Grid container spacing={3} mt={0} direction='row'>
+        <Grid item xs={12}>
+          <form onSubmit={onFormSubmit}>
             <Card>
               <CardContent sx={{ p: '16px!important' }}>
                 <Typography variant='h6'>
@@ -369,7 +336,7 @@ function AsTemplateCreate(props) {
                       isOptionEqualToValue={(option, value) => option.id === value.id
                       }
                       getOptionLabel={(option) => (option ? option.name : '')}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'isPropation')
+                      onChange={(_, value) => onProbationAutoCompleteChange(value)
                       }
                       renderInput={(params) => (
                         <TextField
@@ -428,7 +395,7 @@ function AsTemplateCreate(props) {
                       }
                       value={formInfo.asTemplateJob}
                       renderOption={(props, option, { selected }) => (
-                        <li {...props} >
+                        <li {...props} key={props.id}>
                           <Checkbox
                             icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
                             checkedIcon={<CheckBoxIcon fontSize='small' />}
@@ -462,7 +429,7 @@ function AsTemplateCreate(props) {
                       }
                       value={formInfo.asTemplateMonth}
                       renderOption={(props, option, { selected }) => (
-                        <li {...props} >
+                        <li {...props} key={props.id}>
                           <Checkbox
                             icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
                             checkedIcon={<CheckBoxIcon fontSize='small' />}
@@ -486,7 +453,9 @@ function AsTemplateCreate(props) {
 
                   <Grid item md={4} xs={12}>
                     <FormControl>
-                      <FormLabel>{intl.formatMessage(messages.showStyles)}</FormLabel>
+                      <FormLabel>
+                        {intl.formatMessage(messages.showStyles)}
+                      </FormLabel>
                       <RadioGroup
                         row
                         value={formInfo.showStyle}
@@ -522,216 +491,60 @@ function AsTemplateCreate(props) {
                 </Grid>
               </CardContent>
             </Card>
-          </Grid>
 
-          <Grid item xs={12}>
-            <Card>
-              <CardContent sx={{ p: '16px!important' }}>
-                <Grid
-                  container
-                  justifyContent='space-between'
-                  alignItems='center'
-                  mb={3}
-                >
-                  <Grid item>
-                    <Typography variant='h6'>
-                      {intl.formatMessage(messages.competencyInfo)}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      variant='contained'
-                      onClick={onCompetencyPopupBtnClick}
-                      color='primary'
-                    >
-                      {intl.formatMessage(messages.addOrChangeCompetency)}
-                    </Button>
-                  </Grid>
-                </Grid>
-
-                {formInfo.asTemplateCompetency.length > 0 ? (
-                  <TableContainer>
-                    <Table sx={{ minWidth: 650 }} size='small'>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>
-                            {intl.formatMessage(messages.competencyName)}
-                          </TableCell>
-                          <TableCell>
-                            {intl.formatMessage(messages.totalGrade)}
-                          </TableCell>
-                          <TableCell>
-                            {intl.formatMessage(messages.actions)}
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-
-                      <TableBody>
-                        {formInfo.asTemplateCompetency.map((competency) => (
-                          <TableRow
-                            key={competency.id}
-                            sx={{
-                              '&:last-child td, &:last-child th': { border: 0 },
-                            }}
-                          >
-                            <TableCell component='th' scope='row'>
-                              {competency.name}
-                            </TableCell>
-                            <TableCell>{competency.totalGrade}</TableCell>
-                            <TableCell>
-                              <IconButton
-                                color='error'
-                                onClick={() => onCompetencyRemove(competency.id)
-                                }
-                              >
-                                <Delete />
-                              </IconButton>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                ) : (
-                  <Stack
-                    direction='row'
-                    sx={{ minHeight: 200 }}
-                    alignItems='center'
-                    justifyContent='center'
-                    textAlign='center'
-                  >
-                    <Box>
-                      <DescriptionIcon
-                        sx={{ color: '#a7acb2', fontSize: 30 }}
-                      />
-                      <Typography color='#a7acb2' variant='body1'>
-                        {intl.formatMessage(messages.noCompetencyFound)}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Card>
-              <CardContent sx={{ p: '16px!important' }}>
-                <Grid
-                  container
-                  justifyContent='space-between'
-                  alignItems='center'
-                  mb={3}
-                >
-                  <Grid item>
-                    <Typography variant='h6'>
-                      {intl.formatMessage(messages.stuffInfo)}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      variant='contained'
-                      onClick={onEmployeePopupBtnClick}
-                      color='primary'
-                    >
-                      {intl.formatMessage(messages.addOrChangeStuff)}
-                    </Button>
-                  </Grid>
-                </Grid>
-
-                {formInfo.asTemplateEmployee.length > 0 ? (
-                  <TableContainer>
-                    <Table sx={{ minWidth: 650 }} size='small'>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>
-                            {intl.formatMessage(messages.departmentName)}
-                          </TableCell>
-                          <TableCell>
-                            {intl.formatMessage(messages.jobName)}
-                          </TableCell>
-                          <TableCell>
-                            {intl.formatMessage(messages.employeeName)}
-                          </TableCell>
-                          <TableCell>
-                            {intl.formatMessage(messages.actions)}
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-
-                      <TableBody>
-                        {formInfo.asTemplateEmployee.map((employee, index) => (
-                          <TableRow
-                            key={employee.employeeId}
-                            sx={{
-                              '&:last-child td, &:last-child th': { border: 0 },
-                            }}
-                          >
-                            <TableCell component='th' scope='row'>
-                              {employee.organizationName}
-                            </TableCell>
-                            <TableCell>{employee.jobName}</TableCell>
-                            <TableCell>{employee.employeeName}</TableCell>
-                            <TableCell>
-                              <IconButton
-                                color='error'
-                                onClick={() => onEmployeeRemove(index)}
-                              >
-                                <Delete />
-                              </IconButton>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                ) : (
-                  <Stack
-                    direction='row'
-                    sx={{ minHeight: 200 }}
-                    alignItems='center'
-                    justifyContent='center'
-                    textAlign='center'
-                  >
-                    <Box>
-                      <PeopleIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
-                      <Typography color='#a7acb2' variant='body1'>
-                        {intl.formatMessage(messages.noStuffFound)}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Card>
-              <CardContent sx={{ p: '16px!important' }}>
-                <Stack direction='row' gap={2}>
-                  <Button
-                    variant='contained'
-                    type='submit'
-                    size='medium'
-                    color='secondary'
-                  >
-                    <FormattedMessage {...payrollMessages.save} />
-                  </Button>
-
-                  <Button
-                    variant='contained'
-                    size='medium'
-                    color='primary'
-                    onClick={onCancelBtnClick}
-                  >
-                    <FormattedMessage {...payrollMessages.cancel} />
-                  </Button>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
+            {/* TODO: find a suitable way to submit form */}
+            <Box sx={{ display: 'none' }}>
+              <button type='submit' ref={submitBtnRef}>
+								Submit
+              </button>
+            </Box>
+          </form>
         </Grid>
-      </form>
+
+        <Grid item xs={12}>
+          <CompetencyInfo
+            formInfo={formInfo}
+            competencyList={competencyList}
+            setFormInfo={setFormInfo}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <StuffInfo
+            formInfo={formInfo}
+            jobList={jobList}
+            setFormInfo={setFormInfo}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Card>
+            <CardContent sx={{ p: '16px!important' }}>
+              <Stack direction='row' gap={2}>
+                <Button
+                  variant='contained'
+                  onClick={onSubmitBtnClick}
+                  size='medium'
+                  type='button'
+                  color='secondary'
+                >
+                  <FormattedMessage {...payrollMessages.save} />
+                </Button>
+
+                <Button
+                  variant='contained'
+                  size='medium'
+                  color='primary'
+                  type='button'
+                  onClick={onCancelBtnClick}
+                >
+                  <FormattedMessage {...payrollMessages.cancel} />
+                </Button>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </PayRollLoader>
   );
 }

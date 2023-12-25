@@ -42,7 +42,7 @@ const API = (locale) => {
   };
 
   api.delete = async (id) => {
-    const data = await axiosInstance.delete(`AsTemplate/${id}`);
+    const data = await axiosInstance.delete(`AsTemplate/delete/${id}`);
 
     return data;
   };

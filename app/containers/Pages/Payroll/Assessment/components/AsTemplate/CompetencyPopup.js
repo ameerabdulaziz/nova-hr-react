@@ -16,9 +16,12 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState
+} from 'react';
 import { injectIntl } from 'react-intl';
 import messages from '../../messages';
 
@@ -33,6 +36,8 @@ function CompetencyPopup(props) {
   } = props;
 
   const [formInfo, setFormInfo] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     if (isOpen) {
@@ -102,6 +107,20 @@ function CompetencyPopup(props) {
     return filtered > 0 && filtered < formInfo.length;
   }, [formInfo]);
 
+  const onPageChange = (_, newPage) => {
+    setPage(newPage);
+  };
+
+  const onRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const visibleRows = useMemo(
+    () => formInfo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [page, rowsPerPage, formInfo]
+  );
+
   return (
     <Dialog
       open={isOpen}
@@ -123,66 +142,78 @@ function CompetencyPopup(props) {
 
       <DialogContent>
         {formInfo.length > 0 ? (
-          <TableContainer>
-            <Table size='small' sx={{ minWidth: 700 }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ width: 30 }}>
-                    <Checkbox
-                      checked={isAllSelect()}
-                      onChange={onAllCheckboxChange}
-                      indeterminate={isSomeSelect()}
-                      name='all'
-                    />
-                  </TableCell>
-
-                  <TableCell>
-                    {intl.formatMessage(messages.competencyName)}
-                  </TableCell>
-
-                  <TableCell sx={{ width: 150 }}>
-                    {intl.formatMessage(messages.totalGrade)}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {formInfo.map((competency, index) => (
-                  <TableRow
-                    key={competency.id}
-                    sx={{
-                      '&:last-child td, &:last-child th': { border: 0 },
-                    }}
-                  >
-                    <TableCell>
+          <>
+            <TableContainer>
+              <Table size='small' sx={{ minWidth: 700 }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell sx={{ width: 30 }}>
                       <Checkbox
-                        checked={formInfo[index].isSelect}
-                        onChange={(evt) => onCheckboxChange(evt, index)}
-                        name='isSelect'
+                        checked={isAllSelect()}
+                        onChange={onAllCheckboxChange}
+                        indeterminate={isSomeSelect()}
+                        name='all'
                       />
                     </TableCell>
 
-                    <TableCell component='th' scope='row'>
-                      {competency.name}
-                    </TableCell>
                     <TableCell>
-                      <TextField
-                        name='totalGrade'
-                        value={formInfo[index].totalGrade}
-                        required
-                        onChange={(evt) => onNumericInputChange(evt, index)}
-                        label={intl.formatMessage(messages.totalGrade)}
-                        fullWidth
-                        disabled={!formInfo[index].isSelect}
-                        variant='outlined'
-                        size='small'
-                      />
+                      {intl.formatMessage(messages.competencyName)}
+                    </TableCell>
+
+                    <TableCell sx={{ width: 150 }}>
+                      {intl.formatMessage(messages.totalGrade)}
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+
+                <TableBody>
+                  {visibleRows.map((competency, index) => (
+                    <TableRow
+                      key={competency.id}
+                      sx={{
+                        '&:last-child td, &:last-child th': { border: 0 },
+                      }}
+                    >
+                      <TableCell>
+                        <Checkbox
+                          checked={visibleRows[index].isSelect}
+                          onChange={(evt) => onCheckboxChange(evt, index)}
+                          name='isSelect'
+                        />
+                      </TableCell>
+
+                      <TableCell component='th' scope='row'>
+                        {competency.name}
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          name='totalGrade'
+                          value={visibleRows[index].totalGrade}
+                          required
+                          onChange={(evt) => onNumericInputChange(evt, index)}
+                          label={intl.formatMessage(messages.totalGrade)}
+                          fullWidth
+                          disabled={!visibleRows[index].isSelect}
+                          variant='outlined'
+                          size='small'
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 50]}
+              component='div'
+              count={formInfo.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={onPageChange}
+              onRowsPerPageChange={onRowsPerPageChange}
+            />
+          </>
         ) : (
           <Stack
             direction='row'
@@ -192,9 +223,7 @@ function CompetencyPopup(props) {
             textAlign='center'
           >
             <Box>
-              <DescriptionIcon
-                sx={{ color: '#a7acb2', fontSize: 30 }}
-              />
+              <DescriptionIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
               <Typography color='#a7acb2' variant='body1'>
                 {intl.formatMessage(messages.noCompetencyFound)}
               </Typography>

@@ -125,7 +125,7 @@ function StuffPopup(props) {
     }
   };
 
-  const visibleRows = useMemo(() => {
+  const filteredEmployee = useMemo(() => {
     let filteredData = [...employeeApi];
 
     if (filters.query.length !== 0) {
@@ -136,9 +136,25 @@ function StuffPopup(props) {
           || item.employeeName
             .toLowerCase()
             .includes(filters.query.toLowerCase())
-          || item.jobName
+          || item.jobName.toLowerCase().includes(filters.query.toLowerCase())
+      );
+    }
+
+    return filteredData;
+  }, [employeeApi, filters.query]);
+
+  const visibleRows = useMemo(() => {
+    let filteredData = [...filteredEmployee];
+
+    if (filters.query.length !== 0) {
+      filteredData = filteredData.filter(
+        (item) => item.organizationName
+          .toLowerCase()
+          .includes(filters.query.toLowerCase())
+          || item.employeeName
             .toLowerCase()
             .includes(filters.query.toLowerCase())
+          || item.jobName.toLowerCase().includes(filters.query.toLowerCase())
       );
     }
 
@@ -146,7 +162,7 @@ function StuffPopup(props) {
       page * rowsPerPage,
       page * rowsPerPage + rowsPerPage
     );
-  }, [page, rowsPerPage, employeeApi, filters.query]);
+  }, [page, rowsPerPage, filteredEmployee, filters.query]);
 
   useEffect(() => {
     if (isOpen) {
@@ -169,7 +185,7 @@ function StuffPopup(props) {
   };
 
   const onCheckboxChange = (evt, index) => {
-    const clonedItems = [...employeeApi];
+    const clonedItems = [...filteredEmployee];
     const employee = visibleRows[index];
 
     const employeeIndex = clonedItems.findIndex(
@@ -184,7 +200,7 @@ function StuffPopup(props) {
   };
 
   const onAllCheckboxChange = (evt) => {
-    const clonedItems = [...employeeApi];
+    const clonedItems = [...filteredEmployee];
 
     visibleRows.forEach((employee) => {
       const employeeIndex = clonedItems.findIndex(
@@ -294,7 +310,7 @@ function StuffPopup(props) {
             </Grid>
           </Grid>
 
-          {employeeApi.length > 0 ? (
+          {filteredEmployee.length > 0 ? (
             <>
               <TableContainer>
                 <Table size='small' sx={{ minWidth: 700 }}>
@@ -354,10 +370,11 @@ function StuffPopup(props) {
                   </TableBody>
                 </Table>
               </TableContainer>
+
               <TablePagination
                 rowsPerPageOptions={[10, 25, 50]}
                 component='div'
-                count={employeeApi.length}
+                count={filteredEmployee.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={onPageChange}

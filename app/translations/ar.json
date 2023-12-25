@@ -2472,7 +2472,7 @@
   "boilerplate.containers.Payroll.assessment.addOrChangeStuff": "إضافة أو تغيير الموظفين",
   "boilerplate.containers.Payroll.assessment.stuffInfo": "معلومات الموظفين",
   "boilerplate.containers.Payroll.assessment.oneByOne": "واحدا تلو الآخر",
-  "boilerplate.containers.Payroll.assessment.list": "قائمة",
+  "boilerplate.containers.Payroll.assessment.list": "قائمة","boilerplate.containers.Payroll.assessment.probationPeriodConfirm": "هل أنت متأكد من أن تغيير نموذج فترة الاختبار سيؤدي إلى إزالة الموظفين الموجود ؟؟",
   "boilerplate.containers.Payroll.assessment.true": "صحيح",
   "boilerplate.containers.Payroll.assessment.false": "خاطئ",
   "boilerplate.containers.Payroll.assessment.probationPeriodValueIsRequired": "مطلوب قيمة فترة الاختبار",

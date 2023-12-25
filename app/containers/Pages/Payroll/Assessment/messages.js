@@ -123,4 +123,8 @@ export default defineMessages({
     id: `${scope}.list`,
     defaultMessage: 'list',
   },
+  probationPeriodConfirm: {
+    id: `${scope}.probationPeriodConfirm`,
+    defaultMessage: 'are you sure, change probation value will remove exist employee ??',
+  },
 });
