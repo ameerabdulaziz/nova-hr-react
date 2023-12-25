@@ -135,4 +135,8 @@ export default defineMessages({
     id: `${scope}.category`,
     defaultMessage: 'category',
   },
+  notEffective: {
+    id: `${scope}.notEffective`,
+    defaultMessage: 'notEffective',
+  },
 });

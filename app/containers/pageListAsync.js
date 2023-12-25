@@ -2237,3 +2237,17 @@ export const AsTemplateCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const Competencies = loadable(
+  () => import('./Pages/Payroll/Assessment/code/Competencies'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CompetenciesCreate = loadable(
+  () => import('./Pages/Payroll/Assessment/code/CompetenciesCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

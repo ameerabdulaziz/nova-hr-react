@@ -1,13 +1,18 @@
 import { Delete } from '@mui/icons-material';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import PeopleIcon from '@mui/icons-material/People';
 import {
+  Autocomplete,
   Box,
   Button,
   Card,
   CardContent,
+  Checkbox,
   Grid,
   IconButton,
   Stack,
+  TextField,
   Typography,
 } from '@mui/material';
 import Table from '@mui/material/Table';
@@ -19,19 +24,29 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
 import React, { useMemo, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import style from '../../../../../../styles/styles.scss';
+import PayRollLoader from '../../../Component/PayRollLoader';
+import API from '../../api/AsTemplateData';
 import messages from '../../messages';
 import StuffPopup from './StuffPopup';
-import { toast } from 'react-hot-toast';
 
 function StuffInfo(props) {
   const {
     intl, setFormInfo, formInfo, jobList
   } = props;
 
+  const location = useLocation();
+  const id = location.state?.id ?? 0;
+  const locale = useSelector((state) => state.language.locale);
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [isEmployeePopupOpen, setIsEmployeePopupOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onPageChange = (_, newPage) => {
     setPage(newPage);
@@ -82,8 +97,56 @@ function StuffInfo(props) {
     setIsEmployeePopupOpen(false);
   };
 
+  const fetchEmployees = async (employees, jobs, isPropation) => {
+    setIsLoading(true);
+
+    const jobsIds = jobs.map((item) => item.id);
+
+    const employeeIds = employees.map((item) => item.employeeId);
+
+    try {
+      const dataApi = await API(locale).GetEmployee(
+        id,
+        jobsIds,
+        Boolean(isPropation)
+      );
+
+      const mappedEmployee = dataApi
+        .filter((item) => !employeeIds.includes(item.employeeId))
+        .map((item) => ({ ...item, isSelect: true }));
+
+      setFormInfo((prev) => ({
+        ...prev,
+        asTemplateEmployee: [...prev.asTemplateEmployee, ...mappedEmployee],
+      }));
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onJobsAutoCompleteChange = (value, name) => {
+    if (formInfo.isPropation !== null) {
+      setFormInfo((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+
+      if (formInfo.isPropation !== null && value && value.length > 0) {
+        fetchEmployees(
+          formInfo.asTemplateEmployee,
+          value,
+          formInfo.isPropation
+        );
+      }
+    } else {
+      toast.error(intl.formatMessage(messages.probationPeriodValueIsRequired));
+    }
+  };
+
   return (
-    <>
+    <PayRollLoader isLoading={isLoading}>
       <StuffPopup
         isOpen={isEmployeePopupOpen}
         setIsOpen={setIsEmployeePopupOpen}
@@ -95,12 +158,7 @@ function StuffInfo(props) {
 
       <Card>
         <CardContent sx={{ p: '16px!important' }}>
-          <Grid
-            container
-            justifyContent='space-between'
-            alignItems='center'
-            mb={3}
-          >
+          <Grid container justifyContent='space-between' alignItems='center' mb={3}>
             <Grid item>
               <Typography variant='h6'>
                 {intl.formatMessage(messages.stuffInfo)}
@@ -115,6 +173,46 @@ function StuffInfo(props) {
               >
                 {intl.formatMessage(messages.addOrChangeStuff)}
               </Button>
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            justifyContent='space-between'
+            alignItems='center'
+            mb={3}
+          >
+            <Grid item xs={12} md={6}>
+              <Autocomplete
+                options={jobList}
+                multiple
+                disableCloseOnSelect
+                className={`${style.AutocompleteMulSty} ${
+                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                }`}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                value={formInfo.asTemplateJob}
+                renderOption={(props, option, { selected }) => (
+                  <li {...props} key={props.id}>
+                    <Checkbox
+                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option.name}
+                  </li>
+                )}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(_, value) => onJobsAutoCompleteChange(value, 'asTemplateJob')
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(messages.jobs)}
+                  />
+                )}
+              />
             </Grid>
           </Grid>
 
@@ -194,7 +292,7 @@ function StuffInfo(props) {
           )}
         </CardContent>
       </Card>
-    </>
+    </PayRollLoader>
   );
 }
 
