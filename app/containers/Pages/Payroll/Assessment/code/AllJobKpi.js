@@ -9,6 +9,7 @@ import { EditTable } from '../../../../Tables/demos';
 import GeneralListApis from '../../api/GeneralListApis';
 import AllJobKpiData from '../api/AllJobKpiData';
 import messages from '../messages';
+import PayRollLoader from '../../Component/PayRollLoader';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -24,10 +25,13 @@ function AllJobKpi(props) {
 
   const title = localStorage.getItem('MenuName');
 
+  const [isLoading, setIsLoading] = useState(true);
   const [job, setJob] = useState(null);
   const [jobList, setJobList] = useState([]);
 
   const fetchNeededData = async () => {
+    setIsLoading(true);
+
     try {
       const jobs = await GeneralListApis(locale).GetJobsList();
 
@@ -35,7 +39,7 @@ function AllJobKpi(props) {
     } catch (err) {
       //
     } finally {
-      //
+      setIsLoading(false);
     }
   };
 
@@ -87,7 +91,7 @@ function AllJobKpi(props) {
   ];
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <Grid container mt={3}>
           <Grid item md={6}>
@@ -121,7 +125,7 @@ function AllJobKpi(props) {
           API={AllJobKpiData(job?.id ?? 0)}
         />
       </div>
-    </div>
+    </PayRollLoader>
   );
 }
 

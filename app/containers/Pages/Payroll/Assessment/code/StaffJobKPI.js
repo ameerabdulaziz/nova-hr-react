@@ -30,6 +30,8 @@ function StaffJobKPI(props) {
   const [employeeList, setEmployeeList] = useState([]);
 
   const fetchNeededData = async () => {
+    setIsLoading(true);
+
     try {
       const employees = await GeneralListApis(locale).GetEmployeeList();
 
@@ -37,7 +39,7 @@ function StaffJobKPI(props) {
     } catch (err) {
       //
     } finally {
-      //
+      setIsLoading(false);
     }
   };
 
