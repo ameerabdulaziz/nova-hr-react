@@ -176,6 +176,14 @@ export default defineMessages({
     id: `${scope}.codes.enJobKpi`,
     defaultMessage: 'enJobKpi',
   },
+  arKpidesc: {
+    id: `${scope}.codes.arKpidesc`,
+    defaultMessage: 'arKpidesc',
+  },
+  enKpidesc: {
+    id: `${scope}.codes.enKpidesc`,
+    defaultMessage: 'enKpidesc',
+  },
   araddress: {
     id: `${scope}.codes.araddress`,
     defaultMessage: 'Arabic Address',

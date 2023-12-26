@@ -378,6 +378,7 @@ import {
   Competencies,
   CompetenciesCreate,
   AllJobKpi,
+  StaffJobKPI,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1813,6 +1814,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/AllJobKpi'
           component={AllJobKpi}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/StaffJobKPI'
+          component={StaffJobKPI}
         />
 
         {/* Default */}
