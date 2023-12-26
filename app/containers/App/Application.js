@@ -376,7 +376,8 @@ import {
   PurchaseTrxList,PurchaseTrxCreate,
   EmployeeAssessment,
   Competencies,
-  CompetenciesCreate
+  CompetenciesCreate,
+  AllJobKpi,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1807,6 +1808,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/EmployeeAssessment'
           component={EmployeeAssessment}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AllJobKpi'
+          component={AllJobKpi}
         />
 
         {/* Default */}

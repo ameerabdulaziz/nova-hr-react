@@ -2251,3 +2251,10 @@ export const CompetenciesCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const AllJobKpi = loadable(
+  () => import('./Pages/Payroll/Assessment/code/AllJobKpi'),
+  {
+    fallback: <Loading />,
+  }
+);

@@ -168,6 +168,14 @@ export default defineMessages({
     id: `${scope}.codes.enddate`,
     defaultMessage: 'End Date',
   },
+  arJobKpi: {
+    id: `${scope}.codes.arJobKpi`,
+    defaultMessage: 'arJobKpi',
+  },
+  enJobKpi: {
+    id: `${scope}.codes.enJobKpi`,
+    defaultMessage: 'enJobKpi',
+  },
   araddress: {
     id: `${scope}.codes.araddress`,
     defaultMessage: 'Arabic Address',
