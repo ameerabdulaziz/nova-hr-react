@@ -180,6 +180,14 @@ export default defineMessages({
     id: `${scope}.codes.arKpidesc`,
     defaultMessage: 'arKpidesc',
   },
+  enJobDesc: {
+    id: `${scope}.codes.enJobDesc`,
+    defaultMessage: 'enJobDesc',
+  },
+  arJobDesc: {
+    id: `${scope}.codes.arJobDesc`,
+    defaultMessage: 'arJobDesc',
+  },
   enKpidesc: {
     id: `${scope}.codes.enKpidesc`,
     defaultMessage: 'enKpidesc',

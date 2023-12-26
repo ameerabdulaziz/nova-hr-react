@@ -816,6 +816,8 @@
   "boilerplate.components.tables.codes.contractperiod": "مدة العقد",
   "boilerplate.components.tables.codes.symbol": "الرمز",
   "boilerplate.components.tables.codes.currency": "العملة",
+  "boilerplate.components.tables.codes.enJobDesc": "الوصف الوظيفي",
+  "boilerplate.components.tables.codes.arJobDesc": "الوصف الوظيفي باللغة العربية",
   "boilerplate.components.tables.codes.arDesc": "الوصف بالعربية",
   "boilerplate.components.tables.codes.enDesc": "الوصف بالانجليزية",
   "boilerplate.components.tables.codes.finalGrad": "التقدير النهائي",

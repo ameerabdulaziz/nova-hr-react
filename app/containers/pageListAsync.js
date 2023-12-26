@@ -2265,3 +2265,10 @@ export const StaffJobKPI = loadable(
     fallback: <Loading />,
   }
 );
+
+export const JobDescriptions = loadable(
+  () => import('./Pages/Payroll/Assessment/code/JobDescriptions'),
+  {
+    fallback: <Loading />,
+  }
+);
