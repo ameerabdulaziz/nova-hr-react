@@ -748,6 +748,12 @@
     border-left: none;
 }
 
+.categoryAllQueSty
+{
+    width: 100%;
+    font-size: 30px;
+}
+
 .categoryArSty
 {
     border-top-left-radius: 50px;
@@ -890,6 +896,15 @@
         }
     }
 
+    .radioContainerAllQue
+    {
+        width: 100%;
+        label
+        {
+           width: 40%;
+        }
+    }
+
     textarea
     {
         width: 100%;
@@ -924,6 +939,20 @@
                 }
             }
         }
+    }
+
+
+    .examContainer2
+    {
+        & > div
+        {
+            width: 100%;
+        }
+    }
+
+    .examContainer2AllQue
+    {
+        margin: 20px 8%;
     }
 
 

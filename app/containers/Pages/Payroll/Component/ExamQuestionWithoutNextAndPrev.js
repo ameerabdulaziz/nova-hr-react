@@ -37,9 +37,10 @@ const ExamQuestionWithoutNextAndPrev = ({
 //   setQuestion,
   choices,
 //   setChoices,
-  questionsAnswers,
+  // questionsAnswers,
 //   setQuestionsAnswers,
-
+allQuestionsAnswers,
+finishExamFun
 }) => {
 
 
@@ -50,7 +51,7 @@ const ExamQuestionWithoutNextAndPrev = ({
 
     console.log("questionNum =", questionNum);
     console.log("examQuestionsData =", examQuestionsData);
-    console.log("questionsAnswers =",questionsAnswers);
+    console.log("allQuestionsAnswers =",allQuestionsAnswers);
  
     return(
         <>
@@ -58,9 +59,9 @@ const ExamQuestionWithoutNextAndPrev = ({
         <Grid item xs={12}  key={index}> 
         {/* <Grid item xs={12}  style={!setStartExam?  {display: 'none'} : {display: 'block'}}>  */}
    {index === 0 || (examData?.competencyList[index - 1].category !== examData?.competencyList[index].category) ? (
-            <h1 className={`${classes.textSty} ${style.categorySty} ${locale === "en" ?  style.categoryEnSty : style.categoryArSty}`}>{Qui.category}</h1>
+            <h1 className={`${classes.textSty} ${style.categorySty} ${style.categoryAllQueSty} ${locale === "en" ?  style.categoryEnSty : style.categoryArSty}`}>{Qui.category}</h1>
             ) : null}
-                        <div className={`${style.examContainer2}`}>
+                        <div className={`${style.examContainer2} ${style.examContainer2AllQue}`}>
                           
                             <div>
                               {/* <LinearProgress variant="determinate" value={((questionNum + 1)*100) / examData?.competencyList.length} />
@@ -75,11 +76,13 @@ const ExamQuestionWithoutNextAndPrev = ({
                               <FormControl style={{width: "100%"}}>
                                   <RadioGroup
                                       aria-labelledby="demo-radio-buttons-group-label"
-                                      value={questionsAnswers[`que${index + 1}`]?.checkedVal ? questionsAnswers[`que${index + 1}`]?.checkedVal ?.id : ""}
+                                      value={allQuestionsAnswers[`que${index + 1}`]?.checkedVal ? allQuestionsAnswers[`que${index + 1}`]?.checkedVal?.id : ""}
+                                      // value={questionsAnswers[`que${index + 1}`]?.checkedVal ? questionsAnswers[`que${index + 1}`]?.checkedVal ?.id : ""}
                                     //   value={questionsAnswers.checkedVal ? questionsAnswers.checkedVal?.id : ""}
                                       // defaultValue="female"
                                       name="radio-buttons-group"
-                                     className={style.radioContainer}
+                                     className={`${style.radioContainer} ${style.radioContainerAllQue}`}
+                                     row
                                   >
                                     {choices?.map((choice)=>{
                                         return (
@@ -132,7 +135,9 @@ const ExamQuestionWithoutNextAndPrev = ({
                                     size="lg"
                                     // style={{width: "100%"}}
                                     onChange={(e) => { saveAllQuestions(e, "textarea",index)}}
-                                    value={questionsAnswers[`que${index + 1}`]?.textareaVal}
+                                    value={allQuestionsAnswers[`que${index + 1}`]?.textareaVal ? allQuestionsAnswers[`que${index + 1}`]?.textareaVal : ""}
+                                    // value={allQuestionsAnswers[`que${index + 1}`]?.textareaVal}
+                                    // value={questionsAnswers[`que${index + 1}`]?.textareaVal}
                                     // value={questionsAnswers.textareaVal}
                                     
                                 />
@@ -182,8 +187,8 @@ const ExamQuestionWithoutNextAndPrev = ({
                                       variant="contained"
                                       size="medium"
                                       color="primary"
-                                      onClick={nextQueFun}
-                                      // disabled={examData.exampleRequired &&  questionsAnswers.textareaVal.length !== 0 ? false : true}
+                                      onClick={finishExamFun}
+                                      // disabled={examData.exampleRequired &&  allQuestionsAnswers.textareaVal.length !== 0 ? false : true}
                                     >
                                       
                                       finish

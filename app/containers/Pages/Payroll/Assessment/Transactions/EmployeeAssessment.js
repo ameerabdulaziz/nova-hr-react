@@ -43,6 +43,8 @@ import examLogo from '../../Assets/Employee-Assessment/exam-logo.png';
 import  ExamQuestionNextAndPrev  from '../../Component/ExamQuestionNextAndPrev';
 import  ExamQuestionWithoutNextAndPrev  from '../../Component/ExamQuestionWithoutNextAndPrev';
 import  logo  from '../../Assets/Employee-Assessment/1.png';
+import EmployeeAssessmentPopup from "../../Component/EmployeeAssessmentPopup";
+
 
 
 function EmployeeAssessment(props) {
@@ -92,7 +94,12 @@ const [examData, setExamData] = useState();
   const [questionNum, setQuestionNum] = useState(0)
     const [question, setQuestion] = useState()
     const [choices, setChoices] = useState()
-    const [questionsAnswers, setQuestionsAnswers] = useState({checkedVal : null, textareaVal: ""})
+    const [questionsAnswers, setQuestionsAnswers] = useState([])
+    // const [questionsAnswers, setQuestionsAnswers] = useState({checkedVal : null, textareaVal: ""})
+    const [allQuestionsAnswers, setAllQuestionsAnswers] = useState({})
+
+    const [openParentPopup, setOpenParentPopup] = useState(false);
+    const [uncompletedQuestionsList, setUncompletedQuestionsList] = useState([]);
 
 
     const testDate =     {
@@ -100,7 +107,7 @@ const [examData, setExamData] = useState();
       "staffTrainingReq": "",
       "templateName": "Assessment for emplouee evaluation",
       "templateDesc": "“The content has been classified as confidential and may be legally protected from disclosure, you are hereby notified that any use, dissemination, copying, or storage of this content or its attachments is strictly prohibited. In case of any disclosure of this content, you will be subjected to an HR Investigation.”",
-      "showStyle": 1,
+      "showStyle": 2,
       "exampleRequired": true,
       "isClosed": false,
       "choiceList": [
@@ -161,7 +168,7 @@ const [examData, setExamData] = useState();
               "totalGrade": 10.0,
               "categoryId": 2,
               "category": "Core Competencies",
-              "employeeChoiceID": null,
+              "employeeChoiceID": 1,
               "employeeExample": "",
               "notEffective": false
           },
@@ -172,7 +179,7 @@ const [examData, setExamData] = useState();
               "categoryId": 2,
               "category": "Core Competencies",
               "employeeChoiceID": null,
-              "employeeExample": "",
+              "employeeExample": "aaa",
               "notEffective": false
           },
           {
@@ -271,18 +278,21 @@ console.log("testDate =", testDate);
 
 
     const addAndUpdateQuestions = () => {
-
+console.log("tessss =" , examQuestionsData.some(el => el.question.competencyId === question.competencyId));
+console.log("tessss2 =" , questionsAnswers.checkedVal);
       // add
         if(!examQuestionsData.some(el => el.question.competencyId === question.competencyId)
         && questionsAnswers.checkedVal !== null
         // && questionsAnswers.textareaVal.length !== 0
         )
         {
+          console.log("inn2");
         setExamQuestionsData(prveState => [...prveState, 
         {
             question: question,
             checkedVal:  questionsAnswers.checkedVal,
-            textarea: questionsAnswers.textareaVal
+            textarea: questionsAnswers.textareaVal,
+            // questionNum: questionNum + 1
         }
         ])
         } 
@@ -303,8 +313,8 @@ console.log("testDate =", testDate);
                 
                     // question: question,
                     checkedVal:  questionsAnswers.checkedVal,
-                    textarea: questionsAnswers.textareaVal
-                
+                    textarea: questionsAnswers.textareaVal,
+                    // questionNum: questionNum + 1
               }
             }
             return que
@@ -328,11 +338,12 @@ console.log("testDate =", testDate);
     const nextQueFun = () => {
       if(examData?.competencyList.length !== questionNum + 1)
       {
+        console.log("inn5");
           setQuestionNum(  questionNum + 1 )
           setQuestion(examData?.competencyList[questionNum + 1])
 
 
-          addAndUpdateQuestions()
+          // addAndUpdateQuestions()
 
       
       // setQuestionNum((prevState) => ({
@@ -394,18 +405,21 @@ console.log("testDate =", testDate);
 //     )
 // }
 
+///////////////////www
+// setQuestionsAnswers({
+//   checkedVal : examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
+//     examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum + 1].competencyId)].checkedVal  
+//     // choices.find((choice) => choice.id === Number( examQuestionsData[questionNum - 1].checkedVal.id))  
+//     : null
+//     ,
+//   textareaVal: examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
+//     examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum + 1].competencyId)].textarea 
+//     : ""
+//     // examQuestionsData[questionNum - 1].textarea : ""
+// })
+//////////////////
 
-setQuestionsAnswers({
-  checkedVal : examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
-    examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum + 1].competencyId)].checkedVal  
-    // choices.find((choice) => choice.id === Number( examQuestionsData[questionNum - 1].checkedVal.id))  
-    : null
-    ,
-  textareaVal: examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
-    examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum + 1].competencyId)].textarea 
-    : ""
-    // examQuestionsData[questionNum - 1].textarea : ""
-})
+
 // setQuestionsAnswers({
 //   checkedVal : examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum + 1].competencyId) ? 
 //     choices.find((choice) => choice.id === Number( examQuestionsData[questionNum + 1].checkedVal.id))  
@@ -417,13 +431,31 @@ setQuestionsAnswers({
 // setQuestionsAnswers({checkedVal : null, textareaVal: ""})
       }
 
+      addAndUpdateQuestions()
 
       if(examData?.competencyList.length === questionNum + 1)
       {
+        console.log("inn");
         setEndExam(true)
         // setStartExam(false)
+
+        checkUnansweredQuestionsFun()
       }
   }
+
+
+  // useEffect(()=>{
+  //   if(examData?.competencyList.length === questionNum + 1)
+  //   {
+  //     console.log("inn33");
+  //     // setEndExam(true)
+  //     // setStartExam(false)
+
+  //     // checkUnansweredQuestionsFun()
+  //   }
+
+  // },[examQuestionsData])
+  
 
 
 
@@ -501,17 +533,20 @@ console.log("prev4 =", examQuestionsData);
 console.log("prev45 =", questionNum - 1);
 console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum - 1].competencyId));
 
-setQuestionsAnswers({
-  checkedVal : examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum - 1].competencyId) ? 
-    examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum - 1].competencyId)].checkedVal  
-    // choices.find((choice) => choice.id === Number( examQuestionsData[questionNum - 1].checkedVal.id))  
-    : null
-    ,
-  textareaVal: examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum - 1].competencyId) ? 
-    examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum - 1].competencyId)].textarea 
-    : ""
-    // examQuestionsData[questionNum - 1].textarea : ""
-})
+/////////////wwww
+// setQuestionsAnswers({
+//   checkedVal : examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum - 1].competencyId) ? 
+//     examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum - 1].competencyId)].checkedVal  
+//     // choices.find((choice) => choice.id === Number( examQuestionsData[questionNum - 1].checkedVal.id))  
+//     : null
+//     ,
+//   textareaVal: examQuestionsData.some(el => el.question.competencyId === examData?.competencyList[questionNum - 1].competencyId) ? 
+//     examQuestionsData[examQuestionsData.findIndex(x => x.question.competencyId === examData?.competencyList[questionNum - 1].competencyId)].textarea 
+//     : ""
+//     // examQuestionsData[questionNum - 1].textarea : ""
+// })
+///////////////////////
+
 // setQuestionsAnswers({checkedVal : null, textareaVal: ""})
     }
 }
@@ -531,20 +566,48 @@ setQuestionsAnswers({
 
     if(type === "radio")
     {
-      setQuestionsAnswers(prveState => (
-        {
-          ...prveState,
-          checkedVal: choices.find((choice) => choice.id === Number( e.target.value))
-      }
-      ))
+
+      
+    //   setQuestionsAnswers(prveState => [
+    //     ...prveState,
+    //     {
+    //       // ...prveState,
+    //       // checkedVal: choices.find((choice) => choice.id === Number( e.target.value))
+          
+    //       // [`que${questionNum + 1}`] : {
+    //         ...prveState[`que${questionNum + 1}`],
+    //         checkedVal: choices.find((choice) => choice.id === Number( e.target.value)),
+    //         question: question
+    //       // }
+    //   }
+    // ])
+    setQuestionsAnswers(prveState => (
+     
+      {
+        // ...prveState,
+        // checkedVal: choices.find((choice) => choice.id === Number( e.target.value))
+        ...prveState,
+        [`que${questionNum + 1}`] : {
+          ...prveState[`que${questionNum + 1}`],
+          checkedVal: choices.find((choice) => choice.id === Number( e.target.value)),
+          question: question
+        }
+    }
+    ))
     }
 
     if(type === "textarea")
     {
       setQuestionsAnswers(prveState => (
         {
+          // ...prveState,
+          // textareaVal: e.target.value
           ...prveState,
-          textareaVal: e.target.value
+          [`que${questionNum + 1}`] : {
+            ...prveState[`que${questionNum + 1}`],
+          textareaVal: e.target.value,
+          question: question
+          }
       }
       ))
     }
@@ -620,12 +683,14 @@ setQuestionsAnswers({
 
     if(type === "radio")
     {
-      setQuestionsAnswers(prveState => (
+      setAllQuestionsAnswers(prveState => (
+      // setQuestionsAnswers(prveState => (
         {
           ...prveState,
           [`que${index + 1}`] : {
             ...prveState[`que${index + 1}`],
-            checkedVal: choices.find((choice) => choice.id === Number( e.target.value))
+            checkedVal: choices.find((choice) => choice.id === Number( e.target.value)),
+            question: question
           }
       }
       ))
@@ -633,12 +698,14 @@ setQuestionsAnswers({
 
     if(type === "textarea")
     {
-      setQuestionsAnswers(prveState => (
+      setAllQuestionsAnswers(prveState => (
+      // setQuestionsAnswers(prveState => (
         {
           ...prveState,
           [`que${index + 1}`] : {
             ...prveState[`que${index + 1}`],
-          textareaVal: e.target.value
+          textareaVal: e.target.value,
+          question: question
           }
       }
       ))
@@ -648,6 +715,90 @@ setQuestionsAnswers({
   }
 
 
+  const checkUnansweredQuestionsFun = () => {
+    let questionNums = []
+    console.log("que66 =", examData.competencyList);
+    examData.competencyList.map((que,index)=>{
+      
+      console.log("questionsAnswers[`que${index + 1}`] =", questionsAnswers[`que${index + 1}`]);
+      console.log("questionsAnswers2`] =", questionsAnswers);
+      console.log("que55 =", que);
+
+      // Object.keys(questionsAnswers).forEach(function(key) {
+      // console.log("key =", questionsAnswers[key]);
+      // console.log("chek =", questionsAnswers[key].question.competencyId !== que.competencyId);
+
+      // if( questionsAnswers[key].question.competencyId !== que.competencyId)
+      // {
+      //   console.log("teeeee =", que);
+      //   questionNums.push(index + 1)
+      // }
+      // });
+
+
+    // let y =  Object.keys(questionsAnswers).some(function(k) { return questionsAnswers[k].question.competencyId === que.competencyId; });
+
+    // console.log("y888 =", y);
+
+    if(examData.showStyle === 1)
+    {
+
+      if(!Object.keys(questionsAnswers).some(function(k) { return questionsAnswers[k].question.competencyId === que.competencyId; }))
+      {
+        questionNums.push(index + 1)
+      }
+
+    }
+
+    if(examData.showStyle === 2)
+    {
+
+      if(!Object.keys(allQuestionsAnswers).some(function(k) { return allQuestionsAnswers[k].question.competencyId === que.competencyId; }))
+      {
+        console.log("tyyyyy =" , index);
+        questionNums.push(index + 1)
+      }
+
+    }
+      //   if(!questionsAnswers[`que${index + 1}`].some(el => el.question.competencyId === que.competencyId))
+      //   // if(!examQuestionsData.some(el => el.question.competencyId === que.competencyId))
+      //   {
+      //     questionNums.push(index + 1)
+      //   }
+    })
+    console.log("questionNums =", questionNums);
+    setUncompletedQuestionsList(questionNums)
+  }
+
+
+
+
+  const handleClickOpen = (item) => {
+    checkUnansweredQuestionsFun()
+    setOpenParentPopup(true);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
+
+
+  const backToExamFun = (queNum) => {
+    // startExam && !endExam
+    setStartExam(true)
+    setEndExam(false)
+    setQuestionNum(queNum - 1)
+    setQuestion(examData?.competencyList[queNum - 1])
+  }
+
+
+
+
+  const finishExamFun = () => {
+
+    setEndExam(true)
+    checkUnansweredQuestionsFun()
+  }
 
 
   /////////////////////
@@ -735,14 +886,55 @@ setQuestionsAnswers({
  
 
   async function fetchData() {
-    setExamData(testDate);
-    // try {
-    //   const examQuestionsData = await EmployeeAssessmentData(locale).Get();
-    //   setExamData(examQuestionsData[0]);
-    // } catch (err) {
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    // setExamData(testDate);
+    try {
+      const examQuestionsData = await EmployeeAssessmentData(locale).Get();
+      setExamData(examQuestionsData[0]);
+      // setExamData(testDate);
+
+      examQuestionsData[0].competencyList.map((queData, index)=>{
+        if(queData.employeeChoiceID !== null || queData.employeeExample.length !== 0)
+        {
+          console.log("queData =", queData);
+
+          if(examQuestionsData[0].showStyle === 1)
+          {
+          setQuestionsAnswers(prveState => (
+     
+            {
+              ...prveState,
+              [`que${index + 1}`] : {
+                ...prveState[`que${index + 1}`],
+                checkedVal: examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
+                question: queData,
+                textareaVal: queData.employeeExample
+              }
+          }
+          ))
+        }
+
+        if(examQuestionsData[0].showStyle === 2)
+        {console.log("enter");
+        setAllQuestionsAnswers(prveState => (
+     
+            {
+              ...prveState,
+              [`que${index + 1}`] : {
+                ...prveState[`que${index + 1}`],
+                checkedVal: examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
+                question: queData,
+                textareaVal: queData.employeeExample
+              }
+          }
+          ))
+        }
+        }
+      })
+
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -803,11 +995,102 @@ setQuestionsAnswers({
   }
 
 
+  const submitFun = async (buttonType) => {
+    setIsLoading(true)
+    setProcessing(true)
+
+    // let arr = []
+
+    console.log("tesppp =", questionsAnswers);
+    console.log("tesppp examData =", examData);
+
+    examData.competencyList.map((que,index)=>{
+
+      if(Object.keys(questionsAnswers).some(function(k) { return questionsAnswers[k].question.competencyId === que.competencyId; }))
+      {
+        console.log("que88 =",que);
+        
+        Object.keys(questionsAnswers).forEach((key, index) => {
+          if(questionsAnswers[key].question.competencyId === que.competencyId)
+          {
+            // console.log("questionsAnswers[key].question.competencyId =", questionsAnswers[key].question.competencyId);
+            // console.log("que.competencyId =", que.competencyId);
+            // console.log(`${key}: ${questionsAnswers[key]}`);
+            // console.log("tes777 =", questionsAnswers[key]);
+            // console.log("tes88 =", questionsAnswers[key].checkedVal);
+            // console.log("tes10 =", questionsAnswers[key]?.checkedVal?.id);
+            // console.log("tes11 =", que.employeeChoiceID);
+            // console.log("tes12 =", questionsAnswers[key]?.checkedVal?.id);
+
+            if(questionsAnswers[key].checkedVal && questionsAnswers[key].checkedVal.id )
+            {
+              que.employeeChoiceID = questionsAnswers[key]?.checkedVal?.id
+            }
+
+            if(questionsAnswers[key].textareaVal )
+            {
+              que.employeeExample = questionsAnswers[key].textareaVal
+            }
+
+          }
+          });
+        // arr.push(que)
+
+        console.log("que99 =",que);
+      }
+
+    })
+
+    // console.log("save =", arr);
+
+
+    let data = {
+      "assessmentID": 0,
+      "TemplateId":2,
+      "trainingReq": "string",
+      "assclosed": buttonType === "save" ? false :  true ,
+      // "assclosed": false,
+      "competencyList": examData.competencyList
+    }
+
+    console.log("req data =", data);
+
+
+    // try {
+    //   let response = await EmployeeAssessmentData().Save(data);
+
+    //   if (response.status==200) {
+    //     toast.success(notif.saved);
+      
+    //     setdata({
+         
+    //     })
+    //   } else {
+    //       toast.error(response.statusText);
+    //   }
+    //   setIsLoading(false)
+    //   setProcessing(false)
+    // } catch (err) {
+    //   //
+    // } finally {
+    //   setIsLoading(false)
+    //   setProcessing(false)
+    // }
+  }
+
+
   console.log("examData =",examData);
   console.log("startExam =",startExam);
   console.log("endExam =",endExam);
   console.log("question =",question);
-
+  console.log("questionNum =",questionNum);
+  console.log("uncompletedQuestionsList =",uncompletedQuestionsList);
+  console.log("questionsAnswers222 =",questionsAnswers);
+  console.log("questionsAnswers233 =",Object.keys(questionsAnswers).length);
+  console.log("allQuestionsAnswers =", allQuestionsAnswers);
+  
+  
+  
   return (
     <PayRollLoader isLoading={isLoading} whiteBg icon="border_color" >
 
@@ -874,7 +1157,7 @@ setQuestionsAnswers({
                             </div> */}
                             <div>
                                 <img src='https://www.ansonika.com/wilio/img/info_graphic_1.svg' />
-                                <h1>{examData?.templateName}</h1>
+                                <h1 className={`${classes.textSty}`}>{ examData ?  examData?.templateName : "Assessment duration ended"}</h1>
                                 {/* <h1>Satisfaction Survey</h1> */}
                                 <p>
                                     {/* {examData?.templateDesc} */}
@@ -913,18 +1196,23 @@ setQuestionsAnswers({
                     <div>
                                 
                                 <img src={examLogo} />
-                                <h1 className={`${classes.textSty}`}>{examData?.templateName}</h1>
+                                <h1 className={`${classes.textSty}`}>{ examData ?  examData?.templateName : "Assessment duration ended"}</h1>
+                                {examData && (
                                 <p>
                                     {examData?.templateDesc}
                                 </p>
+                                )}
 
+                            {examData && (
                                 <Button
                                 variant="contained"
                                 size="medium"
                                 color="primary"
                                  onClick={() => setStartExam(true)}
                                  >
-                                  Start</Button>
+                                  Start
+                                </Button>
+                                  )}
                                 {/* <button onClick={() => setStartExam(true)}>Start</button> */}
                             </div>
                     </div>
@@ -1050,7 +1338,7 @@ setQuestionsAnswers({
 
 
                     {
-                      (startExam && !endExam) && (
+                      (startExam && !endExam && (examData.showStyle === 1)) && (
                         <ExamQuestionNextAndPrev 
                         examData={examData} 
                         setEndExam={setEndExam}
@@ -1077,27 +1365,32 @@ setQuestionsAnswers({
 
                   {/* {examData?.competencyList.map((Qui,index)=>( */}
 
-                    
-                    <ExamQuestionWithoutNextAndPrev 
-                      examData={examData} 
-                      // setEndExam={setEndExam}
-                      // setStartExam={setStartExam}
-                      examQuestionsData={examQuestionsData}
-                      // setExamQuestionsData={setExamQuestionsData}
-                      questionNum={questionNum}
-                      // setQuestionNum={setQuestionNum}
-                      // question={Qui}
-                      question={question}
-                      // setQuestion={setQuestion}
-                      choices={choices}
-                      // setChoices={setChoices}
-                      questionsAnswers={questionsAnswers}
-                      // setQuestionsAnswers={setQuestionsAnswers}
-                      nextQueFun={nextQueFun}
-                      prevQueFun={prevQueFun}
-                      saveAllQuestions={saveAllQuestions}
-                      // category={(examData?.competencyList[index - 1].category !== examData?.competencyList[index].category) ? examData?.competencyList[index].category : null}
-                    />
+                  {
+                      (startExam && !endExam && (examData.showStyle === 2)) && (
+                        <ExamQuestionWithoutNextAndPrev 
+                          examData={examData} 
+                          // setEndExam={setEndExam}
+                          // setStartExam={setStartExam}
+                          examQuestionsData={examQuestionsData}
+                          // setExamQuestionsData={setExamQuestionsData}
+                          questionNum={questionNum}
+                          // setQuestionNum={setQuestionNum}
+                          // question={Qui}
+                          question={question}
+                          // setQuestion={setQuestion}
+                          choices={choices}
+                          // setChoices={setChoices}
+                          allQuestionsAnswers={allQuestionsAnswers}
+                          // questionsAnswers={questionsAnswers}
+                          // setQuestionsAnswers={setQuestionsAnswers}
+                          nextQueFun={nextQueFun}
+                          prevQueFun={prevQueFun}
+                          saveAllQuestions={saveAllQuestions}
+                          // category={(examData?.competencyList[index - 1].category !== examData?.competencyList[index].category) ? examData?.competencyList[index].category : null}
+                          finishExamFun={finishExamFun}
+                        />
+
+                      )}
                   {/* ))} */}
 
 {/* /////////// */}
@@ -1119,12 +1412,21 @@ setQuestionsAnswers({
                           <div>
                             <Box >
                               <CircularProgress variant="determinate" value={100}  />
-                              <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(examQuestionsData.length*100)/examData?.competencyList.length} />
-                              <Typography position='absolute' className={`${classes.textSty}`}>{(examQuestionsData.length*100)/examData?.competencyList.length}%</Typography>
+                              <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(Object.keys(questionsAnswers).length*100)/examData?.competencyList.length} />
+                              {/* <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(examQuestionsData.length*100)/examData?.competencyList.length} /> */}
+                              <Typography position='absolute' className={`${classes.textSty}`}>{(Object.keys(questionsAnswers).length*100)/examData?.competencyList.length}%</Typography>
+                              {/* <Typography position='absolute' className={`${classes.textSty}`}>{(examQuestionsData.length*100)/examData?.competencyList.length}%</Typography> */}
                           </Box>
                             <Typography >completed questions</Typography>
 
+                          {uncompletedQuestionsList.length !== 0 && (
+                            <p>
+                              There are questions that you did not answer, which are ( {uncompletedQuestionsList.toString()} ).
+                            </p>
+                            )}
                         </div>
+
+                        
 
                         {/* <div> */}
                           
@@ -1145,23 +1447,39 @@ setQuestionsAnswers({
                           // className={`${style.itemsStyle} ${style.nextPrevBtnSty}`}
                           //  justifyContent="end"
                           >
-                            <Grid item xs={12} md={3}  lg={6}>
+
+                          {uncompletedQuestionsList.length !== 0 && (
+                            <Grid item xs={12} md={3}  lg={4}>
                               <Button
                                 variant="contained"
                                 size="medium"
                                 color="primary"
-                                // onClick={onCopy}
+                                onClick={()=>backToExamFun(uncompletedQuestionsList[0])}
+                              >
+                                Back to Exam
+                              </Button>
+                              </Grid>
+                          )}
+
+
+                            <Grid item xs={12} md={3}  lg={uncompletedQuestionsList.length !== 0 ? 4 : 6}>
+                              <Button
+                                variant="contained"
+                                size="medium"
+                                color="primary"
+                                onClick={()=>submitFun("save")}
                               >
                                 save
                               </Button>
                               </Grid>
 
-                              <Grid item xs={12} md={3}  lg={6}>
+                              <Grid item xs={12} md={3}  lg={uncompletedQuestionsList.length !== 0 ? 4 : 6}>
                               <Button
                                 variant="contained"
                                 size="medium"
                                 color="primary"
-                                // onClick={onCopy}
+                                onClick={()=>submitFun("submit")}
+                                disabled={uncompletedQuestionsList.length === 0 ? false : true}
                               >
                                 submit
                               </Button>
@@ -1243,6 +1561,14 @@ setQuestionsAnswers({
               </Grid>
           </form>
       </PapperBlock>          */}
+
+
+<EmployeeAssessmentPopup
+        handleClose={handleClose}
+        open={openParentPopup}
+        messageData={`There are questions that you did not answer, which are (${uncompletedQuestionsList.toString()}). Do you want to return to the exam?`}
+        callFun={()=>backToExamFun(uncompletedQuestionsList[0])}
+      />
 
     </PayRollLoader>
   );

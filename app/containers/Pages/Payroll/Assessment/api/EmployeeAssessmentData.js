@@ -10,11 +10,12 @@ const EmployeeAssessmentData = (locale) => {
     return data.data;
   };
 
-//   Apis.Save = async (data) => {
+  Apis.Save = async (data) => {
 
-//       const result = await axiosInstance.post("PayrollBranchSallarySetting/Save", data);
-//       return result;
-//   };
+      const result = await axiosInstance.post("Assessment/Save", data);
+      return result;
+  };
+
 //   Apis.CopyToAllBranches = async (id) => {
 
     

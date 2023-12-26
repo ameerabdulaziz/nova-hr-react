@@ -303,6 +303,9 @@ const ExamQuestionNextAndPrev = ({
     console.log("questionNum =", questionNum);
     console.log("examQuestionsData =", examQuestionsData);
     console.log("questionsAnswers =",questionsAnswers);
+    console.log("test =",questionsAnswers?.[questionNum]);
+    console.log("test2 =",questionsAnswers?.[questionNum]?.question?.competencyId);
+    console.log("test3 =",questionsAnswers?.[questionNum]?.checkedVal?.id);
  
     return(
         <Grid item xs={12}  > 
@@ -322,7 +325,9 @@ const ExamQuestionNextAndPrev = ({
                               <FormControl style={{width: "100%"}}>
                                   <RadioGroup
                                       aria-labelledby="demo-radio-buttons-group-label"
-                                      value={questionsAnswers.checkedVal ? questionsAnswers.checkedVal?.id : ""}
+                                      // value={question?.competencyId === questionsAnswers?.[questionNum]?.question?.competencyId ? questionsAnswers?.[questionNum]?.checkedVal?.id : ""}
+                                      value={  (questionsAnswers[`que${questionNum + 1}`]?.checkedVal ? questionsAnswers[`que${questionNum + 1}`]?.checkedVal?.id : "")}
+                                      // value={questionsAnswers.checkedVal ? questionsAnswers.checkedVal?.id : ""}
                                       // defaultValue="female"
                                       name="radio-buttons-group"
                                      className={style.radioContainer}
@@ -378,7 +383,9 @@ const ExamQuestionNextAndPrev = ({
                                     size="lg"
                                     // style={{width: "100%"}}
                                     onChange={(e) => { saveQuestions(e, "textarea")}}
-                                    value={questionsAnswers.textareaVal}
+                                    // value={ questionsAnswers[`que${questionNum + 1}`]?.textareaVal }
+                                    value={questionsAnswers[`que${questionNum + 1}`]?.textareaVal ? questionsAnswers[`que${questionNum + 1}`]?.textareaVal : ""}
+                                    // value={questionsAnswers.textareaVal}
                                     
                                 />
                                 <span>required</span>
@@ -424,6 +431,10 @@ const ExamQuestionNextAndPrev = ({
                                       size="medium"
                                       color="primary"
                                       onClick={nextQueFun}
+                                      // disabled={examData.exampleRequired 
+                                      //   &&  questionsAnswers[`que${questionNum + 1}`] 
+                                      //   && questionsAnswers[`que${questionNum + 1}`].textareaVal 
+                                      //   && questionsAnswers[`que${questionNum + 1}`].textareaVal.length !== 0  ? false : true}
                                       // disabled={examData.exampleRequired &&  questionsAnswers.textareaVal.length !== 0 ? false : true}
                                     >
                                       {/* <FormattedMessage {...messages.copytoAllBr} /> */}
