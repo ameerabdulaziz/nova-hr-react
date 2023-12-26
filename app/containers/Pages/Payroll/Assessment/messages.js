@@ -139,4 +139,80 @@ export default defineMessages({
     id: `${scope}.notEffective`,
     defaultMessage: 'notEffective',
   },
+  insertDate: {
+    id: `${scope}.insertDate`,
+    defaultMessage: 'insertDate',
+  },
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  date: {
+    id: `${scope}.date`,
+    defaultMessage: 'date',
+  },
+  currentJobName: {
+    id: `${scope}.currentJobName`,
+    defaultMessage: 'currentJobName',
+  },
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'department',
+  },
+  reportingTo: {
+    id: `${scope}.reportingTo`,
+    defaultMessage: 'reportingTo',
+  },
+  currentSalary: {
+    id: `${scope}.currentSalary`,
+    defaultMessage: 'currentSalary',
+  },
+  hiringData: {
+    id: `${scope}.hiringData`,
+    defaultMessage: 'hiringData',
+  },
+  currentMainJobDuties: {
+    id: `${scope}.currentMainJobDuties`,
+    defaultMessage: 'currentMainJobDuties',
+  },
+  employees: {
+    id: `${scope}.employees`,
+    defaultMessage: 'employees',
+  },
+  addEmployee: {
+    id: `${scope}.addEmployee`,
+    defaultMessage: 'addEmployee',
+  },
+  editEmployee: {
+    id: `${scope}.editEmployee`,
+    defaultMessage: 'editEmployee',
+  },
+  noEmployees: {
+    id: `${scope}.noEmployees`,
+    defaultMessage: 'noEmployees',
+  },
+  areaToImprove: {
+    id: `${scope}.areaToImprove`,
+    defaultMessage: 'areaToImprove',
+  },
+  targetOfPerformance: {
+    id: `${scope}.targetOfPerformance`,
+    defaultMessage: 'targetOfPerformance',
+  },
+  developmentActivity: {
+    id: `${scope}.developmentActivity`,
+    defaultMessage: 'developmentActivity',
+  },
+  otherPleaseSpecify: {
+    id: `${scope}.otherPleaseSpecify`,
+    defaultMessage: 'otherPleaseSpecify',
+  },
+  resources: {
+    id: `${scope}.resources`,
+    defaultMessage: 'resources',
+  },
+  dateForCompletion: {
+    id: `${scope}.dateForCompletion`,
+    defaultMessage: 'dateForCompletion',
+  },
 });

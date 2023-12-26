@@ -2272,3 +2272,17 @@ export const JobDescriptions = loadable(
     fallback: <Loading />,
   }
 );
+
+export const IndividualDevelopmentPlan = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/IndividualDevelopmentPlan'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const IndividualDevelopmentPlanCreate = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/IndividualDevelopmentPlanCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

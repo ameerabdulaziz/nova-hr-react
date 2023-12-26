@@ -380,6 +380,8 @@ import {
   AllJobKpi,
   StaffJobKPI,
   JobDescriptions,
+  IndividualDevelopmentPlan,
+  IndividualDevelopmentPlanCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1825,6 +1827,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/JobDescriptions'
           component={JobDescriptions}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/IndividualDevelopmentPlan'
+          component={IndividualDevelopmentPlan}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/IndividualDevelopmentPlanCreate'
+          component={IndividualDevelopmentPlanCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/IndividualDevelopmentPlanEdit'
+          component={IndividualDevelopmentPlanCreate}
         />
 
         {/* Default */}
