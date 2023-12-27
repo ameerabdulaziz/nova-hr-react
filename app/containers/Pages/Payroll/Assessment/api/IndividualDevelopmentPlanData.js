@@ -18,9 +18,9 @@ const API = (locale) => {
     return data.data;
   };
 
-  api.GetById = async (id) => {
+  api.GetById = async (id, employeeId = null) => {
     const data = await axiosInstance.get(
-      `AsIndividualDevelopmentPlan/Get/${locale}/${id}`
+      `AsIndividualDevelopmentPlan/Get/${id}/${locale}${employeeId ? '?employeeId=' + employeeId : ''}`
     );
 
     return data.data;

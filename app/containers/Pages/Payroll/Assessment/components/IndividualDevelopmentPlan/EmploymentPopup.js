@@ -116,7 +116,7 @@ function EmploymentPopup(props) {
 
       <DialogContent>
         <Grid container mt={0} spacing={2}>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               name='areasToImprove'
               value={formInfo.areasToImprove}
@@ -128,7 +128,7 @@ function EmploymentPopup(props) {
             />
           </Grid>
 
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               name='targetPerformance'
               value={formInfo.targetPerformance}
@@ -140,7 +140,7 @@ function EmploymentPopup(props) {
             />
           </Grid>
 
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               name='resources'
               value={formInfo.resources}
@@ -152,7 +152,7 @@ function EmploymentPopup(props) {
             />
           </Grid>
 
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DatePicker
                 label={intl.formatMessage(messages.dateForCompletion)}
@@ -167,7 +167,7 @@ function EmploymentPopup(props) {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             <Autocomplete
               options={activityList}
               value={
@@ -194,8 +194,8 @@ function EmploymentPopup(props) {
             />
           </Grid>
 
-          {formInfo.developmentActivities === 0 && (
-            <Grid item xs={12} lg={6}>
+          {formInfo.developmentActivities === 5 && (
+            <Grid item xs={12} md={6}>
               <TextField
                 name='otherDevelopmentActivities'
                 value={formInfo.otherDevelopmentActivities}
