@@ -383,6 +383,7 @@ import {
   IndividualDevelopmentPlan,
   IndividualDevelopmentPlanCreate,
   UploadAssessmentGuidelines,
+  AssessmentGuidelines,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1848,6 +1849,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/UploadAssessmentGuidelines'
           component={UploadAssessmentGuidelines}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AssessmentGuidelines'
+          component={AssessmentGuidelines}
         />
 
         {/* Default */}

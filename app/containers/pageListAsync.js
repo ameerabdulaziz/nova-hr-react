@@ -2293,3 +2293,10 @@ export const UploadAssessmentGuidelines = loadable(
     fallback: <Loading />,
   }
 );
+
+export const AssessmentGuidelines = loadable(
+  () => import('./Pages/Payroll/Assessment/code/AssessmentGuidelines'),
+  {
+    fallback: <Loading />,
+  }
+);
