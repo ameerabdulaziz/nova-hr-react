@@ -215,4 +215,40 @@ export default defineMessages({
     id: `${scope}.dateForCompletion`,
     defaultMessage: 'dateForCompletion',
   },
+  upload: {
+    id: `${scope}.upload`,
+    defaultMessage: 'upload',
+  },
+  uploadAr: {
+    id: `${scope}.uploadAr`,
+    defaultMessage: 'uploadAr',
+  },
+  preview: {
+    id: `${scope}.preview`,
+    defaultMessage: 'preview',
+  },
+  competenciesGuideline: {
+    id: `${scope}.competenciesGuideline`,
+    defaultMessage: 'competenciesGuideline',
+  },
+  rating: {
+    id: `${scope}.rating`,
+    defaultMessage: 'rating',
+  },
+  invalidFileName: {
+    id: `${scope}.invalidFileName`,
+    defaultMessage: 'invalidFileName',
+  },
+  fileExtensionShouldBePdf: {
+    id: `${scope}.fileExtensionShouldBePdf`,
+    defaultMessage: 'fileExtensionShouldBePdf',
+  },
+  fileSizeShouldBeLessThan10MB: {
+    id: `${scope}.fileSizeShouldBeLessThan10MB`,
+    defaultMessage: 'fileSizeShouldBeLessThan10MB',
+  },
+  performanceAppraisalPurpose: {
+    id: `${scope}.performanceAppraisalPurpose`,
+    defaultMessage: 'performanceAppraisalPurpose',
+  },
 });
