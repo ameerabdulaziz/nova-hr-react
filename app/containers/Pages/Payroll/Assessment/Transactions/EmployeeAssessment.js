@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -100,9 +100,11 @@ const [examData, setExamData] = useState();
 
     const [openParentPopup, setOpenParentPopup] = useState(false);
     const [uncompletedQuestionsList, setUncompletedQuestionsList] = useState([]);
+    const [textareaEmpTrainingVal, setTextareaEmpTrainingVal] = useState("");
+    const ref  = useRef();
 
 
-    const testDate =     {
+    const testDate = {
       "assessmentId": 0,
       "staffTrainingReq": "",
       "templateName": "Assessment for emplouee evaluation",
@@ -168,7 +170,7 @@ const [examData, setExamData] = useState();
               "totalGrade": 10.0,
               "categoryId": 2,
               "category": "Core Competencies",
-              "employeeChoiceID": 1,
+              "employeeChoiceID": null,
               "employeeExample": "",
               "notEffective": false
           },
@@ -179,7 +181,7 @@ const [examData, setExamData] = useState();
               "categoryId": 2,
               "category": "Core Competencies",
               "employeeChoiceID": null,
-              "employeeExample": "aaa",
+              "employeeExample": "",
               "notEffective": false
           },
           {
@@ -336,7 +338,9 @@ console.log("tessss2 =" , questionsAnswers.checkedVal);
 
 
     const nextQueFun = () => {
-      if(examData?.competencyList.length !== questionNum + 1)
+     
+      if(examData?.competencyList.length !== questionNum )
+      // if(examData?.competencyList.length !== questionNum + 1)
       {
         console.log("inn5");
           setQuestionNum(  questionNum + 1 )
@@ -436,10 +440,10 @@ console.log("tessss2 =" , questionsAnswers.checkedVal);
       if(examData?.competencyList.length === questionNum + 1)
       {
         console.log("inn");
-        setEndExam(true)
+        // setEndExam(true)
         // setStartExam(false)
 
-        checkUnansweredQuestionsFun()
+        // checkUnansweredQuestionsFun()
       }
   }
 
@@ -613,8 +617,29 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
     }
 
 
+    if(type === "textareaEmpTraining")
+    {
+      setTextareaEmpTrainingVal(prveState => (
+        {
+          // ...prveState,
+          // textareaVal: e.target.value
+          ...prveState,
+          // [`que${questionNum + 1}`] : {
+          //   ...prveState[`que${questionNum + 1}`],
+          //   textareaEmpTraining: e.target.value,
+          // }
+          // [`textareaEmpTraining`] : {
+          //   ...prveState[`textareaEmpTraining`],
+          //   textareaEmpTraining: e.target.value,
+          // }
+          [`textareaEmpTraining`] : e.target.value
+      }
+      ))
+    }
+
+
     // console.log("tesrt =",choices.filter((choice) => choice.id === Number( e.target.value)));
-    console.log("que =", examQuestionsData.some(el => el.question.competencyId === question.competencyId));
+    // console.log("que =", examQuestionsData.some(el => el.question.competencyId === question.competencyId));
 
     // if(examQuestionsData.length === 0 )
     // {
@@ -681,6 +706,10 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
 
   const saveAllQuestions = (e, type,index) => {
 
+    console.log("yte6668");
+
+    console.log("exam444 =", examData.competencyList[index]);
+
     if(type === "radio")
     {
       setAllQuestionsAnswers(prveState => (
@@ -690,7 +719,7 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
           [`que${index + 1}`] : {
             ...prveState[`que${index + 1}`],
             checkedVal: choices.find((choice) => choice.id === Number( e.target.value)),
-            question: question
+            question: examData.competencyList[index]
           }
       }
       ))
@@ -705,11 +734,25 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
           [`que${index + 1}`] : {
             ...prveState[`que${index + 1}`],
           textareaVal: e.target.value,
-          question: question
+          question: examData.competencyList[index]
           }
       }
       ))
     }
+
+
+    if(type === "textareaEmpTraining")
+    {
+      setTextareaEmpTrainingVal(prveState => (
+        {
+          ...prveState,
+          [`textareaEmpTraining`] : e.target.value
+      }
+      ))
+    }
+
+
+
     console.log("que =", examQuestionsData.some(el => el.question.competencyId === question.competencyId));
 
   }
@@ -743,7 +786,7 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
     if(examData.showStyle === 1)
     {
 
-      if(!Object.keys(questionsAnswers).some(function(k) { return questionsAnswers[k].question.competencyId === que.competencyId; }))
+      if(!Object.keys(questionsAnswers).some(function(k) { return questionsAnswers[k]?.question?.competencyId === que.competencyId; }))
       {
         questionNums.push(index + 1)
       }
@@ -752,10 +795,12 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
 
     if(examData.showStyle === 2)
     {
-
-      if(!Object.keys(allQuestionsAnswers).some(function(k) { return allQuestionsAnswers[k].question.competencyId === que.competencyId; }))
+console.log("tess8888 =", Object.keys(allQuestionsAnswers).some(function(k) { return allQuestionsAnswers[k]?.question?.competencyId === que.competencyId; }));
+      if(!Object.keys(allQuestionsAnswers).some(function(k) { return allQuestionsAnswers[k]?.question?.competencyId === que.competencyId; }))
       {
         console.log("tyyyyy =" , index);
+
+        console.log("tyyyyy que =" , que);
         questionNums.push(index + 1)
       }
 
@@ -795,9 +840,11 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
 
 
   const finishExamFun = () => {
+   
 
     setEndExam(true)
     checkUnansweredQuestionsFun()
+    
   }
 
 
@@ -892,11 +939,13 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
       setExamData(examQuestionsData[0]);
       // setExamData(testDate);
 
-      examQuestionsData[0].competencyList.map((queData, index)=>{
+      // testDate.competencyList.map((queData, index)=>{
+        examQuestionsData[0].competencyList.map((queData, index)=>{
         if(queData.employeeChoiceID !== null || queData.employeeExample.length !== 0)
         {
           console.log("queData =", queData);
 
+          // if(testDate.showStyle === 1)
           if(examQuestionsData[0].showStyle === 1)
           {
           setQuestionsAnswers(prveState => (
@@ -905,6 +954,7 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
               ...prveState,
               [`que${index + 1}`] : {
                 ...prveState[`que${index + 1}`],
+                // checkedVal: testDate.choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? testDate.choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
                 checkedVal: examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
                 question: queData,
                 textareaVal: queData.employeeExample
@@ -913,6 +963,7 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
           ))
         }
 
+        // if(testDate.showStyle === 2)
         if(examQuestionsData[0].showStyle === 2)
         {console.log("enter");
         setAllQuestionsAnswers(prveState => (
@@ -921,6 +972,7 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
               ...prveState,
               [`que${index + 1}`] : {
                 ...prveState[`que${index + 1}`],
+                // checkedVal: testDate.choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? testDate.choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
                 checkedVal: examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
                 question: queData,
                 textareaVal: queData.employeeExample
@@ -928,8 +980,19 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
           }
           ))
         }
+
+
+        setTextareaEmpTrainingVal(prveState => (
+          {
+            ...prveState,
+            [`textareaEmpTraining`] : examQuestionsData[0].staffTrainingReq
+        }
+        ))
+
         }
       })
+
+      
 
     } catch (err) {
     } finally {
@@ -939,6 +1002,11 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
 
   useEffect(() => {
     fetchData();
+
+    // if(examQuestionsData[0].exampleRequired)
+      // {
+        // focusFieldFun()
+      // }
   }, []);
 
 
@@ -1006,6 +1074,9 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
 
     examData.competencyList.map((que,index)=>{
 
+      if(examData.showStyle === 1)
+      {
+
       if(Object.keys(questionsAnswers).some(function(k) { return questionsAnswers[k].question.competencyId === que.competencyId; }))
       {
         console.log("que88 =",que);
@@ -1038,16 +1109,40 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
 
         console.log("que99 =",que);
       }
+    }
+    else if(examData.showStyle === 2)
+    {
+      if(Object.keys(allQuestionsAnswers).some(function(k) { return allQuestionsAnswers[k]?.question?.competencyId === que.competencyId; }))
+      {
+  
+        Object.keys(allQuestionsAnswers).forEach((key, index) => {
+          if(allQuestionsAnswers[key]?.question?.competencyId === que.competencyId)
+          {
+            if(allQuestionsAnswers[key].checkedVal && allQuestionsAnswers[key].checkedVal.id )
+            {
+              que.employeeChoiceID = allQuestionsAnswers[key]?.checkedVal?.id
+            }
+
+            if(allQuestionsAnswers[key].textareaVal )
+            {
+              que.employeeExample = allQuestionsAnswers[key].textareaVal
+            }
+
+          }
+          });
+      }
+    }
 
     })
 
-    // console.log("save =", arr);
+    console.log("textareaEmpTraining1111 =", questionsAnswers);
 
 
     let data = {
-      "assessmentID": 0,
-      "TemplateId":2,
-      "trainingReq": "string",
+      "assessmentID": examData.assessmentId,
+      "TemplateId":examData.templateId,
+      "trainingReq":  textareaEmpTrainingVal.textareaEmpTraining,
+      // "trainingReq": examData.showStyle === 1 ? questionsAnswers.textareaEmpTraining : allQuestionsAnswers.textareaEmpTraining,
       "assclosed": buttonType === "save" ? false :  true ,
       // "assclosed": false,
       "competencyList": examData.competencyList
@@ -1056,27 +1151,32 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
     console.log("req data =", data);
 
 
-    // try {
-    //   let response = await EmployeeAssessmentData().Save(data);
+    try {
+      let response = await EmployeeAssessmentData().Save(data);
 
-    //   if (response.status==200) {
-    //     toast.success(notif.saved);
+      if (response.status==200) {
+        toast.success(notif.saved);
       
-    //     setdata({
+        setdata({
          
-    //     })
-    //   } else {
-    //       toast.error(response.statusText);
-    //   }
-    //   setIsLoading(false)
-    //   setProcessing(false)
-    // } catch (err) {
-    //   //
-    // } finally {
-    //   setIsLoading(false)
-    //   setProcessing(false)
-    // }
+        })
+      } else {
+          toast.error(response.statusText);
+      }
+      setIsLoading(false)
+      setProcessing(false)
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false)
+      setProcessing(false)
+    }
   }
+
+
+  // const focusFieldFun = (event) => {      
+  //   ref?.current?.focus()
+  // }
 
 
   console.log("examData =",examData);
@@ -1094,7 +1194,22 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
   return (
     <PayRollLoader isLoading={isLoading} whiteBg icon="border_color" >
 
-
+{/* <TextareaAutosize
+                                    color="neutral"
+                                    minRows={3}
+                                    placeholder="Type here additional info..."
+                                    size="lg"
+                                    // style={{width: "100%"}}
+                                    // onChange={(e) => { saveQuestions(e, "textareaEmpTraining")}}
+                                    // value={ questionsAnswers[`que${questionNum + 1}`]?.textareaVal }
+                                    // value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""}
+                                    // value={questionsAnswers?.textareaEmpTraining ? questionsAnswers?.textareaEmpTraining : ""}
+                                    // value={questionsAnswers.textareaEmpTraining?.textareaEmpTraining ? questionsAnswers.textareaEmpTraining?.textareaEmpTraining : ""}
+                                    // value={questionsAnswers.textareaVal}
+                                    // inputRef={inputRef} 
+                                    // slotProps={{ textarea: { ref } }}
+                                    ref={ref}
+                                /> */}
 
 
         <Card >
@@ -1118,7 +1233,7 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                         <div>
                             <img src='https://www.ansonika.com/wilio/img/info_graphic_1.svg' />
                             <div>
-                                <p>Panar Title </p>
+                                <p>{examData?.templateName}</p>
                             </div>
                             </div>
                             
@@ -1129,7 +1244,9 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                                 color="primary"
                                  onClick={() => setEndExam(true)}
                                  >
-                                  End Exam</Button>
+                                  {/* End Exam */}
+                                  <FormattedMessage {...messages.AssessmentFinish} />
+                                  </Button>
                                   </div>
 
                             
@@ -1196,7 +1313,7 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                     <div>
                                 
                                 <img src={examLogo} />
-                                <h1 className={`${classes.textSty}`}>{ examData ?  examData?.templateName : "Assessment duration ended"}</h1>
+                                <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? "Assessment under review" :  examData?.templateName : "Assessment duration ended"}</h1>
                                 {examData && (
                                 <p>
                                     {examData?.templateDesc}
@@ -1210,7 +1327,8 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                                 color="primary"
                                  onClick={() => setStartExam(true)}
                                  >
-                                  Start
+                                  {/* Start */}
+                                  <FormattedMessage {...messages.Start} />
                                 </Button>
                                   )}
                                 {/* <button onClick={() => setStartExam(true)}>Start</button> */}
@@ -1356,6 +1474,10 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                         nextQueFun={nextQueFun}
                         prevQueFun={prevQueFun}
                         saveQuestions={saveQuestions}
+                        finishExamFun={finishExamFun}
+                        textareaEmpTrainingVal={textareaEmpTrainingVal}
+                        intl={intl}
+                        // inputRef={inputRef}
                         // question={question}
                         // setQuestion={setQuestion}
                         />
@@ -1388,10 +1510,13 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                           saveAllQuestions={saveAllQuestions}
                           // category={(examData?.competencyList[index - 1].category !== examData?.competencyList[index].category) ? examData?.competencyList[index].category : null}
                           finishExamFun={finishExamFun}
+                          textareaEmpTrainingVal={textareaEmpTrainingVal}
+                          intl={intl}
                         />
 
                       )}
                   {/* ))} */}
+                  
 
 {/* /////////// */}
 
@@ -1401,7 +1526,8 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                         <div className={`${classes.examMainSty}`}>
                           <img src='https://jthemes.net/themes/html/neonwizard-react/thankyou/assets/img/tht1.png' />
                           <h1 >
-                              Thank you for complete the exam
+                              {/* Thank you for complete the exam */}
+                              <FormattedMessage {...messages.ThankYouForCompleteTheAssessment} />
                           </h1>
                           </div>
 
@@ -1410,18 +1536,34 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                           </p> */}
 
                           <div>
+                            <Typography >
+                              {/* completed questions */}
+                              <FormattedMessage {...messages.completedQuestions} />
+                              </Typography>
                             <Box >
                               <CircularProgress variant="determinate" value={100}  />
+
+                          {examData.showStyle === 1 && (<>
                               <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(Object.keys(questionsAnswers).length*100)/examData?.competencyList.length} />
-                              {/* <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(examQuestionsData.length*100)/examData?.competencyList.length} /> */}
                               <Typography position='absolute' className={`${classes.textSty}`}>{(Object.keys(questionsAnswers).length*100)/examData?.competencyList.length}%</Typography>
+                          </>)}
+
+
+                          {examData.showStyle === 2 && (<>
+                              <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(Object.keys(allQuestionsAnswers ).length*100)/examData?.competencyList.length} />
+                              <Typography position='absolute' className={`${classes.textSty}`}>{(Object.keys(allQuestionsAnswers ).length*100)/examData?.competencyList.length}%</Typography>
+                          </>)}
+
+
+                              {/* <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(examQuestionsData.length*100)/examData?.competencyList.length} /> */}
                               {/* <Typography position='absolute' className={`${classes.textSty}`}>{(examQuestionsData.length*100)/examData?.competencyList.length}%</Typography> */}
                           </Box>
-                            <Typography >completed questions</Typography>
+                            {/* <Typography >completed questions</Typography> */}
 
                           {uncompletedQuestionsList.length !== 0 && (
                             <p>
-                              There are questions that you did not answer, which are ( {uncompletedQuestionsList.toString()} ).
+                              {/* There are questions that you did not answer, which are  */}
+                              <FormattedMessage {...messages.ThereAreQuestionsThatYouDidNotAnswerWhichAre} /> ( {uncompletedQuestionsList.toString()} ).
                             </p>
                             )}
                         </div>
@@ -1456,7 +1598,8 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                                 color="primary"
                                 onClick={()=>backToExamFun(uncompletedQuestionsList[0])}
                               >
-                                Back to Exam
+                                {/* Back to Exam */}
+                                <FormattedMessage {...messages.BackToAssessment} />
                               </Button>
                               </Grid>
                           )}
@@ -1469,7 +1612,8 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                                 color="primary"
                                 onClick={()=>submitFun("save")}
                               >
-                                save
+                                {/* save */}
+                                <FormattedMessage {...messages.save} />
                               </Button>
                               </Grid>
 
@@ -1481,7 +1625,8 @@ console.log("prev5 =", examQuestionsData.findIndex(x => x.question.competencyId 
                                 onClick={()=>submitFun("submit")}
                                 disabled={uncompletedQuestionsList.length === 0 ? false : true}
                               >
-                                submit
+                                {/* submit */}
+                                <FormattedMessage {...messages.submit} />
                               </Button>
                               </Grid>
                           </Grid>

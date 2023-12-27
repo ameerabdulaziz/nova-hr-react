@@ -696,7 +696,7 @@
         flex-direction: column;
         align-items: center;
         padding: 2.5%;
-        padding-bottom: 250px;
+        padding-bottom: 458px;
         padding-top: 250px;
 
         img
@@ -796,7 +796,15 @@
             font-size: 18px;
         }
 
-        & > div:nth-child(8)
+        & > span:nth-child(8),
+        .errorMes
+        {
+            font-size: 12px;
+            color: #fb8484;
+        }
+
+        // & > div:nth-child(9)
+        .lineStye
         // div
         {
             // background-color: #f00;
@@ -869,7 +877,7 @@
             {
                 padding: 0;
                 border: 1px solid #ccc;
-                margin-right: 25px;
+                // margin-right: 25px;
 
                 .iconeSty
                 {
@@ -892,6 +900,12 @@
                     // visibility: hidden;
                     // color: #fff;
                 }
+            }
+
+            & > span:nth-child(2)
+            {
+                margin-left: 20px;
+                margin-right: 20px;
             }
         }
     }
@@ -952,7 +966,13 @@
 
     .examContainer2AllQue
     {
-        margin: 20px 8%;
+        margin: 30px 8%;
+        // margin: 20px 8%;
+
+       button
+        {
+            margin-top: 20px;
+        }
     }
 
 

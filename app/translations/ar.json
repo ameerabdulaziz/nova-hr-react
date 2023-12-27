@@ -2513,5 +2513,21 @@
   "boilerplate.containers.Payroll.assessment.true": "صحيح",
   "boilerplate.containers.Payroll.assessment.false": "خاطئ",
   "boilerplate.containers.Payroll.assessment.probationPeriodValueIsRequired": "مطلوب قيمة فترة الاختبار",
-  "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "قالب فترة التجربة"
+  "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "قالب فترة التجربة",
+
+
+  "boilerplate.containers.Payroll.assessment.AssessmentFinish": "الانتهاء من التقييم",
+  "boilerplate.containers.Payroll.assessment.Start": "ابدا",
+  "boilerplate.containers.Payroll.assessment.completedQuestions": "الأسئلة المكتملة",
+  "boilerplate.containers.Payroll.assessment.ThereAreQuestionsThatYouDidNotAnswerWhichAre": "هناك أسئلة لم تجب عليها وهي",
+  "boilerplate.containers.Payroll.assessment.BackToAssessment": "العودة للتقييم",
+  "boilerplate.containers.Payroll.assessment.submit": "إرسال",
+  "boilerplate.containers.Payroll.assessment.ThankYouForCompleteTheAssessment": "شكرا لك على استكمال التقييم",
+  "boilerplate.containers.Payroll.assessment.pleaseDescribeWithFewWordsWhy": "يرجى وصف السبب بكلمات قليلة",
+  "boilerplate.containers.Payroll.assessment.ThisFieldIsRequired": "هذه الخانة مطلوبه",
+  "boilerplate.containers.Payroll.assessment.EmployeeTrainingRequest": "طلب التدريب",
+  "boilerplate.containers.Payroll.assessment.Prev": "السابق",
+  "boilerplate.containers.Payroll.assessment.Next": "التالي",
+  "boilerplate.containers.Payroll.assessment.finish": "إنهاء",
+  "boilerplate.containers.Payroll.assessment.TypeHereAdditionalInfo": "...اكتب هنا معلومات إضافية"
 }

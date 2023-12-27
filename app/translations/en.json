@@ -2453,5 +2453,24 @@
   "boilerplate.containers.Payroll.assessment.list": "List",
   "boilerplate.containers.Payroll.assessment.probationPeriodValueIsRequired": "Probation Period Value Is Required",
   "boilerplate.containers.Payroll.assessment.isPropation": "Is Propation",
-  "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "Probation Period Template"
+  "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "Probation Period Template",
+
+
+  "boilerplate.containers.Payroll.assessment.AssessmentFinish": "Assessment Finished",
+  "boilerplate.containers.Payroll.assessment.Start": "Start",
+  "boilerplate.containers.Payroll.assessment.completedQuestions": "Completed questions",
+  "boilerplate.containers.Payroll.assessment.ThereAreQuestionsThatYouDidNotAnswerWhichAre": "There are questions that you did not answer, which are",
+  "boilerplate.containers.Payroll.assessment.BackToAssessment": "Back",
+  "boilerplate.containers.Payroll.assessment.submit": "Submit",
+  "boilerplate.containers.Payroll.assessment.ThankYouForCompleteTheAssessment": "Thank you for complete the assessment",
+  "boilerplate.containers.Payroll.assessment.pleaseDescribeWithFewWordsWhy": "Please describe with few words why",
+  "boilerplate.containers.Payroll.assessment.ThisFieldIsRequired": "This field is required",
+  "boilerplate.containers.Payroll.assessment.EmployeeTrainingRequest": "Training request",
+  "boilerplate.containers.Payroll.assessment.Prev": "Prev",
+  "boilerplate.containers.Payroll.assessment.Next": "Next",
+  "boilerplate.containers.Payroll.assessment.finish": "Finish",
+  "boilerplate.containers.Payroll.assessment.TypeHereAdditionalInfo": "Type here additional info..."
+
+
+  
 }
