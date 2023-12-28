@@ -143,17 +143,7 @@ function UploadAssessmentGuidelines(props) {
   };
 
   const deleteFile = async (item) => {
-    setIsLoading(true);
-
-    try {
-      await api().delete(item);
-
-      setFormInfo((prev) => ({ ...prev, [item]: null }));
-    } catch (err) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
+    setFormInfo((prev) => ({ ...prev, [item]: null }));
   };
 
   return (
