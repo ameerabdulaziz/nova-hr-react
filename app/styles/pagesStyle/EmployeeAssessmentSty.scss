@@ -1,0 +1,532 @@
+// exam page
+
+.gridContainerSty
+{
+    padding: 0;
+}
+
+.showContainers
+{
+    display: block;
+}
+
+.HideContainers
+{
+    display: none;
+}
+
+.examCardContentSty
+{
+    padding: 0 !important;
+
+    & > div
+    {
+        & > div
+        {
+            padding-top: 0 !important;
+            padding-left: 0 !important;
+        }
+    }
+}
+
+
+.panarContainer
+{
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    padding: 30px 5%;
+    
+
+    & > div:nth-child(1)
+    {
+        display: flex;
+        align-items: center;
+        align-items: end;
+
+        img
+        {
+            width: 18%;
+        }
+
+
+        div
+        {
+            p
+            {
+                font-size: 21px;
+                padding-left: 20px;
+                margin: 0;
+                color: #ffffff;
+            }
+
+            svg
+            {
+                margin: 5px;
+            }
+        }
+    }
+
+    & > div:nth-child(2)
+    {
+        display: flex;
+    }
+}
+
+
+.startExamContainer
+{
+    display: flex;
+    justify-content: center;
+    margin: 242px 0;
+
+    div
+    {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img
+        {
+            width: 60%;
+        }
+
+        h1
+        {
+            font-size: 30px;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        p
+        {
+            color: #afafaf;
+            font-size: 15px;
+            margin-bottom: 39px;
+            text-wrap: balance;
+            text-align: justify;
+        }
+
+        button
+        {
+            border-radius: 20px;
+            width: 300px;
+        }
+    }
+}
+
+
+.mainContainer
+{
+    
+    & > div:nth-child(1)
+    {
+        background: linear-gradient(to bottom,transparent,rgba(0,0,0,.5));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2.5%;
+        padding-bottom: 458px;
+        padding-top: 250px;
+
+        img
+        {
+            width: 58%;
+        }
+
+        h1,p
+        {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        h1
+        {
+            margin: 20px 0;
+            font-size: 20px;
+            line-height: 40px;
+            font-weight: 900;
+        }
+
+        p
+        {
+            padding: 0 6%;
+            opacity: .8;
+            font-size: 15px;
+        }
+
+        button
+        {
+            border-radius: 20px;
+            padding: 6px 25px;
+            margin: 25px 0;
+        }
+    }
+}
+
+.categorySty
+{
+    width: 30%;
+    padding: 20px;
+    background-color: #f7f7f7;
+    margin-top: 50px;
+    font-size: 20px;
+    border-left: none;
+}
+
+.categoryAllQueSty
+{
+    width: 100%;
+    font-size: 30px;
+}
+
+.categoryArSty
+{
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.categoryEnSty
+{
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.examContainer,
+.examContainer2
+{
+    display: flex;
+    justify-content: center;
+    margin: 80px 8%;
+
+    & > div
+    {
+        width: 60%;
+
+        & > span:nth-child(1)
+        {
+            height: 5px;
+            margin-bottom: 20px;
+
+            span
+            {
+                background-color: #6c3;
+            }
+        }
+
+        & > p:nth-child(2)
+        {
+            color: #999;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        & > span:nth-child(8),
+        .errorMes
+        {
+            font-size: 12px;
+            color: #fb8484;
+        }
+
+        .lineStye
+        {
+            border-top: 3px solid #ededed;
+            padding-top: 20px;
+            text-align: right;
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        div
+        {
+            div
+            {
+                & > div:nth-child(1),
+                & > div:nth-child(2)
+                {
+                    margin: 0 5px;
+                    padding-left: 0;
+                    text-align: right;
+
+                    button
+                    {
+                        font-size: 13px;
+                        border-radius: 3px;
+                        border: none;
+                        padding: 12px 23%;
+                    }
+                }
+
+            }
+        }
+    }
+
+    
+
+    .radioContainer
+    {
+        width: 100%;
+        label
+        {
+            margin-bottom: 16px;
+            margin-left: 0;
+
+            & > span:nth-child(1)
+            {
+                padding: 0;
+                border: 1px solid #ccc;
+
+                .iconeSty
+                {
+                    color: #fff0;
+                }
+
+                .checkedIconeSty
+                {
+                    color: #ffffff;
+                    padding: 8px;
+                }
+
+                svg
+                {
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 50%;
+                }
+            }
+
+            & > span:nth-child(2)
+            {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .radioContainerAllQue
+    {
+        width: 100%;
+        label
+        {
+           width: 40%;
+        }
+    }
+
+    textarea
+    {
+        width: 100%;
+        padding: 12px;
+        border-radius: 3px;
+        border: 1px solid #d2d8dd;
+    }
+
+    textarea:focus
+    {
+        border-color: #434bdf;
+    }
+}
+
+    .examContainer
+    {
+        & > div
+        {
+
+            div
+            {
+                div
+                {
+                    & > div:nth-child(1)
+                    {
+                        button
+                        {
+                            color: #777;
+                            background: #e8e8e8;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .examContainer2
+    {
+        & > div
+        {
+            width: 100%;
+        }
+    }
+
+    .examContainer2AllQue
+    {
+        margin: 30px 8%;
+
+       button
+        {
+            margin-top: 20px;
+        }
+    }
+
+
+
+
+
+.resultContainerSty
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 150px 10%;
+    padding-bottom: 50px;
+
+    & > div:nth-child(1)
+    {
+        text-align: center;
+        width: 100%;
+        padding: 50px;
+        margin-bottom: 80px;
+       
+    }
+
+    img
+    {
+        width: 10%;
+        margin-bottom: 30px;
+    }
+
+    h1
+    {
+        font-size: 35px;
+        margin-bottom: 75px;
+        color: #ffffff;
+    }
+
+    & > div:nth-child(2)
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        div
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & > span:nth-child(1)
+            {
+                color: rgb(189 189 189 / 25%);
+                position: absolute;
+                width: 120px !important;
+                height: 120px !important;
+            }
+
+            & > span:nth-child(2)
+            {
+                width: 120px !important;
+                height: 120px !important;
+            }
+
+            p
+            {
+                font-size: 25px;
+            }
+        }
+
+        p
+        {
+            padding: 20px;
+            font-size: 20px;
+        }
+
+    }
+
+    & > div:nth-child(3)
+    {
+        width: 50%;
+        margin-top: 50px;
+       
+
+        div
+        {
+            text-align: center;
+
+            button
+            {
+                font-size: 13px;
+                border-radius: 3px;
+                border: none;
+                padding: 12px 23%;
+            }
+        }
+    }
+
+}
+
+
+@media only screen and (max-width: 899px) 
+{
+    .nextPrevBtnSty
+    {
+        justify-content: center;
+
+        div
+        {
+            text-align: center !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) 
+{
+    .panarContainer
+    {
+        div:nth-child(1)
+        {
+
+            img
+            {
+                width: 16%;
+            }
+
+        }
+    }
+
+    .startExamContainer
+    {
+        
+        div
+        {
+            width: 100%;
+
+        img
+        {
+            width: 58%;
+        }
+        }
+    }
+
+    .mainContainer
+    {
+        div:nth-child(1)
+        {
+            padding: 40px 9%;
+        }
+    }
+
+    .examContainer
+    {
+        & > div
+        {
+            width: 90%;
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) 
+{
+  
+}
+
+// exam page -- end

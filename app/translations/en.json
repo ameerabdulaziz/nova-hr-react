@@ -2456,7 +2456,7 @@
   "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "Probation Period Template",
 
 
-  "boilerplate.containers.Payroll.assessment.AssessmentFinish": "Assessment Finished",
+  "boilerplate.containers.Payroll.assessment.AssessmentFinish": "Finish Assessment",
   "boilerplate.containers.Payroll.assessment.Start": "Start",
   "boilerplate.containers.Payroll.assessment.completedQuestions": "Completed questions",
   "boilerplate.containers.Payroll.assessment.ThereAreQuestionsThatYouDidNotAnswerWhichAre": "There are questions that you did not answer, which are",

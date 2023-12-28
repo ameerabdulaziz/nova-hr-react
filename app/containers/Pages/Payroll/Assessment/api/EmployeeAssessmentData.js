@@ -16,12 +16,6 @@ const EmployeeAssessmentData = (locale) => {
       return result;
   };
 
-//   Apis.CopyToAllBranches = async (id) => {
-
-    
-//       const result = await axiosInstance.post(`PayrollLoanSetting/CopyToAllBranches/${id}`);
-//       return result;
-//   };
   
   return Apis;
 };
