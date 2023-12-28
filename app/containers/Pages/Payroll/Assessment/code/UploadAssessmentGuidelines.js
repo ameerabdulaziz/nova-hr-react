@@ -44,19 +44,19 @@ function UploadAssessmentGuidelines(props) {
     const fd = new FormData();
 
     if (formInfo.competency) {
-      fd.append('Competency', formInfo.competency);
+      fd.append('Competency', null);
     }
 
     if (formInfo.competencyAr) {
-      fd.append('CompetencyAr', formInfo.competencyAr);
+      fd.append('CompetencyAr', null);
     }
 
     if (formInfo.rating) {
-      fd.append('Rating', formInfo.rating);
+      fd.append('Rating', null);
     }
 
     if (formInfo.performance) {
-      fd.append('Performance', formInfo.performance);
+      fd.append('Performance', null);
     }
 
     try {
