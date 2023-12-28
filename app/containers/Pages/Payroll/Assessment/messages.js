@@ -356,4 +356,12 @@ export default defineMessages({
     id: `${scope}.TypeHereAdditionalInfo`,
     defaultMessage: 'Type here additional info...',
   },
+  AssessmentUnderReview: {
+    id: `${scope}.AssessmentUnderReview`,
+    defaultMessage: 'Assessment under review',
+  },
+  AssessmentDurationEnded: {
+    id: `${scope}.AssessmentDurationEnded`,
+    defaultMessage: 'Assessment duration ended',
+  },
 });

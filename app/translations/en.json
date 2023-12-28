@@ -2481,7 +2481,9 @@
   "boilerplate.containers.Payroll.assessment.Prev": "Prev",
   "boilerplate.containers.Payroll.assessment.Next": "Next",
   "boilerplate.containers.Payroll.assessment.finish": "Finish",
-  "boilerplate.containers.Payroll.assessment.TypeHereAdditionalInfo": "Type here additional info..."
+  "boilerplate.containers.Payroll.assessment.TypeHereAdditionalInfo": "Type here additional info...",
+  "boilerplate.containers.Payroll.assessment.AssessmentUnderReview": "Assessment under review",
+  "boilerplate.containers.Payroll.assessment.AssessmentDurationEnded": "Assessment duration ended"
 
 
   

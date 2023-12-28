@@ -409,7 +409,7 @@ function EmployeeAssessment(props) {
 
                             <div>
                                 <img src={examLogo2} />
-                                <h1 className={`${classes.textSty}`}>{ examData ?  examData?.templateName : "Assessment duration ended"}</h1>
+                                <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} />  :  examData?.templateName :  <FormattedMessage {...messages.AssessmentDurationEnded} /> }</h1>
                             </div>
 
                             
@@ -426,7 +426,7 @@ function EmployeeAssessment(props) {
                     <div>
                                 
                                 <img src={examLogo} />
-                                <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? "Assessment under review" :  examData?.templateName : "Assessment duration ended"}</h1>
+                                <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} /> :  examData?.templateName : "Assessment duration ended"}</h1>
                                 {examData && (
                                 <p>
                                     {examData?.templateDesc}
