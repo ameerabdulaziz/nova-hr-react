@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef  } from 'react';
 import useStyles from '../../Payroll/Style';
 import style from '../../../../styles/styles.scss'
 import LinearProgress from '@mui/material/LinearProgress';
@@ -17,10 +17,12 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
+import { FormattedMessage , injectIntl } from 'react-intl';
+import messages from '../Assessment/messages';
 
 
 
-const ExamQuestionNextAndPrev = ({
+const ExamQuestionNextAndPrev =  ({
   examData,
   setEndExam,
   setStartExam,
@@ -39,19 +41,41 @@ const ExamQuestionNextAndPrev = ({
   setChoices,
   questionsAnswers,
   setQuestionsAnswers,
+  finishExamFun,
+  textareaEmpTrainingVal,
+  intl
+
 }) => {
 
 
     // const [questionNum, setQuestionNum] = useState(0)
     const { classes } = useStyles();
     const locale = useSelector(state => state.language.locale);
+    const ref  = useRef(null);
     // const [question, setQuestion] = useState(examData?.competencyList[0])
     // const [choices, setChoices] = useState(examData?.choiceList)
     // // const [examQuestionsData, setExamQuestionsData] = useState([])
     // const [questionsAnswers, setQuestionsAnswers] = useState({checkedVal : null, textareaVal: ""})
     
 
+    
 
+
+    useEffect(() => {
+console.log("ref666 =",ref);
+
+      // if(examQuestionsData[0].exampleRequired)
+        // {
+          focusFieldFun()
+        // }
+    }, [questionNum]);
+
+    const focusFieldFun = () => {   
+      if(examData.exampleRequired)
+      {
+        ref?.current?.focus()
+      }   
+    }
 
 //     const nextQueFun = () => {
 //         if(examData?.competencyList.length !== questionNum + 1)
@@ -306,14 +330,34 @@ const ExamQuestionNextAndPrev = ({
     console.log("test =",questionsAnswers?.[questionNum]);
     console.log("test2 =",questionsAnswers?.[questionNum]?.question?.competencyId);
     console.log("test3 =",questionsAnswers?.[questionNum]?.checkedVal?.id);
+
+
+    console.log("questionsAnswers77777 =",questionsAnswers[`que${questionNum + 1}`]);
  
     return(
+      <>
         <Grid item xs={12}  > 
+      <form onSubmit={(e)=>{ 
+          e.preventDefault()
+          if(examData?.competencyList.length >= questionNum + 1)
+          {
+            nextQueFun()
+          }
+
+          // if(examData?.competencyList.length < questionNum + 1 )
+          // {
+          //   finishExamFun()
+          // }
+          }}>
+       
         {/* <Grid item xs={12}  style={!setStartExam?  {display: 'none'} : {display: 'block'}}>  */}
+        {examData?.competencyList.length >= questionNum + 1  && (<>
                     <h1 className={`${classes.textSty} ${style.categorySty} ${locale === "en" ?  style.categoryEnSty : style.categoryArSty}`}>{question?.category}</h1>
+                    </>)}
                         <div className={`${style.examContainer}`}>
                           
                             <div>
+                            {examData?.competencyList.length >= questionNum + 1 && (<>
                               <LinearProgress variant="determinate" value={((questionNum + 1)*100) / examData?.competencyList.length} />
                               <p>{questionNum + 1}/{examData?.competencyList.length}</p>
                               {/* <h1>
@@ -371,7 +415,8 @@ const ExamQuestionNextAndPrev = ({
                                   </FormControl>
 
                                   <p>
-                                      In no, please describe with few words why
+                                      {/* please describe with few words why */}
+                                      <FormattedMessage {...messages.pleaseDescribeWithFewWordsWhy} />
                                   </p>
 
                                   
@@ -379,18 +424,69 @@ const ExamQuestionNextAndPrev = ({
                                   <TextareaAutosize
                                     color="neutral"
                                     minRows={3}
-                                    placeholder="Type here additional info..."
+                                    placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                    // placeholder="Type here additional info..."
                                     size="lg"
                                     // style={{width: "100%"}}
                                     onChange={(e) => { saveQuestions(e, "textarea")}}
                                     // value={ questionsAnswers[`que${questionNum + 1}`]?.textareaVal }
                                     value={questionsAnswers[`que${questionNum + 1}`]?.textareaVal ? questionsAnswers[`que${questionNum + 1}`]?.textareaVal : ""}
                                     // value={questionsAnswers.textareaVal}
+                                    // ref={ref}
+                                    required={
+                                      examData.exampleRequired 
+                                      && questionsAnswers[`que${questionNum + 1}`]
+                                       && questionsAnswers[`que${questionNum + 1}`]?.checkedVal 
+                                      ? true : false}
+                                />
+                                {  
+                                // !examData.exampleRequired ||
+                                // !questionsAnswers[`que${questionNum + 1}`] || 
+                                (
+                                //   questionsAnswers[`que${questionNum + 1}`] 
+                                // && questionsAnswers[`que${questionNum + 1}`]?.textareaVal
+                                // && questionsAnswers[`que${questionNum + 1}`]?.textareaVal.length !== 0 
+                                examData.exampleRequired 
+                                      && questionsAnswers[`que${questionNum + 1}`]
+                                       && questionsAnswers[`que${questionNum + 1}`]?.checkedVal 
+                                )
+                                 ? <span> <FormattedMessage {...messages.ThisFieldIsRequired} /></span> : (
+                                  null
+                                )}
+
+                                </>)}
+
+                                {/* <div className={style.lineStye}></div> */}
+
+                                {examData?.competencyList.length < questionNum + 1   && (<>
+                                <p>
+                                  {/* Employee training request */}
+                                  <FormattedMessage {...messages.EmployeeTrainingRequest} />
+                                </p>
+                               
+
+                                <TextareaAutosize
+                                    color="neutral"
+                                    minRows={3}
+                                    placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                    // placeholder="Type here additional info..."
+                                    size="lg"
+                                    // style={{width: "100%"}}
+                                    onChange={(e) => { saveQuestions(e, "textareaEmpTraining")}}
+                                    // value={ questionsAnswers[`que${questionNum + 1}`]?.textareaVal }
+                                    value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""}
+                                    // value={questionsAnswers?.textareaEmpTraining ? questionsAnswers?.textareaEmpTraining : ""}
+                                    // value={questionsAnswers.textareaEmpTraining?.textareaEmpTraining ? questionsAnswers.textareaEmpTraining?.textareaEmpTraining : ""}
+                                    // value={questionsAnswers.textareaVal}
+                                    // inputRef={inputRef} 
+                                    // slotProps={{ textarea: { ref:inputRef } }}
                                     
                                 />
-                                <span>required</span>
 
-                                <div></div>
+                                
+                                 </>)}
+
+                                 <div className={style.lineStye}></div>
 
                                 <Grid
                                   container
@@ -420,27 +516,56 @@ const ExamQuestionNextAndPrev = ({
                                       // disabled={brCode? false : true}
                                       onClick={prevQueFun}
                                     >
-                                   {/* <FormattedMessage {...messages.copytoAllBr} /> */}
-                                      Prev
+                                   <FormattedMessage {...messages.Prev} />
+                                      {/* Prev */}
                                     </Button>
                                   </Grid>
 
+                              {examData?.competencyList.length >= questionNum + 1  && (<>
                                   <Grid item xs={6} md={3} lg={2}>
                                     <Button
                                       variant="contained"
                                       size="medium"
                                       color="primary"
-                                      onClick={nextQueFun}
-                                      // disabled={examData.exampleRequired 
-                                      //   &&  questionsAnswers[`que${questionNum + 1}`] 
-                                      //   && questionsAnswers[`que${questionNum + 1}`].textareaVal 
-                                      //   && questionsAnswers[`que${questionNum + 1}`].textareaVal.length !== 0  ? false : true}
+                                      type='submit'
+                                      // onClick={nextQueFun}
+                                      // onSubmit={nextQueFun}
+                                      
+                                      // disabled={
+                                      //   questionsAnswers[`que${questionNum + 1}`]
+                                      //  && questionsAnswers[`que${questionNum + 1}`]?.checkedVal 
+                                       
+                                      //   // !examData.exampleRequired 
+                                      //   // ||  (
+                                      //   //   questionsAnswers[`que${questionNum + 1}`] 
+                                      //   // && questionsAnswers[`que${questionNum + 1}`]?.textareaVal 
+                                      //   // && questionsAnswers[`que${questionNum + 1}`]?.textareaVal.length !== 0)  
+                                      //   // ? false : true}
+                                      //   ? true : false}
                                       // disabled={examData.exampleRequired &&  questionsAnswers.textareaVal.length !== 0 ? false : true}
                                     >
-                                      {/* <FormattedMessage {...messages.copytoAllBr} /> */}
-                                      Next
+                                      <FormattedMessage {...messages.Next} />
+                                      {/* Next */}
                                     </Button>
                                   </Grid>
+                                  </>)}
+
+                                  {examData?.competencyList.length < questionNum + 1   && (<>
+                                  <Grid item xs={6} md={3} lg={2}>
+                                    <Button
+                                      variant="contained"
+                                      size="medium"
+                                      color="primary"
+                                      type='submit'
+                                      // onSubmit={finishExamFun}
+                                      onClick={finishExamFun}
+                                      // disabled={examData.exampleRequired &&  allQuestionsAnswers.textareaVal.length !== 0 ? false : true}
+                                    >
+                                       <FormattedMessage {...messages.finish} />
+                                      {/* finish */}
+                                    </Button>
+                                  </Grid>
+                                  </>)}
 
                                  
 
@@ -448,7 +573,9 @@ const ExamQuestionNextAndPrev = ({
                                 </Grid>
                             </div>
                         </div>                   
+                    </form>
                     </Grid>
+                    </>
     )
 }
 

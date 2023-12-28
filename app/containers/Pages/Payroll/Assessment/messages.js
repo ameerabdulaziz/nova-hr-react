@@ -299,4 +299,61 @@ export default defineMessages({
     id: `${scope}.thisActionWillResetPeerAppraisalForAllEmployeeInCurrentMonth`,
     defaultMessage: 'thisActionWillResetPeerAppraisalForAllEmployeeInCurrentMonth',
   },
+  // EmployeeAssessment
+  AssessmentFinish: {
+    id: `${scope}.AssessmentFinish`,
+    defaultMessage: 'Assessment Finished',
+  },
+  Start: {
+    id: `${scope}.Start`,
+    defaultMessage: 'Start',
+  },
+  completedQuestions: {
+    id: `${scope}.completedQuestions`,
+    defaultMessage: 'Completed questions',
+  },
+  ThereAreQuestionsThatYouDidNotAnswerWhichAre: {
+    id: `${scope}.ThereAreQuestionsThatYouDidNotAnswerWhichAre`,
+    defaultMessage: 'There are questions that you did not answer, which are',
+  },
+  BackToAssessment: {
+    id: `${scope}.BackToAssessment`,
+    defaultMessage: 'Assessment Back ',
+  },
+  submit: {
+    id: `${scope}.submit`,
+    defaultMessage: 'Submit',
+  },
+  ThankYouForCompleteTheAssessment: {
+    id: `${scope}.ThankYouForCompleteTheAssessment`,
+    defaultMessage: 'Thank you for complete the assessment',
+  },
+  pleaseDescribeWithFewWordsWhy: {
+    id: `${scope}.pleaseDescribeWithFewWordsWhy`,
+    defaultMessage: 'Please describe with few words why',
+  },
+  ThisFieldIsRequired: {
+    id: `${scope}.ThisFieldIsRequired`,
+    defaultMessage: 'This field is required',
+  },
+  EmployeeTrainingRequest: {
+    id: `${scope}.EmployeeTrainingRequest`,
+    defaultMessage: 'Training Request',
+  },
+  Prev: {
+    id: `${scope}.Prev`,
+    defaultMessage: 'Prev',
+  },
+  Next: {
+    id: `${scope}.Next`,
+    defaultMessage: 'Next',
+  },
+  finish: {
+    id: `${scope}.finish`,
+    defaultMessage: 'Finish',
+  },
+  TypeHereAdditionalInfo: {
+    id: `${scope}.TypeHereAdditionalInfo`,
+    defaultMessage: 'Type here additional info...',
+  },
 });

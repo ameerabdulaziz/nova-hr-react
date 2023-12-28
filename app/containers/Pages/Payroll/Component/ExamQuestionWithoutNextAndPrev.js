@@ -17,6 +17,8 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
+import { FormattedMessage , injectIntl } from 'react-intl';
+import messages from '../Assessment/messages';
 
 
 
@@ -40,7 +42,9 @@ const ExamQuestionWithoutNextAndPrev = ({
   // questionsAnswers,
 //   setQuestionsAnswers,
 allQuestionsAnswers,
-finishExamFun
+finishExamFun,
+textareaEmpTrainingVal,
+intl
 }) => {
 
 
@@ -55,6 +59,10 @@ finishExamFun
  
     return(
         <>
+        <form style={{width: "100%"}} onSubmit={(e)=>{ 
+          e.preventDefault()
+          finishExamFun()
+          }}>
         {examData?.competencyList.map((Qui,index)=>(
         <Grid item xs={12}  key={index}> 
         {/* <Grid item xs={12}  style={!setStartExam?  {display: 'none'} : {display: 'block'}}>  */}
@@ -123,7 +131,8 @@ finishExamFun
                                   </FormControl>
 
                                   <p>
-                                      In no, please describe with few words why
+                                      {/* please describe with few words why */}
+                                      <FormattedMessage {...messages.pleaseDescribeWithFewWordsWhy} />
                                   </p>
 
                                   
@@ -131,21 +140,63 @@ finishExamFun
                                   <TextareaAutosize
                                     color="neutral"
                                     minRows={3}
-                                    placeholder="Type here additional info..."
+                                    placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                    // placeholder="Type here additional info..."
                                     size="lg"
                                     // style={{width: "100%"}}
-                                    onChange={(e) => { saveAllQuestions(e, "textarea",index)}}
-                                    value={allQuestionsAnswers[`que${index + 1}`]?.textareaVal ? allQuestionsAnswers[`que${index + 1}`]?.textareaVal : ""}
+                                    onBlur={(e) => { saveAllQuestions(e, "textarea",index)}}
+                                    // onChange={(e) => { saveAllQuestions(e, "textarea",index)}}
+                                    value={ allQuestionsAnswers[`que${index + 1}`]?.textareaVal}
+                                    // value={allQuestionsAnswers[`que${index + 1}`]?.textareaVal ? allQuestionsAnswers[`que${index + 1}`]?.textareaVal : ""}
                                     // value={allQuestionsAnswers[`que${index + 1}`]?.textareaVal}
                                     // value={questionsAnswers[`que${index + 1}`]?.textareaVal}
                                     // value={questionsAnswers.textareaVal}
+                                    // required
+                                    required={
+                                      examData.exampleRequired 
+                                      && allQuestionsAnswers[`que${index + 1}`]
+                                       && allQuestionsAnswers[`que${index + 1}`]?.checkedVal 
+                                      ? true : false}
+                                />
+                                
+
+                                {  
+                                (
+                                examData.exampleRequired 
+                                      && allQuestionsAnswers[`que${index + 1}`]
+                                       && allQuestionsAnswers[`que${index + 1}`]?.checkedVal 
+                                )
+                                 ? <span className={style.errorMes}>This field is required</span> : (
+                                  null
+                                )}
+
+                                <div className={style.lineStye}></div>
+
+
+                           {examData?.competencyList.length ===  index + 1 ? (<>
+                                <p>
+                                  {/* Employee training request */}
+                                  <FormattedMessage {...messages.EmployeeTrainingRequest} />
+                                </p>
+                               
+
+                                <TextareaAutosize
+                                    color="neutral"
+                                    minRows={3}
+                                    placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                    // placeholder="Type here additional info..."
+                                    size="lg"
+                                    // style={{width: "100%"}}
+                                    onChange={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
+                                    // value={ questionsAnswers[`que${questionNum + 1}`]?.textareaVal }
+                                    value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""}
+                                    // value={allQuestionsAnswers?.textareaEmpTraining ? allQuestionsAnswers?.textareaEmpTraining : ""}
+                                    // value={questionsAnswers.textareaEmpTraining?.textareaEmpTraining ? questionsAnswers.textareaEmpTraining?.textareaEmpTraining : ""}
+                                    // value={questionsAnswers.textareaVal}
                                     
                                 />
-                                <span>required</span>
 
-                                <div></div>
-
-
+                            </>) : null}
 
                                 <Grid
                                   container
@@ -187,11 +238,13 @@ finishExamFun
                                       variant="contained"
                                       size="medium"
                                       color="primary"
-                                      onClick={finishExamFun}
+                                      // onSubmit={finishExamFun}
+                                      // onClick={finishExamFun}
+                                      type='submit'
                                       // disabled={examData.exampleRequired &&  allQuestionsAnswers.textareaVal.length !== 0 ? false : true}
                                     >
-                                      
-                                      finish
+                                      <FormattedMessage {...messages.finish} />
+                                      {/* finish */}
                                     </Button>
                                   </Grid>
 
@@ -204,6 +257,8 @@ finishExamFun
                         </div>                   
                     </Grid>
                     ))}
+
+                    </form>
                     </>
     )
 }
