@@ -1,19 +1,22 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  Stack,
-  Typography
-} from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Button, IconButton, Stack } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import PayRollLoader from '../../Component/PayRollLoader';
+import { ServerURL } from '../../api/ServerConfig';
 import payrollMessages from '../../messages';
 import api from '../api/UploadAssessmentGuidelinesData';
 import messages from '../messages';
@@ -21,18 +24,16 @@ import messages from '../messages';
 function UploadAssessmentGuidelines(props) {
   const { intl } = props;
 
-  // const locale = useSelector((state) => state.language.locale);
-
   const title = localStorage.getItem('MenuName');
 
   const [isPreviewPopupOpen, setIsPreviewPopupOpen] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [formInfo, setFormInfo] = useState({
-    competency: null,
-    competencyAr: null,
-    rating: null,
-    performance: null,
+    competency: '',
+    competencyAr: '',
+    rating: '',
+    performance: '',
   });
 
   const onFormSubmit = async (evt) => {
@@ -40,8 +41,38 @@ function UploadAssessmentGuidelines(props) {
 
     setIsLoading(true);
 
+    const fd = new FormData();
+
+    if (formInfo.competency) {
+      fd.append(
+        'Competency',
+        formInfo.competency instanceof File ? formInfo.competency : null
+      );
+    }
+
+    if (formInfo.competencyAr) {
+      fd.append(
+        'CompetencyAr',
+        formInfo.competencyAr instanceof File ? formInfo.competencyAr : null
+      );
+    }
+
+    if (formInfo.rating) {
+      fd.append(
+        'Rating',
+        formInfo.rating instanceof File ? formInfo.rating : null
+      );
+    }
+
+    if (formInfo.performance) {
+      fd.append(
+        'Performance',
+        formInfo.performance instanceof File ? formInfo.performance : null
+      );
+    }
+
     try {
-      await api().save(formInfo);
+      await api().save(fd);
       toast.success(notif.saved);
     } catch (error) {
       //
@@ -49,6 +80,35 @@ function UploadAssessmentGuidelines(props) {
       setIsLoading(false);
     }
   };
+
+  const fetchNeededData = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await api().CheckFileExists();
+
+      setFormInfo({
+        competency: response.competency
+          ? `${ServerURL}Doc/Assessment/Competency.pdf`
+          : '',
+        competencyAr: response.competencyAr
+          ? `${ServerURL}Doc/Assessment/CompetencyAr.pdf`
+          : '',
+        rating: response.rating ? `${ServerURL}Doc/Assessment/Rating.pdf` : '',
+        performance: response.performance
+          ? `${ServerURL}Doc/Assessment/Performance.pdf`
+          : '',
+      });
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
 
   const getAttachmentType = (file) => {
     if (file && typeof file === 'string') {
@@ -72,7 +132,7 @@ function UploadAssessmentGuidelines(props) {
 
         if (extension === 'application/pdf') {
           if (file.name === fileName + '.pdf') {
-            setFormInfo(prev => ({ ...prev, [evt.target.name]: file }));
+            setFormInfo((prev) => ({ ...prev, [evt.target.name]: file }));
           } else {
             toast.error(intl.formatMessage(messages.invalidFileName));
           }
@@ -94,6 +154,10 @@ function UploadAssessmentGuidelines(props) {
     setUploadedFile(item);
   };
 
+  const deleteFile = async (item) => {
+    setFormInfo((prev) => ({ ...prev, [item]: null }));
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <FileViewerPopup
@@ -105,159 +169,214 @@ function UploadAssessmentGuidelines(props) {
         validPDFTypes={['pdf']}
       />
 
-      <form onSubmit={onFormSubmit} >
+      <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' title={title} desc=''>
-          <Grid container spacing={3} mt={0} >
-            <Grid item xs={12} md={4}>
-              <Card>
-                <CardContent sx={{ p: '16px!important' }}>
-                  <Typography variant='h6' mb={3} >{intl.formatMessage(messages.competenciesGuideline)}</Typography>
+          <TableContainer>
+            <Table size='small' sx={{ minWidth: 700 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>{intl.formatMessage(messages.title)}</TableCell>
 
-                  <Stack direction="row" alignItems="center" spacing={2}>
-                    <div>
-                      <input
-                        accept="application/pdf"
-                        id="competency-attachment-button-file"
-                        name='competency'
-                        type="file"
-                        style={{ display: 'none' }}
-                        onChange={evt => onDocumentInputChange(evt, 'Competency')}
-                      />
-                      <label htmlFor="competency-attachment-button-file">
-                        <Button variant="contained" component="span">
-                          <FormattedMessage
-                            {...messages.upload}
-                          />
-                        </Button>
-                      </label>
-                    </div>
+                  <TableCell sx={{ width: 150 }}>
+                    {intl.formatMessage(messages.actions)}
+                  </TableCell>
+                </TableRow>
+              </TableHead>
 
-                    {formInfo.competency && (
-                      <Button variant="contained" color='secondary' component="span" onClick={() => openPreviewPopup(formInfo.competency)} >
-                        <FormattedMessage
-                          {...messages.preview}
+              <TableBody>
+                <TableRow
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                  }}
+                >
+                  <TableCell>
+                    {intl.formatMessage(messages.competenciesGuideline)}
+                  </TableCell>
+
+                  <TableCell>
+                    <Stack direction='row' alignItems='center' spacing={2}>
+                      <div>
+                        <input
+                          accept='application/pdf'
+                          id='competency-attachment-button-file'
+                          name='competency'
+                          type='file'
+                          style={{ display: 'none' }}
+                          onChange={(evt) => onDocumentInputChange(evt, 'Competency')
+                          }
                         />
-                      </Button>
-                    )}
-                  </Stack>
+                        <label htmlFor='competency-attachment-button-file'>
+                          <IconButton component='span'>
+                            <CloudUploadIcon />
+                          </IconButton>
+                        </label>
+                      </div>
 
-                  <Stack direction="row" alignItems="center" mt={2} spacing={2}>
-                    <div>
-                      <input
-                        accept="application/pdf"
-                        id="competencyAr-attachment-button-file"
-                        name='competencyAr'
-                        type="file"
-                        style={{ display: 'none' }}
-                        onChange={evt => onDocumentInputChange(evt, 'CompetencyAr')}
-                      />
-                      <label htmlFor="competencyAr-attachment-button-file">
-                        <Button variant="contained" component="span">
-                          <FormattedMessage
-                            {...messages.uploadAr}
-                          />
-                        </Button>
-                      </label>
-                    </div>
+                      <IconButton
+                        disabled={!formInfo.competency}
+                        onClick={() => openPreviewPopup(formInfo.competency)}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
 
-                    {formInfo.competencyAr && (
-                      <Button variant="contained" color='secondary' component="span" onClick={() => openPreviewPopup(formInfo.competencyAr)}>
-                        <FormattedMessage
-                          {...messages.preview}
+                      <IconButton
+                        color='error'
+                        disabled={!formInfo.competency}
+                        onClick={() => deleteFile('competency')}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
+
+                <TableRow
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                  }}
+                >
+                  <TableCell>
+                    {intl.formatMessage(messages.arabicCompetenciesGuideline)}
+                  </TableCell>
+
+                  <TableCell>
+                    <Stack direction='row' alignItems='center' spacing={2}>
+                      <div>
+                        <input
+                          accept='application/pdf'
+                          id='competencyAr-attachment-button-file'
+                          name='competencyAr'
+                          type='file'
+                          style={{ display: 'none' }}
+                          onChange={(evt) => onDocumentInputChange(evt, 'CompetencyAr')
+                          }
                         />
-                      </Button>
-                    )}
-                  </Stack>
+                        <label htmlFor='competencyAr-attachment-button-file'>
+                          <IconButton component='span'>
+                            <CloudUploadIcon />
+                          </IconButton>
+                        </label>
+                      </div>
 
-                </CardContent>
-              </Card>
-            </Grid>
+                      <IconButton
+                        disabled={!formInfo.competencyAr}
+                        onClick={() => openPreviewPopup(formInfo.competencyAr)}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
 
-            <Grid item xs={12} md={4}>
-              <Card>
-                <CardContent sx={{ p: '16px!important' }}>
-                  <Typography variant='h6' mb={3} >{intl.formatMessage(messages.rating)}</Typography>
+                      <IconButton
+                        color='error'
+                        disabled={!formInfo.competencyAr}
+                        onClick={() => deleteFile('competencyAr')}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
 
-                  <Stack direction="row" alignItems="center" spacing={2}>
-                    <div>
-                      <input
-                        accept="application/pdf"
-                        id="rating-attachment-button-file"
-                        name='rating'
-                        type="file"
-                        style={{ display: 'none' }}
-                        onChange={evt => onDocumentInputChange(evt, 'Rating')}
-                      />
-                      <label htmlFor="rating-attachment-button-file">
-                        <Button variant="contained" component="span">
-                          <FormattedMessage
-                            {...messages.upload}
-                          />
-                        </Button>
-                      </label>
-                    </div>
+                <TableRow
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                  }}
+                >
+                  <TableCell>{intl.formatMessage(messages.rating)}</TableCell>
 
-                    {formInfo.rating && (
-                      <Button variant="contained" color='secondary' component="span" onClick={() => openPreviewPopup(formInfo.rating)}>
-                        <FormattedMessage
-                          {...messages.preview}
+                  <TableCell>
+                    <Stack direction='row' alignItems='center' spacing={2}>
+                      <div>
+                        <input
+                          accept='application/pdf'
+                          id='rating-attachment-button-file'
+                          name='rating'
+                          type='file'
+                          style={{ display: 'none' }}
+                          onChange={(evt) => onDocumentInputChange(evt, 'Rating')
+                          }
                         />
-                      </Button>
-                    )}
-                  </Stack>
+                        <label htmlFor='rating-attachment-button-file'>
+                          <IconButton component='span'>
+                            <CloudUploadIcon />
+                          </IconButton>
+                        </label>
+                      </div>
 
-                </CardContent>
-              </Card>
-            </Grid>
+                      <IconButton
+                        disabled={!formInfo.rating}
+                        onClick={() => openPreviewPopup(formInfo.rating)}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
 
-            <Grid item xs={12} md={4}>
-              <Card>
-                <CardContent sx={{ p: '16px!important' }}>
-                  <Typography variant='h6' mb={3} >{intl.formatMessage(messages.performanceAppraisalPurpose)}</Typography>
+                      <IconButton
+                        color='error'
+                        disabled={!formInfo.rating}
+                        onClick={() => deleteFile('rating')}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
 
-                  <Stack direction="row" alignItems="center" spacing={2}>
-                    <div>
-                      <input
-                        accept="application/pdf"
-                        id="performance-attachment-button-file"
-                        name='performance'
-                        type="file"
-                        style={{ display: 'none' }}
-                        onChange={evt => onDocumentInputChange(evt, 'Performance')}
-                      />
-                      <label htmlFor="performance-attachment-button-file">
-                        <Button variant="contained" component="span">
-                          <FormattedMessage
-                            {...messages.upload}
-                          />
-                        </Button>
-                      </label>
-                    </div>
+                <TableRow
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                  }}
+                >
+                  <TableCell>
+                    {intl.formatMessage(messages.performanceAppraisalPurpose)}
+                  </TableCell>
 
-                    {formInfo.performance && (
-                      <Button variant="contained" color='secondary' component="span" onClick={() => openPreviewPopup(formInfo.performance)}>
-                        <FormattedMessage
-                          {...messages.preview}
+                  <TableCell>
+                    <Stack direction='row' alignItems='center' spacing={2}>
+                      <div>
+                        <input
+                          accept='application/pdf'
+                          id='performance-attachment-button-file'
+                          name='performance'
+                          type='file'
+                          style={{ display: 'none' }}
+                          onChange={(evt) => onDocumentInputChange(evt, 'Performance')
+                          }
                         />
-                      </Button>
-                    )}
-                  </Stack>
+                        <label htmlFor='performance-attachment-button-file'>
+                          <IconButton component='span'>
+                            <CloudUploadIcon />
+                          </IconButton>
+                        </label>
+                      </div>
 
-                </CardContent>
-              </Card>
-            </Grid>
+                      <IconButton
+                        disabled={!formInfo.performance}
+                        onClick={() => openPreviewPopup(formInfo.performance)}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
 
-            <Grid item xs={12} mt={4} >
-              <Button
-                variant='contained'
-                type='submit'
-                size='medium'
-                color='secondary'
-              >
-                <FormattedMessage {...payrollMessages.save} />
-              </Button>
-            </Grid>
-          </Grid>
+                      <IconButton
+                        color='error'
+                        disabled={!formInfo.performance}
+                        onClick={() => deleteFile('performance')}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <Button
+            variant='contained'
+            type='submit'
+            size='medium'
+            color='secondary'
+          >
+            <FormattedMessage {...payrollMessages.save} />
+          </Button>
         </PapperBlock>
       </form>
     </PayRollLoader>

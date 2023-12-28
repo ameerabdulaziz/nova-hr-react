@@ -347,4 +347,20 @@ export default defineMessages({
     id: `${scope}.codes.to`,
     defaultMessage: 'to',
   },
+  arName: {
+    id: `${scope}.codes.arName`,
+    defaultMessage: 'arName',
+  },
+  enName: {
+    id: `${scope}.codes.enName`,
+    defaultMessage: 'enName',
+  },
+  expDate: {
+    id: `${scope}.codes.expDate`,
+    defaultMessage: 'expDate',
+  },
+  branchName: {
+    id: `${scope}.codes.branchName`,
+    defaultMessage: 'branchName',
+  },
 });

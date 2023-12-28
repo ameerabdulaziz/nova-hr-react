@@ -364,6 +364,14 @@ export default defineMessages({
     id: `${scope}.AssessmentDurationEnded`,
     defaultMessage: 'Assessment duration ended',
   },
+  noFilesUploaded: {
+    id: `${scope}.noFilesUploaded`,
+    defaultMessage: 'noFilesUploaded',
+  },
+  arabicCompetenciesGuideline: {
+    id: `${scope}.arabicCompetenciesGuideline`,
+    defaultMessage: 'arabicCompetenciesGuideline',
+  },
   monthAndYearErrorMes: {
     id: `${scope}.monthAndYearErrorMes`,
     defaultMessage: 'Must To Choose Year And Month',

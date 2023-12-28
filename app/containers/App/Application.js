@@ -249,6 +249,7 @@ import {
   LeaveTrx,
   ShiftTransfere,
   ShiftReview,
+  ExceptionVacDays,
   ShiftImport,
   GovernmentSickLeaveCreate,
   GovernmentSickLeave,
@@ -1301,6 +1302,11 @@ function Application(props) {
         <Route
           path='/app/Pages/vac/VacationsTypes'
           component={VacationsTypes}
+        />
+
+        <Route
+          path='/app/Pages/vac/ExceptionVacDays'
+          component={ExceptionVacDays}
         />
 
         <Route
