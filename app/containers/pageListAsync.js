@@ -1623,6 +1623,13 @@ export const EditVacationType = loadable(
   }
 );
 
+export const ExceptionVacDays = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/ExceptionVacDays'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const VacationsTypes = loadable(
   () => import('./Pages/Payroll/Vacation/Code/VacationsTypes'),
   {
