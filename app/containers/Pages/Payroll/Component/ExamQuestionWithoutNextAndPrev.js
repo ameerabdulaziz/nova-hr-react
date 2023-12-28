@@ -31,7 +31,7 @@ intl
     const { classes } = useStyles();
     const locale = useSelector(state => state.language.locale);
     
- 
+ console.log("allQuestionsAnswers =", allQuestionsAnswers);
     return(
         <>
         <form style={{width: "100%"}} onSubmit={(e)=>{ 
@@ -86,8 +86,10 @@ intl
                                     minRows={3}
                                     placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
                                     size="lg"
+                                    // onChange={(e) => { saveAllQuestions(e, "textarea",index)}}
                                     onBlur={(e) => { saveAllQuestions(e, "textarea",index)}}
-                                    value={ allQuestionsAnswers[`que${index + 1}`]?.textareaVal}
+                                    defaultValue={ allQuestionsAnswers[`que${index + 1}`]?.textareaVal}
+                                    // value={ allQuestionsAnswers[`que${index + 1}`]?.textareaVal}
                                     required={
                                       examData.exampleRequired 
                                       && allQuestionsAnswers[`que${index + 1}`]
@@ -110,9 +112,9 @@ intl
 
 
                            {examData?.competencyList.length ===  index + 1 ? (<>
-                                <p>
+                                <h1>
                                   <FormattedMessage {...messages.EmployeeTrainingRequest} />
-                                </p>
+                                </h1>
                                
 
                                 <TextareaAutosize
@@ -120,8 +122,10 @@ intl
                                     minRows={3}
                                     placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
                                     size="lg"
-                                    onChange={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
-                                    value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""} 
+                                    onBlur={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
+                                    defaultValue={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""} 
+                                    // onChange={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
+                                    // value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""} 
                                 />
 
                             </>) : null}

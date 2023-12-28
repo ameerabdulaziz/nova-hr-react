@@ -36,13 +36,14 @@
     align-items: end;
     justify-content: space-between;
     padding: 30px 5%;
+    align-items: center;
     
 
     & > div:nth-child(1)
     {
         display: flex;
         align-items: center;
-        align-items: end;
+        // align-items: end;
 
         img
         {
@@ -70,6 +71,30 @@
     & > div:nth-child(2)
     {
         display: flex;
+
+        justify-content: end;
+        // align-items: end;
+
+        width: 50%;
+        align-items: center;
+
+        svg
+        {
+            font-size: 35px;
+        }
+
+        p
+        {
+            margin: 0;
+            font-size: 20px;
+            color: #ffffff;
+            margin: 0 1%;
+        }
+
+        button
+        {
+            margin: 0 1%;
+        }
     }
 }
 

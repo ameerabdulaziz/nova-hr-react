@@ -994,6 +994,7 @@
   "boilerplate.containers.Payroll.totalvalue": "اجمالى القسط",
   "boilerplate.containers.Payroll.paysNo": "عدد الاقساط",
   "boilerplate.containers.Payroll.copy": "نسخ",
+  "boilerplate.containers.Payroll.review": "استعراض",
   
   
   
@@ -2543,5 +2544,6 @@
   "boilerplate.containers.Payroll.assessment.finish": "إنهاء",
   "boilerplate.containers.Payroll.assessment.TypeHereAdditionalInfo": "...اكتب هنا معلومات إضافية",
   "boilerplate.containers.Payroll.assessment.AssessmentUnderReview": "التقييم تحت المراجعة",
-  "boilerplate.containers.Payroll.assessment.AssessmentDurationEnded": "انتهت مدة التقييم"
+  "boilerplate.containers.Payroll.assessment.AssessmentDurationEnded": "انتهت مدة التقييم",
+  "boilerplate.containers.Payroll.assessment.monthAndYearErrorMes": "يجب أن تختار السنة والشهر"
 }

@@ -385,6 +385,8 @@ import {
   UploadAssessmentGuidelines,
   AssessmentGuidelines,
   MonthOpenCloseAss,
+  AssessmentReview,
+  AssessmentReviewEdit,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1860,6 +1862,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/MonthOpenCloseAss'
           component={MonthOpenCloseAss}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AssessmentReview'
+          component={AssessmentReview}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AssessmentReviewEdit'
+          component={AssessmentReviewEdit}
         />
 
         {/* Default */}

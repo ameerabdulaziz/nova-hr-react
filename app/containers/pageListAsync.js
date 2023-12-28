@@ -2307,3 +2307,18 @@ export const MonthOpenCloseAss = loadable(
     fallback: <Loading />,
   }
 );
+
+
+export const AssessmentReview = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/AssessmentReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const AssessmentReviewEdit = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/AssessmentReviewEdit'),
+  {
+    fallback: <Loading />,
+  }
+);

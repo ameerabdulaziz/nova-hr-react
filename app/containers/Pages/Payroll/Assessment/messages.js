@@ -364,4 +364,8 @@ export default defineMessages({
     id: `${scope}.AssessmentDurationEnded`,
     defaultMessage: 'Assessment duration ended',
   },
+  monthAndYearErrorMes: {
+    id: `${scope}.monthAndYearErrorMes`,
+    defaultMessage: 'Must To Choose Year And Month',
+  },
 });
