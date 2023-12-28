@@ -2300,3 +2300,10 @@ export const AssessmentGuidelines = loadable(
     fallback: <Loading />,
   }
 );
+
+export const MonthOpenCloseAss = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/MonthOpenCloseAss'),
+  {
+    fallback: <Loading />,
+  }
+);
