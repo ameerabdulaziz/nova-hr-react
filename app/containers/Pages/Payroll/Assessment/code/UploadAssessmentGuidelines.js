@@ -44,19 +44,31 @@ function UploadAssessmentGuidelines(props) {
     const fd = new FormData();
 
     if (formInfo.competency) {
-      fd.append('Competency', null);
+      fd.append(
+        'Competency',
+        formInfo.competency instanceof File ? formInfo.competency : null
+      );
     }
 
     if (formInfo.competencyAr) {
-      fd.append('CompetencyAr', null);
+      fd.append(
+        'CompetencyAr',
+        formInfo.competencyAr instanceof File ? formInfo.competencyAr : null
+      );
     }
 
     if (formInfo.rating) {
-      fd.append('Rating', null);
+      fd.append(
+        'Rating',
+        formInfo.rating instanceof File ? formInfo.rating : null
+      );
     }
 
     if (formInfo.performance) {
-      fd.append('Performance', null);
+      fd.append(
+        'Performance',
+        formInfo.performance instanceof File ? formInfo.performance : null
+      );
     }
 
     try {
