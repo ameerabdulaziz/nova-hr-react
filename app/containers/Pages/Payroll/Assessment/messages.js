@@ -251,4 +251,52 @@ export default defineMessages({
     id: `${scope}.performanceAppraisalPurpose`,
     defaultMessage: 'performanceAppraisalPurpose',
   },
+  branch: {
+    id: `${scope}.branch`,
+    defaultMessage: 'branch',
+  },
+  month: {
+    id: `${scope}.month`,
+    defaultMessage: 'month',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'year',
+  },
+  title: {
+    id: `${scope}.title`,
+    defaultMessage: 'title',
+  },
+  arTitle: {
+    id: `${scope}.arTitle`,
+    defaultMessage: 'arTitle',
+  },
+  openAssessmentToEditFor: {
+    id: `${scope}.openAssessmentToEditFor`,
+    defaultMessage: 'openAssessmentToEditFor',
+  },
+  openMonth: {
+    id: `${scope}.openMonth`,
+    defaultMessage: 'openMonth',
+  },
+  closeMonth: {
+    id: `${scope}.closeMonth`,
+    defaultMessage: 'closeMonth',
+  },
+  stopEmployeeSelfAssessment: {
+    id: `${scope}.stopEmployeeSelfAssessment`,
+    defaultMessage: 'stopEmployeeSelfAssessment',
+  },
+  reset: {
+    id: `${scope}.reset`,
+    defaultMessage: 'reset',
+  },
+  resetPeerAppraisalSetting: {
+    id: `${scope}.resetPeerAppraisalSetting`,
+    defaultMessage: 'resetPeerAppraisalSetting',
+  },
+  thisActionWillResetPeerAppraisalForAllEmployeeInCurrentMonth: {
+    id: `${scope}.thisActionWillResetPeerAppraisalForAllEmployeeInCurrentMonth`,
+    defaultMessage: 'thisActionWillResetPeerAppraisalForAllEmployeeInCurrentMonth',
+  },
 });
