@@ -388,6 +388,8 @@ import {
   MonthOpenCloseAss,
   AssessmentReview,
   AssessmentReviewEdit,
+  CareerDevPlan,
+  CareerDevPlanCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1853,6 +1855,21 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/IndividualDevelopmentPlanEdit'
           component={IndividualDevelopmentPlanCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/CareerDevPlan'
+          component={CareerDevPlan}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/CareerDevPlanCreate'
+          component={CareerDevPlanCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/CareerDevPlanEdit'
+          component={CareerDevPlanCreate}
         />
 
         <Route

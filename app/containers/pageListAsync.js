@@ -2294,6 +2294,20 @@ export const IndividualDevelopmentPlanCreate = loadable(
   }
 );
 
+export const CareerDevPlan = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/CareerDevPlan'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CareerDevPlanCreate = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/CareerDevPlanCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const UploadAssessmentGuidelines = loadable(
   () => import('./Pages/Payroll/Assessment/code/UploadAssessmentGuidelines'),
   {

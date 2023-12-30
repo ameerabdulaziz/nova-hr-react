@@ -376,4 +376,56 @@ export default defineMessages({
     id: `${scope}.monthAndYearErrorMes`,
     defaultMessage: 'Must To Choose Year And Month',
   },
+  areaOfStrength: {
+    id: `${scope}.areaOfStrength`,
+    defaultMessage: 'areaOfStrength',
+  },
+  areaForDevelopment: {
+    id: `${scope}.areaForDevelopment`,
+    defaultMessage: 'areaForDevelopment',
+  },
+  departmentStructureStatus: {
+    id: `${scope}.departmentStructureStatus`,
+    defaultMessage: 'departmentStructureStatus',
+  },
+  actionPlanToImprove: {
+    id: `${scope}.actionPlanToImprove`,
+    defaultMessage: 'actionPlanToImprove',
+  },
+  goals: {
+    id: `${scope}.goals`,
+    defaultMessage: 'goals',
+  },
+  trainingNeeds: {
+    id: `${scope}.trainingNeeds`,
+    defaultMessage: 'trainingNeeds',
+  },
+  other: {
+    id: `${scope}.other`,
+    defaultMessage: 'other',
+  },
+  actionPlanResult: {
+    id: `${scope}.actionPlanResult`,
+    defaultMessage: 'actionPlanResult',
+  },
+  descriptionOfActionPlanResult: {
+    id: `${scope}.descriptionOfActionPlanResult`,
+    defaultMessage: 'descriptionOfActionPlanResult',
+  },
+  effectiveOn: {
+    id: `${scope}.effectiveOn`,
+    defaultMessage: 'effectiveOn',
+  },
+  actionPlanResultOther: {
+    id: `${scope}.actionPlanResultOther`,
+    defaultMessage: 'actionPlanResultOther',
+  },
+  effectiveOnOther: {
+    id: `${scope}.effectiveOnOther`,
+    defaultMessage: 'effectiveOnOther',
+  },
+  careerDevPlanSection1Message: {
+    id: `${scope}.careerDevPlanSection1Message`,
+    defaultMessage: 'careerDevPlanSection1Message',
+  },
 });
