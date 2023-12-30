@@ -30,10 +30,10 @@ function UploadAssessmentGuidelines(props) {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [formInfo, setFormInfo] = useState({
-    competency: '',
-    competencyAr: '',
-    rating: '',
-    performance: '',
+    Competency: '',
+    CompetencyAr: '',
+    Rating: '',
+    Performance: '',
   });
 
   const onFormSubmit = async (evt) => {
@@ -43,33 +43,15 @@ function UploadAssessmentGuidelines(props) {
 
     const fd = new FormData();
 
-    if (formInfo.competency) {
-      fd.append(
-        'Competency',
-        formInfo.competency instanceof File ? formInfo.competency : null
-      );
-    }
-
-    if (formInfo.competencyAr) {
-      fd.append(
-        'CompetencyAr',
-        formInfo.competencyAr instanceof File ? formInfo.competencyAr : null
-      );
-    }
-
-    if (formInfo.rating) {
-      fd.append(
-        'Rating',
-        formInfo.rating instanceof File ? formInfo.rating : null
-      );
-    }
-
-    if (formInfo.performance) {
-      fd.append(
-        'Performance',
-        formInfo.performance instanceof File ? formInfo.performance : null
-      );
-    }
+    Object.entries(formInfo)
+      .filter((item) => Boolean(item[1]))
+      .forEach(([fileName, file], index) => {
+        fd.append(`GuidelinesViewModel[${index}].DocumentName`, fileName);
+        fd.append(
+          `GuidelinesViewModel[${index}].Document`,
+          file instanceof File ? file : null
+        );
+      });
 
     try {
       await api().save(fd);
@@ -88,14 +70,14 @@ function UploadAssessmentGuidelines(props) {
       const response = await api().CheckFileExists();
 
       setFormInfo({
-        competency: response.competency
+        Competency: response.competency
           ? `${ServerURL}Doc/Assessment/Competency.pdf`
           : '',
-        competencyAr: response.competencyAr
+        CompetencyAr: response.competencyAr
           ? `${ServerURL}Doc/Assessment/CompetencyAr.pdf`
           : '',
-        rating: response.rating ? `${ServerURL}Doc/Assessment/Rating.pdf` : '',
-        performance: response.performance
+        Rating: response.rating ? `${ServerURL}Doc/Assessment/Rating.pdf` : '',
+        Performance: response.performance
           ? `${ServerURL}Doc/Assessment/Performance.pdf`
           : '',
       });
@@ -122,8 +104,9 @@ function UploadAssessmentGuidelines(props) {
     return null;
   };
 
-  const onDocumentInputChange = (evt, fileName) => {
+  const onDocumentInputChange = (evt) => {
     const file = evt.target.files[0];
+    const fileName = evt.target.name;
 
     if (file) {
       // check if uploaded file is larger than 1MB
@@ -199,11 +182,10 @@ function UploadAssessmentGuidelines(props) {
                         <input
                           accept='application/pdf'
                           id='competency-attachment-button-file'
-                          name='competency'
+                          name='Competency'
                           type='file'
+                          onChange={onDocumentInputChange}
                           style={{ display: 'none' }}
-                          onChange={(evt) => onDocumentInputChange(evt, 'Competency')
-                          }
                         />
                         <label htmlFor='competency-attachment-button-file'>
                           <IconButton component='span'>
@@ -213,16 +195,16 @@ function UploadAssessmentGuidelines(props) {
                       </div>
 
                       <IconButton
-                        disabled={!formInfo.competency}
-                        onClick={() => openPreviewPopup(formInfo.competency)}
+                        disabled={!formInfo.Competency}
+                        onClick={() => openPreviewPopup(formInfo.Competency)}
                       >
                         <VisibilityIcon />
                       </IconButton>
 
                       <IconButton
                         color='error'
-                        disabled={!formInfo.competency}
-                        onClick={() => deleteFile('competency')}
+                        disabled={!formInfo.Competency}
+                        onClick={() => deleteFile('Competency')}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -245,11 +227,10 @@ function UploadAssessmentGuidelines(props) {
                         <input
                           accept='application/pdf'
                           id='competencyAr-attachment-button-file'
-                          name='competencyAr'
+                          name='CompetencyAr'
                           type='file'
                           style={{ display: 'none' }}
-                          onChange={(evt) => onDocumentInputChange(evt, 'CompetencyAr')
-                          }
+                          onChange={onDocumentInputChange}
                         />
                         <label htmlFor='competencyAr-attachment-button-file'>
                           <IconButton component='span'>
@@ -259,16 +240,16 @@ function UploadAssessmentGuidelines(props) {
                       </div>
 
                       <IconButton
-                        disabled={!formInfo.competencyAr}
-                        onClick={() => openPreviewPopup(formInfo.competencyAr)}
+                        disabled={!formInfo.CompetencyAr}
+                        onClick={() => openPreviewPopup(formInfo.CompetencyAr)}
                       >
                         <VisibilityIcon />
                       </IconButton>
 
                       <IconButton
                         color='error'
-                        disabled={!formInfo.competencyAr}
-                        onClick={() => deleteFile('competencyAr')}
+                        disabled={!formInfo.CompetencyAr}
+                        onClick={() => deleteFile('CompetencyAr')}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -289,11 +270,10 @@ function UploadAssessmentGuidelines(props) {
                         <input
                           accept='application/pdf'
                           id='rating-attachment-button-file'
-                          name='rating'
+                          name='Rating'
                           type='file'
                           style={{ display: 'none' }}
-                          onChange={(evt) => onDocumentInputChange(evt, 'Rating')
-                          }
+                          onChange={onDocumentInputChange}
                         />
                         <label htmlFor='rating-attachment-button-file'>
                           <IconButton component='span'>
@@ -303,16 +283,16 @@ function UploadAssessmentGuidelines(props) {
                       </div>
 
                       <IconButton
-                        disabled={!formInfo.rating}
-                        onClick={() => openPreviewPopup(formInfo.rating)}
+                        disabled={!formInfo.Rating}
+                        onClick={() => openPreviewPopup(formInfo.Rating)}
                       >
                         <VisibilityIcon />
                       </IconButton>
 
                       <IconButton
                         color='error'
-                        disabled={!formInfo.rating}
-                        onClick={() => deleteFile('rating')}
+                        disabled={!formInfo.Rating}
+                        onClick={() => deleteFile('Rating')}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -335,11 +315,10 @@ function UploadAssessmentGuidelines(props) {
                         <input
                           accept='application/pdf'
                           id='performance-attachment-button-file'
-                          name='performance'
+                          name='Performance'
                           type='file'
                           style={{ display: 'none' }}
-                          onChange={(evt) => onDocumentInputChange(evt, 'Performance')
-                          }
+                          onChange={onDocumentInputChange}
                         />
                         <label htmlFor='performance-attachment-button-file'>
                           <IconButton component='span'>
@@ -349,16 +328,16 @@ function UploadAssessmentGuidelines(props) {
                       </div>
 
                       <IconButton
-                        disabled={!formInfo.performance}
-                        onClick={() => openPreviewPopup(formInfo.performance)}
+                        disabled={!formInfo.Performance}
+                        onClick={() => openPreviewPopup(formInfo.Performance)}
                       >
                         <VisibilityIcon />
                       </IconButton>
 
                       <IconButton
                         color='error'
-                        disabled={!formInfo.performance}
-                        onClick={() => deleteFile('performance')}
+                        disabled={!formInfo.Performance}
+                        onClick={() => deleteFile('Performance')}
                       >
                         <DeleteIcon />
                       </IconButton>
