@@ -104,7 +104,7 @@ function CareerDevPlan(props) {
     },
 
     {
-      name: 'Actions',
+      name: 'action',
       label: intl.formatMessage(payrollMessages.Actions),
       options: {
         filter: false,
@@ -112,10 +112,12 @@ function CareerDevPlan(props) {
           <div className={style.actionsSty}>
             <EditButton
               param={{ id: tableMeta.rowData[0] }}
+              disabled={value !== 0}
               url={'/app/Pages/Assessment/CareerDevPlanEdit'}
             />
 
             <DeleteButton
+              disabled={value !== 0}
               clickfnc={() => onDeleteBtnClick(tableMeta.rowData[0])}
             />
           </div>

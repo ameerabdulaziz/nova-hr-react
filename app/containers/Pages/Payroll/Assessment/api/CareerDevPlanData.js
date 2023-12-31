@@ -3,46 +3,49 @@ const API = (locale) => {
   const api = {};
 
   api.GetList = async () => {
-    const data = await axiosInstance.get(
-      `AsIndividualDevelopmentPlan/GetList/${locale}`
-    );
+    const data = await axiosInstance.get(`AsCareerDevPlan/GetList/${locale}`);
 
     return data.data;
   };
 
   api.GetDevelopmentActivitiesList = async () => {
     const data = await axiosInstance.get(
-      `AsIndividualDevelopmentPlan/GetDevelopmentActivitiesList/${locale}`
+      `AsCareerDevPlan/GetDevelopmentActivitiesList/${locale}`
     );
 
     return data.data;
   };
 
-  api.GetById = async (id, employeeId = null) => {
+  api.GetById = async (id) => {
+    const data = await axiosInstance.get(`AsCareerDevPlan/Get/${id}/${locale}`);
+
+    return data.data;
+  };
+
+  api.GetEmployeeData = async (id) => {
     const data = await axiosInstance.get(
-      `AsIndividualDevelopmentPlan/Get/${id}/${locale}${employeeId ? '?employeeId=' + employeeId : ''}`
-    );
-
-    return data.data;
-  };
-
-  api.GetEmployee = async (id, jobs, probationPeriod) => {
-    const data = await axiosInstance.post(
-      `AsIndividualDevelopmentPlan/GetEmployee/${locale}/${id}/${probationPeriod}`,
-      jobs
+      `AsCareerDevPlan/GetEmployeeData/${locale}/${id}`
     );
 
     return data.data;
   };
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('AsIndividualDevelopmentPlan/save', body);
+    const result = await axiosInstance.post('AsCareerDevPlan/save', body);
+
+    return result;
+  };
+
+  api.saveAction = async (id, actionId) => {
+    const result = await axiosInstance.post(
+      `AsCareerDevPlan/SaveAction/${id}/${actionId}`
+    );
 
     return result;
   };
 
   api.delete = async (id) => {
-    const data = await axiosInstance.delete(`AsIndividualDevelopmentPlan/Delete/${id}`);
+    const data = await axiosInstance.delete(`AsCareerDevPlan/Delete/${id}`);
 
     return data;
   };

@@ -31,14 +31,60 @@ function CareerDevPlanCreate(props) {
   const { classes } = useStyles();
   const location = useLocation();
   const history = useHistory();
+  const authState = useSelector((state) => state.authReducer);
   const locale = useSelector((state) => state.language.locale);
   const id = location.state?.id ?? 0;
   const title = localStorage.getItem('MenuName');
 
+  const { isHR } = authState.user;
+
   const [isLoading, setIsLoading] = useState(true);
   const [employeeList, setEmployeeList] = useState([]);
-  const [actionPlanResultList, setActionPlanResultList] = useState([]);
-  const [effectiveList, setEffectiveList] = useState([]);
+  const actionPlanResultList = [
+    {
+      name: intl.formatMessage(messages.newJobTitle),
+      id: 1,
+    },
+    {
+      name: intl.formatMessage(messages.salaryReview),
+      id: 2,
+    },
+    {
+      name: intl.formatMessage(messages.promotion),
+      id: 3,
+    },
+    {
+      name: intl.formatMessage(messages.transferInAnotherDepartment),
+      id: 4,
+    },
+    {
+      name: intl.formatMessage(messages.other),
+      id: 5,
+    },
+  ];
+
+  const effectiveList = [
+    {
+      name: intl.formatMessage(messages['1-3-years']),
+      id: 3,
+    },
+    {
+      name: intl.formatMessage(messages['3-5-years']),
+      id: 4,
+    },
+    {
+      name: intl.formatMessage(messages.immediately),
+      id: 1,
+    },
+    {
+      name: intl.formatMessage(messages.nextQuarter),
+      id: 2,
+    },
+    {
+      name: intl.formatMessage(messages.other),
+      id: 5,
+    },
+  ];
 
   const [jobInfo, setJobInfo] = useState({
     currentJob: '',
@@ -50,21 +96,22 @@ function CareerDevPlanCreate(props) {
   });
 
   const [formInfo, setFormInfo] = useState({
-    insertDate: new Date(),
+    insDate: new Date(),
     employeeId: null,
 
-    areaOfStrength: '',
-    areaForDevelopment: '',
+    areasOfStrength: '',
+    areasForDevelopment: '',
     departmentStructureStatus: '',
     actionPlanToImprove: '',
     goals: '',
     trainingNeeds: '',
-    other: '',
-    actionPlanResultOther: '',
-    effectiveOnOther: '',
-    descriptionOfActionPlanResult: '',
+    others: '',
     actionPlanResult: null,
+    actionPlanResultOther: '',
+    actionPlanResultDescription: '',
     effectiveOn: null,
+    effectiveOnOtherValue: null,
+    action: 0,
   });
 
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
@@ -76,7 +123,8 @@ function CareerDevPlanCreate(props) {
 
     const formData = {
       ...formInfo,
-      insertDate: formateDate(formInfo.insertDate),
+      insDate: formateDate(formInfo.insDate),
+      effectiveOnOtherValue: formateDate(formInfo.effectiveOnOtherValue),
     };
 
     try {
@@ -118,11 +166,11 @@ function CareerDevPlanCreate(props) {
     }
   }
 
-  async function fetchEmployeeInfo() {
+  async function fetchEmployeeInfo(employeeId) {
     setIsLoading(true);
 
     try {
-      const dataApi = await api(locale).GetById(id, formInfo.employeeId);
+      const dataApi = await api(locale).GetEmployeeData(employeeId);
 
       setJobInfo({
         department: dataApi.department,
@@ -130,7 +178,7 @@ function CareerDevPlanCreate(props) {
         currentJob: dataApi.currentJob,
         reportingto: dataApi.reportingto,
         currentSalary: dataApi.currentSalary,
-        duties: dataApi.duties ?? '',
+        duties: dataApi.duties,
       });
     } catch (error) {
       //
@@ -139,11 +187,17 @@ function CareerDevPlanCreate(props) {
     }
   }
 
-  useEffect(() => {
-    if (formInfo.employeeId !== null) {
-      fetchEmployeeInfo();
+  async function onActionBtnClick(actionId) {
+    setIsLoading(true);
+
+    try {
+      await api(locale).saveAction(id, actionId);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
     }
-  }, [formInfo.employeeId]);
+  }
 
   useEffect(() => {
     fetchNeededData();
@@ -164,6 +218,17 @@ function CareerDevPlanCreate(props) {
     }));
   };
 
+  const onEmployeeAutoCompleteChange = (value) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      employeeId: value !== null ? value.id : null,
+    }));
+
+    if (value !== null) {
+      fetchEmployeeInfo(value.id);
+    }
+  };
+
   const onCancelBtnClick = () => {
     history.push('/app/Pages/Assessment/CareerDevPlan');
   };
@@ -182,9 +247,8 @@ function CareerDevPlanCreate(props) {
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                       <DatePicker
                         label={intl.formatMessage(messages.date)}
-                        value={formInfo.insertDate}
-                        onChange={(date) => onDatePickerChange(date, 'insertDate')
-                        }
+                        value={formInfo.insDate}
+                        onChange={(date) => onDatePickerChange(date, 'insDate')}
                         className={classes.field}
                         renderInput={(params) => (
                           <TextField required {...params} variant='outlined' />
@@ -209,7 +273,7 @@ function CareerDevPlanCreate(props) {
                           {option.name}
                         </li>
                       )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')
+                      onChange={(_, value) => onEmployeeAutoCompleteChange(value)
                       }
                       renderInput={(params) => (
                         <TextField
@@ -301,9 +365,9 @@ function CareerDevPlanCreate(props) {
                 <Grid container spacing={3} mt={0} direction='row'>
                   <Grid item xs={12} md={6}>
                     <TextField
-                      value={formInfo.areaOfStrength}
+                      value={formInfo.areasOfStrength}
                       label={intl.formatMessage(messages.areaOfStrength)}
-                      name='areaOfStrength'
+                      name='areasOfStrength'
                       multiline
                       rows={1}
                       onChange={onInputChange}
@@ -314,9 +378,9 @@ function CareerDevPlanCreate(props) {
 
                   <Grid item xs={12} md={6}>
                     <TextField
-                      value={formInfo.areaForDevelopment}
+                      value={formInfo.areasForDevelopment}
                       label={intl.formatMessage(messages.areaForDevelopment)}
-                      name='areaForDevelopment'
+                      name='areasForDevelopment'
                       onChange={onInputChange}
                       fullWidth
                       multiline
@@ -381,8 +445,8 @@ function CareerDevPlanCreate(props) {
 
                   <Grid item xs={12}>
                     <TextField
-                      name='other'
-                      value={formInfo.other}
+                      name='others'
+                      value={formInfo.others}
                       label={intl.formatMessage(messages.other)}
                       fullWidth
                       multiline
@@ -451,8 +515,29 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  {formInfo.actionPlanResult === 0 && (
-                    <Grid item xs={12} md={6}>
+                  {formInfo.effectiveOn === 5 && (
+                    <Grid item xs={12} md={4}>
+                      <LocalizationProvider dateAdapter={AdapterMoment}>
+                        <DatePicker
+                          label={intl.formatMessage(messages.effectiveOnOther)}
+                          value={formInfo.effectiveOnOtherValue}
+                          onChange={(date) => onDatePickerChange(date, 'effectiveOnOtherValue')
+                          }
+                          className={classes.field}
+                          renderInput={(params) => (
+                            <TextField
+                              required
+                              {...params}
+                              variant='outlined'
+                            />
+                          )}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+                  )}
+
+                  {formInfo.actionPlanResult === 5 && (
+                    <Grid item xs={12} md={12}>
                       <TextField
                         name='actionPlanResultOther'
                         value={formInfo.actionPlanResultOther}
@@ -468,25 +553,10 @@ function CareerDevPlanCreate(props) {
                     </Grid>
                   )}
 
-                  {formInfo.effectiveOn === 0 && (
-                    <Grid item xs={12} md={6}>
-                      <TextField
-                        name='effectiveOnOther'
-                        value={formInfo.effectiveOnOther}
-                        label={intl.formatMessage(messages.effectiveOnOther)}
-                        fullWidth
-                        required
-                        onChange={onInputChange}
-                        multiline
-                        rows={1}
-                      />
-                    </Grid>
-                  )}
-
                   <Grid item xs={12}>
                     <TextField
-                      name='descriptionOfActionPlanResult'
-                      value={formInfo.descriptionOfActionPlanResult}
+                      name='actionPlanResultDescription'
+                      value={formInfo.actionPlanResultDescription}
                       label={intl.formatMessage(
                         messages.descriptionOfActionPlanResult
                       )}
@@ -501,6 +571,32 @@ function CareerDevPlanCreate(props) {
               </CardContent>
             </Card>
           </Grid>
+
+          {isHR && id !== 0 && (
+            <Grid item xs={12}>
+              <Card>
+                <CardContent sx={{ p: '16px!important' }}>
+                  <Stack direction='row' gap={2}>
+                    <Button
+                      variant='contained'
+                      color='success'
+                      onClick={() => onActionBtnClick(1)}
+                    >
+                      <FormattedMessage {...messages.accept} />
+                    </Button>
+
+                    <Button
+                      variant='contained'
+                      color='error'
+                      onClick={() => onActionBtnClick(2)}
+                    >
+                      <FormattedMessage {...messages.refuse} />
+                    </Button>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
 
           <Grid item xs={12}>
             <Card>
