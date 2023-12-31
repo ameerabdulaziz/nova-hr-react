@@ -104,6 +104,7 @@
     display: flex;
     justify-content: center;
     margin: 242px 0;
+    margin-bottom: 155px;
 
     div
     {
@@ -151,8 +152,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 2.5%;
-        padding-bottom: 458px;
+        padding: 0 2.5%;
+        // padding-bottom: 458px;
+        padding-bottom: 380px;
         padding-top: 250px;
 
         img
@@ -296,6 +298,7 @@
         {
             margin-bottom: 16px;
             margin-left: 0;
+            margin-right: 0;
 
             & > span:nth-child(1)
             {
@@ -327,15 +330,35 @@
                 margin-right: 20px;
             }
         }
+
+        p
+        {
+            color: #14ad4a;
+            background-color: #14ad4a24;
+            padding: 10px;
+            width: 100%;
+        }
     }
 
     .radioContainerAllQue
     {
-        width: 100%;
+        // width: 100%;
         label
         {
-           width: 40%;
+        //    width: 40%;
         }
+
+        div
+        {
+            text-align: initial !important;
+            margin: 0 !important;
+        }
+    }
+
+    .textareaTitle
+    {
+        margin: 20px 0;
+
     }
 
     textarea
@@ -350,28 +373,35 @@
     {
         border-color: #434bdf;
     }
+
+    h1
+    {
+        line-height: 31px;
+    }
 }
 
-    .examContainer
+    // .examContainer
+    .prevBtnSty,
+    .prevBtnSty:hover
     {
-        & > div
-        {
+        // & > div
+        // {
 
-            div
-            {
-                div
-                {
-                    & > div:nth-child(1)
-                    {
-                        button
-                        {
+        //     div
+        //     {
+        //         div
+        //         {
+        //             & > div:nth-child(1)
+        //             {
+        //                 button
+        //                 {
                             color: #777;
                             background: #e8e8e8;
-                        }
-                    }
-                }
-            }
-        }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 
 
@@ -394,6 +424,32 @@
     }
 
 
+    .userInfoSty
+    {
+        // display: flex;
+        justify-content: space-around;
+
+        p
+        {
+            // width: 50%;
+            text-align: initial;
+            padding: 0 10px;
+            margin: 0;
+        }
+
+        & > p:nth-child(1)
+        {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        & > p:nth-child(2)
+        {
+            font-size: 25px;
+        }
+    }
+
+
 
 
 
@@ -402,7 +458,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 150px 10%;
+    margin: 100px 10%;
     padding-bottom: 50px;
 
     & > div:nth-child(1)

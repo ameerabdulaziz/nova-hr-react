@@ -111,12 +111,13 @@ function EmployeeAssessment(props) {
 
     if(type === "textareaEmpTraining")
     {
-      setTextareaEmpTrainingVal(prveState => (
-        {
-          ...prveState,
-          [`textareaEmpTraining`] : e.target.value
-      }
-      ))
+      // setTextareaEmpTrainingVal(prveState => (
+      //   {
+      //     ...prveState,
+      //     [`textareaEmpTraining`] : e.target.value
+      // }
+      // ))
+      setTextareaEmpTrainingVal(e.target.value)
     }
  
   }
@@ -155,12 +156,13 @@ function EmployeeAssessment(props) {
 
     if(type === "textareaEmpTraining")
     {
-      setTextareaEmpTrainingVal(prveState => (
-        {
-          ...prveState,
-          [`textareaEmpTraining`] : e.target.value
-      }
-      ))
+      // setTextareaEmpTrainingVal(prveState => (
+      //   {
+      //     ...prveState,
+      //     [`textareaEmpTraining`] : e.target.value
+      // }
+      // ))
+      setTextareaEmpTrainingVal(e.target.value)
     }
 
   }
@@ -258,13 +260,15 @@ function EmployeeAssessment(props) {
         }
 
 
-        setTextareaEmpTrainingVal(prveState => (
-          {
-            ...prveState,
-            // [`textareaEmpTraining`] : testData.staffTrainingReq
-            [`textareaEmpTraining`] : examQuestionsData[0].staffTrainingReq
-        }
-        ))
+        // setTextareaEmpTrainingVal(prveState => (
+        //   {
+        //     ...prveState,
+        //     // [`textareaEmpTraining`] : testData.staffTrainingReq
+        //     [`textareaEmpTraining`] : examQuestionsData[0].staffTrainingReq
+        // }
+        // ))
+        // setTextareaEmpTrainingVal(testData.staffTrainingReq)
+        setTextareaEmpTrainingVal(examQuestionsData[0].staffTrainingReq)
 
         }
       })
@@ -345,7 +349,8 @@ function EmployeeAssessment(props) {
     let data = {
       "assessmentID": examData.assessmentId,
       "TemplateId":examData.templateId,
-      "trainingReq":  textareaEmpTrainingVal.textareaEmpTraining,
+      "trainingReq":  textareaEmpTrainingVal,
+      // "trainingReq":  textareaEmpTrainingVal.textareaEmpTraining,
       "assclosed": buttonType === "save" ? false :  true ,
       "competencyList": examData.competencyList
     }

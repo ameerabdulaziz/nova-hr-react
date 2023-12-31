@@ -85,7 +85,7 @@ function AssessmentReview({ intl }) {
 
   const columns = [
     {
-      name: "id",
+      name: "assessmentId",
       label: "id",
       options: {
         display: false,
@@ -218,8 +218,8 @@ function AssessmentReview({ intl }) {
                         color="secondary"
                         className={classes.button}
                     >
-                        <Link  to='/app/Pages/Assessment/AssessmentReviewEdit' color="secondary">
-                        {/* <Link to={{ pathname: url, state: param,}} color="secondary"> */}
+                        {/* <Link  to='/app/Pages/Assessment/AssessmentReviewEdit' color="secondary"> */}
+                        <Link to={{ pathname: '/app/Pages/Assessment/AssessmentReviewEdit', state: { id: tableMeta.rowData[0] },}} color="secondary">
                             <VisibilityIcon color="secondary"/>             
                         </Link>
                     </IconButton>

@@ -15,6 +15,7 @@ import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../Assessment/messages';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 
 
@@ -29,12 +30,16 @@ const ExamQuestionNextAndPrev =  ({
   questionsAnswers,
   finishExamFun,
   textareaEmpTrainingVal,
-  intl
-
+  OverallAppraisalVal,
+  textareaNoteForEmployeeVal,
+  intl,
+  AssessmentReviewLock
 }) => {
 
     const { classes } = useStyles();
     const locale = useSelector(state => state.language.locale);
+
+    
      
     return(
       <>
@@ -67,9 +72,15 @@ const ExamQuestionNextAndPrev =  ({
                                       name="radio-buttons-group"
                                      className={style.radioContainer}
                                   >
+                                    {AssessmentReviewLock  && (
+                                      <p><TaskAltIcon /> Employee Choose: {examData?.competencyList[questionNum]?.employeeChoiceName ? examData.competencyList[questionNum].employeeChoiceName : ""} </p>
+                                      // <p><TaskAltIcon /> Employee Choose: {(questionsAnswers[`que${questionNum + 1}`]?.checkedVal ? questionsAnswers[`que${questionNum + 1}`]?.checkedVal?.name : "")} </p>
+                                    )}
+
                                     {choices?.map((choice,index)=>{
                                         return (
                                             <FormControlLabel 
+                                            // style={{backgroundColor: "#f00"}}
                                             key={choice.id}
                                             value={choice.id} 
                                             control={<Radio checkedIcon={<CheckIcon className={`${style.checkedIconeSty} ${classes.examMainSty}`}/>} icon={<RadioButtonUncheckedIcon className={style.iconeSty} />} />} 
@@ -101,6 +112,7 @@ const ExamQuestionNextAndPrev =  ({
                                       && questionsAnswers[`que${questionNum + 1}`]
                                        && questionsAnswers[`que${questionNum + 1}`]?.checkedVal 
                                       ? true : false}
+                                      disabled={AssessmentReviewLock}
                                 />
                                 {(
                                 examData.exampleRequired 
@@ -114,20 +126,53 @@ const ExamQuestionNextAndPrev =  ({
                                 </>)}
 
                                 {examData?.competencyList.length < questionNum + 1   && (<>
-                                <h1>
+                                <h1 className={style.textareaTitle}>
                                   <FormattedMessage {...messages.EmployeeTrainingRequest} />
                                 </h1>
-                               
-
+                      
                                 <TextareaAutosize
                                     color="neutral"
                                     minRows={3}
                                     placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
                                     size="lg"
                                     onChange={(e) => { saveQuestions(e, "textareaEmpTraining")}}
-                                    value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""}
+                                    value={textareaEmpTrainingVal? textareaEmpTrainingVal: ""}
+                                    // value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""}
                                 />
+                                 </>)}
 
+                                 {(examData?.competencyList.length < questionNum + 1) && AssessmentReviewLock  && (<>
+                                    <h1 className={style.textareaTitle}>
+                                      {/* <FormattedMessage {...messages.EmployeeTrainingRequest} /> */}
+                                      Directed Manager Overall Appraisal
+                                    </h1>
+                          
+                                    <TextareaAutosize
+                                        color="neutral"
+                                        minRows={3}
+                                        placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                        size="lg"
+                                        onChange={(e) => { saveQuestions(e, "OverallAppraisal")}}
+                                        value={OverallAppraisalVal ? OverallAppraisalVal : ""}
+                                        // value={OverallAppraisalVal?.OverallAppraisal ? OverallAppraisalVal?.OverallAppraisal : ""}
+                                    />
+                                 </>)}
+
+                                 {(examData?.competencyList.length < questionNum + 1) && AssessmentReviewLock   && (<>
+                                    <h1 className={style.textareaTitle}>
+                                      {/* <FormattedMessage {...messages.EmployeeTrainingRequest} /> */}
+                                      Note For Employee
+                                    </h1>
+                          
+                                    <TextareaAutosize
+                                        color="neutral"
+                                        minRows={3}
+                                        placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                        size="lg"
+                                        onChange={(e) => { saveQuestions(e, "NoteForEmployee")}}
+                                        value={textareaNoteForEmployeeVal ? textareaNoteForEmployeeVal : ""}
+                                        // value={textareaNoteForEmployeeVal?.NoteForEmployee ? textareaNoteForEmployeeVal?.NoteForEmployee : ""}
+                                    />
                                  </>)}
 
                                  <div className={style.lineStye}></div>
@@ -157,6 +202,7 @@ const ExamQuestionNextAndPrev =  ({
                                       size="medium"
                                       color="primary"
                                       onClick={prevQueFun}
+                                      className={style.prevBtnSty}
                                     >
                                    <FormattedMessage {...messages.Prev} />
                                     </Button>

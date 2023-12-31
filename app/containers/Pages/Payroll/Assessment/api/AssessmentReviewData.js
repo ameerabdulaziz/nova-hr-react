@@ -10,6 +10,13 @@ const AssessmentReviewData = (locale) => {
     return data.data;
   };
 
+
+  Apis.GetDataById = async (id) => {
+    const data = await axiosInstance.get(`Assessment/GetAssessment/${id}/${locale}`);
+
+    return data.data;
+  };
+
 //   Apis.Save = async (data) => {
 
 //       const result = await axiosInstance.post("Assessment/Save", data);
