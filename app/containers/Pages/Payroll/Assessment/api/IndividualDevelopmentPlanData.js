@@ -26,6 +26,14 @@ const API = (locale) => {
     return data.data;
   };
 
+  api.saveAction = async (id, actionId) => {
+    const result = await axiosInstance.post(
+      `AsIndividualDevelopmentPlan/SaveAction/${id}/${actionId}`
+    );
+
+    return result;
+  };
+
   api.GetEmployee = async (id, jobs, probationPeriod) => {
     const data = await axiosInstance.post(
       `AsIndividualDevelopmentPlan/GetEmployee/${locale}/${id}/${probationPeriod}`,

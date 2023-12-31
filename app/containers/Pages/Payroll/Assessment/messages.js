@@ -428,4 +428,44 @@ export default defineMessages({
     id: `${scope}.careerDevPlanSection1Message`,
     defaultMessage: 'careerDevPlanSection1Message',
   },
+  newJobTitle: {
+    id: `${scope}.newJobTitle`,
+    defaultMessage: 'newJobTitle',
+  },
+  salaryReview: {
+    id: `${scope}.salaryReview`,
+    defaultMessage: 'salaryReview',
+  },
+  promotion: {
+    id: `${scope}.promotion`,
+    defaultMessage: 'promotion',
+  },
+  transferInAnotherDepartment: {
+    id: `${scope}.transferInAnotherDepartment`,
+    defaultMessage: 'transferInAnotherDepartment',
+  },
+  '3-5-years': {
+    id: `${scope}.3-5-years`,
+    defaultMessage: '3-5-years',
+  },
+  immediately: {
+    id: `${scope}.immediately`,
+    defaultMessage: 'immediately',
+  },
+  nextQuarter: {
+    id: `${scope}.nextQuarter`,
+    defaultMessage: 'nextQuarter',
+  },
+  '1-3-years': {
+    id: `${scope}.1-3-years`,
+    defaultMessage: '1-3-years',
+  },
+  accept: {
+    id: `${scope}.accept`,
+    defaultMessage: 'accept',
+  },
+  refuse: {
+    id: `${scope}.refuse`,
+    defaultMessage: 'refuse',
+  },
 });

@@ -104,18 +104,20 @@ function IndividualDevelopmentPlan(props) {
     },
 
     {
-      name: 'Actions',
+      name: 'action',
       label: intl.formatMessage(payrollMessages.Actions),
       options: {
         filter: false,
         customBodyRender: (value, tableMeta) => (
           <div className={style.actionsSty}>
             <EditButton
+              disabled={value !== 0}
               param={{ id: tableMeta.rowData[0] }}
               url={'/app/Pages/Assessment/IndividualDevelopmentPlanEdit'}
             />
 
             <DeleteButton
+              disabled={value !== 0}
               clickfnc={() => onDeleteBtnClick(tableMeta.rowData[0])}
             />
           </div>

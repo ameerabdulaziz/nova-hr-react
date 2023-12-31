@@ -41,17 +41,17 @@ const uuid = () => {
   const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
   return (
     S4()
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + S4()
-    + S4()
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ S4()
+		+ S4()
   );
 };
 
@@ -61,8 +61,11 @@ function IndividualDevelopmentPlanCreate(props) {
   const location = useLocation();
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
+  const authState = useSelector((state) => state.authReducer);
   const id = location.state?.id ?? 0;
   const title = localStorage.getItem('MenuName');
+
+  const { isHR } = authState.user;
 
   const [employeeList, setEmployeeList] = useState([]);
   const [activityList, setActivityList] = useState([]);
@@ -100,18 +103,17 @@ function IndividualDevelopmentPlanCreate(props) {
       employeeId: formInfo.employeeId,
 
       insertDate: formateDate(formInfo.insertDate),
-      asIndividualDevelopmentPlanDetails: formInfo.asIndividualDevelopmentPlanDetails.map(
-        (item) => ({
-          individualDevelopmentPlanId: id,
-          areasToImprove: item.areasToImprove,
-          targetPerformance: item.targetPerformance,
-          developmentActivitiesName: item.developmentActivitiesName,
-          resources: item.resources,
-          dateForCompletion: formateDate(item.dateForCompletion),
-          developmentActivities: item.developmentActivities,
-          otherDevelopmentActivities: item.otherDevelopmentActivities,
-        })
-      )
+      asIndividualDevelopmentPlanDetails:
+				formInfo.asIndividualDevelopmentPlanDetails.map((item) => ({
+				  individualDevelopmentPlanId: id,
+				  areasToImprove: item.areasToImprove,
+				  targetPerformance: item.targetPerformance,
+				  developmentActivitiesName: item.developmentActivitiesName,
+				  resources: item.resources,
+				  dateForCompletion: formateDate(item.dateForCompletion),
+				  developmentActivities: item.developmentActivities,
+				  otherDevelopmentActivities: item.otherDevelopmentActivities,
+				})),
     };
 
     try {
@@ -145,7 +147,7 @@ function IndividualDevelopmentPlanCreate(props) {
           currentJob: dataApi.currentJob,
           reportingto: dataApi.reportingto,
           currentSalary: dataApi.currentSalary,
-          duties: dataApi.duties ?? '',
+          duties: dataApi.duties,
         });
       }
     } catch (error) {
@@ -155,11 +157,11 @@ function IndividualDevelopmentPlanCreate(props) {
     }
   }
 
-  async function fetchEmployeeInfo() {
+  async function fetchEmployeeInfo(employeeId) {
     setIsLoading(true);
 
     try {
-      const dataApi = await api(locale).GetById(id, formInfo.employeeId);
+      const dataApi = await api(locale).GetById(id, employeeId);
 
       setJobInfo({
         department: dataApi.department,
@@ -167,7 +169,7 @@ function IndividualDevelopmentPlanCreate(props) {
         currentJob: dataApi.currentJob,
         reportingto: dataApi.reportingto,
         currentSalary: dataApi.currentSalary,
-        duties: dataApi.duties ?? '',
+        duties: dataApi.duties,
       });
     } catch (error) {
       //
@@ -176,11 +178,16 @@ function IndividualDevelopmentPlanCreate(props) {
     }
   }
 
-  useEffect(() => {
-    if (formInfo.employeeId !== null) {
-      fetchEmployeeInfo();
+  const onEmployeeAutoCompleteChange = (value) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      employeeId: value !== null ? value.id : null,
+    }));
+
+    if (value !== null) {
+      fetchEmployeeInfo(value.id);
     }
-  }, [formInfo.employeeId]);
+  };
 
   useEffect(() => {
     fetchNeededData();
@@ -188,13 +195,6 @@ function IndividualDevelopmentPlanCreate(props) {
 
   const onDatePickerChange = (value, name) => {
     setFormInfo((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const onAutoCompleteChange = (value, name) => {
-    setFormInfo((prev) => ({
-      ...prev,
-      [name]: value !== null ? value.id : null,
-    }));
   };
 
   const onCancelBtnClick = () => {
@@ -263,6 +263,18 @@ function IndividualDevelopmentPlanCreate(props) {
     return '';
   };
 
+  async function onActionBtnClick(actionId) {
+    setIsLoading(true);
+
+    try {
+      await api(locale).saveAction(id, actionId);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <EmploymentPopup
@@ -287,7 +299,8 @@ function IndividualDevelopmentPlanCreate(props) {
                       <DatePicker
                         label={intl.formatMessage(messages.date)}
                         value={formInfo.insertDate}
-                        onChange={(date) => onDatePickerChange(date, 'insertDate')}
+                        onChange={(date) => onDatePickerChange(date, 'insertDate')
+                        }
                         className={classes.field}
                         renderInput={(params) => (
                           <TextField required {...params} variant='outlined' />
@@ -312,7 +325,7 @@ function IndividualDevelopmentPlanCreate(props) {
                           {option.name}
                         </li>
                       )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')
+                      onChange={(_, value) => onEmployeeAutoCompleteChange(value)
                       }
                       renderInput={(params) => (
                         <TextField
@@ -449,46 +462,54 @@ function IndividualDevelopmentPlanCreate(props) {
                       </TableHead>
 
                       <TableBody>
-                        {formInfo.asIndividualDevelopmentPlanDetails.map((item) => (
-                          <TableRow
-                            key={item.id}
-                            sx={{
-                              '&:last-child td, &:last-child th': { border: 0 },
-                            }}
-                          >
-                            <TableCell component='th' scope='row'>
-                              {item.areasToImprove}
-                            </TableCell>
+                        {formInfo.asIndividualDevelopmentPlanDetails.map(
+                          (item) => (
+                            <TableRow
+                              key={item.id}
+                              sx={{
+                                '&:last-child td, &:last-child th': {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component='th' scope='row'>
+                                {item.areasToImprove}
+                              </TableCell>
 
-                            <TableCell>{item.targetPerformance}</TableCell>
+                              <TableCell>{item.targetPerformance}</TableCell>
 
-                            <TableCell>{getActivityName(item.developmentActivities)}</TableCell>
+                              <TableCell>
+                                {getActivityName(item.developmentActivities)}
+                              </TableCell>
 
-                            <TableCell>{item.resources}</TableCell>
+                              <TableCell>{item.resources}</TableCell>
 
-                            <TableCell>{formateDate(item.dateForCompletion)}</TableCell>
+                              <TableCell>
+                                {formateDate(item.dateForCompletion)}
+                              </TableCell>
 
-                            <TableCell>
-                              <Stack direction='row' gap={2}>
-                                <IconButton
-                                  color='primary'
-                                  size='small'
-                                  onClick={() => onEmployeeEdit(item)}
-                                >
-                                  <BorderColor />
-                                </IconButton>
+                              <TableCell>
+                                <Stack direction='row' gap={2}>
+                                  <IconButton
+                                    color='primary'
+                                    size='small'
+                                    onClick={() => onEmployeeEdit(item)}
+                                  >
+                                    <BorderColor />
+                                  </IconButton>
 
-                                <IconButton
-                                  color='error'
-                                  size='small'
-                                  onClick={() => onEmployeeRemove(item.id)}
-                                >
-                                  <Delete />
-                                </IconButton>
-                              </Stack>
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                                  <IconButton
+                                    color='error'
+                                    size='small'
+                                    onClick={() => onEmployeeRemove(item.id)}
+                                  >
+                                    <Delete />
+                                  </IconButton>
+                                </Stack>
+                              </TableCell>
+                            </TableRow>
+                          )
+                        )}
                       </TableBody>
                     </Table>
                   </TableContainer>
@@ -501,7 +522,9 @@ function IndividualDevelopmentPlanCreate(props) {
                     textAlign='center'
                   >
                     <Box>
-                      <SensorOccupiedIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
+                      <SensorOccupiedIcon
+                        sx={{ color: '#a7acb2', fontSize: 30 }}
+                      />
                       <Typography color='#a7acb2' variant='body1'>
                         {intl.formatMessage(messages.noEmployees)}
                       </Typography>
@@ -511,6 +534,32 @@ function IndividualDevelopmentPlanCreate(props) {
               </CardContent>
             </Card>
           </Grid>
+
+          {isHR && id !== 0 && (
+            <Grid item xs={12}>
+              <Card>
+                <CardContent sx={{ p: '16px!important' }}>
+                  <Stack direction='row' gap={2}>
+                    <Button
+                      variant='contained'
+                      color='success'
+                      onClick={() => onActionBtnClick(1)}
+                    >
+                      <FormattedMessage {...messages.accept} />
+                    </Button>
+
+                    <Button
+                      variant='contained'
+                      color='error'
+                      onClick={() => onActionBtnClick(2)}
+                    >
+                      <FormattedMessage {...messages.refuse} />
+                    </Button>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          )}
 
           <Grid item xs={12}>
             <Card>
