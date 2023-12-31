@@ -53,7 +53,9 @@ function Login() {
         title: 'Administrator',        
         status: 'online',
         displayName:res.data.userName,
-        
+        isHR: res.data.isHR,
+        arName: res.data.arName,
+        enName: res.data.enName,
       };
       Dispatcher(syncUser(user));
       
