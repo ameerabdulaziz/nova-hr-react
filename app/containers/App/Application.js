@@ -29,6 +29,7 @@ import {
   RecHiringSource,
   RecJobGrade,
   AsCategory,
+  MdDocumentCategory,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -500,6 +501,7 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/Section' component={Section} />
         <Route path='/app/Pages/MainData/Government' component={Government} />
         <Route path='/app/Pages/MainData/City' component={City} />
+        <Route path='/app/Pages/MainData/MdDocumentCategory' component={MdDocumentCategory} />
         <Route path='/app/Pages/MainData/Currency' component={Currency} />
         <Route
           path='/app/Pages/MainData/Currency-Rate'

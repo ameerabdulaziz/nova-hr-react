@@ -132,3 +132,11 @@ export const AsCategory = (props) => (
     {...props}
   />
 );
+
+export const MdDocumentCategory = (props) => (
+  <MainDataGeneralCode
+    text='Document Category'
+    table='MdDocumentCategory'
+    {...props}
+  />
+);
