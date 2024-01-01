@@ -36,7 +36,6 @@ const ExamQuestionWithoutNextAndPrev = ({
     const { classes } = useStyles();
     const locale = useSelector(state => state.language.locale);
     
- console.log("allQuestionsAnswers =", allQuestionsAnswers);
     return(
         <>
         <form style={{width: "100%"}} onSubmit={(e)=>{ 
@@ -44,11 +43,8 @@ const ExamQuestionWithoutNextAndPrev = ({
           finishExamFun()
           }}>
 
-
+                  {AssessmentReviewLock && (
                     <Grid item xs={12}  > 
-                       
-       
-                       {/* <div className={``}> */}
                        <div className={`${style.examContainer2} ${style.userInfoContainer}`}>
                          
                            <div>
@@ -56,37 +52,36 @@ const ExamQuestionWithoutNextAndPrev = ({
                            <Grid
                                  container
                                  spacing={3}
-                               //   alignItems="flex-end"
                                  direction="row"
                                  
                                  >
                            <Grid item xs={12} md={6} >
                                <div className={`${style.userInfoSty}`}>
-                                   <p>Department: </p> <p className={classes.textSty}>{examData?.organizationName}</p>
+                                   <p><FormattedMessage {...messages.department} />: </p> <p className={classes.textSty}>{examData?.organizationName}</p>
                                </div>
                            </Grid>
 
                            <Grid item xs={12} md={6} >
                                <div className={`${style.userInfoSty}`}>
-                                   <p>Employee: </p> <p className={classes.textSty}>{examData?.employeeName}</p>
+                                   <p><FormattedMessage {...messages.employeeName} />: </p> <p className={classes.textSty}>{examData?.employeeName}</p>
                                </div>
                            </Grid>
 
                            <Grid item xs={12} md={6} >
                                <div className={`${style.userInfoSty}`}>
-                                   <p>Job Title: </p> <p className={classes.textSty}>{examData?.jobName}</p>
+                                   <p><FormattedMessage {...messages.jobName} />: </p> <p className={classes.textSty}>{examData?.jobName}</p>
                                </div>
                            </Grid>
 
                            <Grid item xs={12} md={6} >
                                <div className={`${style.userInfoSty}`}>
-                                   <p>Birth Date: </p> <p className={classes.textSty}>{examData ? format(new Date(examData.birthDate), 'yyyy-MM-dd') : ""}</p>
+                                   <p><FormattedMessage {...messages.BirthDate} />: </p> <p className={classes.textSty}>{examData ? format(new Date(examData.birthDate), 'yyyy-MM-dd') : ""}</p>
                                </div>
                            </Grid>
 
                            <Grid item xs={12} md={6} >
                                <div className={`${style.userInfoSty}`}>
-                                   <p>Hiring date: </p> <p className={classes.textSty}>{examData ?  format(new Date(examData.hiringDate), 'yyyy-MM-dd') : ""}</p>
+                                   <p><FormattedMessage {...messages.hiringData} />: </p> <p className={classes.textSty}>{examData ?  format(new Date(examData.hiringDate), 'yyyy-MM-dd') : ""}</p>
                                </div>
                            </Grid>
 
@@ -96,8 +91,9 @@ const ExamQuestionWithoutNextAndPrev = ({
                        </div>                   
                    
                    </Grid>
+                   )}
 
-            {/* //////// */}
+
         {examData?.competencyList.map((Qui,index)=>(
         <Grid item xs={12}  key={index}> 
 
@@ -119,8 +115,7 @@ const ExamQuestionWithoutNextAndPrev = ({
                                      row
                                   >
                                     {AssessmentReviewLock  && (
-                                       <p><TaskAltIcon /> Employee Choose: {examData?.competencyList[index]?.employeeChoiceName ? examData.competencyList[index].employeeChoiceName : ""} </p>
-                                      // <p><TaskAltIcon /> Employee Choose: {(allQuestionsAnswers[`que${index + 1}`]?.checkedVal ? allQuestionsAnswers[`que${index + 1}`]?.checkedVal?.name : "")} </p>
+                                       <p><TaskAltIcon /> <FormattedMessage {...messages.EmployeeChoose} />: &nbsp; {examData?.competencyList[index]?.employeeChoiceName ? examData.competencyList[index].employeeChoiceName : ""} </p>
                                     )}
                                     {choices?.map((choice)=>{
                                         return (
@@ -167,11 +162,12 @@ const ExamQuestionWithoutNextAndPrev = ({
 
                                 {  
                                 (
-                                examData.exampleRequired 
-                                      && allQuestionsAnswers[`que${index + 1}`]
-                                       && allQuestionsAnswers[`que${index + 1}`]?.checkedVal 
+                                   examData.exampleRequired 
+                                && allQuestionsAnswers[`que${index + 1}`]
+                                && allQuestionsAnswers[`que${index + 1}`]?.checkedVal 
+                                && allQuestionsAnswers[`que${index + 1}`]?.textareaVal?.length === 0 
                                 )
-                                 ? <span className={style.errorMes}>This field is required</span> : (
+                                 ? <span className={style.errorMes}><FormattedMessage {...messages.ThisFieldIsRequired} /></span> : (
                                   null
                                 )}
 
@@ -191,18 +187,16 @@ const ExamQuestionWithoutNextAndPrev = ({
                                     size="lg"
                                     onBlur={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
                                     defaultValue={textareaEmpTrainingVal ? textareaEmpTrainingVal : ""} 
-                                    // onBlur={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
-                                    // defaultValue={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""} 
                                     // onChange={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
-                                    // value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""} 
+                                    // value={textareaEmpTrainingVal ? textareaEmpTrainingVal : ""} 
                                 />
 
                             </>) : null}
 
                             {(examData?.competencyList.length ===  index + 1 ) && AssessmentReviewLock  && (<>
                                     <h1 className={style.textareaTitle}>
-                                      {/* <FormattedMessage {...messages.EmployeeTrainingRequest} /> */}
-                                      Directed Manager Overall Appraisal
+                                      <FormattedMessage {...messages.DirectedManagerOverallAppraisal} />
+                                      
                                     </h1>
                           
                                     <TextareaAutosize
@@ -212,14 +206,13 @@ const ExamQuestionWithoutNextAndPrev = ({
                                         size="lg"
                                         onBlur={(e) => { saveAllQuestions(e, "OverallAppraisal")}}
                                         defaultValue={OverallAppraisalVal ? OverallAppraisalVal : ""}
-                                        // value={OverallAppraisalVal?.OverallAppraisal ? OverallAppraisalVal?.OverallAppraisal : ""}
                                     />
                                  </>)}
 
                                  {(examData?.competencyList.length ===  index + 1 ) && AssessmentReviewLock   && (<>
                                     <h1 className={style.textareaTitle}>
-                                      {/* <FormattedMessage {...messages.EmployeeTrainingRequest} /> */}
-                                      Note For Employee
+                                      <FormattedMessage {...messages.NoteForEmployee} />
+                                      
                                     </h1>
                           
                                     <TextareaAutosize
@@ -229,7 +222,6 @@ const ExamQuestionWithoutNextAndPrev = ({
                                         size="lg"
                                         onBlur={(e) => { saveAllQuestions(e, "NoteForEmployee")}}
                                         defaultValue={textareaNoteForEmployeeVal ? textareaNoteForEmployeeVal : ""}
-                                        // value={textareaNoteForEmployeeVal?.NoteForEmployee ? textareaNoteForEmployeeVal?.NoteForEmployee : ""}
                                     />
                                  </>)}
 

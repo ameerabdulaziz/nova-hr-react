@@ -2574,7 +2574,7 @@
   "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "قالب فترة التجربة",
 
 
-  "boilerplate.containers.Payroll.assessment.AssessmentFinish": "الانتهاء من التقييم",
+  "boilerplate.containers.Payroll.assessment.AssessmentFinish": "انهاء التقييم",
   "boilerplate.containers.Payroll.assessment.Start": "ابدا",
   "boilerplate.containers.Payroll.assessment.completedQuestions": "الأسئلة المكتملة",
   "boilerplate.containers.Payroll.assessment.ThereAreQuestionsThatYouDidNotAnswerWhichAre": "هناك أسئلة لم تجب عليها وهي",
@@ -2590,5 +2590,12 @@
   "boilerplate.containers.Payroll.assessment.TypeHereAdditionalInfo": "...اكتب هنا معلومات إضافية",
   "boilerplate.containers.Payroll.assessment.AssessmentUnderReview": "التقييم تحت المراجعة",
   "boilerplate.containers.Payroll.assessment.AssessmentDurationEnded": "انتهت مدة التقييم",
-  "boilerplate.containers.Payroll.assessment.monthAndYearErrorMes": "يجب أن تختار السنة والشهر"
+  "boilerplate.containers.Payroll.assessment.monthAndYearErrorMes": "يجب أن تختار السنة والشهر",
+
+
+  "boilerplate.containers.Payroll.assessment.OverAllAssessment": "التقييم العام",
+  "boilerplate.containers.Payroll.assessment.EmployeeChoose": "اختيار الموظف",
+  "boilerplate.containers.Payroll.assessment.DirectedManagerOverallAppraisal": "تقييم المدير المباشر",
+  "boilerplate.containers.Payroll.assessment.NoteForEmployee": "ملاحظات للموظف",
+  "boilerplate.containers.Payroll.assessment.BirthDate": "تاريخ الميلاد"
 }
