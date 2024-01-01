@@ -47,5 +47,29 @@ export default defineMessages({
   quotes: {
     id: 'boilerplate.containers.UI.Typo.quotes.title',
     defaultMessage: 'Quotes'
-  }
+  },
+  companyData: {
+    id: `${scope}.about.companyData`,
+    defaultMessage: 'companyData',
+  },
+  hrDocuments: {
+    id: `${scope}.about.hrDocuments`,
+    defaultMessage: 'hrDocuments',
+  },
+  policyDocuments: {
+    id: `${scope}.about.policyDocuments`,
+    defaultMessage: 'policyDocuments',
+  },
+  jobData: {
+    id: `${scope}.about.jobData`,
+    defaultMessage: 'jobData',
+  },
+  jobDescription: {
+    id: `${scope}.about.jobDescription`,
+    defaultMessage: 'jobDescription',
+  },
+  jobKPI: {
+    id: `${scope}.about.jobKPI`,
+    defaultMessage: 'jobKPI',
+  },
 });
