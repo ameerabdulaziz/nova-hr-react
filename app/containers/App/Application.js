@@ -99,6 +99,8 @@ import {
   Profile,
   Chat,
   Ecommerce,
+  CompanyDocument,
+  CompanyDocumentCreate,
   ProductPage,
   CheckoutPage,
   InvoicePage,
@@ -502,6 +504,9 @@ function Application(props) {
         <Route path='/app/Pages/MainData/Government' component={Government} />
         <Route path='/app/Pages/MainData/City' component={City} />
         <Route path='/app/Pages/MainData/MdDocumentCategory' component={MdDocumentCategory} />
+        <Route path='/app/Pages/MainData/CompanyDocument' component={CompanyDocument} />
+        <Route path='/app/Pages/MainData/CompanyDocumentCreate' component={CompanyDocumentCreate} />
+        <Route path='/app/Pages/MainData/CompanyDocumentEdit' component={CompanyDocumentCreate} />
         <Route path='/app/Pages/MainData/Currency' component={Currency} />
         <Route
           path='/app/Pages/MainData/Currency-Rate'

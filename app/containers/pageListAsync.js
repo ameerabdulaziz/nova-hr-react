@@ -420,6 +420,21 @@ export const Currency = loadable(
     fallback: <Loading />,
   }
 );
+
+export const CompanyDocument = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CompanyDocument'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CompanyDocumentCreate = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CompanyDocumentCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const CurrencyRate = loadable(
   () => import('./Pages/Payroll/MainData/Code/CurrencyRate'),
   {
