@@ -51,8 +51,23 @@ function MainMenu(props) {
    const getdata =  async () => {    
 
     const data =  await menuApi.fetchApi(locale);
+    const mappedMenu = data.map((item) => {
+      return {
+        ...item,
+        icon: item.icon ?? "widgets",
+        child: item.child?.map((child) => ({
+          ...child,
+          icon: child.icon ?? "extension",
+          child: child.child?.map((subChild) => ({
+            ...subChild,
+            icon: subChild.icon ?? "layers",
+          })),
+        })),
+      };
+    });
+    
     //setdataMenu(data);
-    Dispatcher(syncUserMenu(data));
+    Dispatcher(syncUserMenu(mappedMenu));
 };
 
 useEffect(() => {  
@@ -137,6 +152,11 @@ useEffect(() => {
         to={item.link ? item.link : "/app/Pages/MainData/Gender"}
         onClick={() => handleClick()}
       >
+        {item.icon && (
+          <ListItemIcon className={classes.icon}>
+            <Icon>{item.icon}</Icon>
+          </ListItemIcon>
+        )}
         <ListItemText classes={{ primary: classes.primary }} primary={locale=="en"?item.name:item.arname} />
         {item.badge && (
           <Chip color="primary" label={item.badge} className={classes.badge} />
