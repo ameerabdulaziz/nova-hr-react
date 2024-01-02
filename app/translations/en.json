@@ -1707,7 +1707,25 @@
   
   "boilerplate.containers.Payroll.Payroll.PurchaseTrxCreateTitle": "Add Employee Purchase",
   "boilerplate.containers.Payroll.Payroll.PurchaseTrxUpdateTitle": "Update Employee Purchase",
+  "boilerplate.containers.Payroll.Payroll.isPartCalc": "Partial Calculation",  
+  "boilerplate.containers.Payroll.Payroll.Calculate": "Calculate Salary",
 
+  
+  "boilerplate.containers.Payroll.Payroll.grossSal": "GrossSal",
+  "boilerplate.containers.Payroll.Payroll.empInsSalary": "InsSalary",
+  "boilerplate.containers.Payroll.Payroll.insuCompValFixed":"InsuCompVal",
+  "boilerplate.containers.Payroll.Payroll.insuEmpValFixed": "InsuEmpVal",
+  "boilerplate.containers.Payroll.Payroll.taxBool": "TaxBool",
+  "boilerplate.containers.Payroll.Payroll.taxVal": "TaxVal",
+  "boilerplate.containers.Payroll.Payroll.netSal": "NetSal",
+  "boilerplate.containers.Payroll.Payroll.totDed":"Deduction",  
+  "boilerplate.containers.Payroll.Payroll.DeleteSalary":"Delete Salary",  
+  "boilerplate.containers.Payroll.Payroll.OperateAtt":"Operate Attendance",
+  "boilerplate.containers.Payroll.Payroll.StopAtt":"Stop Attendance",
+  
+  "boilerplate.containers.Payroll.Payroll.Show":"Show Report",
+  "boilerplate.containers.Payroll.Payroll.NotShow":"Hide Report",
+  
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
   "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",

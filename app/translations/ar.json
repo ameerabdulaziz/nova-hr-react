@@ -1771,6 +1771,23 @@
 
     "boilerplate.containers.Payroll.Payroll.PurchaseTrxCreateTitle": "اضافة مشتريات الموظف",
     "boilerplate.containers.Payroll.Payroll.PurchaseTrxUpdateTitle": "تعديل مشتريات الموظف",
+    "boilerplate.containers.Payroll.Payroll.isPartCalc": "احتساب جزئي",
+    "boilerplate.containers.Payroll.Payroll.Calculate": "اجراء عملية الحساب",
+
+    "boilerplate.containers.Payroll.Payroll.grossSal": "grossSal",
+    "boilerplate.containers.Payroll.Payroll.empInsSalary": "الراتب التأمينى",
+    "boilerplate.containers.Payroll.Payroll.insuCompValFixed":"تأمينات الشركه",
+    "boilerplate.containers.Payroll.Payroll.insuEmpValFixed": "تأمينات الموظف",
+    "boilerplate.containers.Payroll.Payroll.taxBool": "الوعاء الضريبى",
+    "boilerplate.containers.Payroll.Payroll.taxVal": "الضرائب",
+    "boilerplate.containers.Payroll.Payroll.netSal": "الاجمالى",
+    "boilerplate.containers.Payroll.Payroll.totDed":"الخصم",
+    "boilerplate.containers.Payroll.Payroll.DeleteSalary":"حذف المرتبات",
+    "boilerplate.containers.Payroll.Payroll.OperateAtt":"تشغيل معالجة الحضور",
+    "boilerplate.containers.Payroll.Payroll.StopAtt":"ايقاف معالجة الحضور",
+    "boilerplate.containers.Payroll.Payroll.Show":"عرض تقرير المرتبات",
+    "boilerplate.containers.Payroll.Payroll.NotShow":"ايقاف تقرير المرتبات",
+    
     
     
     

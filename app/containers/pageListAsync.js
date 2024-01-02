@@ -1452,6 +1452,11 @@ export const LoanReqCreate = loadable(
         fallback: <Loading />,
       }
     );
+    export const SalaryCalculation = loadable(
+      () => import('./Pages/Payroll/Payroll/Transaction/Calculation/SalaryCalculation'),
+      {
+        fallback: <Loading />,
+      });
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(

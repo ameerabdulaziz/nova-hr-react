@@ -123,7 +123,6 @@ function LoanPostpone(props) {
           stYearName: "",
         });
         setdataList([]);
-        setEmployeeList([]);
         return;
       }
       setIsLoading(true);
