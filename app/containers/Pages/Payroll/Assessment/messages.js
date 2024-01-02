@@ -468,4 +468,25 @@ export default defineMessages({
     id: `${scope}.refuse`,
     defaultMessage: 'refuse',
   },
+  // AssessmentReview
+  OverAllAssessment: {
+    id: `${scope}.OverAllAssessment`,
+    defaultMessage: 'Over All Assessment',
+  },
+  EmployeeChoose: {
+    id: `${scope}.EmployeeChoose`,
+    defaultMessage: 'Employee Choose',
+  },
+  DirectedManagerOverallAppraisal: {
+    id: `${scope}.DirectedManagerOverallAppraisal`,
+    defaultMessage: 'Directed manager over all appraisal',
+  },
+  NoteForEmployee: {
+    id: `${scope}.NoteForEmployee`,
+    defaultMessage: 'Note for employee',
+  },
+  BirthDate: {
+    id: `${scope}.BirthDate`,
+    defaultMessage: 'Birth Date',
+  },
 });

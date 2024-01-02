@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import AssessmentReviewData from '../api/AssessmentReviewData';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/pagesStyle/EmployeeAssessmentSty.scss'
-// import style from '../../../../../styles/styles.scss'
 import {  useHistory, useLocation  } from 'react-router-dom';
 import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../messages';
@@ -25,7 +24,6 @@ import { format } from 'date-fns';
 
 
 function AssessmentReviewEdit(props) {
-  const [id, setid] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
@@ -53,10 +51,6 @@ function AssessmentReviewEdit(props) {
     const [textareaNoteForEmployeeVal, setTextareaNoteForEmployeeVal] = useState("");
     const [AssessmentReviewLock, setAssessmentReviewLock] = useState(true);
    
-
-    console.log("textareaEmpTrainingVal =", textareaEmpTrainingVal);
-    console.log("OverallAppraisalVal =", OverallAppraisalVal);
-    console.log("textareaNoteForEmployeeVal =", textareaNoteForEmployeeVal);
 
 
     useEffect(()=>{
@@ -120,35 +114,17 @@ function AssessmentReviewEdit(props) {
 
     if(type === "textareaEmpTraining")
     {
-      // setTextareaEmpTrainingVal(prveState => (
-      //   {
-      //     ...prveState,
-      //     [`textareaEmpTraining`] : e.target.value
-      // }
-      // ))
       setTextareaEmpTrainingVal(e.target.value)
     }
 
     if(type === "OverallAppraisal")
     {
-      // setOverallAppraisalVal(prveState => (
-      //   {
-      //     ...prveState,
-      //     [`OverallAppraisal`] : e.target.value
-      // }
-      // ))
       setOverallAppraisalVal( e.target.value)
     }
 
 
     if(type === "NoteForEmployee")
     {
-      // setTextareaNoteForEmployeeVal(prveState => (
-      //   {
-      //     ...prveState,
-      //     [`NoteForEmployee`] : e.target.value
-      // }
-      // ))
       setTextareaNoteForEmployeeVal(e.target.value)
     }
  
@@ -188,35 +164,17 @@ function AssessmentReviewEdit(props) {
 
     if(type === "textareaEmpTraining")
     {
-      // setTextareaEmpTrainingVal(prveState => (
-      //   {
-      //     ...prveState,
-      //     [`textareaEmpTraining`] : e.target.value
-      // }
-      // ))
       setTextareaEmpTrainingVal(e.target.value)
     }
 
     if(type === "OverallAppraisal")
     {
-      // setOverallAppraisalVal(prveState => (
-      //   {
-      //     ...prveState,
-      //     [`OverallAppraisal`] : e.target.value
-      // }
-      // ))
       setOverallAppraisalVal( e.target.value)
     }
 
 
     if(type === "NoteForEmployee")
     {
-      // setTextareaNoteForEmployeeVal(prveState => (
-      //   {
-      //     ...prveState,
-      //     [`NoteForEmployee`] : e.target.value
-      // }
-      // ))
       setTextareaNoteForEmployeeVal(e.target.value)
     }
 
@@ -270,14 +228,11 @@ function AssessmentReviewEdit(props) {
     try {
       const examQuestionsData = await AssessmentReviewData(locale).GetDataById(ID);
       setExamData(examQuestionsData[0]);
-      // setExamData(testData);
 
-      // testData.competencyList.map((queData, index)=>{
         examQuestionsData[0].competencyList.map((queData, index)=>{
         if(queData.employeeChoiceID !== null || queData.employeeExample.length !== 0)
         {
 
-          // if(testData.showStyle === 1)
           if(examQuestionsData[0].showStyle === 1)
           {
           setQuestionsAnswers(prveState => (
@@ -286,7 +241,6 @@ function AssessmentReviewEdit(props) {
               ...prveState,
               [`que${index + 1}`] : {
                 ...prveState[`que${index + 1}`],
-                // checkedVal: testData.choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? testData.choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
                 checkedVal: examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
                 question: queData,
                 textareaVal: queData.employeeExample
@@ -295,7 +249,6 @@ function AssessmentReviewEdit(props) {
           ))
         }
 
-        // if(testData.showStyle === 2)
         if(examQuestionsData[0].showStyle === 2)
         {
         setAllQuestionsAnswers(prveState => (
@@ -304,7 +257,6 @@ function AssessmentReviewEdit(props) {
               ...prveState,
               [`que${index + 1}`] : {
                 ...prveState[`que${index + 1}`],
-                // checkedVal: testData.choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? testData.choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
                 checkedVal: examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) ? examQuestionsData[0].choiceList.find((choice) => choice.id === queData.employeeChoiceID) : null,
                 question: queData,
                 textareaVal: queData.employeeExample
@@ -313,43 +265,14 @@ function AssessmentReviewEdit(props) {
           ))
         }
 
-
-        // setTextareaEmpTrainingVal(prveState => (
-        //   {
-        //     ...prveState,
-        //     [`textareaEmpTraining`] : testData.staffTrainingReq
-        //     // [`textareaEmpTraining`] : examQuestionsData[0].staffTrainingReq
-        // }
-        // ))
-        // setTextareaEmpTrainingVal(testData.staffTrainingReq)
         setTextareaEmpTrainingVal(examQuestionsData[0].staffTrainingReq)
 
-
-        // setOverallAppraisalVal(prveState => (
-        //   {
-        //     ...prveState,
-        //     [`OverallAppraisal`] : testData.mgrStaffAllert
-        //     // [`textareaEmpTraining`] : examQuestionsData[0].staffTrainingReq
-        // }
-        // ))
-        // setOverallAppraisalVal(testData.mgrStaffAllert)
         setOverallAppraisalVal(examQuestionsData[0].mgrStaffAllert)
 
-
-        // setTextareaNoteForEmployeeVal(prveState => (
-        //   {
-        //     ...prveState,
-        //     [`NoteForEmployee`] : testData.mgrComment
-        //     // [`textareaEmpTraining`] : examQuestionsData[0].staffTrainingReq
-        // }
-        // ))
-        // setTextareaNoteForEmployeeVal(testData.mgrComment)
         setTextareaNoteForEmployeeVal(examQuestionsData[0].mgrComment)
 
         }
       })
-
-
 
     } catch (err) {
     } finally {
@@ -384,13 +307,7 @@ function AssessmentReviewEdit(props) {
             if(questionsAnswers[key].checkedVal && questionsAnswers[key].checkedVal.id )
             {
               que.mgrChoiceId = questionsAnswers[key]?.checkedVal?.id
-              // que.employeeChoiceID = questionsAnswers[key]?.checkedVal?.id
             }
-
-            // if(questionsAnswers[key].textareaVal )
-            // {
-            //   que.employeeExample = questionsAnswers[key].textareaVal
-            // }
 
           }
           });
@@ -407,13 +324,7 @@ function AssessmentReviewEdit(props) {
             if(allQuestionsAnswers[key].checkedVal && allQuestionsAnswers[key].checkedVal.id )
             {
               que.mgrChoiceId = allQuestionsAnswers[key]?.checkedVal?.id
-              // que.employeeChoiceID = allQuestionsAnswers[key]?.checkedVal?.id
             }
-
-            // if(allQuestionsAnswers[key].textareaVal )
-            // {
-            //   que.employeeExample = allQuestionsAnswers[key].textareaVal
-            // }
 
           }
           });
@@ -424,263 +335,36 @@ function AssessmentReviewEdit(props) {
 
 
 
-    let data = 
-    // {
-    //   "assessmentID": examData.assessmentId,
-    //   "TemplateId":examData.templateId,
-    //   "trainingReq":  textareaEmpTrainingVal.textareaEmpTraining,
-    //   "assclosed": buttonType === "save" ? false :  true ,
-    //   "competencyList": examData.competencyList
-    // }
-    {
+    let data =  {
       "assessmentID":  examData.assessmentId,
       "templateId": examData.templateId,
       "trainingReq": textareaEmpTrainingVal,
-      // "trainingReq": textareaEmpTrainingVal.textareaEmpTraining,
       "isClosed": buttonType === "save" ? false :  true ,
       "mgrComment": textareaNoteForEmployeeVal,
       "mgrEmployeeAllert": OverallAppraisalVal,
       "competencyList": examData.competencyList
-      // "competencyList": [
-      //   {
-      //     "competencyID": 0,
-      //     "totalGrade": 0,
-      //     "categoryID": 0,
-      //     "employeeChoiceID": 0,
-      //     "employeeExample": "string",
-      //     "notEffective": true,
-      //     "mgrChoiceID": 0
-      //   }
-      // ]
     }
 
     
-console.log("api data =", data);
+    try {
+      let response = await AssessmentReviewData().Save(data);
 
-
-    // try {
-    //   let response = await EmployeeAssessmentData().Save(data);
-
-    //   if (response.status==200) {
-    //     toast.success(notif.saved);
-    
-    //   } else {
-    //       toast.error(response.statusText);
-    //   }
-    //   setIsLoading(false)
-    //   setProcessing(false)
-    // } catch (err) {
-    //   //
-    // } finally {
-    //   setIsLoading(false)
-    //   setProcessing(false)
-    // }
+      if (response.status==200) {
+        toast.success(notif.saved);
+        history.push(`/app/Pages/Assessment/AssessmentReview`);
+      } else {
+          toast.error(response.statusText);
+      }
+      setIsLoading(false)
+      setProcessing(false)
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false)
+      setProcessing(false)
+    }
   }
-
-
-  const testData = {
-    "assessmentId": 16,
-    "employeeName": "Ahmed awad",
-    "birthDate": "2020-10-10T00:00:00",
-    "hiringDate": "2021-08-10T00:00:00",
-    "organizationName": "HR",
-    "jobName": "Manager Support",
-    "staffTrainingReq": "training test2",
-    "templateId": 2,
-    "templateName": "Assessment for emplouee evaluation",
-    "templateDesc": "“The content has been classified as confidential and may be legally protected from disclosure, you are hereby notified that any use, dissemination, copying, or storage of this content or its attachments is strictly prohibited. In case of any disclosure of this content, you will be subjected to an HR Investigation.”",
-    "showStyle": 2,
-    "exampleRequired": true,
-    "rev": false,
-    "choiceList": [
-        {
-            "id": 1,
-            "name": "Weak",
-            "fromPer": 0.0,
-            "toPer": 25.0,
-            "choiceGrade": 0.0
-        },
-        {
-            "id": 2,
-            "name": "Moderate",
-            "fromPer": 26.0,
-            "toPer": 50.0,
-            "choiceGrade": 0.0
-        },
-        {
-            "id": 3,
-            "name": "Strong",
-            "fromPer": 51.0,
-            "toPer": 75.0,
-            "choiceGrade": 0.0
-        },
-        {
-            "id": 4,
-            "name": "Very Strong",
-            "fromPer": 76.0,
-            "toPer": 89.0,
-            "choiceGrade": 0.0
-        },
-        {
-            "id": 5,
-            "name": "Exceptional",
-            "fromPer": 90.0,
-            "toPer": 100.0,
-            "choiceGrade": 0.0
-        },
-        {
-            "id": 6,
-            "name": "ght",
-            "fromPer": 12.0,
-            "toPer": 12.0,
-            "choiceGrade": 12.0
-        },
-        {
-            "id": 7,
-            "name": "11111",
-            "fromPer": 451.0,
-            "toPer": 451.0,
-            "choiceGrade": 1.0
-        }
-    ],
-    "mgrComment": null,
-    "mgrStaffAllert": null,
-    "competencyList": [
-        {
-            "competencyId": 3,
-            "competency": "Understanding of Scope & Deliverable",
-            "totalGrade": 10.0,
-            "categoryId": 2,
-            "category": "Core Competencies",
-            "employeeChoiceID": 1,
-            "employeeChoiceName": "Weak",
-            "employeeExample": "dsd",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 4,
-            "competency": "Control of Personal Work Plan (time management & productivity)",
-            "totalGrade": 10.0,
-            "categoryId": 2,
-            "category": "Core Competencies",
-            "employeeChoiceID": 2,
-            "employeeChoiceName": "Moderate",
-            "employeeExample": "sss",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 5,
-            "competency": "Leadership Skills & Decision Making",
-            "totalGrade": 10.0,
-            "categoryId": 2,
-            "category": "Core Competencies",
-            "employeeChoiceID": 3,
-            "employeeChoiceName": "Strong",
-            "employeeExample": "sss",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 6,
-            "competency": "Basic Technical Knowledge of Associated Trades",
-            "totalGrade": 10.0,
-            "categoryId": 3,
-            "category": "Technical Competencies",
-            "employeeChoiceID": 4,
-            "employeeChoiceName": "Very Strong",
-            "employeeExample": "vvv",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 7,
-            "competency": "Coordination Skills with Associated Trades",
-            "totalGrade": 10.0,
-            "categoryId": 3,
-            "category": "Technical Competencies",
-            "employeeChoiceID": 5,
-            "employeeChoiceName": "Exceptional",
-            "employeeExample": "yyy",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 8,
-            "competency": "Multi-faceted Problem Solving",
-            "totalGrade": 10.0,
-            "categoryId": 3,
-            "category": "Technical Competencies",
-            "employeeChoiceID": 6,
-            "employeeChoiceName": "ght",
-            "employeeExample": "jjjj",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 9,
-            "competency": "Establishing and Maintaining Good & Efficient Relations with Project Stakeholders",
-            "totalGrade": 10.0,
-            "categoryId": 4,
-            "category": "Functional Competencies",
-            "employeeChoiceID": 7,
-            "employeeChoiceName": "11111",
-            "employeeExample": "eewwe",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 10,
-            "competency": "Recognition & Management of Firm Responsibilities",
-            "totalGrade": 10.0,
-            "categoryId": 4,
-            "category": "Functional Competencies",
-            "employeeChoiceID": 1,
-            "employeeChoiceName": "Weak",
-            "employeeExample": "ffew",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 11,
-            "competency": "Ability to Meet Firm Objectives",
-            "totalGrade": 10.0,
-            "categoryId": 5,
-            "category": "Organizational Competencies",
-            "employeeChoiceID": 2,
-            "employeeChoiceName": "Moderate",
-            "employeeExample": "csca",
-            "notEffective": false,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        },
-        {
-            "competencyId": 12,
-            "competency": "Hard Work",
-            "totalGrade": 10.0,
-            "categoryId": 5,
-            "category": "Organizational Competencies",
-            "employeeChoiceID": 7,
-            "employeeChoiceName": "11111",
-            "employeeExample": "test1",
-            "notEffective": true,
-            "mgrChoiceId": null,
-            "mgrChoiceName": null
-        }
-    ]
-}
-
-
-    
+   
   
   return (
     <PayRollLoader isLoading={isLoading} whiteBg icon="border_color" >
@@ -693,7 +377,7 @@ console.log("api data =", data);
                 direction="row"
                 >
                   {( startExam && !endExam) && (
-                  <Grid item xs={12} className={`${style.gridContainerSty} ${!startExam ? style.HideContainers : style.showContainers }`}  
+                  <Grid item xs={12} className={`${style.gridContainerSty} `}  
                       > 
                         <div className={` ${style.panarContainer} ${classes.examMainSty}`}>
                         <div>
@@ -704,23 +388,22 @@ console.log("api data =", data);
                             </div>
 
                            
-                            
                           <div>
 
-                            <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                 onClick={() => setEndExam(true)}
-                                 >
-                                  <FormattedMessage {...messages.AssessmentFinish} />
-                            </Button>
+                              <Button
+                                  variant="contained"
+                                  size="medium"
+                                  color="primary"
+                                  onClick={() => setEndExam(true)}
+                                  >
+                                    <FormattedMessage {...messages.AssessmentFinish} />
+                              </Button>
 
-                            <p>
-                                Ali Omar
-                            </p>
-                            <PersonIcon />
-                                  </div>
+                              <p>
+                                  {examData?.employeeName}
+                              </p>
+                              <PersonIcon />
+                          </div>
 
                             
                         </div>               
@@ -728,7 +411,7 @@ console.log("api data =", data);
                     )}
 
                     {!startExam && (
-                    <Grid item xs={12}  md={6} className={`${style.gridContainerSty} ${startExam? style.HideContainers : style.showContainers }`}  
+                    <Grid item xs={12}  md={6} className={`${style.gridContainerSty} `}  
                       > 
                         <div className={`${style.mainContainer} ${classes.examMainSty}`}>
 
@@ -737,14 +420,13 @@ console.log("api data =", data);
                                 <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} />  :  examData?.templateName :  <FormattedMessage {...messages.AssessmentDurationEnded} /> }</h1>
                             </div>
 
-                            
                         </div>               
                     </Grid>
                     )}
 
 
                   {!startExam && (
-                    <Grid item xs={12} md={6} className={`${style.gridContainerSty} ${startExam? style.HideContainers : style.showContainers }`}  
+                    <Grid item xs={12} md={6} className={`${style.gridContainerSty} `}  
                       > 
                     
                     <div className={`${style.startExamContainer}`}>
@@ -764,10 +446,12 @@ console.log("api data =", data);
                                 size="medium"
                                 color="primary"
                                  onClick={() => {
-                                  setUserInfo(true)
+                                  if((examData?.showStyle === 1))
+                                  {
+                                    setUserInfo(true)
+                                  }
                                   setStartExam(true)
                                 }}
-                                //  onClick={() => setStartExam(true)}
                                  >
                                   <FormattedMessage {...messages.Start} />
                                 </Button>
@@ -864,21 +548,8 @@ console.log("api data =", data);
                           direction="row"
                           >
 
-                          {uncompletedQuestionsList.length !== 0 && (
-                            <Grid item xs={12}  lg={4}>
-                              <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                onClick={()=>backToExamFun(uncompletedQuestionsList[0])}
-                              >
-                                <FormattedMessage {...messages.BackToAssessment} />
-                              </Button>
-                              </Grid>
-                          )}
 
-
-                            <Grid item xs={12}   lg={uncompletedQuestionsList.length !== 0 ? 4 : 6}>
+                            <Grid item xs={12} >
                               <Button
                                 variant="contained"
                                 size="medium"
@@ -889,30 +560,16 @@ console.log("api data =", data);
                               </Button>
                               </Grid>
 
-                              <Grid item xs={12}  lg={uncompletedQuestionsList.length !== 0 ? 4 : 6}>
-                              <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                onClick={()=>submitFun("submit")}
-                                disabled={uncompletedQuestionsList.length === 0 ? false : true}
-                              >
-                                <FormattedMessage {...messages.submit} />
-                              </Button>
-                              </Grid>
                           </Grid>
 
                       </div>
                     </Grid>
                     )}
 
-                    {/* /// */}
 
-                  {userInfo && (
+                  {userInfo && (examData?.showStyle === 1) && (
                     <Grid item xs={12}  > 
                        
-       
-                        {/* <div className={``}> */}
                         <div className={`${style.examContainer} ${style.userInfoContainer}`}>
                           
                             <div>
@@ -920,37 +577,36 @@ console.log("api data =", data);
                             <Grid
                                   container
                                   spacing={3}
-                                //   alignItems="flex-end"
                                   direction="row"
                                   
                                   >
                             <Grid item xs={12} md={6} >
                                 <div className={`${style.userInfoSty}`}>
-                                    <p>Department: </p> <p className={classes.textSty}>{examData?.organizationName}</p>
+                                    <p><FormattedMessage {...messages.department} /> : </p> <p className={classes.textSty}>{examData?.organizationName}</p>
                                 </div>
                             </Grid>
 
                             <Grid item xs={12} md={6} >
                                 <div className={`${style.userInfoSty}`}>
-                                    <p>Employee: </p> <p className={classes.textSty}>{examData?.employeeName}</p>
+                                    <p><FormattedMessage {...messages.employeeName} />: </p> <p className={classes.textSty}>{examData?.employeeName}</p>
                                 </div>
                             </Grid>
 
                             <Grid item xs={12} md={6} >
                                 <div className={`${style.userInfoSty}`}>
-                                    <p>Job Title: </p> <p className={classes.textSty}>{examData?.jobName}</p>
+                                    <p><FormattedMessage {...messages.jobName} />: </p> <p className={classes.textSty}>{examData?.jobName}</p>
                                 </div>
                             </Grid>
 
                             <Grid item xs={12} md={6} >
                                 <div className={`${style.userInfoSty}`}>
-                                    <p>Birth Date: </p> <p className={classes.textSty}>{examData ? format(new Date(examData.birthDate), 'yyyy-MM-dd') : ""}</p>
+                                    <p><FormattedMessage {...messages.BirthDate} />: </p> <p className={classes.textSty}>{examData ? format(new Date(examData.birthDate), 'yyyy-MM-dd') : ""}</p>
                                 </div>
                             </Grid>
 
                             <Grid item xs={12} md={6} >
                                 <div className={`${style.userInfoSty}`}>
-                                    <p>Hiring date: </p> <p className={classes.textSty}>{examData ?  format(new Date(examData.hiringDate), 'yyyy-MM-dd') : ""}</p>
+                                    <p><FormattedMessage {...messages.hiringData} />: </p> <p className={classes.textSty}>{examData ?  format(new Date(examData.hiringDate), 'yyyy-MM-dd') : ""}</p>
                                 </div>
                             </Grid>
 
@@ -978,17 +634,6 @@ console.log("api data =", data);
                                     >
                                  
 
-                                  {/* <Grid item xs={6} md={3}  lg={2}>
-                                    <Button
-                                      variant="contained"
-                                      size="medium"
-                                      color="primary"
-                                      onClick={prevQueFun}
-                                    >
-                                   <FormattedMessage {...messages.Prev} />
-                                    </Button>
-                                  </Grid> */}
-
                               {examData?.competencyList.length >= questionNum + 1  && (<>
                                   <Grid item xs={6} md={3} lg={2}>
                                     <Button
@@ -996,7 +641,6 @@ console.log("api data =", data);
                                       size="medium"
                                       color="primary"
                                       onClick={() => {
-                                        setStartExam(true)
                                         setUserInfo(false)
                                       }}
                                     >
@@ -1019,8 +663,6 @@ console.log("api data =", data);
                                   </Grid>
                                   </>)}
 
-                                 
-
                                   </Grid>
                                 </Grid>
                             </div>
@@ -1030,7 +672,6 @@ console.log("api data =", data);
 
                   )}
 
-                    {/* ///////// */}
 
                 </Grid>
             </CardContent>

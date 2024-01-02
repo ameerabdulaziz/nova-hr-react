@@ -17,11 +17,11 @@ const AssessmentReviewData = (locale) => {
     return data.data;
   };
 
-//   Apis.Save = async (data) => {
+  Apis.Save = async (data) => {
 
-//       const result = await axiosInstance.post("Assessment/Save", data);
-//       return result;
-//   };
+      const result = await axiosInstance.post("Assessment/SaveMgrAssessment", data);
+      return result;
+  };
 
   
   return Apis;

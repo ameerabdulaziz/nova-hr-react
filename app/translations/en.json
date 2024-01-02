@@ -2539,7 +2539,15 @@
   "boilerplate.containers.Payroll.assessment.TypeHereAdditionalInfo": "Type here additional info...",
   "boilerplate.containers.Payroll.assessment.AssessmentUnderReview": "Assessment under review",
   "boilerplate.containers.Payroll.assessment.AssessmentDurationEnded": "Assessment duration ended",
-  "boilerplate.containers.Payroll.assessment.monthAndYearErrorMes": "Must To Choose Year And Month"
+  "boilerplate.containers.Payroll.assessment.monthAndYearErrorMes": "Must To Choose Year And Month",
+
+
+
+  "boilerplate.containers.Payroll.assessment.OverAllAssessment": "Over all assessment",
+  "boilerplate.containers.Payroll.assessment.EmployeeChoose": "Employee Choose",
+  "boilerplate.containers.Payroll.assessment.DirectedManagerOverallAppraisal": "Directed manager over all appraisal",
+  "boilerplate.containers.Payroll.assessment.NoteForEmployee": "Note for employee",
+  "boilerplate.containers.Payroll.assessment.BirthDate": "Birth Date"
 
 
   

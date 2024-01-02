@@ -73,14 +73,12 @@ const ExamQuestionNextAndPrev =  ({
                                      className={style.radioContainer}
                                   >
                                     {AssessmentReviewLock  && (
-                                      <p><TaskAltIcon /> Employee Choose: {examData?.competencyList[questionNum]?.employeeChoiceName ? examData.competencyList[questionNum].employeeChoiceName : ""} </p>
-                                      // <p><TaskAltIcon /> Employee Choose: {(questionsAnswers[`que${questionNum + 1}`]?.checkedVal ? questionsAnswers[`que${questionNum + 1}`]?.checkedVal?.name : "")} </p>
+                                      <p><TaskAltIcon /> <FormattedMessage {...messages.EmployeeChoose} />:&nbsp; {examData?.competencyList[questionNum]?.employeeChoiceName ? examData.competencyList[questionNum].employeeChoiceName : ""} </p>
                                     )}
 
                                     {choices?.map((choice,index)=>{
                                         return (
                                             <FormControlLabel 
-                                            // style={{backgroundColor: "#f00"}}
                                             key={choice.id}
                                             value={choice.id} 
                                             control={<Radio checkedIcon={<CheckIcon className={`${style.checkedIconeSty} ${classes.examMainSty}`}/>} icon={<RadioButtonUncheckedIcon className={style.iconeSty} />} />} 
@@ -115,9 +113,10 @@ const ExamQuestionNextAndPrev =  ({
                                       disabled={AssessmentReviewLock}
                                 />
                                 {(
-                                examData.exampleRequired 
-                              && questionsAnswers[`que${questionNum + 1}`]
-                              && questionsAnswers[`que${questionNum + 1}`]?.checkedVal 
+                                    examData.exampleRequired 
+                                  && questionsAnswers[`que${questionNum + 1}`]
+                                  && questionsAnswers[`que${questionNum + 1}`]?.checkedVal 
+                                  && questionsAnswers[`que${questionNum + 1}`]?.textareaVal?.length === 0 
                                 )
                                  ? <span> <FormattedMessage {...messages.ThisFieldIsRequired} /></span> : (
                                   null
@@ -137,14 +136,12 @@ const ExamQuestionNextAndPrev =  ({
                                     size="lg"
                                     onChange={(e) => { saveQuestions(e, "textareaEmpTraining")}}
                                     value={textareaEmpTrainingVal? textareaEmpTrainingVal: ""}
-                                    // value={textareaEmpTrainingVal?.textareaEmpTraining ? textareaEmpTrainingVal?.textareaEmpTraining : ""}
                                 />
                                  </>)}
 
                                  {(examData?.competencyList.length < questionNum + 1) && AssessmentReviewLock  && (<>
                                     <h1 className={style.textareaTitle}>
-                                      {/* <FormattedMessage {...messages.EmployeeTrainingRequest} /> */}
-                                      Directed Manager Overall Appraisal
+                                      <FormattedMessage {...messages.DirectedManagerOverallAppraisal} />
                                     </h1>
                           
                                     <TextareaAutosize
@@ -154,14 +151,12 @@ const ExamQuestionNextAndPrev =  ({
                                         size="lg"
                                         onChange={(e) => { saveQuestions(e, "OverallAppraisal")}}
                                         value={OverallAppraisalVal ? OverallAppraisalVal : ""}
-                                        // value={OverallAppraisalVal?.OverallAppraisal ? OverallAppraisalVal?.OverallAppraisal : ""}
                                     />
                                  </>)}
 
                                  {(examData?.competencyList.length < questionNum + 1) && AssessmentReviewLock   && (<>
                                     <h1 className={style.textareaTitle}>
-                                      {/* <FormattedMessage {...messages.EmployeeTrainingRequest} /> */}
-                                      Note For Employee
+                                      <FormattedMessage {...messages.NoteForEmployee} />
                                     </h1>
                           
                                     <TextareaAutosize
@@ -171,7 +166,6 @@ const ExamQuestionNextAndPrev =  ({
                                         size="lg"
                                         onChange={(e) => { saveQuestions(e, "NoteForEmployee")}}
                                         value={textareaNoteForEmployeeVal ? textareaNoteForEmployeeVal : ""}
-                                        // value={textareaNoteForEmployeeVal?.NoteForEmployee ? textareaNoteForEmployeeVal?.NoteForEmployee : ""}
                                     />
                                  </>)}
 
