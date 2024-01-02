@@ -4,15 +4,15 @@ const API = (locale) => {
 
   api.GetList = async () => {
     const data = await axiosInstance.get(
-      'AsTemplate/GetList/'
+      `AsCompetency/GetList/${locale}`
     );
 
     return data.data;
   };
 
-  api.GetCompetencyList = async () => {
+  api.GetCategoryList = async () => {
     const data = await axiosInstance.get(
-      `AsTemplate/GetCompetencyList/${locale}`
+      `AsCategory/GetListModel/${locale}`
     );
 
     return data.data;
@@ -20,29 +20,20 @@ const API = (locale) => {
 
   api.GetById = async (id) => {
     const data = await axiosInstance.get(
-      `AsTemplate/Get/${locale}/${id}`
-    );
-
-    return data.data;
-  };
-
-  api.GetEmployee = async (id, jobs, probationPeriod) => {
-    const data = await axiosInstance.post(
-      `AsTemplate/GetEmployee/${locale}/${id}/${probationPeriod}`,
-      jobs
+      `AsCompetency/Get/${id}/${locale}`
     );
 
     return data.data;
   };
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('AsTemplate/save', body);
+    const result = await axiosInstance.post('AsCompetency/Save', body);
 
     return result;
   };
 
   api.delete = async (id) => {
-    const data = await axiosInstance.delete(`AsTemplate/delete/${id}`);
+    const data = await axiosInstance.delete(`AsCompetency/Delete/${id}`);
 
     return data;
   };

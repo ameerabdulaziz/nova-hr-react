@@ -121,4 +121,97 @@ OrganizationsList: {
   id: `${scope}.codes.OrganizationsList`,
   defaultMessage: 'Organizations list',
 },
+
+  category: {
+    id: `${scope}.codes.category`,
+    defaultMessage: 'category',
+  },
+  documentType: {
+    id: `${scope}.codes.documentType`,
+    defaultMessage: 'documentType',
+  },
+  documentDescription: {
+    id: `${scope}.codes.documentDescription`,
+    defaultMessage: 'documentDescription',
+  },
+  type: {
+    id: `${scope}.codes.type`,
+    defaultMessage: 'type',
+  },
+  employeeInfo: {
+    id: `${scope}.codes.employeeInfo`,
+    defaultMessage: 'employeeInfo',
+  },
+  addOrChangeEmployee: {
+    id: `${scope}.codes.addOrChangeEmployee`,
+    defaultMessage: 'addOrChangeEmployee',
+  },
+  branch: {
+    id: `${scope}.codes.branch`,
+    defaultMessage: 'branch',
+  },
+  department: {
+    id: `${scope}.codes.department`,
+    defaultMessage: 'department',
+  },
+  section: {
+    id: `${scope}.codes.section`,
+    defaultMessage: 'section',
+  },
+  allSupervisors: {
+    id: `${scope}.codes.allSupervisors`,
+    defaultMessage: 'allSupervisors',
+  },
+  allManagers: {
+    id: `${scope}.codes.allManagers`,
+    defaultMessage: 'allManagers',
+  },
+  departmentName: {
+    id: `${scope}.codes.departmentName`,
+    defaultMessage: 'departmentName',
+  },
+  jobName: {
+    id: `${scope}.codes.jobName`,
+    defaultMessage: 'jobName',
+  },
+  noEmployeeFound: {
+    id: `${scope}.codes.noEmployeeFound`,
+    defaultMessage: 'noEmployeeFound',
+  },
+  employeeName: {
+    id: `${scope}.codes.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  close: {
+    id: `${scope}.codes.close`,
+    defaultMessage: 'close',
+  },
+  save: {
+    id: `${scope}.codes.save`,
+    defaultMessage: 'save',
+  },
+  employeeCode: {
+    id: `${scope}.codes.employeeCode`,
+    defaultMessage: 'employeeCode',
+  },
+  uploadFileErrorMes: {
+    id: `${scope}.codes.uploadFileErrorMes`,
+    defaultMessage: 'uploadFileErrorMes',
+  },
+  uploadAttachment: {
+    id: `${scope}.codes.uploadAttachment`,
+    defaultMessage: 'uploadAttachment',
+  },
+  preview: {
+    id: `${scope}.codes.preview`,
+    defaultMessage: 'preview',
+  },
+  hrForm: {
+    id: `${scope}.codes.hrForm`,
+    defaultMessage: 'hrForm',
+  },
+  companyPolicy: {
+    id: `${scope}.codes.companyPolicy`,
+    defaultMessage: 'companyPolicy',
+  },
 });

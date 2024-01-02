@@ -493,4 +493,8 @@ employeeId: {
     id: `${scope}.copy`,
     defaultMessage: "copy",
   },
+  review: {
+    id: `${scope}.review`,
+    defaultMessage: "Review",
+  },
 });

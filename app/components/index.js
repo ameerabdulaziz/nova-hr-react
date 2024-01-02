@@ -68,8 +68,8 @@ export Rating from './Rating/Rating';
 // Profile
 export Cover from './Profile/Cover';
 export About from './Profile/About';
-export Albums from './Profile/Albums';
-export Connection from './Profile/Connection';
+export CompanyDocument from './Profile/CompanyDocument';
+export JobData from './Profile/JobData';
 // Card
 export ProfileCard from './CardPaper/ProfileCard';
 export GeneralCard from './CardPaper/GeneralCard';

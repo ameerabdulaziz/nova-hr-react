@@ -4,23 +4,23 @@ const API = (locale) => {
 
   api.GetList = async () => {
     const data = await axiosInstance.get(
-      'AsTemplate/GetList/'
+      `AsIndividualDevelopmentPlan/GetList/${locale}`
     );
 
     return data.data;
   };
 
-  api.GetCompetencyList = async () => {
+  api.GetDevelopmentActivitiesList = async () => {
     const data = await axiosInstance.get(
-      `AsTemplate/GetCompetencyList/${locale}`
+      `AsIndividualDevelopmentPlan/GetDevelopmentActivitiesList/${locale}`
     );
 
     return data.data;
   };
 
-  api.GetById = async (id) => {
+  api.GetById = async (id, employeeId = null) => {
     const data = await axiosInstance.get(
-      `AsTemplate/Get/${locale}/${id}`
+      `AsIndividualDevelopmentPlan/Get/${id}/${locale}${employeeId ? '?employeeId=' + employeeId : ''}`
     );
 
     return data.data;
@@ -28,7 +28,7 @@ const API = (locale) => {
 
   api.GetEmployee = async (id, jobs, probationPeriod) => {
     const data = await axiosInstance.post(
-      `AsTemplate/GetEmployee/${locale}/${id}/${probationPeriod}`,
+      `AsIndividualDevelopmentPlan/GetEmployee/${locale}/${id}/${probationPeriod}`,
       jobs
     );
 
@@ -36,13 +36,13 @@ const API = (locale) => {
   };
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('AsTemplate/save', body);
+    const result = await axiosInstance.post('AsIndividualDevelopmentPlan/save', body);
 
     return result;
   };
 
   api.delete = async (id) => {
-    const data = await axiosInstance.delete(`AsTemplate/delete/${id}`);
+    const data = await axiosInstance.delete(`AsIndividualDevelopmentPlan/Delete/${id}`);
 
     return data;
   };

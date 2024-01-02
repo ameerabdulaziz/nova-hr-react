@@ -41,7 +41,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   },
   drawerPaperClose: {
     width: theme.spacing(8),
-    position: 'absolute',
+    position: 'fixed',
     overflowX: 'hidden',
     transition: theme.transitions.create(['width', 'background-color'], {
       easing: theme.transitions.easing.sharp,
@@ -56,6 +56,9 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     },
     '& nav': {
       display: 'none'
+    },
+    [`& .${classes.head}`]: {
+      paddingLeft: `${theme.spacing(3)}!important`
     },
     '&:hover': {
       width: drawerWidth,

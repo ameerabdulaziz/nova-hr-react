@@ -168,6 +168,30 @@ export default defineMessages({
     id: `${scope}.codes.enddate`,
     defaultMessage: 'End Date',
   },
+  arJobKpi: {
+    id: `${scope}.codes.arJobKpi`,
+    defaultMessage: 'arJobKpi',
+  },
+  enJobKpi: {
+    id: `${scope}.codes.enJobKpi`,
+    defaultMessage: 'enJobKpi',
+  },
+  arKpidesc: {
+    id: `${scope}.codes.arKpidesc`,
+    defaultMessage: 'arKpidesc',
+  },
+  enJobDesc: {
+    id: `${scope}.codes.enJobDesc`,
+    defaultMessage: 'enJobDesc',
+  },
+  arJobDesc: {
+    id: `${scope}.codes.arJobDesc`,
+    defaultMessage: 'arJobDesc',
+  },
+  enKpidesc: {
+    id: `${scope}.codes.enKpidesc`,
+    defaultMessage: 'enKpidesc',
+  },
   araddress: {
     id: `${scope}.codes.araddress`,
     defaultMessage: 'Arabic Address',
@@ -322,5 +346,21 @@ export default defineMessages({
   to: {
     id: `${scope}.codes.to`,
     defaultMessage: 'to',
+  },
+  arName: {
+    id: `${scope}.codes.arName`,
+    defaultMessage: 'arName',
+  },
+  enName: {
+    id: `${scope}.codes.enName`,
+    defaultMessage: 'enName',
+  },
+  expDate: {
+    id: `${scope}.codes.expDate`,
+    defaultMessage: 'expDate',
+  },
+  branchName: {
+    id: `${scope}.codes.branchName`,
+    defaultMessage: 'branchName',
   },
 });

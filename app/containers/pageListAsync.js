@@ -420,6 +420,21 @@ export const Currency = loadable(
     fallback: <Loading />,
   }
 );
+
+export const CompanyDocument = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CompanyDocument'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CompanyDocumentCreate = loadable(
+  () => import('./Pages/Payroll/MainData/Code/CompanyDocumentCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const CurrencyRate = loadable(
   () => import('./Pages/Payroll/MainData/Code/CurrencyRate'),
   {
@@ -1623,6 +1638,13 @@ export const EditVacationType = loadable(
   }
 );
 
+export const ExceptionVacDays = loadable(
+  () => import('./Pages/Payroll/Vacation/Code/ExceptionVacDays'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const VacationsTypes = loadable(
   () => import('./Pages/Payroll/Vacation/Code/VacationsTypes'),
   {
@@ -2233,6 +2255,105 @@ export const AsTemplate = loadable(
 
 export const AsTemplateCreate = loadable(
   () => import('./Pages/Payroll/Assessment/code/AsTemplateCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const Competencies = loadable(
+  () => import('./Pages/Payroll/Assessment/code/Competencies'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CompetenciesCreate = loadable(
+  () => import('./Pages/Payroll/Assessment/code/CompetenciesCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const AllJobKpi = loadable(
+  () => import('./Pages/Payroll/Assessment/code/AllJobKpi'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const StaffJobKPI = loadable(
+  () => import('./Pages/Payroll/Assessment/code/StaffJobKPI'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const JobDescriptions = loadable(
+  () => import('./Pages/Payroll/Assessment/code/JobDescriptions'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const IndividualDevelopmentPlan = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/IndividualDevelopmentPlan'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const IndividualDevelopmentPlanCreate = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/IndividualDevelopmentPlanCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CareerDevPlan = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/CareerDevPlan'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CareerDevPlanCreate = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/CareerDevPlanCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const UploadAssessmentGuidelines = loadable(
+  () => import('./Pages/Payroll/Assessment/code/UploadAssessmentGuidelines'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const AssessmentGuidelines = loadable(
+  () => import('./Pages/Payroll/Assessment/code/AssessmentGuidelines'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MonthOpenCloseAss = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/MonthOpenCloseAss'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+export const AssessmentReview = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/AssessmentReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const AssessmentReviewEdit = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/AssessmentReviewEdit'),
   {
     fallback: <Loading />,
   }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import EmployeeAssessmentData from '../api/EmployeeAssessmentData';
+import AssessmentReviewData from '../api/AssessmentReviewData';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/pagesStyle/EmployeeAssessmentSty.scss'
 import {  useHistory, useLocation  } from 'react-router-dom';
@@ -18,14 +18,17 @@ import  ExamQuestionNextAndPrev  from '../../Component/ExamQuestionNextAndPrev';
 import  ExamQuestionWithoutNextAndPrev  from '../../Component/ExamQuestionWithoutNextAndPrev';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
+import PersonIcon from '@mui/icons-material/Person';
+import { format } from 'date-fns';
 
 
 
-function EmployeeAssessment(props) {
+function AssessmentReviewEdit(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
   const { state } = useLocation()
+  const  ID  = state?.id
   const history=useHistory(); 
   const { intl } = props;
   const { classes } = useStyles();
@@ -34,6 +37,7 @@ function EmployeeAssessment(props) {
   const [examData, setExamData] = useState();
   const [startExam, setStartExam] = useState(false);
   const [endExam, setEndExam] = useState(false);
+  const [userInfo, setUserInfo] = useState(false);
 
     const [questionNum, setQuestionNum] = useState(0)
     const [question, setQuestion] = useState()
@@ -43,10 +47,10 @@ function EmployeeAssessment(props) {
 
     const [uncompletedQuestionsList, setUncompletedQuestionsList] = useState([]);
     const [textareaEmpTrainingVal, setTextareaEmpTrainingVal] = useState("");
-    const [saveBtnLock, setSaveBtnLock] = useState(false);
+    const [OverallAppraisalVal, setOverallAppraisalVal] = useState("");
+    const [textareaNoteForEmployeeVal, setTextareaNoteForEmployeeVal] = useState("");
+    const [AssessmentReviewLock, setAssessmentReviewLock] = useState(true);
    
-
-
 
 
     useEffect(()=>{
@@ -112,6 +116,17 @@ function EmployeeAssessment(props) {
     {
       setTextareaEmpTrainingVal(e.target.value)
     }
+
+    if(type === "OverallAppraisal")
+    {
+      setOverallAppraisalVal( e.target.value)
+    }
+
+
+    if(type === "NoteForEmployee")
+    {
+      setTextareaNoteForEmployeeVal(e.target.value)
+    }
  
   }
  
@@ -150,6 +165,17 @@ function EmployeeAssessment(props) {
     if(type === "textareaEmpTraining")
     {
       setTextareaEmpTrainingVal(e.target.value)
+    }
+
+    if(type === "OverallAppraisal")
+    {
+      setOverallAppraisalVal( e.target.value)
+    }
+
+
+    if(type === "NoteForEmployee")
+    {
+      setTextareaNoteForEmployeeVal(e.target.value)
     }
 
   }
@@ -200,11 +226,10 @@ function EmployeeAssessment(props) {
 
   async function fetchData() {
     try {
-      const examQuestionsData = await EmployeeAssessmentData(locale).Get();
+      const examQuestionsData = await AssessmentReviewData(locale).GetDataById(ID);
       setExamData(examQuestionsData[0]);
-      
 
-          examQuestionsData[0].competencyList.map((queData, index)=>{
+        examQuestionsData[0].competencyList.map((queData, index)=>{
         if(queData.employeeChoiceID !== null || queData.employeeExample.length !== 0)
         {
 
@@ -240,13 +265,14 @@ function EmployeeAssessment(props) {
           ))
         }
 
-
         setTextareaEmpTrainingVal(examQuestionsData[0].staffTrainingReq)
+
+        setOverallAppraisalVal(examQuestionsData[0].mgrStaffAllert)
+
+        setTextareaNoteForEmployeeVal(examQuestionsData[0].mgrComment)
 
         }
       })
-
-      
 
     } catch (err) {
     } finally {
@@ -280,12 +306,7 @@ function EmployeeAssessment(props) {
 
             if(questionsAnswers[key].checkedVal && questionsAnswers[key].checkedVal.id )
             {
-              que.employeeChoiceID = questionsAnswers[key]?.checkedVal?.id
-            }
-
-            if(questionsAnswers[key].textareaVal )
-            {
-              que.employeeExample = questionsAnswers[key].textareaVal
+              que.mgrChoiceId = questionsAnswers[key]?.checkedVal?.id
             }
 
           }
@@ -302,12 +323,7 @@ function EmployeeAssessment(props) {
           {
             if(allQuestionsAnswers[key].checkedVal && allQuestionsAnswers[key].checkedVal.id )
             {
-              que.employeeChoiceID = allQuestionsAnswers[key]?.checkedVal?.id
-            }
-
-            if(allQuestionsAnswers[key].textareaVal )
-            {
-              que.employeeExample = allQuestionsAnswers[key].textareaVal
+              que.mgrChoiceId = allQuestionsAnswers[key]?.checkedVal?.id
             }
 
           }
@@ -319,36 +335,23 @@ function EmployeeAssessment(props) {
 
 
 
-    let data = {
-      "assessmentId": examData.assessmentId,
-      "templateId":examData.templateId,
-      "staffTrainingReq":  textareaEmpTrainingVal,
+    let data =  {
+      "assessmentID":  examData.assessmentId,
+      "templateId": examData.templateId,
+      "trainingReq": textareaEmpTrainingVal,
       "isClosed": buttonType === "save" ? false :  true ,
+      "mgrComment": textareaNoteForEmployeeVal,
+      "mgrEmployeeAllert": OverallAppraisalVal,
       "competencyList": examData.competencyList
     }
 
-
-
+    
     try {
-      let response = await EmployeeAssessmentData().Save(data);
+      let response = await AssessmentReviewData().Save(data);
 
       if (response.status==200) {
         toast.success(notif.saved);
-    
-        if(buttonType === "submit")
-        {
-          fetchData();
-          setStartExam(false)
-          setEndExam(false)
-          setQuestionNum(0)
-        }
-
-        if(buttonType === "save")
-        {
-
-          setSaveBtnLock(true)
-        }
-
+        history.push(`/app/Pages/Assessment/AssessmentReview`);
       } else {
           toast.error(response.statusText);
       }
@@ -361,10 +364,7 @@ function EmployeeAssessment(props) {
       setProcessing(false)
     }
   }
-
-
-
-    
+   
   
   return (
     <PayRollLoader isLoading={isLoading} whiteBg icon="border_color" >
@@ -386,17 +386,24 @@ function EmployeeAssessment(props) {
                                 <p>{examData?.templateName}</p>
                             </div>
                             </div>
-                            
+
+                           
                           <div>
-                            <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                 onClick={() => setEndExam(true)}
-                                 >
-                                  <FormattedMessage {...messages.AssessmentFinish} />
-                                  </Button>
-                                  </div>
+
+                              <Button
+                                  variant="contained"
+                                  size="medium"
+                                  color="primary"
+                                  onClick={() => setEndExam(true)}
+                                  >
+                                    <FormattedMessage {...messages.AssessmentFinish} />
+                              </Button>
+
+                              <p>
+                                  {examData?.employeeName}
+                              </p>
+                              <PersonIcon />
+                          </div>
 
                             
                         </div>               
@@ -413,7 +420,6 @@ function EmployeeAssessment(props) {
                                 <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} />  :  examData?.templateName :  <FormattedMessage {...messages.AssessmentDurationEnded} /> }</h1>
                             </div>
 
-                            
                         </div>               
                     </Grid>
                     )}
@@ -434,12 +440,18 @@ function EmployeeAssessment(props) {
                                 </p>
                                 )}
 
-                            {examData && (examData.isClosed === false) && (
+                            {examData && (
                                 <Button
                                 variant="contained"
                                 size="medium"
                                 color="primary"
-                                 onClick={() => setStartExam(true)}
+                                 onClick={() => {
+                                  if((examData?.showStyle === 1))
+                                  {
+                                    setUserInfo(true)
+                                  }
+                                  setStartExam(true)
+                                }}
                                  >
                                   <FormattedMessage {...messages.Start} />
                                 </Button>
@@ -450,7 +462,7 @@ function EmployeeAssessment(props) {
                     )}
 
                     {
-                      (startExam && !endExam && (examData.showStyle === 1)) && (
+                      (startExam && !endExam && !userInfo && (examData.showStyle === 1)) && (
                         <ExamQuestionNextAndPrev 
                         examData={examData} 
                         questionNum={questionNum}
@@ -462,22 +474,28 @@ function EmployeeAssessment(props) {
                         saveQuestions={saveQuestions}
                         finishExamFun={finishExamFun}
                         textareaEmpTrainingVal={textareaEmpTrainingVal}
+                        OverallAppraisalVal={OverallAppraisalVal}
+                        textareaNoteForEmployeeVal={textareaNoteForEmployeeVal}
                         intl={intl}
+                        AssessmentReviewLock={AssessmentReviewLock}
                         />
                       )
                     }
 
 
                   {
-                      (startExam && !endExam && (examData.showStyle === 2)) && (
+                      (startExam && !endExam && !userInfo && (examData.showStyle === 2)) && (
                         <ExamQuestionWithoutNextAndPrev 
-                        examData={examData} 
-                        choices={choices}
-                        allQuestionsAnswers={allQuestionsAnswers}
-                        saveAllQuestions={saveAllQuestions}
-                        finishExamFun={finishExamFun}
-                        textareaEmpTrainingVal={textareaEmpTrainingVal}
-                        intl={intl}
+                          examData={examData} 
+                          choices={choices}
+                          allQuestionsAnswers={allQuestionsAnswers}
+                          saveAllQuestions={saveAllQuestions}
+                          finishExamFun={finishExamFun}
+                          textareaEmpTrainingVal={textareaEmpTrainingVal}
+                          OverallAppraisalVal={OverallAppraisalVal}
+                          textareaNoteForEmployeeVal={textareaNoteForEmployeeVal}
+                          intl={intl}
+                          AssessmentReviewLock={AssessmentReviewLock}
                         />
 
                       )}
@@ -530,48 +548,130 @@ function EmployeeAssessment(props) {
                           direction="row"
                           >
 
-                          {uncompletedQuestionsList.length !== 0 && (
-                            <Grid item xs={12}  lg={4}>
-                              <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                onClick={()=>backToExamFun(uncompletedQuestionsList[0])}
-                              >
-                                <FormattedMessage {...messages.BackToAssessment} />
-                              </Button>
-                              </Grid>
-                          )}
 
-
-                            <Grid item xs={12}   lg={uncompletedQuestionsList.length !== 0 ? 4 : 6}>
+                            <Grid item xs={12} >
                               <Button
                                 variant="contained"
                                 size="medium"
                                 color="primary"
                                 onClick={()=>submitFun("save")}
-                                disabled={saveBtnLock}
                               >
                                 <FormattedMessage {...messages.save} />
                               </Button>
                               </Grid>
 
-                              <Grid item xs={12}  lg={uncompletedQuestionsList.length !== 0 ? 4 : 6}>
-                              <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                onClick={()=>submitFun("submit")}
-                                disabled={uncompletedQuestionsList.length === 0 ? false : true}
-                              >
-                                <FormattedMessage {...messages.submit} />
-                              </Button>
-                              </Grid>
                           </Grid>
 
                       </div>
                     </Grid>
                     )}
+
+
+                  {userInfo && (examData?.showStyle === 1) && (
+                    <Grid item xs={12}  > 
+                       
+                        <div className={`${style.examContainer} ${style.userInfoContainer}`}>
+                          
+                            <div>
+
+                            <Grid
+                                  container
+                                  spacing={3}
+                                  direction="row"
+                                  
+                                  >
+                            <Grid item xs={12} md={6} >
+                                <div className={`${style.userInfoSty}`}>
+                                    <p><FormattedMessage {...messages.department} /> : </p> <p className={classes.textSty}>{examData?.organizationName}</p>
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={12} md={6} >
+                                <div className={`${style.userInfoSty}`}>
+                                    <p><FormattedMessage {...messages.employeeName} />: </p> <p className={classes.textSty}>{examData?.employeeName}</p>
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={12} md={6} >
+                                <div className={`${style.userInfoSty}`}>
+                                    <p><FormattedMessage {...messages.jobName} />: </p> <p className={classes.textSty}>{examData?.jobName}</p>
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={12} md={6} >
+                                <div className={`${style.userInfoSty}`}>
+                                    <p><FormattedMessage {...messages.BirthDate} />: </p> <p className={classes.textSty}>{examData ? format(new Date(examData.birthDate), 'yyyy-MM-dd') : ""}</p>
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={12} md={6} >
+                                <div className={`${style.userInfoSty}`}>
+                                    <p><FormattedMessage {...messages.hiringData} />: </p> <p className={classes.textSty}>{examData ?  format(new Date(examData.hiringDate), 'yyyy-MM-dd') : ""}</p>
+                                </div>
+                            </Grid>
+
+                            </Grid>
+                                
+
+                                 <div className={style.lineStye}></div>
+
+                                <Grid
+                                  container
+                                  spacing={3}
+                                  alignItems="flex-end"
+                                  direction="row"
+                                  
+                                  >
+                                  
+                    
+                                    <Grid item xs={12}
+                                    container
+                                    spacing={3}
+                                    alignItems="flex-start"
+                                    direction="row"
+                                    className={`${style.itemsStyle} ${style.nextPrevBtnSty}`}
+                                    justifyContent="end"
+                                    >
+                                 
+
+                              {examData?.competencyList.length >= questionNum + 1  && (<>
+                                  <Grid item xs={6} md={3} lg={2}>
+                                    <Button
+                                      variant="contained"
+                                      size="medium"
+                                      color="primary"
+                                      onClick={() => {
+                                        setUserInfo(false)
+                                      }}
+                                    >
+                                      <FormattedMessage {...messages.Next} />
+                                    </Button>
+                                  </Grid>
+                                  </>)}
+
+                                  {examData?.competencyList.length < questionNum + 1   && (<>
+                                  <Grid item xs={6} md={3} lg={2}>
+                                    <Button
+                                      variant="contained"
+                                      size="medium"
+                                      color="primary"
+                                      type='submit'
+                                      onClick={finishExamFun}
+                                    >
+                                       <FormattedMessage {...messages.finish} />
+                                    </Button>
+                                  </Grid>
+                                  </>)}
+
+                                  </Grid>
+                                </Grid>
+                            </div>
+                        </div>                   
+                    
+                    </Grid>
+
+                  )}
+
 
                 </Grid>
             </CardContent>
@@ -581,8 +681,8 @@ function EmployeeAssessment(props) {
   );
 }
 
-EmployeeAssessment.propTypes = {
+AssessmentReviewEdit.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(EmployeeAssessment); 
+export default injectIntl(AssessmentReviewEdit); 

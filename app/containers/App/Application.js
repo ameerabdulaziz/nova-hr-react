@@ -29,6 +29,7 @@ import {
   RecHiringSource,
   RecJobGrade,
   AsCategory,
+  MdDocumentCategory,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -98,6 +99,8 @@ import {
   Profile,
   Chat,
   Ecommerce,
+  CompanyDocument,
+  CompanyDocumentCreate,
   ProductPage,
   CheckoutPage,
   InvoicePage,
@@ -249,6 +252,7 @@ import {
   LeaveTrx,
   ShiftTransfere,
   ShiftReview,
+  ExceptionVacDays,
   ShiftImport,
   GovernmentSickLeaveCreate,
   GovernmentSickLeave,
@@ -375,6 +379,20 @@ import {
   AsTemplateCreate,
   PurchaseTrxList,PurchaseTrxCreate,
   EmployeeAssessment,
+  Competencies,
+  CompetenciesCreate,
+  AllJobKpi,
+  StaffJobKPI,
+  JobDescriptions,
+  IndividualDevelopmentPlan,
+  IndividualDevelopmentPlanCreate,
+  UploadAssessmentGuidelines,
+  AssessmentGuidelines,
+  MonthOpenCloseAss,
+  AssessmentReview,
+  AssessmentReviewEdit,
+  CareerDevPlan,
+  CareerDevPlanCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -485,6 +503,10 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/Section' component={Section} />
         <Route path='/app/Pages/MainData/Government' component={Government} />
         <Route path='/app/Pages/MainData/City' component={City} />
+        <Route path='/app/Pages/MainData/MdDocumentCategory' component={MdDocumentCategory} />
+        <Route path='/app/Pages/MainData/CompanyDocument' component={CompanyDocument} />
+        <Route path='/app/Pages/MainData/CompanyDocumentCreate' component={CompanyDocumentCreate} />
+        <Route path='/app/Pages/MainData/CompanyDocumentEdit' component={CompanyDocumentCreate} />
         <Route path='/app/Pages/MainData/Currency' component={Currency} />
         <Route
           path='/app/Pages/MainData/Currency-Rate'
@@ -1292,6 +1314,11 @@ function Application(props) {
         />
 
         <Route
+          path='/app/Pages/vac/ExceptionVacDays'
+          component={ExceptionVacDays}
+        />
+
+        <Route
           path='/app/Pages/vac/OfficialVacationsCreate'
           component={CreateOfficialVacation}
         />
@@ -1788,8 +1815,93 @@ function Application(props) {
         />
 
         <Route
+          path='/app/Pages/Assessment/Competencies'
+          component={Competencies}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/CompetenciesCreate'
+          component={CompetenciesCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/CompetenciesEdit'
+          component={CompetenciesCreate}
+        />
+
+        <Route
           path='/app/Pages/Assessment/EmployeeAssessment'
           component={EmployeeAssessment}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AllJobKpi'
+          component={AllJobKpi}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/StaffJobKPI'
+          component={StaffJobKPI}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/JobDescriptions'
+          component={JobDescriptions}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/IndividualDevelopmentPlan'
+          component={IndividualDevelopmentPlan}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/IndividualDevelopmentPlanCreate'
+          component={IndividualDevelopmentPlanCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/IndividualDevelopmentPlanEdit'
+          component={IndividualDevelopmentPlanCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/CareerDevPlan'
+          component={CareerDevPlan}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/CareerDevPlanCreate'
+          component={CareerDevPlanCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/CareerDevPlanEdit'
+          component={CareerDevPlanCreate}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/UploadAssessmentGuidelines'
+          component={UploadAssessmentGuidelines}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AssessmentGuidelines'
+          component={AssessmentGuidelines}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/MonthOpenCloseAss'
+          component={MonthOpenCloseAss}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AssessmentReview'
+          component={AssessmentReview}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AssessmentReviewEdit'
+          component={AssessmentReviewEdit}
         />
 
         {/* Default */}

@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useStyles from '../../Payroll/Style';
-import style from '../../../../styles/styles.scss'
-import LinearProgress from '@mui/material/LinearProgress';
-import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import GoogleIcon from '@mui/icons-material/Google';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import style from '../../../../styles/pagesStyle/EmployeeAssessmentSty.scss'
 import { TextareaAutosize } from '@mui/base';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -17,110 +12,132 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
+import { FormattedMessage , injectIntl } from 'react-intl';
+import messages from '../Assessment/messages';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import { format } from 'date-fns';
 
 
 
 const ExamQuestionWithoutNextAndPrev = ({
   examData,
-//   setEndExam,
-//   setStartExam,
-  examQuestionsData,
-//   setExamQuestionsData,
-  nextQueFun,
-  prevQueFun,
   saveAllQuestions,
-  // question,
-  // setQuestion
-  questionNum,
-//   setQuestionNum,
-  question,
-//   setQuestion,
   choices,
-//   setChoices,
-  questionsAnswers,
-//   setQuestionsAnswers,
-
+  allQuestionsAnswers,
+  finishExamFun,
+  textareaEmpTrainingVal,
+  OverallAppraisalVal,
+  textareaNoteForEmployeeVal,
+  intl,
+  AssessmentReviewLock
 }) => {
-
 
 
     const { classes } = useStyles();
     const locale = useSelector(state => state.language.locale);
     
-
-    console.log("questionNum =", questionNum);
-    console.log("examQuestionsData =", examQuestionsData);
-    console.log("questionsAnswers =",questionsAnswers);
- 
     return(
         <>
+        <form style={{width: "100%"}} onSubmit={(e)=>{ 
+          e.preventDefault()
+          finishExamFun()
+          }}>
+
+                  {AssessmentReviewLock && (
+                    <Grid item xs={12}  > 
+                       <div className={`${style.examContainer2} ${style.userInfoContainer}`}>
+                         
+                           <div>
+
+                           <Grid
+                                 container
+                                 spacing={3}
+                                 direction="row"
+                                 
+                                 >
+                           <Grid item xs={12} md={6} >
+                               <div className={`${style.userInfoSty}`}>
+                                   <p><FormattedMessage {...messages.department} />: </p> <p className={classes.textSty}>{examData?.organizationName}</p>
+                               </div>
+                           </Grid>
+
+                           <Grid item xs={12} md={6} >
+                               <div className={`${style.userInfoSty}`}>
+                                   <p><FormattedMessage {...messages.employeeName} />: </p> <p className={classes.textSty}>{examData?.employeeName}</p>
+                               </div>
+                           </Grid>
+
+                           <Grid item xs={12} md={6} >
+                               <div className={`${style.userInfoSty}`}>
+                                   <p><FormattedMessage {...messages.jobName} />: </p> <p className={classes.textSty}>{examData?.jobName}</p>
+                               </div>
+                           </Grid>
+
+                           <Grid item xs={12} md={6} >
+                               <div className={`${style.userInfoSty}`}>
+                                   <p><FormattedMessage {...messages.BirthDate} />: </p> <p className={classes.textSty}>{examData ? format(new Date(examData.birthDate), 'yyyy-MM-dd') : ""}</p>
+                               </div>
+                           </Grid>
+
+                           <Grid item xs={12} md={6} >
+                               <div className={`${style.userInfoSty}`}>
+                                   <p><FormattedMessage {...messages.hiringData} />: </p> <p className={classes.textSty}>{examData ?  format(new Date(examData.hiringDate), 'yyyy-MM-dd') : ""}</p>
+                               </div>
+                           </Grid>
+
+                           </Grid>
+                                                              
+                           </div>
+                       </div>                   
+                   
+                   </Grid>
+                   )}
+
+
         {examData?.competencyList.map((Qui,index)=>(
         <Grid item xs={12}  key={index}> 
-        {/* <Grid item xs={12}  style={!setStartExam?  {display: 'none'} : {display: 'block'}}>  */}
-   {index === 0 || (examData?.competencyList[index - 1].category !== examData?.competencyList[index].category) ? (
-            <h1 className={`${classes.textSty} ${style.categorySty} ${locale === "en" ?  style.categoryEnSty : style.categoryArSty}`}>{Qui.category}</h1>
+
+          {index === 0 || (examData?.competencyList[index - 1].category !== examData?.competencyList[index].category) ? (
+            <h1 className={`${classes.textSty} ${style.categorySty} ${style.categoryAllQueSty} ${locale === "en" ?  style.categoryEnSty : style.categoryArSty}`}>{Qui.category}</h1>
             ) : null}
-                        <div className={`${style.examContainer2}`}>
+                        <div className={`${style.examContainer2} ${style.examContainer2AllQue}`}>
                           
                             <div>
-                              {/* <LinearProgress variant="determinate" value={((questionNum + 1)*100) / examData?.competencyList.length} />
-                              <p>{questionNum + 1}/{examData?.competencyList.length}</p> */}
-                              {/* <h1>
-                                  Do you think to suggest our company to a friend or parent?
-                              </h1> */}
                               <h1>
                                   {Qui?.competency}
-                                  {/* {question?.competency} */}
                               </h1>
                               <FormControl style={{width: "100%"}}>
                                   <RadioGroup
                                       aria-labelledby="demo-radio-buttons-group-label"
-                                      value={questionsAnswers[`que${index + 1}`]?.checkedVal ? questionsAnswers[`que${index + 1}`]?.checkedVal ?.id : ""}
-                                    //   value={questionsAnswers.checkedVal ? questionsAnswers.checkedVal?.id : ""}
-                                      // defaultValue="female"
+                                      value={allQuestionsAnswers[`que${index + 1}`]?.checkedVal ? allQuestionsAnswers[`que${index + 1}`]?.checkedVal?.id : ""}
                                       name="radio-buttons-group"
-                                     className={style.radioContainer}
+                                     className={`${style.radioContainer} ${style.radioContainerAllQue}`}
+                                     row
                                   >
+                                    {AssessmentReviewLock  && (
+                                       <p><TaskAltIcon /> <FormattedMessage {...messages.EmployeeChoose} />: &nbsp; {examData?.competencyList[index]?.employeeChoiceName ? examData.competencyList[index].employeeChoiceName : ""} </p>
+                                    )}
                                     {choices?.map((choice)=>{
                                         return (
+                                          <Grid item xs={6} key={choice.id}> 
                                             <FormControlLabel 
                                             key={choice.id}
                                             value={choice.id} 
                                             control={<Radio checkedIcon={<CheckIcon className={`${style.checkedIconeSty} ${classes.examMainSty}`}/>} icon={<RadioButtonUncheckedIcon className={style.iconeSty} />} />} 
                                             label={choice.name} 
                                             onChange={(e)=> {
-                                                console.log("checl val =", e.target.value)
                                                 saveAllQuestions(e, "radio",index)
-                                                // setExamQuestionsData(prveState => [...prveState, 
-                                                //     {
-                                                //         question: question,
-                                                //         checkedVal: e.target.value
-                                                //     }
-                                                //     ])
                                             }}
                                             />
+                                          </Grid>
                                         )
                                     })}
                                       
-                                      {/* <FormControlLabel 
-                                      value="Maybe" 
-                                      control={<Radio checkedIcon={<CheckIcon className={style.checkedIconeSty}/>} icon={<RadioButtonUncheckedIcon className={style.iconeSty}/>} />} 
-                                      label="Maybe" />
-                                      
-                                      <FormControlLabel 
-                                      value="Probably" 
-                                      control={<Radio checkedIcon={<CheckIcon className={style.checkedIconeSty}/>} icon={<RadioButtonUncheckedIcon className={style.iconeSty}/>} />} 
-                                      label="Probably" />
-
-                                      <FormControlLabel 
-                                      value="100% Sure" 
-                                      control={<Radio checkedIcon={<CheckIcon className={style.checkedIconeSty}/>} icon={<RadioButtonUncheckedIcon className={style.iconeSty}/>} />} 
-                                      label="100% Sure" /> */}
                                   </RadioGroup>
                                   </FormControl>
 
                                   <p>
-                                      In no, please describe with few words why
+                                      <FormattedMessage {...messages.pleaseDescribeWithFewWordsWhy} />
                                   </p>
 
                                   
@@ -128,19 +145,85 @@ const ExamQuestionWithoutNextAndPrev = ({
                                   <TextareaAutosize
                                     color="neutral"
                                     minRows={3}
-                                    placeholder="Type here additional info..."
+                                    placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
                                     size="lg"
-                                    // style={{width: "100%"}}
-                                    onChange={(e) => { saveAllQuestions(e, "textarea",index)}}
-                                    value={questionsAnswers[`que${index + 1}`]?.textareaVal}
-                                    // value={questionsAnswers.textareaVal}
-                                    
+                                    // onChange={(e) => { saveAllQuestions(e, "textarea",index)}}
+                                    onBlur={(e) => { saveAllQuestions(e, "textarea",index)}}
+                                    defaultValue={ allQuestionsAnswers[`que${index + 1}`]?.textareaVal}
+                                    // value={ allQuestionsAnswers[`que${index + 1}`]?.textareaVal}
+                                    required={
+                                      examData.exampleRequired 
+                                      && allQuestionsAnswers[`que${index + 1}`]
+                                       && allQuestionsAnswers[`que${index + 1}`]?.checkedVal 
+                                      ? true : false}
+                                      disabled={AssessmentReviewLock}
                                 />
-                                <span>required</span>
+                                
 
-                                <div></div>
+                                {  
+                                (
+                                   examData.exampleRequired 
+                                && allQuestionsAnswers[`que${index + 1}`]
+                                && allQuestionsAnswers[`que${index + 1}`]?.checkedVal 
+                                && allQuestionsAnswers[`que${index + 1}`]?.textareaVal?.length === 0 
+                                )
+                                 ? <span className={style.errorMes}><FormattedMessage {...messages.ThisFieldIsRequired} /></span> : (
+                                  null
+                                )}
+
+                                <div className={style.lineStye}></div>
 
 
+                           {examData?.competencyList.length ===  index + 1 ? (<>
+                                <h1>
+                                  <FormattedMessage {...messages.EmployeeTrainingRequest} />
+                                </h1>
+                               
+
+                                <TextareaAutosize
+                                    color="neutral"
+                                    minRows={3}
+                                    placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                    size="lg"
+                                    onBlur={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
+                                    defaultValue={textareaEmpTrainingVal ? textareaEmpTrainingVal : ""} 
+                                    // onChange={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
+                                    // value={textareaEmpTrainingVal ? textareaEmpTrainingVal : ""} 
+                                />
+
+                            </>) : null}
+
+                            {(examData?.competencyList.length ===  index + 1 ) && AssessmentReviewLock  && (<>
+                                    <h1 className={style.textareaTitle}>
+                                      <FormattedMessage {...messages.DirectedManagerOverallAppraisal} />
+                                      
+                                    </h1>
+                          
+                                    <TextareaAutosize
+                                        color="neutral"
+                                        minRows={3}
+                                        placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                        size="lg"
+                                        onBlur={(e) => { saveAllQuestions(e, "OverallAppraisal")}}
+                                        defaultValue={OverallAppraisalVal ? OverallAppraisalVal : ""}
+                                    />
+                                 </>)}
+
+                                 {(examData?.competencyList.length ===  index + 1 ) && AssessmentReviewLock   && (<>
+                                    <h1 className={style.textareaTitle}>
+                                      <FormattedMessage {...messages.NoteForEmployee} />
+                                      
+                                    </h1>
+                          
+                                    <TextareaAutosize
+                                        color="neutral"
+                                        minRows={3}
+                                        placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                        size="lg"
+                                        onBlur={(e) => { saveAllQuestions(e, "NoteForEmployee")}}
+                                        defaultValue={textareaNoteForEmployeeVal ? textareaNoteForEmployeeVal : ""}
+                                    />
+                                 </>)}
 
                                 <Grid
                                   container
@@ -162,35 +245,16 @@ const ExamQuestionWithoutNextAndPrev = ({
                                     >
                                  
 
-                                  {/* <Grid item xs={6} md={3}  lg={2}>
-                                    <Button
-                                      variant="contained"
-                                      size="medium"
-                                      color="primary"
-                                      // onClick={onCopy}
-                                      // disabled={brCode? false : true}
-                                      onClick={prevQueFun}
-                                    //   style={{display:"none"}}
-                                    >
-                                 
-                                      Prev
-                                    </Button>
-                                  </Grid> */}
-
                                   <Grid item xs={6} md={3} lg={2}>
                                     <Button
                                       variant="contained"
                                       size="medium"
                                       color="primary"
-                                      onClick={nextQueFun}
-                                      // disabled={examData.exampleRequired &&  questionsAnswers.textareaVal.length !== 0 ? false : true}
+                                      type='submit'
                                     >
-                                      
-                                      finish
+                                      <FormattedMessage {...messages.finish} />
                                     </Button>
                                   </Grid>
-
-                                 
 
                                   </Grid>
                                   ) : null}
@@ -199,6 +263,8 @@ const ExamQuestionWithoutNextAndPrev = ({
                         </div>                   
                     </Grid>
                     ))}
+
+                    </form>
                     </>
     )
 }
