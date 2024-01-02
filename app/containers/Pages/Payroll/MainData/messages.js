@@ -202,4 +202,16 @@ OrganizationsList: {
     id: `${scope}.codes.uploadAttachment`,
     defaultMessage: 'uploadAttachment',
   },
+  preview: {
+    id: `${scope}.codes.preview`,
+    defaultMessage: 'preview',
+  },
+  hrForm: {
+    id: `${scope}.codes.hrForm`,
+    defaultMessage: 'hrForm',
+  },
+  companyPolicy: {
+    id: `${scope}.codes.companyPolicy`,
+    defaultMessage: 'companyPolicy',
+  },
 });

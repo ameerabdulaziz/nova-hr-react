@@ -3,49 +3,37 @@ const API = (locale) => {
   const api = {};
 
   api.GetList = async () => {
-    const data = await axiosInstance.get(`AsCareerDevPlan/GetList/${locale}`);
+    const data = await axiosInstance.get(`MdCompanyDocument/GetList/${locale}`);
 
     return data.data;
   };
 
-  api.GetDevelopmentActivitiesList = async () => {
-    const data = await axiosInstance.get(
-      `AsCareerDevPlan/GetDevelopmentActivitiesList/${locale}`
-    );
+  api.GetEmployeeList = async () => {
+    const data = await axiosInstance.get(`MdCompanyDocument/GetEmployeeList/${locale}`);
+
+    return data.data;
+  };
+
+  api.MdDocumentCategory = async () => {
+    const data = await axiosInstance.get(`MdDocumentCategory/GetListModel/${locale}`);
 
     return data.data;
   };
 
   api.GetById = async (id) => {
-    const data = await axiosInstance.get(`AsCareerDevPlan/Get/${id}/${locale}`);
-
-    return data.data;
-  };
-
-  api.GetEmployeeData = async (id) => {
-    const data = await axiosInstance.get(
-      `AsCareerDevPlan/GetEmployeeData/${locale}/${id}`
-    );
+    const data = await axiosInstance.get(`MdCompanyDocument/Get/${id}/${locale}`);
 
     return data.data;
   };
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('AsCareerDevPlan/save', body);
-
-    return result;
-  };
-
-  api.saveAction = async (id, actionId) => {
-    const result = await axiosInstance.post(
-      `AsCareerDevPlan/SaveAction/${id}/${actionId}`
-    );
+    const result = await axiosInstance.post('MdCompanyDocument/Save', body);
 
     return result;
   };
 
   api.delete = async (id) => {
-    const data = await axiosInstance.delete(`AsCareerDevPlan/Delete/${id}`);
+    const data = await axiosInstance.delete(`MdCompanyDocument/Delete/${id}`);
 
     return data;
   };

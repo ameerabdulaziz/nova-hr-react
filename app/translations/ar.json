@@ -1915,6 +1915,9 @@
   "boilerplate.containers.Payroll.Employee.repo.job": "المسمى الوظيفى",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
+  "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
+  "boilerplate.containers.Payroll.MainData.codes.hrForm": "نموذج الموارد البشرية",
+  "boilerplate.containers.Payroll.MainData.codes.companyPolicy": "سياسة الشركة",
   "boilerplate.containers.Payroll.MainData.codes.arName": "الاسم بالعربية",
   "boilerplate.containers.Payroll.MainData.codes.enName": "الاسم بالانجليزية",
   "boilerplate.containers.Payroll.MainData.codes.parent": "الوظيفة الرئيسية",

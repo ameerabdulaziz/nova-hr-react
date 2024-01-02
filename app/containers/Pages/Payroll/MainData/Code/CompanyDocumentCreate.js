@@ -6,13 +6,11 @@ import {
   Button,
   Card,
   CardContent,
-  Checkbox,
-  FormControlLabel,
   Grid,
   IconButton,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -30,10 +28,12 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import PayRollLoader from '../../Component/PayRollLoader';
+import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
-import api from '../api/CompanyDocumentData';
+import { default as api } from '../api/CompanyDocumentData';
 import EmployeePopup from '../components/CompanyDocument/EmployeePopup';
 import messages from '../messages';
+import { ServerURL } from '../../api/ServerConfig';
 
 function CompanyDocumentCreate(props) {
   const { intl } = props;
@@ -67,29 +67,31 @@ function CompanyDocumentCreate(props) {
   const [isAttachmentPopupOpen, setIsAttachmentPopupOpen] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
 
-  const [typeList, setTypeList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
-  const [branchList, setBranchList] = useState([]);
-  const [departmentList, setDepartmentList] = useState([]);
-  const [sectionList, setSectionList] = useState([]);
+  const typeList = [
+    {
+      id: 1,
+      name: intl.formatMessage(messages.hrForm),
+    },
+    {
+      id: 2,
+      name: intl.formatMessage(messages.companyPolicy),
+    }
+  ];
 
-  const [filters, setFilters] = useState({
-    branch: null,
-    department: null,
-    section: null,
-    allSupervisors: false,
-    allManagers: false,
-  });
+  const [categoryList, setCategoryList] = useState([]);
+  const [departmentList, setDepartmentList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
 
   const [formInfo, setFormInfo] = useState({
     id,
 
     employeeId: null,
-    categoryId: null,
-    employees: [],
-    documentType: '',
-    documentDescription: '',
-    doc: null,
+    categoryID: null,
+    mdCompanyDocumentEmployee: [],
+    docTypeId: null,
+    docDesc: '',
+    docType: '',
+    image: null,
   });
 
   const onPageChange = (_, newPage) => {
@@ -102,15 +104,15 @@ function CompanyDocumentCreate(props) {
   };
 
   const visibleRows = useMemo(
-    () => formInfo.employees.slice(
+    () => formInfo.mdCompanyDocumentEmployee.slice(
       page * rowsPerPage,
       page * rowsPerPage + rowsPerPage
     ),
-    [page, rowsPerPage, formInfo.employees]
+    [page, rowsPerPage, formInfo.mdCompanyDocumentEmployee]
   );
 
   const onEmployeeRemove = (index) => {
-    const clonedItems = [...formInfo.employees];
+    const clonedItems = [...formInfo.mdCompanyDocumentEmployee];
 
     clonedItems.splice(index, 1);
 
@@ -120,7 +122,7 @@ function CompanyDocumentCreate(props) {
 
     setFormInfo((prev) => ({
       ...prev,
-      employees: clonedItems,
+      mdCompanyDocumentEmployee: clonedItems,
     }));
   };
 
@@ -131,7 +133,7 @@ function CompanyDocumentCreate(props) {
   const onEmployeeSave = (items) => {
     setFormInfo((prev) => ({
       ...prev,
-      employees: items,
+      mdCompanyDocumentEmployee: items,
     }));
 
     setIsEmployeePopupOpen(false);
@@ -144,10 +146,36 @@ function CompanyDocumentCreate(props) {
 
     const formData = {
       ...formInfo,
+      mdCompanyDocumentEmployee: formInfo.mdCompanyDocumentEmployee.map(item => ({
+        employeeId: item.employeeId,
+        companyDocumentId: id
+      }))
     };
 
+    const fd = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      if (Array.isArray(formData[key])) {
+        if (formData[key].length > 0) {
+          formData[key].forEach((item, index) => {
+            if (typeof item === 'object') {
+              Object.keys(item).forEach(subKey => {
+                fd.append(key + `[${index}].${subKey}`, item[subKey]);
+              });
+            } else {
+              fd.append(key + `[${index}]`, item);
+            }
+          });
+        } else {
+          fd.append(key, []);
+        }
+      } else {
+        fd.append(key, formData[key]);
+      }
+    });
+
     try {
-      await api(locale).save(formData);
+      await api(locale).save(fd);
       toast.success(notif.saved);
       history.push('/app/Pages/MainData/CompanyDocument');
     } catch (error) {
@@ -161,16 +189,27 @@ function CompanyDocumentCreate(props) {
     setIsLoading(true);
 
     try {
+      const departments = await GeneralListApis(locale).GetDepartmentList();
+      setDepartmentList(departments);
+
+      const category = await api(locale).MdDocumentCategory();
+      setCategoryList(category);
+
+      const employees = await api(locale).GetEmployeeList();
+      setEmployeeList(employees.map(item => ({ ...item, isSelect: false })));
+
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
 
         setFormInfo({
           ...dataApi,
-          employees: dataApi.employees.map((item) => ({
+          mdCompanyDocumentEmployee: dataApi.mdCompanyDocumentEmployee.map((item) => ({
             ...item,
             isSelect: true,
           })),
         });
+
+        setUploadedFile(`${ServerURL}Doc/CompanyDoc/${dataApi.docPath}`);
       }
     } catch (error) {
       //
@@ -187,22 +226,8 @@ function CompanyDocumentCreate(props) {
     setFormInfo((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
   };
 
-  const onFiltersCheckboxChange = (evt) => {
-    setFilters((prev) => ({
-      ...prev,
-      [evt.target.name]: evt.target.checked,
-    }));
-  };
-
   const onAutoCompleteChange = (value, name) => {
     setFormInfo((prev) => ({
-      ...prev,
-      [name]: value !== null ? value.id : null,
-    }));
-  };
-
-  const onFiltersAutoCompleteChange = (value, name) => {
-    setFilters((prev) => ({
       ...prev,
       [name]: value !== null ? value.id : null,
     }));
@@ -234,7 +259,7 @@ function CompanyDocumentCreate(props) {
       if (file.size < 10000000) {
         setFormInfo((prev) => ({
           ...prev,
-          doc: file,
+          image: file,
         }));
         setUploadedFile(file);
       } else {
@@ -253,7 +278,9 @@ function CompanyDocumentCreate(props) {
         isOpen={isEmployeePopupOpen}
         setIsOpen={setIsEmployeePopupOpen}
         onSave={onEmployeeSave}
-        selectedEmployees={formInfo.employees}
+        departmentList={departmentList}
+        employeeList={employeeList}
+        selectedEmployees={formInfo.mdCompanyDocumentEmployee}
       />
 
       <form onSubmit={onFormSubmit}>
@@ -268,7 +295,7 @@ function CompanyDocumentCreate(props) {
                     <Autocomplete
                       options={typeList}
                       value={
-                        typeList.find((item) => item.id === formInfo.typeId)
+                        typeList.find((item) => item.id === formInfo.docTypeId)
 												?? null
                       }
                       isOptionEqualToValue={(option, value) => option.id === value.id
@@ -279,7 +306,7 @@ function CompanyDocumentCreate(props) {
                           {option.name}
                         </li>
                       )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'typeId')
+                      onChange={(_, value) => onAutoCompleteChange(value, 'docTypeId')
                       }
                       renderInput={(params) => (
                         <TextField
@@ -296,7 +323,7 @@ function CompanyDocumentCreate(props) {
                       options={categoryList}
                       value={
                         categoryList.find(
-                          (item) => item.id === formInfo.categoryId
+                          (item) => item.id === formInfo.categoryID
                         ) ?? null
                       }
                       isOptionEqualToValue={(option, value) => option.id === value.id
@@ -307,7 +334,7 @@ function CompanyDocumentCreate(props) {
                           {option.name}
                         </li>
                       )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'categoryId')
+                      onChange={(_, value) => onAutoCompleteChange(value, 'categoryID')
                       }
                       renderInput={(params) => (
                         <TextField
@@ -321,9 +348,9 @@ function CompanyDocumentCreate(props) {
 
                   <Grid item xs={12} md={4}>
                     <TextField
-                      value={formInfo.documentType}
+                      value={formInfo.docType}
                       label={intl.formatMessage(messages.documentType)}
-                      name='documentType'
+                      name='docType'
                       onChange={onInputChange}
                       fullWidth
                       required
@@ -332,9 +359,9 @@ function CompanyDocumentCreate(props) {
 
                   <Grid item xs={12} md={12}>
                     <TextField
-                      value={formInfo.documentDescription}
+                      value={formInfo.docDesc}
                       label={intl.formatMessage(messages.documentDescription)}
-                      name='documentDescription'
+                      name='docDesc'
                       multiline
                       rows={1}
                       onChange={onInputChange}
@@ -343,7 +370,7 @@ function CompanyDocumentCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12}>
                     <Stack direction='row' alignItems='center' spacing={2}>
                       <div>
                         <input
@@ -410,115 +437,7 @@ function CompanyDocumentCreate(props) {
                   </Grid>
                 </Grid>
 
-                <Grid container spacing={3} alignItems='center' mb={3}>
-                  <Grid item xs={12} md={4}>
-                    <Autocomplete
-                      options={branchList}
-                      value={
-                        branchList.find((item) => item.id === filters.branch)
-												?? null
-                      }
-                      isOptionEqualToValue={(option, value) => option.id === value.id
-                      }
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      renderOption={(propsOption, option) => (
-                        <li {...propsOption} key={option.id}>
-                          {option.name}
-                        </li>
-                      )}
-                      onChange={(_, value) => onFiltersAutoCompleteChange(value, 'branch')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label={intl.formatMessage(messages.branch)}
-                        />
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <Autocomplete
-                      options={departmentList}
-                      value={
-                        departmentList.find(
-                          (item) => item.id === filters.department
-                        ) ?? null
-                      }
-                      isOptionEqualToValue={(option, value) => option.id === value.id
-                      }
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      renderOption={(propsOption, option) => (
-                        <li {...propsOption} key={option.id}>
-                          {option.name}
-                        </li>
-                      )}
-                      onChange={(_, value) => onFiltersAutoCompleteChange(value, 'department')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label={intl.formatMessage(messages.department)}
-                        />
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <Autocomplete
-                      options={sectionList}
-                      value={
-                        sectionList.find(
-                          (item) => item.id === filters.section
-                        ) ?? null
-                      }
-                      isOptionEqualToValue={(option, value) => option.id === value.id
-                      }
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      renderOption={(propsOption, option) => (
-                        <li {...propsOption} key={option.id}>
-                          {option.name}
-                        </li>
-                      )}
-                      onChange={(_, value) => onFiltersAutoCompleteChange(value, 'section')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label={intl.formatMessage(messages.section)}
-                        />
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item md={3} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={filters.allSupervisors}
-                          onChange={onFiltersCheckboxChange}
-                          name='allSupervisors'
-                        />
-                      }
-                      label={intl.formatMessage(messages.allSupervisors)}
-                    />
-                  </Grid>
-
-                  <Grid item md={3} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={filters.allManagers}
-                          onChange={onFiltersCheckboxChange}
-                          name='allManagers'
-                        />
-                      }
-                      label={intl.formatMessage(messages.allManagers)}
-                    />
-                  </Grid>
-                </Grid>
-
-                {formInfo.employees.length > 0 ? (
+                {formInfo.mdCompanyDocumentEmployee.length > 0 ? (
                   <>
                     <TableContainer>
                       <Table sx={{ minWidth: 650 }} size='small'>
@@ -533,15 +452,7 @@ function CompanyDocumentCreate(props) {
                             </TableCell>
 
                             <TableCell>
-                              {intl.formatMessage(messages.branch)}
-                            </TableCell>
-
-                            <TableCell>
                               {intl.formatMessage(messages.department)}
-                            </TableCell>
-
-                            <TableCell>
-                              {intl.formatMessage(messages.section)}
                             </TableCell>
 
                             <TableCell>
@@ -569,15 +480,7 @@ function CompanyDocumentCreate(props) {
                               </TableCell>
 
                               <TableCell component='th' scope='row'>
-                                {employee.branch}
-                              </TableCell>
-
-                              <TableCell component='th' scope='row'>
-                                {employee.department}
-                              </TableCell>
-
-                              <TableCell component='th' scope='row'>
-                                {employee.section}
+                                {employee.organizationName}
                               </TableCell>
 
                               <TableCell>
@@ -597,7 +500,7 @@ function CompanyDocumentCreate(props) {
                     <TablePagination
                       rowsPerPageOptions={[10, 25, 50]}
                       component='div'
-                      count={formInfo.employees.length}
+                      count={formInfo.mdCompanyDocumentEmployee.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       onPageChange={onPageChange}

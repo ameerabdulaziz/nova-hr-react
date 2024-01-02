@@ -1854,6 +1854,9 @@
   "boilerplate.containers.Payroll.Employee.repo.job": "Job",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
+  "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",
+  "boilerplate.containers.Payroll.MainData.codes.hrForm": "HR Form",
+  "boilerplate.containers.Payroll.MainData.codes.companyPolicy": "Company Policy",
   "boilerplate.containers.Payroll.MainData.codes.arName": "AR Name",
   "boilerplate.containers.Payroll.MainData.codes.enName": "EN Name",
   "boilerplate.containers.Payroll.MainData.codes.parent": "Parent",

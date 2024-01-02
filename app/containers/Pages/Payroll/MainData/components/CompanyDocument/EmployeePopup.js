@@ -1,5 +1,8 @@
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import PeopleIcon from '@mui/icons-material/People';
 import {
+  Autocomplete,
   Box,
   Button,
   Checkbox,
@@ -7,6 +10,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControlLabel,
   Grid,
   Stack,
   TextField,
@@ -24,80 +28,92 @@ import React, {
   useCallback, useEffect, useMemo, useState
 } from 'react';
 import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import style from '../../../../../../styles/styles.scss';
 import messages from '../../messages';
 
-function StuffPopup(props) {
+function EmployeePopup(props) {
   const {
-    intl, isOpen, setIsOpen, onSave, selectedEmployees
+    intl,
+    isOpen,
+    setIsOpen,
+    onSave,
+    selectedEmployees,
+    employeeList,
+    departmentList,
   } = props;
+
+  const locale = useSelector((state) => state.language.locale);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const [employeeApi, setEmployeeApi] = useState([]);
   const [filters, setFilters] = useState({
+    department: [],
     query: '',
+    allManagers: false,
   });
 
   const resetData = () => {
     setRowsPerPage(10);
     setPage(0);
     setFilters({
+      department: [],
       query: '',
+      allManagers: false,
     });
   };
 
   useEffect(() => {
     if (isOpen) {
-      setEmployeeApi(selectedEmployees);
+      const selectedEmployeeIds = selectedEmployees.map(
+        (item) => item.employeeId
+      );
+
+      const employees = employeeList.map((item) => ({
+        ...item,
+        isSelect: selectedEmployeeIds.includes(item.employeeId),
+      }));
+      setEmployeeApi(employees);
     } else {
       resetData();
     }
   }, [isOpen]);
 
-  const getEmployees = useCallback(() => {
-    const selectedEmployeeIds = employeeApi.map((item) => item.employeeId);
-
-    const allEmployee = [...employeeApi];
-
-    employeeApi.forEach((employee) => {
-      if (employee.isSelect) {
-        if (!selectedEmployeeIds.includes(employee.employeeId)) {
-          allEmployee.push(employee);
-        }
-      }
-    });
-
-    return allEmployee;
-  }, [employeeApi]);
-
   const filteredEmployee = useMemo(() => {
     let filteredData = [...employeeApi];
 
     if (filters.query.length !== 0) {
+      setPage(0);
+
       filteredData = filteredData.filter((item) => item.employeeName.toLowerCase().includes(filters.query.toLowerCase())
       );
     }
 
-    return filteredData;
-  }, [employeeApi, filters.query]);
+    if (filters.department.length !== 0) {
+      setPage(0);
+      const selectedDepartmentIds = filters.department.map((item) => item.id);
 
-  const visibleRows = useMemo(() => {
-    let filteredData = [...filteredEmployee];
-
-    if (filters.query.length !== 0) {
-      filteredData = filteredData.filter(
-        (item) => item.organizationName
-          .toLowerCase()
-          .includes(filters.query.toLowerCase()) || item.employeeName
+      filteredData = filteredData.filter((item) => selectedDepartmentIds.includes(item.organizationId)
       );
     }
 
-    return filteredData.slice(
+    if (filters.allManagers) {
+      setPage(0);
+      filteredData = filteredData.filter((item) => item.ismgr);
+    }
+
+    return filteredData;
+  }, [employeeApi, filters]);
+
+  const visibleRows = useMemo(
+    () => filteredEmployee.slice(
       page * rowsPerPage,
       page * rowsPerPage + rowsPerPage
-    );
-  }, [page, rowsPerPage, filteredEmployee, filters.query]);
+    ),
+    [page, rowsPerPage, filteredEmployee, filters.query]
+  );
 
   const onPopupClose = () => {
     setIsOpen(false);
@@ -106,7 +122,7 @@ function StuffPopup(props) {
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
-    const employees = getEmployees();
+    const employees = employeeApi.filter((item) => item.isSelect);
 
     onSave(employees);
 
@@ -144,8 +160,22 @@ function StuffPopup(props) {
     setEmployeeApi(clonedItems);
   };
 
+  const onMultiAutoCompleteChange = (value, name) => {
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const onInputChange = (evt) => {
     setFilters((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
+  };
+
+  const onFilterCheckboxChange = (evt) => {
+    setFilters((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.checked,
+    }));
   };
 
   const isAllSelect = useCallback(
@@ -159,7 +189,7 @@ function StuffPopup(props) {
     return filtered > 0 && filtered < visibleRows.length;
   }, [visibleRows]);
 
-  const onPageChange = (event, newPage) => {
+  const onPageChange = (_, newPage) => {
     setPage(newPage);
   };
 
@@ -188,7 +218,7 @@ function StuffPopup(props) {
       </DialogTitle>
 
       <DialogContent>
-        <Grid container mb={3} gap={3} pt={2}>
+        <Grid container mb={3} spacing={3} pt={2}>
           <Grid item xs={12} md={6}>
             <TextField
               name='query'
@@ -199,9 +229,54 @@ function StuffPopup(props) {
               variant='outlined'
             />
           </Grid>
+
+          <Grid item md={3} xs={12}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={filters.allManagers}
+                  onChange={onFilterCheckboxChange}
+                  name='allManagers'
+                />
+              }
+              label={intl.formatMessage(messages.allManagers)}
+            />
+          </Grid>
+
+          <Grid item xs={12} md={12}>
+            <Autocomplete
+              options={departmentList}
+              multiple
+              disableCloseOnSelect
+              className={`${style.AutocompleteMulSty} ${
+                locale === 'ar' ? style.AutocompleteMulStyAR : null
+              }`}
+              value={filters.department}
+              renderOption={(optionProps, option, { selected }) => (
+                <li {...optionProps} key={optionProps.id}>
+                  <Checkbox
+                    icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                    checkedIcon={<CheckBoxIcon fontSize='small' />}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.name}
+                </li>
+              )}
+              getOptionLabel={(option) => (option ? option.name : '')}
+              onChange={(_, value) => onMultiAutoCompleteChange(value, 'department')
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={intl.formatMessage(messages.department)}
+                />
+              )}
+            />
+          </Grid>
         </Grid>
 
-        {filteredEmployee.length > 0 ? (
+        {visibleRows.length > 0 ? (
           <>
             <TableContainer>
               <Table size='small' sx={{ minWidth: 700 }}>
@@ -224,14 +299,8 @@ function StuffPopup(props) {
                       {intl.formatMessage(messages.employeeName)}
                     </TableCell>
 
-                    <TableCell>{intl.formatMessage(messages.branch)}</TableCell>
-
                     <TableCell>
                       {intl.formatMessage(messages.department)}
-                    </TableCell>
-
-                    <TableCell>
-                      {intl.formatMessage(messages.section)}
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -261,15 +330,7 @@ function StuffPopup(props) {
                       </TableCell>
 
                       <TableCell component='th' scope='row'>
-                        {employee.branch}
-                      </TableCell>
-
-                      <TableCell component='th' scope='row'>
-                        {employee.department}
-                      </TableCell>
-
-                      <TableCell component='th' scope='row'>
-                        {employee.section}
+                        {employee.organizationName}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -317,12 +378,14 @@ function StuffPopup(props) {
   );
 }
 
-StuffPopup.propTypes = {
+EmployeePopup.propTypes = {
   intl: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
+  employeeList: PropTypes.array.isRequired,
+  departmentList: PropTypes.array.isRequired,
   selectedEmployees: PropTypes.array.isRequired,
 };
 
-export default injectIntl(StuffPopup);
+export default injectIntl(EmployeePopup);

@@ -13,6 +13,7 @@ import DeleteButton from '../../Component/DeleteButton';
 import EditButton from '../../Component/EditButton';
 import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
+import { ServerURL } from '../../api/ServerConfig';
 import payrollMessages from '../../messages';
 import api from '../api/CompanyDocumentData';
 import messages from '../messages';
@@ -84,7 +85,7 @@ function CompanyDocument(props) {
     },
 
     {
-      name: 'documentType',
+      name: 'docTypeName',
       label: intl.formatMessage(messages.documentType),
       options: {
         filter: true,
@@ -92,7 +93,7 @@ function CompanyDocument(props) {
     },
 
     {
-      name: 'documentDescription',
+      name: 'docDesc',
       label: intl.formatMessage(messages.documentDescription),
       options: {
         filter: true,
@@ -100,10 +101,25 @@ function CompanyDocument(props) {
     },
 
     {
-      name: 'category',
+      name: 'docType',
+      label: intl.formatMessage(messages.documentType),
+      options: {
+        filter: true,
+      },
+    },
+
+    {
+      name: 'docPath',
       label: intl.formatMessage(messages.category),
       options: {
         filter: false,
+        customBodyRender: (value) => (value ? (
+          <a href={`${ServerURL}Doc/CompanyDoc/${value}`} target='_blank' rel="noreferrer">
+            {intl.formatMessage(messages.preview)}
+          </a>
+        ) : (
+          ''
+        )),
       },
     },
 
@@ -116,12 +132,10 @@ function CompanyDocument(props) {
           <div className={style.actionsSty}>
             <EditButton
               param={{ id: tableMeta.rowData[0] }}
-              disabled={value !== 0}
               url={'/app/Pages/MainData/CompanyDocumentEdit'}
             />
 
             <DeleteButton
-              disabled={value !== 0}
               clickfnc={() => onDeleteBtnClick(tableMeta.rowData[0])}
             />
           </div>
@@ -143,9 +157,7 @@ function CompanyDocument(props) {
       //  some logic
     },
     customToolbar: () => (
-      <AddButton
-        url={'/app/Pages/MainData/CompanyDocumentCreate'}
-      />
+      <AddButton url={'/app/Pages/MainData/CompanyDocumentCreate'} />
     ),
     textLabels: {
       body: {
