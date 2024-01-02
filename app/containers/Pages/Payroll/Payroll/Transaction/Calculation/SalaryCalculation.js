@@ -647,7 +647,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...Payrollmessages.search} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={1.9}>
             <Button
               variant="contained"
               size="medium"
@@ -657,7 +657,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...messages.Calculate} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={1.6}>
             <Button
               variant="contained"
               size="medium"
@@ -667,7 +667,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...messages.DeleteSalary} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={1.8}>
             <Button
               variant="contained"
               size="medium"
@@ -681,7 +681,7 @@ function SalaryCalculation(props) {
               )}
             </Button>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={1}>
             <Button
               variant="contained"
               size="medium"
