@@ -497,4 +497,53 @@ employeeId: {
     id: `${scope}.review`,
     defaultMessage: "Review",
   },
+
+  january: {
+    id: `${scope}.january`,
+    defaultMessage: 'january',
+  },
+  february: {
+    id: `${scope}.february`,
+    defaultMessage: 'february',
+  },
+  march: {
+    id: `${scope}.march`,
+    defaultMessage: 'march',
+  },
+  april: {
+    id: `${scope}.april`,
+    defaultMessage: 'april',
+  },
+  may: {
+    id: `${scope}.may`,
+    defaultMessage: 'may',
+  },
+  june: {
+    id: `${scope}.june`,
+    defaultMessage: 'june',
+  },
+  july: {
+    id: `${scope}.july`,
+    defaultMessage: 'july',
+  },
+  august: {
+    id: `${scope}.august`,
+    defaultMessage: 'august',
+  },
+  september: {
+    id: `${scope}.september`,
+    defaultMessage: 'september',
+  },
+  october: {
+    id: `${scope}.october`,
+    defaultMessage: 'october',
+  },
+  november: {
+    id: `${scope}.november`,
+    defaultMessage: 'november',
+  },
+  december: {
+    id: `${scope}.december`,
+    defaultMessage: 'december',
+  },
 });
