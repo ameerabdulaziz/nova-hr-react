@@ -1,8 +1,9 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { ServerURL } from "./ServerConfig";
 
 const axiosInstance = axios.create({
-  baseURL: "http://160.153.234.244:97", //`http://92.205.178.113:85/`,
+  baseURL: ServerURL,
   headers: {
     Authorization: localStorage.getItem("Token")
       ? "Bearer " + localStorage.getItem("Token")
@@ -55,6 +56,16 @@ axiosInstance.interceptors.response.use(
 
       return Promise.reject(error);
     }
+
+    if (error.response.status === 401) {
+      if (error.response.data.title) toast.error(error.response.data.title);
+      else toast.error("Unauthorized");
+
+      window.location.href = "/login?redirectTo=" + window.location.pathname;
+
+      return Promise.reject(error);
+    }
+
     if (
       error.response.status === 401 &&
       originalRequest.url === baseURL + "token/refresh/"
