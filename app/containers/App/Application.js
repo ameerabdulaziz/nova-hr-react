@@ -393,7 +393,8 @@ import {
   AssessmentReviewEdit,
   CareerDevPlan,
   CareerDevPlanCreate,
-  SalaryCalculation
+  SalaryCalculation,
+  AssessmentReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1904,6 +1905,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/AssessmentReviewEdit'
           component={AssessmentReviewEdit}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AssessmentReport'
+          component={AssessmentReport}
         />
 
         {/* Default */}

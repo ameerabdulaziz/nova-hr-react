@@ -483,10 +483,43 @@ export default defineMessages({
   },
   NoteForEmployee: {
     id: `${scope}.NoteForEmployee`,
-    defaultMessage: 'Note for employee',
+    defaultMessage: 'Note For Employee',
   },
   BirthDate: {
     id: `${scope}.BirthDate`,
     defaultMessage: 'Birth Date',
+  },
+  // AssessmentReport
+  EmpCode: {
+    id: `${scope}.EmpCode`,
+    defaultMessage: 'Emp.Code',
+  },
+  SalfEvaluation: {
+    id: `${scope}.SalfEvaluation`,
+    defaultMessage: 'Salf Evaluation',
+  },
+  ManagerEvaluation: {
+    id: `${scope}.ManagerEvaluation`,
+    defaultMessage: 'Manager Evaluation',
+  },
+  ManagerNote: {
+    id: `${scope}.ManagerNote`,
+    defaultMessage: 'Manager Note',
+  },
+  Print: {
+    id: `${scope}.Print`,
+    defaultMessage: 'Print',
+  },
+  ManagerChoose: {
+    id: `${scope}.ManagerChoose`,
+    defaultMessage: 'Manager Choose',
+  },
+  YouMustToChooseYear: {
+    id: `${scope}.YouMustToChooseYear`,
+    defaultMessage: 'You must to choose year',
+  },
+  AssessmentReport: {
+    id: `${scope}.AssessmentReport`,
+    defaultMessage: 'Assessment Report',
   },
 });

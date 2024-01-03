@@ -2363,3 +2363,11 @@ export const AssessmentReviewEdit = loadable(
     fallback: <Loading />,
   }
 );
+
+
+export const AssessmentReport = loadable(
+  () => import('./Pages/Payroll/Assessment/Reports/AssessmentReport'),
+  {
+    fallback: <Loading />,
+  }
+);

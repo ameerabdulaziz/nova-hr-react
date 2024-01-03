@@ -2573,7 +2573,7 @@
   "boilerplate.containers.Payroll.assessment.ThankYouForCompleteTheAssessment": "Thank you for complete the assessment",
   "boilerplate.containers.Payroll.assessment.pleaseDescribeWithFewWordsWhy": "Please describe with few words why",
   "boilerplate.containers.Payroll.assessment.ThisFieldIsRequired": "This field is required",
-  "boilerplate.containers.Payroll.assessment.EmployeeTrainingRequest": "Training request",
+  "boilerplate.containers.Payroll.assessment.EmployeeTrainingRequest": "Training Request",
   "boilerplate.containers.Payroll.assessment.Prev": "Prev",
   "boilerplate.containers.Payroll.assessment.Next": "Next",
   "boilerplate.containers.Payroll.assessment.finish": "Finish",
@@ -2587,8 +2587,18 @@
   "boilerplate.containers.Payroll.assessment.OverAllAssessment": "Over all assessment",
   "boilerplate.containers.Payroll.assessment.EmployeeChoose": "Employee Choose",
   "boilerplate.containers.Payroll.assessment.DirectedManagerOverallAppraisal": "Directed manager over all appraisal",
-  "boilerplate.containers.Payroll.assessment.NoteForEmployee": "Note for employee",
-  "boilerplate.containers.Payroll.assessment.BirthDate": "Birth Date"
+  "boilerplate.containers.Payroll.assessment.NoteForEmployee": "Note For Employee",
+  "boilerplate.containers.Payroll.assessment.BirthDate": "Birth Date",
+
+
+  "boilerplate.containers.Payroll.assessment.EmpCode": "Emp.Code",
+  "boilerplate.containers.Payroll.assessment.SalfEvaluation": "Salf Evaluation",
+  "boilerplate.containers.Payroll.assessment.ManagerEvaluation": "Manager Evaluation",
+  "boilerplate.containers.Payroll.assessment.ManagerNote": "Manager Note",
+  "boilerplate.containers.Payroll.assessment.Print": "Print",
+  "boilerplate.containers.Payroll.assessment.ManagerChoose": "Manager Choose",
+  "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "You must to choose year",
+  "boilerplate.containers.Payroll.assessment.AssessmentReport": "Assessment Report"
 
 
   
