@@ -962,7 +962,18 @@
   "boilerplate.containers.Payroll.value": "القيمة",
   "boilerplate.containers.Payroll.Yearly": "سنويا",
   "boilerplate.containers.Payroll.Every3Years": "كل 3 سنوات",
-
+  "boilerplate.containers.Payroll.january": "يناير",
+  "boilerplate.containers.Payroll.february": "فبراير",
+  "boilerplate.containers.Payroll.march": "مارس",
+  "boilerplate.containers.Payroll.april": "أبريل",
+  "boilerplate.containers.Payroll.may": "مايو",
+  "boilerplate.containers.Payroll.june": "يونيو",
+  "boilerplate.containers.Payroll.july": "يوليو",
+  "boilerplate.containers.Payroll.august": "أغسطس",
+  "boilerplate.containers.Payroll.september": "سبتمبر",
+  "boilerplate.containers.Payroll.october": "أكتوبر",
+  "boilerplate.containers.Payroll.november": "نوفمبر",
+  "boilerplate.containers.Payroll.december": "ديسمبر",
   "boilerplate.containers.Payroll.saturday": "السبت",
   "boilerplate.containers.Payroll.sunday": "الاحد",
   "boilerplate.containers.Payroll.monday": "الاثنين",
@@ -1771,6 +1782,23 @@
 
     "boilerplate.containers.Payroll.Payroll.PurchaseTrxCreateTitle": "اضافة مشتريات الموظف",
     "boilerplate.containers.Payroll.Payroll.PurchaseTrxUpdateTitle": "تعديل مشتريات الموظف",
+    "boilerplate.containers.Payroll.Payroll.isPartCalc": "احتساب جزئي",
+    "boilerplate.containers.Payroll.Payroll.Calculate": "اجراء عملية الحساب",
+
+    "boilerplate.containers.Payroll.Payroll.grossSal": "grossSal",
+    "boilerplate.containers.Payroll.Payroll.empInsSalary": "الراتب التأمينى",
+    "boilerplate.containers.Payroll.Payroll.insuCompValFixed":"تأمينات الشركه",
+    "boilerplate.containers.Payroll.Payroll.insuEmpValFixed": "تأمينات الموظف",
+    "boilerplate.containers.Payroll.Payroll.taxBool": "الوعاء الضريبى",
+    "boilerplate.containers.Payroll.Payroll.taxVal": "الضرائب",
+    "boilerplate.containers.Payroll.Payroll.netSal": "الاجمالى",
+    "boilerplate.containers.Payroll.Payroll.totDed":"الخصم",
+    "boilerplate.containers.Payroll.Payroll.DeleteSalary":"حذف المرتبات",
+    "boilerplate.containers.Payroll.Payroll.OperateAtt":"تشغيل معالجة الحضور",
+    "boilerplate.containers.Payroll.Payroll.StopAtt":"ايقاف معالجة الحضور",
+    "boilerplate.containers.Payroll.Payroll.Show":"عرض تقرير المرتبات",
+    "boilerplate.containers.Payroll.Payroll.NotShow":"ايقاف تقرير المرتبات",
+    
     
     
     

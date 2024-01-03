@@ -958,7 +958,18 @@
   "boilerplate.containers.Payroll.deleteMessage": "Are You Sure You Want To Delete",
   "boilerplate.containers.Payroll.confirmation": "Are You Sure You Want To Save",
   "boilerplate.containers.Payroll.applynewshift": "Apply new shift",
-
+  "boilerplate.containers.Payroll.january": "January",
+  "boilerplate.containers.Payroll.february": "February",
+  "boilerplate.containers.Payroll.march": "March",
+  "boilerplate.containers.Payroll.april": "April",
+  "boilerplate.containers.Payroll.may": "May",
+  "boilerplate.containers.Payroll.june": "June",
+  "boilerplate.containers.Payroll.july": "July",
+  "boilerplate.containers.Payroll.august": "August",
+  "boilerplate.containers.Payroll.september": "September",
+  "boilerplate.containers.Payroll.october": "October",
+  "boilerplate.containers.Payroll.november": "November",
+  "boilerplate.containers.Payroll.december": "December",
   "boilerplate.containers.Payroll.employees": "View Employees",
 
   "boilerplate.containers.Payroll.VacationName": "Vacation",
@@ -1707,7 +1718,25 @@
   
   "boilerplate.containers.Payroll.Payroll.PurchaseTrxCreateTitle": "Add Employee Purchase",
   "boilerplate.containers.Payroll.Payroll.PurchaseTrxUpdateTitle": "Update Employee Purchase",
+  "boilerplate.containers.Payroll.Payroll.isPartCalc": "Partial Calculation",  
+  "boilerplate.containers.Payroll.Payroll.Calculate": "Calculate Salary",
 
+  
+  "boilerplate.containers.Payroll.Payroll.grossSal": "GrossSal",
+  "boilerplate.containers.Payroll.Payroll.empInsSalary": "InsSalary",
+  "boilerplate.containers.Payroll.Payroll.insuCompValFixed":"InsuCompVal",
+  "boilerplate.containers.Payroll.Payroll.insuEmpValFixed": "InsuEmpVal",
+  "boilerplate.containers.Payroll.Payroll.taxBool": "TaxBool",
+  "boilerplate.containers.Payroll.Payroll.taxVal": "TaxVal",
+  "boilerplate.containers.Payroll.Payroll.netSal": "NetSal",
+  "boilerplate.containers.Payroll.Payroll.totDed":"Deduction",  
+  "boilerplate.containers.Payroll.Payroll.DeleteSalary":"Delete Salary",  
+  "boilerplate.containers.Payroll.Payroll.OperateAtt":"Operate Attendance",
+  "boilerplate.containers.Payroll.Payroll.StopAtt":"Stop Attendance",
+  
+  "boilerplate.containers.Payroll.Payroll.Show":"Show Report",
+  "boilerplate.containers.Payroll.Payroll.NotShow":"Hide Report",
+  
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
   "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"Update Device",

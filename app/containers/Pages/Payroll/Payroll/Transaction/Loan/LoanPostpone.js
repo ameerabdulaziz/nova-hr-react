@@ -123,7 +123,6 @@ function LoanPostpone(props) {
           stYearName: "",
         });
         setdataList([]);
-        setEmployeeList([]);
         return;
       }
       setIsLoading(true);
@@ -155,7 +154,7 @@ function LoanPostpone(props) {
             (row) => parseInt(row.name) >= parseInt(result.yearName)
           )
         );
-        setMonthList(OrignalMonthList.filter((row) => row.id >= result.id));
+        setMonthList(OrignalMonthList.filter((row) => row.id >= result.monthId));
       }
     } catch (err) {
     } finally {

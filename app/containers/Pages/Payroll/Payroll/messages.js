@@ -438,4 +438,64 @@ export default defineMessages({
     id: `${scope}.PurchaseTrxUpdateTitle`,
     defaultMessage: "PurchaseTrxUpdateTitle",
   },
+  isPartCalc: {
+    id: `${scope}.isPartCalc`,
+    defaultMessage: "isPartCalc",
+  },
+  Calculate: {
+    id: `${scope}.Calculate`,
+    defaultMessage: "Calculate",
+  },
+  grossSal: {
+    id: `${scope}.grossSal`,
+    defaultMessage: "grossSal",
+  },
+  empInsSalary: {
+    id: `${scope}.empInsSalary`,
+    defaultMessage: "empInsSalary",
+  },
+  insuCompValFixed: {
+    id: `${scope}.insuCompValFixed`,
+    defaultMessage: "insuCompValFixed",
+  },
+  insuEmpValFixed: {
+    id: `${scope}.insuEmpValFixed`,
+    defaultMessage: "insuEmpValFixed",
+  },
+  taxBool: {
+    id: `${scope}.taxBool`,
+    defaultMessage: "taxBool",
+  },
+  taxVal: {
+    id: `${scope}.taxVal`,
+    defaultMessage: "taxVal",
+  },  
+  netSal: {
+    id: `${scope}.netSal`,
+    defaultMessage: "netSal",
+  },  
+  totDed: {
+    id: `${scope}.totDed`,
+    defaultMessage: "totDed",
+  },   
+  DeleteSalary : {
+    id: `${scope}.DeleteSalary`,
+    defaultMessage: "DeleteSalary",
+  },   
+  OperateAtt: {
+    id: `${scope}.OperateAtt`,
+    defaultMessage: "OperateAtt",
+  },   
+  StopAtt: {
+    id: `${scope}.StopAtt`,
+    defaultMessage: "StopAtt",
+  },   
+  Show: {
+    id: `${scope}.Show`,
+    defaultMessage: "Show",
+  },   
+  NotShow: {
+    id: `${scope}.NotShow`,
+    defaultMessage: "NotShow",
+  }, 
 });
