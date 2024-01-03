@@ -2606,5 +2606,16 @@
   "boilerplate.containers.Payroll.assessment.EmployeeChoose": "اختيار الموظف",
   "boilerplate.containers.Payroll.assessment.DirectedManagerOverallAppraisal": "تقييم المدير المباشر",
   "boilerplate.containers.Payroll.assessment.NoteForEmployee": "ملاحظات للموظف",
-  "boilerplate.containers.Payroll.assessment.BirthDate": "تاريخ الميلاد"
+  "boilerplate.containers.Payroll.assessment.BirthDate": "تاريخ الميلاد",
+
+
+
+  "boilerplate.containers.Payroll.assessment.EmpCode": "كود الموظف",
+  "boilerplate.containers.Payroll.assessment.SalfEvaluation": "التقييم الذاتى",
+  "boilerplate.containers.Payroll.assessment.ManagerEvaluation": "تقييم المدير",
+  "boilerplate.containers.Payroll.assessment.ManagerNote": "ملاحظات المدير",
+  "boilerplate.containers.Payroll.assessment.Print": "طباعة",
+  "boilerplate.containers.Payroll.assessment.ManagerChoose": "اختيار المدير",
+  "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "يجب عليك اختيار السنة",
+  "boilerplate.containers.Payroll.assessment.AssessmentReport": "تقرير التقييم"
 }
