@@ -270,7 +270,7 @@ export const InvoicePage = loadable(
     fallback: <Loading />,
   }
 );
-export const Profile = loadable(() => import('./Pages/UserProfile'), {
+export const Profile = loadable(() => import('./Pages/Payroll/Profile/Profile'), {
   fallback: <Loading />,
 });
 export const Timeline = loadable(() => import('./Pages/Timeline'), {
