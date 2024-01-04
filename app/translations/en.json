@@ -1748,6 +1748,18 @@
   
   "boilerplate.containers.Payroll.Payroll.Show":"Show Report",
   "boilerplate.containers.Payroll.Payroll.NotShow":"Hide Report",
+
+  "boilerplate.containers.Payroll.Payroll.YouMustToChooseYearAndAtLeastOneElement":"You must to choose year and at least one element",
+  "boilerplate.containers.Payroll.Payroll.orgName":"Organization",
+  "boilerplate.containers.Payroll.Payroll.EmpCode":"Emp.Code",
+  "boilerplate.containers.Payroll.Payroll.employeeName":"Employee Name",
+  "boilerplate.containers.Payroll.Payroll.payment":"Payment",
+  "boilerplate.containers.Payroll.Payroll.element":"Element",
+  "boilerplate.containers.Payroll.Payroll.countVal":"Count/Val",
+  "boilerplate.containers.Payroll.Payroll.CalculatedValue":"Calculated Value",
+  "boilerplate.containers.Payroll.Payroll.Month":"Month",
+  "boilerplate.containers.Payroll.Payroll.year":"Year",
+  "boilerplate.containers.Payroll.Payroll.Template":"Template",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

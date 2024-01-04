@@ -395,6 +395,7 @@ import {
   CareerDevPlanCreate,
   SalaryCalculation,
   AssessmentReport,
+  ElementReviewReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1191,6 +1192,8 @@ function Application(props) {
 
         <Route path='/app/Pages/Payroll/BranchSalarySetting' component={BranchSalarySetting} />
         <Route path='/app/Pages/Payroll/SalaryCalculation' component={SalaryCalculation} />
+
+        <Route path='/app/Pages/Payroll/ElementReviewReport' component={ElementReviewReport} />
         
 
         {/* WorkFlow */}

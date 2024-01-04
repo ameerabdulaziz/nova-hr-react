@@ -498,4 +498,53 @@ export default defineMessages({
     id: `${scope}.NotShow`,
     defaultMessage: "NotShow",
   }, 
+  // ElementReview
+  YouMustToChooseYearAndAtLeastOneElement: {
+    id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,
+    defaultMessage: "You must to choose year and at least one element",
+  }, 
+  orgName: {
+    id: `${scope}.orgName`,
+    defaultMessage: "Organization",
+  }, 
+  EmpCode: {
+    id: `${scope}.EmpCode`,
+    defaultMessage: "Emp.Code",
+  }, 
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: "Employee Name",
+  }, 
+  payment: {
+    id: `${scope}.payment`,
+    defaultMessage: "Payment",
+  }, 
+  element: {
+    id: `${scope}.element`,
+    defaultMessage: "Element",
+  }, 
+  countVal: {
+    id: `${scope}.countVal`,
+    defaultMessage: "Count/Val",
+  }, 
+  CalculatedValue: {
+    id: `${scope}.CalculatedValue`,
+    defaultMessage: "Calculated Value",
+  }, 
+  elementType: {
+    id: `${scope}.elementType`,
+    defaultMessage: "Element Type",
+  }, 
+  Month: {
+    id: `${scope}.Month`,
+    defaultMessage: "Month",
+  }, 
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: "Year",
+  },
+  Template: {
+    id: `${scope}.Template`,
+    defaultMessage: "Template",
+  }, 
 });

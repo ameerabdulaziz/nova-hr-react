@@ -1810,6 +1810,19 @@
     "boilerplate.containers.Payroll.Payroll.StopAtt":"ايقاف معالجة الحضور",
     "boilerplate.containers.Payroll.Payroll.Show":"عرض تقرير المرتبات",
     "boilerplate.containers.Payroll.Payroll.NotShow":"ايقاف تقرير المرتبات",
+
+
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseYearAndAtLeastOneElement":"يجب عليك اختيار السنة وعنصر واحد على الأقل",
+    "boilerplate.containers.Payroll.Payroll.orgName":"الادارة",
+    "boilerplate.containers.Payroll.Payroll.EmpCode":"كود الموظف",
+    "boilerplate.containers.Payroll.Payroll.employeeName":"اسم الموظف",
+    "boilerplate.containers.Payroll.Payroll.payment":"الصرفية",
+    "boilerplate.containers.Payroll.Payroll.element":"اسم العنصر",
+    "boilerplate.containers.Payroll.Payroll.countVal":"العدد/القيمة",
+    "boilerplate.containers.Payroll.Payroll.CalculatedValue":"القيمة المحسوبة",
+    "boilerplate.containers.Payroll.Payroll.Month":"الشهر",
+    "boilerplate.containers.Payroll.Payroll.year":"السنة",
+    "boilerplate.containers.Payroll.Payroll.Template":"القالب",
     
     
     
