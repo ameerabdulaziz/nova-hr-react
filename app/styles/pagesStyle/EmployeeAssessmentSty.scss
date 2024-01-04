@@ -528,6 +528,24 @@
         margin-top: 0 !important;
     }
 
+
+    .radioPrintSty
+    {
+        & > span:nth-child(1)
+        {
+            svg
+            {
+                height: 20px !important;
+                width: 20px !important;
+            }
+        }
+
+        & > span:nth-child(2)
+        {
+            font-size: 13px;
+        }
+    }
+
     .userInfoSty
     {
         // display: flex;

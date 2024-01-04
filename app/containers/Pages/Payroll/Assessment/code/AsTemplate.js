@@ -6,7 +6,7 @@ import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
 import AddButton from '../../Component/AddButton';
@@ -18,6 +18,9 @@ import useStyles from '../../Style';
 import payrollMessages from '../../messages';
 import api from '../api/AsTemplateData';
 import messages from '../messages';
+import AsTemplatePrint from '../components/AsTemplate/AsTemplatePrint';
+import { Button } from "@mui/material";
+import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 
 function AsTemplate(props) {
   const { intl } = props;
@@ -29,6 +32,8 @@ function AsTemplate(props) {
   const [deleteItem, setDeleteItem] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
+
+  const [printId, setPrintId] = useState();
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -111,7 +116,22 @@ function AsTemplate(props) {
         customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
-
+    {
+      name: "",
+      label: intl.formatMessage(messages.Print),
+      options: {
+        filter: false,
+        customBodyRender: (value, tableMeta) => (
+            <LocalPrintshopOutlinedIcon 
+             className={classes.textSty}
+             style={{cursor: "pointer"}}
+            onClick={()=>
+                  setPrintId(tableMeta.rowData[0])
+                }
+            />
+          ),
+      },
+    },
     {
       name: 'Actions',
       label: intl.formatMessage(payrollMessages.Actions),
@@ -182,6 +202,12 @@ function AsTemplate(props) {
           />
         </div>
       </PapperBlock>
+
+      <AsTemplatePrint 
+      intl={intl}
+      printId={printId}
+      setPrintId={setPrintId}
+      />
     </PayRollLoader>
   );
 }

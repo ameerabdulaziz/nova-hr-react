@@ -20,12 +20,14 @@ const ExamQuestionsPrint = ({
   textareaNoteForEmployeeVal,
   AssessmentReviewLock,
   printDivRef,
-  data
+  data,
+  Year
 }) => {
 
 
     const { classes } = useStyles();
     const locale = useSelector(state => state.language.locale);
+
 
     
     return(
@@ -42,7 +44,7 @@ const ExamQuestionsPrint = ({
       >
 
           <h1 className={`${style.printPageTitleSty} `}>
-            {examData?.templateName}
+            {examData?.templateName} &nbsp;&nbsp; {data[0]?.monthName} / {Year.name}
           </h1>
 
                   {AssessmentReviewLock && (

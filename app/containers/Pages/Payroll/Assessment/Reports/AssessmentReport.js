@@ -21,6 +21,7 @@ import style from "../../../../../styles/styles.scss";
 import { toast } from 'react-hot-toast';
 import  ExamQuestionsPrint  from '../../Component/ExamQuestionsPrint';
 import { useReactToPrint } from 'react-to-print';
+import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 
 function AssessmentReport(props) {
   const { intl } = props;
@@ -61,7 +62,7 @@ function AssessmentReport(props) {
         try {
         setIsLoading(true);
         
-        const dataApi = await ApiData(locale).GetDataById(Year,Department,Employee,Month);
+        const dataApi = await ApiData(locale).GetDataById(Year.id,Department,Employee,Month);
 
         dataApi[0].SalfEvaluation = [dataApi[0].employeeEvalChoice," (",dataApi[0].employeeEval,"%",")"]
         dataApi[0].ManagerEvaluation = [dataApi[0].mgrEvalChoice," (",dataApi[0].mgrEval,"%",")"]
@@ -177,19 +178,16 @@ function AssessmentReport(props) {
       },
     },
     {
-      name: "minutesCount",
+      name: "",
       label: intl.formatMessage(messages.Print),
       options: {
         filter: false,
         customBodyRender: (value, tableMeta) => (
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              onClick={()=>printFun(tableMeta.rowData[0])}
-            >
-               <FormattedMessage {...messages.Print} /> 
-            </Button>
+            <LocalPrintshopOutlinedIcon 
+             className={classes.textSty}
+             style={{cursor: "pointer"}}
+             onClick={()=>printFun(tableMeta.rowData[0])}
+            />
           ),
       },
     },
@@ -438,7 +436,7 @@ const printJS = useReactToPrint({
            }}
            onChange={(event, value) => {
                if (value !== null) {
-                   setYear(value.id);
+                   setYear(value);
                } else {
                    setYear("");
                }
@@ -491,6 +489,7 @@ const printJS = useReactToPrint({
          AssessmentReviewLock={AssessmentReviewLock}
          printDivRef={printDivRef}
          data={data}
+         Year={Year}
       />
     </PayRollLoader>
   );

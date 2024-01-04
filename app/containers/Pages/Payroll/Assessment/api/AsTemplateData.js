@@ -47,6 +47,17 @@ const API = (locale) => {
     return data;
   };
 
+
+  // /////////
+
+  api.GetDataById = async (id) => {
+    const data = await axiosInstance.get(`AsTemplate/GetTemplateForm/${locale}/${id}`);
+
+    return data.data;
+  };
+
+  ////////////////
+
   return api;
 };
 
