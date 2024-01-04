@@ -1635,6 +1635,23 @@
   "boilerplate.containers.Payroll.Payroll.ElementsCreateTitle": "Add Elements",
   "boilerplate.containers.Payroll.Payroll.ElementsUpdateTitle": "Update Elements",
 
+  "boilerplate.containers.Payroll.Payroll.department": "Department",
+  "boilerplate.containers.Payroll.Payroll.section": "Section",
+  "boilerplate.containers.Payroll.Payroll.employeeCode": "Employee Code",
+  "boilerplate.containers.Payroll.Payroll.employeename": "Employee Name",
+  "boilerplate.containers.Payroll.Payroll.allowances": "Allowances",
+  "boilerplate.containers.Payroll.Payroll.deductions": "Deductions",
+  "boilerplate.containers.Payroll.Payroll.netSalary": "Net Salary",
+  "boilerplate.containers.Payroll.Payroll.searchCriteria": "Search Criteria",
+  "boilerplate.containers.Payroll.Payroll.template": "Template",
+  "boilerplate.containers.Payroll.Payroll.cash": "Cash",
+  "boilerplate.containers.Payroll.Payroll.bankOnly": "Bank Only",
+  "boilerplate.containers.Payroll.Payroll.reportCriteria": "Report Criteria",
+  "boilerplate.containers.Payroll.Payroll.year": "Year",
+  "boilerplate.containers.Payroll.Payroll.month": "Month",
+  "boilerplate.containers.Payroll.Payroll.detailed": "Detailed",
+  "boilerplate.containers.Payroll.Payroll.groupByDepartment": "Group By Department",
+
   
   "boilerplate.containers.Payroll.Payroll.variable": "Variable",
   "boilerplate.containers.Payroll.Payroll.Percentage": "Percentage",

@@ -149,27 +149,27 @@ function Header(props) {
             >
               {fullScreen ? (
                 <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
-                  <IconButton className={classes.button} onClick={closeFullScreen} size="large">
+                  <IconButton className={classes.button} onClick={closeFullScreen} size="small">
                     <FullscreenExitOutlined />
                   </IconButton>
                 </Tooltip>
               ) : (
                 <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
-                  <IconButton className={classes.button} onClick={openFullScreen} size="large">
+                  <IconButton className={classes.button} onClick={openFullScreen} size="small">
                     <FullscreenOutlined />
                   </IconButton>
                 </Tooltip>
               )}
               <Tooltip title={intl.formatMessage(messages.lamp)} placement="bottom">
-                <IconButton className={classes.button} onClick={() => turnMode(mode)} size="large">
+                <IconButton className={classes.button} onClick={() => turnMode(mode)} size="small">
                   <InvertColors />
                 </IconButton>
               </Tooltip>
-              <Tooltip title={intl.formatMessage(messages.guide)} placement="bottom">
-                <IconButton className={classes.button} onClick={openGuide} size="large">
+              {/* <Tooltip title={intl.formatMessage(messages.guide)} placement="bottom">
+                <IconButton className={classes.button} onClick={openGuide} size="small">
                   <HelpOutlineOutlined />
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
             </div>
             <Typography
               component="h2"

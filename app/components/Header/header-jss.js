@@ -91,7 +91,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     [`& .${classes.headerAction}`]: {
-      marginLeft: theme.spacing(4)
+      marginLeft: theme.spacing(7)
     },
     [`&.${classes.darker}`]: {
       [`& .${classes.menuButton}`]: {

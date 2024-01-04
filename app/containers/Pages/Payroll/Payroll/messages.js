@@ -497,7 +497,73 @@ export default defineMessages({
   NotShow: {
     id: `${scope}.NotShow`,
     defaultMessage: "NotShow",
-  }, 
+  },
+
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'Department',
+  },
+  section: {
+    id: `${scope}.section`,
+    defaultMessage: 'Section',
+  },
+  employeeCode: {
+    id: `${scope}.employeeCode`,
+    defaultMessage: 'Employee Code',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'Employee Name',
+  },
+  allowances: {
+    id: `${scope}.allowances`,
+    defaultMessage: 'Allowances',
+  },
+  deductions: {
+    id: `${scope}.deductions`,
+    defaultMessage: 'Deductions',
+  },
+  netSalary: {
+    id: `${scope}.netSalary`,
+    defaultMessage: 'Net Salary',
+  },
+  searchCriteria: {
+    id: `${scope}.searchCriteria`,
+    defaultMessage: 'Search Criteria',
+  },
+  template: {
+    id: `${scope}.template`,
+    defaultMessage: 'Template',
+  },
+  cash: {
+    id: `${scope}.cash`,
+    defaultMessage: 'Cash',
+  },
+  bankOnly: {
+    id: `${scope}.bankOnly`,
+    defaultMessage: 'Bank Only',
+  },
+  reportCriteria: {
+    id: `${scope}.reportCriteria`,
+    defaultMessage: 'Report Criteria',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'Year',
+  },
+  month: {
+    id: `${scope}.month`,
+    defaultMessage: 'Month',
+  },
+  detailed: {
+    id: `${scope}.detailed`,
+    defaultMessage: 'Detailed',
+  },
+  groupByDepartment: {
+    id: `${scope}.groupByDepartment`,
+    defaultMessage: 'Group By Department',
+  },
+ 
   // ElementReview
   YouMustToChooseYearAndAtLeastOneElement: {
     id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,
