@@ -19,7 +19,7 @@ import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import style from '../../../../../styles/styles.scss'
-import ApiData from "../api/ElementReviewData";
+import ApiData from "../api/PayrollReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 

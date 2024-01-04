@@ -1777,6 +1777,12 @@
   "boilerplate.containers.Payroll.Payroll.Month":"Month",
   "boilerplate.containers.Payroll.Payroll.year":"Year",
   "boilerplate.containers.Payroll.Payroll.Template":"Template",
+
+
+  "boilerplate.containers.Payroll.Payroll.value1":"Value 1",
+  "boilerplate.containers.Payroll.Payroll.value2":"Value 2",
+  "boilerplate.containers.Payroll.Payroll.constElement":"Constant Element",
+  "boilerplate.containers.Payroll.Payroll.valElement":"Variable Element",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

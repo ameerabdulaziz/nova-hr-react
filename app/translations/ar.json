@@ -1840,6 +1840,12 @@
     "boilerplate.containers.Payroll.Payroll.Month":"الشهر",
     "boilerplate.containers.Payroll.Payroll.year":"السنة",
     "boilerplate.containers.Payroll.Payroll.Template":"القالب",
+
+
+    "boilerplate.containers.Payroll.Payroll.value1":"القيمة 1",
+    "boilerplate.containers.Payroll.Payroll.value2":"القيمة 2",
+    "boilerplate.containers.Payroll.Payroll.constElement":"الثوابت",
+    "boilerplate.containers.Payroll.Payroll.valElement":"المتغيرات",
     
     
     

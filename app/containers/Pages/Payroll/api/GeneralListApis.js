@@ -60,9 +60,9 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetElementList = async () => {
+  Apis.GetElementList = async (ElementMode_ID,ElementCalcMethod_ID) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetElementList/${locale}`
+      `GeneralList/GetElementList/${locale}?${ElementMode_ID ? `ElementMode_ID=${ElementMode_ID}` : ""}${ElementCalcMethod_ID ? `&ElementCalcMethod_ID=${ElementCalcMethod_ID}` : ""}`
     );
     return result.data;
   };

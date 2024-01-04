@@ -612,5 +612,21 @@ export default defineMessages({
   Template: {
     id: `${scope}.Template`,
     defaultMessage: "Template",
+  },
+  value1: {
+    id: `${scope}.value1`,
+    defaultMessage: "Value 1",
+  }, 
+  value2: {
+    id: `${scope}.value2`,
+    defaultMessage: "Value 2",
+  }, 
+  constElement: {
+    id: `${scope}.constElement`,
+    defaultMessage: "Constant Element",
+  }, 
+  valElement: {
+    id: `${scope}.valElement`,
+    defaultMessage: "Variable Element",
   }, 
 });
