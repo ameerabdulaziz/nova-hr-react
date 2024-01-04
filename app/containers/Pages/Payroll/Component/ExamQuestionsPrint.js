@@ -44,7 +44,7 @@ const ExamQuestionsPrint = ({
       >
 
           <h1 className={`${style.printPageTitleSty} `}>
-            {examData?.templateName} &nbsp;&nbsp; {data[0]?.monthName} / {Year.name}
+            {examData?.templateName} &nbsp;&nbsp; <span>{data[0]?.monthName} / {Year.name}</span>
           </h1>
 
                   {AssessmentReviewLock && (
