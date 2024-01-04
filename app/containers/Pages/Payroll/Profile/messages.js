@@ -72,4 +72,52 @@ export default defineMessages({
     id: `${scope}.about.jobKPI`,
     defaultMessage: 'jobKPI',
   },
+  employeeName: {
+    id: `${scope}.about.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  jobName: {
+    id: `${scope}.about.jobName`,
+    defaultMessage: 'jobName',
+  },
+  aboutMe: {
+    id: `${scope}.about.aboutMe`,
+    defaultMessage: 'aboutMe',
+  },
+  address: {
+    id: `${scope}.about.address`,
+    defaultMessage: 'address',
+  },
+  phone: {
+    id: `${scope}.about.phone`,
+    defaultMessage: 'phone',
+  },
+  email: {
+    id: `${scope}.about.email`,
+    defaultMessage: 'email',
+  },
+  hiringDate: {
+    id: `${scope}.about.hiringDate`,
+    defaultMessage: 'hiringDate',
+  },
+  organization: {
+    id: `${scope}.about.organization`,
+    defaultMessage: 'organization',
+  },
+  noDocuments: {
+    id: `${scope}.about.noDocuments`,
+    defaultMessage: 'noDocuments',
+  },
+  reportingTo: {
+    id: `${scope}.about.reportingTo`,
+    defaultMessage: 'reportingTo',
+  },
+  noJobKPI: {
+    id: `${scope}.about.noJobKPI`,
+    defaultMessage: 'No Job KPI available',
+  },
+  noJobDescription: {
+    id: `${scope}.about.noJobDescription`,
+    defaultMessage: 'No Job Description available',
+  },
 });
