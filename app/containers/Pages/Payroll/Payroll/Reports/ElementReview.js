@@ -235,6 +235,45 @@ function ElementReview(props) {
             ></Search>
           </Grid>
 
+
+          <Grid item xs={12} md={3}>
+           
+                    <Autocomplete
+                        id="ddlMenu"   
+                        isOptionEqualToValue={(option, value) => option.id === value.id}                      
+                        options={TemplatesList.length != 0 ? TemplatesList: []}
+                        getOptionLabel={(option) =>(
+                            option  ? option.name : ""
+                        )
+                        }
+                        renderOption={(props, option) => {
+                            return (
+                            <li {...props} key={option.id}>
+                                {option.name}
+                            </li>
+                            );
+                        }}
+                        onChange={(event, value) => {
+                            if (value !== null) {
+                                setTemplate(value);
+                            } else {
+                                setTemplate("");
+                            }
+                        }}
+                        renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            name="VacationType"
+                               label={intl.formatMessage(messages.Template)}
+                            margin="normal" 
+                            className={style.fieldsSty}
+                            
+                            />
+
+                        )}
+                        /> 
+                    </Grid>
+
           <Grid item xs={12}  md={6}> 
                     <Autocomplete
                           multiple  
@@ -275,7 +314,8 @@ function ElementReview(props) {
               
                   </Grid>
 
-                  <Grid item xs={12}  md={6}> 
+
+                  <Grid item xs={12}  md={4}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -352,43 +392,7 @@ function ElementReview(props) {
                         />
                 </Grid>
 
-                  <Grid item xs={12} md={2}>
-           
-                    <Autocomplete
-                        id="ddlMenu"   
-                        isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                        options={TemplatesList.length != 0 ? TemplatesList: []}
-                        getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        renderOption={(props, option) => {
-                            return (
-                            <li {...props} key={option.id}>
-                                {option.name}
-                            </li>
-                            );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setTemplate(value);
-                            } else {
-                                setTemplate("");
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            name="VacationType"
-                               label={intl.formatMessage(messages.Template)}
-                            margin="normal" 
-                            className={style.fieldsSty}
-                            
-                            />
-
-                        )}
-                        /> 
-                    </Grid>
+                  
 
           <Grid item xs={12} md={2}>
             <Button
