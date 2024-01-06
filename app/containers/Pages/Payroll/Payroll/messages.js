@@ -295,7 +295,7 @@ export default defineMessages({
 
   // BranchSalarySetting
   payrollMainParameters: {
-    id: `${scope}.payrollMainParameters`,
+    id: `${scope}MainParameters`,
     defaultMessage: "Payroll Main Parameters",
   },
   Department: {
@@ -563,7 +563,106 @@ export default defineMessages({
     id: `${scope}.groupByDepartment`,
     defaultMessage: 'Group By Department',
   },
- 
+  insured: {
+    id: `${scope}.insured`,
+    defaultMessage: 'Insured',
+  },
+  unInsured: {
+    id: `${scope}.unInsured`,
+    defaultMessage: 'Uninsured',
+  },
+  positive: {
+    id: `${scope}.positive`,
+    defaultMessage: 'Positive',
+  },
+  insurance: {
+    id: `${scope}.insurance`,
+    defaultMessage: 'insurance',
+  },
+  salaryType: {
+    id: `${scope}.salaryType`,
+    defaultMessage: 'salaryType',
+  },
+  salaryValue: {
+    id: `${scope}.salaryValue`,
+    defaultMessage: 'salaryValue',
+  },
+  showSICompanyShare: {
+    id: `${scope}.showSICompanyShare`,
+    defaultMessage: 'Show SI Company Share',
+  },
+  displayOriginalValues: {
+    id: `${scope}.displayOriginalValues`,
+    defaultMessage: 'Display Original Values',
+  },
+  displayReferenceElements: {
+    id: `${scope}.displayReferenceElements`,
+    defaultMessage: 'Display Reference Elements',
+  },
+  currency: {
+    id: `${scope}.currency`,
+    defaultMessage: 'currency',
+  },
+  showStopped: {
+    id: `${scope}.showStopped`,
+    defaultMessage: 'showStopped',
+  },
+  negative: {
+    id: `${scope}.negative`,
+    defaultMessage: 'Negative',
+  },
+  bank: {
+    id: `${scope}.bank`,
+    defaultMessage: 'Bank',
+  },
+  company: {
+    id: `${scope}.company`,
+    defaultMessage: 'Company',
+  },
+  paymentSlip: {
+    id: `${scope}.paymentSlip`,
+    defaultMessage: 'Payment Slip',
+  },
+  employeeInfo: {
+    id: `${scope}.employeeInfo`,
+    defaultMessage: 'Employee Info',
+  },
+  branch: {
+    id: `${scope}.branch`,
+    defaultMessage: 'Branch',
+  },
+  name: {
+    id: `${scope}.name`,
+    defaultMessage: 'Name',
+  },
+  organization: {
+    id: `${scope}.organization`,
+    defaultMessage: 'Organization',
+  },
+  code: {
+    id: `${scope}.code`,
+    defaultMessage: 'Code',
+  },
+  job: {
+    id: `${scope}.job`,
+    defaultMessage: 'Job',
+  },
+  value: {
+    id: `${scope}.value`,
+    defaultMessage: 'Value',
+  },
+  total: {
+    id: `${scope}.total`,
+    defaultMessage: 'Total',
+  },
+  totalDeduction: {
+    id: `${scope}.totalDeduction`,
+    defaultMessage: 'Total Deduction',
+  },
+  net: {
+    id: `${scope}.net`,
+    defaultMessage: 'Net',
+  },
   // ElementReview
   YouMustToChooseYearAndAtLeastOneElement: {
     id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,

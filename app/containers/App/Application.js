@@ -398,6 +398,7 @@ import {
   AssessmentReport,
   ElementReviewReport,
   SalaryComparisonReport,
+  PaymentSlip,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1198,6 +1199,7 @@ function Application(props) {
 
         <Route path='/app/Pages/Payroll/ElementReviewReport' component={ElementReviewReport} />
         <Route path='/app/Pages/Payroll/SalaryComparisonReport' component={SalaryComparisonReport} />
+        <Route path='/app/Pages/Payroll/PaymentSlip' component={PaymentSlip} />
         
 
         {/* WorkFlow */}

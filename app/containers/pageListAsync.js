@@ -1409,6 +1409,13 @@ export const BranchSalarySetting = loadable(
   }
 );
 
+export const PaymentSlip = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/PaymentSlip'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LoanTrxList = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
   {
