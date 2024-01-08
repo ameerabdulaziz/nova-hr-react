@@ -20,7 +20,7 @@ function formateDate(date, formatting = 'yyyy-MM-dd') {
  * @returns {string} a formatted version of the input number with two decimal places.
  */
 function formatNumber(number = 0) {
-  if (Number.isNaN(number)) {
+  if (Number.isNaN(number) || number === null) {
     return '';
   }
 
