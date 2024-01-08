@@ -57,51 +57,18 @@ function PaymentReportItem(props) {
 
         <Grid item xs={5}>
           <Typography fontWeight='bold'>
-            {item.monthName} &nbsp; / &nbsp; {item.yearName}
+            {formInfo.monthName} &nbsp; / &nbsp; {formInfo.yearName}
           </Typography>
         </Grid>
       </Grid>
 
-      <Grid container alignItems='center' sx={{ my: 1 }}>
-        <Grid item sx={{ borderBottom: '1px solid #333', pb: 1 }}>
-          <Typography fontWeight='bold'>
-            {intl.formatMessage(messages.employeeInfo)}
-          </Typography>
-        </Grid>
-      </Grid>
-
-      <Grid container alignItems='center'>
+      <Grid mt={2} container alignItems='center'>
         <Grid item xs={4}>
           <Stack direction='row' alignItems='center' gap={1}>
             <Typography> {intl.formatMessage(messages.company)}: </Typography>
-            <Typography fontWeight='bold'>{formInfo.companyName}</Typography>
-          </Stack>
-        </Grid>
-
-        <Grid item xs={4}>
-          <Stack direction='row' alignItems='center' gap={1}>
-            <Typography>
-              {intl.formatMessage(messages.employeeName)}:
-            </Typography>
-            <Typography fontWeight='bold'>{item.employeeCode}</Typography>
+            <Typography fontWeight='bold'>{item.employeeId}</Typography>
             <Typography fontWeight='bold'>-</Typography>
             <Typography fontWeight='bold'>{item.employeeName}</Typography>
-          </Stack>
-        </Grid>
-
-        <Grid item xs={4}>
-          <Stack direction='row' alignItems='center' gap={1}>
-            <Typography>
-              {intl.formatMessage(messages.organization)}:
-            </Typography>
-            <Typography fontWeight='bold'>{item.organizationName}</Typography>
-          </Stack>
-        </Grid>
-
-        <Grid item xs={4}>
-          <Stack direction='row' alignItems='center' gap={1}>
-            <Typography> {intl.formatMessage(messages.job)}: </Typography>
-            <Typography fontWeight='bold'>{item.jobName}</Typography>
           </Stack>
         </Grid>
       </Grid>

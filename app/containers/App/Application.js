@@ -399,6 +399,7 @@ import {
   ElementReviewReport,
   SalaryComparisonReport,
   PaymentSlip,
+  PaymentSlipTotal,
   FollowEmployeeReport,
   TaxReportReport
 } from '../pageListAsync';
@@ -1202,6 +1203,7 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/ElementReviewReport' component={ElementReviewReport} />
         <Route path='/app/Pages/Payroll/SalaryComparisonReport' component={SalaryComparisonReport} />
         <Route path='/app/Pages/Payroll/PaymentSlip' component={PaymentSlip} />
+        <Route path='/app/Pages/Payroll/PaymentSlipTotal' component={PaymentSlipTotal} />
         <Route path='/app/Pages/Payroll/FollowEmployeeReport' component={FollowEmployeeReport} />
         <Route path='/app/Pages/Payroll/TaxReportReport' component={TaxReportReport} />
         

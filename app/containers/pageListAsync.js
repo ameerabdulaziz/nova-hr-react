@@ -1416,6 +1416,13 @@ export const PaymentSlip = loadable(
   }
 );
 
+export const PaymentSlipTotal = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/PaymentSlipTotal'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LoanTrxList = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
   {

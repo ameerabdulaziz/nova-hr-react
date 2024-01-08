@@ -22,15 +22,14 @@ import React, {
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
-import api from '../api/PaymentSlipData';
-import PaymentReportItem from '../components/PaymentSlip/PaymentReportItem';
+import api from '../api/PaymentSlipTotalData';
+import PaymentReportItem from '../components/PaymentSlipTotal/PaymentReportItem';
 import messages from '../messages';
 
-function PaymentSlip(props) {
+function PaymentSlipTotal(props) {
   const { intl } = props;
 
   const title = localStorage.getItem('MenuName');
@@ -67,7 +66,7 @@ function PaymentSlip(props) {
   const [monthList, setMonthList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [payTemplateList, setPayTemplateList] = useState([]);
-  const [paymentSlipReport, setPaymentSlipReport] = useState([]);
+  const [paymentSlipTotalReport, setPaymentSlipTotalReport] = useState([]);
 
   const insuranceList = [
     {
@@ -116,10 +115,6 @@ function PaymentSlip(props) {
     isShowRefElements: false,
     isShowEffectElements: false,
     notes: '',
-
-    employeeId: null,
-    EmpStatusId: 1,
-    OrganizationId: '',
   });
 
   async function fetchNeededData() {
@@ -151,8 +146,8 @@ function PaymentSlip(props) {
     setIsLoading(true);
 
     try {
-      const response = await api(locale).GetPaymentSlipReport(formInfo);
-      setPaymentSlipReport(response);
+      const response = await api(locale).GetPaymentSlipTotalReport(formInfo);
+      setPaymentSlipTotalReport(response);
 
       setTimeout(() => {
         printJS();
@@ -221,21 +216,14 @@ function PaymentSlip(props) {
     }));
   };
 
-  const handleEmpChange = useCallback(async (id, name) => {
-    if (name === 'employeeId') {
-      setFormInfo((prev) => ({
-        ...prev,
-        employeeId: id,
-      }));
-    }
-  }, []);
-
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   const itemFormInfo = useMemo(
     () => ({
       notes: formInfo.notes,
       companyName: getAutoCompleteValue(companyList, formInfo.branchId)?.name ?? '',
+      monthName: getAutoCompleteValue(monthList, formInfo.monthId)?.name ?? '',
+      yearName: getAutoCompleteValue(yearList, formInfo.yearId)?.name ?? '',
       showReferenceElements: formInfo.isShowRefElements,
       isShowEffectElements: formInfo.isShowEffectElements,
     }),
@@ -500,15 +488,6 @@ function PaymentSlip(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={12}>
-                <EmployeeData
-                  handleEmpChange={handleEmpChange}
-                  id={formInfo.employeeId}
-                  branchId={formInfo.branchId}
-                  required={false}
-                />
-              </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   name='notes'
@@ -554,7 +533,7 @@ function PaymentSlip(props) {
           },
         }}
       >
-        {paymentSlipReport.map((item, index) => (
+        {paymentSlipTotalReport.map((item, index) => (
           <Box
             key={index}
             sx={{
@@ -569,8 +548,8 @@ function PaymentSlip(props) {
   );
 }
 
-PaymentSlip.propTypes = {
+PaymentSlipTotal.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(PaymentSlip);
+export default injectIntl(PaymentSlipTotal);
