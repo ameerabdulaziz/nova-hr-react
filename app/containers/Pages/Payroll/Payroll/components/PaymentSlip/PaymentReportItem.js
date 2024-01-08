@@ -27,9 +27,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 }));
 
 function PaymentReportItem(props) {
-  const {
-    intl, item, showReferenceElements, notes
-  } = props;
+  const { intl, item, formInfo } = props;
 
   if (!item) {
     return null;
@@ -39,9 +37,9 @@ function PaymentReportItem(props) {
     () => Math.max(
       item.allownace.length,
       item.deductions.length,
-      showReferenceElements ? item.refElements.length : 1
+      formInfo.showReferenceElements ? item.refElements.length : 0
     ),
-    [item, showReferenceElements]
+    [item, formInfo.showReferenceElements]
   );
 
   return (
@@ -75,14 +73,18 @@ function PaymentReportItem(props) {
       <Grid container alignItems='center'>
         <Grid item xs={4}>
           <Stack direction='row' alignItems='center' gap={1}>
-            <Typography> {intl.formatMessage(messages.branch)}: </Typography>
-            <Typography fontWeight='bold'>{item.organizationName}</Typography>
+            <Typography> {intl.formatMessage(messages.company)}: </Typography>
+            <Typography fontWeight='bold'>{formInfo.companyName}</Typography>
           </Stack>
         </Grid>
 
         <Grid item xs={4}>
           <Stack direction='row' alignItems='center' gap={1}>
-            <Typography> {intl.formatMessage(messages.name)}: </Typography>
+            <Typography>
+              {intl.formatMessage(messages.employeeName)}:
+            </Typography>
+            <Typography fontWeight='bold'>{item.employeeCode}</Typography>
+            <Typography fontWeight='bold'>-</Typography>
             <Typography fontWeight='bold'>{item.employeeName}</Typography>
           </Stack>
         </Grid>
@@ -98,22 +100,8 @@ function PaymentReportItem(props) {
 
         <Grid item xs={4}>
           <Stack direction='row' alignItems='center' gap={1}>
-            <Typography> {intl.formatMessage(messages.code)}: </Typography>
-            <Typography fontWeight='bold'>{item.employeeId}</Typography>
-          </Stack>
-        </Grid>
-
-        <Grid item xs={4}>
-          <Stack direction='row' alignItems='center' gap={1}>
-            <Typography>{intl.formatMessage(messages.department)}:</Typography>
-            <Typography fontWeight='bold'>{item.organizationName}</Typography>
-          </Stack>
-        </Grid>
-
-        <Grid item xs={4}>
-          <Stack direction='row' alignItems='center' gap={1}>
             <Typography> {intl.formatMessage(messages.job)}: </Typography>
-            <Typography fontWeight='bold'>{item.employeeName}</Typography>
+            <Typography fontWeight='bold'>{item.jobName}</Typography>
           </Stack>
         </Grid>
       </Grid>
@@ -130,6 +118,12 @@ function PaymentReportItem(props) {
                 {intl.formatMessage(messages.value)}
               </StyledTableThCell>
 
+              {formInfo.isShowEffectElements && (
+                <StyledTableThCell align='center' rowSpan={2}>
+                  {intl.formatMessage(messages.originalValue)}
+                </StyledTableThCell>
+              )}
+
               <StyledTableThCell align='center' rowSpan={2}>
                 {intl.formatMessage(messages.deductions)}
               </StyledTableThCell>
@@ -138,11 +132,18 @@ function PaymentReportItem(props) {
                 {intl.formatMessage(messages.value)}
               </StyledTableThCell>
 
-              {showReferenceElements && (
+              {formInfo.isShowEffectElements && (
+                <StyledTableThCell align='center' rowSpan={2}>
+                  {intl.formatMessage(messages.originalValue)}
+                </StyledTableThCell>
+              )}
+
+              {formInfo.showReferenceElements && (
                 <>
                   <StyledTableThCell align='center' rowSpan={2}>
-                    {intl.formatMessage(messages.refranceElement)}
+                    {intl.formatMessage(messages.refranceElements)}
                   </StyledTableThCell>
+
                   <StyledTableThCell align='center' rowSpan={2}>
                     {intl.formatMessage(messages.value)}
                   </StyledTableThCell>
@@ -163,18 +164,30 @@ function PaymentReportItem(props) {
                   </StyledTableCell>
 
                   <StyledTableCell align='center'>
-                    {allownace && formatNumber(allownace.elemVal)}
+                    {allownace && formatNumber(allownace.elemValCalc)}
                   </StyledTableCell>
+
+                  {formInfo.isShowEffectElements && (
+                    <StyledTableCell align='center'>
+                      {allownace && formatNumber(allownace.elemVal)}
+                    </StyledTableCell>
+                  )}
 
                   <StyledTableCell component='th' scope='row' align='center'>
                     {deduction?.elementName}
                   </StyledTableCell>
 
                   <StyledTableCell align='center'>
-                    {deduction && formatNumber(deduction.elemVal)}
+                    {deduction && formatNumber(deduction.elemValCalc)}
                   </StyledTableCell>
 
-                  {showReferenceElements && (
+                  {formInfo.isShowEffectElements && (
+                    <StyledTableCell align='center'>
+                      {deduction && formatNumber(deduction.elemVal)}
+                    </StyledTableCell>
+                  )}
+
+                  {formInfo.showReferenceElements && (
                     <>
                       <StyledTableCell
                         component='th'
@@ -183,8 +196,9 @@ function PaymentReportItem(props) {
                       >
                         {refElement?.elementName}
                       </StyledTableCell>
+
                       <StyledTableCell align='center'>
-                        {refElement && formatNumber(refElement.elemVal)}
+                        {refElement && formatNumber(refElement.elemValCalc)}
                       </StyledTableCell>
                     </>
                   )}
@@ -198,8 +212,12 @@ function PaymentReportItem(props) {
       <Grid container alignItems='center'>
         <Grid item xs={4}>
           <Stack direction='row' alignItems='center' gap={1}>
-            <Typography> {intl.formatMessage(messages.total)}: </Typography>
-            <Typography fontWeight='bold'>{item.totalAllownace}</Typography>
+            <Typography>
+              {intl.formatMessage(messages.totalAllownace)}:
+            </Typography>
+            <Typography fontWeight='bold'>
+              {formatNumber(item.totalAllownace)}
+            </Typography>
           </Stack>
         </Grid>
 
@@ -208,14 +226,18 @@ function PaymentReportItem(props) {
             <Typography>
               {intl.formatMessage(messages.totalDeduction)} :
             </Typography>
-            <Typography fontWeight='bold'>{item.totalDeduction}</Typography>
+            <Typography fontWeight='bold'>
+              {formatNumber(item.totalDeduction)}
+            </Typography>
           </Stack>
         </Grid>
 
         <Grid item xs={4}>
           <Stack direction='row' alignItems='center' gap={1}>
             <Typography> {intl.formatMessage(messages.net)}: </Typography>
-            <Typography fontWeight='bold'>{item.net}</Typography>
+            <Typography variant='subtitle1' fontWeight='bold'>
+              {formatNumber(item.net)}
+            </Typography>
           </Stack>
         </Grid>
       </Grid>
@@ -225,7 +247,7 @@ function PaymentReportItem(props) {
         textAlign='center'
         sx={{ textDecoration: 'underline', mt: 2, mb: 3 }}
       >
-        {notes}
+        {formInfo.notes}
       </Typography>
     </>
   );
@@ -233,8 +255,7 @@ function PaymentReportItem(props) {
 
 PaymentReportItem.propTypes = {
   item: PropTypes.object.isRequired,
-  showReferenceElements: PropTypes.bool.isRequired,
-  notes: PropTypes.string.isRequired,
+  formInfo: PropTypes.object.isRequired,
   intl: PropTypes.object.isRequired,
 };
 

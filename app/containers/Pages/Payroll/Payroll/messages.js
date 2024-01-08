@@ -615,6 +615,10 @@ export default defineMessages({
     id: `${scope}.bank`,
     defaultMessage: 'Bank',
   },
+  refranceElements: {
+    id: `${scope}.refranceElements`,
+    defaultMessage: 'refranceElements',
+  },
   company: {
     id: `${scope}.company`,
     defaultMessage: 'Company',
@@ -651,9 +655,13 @@ export default defineMessages({
     id: `${scope}.value`,
     defaultMessage: 'Value',
   },
-  total: {
-    id: `${scope}.total`,
-    defaultMessage: 'Total',
+  totalAllownace: {
+    id: `${scope}.totalAllownace`,
+    defaultMessage: 'totalAllownace',
+  },
+  originalValue: {
+    id: `${scope}.originalValue`,
+    defaultMessage: 'originalValue',
   },
   totalDeduction: {
     id: `${scope}.totalDeduction`,
