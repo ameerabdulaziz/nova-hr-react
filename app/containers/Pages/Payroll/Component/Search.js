@@ -11,7 +11,7 @@ import { Grid, TextField, Autocomplete } from "@mui/material";
 import { format } from "date-fns";
 
 function Search(props) {
-  const { intl, setsearchData, searchData, notShowDate,setIsLoading } = props;
+  const { intl, setsearchData, searchData, notShowDate,setIsLoading, notShowStatus } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
   const [OrganizationList, setOrganizationList] = useState([]);
@@ -147,6 +147,10 @@ function Search(props) {
             )}
           />
         </Grid>
+        {notShowStatus ? 
+          ""
+        
+        :(
         <Grid item xs={12} md={2}>
           <Autocomplete
             id="EmpStatusId"
@@ -169,6 +173,7 @@ function Search(props) {
             )}
           />
         </Grid>
+        )}
       </Grid>
     </div>
   );

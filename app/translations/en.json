@@ -1812,7 +1812,7 @@
   "boilerplate.containers.Payroll.Payroll.youMustToChooseEmployeeAndElement":"You must to choose employee and element",
   "boilerplate.containers.Payroll.Payroll.FromMonth":"From Month",
   "boilerplate.containers.Payroll.Payroll.ToMonth":"To Month",
-  "boilerplate.containers.Payroll.Payroll.Trx_Value":"Trx_Value",
+  "boilerplate.containers.Payroll.Payroll.Trx_Value":"Value",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

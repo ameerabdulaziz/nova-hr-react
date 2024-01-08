@@ -15,8 +15,6 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
@@ -32,15 +30,13 @@ function FollowEmployee(props) {
   const [searchData, setsearchData] = useState({
     EmployeeId: "",
     OrganizationId: "",
-    EmpStatusId: 1,
   });
 
 
   const [ElementsList, setElementsList] = useState([]);
   const [Element, setElement] = useState(null);
 
-  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
 
   const handleSearch = async (e) => {
 
@@ -52,7 +48,6 @@ function FollowEmployee(props) {
 
       let formData = {
         OrganizationId: searchData.OrganizationId,
-        EmployeeStatusId: searchData.EmpStatusId,
 
       };
       Object.keys(formData).forEach((key) => {
@@ -147,6 +142,7 @@ function FollowEmployee(props) {
               searchData={searchData}
               setIsLoading={setIsLoading}
               notShowDate={true}
+              notShowStatus={true}
             ></Search>
           </Grid>
 
