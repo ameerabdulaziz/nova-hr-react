@@ -5,8 +5,6 @@ import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../../messages';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import { format } from 'date-fns';
 import { Box } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -22,13 +20,6 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 
 const AsTemplatePrint = ({
-//   examData,
-//   textareaEmpTrainingVal,
-//   OverallAppraisalVal,
-//   textareaNoteForEmployeeVal,
-//   AssessmentReviewLock,
-//   printDivRef,
-//   data
 intl,
 printId,
 setPrintId
@@ -46,7 +37,6 @@ setPrintId
     const [AssessmentReviewLock, setAssessmentReviewLock] = useState(true);
     const [question, setQuestion] = useState()
     const [choices, setChoices] = useState()
-    // const [data, setdata] = useState([]);
 
 
 
@@ -83,11 +73,6 @@ setPrintId
               ))
     
             setTextareaEmpTrainingVal(examQuestionsData[0].staffTrainingReq)
-    
-            // setOverallAppraisalVal(examQuestionsData[0].mgrStaffAllert)
-    
-            // setTextareaNoteForEmployeeVal(examQuestionsData[0].mgrComment)
-    
             }
           })
         } catch (err) {
@@ -141,8 +126,6 @@ setPrintId
     
 
 
-      console.log("examData =", examData);
-      console.log("choices =", choices);
     
     return(
 
@@ -179,37 +162,7 @@ setPrintId
                                </div>
                            </Grid>
 
-                           {/* <Grid item xs={4} >
-                               <div className={`${style.userInfoSty} ${style.printTitlesSty}`}>
-                                   <p><FormattedMessage {...messages.employeeName} />: </p> <p className={classes.textSty}>{examData?.employeeName}</p>
-                               </div>
-                           </Grid>
-
-                           <Grid item xs={4} >
-                               <div className={`${style.userInfoSty} ${style.printTitlesSty}`}>
-                                   <p><FormattedMessage {...messages.jobName} />: </p> <p className={classes.textSty}>{examData?.jobName}</p>
-                               </div>
-                           </Grid> */}
-
-
-                           {/* <Grid item xs={4} >
-                               <div className={`${style.userInfoSty} ${style.printTitlesSty}`}>
-                                   <p><FormattedMessage {...messages.hiringData} />: </p> <p className={classes.textSty}>{examData ?  format(new Date(examData.hiringDate), 'yyyy-MM-dd') : ""}</p>
-                               </div>
-                           </Grid> */}
-
-                           {/* <Grid item xs={4} >
-                               <div className={`${style.userInfoSty} ${style.printTitlesSty}`}>
-                                   <p><FormattedMessage {...messages.SalfEvaluation} />: </p> <p className={classes.textSty}>{data[0]?.SalfEvaluation}</p>
-                               </div>
-                           </Grid> */}
-
-                           {/* <Grid item xs={4} >
-                               <div className={`${style.userInfoSty} ${style.printTitlesSty}`}>
-                                   <p><FormattedMessage {...messages.ManagerEvaluation} />: </p> <p className={classes.textSty}>{data[0]?.ManagerEvaluation}</p>
-                               </div>
-                           </Grid> */}
-
+                         
                            </Grid>
                                                               
                            </div>
@@ -217,14 +170,6 @@ setPrintId
                    
                    </Grid>
                    )}
-
-{/* {choices?.map((choice,index)=>( */}
-{/* {examData?.choiceList.map((Qui,index)=>(
-                                        // console.log("choice 22 =", choice);
-                                        // return (
-                                            <p key={index}>testtt66</p>
-                                        // )
-                                    ))} */}
 
 
         {examData?.competencyList.map((Qui,index)=>(
@@ -243,21 +188,13 @@ setPrintId
                               <FormControl style={{width: "100%"}}>
                                   <RadioGroup
                                       aria-labelledby="demo-radio-buttons-group-label"
-                                    //   value={allQuestionsAnswers[`que${index + 1}`]?.checkedVal ? allQuestionsAnswers[`que${index + 1}`]?.checkedVal?.id : ""}
                                       name="radio-buttons-group"
                                      className={`${style.radioContainer} ${style.radioContainerAllQue} `}
                                      row
                                   >
-                                    {/* {AssessmentReviewLock  && (
-                                       <p><TaskAltIcon /> <FormattedMessage {...messages.EmployeeChoose} />: &nbsp; {examData?.competencyList[index]?.employeeChoiceName ? examData.competencyList[index].employeeChoiceName : ""} </p>
-                                    )} */}
                      
                                     
                                     {examData?.choiceList.map((choice,index)=>(
-                                        // console.log("choice 22 =", choice);
-                                        // return (
-                                            // <p key={index}>testtt66</p>
-                                        // )
 
                                         <Grid item xs={6} key={choice.id} > 
                                             <FormControlLabel 
@@ -266,9 +203,6 @@ setPrintId
                                             control={<Radio checkedIcon={<CheckIcon className={`${style.checkedIconeSty} ${classes.examMainSty}`}/>} icon={<RadioButtonUncheckedIcon className={style.iconeSty} />} />} 
                                             label={choice.name} 
                                             className={`${style.radioPrintSty}`}
-                                            // onChange={(e)=> {
-                                            //     saveAllQuestions(e, "radio",index)
-                                            // }}
                                             />
                                           </Grid>
                                     ))}
@@ -276,14 +210,6 @@ setPrintId
                                   </RadioGroup>
                                   </FormControl>
 
-                              {/* <div className={`${style.radioContainer} ${style.radioContainerAllQue} ${style.answersPrintSty}`}>
-                                    {AssessmentReviewLock  && (
-                                       <p><TaskAltIcon /> <FormattedMessage {...messages.EmployeeChoose} />: &nbsp; {examData?.competencyList[index]?.employeeChoiceName ? examData.competencyList[index].employeeChoiceName : ""} </p>
-                                    )}
-                                    {AssessmentReviewLock  && (
-                                       <p><TaskAltIcon /> <FormattedMessage {...messages.ManagerChoose} />: &nbsp; {examData?.competencyList[index]?.mgrChoiceName ? examData.competencyList[index].mgrChoiceName : ""} </p>
-                                    )}
-                              </div> */}
 
                               <div className={`${style.radioContainer} ${style.radioContainerAllQue} ${style.answersPrintSty}`}>
                                     {AssessmentReviewLock  && (
@@ -309,34 +235,6 @@ setPrintId
 
 
                             </>) : null}
-
-                            {/* {(examData?.competencyList.length ===  index + 1 ) && AssessmentReviewLock  && (<>
-                                    <h1 className={style.textareaTitle}>
-                                      <FormattedMessage {...messages.DirectedManagerOverallAppraisal} />
-                                      
-                                    </h1>
-                          
-                                    <div className={`${style.radioContainer} ${style.radioContainerAllQue} ${style.answersPrintSty}`}>
-                                        {AssessmentReviewLock  && (
-                                        <p><TextFieldsIcon />  &nbsp; {OverallAppraisalVal ? OverallAppraisalVal : ""}  </p>
-                                        )}
-                                    </div>
-
-                                 </>)} */}
-
-                                 {/* {(examData?.competencyList.length ===  index + 1 ) && AssessmentReviewLock   && (<>
-                                    <h1 className={style.textareaTitle}>
-                                      <FormattedMessage {...messages.NoteForEmployee} />
-                                      
-                                    </h1>
-                          
-                                    <div className={`${style.radioContainer} ${style.radioContainerAllQue} ${style.answersPrintSty}`}>
-                                        {AssessmentReviewLock  && (
-                                        <p><TextFieldsIcon />  &nbsp; {textareaNoteForEmployeeVal ? textareaNoteForEmployeeVal : ""}  </p>
-                                        )}
-                                    </div>
-
-                                 </>)} */}
 
                             </div>
                         </div>                   
