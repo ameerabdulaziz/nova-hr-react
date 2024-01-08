@@ -8,7 +8,7 @@ import React from 'react';
  * formatting string.
  * @returns {string | null} the formatted date string according to the specified formatting. If the
 input date is null or undefined, the function will return null.
- * @param {string | Date} date
+ * @param {string | Date | null} date
  */
 function formateDate(date, formatting = 'yyyy-MM-dd') {
   return date ? format(new Date(date), formatting) : null;
@@ -20,6 +20,10 @@ function formateDate(date, formatting = 'yyyy-MM-dd') {
  * @returns {string} a formatted version of the input number with two decimal places.
  */
 function formatNumber(number = 0) {
+  if (Number.isNaN(number)) {
+    return '';
+  }
+
   return number.toLocaleString('en', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
