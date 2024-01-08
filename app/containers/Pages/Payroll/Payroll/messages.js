@@ -295,7 +295,7 @@ export default defineMessages({
 
   // BranchSalarySetting
   payrollMainParameters: {
-    id: `${scope}.payrollMainParameters`,
+    id: `${scope}MainParameters`,
     defaultMessage: "Payroll Main Parameters",
   },
   Department: {
@@ -497,5 +497,280 @@ export default defineMessages({
   NotShow: {
     id: `${scope}.NotShow`,
     defaultMessage: "NotShow",
+  },
+
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'Department',
+  },
+  section: {
+    id: `${scope}.section`,
+    defaultMessage: 'Section',
+  },
+  employeeCode: {
+    id: `${scope}.employeeCode`,
+    defaultMessage: 'Employee Code',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'Employee Name',
+  },
+  allowances: {
+    id: `${scope}.allowances`,
+    defaultMessage: 'Allowances',
+  },
+  deductions: {
+    id: `${scope}.deductions`,
+    defaultMessage: 'Deductions',
+  },
+  netSalary: {
+    id: `${scope}.netSalary`,
+    defaultMessage: 'Net Salary',
+  },
+  searchCriteria: {
+    id: `${scope}.searchCriteria`,
+    defaultMessage: 'Search Criteria',
+  },
+  template: {
+    id: `${scope}.template`,
+    defaultMessage: 'Template',
+  },
+  cash: {
+    id: `${scope}.cash`,
+    defaultMessage: 'Cash',
+  },
+  bankOnly: {
+    id: `${scope}.bankOnly`,
+    defaultMessage: 'Bank Only',
+  },
+  reportCriteria: {
+    id: `${scope}.reportCriteria`,
+    defaultMessage: 'Report Criteria',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'Year',
+  },
+  month: {
+    id: `${scope}.month`,
+    defaultMessage: 'Month',
+  },
+  detailed: {
+    id: `${scope}.detailed`,
+    defaultMessage: 'Detailed',
+  },
+  groupByDepartment: {
+    id: `${scope}.groupByDepartment`,
+    defaultMessage: 'Group By Department',
+  },
+  insured: {
+    id: `${scope}.insured`,
+    defaultMessage: 'Insured',
+  },
+  unInsured: {
+    id: `${scope}.unInsured`,
+    defaultMessage: 'Uninsured',
+  },
+  positive: {
+    id: `${scope}.positive`,
+    defaultMessage: 'Positive',
+  },
+  insurance: {
+    id: `${scope}.insurance`,
+    defaultMessage: 'insurance',
+  },
+  salaryType: {
+    id: `${scope}.salaryType`,
+    defaultMessage: 'salaryType',
+  },
+  salaryValue: {
+    id: `${scope}.salaryValue`,
+    defaultMessage: 'salaryValue',
+  },
+  showSICompanyShare: {
+    id: `${scope}.showSICompanyShare`,
+    defaultMessage: 'Show SI Company Share',
+  },
+  displayOriginalValues: {
+    id: `${scope}.displayOriginalValues`,
+    defaultMessage: 'Display Original Values',
+  },
+  displayReferenceElements: {
+    id: `${scope}.displayReferenceElements`,
+    defaultMessage: 'Display Reference Elements',
+  },
+  currency: {
+    id: `${scope}.currency`,
+    defaultMessage: 'currency',
+  },
+  showStopped: {
+    id: `${scope}.showStopped`,
+    defaultMessage: 'showStopped',
+  },
+  negative: {
+    id: `${scope}.negative`,
+    defaultMessage: 'Negative',
+  },
+  bank: {
+    id: `${scope}.bank`,
+    defaultMessage: 'Bank',
+  },
+  refranceElements: {
+    id: `${scope}.refranceElements`,
+    defaultMessage: 'refranceElements',
+  },
+  company: {
+    id: `${scope}.company`,
+    defaultMessage: 'Company',
+  },
+  paymentSlip: {
+    id: `${scope}.paymentSlip`,
+    defaultMessage: 'Payment Slip',
+  },
+  employeeInfo: {
+    id: `${scope}.employeeInfo`,
+    defaultMessage: 'Employee Info',
+  },
+  branch: {
+    id: `${scope}.branch`,
+    defaultMessage: 'Branch',
+  },
+  name: {
+    id: `${scope}.name`,
+    defaultMessage: 'Name',
+  },
+  organization: {
+    id: `${scope}.organization`,
+    defaultMessage: 'Organization',
+  },
+  code: {
+    id: `${scope}.code`,
+    defaultMessage: 'Code',
+  },
+  job: {
+    id: `${scope}.job`,
+    defaultMessage: 'Job',
+  },
+  value: {
+    id: `${scope}.value`,
+    defaultMessage: 'Value',
+  },
+  totalAllownace: {
+    id: `${scope}.totalAllownace`,
+    defaultMessage: 'totalAllownace',
+  },
+  originalValue: {
+    id: `${scope}.originalValue`,
+    defaultMessage: 'originalValue',
+  },
+  totalDeduction: {
+    id: `${scope}.totalDeduction`,
+    defaultMessage: 'Total Deduction',
+  },
+  net: {
+    id: `${scope}.net`,
+    defaultMessage: 'Net',
+  },
+  // ElementReview
+  YouMustToChooseYearAndAtLeastOneElement: {
+    id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,
+    defaultMessage: "You must to choose year and at least one element",
+  }, 
+  orgName: {
+    id: `${scope}.orgName`,
+    defaultMessage: "Organization",
+  }, 
+  EmpCode: {
+    id: `${scope}.EmpCode`,
+    defaultMessage: "Emp.Code",
+  }, 
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: "Employee Name",
+  }, 
+  payment: {
+    id: `${scope}.payment`,
+    defaultMessage: "Payment",
+  }, 
+  element: {
+    id: `${scope}.element`,
+    defaultMessage: "Element",
+  }, 
+  countVal: {
+    id: `${scope}.countVal`,
+    defaultMessage: "Count/Val",
+  }, 
+  CalculatedValue: {
+    id: `${scope}.CalculatedValue`,
+    defaultMessage: "Calculated Value",
+  }, 
+  elementType: {
+    id: `${scope}.elementType`,
+    defaultMessage: "Element Type",
+  }, 
+  Month: {
+    id: `${scope}.Month`,
+    defaultMessage: "Month",
+  }, 
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: "Year",
+  },
+  Template: {
+    id: `${scope}.Template`,
+    defaultMessage: "Template",
+  },
+  value1: {
+    id: `${scope}.value1`,
+    defaultMessage: "Value 1",
+  }, 
+  value2: {
+    id: `${scope}.value2`,
+    defaultMessage: "Value 2",
+  }, 
+  constElement: {
+    id: `${scope}.constElement`,
+    defaultMessage: "Constant Element",
+  }, 
+  valElement: {
+    id: `${scope}.valElement`,
+    defaultMessage: "Variable Element",
+  }, 
+  youMustToChooseEmployeeAndElement: {
+    id: `${scope}.youMustToChooseEmployeeAndElement`,
+    defaultMessage: "You must to choose employee and element",
+  }, 
+  FromMonth: {
+    id: `${scope}.FromMonth`,
+    defaultMessage: "From Month",
+  }, 
+  ToMonth: {
+    id: `${scope}.ToMonth`,
+    defaultMessage: "To Month",
+  }, 
+  Trx_Value: {
+    id: `${scope}.Trx_Value`,
+    defaultMessage: "Trx_Value",
+  },
+  Salary: {
+    id: `${scope}.Salary`,
+    defaultMessage: "Salary",
+  }, 
+  Other: {
+    id: `${scope}.Other`,
+    defaultMessage: "Other",
+  }, 
+  InsuranceEmpPart: {
+    id: `${scope}.InsuranceEmpPart`,
+    defaultMessage: "Insurance Emp.Part",
+  }, 
+  Tax: {
+    id: `${scope}.Tax`,
+    defaultMessage: "Tax",
+  }, 
+  youMustToChooseYearAndMonth: {
+    id: `${scope}.youMustToChooseYearAndMonth`,
+    defaultMessage: "You must to choose year and month",
   }, 
 });
+

@@ -22,7 +22,8 @@ function EmployeeData(props) {
     GetSalary,
     GetworkingYears,
     id,
-    branchId,isdisabled
+    branchId,isdisabled,
+    required = true
   } = props;
   const { classes, cx } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -170,7 +171,7 @@ function EmployeeData(props) {
                     variant="outlined"
                     {...params}
                     name="employeeId"
-                    required
+                    required={required}
                     label={intl.formatMessage(
                       isSuper
                         ? Payrollmessages.superEmployeeName

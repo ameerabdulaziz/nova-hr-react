@@ -49,13 +49,13 @@ function Login() {
         name: res.data.userName,        
         token: res.data.token,
         avatar:null,//'/images/avatars/pp_boy4.jpg',  
-        photoURL:'/images/avatars/pp_boy4.jpg',        
         title: 'Administrator',        
         status: 'online',
         displayName:res.data.userName,
         isHR: res.data.isHR,
         arName: res.data.arName,
         enName: res.data.enName,
+        photoURL: res.data.photo,
       };
       Dispatcher(syncUser(user));
       

@@ -65,11 +65,6 @@ export HeadlinesButton from './TextEditor/HeadlinesButton';
 export LimitedBadges from './Badges/LimitedBadges';
 export Quote from './Quote/Quote';
 export Rating from './Rating/Rating';
-// Profile
-export Cover from './Profile/Cover';
-export About from './Profile/About';
-export CompanyDocument from './Profile/CompanyDocument';
-export JobData from './Profile/JobData';
 // Card
 export ProfileCard from './CardPaper/ProfileCard';
 export GeneralCard from './CardPaper/GeneralCard';

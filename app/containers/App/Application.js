@@ -393,7 +393,15 @@ import {
   AssessmentReviewEdit,
   CareerDevPlan,
   CareerDevPlanCreate,
-  SalaryCalculation
+  SalaryCalculation,
+  SummaryPayslip,
+  AssessmentReport,
+  ElementReviewReport,
+  SalaryComparisonReport,
+  PaymentSlip,
+  PaymentSlipTotal,
+  FollowEmployeeReport,
+  TaxReportReport
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1190,6 +1198,14 @@ function Application(props) {
 
         <Route path='/app/Pages/Payroll/BranchSalarySetting' component={BranchSalarySetting} />
         <Route path='/app/Pages/Payroll/SalaryCalculation' component={SalaryCalculation} />
+        <Route path='/app/Pages/Payroll/SummaryPayslip' component={SummaryPayslip} />
+
+        <Route path='/app/Pages/Payroll/ElementReviewReport' component={ElementReviewReport} />
+        <Route path='/app/Pages/Payroll/SalaryComparisonReport' component={SalaryComparisonReport} />
+        <Route path='/app/Pages/Payroll/PaymentSlip' component={PaymentSlip} />
+        <Route path='/app/Pages/Payroll/PaymentSlipTotal' component={PaymentSlipTotal} />
+        <Route path='/app/Pages/Payroll/FollowEmployeeReport' component={FollowEmployeeReport} />
+        <Route path='/app/Pages/Payroll/TaxReportReport' component={TaxReportReport} />
         
 
         {/* WorkFlow */}
@@ -1904,6 +1920,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/AssessmentReviewEdit'
           component={AssessmentReviewEdit}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/AssessmentReport'
+          component={AssessmentReport}
         />
 
         {/* Default */}

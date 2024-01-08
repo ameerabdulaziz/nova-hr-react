@@ -208,7 +208,7 @@ function AssessmentReview({ intl }) {
                 <TextField
                     {...params}
                     name="VacationType"
-                    label="Employee Name"
+                    label={intl.formatMessage(messages.employeeName)}
                     margin="normal" 
                     className={style.fieldsSty}
                     
@@ -245,7 +245,7 @@ function AssessmentReview({ intl }) {
                 <TextField
                     {...params}
                     name="VacationType"
-                    label="Months"
+                    label={intl.formatMessage(messages.months)}
                     margin="normal" 
                     className={style.fieldsSty}
                     
@@ -282,7 +282,7 @@ function AssessmentReview({ intl }) {
                 <TextField
                     {...params}
                     name="VacationType"
-                    label="Years"
+                    label={intl.formatMessage(messages.year)}
                     margin="normal" 
                     className={style.fieldsSty}
                     

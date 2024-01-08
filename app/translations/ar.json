@@ -602,6 +602,18 @@
   "boilerplate.components.Profile.about.jobDescription": "وصف الوظيفة",
   "boilerplate.components.Profile.about.jobKPI": "مؤشرات أداء الوظيفة",
   "boilerplate.components.Profile.about.see_all": "اظهار الكل",
+  "boilerplate.components.Profile.about.employeeName": "اسم الموظف",
+  "boilerplate.components.Profile.about.jobName": "اسم الوظيفة",
+  "boilerplate.components.Profile.about.noJobKPI": "لا توجد وصف للأهداف الوظيفية",
+  "boilerplate.components.Profile.about.noJobDescription": "لا توجد وصف للوظيفة",
+  "boilerplate.components.Profile.about.aboutMe": "نبذة عني",
+  "boilerplate.components.Profile.about.address": "العنوان",
+  "boilerplate.components.Profile.about.phone": "الهاتف",
+  "boilerplate.components.Profile.about.email": "البريد الإلكتروني",
+  "boilerplate.components.Profile.about.hiringDate": "تاريخ التوظيف",
+  "boilerplate.components.Profile.about.reportingTo": "تقديم التقارير إلى",
+  "boilerplate.components.Profile.about.organization": "المؤسسة",
+  "boilerplate.components.Profile.about.noDocuments": "لا توجد وثائق",
   "boilerplate.components.Profile.connection.see_profile": "راجع ملف التعريف",
   "boilerplate.containers.LocaleToggle.zh": "简体中文",
   "boilerplate.containers.LocaleToggle.es": "󠁥󠁮󠁧󠁿Español",
@@ -1692,7 +1704,33 @@
     "boilerplate.containers.Payroll.Payroll.salayElememt": "عنصر قالب مفردات المرتب",
     "boilerplate.containers.Payroll.Payroll.refranceElement": "عنصر استرشادى",
     "boilerplate.containers.Payroll.Payroll.relatedToWorkdays": "مرتبط بايام العمل",
-    
+
+    "boilerplate.containers.Payroll.Payroll.insured": "مؤمن عليه",
+    "boilerplate.containers.Payroll.Payroll.unInsured": "غير مؤمن عليه",
+    "boilerplate.containers.Payroll.Payroll.positive": "المرتبات الموجبة",
+    "boilerplate.containers.Payroll.Payroll.insurance": "التأمين",
+    "boilerplate.containers.Payroll.Payroll.salaryType": "نوع الراتب",
+    "boilerplate.containers.Payroll.Payroll.salaryValue": "قيمة الراتب",
+    "boilerplate.containers.Payroll.Payroll.showSICompanyShare": "عرض تأمينات صاحب العمل",
+    "boilerplate.containers.Payroll.Payroll.displayOriginalValues": "عرض القيم الأصلية",
+    "boilerplate.containers.Payroll.Payroll.displayReferenceElements": "عرض العناصر الاسترشادية",
+    "boilerplate.containers.Payroll.Payroll.currency": "العملة",
+    "boilerplate.containers.Payroll.Payroll.showStopped": "عرض الموقوفين",
+    "boilerplate.containers.Payroll.Payroll.negative": "المرتبات السالبة",
+    "boilerplate.containers.Payroll.Payroll.bank": "البنك",
+    "boilerplate.containers.Payroll.Payroll.company": "الشركة",
+    "boilerplate.containers.Payroll.Payroll.paymentSlip": "شريط القبض",
+    "boilerplate.containers.Payroll.Payroll.employeeInfo": "بيانات الموظف",
+    "boilerplate.containers.Payroll.Payroll.branch": "الفرع",
+    "boilerplate.containers.Payroll.Payroll.name": "الاسم",
+    "boilerplate.containers.Payroll.Payroll.organization": "الادارة",
+    "boilerplate.containers.Payroll.Payroll.code": "الكود",
+    "boilerplate.containers.Payroll.Payroll.job": "الوظيفة",
+    "boilerplate.containers.Payroll.Payroll.value": "القيمة",
+    "boilerplate.containers.Payroll.Payroll.originalValue": "القيمة الأصلية",
+    "boilerplate.containers.Payroll.Payroll.totalAllownace": "اجمالي المستحقات",
+    "boilerplate.containers.Payroll.Payroll.totalDeduction": "إجمالي الاستقطاعات",
+    "boilerplate.containers.Payroll.Payroll.net": "الصافي",
     
     "boilerplate.containers.Payroll.Payroll.inWeb": "يظهر فى تقارير الويب",
     "boilerplate.containers.Payroll.Payroll.calcIneachTemplate": "يحتسب فى كل قالب على حده",
@@ -1780,6 +1818,24 @@
     "boilerplate.containers.Payroll.Payroll.AddItem": "الكمية",
     "boilerplate.containers.Payroll.Payroll.EmpPrice": "السعر للموظف",
 
+    "boilerplate.containers.Payroll.Payroll.department": "القسم",
+    "boilerplate.containers.Payroll.Payroll.section": "اسم القسم",
+    "boilerplate.containers.Payroll.Payroll.employeeCode": "كود الموظف",
+    "boilerplate.containers.Payroll.Payroll.employeeName": "اسم الموظف",
+    "boilerplate.containers.Payroll.Payroll.refranceElements": "عناصر استرشادية",
+    "boilerplate.containers.Payroll.Payroll.allowances": "المستحقات",
+    "boilerplate.containers.Payroll.Payroll.deductions": "الاستقطاعات",
+    "boilerplate.containers.Payroll.Payroll.netSalary": "صافي المستحق",
+    "boilerplate.containers.Payroll.Payroll.searchCriteria": "شروط البحث",
+    "boilerplate.containers.Payroll.Payroll.template": "القالب",
+    "boilerplate.containers.Payroll.Payroll.cash": "نقداً",
+    "boilerplate.containers.Payroll.Payroll.bankOnly": "البنك فقط",
+    "boilerplate.containers.Payroll.Payroll.reportCriteria": "بيانات العرض",
+    "boilerplate.containers.Payroll.Payroll.year": "السنة",
+    "boilerplate.containers.Payroll.Payroll.month": "الشهر",
+    "boilerplate.containers.Payroll.Payroll.detailed": "تفصيلي",
+    "boilerplate.containers.Payroll.Payroll.groupByDepartment": "مجمع بالادارة",
+
     "boilerplate.containers.Payroll.Payroll.PurchaseTrxCreateTitle": "اضافة مشتريات الموظف",
     "boilerplate.containers.Payroll.Payroll.PurchaseTrxUpdateTitle": "تعديل مشتريات الموظف",
     "boilerplate.containers.Payroll.Payroll.isPartCalc": "احتساب جزئي",
@@ -1798,8 +1854,36 @@
     "boilerplate.containers.Payroll.Payroll.StopAtt":"ايقاف معالجة الحضور",
     "boilerplate.containers.Payroll.Payroll.Show":"عرض تقرير المرتبات",
     "boilerplate.containers.Payroll.Payroll.NotShow":"ايقاف تقرير المرتبات",
-    
-    
+
+
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseYearAndAtLeastOneElement":"يجب عليك اختيار السنة وعنصر واحد على الأقل",
+    "boilerplate.containers.Payroll.Payroll.orgName":"الادارة",
+    "boilerplate.containers.Payroll.Payroll.EmpCode":"كود الموظف",
+    "boilerplate.containers.Payroll.Payroll.payment":"الصرفية",
+    "boilerplate.containers.Payroll.Payroll.element":"اسم العنصر",
+    "boilerplate.containers.Payroll.Payroll.countVal":"العدد/القيمة",
+    "boilerplate.containers.Payroll.Payroll.CalculatedValue":"القيمة المحسوبة",
+    "boilerplate.containers.Payroll.Payroll.Month":"الشهر",
+    "boilerplate.containers.Payroll.Payroll.Template":"القالب",
+
+
+    "boilerplate.containers.Payroll.Payroll.value1":"القيمة 1",
+    "boilerplate.containers.Payroll.Payroll.value2":"القيمة 2",
+    "boilerplate.containers.Payroll.Payroll.constElement":"الثوابت",
+    "boilerplate.containers.Payroll.Payroll.valElement":"المتغيرات",
+
+
+    "boilerplate.containers.Payroll.Payroll.youMustToChooseEmployeeAndElement":"يجب عليك اختيار الموظف والعنصر",
+    "boilerplate.containers.Payroll.Payroll.FromMonth":"من شهر",
+    "boilerplate.containers.Payroll.Payroll.ToMonth":"الى شهر",
+    "boilerplate.containers.Payroll.Payroll.Trx_Value":"القيمة",
+
+
+    "boilerplate.containers.Payroll.Payroll.Salary":"المرتب",
+    "boilerplate.containers.Payroll.Payroll.Other":"اخرى",
+    "boilerplate.containers.Payroll.Payroll.InsuranceEmpPart":"حصة العامل من التامين",
+    "boilerplate.containers.Payroll.Payroll.Tax":"ضرائب كسب العمل",
+    "boilerplate.containers.Payroll.Payroll.youMustToChooseYearAndMonth":"يجب عليك اختيار السنة والشهر",
     
     
   
@@ -2634,5 +2718,16 @@
   "boilerplate.containers.Payroll.assessment.EmployeeChoose": "اختيار الموظف",
   "boilerplate.containers.Payroll.assessment.DirectedManagerOverallAppraisal": "تقييم المدير المباشر",
   "boilerplate.containers.Payroll.assessment.NoteForEmployee": "ملاحظات للموظف",
-  "boilerplate.containers.Payroll.assessment.BirthDate": "تاريخ الميلاد"
+  "boilerplate.containers.Payroll.assessment.BirthDate": "تاريخ الميلاد",
+
+
+
+  "boilerplate.containers.Payroll.assessment.EmpCode": "كود الموظف",
+  "boilerplate.containers.Payroll.assessment.SalfEvaluation": "التقييم الذاتى",
+  "boilerplate.containers.Payroll.assessment.ManagerEvaluation": "تقييم المدير",
+  "boilerplate.containers.Payroll.assessment.ManagerNote": "ملاحظات المدير",
+  "boilerplate.containers.Payroll.assessment.Print": "طباعة",
+  "boilerplate.containers.Payroll.assessment.ManagerChoose": "اختيار المدير",
+  "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "يجب عليك اختيار السنة",
+  "boilerplate.containers.Payroll.assessment.AssessmentReport": "تقرير التقييم"
 }

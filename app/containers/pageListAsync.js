@@ -270,7 +270,7 @@ export const InvoicePage = loadable(
     fallback: <Loading />,
   }
 );
-export const Profile = loadable(() => import('./Pages/UserProfile'), {
+export const Profile = loadable(() => import('./Pages/Payroll/Profile/Profile'), {
   fallback: <Loading />,
 });
 export const Timeline = loadable(() => import('./Pages/Timeline'), {
@@ -1409,6 +1409,20 @@ export const BranchSalarySetting = loadable(
   }
 );
 
+export const PaymentSlip = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/PaymentSlip'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const PaymentSlipTotal = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/PaymentSlipTotal'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LoanTrxList = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
   {
@@ -1457,6 +1471,37 @@ export const LoanReqCreate = loadable(
       {
         fallback: <Loading />,
       });
+
+    export const SummaryPayslip = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/SummaryPayslip'),
+      {
+        fallback: <Loading />,
+      }
+    );
+
+    export const ElementReviewReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/ElementReview'),
+      {
+        fallback: <Loading />,
+      });
+
+      export const SalaryComparisonReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/SalaryComparisonReport'),
+        {
+          fallback: <Loading />,
+        });
+
+      export const FollowEmployeeReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/FollowEmployee'),
+        {
+          fallback: <Loading />,
+        });
+
+      export const TaxReportReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/TaxReportReport'),
+        {
+          fallback: <Loading />,
+        });
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
@@ -2359,6 +2404,14 @@ export const AssessmentReview = loadable(
 
 export const AssessmentReviewEdit = loadable(
   () => import('./Pages/Payroll/Assessment/Transactions/AssessmentReviewEdit'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+export const AssessmentReport = loadable(
+  () => import('./Pages/Payroll/Assessment/Reports/AssessmentReport'),
   {
     fallback: <Loading />,
   }
