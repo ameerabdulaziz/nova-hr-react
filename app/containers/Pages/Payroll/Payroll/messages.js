@@ -743,5 +743,26 @@ export default defineMessages({
   Trx_Value: {
     id: `${scope}.Trx_Value`,
     defaultMessage: "Trx_Value",
+  },
+  Salary: {
+    id: `${scope}.Salary`,
+    defaultMessage: "Salary",
+  }, 
+  Other: {
+    id: `${scope}.Other`,
+    defaultMessage: "Other",
+  }, 
+  InsuranceEmpPart: {
+    id: `${scope}.InsuranceEmpPart`,
+    defaultMessage: "Insurance Emp.Part",
+  }, 
+  Tax: {
+    id: `${scope}.Tax`,
+    defaultMessage: "Tax",
+  }, 
+  youMustToChooseYearAndMonth: {
+    id: `${scope}.youMustToChooseYearAndMonth`,
+    defaultMessage: "You must to choose year and month",
   }, 
 });
+

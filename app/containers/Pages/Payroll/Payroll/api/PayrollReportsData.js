@@ -35,6 +35,17 @@ const PayrollReportsData = (locale) => {
     return result;
   };
 
+
+  Apis.TaxReportReport = async (Year,Month,params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `PayrollReport/GetTaxReport/${locale}/${Year.id}/${Month.id}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
   return Apis;
 };
 
