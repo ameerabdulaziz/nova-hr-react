@@ -25,6 +25,16 @@ const PayrollReportsData = (locale) => {
     return result;
   };
 
+  Apis.FollowEmployeeReport = async (EmployeeId,Element,params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `PayrollReport/GetFollowEmployee/${locale}/${EmployeeId}/${Element.id}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
   return Apis;
 };
 

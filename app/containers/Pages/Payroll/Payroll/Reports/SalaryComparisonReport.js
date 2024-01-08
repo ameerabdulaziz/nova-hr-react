@@ -55,10 +55,8 @@ function SalaryComparisonReport(props) {
 
   const handleSearch = async (e) => {
 
-    if(Year1.length !== 0 && Year2.length !== 0 && Month1 && Month2 && (constElement || ValElement))
+    if(Year1 && Year2 && Month1 && Month2 && (constElement || ValElement))
     {
-
-    
 
     let constElementsData = ""
     let ValElementData = ""
@@ -275,7 +273,7 @@ function SalaryComparisonReport(props) {
                                 if (value !== null) {
                                     setYear1(value);
                                 } else {
-                                    setYear1("");
+                                    setYear1(null);
                                 }
                             }}
                             renderInput={(params) => (
@@ -349,7 +347,7 @@ function SalaryComparisonReport(props) {
                                 if (value !== null) {
                                     setYear2(value);
                                 } else {
-                                    setYear2("");
+                                    setYear2(null);
                                 }
                             }}
                             renderInput={(params) => (
