@@ -273,6 +273,13 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.MdCurrency = async () => {
+    const result = await axiosInstance.get(
+      `MdCurrency/GetListModel/${locale}`
+    );
+    return result.data;
+  };
+
   Apis.GetResignReasonList = async () => {
     const result = await axiosInstance.get(
       `HrResignReason/GetListModel/${locale}`
