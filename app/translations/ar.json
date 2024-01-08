@@ -1871,8 +1871,12 @@
     "boilerplate.containers.Payroll.Payroll.value2":"القيمة 2",
     "boilerplate.containers.Payroll.Payroll.constElement":"الثوابت",
     "boilerplate.containers.Payroll.Payroll.valElement":"المتغيرات",
-    
-    
+
+
+    "boilerplate.containers.Payroll.Payroll.youMustToChooseEmployeeAndElement":"يجب عليك اختيار الموظف والعنصر",
+    "boilerplate.containers.Payroll.Payroll.FromMonth":"من شهر",
+    "boilerplate.containers.Payroll.Payroll.ToMonth":"الى شهر",
+    "boilerplate.containers.Payroll.Payroll.Trx_Value":"القيمة",
     
     
   

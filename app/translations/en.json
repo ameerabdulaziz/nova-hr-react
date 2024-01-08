@@ -1809,6 +1809,11 @@
   "boilerplate.containers.Payroll.Payroll.value2":"Value 2",
   "boilerplate.containers.Payroll.Payroll.constElement":"Constant Element",
   "boilerplate.containers.Payroll.Payroll.valElement":"Variable Element",
+
+  "boilerplate.containers.Payroll.Payroll.youMustToChooseEmployeeAndElement":"You must to choose employee and element",
+  "boilerplate.containers.Payroll.Payroll.FromMonth":"From Month",
+  "boilerplate.containers.Payroll.Payroll.ToMonth":"To Month",
+  "boilerplate.containers.Payroll.Payroll.Trx_Value":"Value",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

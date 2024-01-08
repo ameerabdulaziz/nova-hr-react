@@ -41,8 +41,6 @@ function SalaryComparisonReport(props) {
   const [YearList, setYearList] = useState([]);
   const [Month1, setMonth1] = useState(null);
   const [Year1, setYear1] = useState(null);
-//   const [Year1, setYear1] = useState( YearList.find((item) => item.name === format(new Date(), 'yyyy')));
-//   const [Year1, setYear1] = useState({id:"", name: format(new Date(), 'yyyy')});
   const [Month2, setMonth2] = useState(null);
   const [Year2, setYear2] = useState(null);
   const [constElementsList, setConstElementsList] = useState([]);
@@ -54,32 +52,11 @@ function SalaryComparisonReport(props) {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
-//   console.log("test 1=", format(new Date(), 'LLL'));
-//   console.log("test 2=", YearList.find((item) => item.name == format(new Date(), 'yyyy')));
-
-// useEffect(()=>{
-//     if(YearList.length !== 0)
-//     {
-//         setYear1(YearList.find((item) => item.name == format(new Date(), 'yyyy')))
-//         setYear2(YearList.find((item) => item.name == format(new Date(), 'yyyy')))
-//     }
-
-//     if(MonthList.length !== 0)
-//     {
-//         // setMonth1(YearList.find((item) => item.name == format(new Date(), 'MMM')))
-//         // setMonth2(YearList.find((item) => item.name == format(new Date(), 'MMM')))
-//     }
-
-   
-// },[YearList,MonthList])
-
 
   const handleSearch = async (e) => {
 
-    if(Year1.length !== 0 && Year2.length !== 0 && Month1 && Month2 && (constElement || ValElement))
+    if(Year1 && Year2 && Month1 && Month2 && (constElement || ValElement))
     {
-
-    
 
     let constElementsData = ""
     let ValElementData = ""
@@ -126,8 +103,6 @@ function SalaryComparisonReport(props) {
 
       
       const dataApi = await ApiData(locale).GetSalaryComparisonReport(Year1,Month1,Year2,Month2,formData);
-    //   dataApi[0].value1 = [Month1.name," / ",Year1.name]
-    //   dataApi[0].value2 = [Month2.name," / ",Year2.name]
         setdata(dataApi);
     } catch (err) {
     } finally {
@@ -144,13 +119,11 @@ function SalaryComparisonReport(props) {
     try {
       const constElements = await GeneralListApis(locale).GetElementList(1,1);
       const valElements = await GeneralListApis(locale).GetElementList(2);
-    //   const template = await GeneralListApis(locale).GetPayTemplateList();
       const months = await GeneralListApis(locale).GetMonths();
       const years = await GeneralListApis(locale).GetYears();
 
       setConstElementsList(constElements)
       setValElementsList(valElements)
-    //   setTemplatesList(template)
 
       setMonthList(months)
       setYearList(years)
@@ -193,18 +166,9 @@ function SalaryComparisonReport(props) {
         filter: true,
       },
     },
-    // {
-    //     name: "elementName",
-    //     label: intl.formatMessage(messages.element),
-    //   options: {
-    //     filter: true,
-    //   },
-    // },
     { 
-        // label: `${Month2 ?  Month2.name : ""} / ${Year2 ?  Year2.name : ""}`,
         name: "v1",
         label: `${Month1 ?  Month1.name : format(new Date(), 'MMM') } / ${Year1 ?  Year1.name : format(new Date(), 'yyyy')}`,
-        // label: intl.formatMessage(messages.value1),
       options: {
         filter: true,
       },
@@ -212,26 +176,10 @@ function SalaryComparisonReport(props) {
     {
         name: "v2",
         label: `${Month2 ?  Month2.name : format(new Date(), 'MMM') } / ${Year2 ?  Year2.name : format(new Date(), 'yyyy')}`,
-        // label: intl.formatMessage(messages.value2),
       options: {
         filter: true,
       },
-    },
-    // {
-    //     name: "elemValCalc",
-    //     label: intl.formatMessage(messages.CalculatedValue),
-    //   options: {
-    //     filter: true,
-    //   },
-    // },
-    // {
-    //     name: "elementType",
-    //     label: intl.formatMessage(messages.elementType),
-    //   options: {
-    //     filter: true,
-    //   },
-    // },
-    
+    },    
   ];
   const options = {
     filterType: "dropdown",
@@ -266,88 +214,6 @@ function SalaryComparisonReport(props) {
               notShowDate={true}
             ></Search>
           </Grid>
-
-
-          {/* <Grid item xs={12} md={3}>
-           
-                    <Autocomplete
-                        id="ddlMenu"   
-                        isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                        options={TemplatesList.length != 0 ? TemplatesList: []}
-                        getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        renderOption={(props, option) => {
-                            return (
-                            <li {...props} key={option.id}>
-                                {option.name}
-                            </li>
-                            );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setTemplate(value);
-                            } else {
-                                setTemplate("");
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            name="VacationType"
-                               label={intl.formatMessage(messages.Template)}
-                            margin="normal" 
-                            className={style.fieldsSty}
-                            
-                            />
-
-                        )}
-                        /> 
-                    </Grid> */}
-
-          
-
-
-                  {/* <Grid item xs={12}  md={4}> 
-                    <Autocomplete
-                          multiple  
-                          className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
-                          id="checkboxes-tags-demo"
-                          isOptionEqualToValue={(option, value) => option.id === value.id}
-                          options={MonthList.length != 0 ? MonthList: []}
-                          disableCloseOnSelect
-                          getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        onChange={(event, value) => {
-                          if (value !== null) {
-                            setMonth(value);
-                          } else {
-                            setMonth(null);
-                          }
-                      }}
-                          renderOption={(props, option, { selected }) => (
-                            <li {...props}>
-                              <Checkbox
-                                icon={icon}
-                                checkedIcon={checkedIcon}
-                                style={{ marginRight: 8 }}
-                                checked={selected}
-                              />
-                              {option.name}
-                            </li>
-                          )}
-                          style={{ width: 500 }}
-                          renderInput={(params) => (
-                            <TextField {...params} 
-                            label={intl.formatMessage(messages.Month)}
-                            />
-                          )}
-                        />
-              
-                  </Grid> */}
 
                   <Grid item xs={12} md={2}>
             
@@ -392,7 +258,6 @@ function SalaryComparisonReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={YearList.length != 0 ? YearList: []}
-                            // defaultValue={{id:"", name: format(new Date(), 'yyyy')}}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )
@@ -408,7 +273,7 @@ function SalaryComparisonReport(props) {
                                 if (value !== null) {
                                     setYear1(value);
                                 } else {
-                                    setYear1("");
+                                    setYear1(null);
                                 }
                             }}
                             renderInput={(params) => (
@@ -482,7 +347,7 @@ function SalaryComparisonReport(props) {
                                 if (value !== null) {
                                     setYear2(value);
                                 } else {
-                                    setYear2("");
+                                    setYear2(null);
                                 }
                             }}
                             renderInput={(params) => (
@@ -512,7 +377,6 @@ function SalaryComparisonReport(props) {
                         }
                         onChange={(event, value) => {
                           if (value !== null && value.length !== 0) {
-                            console.log("value =",value);
                             setConstElement(value);
                           } else {
                             setConstElement(null);
@@ -532,7 +396,6 @@ function SalaryComparisonReport(props) {
                           style={{ width: 500 }}
                           renderInput={(params) => (
                             <TextField {...params} 
-                            // label="const element"
                             label={intl.formatMessage(messages.constElement)}
                             />
                           )}
@@ -573,7 +436,6 @@ function SalaryComparisonReport(props) {
                           style={{ width: 500 }}
                           renderInput={(params) => (
                             <TextField {...params} 
-                            // label="val element"
                             label={intl.formatMessage(messages.valElement)}
                             />
                           )}

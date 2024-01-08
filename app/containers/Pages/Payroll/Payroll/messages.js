@@ -736,4 +736,20 @@ export default defineMessages({
     id: `${scope}.valElement`,
     defaultMessage: "Variable Element",
   }, 
+  youMustToChooseEmployeeAndElement: {
+    id: `${scope}.youMustToChooseEmployeeAndElement`,
+    defaultMessage: "You must to choose employee and element",
+  }, 
+  FromMonth: {
+    id: `${scope}.FromMonth`,
+    defaultMessage: "From Month",
+  }, 
+  ToMonth: {
+    id: `${scope}.ToMonth`,
+    defaultMessage: "To Month",
+  }, 
+  Trx_Value: {
+    id: `${scope}.Trx_Value`,
+    defaultMessage: "Trx_Value",
+  }, 
 });
