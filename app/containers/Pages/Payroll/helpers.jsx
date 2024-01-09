@@ -10,8 +10,9 @@ import React from 'react';
 input date is null or undefined, the function will return null.
  * @param {string | Date | null} date
  */
-function formateDate(date, formatting = 'yyyy-MM-dd') {
-  return date ? format(new Date(date), formatting) : null;
+function formateDate(date) {
+  // TODO: Mohmmed Taysser check if date is valid
+  return date ? format(new Date(date), 'yyyy-MM-dd') : date;
 }
 
 /**
@@ -19,9 +20,9 @@ function formateDate(date, formatting = 'yyyy-MM-dd') {
  * commas for thousands separators.
  * @returns {string} a formatted version of the input number with two decimal places.
  */
-function formatNumber(number = 0) {
+function formatNumber(number) {
   if (Number.isNaN(number) || number === null) {
-    return '';
+    return number;
   }
 
   return number.toLocaleString('en', {
