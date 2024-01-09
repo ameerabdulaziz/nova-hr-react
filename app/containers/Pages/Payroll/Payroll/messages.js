@@ -671,6 +671,78 @@ export default defineMessages({
     id: `${scope}.net`,
     defaultMessage: 'Net',
   },
+  hiringDate: {
+    id: `${scope}.hiringDate`,
+    defaultMessage: 'hiringDate',
+  },
+  taxes: {
+    id: `${scope}.taxes`,
+    defaultMessage: 'taxes',
+  },
+  yearly: {
+    id: `${scope}.yearly`,
+    defaultMessage: 'yearly',
+  },
+  monthly: {
+    id: `${scope}.monthly`,
+    defaultMessage: 'monthly',
+  },
+  monthYear: {
+    id: `${scope}.monthYear`,
+    defaultMessage: 'monthYear',
+  },
+  insuranceCompanyFixed: {
+    id: `${scope}.insuranceCompanyFixed`,
+    defaultMessage: 'insuranceCompanyFixed',
+  },
+  insuranceEmployeeFixed: {
+    id: `${scope}.insuranceEmployeeFixed`,
+    defaultMessage: 'insuranceEmployeeFixed',
+  },
+  enteredValues: {
+    id: `${scope}.enteredValues`,
+    defaultMessage: 'enteredValues',
+  },
+  isStopped: {
+    id: `${scope}.isStopped`,
+    defaultMessage: 'isStopped',
+  },
+  taxable: {
+    id: `${scope}.taxable`,
+    defaultMessage: 'Taxable',
+  },
+  consultant: {
+    id: `${scope}.consultant`,
+    defaultMessage: 'Consultant',
+  },
+  specialNeeds: {
+    id: `${scope}.specialNeeds`,
+    defaultMessage: 'Special Needs',
+  },
+  oldTaxBool: {
+    id: `${scope}.oldTaxBool`,
+    defaultMessage: 'Old Tax Boolean',
+  },
+  oldTaxValue: {
+    id: `${scope}.oldTaxValue`,
+    defaultMessage: 'Old Tax Value',
+  },
+  newTaxBool: {
+    id: `${scope}.newTaxBool`,
+    defaultMessage: 'New Tax Boolean',
+  },
+  newTaxValue: {
+    id: `${scope}.newTaxValue`,
+    defaultMessage: 'New Tax Value',
+  },
+  stopped: {
+    id: `${scope}.stopped`,
+    defaultMessage: 'stopped',
+  },
+  notStopped: {
+    id: `${scope}.notStopped`,
+    defaultMessage: 'notStopped',
+  },
   // ElementReview
   YouMustToChooseYearAndAtLeastOneElement: {
     id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,
@@ -771,6 +843,48 @@ export default defineMessages({
   youMustToChooseYearAndMonth: {
     id: `${scope}.youMustToChooseYearAndMonth`,
     defaultMessage: "You must to choose year and month",
+  }, 
+  posativeSalary: {
+    id: `${scope}.posativeSalary`,
+    defaultMessage: "Posative Salary",
+  }, 
+  NegativeSalary: {
+    id: `${scope}.NegativeSalary`,
+    defaultMessage: "Negative Salary",
+  }, 
+  // SalaryYearReport
+  socialInsuranceId: {
+    id: `${scope}.socialInsuranceId`,
+    defaultMessage: "Social Insurance ID",
+  }, 
+  InsuranceDate: {
+    id: `${scope}.InsuranceDate`,
+    defaultMessage: "Insurance Date",
+  }, 
+  NetSalary: {
+    id: `${scope}.NetSalary`,
+    defaultMessage: "Net Salary",
+  }, 
+  EmployeeShare: {
+    id: `${scope}.EmployeeShare`,
+    defaultMessage: "Employee Share",
+  }, 
+  YouMustToChooseYear: {
+    id: `${scope}.YouMustToChooseYear`,
+    defaultMessage: "You must to choose year",
+  }, 
+  // SalarySigningListReport
+  YouMustToChooseYear_MonthAndTemplet: {
+    id: `${scope}.YouMustToChooseYear_MonthAndTemplet`,
+    defaultMessage: "You must to choose year , month and templet",
+  }, 
+  PrintSalary: {
+    id: `${scope}.PrintSalary`,
+    defaultMessage: "Print Salary",
+  }, 
+  PrintNamesOnly: {
+    id: `${scope}.PrintNamesOnly`,
+    defaultMessage: "Print Names Only",
   }, 
 });
 

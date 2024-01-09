@@ -399,10 +399,17 @@ import {
   ElementReviewReport,
   SalaryComparisonReport,
   PaymentSlip,
+  MonthlyVariablesReport,
+  DetailedPayrollReport,
+  AnnualTaxReport,
   PaymentSlipTotal,
+  SalaryReport,
   FollowEmployeeReport,
   TaxReportReport,
-  AdminDashboard
+  AdminDashboard,
+  TotalDeptSalaryReport,
+  SalaryYearReport,
+  SalarySigningListReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1204,9 +1211,16 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/ElementReviewReport' component={ElementReviewReport} />
         <Route path='/app/Pages/Payroll/SalaryComparisonReport' component={SalaryComparisonReport} />
         <Route path='/app/Pages/Payroll/PaymentSlip' component={PaymentSlip} />
+        <Route path='/app/Pages/Payroll/MonthlyVariablesReport' component={MonthlyVariablesReport} />
+        <Route path='/app/Pages/Payroll/DetailedPayrollReport' component={DetailedPayrollReport} />
+        <Route path='/app/Pages/Payroll/AnnualTaxReport' component={AnnualTaxReport} />
         <Route path='/app/Pages/Payroll/PaymentSlipTotal' component={PaymentSlipTotal} />
+        <Route path='/app/Pages/Payroll/SalaryReport' component={SalaryReport} />
         <Route path='/app/Pages/Payroll/FollowEmployeeReport' component={FollowEmployeeReport} />
         <Route path='/app/Pages/Payroll/TaxReportReport' component={TaxReportReport} />
+        <Route path='/app/Pages/Payroll/TotalDeptSalaryReport' component={TotalDeptSalaryReport} />
+        <Route path='/app/Pages/Payroll/SalaryYearReport' component={SalaryYearReport} />
+        <Route path='/app/Pages/Payroll/SalarySigningListReport' component={SalarySigningListReport} />
         
 
         {/* WorkFlow */}

@@ -1430,6 +1430,34 @@ export const PaymentSlipTotal = loadable(
   }
 );
 
+export const SalaryReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/SalaryReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MonthlyVariablesReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/MonthlyVariablesReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const DetailedPayrollReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/DetailedPayrollReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const AnnualTaxReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/AnnualTaxReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LoanTrxList = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
   {
@@ -1506,6 +1534,25 @@ export const LoanReqCreate = loadable(
 
       export const TaxReportReport = loadable(
         () => import('./Pages/Payroll/Payroll/Reports/TaxReportReport'),
+        {
+          fallback: <Loading />,
+        });
+      
+      export const TotalDeptSalaryReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/TotalDeptSalaryReport'),
+        {
+          fallback: <Loading />,
+        });
+
+      export const SalaryYearReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/SalaryYearReport'),
+        {
+          fallback: <Loading />,
+        });
+
+
+      export const SalarySigningListReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/SalarySigningListReport'),
         {
           fallback: <Loading />,
         });

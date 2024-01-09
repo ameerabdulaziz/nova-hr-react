@@ -60,12 +60,19 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetElementList = async (ElementMode_ID,ElementCalcMethod_ID) => {
+  Apis.GetElementList = async (ElementMode_ID, ElementCalcMethod_ID, isRefrance) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetElementList/${locale}?${ElementMode_ID ? `ElementMode_ID=${ElementMode_ID}` : ""}${ElementCalcMethod_ID ? `&ElementCalcMethod_ID=${ElementCalcMethod_ID}` : ""}`
+      `GeneralList/GetElementList/${locale}?${
+        ElementMode_ID ? `ElementMode_ID=${ElementMode_ID}` : ""
+      }${
+        ElementCalcMethod_ID
+          ? `&ElementCalcMethod_ID=${ElementCalcMethod_ID}`
+          : ""
+      }${isRefrance ? `&isRefrance=${isRefrance}` : ""}`
     );
     return result.data;
   };
+
   Apis.GetElementListByType = async (TypeID,ElementCalcMethodId) => {
     const result = await axiosInstance.get(
       `GeneralList/GetElementList/${locale}?TypeID=${TypeID}&ElementCalcMethodId=${ElementCalcMethodId?ElementCalcMethodId:0}`

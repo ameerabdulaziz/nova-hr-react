@@ -1696,11 +1696,29 @@
   "boilerplate.containers.Payroll.Payroll.organization": "Organization",
   "boilerplate.containers.Payroll.Payroll.code": "Code",
   "boilerplate.containers.Payroll.Payroll.job": "Job",
+  "boilerplate.containers.Payroll.Payroll.isStopped": "Is Stopped",
+  "boilerplate.containers.Payroll.Payroll.enteredValues": "Entered Values",
+  "boilerplate.containers.Payroll.Payroll.taxes": "Taxes",
   "boilerplate.containers.Payroll.Payroll.value": "Value",
   "boilerplate.containers.Payroll.Payroll.originalValue": "Original Value",
   "boilerplate.containers.Payroll.Payroll.totalAllownace": "Total Allownace",
   "boilerplate.containers.Payroll.Payroll.totalDeduction": "Total Deduction",
   "boilerplate.containers.Payroll.Payroll.net": "Net",
+  "boilerplate.containers.Payroll.Payroll.hiringDate": "Hiring Date",
+  "boilerplate.containers.Payroll.Payroll.yearly": "Yearly",
+  "boilerplate.containers.Payroll.Payroll.monthly": "Monthly",
+  "boilerplate.containers.Payroll.Payroll.monthYear": "Month/Year",
+  "boilerplate.containers.Payroll.Payroll.insuranceCompanyFixed": "Insurance Company Fixed",
+  "boilerplate.containers.Payroll.Payroll.insuranceEmployeeFixed": "Insurance Employee Fixed",
+  "boilerplate.containers.Payroll.Payroll.taxable": "Taxable",
+  "boilerplate.containers.Payroll.Payroll.stopped": "Stopped",
+  "boilerplate.containers.Payroll.Payroll.notStopped": "Not Stopped",
+  "boilerplate.containers.Payroll.Payroll.consultant": "Consultant",
+  "boilerplate.containers.Payroll.Payroll.specialNeeds": "Special Needs",
+  "boilerplate.containers.Payroll.Payroll.oldTaxBool": "Old Tax Boolean",
+  "boilerplate.containers.Payroll.Payroll.oldTaxValue": "Old Tax Value",
+  "boilerplate.containers.Payroll.Payroll.newTaxBool": "New Tax Boolean",
+  "boilerplate.containers.Payroll.Payroll.newTaxValue": "New Tax Value",
   
   "boilerplate.containers.Payroll.Payroll.variable": "Variable",
   "boilerplate.containers.Payroll.Payroll.Percentage": "Percentage",
@@ -1843,6 +1861,21 @@
   "boilerplate.containers.Payroll.Payroll.InsuranceEmpPart":"Insurance Emp.Part",
   "boilerplate.containers.Payroll.Payroll.Tax":"Tax",
   "boilerplate.containers.Payroll.Payroll.youMustToChooseYearAndMonth":"You must to choose year and month",
+
+
+  "boilerplate.containers.Payroll.Payroll.posativeSalary":"Posative Salary",
+  "boilerplate.containers.Payroll.Payroll.NegativeSalary":"Negative Salary",
+
+
+  "boilerplate.containers.Payroll.Payroll.socialInsuranceId":"Social Insurance ID",
+  "boilerplate.containers.Payroll.Payroll.InsuranceDate":"Insurance Date",
+  "boilerplate.containers.Payroll.Payroll.NetSalary":"Net Salary",
+  "boilerplate.containers.Payroll.Payroll.EmployeeShare":"Employee Share",
+  "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear":"You must to choose year",
+
+  "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear_MonthAndTemplet":"You must to choose year , month and templet",
+  "boilerplate.containers.Payroll.Payroll.PrintSalary":"Print Salary",
+  "boilerplate.containers.Payroll.Payroll.PrintNamesOnly":"Print Names Only",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

@@ -49,7 +49,6 @@ function Contact() {
 
   useEffect(() => {
     async function fetchEmployee() {
-      
       const empdata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(empdata || []);
 
@@ -64,8 +63,6 @@ function Contact() {
 
   useEffect(() => {
     async function fetchData1() {
-      
-
       const dataApi = await data(locale).GetList(employee.id);
       setdata(dataApi);
       setitemSelected(-1);
@@ -80,6 +77,7 @@ function Contact() {
       if (data.name.toLowerCase().indexOf(keyword) === -1) {
         return false;
       }
+      // test
       return (
         <ListItem
           button
@@ -87,7 +85,7 @@ function Contact() {
           className={index === itemSelected ? classes.selected : ''}
           onClick={() => {
             //showDetail(data)
-            
+
             setitemSelected(index || 0);
             setshowMobileDetail(false);
           }}
@@ -162,11 +160,10 @@ function Contact() {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      
-                        setEmployee({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
+                      setEmployee({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : '',
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField

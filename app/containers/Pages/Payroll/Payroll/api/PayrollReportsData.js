@@ -46,6 +46,36 @@ const PayrollReportsData = (locale) => {
     return result;
   };
 
+  Apis.TotalDeptSalaryReport = async (Year,Month,TemplateId,params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `PayrollReport/GetTotalDeptSalary/${locale}/${Year.id}/${Month.id}/${TemplateId.id}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
+  Apis.SalaryYearReport = async (Year,params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `PayrollReport/GetSalaryYearReport/${locale}/${Year.id}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
+  Apis.SalarySigningListReportApi = async (Year,Month,TemplateId,params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `PayrollReport/GetSalarySigningList/${locale}/${Year.id}/${Month.id}/${TemplateId.id}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
   return Apis;
 };
 

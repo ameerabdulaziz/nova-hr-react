@@ -1755,7 +1755,25 @@
     "boilerplate.containers.Payroll.Payroll.originalValue": "القيمة الأصلية",
     "boilerplate.containers.Payroll.Payroll.totalAllownace": "اجمالي المستحقات",
     "boilerplate.containers.Payroll.Payroll.totalDeduction": "إجمالي الاستقطاعات",
+    "boilerplate.containers.Payroll.Payroll.enteredValues": "القيم المدخلة",
     "boilerplate.containers.Payroll.Payroll.net": "الصافي",
+    "boilerplate.containers.Payroll.Payroll.isStopped": "عرض الموقوفين",
+    "boilerplate.containers.Payroll.Payroll.taxes": "الضرائب",
+    "boilerplate.containers.Payroll.Payroll.hiringDate": "تاريخ التعيين",
+    "boilerplate.containers.Payroll.Payroll.yearly": "سنوي",
+    "boilerplate.containers.Payroll.Payroll.monthly": "شهري",
+    "boilerplate.containers.Payroll.Payroll.monthYear": "شهر/سنة",
+    "boilerplate.containers.Payroll.Payroll.insuranceCompanyFixed": "حصة/ش من التامينات",
+    "boilerplate.containers.Payroll.Payroll.insuranceEmployeeFixed": "حصة/م من التامينات",
+    "boilerplate.containers.Payroll.Payroll.taxable": "خاضع للضريبة",
+    "boilerplate.containers.Payroll.Payroll.consultant": "استشاري",
+    "boilerplate.containers.Payroll.Payroll.specialNeeds": "احتياجات خاصة",
+    "boilerplate.containers.Payroll.Payroll.oldTaxBool": "الوعاء الضريبى",
+    "boilerplate.containers.Payroll.Payroll.stopped": "موقوف",
+    "boilerplate.containers.Payroll.Payroll.notStopped": "غير موقوف",
+    "boilerplate.containers.Payroll.Payroll.oldTaxValue": "الضريبة المحسوبه",
+    "boilerplate.containers.Payroll.Payroll.newTaxBool": "الوعاء الضريبى المستحق",
+    "boilerplate.containers.Payroll.Payroll.newTaxValue": "الضريبة المستحقة",
     
     "boilerplate.containers.Payroll.Payroll.inWeb": "يظهر فى تقارير الويب",
     "boilerplate.containers.Payroll.Payroll.calcIneachTemplate": "يحتسب فى كل قالب على حده",
@@ -1909,6 +1927,21 @@
     "boilerplate.containers.Payroll.Payroll.InsuranceEmpPart":"حصة العامل من التامين",
     "boilerplate.containers.Payroll.Payroll.Tax":"ضرائب كسب العمل",
     "boilerplate.containers.Payroll.Payroll.youMustToChooseYearAndMonth":"يجب عليك اختيار السنة والشهر",
+
+
+    "boilerplate.containers.Payroll.Payroll.posativeSalary":"المرتبات المستحقة",
+    "boilerplate.containers.Payroll.Payroll.NegativeSalary":"المرتبات السالبة",
+
+
+    "boilerplate.containers.Payroll.Payroll.socialInsuranceId":"الرقم التامينى",
+    "boilerplate.containers.Payroll.Payroll.InsuranceDate":"تاريخ التامين",
+    "boilerplate.containers.Payroll.Payroll.NetSalary":"صافى الدخل خلال العام",
+    "boilerplate.containers.Payroll.Payroll.EmployeeShare":"اجمالى التامينات",
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear":"يجب عليك اختيار السنة",
+
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear_MonthAndTemplet":"يجب عليك اختيار السنة و الشهر و القالب",
+    "boilerplate.containers.Payroll.Payroll.PrintSalary":"طباعة المرتب",
+    "boilerplate.containers.Payroll.Payroll.PrintNamesOnly":"طباعة الاسماء فقط",
     
     
   
