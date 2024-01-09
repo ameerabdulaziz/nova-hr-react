@@ -18,7 +18,7 @@ function Search(props) {
   const [statusList, setStatusList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
   
-  const handleChange = useCallback((name, value) => {
+  const handleChange =  useCallback(async(name, value) => {
     if (name == "fromDate")
       setsearchData((prevFilters) => ({
         ...prevFilters,
@@ -38,10 +38,15 @@ function Search(props) {
       }));
 
     if (name == "organizationId")
+    {
+      const employees = await GeneralListApis(locale).GetEmployeeListByDepartment(value);
+      setEmployeeList(employees);
       setsearchData((prevFilters) => ({
         ...prevFilters,
         OrganizationId: value,
+        EmployeeId:0
       }));
+    }
 
     if (name == "statusId")
       setsearchData((prevFilters) => ({
