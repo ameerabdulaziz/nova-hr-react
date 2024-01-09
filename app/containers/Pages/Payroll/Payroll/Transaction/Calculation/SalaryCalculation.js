@@ -329,7 +329,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "yearName",
-      label: <FormattedMessage {...Payrollmessages["year"]} />,
+      label: <FormattedMessage {...Payrollmessages["yearName"]} />,
       options: {
         filter: true,
       },

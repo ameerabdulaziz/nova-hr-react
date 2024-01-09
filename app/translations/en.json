@@ -1822,6 +1822,16 @@
   "boilerplate.containers.Payroll.Payroll.FromMonth":"From Month",
   "boilerplate.containers.Payroll.Payroll.ToMonth":"To Month",
   "boilerplate.containers.Payroll.Payroll.Trx_Value":"Value",
+
+  "boilerplate.containers.Payroll.Payroll.Salary":"Salary",
+  "boilerplate.containers.Payroll.Payroll.Other":"Other",
+  "boilerplate.containers.Payroll.Payroll.InsuranceEmpPart":"Insurance Emp.Part",
+  "boilerplate.containers.Payroll.Payroll.Tax":"Tax",
+  "boilerplate.containers.Payroll.Payroll.youMustToChooseYearAndMonth":"You must to choose year and month",
+
+
+  "boilerplate.containers.Payroll.Payroll.posativeSalary":"Posative Salary",
+  "boilerplate.containers.Payroll.Payroll.NegativeSalary":"Negative Salary",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
