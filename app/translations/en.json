@@ -1673,6 +1673,7 @@
   "boilerplate.containers.Payroll.Payroll.organization": "Organization",
   "boilerplate.containers.Payroll.Payroll.code": "Code",
   "boilerplate.containers.Payroll.Payroll.job": "Job",
+  "boilerplate.containers.Payroll.Payroll.enteredValues": "Entered Values",
   "boilerplate.containers.Payroll.Payroll.taxes": "Taxes",
   "boilerplate.containers.Payroll.Payroll.value": "Value",
   "boilerplate.containers.Payroll.Payroll.originalValue": "Original Value",

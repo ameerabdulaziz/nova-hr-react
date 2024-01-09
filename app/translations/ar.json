@@ -1730,6 +1730,7 @@
     "boilerplate.containers.Payroll.Payroll.originalValue": "القيمة الأصلية",
     "boilerplate.containers.Payroll.Payroll.totalAllownace": "اجمالي المستحقات",
     "boilerplate.containers.Payroll.Payroll.totalDeduction": "إجمالي الاستقطاعات",
+    "boilerplate.containers.Payroll.Payroll.enteredValues": "القيم المدخلة",
     "boilerplate.containers.Payroll.Payroll.net": "الصافي",
     "boilerplate.containers.Payroll.Payroll.taxes": "الضرائب",
     "boilerplate.containers.Payroll.Payroll.hiringDate": "تاريخ التعيين",

@@ -699,6 +699,10 @@ export default defineMessages({
     id: `${scope}.insuranceEmployeeFixed`,
     defaultMessage: 'insuranceEmployeeFixed',
   },
+  enteredValues: {
+    id: `${scope}.enteredValues`,
+    defaultMessage: 'enteredValues',
+  },
   // ElementReview
   YouMustToChooseYearAndAtLeastOneElement: {
     id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,

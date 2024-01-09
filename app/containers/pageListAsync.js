@@ -1430,6 +1430,13 @@ export const SalaryReport = loadable(
   }
 );
 
+export const MonthlyVariablesReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/MonthlyVariablesReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LoanTrxList = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
   {
