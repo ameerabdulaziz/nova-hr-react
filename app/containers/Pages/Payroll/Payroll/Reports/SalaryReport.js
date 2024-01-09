@@ -373,12 +373,12 @@ function SalaryReport(props) {
                   name='Type'
                 >
                   <FormControlLabel
-                    value='1'
+                    value='2'
                     control={<Radio />}
                     label={intl.formatMessage(messages.yearly)}
                   />
                   <FormControlLabel
-                    value='2'
+                    value='1'
                     control={<Radio />}
                     label={intl.formatMessage(messages.monthly)}
                   />
@@ -397,7 +397,7 @@ function SalaryReport(props) {
 
             <Grid item xs={12}>
               <Button variant='contained' color='primary' type='submit'>
-                {intl.formatMessage(payrollMessages.save)}
+                {intl.formatMessage(payrollMessages.search)}
               </Button>
             </Grid>
           </Grid>
