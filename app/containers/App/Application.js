@@ -407,6 +407,7 @@ import {
   TaxReportReport,
   TotalDeptSalaryReport,
   SalaryYearReport,
+  SalarySigningListReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1216,6 +1217,7 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/TaxReportReport' component={TaxReportReport} />
         <Route path='/app/Pages/Payroll/TotalDeptSalaryReport' component={TotalDeptSalaryReport} />
         <Route path='/app/Pages/Payroll/SalaryYearReport' component={SalaryYearReport} />
+        <Route path='/app/Pages/Payroll/SalarySigningListReport' component={SalarySigningListReport} />
         
 
         {/* WorkFlow */}

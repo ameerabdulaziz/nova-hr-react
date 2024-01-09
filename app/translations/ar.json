@@ -1903,6 +1903,10 @@
     "boilerplate.containers.Payroll.Payroll.NetSalary":"صافى الدخل خلال العام",
     "boilerplate.containers.Payroll.Payroll.EmployeeShare":"اجمالى التامينات",
     "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear":"يجب عليك اختيار السنة",
+
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear_MonthAndTemplet":"يجب عليك اختيار السنة و الشهر و القالب",
+    "boilerplate.containers.Payroll.Payroll.PrintSalary":"طباعة المرتب",
+    "boilerplate.containers.Payroll.Payroll.PrintNamesOnly":"طباعة الاسماء فقط",
     
     
   

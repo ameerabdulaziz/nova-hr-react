@@ -833,5 +833,18 @@ export default defineMessages({
     id: `${scope}.YouMustToChooseYear`,
     defaultMessage: "You must to choose year",
   }, 
+  // SalarySigningListReport
+  YouMustToChooseYear_MonthAndTemplet: {
+    id: `${scope}.YouMustToChooseYear_MonthAndTemplet`,
+    defaultMessage: "You must to choose year , month and templet",
+  }, 
+  PrintSalary: {
+    id: `${scope}.PrintSalary`,
+    defaultMessage: "Print Salary",
+  }, 
+  PrintNamesOnly: {
+    id: `${scope}.PrintNamesOnly`,
+    defaultMessage: "Print Names Only",
+  }, 
 });
 
