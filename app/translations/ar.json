@@ -1731,6 +1731,13 @@
     "boilerplate.containers.Payroll.Payroll.totalAllownace": "اجمالي المستحقات",
     "boilerplate.containers.Payroll.Payroll.totalDeduction": "إجمالي الاستقطاعات",
     "boilerplate.containers.Payroll.Payroll.net": "الصافي",
+    "boilerplate.containers.Payroll.Payroll.taxes": "الضرائب",
+    "boilerplate.containers.Payroll.Payroll.hiringDate": "تاريخ التعيين",
+    "boilerplate.containers.Payroll.Payroll.yearly": "سنوي",
+    "boilerplate.containers.Payroll.Payroll.monthly": "شهري",
+    "boilerplate.containers.Payroll.Payroll.monthYear": "شهر/سنة",
+    "boilerplate.containers.Payroll.Payroll.insuranceCompanyFixed": "حصة/ش من التامينات",
+    "boilerplate.containers.Payroll.Payroll.insuranceEmployeeFixed": "حصة/م من التامينات",
     
     "boilerplate.containers.Payroll.Payroll.inWeb": "يظهر فى تقارير الويب",
     "boilerplate.containers.Payroll.Payroll.calcIneachTemplate": "يحتسب فى كل قالب على حده",

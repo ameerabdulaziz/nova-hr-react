@@ -671,6 +671,34 @@ export default defineMessages({
     id: `${scope}.net`,
     defaultMessage: 'Net',
   },
+  hiringDate: {
+    id: `${scope}.hiringDate`,
+    defaultMessage: 'hiringDate',
+  },
+  taxes: {
+    id: `${scope}.taxes`,
+    defaultMessage: 'taxes',
+  },
+  yearly: {
+    id: `${scope}.yearly`,
+    defaultMessage: 'yearly',
+  },
+  monthly: {
+    id: `${scope}.monthly`,
+    defaultMessage: 'monthly',
+  },
+  monthYear: {
+    id: `${scope}.monthYear`,
+    defaultMessage: 'monthYear',
+  },
+  insuranceCompanyFixed: {
+    id: `${scope}.insuranceCompanyFixed`,
+    defaultMessage: 'insuranceCompanyFixed',
+  },
+  insuranceEmployeeFixed: {
+    id: `${scope}.insuranceEmployeeFixed`,
+    defaultMessage: 'insuranceEmployeeFixed',
+  },
   // ElementReview
   YouMustToChooseYearAndAtLeastOneElement: {
     id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,
