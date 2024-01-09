@@ -16,7 +16,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     marginBottom: 6,
     display: 'flex',
     [theme.breakpoints.up('sm')]: {
-      height: 126,
+      height: 100,
       marginBottom: -1,
       alignItems: 'flex-end',
     },

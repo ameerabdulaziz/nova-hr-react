@@ -9,6 +9,23 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   rootCounter: {
     flexGrow: 1,
   },
+  textNotif: {
+    '& span': {
+      //overflow: 'hidden',
+      whiteSpace: 'wrap',
+      //textOverflow: 'ellipsis',
+      display: 'block'
+    }
+  },
+  divnotification: {
+    maxWidth: '360px',
+  },
+  
+  avatarinfo: {
+    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark,
+  },
+ 
+  
   rootCounterFull: {
     flexGrow: 1,
   },
@@ -22,7 +39,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     }
   },
   divider: {
-    margin: `${theme.spacing(3)} 0`,
+    margin: 8,
     display: 'block'
   },
   dividerBig: {
@@ -57,7 +74,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     }
   },
   bigResume: {
-    marginBottom: theme.spacing(5),
+    marginBottom: theme.spacing(1),
     justifyContent: 'space-between',
     display: 'flex',
     [theme.breakpoints.down('sm')]: {
@@ -169,11 +186,17 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     }
   },
   pinkProgress: {
+    paddingLeft: theme.spacing(4),
     color: colorfull[0],
     '& span': {
       backgroundColor: colorfull[0],
     }
   },
+  paddingProgress: {
+    paddingLeft: 70,
+    
+  },
+  
   greenProgress: {
     color: colorfull[5],
     '& span': {
@@ -216,6 +239,9 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   },
   textRight: {
     textAlign: 'right'
+  },
+  textLeft: {
+    textAlign: 'left !important'
   },
   red: {},
   orange: {},

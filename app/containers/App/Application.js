@@ -401,7 +401,8 @@ import {
   PaymentSlip,
   PaymentSlipTotal,
   FollowEmployeeReport,
-  TaxReportReport
+  TaxReportReport,
+  AdminDashboard
 } from '../pageListAsync';
 
 function Application(props) {
@@ -412,7 +413,7 @@ function Application(props) {
     <Dashboard history={history} changeMode={changeMode}>
       <Switch>
         {/* Home */}
-        <Route exact path='/app' component={AnalyticDashboard} />
+        <Route exact path='/app' component={AdminDashboard} />
         <Route path='/app/dashboard/marketing' component={MarketingDashboard} />
         <Route path='/app/dashboard/crypto' component={CryptoDashboard} />
         {/* Widgets */}

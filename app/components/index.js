@@ -34,6 +34,13 @@ export CarouselWidget from './Widget/CarouselWidget';
 export AlbumWidget from './Widget/AlbumWidget';
 export MapWidget from './Widget/MapWidget';
 export ContactWidget from './Widget/ContactWidget';
+export NotificationWidget from './Widget/NotificationWidget';
+export OrganizationWidget from './Widget/OrganizationWidget';
+export MaritalStatusWidget from './Widget/MaritalStatusWidget';
+export GenderWidget from './Widget/GenderWidget';
+export ServicePeriodWidget from './Widget/ServicePeriodWidget';
+export NationalityWidget from './Widget/NationalityWidget';
+
 export WeatherWidget from './Widget/WeatherWidget';
 export DateWidget from './Widget/DateWidget';
 export FilesWidget from './Widget/FilesWidget';

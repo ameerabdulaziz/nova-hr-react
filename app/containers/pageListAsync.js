@@ -13,6 +13,13 @@ export const AnalyticDashboard = loadable(
     fallback: <Loading />,
   }
 );
+export const AdminDashboard = loadable(
+  () => import('./Dashboard/AdminDashboard'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const MarketingDashboard = loadable(
   () => import('./Dashboard/MarketingDashboard'),
   {

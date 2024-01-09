@@ -8,6 +8,27 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.components.Widgets';
 
 export default defineMessages({
+  Employee: {
+    id: `${scope}.CounterIconWidget.Employee`,
+    defaultMessage: 'Employees',
+  },
+  newHired: {
+    id: `${scope}.CounterIconWidget.newHired`,
+    defaultMessage: 'newHired',
+  },
+  inPropation: {
+    id: `${scope}.CounterIconWidget.inPropation`,
+    defaultMessage: 'inPropation',
+  },
+  resignation: {
+    id: `${scope}.CounterIconWidget.resignation`,
+    defaultMessage: 'resignation',
+  },
+  terminated: {
+    id: `${scope}.CounterIconWidget.terminated`,
+    defaultMessage: 'Employees',
+  },
+ 
   subscribers: {
     id: `${scope}.CounterIconWidget.subscribers`,
     defaultMessage: 'Subscribers',
@@ -31,6 +52,63 @@ export default defineMessages({
   achievement_target: {
     id: `${scope}.PerformanceChartWidget.target`,
     defaultMessage: 'Achievement Target',
+  },
+  Vacations: {
+    id: `${scope}.PerformanceChartWidget.Vacations`,
+    defaultMessage: 'Vacations',
+  },
+  Overtime: {
+    id: `${scope}.PerformanceChartWidget.Overtime`,
+    defaultMessage: 'Overtime',
+  },
+  Mession: {
+    id: `${scope}.PerformanceChartWidget.Mession`,
+    defaultMessage: 'Mession',
+  },
+  Permission: {
+    id: `${scope}.PerformanceChartWidget.Permission`,
+    defaultMessage: 'Permission',
+  },
+  penalty: {
+    id: `${scope}.PerformanceChartWidget.penalty`,
+    defaultMessage: 'penalty',
+  },
+  rewards: {
+    id: `${scope}.PerformanceChartWidget.rewards`,
+    defaultMessage: 'rewards',
+  },
+  
+  notification1: {
+    id: `${scope}.PerformanceChartWidget.notification`,
+    defaultMessage: 'notification',
+  },
+  orgchar: {
+    id: `${scope}.PerformanceChartWidget.orgchar`,
+    defaultMessage: 'orgchar',
+  },
+  marital: {
+    id: `${scope}.PerformanceChartWidget.marital`,
+    defaultMessage: 'marital',
+  },
+  ageChart: {
+    id: `${scope}.PerformanceChartWidget.ageChart`,
+    defaultMessage: 'ageChart',
+  },
+  gendercahrt: {
+    id: `${scope}.PerformanceChartWidget.gendercahrt`,
+    defaultMessage: 'gendercahrt',
+  },
+  ServicePeriodcahrt: {
+    id: `${scope}.PerformanceChartWidget.ServicePeriodcahrt`,
+    defaultMessage: 'ServicePeriodcahrt',
+  },
+  Nationalitycahrt: {
+    id: `${scope}.PerformanceChartWidget.Nationalitycahrt`,
+    defaultMessage: 'Nationalitycahrt',
+  },
+  empwithbestAtt: {
+    id: `${scope}.PerformanceChartWidget.empwithbestAtt`,
+    defaultMessage: 'empwithbestAtt',
   },
   attends: {
     id: `${scope}.PerformanceChartWidget.atends`,
@@ -58,7 +136,7 @@ export default defineMessages({
   },
   notification: {
     id: `${scope}.ContactWidget.notification`,
-    defaultMessage: 'Notification',
+    defaultMessage: 'Notifications',
   },
   chat: {
     id: `${scope}.ContactWidget.chat`,
