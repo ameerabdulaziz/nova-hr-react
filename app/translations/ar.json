@@ -1884,6 +1884,10 @@
     "boilerplate.containers.Payroll.Payroll.InsuranceEmpPart":"حصة العامل من التامين",
     "boilerplate.containers.Payroll.Payroll.Tax":"ضرائب كسب العمل",
     "boilerplate.containers.Payroll.Payroll.youMustToChooseYearAndMonth":"يجب عليك اختيار السنة والشهر",
+
+
+    "boilerplate.containers.Payroll.Payroll.posativeSalary":"المرتبات المستحقة",
+    "boilerplate.containers.Payroll.Payroll.NegativeSalary":"المرتبات السالبة",
     
     
   

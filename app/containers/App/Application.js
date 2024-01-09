@@ -401,7 +401,8 @@ import {
   PaymentSlip,
   PaymentSlipTotal,
   FollowEmployeeReport,
-  TaxReportReport
+  TaxReportReport,
+  TotalDeptSalaryReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1206,6 +1207,7 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/PaymentSlipTotal' component={PaymentSlipTotal} />
         <Route path='/app/Pages/Payroll/FollowEmployeeReport' component={FollowEmployeeReport} />
         <Route path='/app/Pages/Payroll/TaxReportReport' component={TaxReportReport} />
+        <Route path='/app/Pages/Payroll/TotalDeptSalaryReport' component={TotalDeptSalaryReport} />
         
 
         {/* WorkFlow */}

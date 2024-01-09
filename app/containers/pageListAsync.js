@@ -1502,6 +1502,12 @@ export const LoanReqCreate = loadable(
         {
           fallback: <Loading />,
         });
+      
+      export const TotalDeptSalaryReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/TotalDeptSalaryReport'),
+        {
+          fallback: <Loading />,
+        });
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(

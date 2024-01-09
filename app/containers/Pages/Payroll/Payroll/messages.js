@@ -772,5 +772,13 @@ export default defineMessages({
     id: `${scope}.youMustToChooseYearAndMonth`,
     defaultMessage: "You must to choose year and month",
   }, 
+  posativeSalary: {
+    id: `${scope}.posativeSalary`,
+    defaultMessage: "Posative Salary",
+  }, 
+  NegativeSalary: {
+    id: `${scope}.NegativeSalary`,
+    defaultMessage: "Negative Salary",
+  }, 
 });
 
