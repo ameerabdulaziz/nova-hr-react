@@ -703,6 +703,46 @@ export default defineMessages({
     id: `${scope}.enteredValues`,
     defaultMessage: 'enteredValues',
   },
+  isStopped: {
+    id: `${scope}.isStopped`,
+    defaultMessage: 'isStopped',
+  },
+  taxable: {
+    id: `${scope}.taxable`,
+    defaultMessage: 'Taxable',
+  },
+  consultant: {
+    id: `${scope}.consultant`,
+    defaultMessage: 'Consultant',
+  },
+  specialNeeds: {
+    id: `${scope}.specialNeeds`,
+    defaultMessage: 'Special Needs',
+  },
+  oldTaxBool: {
+    id: `${scope}.oldTaxBool`,
+    defaultMessage: 'Old Tax Boolean',
+  },
+  oldTaxValue: {
+    id: `${scope}.oldTaxValue`,
+    defaultMessage: 'Old Tax Value',
+  },
+  newTaxBool: {
+    id: `${scope}.newTaxBool`,
+    defaultMessage: 'New Tax Boolean',
+  },
+  newTaxValue: {
+    id: `${scope}.newTaxValue`,
+    defaultMessage: 'New Tax Value',
+  },
+  stopped: {
+    id: `${scope}.stopped`,
+    defaultMessage: 'stopped',
+  },
+  notStopped: {
+    id: `${scope}.notStopped`,
+    defaultMessage: 'notStopped',
+  },
   // ElementReview
   YouMustToChooseYearAndAtLeastOneElement: {
     id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,

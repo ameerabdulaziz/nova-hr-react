@@ -1444,6 +1444,13 @@ export const DetailedPayrollReport = loadable(
   }
 );
 
+export const AnnualTaxReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/AnnualTaxReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LoanTrxList = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
   {
