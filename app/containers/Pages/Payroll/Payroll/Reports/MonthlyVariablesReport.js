@@ -82,7 +82,7 @@ function MonthlyVariablesReport(props) {
       const months = await GeneralListApis(locale).GetMonths();
       setMonthList(months);
 
-      const elements = await GeneralListApis(locale).GetElementList(2, 0);
+      const elements = await GeneralListApis(locale).GetElementList(2, 0, false);
       setElementsList(elements);
     } catch (error) {
       //
