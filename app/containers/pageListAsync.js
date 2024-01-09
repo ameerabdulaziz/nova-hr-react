@@ -1423,6 +1423,27 @@ export const PaymentSlipTotal = loadable(
   }
 );
 
+export const SalaryReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/SalaryReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MonthlyVariablesReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/MonthlyVariablesReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const DetailedPayrollReport = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/DetailedPayrollReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LoanTrxList = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
   {

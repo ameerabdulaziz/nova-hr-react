@@ -399,7 +399,10 @@ import {
   ElementReviewReport,
   SalaryComparisonReport,
   PaymentSlip,
+  MonthlyVariablesReport,
+  DetailedPayrollReport,
   PaymentSlipTotal,
+  SalaryReport,
   FollowEmployeeReport,
   TaxReportReport,
   TotalDeptSalaryReport,
@@ -1205,7 +1208,10 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/ElementReviewReport' component={ElementReviewReport} />
         <Route path='/app/Pages/Payroll/SalaryComparisonReport' component={SalaryComparisonReport} />
         <Route path='/app/Pages/Payroll/PaymentSlip' component={PaymentSlip} />
+        <Route path='/app/Pages/Payroll/MonthlyVariablesReport' component={MonthlyVariablesReport} />
+        <Route path='/app/Pages/Payroll/DetailedPayrollReport' component={DetailedPayrollReport} />
         <Route path='/app/Pages/Payroll/PaymentSlipTotal' component={PaymentSlipTotal} />
+        <Route path='/app/Pages/Payroll/SalaryReport' component={SalaryReport} />
         <Route path='/app/Pages/Payroll/FollowEmployeeReport' component={FollowEmployeeReport} />
         <Route path='/app/Pages/Payroll/TaxReportReport' component={TaxReportReport} />
         <Route path='/app/Pages/Payroll/TotalDeptSalaryReport' component={TotalDeptSalaryReport} />
