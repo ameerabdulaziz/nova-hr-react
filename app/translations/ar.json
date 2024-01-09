@@ -1906,6 +1906,13 @@
 
     "boilerplate.containers.Payroll.Payroll.posativeSalary":"المرتبات المستحقة",
     "boilerplate.containers.Payroll.Payroll.NegativeSalary":"المرتبات السالبة",
+
+
+    "boilerplate.containers.Payroll.Payroll.socialInsuranceId":"الرقم التامينى",
+    "boilerplate.containers.Payroll.Payroll.InsuranceDate":"تاريخ التامين",
+    "boilerplate.containers.Payroll.Payroll.NetSalary":"صافى الدخل خلال العام",
+    "boilerplate.containers.Payroll.Payroll.EmployeeShare":"اجمالى التامينات",
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear":"يجب عليك اختيار السنة",
     
     
   

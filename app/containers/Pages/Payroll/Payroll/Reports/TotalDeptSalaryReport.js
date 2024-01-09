@@ -89,7 +89,6 @@ function TotalDeptSalaryReport(props) {
       const dataApi = await ApiData(locale).TotalDeptSalaryReport(Year,Month,Template,formData);
       setdata(dataApi);
     } catch (err) {
-        console.log("err =", err);
     } finally {
       setIsLoading(false);
     }

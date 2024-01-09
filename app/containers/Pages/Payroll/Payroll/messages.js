@@ -852,5 +852,26 @@ export default defineMessages({
     id: `${scope}.NegativeSalary`,
     defaultMessage: "Negative Salary",
   }, 
+  // SalaryYearReport
+  socialInsuranceId: {
+    id: `${scope}.socialInsuranceId`,
+    defaultMessage: "Social Insurance ID",
+  }, 
+  InsuranceDate: {
+    id: `${scope}.InsuranceDate`,
+    defaultMessage: "Insurance Date",
+  }, 
+  NetSalary: {
+    id: `${scope}.NetSalary`,
+    defaultMessage: "Net Salary",
+  }, 
+  EmployeeShare: {
+    id: `${scope}.EmployeeShare`,
+    defaultMessage: "Employee Share",
+  }, 
+  YouMustToChooseYear: {
+    id: `${scope}.YouMustToChooseYear`,
+    defaultMessage: "You must to choose year",
+  }, 
 });
 

@@ -56,6 +56,16 @@ const PayrollReportsData = (locale) => {
     return result;
   };
 
+  Apis.SalaryYearReport = async (Year,params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `PayrollReport/GetSalaryYearReport/${locale}/${Year.id}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
   return Apis;
 };
 
