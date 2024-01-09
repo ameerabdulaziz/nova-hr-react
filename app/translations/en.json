@@ -1824,6 +1824,13 @@
 
   "boilerplate.containers.Payroll.Payroll.posativeSalary":"Posative Salary",
   "boilerplate.containers.Payroll.Payroll.NegativeSalary":"Negative Salary",
+
+
+  "boilerplate.containers.Payroll.Payroll.socialInsuranceId":"Social Insurance ID",
+  "boilerplate.containers.Payroll.Payroll.InsuranceDate":"Insurance Date",
+  "boilerplate.containers.Payroll.Payroll.NetSalary":"Net Salary",
+  "boilerplate.containers.Payroll.Payroll.EmployeeShare":"Employee Share",
+  "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear":"You must to choose year",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

@@ -1509,6 +1509,12 @@ export const LoanReqCreate = loadable(
           fallback: <Loading />,
         });
 
+      export const SalaryYearReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/SalaryYearReport'),
+        {
+          fallback: <Loading />,
+        });
+
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
   () => import('./Pages/Payroll/WorkFlow/WorkFlowList'),
