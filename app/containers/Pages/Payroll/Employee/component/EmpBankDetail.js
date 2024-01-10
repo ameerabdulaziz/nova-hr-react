@@ -56,23 +56,16 @@ function EmpBankDetail(props) {
   const {
     dataContact,
     itemSelected,
-    edit,
     showMobileDetail,
-    hideDetail,
     loading,
     intl,
-    remove,
-    favorite,
     bnkList,
     employeeId,
-    //processing,
   } = props;
-  // const ref = useRef(null);
-  const locale = useSelector((state) => state.language.locale);
-  
-  const { classes, cx } = useStyles();
-  //const [bnkList, setbnkList] = useState([]);
 
+  const locale = useSelector((state) => state.language.locale);
+
+  const { classes, cx } = useStyles();
   const [id, setid] = useState(
     dataContact && dataContact.length > 0 && itemSelected >= 0
       ? dataContact[0].key
@@ -80,11 +73,13 @@ function EmpBankDetail(props) {
   );
   const [name, setname] = useState('');
   const [avtr, setavtr] = useState(avatarApi[11]);
-  //const [employeeId, setemployeeId] = useState();
   const [bankId, setbankId] = useState({ id: 0, name: '' });
 
-  const [bnkAcc, setbnkAcc] = useState('');
-  // );
+  const [bnkAcc, setbnkAcc] = useState(
+    !loading && dataContact.length > 0 && itemSelected >= 0
+      ? dataContact[itemSelected].bnkAcc
+      : ''
+  );
 
   const [branchNo, setbranchNo] = useState(
     !loading && dataContact.length > 0 && itemSelected >= 0
@@ -160,35 +155,29 @@ function EmpBankDetail(props) {
     );
   }, [itemSelected]);
 
-  //const [anchorElOpt, setAnchorElOpt] = useState(null);
-  //   const handleClickOpt = (event) => setAnchorElOpt(event.currentTarget);
-  //   const handleCloseOpt = () => setAnchorElOpt(null);
   const deletedata = async (e) => {
     try {
-      
       const dataApi = await Apidata().Delete(id);
       if (dataApi.status == 200) {
         toast.error(notif.removed);
       } else {
         toast.error(dataApi.statusText);
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   };
-  const addContact = (item) => {
-    setid(0);
-    setbnkAcc('');
-    setbranchNo('');
-    setiban('');
-    setbnkEmpCode('');
-    setswiftCode('');
-    setbankId({ id: 0, name: '' });
-    setavtr(avatarApi[11]);
-    setname('');
-  };
+  //   const addContact = (item) => {
+  //     setid(0);
+  //     setbnkAcc('');
+  //     setbranchNo('');
+  //     setiban('');
+  //     setbnkEmpCode('');
+  //     setswiftCode('');
+  //     setbankId({ id: 0, name: '' });
+  //     setavtr(avatarApi[11]);
+  //     setname('');
+  //   };
   async function on_submit() {
     try {
-      
       if (dataTable.length == 0) {
         toast.error('ُEnter Details data');
         return;
@@ -202,6 +191,7 @@ function EmpBankDetail(props) {
         bnkEmpCode: bnkEmpCode,
         bankName: bankId.name,
         swiftCode: swiftCode,
+        bnkAcc: bnkAcc,
       };
 
       let response = await Apidata(locale).SaveData(data, dataTable);
@@ -211,8 +201,7 @@ function EmpBankDetail(props) {
       } else {
         toast.error(response.statusText);
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   }
   return (
     <main
@@ -284,13 +273,11 @@ function EmpBankDetail(props) {
                         option.name ? option.name : ''
                       }
                       onChange={(event, value) => {
-                        
-                          setbankId((prevFilters) => ({
-                            ...prevFilters,
-                            id: value !== null?value.id:0,
-                            name: value !== null?value.name:'',
-                          }));
-                        
+                        setbankId((prevFilters) => ({
+                          ...prevFilters,
+                          id: value !== null ? value.id : 0,
+                          name: value !== null ? value.name : '',
+                        }));
                       }}
                       renderInput={(params) => (
                         <TextField
@@ -306,7 +293,6 @@ function EmpBankDetail(props) {
                   <Grid item xs={6} sm={6}>
                     <TextField
                       className={classes.field}
-                      // component={TextFieldRedux}
                       placeholder="bnkAcc" //{intl.formatMessage(messages.bnkAcc)}
                       label="bnkAcc" //{intl.formatMessage(messages.bnkAcc)}
                       value={bnkAcc}
@@ -317,7 +303,6 @@ function EmpBankDetail(props) {
                   <Grid item xs={6} sm={6}>
                     <TextField
                       name="name"
-                      // component={TextFieldRedux}
                       placeholder="branchNo" //{intl.formatMessage(messages.branchNo)}
                       label="branchNo" //{intl.formatMessage(messages.branchNo)}
                       // validate={required}
@@ -330,7 +315,6 @@ function EmpBankDetail(props) {
                   <Grid item xs={6} sm={6}>
                     <TextField
                       name="title"
-                      // component={TextFieldRedux}
                       placeholder="bnkEmpCode" //{intl.formatMessage(messages.bnkEmpCode)}
                       label="bnkEmpCode" //{intl.formatMessage(messages.bnkEmpCode)}
                       className={classes.field}
@@ -341,7 +325,6 @@ function EmpBankDetail(props) {
                   <Grid item xs={6} sm={6}>
                     <TextField
                       name="phone"
-                      // component={TextFieldRedux}
                       placeholder="iban" //{intl.formatMessage(messages.iban)}
                       // type="tel"
                       label="iban" //{intl.formatMessage(messages.iban)}
@@ -353,7 +336,6 @@ function EmpBankDetail(props) {
                   <Grid item xs={6} sm={6}>
                     <TextField
                       name="secondaryPhone"
-                      // component={TextFieldRedux}
                       placeholder={intl.formatMessage(messages.swiftCode)}
                       type="tel"
                       label={intl.formatMessage(messages.swiftCode)}
@@ -405,10 +387,6 @@ EmpBankDetail.propTypes = {
   loading: PropTypes.bool,
   dataContact: PropTypes.array.isRequired,
   itemSelected: PropTypes.number.isRequired,
-  edit: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
-  favorite: PropTypes.func.isRequired,
-  // hideDetail: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
 };
 
