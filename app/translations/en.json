@@ -1876,6 +1876,14 @@
   "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear_MonthAndTemplet":"You must to choose year , month and templet",
   "boilerplate.containers.Payroll.Payroll.PrintSalary":"Print Salary",
   "boilerplate.containers.Payroll.Payroll.PrintNamesOnly":"Print Names Only",
+
+
+  "boilerplate.containers.Payroll.Payroll.date":"Date",
+  "boilerplate.containers.Payroll.Payroll.BasicLoan":"Basic Loan",
+  "boilerplate.containers.Payroll.Payroll.paid":"Paid",
+  "boilerplate.containers.Payroll.Payroll.outstanding":"Outstanding",
+  "boilerplate.containers.Payroll.Payroll.Notes":"Notes",
+  "boilerplate.containers.Payroll.Payroll.EndedLoans":"Ended Loans",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

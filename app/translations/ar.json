@@ -1942,6 +1942,13 @@
     "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear_MonthAndTemplet":"يجب عليك اختيار السنة و الشهر و القالب",
     "boilerplate.containers.Payroll.Payroll.PrintSalary":"طباعة المرتب",
     "boilerplate.containers.Payroll.Payroll.PrintNamesOnly":"طباعة الاسماء فقط",
+
+    "boilerplate.containers.Payroll.Payroll.date":"التاريخ",
+    "boilerplate.containers.Payroll.Payroll.BasicLoan":"اصل السلفة",
+    "boilerplate.containers.Payroll.Payroll.paid":"مدفوع",
+    "boilerplate.containers.Payroll.Payroll.outstanding":"المتبقى",
+    "boilerplate.containers.Payroll.Payroll.Notes":"ملاحظات",
+    "boilerplate.containers.Payroll.Payroll.EndedLoans":"انتهاء السلفة",
     
     
   
