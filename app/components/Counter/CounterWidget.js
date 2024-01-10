@@ -87,7 +87,53 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     '& svg': {
       color: theme.palette.secondary.light,
     },
-  }
+  },
+  firstCard: {
+    border: `1px solid #4dd167`,
+    [`& .${classes.title}, .${classes.counter}`]: {
+      color: '#4dd167',
+    },
+    '& svg': {
+      color: '#4dd167',
+    },
+  },
+  secondCard: {
+    
+    border: `1px solid #429ff3`,
+    [`& .${classes.title}, .${classes.counter}`]: {
+      color: '#429ff3',
+    },
+    '& svg': {
+      color: '#429ff3',
+    },
+},
+thirdCard: {
+  border: `1px solid #f066f3`,
+  [`& .${classes.title}, .${classes.counter}`]: {
+    color: '#f066f3',
+  },
+  '& svg': {
+    color: '#f066f3',
+  },
+},
+forthCard: {
+  border: `1px solid #ebc60f`,
+  [`& .${classes.title}, .${classes.counter}`]: {
+    color: '#ebc60f',
+  },
+  '& svg': {
+    color: '#ebc60f',
+  },
+},
+fifthCard: {
+  border: `1px solid #f40e0c `,
+  [`& .${classes.title}, .${classes.counter}`]: {
+    color:  '#f40e0c',
+  },
+  '& svg': {
+    color:  '#f40e0c',
+  },
+},
 }));
 
 function CounterWidget(props) {
@@ -122,9 +168,25 @@ function CounterWidget(props) {
         return classes.primaryMain;
     }
   };
+  const bgColor2 = clr => {
+    switch (clr) {
+      case 'firstCard':
+        return classes.firstCard;
+      case 'secondCard':
+        return classes.secondCard;
+      case 'thirdCard':
+        return classes.thirdCard;
+      case 'forthCard':
+        return classes.forthCard;
+      case 'fifthCard':
+        return classes.fifthCard;
+      default:
+        return classes.primaryMain;
+    }
+  };
 
   return (
-    <Paper className={cx(classes.root, bgColor(color))}>
+    <Paper className={cx(classes.root, bgColor2(color))}>
       <div>
         <Typography className={classes.counter}>
           { unitBefore }

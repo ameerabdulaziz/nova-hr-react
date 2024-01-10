@@ -20,7 +20,7 @@ function CounterIconWidget(props) {
       <Grid container spacing={2}>
         <Grid item xs={6} md={2.4}>
           <CounterWidget
-            color="secondary-main"
+            color="firstCard"
             start={0}
             end={207}
             duration={3}
@@ -31,7 +31,7 @@ function CounterIconWidget(props) {
         </Grid>
         <Grid item xs={6} md={2.4}>
           <CounterWidget
-            color="secondary-main"
+            color="secondCard"
             start={0}
             end={207}
             duration={3}
@@ -42,7 +42,7 @@ function CounterIconWidget(props) {
         </Grid>
         <Grid item xs={6} md={2.4}>
           <CounterWidget
-            color="secondary-main"
+            color="thirdCard"
             start={0}
             end={300}
             duration={3}
@@ -54,7 +54,7 @@ function CounterIconWidget(props) {
         </Grid>
         <Grid item xs={6} md={2.4}>
           <CounterWidget
-            color="secondary-main"
+            color="forthCard"
             start={0}
             end={67}
             duration={3}
@@ -65,7 +65,7 @@ function CounterIconWidget(props) {
         </Grid>
         <Grid item xs={6} md={2.4}>
           <CounterWidget
-            color="secondary-main"
+            color="fifthCard"
             start={0}
             end={70}
             duration={3}
