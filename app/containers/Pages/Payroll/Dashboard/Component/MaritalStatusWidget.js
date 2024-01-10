@@ -1,7 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "enl-styles/vendors/react-weather/GenericWeather.css";
-import { PieChart, Pie, Cell, Tooltip, Legend,ResponsiveContainer } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import {
   purple,
   red,
@@ -13,32 +19,44 @@ import {
 } from "@mui/material/colors";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import PapperBlock from "../PapperBlock/PapperBlock";
+import { PapperBlock } from "enl-components";
 import useStyles from "./fluidChart-jss";
-import FilterCenterFocus from "@mui/icons-material/PieChart";
+import FilterCenterFocus from "@mui/icons-material/PieChartOutlineRounded";
 import Divider from "@mui/material/Divider";
 import messages from "./messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import ThemePallete from "enl-api/palette/themePalette";
 import { createTheme } from "@mui/material/styles";
 
-function OrganizationWidget(props) {
+function MaritalStatusWidget(props) {
   const { classes, cx } = useStyles();
   const data6 = [
     {
-      name: "Top Management",
-      value: 400,
+      name: "Single",
+      value: 50,
     },
     {
-      name: "Classified Employee",
-      value: 300,
+      name: "Married",
+      value: 40,
     },
     {
-      name: "Non Classified Employee",
-      value: 300,
+      name: "Divorced",
+      value: 60,
+    },
+    {
+      name: "Widowed",
+      value: 10,
     },
   ];
-  const colors = [purple[500], indigo[500], blue[500]];
+  const colors = [
+    red[500],
+    pink[500],
+    purple[500],
+    indigo[500],
+    blue[500],
+    cyan[500],
+    teal[500],
+  ];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -84,17 +102,13 @@ function OrganizationWidget(props) {
     percent: 0,
   };
   const theme = createTheme(ThemePallete.purpleTheme);
-  const color = {
-    primary: theme.palette.primary.main,
-    secondary: theme.palette.secondary.main,
-  };
 
   return (
     <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
       <Grid item md={12} xs={12}>
         <Typography className={classes.smallTitle} variant="button">
           <FilterCenterFocus className={classes.leftIcon} />
-          <FormattedMessage {...messages.orgchar} />
+          <FormattedMessage {...messages.marital} />
         </Typography>
         <Divider className={classes.divider} />
         <div className={classes.chartWrap}>
@@ -104,21 +118,16 @@ function OrganizationWidget(props) {
                 width={350}
                 height={350}
                 margin={{
-                  top: 5,
-                  //right: 20,
                   left: 20,
-                  bottom: 2,
+                  bottom: 5,
                 }}
               >
                 <Legend layout="horizontal" verticalAlign="top" align="left" />
                 <Pie
-                  dataKey="value"
                   data={data6}
-                  labelLine={false}
-                  label={renderCustomizedLabel}
+                  dataKey="value"
+                  innerRadius={50}
                   outerRadius={100}
-                  fill="#8884d8"
-                  legendType="circle"
                 >
                   {data6.map((entry, index) => (
                     <Cell
@@ -137,4 +146,4 @@ function OrganizationWidget(props) {
   );
 }
 
-export default OrganizationWidget;
+export default MaritalStatusWidget;

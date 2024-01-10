@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { injectIntl, FormattedMessage } from "react-intl";
 import messages from "./messages";
-import PapperBlock from "../PapperBlock/PapperBlock";
+import { PapperBlock } from "enl-components";
 import Divider from "@mui/material/Divider";
 import BarCharticon from "@mui/icons-material/BarChart";
 import {

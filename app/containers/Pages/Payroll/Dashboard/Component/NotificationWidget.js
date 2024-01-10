@@ -37,7 +37,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import messages from "./messages";
 import useStyles from "./widget-jss";
 import Grid from "@mui/material/Grid";
-import PapperBlock from "../PapperBlock/PapperBlock";
+import { PapperBlock } from "enl-components";
 import Divider from "@mui/material/Divider";
 import FilterCenterFocus from "@mui/icons-material/FilterCenterFocus";
 
