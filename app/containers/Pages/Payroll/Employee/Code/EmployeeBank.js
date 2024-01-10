@@ -18,13 +18,6 @@ import Avatar from '@mui/material/Avatar';
 import useStyles from '../component/EmpBank-jss';
 import { TextField, Autocomplete } from '@mui/material';
 
-import {
-  submitAction,
-  editAction,
-  removeAction,
-  addToFavoriteAction,
-  closeNotifAction,
-} from '../../../../../../app/containers/SampleApps/Contact/reducers/contactActions';
 import data from '../api/contactData';
 import GeneralListApis from '../../api/GeneralListApis';
 import { useLocation } from 'react-router-dom';
@@ -43,7 +36,7 @@ function Contact() {
   const locale = useSelector((state) => state.language.locale);
   const [showMobileDetail, setshowMobileDetail] = useState(false);
   const messageNotif = useSelector((state) => state.contact.notifMsg);
-  // const [employee, setEmployee] = useState(0);
+
   const [employeeList, setEmployeeList] = useState([]);
   const [BankList, setBankList] = useState([]);
 
@@ -54,9 +47,6 @@ function Contact() {
 
       const bnkdata = await data(locale).GetBankLookup(employee.id);
       setBankList(bnkdata || []);
-
-      //   if (empdata && empdata.length > 0)
-      //     setEmployee({ id: empdata[0].id, name: empdata[0].name });
     }
     fetchEmployee();
   }, []);
@@ -203,9 +193,6 @@ function Contact() {
           bnkList={BankList}
           dataContact={dataContact}
           itemSelected={itemSelected}
-          edit={(payload) => edit(editAction(payload))}
-          remove={(payload) => remove(removeAction(payload))}
-          favorite={(payload) => favorite(addToFavoriteAction(payload))}
         />
       </div>
     </div>
