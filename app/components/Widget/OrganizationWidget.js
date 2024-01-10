@@ -123,7 +123,7 @@ function OrganizationWidget(props) {
             data={data6}
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={160}
+            outerRadius={100}
             fill="#8884d8" 
             legendType="circle"
           >

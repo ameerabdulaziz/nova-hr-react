@@ -116,7 +116,7 @@ function MaritalStatusWidget(props) {
           }}
         >
           <Legend layout="horizontal" verticalAlign="top" align="left" />
-          <Pie data={data6}   dataKey="value"   innerRadius={80} outerRadius={160} >
+          <Pie data={data6}   dataKey="value"   innerRadius={50} outerRadius={100} >
           {data6.map((entry, index) => (
               <Cell
                 key={index.toString()}

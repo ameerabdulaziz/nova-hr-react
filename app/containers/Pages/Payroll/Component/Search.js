@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect ,useCallback} from "react";
+import React, { memo, useState, useEffect, useCallback } from "react";
 import Payrollmessages from "../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import useStyles from "../Style";
@@ -11,14 +11,21 @@ import { Grid, TextField, Autocomplete } from "@mui/material";
 import { format } from "date-fns";
 
 function Search(props) {
-  const { intl, setsearchData, searchData, notShowDate,setIsLoading, notShowStatus } = props;
+  const {
+    intl,
+    setsearchData,
+    searchData,
+    notShowDate,
+    setIsLoading,
+    notShowStatus,
+  } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
   const [OrganizationList, setOrganizationList] = useState([]);
   const [statusList, setStatusList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
-  
-  const handleChange =  useCallback(async(name, value) => {
+
+  const handleChange = useCallback(async (name, value) => {
     if (name == "fromDate")
       setsearchData((prevFilters) => ({
         ...prevFilters,
@@ -37,14 +44,17 @@ function Search(props) {
         EmployeeId: value,
       }));
 
-    if (name == "organizationId")
-    {
-      const employees = await GeneralListApis(locale).GetEmployeeListByDepartment(value);
-      setEmployeeList(employees);
+    if (name == "organizationId") {
+      if (value) {
+        const employees = await GeneralListApis(
+          locale
+        ).GetEmployeeListByDepartment(value);
+        setEmployeeList(employees);
+      }
       setsearchData((prevFilters) => ({
         ...prevFilters,
         OrganizationId: value,
-        EmployeeId:0
+        EmployeeId: 0,
       }));
     }
 
@@ -56,15 +66,17 @@ function Search(props) {
   }, []);
 
   async function fetchData() {
-    try{
-    const employees = await GeneralListApis(locale).GetEmployeeList();
-    setEmployeeList(employees);
-    const organizations = await GeneralListApis(locale).GetDepartmentList();
-    setOrganizationList(organizations);
-    const status = await GeneralListApis(locale).GetEmpStatusList();
-    setStatusList(status);
-    }catch(err){}
-    finally{setIsLoading(false);}
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   }
   useEffect(() => {
     fetchData();
@@ -152,32 +164,42 @@ function Search(props) {
             )}
           />
         </Grid>
-        {notShowStatus ? 
+        {notShowStatus ? (
           ""
-        
-        :(
-        <Grid item xs={12} md={2}>
-          <Autocomplete
-            id="EmpStatusId"
-            options={statusList}
-            value={
-              statusList.length > 0 && statusList.find((item) => item.id === searchData.EmpStatusId)!==undefined
-                ? statusList.find((item) => item.id === searchData.EmpStatusId)
-                : { id: 0, name: "" }
-            }
-            isOptionEqualToValue={(option, value) =>{return option.id === value.id || value.id === 0 || value.id === ""}}
-            getOptionLabel={(option) => (option.name ? option.name : "")}
-            onChange={(event, value) => {handleChange("statusId", value == null ? "" : value.id);}}
-            renderInput={(params) => (
-              <TextField
-                variant="outlined"
-                {...params}
-                name="EmpStatusId"
-                label={intl.formatMessage(Payrollmessages.Empstatus)}
-              />
-            )}
-          />
-        </Grid>
+        ) : (
+          <Grid item xs={12} md={2}>
+            <Autocomplete
+              id="EmpStatusId"
+              options={statusList}
+              value={
+                statusList.length > 0 &&
+                statusList.find(
+                  (item) => item.id === searchData.EmpStatusId
+                ) !== undefined
+                  ? statusList.find(
+                      (item) => item.id === searchData.EmpStatusId
+                    )
+                  : { id: 0, name: "" }
+              }
+              isOptionEqualToValue={(option, value) => {
+                return (
+                  option.id === value.id || value.id === 0 || value.id === ""
+                );
+              }}
+              getOptionLabel={(option) => (option.name ? option.name : "")}
+              onChange={(event, value) => {
+                handleChange("statusId", value == null ? "" : value.id);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  name="EmpStatusId"
+                  label={intl.formatMessage(Payrollmessages.Empstatus)}
+                />
+              )}
+            />
+          </Grid>
         )}
       </Grid>
     </div>
