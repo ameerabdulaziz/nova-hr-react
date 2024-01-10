@@ -886,5 +886,30 @@ export default defineMessages({
     id: `${scope}.PrintNamesOnly`,
     defaultMessage: "Print Names Only",
   }, 
+  // LoanReport
+  date: {
+    id: `${scope}.date`,
+    defaultMessage: "Date",
+  }, 
+  BasicLoan: {
+    id: `${scope}.BasicLoan`,
+    defaultMessage: "Basic Loan",
+  }, 
+  paid: {
+    id: `${scope}.paid`,
+    defaultMessage: "Paid",
+  }, 
+  outstanding: {
+    id: `${scope}.outstanding`,
+    defaultMessage: "Outstanding",
+  }, 
+  Notes: {
+    id: `${scope}.Notes`,
+    defaultMessage: "Notes",
+  }, 
+  EndedLoans: {
+    id: `${scope}.EndedLoans`,
+    defaultMessage: "Ended Loans",
+  }, 
 });
 

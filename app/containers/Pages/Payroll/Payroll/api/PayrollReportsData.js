@@ -76,6 +76,17 @@ const PayrollReportsData = (locale) => {
     return result;
   };
 
+
+  Apis.LoanReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `PayrollReport/GetLoanReport/${locale}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
   return Apis;
 };
 
