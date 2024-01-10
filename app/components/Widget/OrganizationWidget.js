@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "enl-styles/vendors/react-weather/GenericWeather.css";
-import { PieChart, Pie, Cell,Tooltip,Legend
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, Legend,ResponsiveContainer } from "recharts";
 import {
   purple,
   red,
@@ -15,16 +14,15 @@ import {
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import PapperBlock from "../PapperBlock/PapperBlock";
-import useStyles from "./widget-jss";
+import useStyles from "./fluidChart-jss";
 import FilterCenterFocus from "@mui/icons-material/PieChart";
 import Divider from "@mui/material/Divider";
 import messages from "./messages";
 import { injectIntl, FormattedMessage } from "react-intl";
-import ThemePallete from 'enl-api/palette/themePalette';
-import { createTheme } from '@mui/material/styles';
+import ThemePallete from "enl-api/palette/themePalette";
+import { createTheme } from "@mui/material/styles";
 
 function OrganizationWidget(props) {
-  
   const { classes, cx } = useStyles();
   const data6 = [
     {
@@ -39,15 +37,8 @@ function OrganizationWidget(props) {
       name: "Non Classified Employee",
       value: 300,
     },
-   
   ];
-  const colors = [
-   
-    purple[500],
-    indigo[500],
-    blue[500],
-    
-  ];
+  const colors = [purple[500], indigo[500], blue[500]];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -93,51 +84,55 @@ function OrganizationWidget(props) {
     percent: 0,
   };
   const theme = createTheme(ThemePallete.purpleTheme);
-  const color = ({
+  const color = {
     primary: theme.palette.primary.main,
     secondary: theme.palette.secondary.main,
-  });
+  };
 
   return (
-    <PapperBlock whiteBg noMargin title={""} icon="timeline" desc=""> 
-    <Grid item md={12} xs={12}>
-          <Typography className={classes.smallTitle} variant="button">
-            <FilterCenterFocus className={classes.leftIcon} />
-            <FormattedMessage {...messages.orgchar} />
-          </Typography>
-          <Divider className={classes.divider} />
-     
-        <PieChart
-          width={350}
-          height={400}
-          margin={{
-            top: 5,
-            //right: 20,
-            left: 20,
-            bottom: 2,
-          }}
-        >
-          <Legend layout="horizontal" verticalAlign="top" align="left" />
-          <Pie
-            dataKey="value"
-            data={data6}
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius={100}
-            fill="#8884d8" 
-            legendType="circle"
-          >
-            {data6.map((entry, index) => (
-              <Cell
-                key={index.toString()}
-                fill={colors[index % colors.length]}
-              />
-            ))}
-            
-          </Pie>
-           <Tooltip />
-        </PieChart>
-        </Grid>
+    <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
+      <Grid item md={12} xs={12}>
+        <Typography className={classes.smallTitle} variant="button">
+          <FilterCenterFocus className={classes.leftIcon} />
+          <FormattedMessage {...messages.orgchar} />
+        </Typography>
+        <Divider className={classes.divider} />
+        <div className={classes.chartWrap}>
+          <div className={classes.bichartFluid}>
+            <ResponsiveContainer width={350} height="80%">
+              <PieChart
+                width={350}
+                height={350}
+                margin={{
+                  top: 5,
+                  //right: 20,
+                  left: 20,
+                  bottom: 2,
+                }}
+              >
+                <Legend layout="horizontal" verticalAlign="top" align="left" />
+                <Pie
+                  dataKey="value"
+                  data={data6}
+                  labelLine={false}
+                  label={renderCustomizedLabel}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  legendType="circle"
+                >
+                  {data6.map((entry, index) => (
+                    <Cell
+                      key={index.toString()}
+                      fill={colors[index % colors.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </Grid>
     </PapperBlock>
   );
 }

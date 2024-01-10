@@ -67,51 +67,57 @@ function GenderWidget(props) {
           <FormattedMessage {...messages.gendercahrt} />
         </Typography>
         <Divider className={classes.divider} />
-        <div className={classes.chartFluid}>
-          <ResponsiveContainer width={600} height="80%">
-            <LineChart
-              width={550}
-              height={398}
-              data={data1}
-              margin={{
-                top: 70,
-                right: 40,
-                left: 0,
-                bottom: 5,
-              }}
-            >
-              <XAxis dataKey="name" tickLine={false} />
-              <YAxis
-                axisLine={false}
-                tickSize={3}
-                tickLine={false}
-                tick={{ stroke: "none" }}
-              />
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <CartesianAxis vertical={false} />
-              <Tooltip />
-              <Legend iconType="circle" verticalALign="bottom" iconSize={10} />
-              <Line
-                type="monotone"
-                dataKey="male"
-                strokeWidth={5}
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="female"
-                strokeWidth={5}
-                stroke="#82ca9d"
-              />
-              <Line
-                type="monotone"
-                dataKey="all"
-                strokeWidth={5}
-                stroke="#b3d4fc"
-              />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className={classes.chartWrap}>
+          <div className={classes.chartFluid}>
+            <ResponsiveContainer width={550} height="80%">
+              <LineChart
+                width={550}
+                height={398}
+                data={data1}
+                margin={{
+                  top: 70,
+                  right: 40,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <XAxis dataKey="name" tickLine={false} />
+                <YAxis
+                  axisLine={false}
+                  tickSize={3}
+                  tickLine={false}
+                  tick={{ stroke: "none" }}
+                />
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <CartesianAxis vertical={false} />
+                <Tooltip />
+                <Legend
+                  iconType="circle"
+                  verticalALign="bottom"
+                  iconSize={10}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="male"
+                  strokeWidth={5}
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="female"
+                  strokeWidth={5}
+                  stroke="#82ca9d"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="all"
+                  strokeWidth={5}
+                  stroke="#b3d4fc"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </PapperBlock>

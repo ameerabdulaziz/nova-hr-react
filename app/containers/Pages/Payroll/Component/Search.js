@@ -45,16 +45,20 @@ function Search(props) {
       }));
 
     if (name == "organizationId") {
+      debugger ;
+      var employees = [];
       if (value) {
-        const employees = await GeneralListApis(
-          locale
-        ).GetEmployeeListByDepartment(value);
-        setEmployeeList(employees);
+        employees = await GeneralListApis(locale).GetEmployeeListByDepartment(
+          value
+        );
+      } else {
+        employees = await GeneralListApis(locale).GetEmployeeList();
       }
+      setEmployeeList(employees);
       setsearchData((prevFilters) => ({
         ...prevFilters,
         OrganizationId: value,
-        EmployeeId: 0,
+        EmployeeId: "",
       }));
     }
 
@@ -129,6 +133,13 @@ function Search(props) {
             isOptionEqualToValue={(option, value) =>
               value.id === 0 || value.id === "" || option.id === value.id
             }
+            value={
+              searchData.OrganizationId
+                ? OrganizationList.find(
+                    (item) => item.id === searchData.OrganizationId
+                  )
+                : null
+            }
             getOptionLabel={(option) => (option.name ? option.name : "")}
             onChange={(event, value) => {
               handleChange("organizationId", value == null ? "" : value.id);
@@ -149,6 +160,13 @@ function Search(props) {
             options={EmployeeList}
             isOptionEqualToValue={(option, value) =>
               value.id === 0 || value.id === "" || option.id === value.id
+            }
+            value={
+              searchData.EmployeeId
+                ? EmployeeList.find(
+                    (item) => item.id === searchData.EmployeeId
+                  )
+                : null
             }
             getOptionLabel={(option) => (option.name ? option.name : "")}
             onChange={(event, value) => {

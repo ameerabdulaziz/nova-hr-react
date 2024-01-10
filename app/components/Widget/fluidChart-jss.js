@@ -3,8 +3,17 @@ import { makeStyles } from 'tss-react/mui';
 const useStyles = makeStyles()((theme, _params, classes) => ({
   chartFluid: {
     width: '100%',
-    minWidth: 500,
+    minWidth: 550,
     height: 398
+  },
+  bichartFluid: {
+    width: '100%',
+    minWidth: 350,
+    height: 350
+  },
+  chartWrap: {
+    overflow: 'auto',
+    marginTop: theme.spacing(2)
   },
   smallTitle: {
     padding: `0 ${theme.spacing(2)}`,

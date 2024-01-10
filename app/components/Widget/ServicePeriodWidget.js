@@ -33,31 +33,44 @@ import useStyles from "./fluidChart-jss";
 
 export const data2 = [
   {
-    name: 'Year1',    
+    name: "Year1",
     count: 2400,
-  }, {
-    name: 'Year2',    
+  },
+  {
+    name: "Year2",
     count: 1398,
-  }, {
-    name: 'Year3',
+  },
+  {
+    name: "Year3",
     count: 9800,
-  }, {
-    name: 'Year4',
+  },
+  {
+    name: "Year4",
     count: 3908,
-  }, {
-    name: 'Year5',
+  },
+  {
+    name: "Year5",
     count: 4800,
-  }, {
-    name: 'Year6',
+  },
+  {
+    name: "Year6",
     count: 3800,
-  }, {
-    name: 'Year7',
+  },
+  {
+    name: "Year7",
     count: 4300,
   },
 ];
 
-
-const colors = [red[500], pink[500], purple[500], indigo[500], blue[500], cyan[500], teal[500]];
+const colors = [
+  red[500],
+  pink[500],
+  purple[500],
+  indigo[500],
+  blue[500],
+  cyan[500],
+  teal[500],
+];
 
 const getPath = (x, y, width, height) =>
   `M${x},${y + height}
@@ -109,44 +122,46 @@ function ServicePeriodWidget(props) {
           <FormattedMessage {...messages.ServicePeriodcahrt} />
         </Typography>
         <Divider className={classes.divider} />
-        <div className={classes.chartFluid}>
-          <ResponsiveContainer width={600} height="80%">
-            <BarChart
-              width={600}
-              height={398}
-              data={data2}
-              margin={{
-                top: 70,
-                right: 40,
-                left: 0,
-                bottom: 5,
-              }}
-            >
-              <XAxis dataKey="name" tickLine={false} />
-              <YAxis
-                axisLine={false}
-                tickSize={3}
-                tickLine={false}
-                tick={{ stroke: "none" }}
-              />
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <CartesianAxis vertical={false} />
-              <Tooltip />
-              <Bar
-                dataKey="count"
-                fill="#8884d8"
-                shape={<TriangleBar />}
-                label={{ position: "top" }}
+        <div className={classes.chartWrap}>
+          <div className={classes.chartFluid}>
+            <ResponsiveContainer width={550} height="80%">
+              <BarChart
+                width={550}
+                height={398}
+                data={data2}
+                margin={{
+                  top: 70,
+                  right: 40,
+                  left: 0,
+                  bottom: 5,
+                }}
               >
-                {data2.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index.toString()}`}
-                    fill={colors[index % 20]}
-                  />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+                <XAxis dataKey="name" tickLine={false} />
+                <YAxis
+                  axisLine={false}
+                  tickSize={3}
+                  tickLine={false}
+                  tick={{ stroke: "none" }}
+                />
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <CartesianAxis vertical={false} />
+                <Tooltip />
+                <Bar
+                  dataKey="count"
+                  fill="#8884d8"
+                  shape={<TriangleBar />}
+                  label={{ position: "top" }}
+                >
+                  {data2.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index.toString()}`}
+                      fill={colors[index % 20]}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </PapperBlock>
