@@ -186,7 +186,7 @@ useEffect(() => {
             <form>
 
             <Grid
-              container
+              // container
               spacing={3}
               alignItems="flex-start"
               direction="row">
@@ -227,7 +227,7 @@ useEffect(() => {
                             <TextField
                                 {...params}
                                 name="Organization"
-                                label={intl.formatMessage(messages.Organization) }
+                                label={intl.formatMessage(messages.company) }
                                 margin="normal" 
                                 className={style.fieldsSty}
                                 required

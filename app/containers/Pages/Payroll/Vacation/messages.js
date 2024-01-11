@@ -538,4 +538,9 @@ LeaveType: {
   id: `${scope}.Transaction.LeaveType`,
   defaultMessage: "Leave type",
 },
+// OpeningClosingTheYearForLeaves
+company: {
+  id: `${scope}.Transaction.company`,
+  defaultMessage: "Company",
+},
 });

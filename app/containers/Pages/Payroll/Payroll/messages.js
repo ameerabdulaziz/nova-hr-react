@@ -295,7 +295,7 @@ export default defineMessages({
 
   // BranchSalarySetting
   payrollMainParameters: {
-    id: `${scope}MainParameters`,
+    id: `${scope}.payrollMainParameters`,
     defaultMessage: "Payroll Main Parameters",
   },
   Department: {
@@ -910,6 +910,11 @@ export default defineMessages({
   EndedLoans: {
     id: `${scope}.EndedLoans`,
     defaultMessage: "Ended Loans",
+  }, 
+  // SalaryComparisonReport
+  YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement: {
+    id: `${scope}.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement`,
+    defaultMessage: "You must to choose all years , all months and at least one element",
   }, 
 });
 

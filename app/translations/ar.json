@@ -1005,6 +1005,7 @@
   "boilerplate.containers.Payroll.applynewshift": "تطبيق الوردية الجديده",
   "boilerplate.containers.Payroll.employees": "عرض الموظفين",
   "boilerplate.containers.Payroll.VacationName": "الاجازة",
+  "boilerplate.containers.Payroll.company": "الشركة",
 
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
@@ -1949,6 +1950,8 @@
     "boilerplate.containers.Payroll.Payroll.outstanding":"المتبقى",
     "boilerplate.containers.Payroll.Payroll.Notes":"ملاحظات",
     "boilerplate.containers.Payroll.Payroll.EndedLoans":"انتهاء السلفة",
+
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement":"يجب عليك اختيار كل السنوات وكل الشهور وعنصر واحد على الأقل",
     
     
   
@@ -2318,6 +2321,7 @@
   "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "تاريخ البدء يأتي بعد تاريخ الانتهاء",
 
   "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "نوع الإجازة",
+  "boilerplate.containers.Payroll.vac.Transaction.company": "الشركة",
 
   "boilerplate.containers.Payroll.insurance.saveConfirmMessage": "قيمة الربط الأساسي تزيد على الحد الاقصى له ، هل تريد الاستمرار؟",
   "boilerplate.containers.Payroll.insurance.updateSalaryRoundingMessage": "تقريب القيمة: سيتم تجاهل القيم الأقل من أو تساوي 20 وسيتم تقريب القيم الأكبر إلى 100",

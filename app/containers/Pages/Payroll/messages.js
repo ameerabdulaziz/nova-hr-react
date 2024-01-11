@@ -546,4 +546,8 @@ employeeId: {
     id: `${scope}.december`,
     defaultMessage: 'december',
   },
+  company: {
+    id: `${scope}.company`,
+    defaultMessage: 'Company',
+  },
 });

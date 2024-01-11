@@ -201,7 +201,7 @@ function ElementTaxIns(props) {
                     {...params}
                     name="brCode"
                     required
-                    label={intl.formatMessage(Payrollmessages.organizationName)}
+                    label={intl.formatMessage(Payrollmessages.company)}
                   />
                 )}
               />

@@ -20,6 +20,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SaveButton from '../../Component/SaveButton';
 import PayRollLoader from '../../Component/PayRollLoader';
 import {Box, Card ,CardContent, InputAdornment } from "@mui/material";
+import Payrollmessages from "../../messages";
 
 
 
@@ -245,7 +246,7 @@ function BranchSalarySetting(props) {
                         {...params}
                         name="brCode"
                         required
-                        label={intl.formatMessage(messages.Department)}
+                        label={intl.formatMessage(Payrollmessages.company)}
                       />
                     )}
                   />

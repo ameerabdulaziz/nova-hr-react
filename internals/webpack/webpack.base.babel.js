@@ -32,6 +32,10 @@ module.exports = options => ({
         test: /\.js$/,
         enforce: 'pre',
         use: ['source-map-loader'],
+        // used to run build
+        resolve: {
+          fullySpecified: false,
+        },
       },
       {
         // Preprocess our own .css files
