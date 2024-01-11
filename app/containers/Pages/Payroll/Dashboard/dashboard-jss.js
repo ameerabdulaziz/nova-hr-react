@@ -5,7 +5,7 @@ const useStyles = makeStyles()((theme) => ({
     flexGrow: 1,
   },
   rootGeneral: {
-    padding: theme.spacing(3)
+    padding: theme.spacing(1)
   },
   divider: {
     margin: `${theme.spacing(1.5)} 0`,

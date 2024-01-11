@@ -6,21 +6,23 @@ import loadable from '../utils/loadable';
 export const HomePage = loadable(() => import('./LandingPage/HomePage'), {
   fallback: <Loading />,
 });
-// Dashboard
-export const AnalyticDashboard = loadable(
-  () => import('./Dashboard/AnalyticDashboard'),
+
+
+export const AdminDashboard = loadable(
+  () => import('./Pages/Payroll/Dashboard/AdminDashboard'),
   {
     fallback: <Loading />,
   }
 );
+
 export const MarketingDashboard = loadable(
-  () => import('./Dashboard/MarketingDashboard'),
+  () => import('./Pages/Payroll/Dashboard/MarketingDashboard'),
   {
     fallback: <Loading />,
   }
 );
 export const CryptoDashboard = loadable(
-  () => import('./Dashboard/CryptoDashboard'),
+  () => import('./Pages/Payroll/Dashboard/CryptoDashboard'),
   {
     fallback: <Loading />,
   }
@@ -1546,6 +1548,19 @@ export const LoanReqCreate = loadable(
 
       export const SalaryYearReport = loadable(
         () => import('./Pages/Payroll/Payroll/Reports/SalaryYearReport'),
+        {
+          fallback: <Loading />,
+        });
+
+
+      export const SalarySigningListReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/SalarySigningListReport'),
+        {
+          fallback: <Loading />,
+        });
+
+      export const LoanReport = loadable(
+        () => import('./Pages/Payroll/Payroll/Reports/LoanReport'),
         {
           fallback: <Loading />,
         });

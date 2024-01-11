@@ -18,13 +18,6 @@ import Avatar from '@mui/material/Avatar';
 import useStyles from '../component/EmpBank-jss';
 import { TextField, Autocomplete } from '@mui/material';
 
-import {
-  submitAction,
-  editAction,
-  removeAction,
-  addToFavoriteAction,
-  closeNotifAction,
-} from '../../../../../../app/containers/SampleApps/Contact/reducers/contactActions';
 import data from '../api/contactData';
 import GeneralListApis from '../../api/GeneralListApis';
 import { useLocation } from 'react-router-dom';
@@ -43,29 +36,23 @@ function Contact() {
   const locale = useSelector((state) => state.language.locale);
   const [showMobileDetail, setshowMobileDetail] = useState(false);
   const messageNotif = useSelector((state) => state.contact.notifMsg);
-  // const [employee, setEmployee] = useState(0);
+
   const [employeeList, setEmployeeList] = useState([]);
   const [BankList, setBankList] = useState([]);
 
   useEffect(() => {
     async function fetchEmployee() {
-      
       const empdata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(empdata || []);
 
       const bnkdata = await data(locale).GetBankLookup(employee.id);
       setBankList(bnkdata || []);
-
-      //   if (empdata && empdata.length > 0)
-      //     setEmployee({ id: empdata[0].id, name: empdata[0].name });
     }
     fetchEmployee();
   }, []);
 
   useEffect(() => {
     async function fetchData1() {
-      
-
       const dataApi = await data(locale).GetList(employee.id);
       setdata(dataApi);
       setitemSelected(-1);
@@ -80,6 +67,7 @@ function Contact() {
       if (data.name.toLowerCase().indexOf(keyword) === -1) {
         return false;
       }
+      // test
       return (
         <ListItem
           button
@@ -87,7 +75,7 @@ function Contact() {
           className={index === itemSelected ? classes.selected : ''}
           onClick={() => {
             //showDetail(data)
-            
+
             setitemSelected(index || 0);
             setshowMobileDetail(false);
           }}
@@ -162,11 +150,10 @@ function Contact() {
                       option.name ? option.name : ''
                     }
                     onChange={(event, value) => {
-                      
-                        setEmployee({
-                          id: value !== null?value.id:0,
-                          name: value !== null?value.name:'',
-                        });
+                      setEmployee({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : '',
+                      });
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -206,9 +193,6 @@ function Contact() {
           bnkList={BankList}
           dataContact={dataContact}
           itemSelected={itemSelected}
-          edit={(payload) => edit(editAction(payload))}
-          remove={(payload) => remove(removeAction(payload))}
-          favorite={(payload) => favorite(addToFavoriteAction(payload))}
         />
       </div>
     </div>

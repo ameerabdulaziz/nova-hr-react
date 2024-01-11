@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import SupervisorAccount from '@mui/icons-material/SupervisorAccount';
 import { injectIntl } from 'react-intl';
-import CounterWidget from '../Counter/CounterWidget';
+import CounterWidget from './CounterWidget';
 import messages from './messages';
 import useStyles from './widget-jss';
 import CoPresentSharpIcon from '@mui/icons-material/CoPresentSharp';

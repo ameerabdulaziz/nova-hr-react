@@ -1005,6 +1005,29 @@
   "boilerplate.containers.Payroll.copy": "Copy",
   "boilerplate.containers.Payroll.review": "Review",
 
+  "boilerplate.components.Widgets.CounterIconWidget.Employee": "Employees",  
+  "boilerplate.components.Widgets.CounterIconWidget.newHired": "New Hired",
+  
+  "boilerplate.components.Widgets.CounterIconWidget.inPropation": "In Propation",  
+  "boilerplate.components.Widgets.CounterIconWidget.resignation": "Resignation",  
+  "boilerplate.components.Widgets.CounterIconWidget.terminated": "Terminated",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.Vacations": "Vacations",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Overtime": "Overtime",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Mession": "Mession",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Permission": "Permission",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.rewards": "Rewards",
+  "boilerplate.components.Widgets.PerformanceChartWidget.penalty": "Penalty",
+  "boilerplate.components.Widgets.PerformanceChartWidget.notification1": "Notifications",  
+  "boilerplate.components.Widgets.PerformanceChartWidget.orgchar": "Work Classification Demographics",
+  "boilerplate.components.Widgets.PerformanceChartWidget.marital": "Marital Status Demographics",  
+  "boilerplate.components.Widgets.PerformanceChartWidget.ageChart": "Age Demographics",  
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithbestAtt": "Employees with best attendance",  
+  "boilerplate.components.Widgets.PerformanceChartWidget.gendercahrt": "Gender Ratio",  
+  "boilerplate.components.Widgets.PerformanceChartWidget.ServicePeriodcahrt": "Service Period Demographics",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Nationalitycahrt": "Nationality Demographics",
+
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
   "boilerplate.containers.Payroll.Setting.delete": "Delete",
@@ -1865,6 +1888,18 @@
   "boilerplate.containers.Payroll.Payroll.NetSalary":"Net Salary",
   "boilerplate.containers.Payroll.Payroll.EmployeeShare":"Employee Share",
   "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear":"You must to choose year",
+
+  "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear_MonthAndTemplet":"You must to choose year , month and templet",
+  "boilerplate.containers.Payroll.Payroll.PrintSalary":"Print Salary",
+  "boilerplate.containers.Payroll.Payroll.PrintNamesOnly":"Print Names Only",
+
+
+  "boilerplate.containers.Payroll.Payroll.date":"Date",
+  "boilerplate.containers.Payroll.Payroll.BasicLoan":"Basic Loan",
+  "boilerplate.containers.Payroll.Payroll.paid":"Paid",
+  "boilerplate.containers.Payroll.Payroll.outstanding":"Outstanding",
+  "boilerplate.containers.Payroll.Payroll.Notes":"Notes",
+  "boilerplate.containers.Payroll.Payroll.EndedLoans":"Ended Loans",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  

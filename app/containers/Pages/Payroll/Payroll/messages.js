@@ -935,6 +935,44 @@ export default defineMessages({
   },
   YouMustToChooseYear: {
     id: `${scope}.YouMustToChooseYear`,
-    defaultMessage: 'You must to choose year',
-  },
+    defaultMessage: "You must to choose year",
+  }, 
+  // SalarySigningListReport
+  YouMustToChooseYear_MonthAndTemplet: {
+    id: `${scope}.YouMustToChooseYear_MonthAndTemplet`,
+    defaultMessage: "You must to choose year , month and templet",
+  }, 
+  PrintSalary: {
+    id: `${scope}.PrintSalary`,
+    defaultMessage: "Print Salary",
+  }, 
+  PrintNamesOnly: {
+    id: `${scope}.PrintNamesOnly`,
+    defaultMessage: "Print Names Only",
+  }, 
+  // LoanReport
+  date: {
+    id: `${scope}.date`,
+    defaultMessage: "Date",
+  }, 
+  BasicLoan: {
+    id: `${scope}.BasicLoan`,
+    defaultMessage: "Basic Loan",
+  }, 
+  paid: {
+    id: `${scope}.paid`,
+    defaultMessage: "Paid",
+  }, 
+  outstanding: {
+    id: `${scope}.outstanding`,
+    defaultMessage: "Outstanding",
+  }, 
+  Notes: {
+    id: `${scope}.Notes`,
+    defaultMessage: "Notes",
+  }, 
+  EndedLoans: {
+    id: `${scope}.EndedLoans`,
+    defaultMessage: "Ended Loans",
+  }, 
 });

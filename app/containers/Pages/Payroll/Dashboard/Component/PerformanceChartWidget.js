@@ -41,7 +41,7 @@ import {
 import colorfull from "enl-api/palette/colorfull";
 import messages from "./messages";
 import useStyles from "./widget-jss";
-import PapperBlock from "../PapperBlock/PapperBlock";
+import { PapperBlock } from "enl-components";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import HistoryToggleOffSharpIcon from "@mui/icons-material/HistoryToggleOffSharp";
 import HikingSharpIcon from "@mui/icons-material/HikingSharp";

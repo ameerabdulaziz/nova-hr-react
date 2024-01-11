@@ -1029,6 +1029,31 @@
   
   
   
+  "boilerplate.components.Widgets.CounterIconWidget.Employee": "الموطفون",
+  "boilerplate.components.Widgets.CounterIconWidget.newHired": "الموظفون الجدد",
+  
+  "boilerplate.components.Widgets.CounterIconWidget.inPropation": "فترة اعداد",  
+  "boilerplate.components.Widgets.CounterIconWidget.resignation": "استقالة",  
+  "boilerplate.components.Widgets.CounterIconWidget.terminated": "الموقوفين",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Vacations": "الاجازات",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Overtime": "الاضافى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Mession": "المأموريات",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Permission": "الاذونات",
+  "boilerplate.components.Widgets.PerformanceChartWidget.rewards": "المكافئات",
+  "boilerplate.components.Widgets.PerformanceChartWidget.penalty": "الجزاءات",
+  "boilerplate.components.Widgets.PerformanceChartWidget.notification1": "التنبيهات",
+  "boilerplate.components.Widgets.PerformanceChartWidget.orgchar": "Work Classification Demographics",
+  "boilerplate.components.Widgets.PerformanceChartWidget.marital": "Marital Status Demographics",
+  "boilerplate.components.Widgets.PerformanceChartWidget.ageChart": "Age Demographics",
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithbestAtt": "Employees with best attendance",
+  "boilerplate.components.Widgets.PerformanceChartWidget.gendercahrt": "Gender Ratio",
+  "boilerplate.components.Widgets.PerformanceChartWidget.ServicePeriodcahrt": "Service Period Demographics",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Nationalitycahrt": "Nationality Demographics",
+  
+  
+  
+  
+  
   
 
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
@@ -1929,6 +1954,17 @@
     "boilerplate.containers.Payroll.Payroll.NetSalary":"صافى الدخل خلال العام",
     "boilerplate.containers.Payroll.Payroll.EmployeeShare":"اجمالى التامينات",
     "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear":"يجب عليك اختيار السنة",
+
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseYear_MonthAndTemplet":"يجب عليك اختيار السنة و الشهر و القالب",
+    "boilerplate.containers.Payroll.Payroll.PrintSalary":"طباعة المرتب",
+    "boilerplate.containers.Payroll.Payroll.PrintNamesOnly":"طباعة الاسماء فقط",
+
+    "boilerplate.containers.Payroll.Payroll.date":"التاريخ",
+    "boilerplate.containers.Payroll.Payroll.BasicLoan":"اصل السلفة",
+    "boilerplate.containers.Payroll.Payroll.paid":"مدفوع",
+    "boilerplate.containers.Payroll.Payroll.outstanding":"المتبقى",
+    "boilerplate.containers.Payroll.Payroll.Notes":"ملاحظات",
+    "boilerplate.containers.Payroll.Payroll.EndedLoans":"انتهاء السلفة",
     
     
   

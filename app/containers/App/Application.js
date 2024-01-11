@@ -226,9 +226,6 @@ import {
   WorkFlowCreate,
   WorkFlowList,
   RequestsList,
-  CreatePermission,
-  EditPermission,
-  Permissions,
   CreateVacationType,
   EditVacationType,
   VacationsTypes,
@@ -407,8 +404,11 @@ import {
   SalaryReport,
   FollowEmployeeReport,
   TaxReportReport,
+  AdminDashboard,
   TotalDeptSalaryReport,
   SalaryYearReport,
+  SalarySigningListReport,
+  LoanReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -419,7 +419,7 @@ function Application(props) {
     <Dashboard history={history} changeMode={changeMode}>
       <Switch>
         {/* Home */}
-        <Route exact path='/app' component={AnalyticDashboard} />
+        <Route exact path='/app' component={AdminDashboard} />
         <Route path='/app/dashboard/marketing' component={MarketingDashboard} />
         <Route path='/app/dashboard/crypto' component={CryptoDashboard} />
         {/* Widgets */}
@@ -1220,6 +1220,8 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/TaxReportReport' component={TaxReportReport} />
         <Route path='/app/Pages/Payroll/TotalDeptSalaryReport' component={TotalDeptSalaryReport} />
         <Route path='/app/Pages/Payroll/SalaryYearReport' component={SalaryYearReport} />
+        <Route path='/app/Pages/Payroll/SalarySigningListReport' component={SalarySigningListReport} />
+        <Route path='/app/Pages/Payroll/LoanReport' component={LoanReport} />
         
 
         {/* WorkFlow */}
