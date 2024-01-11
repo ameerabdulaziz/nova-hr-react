@@ -31,6 +31,7 @@ function SalarySigningListReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +43,8 @@ function SalarySigningListReport(props) {
     Cash: false,
     Insured: false,
     NotInsured: false,
-    PrintSalary: true
+    PrintSalary: true,
+    BranchId: branchId,
   });
   const [JobsList, setJobsList] = useState([]);
   const [Job, setJob] = useState(null);
@@ -193,6 +195,17 @@ function SalarySigningListReport(props) {
       setCurrencyList(currency)
       setMonthList(months)
       setYearList(years)
+
+
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setYear(response.yearId);
+        setMonth(response.monthId);
+      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -301,6 +314,7 @@ function SalarySigningListReport(props) {
                                 id="ddlMenu"   
                                 isOptionEqualToValue={(option, value) => option.id === value.id}                      
                                 options={MonthList.length != 0 ? MonthList: []}
+                                value={MonthList.find((item) => item.id === Month) ?? null}
                                 getOptionLabel={(option) =>(
                                     option  ? option.name : ""
                                 )
@@ -338,6 +352,7 @@ function SalarySigningListReport(props) {
                                     id="ddlMenu"   
                                     isOptionEqualToValue={(option, value) => option.id === value.id}                      
                                     options={YearList.length != 0 ? YearList: []}
+                                    value={YearList.find((item) => item.id === Year) ?? null}
                                     getOptionLabel={(option) =>(
                                         option  ? option.name : ""
                                     )

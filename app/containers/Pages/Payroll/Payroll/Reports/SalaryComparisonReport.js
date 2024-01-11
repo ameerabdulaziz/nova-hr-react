@@ -28,6 +28,7 @@ function SalaryComparisonReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName"); 
   const [isLoading, setIsLoading] = useState(true);
@@ -35,6 +36,7 @@ function SalaryComparisonReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: branchId,
   });
 
   const [MonthList, setMonthList] = useState([]);
@@ -128,6 +130,15 @@ function SalaryComparisonReport(props) {
       setMonthList(months)
       setYearList(years)
 
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setMonth1(response.monthId);
+        setYear1(response.yearId);
+      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -221,6 +232,7 @@ function SalaryComparisonReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={MonthList.length != 0 ? MonthList: []}
+                            value={MonthList.find((item) => item.id === Month1) ?? null}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )
@@ -258,6 +270,7 @@ function SalaryComparisonReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={YearList.length != 0 ? YearList: []}
+                            value={MonthList.find((item) => item.id === Year1) ?? null}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )

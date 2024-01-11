@@ -36,6 +36,7 @@ function PaymentSlipTotal(props) {
   const DOCUMENT_TITLE = 'Payment Slip - ' + format(new Date(), 'yyyy-MM-dd hh_mm_ss');
 
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -103,7 +104,7 @@ function PaymentSlipTotal(props) {
 
   const [formInfo, setFormInfo] = useState({
     templateId: null,
-    branchId: null,
+    branchId,
     currenyId: null,
     yearId: null,
     monthId: null,
@@ -135,6 +136,19 @@ function PaymentSlipTotal(props) {
 
       const currency = await GeneralListApis(locale).MdCurrency();
       setCurrencyList(currency);
+
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setFormInfo((prev) => ({
+          ...prev,
+          monthId: response.monthId,
+          yearId: response.yearId,
+        }));
+      }
     } catch (error) {
       //
     } finally {

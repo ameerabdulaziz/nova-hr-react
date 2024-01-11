@@ -32,6 +32,7 @@ function SummaryPayslip(props) {
   const { classes } = useStyles();
 
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
 
   const [tableData, setTableData] = useState([]);
 
@@ -48,6 +49,7 @@ function SummaryPayslip(props) {
     bankonly: false,
     EmpStatusId: 1,
     OrganizationId: '',
+    BranchId: branchId,
   });
 
   const [reportCriteria, setReportCriteria] = useState({
@@ -81,6 +83,19 @@ function SummaryPayslip(props) {
 
       const templates = await GeneralListApis(locale).GetPayTemplateList();
       setTemplateList(templates);
+
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setReportCriteria((prev) => ({
+          ...prev,
+          month: response.monthId,
+          year: response.yearId,
+        }));
+      }
     } catch (error) {
       //
     } finally {

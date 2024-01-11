@@ -25,6 +25,7 @@ function SalaryYearReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName"); 
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,7 @@ function SalaryYearReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: branchId,
   });
 
 
@@ -76,6 +78,14 @@ function SalaryYearReport(props) {
 
       setYearList(years)
 
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setYear(response.yearId);
+      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -192,6 +202,7 @@ function SalaryYearReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={YearList.length != 0 ? YearList: []}
+                            value={YearList.find((item) => item.id === Year) ?? null}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )
