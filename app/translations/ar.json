@@ -938,6 +938,7 @@
   "boilerplate.containers.Payroll.element": "العنصر",
   "boilerplate.containers.Payroll.Upload": "رفع",
   "boilerplate.containers.Payroll.Print": "طباعة",
+  "boilerplate.containers.Payroll.company": "الشركة",
   "boilerplate.containers.Payroll.preview": "عرض",
 
   "boilerplate.containers.Payroll.executionId": "WorkFlow Id",

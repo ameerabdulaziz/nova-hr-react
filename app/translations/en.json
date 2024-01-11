@@ -981,6 +981,7 @@
   "boilerplate.containers.Payroll.september": "September",
   "boilerplate.containers.Payroll.october": "October",
   "boilerplate.containers.Payroll.november": "November",
+  "boilerplate.containers.Payroll.company": "Company",
   "boilerplate.containers.Payroll.december": "December",
   "boilerplate.containers.Payroll.employees": "View Employees",
 

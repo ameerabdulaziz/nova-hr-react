@@ -23,6 +23,7 @@ function Search(props) {
   const [EmployeeList, setEmployeeList] = useState([]);
   const [OrganizationList, setOrganizationList] = useState([]);
   const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
 
   const handleChange = useCallback(async (name, value) => {
@@ -45,21 +46,16 @@ function Search(props) {
       }));
 
     if (name == "organizationId") {
-      debugger ;
-      var employees = [];
-      if (value) {
-        employees = await GeneralListApis(locale).GetEmployeeListByDepartment(
-          value
-        );
-      } else {
-        employees = await GeneralListApis(locale).GetEmployeeList();
-      }
+      setIsLoading(true);
+      const employees = await GeneralListApis(locale).GetEmployeeList(null, null, searchData.BranchId, value);
+
       setEmployeeList(employees);
       setsearchData((prevFilters) => ({
         ...prevFilters,
         OrganizationId: value,
         EmployeeId: "",
       }));
+      setIsLoading(false);
     }
 
     if (name == "statusId")
@@ -67,9 +63,24 @@ function Search(props) {
         ...prevFilters,
         EmpStatusId: value,
       }));
+
+    if (name === 'BranchId') {
+      setIsLoading(true);
+      const employees = await GeneralListApis(locale).GetEmployeeList(null, null, value, searchData.OrganizationId);
+
+      setEmployeeList(employees);
+
+      setsearchData((prevFilters) => ({
+        ...prevFilters,
+        BranchId: value,
+      }));
+      setIsLoading(false);
+    }
   }, []);
 
   async function fetchData() {
+    setIsLoading(false);
+
     try {
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
@@ -77,6 +88,9 @@ function Search(props) {
       setOrganizationList(organizations);
       const status = await GeneralListApis(locale).GetEmpStatusList();
       setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -88,44 +102,30 @@ function Search(props) {
   return (
     <div>
       <Grid container spacing={2} alignItems="flex-start" direction="row">
-        {notShowDate ? (
-          ""
-        ) : (
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.fromdate)}
-                value={searchData.FromDate}
-                onChange={(date) => {
-                  handleChange("fromDate", date);
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
-                )}
+        <Grid item xs={12} md={3}>
+          <Autocomplete
+            options={companyList}
+            value={searchData.BranchId ? companyList.find(item => item.id === searchData.BranchId) ?? null : null}
+            isOptionEqualToValue={(option, value) => option.id === value.id
+            }
+            getOptionLabel={(option) => (option ? option.name : '')}
+            renderOption={(propsOption, option) => (
+              <li {...propsOption} key={option.id}>
+                {option.name}
+              </li>
+            )}
+            onChange={(event, value) => {
+              handleChange("BranchId", value == null ? "" : value.id);
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={intl.formatMessage(Payrollmessages.company)}
               />
-            </LocalizationProvider>
-          </Grid>
-        )}
-        {notShowDate ? (
-          ""
-        ) : (
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.todate)}
-                value={searchData.ToDate}
-                onChange={(date) => {
-                  handleChange("toDate", date);
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
-        )}
+            )}
+          />
+        </Grid>
+
         <Grid item xs={12} md={3}>
           <Autocomplete
             id="organizationId"
@@ -144,6 +144,11 @@ function Search(props) {
             onChange={(event, value) => {
               handleChange("organizationId", value == null ? "" : value.id);
             }}
+            renderOption={(propsOption, option) => (
+              <li {...propsOption} key={option.id}>
+                {option.name}
+              </li>
+            )}
             renderInput={(params) => (
               <TextField
                 variant="outlined"
@@ -217,6 +222,45 @@ function Search(props) {
                 />
               )}
             />
+          </Grid>
+        )}
+
+        {notShowDate ? (
+          ""
+        ) : (
+          <Grid item xs={12} md={2}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DesktopDatePicker
+                label={intl.formatMessage(Payrollmessages.fromdate)}
+                value={searchData.FromDate}
+                onChange={(date) => {
+                  handleChange("fromDate", date);
+                }}
+                className={classes.field}
+                renderInput={(params) => (
+                  <TextField {...params} variant="outlined" />
+                )}
+              />
+            </LocalizationProvider>
+          </Grid>
+        )}
+        {notShowDate ? (
+          ""
+        ) : (
+          <Grid item xs={12} md={2}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DesktopDatePicker
+                label={intl.formatMessage(Payrollmessages.todate)}
+                value={searchData.ToDate}
+                onChange={(date) => {
+                  handleChange("toDate", date);
+                }}
+                className={classes.field}
+                renderInput={(params) => (
+                  <TextField {...params} variant="outlined" />
+                )}
+              />
+            </LocalizationProvider>
           </Grid>
         )}
       </Grid>
