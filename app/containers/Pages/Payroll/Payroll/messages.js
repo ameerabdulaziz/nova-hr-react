@@ -3,396 +3,396 @@
  *
  * This contains all the text for the Form components.
  */
-import { defineMessages } from "react-intl";
+import { defineMessages } from 'react-intl';
 
-export const scope = "boilerplate.containers.Payroll.Payroll";
+export const scope = 'boilerplate.containers.Payroll.Payroll';
 
 export default defineMessages({
   LoanSettingTitle: {
     id: `${scope}.LoanSettingTitle`,
-    defaultMessage: "LoanSettingTitle",
+    defaultMessage: 'LoanSettingTitle',
   },
   LoanSettingUpdateTitle: {
     id: `${scope}.LoanSettingUpdateTitle`,
-    defaultMessage: "LoanSettingUpdateTitle",
+    defaultMessage: 'LoanSettingUpdateTitle',
   },
   safeLoan: {
     id: `${scope}.safeLoan`,
-    defaultMessage: "safeLoan",
+    defaultMessage: 'safeLoan',
   },
   payTemplate: {
     id: `${scope}.payTemplate`,
-    defaultMessage: "payTemplate",
+    defaultMessage: 'payTemplate',
   },
   payTemplateElement: {
     id: `${scope}.payTemplateElement`,
-    defaultMessage: "payTemplateElement",
+    defaultMessage: 'payTemplateElement',
   },
   deductElement: {
     id: `${scope}.deductElement`,
-    defaultMessage: "deductElement",
+    defaultMessage: 'deductElement',
   },
   deductPurchaseElement: {
     id: `${scope}.deductPurchaseElement`,
-    defaultMessage: "deductPurchaseElement",
+    defaultMessage: 'deductPurchaseElement',
   },
   safe: {
     id: `${scope}.safe`,
-    defaultMessage: "safe",
+    defaultMessage: 'safe',
   },
   maxLoan: {
     id: `${scope}.maxLoan`,
-    defaultMessage: "maxLoan",
+    defaultMessage: 'maxLoan',
   },
   copytoAllBr: {
     id: `${scope}.copytoAllBr`,
-    defaultMessage: "copytoAllBr",
+    defaultMessage: 'copytoAllBr',
   },
   calcInsuranceWithThisTemplate: {
     id: `${scope}.calcInsuranceWithThisTemplate`,
-    defaultMessage: "calcInsuranceWithThisTemplate",
+    defaultMessage: 'calcInsuranceWithThisTemplate',
   },
   rPT_details: {
     id: `${scope}.rPT_details`,
-    defaultMessage: "rPT_details",
+    defaultMessage: 'rPT_details',
   },
   sMSMSG: {
     id: `${scope}.sMSMSG`,
-    defaultMessage: "sMSMSG",
+    defaultMessage: 'sMSMSG',
   },
   PayTemplateCreateTitle: {
     id: `${scope}.PayTemplateCreateTitle`,
-    defaultMessage: "PayTemplateCreateTitle",
+    defaultMessage: 'PayTemplateCreateTitle',
   },
   PayTemplateUpdateTitle: {
     id: `${scope}.PayTemplateUpdateTitle`,
-    defaultMessage: "PayTemplateUpdateTitle",
+    defaultMessage: 'PayTemplateUpdateTitle',
   },
   deductElement2: {
     id: `${scope}.deductElement2`,
-    defaultMessage: "deductElement2",
+    defaultMessage: 'deductElement2',
   },
   addElement2: {
     id: `${scope}.addElement2`,
-    defaultMessage: "addElement2",
+    defaultMessage: 'addElement2',
   },
   Taxelement: {
     id: `${scope}.Taxelement`,
-    defaultMessage: "Taxelement",
+    defaultMessage: 'Taxelement',
   },
   Inselement: {
     id: `${scope}.Inselement`,
-    defaultMessage: "Inselement",
+    defaultMessage: 'Inselement',
   },
   SalaryStructureCreateTitle: {
     id: `${scope}.SalaryStructureCreateTitle`,
-    defaultMessage: "SalaryStructureCreateTitle",
+    defaultMessage: 'SalaryStructureCreateTitle',
   },
   SalaryStructureUpdateTitle: {
     id: `${scope}.SalaryStructureUpdateTitle`,
-    defaultMessage: "SalaryStructureUpdateTitle",
+    defaultMessage: 'SalaryStructureUpdateTitle',
   },
   ShortName: {
     id: `${scope}.ShortName`,
-    defaultMessage: "ShortName",
+    defaultMessage: 'ShortName',
   },
   ElementsCreateTitle: {
     id: `${scope}.ElementsCreateTitle`,
-    defaultMessage: "ElementsCreateTitle",
+    defaultMessage: 'ElementsCreateTitle',
   },
   ElementsUpdateTitle: {
     id: `${scope}.ElementsUpdateTitle`,
-    defaultMessage: "ElementsUpdateTitle",
+    defaultMessage: 'ElementsUpdateTitle',
   },
 
   variable: {
     id: `${scope}.variable`,
-    defaultMessage: "variable",
+    defaultMessage: 'variable',
   },
 
   constant: {
     id: `${scope}.constant`,
-    defaultMessage: "constant",
+    defaultMessage: 'constant',
   },
   Percentage: {
     id: `${scope}.Percentage`,
-    defaultMessage: "Percentage",
+    defaultMessage: 'Percentage',
   },
   Value: {
     id: `${scope}.Value`,
-    defaultMessage: "Value",
+    defaultMessage: 'Value',
   },
   refElement: {
     id: `${scope}.refElement`,
-    defaultMessage: "refElement",
+    defaultMessage: 'refElement',
   },
 
   basicElement: {
     id: `${scope}.basicElement`,
-    defaultMessage: "basicElement",
+    defaultMessage: 'basicElement',
   },
   displayOrder: {
     id: `${scope}.displayOrder`,
-    defaultMessage: "displayOrder",
+    defaultMessage: 'displayOrder',
   },
   minDailyWorkHours: {
     id: `${scope}.minDailyWorkHours`,
-    defaultMessage: "minDailyWorkHours",
+    defaultMessage: 'minDailyWorkHours',
   },
   elementTaxFreeLimit: {
     id: `${scope}.elementTaxFreeLimit`,
-    defaultMessage: "elementTaxFreeLimit",
+    defaultMessage: 'elementTaxFreeLimit',
   },
   Deduct: {
     id: `${scope}.Deduct`,
-    defaultMessage: "Deduct",
+    defaultMessage: 'Deduct',
   },
   Allowance: {
     id: `${scope}.Allowance`,
-    defaultMessage: "Allowance",
+    defaultMessage: 'Allowance',
   },
   maxRepeat: {
     id: `${scope}.maxRepeat`,
-    defaultMessage: "maxRepeat",
+    defaultMessage: 'maxRepeat',
   },
   elementRepeat: {
     id: `${scope}.elementRepeat`,
-    defaultMessage: "elementRepeat",
+    defaultMessage: 'elementRepeat',
   },
   salayElememt: {
     id: `${scope}.salayElememt`,
-    defaultMessage: "salayElememt",
+    defaultMessage: 'salayElememt',
   },
   refranceElement: {
     id: `${scope}.refranceElement`,
-    defaultMessage: "refranceElement",
+    defaultMessage: 'refranceElement',
   },
   relatedToWorkdays: {
     id: `${scope}.relatedToWorkhours`,
-    defaultMessage: "relatedToWorkhours",
+    defaultMessage: 'relatedToWorkhours',
   },
 
   inWeb: {
     id: `${scope}.inWeb`,
-    defaultMessage: "inWeb",
+    defaultMessage: 'inWeb',
   },
   calcIneachTemplate: {
     id: `${scope}.calcIneachTemplate`,
-    defaultMessage: "calcIneachTemplate",
+    defaultMessage: 'calcIneachTemplate',
   },
   percentOfDaily: {
     id: `${scope}.percentOfDaily`,
-    defaultMessage: "percentOfDaily",
+    defaultMessage: 'percentOfDaily',
   },
   defaultValue: {
     id: `${scope}.defaultValue`,
-    defaultMessage: "defaultValue",
+    defaultMessage: 'defaultValue',
   },
   elemMaxMin: {
     id: `${scope}.elemMaxMin`,
-    defaultMessage: "elemMaxMin",
+    defaultMessage: 'elemMaxMin',
   },
   min: {
     id: `${scope}.min`,
-    defaultMessage: "min",
+    defaultMessage: 'min',
   },
   max: {
     id: `${scope}.max`,
-    defaultMessage: "max",
+    defaultMessage: 'max',
   },
   calcValMin: {
     id: `${scope}.calcValMin`,
-    defaultMessage: "calcValMin",
+    defaultMessage: 'calcValMin',
   },
   calcValMax: {
     id: `${scope}.calcValMax`,
-    defaultMessage: "calcValMax",
+    defaultMessage: 'calcValMax',
   },
   val: {
     id: `${scope}.val`,
-    defaultMessage: "val",
+    defaultMessage: 'val',
   },
   elementType: {
     id: `${scope}.elementType`,
-    defaultMessage: "elementType",
+    defaultMessage: 'elementType',
   },
   elementMode: {
     id: `${scope}.elementMode`,
-    defaultMessage: "elementMode",
+    defaultMessage: 'elementMode',
   },
   source: {
     id: `${scope}.source`,
-    defaultMessage: "source",
+    defaultMessage: 'source',
   },
   newval: {
     id: `${scope}.newval`,
-    defaultMessage: "newval",
+    defaultMessage: 'newval',
   },
   ElementValCreateTitle: {
     id: `${scope}.ElementValCreateTitle`,
-    defaultMessage: "ElementValCreateTitle",
+    defaultMessage: 'ElementValCreateTitle',
   },
   ElementValCreateTitle: {
     id: `${scope}.ElementValCreateTitle`,
-    defaultMessage: "ElementValCreateTitle",
+    defaultMessage: 'ElementValCreateTitle',
   },
   ElementValUpdateTitle: {
     id: `${scope}.ElementValUpdateTitle`,
-    defaultMessage: "ElementValUpdateTitle",
+    defaultMessage: 'ElementValUpdateTitle',
   },
   isNotUpdate: {
     id: `${scope}.isNotUpdate`,
-    defaultMessage: "isNotUpdate",
+    defaultMessage: 'isNotUpdate',
   },
   deductionYear: {
     id: `${scope}.deductionYear`,
-    defaultMessage: "deductionYear",
+    defaultMessage: 'deductionYear',
   },
   deductionMonth: {
     id: `${scope}.deductionMonth`,
-    defaultMessage: "deductionMonth",
+    defaultMessage: 'deductionMonth',
   },
   nativeTotalValue: {
     id: `${scope}.nativeTotalValue`,
-    defaultMessage: "nativeTotalValue",
+    defaultMessage: 'nativeTotalValue',
   },
   totalValue: {
     id: `${scope}.totalValue`,
-    defaultMessage: "totalValue",
+    defaultMessage: 'totalValue',
   },
   paysNo: {
     id: `${scope}.paysNo`,
-    defaultMessage: "paysNo",
+    defaultMessage: 'paysNo',
   },
   payvalue: {
     id: `${scope}.payvalue`,
-    defaultMessage: "payvalue",
+    defaultMessage: 'payvalue',
   },
   lineNo: {
     id: `${scope}.lineNo`,
-    defaultMessage: "lineNo",
+    defaultMessage: 'lineNo',
   },
   isPaid: {
     id: `${scope}.isPaid`,
-    defaultMessage: "isPaid",
+    defaultMessage: 'isPaid',
   },
   recalculate: {
     id: `${scope}.recalculate`,
-    defaultMessage: "recalculate",
+    defaultMessage: 'recalculate',
   },
   post: {
     id: `${scope}.post`,
-    defaultMessage: "post",
+    defaultMessage: 'post',
   },
   LoanTrxCreateTitle: {
     id: `${scope}.LoanTrxCreateTitle`,
-    defaultMessage: "LoanTrxCreateTitle",
+    defaultMessage: 'LoanTrxCreateTitle',
   },
   LoanTrxUpdateTitle: {
     id: `${scope}.LoanTrxUpdateTitle`,
-    defaultMessage: "LoanTrxUpdateTitle",
+    defaultMessage: 'LoanTrxUpdateTitle',
   },
 
   // BranchSalarySetting
   payrollMainParameters: {
     id: `${scope}MainParameters`,
-    defaultMessage: "Payroll Main Parameters",
+    defaultMessage: 'Payroll Main Parameters',
   },
   Department: {
     id: `${scope}.Department`,
-    defaultMessage: "Department",
+    defaultMessage: 'Department',
   },
   TaxeParameters: {
     id: `${scope}.TaxeParameters`,
-    defaultMessage: "Taxe Parameters",
+    defaultMessage: 'Taxe Parameters',
   },
   PersonalExemption: {
     id: `${scope}.PersonalExemption`,
-    defaultMessage: "Personal Exemption",
+    defaultMessage: 'Personal Exemption',
   },
   specialNeedsExemption: {
     id: `${scope}.specialNeedsExemption`,
-    defaultMessage: "Special Needs Exemption",
+    defaultMessage: 'Special Needs Exemption',
   },
   FirstBracketLimit: {
     id: `${scope}.FirstBracketLimit`,
-    defaultMessage: "First Bracket Limit",
+    defaultMessage: 'First Bracket Limit',
   },
   FirstBracketTax: {
     id: `${scope}.FirstBracketTax`,
-    defaultMessage: "First Bracket Tax",
+    defaultMessage: 'First Bracket Tax',
   },
   SecondBracketLimit: {
     id: `${scope}.SecondBracketLimit`,
-    defaultMessage: "Second Bracket Limit",
+    defaultMessage: 'Second Bracket Limit',
   },
   SecondBracketTax: {
     id: `${scope}.SecondBracketTax`,
-    defaultMessage: "Second Bracket Tax",
+    defaultMessage: 'Second Bracket Tax',
   },
   ThirdBracketLimit: {
     id: `${scope}.ThirdBracketLimit`,
-    defaultMessage: "Third Bracket Limit",
+    defaultMessage: 'Third Bracket Limit',
   },
   ThirdBracketTax: {
     id: `${scope}.ThirdBracketTax`,
-    defaultMessage: "Third Bracket Tax",
+    defaultMessage: 'Third Bracket Tax',
   },
   FourthBracketLimit: {
     id: `${scope}.FourthBracketLimit`,
-    defaultMessage: "Fourth Bracket Limit",
+    defaultMessage: 'Fourth Bracket Limit',
   },
   FourthBracketTax: {
     id: `${scope}.FourthBracketTax`,
-    defaultMessage: "Fourth Bracket Tax",
+    defaultMessage: 'Fourth Bracket Tax',
   },
   FifthBracketLimit: {
     id: `${scope}.FifthBracketLimit`,
-    defaultMessage: "Fifth Bracket Limit",
+    defaultMessage: 'Fifth Bracket Limit',
   },
   FifthBracketTax: {
     id: `${scope}.FifthBracketTax`,
-    defaultMessage: "Fifth Bracket Tax",
+    defaultMessage: 'Fifth Bracket Tax',
   },
   SixthBracketLimit: {
     id: `${scope}.SixthBracketLimit`,
-    defaultMessage: "Sixth Bracket Limit",
+    defaultMessage: 'Sixth Bracket Limit',
   },
   SixthBracketTax: {
     id: `${scope}.SixthBracketTax`,
-    defaultMessage: "Sixth Bracket Tax",
+    defaultMessage: 'Sixth Bracket Tax',
   },
   seventhBracketLimit: {
     id: `${scope}.seventhBracketLimit`,
-    defaultMessage: "seventh Bracket Limit",
+    defaultMessage: 'seventh Bracket Limit',
   },
   seventhBracketTax: {
     id: `${scope}.seventhBracketTax`,
-    defaultMessage: "seventh Bracket Tax",
+    defaultMessage: 'seventh Bracket Tax',
   },
   EighthBracketLimit: {
     id: `${scope}.EighthBracketLimit`,
-    defaultMessage: "Eighth Bracket Limit",
+    defaultMessage: 'Eighth Bracket Limit',
   },
   EighthBracketTax: {
     id: `${scope}.EighthBracketTax`,
-    defaultMessage: "Eighth Bracket Tax",
+    defaultMessage: 'Eighth Bracket Tax',
   },
   EpidemicsContribution: {
     id: `${scope}.EpidemicsContribution`,
-    defaultMessage: "Epidemics Contribution",
+    defaultMessage: 'Epidemics Contribution',
   },
   DisplayName: {
     id: `${scope}.DisplayName`,
-    defaultMessage: "Display Name",
+    defaultMessage: 'Display Name',
   },
   FixedElementsSILimit: {
     id: `${scope}.FixedElementsSILimit`,
-    defaultMessage: "Fixed Elements SI Limit",
+    defaultMessage: 'Fixed Elements SI Limit',
   },
   CompanyShare: {
     id: `${scope}.CompanyShare`,
-    defaultMessage: "Company Share",
+    defaultMessage: 'Company Share',
   },
   TheEmployeesShareOfSI: {
     id: `${scope}.TheEmployeesShareOfSI`,
@@ -400,103 +400,103 @@ export default defineMessages({
   },
   SocialInsuranceParameters: {
     id: `${scope}.SocialInsuranceParameters`,
-    defaultMessage: "Social Insurance Parameters",
+    defaultMessage: 'Social Insurance Parameters',
   },
   remainLoansNo: {
     id: `${scope}.remainLoansNo`,
-    defaultMessage: "remainLoansNo",
+    defaultMessage: 'remainLoansNo',
   },
   remainLoansValue: {
     id: `${scope}.remainLoansValue`,
-    defaultMessage: "remainLoansValue",
+    defaultMessage: 'remainLoansValue',
   },
   newLoansValue: {
     id: `${scope}.newLoansValue`,
-    defaultMessage: "newLoansValue",
+    defaultMessage: 'newLoansValue',
   },
   newPayNo: {
     id: `${scope}.newPayNo`,
-    defaultMessage: "newPayNo",
+    defaultMessage: 'newPayNo',
   },
   quantity: {
     id: `${scope}.quantity`,
-    defaultMessage: "quantity",
+    defaultMessage: 'quantity',
   },
   AddItem: {
     id: `${scope}.AddItem`,
-    defaultMessage: "AddItem",
+    defaultMessage: 'AddItem',
   },
   EmpPrice: {
     id: `${scope}.EmpPrice`,
-    defaultMessage: "EmpPrice",
+    defaultMessage: 'EmpPrice',
   },
   PurchaseTrxCreateTitle: {
     id: `${scope}.PurchaseTrxCreateTitle`,
-    defaultMessage: "PurchaseTrxCreateTitle",
+    defaultMessage: 'PurchaseTrxCreateTitle',
   },
   PurchaseTrxUpdateTitle: {
     id: `${scope}.PurchaseTrxUpdateTitle`,
-    defaultMessage: "PurchaseTrxUpdateTitle",
+    defaultMessage: 'PurchaseTrxUpdateTitle',
   },
   isPartCalc: {
     id: `${scope}.isPartCalc`,
-    defaultMessage: "isPartCalc",
+    defaultMessage: 'isPartCalc',
   },
   Calculate: {
     id: `${scope}.Calculate`,
-    defaultMessage: "Calculate",
+    defaultMessage: 'Calculate',
   },
   grossSal: {
     id: `${scope}.grossSal`,
-    defaultMessage: "grossSal",
+    defaultMessage: 'grossSal',
   },
   empInsSalary: {
     id: `${scope}.empInsSalary`,
-    defaultMessage: "empInsSalary",
+    defaultMessage: 'empInsSalary',
   },
   insuCompValFixed: {
     id: `${scope}.insuCompValFixed`,
-    defaultMessage: "insuCompValFixed",
+    defaultMessage: 'insuCompValFixed',
   },
   insuEmpValFixed: {
     id: `${scope}.insuEmpValFixed`,
-    defaultMessage: "insuEmpValFixed",
+    defaultMessage: 'insuEmpValFixed',
   },
   taxBool: {
     id: `${scope}.taxBool`,
-    defaultMessage: "taxBool",
+    defaultMessage: 'taxBool',
   },
   taxVal: {
     id: `${scope}.taxVal`,
-    defaultMessage: "taxVal",
-  },  
+    defaultMessage: 'taxVal',
+  },
   netSal: {
     id: `${scope}.netSal`,
-    defaultMessage: "netSal",
-  },  
+    defaultMessage: 'netSal',
+  },
   totDed: {
     id: `${scope}.totDed`,
-    defaultMessage: "totDed",
-  },   
-  DeleteSalary : {
+    defaultMessage: 'totDed',
+  },
+  DeleteSalary: {
     id: `${scope}.DeleteSalary`,
-    defaultMessage: "DeleteSalary",
-  },   
+    defaultMessage: 'DeleteSalary',
+  },
   OperateAtt: {
     id: `${scope}.OperateAtt`,
-    defaultMessage: "OperateAtt",
-  },   
+    defaultMessage: 'OperateAtt',
+  },
   StopAtt: {
     id: `${scope}.StopAtt`,
-    defaultMessage: "StopAtt",
-  },   
+    defaultMessage: 'StopAtt',
+  },
   Show: {
     id: `${scope}.Show`,
-    defaultMessage: "Show",
-  },   
+    defaultMessage: 'Show',
+  },
   NotShow: {
     id: `${scope}.NotShow`,
-    defaultMessage: "NotShow",
+    defaultMessage: 'NotShow',
   },
 
   department: {
@@ -743,135 +743,198 @@ export default defineMessages({
     id: `${scope}.notStopped`,
     defaultMessage: 'notStopped',
   },
+  showOrganization: {
+    id: `${scope}.showOrganization`,
+    defaultMessage: 'showOrganization',
+  },
+  exportToNewFile: {
+    id: `${scope}.exportToNewFile`,
+    defaultMessage: 'Export to New File',
+  },
+  updateExistingFile: {
+    id: `${scope}.updateExistingFile`,
+    defaultMessage: 'Update Existing File',
+  },
+  exportTemplate: {
+    id: `${scope}.exportTemplate`,
+    defaultMessage: 'Export Template',
+  },
+  account: {
+    id: `${scope}.account`,
+    defaultMessage: 'Account',
+  },
+  exportDetails: {
+    id: `${scope}.exportDetails`,
+    defaultMessage: 'exportDetails',
+  },
+  fileExtensionShouldBeExcel: {
+    id: `${scope}.fileExtensionShouldBeExcel`,
+    defaultMessage: 'fileExtensionShouldBeExcel',
+  },
+  upload: {
+    id: `${scope}.upload`,
+    defaultMessage: 'upload',
+  },
+  fileIsEmpty: {
+    id: `${scope}.fileIsEmpty`,
+    defaultMessage: 'fileIsEmpty',
+  },
+  fileSizeShouldBeLessThan10MB: {
+    id: `${scope}.fileSizeShouldBeLessThan10MB`,
+    defaultMessage: 'fileSizeShouldBeLessThan10MB',
+  },
+  dataFromLineNumber: {
+    id: `${scope}.dataFromLineNumber`,
+    defaultMessage: 'Data from Line Number',
+  },
+  iban: {
+    id: `${scope}.iban`,
+    defaultMessage: 'IBAN',
+  },
+  swift: {
+    id: `${scope}.swift`,
+    defaultMessage: 'SWIFT',
+  },
+  export: {
+    id: `${scope}.export`,
+    defaultMessage: 'Export',
+  },
+  bankNumber: {
+    id: `${scope}.bankNumber`,
+    defaultMessage: 'bankNumber',
+  },
+  bankName: {
+    id: `${scope}.bankName`,
+    defaultMessage: 'bankName',
+  },
   // ElementReview
   YouMustToChooseYearAndAtLeastOneElement: {
     id: `${scope}.YouMustToChooseYearAndAtLeastOneElement`,
-    defaultMessage: "You must to choose year and at least one element",
-  }, 
+    defaultMessage: 'You must to choose year and at least one element',
+  },
   orgName: {
     id: `${scope}.orgName`,
-    defaultMessage: "Organization",
-  }, 
+    defaultMessage: 'Organization',
+  },
   EmpCode: {
     id: `${scope}.EmpCode`,
-    defaultMessage: "Emp.Code",
-  }, 
+    defaultMessage: 'Emp.Code',
+  },
   employeeName: {
     id: `${scope}.employeeName`,
-    defaultMessage: "Employee Name",
-  }, 
+    defaultMessage: 'Employee Name',
+  },
   payment: {
     id: `${scope}.payment`,
-    defaultMessage: "Payment",
-  }, 
+    defaultMessage: 'Payment',
+  },
   element: {
     id: `${scope}.element`,
-    defaultMessage: "Element",
-  }, 
+    defaultMessage: 'Element',
+  },
   countVal: {
     id: `${scope}.countVal`,
-    defaultMessage: "Count/Val",
-  }, 
+    defaultMessage: 'Count/Val',
+  },
   CalculatedValue: {
     id: `${scope}.CalculatedValue`,
-    defaultMessage: "Calculated Value",
-  }, 
+    defaultMessage: 'Calculated Value',
+  },
   elementType: {
     id: `${scope}.elementType`,
-    defaultMessage: "Element Type",
-  }, 
+    defaultMessage: 'Element Type',
+  },
   Month: {
     id: `${scope}.Month`,
-    defaultMessage: "Month",
-  }, 
+    defaultMessage: 'Month',
+  },
   year: {
     id: `${scope}.year`,
-    defaultMessage: "Year",
+    defaultMessage: 'Year',
   },
   Template: {
     id: `${scope}.Template`,
-    defaultMessage: "Template",
+    defaultMessage: 'Template',
   },
   value1: {
     id: `${scope}.value1`,
-    defaultMessage: "Value 1",
-  }, 
+    defaultMessage: 'Value 1',
+  },
   value2: {
     id: `${scope}.value2`,
-    defaultMessage: "Value 2",
-  }, 
+    defaultMessage: 'Value 2',
+  },
   constElement: {
     id: `${scope}.constElement`,
-    defaultMessage: "Constant Element",
-  }, 
+    defaultMessage: 'Constant Element',
+  },
   valElement: {
     id: `${scope}.valElement`,
-    defaultMessage: "Variable Element",
-  }, 
+    defaultMessage: 'Variable Element',
+  },
   youMustToChooseEmployeeAndElement: {
     id: `${scope}.youMustToChooseEmployeeAndElement`,
-    defaultMessage: "You must to choose employee and element",
-  }, 
+    defaultMessage: 'You must to choose employee and element',
+  },
   FromMonth: {
     id: `${scope}.FromMonth`,
-    defaultMessage: "From Month",
-  }, 
+    defaultMessage: 'From Month',
+  },
   ToMonth: {
     id: `${scope}.ToMonth`,
-    defaultMessage: "To Month",
-  }, 
+    defaultMessage: 'To Month',
+  },
   Trx_Value: {
     id: `${scope}.Trx_Value`,
-    defaultMessage: "Trx_Value",
+    defaultMessage: 'Trx_Value',
   },
   Salary: {
     id: `${scope}.Salary`,
-    defaultMessage: "Salary",
-  }, 
+    defaultMessage: 'Salary',
+  },
   Other: {
     id: `${scope}.Other`,
-    defaultMessage: "Other",
-  }, 
+    defaultMessage: 'Other',
+  },
   InsuranceEmpPart: {
     id: `${scope}.InsuranceEmpPart`,
-    defaultMessage: "Insurance Emp.Part",
-  }, 
+    defaultMessage: 'Insurance Emp.Part',
+  },
   Tax: {
     id: `${scope}.Tax`,
-    defaultMessage: "Tax",
-  }, 
+    defaultMessage: 'Tax',
+  },
   youMustToChooseYearAndMonth: {
     id: `${scope}.youMustToChooseYearAndMonth`,
-    defaultMessage: "You must to choose year and month",
-  }, 
+    defaultMessage: 'You must to choose year and month',
+  },
   posativeSalary: {
     id: `${scope}.posativeSalary`,
-    defaultMessage: "Posative Salary",
-  }, 
+    defaultMessage: 'Posative Salary',
+  },
   NegativeSalary: {
     id: `${scope}.NegativeSalary`,
-    defaultMessage: "Negative Salary",
-  }, 
+    defaultMessage: 'Negative Salary',
+  },
   // SalaryYearReport
   socialInsuranceId: {
     id: `${scope}.socialInsuranceId`,
-    defaultMessage: "Social Insurance ID",
-  }, 
+    defaultMessage: 'Social Insurance ID',
+  },
   InsuranceDate: {
     id: `${scope}.InsuranceDate`,
-    defaultMessage: "Insurance Date",
-  }, 
+    defaultMessage: 'Insurance Date',
+  },
   NetSalary: {
     id: `${scope}.NetSalary`,
-    defaultMessage: "Net Salary",
-  }, 
+    defaultMessage: 'Net Salary',
+  },
   EmployeeShare: {
     id: `${scope}.EmployeeShare`,
-    defaultMessage: "Employee Share",
-  }, 
+    defaultMessage: 'Employee Share',
+  },
   YouMustToChooseYear: {
     id: `${scope}.YouMustToChooseYear`,
-    defaultMessage: "You must to choose year",
-  }, 
+    defaultMessage: 'You must to choose year',
+  },
 });
-
