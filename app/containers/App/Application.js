@@ -399,6 +399,7 @@ import {
   MonthlyVariablesReport,
   DetailedPayrollReport,
   AnnualTaxReport,
+  BankList,
   PaymentSlipTotal,
   SalaryReport,
   FollowEmployeeReport,
@@ -1211,6 +1212,7 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/PaymentSlip' component={PaymentSlip} />
         <Route path='/app/Pages/Payroll/MonthlyVariablesReport' component={MonthlyVariablesReport} />
         <Route path='/app/Pages/Payroll/DetailedPayrollReport' component={DetailedPayrollReport} />
+        <Route path='/app/Pages/Payroll/BankList' component={BankList} />
         <Route path='/app/Pages/Payroll/AnnualTaxReport' component={AnnualTaxReport} />
         <Route path='/app/Pages/Payroll/PaymentSlipTotal' component={PaymentSlipTotal} />
         <Route path='/app/Pages/Payroll/SalaryReport' component={SalaryReport} />

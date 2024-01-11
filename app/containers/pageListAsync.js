@@ -1453,6 +1453,13 @@ export const AnnualTaxReport = loadable(
   }
 );
 
+export const BankList = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/BankList'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const LoanTrxList = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/Loan/LoanTrxList'),
   {
