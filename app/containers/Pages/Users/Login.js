@@ -56,6 +56,7 @@ function Login() {
         arName: res.data.arName,
         enName: res.data.enName,
         photoURL: res.data.photo,
+        branchId: res.data.branchId,
       };
       Dispatcher(syncUser(user));
       
