@@ -529,7 +529,7 @@ useEffect(() => {
                             className={`${classes.field} ${style.fieldsSty}`}
                             margin="normal"
                             variant="outlined"
-                            value={distance}
+                            value={distance ? distance : ""}
                             onChange={(e) => setDistance(e.target.value)}
                             required={polygons.length === 0 ? true : false}
                         />

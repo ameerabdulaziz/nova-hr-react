@@ -95,7 +95,7 @@ function TotalDeptSalaryReport(props) {
     }
     else
     {
-        toast.error(intl.formatMessage(messages.YouMustToChooseYearAndAtLeastOneElement));
+        toast.error(intl.formatMessage(messages.YouMustToChooseYear_MonthAndTemplet));
     }
   };
 

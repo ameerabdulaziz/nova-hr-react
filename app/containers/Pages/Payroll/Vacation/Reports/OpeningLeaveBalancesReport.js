@@ -15,6 +15,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import API from '../api/OpeningLeaveBalancesData';
 import messages from '../messages';
+import Search from "../../Component/Search";
 
 function OpeningLeaveBalancesReport(props) {
   const { intl } = props;
@@ -35,7 +36,7 @@ function OpeningLeaveBalancesReport(props) {
     EmployeeId: '',
     OrganizationId: '',
     yearId: null,
-    departmentId: ''
+    // departmentId: ''
   });
 
   const columns = [
@@ -48,42 +49,42 @@ function OpeningLeaveBalancesReport(props) {
     },
     {
       name: 'organizationName',
-      label: <FormattedMessage {...messages.organization} />,
+      label: intl.formatMessage(messages.organization) ,
       options: {
         filter: true,
       },
     },
     {
       name: 'employeeId',
-      label: <FormattedMessage {...messages.employeeId} />,
+      label: intl.formatMessage(messages.employeeId),
       options: {
         filter: true,
       },
     },
     {
       name: 'employeeName',
-      label: <FormattedMessage {...messages.employeeName} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
     },
     {
       name: 'vacationName',
-      label: <FormattedMessage {...messages.vacationName} />,
+      label: intl.formatMessage(messages.vacationName),
       options: {
         filter: true,
       },
     },
     {
       name: 'vacBalance',
-      label: <FormattedMessage {...messages.Balance} />,
+      label: intl.formatMessage(messages.Balance),
       options: {
         filter: true,
       },
     },
     {
       name: 'postedBal',
-      label: <FormattedMessage {...messages.postedBalance} />,
+      label: intl.formatMessage(messages.postedBalance),
       options: {
         filter: true,
       },
@@ -114,11 +115,11 @@ function OpeningLeaveBalancesReport(props) {
 
   async function fetchData() {
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
+      // const employees = await GeneralListApis(locale).GetEmployeeList();
+      // setEmployeeList(employees);
 
-      const department = await GeneralListApis(locale).GetDepartmentList();
-      setDepartmentList(department);
+      // const department = await GeneralListApis(locale).GetDepartmentList();
+      // setDepartmentList(department);
 
       const yearResponse = await GeneralListApis(locale).GetYears();
       setYearsList(yearResponse);
@@ -162,7 +163,7 @@ function OpeningLeaveBalancesReport(props) {
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
 
-          <Grid item xs={12} md={3}>
+          {/* <Grid item xs={12} md={3}>
             <Autocomplete
               id='departmentId'
               options={departmentList}
@@ -183,9 +184,9 @@ function OpeningLeaveBalancesReport(props) {
                 />
               )}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={3}>
+          {/* <Grid item xs={12} md={3}>
             <Autocomplete
               id='employeeId'
               options={EmployeeList}
@@ -206,6 +207,18 @@ function OpeningLeaveBalancesReport(props) {
                 />
               )}
             />
+          </Grid> */}
+
+          <Grid item xs={12} md={12}>
+            <Search
+              // setsearchData={setsearchData}
+              // searchData={searchData}
+              setsearchData={setFormInfo}
+              searchData={formInfo}
+              setIsLoading={setIsLoading}
+              notShowDate={true}
+              // notShowStatus={true}
+            ></Search>
           </Grid>
 
           <Grid item xs={12} md={3}>
@@ -249,7 +262,7 @@ function OpeningLeaveBalancesReport(props) {
         </Grid>
       </PapperBlock>
 
-      <div className={classes.table}>
+      <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
           title=''
           data={tableData}

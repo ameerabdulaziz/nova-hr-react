@@ -984,6 +984,7 @@
   "boilerplate.containers.Payroll.company": "Company",
   "boilerplate.containers.Payroll.december": "December",
   "boilerplate.containers.Payroll.employees": "View Employees",
+  "boilerplate.containers.Payroll.company": "Company",
 
   "boilerplate.containers.Payroll.VacationName": "Vacation",
   "boilerplate.containers.Payroll.Actions": "Actions",
@@ -1901,6 +1902,8 @@
   "boilerplate.containers.Payroll.Payroll.outstanding":"Outstanding",
   "boilerplate.containers.Payroll.Payroll.Notes":"Notes",
   "boilerplate.containers.Payroll.Payroll.EndedLoans":"Ended Loans",
+
+  "boilerplate.containers.Payroll.Payroll.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement":"You must to choose all years , all months and at least one element",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
@@ -2275,6 +2278,7 @@
   "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "Start Date is After End Date",
 
   "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "Leave Type",
+  "boilerplate.containers.Payroll.vac.Transaction.company": "Company",
 
   "boilerplate.containers.Payroll.insurance.arName": "Arabic Name",
   "boilerplate.containers.Payroll.insurance.enName": "English Name",

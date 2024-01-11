@@ -113,7 +113,7 @@ function SalaryComparisonReport(props) {
     }
     else
     {
-        toast.error(intl.formatMessage(messages.YouMustToChooseYearAndAtLeastOneElement));
+        toast.error(intl.formatMessage(messages.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement));
     }
   };
 
