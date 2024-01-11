@@ -176,6 +176,13 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetBankList = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetBankList/${locale}`
+    );
+    return result.data;
+  };
+
   Apis.GetkinshipLinkList = async () => {
     const result = await axiosInstance.get(
       `GeneralList/GetkinshipLinkList/${locale}`
