@@ -32,8 +32,8 @@ function JobData(props) {
         >
           {profileInfo.jobDescription.length > 0 ? (
             <Grid container spacing={2}>
-              {profileInfo.jobDescription.map((item) => (
-                <Grid item xs={12} key={item.id}>
+              {profileInfo.jobDescription.map((item, index) => (
+                <Grid item xs={12} key={index}>
                   <Quote
                     align='left'
                     content={item.jobDesc}
@@ -71,8 +71,8 @@ function JobData(props) {
         >
           {profileInfo.employeeJobKpi.length > 0 ? (
             <Grid container spacing={2}>
-              {profileInfo.employeeJobKpi.map((item) => (
-                <Grid item xs={12} key={item.id}>
+              {profileInfo.employeeJobKpi.map((item, index) => (
+                <Grid item xs={12} key={index}>
                   <Quote align='left' content={item.kpidesc} footnote='' />
                 </Grid>
               ))}
