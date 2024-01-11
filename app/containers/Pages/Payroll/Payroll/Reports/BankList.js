@@ -26,6 +26,7 @@ function BankList(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
 
   const Title = localStorage.getItem('MenuName');
 
@@ -48,7 +49,7 @@ function BankList(props) {
     OrganizationId: null,
     PayTemplateId: null,
     CurrencyId: null,
-    BranchId: null,
+    BranchId: branchId
   });
 
   const [exportInfo, setExportInfo] = useState({
@@ -164,7 +165,7 @@ function BankList(props) {
       const department = await GeneralListApis(locale).GetDepartmentList();
       setDepartmentList(department);
 
-      const bank = await GeneralListApis(locale).MdBanks();
+      const bank = await GeneralListApis(locale).GetBankList();
       setBankList(bank);
 
       const currency = await GeneralListApis(locale).MdCurrency();
@@ -175,6 +176,19 @@ function BankList(props) {
 
       const exportListResponse = await GeneralListApis(locale).GetBankListRpt();
       setExportList(exportListResponse);
+
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setFormInfo((prev) => ({
+          ...prev,
+          monthId: response.monthId,
+          YearId: response.yearId,
+        }));
+      }
     } catch (error) {
       //
     } finally {
@@ -322,14 +336,16 @@ function BankList(props) {
 
     const debitAmount = tableData.reduce((acc, item) => acc + item.netSal, 0);
 
+    const bank = getAutoCompleteValue(bankList, formInfo.BankId);
+
     const firstRow = [
       format(today, 'dd/MM/yyyy'), // File_Date
       format(today, 'dd/MM/yyyy'), // Value_Date
       'Salary', // Narrative
       'egp', // Currency
       'CIBEEGCXXXX', // Creditor_BIC_Code
-      '', // Account_Number // TODO: how to get it
-      '', // Account_Name // TODO: how to get it
+      bank?.accNo ?? '', // Account_Number
+      bank?.name ?? '', // Account_Name
       formatNumber(debitAmount), // Debit_Amount
       '', // Credit_Amount
     ];
@@ -451,9 +467,11 @@ function BankList(props) {
       { v: 'SWIFT BIC / LCC Code Indicator', s: styles },
     ];
 
+    const bank = getAutoCompleteValue(bankList, formInfo.BankId);
+
     const rows = tableData.map((item) => [
       'ACH', // Payment type
-      '', // Debit Account Number // TODO: how to get it
+      bank?.accNo ?? '', // Debit Account Number
       'EG', // Debit Account Country
       'EGP', // Debit Account Currency
       'EGP', // Transaction currency
