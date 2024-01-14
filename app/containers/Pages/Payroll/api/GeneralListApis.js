@@ -2,9 +2,9 @@ import axiosInstance from './axios';
 const GeneralListApis = (locale) => {
   const Apis = {};
 
-  Apis.GetDepartmentList = async () => {
+  Apis.GetDepartmentList = async (branchId) => {
     const data = await axiosInstance.get(
-      `GeneralList/GetDepartmentList/${locale}`
+      `GeneralList/GetDepartmentList/${locale}?branchId=${branchId ? branchId : ""}`
     );
 
     return data.data;
