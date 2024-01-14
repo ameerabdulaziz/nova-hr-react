@@ -21,6 +21,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { format } from "date-fns";
 import PayRollLoader from "../../Component/PayRollLoader";
+import style from '../../../../../styles/styles.scss'
 
 function EmployeeContract(props) {
   const { intl, pristine } = props;
@@ -441,6 +442,7 @@ function EmployeeContract(props) {
                   color="secondary"
                   type="submit"
                   disabled={employee.id === 0}
+                  className={style.generalBtnStys}
                 >
                   <FormattedMessage {...Payrollmessages.save} />
                 </Button>
@@ -448,6 +450,7 @@ function EmployeeContract(props) {
                   type="button"
                   disabled={employee.id === 0 || pristine}
                   onClick={() => deletedata()}
+                  className={style.generalBtnStys}
                 >
                   <FormattedMessage {...Payrollmessages.delete} />
                 </Button>

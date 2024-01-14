@@ -20,6 +20,10 @@ import {
   saveAction
 } from '../../../containers/Tables/reducers/crudTbActions';
 
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import style from "../../../styles/styles.scss";
+
 const useStyles = makeStyles()((theme) => ({
   button: {
     margin: theme.spacing(1),
@@ -87,6 +91,8 @@ function Row(props) {
   }, [finishEditRow, item, branch]);
 
   const renderCell = dataArray => dataArray.map((itemCell, index) => {
+
+    console.log("item[itemCell.name] =",item[itemCell.name]);
     
     if (itemCell.name !== 'action' && !itemCell.hidden) {
       const inputType = anchor[index].type;
@@ -108,17 +114,27 @@ function Row(props) {
           );
         case 'toggle':
           return (
-            <ToggleCell
-              updateRow={(event) => updateRow(event,item, branch)}
-              cellData={{
-                type: itemCell.name,
-                value: item[itemCell.name],
-                id: itemCell.name+item.id,
-              }}
-              edited={item.edited}
-              key={index.toString()}
-              branch={branch}
-            />
+            // <ToggleCell
+            //   updateRow={(event) => updateRow(event,item, branch)}
+            //   cellData={{
+            //     type: itemCell.name,
+            //     value: item[itemCell.name],
+            //     id: itemCell.name+item.id,
+            //   }}
+            //   edited={item.edited}
+            //   key={index.toString()}
+            //   branch={branch}
+            // />
+            <td 
+            className={style.actionsSty}
+            key={index.toString()}
+            >
+              {item[itemCell.name] ? (
+                <CheckIcon style={{ color: "#3f51b5" }} />
+              ) : (
+                <CloseIcon style={{ color: "#717171" }} />
+              )}
+            </td>
           );
         case 'date':
           return (

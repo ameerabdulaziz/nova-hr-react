@@ -17,6 +17,7 @@ import Payrollmessages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../Component/PayRollLoader";
+import style from '../../../../../styles/styles.scss'
 
 function EmployeeCar(props) {
   const { intl, pristine } = props;
@@ -296,6 +297,7 @@ function EmployeeCar(props) {
                   color="secondary"
                   type="submit"
                   disabled={employee.id === 0}
+                  className={style.generalBtnStys}
                 >
                   <FormattedMessage {...Payrollmessages.save} />
                 </Button>
@@ -303,6 +305,7 @@ function EmployeeCar(props) {
                   type="button"
                   disabled={employee.id === 0 || pristine}
                   onClick={() => deletedata()}
+                  className={style.generalBtnStys}
                 >
                   <FormattedMessage {...Payrollmessages.delete} />
                 </Button>

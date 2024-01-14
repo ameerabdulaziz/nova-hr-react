@@ -878,6 +878,7 @@
   "boilerplate.components.tables.codes.categoryName": "Category",
   "boilerplate.components.tables.codes.registrationPrice": "Registration Price",
   "boilerplate.components.tables.codes.familyMemberValue": "Family Member Value",
+  "boilerplate.components.tables.codes.templateName": "Template Name",
   "boilerplate.components.tables.codes.price": "Price",
   "boilerplate.components.tables.codes.transportaion": "Transportaion",
 
@@ -2062,6 +2063,13 @@
   "boilerplate.containers.Payroll.Employee.repo.SoftCopy": "Soft Copy",
   "boilerplate.containers.Payroll.Employee.repo.HardCopy": "Hard Copy",
   "boilerplate.containers.Payroll.Employee.repo.job": "Job",
+  "boilerplate.containers.Payroll.Employee.selectEmployee": "Select Employee",
+  "boilerplate.containers.Payroll.Employee.bankAccount": "Bank Account",
+  "boilerplate.containers.Payroll.Employee.branchNumber": "Branch Number",
+  "boilerplate.containers.Payroll.Employee.enterTemplateDetails": "Enter Template Details",
+  "boilerplate.containers.Payroll.Employee.bankEmployeeCode": "Bank Employee Code",
+  "boilerplate.containers.Payroll.Employee.onceYouSubmitItsMeanYouHaveAgreedWithOur": "Once you submit, it means you have agreed with our",
+  "boilerplate.containers.Payroll.Employee.termsAndCondition": "Terms and Conditions",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",

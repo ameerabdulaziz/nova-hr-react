@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CompanyData from '../api/CompanyData';
+import style from '../../../../../styles/styles.scss'
 
 // validation functions
 //const required = (value) => (value == null ? 'Required' : undefined);
@@ -199,10 +200,11 @@ function Company() {
                   color="secondary"
                   type="submit"
                   //disabled={submitting}
+                  className={style.generalBtnStys}
                 >
                   Submit
                 </Button>
-                <Button type="reset" onClick={clear}>
+                <Button type="reset" onClick={clear} className={style.generalBtnStys}>
                   Reset
                 </Button>
               </div>

@@ -1,18 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import brand from 'enl-api/dummy/brand';
-import { PapperBlock } from 'enl-components';
+import React from 'react';
 import { injectIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
-import messages from '../../../../Tables/messages';
-import { EditTable } from '../../../../Tables/demos';
-import EmployeeBankElementData from '../api/EmployeeBankElementData';
+import { EditTable } from '../../../../../Tables/demos';
+import EmployeeBankElementData from '../../api/EmployeeBankElementData';
 
 function EmployeeBankElement(props) {
-  
   const { ids } = props;
 
   const anchorTable = [
@@ -32,8 +24,8 @@ function EmployeeBankElement(props) {
     },
 
     {
-      name: 'elementName',
-      label: 'elementName',
+      name: 'templateName',
+      label: 'templateName',
       type: 'selection',
       // type: 'text',
       initialValue: '',
@@ -84,6 +76,7 @@ function EmployeeBankElement(props) {
       hidden: false,
     },
   ];
+
   return (
     <div>
       <EditTable

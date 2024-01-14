@@ -879,6 +879,7 @@
   "boilerplate.components.tables.codes.registrationPrice": "سعر التسجيل",
   "boilerplate.components.tables.codes.familyMemberValue": "قيمة أفراد العائلة",
   "boilerplate.components.tables.codes.price": "السعر",
+  "boilerplate.components.tables.codes.templateName": "اسم القالب",
   "boilerplate.components.tables.codes.transportaion": "انتقالات",
 
   "boilerplate.components.tables.codes.fromdate": "من تاريخ",
@@ -887,10 +888,10 @@
   "boilerplate.components.tables.codes.monthno": "عدد الشهور",
 
   "boilerplate.components.tables.codes.bankBranchNo": "رقم الفرع",
-  "boilerplate.components.tables.codes.iban": "Ibn",
+  "boilerplate.components.tables.codes.iban": "Iban",
   "boilerplate.components.tables.codes.bnkAcc": "رقم الحساب",
   "boilerplate.components.tables.codes.bnkEmpCode": "المود البنكى",
-  "boilerplate.components.tables.codes.swiftCode": "swift Code",
+  "boilerplate.components.tables.codes.swiftCode": "Swift Code",
 
   "boilerplate.components.tables.codes.qualification": "المؤهل",
   "boilerplate.components.tables.codes.qualificationRelease": "جهة التخرج",
@@ -2124,6 +2125,13 @@
   "boilerplate.containers.Payroll.Employee.repo.SoftCopy": "مسلم باليد",
   "boilerplate.containers.Payroll.Employee.repo.HardCopy": "نسخة الكترونية",
   "boilerplate.containers.Payroll.Employee.repo.job": "المسمى الوظيفى",
+  "boilerplate.containers.Payroll.Employee.selectEmployee": "اختيار موظف",
+  "boilerplate.containers.Payroll.Employee.bankAccount": "حساب البنك",
+  "boilerplate.containers.Payroll.Employee.enterTemplateDetails": "أدخل تفاصيل القالب",
+  "boilerplate.containers.Payroll.Employee.branchNumber": "رقم الفرع",
+  "boilerplate.containers.Payroll.Employee.bankEmployeeCode": "كود الموظف",
+  "boilerplate.containers.Payroll.Employee.onceYouSubmitItsMeanYouHaveAgreedWithOur": "عند تقديمك، يعني أنك قد وافقت على شروطنا",
+  "boilerplate.containers.Payroll.Employee.termsAndCondition": "الشروط والأحكام",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",

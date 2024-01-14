@@ -608,4 +608,34 @@ export default defineMessages({
       id: `${scope}.repo.job`,
       defaultMessage: 'Job',
     },
+
+  // Employee Bank Page
+  selectEmployee: {
+    id: `${scope}.selectEmployee`,
+    defaultMessage: 'Select Employee',
+  },
+  bankAccount: {
+    id: `${scope}.bankAccount`,
+    defaultMessage: 'Bank Account',
+  },
+  branchNumber: {
+    id: `${scope}.branchNumber`,
+    defaultMessage: 'Branch Number',
+  },
+  bankEmployeeCode: {
+    id: `${scope}.bankEmployeeCode`,
+    defaultMessage: 'Bank Employee Code',
+  },
+  onceYouSubmitItsMeanYouHaveAgreedWithOur: {
+    id: `${scope}.onceYouSubmitItsMeanYouHaveAgreedWithOur`,
+    defaultMessage: 'Once you submit, it means you have agreed with our',
+  },
+  termsAndCondition: {
+    id: `${scope}.termsAndCondition`,
+    defaultMessage: 'Terms and Conditions',
+  },
+  enterTemplateDetails: {
+    id: `${scope}.enterTemplateDetails`,
+    defaultMessage: 'enterTemplateDetails',
+  },
 });
