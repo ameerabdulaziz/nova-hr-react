@@ -576,15 +576,7 @@ function Personal(props) {
                         label={intl.formatMessage(messages.hiringDate)}
                         value={hiringDate}
                         onChange={(date) => {
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                            if (!isNaN(new Date(date))) { 
-                              sethiringDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                            } 
-                            else
-                            {
-                              sethiringDate(null)
-                            }
-                          }
+                          sethiringDate(format(new Date(date), "yyyy-MM-dd"));
                         }}
                         className={classes.field}
                         renderInput={(params) => (
@@ -625,7 +617,7 @@ function Personal(props) {
                     />
                   </Grid>
                 </Grid>
-
+</Grid>
             <Grid item xs={2}>
               <div sx={{ height: 128 }}>
                 <Typography className={Type.textCenter}>
