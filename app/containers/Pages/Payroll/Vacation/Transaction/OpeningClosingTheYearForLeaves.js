@@ -304,7 +304,17 @@ useEffect(() => {
                                 <DesktopDatePicker
                                   label={intl.formatMessage(messages.StartDate)}
                                   value={fromDate}
-                                  onChange={(date) => { setFromDate( format(new Date(date), "yyyy-MM-dd"))}}
+                                  onChange={(date) => { 
+                                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                                      if (!isNaN(new Date(date))) { 
+                                        setFromDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
+                                      } 
+                                      else
+                                      {
+                                        setFromDate(null)
+                                      }
+                                    }
+                                  }}
                                   className={classes.field}
                                   renderInput={(params) => <TextField {...params} variant="outlined"  required={toDate !== null ? true : false}/>}
                                 />
@@ -317,7 +327,17 @@ useEffect(() => {
                                 <DesktopDatePicker
                                   label={intl.formatMessage(messages.EndDate)}
                                   value={toDate}
-                                  onChange={(date) => { setToDate( format(new Date(date), "yyyy-MM-dd"))}}
+                                  onChange={(date) => { 
+                                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                                      if (!isNaN(new Date(date))) { 
+                                        setToDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
+                                      } 
+                                      else
+                                      {
+                                        setToDate(null)
+                                      }
+                                    }
+                                  }}
                                   className={classes.field}
                                   renderInput={(params) => <TextField {...params} variant="outlined"  required={fromDate !== null ? true : false}/>}
                                 />

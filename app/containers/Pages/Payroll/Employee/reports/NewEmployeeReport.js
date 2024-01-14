@@ -295,10 +295,21 @@ function NewEmployeeReport(props) {
                 label={intl.formatMessage(messages.fromDate)}
                 value={formInfo.FromDate}
                 onChange={(date) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    FromDate: date,
-                  }));
+                  if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                    if (!isNaN(new Date(date))) { 
+                      setFormInfo((prev) => ({
+                          ...prev,
+                          FromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                        }))
+                    }
+                    else
+                    {
+                      setFormInfo((prev) => ({
+                        ...prev,
+                        FromDate: null,
+                      }))
+                    } 
+                  }
                 }}
                 className={classes.field}
                 renderInput={(params) => (
@@ -314,10 +325,21 @@ function NewEmployeeReport(props) {
                 label={intl.formatMessage(messages.toDate)}
                 value={formInfo.ToDate}
                 onChange={(date) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    ToDate: date,
-                  }));
+                  if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                    if (!isNaN(new Date(date))) { 
+                      setFormInfo((prev) => ({
+                          ...prev,
+                          ToDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                        }))
+                    }
+                    else
+                    {
+                      setFormInfo((prev) => ({
+                        ...prev,
+                        ToDate: null,
+                      }))
+                    } 
+                  }
                 }}
                 className={classes.field}
                 renderInput={(params) => (

@@ -559,7 +559,15 @@ function Personal(props) {
                         label={intl.formatMessage(messages.hiringDate)}
                         value={hiringDate}
                         onChange={(date) => {
-                          sethiringDate(format(new Date(date), "yyyy-MM-dd"));
+                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                            if (!isNaN(new Date(date))) { 
+                              sethiringDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                            } 
+                            else
+                            {
+                              sethiringDate(null)
+                            }
+                          }
                         }}
                         className={classes.field}
                         renderInput={(params) => (
@@ -766,9 +774,15 @@ function Personal(props) {
                       value={identityIssuingDate}
                       required
                       onChange={(date) => {
-                        setidentityIssuingDate(
-                          format(new Date(date), "yyyy-MM-dd")
-                        );
+                        if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                          if (!isNaN(new Date(date))) { 
+                            setidentityIssuingDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                          } 
+                          else
+                          {
+                            setidentityIssuingDate(null)
+                          }
+                        }
                       }}
                       className={classes.field}
                       renderInput={(params) => (
@@ -784,7 +798,15 @@ function Personal(props) {
                       required
                       value={identityExpiry}
                       onChange={(date) => {
-                        setidentityExpiry(format(new Date(date), "yyyy-MM-dd"));
+                        if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                          if (!isNaN(new Date(date))) { 
+                            setidentityExpiry(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                          } 
+                          else
+                          {
+                            setidentityExpiry(null)
+                          }
+                        }
                       }}
                       className={classes.field}
                       renderInput={(params) => (
@@ -927,7 +949,15 @@ function Personal(props) {
                   label={intl.formatMessage(messages.birthDate)}
                   value={birthDate}
                   onChange={(date) => {
-                    setbirthDate(format(new Date(date), "yyyy-MM-dd"));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setbirthDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                      } 
+                      else
+                      {
+                        setbirthDate(null)
+                      }
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (

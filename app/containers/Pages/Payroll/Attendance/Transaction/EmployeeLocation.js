@@ -124,7 +124,7 @@ function EmployeeLocation(props) {
         toast.error("Please Enter Location & dates");
         return;
       }
-      debugger;
+      // debugger;
       setIsLoading(true);
       var formData = {
         FromDate: FromDate,
@@ -163,6 +163,9 @@ function EmployeeLocation(props) {
     Getookup();
   }, []);
 
+
+  console.log("ToDate =", ToDate);
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -175,7 +178,15 @@ function EmployeeLocation(props) {
                   label={intl.formatMessage(Payrollmessages.fromdate)}
                   value={FromDate}
                   onChange={(date) => {
-                    setFromDate(format(new Date(date), "yyyy-MM-dd"));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setFromDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                      }
+                      else
+                      {
+                        setFromDate(null)
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (
@@ -190,7 +201,16 @@ function EmployeeLocation(props) {
                   label={intl.formatMessage(Payrollmessages.todate)}
                   value={ToDate}
                   onChange={(date) => {
-                    setToDate(format(new Date(date), "yyyy-MM-dd"));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setToDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                      } 
+                      else
+                      {
+                        setToDate(null)
+                      }
+                    }
+                    
                   }}
                   className={classes.field}
                   renderInput={(params) => (

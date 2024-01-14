@@ -392,9 +392,15 @@ function EmployeeContract(props) {
                     label={intl.formatMessage(messages.contractStartDate)}
                     value={contractStartDate}
                     onChange={(date) => {
-                      setcontractStartDate(
-                        format(new Date(date), "yyyy-MM-dd")
-                      );
+                      if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                        if (!isNaN(new Date(date))) { 
+                          setcontractStartDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                        } 
+                        else
+                        {
+                          setcontractStartDate(null)
+                        }
+                      }
                     }}
                     className={classes.field}
                     renderInput={(params) => (
@@ -410,7 +416,15 @@ function EmployeeContract(props) {
                     label={intl.formatMessage(messages.contractEndDate)}
                     value={contractEndDate}
                     onChange={(date) => {
-                      setcontractEndDate(format(new Date(date), "yyyy-MM-dd"));
+                      if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                        if (!isNaN(new Date(date))) { 
+                          setcontractEndDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                        } 
+                        else
+                        {
+                          setcontractEndDate(null)
+                        }
+                      }
                     }}
                     className={classes.field}
                     renderInput={(params) => (

@@ -222,10 +222,21 @@ function ShiftEmployeeCreate(props) {
                   label={intl.formatMessage(Payrollmessages.fromdate)}
                   value={data.fromDate}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      fromDate: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            fromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          fromDate: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (
@@ -240,10 +251,21 @@ function ShiftEmployeeCreate(props) {
                   label={intl.formatMessage(Payrollmessages.todate)}
                   value={data.toDate}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      toDate: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            toDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          toDate: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (

@@ -132,10 +132,21 @@ function EmpCourseCreate(props) {
                   label={intl.formatMessage(Payrollmessages.fromdate)}
                   value={data.startDate}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      startDate: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            startDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          startDate: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (
@@ -150,10 +161,21 @@ function EmpCourseCreate(props) {
                   label={intl.formatMessage(Payrollmessages.todate)}
                   value={data.finishDate}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      finishDate: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            finishDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          finishDate: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (
@@ -168,10 +190,21 @@ function EmpCourseCreate(props) {
                   label={intl.formatMessage(messages.commStartDate)}
                   value={data.commStartDate}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      commStartDate: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            commStartDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          commStartDate: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (
@@ -186,10 +219,21 @@ function EmpCourseCreate(props) {
                   label={intl.formatMessage(messages.commEndDate)}
                   value={data.commEndDate}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      commEndDate: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            commEndDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          commEndDate: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (

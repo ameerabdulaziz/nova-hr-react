@@ -383,10 +383,21 @@ function LeaveTrxCreate(props) {
                           label={intl.formatMessage(Payrollmessages.date)}
                           value={formInfo.trxDate}
                           onChange={(date) => {
-                            setFormInfo((prevFilters) => ({
-                              ...prevFilters,
-                              trxDate: date,
-                            }));
+                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                              if (!isNaN(new Date(date))) { 
+                                setFormInfo((prevFilters) => ({
+                                    ...prevFilters,
+                                    trxDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                                  }))
+                              }
+                              else
+                              {
+                                setFormInfo((prevFilters) => ({
+                                  ...prevFilters,
+                                  trxDate: null,
+                                }))
+                              } 
+                            }
                           }}
                           className={classes.field}
                           renderInput={(params) => (
@@ -564,10 +575,21 @@ function LeaveTrxCreate(props) {
                             formInfo.vacCode !== 5 ? formInfo.toDate : null
                           }
                           onChange={(date) => {
-                            setFormInfo((prev) => ({
-                              ...prev,
-                              fromDate: date,
-                            }));
+                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                              if (!isNaN(new Date(date))) { 
+                                setFormInfo((prev) => ({
+                                    ...prev,
+                                    fromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                                  }))
+                              }
+                              else
+                              {
+                                setFormInfo((prev) => ({
+                                  ...prev,
+                                  fromDate: null,
+                                }))
+                              } 
+                            }
                           }}
                           className={classes.field}
                           renderInput={(params) => (
@@ -588,10 +610,21 @@ function LeaveTrxCreate(props) {
                           value={formInfo.toDate}
                           disabled={formInfo.vacCode === 5}
                           onChange={(date) => {
-                            setFormInfo((prev) => ({
-                              ...prev,
-                              toDate: date,
-                            }));
+                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                              if (!isNaN(new Date(date))) { 
+                                setFormInfo((prev) => ({
+                                    ...prev,
+                                    toDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                                  }))
+                              }
+                              else
+                              {
+                                setFormInfo((prev) => ({
+                                  ...prev,
+                                  toDate: null,
+                                }))
+                              } 
+                            }
                           }}
                           className={classes.field}
                           renderInput={(params) => (

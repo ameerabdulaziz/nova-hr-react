@@ -188,10 +188,21 @@ function RewardTransCreate(props) {
                   label={intl.formatMessage(messages.date)}
                   value={data.date}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      date: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            date: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          date: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (
