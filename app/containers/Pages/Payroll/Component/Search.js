@@ -70,6 +70,9 @@ function Search(props) {
 
       setEmployeeList(employees);
 
+      const organizations = await GeneralListApis(locale).GetDepartmentList(value);
+      setOrganizationList(organizations);
+
       setsearchData((prevFilters) => ({
         ...prevFilters,
         BranchId: value,
