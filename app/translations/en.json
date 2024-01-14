@@ -982,8 +982,10 @@
   "boilerplate.containers.Payroll.september": "September",
   "boilerplate.containers.Payroll.october": "October",
   "boilerplate.containers.Payroll.november": "November",
+  "boilerplate.containers.Payroll.company": "Company",
   "boilerplate.containers.Payroll.december": "December",
   "boilerplate.containers.Payroll.employees": "View Employees",
+  "boilerplate.containers.Payroll.company": "Company",
 
   "boilerplate.containers.Payroll.VacationName": "Vacation",
   "boilerplate.containers.Payroll.Actions": "Actions",
@@ -1720,6 +1722,22 @@
   "boilerplate.containers.Payroll.Payroll.oldTaxValue": "Old Tax Value",
   "boilerplate.containers.Payroll.Payroll.newTaxBool": "New Tax Boolean",
   "boilerplate.containers.Payroll.Payroll.newTaxValue": "New Tax Value",
+  "boilerplate.containers.Payroll.Payroll.showOrganization": "Show Department",
+  "boilerplate.containers.Payroll.Payroll.exportToNewFile": "Export To New File",
+  "boilerplate.containers.Payroll.Payroll.updateExistingFile": "Update Existing File",
+  "boilerplate.containers.Payroll.Payroll.exportTemplate": "Export Template",
+  "boilerplate.containers.Payroll.Payroll.account": "Account",
+  "boilerplate.containers.Payroll.Payroll.exportDetails": "Export Details",
+  "boilerplate.containers.Payroll.Payroll.fileExtensionShouldBeExcel": "File extension should be Excel",
+  "boilerplate.containers.Payroll.Payroll.upload": "Upload",
+  "boilerplate.containers.Payroll.Payroll.fileIsEmpty": "File is empty",
+  "boilerplate.containers.Payroll.Payroll.fileSizeShouldBeLessThan10MB": "File size should be less than 10MB",
+  "boilerplate.containers.Payroll.Payroll.dataFromLineNumber": "Data from line number",
+  "boilerplate.containers.Payroll.Payroll.iban": "IBAN",
+  "boilerplate.containers.Payroll.Payroll.swift": "SWIFT",
+  "boilerplate.containers.Payroll.Payroll.export": "Export",
+  "boilerplate.containers.Payroll.Payroll.bankNumber": "Bank Number",
+  "boilerplate.containers.Payroll.Payroll.bankName": "Bank Name",
   
   "boilerplate.containers.Payroll.Payroll.variable": "Variable",
   "boilerplate.containers.Payroll.Payroll.Percentage": "Percentage",
@@ -1885,6 +1903,8 @@
   "boilerplate.containers.Payroll.Payroll.outstanding":"Outstanding",
   "boilerplate.containers.Payroll.Payroll.Notes":"Notes",
   "boilerplate.containers.Payroll.Payroll.EndedLoans":"Ended Loans",
+
+  "boilerplate.containers.Payroll.Payroll.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement":"You must to choose all years , all months and at least one element",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
@@ -2266,6 +2286,7 @@
   "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "Start Date is After End Date",
 
   "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "Leave Type",
+  "boilerplate.containers.Payroll.vac.Transaction.company": "Company",
 
   "boilerplate.containers.Payroll.insurance.arName": "Arabic Name",
   "boilerplate.containers.Payroll.insurance.enName": "English Name",

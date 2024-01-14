@@ -26,7 +26,6 @@ function About(props) {
 
   const listItems = [
     {
-      id: 1,
       title: intl.formatMessage(messages.hiringDate),
       icon: <DateRange />,
       value: profileInfo.hiringDate
@@ -34,31 +33,26 @@ function About(props) {
         : '',
     },
     {
-      id: 2,
       title: intl.formatMessage(messages.email),
       icon: <EmailIcon />,
       value: profileInfo.workEmail,
     },
     {
-      id: 3,
       title: intl.formatMessage(messages.phone),
       icon: <LocalPhone />,
       value: profileInfo.mobile,
     },
     {
-      id: 4,
       title: intl.formatMessage(messages.address),
       icon: <LocationOn />,
       value: profileInfo.address,
     },
     {
-      id: 5,
       title: intl.formatMessage(messages.organization),
       icon: <BusinessIcon />,
       value: profileInfo.organizationName,
     },
     {
-      id: 5,
       title: intl.formatMessage(messages.reportingTo),
       icon: <FlagIcon />,
       value: profileInfo.reportToName,
@@ -76,8 +70,8 @@ function About(props) {
           desc=''
         >
           <List dense className={classes.profileList}>
-            {listItems.map((item) => (
-              <ListItem key={item.id}>
+            {listItems.map((item, index) => (
+              <ListItem key={index}>
                 <ListItemAvatar>
                   <Avatar>{item.icon}</Avatar>
                 </ListItemAvatar>

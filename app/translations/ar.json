@@ -939,6 +939,7 @@
   "boilerplate.containers.Payroll.element": "العنصر",
   "boilerplate.containers.Payroll.Upload": "رفع",
   "boilerplate.containers.Payroll.Print": "طباعة",
+  "boilerplate.containers.Payroll.company": "الشركة",
   "boilerplate.containers.Payroll.preview": "عرض",
 
   "boilerplate.containers.Payroll.executionId": "WorkFlow Id",
@@ -1006,6 +1007,7 @@
   "boilerplate.containers.Payroll.applynewshift": "تطبيق الوردية الجديده",
   "boilerplate.containers.Payroll.employees": "عرض الموظفين",
   "boilerplate.containers.Payroll.VacationName": "الاجازة",
+  "boilerplate.containers.Payroll.company": "الشركة",
 
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
@@ -1775,6 +1777,22 @@
     "boilerplate.containers.Payroll.Payroll.oldTaxValue": "الضريبة المحسوبه",
     "boilerplate.containers.Payroll.Payroll.newTaxBool": "الوعاء الضريبى المستحق",
     "boilerplate.containers.Payroll.Payroll.newTaxValue": "الضريبة المستحقة",
+    "boilerplate.containers.Payroll.Payroll.showOrganization": "عرض القسم",
+    "boilerplate.containers.Payroll.Payroll.exportToNewFile": "تصدير إلى ملف جديد",
+    "boilerplate.containers.Payroll.Payroll.updateExistingFile": "تحديث ملف موجود",
+    "boilerplate.containers.Payroll.Payroll.exportTemplate": "تصدير القالب",
+    "boilerplate.containers.Payroll.Payroll.account": "الحساب",
+    "boilerplate.containers.Payroll.Payroll.exportDetails": "تفاصيل التصدير",
+    "boilerplate.containers.Payroll.Payroll.fileExtensionShouldBeExcel": "يجب أن يكون امتداد الملف اكسيل",
+    "boilerplate.containers.Payroll.Payroll.upload": "تحميل",
+    "boilerplate.containers.Payroll.Payroll.fileIsEmpty": "الملف فارغ",
+    "boilerplate.containers.Payroll.Payroll.fileSizeShouldBeLessThan10MB": "يجب أن يكون حجم الملف أقل من 10 ميغابايت",
+    "boilerplate.containers.Payroll.Payroll.dataFromLineNumber": "البيانات من رقم الصف",
+    "boilerplate.containers.Payroll.Payroll.iban": "IBAN",
+    "boilerplate.containers.Payroll.Payroll.swift": "SWIFT",
+    "boilerplate.containers.Payroll.Payroll.export": "تصدير",
+    "boilerplate.containers.Payroll.Payroll.bankNumber": "رقم البنك",
+    "boilerplate.containers.Payroll.Payroll.bankName": "اسم البنك",
     
     "boilerplate.containers.Payroll.Payroll.inWeb": "يظهر فى تقارير الويب",
     "boilerplate.containers.Payroll.Payroll.calcIneachTemplate": "يحتسب فى كل قالب على حده",
@@ -1950,6 +1968,8 @@
     "boilerplate.containers.Payroll.Payroll.outstanding":"المتبقى",
     "boilerplate.containers.Payroll.Payroll.Notes":"ملاحظات",
     "boilerplate.containers.Payroll.Payroll.EndedLoans":"انتهاء السلفة",
+
+    "boilerplate.containers.Payroll.Payroll.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement":"يجب عليك اختيار كل السنوات وكل الشهور وعنصر واحد على الأقل",
     
     
   
@@ -2326,6 +2346,7 @@
   "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "تاريخ البدء يأتي بعد تاريخ الانتهاء",
 
   "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "نوع الإجازة",
+  "boilerplate.containers.Payroll.vac.Transaction.company": "الشركة",
 
   "boilerplate.containers.Payroll.insurance.saveConfirmMessage": "قيمة الربط الأساسي تزيد على الحد الاقصى له ، هل تريد الاستمرار؟",
   "boilerplate.containers.Payroll.insurance.updateSalaryRoundingMessage": "تقريب القيمة: سيتم تجاهل القيم الأقل من أو تساوي 20 وسيتم تقريب القيم الأكبر إلى 100",

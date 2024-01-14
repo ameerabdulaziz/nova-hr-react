@@ -1,2 +1,13 @@
 {
+  "i18n-ally.localesPaths": [
+    "internals/generators/language"
+  ],
+  "cSpell.words": [
+    "datatables",
+    "idcard",
+    "isdelete",
+    "notif",
+    "Papper",
+    "Taysser"
+  ]
 }

@@ -2,9 +2,9 @@ import axiosInstance from './axios';
 const GeneralListApis = (locale) => {
   const Apis = {};
 
-  Apis.GetDepartmentList = async () => {
+  Apis.GetDepartmentList = async (branchId) => {
     const data = await axiosInstance.get(
-      `GeneralList/GetDepartmentList/${locale}`
+      `GeneralList/GetDepartmentList/${locale}?branchId=${branchId ? branchId : ""}`
     );
 
     return data.data;
@@ -18,9 +18,9 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetEmployeeList = async (IsInsured, medicalInsured,branchId) => {
+  Apis.GetEmployeeList = async (IsInsured, medicalInsured,branchId, departmentId) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeList/${locale}?IsInsured=${IsInsured?true:false}&PrivMedCareInsured=${medicalInsured ? true : false}&branchId=${branchId ? branchId : ""}`
+      `GeneralList/GetEmployeeList/${locale}?IsInsured=${IsInsured?true:false}&PrivMedCareInsured=${medicalInsured ? true : false}&branchId=${branchId ? branchId : ""}&departmentId=${departmentId ? departmentId : ""}`
     );
 
     return result.data;
@@ -158,6 +158,27 @@ const GeneralListApis = (locale) => {
   Apis.GetJobLevelList = async () => {
     const result = await axiosInstance.get(
       `GeneralList/GetJobLevelList/${locale}`
+    );
+    return result.data;
+  };
+
+  Apis.GetBankListRpt = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetBankListRpt/${locale}`
+    );
+    return result.data;
+  };
+
+  Apis.MdBanks = async () => {
+    const result = await axiosInstance.get(
+      `MdBanks/GetListModel/${locale}`
+    );
+    return result.data;
+  };
+
+  Apis.GetBankList = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetBankList/${locale}`
     );
     return result.data;
   };

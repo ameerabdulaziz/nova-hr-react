@@ -22,6 +22,7 @@ function LoanReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,7 @@ function LoanReport(props) {
     OrganizationId: "",
     EmpStatusId: 1,
     EndedLoans: false,
+    BranchId: branchId
   });
 
 

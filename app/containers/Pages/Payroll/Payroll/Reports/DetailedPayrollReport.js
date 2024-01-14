@@ -31,6 +31,7 @@ function DetailedPayrollReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const Title = localStorage.getItem('MenuName');
 
   const [companyList, setCompanyList] = useState([]);
@@ -43,7 +44,7 @@ function DetailedPayrollReport(props) {
   const [tableData, setTableData] = useState([]);
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
-    BranchId: null,
+    BranchId: branchId,
     TemplateId: null,
     YearId: null,
     MonthId: null,
@@ -96,6 +97,19 @@ function DetailedPayrollReport(props) {
 
       const currency = await GeneralListApis(locale).MdCurrency();
       setCurrencyList(currency);
+
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setFormInfo((prev) => ({
+          ...prev,
+          MonthId: response.monthId,
+          YearId: response.yearId,
+        }));
+      }
     } catch (error) {
       //
     } finally {

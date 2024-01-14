@@ -118,7 +118,7 @@ function JobRequirements(props) {
         <EditTable
           anchorTable={anchorTable}
           title={selectedJob?.name ?? ''}
-          API={JobRequirementsData(selectedJob?.id ?? '')}
+          API={selectedJob ? JobRequirementsData(selectedJob.id) : ""}
         />
       </div>
     </PayRollLoader>

@@ -15,6 +15,9 @@ import useStyles from "../../Style";
 import notif from "enl-api/ui/notifMessage";
 import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../Component/PayRollLoader";
+
+import style from '../../../../../styles/styles.scss'
+
 const email = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? "Invalid email"
@@ -269,6 +272,7 @@ function EmployeeContactInfo(props) {
                     color="secondary"
                     type="submit"
                     disabled={employee.id === 0}
+                    className={style.generalBtnStys}
                   >
                     <FormattedMessage {...Payrollmessages.save} />
                   </Button>
@@ -276,6 +280,7 @@ function EmployeeContactInfo(props) {
                     type="button"
                     disabled={employee.id === 0}
                     onClick={() => deletedata()}
+                    className={style.generalBtnStys}
                   >
                     <FormattedMessage {...Payrollmessages.delete} />
                   </Button>

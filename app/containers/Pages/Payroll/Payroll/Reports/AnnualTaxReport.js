@@ -20,6 +20,7 @@ function AnnualTaxReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const Title = localStorage.getItem('MenuName');
 
   const [companyList, setCompanyList] = useState([]);
@@ -29,7 +30,7 @@ function AnnualTaxReport(props) {
   const [tableData, setTableData] = useState([]);
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
-    BranchId: null,
+    BranchId: branchId,
     YearId: null,
     IsStopped: null,
 
@@ -57,6 +58,19 @@ function AnnualTaxReport(props) {
 
       const years = await GeneralListApis(locale).GetYears();
       setYearList(years);
+
+
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setFormInfo((prev) => ({
+          ...prev,
+          YearId: response.yearId,
+        }));
+      }
     } catch (error) {
       //
     } finally {
