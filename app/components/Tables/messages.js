@@ -363,4 +363,8 @@ export default defineMessages({
     id: `${scope}.codes.branchName`,
     defaultMessage: 'branchName',
   },
+  templateName: {
+    id: `${scope}.codes.templateName`,
+    defaultMessage: 'templateName',
+  },
 });

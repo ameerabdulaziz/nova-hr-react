@@ -20,7 +20,7 @@ const EmployeeBankElementData = (probs) => {
       empBankId: obj.empBankId,
       elementId: obj.PayTemplateId,
       currencyId: obj.currencyId,
-      elementName: obj.payTemplateName,
+      templateName: obj.payTemplateName,
       currencyName: obj.currencyName,
       edited: false,
     }));

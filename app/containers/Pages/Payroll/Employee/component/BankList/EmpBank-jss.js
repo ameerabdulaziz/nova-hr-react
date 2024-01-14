@@ -192,7 +192,6 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     background: theme.palette.background.paper,
     border: `1px solid ${theme.palette.divider}`,
     marginRight: theme.spacing(0.5),
-    height: theme.spacing(5.8),
     margin: '0px',
   },
   search: {
