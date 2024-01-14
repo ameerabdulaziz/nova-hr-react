@@ -112,6 +112,14 @@ function EmployeeList(props) {
       label: intl.formatMessage(messages.employeename),
       options: {
         filter: true,
+        customBodyRender: (value, tableMeta) => <Box sx={{cursor: 'pointer'}} onClick={() => {
+          history.push('/app/Pages/Employee/Personal', {
+            empid: {
+              id: tableMeta.rowData[0],
+              name: tableMeta.rowData[2],
+            },
+          });
+        }} >{value}</Box>,
       },
     },
     {
@@ -220,18 +228,6 @@ function EmployeeList(props) {
                         height: 32,
                         ml: -0.5,
                         mr: 1,
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
                       },
                     },
                   },
