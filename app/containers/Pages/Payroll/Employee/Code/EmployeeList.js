@@ -21,6 +21,7 @@ import { Backdrop, CircularProgress, Box } from "@mui/material";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
 import { PapperBlock } from "enl-components";
+import { formateDate } from '../../helpers';
 
 function EmployeeList(props) {
   const { intl } = props;
@@ -122,10 +123,11 @@ function EmployeeList(props) {
     },
 
     {
-      name: 'identityNumber',
-      label: intl.formatMessage(messages.identitynumber),
+      name: 'hiringDate',
+      label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
+        customBodyRender: formateDate,
       },
     },
     {
