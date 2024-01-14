@@ -227,10 +227,6 @@ export default defineMessages({
     id: `${scope}.personal.controlParameter`,
     defaultMessage: 'rules Template',
   },
-  chooseEmp: {
-    id: `boilerplate.containers.Payroll.chooseEmp`,
-    defaultMessage: 'Select Employee',
-  },
   bank: {
     id: `${scope2}.codes.bank`,
     defaultMessage: 'Bank',
@@ -351,53 +347,60 @@ export default defineMessages({
     defaultMessage: 'Rule Template',
   },
 
-  isBnkTransfer: {
-    id: `${scope}.salary.isBnkTransfer`,
-    defaultMessage: 'Is Bank Transfer',
-  },
-
-  taxable: {
-    id: `${scope}.salary.taxable`,
-    defaultMessage: 'Taxable',
-  },
-  isHours: {
-    id: `${scope}.salary.isHours`,
-    defaultMessage: 'Is Hours',
-  },
-
-  hourPrice: {
-    id: `${scope}.salary.hourPrice`,
-    defaultMessage: 'Hour Price',
-  },
-  isNotApplyAttRule: {
-    id: `${scope}.salary.isNotApplyAttRule`,
-    defaultMessage: 'Is Not Apply Attendance Rule',
-  },
-  isMoneyOvertime: {
-    id: `${scope}.salary.isMoneyOvertime`,
-    defaultMessage: 'Is Money Overtime',
-  },
-
-  isVacationOvertime: {
-    id: `${scope}.salary.isVacationOvertime`,
-    defaultMessage: 'Is Vacation Overtime',
-  },
-  hasMonthlyBouns: {
-    id: `${scope}.salary.hasMonthlyBouns`,
-    defaultMessage: 'Has Monthly Bouns',
-  },
-  hasTransfereAllowance: {
-    id: `${scope}.salary.hasTransfereAllowance`,
-    defaultMessage: 'Has Transfere Allowance',
+  // EmployeeSalary
+  chooseEmp: {
+    id: `${scope}.salary.chooseEmp`,
+    defaultMessage: 'chooseEmployee',
   },
   salaryStructure: {
     id: `${scope}.salary.salaryStructure`,
-    defaultMessage: 'Salary Structure',
+    defaultMessage: 'salaryStructure',
+  },
+  isBnkTransfer: {
+    id: `${scope}.salary.isBnkTransfer`,
+    defaultMessage: 'isBnkTransfer',
+  },
+  taxable: {
+    id: `${scope}.salary.taxable`,
+    defaultMessage: 'taxable',
+  },
+  consultant: {
+    id: `${scope}.salary.consultant`,
+    defaultMessage: 'consultant',
+  },
+  hourPrice: {
+    id: `${scope}.salary.hourPrice`,
+    defaultMessage: 'hourValue',
+  },
+  isNotApplyAttRule: {
+    id: `${scope}.salary.isNotApplyAttRule`,
+    defaultMessage: 'isNotApplyAttRule',
+  },
+  isMoneyOvertime: {
+    id: `${scope}.salary.isMoneyOvertime`,
+    defaultMessage: 'isMoneyOvertime',
+  },
+  isVacationOvertime: {
+    id: `${scope}.salary.isVacationOvertime`,
+    defaultMessage: 'isVacationOvertime',
+  },
+  hasTransfereAllowance: {
+    id: `${scope}.salary.hasTransfereAllowance`,
+    defaultMessage: 'hasTransfereAllowance',
+  },
+  hasMonthlyBouns: {
+    id: `${scope}.salary.hasMonthlyBouns`,
+    defaultMessage: 'hasMonthlyBouns',
   },
   incentiveFrom: {
     id: `${scope}.salary.incentiveFrom`,
-    defaultMessage: 'Incentive From',
+    defaultMessage: 'incentiveFrom',
   },
+  isHours: {
+    id: `${scope}.salary.isHours`,
+    defaultMessage: 'isHours',
+  },
+
     // employee Documents
     id: {
       id: `${scope}.doc.id`,

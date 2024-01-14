@@ -42,7 +42,6 @@ function EmployeeSalary(props) {
   const [hasMonthlyBouns, sethasMonthlyBouns] = useState(false);
   const [hasTransfereAllowance, sethasTransfereAllowance] = useState(false);
   const [employeeList, setemployeeList] = useState([]);
-  const [required, setRequired] = useState({ required: false });
 
   const locale = useSelector((state) => state.language.locale);
   let centiveFromname0 = locale == "en" ? "From first day" : "من أول يوم تعيين";
@@ -182,178 +181,38 @@ function EmployeeSalary(props) {
           direction="row"
           justifyContent="center"
         >
-          <Grid item xs={12} md={6}>
-            <Autocomplete
-              id="ddlEmp"
-              options={employeeList}
-              value={{ id: employee.id, name: employee.name }}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setEmployee({
-                  id: value !== null ? value.id : 0,
-                  name: value !== null ? value.name : "",
-                });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employee"
-                  //  value={employee.id}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                  margin="normal"
+          <Grid item xs={12} md={8}>
+            <Grid container spacing={2} mb={2}>
+              <Grid item xs={12} md={12} >
+                <Autocomplete
+                  id="ddlEmp"
+                  options={employeeList}
+                  value={{ id: employee.id, name: employee.name }}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
+                  onChange={(event, value) => {
+                    setEmployee({
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : "",
+                    });
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="outlined"
+                      {...params}
+                      name="employee"
+                      //  value={employee.id}
+                      label={intl.formatMessage(messages.chooseEmp)}
+                    />
+                  )}
                 />
-              )}
-            />
+              </Grid>
 
-            <form onSubmit={handleSubmit}>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={isBnkTransfer}
-                      onChange={() => setisBnkTransfer(!isBnkTransfer)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.isBnkTransfer)}
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={taxable}
-                      onChange={() => settaxable(!taxable)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.taxable)}
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={isConsultant}
-                      onChange={() => setisConsultant(!isConsultant)}
-                      color="secondary"
-                    />
-                  }
-                  label="is Consultant"
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={isHours}
-                      onChange={() => {
-                        setisHours(!isHours);
-                        setRequired({ required: !isHours });
-                      }}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.isHours)}
-                />
-              </div>
-              <div>
-                <TextField
-                  id="hourPricetxt"
-                  name="hourPricetxt"
-                  value={hourPrice}
-                  onChange={(e) => sethourPrice(e.target.value)}
-                  placeholder={intl.formatMessage(messages.hourPrice)}
-                  label={intl.formatMessage(messages.hourPrice)}
-                  {...required}
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={isNotApplyAttRule}
-                      onChange={() => setisNotApplyAttRule(!isNotApplyAttRule)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.isNotApplyAttRule)}
-                />
-              </div>
-
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={isMoneyOvertime}
-                      onChange={() => setisMoneyOvertime(!isMoneyOvertime)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.isMoneyOvertime)}
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={isVacationOvertime}
-                      onChange={() =>
-                        setisVacationOvertime(!isVacationOvertime)
-                      }
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.isVacationOvertime)}
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={hasMonthlyBouns}
-                      onChange={() => sethasMonthlyBouns(!hasMonthlyBouns)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.hasMonthlyBouns)}
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={hasTransfereAllowance}
-                      onChange={() =>
-                        sethasTransfereAllowance(!hasTransfereAllowance)
-                      }
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.hasTransfereAllowance)}
-                />
-              </div>
-              <br />
-              <div>
+              <Grid item xs={12} md={12} >
                 <Autocomplete
                   id="ddlsalaryStructureId"
-                  required
                   options={salaryStructurelist}
                   value={salaryStructureId.length !== 0 ?{
                     id: salaryStructureId.id,
@@ -363,6 +222,7 @@ function EmployeeSalary(props) {
                     value.id === 0 || value.id === "" || option.id === value.id
                   }
                   getOptionLabel={(option) => (option.name ? option.name : "")}
+                  disabled={employee.id === 0}
                   onChange={(event, value) => {
                     setsalaryStructureId((prevFilters) => ({
                       ...prevFilters,
@@ -373,46 +233,198 @@ function EmployeeSalary(props) {
                   renderInput={(params) => (
                     <TextField
                       //margin="normal"
-
                       {...params}
                       name="salaryStructureId"
+                      disabled={employee.id === 0}
                       label={intl.formatMessage(messages.salaryStructure)}
                       variant="outlined"
                     />
                   )}
                 />
-              </div>
-              <br />
+              </Grid>
+            </Grid>
+
+            <form onSubmit={handleSubmit}>
               <div>
-                <Autocomplete
-                  id="ddlincentiveFrom"
-                  options={incentiveFromlist}
-                  value={incentiveFrom.length !== 0 ?{
-                    id: incentiveFrom.id,
-                    name: incentiveFrom.name,
-                  }: null}
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === "" || option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option.name ? option.name : "")}
-                  onChange={(event, value) => {
-                    setincentiveFrom((prevFilters) => ({
-                      ...prevFilters,
-                      id: value !== null ? value.id : 0,
-                      name: value !== null ? value.name : "",
-                    }));
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      name="incentiveFrom"
-                      label={intl.formatMessage(messages.incentiveFrom)}
-                      variant="outlined"
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isBnkTransfer}
+                      disabled={employee.id === 0}
+                      onChange={() => setisBnkTransfer(!isBnkTransfer)}
+                      color="secondary"
                     />
-                  )}
+                  }
+                  label={intl.formatMessage(messages.isBnkTransfer)}
                 />
               </div>
-              <br />
+              <div>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={taxable}
+                      disabled={employee.id === 0}
+                      onChange={() => settaxable(!taxable)}
+                      color="secondary"
+                    />
+                  }
+                  label={intl.formatMessage(messages.taxable)}
+                />
+              </div>
+              <div>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isConsultant}
+                      disabled={employee.id === 0}
+                      onChange={() => setisConsultant(!isConsultant)}
+                      color="secondary"
+                    />
+                  }
+                  label={intl.formatMessage(messages.consultant)}
+                />
+              </div>
+
+              <Grid container spacing={2} alignItems='center' >
+                <Grid item xs={12} md={8} >
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={isHours}
+                        disabled={employee.id === 0}
+                        onChange={() => {
+                          setisHours(!isHours);
+                        }}
+                        color="secondary"
+                      />
+                    }
+                    label={intl.formatMessage(messages.isHours)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4} >
+                  <TextField
+                    id="hourPricetxt"
+                    name="hourPricetxt"
+                    disabled={employee.id === 0 || !isHours}
+                    value={hourPrice}
+                    onChange={(e) => sethourPrice(e.target.value)}
+                    label={intl.formatMessage(messages.hourPrice)}
+                    required={isHours}
+                    className={classes.field}
+                    margin="normal"
+                    variant="outlined"
+                  />
+                </Grid>
+              </Grid>
+
+              <div>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isNotApplyAttRule}
+                      disabled={employee.id === 0}
+                      onChange={() => setisNotApplyAttRule(!isNotApplyAttRule)}
+                      color="secondary"
+                    />
+                  }
+                  label={intl.formatMessage(messages.isNotApplyAttRule)}
+                />
+              </div>
+
+              <div>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isMoneyOvertime}
+                      disabled={employee.id === 0}
+                      onChange={() => setisMoneyOvertime(!isMoneyOvertime)}
+                      color="secondary"
+                    />
+                  }
+                  label={intl.formatMessage(messages.isMoneyOvertime)}
+                />
+              </div>
+              <div>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isVacationOvertime}
+                      disabled={employee.id === 0}
+                      onChange={() =>
+                        setisVacationOvertime(!isVacationOvertime)
+                      }
+                      color="secondary"
+                    />
+                  }
+                  label={intl.formatMessage(messages.isVacationOvertime)}
+                />
+              </div>
+
+              <div>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={hasTransfereAllowance}
+                      disabled={employee.id === 0}
+                      onChange={() =>
+                        sethasTransfereAllowance(!hasTransfereAllowance)
+                      }
+                      color="secondary"
+                    />
+                  }
+                  label={intl.formatMessage(messages.hasTransfereAllowance)}
+                />
+              </div>
+
+              <Grid container spacing={2} mb={2} alignItems='center' >
+                <Grid item xs={12} md={8} >
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={hasMonthlyBouns}
+                        disabled={employee.id === 0}
+                        onChange={() => sethasMonthlyBouns(!hasMonthlyBouns)}
+                        color="secondary"
+                      />
+                    }
+                    label={intl.formatMessage(messages.hasMonthlyBouns)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4} >
+                  <Autocomplete
+                    id="ddlincentiveFrom"
+                    options={incentiveFromlist}
+                    value={incentiveFrom.length !== 0 ?{
+                      id: incentiveFrom.id,
+                      name: incentiveFrom.name,
+                    }: null}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" || option.id === value.id
+                    }
+                    disabled={employee.id === 0 || !hasMonthlyBouns}
+                    getOptionLabel={(option) => (option.name ? option.name : "")}
+                    onChange={(event, value) => {
+                      setincentiveFrom((prevFilters) => ({
+                        ...prevFilters,
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      }));
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        name="incentiveFrom"
+                        disabled={employee.id === 0 || !hasMonthlyBouns}
+                        label={intl.formatMessage(messages.incentiveFrom)}
+                        variant="outlined"
+                        required={hasMonthlyBouns}
+                      />
+                    )}
+                  />
+                </Grid>
+              </Grid>
 
               <div>
                 <div>
