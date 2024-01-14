@@ -196,17 +196,13 @@ export default defineMessages({
     defaultMessage: 'social Status',
   },
   militaryStatus: {
-    id: `${scope}.personal.militaryStatusId`,
+    id: `${scope}.personal.militaryStatus`,
     defaultMessage: 'Military Status',
   },
 
   sonNo: {
     id: `${scope}.personal.sonNo`,
     defaultMessage: 'Son Number',
-  },
-  socialStatus: {
-    id: `${scope}.personal.socialStatus`,
-    defaultMessage: 'social Status',
   },
 
   isResident: {
@@ -399,6 +395,10 @@ export default defineMessages({
   isHours: {
     id: `${scope}.salary.isHours`,
     defaultMessage: 'isHours',
+  },
+  identitynumberShouldBe14: {
+    id: `${scope}.salary.identitynumberShouldBe14`,
+    defaultMessage: 'identitynumberShouldBe14',
   },
 
     // employee Documents

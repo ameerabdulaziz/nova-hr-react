@@ -1980,6 +1980,7 @@
   "boilerplate.containers.Payroll.Employee.salary.salaryStructure": "Salary Structure",
   "boilerplate.containers.Payroll.Employee.salary.isBnkTransfer": "Bank Transfer",
   "boilerplate.containers.Payroll.Employee.salary.taxable": "Taxable",
+  "boilerplate.containers.Payroll.Employee.salary.identitynumberShouldBe14": "Identity Number Should Be 14 Charater ",
   "boilerplate.containers.Payroll.Employee.salary.consultant": "Consultant",
   "boilerplate.containers.Payroll.Employee.salary.isHours": "Salary On Working Hours",
   "boilerplate.containers.Payroll.Employee.salary.hourPrice": "Hourly Value",
