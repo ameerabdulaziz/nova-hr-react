@@ -58,7 +58,7 @@ function staffMedicalInsuranceReport(props) {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
 
-      const dataApi = await ApiData(locale).GetstaffMedicalInsuranceReportReport(formData);
+      const dataApi = await ApiData(locale).GetstaffMedicalInsuranceReport(formData);
       setdata(dataApi);
     } catch (err) {
     } finally {

@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 import Payrollmessages from "../../messages";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { PapperBlock } from "enl-components";
+import style from '../../../../../styles/styles.scss'
 
 
 function EmployeeSalary(props) {
@@ -421,6 +422,7 @@ function EmployeeSalary(props) {
                     color="secondary"
                     type="submit"
                     disabled={employee.id === 0}
+                    className={style.generalBtnStys}
                   >
                     
                     <FormattedMessage {...Payrollmessages.save} />
@@ -429,6 +431,7 @@ function EmployeeSalary(props) {
                     type="button"
                     disabled={employee.id === 0}
                     onClick={() => deletedata()}
+                    className={style.generalBtnStys}
                   >
                     <FormattedMessage {...Payrollmessages.delete} />
                   </Button>

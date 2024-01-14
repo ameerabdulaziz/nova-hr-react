@@ -15,6 +15,9 @@ import useStyles from "../Style";
 import { useSelector } from "react-redux";
 import GeneralListApis from "../api/GeneralListApis";
 import MUIDataTable from "mui-datatables";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import style from "../../../../styles/styles.scss";
 
 function NamePopup(props) {
   const { intl, IsInsured, withoutSalaryStructure, branchId } = props;
@@ -228,6 +231,20 @@ function NamePopup(props) {
             </div>
           )}
         </DialogContent>
+        <DialogActions>
+          <Button className={style.deleteAlertBtnSty} onClick={CloseClick}>
+            <FormattedMessage {...Payrollmessages.close} />
+          </Button>
+          {/* <Button
+            className={style.deleteAlertBtnSty}
+            onClick={() => {
+              handleClose();
+              callFun();
+            }}
+          >
+            <FormattedMessage {...Payrollmessages.yes} />
+          </Button> */}
+        </DialogActions>
       </Dialog>
     </div>
   );
