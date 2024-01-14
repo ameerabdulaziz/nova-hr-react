@@ -69,13 +69,13 @@ function Personal(props) {
   const [jobList, setjobList] = useState([]);
   const [jobLevelId, setjobLevelId] = useState({ id: 0, name: "" });
   const [jobLevelList, setjobLevelList] = useState([]);
-  const [hiringDate, sethiringDate] = useState("");
+  const [hiringDate, sethiringDate] = useState(null);
   const [controlParameterId, setcontrolParameterId] = useState("");
   const [controlParameterList, setcontrolParameterList] = useState([]);
   const [identityTypeId, setidentityTypeId] = useState("");
   const [identityTypeList, setidentityTypeList] = useState([]);
-  const [identityIssuingDate, setidentityIssuingDate] = useState("");
-  const [identityExpiry, setidentityExpiry] = useState("");
+  const [identityIssuingDate, setidentityIssuingDate] = useState(null);
+  const [identityExpiry, setidentityExpiry] = useState(null);
   const [identityNumber, setidentityNumber] = useState("");
   const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
   const [genderId, setgenderId] = useState("");
@@ -86,7 +86,7 @@ function Personal(props) {
   const [nationalityList, setnationalityList] = useState([]);
   const [religionId, setreligionId] = useState("");
   const [religionList, setreligionList] = useState([]);
-  const [birthDate, setbirthDate] = useState("");
+  const [birthDate, setbirthDate] = useState(null);
   const [workEmail, setWorkEmail] = useState('');
   const [isHR, setIsHR] = useState(false);
   const [hrBranchList, setHrBranchList] = useState([])
@@ -113,7 +113,6 @@ function Personal(props) {
 
   const locale = useSelector((state) => state.language.locale);
 
-  const [required, setRequired] = useState({ required: false });
   const [img, setImg] = useState(avatarApi[9]);
 
   const [files] = useState([]);
@@ -176,8 +175,15 @@ function Personal(props) {
   }, [employeeCode]);
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+    const isValidIdentityNumber = identityNumber.length === 14;
+
+    if (!isValidIdentityNumber) {
+      toast.error(intl.formatMessage(messages.identitynumberShouldBe14));
+      return;
+    }
+
     try {
-      e.preventDefault();
       setIsLoading(true);
 
       const data = {
@@ -451,106 +457,117 @@ function Personal(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={0}>
-                <Grid item xs container direction="row" spacing={2}>
-                  <Grid item xs={12} md={3}>
-                    <TextField
-                      id="empcode"
-                      name="empcode"
-                      type="number"
-                      value={employeeCode}
-                      onChange={(e) => setemployeeCode(e.target.value)}
-                      label={intl.formatMessage(messages.employeeCode)}
-                      className={classes.field}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <TextField
-                      id="machineCode"
-                      type="number"
-                      name="machineCode"
-                      value={machineCode}
-                      onChange={(e) => setmachineCode(e.target.value)}
-                      label={intl.formatMessage(messages.machineCode)}
-                      className={classes.field}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <TextField
-                      id="eRPCode"
-                      name="eRPCode"
-                      value={eRPCode}
-                      onChange={(e) => {
-                        seteRPCode(e.target.value);
-                      }}
-                      label={intl.formatMessage(messages.eRPCode)}
-                      className={classes.field}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <FormControlLabel
-                      required
-                      control={
-                        <Switch
-                          checked={isInsured}
-                          onChange={() => {
-                            setisInsured(!isInsured);
-                            setRequired({ required: !isInsured });
-                          }}
-                          color="secondary"
-                        />
-                      }
-                      label={intl.formatMessage(messages.isinsured)}
-                    />
-                  </Grid>
+          <Grid container spacing={2}>
+            <Grid item md={10} xs={12}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    id="arname"
+                    required
+                    name="arname"
+                    value={arName}
+                    onChange={(e) => setarName(e.target.value)}
+                    label={intl.formatMessage(messages.arname)}
+                    className={classes.field}
+                    variant="outlined"
+                  />
                 </Grid>
-                <Grid item xs container direction="row" spacing={2}>
-                  <Grid item xs={12} md={3}>
-                    <Autocomplete
-                      disabled
-                      id="ddlstatusId"
-                      options={statusList || []} 
-                      value={statusId.length != 0 ?{
-                        id: statusId.id,
-                        name: statusId.name,
-                      } : null}
-                      renderOption={(props, option) => {
-                        return (
-                          <li {...props} key={option.id}>
-                            {option.name}
-                          </li>
-                        );
-                      }}
-                      isOptionEqualToValue={(option, value) =>
-                        value.id === 0 ||
-                        value.id === "" ||
-                        option.id === value.id
-                      }
-                      getOptionLabel={(option) =>
-                        option.name ? option.name : ""
-                      }
-                      onChange={(event, value) => {
-                        setstatusId({
-                          id: value !== null ? value.id : 0,
-                          name: value !== null ? value.name : "",
-                        });
-                      }}
-                      renderInput={(params) => (
-                        <TextField
-                          variant="outlined"
-                          {...params}
-                          name="statusId"
-                          // required
-                          label={intl.formatMessage(messages.status)}
-                        />
-                      )}
-                    />
-                  </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    id="enname"
+                    name="enname"
+                    required
+                    value={enName}
+                    onChange={(e) => setenName(e.target.value)}
+                    label={intl.formatMessage(messages.enname)}
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    id="empcode"
+                    name="empcode"
+                    type="number"
+                    value={employeeCode}
+                    disabled={id !== 0}
+                    onChange={id !== 0 ? undefined :(e) => setemployeeCode(e.target.value)}
+                    label={intl.formatMessage(messages.employeeCode)}
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    id="machineCode"
+                    type="number"
+                    name="machineCode"
+                    value={machineCode}
+                    onChange={(e) => setmachineCode(e.target.value)}
+                    label={intl.formatMessage(messages.machineCode)}
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    id="eRPCode"
+                    name="eRPCode"
+                    value={eRPCode}
+                    onChange={(e) => {
+                      seteRPCode(e.target.value);
+                    }}
+                    label={intl.formatMessage(messages.eRPCode)}
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <Autocomplete
+                    disabled
+                    id="ddlstatusId"
+                    options={statusList || []} 
+                    value={statusId.length != 0 ?{
+                      id: statusId.id,
+                      name: statusId.name,
+                    } : null}
+                    renderOption={(optionProps, option) => {
+                      return (
+                        <li {...optionProps} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
+                    }}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 ||
+                      value.id === "" ||
+                      option.id === value.id
+                    }
+                    getOptionLabel={(option) =>
+                      option.name ? option.name : ""
+                    }
+                    onChange={(event, value) => {
+                      setstatusId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        name="statusId"
+                        // required
+                        label={intl.formatMessage(messages.status)}
+                      />
+                    )}
+                  />
+                </Grid>
 
                   <Grid item xs={12} md={3}>
                     <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -609,34 +626,6 @@ function Personal(props) {
                   </Grid>
                 </Grid>
 
-                <Grid item xs container spacing={2} direction="row">
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      id="arname"
-                      required
-                      name="arname"
-                      value={arName}
-                      onChange={(e) => setarName(e.target.value)}
-                      label={intl.formatMessage(messages.arname)}
-                      className={classes.field}
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      id="enname"
-                      name="enname"
-                      required
-                      value={enName}
-                      onChange={(e) => setenName(e.target.value)}
-                      label={intl.formatMessage(messages.enname)}
-                      className={classes.field}
-                      variant="outlined"
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
             <Grid item xs={2}>
               <div sx={{ height: 128 }}>
                 <Typography className={Type.textCenter}>
@@ -684,7 +673,9 @@ function Personal(props) {
               </div>
             </Grid>
           </Grid>
+
           <hr />
+
           <Grid container spacing={2} alignItems="flex-start" direction="row">
             <Grid item xs={10} md={12}>
               <Grid
@@ -696,7 +687,6 @@ function Personal(props) {
                 <Grid item xs={12} md={4}>
                   <Autocomplete
                     id="ddlidentityType"
-                    required
                     options={identityTypeList || []}
                     value={identityTypeId.length !== 0 ? {
                       id: identityTypeId.id,
@@ -734,6 +724,7 @@ function Personal(props) {
                     )}
                   />
                 </Grid>
+
                 <Grid item xs={12} md={4}>
                   <TextField
                     id="identityIssuingAuth"
@@ -747,19 +738,12 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}></Grid>
                 <Grid item xs={12} md={4}>
                   <TextField
                     id="identityNumber"
                     name="identityNumber"
                     value={identityNumber}
                     type="number"
-                    InputProps={{
-                      inputProps: {
-                        max: 14,
-                        min: 14,
-                      },
-                    }}
                     onChange={(e) => setidentityNumber(e.target.value)}
                     label={intl.formatMessage(messages.identitynumber)}
                     className={classes.field}
@@ -767,7 +751,8 @@ function Personal(props) {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={2}>
+
+                <Grid item xs={12} md={4}>
                   <LocalizationProvider dateAdapter={AdapterMoment}>
                     <DesktopDatePicker
                       label={intl.formatMessage(messages.identityIssuingDate)}
@@ -791,7 +776,8 @@ function Personal(props) {
                     />
                   </LocalizationProvider>
                 </Grid>
-                <Grid item xs={12} md={2}>
+
+                <Grid item xs={12} md={4}>
                   <LocalizationProvider dateAdapter={AdapterMoment}>
                     <DesktopDatePicker
                       label={intl.formatMessage(messages.identityExpiry)}
@@ -817,10 +803,12 @@ function Personal(props) {
                 </Grid>
               </Grid>
             </Grid>
+
             <Grid item xs={12} md={12}>
               <hr />
             </Grid>
-            <Grid item xs={12} md={2}>
+
+            <Grid item xs={12} md={3}>
               <Autocomplete
                 id="ddlGenderId"
                 options={genderList || []}
@@ -850,13 +838,12 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="GenderId"
-                    required
                     label={intl.formatMessage(messages.gender)}
                   />
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={3}>
               <Autocomplete
                 id="ddlNationalityId"
                 options={nationalityList || []}
@@ -892,7 +879,7 @@ function Personal(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item xs={6} md={3}>
               <Autocomplete
                 id="ddlreligionId"
                 options={religionList || []}
@@ -942,8 +929,7 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}></Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item xs={6} md={3}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
                   label={intl.formatMessage(messages.birthDate)}
@@ -966,7 +952,8 @@ function Personal(props) {
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={6} md={2}>
+
+            <Grid item xs={6} md={3}>
               <Autocomplete
                 id="ddlbirthGovId"
                 options={birthGovList || []}
@@ -1002,7 +989,8 @@ function Personal(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={6} md={2}>
+
+            <Grid item xs={6} md={3}>
               <Autocomplete
                 id="ddlbirthcityId"
                 options={birthCityList || []}
@@ -1038,7 +1026,8 @@ function Personal(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={6} md={6}>
+
+            <Grid item xs={12} md={3}>
               <TextField
                 id="motherName"
                 name="motherName"
@@ -1049,6 +1038,101 @@ function Personal(props) {
                 onChange={(e) => setmotherName(e.target.value)}
               />
             </Grid>
+
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                id="ddlsocialStatusId"
+                options={socialStatusList || []}
+                value={socialStatusId.length !== 0 ?{
+                  id: socialStatusId.id,
+                  name: socialStatusId.name,
+                }: null}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
+                }}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 ||
+                  value.id === "" ||
+                  option.id === value.id
+                }
+                getOptionLabel={(option) =>
+                  option.name ? option.name : ""
+                }
+                onChange={(event, value) => {
+                  setsocialStatusId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="socialStatusId"
+                    required
+                    label={intl.formatMessage(messages.socialStatus)}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                id="sonNo"
+                name="sonNo"
+                value={sonNo}
+                type="number"
+                label={intl.formatMessage(messages.sonNo)}
+                className={classes.field}
+                variant="outlined"
+                onChange={(e) => setsonNo(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                id="ddlmilitaryStatusId"
+                options={militaryStatusList || []}
+                value={militaryStatusId.length !== 0 ?{
+                  id: militaryStatusId.id,
+                  name: militaryStatusId.name,
+                }: null}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
+                }}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 ||
+                  value.id === "" ||
+                  option.id === value.id
+                }
+                getOptionLabel={(option) =>
+                  option.name ? option.name : ""
+                }
+                onChange={(event, value) => {
+                  setmilitaryStatusId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="militaryStatusId"
+                    label={intl.formatMessage(messages.militaryStatus)}
+                  />
+                )}
+              />
+            </Grid>
+
             <Grid item xs={12} md={12}>
               <Grid
                 container
@@ -1056,102 +1140,11 @@ function Personal(props) {
                 alignItems="flex-start"
                 direction="row"
               >
-                <Grid item xs={12} md={4}>
-                  <Autocomplete
-                    id="ddlsocialStatusId"
-                    options={socialStatusList || []}
-                    value={socialStatusId.length !== 0 ?{
-                      id: socialStatusId.id,
-                      name: socialStatusId.name,
-                    }: null}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={option.id}>
-                          {option.name}
-                        </li>
-                      );
-                    }}
-                    isOptionEqualToValue={(option, value) =>
-                      value.id === 0 ||
-                      value.id === "" ||
-                      option.id === value.id
-                    }
-                    getOptionLabel={(option) =>
-                      option.name ? option.name : ""
-                    }
-                    onChange={(event, value) => {
-                      setsocialStatusId({
-                        id: value !== null ? value.id : 0,
-                        name: value !== null ? value.name : "",
-                      });
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="outlined"
-                        {...params}
-                        name="socialStatusId"
-                        required
-                        label={intl.formatMessage(messages.socialStatus)}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={12} md={2}>
-                  <TextField
-                    id="sonNo"
-                    name="sonNo"
-                    value={sonNo}
-                    type="number"
-                    label={intl.formatMessage(messages.sonNo)}
-                    className={classes.field}
-                    variant="outlined"
-                    onChange={(e) => setsonNo(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12} md={2}>
-                  <Autocomplete
-                    id="ddlmilitaryStatusId"
-                    options={militaryStatusList || []}
-                    value={militaryStatusId.length !== 0 ?{
-                      id: militaryStatusId.id,
-                      name: militaryStatusId.name,
-                    }: null}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={option.id}>
-                          {option.name}
-                        </li>
-                      );
-                    }}
-                    isOptionEqualToValue={(option, value) =>
-                      value.id === 0 ||
-                      value.id === "" ||
-                      option.id === value.id
-                    }
-                    getOptionLabel={(option) =>
-                      option.name ? option.name : ""
-                    }
-                    onChange={(event, value) => {
-                      setmilitaryStatusId({
-                        id: value !== null ? value.id : 0,
-                        name: value !== null ? value.name : "",
-                      });
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="outlined"
-                        {...params}
-                        name="militaryStatusId"
-                        required
-                        label={intl.formatMessage(messages.militaryStatus)}
-                      />
-                    )}
-                  />
-                </Grid>
                 <Grid item xs={12} md={12}>
                   <hr />
                 </Grid>
-                <Grid item xs={12} md={4}>
+
+                <Grid item xs={12} md={3}>
                   <Autocomplete
                     id="ddlorganization"
                     options={organizationList || []}
@@ -1191,7 +1184,8 @@ function Personal(props) {
                     )}
                   />
                 </Grid>
-                <Grid item xs={12} md={4}>
+
+                <Grid item xs={12} md={3}>
                   <Autocomplete
                     id="ddlcontrolParameterId"
                     options={controlParameterList || []}
@@ -1231,8 +1225,8 @@ function Personal(props) {
                     )}
                   />
                 </Grid>
-                <Grid item xs={12} md={4}></Grid>
-                <Grid item xs={12} md={4}>
+
+                <Grid item xs={12} md={3}>
                   <Autocomplete
                     id="ddljobid"
                     required
@@ -1269,8 +1263,9 @@ function Personal(props) {
                       />
                     )}
                   />
-                </Grid>{" "}
-                <Grid item xs={12} md={4}>
+                </Grid>
+
+                <Grid item xs={12} md={3}>
                   <Autocomplete
                     id="ddljobLevelId"
                     options={jobLevelList || []}
@@ -1312,7 +1307,56 @@ function Personal(props) {
                   <hr />
                 </Grid>
 
-                <Grid item md={2} xs={12}>
+                <Grid item xs={12}>
+                  <Grid container direction="row" spacing={1}>
+                    <Grid item xs={12} md={3}>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isInsured}
+                            onChange={() => {
+                              setisInsured(!isInsured);
+                            }}
+                            color="secondary"
+                          />
+                        }
+                        label={intl.formatMessage(messages.isinsured)}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={3}>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isSpecialNeeds}
+                            onChange={() => {
+                              setisSpecialNeeds(!isSpecialNeeds);
+                            }}
+                            color="secondary"
+                          />
+                        }
+                        label={intl.formatMessage(messages.isSpecialNeeds)}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={3}>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isResident}
+                            onChange={() => {
+                              setisResident(!isResident);
+                            }}
+                            color="secondary"
+                          />
+                        }
+                        label={intl.formatMessage(messages.isResident)}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid item xs={12}>
                   <FormControlLabel
                     control={
                       <Switch

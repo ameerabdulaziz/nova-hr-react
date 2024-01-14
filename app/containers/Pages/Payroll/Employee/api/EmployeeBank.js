@@ -110,10 +110,10 @@ const contactData = (props) => {
     return result;
   };
 
-  EmployeeBankApis.Delete = async (Item) => {
+  EmployeeBankApis.Delete = async (id) => {
     // 
 
-    const data = await axiosInstance.delete(`EmpBank/${Item.id}`);
+    const data = await axiosInstance.delete(`EmpBank/${id}`);
     return data;
   };
 

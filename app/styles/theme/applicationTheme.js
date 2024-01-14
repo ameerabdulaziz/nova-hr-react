@@ -17,7 +17,7 @@ const applicationTheme = (color, mode, direction) => ({
   },
   typography: {
     useNextVariants: true,
-    fontFamily: ['Maven Pro', 'sans-serif'].join(','),
+    fontFamily: ["Cairo, 'sans-serif'"].join(','),
     title: {
       fontWeight: 700,
     },

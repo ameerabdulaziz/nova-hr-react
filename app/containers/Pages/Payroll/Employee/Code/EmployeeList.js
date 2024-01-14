@@ -21,6 +21,7 @@ import { Backdrop, CircularProgress, Box } from "@mui/material";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
 import { PapperBlock } from "enl-components";
+import { formateDate } from '../../helpers';
 
 function EmployeeList(props) {
   const { intl } = props;
@@ -111,6 +112,14 @@ function EmployeeList(props) {
       label: intl.formatMessage(messages.employeename),
       options: {
         filter: true,
+        customBodyRender: (value, tableMeta) => <Box sx={{cursor: 'pointer'}} onClick={() => {
+          history.push('/app/Pages/Employee/Personal', {
+            empid: {
+              id: tableMeta.rowData[0],
+              name: tableMeta.rowData[2],
+            },
+          });
+        }} >{value}</Box>,
       },
     },
     {
@@ -122,10 +131,11 @@ function EmployeeList(props) {
     },
 
     {
-      name: 'identityNumber',
-      label: intl.formatMessage(messages.identitynumber),
+      name: 'hiringDate',
+      label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
+        customBodyRender: formateDate,
       },
     },
     {
@@ -218,18 +228,6 @@ function EmployeeList(props) {
                         height: 32,
                         ml: -0.5,
                         mr: 1,
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
                       },
                     },
                   },
