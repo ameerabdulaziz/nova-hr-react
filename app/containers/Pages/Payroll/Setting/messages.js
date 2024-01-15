@@ -144,4 +144,16 @@ export default defineMessages({
     id: `${scope}.select`,
     defaultMessage: 'select',
   },
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'department',
+  },
+  employee: {
+    id: `${scope}.employee`,
+    defaultMessage: 'employee',
+  },
+  printForm: {
+    id: `${scope}.printForm`,
+    defaultMessage: 'printForm',
+  },
 });
