@@ -102,6 +102,8 @@ function Search(props) {
       setsearchData((prevFilters) => ({
         ...prevFilters,
         BranchId: value,
+        OrganizationId: "",
+        EmployeeId: ""
       }));
       setIsLoading(false);
     }
@@ -163,7 +165,7 @@ function Search(props) {
               value.id === 0 || value.id === "" || option.id === value.id
             }
             value={
-              searchData.OrganizationId
+              searchData.OrganizationId && OrganizationList.find( (item) => item.id === searchData.OrganizationId )
                 ? OrganizationList.find(
                     (item) => item.id === searchData.OrganizationId
                   )
@@ -196,7 +198,7 @@ function Search(props) {
               value.id === 0 || value.id === "" || option.id === value.id
             }
             value={
-              searchData.EmployeeId
+              searchData.EmployeeId && EmployeeList.find((item) => item.id === searchData.EmployeeId)
                 ? EmployeeList.find(
                     (item) => item.id === searchData.EmployeeId
                   )

@@ -97,7 +97,7 @@ function SalaryComparisonReport(props) {
           OrganizationId: searchData.OrganizationId,
           VarElementIds: ValElementData,
           ConstElementIds: constElementsData,
-
+          BranchId: searchData.BranchId
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
@@ -136,8 +136,9 @@ function SalaryComparisonReport(props) {
           0
         );
 
-        setMonth1(response.monthId);
-        setYear1(response.yearId);
+        setMonth1(months.find((item) => item.id === response.monthId) ?? null  );
+        setYear1(years.find((item) => item.id === response.yearId) ?? null);
+
       }
     } catch (err) {
     } finally {
@@ -232,7 +233,7 @@ function SalaryComparisonReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={MonthList.length != 0 ? MonthList: []}
-                            value={MonthList.find((item) => item.id === Month1) ?? null}
+                            value={Month1}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )
@@ -270,7 +271,7 @@ function SalaryComparisonReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={YearList.length != 0 ? YearList: []}
-                            value={MonthList.find((item) => item.id === Year1) ?? null}
+                            value={Year1}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )

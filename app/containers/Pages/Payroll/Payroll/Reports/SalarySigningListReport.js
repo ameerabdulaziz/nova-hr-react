@@ -94,6 +94,7 @@ function SalarySigningListReport(props) {
         cash: searchData.Cash,
         insured: searchData.Insured,
         notinsured: searchData.NotInsured,
+        BranchId: searchData.BranchId
           };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
@@ -203,8 +204,8 @@ function SalarySigningListReport(props) {
           0
         );
 
-        setYear(response.yearId);
-        setMonth(response.monthId);
+        setYear(years.find((item) => item.id === response.yearId) ?? null);
+        setMonth(months.find((item) => item.id === response.monthId) ?? null);
       }
     } catch (err) {
     } finally {
@@ -314,7 +315,7 @@ function SalarySigningListReport(props) {
                                 id="ddlMenu"   
                                 isOptionEqualToValue={(option, value) => option.id === value.id}                      
                                 options={MonthList.length != 0 ? MonthList: []}
-                                value={MonthList.find((item) => item.id === Month) ?? null}
+                                value={Month}
                                 getOptionLabel={(option) =>(
                                     option  ? option.name : ""
                                 )
@@ -352,7 +353,7 @@ function SalarySigningListReport(props) {
                                     id="ddlMenu"   
                                     isOptionEqualToValue={(option, value) => option.id === value.id}                      
                                     options={YearList.length != 0 ? YearList: []}
-                                    value={YearList.find((item) => item.id === Year) ?? null}
+                                    value={Year}
                                     getOptionLabel={(option) =>(
                                         option  ? option.name : ""
                                     )

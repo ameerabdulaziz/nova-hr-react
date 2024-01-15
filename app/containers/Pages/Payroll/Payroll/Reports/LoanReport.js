@@ -52,6 +52,7 @@ function LoanReport(props) {
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
         loanEnded: searchData.EndedLoans,
+        BranchId: searchData.BranchId
           };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];

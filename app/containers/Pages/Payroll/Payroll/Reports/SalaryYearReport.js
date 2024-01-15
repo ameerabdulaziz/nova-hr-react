@@ -53,6 +53,7 @@ function SalaryYearReport(props) {
         OrganizationId: searchData.OrganizationId,
         EmployeeId: searchData.EmployeeId,
         EmployeeStatusId: searchData.EmpStatusId,
+        BranchId: searchData.BranchId
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
@@ -84,7 +85,7 @@ function SalaryYearReport(props) {
           0
         );
 
-        setYear(response.yearId);
+        setYear(years.find((item) => item.id === response.yearId) ?? null);
       }
     } catch (err) {
     } finally {
@@ -202,7 +203,7 @@ function SalaryYearReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={YearList.length != 0 ? YearList: []}
-                            value={YearList.find((item) => item.id === Year) ?? null}
+                            value={Year}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )
