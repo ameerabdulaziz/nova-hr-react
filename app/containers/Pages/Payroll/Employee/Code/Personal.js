@@ -594,36 +594,6 @@ function Personal(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
-                    <FormControlLabel
-                      // required
-                      control={
-                        <Switch
-                          checked={isSpecialNeeds}
-                          onChange={() => {
-                            setisSpecialNeeds(!isSpecialNeeds);
-                          }}
-                          color="secondary"
-                        />
-                      }
-                      label={intl.formatMessage(messages.isSpecialNeeds)}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <FormControlLabel
-                      // required
-                      control={
-                        <Switch
-                          checked={isResident}
-                          onChange={() => {
-                            setisResident(!isResident);
-                          }}
-                          color="secondary"
-                        />
-                      }
-                      label={intl.formatMessage(messages.isResident)}
-                    />
-                  </Grid>
                 </Grid>
 </Grid>
             <Grid item xs={2}>
