@@ -309,6 +309,11 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     opacity: 0.7,
     fontSize: 84
   },
+  counterIcon1: {
+    color: theme.palette.common.white,
+    opacity: 0.7,
+    fontSize: 84
+  },
   progressCircle: {
     borderRadius: '50%',
     background: lighten(theme.palette.divider, 0.7)
@@ -385,7 +390,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   chartFluid: {
     width: '100%',
     minWidth: 400,
-    height: 300,
+    height: 320,
     marginLeft: theme.spacing(1) * -3
   },
   tabNotif: {

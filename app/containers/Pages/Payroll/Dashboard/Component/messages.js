@@ -61,6 +61,30 @@ export default defineMessages({
     id: `${scope}.PerformanceChartWidget.Overtime`,
     defaultMessage: 'Overtime',
   },
+  WorkingHoursWidget: {
+    id: `${scope}.PerformanceChartWidget.WorkingHoursWidget`,
+    defaultMessage: 'WorkingHoursWidget',
+  },
+  LatePerMinWidget: {
+    id: `${scope}.PerformanceChartWidget.LatePerMinWidget`,
+    defaultMessage: 'LatePerMinWidget',
+  },
+  MonthlyAppraisalWidget: {
+    id: `${scope}.PerformanceChartWidget.MonthlyAppraisalWidget`,
+    defaultMessage: 'MonthlyAppraisalWidget',
+  },
+  AttAbscenceWidget: {
+    id: `${scope}.PerformanceChartWidget.AttAbscenceWidget`,
+    defaultMessage: 'AttAbscenceWidget',
+  },
+  RewardsPenaltyWidget: {
+    id: `${scope}.PerformanceChartWidget.RewardsPenaltyWidget`,
+    defaultMessage: 'RewardsPenaltyWidget',
+  },
+  OvertimeLateWidget: {
+    id: `${scope}.PerformanceChartWidget.OvertimeLateWidget`,
+    defaultMessage: 'OvertimeLateWidget',
+  },
   Mession: {
     id: `${scope}.PerformanceChartWidget.Mession`,
     defaultMessage: 'Mession',
@@ -109,6 +133,46 @@ export default defineMessages({
   empwithbestAtt: {
     id: `${scope}.PerformanceChartWidget.empwithbestAtt`,
     defaultMessage: 'empwithbestAtt',
+  },
+  AbscencebichartWidget: {
+    id: `${scope}.PerformanceChartWidget.AbscencebichartWidget`,
+    defaultMessage: 'AbscencebichartWidget',
+  },
+  empwithhighestOver: {
+    id: `${scope}.PerformanceChartWidget.empwithhighestOver`,
+    defaultMessage: 'empwithhighestOver',
+  },
+  grossSal: {
+    id: `${scope}.PerformanceChartWidget.grossSal`,
+    defaultMessage: 'grossSal',
+  },
+  yearlySal: {
+    id: `${scope}.PerformanceChartWidget.yearlySal`,
+    defaultMessage: 'yearlySal',
+  },
+  GenderSalaryBiChartWidget: {
+    id: `${scope}.PerformanceChartWidget.GenderSalaryBiChartWidget`,
+    defaultMessage: 'GenderSalaryBiChartWidget',
+  },
+  GrossBiChartWidget: {
+    id: `${scope}.PerformanceChartWidget.GrossBiChartWidget`,
+    defaultMessage: 'GrossBiChartWidget',
+  },
+  OvertimeWidget: {
+    id: `${scope}.PerformanceChartWidget.OvertimeWidget`,
+    defaultMessage: 'OvertimeWidget',
+  },
+  AbscenceWidget: {
+    id: `${scope}.PerformanceChartWidget.AbscenceWidget`,
+    defaultMessage: 'AbscenceWidget',
+  },
+  TaxInsWidget: {
+    id: `${scope}.PerformanceChartWidget.TaxInsWidget`,
+    defaultMessage: 'TaxInsWidget',
+  },
+  MedicalInsWidget: {
+    id: `${scope}.PerformanceChartWidget.MedicalInsWidget`,
+    defaultMessage: 'MedicalInsWidget',
   },
   attends: {
     id: `${scope}.PerformanceChartWidget.atends`,

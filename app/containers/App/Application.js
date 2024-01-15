@@ -135,7 +135,6 @@ import {
   SettingResetPassword,
   SettingMailSmsForm,
   SettingMailSmsFormCreate,
-  PrintForm,
   HrPermission,
   Organization,
   CreateOrganization,
@@ -406,6 +405,8 @@ import {
   FollowEmployeeReport,
   TaxReportReport,
   AdminDashboard,
+  ManagementDashboard,
+  EmployeeDashboard,
   TotalDeptSalaryReport,
   SalaryYearReport,
   SalarySigningListReport,
@@ -421,6 +422,8 @@ function Application(props) {
       <Switch>
         {/* Home */}
         <Route exact path='/app' component={AdminDashboard} />
+        <Route path='/app/ManagementDashboard' component={ManagementDashboard} />
+        <Route path='/app/EmployeeDashboard' component={EmployeeDashboard} />
         <Route path='/app/dashboard/marketing' component={MarketingDashboard} />
         <Route path='/app/dashboard/crypto' component={CryptoDashboard} />
         {/* Widgets */}
@@ -620,7 +623,6 @@ function Application(props) {
         <Route path='/app/Pages/Setting/HrPermission' component={HrPermission} />
         <Route path='/app/Pages/Setting/SettingMailSmsFormCreate' component={SettingMailSmsFormCreate} />
         <Route path='/app/Pages/Setting/SettingMailSmsFormEdit' component={SettingMailSmsFormCreate} />
-        <Route path='/app/Pages/Setting/PrintForm' component={PrintForm} />
         <Route
           path='/app/Pages/Setting/ResetPassword'
           component={SettingResetPassword}

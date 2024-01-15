@@ -14,6 +14,8 @@ const useMainStyles = makeStyles()((theme,_params,classes) => ({
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important",
   },
 
+ 
+  
 
   table: {
     '& > div': {
@@ -227,6 +229,24 @@ rootTable: {
     backgroundPosition: 'bottom center',
     borderRadius: theme.rounded.medium,
   },
+  cover2: {
+    [`& .${classes.name}, & .${classes.subheading}`]: {
+      color: theme.palette.common.white
+    },
+    position: 'relative',
+    width: '100%',
+    overflow: 'hidden',
+    height: auto,
+    
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    backgroundSize: 'cover',
+    textAlign: 'center',
+    boxShadow: theme.shadows[7],
+    backgroundPosition: 'bottom center',
+    borderRadius: theme.rounded.medium,
+  },
   profileTab: {
     marginTop: -48,
     [theme.breakpoints.down('sm')]: {
@@ -234,10 +254,29 @@ rootTable: {
     },
     borderRadius: `0 0 ${theme.rounded.medium} ${theme.rounded.medium}`,
     background: alpha(theme.palette.background.paper, 0.8),
-    position: 'relative'
+    position: 'relative',    
+    
+  },
+  profileTab2: {
+    marginTop: -48,
+    [theme.breakpoints.down('sm')]: {
+      marginTop: -48,
+    },
+    borderRadius: `0 0 ${theme.rounded.medium} ${theme.rounded.medium}`,
+    background: alpha(theme.palette.background.paper, 0.8),
+    position: 'relative',    
+    '& svg': {
+      fontSize: 25,
+      //fill: theme.palette.primary.main
+    },
   },
   headercontent: {
     background: alpha(theme.palette.secondary.main, 0.3),
+    height: '100%',
+    width: '100%',
+    padding: `30px ${theme.spacing(3)} 60px`
+  },
+  headercontent2: {
     height: '100%',
     width: '100%',
     padding: `30px ${theme.spacing(3)} 60px`

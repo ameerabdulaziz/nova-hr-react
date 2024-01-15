@@ -1,7 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "enl-styles/vendors/react-weather/GenericWeather.css";
-import { PieChart, Pie, Cell, Tooltip, Legend,ResponsiveContainer } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import {
   purple,
   red,
@@ -15,30 +21,31 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { PapperBlock } from "enl-components";
 import useStyles from "./fluidChart-jss";
-import FilterCenterFocus from "@mui/icons-material/PieChart";
+import FilterCenterFocus from "@mui/icons-material/PieChartOutlineRounded";
 import Divider from "@mui/material/Divider";
 import messages from "./messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import ThemePallete from "enl-api/palette/themePalette";
 import { createTheme } from "@mui/material/styles";
 
-function OrganizationWidget(props) {
+function AttAbscenceWidget(props) {
   const { classes, cx } = useStyles();
   const data6 = [
     {
-      name: "Top Management",
-      value: 400,
+      name: "Attendance",
+      value: 80,
     },
     {
-      name: "Classified Employee",
-      value: 300,
-    },
-    {
-      name: "Non Classified Employee",
-      value: 300,
+      name: "Abscence",
+      value: 20,
     },
   ];
-  const colors = [purple[500], indigo[500], blue[500]];
+  const colors = [
+   
+    indigo[500],
+    
+    pink[500],
+  ];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -84,41 +91,32 @@ function OrganizationWidget(props) {
     percent: 0,
   };
   const theme = createTheme(ThemePallete.purpleTheme);
-  const color = {
-    primary: theme.palette.primary.main,
-    secondary: theme.palette.secondary.main,
-  };
 
   return (
     <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
       <Grid item md={12} xs={12}>
         <Typography className={classes.smallTitle} variant="button">
           <FilterCenterFocus className={classes.leftIcon} />
-          <FormattedMessage {...messages.orgchar} />
+          <FormattedMessage {...messages.AttAbscenceWidget} />
         </Typography>
         <Divider className={classes.divider} />
         <div className={classes.chartWrap}>
           <div className={classes.bichartFluid}>
-            <ResponsiveContainer width={350} height="80%">
+            <ResponsiveContainer width={350} height="100%">
               <PieChart
                 width={350}
                 height={350}
                 margin={{
-                  top: 5,
-                  //right: 20,
                   left: 20,
-                  bottom: 2,
+                  bottom: 5,
                 }}
               >
-                <Legend layout="horizontal" verticalAlign="top" align="left" />
+                <Legend layout="horizontal" verticalAlign="bottom" align="left" />
                 <Pie
-                  dataKey="value"
                   data={data6}
-                  labelLine={false}
-                  label={renderCustomizedLabel}
+                  dataKey="value"
+                  innerRadius={50}
                   outerRadius={100}
-                  fill="#8884d8"
-                  legendType="circle"
                 >
                   {data6.map((entry, index) => (
                     <Cell
@@ -137,4 +135,4 @@ function OrganizationWidget(props) {
   );
 }
 
-export default OrganizationWidget;
+export default AttAbscenceWidget;

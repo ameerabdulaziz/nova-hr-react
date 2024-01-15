@@ -28,24 +28,20 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import ThemePallete from "enl-api/palette/themePalette";
 import { createTheme } from "@mui/material/styles";
 
-function MaritalStatusWidget(props) {
+function GrossBiChartWidget(props) {
   const { classes, cx } = useStyles();
   const data6 = [
     {
-      name: "Single",
+      name: "Basic Salary",
       value: 50,
     },
     {
-      name: "Married",
+      name: "Allowance",
       value: 40,
     },
     {
-      name: "Divorced",
+      name: "income Retroactive",
       value: 60,
-    },
-    {
-      name: "Widowed",
-      value: 10,
     },
   ];
   const colors = [
@@ -108,7 +104,7 @@ function MaritalStatusWidget(props) {
       <Grid item md={12} xs={12}>
         <Typography className={classes.smallTitle} variant="button">
           <FilterCenterFocus className={classes.leftIcon} />
-          <FormattedMessage {...messages.marital} />
+          <FormattedMessage {...messages.GrossBiChartWidget} />
         </Typography>
         <Divider className={classes.divider} />
         <div className={classes.chartWrap}>
@@ -146,4 +142,4 @@ function MaritalStatusWidget(props) {
   );
 }
 
-export default MaritalStatusWidget;
+export default GrossBiChartWidget;

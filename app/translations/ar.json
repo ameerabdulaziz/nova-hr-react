@@ -1045,15 +1045,38 @@
   "boilerplate.components.Widgets.PerformanceChartWidget.rewards": "المكافئات",
   "boilerplate.components.Widgets.PerformanceChartWidget.penalty": "الجزاءات",
   "boilerplate.components.Widgets.PerformanceChartWidget.notification1": "التنبيهات",
-  "boilerplate.components.Widgets.PerformanceChartWidget.orgchar": "Work Classification Demographics",
+  "boilerplate.components.Widgets.PerformanceChartWidget.orgchar": "Organization Level Demographics",
   "boilerplate.components.Widgets.PerformanceChartWidget.marital": "Marital Status Demographics",
   "boilerplate.components.Widgets.PerformanceChartWidget.ageChart": "Age Demographics",
   "boilerplate.components.Widgets.PerformanceChartWidget.empwithbestAtt": "Employees with best attendance",
   "boilerplate.components.Widgets.PerformanceChartWidget.gendercahrt": "Gender Ratio",
   "boilerplate.components.Widgets.PerformanceChartWidget.ServicePeriodcahrt": "Service Period Demographics",
   "boilerplate.components.Widgets.PerformanceChartWidget.Nationalitycahrt": "Nationality Demographics",
+  "boilerplate.components.Widgets.PerformanceChartWidget.AbscencebichartWidget": "Employee With Highest Abscence",
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithhighestOver": "Employee With Highest Overtime",
+  "boilerplate.components.Widgets.PerformanceChartWidget.grossSal": "Gross & NetSalary chart",
   
+  "boilerplate.components.Widgets.PerformanceChartWidget.yearlySal": "Yearly Salary chart",
   
+  "boilerplate.components.Widgets.PerformanceChartWidget.GenderSalaryBiChartWidget": "Salary for male vs female",
+  "boilerplate.components.Widgets.PerformanceChartWidget.GrossBiChartWidget": "Last Months Gross Payroll",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeWidget": "Months Overtime chart",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.AbscenceWidget": "Monthly Abscence chart",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.MedicalInsWidget": "Monthly Medical Ins chart",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.TaxInsWidget": "Monthly Tax - Social Ins chart",
+  "boilerplate.components.Widgets.PerformanceChartWidget.LatePerMinWidget": "Late Per Minutes Chart",
+  "boilerplate.components.Widgets.PerformanceChartWidget.WorkingHoursWidget": "Working Hours Chart",
+  "boilerplate.components.Widgets.PerformanceChartWidget.MonthlyAppraisalWidget": "Monthly Appraisal Chart",
+  
+
+  "boilerplate.components.Widgets.PerformanceChartWidget.AttAbscenceWidget": "Attendance VS Abscence Chart",  
+  "boilerplate.components.Widgets.PerformanceChartWidget.RewardsPenaltyWidget": "Rewards VS Penalty Chart",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeLateWidget": "Overtime VS Late Arrival vs Early Departial",
   
   
   
@@ -1069,9 +1092,6 @@
   "boilerplate.containers.Payroll.Setting.penalty": "عقوبة",
   "boilerplate.containers.Payroll.Setting.overTime": "وقت إضافي",
   "boilerplate.containers.Payroll.Setting.reward": "مكافأة",
-  "boilerplate.containers.Payroll.Setting.department": "القسم",
-  "boilerplate.containers.Payroll.Setting.employee": "الموظف",
-  "boilerplate.containers.Payroll.Setting.printForm": "نموذج الطباعة",
   "boilerplate.containers.Payroll.Setting.organization": "المنظمة",
   "boilerplate.containers.Payroll.Setting.update": "تعديل",
   "boilerplate.containers.Payroll.Setting.addDecorator": "إضافة ديكوريتور",
@@ -2136,11 +2156,6 @@
   "boilerplate.containers.Payroll.Employee.bankEmployeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.Employee.onceYouSubmitItsMeanYouHaveAgreedWithOur": "عند تقديمك، يعني أنك قد وافقت على شروطنا",
   "boilerplate.containers.Payroll.Employee.termsAndCondition": "الشروط والأحكام",
-  "boilerplate.containers.Payroll.Employee.templateInfo": "معلومات القالب",
-  "boilerplate.containers.Payroll.Employee.addOrChangeTemplate": "إضافة أو تغيير القالب",
-  "boilerplate.containers.Payroll.Employee.templateName": "اسم القالب",
-  "boilerplate.containers.Payroll.Employee.currency": "العملة",
-  "boilerplate.containers.Payroll.Employee.noTemplateAdded": "لم يتم إضافة قوالب",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",

@@ -14,19 +14,20 @@ export const AdminDashboard = loadable(
     fallback: <Loading />,
   }
 );
+export const ManagementDashboard = loadable(
+  () => import('./Pages/Payroll/Dashboard/ManagementDashboard'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EmployeeDashboard = loadable(
+  () => import('./Pages/Payroll/Dashboard/SuperDashboard'),
+  {
+    fallback: <Loading />,
+  }
+);
 
-export const MarketingDashboard = loadable(
-  () => import('./Pages/Payroll/Dashboard/MarketingDashboard'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const CryptoDashboard = loadable(
-  () => import('./Pages/Payroll/Dashboard/CryptoDashboard'),
-  {
-    fallback: <Loading />,
-  }
-);
+
 
 // Layouts
 export const Infographics = loadable(() => import('./Widgets/Infographics'), {
@@ -537,12 +538,6 @@ export const SettingMailSmsFormCreate = loadable(
   }
 );
 
-export const PrintForm = loadable(
-  () => import('./Pages/Payroll/Setting/PrintForm'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 export const HrPermission = loadable(
   () => import('./Pages/Payroll/Setting/HrPermission'),

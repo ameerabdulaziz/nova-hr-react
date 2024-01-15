@@ -4,12 +4,12 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   chartFluid: {
     width: '100%',
     minWidth: 550,
-    height: 398
+    height: 300
   },
   bichartFluid: {
     width: '100%',
     minWidth: 350,
-    height: 350
+    height: 275
   },
   chartWrap: {
     overflow: 'auto',

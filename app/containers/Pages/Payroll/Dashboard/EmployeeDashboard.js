@@ -6,18 +6,19 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import MonthCalendar from "../Component/MonthCalendar";
 import CounterIconsWidget  from "./Component/CounterIconsWidget";
-import PerformanceChartWidget  from "./Component/PerformanceChartWidget";
-import GenderWidget  from "./Component/GenderWidget";
+import PerformanceChartWidget2  from "./Component/PerformanceChartWidget2";
+import LatePerMinWidget  from "./Component/LatePerMinWidget";
 import NotificationWidget  from "./Component/NotificationWidget";
-import ServicePeriodWidget  from "./Component/ServicePeriodWidget";
-import NationalityWidget  from "./Component/NationalityWidget";
-import  MaritalStatusWidget  from "./Component/MaritalStatusWidget";
-import  OrgLevelWidget  from "./Component/OrgLevelWidget";
+import EmpSalaryChartWidget  from "./Component/EmpSalaryChartWidget";
+import AnnualAppraisalWidget  from "./Component/MonthlyAppraisalWidget";
 
-import AbscencebichartWidget  from "./Component/AbscencebichartWidget";
+import EmpOverTimeWidget  from "./Component/EmpOverTimeWidget";
+import  AttAbscenceWidget  from "./Component/AttAbscenceWidget";
+import  OvertimeLateWidget  from "./Component/OvertimeLateWidget";
+import RewardsPenaltyWidget  from "./Component/RewardsPenaltyWidget";
 import useStyles from "./dashboard-jss";
 
-function AdminDashboard() {
+function EmployeeDashboard() {
   const title = brand.name + " - HR Dashboard";
   const description = brand.desc;
   const { classes } = useStyles();
@@ -31,17 +32,11 @@ function AdminDashboard() {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
-      {/* 1st Section */}
-       <Grid container spacing={0} className={classes.root}>
-        <Grid item xs={12}>
-          <CounterIconsWidget />
-        </Grid>
-      </Grid>
-      <Divider className={classes.divider} />
-      {/* 2nd Section */}
+      
+      
       <Grid container spacing={3} className={classes.root}>
         <Grid item xs={12}>
-          <PerformanceChartWidget />
+          <PerformanceChartWidget2 />
         </Grid>
       </Grid>
       {/* 3rd Section */}
@@ -50,9 +45,9 @@ function AdminDashboard() {
           <Divider className={classes.divider} />
           <NotificationWidget />
           <Divider className={classes.divider} />
-          <GenderWidget />
+          <EmpOverTimeWidget />
           <Divider className={classes.divider} />
-          <NationalityWidget />
+          <EmpSalaryChartWidget />
         </Grid>
         <Grid item md={6} xs={12}>
           <Hidden lgDown>
@@ -60,26 +55,28 @@ function AdminDashboard() {
           </Hidden>
           <MonthCalendar />
           <Divider className={classes.divider} />
-          <ServicePeriodWidget />
-
+          
+          <LatePerMinWidget />
           <Divider className={classes.divider} />
-          <ServicePeriodWidget />
+          
+          <AnnualAppraisalWidget />
         </Grid>
       </Grid>
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
         <Grid item md={4} sm={12} xs={12}>
-          <MaritalStatusWidget />
+        <RewardsPenaltyWidget />
         </Grid>
         <Grid item md={4} sm={12} xs={12}>
-          <AbscencebichartWidget />
+          
+          <AttAbscenceWidget />
         </Grid>
         <Grid item md={4} sm={12} xs={12}>
-        <OrgLevelWidget></OrgLevelWidget>
+        <OvertimeLateWidget></OvertimeLateWidget>
         </Grid>
       </Grid>
     </div>
   );
 }
 
-export default AdminDashboard;
+export default EmployeeDashboard;

@@ -1,13 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import "enl-styles/vendors/react-weather/GenericWeather.css";
+import { PieChart, Pie, Cell, Tooltip, Legend,ResponsiveContainer } from "recharts";
 import {
   purple,
   red,
@@ -21,42 +15,26 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { PapperBlock } from "enl-components";
 import useStyles from "./fluidChart-jss";
-import FilterCenterFocus from "@mui/icons-material/PieChartOutlineRounded";
+import FilterCenterFocus from "@mui/icons-material/PieChart";
 import Divider from "@mui/material/Divider";
 import messages from "./messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import ThemePallete from "enl-api/palette/themePalette";
 import { createTheme } from "@mui/material/styles";
 
-function MaritalStatusWidget(props) {
+function GenderSalaryBiChartWidget(props) {
   const { classes, cx } = useStyles();
   const data6 = [
     {
-      name: "Single",
-      value: 50,
+      name: "Male",
+      value: 80000,
     },
     {
-      name: "Married",
-      value: 40,
-    },
-    {
-      name: "Divorced",
-      value: 60,
-    },
-    {
-      name: "Widowed",
-      value: 10,
+      name: "Female",
+      value: 50000,
     },
   ];
-  const colors = [
-    red[500],
-    pink[500],
-    purple[500],
-    indigo[500],
-    blue[500],
-    cyan[500],
-    teal[500],
-  ];
+  const colors = [purple[500], indigo[500], blue[500]];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -102,13 +80,17 @@ function MaritalStatusWidget(props) {
     percent: 0,
   };
   const theme = createTheme(ThemePallete.purpleTheme);
+  const color = {
+    primary: theme.palette.primary.main,
+    secondary: theme.palette.secondary.main,
+  };
 
   return (
     <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
       <Grid item md={12} xs={12}>
         <Typography className={classes.smallTitle} variant="button">
           <FilterCenterFocus className={classes.leftIcon} />
-          <FormattedMessage {...messages.marital} />
+          <FormattedMessage {...messages.GenderSalaryBiChartWidget} />
         </Typography>
         <Divider className={classes.divider} />
         <div className={classes.chartWrap}>
@@ -118,16 +100,21 @@ function MaritalStatusWidget(props) {
                 width={350}
                 height={350}
                 margin={{
+                  top: 5,
+                  //right: 20,
                   left: 20,
-                  bottom: 5,
+                  bottom: 2,
                 }}
               >
                 <Legend layout="horizontal" verticalAlign="bottom" align="left" />
                 <Pie
-                  data={data6}
                   dataKey="value"
-                  innerRadius={50}
+                  data={data6}
+                  labelLine={false}
+                  label={renderCustomizedLabel}
                   outerRadius={100}
+                  fill="#8884d8"
+                  legendType="circle"
                 >
                   {data6.map((entry, index) => (
                     <Cell
@@ -146,4 +133,4 @@ function MaritalStatusWidget(props) {
   );
 }
 
-export default MaritalStatusWidget;
+export default GenderSalaryBiChartWidget;
