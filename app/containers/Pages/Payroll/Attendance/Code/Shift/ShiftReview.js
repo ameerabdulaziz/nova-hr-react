@@ -132,7 +132,7 @@ function ShiftReview(props) {
       label: <FormattedMessage {...Payrollmessages["date"]} />,
       options: {
         filter: false,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {

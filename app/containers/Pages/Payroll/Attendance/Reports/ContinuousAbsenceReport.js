@@ -111,7 +111,7 @@ function ContinuousAbsenceReport(props) {
       label: intl.formatMessage(messages.fromDate),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {
@@ -119,7 +119,7 @@ function ContinuousAbsenceReport(props) {
       label: intl.formatMessage(messages.toDate),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     

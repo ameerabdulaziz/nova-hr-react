@@ -106,7 +106,7 @@ function EmployeeShiftReport(props) {
         label: intl.formatMessage(Payrollmessages.fromdate),
         options: {
           filter: true,
-          customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+          customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
         },
       },
       {
@@ -114,7 +114,7 @@ function EmployeeShiftReport(props) {
         label: intl.formatMessage(Payrollmessages.todate),
         options: {
           filter: true,
-          customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+          customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
         },
       },
       {

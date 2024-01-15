@@ -122,7 +122,7 @@ function DetailedReportAbsences(props) {
       label: intl.formatMessage(messages.absence),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     
