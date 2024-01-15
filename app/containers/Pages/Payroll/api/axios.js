@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async function (error) {
-    // debugger;
+    debugger;
     const originalRequest = error.config;
     if (typeof error.response === "undefined") {
       toast.error(
@@ -46,6 +46,7 @@ axiosInstance.interceptors.response.use(
     }
     if (error.response.status === 400) {
       if (error.response.data.title) toast.error(error.response.data.title);
+      else if (error.response.data.error) toast.error(error.response.data.error);
       else if (error.response.data) toast.error(error.response.data);
       else toast.error("Internal Server Error");
 
