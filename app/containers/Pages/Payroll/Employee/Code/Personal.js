@@ -923,7 +923,6 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="birthGovId"
-                    required
                     label={intl.formatMessage(messages.gov)}
                   />
                 )}
@@ -960,7 +959,6 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="birthcityId"
-                    required
                     label={intl.formatMessage(messages.city)}
                   />
                 )}
@@ -1159,7 +1157,6 @@ function Personal(props) {
                         variant="outlined"
                         {...params}
                         name="controlParameterId"
-                        required
                         label={intl.formatMessage(messages.controlParameter)}
                       />
                     )}
@@ -1236,7 +1233,6 @@ function Personal(props) {
                         variant="outlined"
                         {...params}
                         name="jobLevelId"
-                        required
                         label={intl.formatMessage(messages.joblevel)}
                       />
                     )}
