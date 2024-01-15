@@ -43,8 +43,7 @@ function BankList(props) {
   const [tableData, setTableData] = useState([]);
   const [formInfo, setFormInfo] = useState({
     YearId: null,
-    monthId: null,
-
+    MonthId: null,
     BankId: null,
     OrganizationId: null,
     PayTemplateId: null,
@@ -185,7 +184,7 @@ function BankList(props) {
 
         setFormInfo((prev) => ({
           ...prev,
-          monthId: response.monthId,
+          MonthId: response.monthId,
           YearId: response.yearId,
         }));
       }
@@ -201,12 +200,19 @@ function BankList(props) {
 
     const body = {
       YearId: formInfo.YearId,
-      MonthId: formInfo.monthId,
+      MonthId: formInfo.MonthId,
       PayTemplateId: formInfo.PayTemplateId,
     };
 
+    const params = {
+      BankId: formInfo.BankId,
+      OrganizationId: formInfo.OrganizationId,
+      CurrencyId: formInfo.CurrencyId,
+      BranchId: formInfo.BranchId,
+    };
+
     try {
-      const response = await api(locale).GetList(body);
+      const response = await api(locale).GetList(body, params);
       setTableData(response);
     } catch (error) {
       //
@@ -585,7 +591,7 @@ function BankList(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={monthList}
-                value={getAutoCompleteValue(monthList, formInfo.monthId)}
+                value={getAutoCompleteValue(monthList, formInfo.MonthId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderOption={(propsOption, option) => (
@@ -593,7 +599,7 @@ function BankList(props) {
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'monthId')}
+                onChange={(_, value) => onAutoCompleteChange(value, 'MonthId')}
                 renderInput={(params) => (
                   <TextField
                     {...params}
