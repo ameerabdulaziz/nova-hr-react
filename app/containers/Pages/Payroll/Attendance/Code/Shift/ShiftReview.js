@@ -333,11 +333,19 @@ function ShiftReview(props) {
                         label={intl.formatMessage(Payrollmessages.fromdate)}
                         value={fromdate}
                         onChange={(date) => {
-                          setfromate(
-                            date == null
-                              ? null
-                              : format(new Date(date), "yyyy-MM-dd")
-                          );
+                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                            if (!isNaN(new Date(date))) { 
+                              setfromate(
+                                date === null
+                                  ? null
+                                  : format(new Date(date), "yyyy-MM-dd")
+                              );
+                            }
+                            else
+                            {
+                              setfromate(null);
+                            }
+                          }
                         }}
                         className={classes.field}
                         renderInput={(params) => (
@@ -352,11 +360,19 @@ function ShiftReview(props) {
                         label={intl.formatMessage(Payrollmessages.todate)}
                         value={todate}
                         onChange={(date) => {
-                          settodate(
-                            date == null
-                              ? null
-                              : format(new Date(date), "yyyy-MM-dd")
-                          );
+                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                            if (!isNaN(new Date(date))) { 
+                            settodate(
+                              date === null
+                                ? null
+                                : format(new Date(date), "yyyy-MM-dd")
+                            );
+                            }
+                            else
+                            {
+                              settodate(null)
+                            }
+                          }
                         }}
                         className={classes.field}
                         renderInput={(params) => (

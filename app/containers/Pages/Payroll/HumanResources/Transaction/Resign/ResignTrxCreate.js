@@ -171,10 +171,21 @@ function ResignTrxCreate(props) {
                   label={intl.formatMessage(messages.date)}
                   value={data.date}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      date: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            date: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          date: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (
@@ -189,10 +200,21 @@ function ResignTrxCreate(props) {
                   label={intl.formatMessage(messages.lworkingDay)}
                   value={data.lworkingDay}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      lworkingDay: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            lworkingDay: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          lworkingDay: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (

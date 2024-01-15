@@ -56,11 +56,23 @@ if(type === "startDate")
 
         if(totalDaysVal > 0)
         {
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                fromdate: format(new Date(date), "yyyy-MM-dd"),
-                daysCount: totalDaysVal
-            }));
+            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                if (!isNaN(new Date(date))) { 
+                  setdata((prevFilters) => ({
+                      ...prevFilters,
+                      fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                      daysCount: totalDaysVal
+                    }))
+                }
+                else
+                {
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    fromdate: null,
+                    daysCount: totalDaysVal
+                  }))
+                } 
+              }
         }
         else
         {
@@ -69,10 +81,21 @@ if(type === "startDate")
     }
     else
     {
-        setdata((prevFilters) => ({
-            ...prevFilters,
-            fromdate: format(new Date(date), "yyyy-MM-dd"),
-        }));
+        if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+            if (!isNaN(new Date(date))) { 
+              setdata((prevFilters) => ({
+                  ...prevFilters,
+                  fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                }))
+            }
+            else
+            {
+              setdata((prevFilters) => ({
+                ...prevFilters,
+                fromdate: null,
+              }))
+            } 
+          }
     }
 }
 else if(type === "endDate")
@@ -82,11 +105,23 @@ else if(type === "endDate")
                 let totalDaysVal = Math.floor( (new Date(date) - new Date(data.fromdate)) / 1000 / 60 / 60 / 24 ) + 1
                 if(totalDaysVal > 0)
                 {
-                    setdata((prevFilters) => ({
-                        ...prevFilters,
-                        Todate:  format(new Date(date), "yyyy-MM-dd"),
-                        daysCount: totalDaysVal
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                        if (!isNaN(new Date(date))) { 
+                          setdata((prevFilters) => ({
+                              ...prevFilters,
+                              Todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                              daysCount: totalDaysVal
+                            }))
+                        }
+                        else
+                        {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            Todate: null,
+                            daysCount: totalDaysVal
+                          }))
+                        } 
+                      }
                 }
                 else
                 {
@@ -95,10 +130,21 @@ else if(type === "endDate")
             }
             else
             {
-                setdata((prevFilters) => ({
-                    ...prevFilters,
-                    Todate:  format(new Date(date), "yyyy-MM-dd"),
-                }));
+                if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                    if (!isNaN(new Date(date))) { 
+                      setdata((prevFilters) => ({
+                          ...prevFilters,
+                          Todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                        }))
+                    }
+                    else
+                    {
+                      setdata((prevFilters) => ({
+                        ...prevFilters,
+                        Todate: null,
+                      }))
+                    } 
+                  }
             }
 }
 
@@ -295,7 +341,23 @@ async function getData() {
                                             <DesktopDatePicker
                                                 label={intl.formatMessage(Payrollmessages.date)}
                                                 value={data?.TrxDate}
-                                                onChange={(date) => { setdata((prevFilters) => ({...prevFilters,TrxDate: format(new Date(date), "yyyy-MM-dd"),}))}}
+                                                onChange={(date) => { 
+                                                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                                                        if (!isNaN(new Date(date))) { 
+                                                          setdata((prevFilters) => ({
+                                                              ...prevFilters,
+                                                              TrxDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                                                            }))
+                                                        }
+                                                        else
+                                                        {
+                                                          setdata((prevFilters) => ({
+                                                            ...prevFilters,
+                                                            TrxDate: null,
+                                                          }))
+                                                        } 
+                                                      }
+                                                }}
                                                 className={classes.field}
                                                 renderInput={(params) => <TextField {...params} variant="outlined" required />}
                                             />

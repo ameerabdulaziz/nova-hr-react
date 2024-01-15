@@ -263,7 +263,17 @@ function oncancel(){
                                         <DesktopDatePicker
                                             label={intl.formatMessage(Payrollmessages.date)}
                                             value={date}
-                                            onChange={(date) => { setDate( format(new Date(date), "yyyy-MM-dd"))}}
+                                            onChange={(date) => { 
+                                                if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                                                    if (!isNaN(new Date(date))) { 
+                                                        setDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
+                                                    } 
+                                                    else
+                                                    {
+                                                        setDate(null)
+                                                    }
+                                                  }
+                                            }}
                                             className={classes.field}
                                             renderInput={(params) => <TextField {...params} variant="outlined"  required/>}
                                         />

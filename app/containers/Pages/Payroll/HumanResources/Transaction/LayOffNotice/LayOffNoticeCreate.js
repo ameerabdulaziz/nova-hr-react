@@ -99,10 +99,21 @@ function LayOffNoticeCreate(props) {
                   label={intl.formatMessage(messages.date)}
                   value={data.noticeDate}
                   onChange={(date) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      noticeDate: format(new Date(date), "yyyy-MM-dd"),
-                    }));
+                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                      if (!isNaN(new Date(date))) { 
+                        setdata((prevFilters) => ({
+                            ...prevFilters,
+                            noticeDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                          }))
+                      }
+                      else
+                      {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          noticeDate: null,
+                        }))
+                      } 
+                    }
                   }}
                   className={classes.field}
                   renderInput={(params) => (

@@ -544,10 +544,21 @@ function SalaryCalculation(props) {
                           label={intl.formatMessage(Payrollmessages.fromdate)}
                           value={OpenMonth.fromdate}
                           onChange={(date) => {
-                            setOpenMonth((prevFilters) => ({
-                              ...prevFilters,
-                              fromdate: format(new Date(date), "yyyy-MM-dd"),
-                            }));
+                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                              if (!isNaN(new Date(date))) { 
+                                setOpenMonth((prevFilters) => ({
+                                    ...prevFilters,
+                                    fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                                  }))
+                              }
+                              else
+                              {
+                                setOpenMonth((prevFilters) => ({
+                                  ...prevFilters,
+                                  fromdate: null,
+                                }))
+                              } 
+                            }
                           }}
                           className={classes.field}
                           disabled={!OpenMonth.isPartCalc}
@@ -564,10 +575,21 @@ function SalaryCalculation(props) {
                           label={intl.formatMessage(Payrollmessages.todate)}
                           value={OpenMonth.todate}
                           onChange={(date) => {
-                            setOpenMonth((prevFilters) => ({
-                              ...prevFilters,
-                              todate: format(new Date(date), "yyyy-MM-dd"),
-                            }));
+                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                              if (!isNaN(new Date(date))) { 
+                                setOpenMonth((prevFilters) => ({
+                                    ...prevFilters,
+                                    todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                                  }))
+                              }
+                              else
+                              {
+                                setOpenMonth((prevFilters) => ({
+                                  ...prevFilters,
+                                  todate: null,
+                                }))
+                              } 
+                            }
                           }}
                           className={classes.field}
                           disabled={!OpenMonth.isPartCalc}

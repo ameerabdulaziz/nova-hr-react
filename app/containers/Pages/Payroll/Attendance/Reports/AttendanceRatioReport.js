@@ -165,6 +165,10 @@ function AttendanceRatioReport(props) {
                   if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
                     if (!isNaN(new Date(date))) { 
                       setFromDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
+                    }
+                    else
+                    {
+                      setFromDate(null)
                     } 
                   } 
                 }}

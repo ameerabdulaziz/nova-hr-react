@@ -55,7 +55,7 @@ function TaxReportReport(props) {
         OrganizationId: searchData.OrganizationId,
         EmployeeId: searchData.EmployeeId,
         EmployeeStatusId: searchData.EmpStatusId,
-
+        BranchId: searchData.BranchId
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
@@ -90,8 +90,8 @@ function TaxReportReport(props) {
           0
         );
 
-        setMonth(response.monthId);
-        setYear(response.yearId);
+        setMonth(months.find((item) => item.id === response.monthId) ?? null);
+        setYear(years.find((item) => item.id === response.yearId) ?? null);
       }
 
     } catch (err) {
@@ -201,7 +201,7 @@ function TaxReportReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={MonthList.length != 0 ? MonthList: []}
-                            value={MonthList.find((item) => item.id === Month) ?? null}
+                            value={Month}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )
@@ -239,7 +239,7 @@ function TaxReportReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={YearList.length != 0 ? YearList: []}
-                            value={YearList.find((item) => item.id === Year) ?? null}
+                            value={Year}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )

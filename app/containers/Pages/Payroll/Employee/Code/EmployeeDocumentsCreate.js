@@ -340,9 +340,15 @@ function CreateAndEditEmployeeDocuments(props) {
                             label={intl.formatMessage(messages.startDate)}
                             value={startDate}
                             onChange={(date) => {
-                              setStartDate(
-                                format(new Date(date), "yyyy-MM-dd")
-                              );
+                              if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                                if (!isNaN(new Date(date))) { 
+                                  setStartDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                                } 
+                                else
+                                {
+                                  setStartDate(null)
+                                }
+                              }
                             }}
                             className={classes.field}
                             renderInput={(params) => (
@@ -362,7 +368,15 @@ function CreateAndEditEmployeeDocuments(props) {
                             label={intl.formatMessage(messages.endDate)}
                             value={endDate}
                             onChange={(date) => {
-                              setEndDate(format(new Date(date), "yyyy-MM-dd"));
+                              if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                                if (!isNaN(new Date(date))) { 
+                                  setEndDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                                } 
+                                else
+                                {
+                                  setEndDate(null)
+                                }
+                              }
                             }}
                             className={classes.field}
                             renderInput={(params) => (
@@ -382,9 +396,15 @@ function CreateAndEditEmployeeDocuments(props) {
                             label={intl.formatMessage(messages.followDate)}
                             value={followDate}
                             onChange={(date) => {
-                              setFollowDate(
-                                format(new Date(date), "yyyy-MM-dd")
-                              );
+                              if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                                if (!isNaN(new Date(date))) { 
+                                  setFollowDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                                } 
+                                else
+                                {
+                                  setFollowDate(null)
+                                }
+                              }
                             }}
                             className={classes.field}
                             renderInput={(params) => (

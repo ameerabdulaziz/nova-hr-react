@@ -433,12 +433,16 @@ function DataFromAllDevices(props) {
                       <DesktopDatePicker
                         label={intl.formatMessage(Payrollmessages.fromdate)}
                         value={FromDate}
-                        onChange={(value) => {
-                          setFromDate(
-                            value == null
-                              ? null
-                              : format(new Date(value), "yyyy-MM-dd")
-                          );
+                        onChange={(date) => {
+                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                            if (!isNaN(new Date(date))) { 
+                              setFromDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                            } 
+                            else
+                            {
+                              setFromDate(null)
+                            }
+                          }
                         }}
                         className={classes.field}
                         renderInput={(params) => (
@@ -452,12 +456,16 @@ function DataFromAllDevices(props) {
                       <DesktopDatePicker
                         label={intl.formatMessage(Payrollmessages.todate)}
                         value={ToDate}
-                        onChange={(value) => {
-                          setToDate(
-                            value == null
-                              ? null
-                              : format(new Date(value), "yyyy-MM-dd")
-                          );
+                        onChange={(date) => {
+                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                            if (!isNaN(new Date(date))) { 
+                              setToDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                            } 
+                            else
+                            {
+                              setToDate(null)
+                            }
+                          }
                         }}
                         className={classes.field}
                         renderInput={(params) => (

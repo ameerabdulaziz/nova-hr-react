@@ -212,7 +212,12 @@ function MedicalInsuranceReport(props) {
                     if (!isNaN(new Date(date))) { 
                       setToDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
                     } 
-                  } 
+                    else
+                    {
+                      setToDate(null)
+                    }
+                  }
+                    
                 }}
                 className={classes.field}
                 renderInput={(params) => (

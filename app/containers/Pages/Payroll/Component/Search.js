@@ -28,16 +28,42 @@ function Search(props) {
 
   const handleChange = useCallback(async (name, value) => {
     if (name == "fromDate")
-      setsearchData((prevFilters) => ({
-        ...prevFilters,
-        FromDate: value == null ? null : format(new Date(value), "yyyy-MM-dd"),
-      }));
+    {
+      if (Object.prototype.toString.call(new Date(value)) === "[object Date]") {
+        if (!isNaN(new Date(value))) { 
+          setsearchData((prevFilters) => ({
+              ...prevFilters,
+              FromDate: value === null ? null : format(new Date(value), "yyyy-MM-dd"),
+            }))
+        }
+        else
+        {
+          setsearchData((prevFilters) => ({
+            ...prevFilters,
+            FromDate: null,
+          }))
+        } 
+      }
+    }
 
     if (name == "toDate")
-      setsearchData((prevFilters) => ({
-        ...prevFilters,
-        ToDate: value == null ? null : format(new Date(value), "yyyy-MM-dd"),
-      }));
+    {
+      if (Object.prototype.toString.call(new Date(value)) === "[object Date]") {
+        if (!isNaN(new Date(value))) { 
+          setsearchData((prevFilters) => ({
+              ...prevFilters,
+              ToDate: value === null ? null : format(new Date(value), "yyyy-MM-dd"),
+            }))
+        }
+        else
+        {
+          setsearchData((prevFilters) => ({
+            ...prevFilters,
+            ToDate: null,
+          }))
+        } 
+      }
+    }
 
     if (name == "employeeId")
       setsearchData((prevFilters) => ({
@@ -76,6 +102,8 @@ function Search(props) {
       setsearchData((prevFilters) => ({
         ...prevFilters,
         BranchId: value,
+        OrganizationId: "",
+        EmployeeId: ""
       }));
       setIsLoading(false);
     }
@@ -137,7 +165,7 @@ function Search(props) {
               value.id === 0 || value.id === "" || option.id === value.id
             }
             value={
-              searchData.OrganizationId
+              searchData.OrganizationId && OrganizationList.find( (item) => item.id === searchData.OrganizationId )
                 ? OrganizationList.find(
                     (item) => item.id === searchData.OrganizationId
                   )
@@ -170,7 +198,7 @@ function Search(props) {
               value.id === 0 || value.id === "" || option.id === value.id
             }
             value={
-              searchData.EmployeeId
+              searchData.EmployeeId && EmployeeList.find((item) => item.id === searchData.EmployeeId)
                 ? EmployeeList.find(
                     (item) => item.id === searchData.EmployeeId
                   )
