@@ -1,71 +1,53 @@
+import avatarApi from 'enl-api/images/avatars';
 import axiosInstance from '../../api/axios';
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-const EmployeeBankData = (probs) => {
-  const lang = useSelector((state) => state.language.locale);
-  const employeeid = probs;
-  const [BList, setList] = useState([]);
 
+const EmployeeBankData = (lang) => {
   const EmployeeBankApis = {};
-  EmployeeBankApis.GetUserMenuLookup = async () => {
-    
-    const data = await axiosInstance.get(`Menu/GetUserMenuLookup/${lang}`);
 
-    return data.data;
-  };
-  EmployeeBankApis.GetList = async (anchorTable) => {
-    
-
+  EmployeeBankApis.GetBankLookup = async (employeeId) => {
     const data = await axiosInstance.get(
-      `EmpBank/GetAllData/${lang}/${employeeid}`
+      `EmpBank/GetAllData/${lang}/${employeeId}`
     );
-    const result = data.data.empBankList;
-    const finaldata = result.map((obj) => ({
-      id: obj.id,
-      employeeId: obj.employeeId,
-      bankId: obj.bankId,
-      bankBranchNo: obj.bankBranchNo,
-      iban: obj.iban,
-      bnkEmpCode: obj.bnkEmpCode,
-      bankName: obj.bankName,
-      swiftCode: obj.swiftCode,
-      edited: false,
-    }));
-    setList(data.data.bankList);
-    const BankList = data.data.bankList.map((obj) => obj.name);
 
-    console.log(BankList);
-    anchorTable[1].options = BankList;
-    anchorTable[1].initialValue = BankList[0];
+    return data.data.bankList;
+  };
+  EmployeeBankApis.GetList = async (employeeId) => {
+    const data = await axiosInstance.get(
+      `EmpBank/GetAllData/${lang}/${employeeId}`
+    );
 
-    return { finaldata, anchorTable };
+    const finaldata = data.data.empBankList;
+
+    if (finaldata.length === 0) {
+      return [
+        {
+          employeeId,
+          key: 0,
+          name: '',
+          avatar: avatarApi[11],
+          bankId: null,
+          bnkAcc: '',
+          bankBranchNo: '',
+          iban: '',
+          bnkEmpCode: '',
+          swiftCode: '',
+          empEmpBankElement: [],
+        },
+      ];
+    }
+
+    return finaldata;
   };
 
-  EmployeeBankApis.Save = async (Item) => {
-    const Bankid = BList.find((ele) => ele.name === Item.bankName).id;
+  EmployeeBankApis.SaveData = async (body) => {
+    const result = await axiosInstance.post('EmpBank/save', body);
 
-    const data = {
-      id: Item.id,
-      employeeId: employeeid,
-      bankId: Bankid,
-      bankBranchNo: Item.bankBranchNo,
-      iban: Item.iban,
-      bnkEmpCode: Item.bnkEmpCode,
-      bankName: Item.bankName,
-      swiftCode: Item.swiftCode,
-    };
-
-    const result =
-      Item.id === 0
-        ? await axiosInstance.post('EmpBank', data)
-        : await axiosInstance.put(`EmpBank/${Item.id}`, data);
     return result;
   };
 
-  EmployeeBankApis.Delete = async (Item) => {
-    // 
+  EmployeeBankApis.Delete = async (id) => {
+    const data = await axiosInstance.delete(`EmpBank/${id}`);
 
-    const data = await axiosInstance.delete(`EmpBank/${Item.id}`);
     return data;
   };
 

@@ -7,8 +7,8 @@ $sm: "(max-width: 600px)";
   @media #{$sm} {
     padding: 15px 10px;
   }
-  max-height: 450px;
-  overflow: auto;
+  // max-height: 450px;
+  // overflow: auto;
 }
 .buttonArea {
   background: rgba(136, 136, 136, 0.15);

@@ -638,4 +638,24 @@ export default defineMessages({
     id: `${scope}.enterTemplateDetails`,
     defaultMessage: 'enterTemplateDetails',
   },
+  templateInfo: {
+    id: `${scope}.templateInfo`,
+    defaultMessage: 'templateInfo',
+  },
+  addOrChangeTemplate: {
+    id: `${scope}.addOrChangeTemplate`,
+    defaultMessage: 'addOrChangeTemplate',
+  },
+  templateName: {
+    id: `${scope}.templateName`,
+    defaultMessage: 'templateName',
+  },
+  currency: {
+    id: `${scope}.currency`,
+    defaultMessage: 'currency',
+  },
+  noTemplateAdded: {
+    id: `${scope}.noTemplateAdded`,
+    defaultMessage: 'noTemplateAdded',
+  }
 });
