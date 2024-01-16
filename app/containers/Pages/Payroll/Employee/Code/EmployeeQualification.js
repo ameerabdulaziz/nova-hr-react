@@ -31,6 +31,7 @@ import {
   FormControl,
   Input,
 } from "@mui/material";
+import GeneralListApis from "../../api/GeneralListApis";
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -54,8 +55,8 @@ function EmployeeQualification(props) {
 
   const GetUserMenuLookup = useCallback(async () => {
     try {
-      const data = await UserMenuData().GetUserMenuLookup(locale);
-      setEmployeeList(data.employees || []);
+      const employeedata = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employeedata || []);
     } catch (err) {}
   }, []);
 

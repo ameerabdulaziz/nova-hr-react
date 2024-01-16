@@ -538,6 +538,12 @@ export const SettingMailSmsFormCreate = loadable(
   }
 );
 
+export const PrintForm = loadable(
+  () => import('./Pages/Payroll/Setting/PrintForm'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 export const HrPermission = loadable(
   () => import('./Pages/Payroll/Setting/HrPermission'),
