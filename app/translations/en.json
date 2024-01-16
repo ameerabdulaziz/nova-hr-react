@@ -1085,6 +1085,9 @@
   "boilerplate.containers.Payroll.Setting.portno": "Port No",
   "boilerplate.containers.Payroll.Setting.resetallpassword": "Reset All",
   "boilerplate.containers.Payroll.Setting.resetpassword": "Reset Password",
+  "boilerplate.containers.Payroll.Setting.department": "Department",
+  "boilerplate.containers.Payroll.Setting.employee": "Employee",
+  "boilerplate.containers.Payroll.Setting.printForm": "Print Form",
 
   "boilerplate.containers.Payroll.HumanResources.enName": "En Name",
   "boilerplate.containers.Payroll.HumanResources.arName": "Ar Name",
@@ -2095,6 +2098,11 @@
   "boilerplate.containers.Payroll.Employee.bankEmployeeCode": "Bank Employee Code",
   "boilerplate.containers.Payroll.Employee.onceYouSubmitItsMeanYouHaveAgreedWithOur": "Once you submit, it means you have agreed with our",
   "boilerplate.containers.Payroll.Employee.termsAndCondition": "Terms and Conditions",
+  "boilerplate.containers.Payroll.Employee.templateInfo": "Template Info",
+  "boilerplate.containers.Payroll.Employee.addOrChangeTemplate": "Add Or Change Template",
+  "boilerplate.containers.Payroll.Employee.templateName": "Template Name",
+  "boilerplate.containers.Payroll.Employee.currency": "Currency",
+  "boilerplate.containers.Payroll.Employee.noTemplateAdded": "No Templates Added",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",

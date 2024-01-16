@@ -1113,6 +1113,9 @@
   "boilerplate.containers.Payroll.Setting.chooseDept": "اختر الادارة",
   "boilerplate.containers.Payroll.Setting.resetallpassword": "استرجاع الكل",
   "boilerplate.containers.Payroll.Setting.resetpassword": "استرجاع كلمة المرور",
+  "boilerplate.containers.Payroll.Setting.department": "القسم",
+  "boilerplate.containers.Payroll.Setting.employee": "الموظف",
+  "boilerplate.containers.Payroll.Setting.printForm": "نموذج الطباعة",
 
   "boilerplate.containers.Payroll.HumanResources.enName": "الاسم بالانجليزية",
   "boilerplate.containers.Payroll.HumanResources.arName": "الاسم بالعربية",
@@ -2156,6 +2159,11 @@
   "boilerplate.containers.Payroll.Employee.bankEmployeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.Employee.onceYouSubmitItsMeanYouHaveAgreedWithOur": "عند تقديمك، يعني أنك قد وافقت على شروطنا",
   "boilerplate.containers.Payroll.Employee.termsAndCondition": "الشروط والأحكام",
+  "boilerplate.containers.Payroll.Employee.templateInfo": "معلومات القالب",
+  "boilerplate.containers.Payroll.Employee.addOrChangeTemplate": "إضافة أو تغيير القالب",
+  "boilerplate.containers.Payroll.Employee.templateName": "اسم القالب",
+  "boilerplate.containers.Payroll.Employee.currency": "العملة",
+  "boilerplate.containers.Payroll.Employee.noTemplateAdded": "لم يتم إضافة قوالب",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
