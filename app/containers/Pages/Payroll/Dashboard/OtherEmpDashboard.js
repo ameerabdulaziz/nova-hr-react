@@ -3,19 +3,19 @@ import brand from "enl-api/dummy/brand";
 import { Helmet } from "react-helmet";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
-import SalaryYearlyWidget from "./Component/SalaryYearlyWidget";
+import OtherYearlyDataWidget from "./Component/OtherYearlyDataWidget";
 import useStyles from "./dashboard-jss";
 import StatisticsWidget from "./Component/StatisticsWidget";
-import SalaryChartWidget from "./Component/SalaryChartWidget";
+import OtherOvertimevsLateWidget from "./Component/OtherOvertimevsLateWidget";
 import OrgLevelWidget from "./Component/OrgLevelWidget";
-import GrossBiChartWidget from "./Component/GrossBiChartWidget";
-import GenderSalaryBiChartWidget from "./Component/GenderSalaryBiChartWidget";
-import OvertimeWidget from "./Component/OvertimeWidget";
-import AbscenceWidget from "./Component/AbscenceWidget";
-import TaxInsWidget from "./Component/TaxInsWidget";
-import MedicalInsWidget from "./Component/MedicalInsWidget";
+import OtherActualAttWidget from "./Component/OtherActualAttWidget";
+import OtherActualHoursBiWidget from "./Component/OtherActualHoursBiWidget";
+import OtherWorkHoursWidget from "./Component/OtherWorkHoursWidget";
+import OtherVacationsWidget from "./Component/OtherVacationsWidget";
+import OtherPermessionWidget from "./Component/OtherPermessionWidget";
+import OthermessionWidget from "./Component/OthermessionWidget";
 
-import AbscencebichartWidget  from "./Component/AbscencebichartWidget";
+import OtherAttbichartWidget  from "./Component/OtherAttbichartWidget";
 
 function OtherEmpDashboard() {
   const title = brand.name + " - Management Dashboard";
@@ -32,38 +32,39 @@ function OtherEmpDashboard() {
         <meta property="twitter:description" content={description} />
       </Helmet>
       
-      <SalaryChartWidget />
+      <OtherOvertimevsLateWidget />
       <Divider className={classes.divider} />
-      <SalaryYearlyWidget />
+      <OtherYearlyDataWidget />
       <Divider className={classes.divider} />
       <Grid container spacing={3} className={classes.root}>
         <Grid item md={6} xs={12}>
-          <OvertimeWidget />
+          <OtherWorkHoursWidget />
         </Grid>
         <Grid item md={6} xs={12}>
-          <AbscenceWidget />
+          <OtherVacationsWidget />
         </Grid>
       </Grid>
       <Divider className={classes.divider} />
       <Grid container spacing={3} className={classes.root}>
         <Grid item md={6} xs={12}>
-          <TaxInsWidget />
+          <OtherPermessionWidget />
         </Grid>
         <Grid item md={6} xs={12}>
-          <MedicalInsWidget />
+          <OthermessionWidget />
         </Grid>
       </Grid>
       <Divider className={classes.divider} />
       <Grid container spacing={3} className={classes.root}>
         <Grid item md={4} xs={12}>
-          <AbscencebichartWidget/>
+        <OtherActualAttWidget/>
         </Grid>
         
         <Grid item md={4} xs={12}>
-          <GrossBiChartWidget></GrossBiChartWidget>
+          
+          <OtherAttbichartWidget/>
         </Grid>
         <Grid item md={4} xs={12}>
-          <GenderSalaryBiChartWidget></GenderSalaryBiChartWidget>
+          <OtherActualHoursBiWidget/>
         </Grid>
       </Grid>
     </div>

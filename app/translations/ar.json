@@ -1078,6 +1078,23 @@
   
   "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeLateWidget": "Overtime VS Late Arrival vs Early Departial",
   
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherOvertimevsLateWidget": "Current Month Overtime VS Late Arrival",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherYearlyDataWidget": "Current Year Performance",
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithWorstAtt": "Employee with Worst Attendance",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherWorkHoursWidget": "Current Month Workhours",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherVacationsWidget": "Current Month Vacations",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherPermessionWidget": "Current Month Permessions",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OthermessionWidget": "Current Month Messions",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualHoursBiWidget": "Actual Workhours vs Assumed",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualAttWidget": "Actual Attendance vs Assumed",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherAttbichartWidget": "Employee With Best Attendance",
+  
+  
+  
   
   
   

@@ -197,6 +197,12 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     
   },
   
+  redProgress: {
+    color: colorfull[7],
+    '& span': {
+      backgroundColor: colorfull[7],
+    }
+  },
   greenProgress: {
     color: colorfull[5],
     '& span': {
