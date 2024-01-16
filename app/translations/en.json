@@ -2128,6 +2128,7 @@
   "boilerplate.containers.Payroll.MainData.codes.enName": "EN Name",
   "boilerplate.containers.Payroll.MainData.codes.parent": "Parent",
   "boilerplate.containers.Payroll.MainData.codes.parentName": "Parent",
+  "boilerplate.containers.Payroll.MainData.codes.document": "Document",
   "boilerplate.containers.Payroll.MainData.codes.jobnature": "Nature",
   "boilerplate.containers.Payroll.MainData.codes.jobtype": "Type",
   "boilerplate.containers.Payroll.MainData.codes.sanclevel": "Sancation Level",

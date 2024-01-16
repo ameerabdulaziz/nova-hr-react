@@ -2201,6 +2201,7 @@
   "boilerplate.containers.Payroll.MainData.codes.actions": "الإجراءات",
   "boilerplate.containers.Payroll.MainData.codes.deleteMessage": "هل أنت متأكد أنك تريد حذف",
   "boilerplate.containers.Payroll.MainData.codes.delete": "حذف",
+  "boilerplate.containers.Payroll.MainData.codes.document": "الوثيقة",
   "boilerplate.containers.Payroll.MainData.codes.createJob": "اضافة وظيفة",
   "boilerplate.containers.Payroll.MainData.codes.editJob": "تعديل الوظيفة",
   "boilerplate.containers.Payroll.MainData.codes.worknature": "طبيعة العمل",
