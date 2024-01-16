@@ -543,4 +543,42 @@ company: {
   id: `${scope}.Transaction.company`,
   defaultMessage: "Company",
 },
+
+  // Vacation Types
+  reqNotAllowInShiftVac: {
+    id: `${scope}.Transaction.reqNotAllowInShiftVac`,
+    defaultMessage: 'reqNotAllowInShiftVac',
+  },
+  reqDayNotAllow: {
+    id: `${scope}.Transaction.reqDayNotAllow`,
+    defaultMessage: 'reqDayNotAllow',
+  },
+  reqDuringShift: {
+    id: `${scope}.Transaction.reqDuringShift`,
+    defaultMessage: 'reqDuringShift',
+  },
+  reqBeforeShiftInMinute: {
+    id: `${scope}.Transaction.reqBeforeShiftInMinute`,
+    defaultMessage: 'reqBeforeShiftInMinute',
+  },
+  IsOfficialVacation: {
+    id: `${scope}.Transaction.IsOfficialVacation`,
+    defaultMessage: 'IsOfficialVacation',
+  },
+  AllowLessOneDay: {
+    id: `${scope}.Transaction.AllowLessOneDay`,
+    defaultMessage: 'AllowLessOneDay',
+  },
+  ReplacementVacOvertimeMinNo: {
+    id: `${scope}.Transaction.ReplacementVacOvertimeMinNo`,
+    defaultMessage: 'ReplacementVacOvertimeMinNo',
+  },
+  ReplacementVacHourCheck: {
+    id: `${scope}.Transaction.ReplacementVacHourCheck`,
+    defaultMessage: 'ReplacementVacHourCheck',
+  },
+  HaveReplacementDay: {
+    id: `${scope}.Transaction.HaveReplacementDay`,
+    defaultMessage: 'HaveReplacementDay',
+  },
 });
