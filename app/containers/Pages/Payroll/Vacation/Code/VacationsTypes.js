@@ -173,6 +173,7 @@ function VacationsTypes({ intl }) {
 
               <DeleteButton
                 clickfnc={() => handleClickOpen(tableMeta.rowData)}
+                disabled={tableMeta.rowData[0] === 1}
               ></DeleteButton>
             </div>
           );
