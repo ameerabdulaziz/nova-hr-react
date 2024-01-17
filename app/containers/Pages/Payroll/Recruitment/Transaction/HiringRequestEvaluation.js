@@ -65,7 +65,7 @@ function HiringRequestEvaluation(props) {
       label: intl.formatMessage(messages.applicationDate),
       options: {
         filter: true,
-        customBodyRender: formateDate,
+        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
 
@@ -90,7 +90,7 @@ function HiringRequestEvaluation(props) {
       label: intl.formatMessage(messages.startDate),
       options: {
         filter: true,
-        customBodyRender: formateDate,
+        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
 

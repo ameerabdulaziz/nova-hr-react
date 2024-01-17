@@ -99,7 +99,7 @@ function StopInsurance(props) {
       label: intl.formatMessage(messages.endDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
 

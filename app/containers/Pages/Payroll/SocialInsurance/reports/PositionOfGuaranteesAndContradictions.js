@@ -85,7 +85,7 @@ function PositionOfGuaranteesAndContradictions(props) {
       label: <FormattedMessage {...messages.birthDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -100,7 +100,7 @@ function PositionOfGuaranteesAndContradictions(props) {
       label: <FormattedMessage {...messages.hiringDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -122,7 +122,7 @@ function PositionOfGuaranteesAndContradictions(props) {
       label: <FormattedMessage {...messages.insuranceDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -151,7 +151,7 @@ function PositionOfGuaranteesAndContradictions(props) {
       label: <FormattedMessage {...messages.c1DeliverDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -166,7 +166,7 @@ function PositionOfGuaranteesAndContradictions(props) {
       label: <FormattedMessage {...messages.c6DeliverDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -174,7 +174,7 @@ function PositionOfGuaranteesAndContradictions(props) {
       label: <FormattedMessage {...messages.workLetterDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
