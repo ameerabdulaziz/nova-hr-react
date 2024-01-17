@@ -146,7 +146,7 @@ function ApplicationCallStatus(props) {
       label: intl.formatMessage(messages.applicationDate),
       options: {
         filter: true,
-        customBodyRender: formateDate,
+        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
 
@@ -187,7 +187,7 @@ function ApplicationCallStatus(props) {
       label: intl.formatMessage(messages.interviewTime),
       options: {
         filter: true,
-        customBodyRender: formateDateTime,
+        customBodyRender: (value) => (<pre>{formateDateTime(value)}</pre>),
       },
     },
 

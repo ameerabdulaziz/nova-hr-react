@@ -77,7 +77,7 @@ function EmployeeMedicalBenefits(props) {
       label: intl.formatMessage(payrollMessages.date),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
 

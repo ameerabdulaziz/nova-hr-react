@@ -85,7 +85,7 @@ function OvertimeHoursRequest(props) {
       label: intl.formatMessage(messages.subscriptionDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
 
@@ -94,7 +94,7 @@ function OvertimeHoursRequest(props) {
       label: intl.formatMessage(messages.startTime),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'hh:mm:ss aa') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), 'hh:mm:ss aa')}</pre> : ''),
       },
     },
 
@@ -103,7 +103,7 @@ function OvertimeHoursRequest(props) {
       label: intl.formatMessage(payrollMessages.endTime),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'hh:mm:ss aa') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), 'hh:mm:ss aa')}</pre> : ''),
       },
     },
 
