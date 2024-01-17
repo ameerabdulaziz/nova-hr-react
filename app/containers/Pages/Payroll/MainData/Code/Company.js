@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CompanyData from '../api/CompanyData';
 import style from '../../../../../styles/styles.scss'
+import { PapperBlock } from "enl-components";
 
 // validation functions
 //const required = (value) => (value == null ? 'Required' : undefined);
@@ -58,7 +59,6 @@ function Company() {
   const [phone, setphone] = useState('');
   const [mail, setmail] = useState('');
   const [address, setaddress] = useState('');
-  const trueBool = true;
   const { classes } = useStyles();
   // const { pristine, submitting, init } = props;
   const handleSubmit = async (e) => {
@@ -103,113 +103,110 @@ function Company() {
     <div>
       <Grid
         container
-        spacing={3}
         alignItems="flex-start"
         direction="row"
-        justifyContent="center"
       >
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-              {title}
-            </Typography>
+        <Grid item xs={12}>
+          <PapperBlock whiteBg icon="border_color" title={title} desc="">
 
             <form onSubmit={handleSubmit}>
-              <div>
-                <TextField
-                  name="Cmp_name"
-                  id="Cmp_name"
-                  placeholder="Name"
-                  label="Name"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div>
-                <TextField
-                  name="EnName"
-                  id="EnName"
-                  placeholder="English Name"
-                  label="English Name"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                  value={enname}
-                  onChange={(e) => setEnName(e.target.value)}
-                />
-              </div>
-              <div>
-                <TextField
-                  id="Cmp_Phone"
-                  name="Cmp_Phone"
-                  value={phone}
-                  onChange={(e) => setphone(e.target.value)}
-                  placeholder="Telephone"
-                  label="Telephone"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <TextField
-                  type="email"
-                  error={email === 'Invalid email'}
-                  id="Cmp_Mail"
-                  name="Cmp_Mail"
-                  value={mail}
-                  onChange={(e) => setmail(e.target.value)}
-                  placeholder="Email"
-                  label="Email"
-                  required
-                  // validate={[required, email]}
-                  className={classes.field}
-                  autoComplete="email"
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
+              <Grid container spacing={3} >
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    name="Cmp_name"
+                    id="Cmp_name"
+                    placeholder="Name"
+                    label="Name"
+                    // validate={required}
+                    required
+                    fullWidth
+                    variant="outlined"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </Grid>
 
-              <div className={classes.field}>
-                <TextField
-                  name="Cmp_address"
-                  id="Cmp_address"
-                  className={classes.field}
-                  value={address}
-                  onChange={(e) => setaddress(e.target.value)}
-                  placeholder="Address"
-                  label="Address"
-                  multiline={trueBool}
-                  rows={4}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  //disabled={submitting}
-                  className={style.generalBtnStys}
-                >
-                  Submit
-                </Button>
-                <Button type="reset" onClick={clear} className={style.generalBtnStys}>
-                  Reset
-                </Button>
-              </div>
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    name="EnName"
+                    id="EnName"
+                    placeholder="English Name"
+                    label="English Name"
+                    // validate={required}
+                    required
+                    fullWidth
+                    variant="outlined"
+                    value={enname}
+                    onChange={(e) => setEnName(e.target.value)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    id="Cmp_Phone"
+                    name="Cmp_Phone"
+                    value={phone}
+                    onChange={(e) => setphone(e.target.value)}
+                    placeholder="Telephone"
+                    label="Telephone"
+                    // validate={required}
+                    required
+                    fullWidth
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    type="email"
+                    error={email === 'Invalid email'}
+                    id="Cmp_Mail"
+                    name="Cmp_Mail"
+                    value={mail}
+                    onChange={(e) => setmail(e.target.value)}
+                    placeholder="Email"
+                    label="Email"
+                    required
+                    // validate={[required, email]}
+                    fullWidth
+                    autoComplete="email"
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    name="Cmp_address"
+                    id="Cmp_address"
+                    fullWidth
+                    value={address}
+                    onChange={(e) => setaddress(e.target.value)}
+                    placeholder="Address"
+                    label="Address"
+                    multiline
+                    rows={1}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                    //disabled={submitting}
+                    className={style.generalBtnStys}
+                  >
+                    Submit
+                  </Button>
+                  <Button type="reset" onClick={clear} className={style.generalBtnStys}>
+                    Reset
+                  </Button>
+                </Grid>
+
+              </Grid>
             </form>
-          </Paper>
+          </PapperBlock>
         </Grid>
       </Grid>
     </div>

@@ -229,7 +229,6 @@ function EmployeeContract(props) {
               <div>
                 <Autocomplete
                   id="ddlhiringSourceId"
-                  required
                   options={hiringSourceList}
                   value={hiringSourceId.length !== 0 ?{
                     id: hiringSourceId.id,
@@ -248,7 +247,7 @@ function EmployeeContract(props) {
                   renderInput={(params) => (
                     <TextField
                       //margin="normal"
-
+                      required
                       {...params}
                       name="hiringSourceId"
                       label={intl.formatMessage(messages.hiringSource)}
@@ -260,7 +259,6 @@ function EmployeeContract(props) {
 
               <div>
                 <FormControlLabel
-                  required
                   control={
                     <Switch
                       checked={isKinship}
@@ -342,7 +340,6 @@ function EmployeeContract(props) {
 
               <div>
                 <FormControlLabel
-                  required
                   control={
                     <Switch
                       checked={hasAlternativeEmp}
@@ -436,7 +433,6 @@ function EmployeeContract(props) {
 
               <div>
                 <FormControlLabel
-                  required
                   control={
                     <Switch
                       checked={notHasMission}

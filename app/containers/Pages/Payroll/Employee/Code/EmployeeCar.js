@@ -156,160 +156,159 @@ function EmployeeCar(props) {
         direction="row"
         justifyContent="center"
       >
-        <Grid item xs={12} md={6}>
-          
-            <Autocomplete
-              id="ddlEmp"
-              options={employeeList}
-              value={{ id: employee.id, name: employee.name }}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setEmployee({
-                  id: value !== null ? value.id : 0,
-                  name: value !== null ? value.name : "",
-                });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employee"
-                  //  value={employee.id}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                  margin="normal"
-                />
-              )}
-            />
-
+        <Grid item xs={12}>
             <form onSubmit={handleSubmit}>
-              <div>
-                <TextField
-                  id="carModel"
-                  name="carModel"
-                  value={carModel}
-                  onChange={(e) => setcarModel(e.target.value)}
-                  placeholder={intl.formatMessage(messages.carModel)}
-                  label={intl.formatMessage(messages.carModel)}
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <TextField
-                  id="manufactureYear"
-                  name="manufactureYear"
-                  value={manufactureYear}
-                  onChange={(e) => setmanufactureYear(e.target.value)}
-                  placeholder={intl.formatMessage(messages.manufactureYear)}
-                  label={intl.formatMessage(messages.manufactureYear)}
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  required
-                  control={
-                    <Switch
-                      checked={hasLicense}
-                      onChange={() => {
-                        sethasLicense(!hasLicense);
-                        setRequired({ required: !hasLicense });
-                      }}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.hasLicense)}
-                />
-              </div>
-              <div>
-                <TextField
-                  id="licenseNo"
-                  name="licenseNo"
-                  value={licenseNo}
-                  onChange={(e) => setlicenseNo(e.target.value)}
-                  placeholder={intl.formatMessage(messages.licenseNo)}
-                  label={intl.formatMessage(messages.licenseNo)}
-                  // validate={required}
-                  {...required}
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <TextField
-                  id="trafficUnit"
-                  name="trafficUnit"
-                  value={trafficUnit}
-                  onChange={(e) => settrafficUnit(e.target.value)}
-                  placeholder={intl.formatMessage(messages.trafficUnit)}
-                  label={intl.formatMessage(messages.trafficUnit)}
-                  // validate={required}
-                  {...required}
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <br />
-              <div>
-                <Autocomplete
-                  id="ddlgrade"
-                  options={gradelist}
-                  value={{ id: licenseGradeId.id, name: licenseGradeId.name }}
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === "" || option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option.name ? option.name : "")}
-                  onChange={(event, value) => {
-                    setlicenseGradeId({
-                      id: value !== null ? value.id : 0,
-                      name: value !== null ? value.name : "",
-                    });
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={4}>
+                  <Autocomplete
+                    id="ddlEmp"
+                    options={employeeList}
+                    value={{ id: employee.id, name: employee.name }}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" || option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option.name ? option.name : "")}
+                    onChange={(event, value) => {
+                      setEmployee({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        name="employee"
+                        //  value={employee.id}
+                        label={intl.formatMessage(messages.chooseEmp)}
+                      />
+                    )}
+                  />
+                </Grid>
 
-                      {...params}
-                      name="licenseGrade"
-                      label={intl.formatMessage(messages.licenseGrade)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    id="carModel"
+                    name="carModel"
+                    value={carModel}
+                    onChange={(e) => setcarModel(e.target.value)}
+                    placeholder={intl.formatMessage(messages.carModel)}
+                    label={intl.formatMessage(messages.carModel)}
+                    // validate={required}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
 
-              <br />
-              <div>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  disabled={employee.id === 0}
-                  className={style.generalBtnStys}
-                >
-                  <FormattedMessage {...Payrollmessages.save} />
-                </Button>
-                <Button
-                  type="button"
-                  disabled={employee.id === 0 || pristine}
-                  onClick={() => deletedata()}
-                  className={style.generalBtnStys}
-                >
-                  <FormattedMessage {...Payrollmessages.delete} />
-                </Button>
-              </div>
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    id="manufactureYear"
+                    name="manufactureYear"
+                    value={manufactureYear}
+                    onChange={(e) => setmanufactureYear(e.target.value)}
+                    placeholder={intl.formatMessage(messages.manufactureYear)}
+                    label={intl.formatMessage(messages.manufactureYear)}
+                    // validate={required}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={12}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={hasLicense}
+                        onChange={() => {
+                          sethasLicense(!hasLicense);
+                          setRequired({ required: !hasLicense });
+                        }}
+                        color="secondary"
+                      />
+                    }
+                    label={intl.formatMessage(messages.hasLicense)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    id="licenseNo"
+                    name="licenseNo"
+                    value={licenseNo}
+                    onChange={(e) => setlicenseNo(e.target.value)}
+                    placeholder={intl.formatMessage(messages.licenseNo)}
+                    label={intl.formatMessage(messages.licenseNo)}
+                    // validate={required}
+                    {...required}
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    id="trafficUnit"
+                    name="trafficUnit"
+                    value={trafficUnit}
+                    onChange={(e) => settrafficUnit(e.target.value)}
+                    placeholder={intl.formatMessage(messages.trafficUnit)}
+                    label={intl.formatMessage(messages.trafficUnit)}
+                    // validate={required}
+                    {...required}
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <Autocomplete
+                    id="ddlgrade"
+                    options={gradelist}
+                    value={{ id: licenseGradeId.id, name: licenseGradeId.name }}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" || option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option.name ? option.name : "")}
+                    onChange={(event, value) => {
+                      setlicenseGradeId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        name="licenseGrade"
+                        label={intl.formatMessage(messages.licenseGrade)}
+                        variant="outlined"
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                    disabled={employee.id === 0}
+                    className={style.generalBtnStys}
+                  >
+                    <FormattedMessage {...Payrollmessages.save} />
+                  </Button>
+                  <Button
+                    type="button"
+                    disabled={employee.id === 0 || pristine}
+                    onClick={() => deletedata()}
+                    className={style.generalBtnStys}
+                  >
+                    <FormattedMessage {...Payrollmessages.delete} />
+                  </Button>
+                </Grid>
+              </Grid>
+
             </form>
           
         </Grid>

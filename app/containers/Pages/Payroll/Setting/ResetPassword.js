@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { PapperBlock } from "enl-components";
 import SaveButton from "../Component/SaveButton";
 import Payrollmessages from "../messages";
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import PayRollLoader from "../Component/PayRollLoader";
 
 function ResetPassword(props) {
   const { classes } = useStyles();
@@ -102,42 +102,16 @@ function ResetPassword(props) {
   }, [department]);
 
   return (
-    <Grid
-      container
-      spacing={3}
-      alignItems="flex-start"
-      direction="row"
-      justifyContent="center"
-    >
-      <Grid item xs={12} md={6}>
-        <Box
-          sx={{
-            zIndex: 100,
-            position: "relative",
-          }}
-        >
+    <PayRollLoader isLoading={isLoading}>
           <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-            <Backdrop
-              sx={{
-                color: "primary.main",
-                zIndex: 10,
-                position: "absolute",
-                backgroundColor: "rgba(255, 255, 255, 0.69)",
-              }}
-              open={isLoading}
-            >
-              <CircularProgress color="inherit" />
-            </Backdrop>
-
             <form onSubmit={handleSubmit}>
               <Grid
                 container
                 spacing={3}
                 alignItems="flex-start"
                 direction="row"
-                justifyContent="center"
               >
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={4}>
                   <Autocomplete
                     id="ddldepartment"
                     options={departmentList}
@@ -152,12 +126,11 @@ function ResetPassword(props) {
                         name="department"
                         value={department}
                         label={intl.formatMessage(messages.chooseDept)}
-                        margin="normal"
                       />
                     )}
                   />
                 </Grid>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={4}>
                   <Autocomplete
                     id="ddlEmp"
                     options={employeeList}
@@ -176,7 +149,7 @@ function ResetPassword(props) {
                     )}
                   />
                 </Grid>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={4}>
                   <TextField
                     id="password"
                     name="password"
@@ -193,10 +166,10 @@ function ResetPassword(props) {
               </Grid>
               <div style={{ paddingTop: "20px" }}>
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item>
                     <SaveButton Id={1} />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item>
                     <Button
                       variant="contained"
                       size="medium"
@@ -210,9 +183,7 @@ function ResetPassword(props) {
               </div>
             </form>
           </PapperBlock>
-        </Box>
-      </Grid>
-    </Grid>
+    </PayRollLoader>
   );
 }
 

@@ -79,6 +79,8 @@ function EmployeeContactInfo(props) {
     setworkEmail("");
   };
   const GetLookup = useCallback(async () => {
+    setIsLoading(true);
+
     try {
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employeedata || []);
@@ -133,140 +135,141 @@ function EmployeeContactInfo(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-      
         <Grid
           container
           spacing={3}
-          alignItems="flex-start"
           direction="row"
-          justifyContent="center"
         >
-          <Grid item xs={12} md={6}>
-            <Autocomplete
-              id="ddlEmp"
-              options={employeeList}
-              value={{ id: employee.id, name: employee.name }}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setEmployee({
-                  id: value !== null ? value.id : 0,
-                  name: value !== null ? value.name : "",
-                });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employee"
-                  //  value={employee.id}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                  margin="normal"
-                />
-              )}
-            />
-
+          <Grid item xs={12}>
             <form onSubmit={handleSubmit}>
-              <div>
-                <TextField
-                  id="telPhone"
-                  name="telPhone"
-                  value={telPhone}
-                  onChange={(e) => settelPhone(e.target.value)}
-                  placeholder="Telephone"
-                  label="Telephone"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <TextField
-                  id="mobile"
-                  name="mobile"
-                  value={mobile}
-                  onChange={(e) => setmobile(e.target.value)}
-                  placeholder="mobile"
-                  label="mobile"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <TextField
-                  id="workMobile"
-                  name="workMobile"
-                  value={workMobile}
-                  onChange={(e) => setworkMobile(e.target.value)}
-                  placeholder="work Mobile"
-                  label="work Mobile"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <TextField
-                  id="relativesPhoneNo"
-                  name="relativesPhoneNo"
-                  value={relativesPhoneNo}
-                  onChange={(e) => setrelativesPhoneNo(e.target.value)}
-                  placeholder="relatives Phone No"
-                  label="relatives Phone No"
-                  // validate={required}
-                  required
-                  className={classes.field}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <TextField
-                  type="email"
-                  error={email === "Invalid email"}
-                  id="mail"
-                  name="mail"
-                  value={mail}
-                  onChange={(e) => setmail(e.target.value)}
-                  placeholder="Email"
-                  label="Email"
-                  required
-                  // validate={[required, email]}
-                  className={classes.field}
-                  autoComplete="email"
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <TextField
-                  type="email"
-                  error={email === "Invalid email"}
-                  id="workEmail"
-                  name="workEmail"
-                  value={workEmail}
-                  onChange={(e) => setworkEmail(e.target.value)}
-                  placeholder="work Email"
-                  label="work Email"
-                  required
-                  // validate={[required, email]}
-                  className={classes.field}
-                  autoComplete="email"
-                  margin="normal"
-                  variant="outlined"
-                />
-              </div>
-              <div>
-                <div>
+              <Grid
+                container
+                spacing={3}
+              >
+                <Grid item xs={12} md={4}>
+                  <Autocomplete
+                    id="ddlEmp"
+                    options={employeeList}
+                    value={{ id: employee.id, name: employee.name }}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" || option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option.name ? option.name : "")}
+                    onChange={(event, value) => {
+                      setEmployee({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        name="employee"
+                        //  value={employee.id}
+                        label={intl.formatMessage(messages.chooseEmp)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    id="telPhone"
+                    name="telPhone"
+                    value={telPhone}
+                    onChange={(e) => settelPhone(e.target.value)}
+                    placeholder="Telephone"
+                    label="Telephone"
+                    // validate={required}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    id="mobile"
+                    name="mobile"
+                    value={mobile}
+                    onChange={(e) => setmobile(e.target.value)}
+                    placeholder="mobile"
+                    label="mobile"
+                    // validate={required}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    id="workMobile"
+                    name="workMobile"
+                    value={workMobile}
+                    onChange={(e) => setworkMobile(e.target.value)}
+                    placeholder="work Mobile"
+                    label="work Mobile"
+                    // validate={required}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    id="relativesPhoneNo"
+                    name="relativesPhoneNo"
+                    value={relativesPhoneNo}
+                    onChange={(e) => setrelativesPhoneNo(e.target.value)}
+                    placeholder="relatives Phone No"
+                    label="relatives Phone No"
+                    // validate={required}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    type="email"
+                    error={email === "Invalid email"}
+                    id="mail"
+                    name="mail"
+                    value={mail}
+                    onChange={(e) => setmail(e.target.value)}
+                    placeholder="Email"
+                    label="Email"
+                    required
+                    // validate={[required, email]}
+                    className={classes.field}
+                    autoComplete="email"
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    type="email"
+                    error={email === "Invalid email"}
+                    id="workEmail"
+                    name="workEmail"
+                    value={workEmail}
+                    onChange={(e) => setworkEmail(e.target.value)}
+                    placeholder="work Email"
+                    label="work Email"
+                    required
+                    // validate={[required, email]}
+                    className={classes.field}
+                    autoComplete="email"
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
                   <Button
                     variant="contained"
                     color="secondary"
@@ -284,8 +287,9 @@ function EmployeeContactInfo(props) {
                   >
                     <FormattedMessage {...Payrollmessages.delete} />
                   </Button>
-                </div>
-              </div>
+                </Grid>
+              </Grid>
+
             </form>
           </Grid>
         </Grid>

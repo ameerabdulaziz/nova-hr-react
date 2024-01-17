@@ -137,12 +137,12 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
         direction="row"
         justifyContent="center"
       >
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <PapperBlock whiteBg icon="border_color" title={Title} desc="">
           
             <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>           
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={4}>
                 <TextField                    
                   type="email"                  
                   error={email === 'Invalid email'}
@@ -157,7 +157,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   onChange={(e) => handleChange(e)}
                 />
               </Grid>
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={4}>
                 <TextField
                   name="userName"
                   id="userName"
@@ -170,7 +170,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={4}>
                 <TextField
                   id="password"
                   name="password"
@@ -184,7 +184,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={4}>
                 <TextField
                   id="serverName"
                   name="serverName"
@@ -197,7 +197,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                 />
               </Grid>
               
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={4}>
                 <TextField
                   name="url"
                   id="url"
@@ -209,7 +209,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   variant="outlined"
                 />
               </Grid>
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={4}>
                 <TextField
                   name="mailPort"
                   id="mailPort"
@@ -224,10 +224,10 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
               </Grid>
               <div style={{paddingTop:"20px"}}>
                 <Grid container spacing={3}>            
-                    <Grid item xs={6} sm={3}>
+                    <Grid item >
                       <SaveButton Id={data.id} processing={processing} />
                     </Grid>
-                    <Grid item xs={6} sm={3}>
+                    <Grid item >
                       <Button variant="contained"  size="medium" color="primary"  onClick={clear}>
                         <FormattedMessage {...Payrollmessages.reset} />
                       </Button>
