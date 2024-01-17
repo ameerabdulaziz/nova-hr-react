@@ -493,6 +493,7 @@ function Personal(props) {
                     type="number"
                     value={employeeCode}
                     disabled={id !== 0}
+                    required
                     onChange={id !== 0 ? undefined :(e) => setemployeeCode(e.target.value)}
                     label={intl.formatMessage(messages.employeeCode)}
                     className={classes.field}
