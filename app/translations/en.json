@@ -2119,6 +2119,12 @@
   "boilerplate.containers.Payroll.Employee.templateName": "Template Name",
   "boilerplate.containers.Payroll.Employee.currency": "Currency",
   "boilerplate.containers.Payroll.Employee.noTemplateAdded": "No Templates Added",
+  "boilerplate.containers.Payroll.Employee.fileIsEmpty": "File Is Empty",
+  "boilerplate.containers.Payroll.Employee.fileExtensionShouldBeExcel": "File Extension Should Be Excel",
+  "boilerplate.containers.Payroll.Employee.fileSizeShouldBeLessThan10MB": "FilE Size Should Be Less Than 10MB",
+  "boilerplate.containers.Payroll.Employee.selectFileFirst": "Please Select The File First",
+  "boilerplate.containers.Payroll.Employee.workSheet": "Worksheet",
+  "boilerplate.containers.Payroll.Employee.startFromLineNumber": "Start From Line Number",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",

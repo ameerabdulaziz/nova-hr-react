@@ -269,6 +269,7 @@ import {
   followStaffContracts,
   SocialInsuranceData,
   EmploymentDocsDetails,
+  ImportEmployeeData,
   UpdateInsuranceSalary,
   EmploymentDocs,
   StopInsurance,
@@ -1320,6 +1321,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Employee/EmploymentDocsDetails'
           component={EmploymentDocsDetails}
+        />
+
+        <Route
+          path='/app/Pages/Employee/ImportEmployeeData'
+          component={ImportEmployeeData}
         />
 
         <Route

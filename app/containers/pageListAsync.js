@@ -1727,6 +1727,13 @@ export const EmploymentDocs = loadable(
   }
 );
 
+export const ImportEmployeeData = loadable(
+  () => import('./Pages/Payroll/Employee/reports/ImportEmployeeData'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 /// ///////////////////////////////////////////////////////////////////////////////////////
 export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
   fallback: <Loading />,

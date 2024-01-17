@@ -2181,6 +2181,12 @@
   "boilerplate.containers.Payroll.Employee.templateName": "اسم القالب",
   "boilerplate.containers.Payroll.Employee.currency": "العملة",
   "boilerplate.containers.Payroll.Employee.noTemplateAdded": "لم يتم إضافة قوالب",
+  "boilerplate.containers.Payroll.Employee.fileIsEmpty": "الملف فارغ",
+  "boilerplate.containers.Payroll.Employee.fileExtensionShouldBeExcel": "يجب أن يكون امتداد الملف اكسيل",
+  "boilerplate.containers.Payroll.Employee.fileSizeShouldBeLessThan10MB": "يجب أن يكون حجم الملف أقل من 10 ميجابايت",
+  "boilerplate.containers.Payroll.Employee.selectFileFirst": "يرجى اختيار الملف أولاً",
+  "boilerplate.containers.Payroll.Employee.workSheet": "صفحات العمل",
+  "boilerplate.containers.Payroll.Employee.startFromLineNumber": "البداية من سطر رقم",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
