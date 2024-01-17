@@ -194,7 +194,7 @@ function ResetPassword(props) {
               <div style={{ paddingTop: "20px" }}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
-                    <SaveButton Id={1} processing={processing} />
+                    <SaveButton Id={1} />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Button

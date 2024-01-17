@@ -1052,6 +1052,22 @@
   "boilerplate.components.Widgets.PerformanceChartWidget.RewardsPenaltyWidget": "Rewards VS Penalty Chart",
   "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeLateWidget": "Overtime VS Late Arrival vs Early Departial",
   
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherOvertimevsLateWidget": "Current Month Overtime VS Late Arrival",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherYearlyDataWidget": "Current Year Performance",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithWorstAtt": "Employee with Worst Attendance",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherWorkHoursWidget": "Current Month Workhours",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherVacationsWidget": "Current Month Vacations",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherPermessionWidget": "Current Month Permessions",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OthermessionWidget": "Current Month Messions",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualHoursBiWidget": "Actual Workhours vs Assumed",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualAttWidget": "Actual Attendance vs Assumed",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherAttbichartWidget": "Employee With Best Attendance",
   
   
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
@@ -2103,6 +2119,12 @@
   "boilerplate.containers.Payroll.Employee.templateName": "Template Name",
   "boilerplate.containers.Payroll.Employee.currency": "Currency",
   "boilerplate.containers.Payroll.Employee.noTemplateAdded": "No Templates Added",
+  "boilerplate.containers.Payroll.Employee.fileIsEmpty": "File Is Empty",
+  "boilerplate.containers.Payroll.Employee.fileExtensionShouldBeExcel": "File Extension Should Be Excel",
+  "boilerplate.containers.Payroll.Employee.fileSizeShouldBeLessThan10MB": "FilE Size Should Be Less Than 10MB",
+  "boilerplate.containers.Payroll.Employee.selectFileFirst": "Please Select The File First",
+  "boilerplate.containers.Payroll.Employee.workSheet": "Worksheet",
+  "boilerplate.containers.Payroll.Employee.startFromLineNumber": "Start From Line Number",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",
@@ -2112,6 +2134,7 @@
   "boilerplate.containers.Payroll.MainData.codes.enName": "EN Name",
   "boilerplate.containers.Payroll.MainData.codes.parent": "Parent",
   "boilerplate.containers.Payroll.MainData.codes.parentName": "Parent",
+  "boilerplate.containers.Payroll.MainData.codes.document": "Document",
   "boilerplate.containers.Payroll.MainData.codes.jobnature": "Nature",
   "boilerplate.containers.Payroll.MainData.codes.jobtype": "Type",
   "boilerplate.containers.Payroll.MainData.codes.sanclevel": "Sancation Level",
@@ -2254,7 +2277,7 @@
   "boilerplate.containers.Payroll.vac.code.vacationName": "Vacation name",
   "boilerplate.containers.Payroll.vac.code.element": "Element",
   "boilerplate.containers.Payroll.vac.code.DayValue": "Day value",
-  "boilerplate.containers.Payroll.vac.code.SalaryDeduction": "Salary deduction",
+  "boilerplate.containers.Payroll.vac.code.SalaryDeduction": "Deduction From Salary",
   "boilerplate.containers.Payroll.vac.code.Maximum": "Maximum",
   "boilerplate.containers.Payroll.vac.code.AnnualVacationDeduction": "Annual Vacation deduction",
   "boilerplate.containers.Payroll.vac.code.HalfDay": "Half day",
@@ -2333,6 +2356,15 @@
 
   "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "Leave Type",
   "boilerplate.containers.Payroll.vac.Transaction.company": "Company",
+  "boilerplate.containers.Payroll.vac.Transaction.reqNotAllowInShiftVac": "Request Not Allowed in Shift Vacation",
+  "boilerplate.containers.Payroll.vac.Transaction.reqDayNotAllow": "Request Not Allowed on This Day",
+  "boilerplate.containers.Payroll.vac.Transaction.reqDuringShift": "Request Allowed During Shift",
+  "boilerplate.containers.Payroll.vac.Transaction.reqBeforeShiftInMinute": "Request Not Allowed Before Shift Start by Minute",
+  "boilerplate.containers.Payroll.vac.Transaction.IsOfficialVacation": "Official Vacation",
+  "boilerplate.containers.Payroll.vac.Transaction.AllowLessOneDay": "Allow Less Than One Day",
+  "boilerplate.containers.Payroll.vac.Transaction.ReplacementVacOvertimeMinNo": "Minimum Minutes for Overtime in Replacement Day",
+  "boilerplate.containers.Payroll.vac.Transaction.ReplacementVacHourCheck": "Check Hour in Replacement Day",
+  "boilerplate.containers.Payroll.vac.Transaction.HaveReplacementDay": "Have a Replacement Day",
 
   "boilerplate.containers.Payroll.insurance.arName": "Arabic Name",
   "boilerplate.containers.Payroll.insurance.enName": "English Name",

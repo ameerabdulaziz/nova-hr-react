@@ -657,5 +657,30 @@ export default defineMessages({
   noTemplateAdded: {
     id: `${scope}.noTemplateAdded`,
     defaultMessage: 'noTemplateAdded',
-  }
+  },
+  // Import Employee Data
+  fileIsEmpty: {
+    id: `${scope}.fileIsEmpty`,
+    defaultMessage: 'fileIsEmpty',
+  },
+  fileExtensionShouldBeExcel: {
+    id: `${scope}.fileExtensionShouldBeExcel`,
+    defaultMessage: 'fileExtensionShouldBeExcel',
+  },
+  fileSizeShouldBeLessThan10MB: {
+    id: `${scope}.fileSizeShouldBeLessThan10MB`,
+    defaultMessage: 'fileSizeShouldBeLessThan10MB',
+  },
+  selectFileFirst: {
+    id: `${scope}.selectFileFirst`,
+    defaultMessage: 'selectFileFirst',
+  },
+  workSheet: {
+    id: `${scope}.workSheet`,
+    defaultMessage: 'workSheet',
+  },
+  startFromLineNumber: {
+    id: `${scope}.startFromLineNumber`,
+    defaultMessage: 'startFromLineNumber',
+  },
 });

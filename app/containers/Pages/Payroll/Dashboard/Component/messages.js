@@ -174,6 +174,46 @@ export default defineMessages({
     id: `${scope}.PerformanceChartWidget.MedicalInsWidget`,
     defaultMessage: 'MedicalInsWidget',
   },
+  OtherOvertimevsLateWidget: {
+    id: `${scope}.PerformanceChartWidget.OtherOvertimevsLateWidget`,
+    defaultMessage: 'OtherOvertimevsLateWidget',
+  },
+  OtherYearlyDataWidget: {
+    id: `${scope}.PerformanceChartWidget.OtherYearlyDataWidget`,
+    defaultMessage: 'OtherYearlyDataWidget',
+  },
+  empwithWorstAtt: {
+    id: `${scope}.PerformanceChartWidget.empwithWorstAtt`,
+    defaultMessage: 'empwithWorstAtt',
+  },
+  OtherWorkHoursWidget: {
+    id: `${scope}.PerformanceChartWidget.OtherWorkHoursWidget`,
+    defaultMessage: 'OtherWorkHoursWidget',
+  },
+  OtherVacationsWidget: {
+    id: `${scope}.PerformanceChartWidget.OtherVacationsWidget`,
+    defaultMessage: 'OtherVacationsWidget',
+  },
+  OtherPermessionWidget: {
+    id: `${scope}.PerformanceChartWidget.OtherPermessionWidget`,
+    defaultMessage: 'OtherPermessionWidget',
+  },
+  OthermessionWidget: {
+    id: `${scope}.PerformanceChartWidget.OthermessionWidget`,
+    defaultMessage: 'OthermessionWidget',
+  },
+  OtherActualHoursBiWidget: {
+    id: `${scope}.PerformanceChartWidget.OtherActualHoursBiWidget`,
+    defaultMessage: 'OtherActualHoursBiWidget',
+  },
+  OtherActualAttWidget: {
+    id: `${scope}.PerformanceChartWidget.OtherActualAttWidget`,
+    defaultMessage: 'OtherActualAttWidget',
+  },
+  OtherAttbichartWidget: {
+    id: `${scope}.PerformanceChartWidget.OtherAttbichartWidget`,
+    defaultMessage: 'OtherAttbichartWidget',
+  },
   attends: {
     id: `${scope}.PerformanceChartWidget.atends`,
     defaultMessage: 'Attends',

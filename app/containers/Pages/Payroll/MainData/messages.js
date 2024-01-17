@@ -214,4 +214,8 @@ OrganizationsList: {
     id: `${scope}.codes.companyPolicy`,
     defaultMessage: 'companyPolicy',
   },
+  document: {
+    id: `${scope}.codes.document`,
+    defaultMessage: 'document',
+  },
 });

@@ -1078,6 +1078,23 @@
   
   "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeLateWidget": "Overtime VS Late Arrival vs Early Departial",
   
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherOvertimevsLateWidget": "Current Month Overtime VS Late Arrival",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherYearlyDataWidget": "Current Year Performance",
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithWorstAtt": "Employee with Worst Attendance",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherWorkHoursWidget": "Current Month Workhours",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherVacationsWidget": "Current Month Vacations",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherPermessionWidget": "Current Month Permessions",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OthermessionWidget": "Current Month Messions",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualHoursBiWidget": "Actual Workhours vs Assumed",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualAttWidget": "Actual Attendance vs Assumed",
+  
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherAttbichartWidget": "Employee With Best Attendance",
+  
+  
+  
   
   
   
@@ -2164,6 +2181,12 @@
   "boilerplate.containers.Payroll.Employee.templateName": "اسم القالب",
   "boilerplate.containers.Payroll.Employee.currency": "العملة",
   "boilerplate.containers.Payroll.Employee.noTemplateAdded": "لم يتم إضافة قوالب",
+  "boilerplate.containers.Payroll.Employee.fileIsEmpty": "الملف فارغ",
+  "boilerplate.containers.Payroll.Employee.fileExtensionShouldBeExcel": "يجب أن يكون امتداد الملف اكسيل",
+  "boilerplate.containers.Payroll.Employee.fileSizeShouldBeLessThan10MB": "يجب أن يكون حجم الملف أقل من 10 ميجابايت",
+  "boilerplate.containers.Payroll.Employee.selectFileFirst": "يرجى اختيار الملف أولاً",
+  "boilerplate.containers.Payroll.Employee.workSheet": "صفحات العمل",
+  "boilerplate.containers.Payroll.Employee.startFromLineNumber": "البداية من سطر رقم",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
@@ -2184,6 +2207,7 @@
   "boilerplate.containers.Payroll.MainData.codes.actions": "الإجراءات",
   "boilerplate.containers.Payroll.MainData.codes.deleteMessage": "هل أنت متأكد أنك تريد حذف",
   "boilerplate.containers.Payroll.MainData.codes.delete": "حذف",
+  "boilerplate.containers.Payroll.MainData.codes.document": "الوثيقة",
   "boilerplate.containers.Payroll.MainData.codes.createJob": "اضافة وظيفة",
   "boilerplate.containers.Payroll.MainData.codes.editJob": "تعديل الوظيفة",
   "boilerplate.containers.Payroll.MainData.codes.worknature": "طبيعة العمل",
@@ -2390,6 +2414,15 @@
   "boilerplate.containers.Payroll.vac.Transaction.employeesErrorMes": "يجب اختيار موظف واحد على الأقل",
   "boilerplate.containers.Payroll.vac.Transaction.noDataError": "لا توجد بيانات لعرضها",
   "boilerplate.containers.Payroll.vac.Transaction.startEndDateError": "تاريخ البدء يأتي بعد تاريخ الانتهاء",
+  "boilerplate.containers.Payroll.vac.Transaction.reqNotAllowInShiftVac": "لا يمكن طلب اجازة اثناء اجازة الوردية",
+  "boilerplate.containers.Payroll.vac.Transaction.reqDayNotAllow": "الايام التى لا يسمح بطلب اجازة فيها",
+  "boilerplate.containers.Payroll.vac.Transaction.reqDuringShift": "طلب الاجازة خلال الوردية",
+  "boilerplate.containers.Payroll.vac.Transaction.reqBeforeShiftInMinute": "الطلب غير مسموح قبل بداية الوردية",
+  "boilerplate.containers.Payroll.vac.Transaction.IsOfficialVacation": "اجازة رسمية",
+  "boilerplate.containers.Payroll.vac.Transaction.AllowLessOneDay": "اقل من يوم واحد",
+  "boilerplate.containers.Payroll.vac.Transaction.ReplacementVacOvertimeMinNo": "أقل عدد من الدقائق للإضافية في يوم بديل",
+  "boilerplate.containers.Payroll.vac.Transaction.ReplacementVacHourCheck": "التحقق من الساعة في يوم بديل",
+  "boilerplate.containers.Payroll.vac.Transaction.HaveReplacementDay": "يوجد يوم بديل",
 
   "boilerplate.containers.Payroll.vac.Transaction.LeaveType": "نوع الإجازة",
   "boilerplate.containers.Payroll.vac.Transaction.company": "الشركة",

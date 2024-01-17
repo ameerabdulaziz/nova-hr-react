@@ -110,7 +110,7 @@ function CompanyDocument(props) {
 
     {
       name: 'docPath',
-      label: intl.formatMessage(messages.category),
+      label: intl.formatMessage(messages.document),
       options: {
         filter: false,
         customBodyRender: (value) => (value ? (
