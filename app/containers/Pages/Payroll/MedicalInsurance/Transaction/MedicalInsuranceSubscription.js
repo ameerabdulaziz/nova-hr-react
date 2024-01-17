@@ -93,7 +93,7 @@ function MedicalInsuranceSubscription(props) {
       label: intl.formatMessage(messages.subscriptionDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
 
@@ -124,7 +124,7 @@ function MedicalInsuranceSubscription(props) {
       label: intl.formatMessage(messages.lastUpdate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {

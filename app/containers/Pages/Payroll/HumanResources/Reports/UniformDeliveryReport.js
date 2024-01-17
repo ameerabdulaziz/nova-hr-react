@@ -85,7 +85,7 @@ function UniformDeliveryReport(props) {
       label: intl.formatMessage(Payrollmessages.date),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {

@@ -97,7 +97,7 @@ function NewEmployeeReport(props) {
       label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -119,7 +119,7 @@ function NewEmployeeReport(props) {
       label: intl.formatMessage(messages.insuranceDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -169,7 +169,7 @@ function NewEmployeeReport(props) {
       label: intl.formatMessage(messages.qualificationDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -184,7 +184,7 @@ function NewEmployeeReport(props) {
       label: intl.formatMessage(messages.birthDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {

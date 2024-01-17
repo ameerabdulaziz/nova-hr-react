@@ -100,7 +100,7 @@ function ResignTrxReport(props) {
       label: intl.formatMessage(messages.date),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
 
@@ -124,7 +124,7 @@ function ResignTrxReport(props) {
       label: intl.formatMessage(messages.lworkingDay),
       options: {
         filter: true,
-        customBodyRender: (value) => value?format(new Date(value), "yyyy-MM-dd"):value,
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
 

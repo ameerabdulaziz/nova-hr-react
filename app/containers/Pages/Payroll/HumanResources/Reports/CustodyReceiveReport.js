@@ -83,7 +83,7 @@ function CustodyReceiveReport(props) {
       name: "date",
       label: intl.formatMessage(Payrollmessages.date),
       options: {
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {

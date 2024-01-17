@@ -65,7 +65,7 @@ function EmployeeDataReport({ intl }) {
       label: intl.formatMessage(messages.birthDate),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {
@@ -108,7 +108,7 @@ function EmployeeDataReport({ intl }) {
       label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {
@@ -258,7 +258,7 @@ function EmployeeDataReport({ intl }) {
       label: intl.formatMessage(messages.GraduationDate),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), "yyyy-MM-dd"),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {

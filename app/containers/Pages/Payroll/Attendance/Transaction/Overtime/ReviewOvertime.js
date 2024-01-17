@@ -22,7 +22,7 @@ import useStyles from '../../../Style';
 import GeneralListApis from '../../../api/GeneralListApis';
 import payrollMessages from '../../../messages';
 import api from '../../api/ReviewOvertimeData';
-import messages from '../../../messages';
+import messages from '../../messages';
 
 function ReviewOvertime(props) {
   const { intl } = props;
@@ -147,7 +147,7 @@ function ReviewOvertime(props) {
       label: intl.formatMessage(messages.AttendanceDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? format(new Date(value), 'yyyy-MM-dd') : ''),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
 

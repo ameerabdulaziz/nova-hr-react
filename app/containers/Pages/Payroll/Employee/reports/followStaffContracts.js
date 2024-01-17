@@ -92,7 +92,7 @@ function followStaffContracts(props) {
       label: intl.formatMessage(messages.contractStartDate),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {
@@ -100,7 +100,7 @@ function followStaffContracts(props) {
       label: intl.formatMessage(messages.contractEndDate),
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     
