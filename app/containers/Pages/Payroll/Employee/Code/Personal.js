@@ -57,9 +57,8 @@ function Personal(props) {
   const [checkEmployeeCode, setCheckEmployeeCode] = useState(true);
   const [machineCode, setmachineCode] = useState("");
   const [eRPCode, seteRPCode] = useState("");
-  const [reportTo, setreportTo] = useState({});
+  const [reportTo, setreportTo] = useState(null);
   const [reportToList, setreportToList] = useState([]);
-  const [MachineCode, setMachineCode] = useState("");
   const [arName, setarName] = useState("");
   const [enName, setenName] = useState("");
   const [motherName, setmotherName] = useState("");
@@ -192,7 +191,6 @@ function Personal(props) {
         eRPCode: eRPCode ?? "",
         machineCode: machineCode ?? "",
         reportTo: reportTo.id ?? "",
-        machineCode: machineCode ?? "",
         arName: arName,
         enName: enName,
         motherName: motherName ?? "",
@@ -247,7 +245,6 @@ function Personal(props) {
   //     seteRPCode('');
   //     setmachineCode('');
   //     setreportTo({});
-  //     setMachineCode('');
   //     setarName('');
   //     setenName('');
   //     setmotherName('');
@@ -365,7 +362,6 @@ function Personal(props) {
               id: dataApi.reportTo,
               name: dataApi.reportToName,
             });
-            setMachineCode(dataApi.MachineCode);
             setarName(dataApi.arName);
             setenName(dataApi.enName);
             setmotherName(dataApi.motherName);
@@ -589,11 +585,35 @@ function Personal(props) {
                         }}
                         className={classes.field}
                         renderInput={(params) => (
-                          <TextField {...params} variant="outlined" />
+                          <TextField {...params} required variant="outlined" />
                         )}
                       />
                     </LocalizationProvider>
                   </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <Autocomplete
+                    options={reportToList}
+                    value={reportTo}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) => setreportTo({
+                      id: value !== null ? value.id : 0,
+                      name: value !== null ? value.name : '',
+                    })}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={intl.formatMessage(messages.reportto)}
+                      />
+                    )}
+                  />
+                </Grid>
 
                 </Grid>
 </Grid>
