@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useImperativeHandle , forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from 'tss-react/mui';
 import TableCell from '@mui/material/TableCell';
@@ -30,7 +30,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-function Row(props) {
+const Row = forwardRef((props, ref) => {
   const {
     classes,
     cx
@@ -38,7 +38,8 @@ function Row(props) {
   const {
     anchor,
     item,  
-    API,IsNotSave,isNotAdd
+    API,IsNotSave,isNotAdd,
+    handleClickOpen
   } = props;
 
   const branch = 'crudTableDemo' ;
@@ -47,8 +48,8 @@ function Row(props) {
   const editRow = useDispatch();
   const finishEditRow = useDispatch();
 
-  const eventDel = useCallback(async() => {
-    
+  const eventDel = useCallback(async(item) => {
+
     if(item.id===0)
     {
       if(IsNotSave)
@@ -185,6 +186,16 @@ function Row(props) {
     }
     return false;
   });
+
+
+
+  useImperativeHandle(ref, () => ({
+
+    eventDel
+
+  }));
+
+
   console.log("RawTable");
   return (
     <tr className={item.edited ? css.editing : ''}>
@@ -207,7 +218,10 @@ function Row(props) {
         </IconButton>
         {(isNotAdd)?'':
         <IconButton
-          onClick={() => eventDel(this)}
+          onClick={() =>{ 
+            handleClickOpen(item)
+          }}
+          // onClick={() => eventDel(this)}
           className={classes.button}
           aria-label="Delete"
           size="large">
@@ -216,7 +230,7 @@ function Row(props) {
       </TableCell>
     </tr>
   );
-}
+})
 
 Row.propTypes = {
   anchor: PropTypes.array.isRequired,
