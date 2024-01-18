@@ -86,7 +86,7 @@ function EmploymentRequest(props) {
       label: intl.formatMessage(messages.insertDate),
       options: {
         filter: true,
-        customBodyRender: formateDate,
+        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
 

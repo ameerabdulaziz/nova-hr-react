@@ -88,7 +88,7 @@ function JobOffer(props) {
       label: intl.formatMessage(messages.offerDate),
       options: {
         filter: true,
-        customBodyRender: formateDate,
+        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
 

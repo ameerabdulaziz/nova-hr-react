@@ -57,7 +57,7 @@ function LeavesBalance(props) {
       label: <FormattedMessage {...messages.hiringDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {
@@ -65,7 +65,7 @@ function LeavesBalance(props) {
       label: <FormattedMessage {...messages.insuranceDate} />,
       options: {
         filter: true,
-        customBodyRender: (value) => format(new Date(value), 'yyyy-MM-dd'),
+        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
       },
     },
     {

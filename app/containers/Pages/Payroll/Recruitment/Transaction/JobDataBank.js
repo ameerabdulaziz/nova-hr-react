@@ -92,7 +92,7 @@ function JobDataBank(props) {
       label: intl.formatMessage(messages.applicationDate),
       options: {
         filter: true,
-        customBodyRender: formateDate,
+        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
 
