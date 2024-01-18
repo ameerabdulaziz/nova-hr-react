@@ -985,6 +985,7 @@
   "boilerplate.containers.Payroll.company": "Company",
   "boilerplate.containers.Payroll.december": "December",
   "boilerplate.containers.Payroll.employees": "View Employees",
+  "boilerplate.containers.Payroll.confirmationMess": "confirmation message",
 
   "boilerplate.containers.Payroll.VacationName": "Vacation",
   "boilerplate.containers.Payroll.Actions": "Actions",

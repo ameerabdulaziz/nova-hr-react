@@ -20,7 +20,7 @@ const AlertPopup = ({ handleClose, open, messageData, callFun }) => {
     <div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
-          <FormattedMessage {...Payrollmessages.confirmation} />
+          <FormattedMessage {...Payrollmessages.confirmationMess} />
         </DialogTitle>
         <DialogContent>
           <DialogContentText>{messageData}</DialogContentText>

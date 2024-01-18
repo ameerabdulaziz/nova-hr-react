@@ -1008,6 +1008,7 @@
   "boilerplate.containers.Payroll.employees": "عرض الموظفين",
   "boilerplate.containers.Payroll.VacationName": "الاجازة",
   "boilerplate.containers.Payroll.company": "الشركة",
+  "boilerplate.containers.Payroll.confirmationMess": "رسالة تأكيد",
 
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",

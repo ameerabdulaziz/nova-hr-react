@@ -550,4 +550,8 @@ employeeId: {
     id: `${scope}.company`,
     defaultMessage: 'company',
   },
+  confirmationMess: {
+    id: `${scope}.confirmationMess`,
+    defaultMessage: 'confirmation message',
+  },
 });
