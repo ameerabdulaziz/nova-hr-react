@@ -683,4 +683,24 @@ export default defineMessages({
     id: `${scope}.startFromLineNumber`,
     defaultMessage: 'startFromLineNumber',
   },
+  pleaseFillAllRequiredFields: {
+    id: `${scope}.pleaseFillAllRequiredFields`,
+    defaultMessage: 'pleaseFillAllRequiredFields',
+  },
+  pleaseMakeSureInsuredFieldsHasInsuranceDate: {
+    id: `${scope}.pleaseMakeSureInsuredFieldsHasInsuranceDate`,
+    defaultMessage: 'pleaseMakeSureInsuredFieldsHasInsuranceDate',
+  },
+  fileErrors: {
+    id: `${scope}.fileErrors`,
+    defaultMessage: 'fileErrors',
+  },
+  uploadFile: {
+    id: `${scope}.uploadFile`,
+    defaultMessage: 'uploadFile',
+  },
+  modifyEmployeeDataIfTheyAlreadyExist: {
+    id: `${scope}.modifyEmployeeDataIfTheyAlreadyExist`,
+    defaultMessage: 'modifyEmployeeDataIfTheyAlreadyExist',
+  },
 });
