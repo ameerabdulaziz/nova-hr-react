@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,9 +23,20 @@ import { TablePagination, Pagination } from '@mui/material';
 import { addAction } from '../../../containers/Tables/reducers/crudTbActions';
 import { useDispatch } from 'react-redux';
 import messages from '../messages';
-import {FormattedMessage } from 'react-intl';
+import {FormattedMessage, injectIntl } from 'react-intl';
+
+import AlertPopup from "../../../containers/Pages/Payroll/Component/AlertPopup";
+import Payrollmessages from '../../../containers/Pages/Payroll/messages';
 
 function MainTable(props) {
+
+  const childRef = useRef();
+
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [deleteItem, setDeleteItem] = useState("");
+
+
+
   const { classes, cx } = useStyles();
   const { items, anchor, title, API, intl,IsNotSave ,isNotAdd} = props;
 
@@ -39,11 +50,11 @@ function MainTable(props) {
   console.log('MainTable');
   const getItems = (dataArray) =>IsNotSave?dataArray
   .map((item) => (
-    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd} />
+    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd} handleClickOpen={handleClickOpen} ref={childRef} />
   )):dataArray
   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
   .map((item) => (
-    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd}  />
+    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd} handleClickOpen={handleClickOpen} ref={childRef}   />
   ));
   
   const getData = () => {
@@ -76,6 +87,18 @@ function MainTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+
+
+  const handleClickOpen = (item) => {
+    setOpenParentPopup(true);
+    setDeleteItem(item);
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
+
 
   return (
     <div>
@@ -159,6 +182,13 @@ function MainTable(props) {
                   page={page + 1}
                 /> */}
       </div>
+
+      <AlertPopup
+        handleClose={handleClose}
+        open={openParentPopup}
+        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)} ${deleteItem.EnName}`}
+        callFun={()=> childRef?.current?.eventDel(deleteItem)}
+      />
     </div>
   );
 }
@@ -170,4 +200,4 @@ MainTable.propTypes = {
   // intl: PropTypes.object.isRequired,
 };
 
-export default MainTable;
+export default injectIntl(MainTable);
