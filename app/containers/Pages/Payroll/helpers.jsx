@@ -21,7 +21,7 @@ function formateDate(date) {
  * @returns {string} a formatted version of the input number with two decimal places.
  */
 function formatNumber(number) {
-  if (Number.isNaN(number) || number === null || number === undefined) {
+  if (isNaN(number) || number === null || number === undefined) {
     return number;
   }
 
