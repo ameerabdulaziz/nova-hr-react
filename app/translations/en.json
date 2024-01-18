@@ -2125,6 +2125,11 @@
   "boilerplate.containers.Payroll.Employee.selectFileFirst": "Please Select The File First",
   "boilerplate.containers.Payroll.Employee.workSheet": "Worksheet",
   "boilerplate.containers.Payroll.Employee.startFromLineNumber": "Start From Line Number",
+  "boilerplate.containers.Payroll.Employee.pleaseFillAllRequiredFields": "Please fill all required fields",
+  "boilerplate.containers.Payroll.Employee.pleaseMakeSureInsuredFieldsHasInsuranceDate": "Please make sure insured fields have insurance date",
+  "boilerplate.containers.Payroll.Employee.uploadFile": "Upload",
+  "boilerplate.containers.Payroll.Employee.fileErrors": "File errors",
+  "boilerplate.containers.Payroll.Employee.modifyEmployeeDataIfTheyAlreadyExist": "Modify employee data if they already exist",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",

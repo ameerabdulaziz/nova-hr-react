@@ -1,19 +1,13 @@
 import axiosInstance from '../../api/axios';
 
-const API = (locale) => {
+const API = () => {
   const api = {};
 
-  api.save = async (body) => {
+  api.save = async (body = {}) => {
     const result = await axiosInstance.post(
-      `getWorkSheetList/save/${locale}`,
-      body
+      `EmpEmployee/SaveList/${body.modifyExistEmployee}`,
+      body.rows
     );
-
-    return result.data;
-  };
-
-  api.getWorkSheetList = async () => {
-    const result = await axiosInstance.get(`getWorkSheetList/list/${locale}`);
 
     return result.data;
   };

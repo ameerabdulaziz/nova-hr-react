@@ -2187,6 +2187,11 @@
   "boilerplate.containers.Payroll.Employee.selectFileFirst": "يرجى اختيار الملف أولاً",
   "boilerplate.containers.Payroll.Employee.workSheet": "صفحات العمل",
   "boilerplate.containers.Payroll.Employee.startFromLineNumber": "البداية من سطر رقم",
+  "boilerplate.containers.Payroll.Employee.pleaseFillAllRequiredFields": "يرجى ملء جميع الحقول المطلوبة",
+  "boilerplate.containers.Payroll.Employee.pleaseMakeSureInsuredFieldsHasInsuranceDate": "يرجى التأكد من أن حقول التأمين لديها تاريخ تأمين",
+  "boilerplate.containers.Payroll.Employee.fileErrors": "أخطاء في الملف",
+  "boilerplate.containers.Payroll.Employee.modifyEmployeeDataIfTheyAlreadyExist": "تعديل بيانات الموظف إذا كانت موجودة بالفعل",
+  "boilerplate.containers.Payroll.Employee.uploadFile": "رفع ملف",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
