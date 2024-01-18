@@ -259,6 +259,34 @@ export default defineMessages({
     id: `${scope}.month`,
     defaultMessage: 'month',
   },
+  organization: {
+    id: `${scope}.organization`,
+    defaultMessage: 'organization',
+  },
+  monthAndYearAndOrganizationAreRequired: {
+    id: `${scope}.monthAndYearAndOrganizationAreRequired`,
+    defaultMessage: 'monthAndYearAndOrganizationAreRequired',
+  },
+  monthOpenedSuccessfully: {
+    id: `${scope}.monthOpenedSuccessfully`,
+    defaultMessage: 'monthOpenedSuccessfully',
+  },
+  monthClosedSuccessfully: {
+    id: `${scope}.monthClosedSuccessfully`,
+    defaultMessage: 'monthClosedSuccessfully',
+  },
+  employeeAssessmentStoppedSuccessfully: {
+    id: `${scope}.employeeAssessmentStoppedSuccessfully`,
+    defaultMessage: 'employeeAssessmentStoppedSuccessfully',
+  },
+  enableEmployeeSelfAssessment: {
+    id: `${scope}.enableEmployeeSelfAssessment`,
+    defaultMessage: 'enableEmployeeSelfAssessment',
+  },
+  employeeAssessmentEnabledSuccessfully: {
+    id: `${scope}.employeeAssessmentEnabledSuccessfully`,
+    defaultMessage: 'employeeAssessmentEnabledSuccessfully',
+  },
   year: {
     id: `${scope}.year`,
     defaultMessage: 'year',
