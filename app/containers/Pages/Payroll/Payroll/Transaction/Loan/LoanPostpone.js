@@ -42,6 +42,7 @@ function LoanPostpone(props) {
   const [yearList, setYearList] = useState([]);
   const [monthList, setMonthList] = useState([]);
   const [OrignalMonthList, setOrignalMonthList] = useState([]);
+  const [origionalYearList, setOrigionalYearList] = useState([])
 
   const [OpenMonth, setOpenMonth] = useState({
     monthId: "",
@@ -92,18 +93,13 @@ function LoanPostpone(props) {
 
   async function Getookup() {
     try {
-      debugger;
       const years = await GeneralListApis(locale).GetYears();
-      setYearList(years);
+      setOrigionalYearList(years);
       const months = await GeneralListApis(locale).GetMonths();
       setOrignalMonthList(months);
 
       const BrList = await GeneralListApis(locale).GetBranchList();
       setBranchList(BrList);
-
-      if (BranchId) {
-        getOpenMonth(BranchId);
-      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -113,6 +109,12 @@ function LoanPostpone(props) {
   useEffect(() => {
     Getookup();
   }, []);
+
+  useEffect(() => {
+    if (BranchId && origionalYearList.length > 0 && OrignalMonthList.length > 0) {
+      getOpenMonth(BranchId);
+    }
+  }, [origionalYearList, BranchId, OrignalMonthList]);
 
   async function getOpenMonth(id) {
     try {
@@ -133,7 +135,6 @@ function LoanPostpone(props) {
       setIsLoading(true);
 
       const result = await GeneralListApis(locale).getOpenMonth(id, 0);
-      debugger;
       setOpenMonth({
         monthId: result.monthId,
         yearId: result.yearId,
@@ -144,7 +145,6 @@ function LoanPostpone(props) {
         stMonthName: result.monthName,
         stYearName: result.yearName,
       });
-      debugger;
       if (result.monthId && result.yearId) {
         const result1 = await ApiData(locale).GetDetailList(
           result.yearId,
@@ -155,7 +155,7 @@ function LoanPostpone(props) {
         setdataList(result1 || []);
         
         setYearList(
-          yearList.filter(
+          origionalYearList.filter(
             (row) => parseInt(row.name) >= parseInt(result.yearName)
           )
         );
@@ -171,7 +171,6 @@ function LoanPostpone(props) {
     async (id, name) => {
       if (name == "employeeId") {
         setEmployeeId(id);
-        debugger;
         if (OpenMonth.yearId && OpenMonth.monthId) {
           const result1 = await ApiData(locale).GetDetailList(
             OpenMonth.yearId,
@@ -187,7 +186,6 @@ function LoanPostpone(props) {
   );
 
   async function changeYear(value) {
-    debugger;
     if (value !== null) {
       setOpenMonth((prevFilters) => ({
         ...prevFilters,
@@ -208,7 +206,6 @@ function LoanPostpone(props) {
       }));
   }
   async function changeMonth(value) {
-    debugger;
 
     setOpenMonth((prevFilters) => ({
       ...prevFilters,
