@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
 import GeneralListApis from '../../api/GeneralListApis';
 import api from '../api/MonthOpenCloseAssData';
+import EmployeePopup from '../components/MonthOpenCloseAss/EmployeePopup';
 import messages from '../messages';
 
 function MonthOpenCloseAss(props) {
@@ -54,9 +55,6 @@ function MonthOpenCloseAss(props) {
     setIsLoading(true);
 
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
       const organizations = await GeneralListApis(locale).GetBranchList();
       setOrganizationList(organizations);
 
@@ -96,6 +94,8 @@ function MonthOpenCloseAss(props) {
   };
 
   const onOrganizationAutoCompleteChange = async (value) => {
+    setIsLoading(true);
+
     try {
       if (value !== null) {
         const response = await api(locale).GetOpenMonth(value.id);
@@ -120,14 +120,7 @@ function MonthOpenCloseAss(props) {
     }));
   };
 
-  const onOpenMonthBtnClick = async () => {
-    if (!formInfo.monthId || !formInfo.yearId || !formInfo.organizationId) {
-      toast.error(
-        intl.formatMessage(messages.monthAndYearAndOrganizationAreRequired)
-      );
-      return;
-    }
-
+  const onEmployeePopupSave = async () => {
     setIsLoading(true);
 
     try {
@@ -141,11 +134,48 @@ function MonthOpenCloseAss(props) {
     }
   };
 
-  const onCloseMonthBtnClick = async () => {
+  const validateFormInputs = () => {
     if (!formInfo.monthId || !formInfo.yearId || !formInfo.organizationId) {
       toast.error(
         intl.formatMessage(messages.monthAndYearAndOrganizationAreRequired)
       );
+
+      return false;
+    }
+
+    return true;
+  };
+
+  const onOpenMonthBtnClick = async () => {
+    const isValid = validateFormInputs();
+
+    if (!isValid) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const employees = await api(locale).GetEmployeeTemplateChange(formInfo.monthId);
+
+      setEmployeeList(employees.map(item => ({ ...item, isSelect: false })));
+
+      if (employees.length > 0) {
+        setIsPopupOpen(true);
+      } else {
+        onEmployeePopupSave();
+      }
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onCloseMonthBtnClick = async () => {
+    const isValid = validateFormInputs();
+
+    if (!isValid) {
       return;
     }
 
@@ -163,10 +193,9 @@ function MonthOpenCloseAss(props) {
   };
 
   const onEmpAssessmentBtnClick = async () => {
-    if (!formInfo.monthId || !formInfo.yearId || !formInfo.organizationId) {
-      toast.error(
-        intl.formatMessage(messages.monthAndYearAndOrganizationAreRequired)
-      );
+    const isValid = validateFormInputs();
+
+    if (!isValid) {
       return;
     }
 
@@ -202,6 +231,13 @@ function MonthOpenCloseAss(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
+      <EmployeePopup
+        employeeList={employeeList}
+        isOpen={isPopupOpen}
+        setIsOpen={setIsPopupOpen}
+        onSave={onEmployeePopupSave}
+      />
+
       <Grid container spacing={2} direction='row'>
         <Grid item xs={12}>
           <Card>
@@ -319,13 +355,6 @@ function MonthOpenCloseAss(props) {
                           ? messages.enableEmployeeSelfAssessment
                           : messages.stopEmployeeSelfAssessment
                       )}
-                    </Button>
-
-                    <Button
-                      variant='outlined'
-                      onClick={() => setIsPopupOpen(true)}
-                    >
-                      Open
                     </Button>
                   </Stack>
                 </Grid>

@@ -1,15 +1,10 @@
-import DescriptionIcon from '@mui/icons-material/Description';
 import {
-  Box,
   Button,
   Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
-  Stack,
-  TextField,
-  Typography,
+  DialogTitle
 } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,89 +18,51 @@ import React, {
   useCallback, useEffect, useMemo, useState
 } from 'react';
 import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayRollLoader from '../../../Component/PayRollLoader';
+import API from '../../api/MonthOpenCloseAssData';
 import messages from '../../messages';
 
 function EmployeePopup(props) {
   const {
-    intl,
-    isOpen,
-    setIsOpen,
-    onSave,
-    selectedCompetency,
-    competencyList,
+    intl, isOpen, setIsOpen, onSave, employeeList
   } = props;
 
-  const [formInfo, setFormInfo] = useState([]);
+  const locale = useSelector((state) => state.language.locale);
+
+  const [selectedEmployee, setSelectedEmployee] = useState(employeeList);
+  const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     if (isOpen) {
-      const mappedCompetencyList = competencyList.map((item) => {
-        const index = selectedCompetency.findIndex(
-          (competency) => competency.id === item.id
-        );
-
-        if (index !== -1) {
-          return {
-            ...item,
-            isSelect: true,
-            totalGrade: selectedCompetency[index].totalGrade,
-          };
-        }
-
-        return {
-          ...item,
-          isSelect: false,
-          totalGrade: '',
-        };
-      });
-
-      setFormInfo(mappedCompetencyList);
+      setSelectedEmployee(employeeList);
     }
-  }, [isOpen]);
+  }, [employeeList]);
 
-  const onNumericInputChange = (evt, index) => {
-    const clonedItems = [...formInfo];
-    clonedItems[index].totalGrade = evt.target.value.replace(/[^\d]/g, '');
-
-    setFormInfo(clonedItems);
-  };
-
-  const onSkillPopupClose = () => {
+  const closePopup = () => {
     setIsOpen(false);
+    onSave();
   };
 
-  const onFormSubmit = (evt) => {
-    evt.preventDefault();
+  const onConfirmBtnClick = async () => {
+    setIsLoading(true);
 
-    onSave(formInfo.filter((item) => item.isSelect));
+    try {
+      const employees = selectedEmployee.filter((item) => item.isSelect);
 
-    setIsOpen(false);
+      await API(locale).SaveEmployeeTemplate(employees);
+
+      onSave();
+
+      setIsOpen(false);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  const onCheckboxChange = (evt, index) => {
-    const clonedItems = [...formInfo];
-    clonedItems[index].isSelect = evt.target.checked;
-
-    setFormInfo(clonedItems);
-  };
-
-  const onAllCheckboxChange = (evt) => {
-    setFormInfo((prev) => prev.map((item) => ({ ...item, isSelect: evt.target.checked }))
-    );
-  };
-
-  const isAllSelect = useCallback(
-    () => formInfo.every((item) => item.isSelect),
-    [formInfo]
-  );
-
-  const isSomeSelect = useCallback(() => {
-    const filtered = formInfo.filter((item) => item.isSelect).length;
-
-    return filtered > 0 && filtered < formInfo.length;
-  }, [formInfo]);
 
   const onPageChange = (_, newPage) => {
     setPage(newPage);
@@ -117,127 +74,141 @@ function EmployeePopup(props) {
   };
 
   const visibleRows = useMemo(
-    () => formInfo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage, formInfo]
+    () => selectedEmployee.slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage
+    ),
+    [page, rowsPerPage, selectedEmployee]
   );
+
+  const onCheckboxChange = (evt, index) => {
+    const indexToUpdate = selectedEmployee.findIndex(item => item.employeeId === visibleRows[index].employeeId);
+
+    const clonedItems = [...selectedEmployee];
+    clonedItems[indexToUpdate].isSelect = evt.target.checked;
+
+    setSelectedEmployee(clonedItems);
+  };
+
+  const onAllCheckboxChange = (evt) => {
+    setSelectedEmployee((prev) => prev.map((item) => ({ ...item, isSelect: evt.target.checked }))
+    );
+  };
+
+  const isAllSelect = useCallback(
+    () => selectedEmployee.every((item) => item.isSelect),
+    [selectedEmployee]
+  );
+
+  const isSomeSelect = useCallback(() => {
+    const filtered = selectedEmployee.filter((item) => item.isSelect).length;
+
+    return filtered > 0 && filtered < selectedEmployee.length;
+  }, [selectedEmployee]);
 
   return (
     <Dialog
       open={isOpen}
-      component='form'
-      onSubmit={onFormSubmit}
       PaperProps={{
         sx: (th) => ({
           [th.breakpoints.down('md')]: {
             width: '100%',
           },
-          width: '80vw',
-          maxWidth: '80vw',
+          width: '60vw',
+          maxWidth: '60vw',
         }),
       }}
     >
-      <DialogTitle>
-        {intl.formatMessage(messages.addOrChangeCompetency)}
-      </DialogTitle>
+      <DialogTitle>{intl.formatMessage(messages.addNewEmployee)}</DialogTitle>
 
       <DialogContent>
-        {formInfo.length > 0 ? (
-          <>
-            <TableContainer>
-              <Table size='small' sx={{ minWidth: 700 }}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell sx={{ width: 30 }}>
+        <PayRollLoader isLoading={isLoading}>
+          <TableContainer>
+            <Table size='small' sx={{ minWidth: 500 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ width: 30 }}>
+                    <Checkbox
+                      checked={isAllSelect()}
+                      onChange={onAllCheckboxChange}
+                      indeterminate={isSomeSelect()}
+                      name='all'
+                    />
+                  </TableCell>
+
+                  <TableCell>
+                    {intl.formatMessage(messages.employeeName)}
+                  </TableCell>
+
+                  <TableCell component='th' scope='row'>
+                    {intl.formatMessage(messages.departmentName)}
+                  </TableCell>
+
+                  <TableCell component='th' scope='row'>
+                    {intl.formatMessage(messages.jobName)}
+                  </TableCell>
+
+                  <TableCell component='th' scope='row'>
+                    {intl.formatMessage(messages.templateName)}
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {visibleRows.map((employee, index) => (
+                  <TableRow
+                    key={employee.employeeId}
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell>
                       <Checkbox
-                        checked={isAllSelect()}
-                        onChange={onAllCheckboxChange}
-                        indeterminate={isSomeSelect()}
-                        name='all'
+                        checked={visibleRows[index].isSelect}
+                        onChange={(evt) => onCheckboxChange(evt, index)}
+                        name='isSelect'
                       />
                     </TableCell>
 
-                    <TableCell>
-                      {intl.formatMessage(messages.competencyName)}
+                    <TableCell component='th' scope='row'>
+                      {employee.employeeName}
                     </TableCell>
 
-                    <TableCell sx={{ width: 150 }}>
-                      {intl.formatMessage(messages.totalGrade)}
+                    <TableCell component='th' scope='row'>
+                      {employee.organizationName}
+                    </TableCell>
+
+                    <TableCell component='th' scope='row'>
+                      {employee.jobName}
+                    </TableCell>
+
+                    <TableCell component='th' scope='row'>
+                      {employee.templateName}
                     </TableCell>
                   </TableRow>
-                </TableHead>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
-                <TableBody>
-                  {visibleRows.map((competency, index) => (
-                    <TableRow
-                      key={competency.id}
-                      sx={{
-                        '&:last-child td, &:last-child th': { border: 0 },
-                      }}
-                    >
-                      <TableCell>
-                        <Checkbox
-                          checked={visibleRows[index].isSelect}
-                          onChange={(evt) => onCheckboxChange(evt, index)}
-                          name='isSelect'
-                        />
-                      </TableCell>
-
-                      <TableCell component='th' scope='row'>
-                        {competency.name}
-                      </TableCell>
-                      <TableCell>
-                        <TextField
-                          name='totalGrade'
-                          value={visibleRows[index].totalGrade}
-                          required
-                          onChange={(evt) => onNumericInputChange(evt, index)}
-                          label={intl.formatMessage(messages.totalGrade)}
-                          fullWidth
-                          disabled={!visibleRows[index].isSelect}
-                          variant='outlined'
-                          size='small'
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 50]}
-              component='div'
-              count={formInfo.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={onPageChange}
-              onRowsPerPageChange={onRowsPerPageChange}
-            />
-          </>
-        ) : (
-          <Stack
-            direction='row'
-            sx={{ minHeight: 200 }}
-            alignItems='center'
-            justifyContent='center'
-            textAlign='center'
-          >
-            <Box>
-              <DescriptionIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
-              <Typography color='#a7acb2' variant='body1'>
-                {intl.formatMessage(messages.noCompetencyFound)}
-              </Typography>
-            </Box>
-          </Stack>
-        )}
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 50]}
+            component='div'
+            count={selectedEmployee.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={onPageChange}
+            onRowsPerPageChange={onRowsPerPageChange}
+          />
+        </PayRollLoader>
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onSkillPopupClose}>
+        <Button onClick={closePopup}>
           {intl.formatMessage(messages.close)}
         </Button>
-        
-        <Button type='submit' variant='contained'>
+
+        <Button onClick={onConfirmBtnClick} variant='contained'>
           {intl.formatMessage(messages.save)}
         </Button>
       </DialogActions>
@@ -250,8 +221,7 @@ EmployeePopup.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
-  competencyList: PropTypes.array.isRequired,
-  selectedCompetency: PropTypes.array.isRequired,
+  employeeList: PropTypes.array.isRequired,
 };
 
 export default injectIntl(EmployeePopup);

@@ -259,6 +259,10 @@ export default defineMessages({
     id: `${scope}.month`,
     defaultMessage: 'month',
   },
+  addNewEmployee: {
+    id: `${scope}.addNewEmployee`,
+    defaultMessage: 'addNewEmployee',
+  },
   organization: {
     id: `${scope}.organization`,
     defaultMessage: 'organization',

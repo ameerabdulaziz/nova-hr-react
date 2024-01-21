@@ -16,6 +16,20 @@ const API = (locale) => {
     return result;
   };
 
+  api.GetEmployeeTemplateChange = async (monthId) => {
+    const data = await axiosInstance.get(
+      `AsMonthOpenClose/GetEmployeeTemplateChange/${locale}/${monthId}`
+    );
+
+    return data.data;
+  };
+
+  api.SaveEmployeeTemplate = async (body = {}) => {
+    const result = await axiosInstance.post('AsMonthOpenClose/SaveEmployeeTemplate', body);
+
+    return result;
+  };
+
   api.CloseMonth = async (body) => {
     const result = await axiosInstance.post(
       'AsMonthOpenClose/CloseMonth',

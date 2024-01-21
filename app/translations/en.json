@@ -2727,6 +2727,7 @@
   "boilerplate.containers.Payroll.assessment.totalGrade": "Total Grade",
   "boilerplate.containers.Payroll.assessment.actions": "Actions",
   "boilerplate.containers.Payroll.assessment.save": "Save",
+  "boilerplate.containers.Payroll.assessment.addNewEmployee": "Add New Employee",
   "boilerplate.containers.Payroll.assessment.close": "Close",
   "boilerplate.containers.Payroll.assessment.addExample": "Add Example",
   "boilerplate.containers.Payroll.assessment.noStuffFound": "No Employee Found",
