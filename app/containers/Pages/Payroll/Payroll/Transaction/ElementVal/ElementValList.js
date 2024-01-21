@@ -39,6 +39,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 function ElementValList(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const { classes } = useStyles();
   const Title = localStorage.getItem("MenuName");
   const [dataList, setdataList] = useState([]);
@@ -58,7 +59,7 @@ function ElementValList(props) {
   const [BranchList, setBranchList] = useState([]);
   const [BranchId, setBranchId] = useState(0);
   const { state } = useLocation();
-  const BranchIdState = state?.branchId;
+  const BranchIdState = state?.branchId ?? branchId;
   const EmployeeIdState = state?.employeeId;
   const PayTemplateIdState = state?.payTemplateId;
   const ElementIdState = state?.elementId;

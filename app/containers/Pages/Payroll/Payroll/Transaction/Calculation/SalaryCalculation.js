@@ -30,11 +30,12 @@ import notif from "enl-api/ui/notifMessage";
 function SalaryCalculation(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const { classes } = useStyles();
   const Title = localStorage.getItem("MenuName");
   const [dataList, setdataList] = useState([]);
   const [BranchList, setBranchList] = useState([]);
-  const [BranchId, setBranchId] = useState(0);
+  const [BranchId, setBranchId] = useState(branchId);
   const [EmployeeId, setEmployeeId] = useState(0);
   const [PayTemplateList, setPayTemplateList] = useState([]);
   const [PayTemplateId, setPayTemplateId] = useState(0);
@@ -60,6 +61,10 @@ function SalaryCalculation(props) {
       setBranchList(BrList);
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(PayList);
+
+      if (BranchId) {
+        getOpenMonth(BranchId);
+      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -475,10 +480,8 @@ function SalaryCalculation(props) {
                         getOptionLabel={(option) =>
                           option.name ? option.name : ""
                         }
-                        value={
-                          BranchId
-                            ? BranchList.find((item) => item.id === BranchId)
-                            : null
+                        value={ BranchList.find((item) => item.id === BranchId)
+                            ?? null
                         }
                         onChange={(event, value) => {
                           setBranchId(value !== null ? value.id : 0);

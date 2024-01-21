@@ -33,6 +33,7 @@ function ElementVlaImport({ intl }) {
   const { classes, cx } = useStyles();
   const smUp = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [cols, setCols] = useState("");
   const [fileData, setFileData] = useState([]);
   const [fileTitle, setFileTitle] = useState("");
@@ -45,7 +46,7 @@ function ElementVlaImport({ intl }) {
   const [elementList, setElementList] = useState([]);
   const [data, setdata] = useState({
     id: 0,
-    branchId: 0,
+    branchId: branchId ?? 0,
     payTemplateId: 0,
     elementId: 0,
     elementMaxVal: "",
@@ -216,6 +217,10 @@ function ElementVlaImport({ intl }) {
       setBranchList(BrList);
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(PayList);
+
+      if (data.branchId) {
+        getOpenMonth(data.branchId);
+      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -283,12 +288,9 @@ function ElementVlaImport({ intl }) {
                           getOptionLabel={(option) =>
                             option.name ? option.name : ""
                           }
-                          value={
-                            data.branchId
-                              ? BranchList.find(
+                          value={BranchList.find(
                                   (item) => item.id === data.branchId
-                                )
-                              : null
+                                ) ?? null
                           }
                           onChange={(event, value) => {
                             setdata((prevFilters) => ({
