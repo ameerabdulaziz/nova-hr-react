@@ -137,6 +137,7 @@ import {
   PrintForm,
   SettingMailSmsFormCreate,
   HrPermission,
+  OpenCloseMonth,
   Organization,
   CreateOrganization,
   EditOrganization,
@@ -622,6 +623,7 @@ function Application(props) {
         <Route path='/app/Pages/Setting/MailSetting' component={MailSetting} />
         <Route path='/app/Pages/Setting/SMSSetting' component={SMSSetting} />
         <Route path='/app/Pages/Setting/SettingMailSmsForm' component={SettingMailSmsForm} />
+        <Route path='/app/Pages/Setting/OpenCloseMonth' component={OpenCloseMonth} />
         <Route path='/app/Pages/Setting/HrPermission' component={HrPermission} />
         <Route path='/app/Pages/Setting/PrintForm' component={PrintForm} />
         <Route path='/app/Pages/Setting/SettingMailSmsFormCreate' component={SettingMailSmsFormCreate} />

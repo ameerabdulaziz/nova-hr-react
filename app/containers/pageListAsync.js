@@ -552,6 +552,13 @@ export const HrPermission = loadable(
   }
 );
 
+export const OpenCloseMonth = loadable(
+  () => import('./Pages/Payroll/Setting/OpenCloseMonth'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // HR////////////////////////////////////////////////////////////////////////////////////////
 
 export const TrainingCenter = loadable(

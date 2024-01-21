@@ -156,4 +156,64 @@ export default defineMessages({
     id: `${scope}.printForm`,
     defaultMessage: 'printForm',
   },
+  lastDayToApproveEmployeeRequests: {
+    id: `${scope}.lastDayToApproveEmployeeRequests`,
+    defaultMessage: 'lastDayToApproveEmployeeRequests',
+  },
+  fromDate: {
+    id: `${scope}.fromDate`,
+    defaultMessage: 'fromDate',
+  },
+  toDate: {
+    id: `${scope}.toDate`,
+    defaultMessage: 'toDate',
+  },
+  attendancePeriodFromDate: {
+    id: `${scope}.attendancePeriodFromDate`,
+    defaultMessage: 'attendancePeriodFromDate',
+  },
+  attendancePeriodToDate: {
+    id: `${scope}.attendancePeriodToDate`,
+    defaultMessage: 'attendancePeriodToDate',
+  },
+  lastApprovalDate: {
+    id: `${scope}.lastApprovalDate`,
+    defaultMessage: 'lastApprovalDate',
+  },
+  year: {
+    id: `${scope}.year`,
+    defaultMessage: 'year',
+  },
+  month: {
+    id: `${scope}.month`,
+    defaultMessage: 'month',
+  },
+  company: {
+    id: `${scope}.company`,
+    defaultMessage: 'company',
+  },
+  openMonth: {
+    id: `${scope}.openMonth`,
+    defaultMessage: 'openMonth',
+  },
+  closeMonth: {
+    id: `${scope}.closeMonth`,
+    defaultMessage: 'closeMonth',
+  },
+  updateDate: {
+    id: `${scope}.updateDate`,
+    defaultMessage: 'updateDate',
+  },
+  monthOpenedSuccessfully: {
+    id: `${scope}.monthOpenedSuccessfully`,
+    defaultMessage: 'monthOpenedSuccessfully',
+  },
+  dateUpdateSuccessfully: {
+    id: `${scope}.dateUpdateSuccessfully`,
+    defaultMessage: 'dateUpdateSuccessfully',
+  },
+  monthClosedSuccessfully: {
+    id: `${scope}.monthClosedSuccessfully`,
+    defaultMessage: 'monthClosedSuccessfully',
+  },
 });
