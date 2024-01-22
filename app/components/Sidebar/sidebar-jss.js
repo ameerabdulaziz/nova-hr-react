@@ -16,8 +16,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     position: 'relative',
     border: 'none',
     /* background: 'none' */
-    background:theme.palette.mode === 'dark' ? "#292929" : 'white',
-    zIndex: 99,
+    background: theme.palette.mode === 'dark' ? '#292929' : 'white',
   },
   drawerPaper: {
     position: 'relative',
@@ -26,7 +25,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     border: 'none',
     background: 'none',
     color: theme.palette.text.primary,
-   
+
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -155,7 +154,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
     fontWeight: 'bold'
   },
   dense: {
-    //shymaa
+    // shymaa
     padding: theme.spacing(0),
     [`& > .${classes.title}:first-of-type`]: {
       margin: '0'
@@ -346,7 +345,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
       }
     },
     [`&.${classes.rounded}`]: {
-      //shymaa
+      // shymaa
       paddingRight: theme.spacing(0),
       '& a': {
         borderRadius: theme.spacing(),
