@@ -225,6 +225,7 @@ function VacationsTypes({ intl }) {
   };
   
 
+  
   return (
     <PayRollLoader isLoading={isLoading}>
 
