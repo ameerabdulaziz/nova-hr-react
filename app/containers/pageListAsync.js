@@ -1012,6 +1012,14 @@ export const MissionTrxCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const CalculateAttendance = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/CalculateAttendance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const MissionTrxReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/MissionTrxReport'),
   {

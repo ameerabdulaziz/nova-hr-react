@@ -316,6 +316,7 @@ import {
   JobAdvertisement,
   JobAdvertisementCreate,
   AttendanceRatioReport,
+  CalculateAttendance,
   MonthlyAttendanceReport,
   AttendanceDeviceReport,
   ContinuousAbsenceReport,
@@ -1128,6 +1129,10 @@ function Application(props) {
           component={WorkinLeavesReport}
         />
 
+        <Route
+          path='/app/Pages/Att/CalculateAttendance'
+          component={CalculateAttendance}
+        />
 
         <Route
           path='/app/Pages/Att/LateAttendanceReport'

@@ -1817,5 +1817,102 @@ devicePass: {
     id: `${scope}.selectShapeFiristToDeleteIt`,
     defaultMessage: 'Select shape firist to delete it',
   },
+  // CalculateAttendance
+  company: {
+    id: `${scope}.company`,
+    defaultMessage: 'company',
+  },
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'department',
+  },
+  employee: {
+    id: `${scope}.employee`,
+    defaultMessage: 'employee',
+  },
+  startDate: {
+    id: `${scope}.startDate`,
+    defaultMessage: 'startDate',
+  },
+  endDate: {
+    id: `${scope}.endDate`,
+    defaultMessage: 'endDate',
+  },
+  search: {
+    id: `${scope}.search`,
+    defaultMessage: 'search',
+  },
+  calculateBreak: {
+    id: `${scope}.calculateBreak`,
+    defaultMessage: 'calculateBreak',
+  },
+  overnightAllowance: {
+    id: `${scope}.overnightAllowance`,
+    defaultMessage: 'overnightAllowance',
+  },
+  startAndEndDateNotInOpenMonthRange: {
+    id: `${scope}.startAndEndDateNotInOpenMonthRange`,
+    defaultMessage: 'startAndEndDateNotInOpenMonthRange',
+  },
+  postToPayroll: {
+    id: `${scope}.postToPayroll`,
+    defaultMessage: 'postToPayroll',
+  },
+  rollbackAttendance: {
+    id: `${scope}.rollbackAttendance`,
+    defaultMessage: 'rollbackAttendance',
+  },
+  rollbackPost: {
+    id: `${scope}.rollbackPost`,
+    defaultMessage: 'rollbackPost',
+  },
+  calculate: {
+    id: `${scope}.calculate`,
+    defaultMessage: 'calculate',
+  },
+  cancelLate: {
+    id: `${scope}.cancelLate`,
+    defaultMessage: 'cancelLate',
+  },
+  cancelEarlyLeave: {
+    id: `${scope}.cancelEarlyLeave`,
+    defaultMessage: 'cancelEarlyLeave',
+  },
+  id: {
+    id: `${scope}.id`,
+    defaultMessage: 'id',
+  },
+  shiftDate: {
+    id: `${scope}.shiftDate`,
+    defaultMessage: 'shift date',
+  },
+  late: {
+    id: `${scope}.late`,
+    defaultMessage: 'late',
+  },
+  durationUntilEnd: {
+    id: `${scope}.durationUntilEnd`,
+    defaultMessage: 'duration until end',
+  },
+  acutanceLeave: {
+    id: `${scope}.acutanceLeave`,
+    defaultMessage: 'acutance leave',
+  },
+  manual: {
+    id: `${scope}.manual`,
+    defaultMessage: 'manual',
+  },
+  stop: {
+    id: `${scope}.stop`,
+    defaultMessage: 'stop',
+  },
+  absent: {
+    id: `${scope}.absent`,
+    defaultMessage: 'absent',
+  },
+  weekendLeave: {
+    id: `${scope}.weekendLeave`,
+    defaultMessage: 'weekendLeave',
+  },
 });
 
