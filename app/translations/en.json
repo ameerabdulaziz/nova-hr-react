@@ -2168,6 +2168,11 @@
   "boilerplate.containers.Payroll.Employee.pleaseFillAllRequiredFields": "Please fill all required fields",
   "boilerplate.containers.Payroll.Employee.pleaseMakeSureInsuredFieldsHasInsuranceDate": "Please make sure insured fields have insurance date",
   "boilerplate.containers.Payroll.Employee.uploadFile": "Upload",
+  "boilerplate.containers.Payroll.Employee.identityNumberAlreadyExist": "Identity Number Already Exist",
+  "boilerplate.containers.Payroll.Employee.emailAlreadyExist": "Email Already Exist",
+  "boilerplate.containers.Payroll.Employee.employeeCreatedSuccessfullyWhatActionYouWant": "Employee Created Successfully What Action You Want ??",
+  "boilerplate.containers.Payroll.Employee.continueAddingEmployee": "Continue Adding Employee",
+  "boilerplate.containers.Payroll.Employee.backToEmployeeList": "Back To Employee List",
   "boilerplate.containers.Payroll.Employee.fileErrors": "File errors",
   "boilerplate.containers.Payroll.Employee.modifyEmployeeDataIfTheyAlreadyExist": "Modify employee data if they already exist",
 

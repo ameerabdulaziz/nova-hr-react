@@ -44,6 +44,22 @@ const EmployeeData = (locale) => {
     return data.data;
   };
 
+  Apis.checkEmpWorkEmailExist = async (id, email) => {
+    const data = await axiosInstance.get(
+      `EmpEmployee/checkEmpEmailExist/${id}/${email}`
+    );
+
+    return data.data;
+  };
+
+  Apis.checkEmpIdentityNumberExist = async (id, number) => {
+    const data = await axiosInstance.get(
+      `EmpEmployee/checkEmpIdentityNoExist/${id}/${number}`
+    );
+
+    return data.data;
+  };
+
   Apis.GetBranchList = async () => {
     const data = await axiosInstance.get(`EmpEmployee/GetBranchList/${locale}`);
     const result = data.data;

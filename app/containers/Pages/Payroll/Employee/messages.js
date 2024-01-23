@@ -703,4 +703,24 @@ export default defineMessages({
     id: `${scope}.modifyEmployeeDataIfTheyAlreadyExist`,
     defaultMessage: 'modifyEmployeeDataIfTheyAlreadyExist',
   },
+  employeeCreatedSuccessfullyWhatActionYouWant: {
+    id: `${scope}.employeeCreatedSuccessfullyWhatActionYouWant`,
+    defaultMessage: 'employeeCreatedSuccessfullyWhatActionYouWant',
+  },
+  continueAddingEmployee: {
+    id: `${scope}.continueAddingEmployee`,
+    defaultMessage: 'continueAddingEmployee',
+  },
+  backToEmployeeList: {
+    id: `${scope}.backToEmployeeList`,
+    defaultMessage: 'backToEmployeeList',
+  },
+  identityNumberAlreadyExist: {
+    id: `${scope}.identityNumberAlreadyExist`,
+    defaultMessage: 'identityNumberAlreadyExist',
+  },
+  emailAlreadyExist: {
+    id: `${scope}.emailAlreadyExist`,
+    defaultMessage: 'emailAlreadyExist',
+  },
 });

@@ -37,6 +37,7 @@ import Typography from "@mui/material/Typography";
 import avatarApi from "enl-api/images/avatars";
 import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../Component/PayRollLoader";
+import EmployeeCreationFeedback from "../component/Personal/EmployeeCreationFeedback";
 
 function Personal(props) {
   const history = useHistory();
@@ -62,55 +63,61 @@ function Personal(props) {
   const [arName, setarName] = useState("");
   const [enName, setenName] = useState("");
   const [motherName, setmotherName] = useState("");
-  const [organizationId, setorganizationId] = useState("");
+  const [organizationId, setorganizationId] = useState(null);
   const [organizationList, setorganizationList] = useState([]);
-  const [jobId, setjobId] = useState("");
+  const [jobId, setjobId] = useState(null);
   const [jobList, setjobList] = useState([]);
-  const [jobLevelId, setjobLevelId] = useState({ id: 0, name: "" });
+  const [jobLevelId, setjobLevelId] = useState(null);
   const [jobLevelList, setjobLevelList] = useState([]);
   const [hiringDate, sethiringDate] = useState(null);
-  const [controlParameterId, setcontrolParameterId] = useState("");
+  const [controlParameterId, setcontrolParameterId] = useState(null);
   const [controlParameterList, setcontrolParameterList] = useState([]);
-  const [identityTypeId, setidentityTypeId] = useState("");
+  const [identityTypeId, setidentityTypeId] = useState(null);
   const [identityTypeList, setidentityTypeList] = useState([]);
   const [identityIssuingDate, setidentityIssuingDate] = useState(null);
   const [identityExpiry, setidentityExpiry] = useState(null);
   const [identityNumber, setidentityNumber] = useState("");
   const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
-  const [genderId, setgenderId] = useState("");
+  const [genderId, setgenderId] = useState(null);
   const [genderList, setgenderList] = useState([]);
   const [branchList, setBranchList] = useState([]);
 
-  const [nationalityId, setnationalityId] = useState("");
+  const [nationalityId, setnationalityId] = useState(null);
   const [nationalityList, setnationalityList] = useState([]);
-  const [religionId, setreligionId] = useState("");
+  const [religionId, setreligionId] = useState(null);
   const [religionList, setreligionList] = useState([]);
   const [birthDate, setbirthDate] = useState(null);
   const [workEmail, setWorkEmail] = useState('');
   const [isHR, setIsHR] = useState(false);
   const [hrBranchList, setHrBranchList] = useState([])
 
-  const [birthGovId, setbirthGovId] = useState("");
+  const [birthGovId, setbirthGovId] = useState(null);
   const [birthGovList, setbirthGovList] = useState([]);
 
-  const [birthCityId, setbirthCityId] = useState("");
+  const [birthCityId, setbirthCityId] = useState(null);
   const [birthCityList, setbirthCityList] = useState([]);
-  const [socialStatusId, setsocialStatusId] = useState("");
+  const [socialStatusId, setsocialStatusId] = useState(null);
   const [socialStatusList, setsocialStatusList] = useState([]);
-  const [sonNo, setsonNo] = useState(0);
+  const [sonNo, setsonNo] = useState('');
 
-  const [militaryStatusId, setmilitaryStatusId] = useState("");
+  const [militaryStatusId, setmilitaryStatusId] = useState(null);
   const [militaryStatusList, setmilitaryStatusList] = useState([]);
   const [isInsured, setisInsured] = useState(false);
   const [isSpecialNeeds, setisSpecialNeeds] = useState(false);
   const [isResident, setisResident] = useState(false);
 
-  const [saluteId, setsaluteId] = useState({});
+  const [saluteId, setsaluteId] = useState(null);
   const [saluteList, setsaluteList] = useState([]);
-  const [statusId, setstatusId] = useState("");
+  const [statusId, setstatusId] = useState(null);
   const [statusList, setstatusList] = useState([]);
 
   const locale = useSelector((state) => state.language.locale);
+
+  const [isEmployeeCreatedOpen, setIsEmployeeCreatedOpen] = useState(false);
+  const [checkEmployeeIdentityNumber, setCheckEmployeeIdentityNumber] = useState(true);
+  const [checkEmployeeWorkEmail, setCheckEmployeeWorkEmail] = useState(true);
+  const [isEmailExist, setIsEmailExist] = useState(false);
+  const [isIdentityNumberExist, setIsIdentityNumberExist] = useState(false)
 
   const [img, setImg] = useState(avatarApi[9]);
 
@@ -173,6 +180,75 @@ function Personal(props) {
     }
   }, [employeeCode]);
 
+  const fetchEmployeeIdentityNumber = async (number) => {
+    setIsLoading(true);
+
+    try {
+      const response = await EmployeeData(locale).checkEmpIdentityNumberExist(id, number);
+      setIsIdentityNumberExist(!response);
+
+      if (!response) {
+        toast.error(intl.formatMessage(messages.identityNumberAlreadyExist));
+        setCheckEmployeeIdentityNumber(false);
+      }
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (identityNumber) {
+      if (checkEmployeeIdentityNumber) {
+        const timeoutId = setTimeout(() => {
+          fetchEmployeeIdentityNumber(identityNumber);
+        }, 500);
+
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      }
+
+      setCheckEmployeeIdentityNumber(true);
+    }
+  }, [identityNumber]);
+
+  const fetchEmployeeWorkEmail = async (email) => {
+    setIsLoading(true);
+
+    try {
+      const response = await EmployeeData(locale).checkEmpWorkEmailExist(id, email);
+
+      setIsEmailExist(!response);
+
+      if (!response) {
+        toast.error(intl.formatMessage(messages.emailAlreadyExist));
+        setCheckEmployeeWorkEmail(false);
+      }
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (workEmail) {
+      if (checkEmployeeWorkEmail) {
+        const timeoutId = setTimeout(() => {
+          fetchEmployeeWorkEmail(workEmail);
+        }, 500);
+
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      }
+
+      setCheckEmployeeWorkEmail(true);
+    }
+  }, [workEmail]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isValidIdentityNumber = identityNumber.length === 14;
@@ -182,98 +258,121 @@ function Personal(props) {
       return;
     }
 
+    if (isEmailExist) {
+      toast.error(intl.formatMessage(messages.emailAlreadyExist));
+      return;
+    }
+
+    if (isIdentityNumberExist) {
+      toast.error(intl.formatMessage(messages.identityNumberAlreadyExist));
+      return;
+    }
+
     try {
       setIsLoading(true);
 
       const data = {
         id: id ?? 0,
-        employeeCode: employeeCode,
+        employeeCode,
         eRPCode: eRPCode ?? "",
         machineCode: machineCode ?? "",
-        reportTo: reportTo.id ?? "",
-        arName: arName,
-        enName: enName,
+        reportTo: reportTo?.id ?? "",
+        arName,
+        enName,
         motherName: motherName ?? "",
-        organizationId: organizationId.id ?? "",
-        jobId: jobId.id ?? "",
-        jobLevelId: jobLevelId.id ?? "",
+        organizationId: organizationId?.id ?? "",
+        jobId: jobId?.id ?? "",
+        jobLevelId: jobLevelId?.id ?? "",
         hiringDate: hiringDate ?? "",
-        controlParameterId: controlParameterId.id ?? "",
-        identityTypeId: identityTypeId.id ?? "",
+        controlParameterId: controlParameterId?.id ?? "",
+        identityTypeId: identityTypeId?.id ?? "",
         identityIssuingDate: identityIssuingDate ?? "",
         identityExpiry: identityExpiry ?? "",
         identityNumber: identityNumber ?? "",
         identityIssuingAuth: identityIssuingAuth ?? "",
-        genderId: genderId.id ?? "",
-        nationalityId: nationalityId.id ?? "",
-        religionId: religionId.id ?? "",
+        genderId: genderId?.id ?? "",
+        nationalityId: nationalityId?.id ?? "",
+        religionId: religionId?.id ?? "",
         birthDate: birthDate ?? "",
-        birthGovId: birthGovId.id ?? "",
-        birthCityId: birthCityId.id ?? "",
-        socialStatusId: socialStatusId.id ?? "",
+        birthGovId: birthGovId?.id ?? "",
+        birthCityId: birthCityId?.id ?? "",
+        socialStatusId: socialStatusId?.id ?? "",
         sonNo: sonNo ?? "",
-        militaryStatusId: militaryStatusId.id ?? "",
+        militaryStatusId: militaryStatusId?.id ?? "",
         //photoUrl: photoUrl,
         isInsured: isInsured ?? false,
         isSpecialNeeds: isSpecialNeeds ?? false,
-        saluteId: saluteId.id ?? "",
-        statusId: statusId.id ?? "",
+        saluteId: saluteId?.id ?? "",
+        statusId: statusId?.id ?? "",
         isResident: isResident ?? false,
-        image: img == avatarApi[9] ? null : img,
+        image: img === avatarApi[9] ? null : img,
         userId: 0,
         workEmail,
         isHr: isHR,
         hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
-      const dataApi = await EmployeeData(locale).Saveform(data);
-      if (dataApi.status == 200) {
-        if (id == 0) setid(dataApi.id);
-        toast.success(notif.saved);
+      await EmployeeData(locale).Saveform(data);
+
+      if (id === 0) {
+        setIsEmployeeCreatedOpen(true);
       } else {
-        toast.error(dataApi.statusText);
+        toast.success(notif.saved);
       }
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
   };
 
-  //   const clear = (e) => {
-  //     setid(0);
-  //     setemployeeCode('');
-  //     seteRPCode('');
-  //     setmachineCode('');
-  //     setreportTo({});
-  //     setarName('');
-  //     setenName('');
-  //     setmotherName('');
-  //     setorganizationId({});
-  //     setjobId({});
-  //     setjobLevelId({});
-  //     sethiringDate(format(new Date(), 'yyyy-MM-dd'));
-  //     setcontrolParameterId({});
-  //     setidentityTypeId({});
-  //     setidentityIssuingDate(format(new Date(), 'yyyy-MM-dd'));
-  //     setidentityExpiry(format(new Date(), 'yyyy-MM-dd'));
-  //     setidentityNumber('');
-  //     setidentityIssuingAuth('');
-  //     setgenderId({});
-  //     setnationalityId({});
-  //     setreligionId({});
-  //     setbirthDate('');
-  //     setbirthGovId({});
-  //     setbirthCityId({});
-  //     setsocialStatusId({});
-  //     setsonNo('');
-  //     setmilitaryStatusId({});
-  //     setisInsured(false);
-  //     setisSpecialNeeds(false);
-  //     setsaluteId({});
-  //     setstatusId({});
-  //     setisResident(false);
-  //     setImg(avatarApi[9]);
-  //   };
+  const resetFields = () => {
+    setarName('');
+    setbirthCityId(null);
+    setbirthDate(null);
+    setbirthGovId(null);
+    setCheckEmployeeCode(false);
+    setcontrolParameterId(null);
+    setemployeeCode('');
+    setenName('');
+    seteRPCode('');
+    setgenderId(null);
+    sethiringDate(null);
+    setHrBranchList([]);
+    setidentityExpiry(null);
+    setidentityIssuingAuth('');
+    setidentityIssuingDate(null);
+    setidentityNumber('');
+    setidentityTypeId(null);
+    setImg(avatarApi[9]);
+    setIsHR(false);
+    setisInsured(false);
+    setisResident(false);
+    setisSpecialNeeds(false);
+    setjobId(null);
+    setjobLevelId(null);
+    setmachineCode('');
+    setmilitaryStatusId(null);
+    setmotherName('');
+    setnationalityId(null);
+    setorganizationId(null);
+    setreligionId(null);
+    setreportTo(null);
+    setsaluteId(null);
+    setsocialStatusId(null);
+    setsonNo('');
+    setstatusId(null);
+    setWorkEmail('');
+  };
+
+  const onEmployeeCreatedClose = () => {
+    resetFields();
+    setIsEmployeeCreatedOpen(false);
+  };
+
+  const onEmployeeCreatedConfirm = () => {
+    history.push('/app/Pages/Employee/EmployeeList');
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -351,85 +450,88 @@ function Personal(props) {
 
           if (dataApi) {
             setCheckEmployeeCode(false);
+            setCheckEmployeeIdentityNumber(false);
+            setCheckEmployeeWorkEmail(false);
+
             // setid(dataApi.id);
             setemployeeCode(dataApi.employeeCode ?? '');
             setWorkEmail(dataApi.workEmail ?? '');
             setHrBranchList(dataApi.hrBranchList ?? []);
             setIsHR(dataApi.isHr);
-            seteRPCode(dataApi.eRPCode);
-            setmachineCode(dataApi.machineCode);
-            setreportTo({
+            seteRPCode(dataApi.eRPCode ?? '');
+            setmachineCode(dataApi.machineCode ?? '');
+            setreportTo(dataApi.reportTo ? {
               id: dataApi.reportTo,
               name: dataApi.reportToName,
-            });
-            setarName(dataApi.arName);
-            setenName(dataApi.enName);
-            setmotherName(dataApi.motherName);
-            setorganizationId({
+            } : null);
+            setarName(dataApi.arName ?? '');
+            setenName(dataApi.enName ?? '');
+            setmotherName(dataApi.motherName ?? '');
+            setorganizationId(dataApi.organizationId ? {
               id: dataApi.organizationId,
               name: dataApi.organizationName,
-            });
-            setjobId({
+            } : null);
+            setjobId(dataApi.jobId ? {
               id: dataApi.jobId,
               name: dataApi.jobName,
-            });
-            setjobLevelId({
+            } : null);
+            setjobLevelId(dataApi.jobLevelId ? {
               id: dataApi.jobLevelId,
               name: dataApi.jobLevelName,
-            });
+            } : null);
             sethiringDate(dataApi.hiringDate);
-            setcontrolParameterId({
+            setcontrolParameterId(dataApi.controlParameterId ? {
               id: dataApi.controlParameterId,
               name: dataApi.controlParameterName,
-            });
-            setidentityTypeId({
+            } : null);
+            setidentityTypeId(dataApi.identityTypeId ? {
               id: dataApi.identityTypeId,
               name: dataApi.identityTypeName,
-            });
+            } : null);
             setidentityIssuingDate(dataApi.identityIssuingDate);
             setidentityExpiry(dataApi.identityExpiry);
-            setidentityNumber(dataApi.identityNumber);
-            setidentityIssuingAuth(dataApi.identityIssuingAuth);
-            setgenderId({
+            setidentityNumber(dataApi.identityNumber ?? '');
+            setidentityIssuingAuth(dataApi.identityIssuingAuth ?? '');
+            setgenderId( dataApi.genderId ? {
               id: dataApi.genderId,
               name: dataApi.genderName,
-            });
-            setnationalityId({
+            } : null);
+            setnationalityId(dataApi.nationalityId ? {
               id: dataApi.nationalityId,
               name: dataApi.nationalityName,
-            });
-            setreligionId({
+            } : null);
+            setreligionId(dataApi.religionId ? {
               id: dataApi.religionId,
               name: dataApi.religionName,
-            });
+            } : null);
             setbirthDate(dataApi.birthDate);
-            setbirthGovId({
+            setbirthGovId(dataApi.birthGovId ? {
               id: dataApi.birthGovId,
               name: dataApi.birthGovName,
-            });
-            setbirthCityId({
+            } : null);
+            setbirthCityId(dataApi.birthCityId ?{
               id: dataApi.birthCityId,
               name: dataApi.birthCityName,
-            });
-            setsocialStatusId({
+            } : null);
+            setsocialStatusId(dataApi.socialStatusId ? {
               id: dataApi.socialStatusId,
               name: dataApi.socialStatusName,
-            });
-            setsonNo(dataApi.sonNo);
-            setmilitaryStatusId({
+            } : null);
+            setsonNo(dataApi.sonNo ?? '');
+            setmilitaryStatusId(dataApi.militaryStatusId ? {
               id: dataApi.militaryStatusId,
               name: dataApi.militaryStatusName,
-            });
+            } : null);
             setisInsured(dataApi.isInsured);
             setisSpecialNeeds(dataApi.isSpecialNeeds);
-            setsaluteId({
+            setsaluteId(dataApi.saluteId ? {
               id: dataApi.saluteId,
               name: dataApi.saluteName,
-            });
-            setstatusId({
+            } : null);
+            setstatusId(dataApi.statusId ? {
               id: dataApi.statusId,
               name: dataApi.statusName,
-            });
+            } : null);
             setisResident(dataApi.isResident);
             let empimg =
               dataApi.photo == null
@@ -450,6 +552,13 @@ function Personal(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
+
+      <EmployeeCreationFeedback
+        isOpen={isEmployeeCreatedOpen}
+        onClose={onEmployeeCreatedClose}
+        onConfirm={onEmployeeCreatedConfirm}
+      />
+
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         
         <form onSubmit={handleSubmit}>
@@ -529,10 +638,7 @@ function Personal(props) {
                     disabled
                     id="ddlstatusId"
                     options={statusList || []} 
-                    value={statusId.length != 0 ?{
-                      id: statusId.id,
-                      name: statusId.name,
-                    } : null}
+                    value={statusId}
                     renderOption={(optionProps, option) => {
                       return (
                         <li {...optionProps} key={option.id}>
@@ -679,10 +785,7 @@ function Personal(props) {
                   <Autocomplete
                     id="ddlidentityType"
                     options={identityTypeList || []}
-                    value={identityTypeId.length !== 0 ? {
-                      id: identityTypeId.id,
-                      name: identityTypeId.name,
-                    }: null}
+                    value={identityTypeId}
                     renderOption={(props, option) => {
                       return (
                         <li {...props} key={option.id}>
@@ -803,10 +906,7 @@ function Personal(props) {
               <Autocomplete
                 id="ddlGenderId"
                 options={genderList || []}
-                value={genderId.length !== 0 ?{
-                  id: genderId.id,
-                  name: genderId.name,
-                }: null}
+                value={genderId}
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.id}>
@@ -838,10 +938,7 @@ function Personal(props) {
               <Autocomplete
                 id="ddlNationalityId"
                 options={nationalityList || []}
-                value={nationalityId.length !== 0 ?{
-                  id: nationalityId.id,
-                  name: nationalityId.name,
-                }: null}
+                value={nationalityId}
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.id}>
@@ -874,10 +971,7 @@ function Personal(props) {
               <Autocomplete
                 id="ddlreligionId"
                 options={religionList || []}
-                value={religionId.length !== 0 ?{
-                  id: religionId.id,
-                  name: religionId.name,
-                }: null}
+                value={religionId}
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.id}>
@@ -948,10 +1042,7 @@ function Personal(props) {
               <Autocomplete
                 id="ddlbirthGovId"
                 options={birthGovList || []}
-                value={birthGovId.length !== 0 ?{
-                  id: birthGovId.id,
-                  name: birthGovId.name,
-                }: null}
+                value={birthGovId}
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.id}>
@@ -984,10 +1075,7 @@ function Personal(props) {
               <Autocomplete
                 id="ddlbirthcityId"
                 options={birthCityList || []}
-                value={birthCityId.length !== 0 ?{
-                  id: birthCityId.id,
-                  name: birthCityId.name,
-                }: null}
+                value={birthCityId}
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.id}>
@@ -1032,10 +1120,7 @@ function Personal(props) {
               <Autocomplete
                 id="ddlsocialStatusId"
                 options={socialStatusList || []}
-                value={socialStatusId.length !== 0 ?{
-                  id: socialStatusId.id,
-                  name: socialStatusId.name,
-                }: null}
+                value={socialStatusId}
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.id}>
@@ -1086,10 +1171,7 @@ function Personal(props) {
               <Autocomplete
                 id="ddlmilitaryStatusId"
                 options={militaryStatusList || []}
-                value={militaryStatusId.length !== 0 ?{
-                  id: militaryStatusId.id,
-                  name: militaryStatusId.name,
-                }: null}
+                value={militaryStatusId}
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.id}>
@@ -1137,10 +1219,7 @@ function Personal(props) {
                   <Autocomplete
                     id="ddlorganization"
                     options={organizationList || []}
-                    value={organizationId.length !== 0 ?{
-                      id: organizationId.id,
-                      name: organizationId.name,
-                    }: null}
+                    value={organizationId}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
                       value.id === "" ||
@@ -1178,10 +1257,7 @@ function Personal(props) {
                   <Autocomplete
                     id="ddlcontrolParameterId"
                     options={controlParameterList || []}
-                    value={controlParameterId.length !== 0 ?{
-                      id: controlParameterId.id,
-                      name: controlParameterId.name,
-                    }: null}
+                    value={controlParameterId}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
                       value.id === "" ||
@@ -1219,7 +1295,7 @@ function Personal(props) {
                     id="ddljobid"
                     required
                     options={jobList || []}
-                    value={jobId.length !== 0 ?{ id: jobId.id, name: jobId.name }:null}
+                    value={jobId}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
                       value.id === "" ||
@@ -1257,7 +1333,7 @@ function Personal(props) {
                   <Autocomplete
                     id="ddljobLevelId"
                     options={jobLevelList || []}
-                    value={{ id: jobLevelId.id, name: jobLevelId.name }}
+                    value={jobLevelId}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 ||
                       value.id === "" ||
@@ -1365,6 +1441,8 @@ function Personal(props) {
                     className={`${style.AutocompleteMulSty} ${
                       locale === 'ar' ? style.AutocompleteMulStyAR : null
                     }`}
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
                     value={hrBranchList}
                     renderOption={(props, option, { selected }) => (
                       <li {...props}>

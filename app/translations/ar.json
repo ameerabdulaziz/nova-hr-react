@@ -2112,7 +2112,7 @@
 
   "boilerplate.containers.Payroll.Employee.personal.eRPCode": "الرقم الدفترى",
   "boilerplate.containers.Payroll.Employee.personal.machineCode": "الرقم المرجعى",
-  "boilerplate.containers.Payroll.Employee.personal.arname": "الاسم يالعربية",
+  "boilerplate.containers.Payroll.Employee.personal.arname": "الاسم بالعربية",
   "boilerplate.containers.Payroll.Employee.salary.identitynumberShouldBe14": "يجب أن يكون رقم الهوية 14 حرف",
   "boilerplate.containers.Payroll.Employee.personal.enname": "الاسم بالانجليزية",
   "boilerplate.containers.Payroll.Employee.personal.identityType": "نوع الهوية",
@@ -2120,7 +2120,7 @@
   "boilerplate.containers.Payroll.Employee.personal.identityIssuingDate": "تاريح الاصدار",
   "boilerplate.containers.Payroll.Employee.personal.identityExpiry": "تاريح الانتهاء",
 
-  "boilerplate.containers.Payroll.Employee.personal.gender": "التوع",
+  "boilerplate.containers.Payroll.Employee.personal.gender": "النوع",
   "boilerplate.containers.Payroll.Employee.personal.nationality": "الجنسية",
   "boilerplate.containers.Payroll.Employee.personal.religion": "الديانة",
   "boilerplate.containers.Payroll.Employee.personal.motherName": "اسم الام",
@@ -2233,6 +2233,11 @@
   "boilerplate.containers.Payroll.Employee.fileErrors": "أخطاء في الملف",
   "boilerplate.containers.Payroll.Employee.modifyEmployeeDataIfTheyAlreadyExist": "تعديل بيانات الموظف إذا كانت موجودة بالفعل",
   "boilerplate.containers.Payroll.Employee.uploadFile": "رفع ملف",
+  "boilerplate.containers.Payroll.Employee.employeeCreatedSuccessfullyWhatActionYouWant": "تم إنشاء الموظف بنجاح ما هو الإجراء الذي تريده؟؟",
+  "boilerplate.containers.Payroll.Employee.continueAddingEmployee": "متابعة إضافة موظف",
+  "boilerplate.containers.Payroll.Employee.backToEmployeeList": "العودة إلى قائمة الموظفين",
+  "boilerplate.containers.Payroll.Employee.identityNumberAlreadyExist": "رقم الهوية موجود بالفعل",
+  "boilerplate.containers.Payroll.Employee.emailAlreadyExist": "البريد الالكتروني موجود مسبقا",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
