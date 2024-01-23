@@ -5,6 +5,7 @@
 const path = require('path');
 const webpack = require('webpack');
 // const ESLintPlugin = require('eslint-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = options => ({
   mode: options.mode,
@@ -185,6 +186,7 @@ module.exports = options => ({
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; Terser will automatically
     // drop any unreachable code.
+    new Dotenv(),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
     }),
@@ -204,7 +206,7 @@ module.exports = options => ({
   ]),
   resolve: {
     modules: ['browser', 'domain', 'node_modules', 'app'],
-    extensions: ['.js', '.jsx', '.react.js','.ts'],
+    extensions: ['.js', '.jsx', '.react.js', '.ts'],
     mainFields: ['browser', 'jsnext:main', 'main'],
     fallback: {
       fs: false,
