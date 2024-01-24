@@ -491,6 +491,7 @@ function HRApplicationEvaluation(props) {
       ids: selectedRowsId,
       appFirstStatus: popupState.appFirstStatus,
       notTechnicalReview: popupState.notTechnicalReview,
+      reason: '',
     };
 
     if (popupState.appFirstStatus === 6) {
