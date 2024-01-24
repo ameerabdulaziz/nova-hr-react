@@ -37,6 +37,7 @@ import ExperiencePopup from './components/ExperiencePopup';
 import Section from './components/Section';
 import Layout from './layouts/Layout.cv';
 import messages from './messages';
+import { formateDate } from '../helpers';
 
 function JobVacationApplication(props) {
   const { intl } = props;
@@ -79,7 +80,6 @@ function JobVacationApplication(props) {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isCoursePopupOpen, setIsCoursePopupOpen] = useState(false);
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const [formInfo, setFormInfo] = useState({
     id: 0,
@@ -635,6 +635,7 @@ function JobVacationApplication(props) {
                           renderInput={(params) => (
                             <TextField
                               {...params}
+                              required
                               label={intl.formatMessage(messages.IDType)}
                             />
                           )}
@@ -664,6 +665,7 @@ function JobVacationApplication(props) {
                           onChange={onInputChange}
                           label={intl.formatMessage(messages.issuePlace)}
                           fullWidth
+                          required
                           variant='outlined'
                         />
                       </Grid>
@@ -679,6 +681,7 @@ function JobVacationApplication(props) {
                               <TextField
                                 {...params}
                                 fullWidth
+                                required
                                 variant='outlined'
                               />
                             )}
@@ -712,6 +715,7 @@ function JobVacationApplication(props) {
                           renderInput={(params) => (
                             <TextField
                               {...params}
+                              required
                               label={intl.formatMessage(messages.socialStatus)}
                             />
                           )}
@@ -745,6 +749,7 @@ function JobVacationApplication(props) {
                               <TextField
                                 {...params}
                                 fullWidth
+                                required
                                 variant='outlined'
                               />
                             )}
