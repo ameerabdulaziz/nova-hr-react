@@ -111,6 +111,7 @@ function ExperiencePopup(props) {
               onChange={onInputChange}
               label={intl.formatMessage(messages.jobTitle)}
               fullWidth
+              required
               variant='outlined'
             />
           </Grid>
@@ -122,6 +123,7 @@ function ExperiencePopup(props) {
               onChange={onInputChange}
               label={intl.formatMessage(messages.department)}
               fullWidth
+              required
               variant='outlined'
             />
           </Grid>
@@ -133,6 +135,7 @@ function ExperiencePopup(props) {
               onChange={onInputChange}
               label={intl.formatMessage(messages.workPlace)}
               fullWidth
+              required
               variant='outlined'
             />
           </Grid>
@@ -144,6 +147,7 @@ function ExperiencePopup(props) {
               onChange={onInputChange}
               label={intl.formatMessage(messages.leaveReason)}
               fullWidth
+              required
               variant='outlined'
             />
           </Grid>
@@ -155,7 +159,7 @@ function ExperiencePopup(props) {
                 value={formInfo.fromDate}
                 onChange={(date) => onDatePickerChange(date, 'fromDate')}
                 renderInput={(params) => (
-                  <TextField {...params} fullWidth variant='outlined' />
+                  <TextField {...params} fullWidth required variant='outlined' />
                 )}
               />
             </LocalizationProvider>
@@ -168,7 +172,7 @@ function ExperiencePopup(props) {
                 value={formInfo.toDate}
                 onChange={(date) => onDatePickerChange(date, 'toDate')}
                 renderInput={(params) => (
-                  <TextField {...params} fullWidth variant='outlined' />
+                  <TextField {...params} fullWidth required variant='outlined' />
                 )}
               />
             </LocalizationProvider>

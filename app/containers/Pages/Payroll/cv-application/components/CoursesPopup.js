@@ -92,6 +92,7 @@ function CoursesPopup(props) {
               onChange={onInputChange}
               label={intl.formatMessage(messages.courseTitle)}
               fullWidth
+              required
               variant='outlined'
             />
           </Grid>
@@ -103,7 +104,7 @@ function CoursesPopup(props) {
                 value={formInfo.endDate}
                 onChange={(date) => onDatePickerChange(date, 'endDate')}
                 renderInput={(params) => (
-                  <TextField {...params} fullWidth variant='outlined' />
+                  <TextField {...params} fullWidth required variant='outlined' />
                 )}
               />
             </LocalizationProvider>

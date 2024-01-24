@@ -654,6 +654,7 @@ function JobVacationApplication(props) {
                           onChange={onNumericInputChange}
                           label={intl.formatMessage(messages.IDNumber)}
                           fullWidth
+                          required
                           variant='outlined'
                         />
                       </Grid>
