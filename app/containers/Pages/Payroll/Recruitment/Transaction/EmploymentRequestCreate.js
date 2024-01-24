@@ -143,13 +143,13 @@ function EmploymentRequestCreate(props) {
       knowledgeList: workKnowledge.map((item) => ({
         description: item.description,
         id: 0,
-        languageLevelID: 0,
+        languageLevelID: '',
         type: 2
       })),
       jobDescription: workDescription.map((item) => ({
         description: item.description,
         id: 0,
-        languageLevelID: 0,
+        languageLevelID: '',
         type: 3,
       })),
     };
