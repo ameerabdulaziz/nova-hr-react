@@ -21,6 +21,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import SaveButton from '../../Component/SaveButton';
+import PayRollLoader from "../../Component/PayRollLoader";
 
 
 
@@ -46,6 +47,8 @@ function CreateAndEditJob(props) {
   const history=useHistory(); 
   const { intl } = props;
   const { classes } = useStyles();
+
+  const [isLoading, setIsLoading] = useState(true);
 
 
 
@@ -96,6 +99,7 @@ const getdata =  async () => {
 };
 
 const getEditdata =  async () => {
+  setIsLoading(true);
 
   const data =  await JobData().GetDataById(ID,locale);
 
@@ -109,6 +113,8 @@ const getEditdata =  async () => {
   setSancLevel(data ? {id:data[0].sancLevelId , name: data[0].sancLevelName } : "")
   setJobNature(data ? {id:data[0].jobNatureId , name: data[0].jobNatureName } : "")
   setParent(data ? {id:data[0].parentId , name: data[0].parentName }  : "")
+
+  setIsLoading(false);
 };
 
 
@@ -180,7 +186,7 @@ function oncancel(){
 
   return (
     <div>
-
+ <PayRollLoader isLoading={isLoading}>
       <FormPopup  
         handleClose={()=>handleClose("jobNature")}
         open={openJobNature}
@@ -511,6 +517,7 @@ function oncancel(){
               </form>
 
           </PapperBlock>
+          </PayRollLoader>
     </div>
   );
 }
