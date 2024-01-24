@@ -14,7 +14,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -25,6 +24,7 @@ import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import PayRollLoader from '../../Component/PayRollLoader';
 import cvMessages from '../../cv-application/messages';
 import api from '../api/JobApplicationPreviewData';
+import { formateDate } from '../../helpers';
 
 function JobApplicationPreview(props) {
   const { intl } = props;
@@ -72,8 +72,6 @@ function JobApplicationPreview(props) {
     recJobApplicationExperience: [],
     recJobApplicationCourse: [],
   });
-
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const onCVPopupBtnClick = () => {
     setIsCVPopupOpen(true);
@@ -133,7 +131,9 @@ function JobApplicationPreview(props) {
   };
 
   useEffect(() => {
-    fetchNeededData();
+    if (id !== 0) {
+      fetchNeededData();
+    }
   }, []);
 
   return (
