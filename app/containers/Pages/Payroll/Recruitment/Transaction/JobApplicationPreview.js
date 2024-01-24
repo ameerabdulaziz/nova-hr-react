@@ -66,8 +66,8 @@ function JobApplicationPreview(props) {
     job: '',
     expectedSalary: '',
     socialInsuranceId: '',
-    sourceLink: '',
-    workingFrom: '',
+    sourceLinkName: '',
+    workingFromName: '',
 
     recJobApplicationExperience: [],
     recJobApplicationCourse: [],
@@ -118,7 +118,8 @@ function JobApplicationPreview(props) {
         expectedSalary: response.expectedSalary,
         socialInsuranceId: response.socialInsuranceId,
         sourceLink: response.sourceLink,
-        workingFrom: response.workingFrom,
+        sourceLinkName: response.sourceLinkName,
+        workingFromName: response.workingFromName,
 
         recJobApplicationExperience: response.recJobApplicationExperience,
         recJobApplicationCourse: response.recJobApplicationCourse,
@@ -478,7 +479,7 @@ function JobApplicationPreview(props) {
               <Grid item xs={12} md={4}>
                 <TextField
                   name='workingFrom'
-                  value={formInfo.workingFrom}
+                  value={formInfo.workingFromName}
                   label={intl.formatMessage(cvMessages.workType)}
                   fullWidth
                   disabled
@@ -511,7 +512,7 @@ function JobApplicationPreview(props) {
               <Grid item xs={12} md={4}>
                 <TextField
                   name='sourceLink'
-                  value={formInfo.sourceLink}
+                  value={formInfo.sourceLinkName}
                   label={intl.formatMessage(cvMessages.linkSource)}
                   fullWidth
                   disabled
