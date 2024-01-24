@@ -251,7 +251,7 @@ function JobOfferCreate(props) {
   }, [formInfo.hiringRequestId]);
 
   useEffect(() => {
-    if (formInfo.salaryStructureId && id === 0) {
+    if (formInfo.salaryStructureId && formInfo.grossSalary && id === 0) {
       fetchSalaryElements();
     }
   }, [formInfo.salaryStructureId]);
