@@ -344,12 +344,19 @@ function EmployeeBank(props) {
 
       <form onSubmit={onFormSubmit}>
         <div className={cx(classes.root, classes.padding)}>
+        <Grid container >
+        <Grid item xs={1} sm={4}>
           <Drawer
             variant='permanent'
             anchor='left'
             open
             classes={{
               paper: classes.drawerPaper,
+            }}
+            PaperProps={{
+              sx: {
+                width: "100% !important",
+              }
             }}
           >
             <div>
@@ -415,10 +422,13 @@ function EmployeeBank(props) {
               color='secondary'
               onClick={() => setSelectedBank(-1)}
               className={classes.addBtn}
-            >
+              >
               <Add />
             </Fab>
           </Tooltip>
+              </Grid>
+
+              <Grid item xs={1} sm={8}>
 
           <main
             className={cx(
@@ -673,6 +683,8 @@ function EmployeeBank(props) {
               </section>
             </div>
           </main>
+          </Grid>
+          </Grid>
         </div>
       </form>
     </PayRollLoader>

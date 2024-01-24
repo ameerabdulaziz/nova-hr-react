@@ -11,7 +11,7 @@ function CrudTable(props) {
     anchorTable,    
     dataInit,
     API,
-    IsNotSave,isNotAdd,setIsLoading
+    IsNotSave,isNotAdd,setIsLoading,addBtnLock
   } = props;
   
  const branch = 'crudTableDemo' ;
@@ -46,6 +46,7 @@ function CrudTable(props) {
       API={API}
       IsNotSave={IsNotSave}
       isNotAdd={isNotAdd}
+      addBtnLock={addBtnLock}
     />
   );
 }

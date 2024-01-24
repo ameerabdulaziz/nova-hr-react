@@ -6,7 +6,7 @@ import {  closeNotifAction, resetStateAction} from '../reducers/crudTbActions';
 import PayRollLoader from "../../Pages/Payroll/Component/PayRollLoader";
 
 function EditTable(props) {
-  const {anchorTable,title,API,IsNotSave,isNotAdd} = props;
+  const {anchorTable,title,API,IsNotSave,isNotAdd,addBtnLock} = props;
   const branch = 'crudTableDemo' ;
   const dataTable = useSelector(state => state.crudTableDemo.dataTable);
   const anchor = useSelector(state => state.crudTableDemo.anchor);
@@ -44,6 +44,7 @@ function EditTable(props) {
           IsNotSave={IsNotSave}
           isNotAdd={isNotAdd}
           setIsLoading={setIsLoading}
+          addBtnLock={addBtnLock}
         />
       </div>
     </PayRollLoader>

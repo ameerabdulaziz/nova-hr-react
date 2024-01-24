@@ -72,10 +72,8 @@ function CreateAndEditOrg(props) {
 
   const getdata = async () => {
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList(locale);
-      const Departmentlist = await GeneralListApis(locale).GetDepartmentList(
-        locale
-      );
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      const Departmentlist = await GeneralListApis(locale).GetDepartmentList();
 
       setEmployeesData(employees);
       setParentData(Departmentlist);
@@ -96,7 +94,7 @@ function CreateAndEditOrg(props) {
       setParent(data ? { id: data[0].parentId, name: data[0].parentName } : "");
       setManPower(data ? data[0].manPower : "");
       setWorknatureAllowance(data ? data[0].worknatureAllowance : "");
-      setNote(data ? data[0].note : "");
+      setNote(data && data[0].note ? data[0].note : "");
       setEmployee(
         data ? { id: data[0].employeeId, name: data[0].empName } : ""
       );

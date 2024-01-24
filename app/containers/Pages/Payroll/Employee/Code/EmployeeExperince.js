@@ -180,6 +180,7 @@ function EmployeeExperince(props) {
         anchorTable={anchorTable}
         title={employee.name}
         API={EmployeeExperinceData(employee.id)}
+        addBtnLock={JSON.stringify(employee) === JSON.stringify({ id: 0, name: "" })}
       />
     </div>
   );
