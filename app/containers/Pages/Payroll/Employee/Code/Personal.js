@@ -44,6 +44,8 @@ function Personal(props) {
   // const ref = useRef(null);
   const location = useLocation();
 
+  const authState = useSelector((state) => state.authReducer);
+
   const { empid } =
     location.state == null ? { id: 0, name: "" } : location.state;
   const id = location.state == null ? 0 : empid.id;
@@ -1419,53 +1421,56 @@ function Personal(props) {
                   </Grid>
                 </Grid>
 
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={isHR}
-                        name='isHR'
-                        onChange={(evt) => setIsHR(evt.target.checked)}
-                      />
-                    }
-                    label={intl.formatMessage(messages.isHR)}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={6}>
-                  <Autocomplete
-                    options={branchList}
-                    multiple
-                    disabled={!isHR}
-                    disableCloseOnSelect
-                    className={`${style.AutocompleteMulSty} ${
-                      locale === 'ar' ? style.AutocompleteMulStyAR : null
-                    }`}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
-                    }
-                    value={hrBranchList}
-                    renderOption={(props, option, { selected }) => (
-                      <li {...props}>
-                        <Checkbox
-                          icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                          checkedIcon={<CheckBoxIcon fontSize='small' />}
-                          style={{ marginRight: 8 }}
-                          checked={selected}
+                {authState.user.isHR && <>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={isHR}
+                          name='isHR'
+                          onChange={(evt) => setIsHR(evt.target.checked)}
                         />
-                        {option.name}
-                      </li>
-                    )}
-                    getOptionLabel={(option) => (option ? option.name : '')}
-                    onChange={(_, value) => setHrBranchList(value) }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        disabled={!isHR}
-                        label={intl.formatMessage(messages.branches)}
-                      />
-                    )}
-                  />
-                </Grid>
+                      }
+                      label={intl.formatMessage(messages.isHR)}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={6}>
+                    <Autocomplete
+                      options={branchList}
+                      multiple
+                      disabled={!isHR}
+                      disableCloseOnSelect
+                      className={`${style.AutocompleteMulSty} ${
+                        locale === 'ar' ? style.AutocompleteMulStyAR : null
+                      }`}
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
+                      value={hrBranchList}
+                      renderOption={(props, option, { selected }) => (
+                        <li {...props}>
+                          <Checkbox
+                            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                            checkedIcon={<CheckBoxIcon fontSize='small' />}
+                            style={{ marginRight: 8 }}
+                            checked={selected}
+                          />
+                          {option.name}
+                        </li>
+                      )}
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      onChange={(_, value) => setHrBranchList(value) }
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          disabled={!isHR}
+                          label={intl.formatMessage(messages.branches)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </>}
+
               </Grid>
             </Grid>
             <Grid item xs={12} md={12}>
