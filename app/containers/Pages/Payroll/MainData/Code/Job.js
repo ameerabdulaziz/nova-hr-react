@@ -206,7 +206,7 @@ function Job({ intl }) {
        
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
-            title={intl.formatMessage(messages.JobsList)}
+            title=''
             data={dataTable}
             columns={columns}
             options={options}

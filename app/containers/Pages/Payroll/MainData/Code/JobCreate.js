@@ -18,6 +18,7 @@ import messages from '../messages';
 import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
+import PayRollLoader from '../../Component/PayRollLoader';
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import SaveButton from '../../Component/SaveButton';
@@ -31,12 +32,11 @@ function CreateAndEditJob(props) {
   const [jobCode, setJobCode] = useState('');
   const [medicalInsuranceStartDay, setMedicalInsuranceStartDay] = useState('');
   const [isLeadershipPosition, setIsLeadershipPosition] = useState(false);
-  const [jobType ,setJobType] = useState("")
-  const [sancLevel ,setSancLevel] = useState("")
-  const [jobNature ,setJobNature] = useState("")
-  const [parent ,setParent] = useState('')
-  const [submitting ,setSubmitting] = useState(false)
-  const [processing ,setProcessing] = useState(false)
+  const [jobType ,setJobType] = useState(null)
+  const [sancLevel ,setSancLevel] = useState(null)
+  const [jobNature ,setJobNature] = useState(null)
+  const [parent ,setParent] = useState(null)
+  const [isLoading, setIsLoading] = useState(true);
   const locale = useSelector(state => state.language.locale);
   const [openJobNature, setOpenJobNature] = useState(false);
   const [openJobType, setOpenJobType] = useState(false);
@@ -51,37 +51,30 @@ function CreateAndEditJob(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
-    setProcessing(true)
+    setIsLoading(true);
+
     const data = {
-      id: id,
-      arName: arName,
-      enName: enName,
+      id,
+      arName,
+      enName,
       parentId: parent.id ? parent.id : "",
       jobNatureId: jobNature.id ? jobNature.id : "",
       jobTypeId: jobType.id ? jobType.id : "",
-      sancLevelId: sancLevel.id ? sancLevel.id : "",
+      sancLevelId: sancLevel?.id ? sancLevel.id : "",
       jobCode: jobCode.length !== 0 ? jobCode : "",
       medicalInsuranceStartDay: medicalInsuranceStartDay.length !== 0 ? medicalInsuranceStartDay : "",
-      isLeadershipPosition: isLeadershipPosition
+      isLeadershipPosition,
       
     };
 
     try {
-      let response = await JobData().Save(data);
+      await JobData().Save(data);
 
-      if (response.status==200) {
-        toast.success(notif.saved);
-        history.push(`/app/Pages/MainData/Job`);
-      } else {
-          toast.error(response.statusText);
-      }
-      setSubmitting(false)
-      setProcessing(false)
+      history.push(`/app/Pages/MainData/Job`);
     } catch (err) {
-      toast.error(notif.error);
-      setSubmitting(false)
-      setProcessing(false)
+      //
+    } finally {
+      setIsLoading(false);
     }
     
   };
@@ -89,26 +82,40 @@ function CreateAndEditJob(props) {
 
 
 const getdata =  async () => {
+  setIsLoading(true);
 
-  const data =  await JobData(locale).GetAllDataList();
+  try {
+      const data =  await JobData(locale).GetAllDataList();
 
-  setJobsData(data)
+      setJobsData(data)
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 const getEditdata =  async () => {
+  setIsLoading(true);
 
-  const data =  await JobData().GetDataById(ID,locale);
-
-  setid(data ? data[0].id : "")
-  setArName(data ? data[0].arName : "")
-  setEnName(data ? data[0].enName : "")
-  setJobCode(data ? data[0].jobCode : "")
-  setMedicalInsuranceStartDay(data ? data[0].medicalInsuranceStartDay : "")
-  setIsLeadershipPosition(data ? data[0].isLeadershipPosition : "")
-  setJobType(data ? {id:data[0].jobTypeId , name: data[0].jobTypeName } : "")
-  setSancLevel(data ? {id:data[0].sancLevelId , name: data[0].sancLevelName } : "")
-  setJobNature(data ? {id:data[0].jobNatureId , name: data[0].jobNatureName } : "")
-  setParent(data ? {id:data[0].parentId , name: data[0].parentName }  : "")
+  try {
+    const data =  await JobData().GetDataById(ID,locale);
+  
+    setid(data ? data[0].id : "")
+    setArName(data ? data[0].arName : "")
+    setEnName(data ? data[0].enName : "")
+    setJobCode(data ? data[0].jobCode : "")
+    setMedicalInsuranceStartDay(data ? data[0].medicalInsuranceStartDay : "")
+    setIsLeadershipPosition(data ? data[0].isLeadershipPosition : "")
+    setJobType((data && data[0].jobTypeId) ? {id:data[0].jobTypeId , name: data[0].jobTypeName } : null)
+    setSancLevel((data && data[0].sancLevelId) ? {id:data[0].sancLevelId , name: data[0].sancLevelName } : null)
+    setJobNature((data && data[0].jobNatureId) ? {id:data[0].jobNatureId , name: data[0].jobNatureName } : null)
+    setParent((data && data[0].parentId) ? {id:data[0].parentId , name: data[0].parentName }  : null)
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 
@@ -179,7 +186,7 @@ function oncancel(){
 
 
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
 
       <FormPopup  
         handleClose={()=>handleClose("jobNature")}
@@ -188,8 +195,8 @@ function oncancel(){
         Title={intl.formatMessage(messages.jobNatureName) }
         callFun={createJobDetailsFun}
         intl={intl}
-        submitting={submitting}
-        processing={processing}
+        submitting={isLoading}
+        processing={isLoading}
       />
 
       <FormPopup  
@@ -199,8 +206,8 @@ function oncancel(){
         Title={intl.formatMessage(messages.jobTypeName) }
         callFun={createJobDetailsFun}
         intl={intl}
-        submitting={submitting}
-        processing={processing}
+        submitting={isLoading}
+        processing={isLoading}
       />
 
         <PapperBlock whiteBg icon="border_color" 
@@ -266,7 +273,7 @@ function oncancel(){
                           <Autocomplete
                                 id="ddlMenu"   
                                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                                value={jobNature.length != 0 && jobNature !== null? jobNature : null}        
+                                value={jobNature}        
                                 options={jobsData.length != 0 ? jobsData.jobNatureList : []}                
                                 getOptionLabel={(option) =>(
                                   option  ? option.name : ""
@@ -280,11 +287,7 @@ function oncancel(){
                                   );
                                 }}
                                 onChange={(event, value) => {
-                                    if (value !== null) {
-                                      setJobNature(value);
-                                    } else {
-                                      setJobNature("");
-                                    }
+                                  setJobNature(value);
                                 }}
                                 renderInput={(params) => (
                                 <TextField
@@ -311,7 +314,7 @@ function oncancel(){
                           <Autocomplete
                                   id="ddlMenu"  
                                   isOptionEqualToValue={(option, value) => option.id === value.id}       
-                                  value={jobType.length != 0 && jobType !== null ? jobType : null}  
+                                  value={jobType}  
                                   options={jobsData.length != 0 ? jobsData.jobTypeList: []}                 
                                   getOptionLabel={(option) =>(
                                     option  ? option.name : ""
@@ -325,11 +328,7 @@ function oncancel(){
                                     );
                                   }}
                                   onChange={(event, value) => {
-                                      if (value !== null) {
-                                        setJobType(value);
-                                      } else {
-                                        setJobType("");
-                                      }
+                                    setJobType(value);
                                   }}
                                   renderInput={(params) => (
                                   <TextField
@@ -362,7 +361,7 @@ function oncancel(){
                     <Autocomplete
                         id="ddlMenu"   
                         isOptionEqualToValue={(option, value) => option.id === value.id}
-                        value={parent.length != 0 && parent !== null ? parent : null}                       
+                        value={parent}                       
                         options={jobsData.length != 0 ? jobsData.parentList: []}
                         getOptionLabel={(option) =>(
                           option  ? option.name : ""
@@ -376,11 +375,7 @@ function oncancel(){
                           );
                         }}
                         onChange={(event, value) => {
-                            if (value !== null) {
-                              setParent(value);
-                            } else {
-                              setParent("");
-                            }
+                          setParent(value);
                         }}
                         renderInput={(params) => (
                         <TextField
@@ -399,7 +394,7 @@ function oncancel(){
                         <Autocomplete
                             id="ddlMenu"    
                             isOptionEqualToValue={(option, value) => option.id === value.id}  
-                            value={sancLevel.length != 0 && sancLevel !== null ? sancLevel : null}                   
+                            value={sancLevel}                   
                             options={jobsData.length != 0 ? jobsData.sancLevelList : []}  
                             getOptionLabel={(option) =>(
                               option  ? option.name : ""
@@ -413,11 +408,7 @@ function oncancel(){
                               );
                             }}
                             onChange={(event, value) => {
-                                if (value !== null) {
-                                  setSancLevel(value);
-                                } else {
-                                  setSancLevel("");
-                                }
+                              setSancLevel(value);
                             }}
                             renderInput={(params) => (
                             <TextField
@@ -497,7 +488,7 @@ function oncancel(){
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <SaveButton Id={id} processing={processing} />
+                    <SaveButton Id={id} processing={isLoading} />
                 </Grid>
                 <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 
@@ -511,7 +502,7 @@ function oncancel(){
               </form>
 
           </PapperBlock>
-    </div>
+    </PayRollLoader>
   );
 }
 
