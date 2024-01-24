@@ -1,11 +1,12 @@
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
-import { Box, Grid, Stack } from '@mui/material';
+import {
+  Box, Grid, Stack, Typography
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { ThemeContext } from '../../../App/ThemeWrapper';
-import Typography from '../../../UiElements/Typography';
 import PayRollLoader from '../Component/PayRollLoader';
 import API from './api';
 import JobCard from './components/JobCard';
@@ -20,7 +21,10 @@ function JobVacation(props) {
   const changeMode = useContext(ThemeContext);
 
   const [jobs, setJobs] = useState([]);
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState({
+    cvTitle: '',
+    cvSubTitle: '',
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchJobListData = async () => {
