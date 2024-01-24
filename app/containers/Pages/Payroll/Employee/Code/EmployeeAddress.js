@@ -177,6 +177,7 @@ function EmployeeAddress(props) {
           anchorTable={anchorTable}
           title={employee.name}
           API={EmployeeAddressData(employee.id)}
+          addBtnLock={JSON.stringify(employee) === JSON.stringify({ id: 0, name: "" })}
         />
       </div>
     </div>

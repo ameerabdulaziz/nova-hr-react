@@ -201,6 +201,7 @@ function EmployeeQualification(props) {
         anchorTable={anchorTable}
         title={employee.name}
         API={EmployeeQualificationData(employee.id)}
+        addBtnLock={JSON.stringify(employee) === JSON.stringify({ id: 0, name: "" })}
       />
     </div>
   );

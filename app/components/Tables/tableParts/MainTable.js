@@ -38,7 +38,7 @@ function MainTable(props) {
 
 
   const { classes, cx } = useStyles();
-  const { items, anchor, title, API, intl,IsNotSave ,isNotAdd} = props;
+  const { items, anchor, title, API, intl,IsNotSave ,isNotAdd,addBtnLock} = props;
 
   const branch = 'crudTableDemo';
   const [search, setsearch] = useState('');
@@ -130,6 +130,7 @@ function MainTable(props) {
               onClick={() => addEmptyRow(addAction(anchor, branch))}
               color="secondary"
               className={classes.button}
+              disabled={addBtnLock}
             >
               <AddIcon
                 className={cx(smUp && classes.leftIcon, classes.iconSmall)}
@@ -186,7 +187,7 @@ function MainTable(props) {
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)} ${deleteItem.EnName}`}
+        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}`}
         callFun={()=> childRef?.current?.eventDel(deleteItem)}
       />
     </div>

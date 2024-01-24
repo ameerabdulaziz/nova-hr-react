@@ -186,6 +186,7 @@ function EmployeeInsurance(props) {
         anchorTable={anchorTable}
         title={employee.name}
         API={EmployeeInsuranceData(employee.id)}
+        addBtnLock={JSON.stringify(employee) === JSON.stringify({ id: 0, name: "" })}
       />
     </div>
   );

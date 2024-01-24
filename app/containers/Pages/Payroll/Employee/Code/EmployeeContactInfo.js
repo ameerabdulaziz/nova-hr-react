@@ -203,7 +203,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                {/* <Grid item xs={12} md={4}>
                   <TextField
                     id="workMobile"
                     name="workMobile"
@@ -216,7 +216,7 @@ function EmployeeContactInfo(props) {
                     className={classes.field}
                     variant="outlined"
                   />
-                </Grid>
+                </Grid> */}
 
                 <Grid item xs={12} md={4}>
                   <TextField
