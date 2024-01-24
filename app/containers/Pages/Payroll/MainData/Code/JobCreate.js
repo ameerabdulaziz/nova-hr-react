@@ -57,12 +57,12 @@ function CreateAndEditJob(props) {
       id,
       arName,
       enName,
-      parentId: parent.id ? parent.id : "",
-      jobNatureId: jobNature.id ? jobNature.id : "",
-      jobTypeId: jobType.id ? jobType.id : "",
+      parentId: parent?.id ? parent.id : "",
+      jobNatureId: jobNature?.id ? jobNature.id : "",
+      jobTypeId: jobType?.id ? jobType.id : "",
       sancLevelId: sancLevel?.id ? sancLevel.id : "",
-      jobCode: jobCode.length !== 0 ? jobCode : "",
-      medicalInsuranceStartDay: medicalInsuranceStartDay.length !== 0 ? medicalInsuranceStartDay : "",
+      jobCode: jobCode?.length !== 0 ? jobCode : "",
+      medicalInsuranceStartDay: medicalInsuranceStartDay?.length !== 0 ? medicalInsuranceStartDay : "",
       isLeadershipPosition,
       
     };
@@ -95,22 +95,40 @@ const getdata =  async () => {
   }
 };
 
-const getEditdata =  async () => {
+const getEditdata = async () => {
   setIsLoading(true);
 
   try {
-    const data =  await JobData().GetDataById(ID,locale);
-  
-    setid(data ? data[0].id : "")
-    setArName(data ? data[0].arName : "")
-    setEnName(data ? data[0].enName : "")
-    setJobCode(data ? data[0].jobCode : "")
-    setMedicalInsuranceStartDay(data ? data[0].medicalInsuranceStartDay : "")
-    setIsLeadershipPosition(data ? data[0].isLeadershipPosition : "")
-    setJobType((data && data[0].jobTypeId) ? {id:data[0].jobTypeId , name: data[0].jobTypeName } : null)
-    setSancLevel((data && data[0].sancLevelId) ? {id:data[0].sancLevelId , name: data[0].sancLevelName } : null)
-    setJobNature((data && data[0].jobNatureId) ? {id:data[0].jobNatureId , name: data[0].jobNatureName } : null)
-    setParent((data && data[0].parentId) ? {id:data[0].parentId , name: data[0].parentName }  : null)
+    const data = await JobData().GetDataById(ID, locale);
+
+    if (data && data[0]) {
+      setid(data[0].id ?? "");
+      setArName(data[0].arName ?? "");
+      setEnName(data[0].enName ?? "");
+      setJobCode(data[0].jobCode ?? "");
+      setMedicalInsuranceStartDay(data[0].medicalInsuranceStartDay ?? "");
+      setIsLeadershipPosition(data[0].isLeadershipPosition ?? "");
+      setJobType(
+        data[0].jobTypeI
+          ? { id: data[0].jobTypeId, name: data[0].jobTypeName }
+          : null
+      );
+      setSancLevel(
+        data[0].sancLevelId
+          ? { id: data[0].sancLevelId, name: data[0].sancLevelName }
+          : null
+      );
+      setJobNature(
+        data[0].jobNatureId
+          ? { id: data[0].jobNatureId, name: data[0].jobNatureName }
+          : null
+      );
+      setParent(
+        data[0].parentId
+          ? { id: data[0].parentId, name: data[0].parentName }
+          : null
+      );
+    }
   } catch (error) {
     //
   } finally {
