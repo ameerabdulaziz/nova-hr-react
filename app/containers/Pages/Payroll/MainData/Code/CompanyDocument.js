@@ -2,7 +2,7 @@ import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -172,6 +172,11 @@ function CompanyDocument(props) {
     setIsDeletePopupOpen(false);
   };
 
+  const deletedDocument = useMemo(
+    () => tableData.find((item) => item.id === deleteItem),
+    [deleteItem]
+  );
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <AlertPopup
@@ -179,7 +184,7 @@ function CompanyDocument(props) {
         open={isDeletePopupOpen}
         messageData={`${intl.formatMessage(
           payrollMessages.deleteMessage
-        )} ${deleteItem}`}
+        )} ${deletedDocument?.docType ?? ''}`}
         callFun={deleteRow}
       />
 
