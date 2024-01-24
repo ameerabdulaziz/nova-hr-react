@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CompanyData from '../api/CompanyData';
 import style from '../../../../../styles/styles.scss'
+import PayRollLoader from '../../Component/PayRollLoader';
 import { PapperBlock } from "enl-components";
 
 // validation functions
@@ -59,10 +60,14 @@ function Company() {
   const [phone, setphone] = useState('');
   const [mail, setmail] = useState('');
   const [address, setaddress] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
   const { classes } = useStyles();
   // const { pristine, submitting, init } = props;
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     const data = {
       id: id,
@@ -73,34 +78,47 @@ function Company() {
       phone: phone,
     };
 
-    const dataApi = await CompanyData().Save(data);
+    try {
+      await CompanyData().Save(data);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
   };
   const clear = (e) => {
-    setName();
-    setEnName();
-    setphone();
-    setmail();
-    setaddress();
+    setName('');
+    setEnName('');
+    setphone('');
+    setmail('');
+    setaddress('');
   };
   useEffect(() => {
     async function fetchData() {
-      // You can await here
-      const dataApi = await CompanyData().GetList();
+      setIsLoading(true);
 
-      if (dataApi.length > 0) {
-        setid(dataApi[0].id);
-        setName(dataApi[0].arName);
-        setEnName(dataApi[0].enName);
-        setphone(dataApi[0].phone);
-        setmail(dataApi[0].mail);
-        setaddress(dataApi[0].address);
+      try {
+        const dataApi = await CompanyData().GetList();
+
+        if (dataApi.length > 0) {
+          setid(dataApi[0].id);
+          setName(dataApi[0].arName);
+          setEnName(dataApi[0].enName);
+          setphone(dataApi[0].phone);
+          setmail(dataApi[0].mail);
+          setaddress(dataApi[0].address);
+        }
+      } catch (error) {
+        //
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchData();
     // if (!data.length) { fetchData(); }
   }, []);
   return (
-    <div>
+    <PayRollLoader isLoading={isLoading}>
       <Grid
         container
         alignItems="flex-start"
@@ -209,7 +227,7 @@ function Company() {
           </PapperBlock>
         </Grid>
       </Grid>
-    </div>
+    </PayRollLoader>
   );
 }
 
