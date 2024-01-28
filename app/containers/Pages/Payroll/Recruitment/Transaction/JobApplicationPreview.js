@@ -60,7 +60,7 @@ function JobApplicationPreview(props) {
     qualificationName: '',
     qualificationRelease: '',
     qualificationDate: '',
-    computerSkills: '',
+    computerSkillsName: '',
     GraduationStatusName: '',
 
     job: '',
@@ -111,7 +111,7 @@ function JobApplicationPreview(props) {
         qualificationName: response.qualificationName,
         qualificationRelease: response.qualificationRelease,
         qualificationDate: formateDate(response.qualificationDate),
-        computerSkills: response.computerSkills,
+        computerSkillsName: response.computerSkillsName,
         GraduationStatusName: response.GraduationStatusName,
 
         job: response.job,
@@ -445,8 +445,8 @@ function JobApplicationPreview(props) {
 
               <Grid item xs={12} md={4}>
                 <TextField
-                  name='computerSkills'
-                  value={formInfo.computerSkills}
+                  name='computerSkillsName'
+                  value={formInfo.computerSkillsName}
                   label={intl.formatMessage(cvMessages.computerSkills)}
                   fullWidth
                   disabled
