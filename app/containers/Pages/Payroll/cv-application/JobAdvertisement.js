@@ -14,7 +14,7 @@ import Section from './components/Section';
 import Layout from './layouts/Layout.cv';
 import messages from './messages';
 
-function JobVacation(props) {
+function JobAdvertisement(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
 
@@ -91,8 +91,8 @@ function JobVacation(props) {
   );
 }
 
-JobVacation.propTypes = {
+JobAdvertisement.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(JobVacation);
+export default injectIntl(JobAdvertisement);

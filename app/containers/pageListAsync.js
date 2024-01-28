@@ -2350,15 +2350,15 @@ export const ApplicationCallStatus = loadable(
   }
 );
 
-export const JobVacation = loadable(
-  () => import('./Pages/Payroll/cv-application/JobVacation'),
+export const JobAdvertisementList = loadable(
+  () => import('./Pages/Payroll/cv-application/JobAdvertisement'),
   {
     fallback: <Loading />,
   }
 );
 
-export const JobVacationApplication = loadable(
-  () => import('./Pages/Payroll/cv-application/JobVacationApplication'),
+export const JobAdvertisementApplication = loadable(
+  () => import('./Pages/Payroll/cv-application/JobAdvertisementApplication'),
   {
     fallback: <Loading />,
   }

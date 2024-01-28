@@ -39,7 +39,7 @@ import Layout from './layouts/Layout.cv';
 import messages from './messages';
 import { formateDate } from '../helpers';
 
-function JobVacationApplication(props) {
+function JobAdvertisementApplication(props) {
   const { intl } = props;
   const history = useHistory();
   const changeMode = useContext(ThemeContext);
@@ -79,7 +79,6 @@ function JobVacationApplication(props) {
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isCoursePopupOpen, setIsCoursePopupOpen] = useState(false);
-
 
   const [formInfo, setFormInfo] = useState({
     id: 0,
@@ -370,7 +369,7 @@ function JobVacationApplication(props) {
   };
 
   const onBackToVacationBtnClick = () => {
-    history.push('/public/JobVacation');
+    history.push('/public/JobAdvertisement');
   };
 
   return (
@@ -1221,8 +1220,8 @@ function JobVacationApplication(props) {
   );
 }
 
-JobVacationApplication.propTypes = {
+JobAdvertisementApplication.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(JobVacationApplication);
+export default injectIntl(JobAdvertisementApplication);

@@ -29,7 +29,7 @@ function JobCard(props) {
 
   return (
     <div className='cv-job-card'>
-      <Link to={`/public/JobVacation/Application/${job.id}/${job.jobId}`} className='title'>
+      <Link to={`/public/JobAdvertisement/Application/${job.id}/${job.jobId}`} className='title'>
         {job.job}
       </Link>
 

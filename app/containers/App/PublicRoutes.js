@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import {
-  JobVacation,
-  JobVacationApplication,
+  JobAdvertisementList,
+  JobAdvertisementApplication,
   ApplicationUnderReviewing,
   NotFound,
 } from '../pageListAsync';
@@ -12,11 +12,11 @@ function PublicRoutes() {
     <Switch>
       <Switch>
         <Route path='/public/ApplicationUnderReviewing/' exact component={ApplicationUnderReviewing} />
-        <Route path='/public/JobVacation/' exact component={JobVacation} />
+        <Route path='/public/JobAdvertisement/' exact component={JobAdvertisementList} />
         <Route
-          path='/public/JobVacation/Application/:jobApplicarionId/:JobId'
+          path='/public/JobAdvertisement/Application/:jobApplicarionId/:JobId'
           exact
-          component={JobVacationApplication}
+          component={JobAdvertisementApplication}
         />
       </Switch>
 
