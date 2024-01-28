@@ -294,7 +294,7 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetDocumentList = async () => {
+  Apis.MdDocuments = async () => {
     const result = await axiosInstance.get(
       `MdDocuments/GetListModel/${locale}`
     );

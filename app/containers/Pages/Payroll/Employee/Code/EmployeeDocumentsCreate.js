@@ -108,9 +108,7 @@ function CreateAndEditEmployeeDocuments(props) {
 
   const getdata = async () => {
     try {
-      const documentsData = await GeneralListApis(locale).GetDocumentList(
-        locale
-      );
+      const documentsData = await GeneralListApis(locale).MdDocuments();
       const employees = await GeneralListApis(locale).GetEmployeeList(locale);
 
       setDocumentsList(documentsData);
