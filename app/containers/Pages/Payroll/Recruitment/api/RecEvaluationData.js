@@ -19,7 +19,7 @@ const RecEvaluationData = () => {
       enDesc: obj.enDesc,
       elFinGrad: obj.elFinGrad,
       elPercent: obj.elPercent,
-      elJob: obj.elJob,
+      elJob: obj.jobName,
       edited: false,
     }));
 
