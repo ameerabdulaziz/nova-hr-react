@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from "react-intl";
 import IconButton from '@mui/material/IconButton';
@@ -16,8 +16,9 @@ import MenuItem from '@mui/material/MenuItem';
 import DeleteButton from '../../Component/DeleteButton';
 import AddButton from '../../Component/AddButton';
 import notif from 'enl-api/ui/notifMessage';
+import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from 'react-hot-toast';
-import { Backdrop, CircularProgress, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import AlertPopup from "../../Component/AlertPopup";
 import Payrollmessages from "../../messages";
 import { PapperBlock } from "enl-components";
@@ -42,7 +43,6 @@ function EmployeeList(props) {
   }));
 
   const handleClickOpen = (item) => {
-    debugger;
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -79,16 +79,11 @@ function EmployeeList(props) {
   async function deleterow() {
     try {
       setIsLoading(true);
-      let response = await ApiData(locale).Delete(deleteItem);
+      await ApiData(locale).Delete(deleteItem);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
+      fetchData();
     } catch (err) {
-      
+      //
     }
     finally {setIsLoading(false);}
   }
@@ -282,25 +277,14 @@ function EmployeeList(props) {
 
   const { classes } = useStyles();
 
+  const deletedEmployee = useMemo(
+    () => data.find((item) => item.id === deleteItem),
+    [deleteItem]
+  );
+
   return (
-    <Box
-    sx={{
-      zIndex: 100,
-      position: "relative",
-    }}
-  >
+    <PayRollLoader isLoading={isLoading}>
     <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-      <Backdrop
-        sx={{
-          color: "primary.main",
-          zIndex: 10,
-          position: "absolute",
-          backgroundColor: "rgba(255, 255, 255, 0.69)",
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
     <div className={classes.CustomMUIDataTable}>
       <MUIDataTable
         title={""}
@@ -314,11 +298,11 @@ function EmployeeList(props) {
           open={openParentPopup}
           messageData={`${intl.formatMessage(
             Payrollmessages.deleteMessage
-          )}${deleteItem}`}
+          )} ${deletedEmployee?.enName ?? ''}`}
           callFun={deleterow}
         />
     </PapperBlock>
-    </Box>
+    </PayRollLoader>
   );
 }
 
