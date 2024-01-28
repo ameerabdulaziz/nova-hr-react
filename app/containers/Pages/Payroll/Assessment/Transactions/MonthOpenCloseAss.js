@@ -64,6 +64,7 @@ function MonthOpenCloseAss(props) {
       const months = await GeneralListApis(locale).GetMonths();
       setMonthList(months);
 
+      
       if (branchId) {
         const response = await api(locale).GetOpenMonth(branchId);
 
@@ -77,6 +78,11 @@ function MonthOpenCloseAss(props) {
       }
     } catch (error) {
       //
+      setFormInfo((prev) => ({
+        ...prev,
+        closedMonth: true,
+        employeeClosed: true,
+      }));
     } finally {
       setIsLoading(false);
     }
