@@ -155,7 +155,7 @@ function Competencies(props) {
         open={openParentPopup}
         messageData={`${intl.formatMessage(
           payrollMessages.deleteMessage
-        )}${deleteItem}`}
+        )}`}
         callFun={deleteRow}
       />
 

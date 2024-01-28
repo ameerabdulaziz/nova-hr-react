@@ -64,8 +64,8 @@ function AssessmentReport(props) {
         
         const dataApi = await ApiData(locale).GetDataById(Year.id,Department,Employee,Month);
 
-        dataApi[0].SalfEvaluation = [dataApi[0].employeeEvalChoice," (",dataApi[0].employeeEval,"%",")"]
-        dataApi[0].ManagerEvaluation = [dataApi[0].mgrEvalChoice," (",dataApi[0].mgrEval,"%",")"]
+        dataApi[0].SalfEvaluation = dataApi[0].employeeEvalChoice ? [dataApi[0].employeeEvalChoice," (",dataApi[0].employeeEval,"%",")"] : null
+        dataApi[0].ManagerEvaluation = dataApi[0].mgrEvalChoice ? [dataApi[0].mgrEvalChoice," (",dataApi[0].mgrEval,"%",")"] : null
 
         setdata(dataApi);
         } catch (err) {
