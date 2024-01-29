@@ -40,7 +40,7 @@ function JobApplicationPreview(props) {
     email: '',
     phone: '',
     militaryStatusName: '',
-    Image: null,
+    image: null,
     cvdoc: null,
     genderName: '',
 
@@ -91,7 +91,7 @@ function JobApplicationPreview(props) {
         email: response.email,
         phone: response.phone,
         militaryStatusName: response.militaryStatusName,
-        Image: response.Image,
+        image: response.image,
         cvdoc: response.cvdoc,
         genderName: response.genderName,
 
@@ -242,7 +242,7 @@ function JobApplicationPreview(props) {
                 >
                   <Grid item>
                     <Avatar
-                      src={formInfo.Image}
+                      src={formInfo.image}
                       sx={{
                         width: 80,
                         height: 80,
