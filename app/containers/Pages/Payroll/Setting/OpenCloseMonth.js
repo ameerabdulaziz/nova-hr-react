@@ -7,7 +7,6 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -42,20 +41,10 @@ function OpenCloseMonth(props) {
     todate: null,
     fromDateAtt: null,
     todateAtt: null,
-
-    openDate: null,
-    closedMonth: null,
-    closeDate: null,
-    closeUserId: null,
-    tattPosted: null,
-    postSafe: null,
-    showOnSalaryReport: null,
-    stopAttendance: false,
-    payTemplateId: null,
     requestEndDate: null,
-    stopMgrobjective: null,
-
     lastDayToApproveEmployeeRequests: false,
+    stopAttendance: false,
+    closedMonth: false,
   });
 
   async function fetchNeededData() {
@@ -88,7 +77,21 @@ function OpenCloseMonth(props) {
       try {
         const response = await api(locale).Get(formInfo.organizationId);
 
-        setFormInfo({ ...response, lastDayToApproveEmployeeRequests: Boolean(response.requestEndDate) });
+        setFormInfo({
+          id: response.id,
+          openUserId: response.openUserId,
+          yearId: response.yearId,
+          monthId: response.monthId,
+          organizationId: response.organizationId,
+          fromDate: response.fromDate,
+          todate: response.todate,
+          fromDateAtt: response.fromDateAtt,
+          todateAtt: response.todateAtt,
+          requestEndDate: response.requestEndDate,
+          lastDayToApproveEmployeeRequests: Boolean(response.lastDayToApproveEmployeeRequests),
+          stopAttendance: response.stopAttendance,
+          closedMonth: Boolean(response.closedMonth)
+        });
       } catch (error) {
         //
       } finally {
@@ -114,19 +117,26 @@ function OpenCloseMonth(props) {
 
     const body = {
       ...formInfo,
-      payTemplateId: 1
+      payTemplateId: 1,
+      requestEndDate: formateDate(formInfo.requestEndDate) ?? '',
+      fromDate: formateDate(formInfo.fromDate),
+      todate: formateDate(formInfo.todate),
+      fromDateAtt: formateDate(formInfo.fromDateAtt),
+      todateAtt: formateDate(formInfo.todateAtt),
     };
 
     try {
       if (submitter === 'openMonth') {
         await api(locale).OpenMonth(body);
         toast.success(intl.formatMessage(messages.monthOpenedSuccessfully));
+        setFormInfo((prev) => ({ ...prev, closedMonth: false }));
       } else if (submitter === 'updateDate') {
         await api(locale).UpdateDate(body);
         toast.success(intl.formatMessage(messages.dateUpdateSuccessfully));
       } else if (submitter === 'closeMonth') {
         await api(locale).CloseMonth(body);
         toast.success(intl.formatMessage(messages.monthClosedSuccessfully));
+        setFormInfo((prev) => ({ ...prev, closedMonth: true }));
       }
     } catch (error) {
       //
@@ -337,6 +347,7 @@ function OpenCloseMonth(props) {
               type='submit'
               variant='contained'
               name='openMonth'
+              disabled={!formInfo.closedMonth}
             >
               {intl.formatMessage(messages.openMonth)}
             </Button>
@@ -345,6 +356,7 @@ function OpenCloseMonth(props) {
               type='submit'
               variant='contained' color='secondary'
               name='updateDate'
+              disabled={formInfo.closedMonth}
             >
               {intl.formatMessage(messages.updateDate)}
             </Button>
@@ -353,6 +365,7 @@ function OpenCloseMonth(props) {
               type='submit'
               variant='contained' color='error'
               name='closeMonth'
+              disabled={formInfo.closedMonth}
             >
               {intl.formatMessage(messages.closeMonth)}
             </Button>

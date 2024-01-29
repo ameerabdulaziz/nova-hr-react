@@ -1143,6 +1143,7 @@
   "boilerplate.containers.Payroll.Setting.year": "السنة",
   "boilerplate.containers.Payroll.Setting.month": "الشهر",
   "boilerplate.containers.Payroll.Setting.company": "الشركة",
+  "boilerplate.containers.Payroll.Setting.stopSending": "توقف عن الإرسال",
   "boilerplate.containers.Payroll.Setting.openMonth": "فتح الشهر",
   "boilerplate.containers.Payroll.Setting.closeMonth": "إغلاق الشهر",
   "boilerplate.containers.Payroll.Setting.updateDate": "تاريخ التحديث",

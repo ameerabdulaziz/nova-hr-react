@@ -1112,6 +1112,7 @@
   "boilerplate.containers.Payroll.Setting.attendancePeriodToDate": "Attendance Period To Date",
   "boilerplate.containers.Payroll.Setting.lastApprovalDate": "Last Approval Date",
   "boilerplate.containers.Payroll.Setting.year": "Year",
+  "boilerplate.containers.Payroll.Setting.stopSending": "Stop Sending",
   "boilerplate.containers.Payroll.Setting.month": "Month",
   "boilerplate.containers.Payroll.Setting.company": "Company",
   "boilerplate.containers.Payroll.Setting.openMonth": "Open Month",

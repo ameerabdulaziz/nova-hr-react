@@ -216,4 +216,8 @@ export default defineMessages({
     id: `${scope}.monthClosedSuccessfully`,
     defaultMessage: 'monthClosedSuccessfully',
   },
+  stopSending: {
+    id: `${scope}.stopSending`,
+    defaultMessage: 'stopSending',
+  },
 });
