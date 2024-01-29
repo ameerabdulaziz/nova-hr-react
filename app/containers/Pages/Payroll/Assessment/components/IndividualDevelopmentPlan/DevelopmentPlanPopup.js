@@ -16,15 +16,15 @@ import { injectIntl } from 'react-intl';
 import useStyles from '../../../Style';
 import messages from '../../messages';
 
-function EmploymentPopup(props) {
+function DevelopmentPlanPopup(props) {
   const {
     intl,
     isOpen,
     setIsOpen,
     onSave,
-    selectedEmployee,
+    selectedPlan,
     activityList,
-    setSelectedEmployee,
+    setSelectedPlan,
   } = props;
 
   const { classes } = useStyles();
@@ -40,16 +40,16 @@ function EmploymentPopup(props) {
   });
 
   useEffect(() => {
-    if (isOpen && selectedEmployee) {
+    if (isOpen && selectedPlan) {
       setFormInfo({
-        areasToImprove: selectedEmployee?.areasToImprove || '',
-        targetPerformance: selectedEmployee?.targetPerformance || '',
-        resources: selectedEmployee?.resources || '',
+        areasToImprove: selectedPlan?.areasToImprove || '',
+        targetPerformance: selectedPlan?.targetPerformance || '',
+        resources: selectedPlan?.resources || '',
         otherDevelopmentActivities:
-          selectedEmployee?.otherDevelopmentActivities || '',
-        developmentActivities: selectedEmployee?.developmentActivities || null,
-        id: selectedEmployee?.id || null,
-        dateForCompletion: selectedEmployee?.dateForCompletion || null,
+          selectedPlan?.otherDevelopmentActivities || '',
+        developmentActivities: selectedPlan?.developmentActivities || null,
+        id: selectedPlan?.id || null,
+        dateForCompletion: selectedPlan?.dateForCompletion || null,
       });
     } else {
       setFormInfo({
@@ -73,7 +73,7 @@ function EmploymentPopup(props) {
 
   const onPopupClose = () => {
     setIsOpen(false);
-    setSelectedEmployee(null);
+    setSelectedPlan(null);
   };
 
   const onFormSubmit = (evt) => {
@@ -110,7 +110,7 @@ function EmploymentPopup(props) {
     >
       <DialogTitle>
         {intl.formatMessage(
-          selectedEmployee ? messages.editEmployee : messages.addEmployee
+          selectedPlan ? messages.editDevelopmentPlan : messages.addDevelopmentPlan
         )}
       </DialogTitle>
 
@@ -222,14 +222,14 @@ function EmploymentPopup(props) {
   );
 }
 
-EmploymentPopup.propTypes = {
+DevelopmentPlanPopup.propTypes = {
   intl: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
-  setSelectedEmployee: PropTypes.func.isRequired,
+  setSelectedPlan: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   activityList: PropTypes.array.isRequired,
-  selectedEmployee: PropTypes.object,
+  selectedPlan: PropTypes.object,
 };
 
-export default injectIntl(EmploymentPopup);
+export default injectIntl(DevelopmentPlanPopup);

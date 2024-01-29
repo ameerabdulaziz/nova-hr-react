@@ -34,7 +34,7 @@ import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/IndividualDevelopmentPlanData';
-import EmploymentPopup from '../components/IndividualDevelopmentPlan/EmploymentPopup';
+import DevelopmentPlanPopup from '../components/IndividualDevelopmentPlan/DevelopmentPlanPopup';
 import messages from '../messages';
 
 const uuid = () => {
@@ -71,8 +71,8 @@ function IndividualDevelopmentPlanCreate(props) {
   const [activityList, setActivityList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [isEmployeePopupOpen, setIsEmployeePopupOpen] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [isDevelopmentPlanPopupOpen, setIsDevelopmentPlanPopupOpen] = useState(false);
+  const [selectedPlan, setSelectedDevelopmentPlan] = useState(null);
 
   const [jobInfo, setJobInfo] = useState({
     currentJob: '',
@@ -202,13 +202,13 @@ function IndividualDevelopmentPlanCreate(props) {
   };
 
   useEffect(() => {
-    if (selectedEmployee) {
-      setIsEmployeePopupOpen(true);
+    if (selectedPlan) {
+      setIsDevelopmentPlanPopupOpen(true);
     }
-  }, [selectedEmployee]);
+  }, [selectedPlan]);
 
-  const onEmployeeSave = (employee) => {
-    if (selectedEmployee) {
+  const onDevelopmentPlanSave = (employee) => {
+    if (selectedPlan) {
       const cloned = [...formInfo.asIndividualDevelopmentPlanDetails];
       const index = cloned.findIndex((item) => item.id === employee.id);
       if (index !== -1) {
@@ -218,7 +218,7 @@ function IndividualDevelopmentPlanCreate(props) {
           asIndividualDevelopmentPlanDetails: cloned,
         }));
       }
-      setSelectedEmployee(null);
+      setSelectedDevelopmentPlan(null);
     } else {
       setFormInfo((prev) => ({
         ...prev,
@@ -229,10 +229,10 @@ function IndividualDevelopmentPlanCreate(props) {
       }));
     }
 
-    setIsEmployeePopupOpen(false);
+    setIsDevelopmentPlanPopupOpen(false);
   };
 
-  const onEmployeeRemove = (id) => {
+  const onPlanRemove = (id) => {
     const cloned = [...formInfo.asIndividualDevelopmentPlanDetails];
     const indexToRemove = cloned.findIndex((item) => item.id === id);
 
@@ -245,12 +245,12 @@ function IndividualDevelopmentPlanCreate(props) {
     }
   };
 
-  const onEmployeeEdit = (item) => {
-    setSelectedEmployee(item);
+  const onDevelopmentPlanEdit = (item) => {
+    setSelectedDevelopmentPlan(item);
   };
 
-  const onEmployeePopupBtnClick = () => {
-    setIsEmployeePopupOpen(true);
+  const onDevelopmentPlanPopupBtnClick = () => {
+    setIsDevelopmentPlanPopupOpen(true);
   };
 
   const getActivityName = (id) => {
@@ -277,13 +277,13 @@ function IndividualDevelopmentPlanCreate(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <EmploymentPopup
-        isOpen={isEmployeePopupOpen}
-        setIsOpen={setIsEmployeePopupOpen}
-        onSave={onEmployeeSave}
-        selectedEmployee={selectedEmployee}
+      <DevelopmentPlanPopup
+        isOpen={isDevelopmentPlanPopupOpen}
+        setIsOpen={setIsDevelopmentPlanPopupOpen}
+        onSave={onDevelopmentPlanSave}
+        selectedPlan={selectedPlan}
         activityList={activityList}
-        setSelectedEmployee={setSelectedEmployee}
+        setSelectedPlan={setSelectedDevelopmentPlan}
       />
 
       <form onSubmit={onFormSubmit}>
@@ -415,17 +415,17 @@ function IndividualDevelopmentPlanCreate(props) {
                 >
                   <Grid item>
                     <Typography variant='h6'>
-                      {intl.formatMessage(messages.employees)}
+                      {intl.formatMessage(messages.developmentPlan)}
                     </Typography>
                   </Grid>
 
                   <Grid item>
                     <Button
                       variant='contained'
-                      onClick={onEmployeePopupBtnClick}
+                      onClick={onDevelopmentPlanPopupBtnClick}
                       color='primary'
                     >
-                      {intl.formatMessage(messages.addEmployee)}
+                      {intl.formatMessage(messages.addDevelopmentPlan)}
                     </Button>
                   </Grid>
                 </Grid>
@@ -493,7 +493,7 @@ function IndividualDevelopmentPlanCreate(props) {
                                   <IconButton
                                     color='primary'
                                     size='small'
-                                    onClick={() => onEmployeeEdit(item)}
+                                    onClick={() => onDevelopmentPlanEdit(item)}
                                   >
                                     <BorderColor />
                                   </IconButton>
@@ -501,7 +501,7 @@ function IndividualDevelopmentPlanCreate(props) {
                                   <IconButton
                                     color='error'
                                     size='small'
-                                    onClick={() => onEmployeeRemove(item.id)}
+                                    onClick={() => onPlanRemove(item.id)}
                                   >
                                     <Delete />
                                   </IconButton>
@@ -526,7 +526,7 @@ function IndividualDevelopmentPlanCreate(props) {
                         sx={{ color: '#a7acb2', fontSize: 30 }}
                       />
                       <Typography color='#a7acb2' variant='body1'>
-                        {intl.formatMessage(messages.noEmployees)}
+                        {intl.formatMessage(messages.noDevelopmentPlan)}
                       </Typography>
                     </Box>
                   </Stack>

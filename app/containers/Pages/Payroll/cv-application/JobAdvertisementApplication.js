@@ -915,6 +915,7 @@ function JobAdvertisementApplication(props) {
                           renderInput={(params) => (
                             <TextField
                               {...params}
+                              required
                               label={intl.formatMessage(messages.computerSkills)}
                             />
                           )}

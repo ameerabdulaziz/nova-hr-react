@@ -554,4 +554,20 @@ export default defineMessages({
     id: `${scope}.AssessmentReport`,
     defaultMessage: 'Assessment Report',
   },
+  developmentPlan: {
+    id: `${scope}.developmentPlan`,
+    defaultMessage: 'developmentPlan',
+  },
+  addDevelopmentPlan: {
+    id: `${scope}.addDevelopmentPlan`,
+    defaultMessage: 'addDevelopmentPlan',
+  },
+  editDevelopmentPlan: {
+    id: `${scope}.editDevelopmentPlan`,
+    defaultMessage: 'editDevelopmentPlan',
+  },
+  noDevelopmentPlan: {
+    id: `${scope}.noDevelopmentPlan`,
+    defaultMessage: 'noDevelopmentPlan',
+  },
 });
