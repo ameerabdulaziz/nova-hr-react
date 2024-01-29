@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { PapperBlock } from 'enl-components';
 import Grid from '@mui/material/Grid';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import MailSMSSettingData from './api/MailSMSSettingData';
@@ -12,6 +14,7 @@ import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
 import Payrollmessages from '../messages';
 import SaveButton from '../Component/SaveButton';
+import PayRollLoader from '../Component/PayRollLoader';
 
 
 function MailSetting(props) {
@@ -34,6 +37,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
   "userName": "",
   "password": "",
   "serverName": "",
+  stopSending: false,
   "url": ""});
 
   const handleChange = (event) => {
@@ -81,21 +85,18 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     setprocessing(true); 
     const response = await MailSMSSettingData().SaveSetting(data);
  
-    if (response.status==200) {
       setdata((prevFilters) => ({
         ...prevFilters,
         id: response.data,
       })) ;
 
         toast.success(notif.saved);
-      } else {
-          toast.error(response.statusText);
-      }
     }
     catch(e){
-    toast.error(notif.error);
-  }
+    //
+  } finally {
   setprocessing(false); 
+    }
   };
   const clear = (e) => {
     setdata({
@@ -106,10 +107,13 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     "userName": "",
     "password": "",
     "serverName": "",
+    stopSending: false,
     "url": ""});
   };
   async function fetchData() {
+    setprocessing(true);
     
+    try {
     const result = await MailSMSSettingData().GetSetting(1);
     if(result== "")
       setdata({
@@ -120,16 +124,30 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
       "userName": "",
       "password": "",
       "serverName": "",
+      stopSending: false,
       "url": ""});
     else
         setdata(result);
+    } catch (error) {
+      //
+    } finally {
+      setprocessing(false);
+    }
 
   }
   useEffect(() => {    
     fetchData();
   }, []);
+
+  const onCheckboxChange = (evt) => {
+    setdata((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.checked,
+    }));
+  };
+
   return (
-    <div>
+    <PayRollLoader isLoading={processing}>
       <Grid
         container
         spacing={3}
@@ -221,6 +239,20 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   variant="outlined"
                 />
               </Grid>
+
+                <Grid item md={3} xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={data.stopSending}
+                        onChange={onCheckboxChange}
+                        name='stopSending'
+                      />
+                    }
+                    label={intl.formatMessage(messages.stopSending)}
+                  />
+                </Grid>
+
               </Grid>
               <div style={{paddingTop:"20px"}}>
                 <Grid container spacing={3}>            
@@ -238,7 +270,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
           </PapperBlock>
         </Grid>
       </Grid>
-    </div>
+    </PayRollLoader>
   );
 }
 
