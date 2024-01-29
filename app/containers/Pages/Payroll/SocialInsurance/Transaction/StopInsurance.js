@@ -166,9 +166,9 @@ function StopInsurance(props) {
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={`${intl.formatMessage(
+        messageData={intl.formatMessage(
           payrollMessages.deleteMessage
-        )}${deleteItem}`}
+        )}
         callFun={deleteRow}
       />
 

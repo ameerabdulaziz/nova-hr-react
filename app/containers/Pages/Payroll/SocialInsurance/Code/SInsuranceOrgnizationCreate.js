@@ -35,7 +35,6 @@ function SInsuranceOrgnizationCreate(props) {
   const [insuranceOfficeList, setInsuranceOfficeList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [processing, setProcessing] = useState(false);
   const [formInfo, setFormInfo] = useState({
     id,
 
@@ -80,7 +79,6 @@ function SInsuranceOrgnizationCreate(props) {
 
     const formData = { ...formInfo };
 
-    setProcessing(true);
     setIsLoading(true);
 
     try {
@@ -93,9 +91,8 @@ function SInsuranceOrgnizationCreate(props) {
       toast.success(notif.saved);
       history.push('/app/Pages/insurance/SInsuranceOrgnization');
     } catch (error) {
-      toast.error(JSON.stringify(error.response.data ?? error));
+      // 
     } finally {
-      setProcessing(false);
       setIsLoading(false);
     }
   };
@@ -342,7 +339,7 @@ function SInsuranceOrgnizationCreate(props) {
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={1}>
-                  <SaveButton Id={id} processing={processing} />
+                  <SaveButton Id={id} processing={isLoading} />
                 </Grid>
 
                 <Grid item xs={12} md={1}>
