@@ -3,7 +3,6 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -14,15 +13,14 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
-import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/StopMedicalInsuranceData';
 import messages from '../messages';
 
 function StopMedicalInsuranceCreate(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const location = useLocation();
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
@@ -37,19 +35,16 @@ function StopMedicalInsuranceCreate(props) {
     id,
 
     employeeId: '',
+    employeeName: '',
     trxDate: null,
     insReason: '',
     notes: '',
   });
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
-
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const formData = { ...formInfo };
-
-    formData.trxDate = formateDate(formData.trxDate);
+    const formData = { ...formInfo, trxDate: formateDate(formInfo.trxDate) };
 
     setIsLoading(true);
 
@@ -69,7 +64,10 @@ function StopMedicalInsuranceCreate(props) {
     setIsLoading(true);
 
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList(false, true);
+      const employees = await GeneralListApis(locale).GetEmployeeList(
+        false,
+        true
+      );
       setEmployeeList(employees);
 
       if (id !== 0) {
@@ -114,50 +112,61 @@ function StopMedicalInsuranceCreate(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item md={6}>
+            <Grid item md={12}>
               <Grid container spacing={3} direction='row'>
-                <Grid item xs={12} md={6}>
-                  <Autocomplete
-                    options={employeeList}
-                    value={
-                      employeeList.find(
-                        (item) => item.id === formInfo.employeeId
-                      ) ?? null
-                    }
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
-                    getOptionLabel={(option) => (option ? option.name : '')}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')}
-                    renderInput={(params) => (
-                      <TextField
-                        required
-                        {...params}
-                        label={intl.formatMessage(messages.employeeName)}
-                      />
-                    )}
-                  />
+                <Grid item xs={12} md={4}>
+                  {id === 0 ? (
+                    <Autocomplete
+                      options={employeeList}
+                      value={
+                        employeeList.find(
+                          (item) => item.id === formInfo.employeeId
+                        ) ?? null
+                      }
+                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          required
+                          {...params}
+                          label={intl.formatMessage(messages.employeeName)}
+                        />
+                      )}
+                    />
+                  ) : (
+                    <TextField
+                      name='employeeName'
+                      value={formInfo.employeeName}
+                      label={intl.formatMessage(messages.employeeName)}
+                      fullWidth
+                      variant='outlined'
+                      disabled
+                    />
+                  )}
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                   <LocalizationProvider dateAdapter={AdapterMoment}>
                     <DatePicker
                       label={intl.formatMessage(messages.endDate)}
                       value={formInfo.trxDate}
                       onChange={(date) => onDatePickerChange(date, 'trxDate')}
-                      className={classes.field}
                       renderInput={(params) => (
-                        <TextField required {...params} variant='outlined' />
+                        <TextField required {...params} fullWidth variant='outlined' />
                       )}
                     />
                   </LocalizationProvider>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     name='insReason'
                     value={formInfo.insReason}
                     onChange={onInputChange}
                     label={intl.formatMessage(messages.reason)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                     required
                     multiline
@@ -165,13 +174,13 @@ function StopMedicalInsuranceCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     name='notes'
                     value={formInfo.notes}
                     onChange={onInputChange}
                     label={intl.formatMessage(payrollMessages.notes)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                     required
                     multiline
@@ -181,11 +190,11 @@ function StopMedicalInsuranceCreate(props) {
 
                 <Grid item xs={12}>
                   <Grid container spacing={3}>
-                    <Grid item xs={12} md={2}>
+                    <Grid item>
                       <SaveButton Id={id} processing={isLoading} />
                     </Grid>
 
-                    <Grid item xs={12} md={2}>
+                    <Grid item>
                       <Button
                         variant='contained'
                         size='medium'

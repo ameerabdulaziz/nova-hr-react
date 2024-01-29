@@ -1,14 +1,11 @@
 import {
-  Autocomplete,
-  Button,
-  Grid,
-  TextField
+  Autocomplete, Button, Grid, TextField
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -16,9 +13,9 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
-import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
-import Payrollmessages from '../../messages';
+import { formateDate } from '../../helpers';
+import payrollMessages from '../../messages';
 import api from '../api/StopInsuranceData';
 import messages from '../messages';
 
@@ -28,7 +25,6 @@ function StopInsuranceCreate(props) {
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const id = location.state?.id ?? 0;
-  const { classes } = useStyles();
   const history = useHistory();
 
   const [employeeList, setEmployeeList] = useState([]);
@@ -38,6 +34,7 @@ function StopInsuranceCreate(props) {
     id,
 
     employeeId: '',
+    employeeName: '',
     insEndDate: null,
     insReason: '',
     notes: '',
@@ -63,15 +60,14 @@ function StopInsuranceCreate(props) {
     }
   };
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
-
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const formData = { ...formInfo };
-
-    formData.c6inDate = formateDate(formData.c6inDate);
-    formData.insEndDate = formateDate(formData.insEndDate);
+    const formData = {
+      ...formInfo,
+      c6inDate: formateDate(formInfo.c6inDate),
+      insEndDate: formateDate(formInfo.insEndDate),
+    };
 
     setIsLoading(true);
 
@@ -120,32 +116,42 @@ function StopInsuranceCreate(props) {
       >
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-
             <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={employeeList}
-                value={
-                  employeeList.find(
-                    (alt) => alt.id === formInfo.employeeId
-                  ) ?? null
-                }
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
-                getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    employeeId: value !== null ? value.id : null,
-                  }));
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    required
-                    {...params}
-                    label={intl.formatMessage(messages.employeeName)}
-                  />
-                )}
-              />
+              {id === 0 ? (
+                <Autocomplete
+                  options={employeeList}
+                  value={
+                    employeeList.find(
+                      (alt) => alt.id === formInfo.employeeId
+                    ) ?? null
+                  }
+                  isOptionEqualToValue={(option, value) => option.id === value.id
+                  }
+                  getOptionLabel={(option) => (option ? option.name : '')}
+                  onChange={(_, value) => {
+                    setFormInfo((prev) => ({
+                      ...prev,
+                      employeeId: value !== null ? value.id : null,
+                    }));
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      {...params}
+                      label={intl.formatMessage(messages.employeeName)}
+                    />
+                  )}
+                />
+              ) : (
+                <TextField
+                  name='employeeName'
+                  value={formInfo.employeeName}
+                  label={intl.formatMessage(messages.employeeName)}
+                  fullWidth
+                  variant='outlined'
+                  disabled
+                />
+              )}
             </Grid>
 
             <Grid item xs={12} md={3}>
@@ -159,11 +165,11 @@ function StopInsuranceCreate(props) {
                       insEndDate: date,
                     }));
                   }}
-                  className={classes.field}
                   renderInput={(params) => (
                     <TextField
                       required
                       {...params}
+                      fullWidth
                       variant='outlined'
                     />
                   )}
@@ -180,7 +186,7 @@ function StopInsuranceCreate(props) {
                     required
                     onChange={onInputChange}
                     label={intl.formatMessage(messages.reason)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                     multiline
                     rows={1}
@@ -198,7 +204,7 @@ function StopInsuranceCreate(props) {
                     required
                     onChange={onInputChange}
                     label={intl.formatMessage(messages.notes)}
-                    className={classes.field}
+                    fullWidth
                     multiline
                     rows={1}
                     variant='outlined'
@@ -215,7 +221,7 @@ function StopInsuranceCreate(props) {
                     value={formInfo.c6inNo}
                     onChange={onNumericInputChange}
                     label={intl.formatMessage(messages.c6IncomingNumber)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                   />
                 </Grid>
@@ -231,17 +237,12 @@ function StopInsuranceCreate(props) {
                           c6inDate: date,
                         }));
                       }}
-                      className={classes.field}
                       renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          variant='outlined'
-                        />
+                        <TextField {...params} fullWidth variant='outlined' />
                       )}
                     />
                   </LocalizationProvider>
                 </Grid>
-
               </Grid>
             </Grid>
 
@@ -258,7 +259,7 @@ function StopInsuranceCreate(props) {
                     color='primary'
                     onClick={onCancelBtnClick}
                   >
-                    <FormattedMessage {...Payrollmessages.cancel} />
+                    <FormattedMessage {...payrollMessages.cancel} />
                   </Button>
                 </Grid>
               </Grid>
@@ -269,5 +270,9 @@ function StopInsuranceCreate(props) {
     </PayRollLoader>
   );
 }
+
+StopInsuranceCreate.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(StopInsuranceCreate);
