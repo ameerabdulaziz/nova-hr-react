@@ -41,7 +41,7 @@ function ApplicationUnderReviewing(props) {
   }, []);
 
   const onBackToVacationBtnClick = () => {
-    history.push('/public/JobVacation');
+    history.push('/public/JobAdvertisement');
   };
 
   return (

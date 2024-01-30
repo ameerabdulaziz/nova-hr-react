@@ -31,7 +31,7 @@ function JobAdvertisement(props) {
     setIsLoading(true);
 
     try {
-      const response = await API(locale).GetJobList();
+      const response = await API(locale).GetJobApplicationList();
       setJobs(response);
 
       const configResponse = await API(locale).GetCompanyData();

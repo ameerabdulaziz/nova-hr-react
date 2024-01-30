@@ -18,7 +18,6 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
@@ -30,14 +29,13 @@ import { useParams } from 'react-router-dom';
 import FileViewerPopup from '../../../../components/Popup/fileViewerPopup';
 import { ThemeContext } from '../../../App/ThemeWrapper';
 import PayRollLoader from '../Component/PayRollLoader';
-import GeneralListApis from '../api/GeneralListApis';
+import { formateDate, getFormData } from '../helpers';
 import API from './api';
 import CoursesPopup from './components/CoursesPopup';
 import ExperiencePopup from './components/ExperiencePopup';
 import Section from './components/Section';
 import Layout from './layouts/Layout.cv';
 import messages from './messages';
-import { formateDate } from '../helpers';
 
 function JobAdvertisementApplication(props) {
   const { intl } = props;
@@ -61,7 +59,15 @@ function JobAdvertisementApplication(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState({
+    phone: '',
+    mail: '',
+    companyName: '',
+    logo: '',
+    cvTitle: '',
+    cvSubTitle: '',
+    companyOverView: '',
+  });
 
   const [militaryStatusList, setMilitaryStatusList] = useState([]);
   const [IDTypeList, setIDTypeList] = useState([]);
@@ -123,38 +129,46 @@ function JobAdvertisementApplication(props) {
     setIsSubmitting(true);
 
     try {
-      const militaryStatus = await GeneralListApis(
+      const militaryStatus = await API(
         locale
       ).GetMilitaryStatusList();
       setMilitaryStatusList(militaryStatus);
 
-      const jobs = await GeneralListApis(locale).GetJobList();
+      const jobs = await API(locale).GetJobList();
       setJobList(jobs);
 
-      const gender = await GeneralListApis(locale).GetGenderList();
+      const gender = await API(locale).GetGenderList();
       setGenderList(gender);
 
-      const socialStatus = await GeneralListApis(locale).GetSocialStatusList();
+      const socialStatus = await API(locale).GetSocialStatusList();
       setSocialStatusList(socialStatus);
 
-      const grads = await GeneralListApis(locale).GetGradeList();
+      const grads = await API(locale).GetGradeList();
       setGraduationGradList(grads);
 
-      const qualification = await GeneralListApis(
+      const qualification = await API(
         locale
       ).GetQualificationsList();
       setQualificationList(qualification);
 
-      const IDTypes = await GeneralListApis(locale).GetIdentityTypeList();
+      const IDTypes = await API(locale).GetIdentityTypeList();
       setIDTypeList(IDTypes);
 
-      const linkSources = await GeneralListApis(
+      const linkSources = await API(
         locale
-      ).GetRecHiringSourceList();
+      ).GetHiringSourceList();
       setLinkSourceList(linkSources);
 
       const configResponse = await API(locale).GetCompanyData();
-      setConfig(configResponse);
+      setConfig({
+        phone: configResponse.phone ?? '',
+        mail: configResponse.mail ?? '',
+        companyName: configResponse.companyName ?? '',
+        logo: configResponse.logo ?? '',
+        cvTitle: configResponse.cvTitle ?? '',
+        cvSubTitle: configResponse.cvSubTitle ?? '',
+        companyOverView: configResponse.companyOverView ?? '',
+      });
     } catch (error) {
       //
     } finally {
@@ -304,8 +318,12 @@ function JobAdvertisementApplication(props) {
     );
 
     try {
-      await API(locale).save(formData);
+      const body = getFormData(formData);
+
+      await API(locale).save(body);
+
       toast.success(notif.saved);
+
       history.push('/public/ApplicationUnderReviewing');
     } catch (error) {
       //

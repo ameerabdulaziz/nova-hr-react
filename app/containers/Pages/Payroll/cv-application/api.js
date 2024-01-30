@@ -1,24 +1,9 @@
 import axiosInstance from '../api/axios';
 
-function getFormData(fdObject = {}) {
-  return Object.entries(fdObject).reduce((fdInstance, [fdObjectKey, fdObjectValue]) => {
-    if (Array.isArray(fdObjectValue)) {
-      fdObjectValue.forEach((arrayItem, index) => {
-        Object.keys(arrayItem).forEach(key => {
-          fdInstance.append(`${fdObjectKey}[${index}].${key}`, arrayItem[key]);
-        });
-      });
-    } else {
-      fdInstance.append(fdObjectKey, fdObjectValue);
-    }
-    return fdInstance;
-  }, new FormData());
-}
-
 const API = (locale) => {
   const api = {};
 
-  api.GetJobList = async () => {
+  api.GetJobApplicationList = async () => {
     const response = await axiosInstance.get(
       `RecJobApplication/GetList/${locale}`
     );
@@ -35,9 +20,73 @@ const API = (locale) => {
   };
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('RecJobApplication/save', getFormData(body));
+    const result = await axiosInstance.post('RecJobApplication/save', body);
 
     return result;
+  };
+
+  api.GetMilitaryStatusList = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetMilitaryStatusList/${locale}`
+    );
+
+    return response.data;
+  };
+
+  api.GetJobList = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetJobList/${locale}`
+    );
+
+    return response.data;
+  };
+
+  api.GetGenderList = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetGenderList/${locale}`
+    );
+
+    return response.data;
+  };
+
+  api.GetSocialStatusList = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetSocialStatusList/${locale}`
+    );
+
+    return response.data;
+  };
+
+  api.GetGradeList = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetGradeList/${locale}`
+    );
+
+    return response.data;
+  };
+
+  api.GetQualificationsList = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetQualificationsList/${locale}`
+    );
+
+    return response.data;
+  };
+
+  api.GetIdentityTypeList = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetIdentityTypeList/${locale}`
+    );
+
+    return response.data;
+  };
+
+  api.GetHiringSourceList = async () => {
+    const response = await axiosInstance.get(
+      `RecJobApplication/GetHiringSourceList/${locale}`
+    );
+
+    return response.data;
   };
 
   return api;
