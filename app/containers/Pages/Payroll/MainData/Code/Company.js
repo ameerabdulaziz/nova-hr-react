@@ -1,262 +1,369 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import CompanyData from '../api/CompanyData';
-import style from '../../../../../styles/styles.scss'
+import { PapperBlock } from 'enl-components';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
-import { PapperBlock } from "enl-components";
+import { getFormData } from '../../helpers';
+import payrollMessages from '../../messages';
+import api from '../api/CompanyData';
+import messages from '../messages';
 
-// validation functions
-//const required = (value) => (value == null ? 'Required' : undefined);
-const email = (value) =>
-  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-    ? 'Invalid email'
-    : undefined;
+function Company(props) {
+  const { intl } = props;
 
-const useStyles = makeStyles()((theme) => ({
-  root: {
-    flexGrow: 1,
-    padding: 30,
-  },
-  field: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  fieldBasic: {
-    width: '100%',
-    marginBottom: 20,
-    marginTop: 10,
-  },
-  inlineWrap: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  buttonInit: {
-    margin: theme.spacing(4),
-    textAlign: 'center',
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  menu: {
-    width: 200,
-  },
-}));
-
-function Company() {
   const title = localStorage.getItem('MenuName');
-  const [id, setid] = useState(0);
-  const [name, setName] = useState('');
-  const [enname, setEnName] = useState('');
-  const [phone, setphone] = useState('');
-  const [mail, setmail] = useState('');
-  const [address, setaddress] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
 
-  const { classes } = useStyles();
-  // const { pristine, submitting, init } = props;
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const locale = useSelector((state) => state.language.locale);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [uploadedFile, setUploadedFile] = useState(null);
+
+  const [formInfo, setFormInfo] = useState({
+    enName: '',
+    arName: '',
+    image: null,
+    enCompanyOverView: '',
+    arCompanyOverView: '',
+    phone: '',
+    mail: '',
+    address: '',
+    apikey: '',
+    useGps: false,
+    cvarTitle: '',
+    cvarSubTitle: '',
+    cvenTitle: '',
+    cvenSubTitle: '',
+  });
+
+  const onFormSubmit = async (evt) => {
+    evt.preventDefault();
+
+    if (!uploadedFile) {
+      toast.error(intl.formatMessage(messages.logoIsRequired));
+      return;
+    }
 
     setIsLoading(true);
 
-    const data = {
-      id: id,
-      arName: name,
-      enName: enname,
-      address: address,
-      mail: mail,
-      phone: phone,
-    };
+    const body = getFormData({
+      ...formInfo,
+      image: uploadedFile && (uploadedFile instanceof File) ? uploadedFile : null,
+    });
 
     try {
-      await CompanyData().Save(data);
+      await api(locale).Save(body);
     } catch (error) {
       //
     } finally {
       setIsLoading(false);
     }
   };
-  const clear = (e) => {
-    setName('');
-    setEnName('');
-    setphone('');
-    setmail('');
-    setaddress('');
+  const resetFormValues = () => {
+    setFormInfo({
+      enName: '',
+      arName: '',
+      image: null,
+      enCompanyOverView: '',
+      arCompanyOverView: '',
+      phone: '',
+      mail: '',
+      address: '',
+      apikey: ' ',
+      useGps: false,
+      cvarTitle: '',
+      cvarSubTitle: '',
+      cvenTitle: '',
+      cvenSubTitle: '',
+    });
   };
+
+  async function fetchNeededData() {
+    setIsLoading(true);
+
+    try {
+      const response = await api(locale).getCompanyInfo();
+
+      setFormInfo({
+        enName: response.enName ?? '',
+        arName: response.arName ?? '',
+        image: response.image,
+        enCompanyOverView: response.enCompanyOverView ?? '',
+        arCompanyOverView: response.arCompanyOverView ?? '',
+        phone: response.phone ?? '',
+        mail: response.mail ?? '',
+        address: response.address ?? '',
+        apikey: response.apikey ?? '',
+        useGps: response.useGps ?? false,
+        cvarTitle: response.cvarTitle ?? '',
+        cvarSubTitle: response.cvarSubTitle ?? '',
+        cvenTitle: response.cvenTitle ?? '',
+        cvenSubTitle: response.cvenSubTitle ?? '',
+      });
+
+      setUploadedFile(response.logo);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
+    fetchNeededData();
+  }, []);
 
-      try {
-        const dataApi = await CompanyData().GetList();
+  const onInputChange = (evt) => {
+    setFormInfo((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
+  };
 
-        if (dataApi.length > 0) {
-          setid(dataApi[0].id);
-          setName(dataApi[0].arName);
-          setEnName(dataApi[0].enName);
-          setphone(dataApi[0].phone);
-          setmail(dataApi[0].mail);
-          setaddress(dataApi[0].address);
-        }
-      } catch (error) {
-        //
-      } finally {
-        setIsLoading(false);
+  const onCheckboxChange = (evt) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.checked,
+    }));
+  };
+
+  const onFileInputChange = (evt) => {
+    const file = evt.target.files[0];
+
+    // to trigger onChange on the same file select
+    evt.target.value = '';
+
+    if (file) {
+      // check if uploaded file is larger than 1MB
+      if (file.size < 10000000) {
+        setFormInfo((prev) => ({ ...prev, image: file }));
+        setUploadedFile(file);
+      } else {
+        toast.error(intl.formatMessage(messages.fileSizeShouldBeLessThan10MB));
       }
     }
-    fetchData();
-    // if (!data.length) { fetchData(); }
-  }, []);
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
-      <Grid
-        container
-        alignItems="flex-start"
-        direction="row"
-      >
-        <Grid item xs={12}>
-          <PapperBlock whiteBg icon="border_color" title={title} desc="">
+      <PapperBlock whiteBg icon='border_color' title={title} desc=''>
+        <form onSubmit={onFormSubmit}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={3}>
+              <TextField
+                name='arName'
+                value={formInfo.arName}
+                required
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.arName)}
+                fullWidth
+                variant='outlined'
+              />
+            </Grid>
 
-            <form onSubmit={handleSubmit}>
-              <Grid container spacing={3} >
-                <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3}>
+              <TextField
+                name='enName'
+                value={formInfo.enName}
+                required
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.enName)}
+                fullWidth
+                variant='outlined'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                name='phone'
+                value={formInfo.phone}
+                required
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.phone)}
+                fullWidth
+                variant='outlined'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                name='mail'
+                value={formInfo.mail}
+                required
+                onChange={onInputChange}
+                type='email'
+                label={intl.formatMessage(messages.email)}
+                fullWidth
+                variant='outlined'
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                name='arCompanyOverView'
+                value={formInfo.arCompanyOverView}
+                required
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.arabicOverview)}
+                fullWidth
+                variant='outlined'
+                multiline
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                name='enCompanyOverView'
+                value={formInfo.enCompanyOverView}
+                required
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.englishOverview)}
+                fullWidth
+                variant='outlined'
+                multiline
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                name='address'
+                value={formInfo.address}
+                required
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.address)}
+                fullWidth
+                variant='outlined'
+                multiline
+              />
+            </Grid>
+
+            <Grid item xs={12} md={12}>
+              <TextField
+                name='cvarTitle'
+                value={formInfo.cvarTitle}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.cvarTitle)}
+                fullWidth
+                variant='outlined'
+                multiline
+              />
+            </Grid>
+
+            <Grid item xs={12} md={12}>
+              <TextField
+                name='cvarSubTitle'
+                value={formInfo.cvarSubTitle}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.cvarSubTitle)}
+                fullWidth
+                variant='outlined'
+                multiline
+              />
+            </Grid>
+
+            <Grid item xs={12} md={12}>
+              <TextField
+                name='cvenTitle'
+                value={formInfo.cvenTitle}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.cvenTitle)}
+                fullWidth
+                variant='outlined'
+                multiline
+              />
+            </Grid>
+
+            <Grid item xs={12} md={12}>
+              <TextField
+                name='cvenSubTitle'
+                value={formInfo.cvenSubTitle}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.cvenSubTitle)}
+                fullWidth
+                variant='outlined'
+                multiline
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formInfo.useGps}
+                        onChange={onCheckboxChange}
+                        name='useGps'
+                      />
+                    }
+                    label={intl.formatMessage(messages.useGPS)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
                   <TextField
-                    name="Cmp_name"
-                    id="Cmp_name"
-                    placeholder="Name"
-                    label="Name"
-                    // validate={required}
+                    name='apikey'
+                    value={formInfo.apikey}
                     required
+                    onChange={onInputChange}
+                    disabled={!formInfo.useGps}
+                    label={intl.formatMessage(messages.apiKey)}
                     fullWidth
-                    variant="outlined"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    variant='outlined'
                   />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <TextField
-                    name="EnName"
-                    id="EnName"
-                    placeholder="English Name"
-                    label="English Name"
-                    // validate={required}
-                    required
-                    fullWidth
-                    variant="outlined"
-                    value={enname}
-                    onChange={(e) => setEnName(e.target.value)}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <TextField
-                    id="Cmp_Phone"
-                    name="Cmp_Phone"
-                    value={phone}
-                    onChange={(e) => setphone(e.target.value)}
-                    placeholder="Telephone"
-                    label="Telephone"
-                    // validate={required}
-                    required
-                    fullWidth
-                    variant="outlined"
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <TextField
-                    type="email"
-                    error={email === 'Invalid email'}
-                    id="Cmp_Mail"
-                    name="Cmp_Mail"
-                    value={mail}
-                    onChange={(e) => setmail(e.target.value)}
-                    placeholder="Email"
-                    label="Email"
-                    required
-                    // validate={[required, email]}
-                    fullWidth
-                    autoComplete="email"
-                    variant="outlined"
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    name="Cmp_address"
-                    id="Cmp_address"
-                    fullWidth
-                    value={address}
-                    onChange={(e) => setaddress(e.target.value)}
-                    placeholder="Address"
-                    label="Address"
-                    multiline
-                    rows={1}
-                    variant="outlined"
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    type="submit"
-                    //disabled={submitting}
-                    className={style.generalBtnStys}
-                  >
-                    Submit
-                  </Button>
-                  <Button type="reset" onClick={clear} className={style.generalBtnStys}>
-                    Reset
-                  </Button>
                 </Grid>
 
               </Grid>
-            </form>
-          </PapperBlock>
-        </Grid>
-      </Grid>
+            </Grid>
+
+            <Grid item xs={12} >
+              <Stack direction='row' alignItems='center' spacing={2}>
+                <div>
+                  <input
+                    accept='image/*'
+                    id='attachment-button-file'
+                    type='file'
+                    style={{ display: 'none' }}
+                    onChange={onFileInputChange}
+                  />
+                  <label htmlFor='attachment-button-file'>
+                    <Button variant='contained' component='span'>
+                      {intl.formatMessage(messages.uploadLogo)}
+                    </Button>
+                  </label>
+                </div>
+
+                {uploadedFile && (
+                  <Avatar sx={{ width: 56, height: 56 }} src={uploadedFile && uploadedFile instanceof File ? URL.createObjectURL(uploadedFile) : uploadedFile} />
+                )}
+              </Stack>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Stack direction='row' gap={2}>
+                <Button variant='contained' color='secondary' type='submit'>
+                  {intl.formatMessage(messages.submit)}
+                </Button>
+
+                <Button type='reset' onClick={resetFormValues}>
+                  {intl.formatMessage(payrollMessages.reset)}
+                </Button>
+              </Stack>
+            </Grid>
+          </Grid>
+        </form>
+      </PapperBlock>
     </PayRollLoader>
   );
 }
 
-//renderRadioGroup.propTypes = { input: PropTypes.object.isRequired };
+Company.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
-// Company.propTypes = {
-//   handleSubmit: PropTypes.func.isRequired,
-//   reset: PropTypes.func.isRequired,
-//   pristine: PropTypes.bool.isRequired,
-//   submitting: PropTypes.bool.isRequired,
-//   init: PropTypes.func.isRequired,
-//   clear: PropTypes.func.isRequired,
-// };
-
-// const mapDispatchToProps = (dispatch) => ({
-//   init: bindActionCreators(initAction, dispatch),
-//   clear: () => dispatch(clearAction),
-// });
-
-// const ReduxFormMapped = reduxForm({
-//   form: 'Company',
-//   enableReinitialize: true,
-// })(Company);
-
-// const FormInit = connect(
-//   (state) => ({
-//     initialValues: state.initval.formValues,
-//   }),
-//   mapDispatchToProps
-// )(ReduxFormMapped);
-
-export default Company;
+export default injectIntl(Company);

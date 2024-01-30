@@ -218,4 +218,66 @@ OrganizationsList: {
     id: `${scope}.codes.document`,
     defaultMessage: 'document',
   },
+
+  // Company
+  phone: {
+    id: `${scope}.codes.phone`,
+    defaultMessage: 'phone',
+  },
+  email: {
+    id: `${scope}.codes.email`,
+    defaultMessage: 'email',
+  },
+  address: {
+    id: `${scope}.codes.address`,
+    defaultMessage: 'address',
+  },
+  submit: {
+    id: `${scope}.codes.submit`,
+    defaultMessage: 'submit',
+  },
+  useGPS: {
+    id: `${scope}.codes.useGPS`,
+    defaultMessage: 'useGPS',
+  },
+  arabicOverview: {
+    id: `${scope}.codes.arabicOverview`,
+    defaultMessage: 'arabicOverview',
+  },
+  englishOverview: {
+    id: `${scope}.codes.englishOverview`,
+    defaultMessage: 'englishOverview',
+  },
+  cvarTitle: {
+    id: `${scope}.codes.cvarTitle`,
+    defaultMessage: 'cvarTitle',
+  },
+  cvarSubTitle: {
+    id: `${scope}.codes.cvarSubTitle`,
+    defaultMessage: 'cvarSubTitle',
+  },
+  cvenTitle: {
+    id: `${scope}.codes.cvenTitle`,
+    defaultMessage: 'cvenTitle',
+  },
+  cvenSubTitle: {
+    id: `${scope}.codes.cvenSubTitle`,
+    defaultMessage: 'cvenSubTitle',
+  },
+  apiKey: {
+    id: `${scope}.codes.apiKey`,
+    defaultMessage: 'apiKey',
+  },
+  fileSizeShouldBeLessThan10MB: {
+    id: `${scope}.codes.fileSizeShouldBeLessThan10MB`,
+    defaultMessage: 'fileSizeShouldBeLessThan10MB',
+  },
+  uploadLogo: {
+    id: `${scope}.codes.uploadLogo`,
+    defaultMessage: 'uploadLogo',
+  },
+  logoIsRequired: {
+    id: `${scope}.codes.logoIsRequired`,
+    defaultMessage: 'logoIsRequired',
+  },
 });

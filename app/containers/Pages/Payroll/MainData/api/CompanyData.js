@@ -1,30 +1,16 @@
 import axiosInstance from '../../api/axios';
-const CompanyData = () => {
+
+const CompanyData = (locale = 'en') => {
   const Apis = {};
-  
-  Apis.GetList = async () => {
-    
-    const data = await axiosInstance.get('MdCompany');
-    const result = data.data;
-    return result;
+
+  Apis.getCompanyInfo = async () => {
+    const data = await axiosInstance.get(`MdCompany/Get/${locale}`);
+    return data.data;
   };
 
-  Apis.Save = async (data) => {
-    
+  Apis.Save = async (body = {}) => {
+    const result = await axiosInstance.post('MdCompany/Save', body);
 
-    // const data = {
-    //   id: Item.id,
-    //   arName: Item.name,
-    //   enName: Item.EnName,
-    //   address: Item.address,
-    //   accNo: Item.accNo,
-    //   note: Item.note,
-    // };
-
-    const result =
-      data.id === 0
-        ? await axiosInstance.post('MdCompany', data)
-        : await axiosInstance.put(`MdCompany/${data.id}`, data);
     return result;
   };
 
