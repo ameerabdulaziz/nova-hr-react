@@ -4,6 +4,8 @@ import ApiData from "../../api/PermissionData";
 import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 import { useSelector } from "react-redux";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
@@ -20,7 +22,7 @@ import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { useLocation } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
+import style from '../../../../../../styles/styles.scss'
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import PayRollLoader from "../../../Component/PayRollLoader";
@@ -31,6 +33,37 @@ function PermissionCreate(props) {
   const location = useLocation();
   const { id } = location.state ?? 0;
   const { classes } = useStyles();
+
+  const dayList = [
+    {
+      id: 1,
+      name: 'Saturday',
+    },
+    {
+      id: 2,
+      name: 'Sunday',
+    },
+    {
+      id: 3,
+      name: 'Monday',
+    },
+    {
+      id: 4,
+      name: 'Tuesday',
+    },
+    {
+      id: 5,
+      name: 'Wednesday',
+    },
+    {
+      id: 6,
+      name: 'Thursday',
+    },
+    {
+      id: 7,
+      name: 'Friday',
+    }
+  ];
 
   const [data, setdata] = useState({
     id: 0,
@@ -44,6 +77,8 @@ function PermissionCreate(props) {
     maxRepeated: "",
     maxMinuteNo: "",
     isDeductAnnual: false,
+    reqDayNotAllow: [],
+    reqBeforeShiftInMinute: '',
   });
   const [ElementList, setElementList] = useState([]);
   const history = useHistory();
@@ -92,21 +127,20 @@ function PermissionCreate(props) {
     e.preventDefault();
     try {
       setIsLoading(true);
-      let response = await ApiData(locale).Save(data);
+      const body = { ...data, reqDayNotAllow: data.reqDayNotAllow.map(item => item.name).join(',') };
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        history.push(`/app/Pages/Att/PermissionList`);
-      } else {
-        toast.error(response.statusText);
-      }
+      await ApiData(locale).Save(body);
+
+      toast.success(notif.saved);
+      history.push(`/app/Pages/Att/Permission`);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Att/PermissionList`);
+    history.push(`/app/Pages/Att/Permission`);
   }
   async function fetchData() {
     try{
@@ -115,7 +149,21 @@ function PermissionCreate(props) {
 
     if (id) {
       const dataApi = await ApiData(locale).Get(id ?? 0);
-      setdata(dataApi);
+
+        const days = dataApi.reqDayNotAllow ? dataApi.reqDayNotAllow.split(',').map(dayName => {
+          const day = dayList.find((item) => item.name === dayName);
+
+          if (day) {
+            return day;
+          }
+
+          return {
+            id: dayName,
+            name: dayName,
+          };
+        }) : [];
+
+        setdata({ ...dataApi, reqDayNotAllow: days });
     }
   }
   catch (e) {}
@@ -140,7 +188,7 @@ function PermissionCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 id="arName"
                 name="arName"
@@ -151,7 +199,7 @@ function PermissionCreate(props) {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 id="enName"
                 name="enName"
@@ -162,7 +210,7 @@ function PermissionCreate(props) {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 id="shortName"
                 name="shortName"
@@ -173,7 +221,7 @@ function PermissionCreate(props) {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <TextField
                 id="maxMinuteNo"
                 name="maxMinuteNo"
@@ -184,7 +232,7 @@ function PermissionCreate(props) {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <TextField
                 id="maxRepeated"
                 name="maxRepeated"
@@ -196,7 +244,53 @@ function PermissionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={9}>
+            <Grid item xs={12} md={4} className={style.totalMinutesContainer}>
+              <TextField
+                name="ReqBeforeShiftInMinute"
+                id="ReqBeforeShiftInMinute"
+                label={intl.formatMessage(messages.reqBeforeShiftInMinute)}
+                variant="outlined"
+                type='number'
+                fullWidth
+                value={data.reqBeforeShiftInMinute}
+                onChange={(e) => setdata(prev => ({ ...prev, reqBeforeShiftInMinute: e.target.value }))}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <Autocomplete
+                options={dayList}
+                multiple
+                disableCloseOnSelect
+                className={`${style.AutocompleteMulSty} ${
+                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                }`}
+                isOptionEqualToValue={(option, value) => option.id === value.id
+                }
+                value={data.reqDayNotAllow}
+                renderOption={(optionProps, option, { selected }) => (
+                  <li {...optionProps} key={optionProps.id}>
+                    <Checkbox
+                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option.name}
+                  </li>
+                )}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(_, value) => setdata(prev => ({ ...prev, reqDayNotAllow: value }))}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(messages.reqDayNotAllow)}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={12}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -296,8 +390,8 @@ function PermissionCreate(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={3}></Grid>
-            <Grid item xs={12} md={1}>
+
+            <Grid item>
               <Button
                 variant="contained"
                 type="submit"
@@ -308,7 +402,7 @@ function PermissionCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item>
               <Button
                 variant="contained"
                 size="medium"

@@ -1914,5 +1914,13 @@ devicePass: {
     id: `${scope}.weekendLeave`,
     defaultMessage: 'weekendLeave',
   },
+  reqDayNotAllow: {
+    id: `${scope}.reqDayNotAllow`,
+    defaultMessage: 'reqDayNotAllow',
+  },
+  reqBeforeShiftInMinute: {
+    id: `${scope}.reqBeforeShiftInMinute`,
+    defaultMessage: 'reqBeforeShiftInMinute',
+  },
 });
 

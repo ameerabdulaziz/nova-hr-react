@@ -29,7 +29,6 @@ function PermissionList(props) {
 
   
   const handleClickOpen = (item) => {
-    debugger;
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -40,18 +39,13 @@ function PermissionList(props) {
 
   async function deleterow() {
     try {
-      debugger;
       setIsLoading(true);
-      let response = await ApiData(locale).Delete(deleteItem);
+      await ApiData(locale).Delete(deleteItem);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
+      toast.success(notif.saved);
+      fetchData();
     } catch (err) {
-      
+      //
     } finally {
       setIsLoading(false);
     }
@@ -62,6 +56,7 @@ function PermissionList(props) {
       const dataApi = await ApiData(locale).GetList();
       setdata(dataApi);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
@@ -176,9 +171,9 @@ function PermissionList(props) {
         <AlertPopup
           handleClose={handleClose}
           open={openParentPopup}
-          messageData={`${intl.formatMessage(
+          messageData={intl.formatMessage(
             Payrollmessages.deleteMessage
-          )}${deleteItem}`}
+          )}
           callFun={deleterow}
         />
       </PapperBlock>

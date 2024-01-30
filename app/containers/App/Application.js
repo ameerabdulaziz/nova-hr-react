@@ -876,7 +876,7 @@ function Application(props) {
         />
 
         <Route
-          path='/app/Pages/Att/PermissionList'
+          path='/app/Pages/Att/Permission'
           component={PermissionList}
         />
         <Route

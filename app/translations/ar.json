@@ -1280,6 +1280,8 @@
   "boilerplate.containers.Payroll.Attendance.shiftName": "اسم الوردية",
   "boilerplate.containers.Payroll.Attendance.EmployeeShiftCreateTitle": "اضفة ورديات الموظفين",
   "boilerplate.containers.Payroll.Attendance.EmployeeShiftUpdateTitle": "تعديل ورديات الموظفين",
+  "boilerplate.containers.Payroll.Attendance.reqDayNotAllow": "الايام التى لا يسمح بطلب اجازة فيها",
+  "boilerplate.containers.Payroll.Attendance.reqBeforeShiftInMinute": "الطلب غير مسموح قبل بداية الوردية",
 
   "boilerplate.containers.Payroll.Attendance.timeIn": "حضور",
   "boilerplate.containers.Payroll.Attendance.timeOut": "انصراف",
