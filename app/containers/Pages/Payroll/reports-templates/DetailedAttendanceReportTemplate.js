@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Stack, Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
@@ -7,11 +7,13 @@ import DetailedAttendanceHeaderDate from './DetailedAttendanceComponents/Detaile
 import DetailedAttendanceTable from './DetailedAttendanceComponents/DetailedAttendanceTable'; 
 import DetailedAttendanceFooter from './DetailedAttendanceComponents/DetailedAttendanceFooter'; 
 import messages from "../Attendance/messages";
+import { useSelector } from 'react-redux';
 
 function DetailedAttendanceReportTemplate(props) {
 
   const { intl } = props;
 
+  const company = useSelector((state) => state.authReducer.companyInfo);
 
   const [employeeHeaders, setEmployeeHeaders] = useState([
     intl.formatMessage(messages.day), 
@@ -57,14 +59,11 @@ function DetailedAttendanceReportTemplate(props) {
             display: 'block',
             direction: "ltr"
           },
-          '.MuiTypography-root': {
-            fontFamily: "'Cairo', 'sans-serif'",
-          },
-          '.MuiTableCell-root': {
-            fontFamily: "'Cairo', 'sans-serif'",
-          },
         }}
       >
+        <Stack spacing={2} mb={2}>
+          <Avatar src={company?.logo} variant="square" />
+        </Stack>
 
             {props.data.map((empData,index)=>(
                 <div key={index}>

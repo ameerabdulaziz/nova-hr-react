@@ -1,6 +1,6 @@
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
-  Autocomplete, Box, Button, Grid, TextField
+  Autocomplete, Box, Button, Grid, TextField, Stack, Avatar
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -31,6 +31,7 @@ function JobOfferCreate(props) {
   const location = useLocation();
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
+  const company = useSelector((state) => state.authReducer.companyInfo);
   const id = location.state?.id ?? 0;
 
   const title = localStorage.getItem('MenuName');
@@ -554,9 +555,14 @@ function JobOfferCreate(props) {
                         '@media print': {
                           display: 'block',
                         },
-                        p: 4,
+                        px: 2,
+                        py: 4,
                       }}
                     >
+                      <Stack spacing={2} px={2}>
+                        <Avatar src={company?.logo} variant="square" />
+                      </Stack>
+
                       <div className='ql-snow' style={{ direction: 'ltr' }}>
                         <div className='ql-editor'>{parse(printContent)}</div>
                       </div>

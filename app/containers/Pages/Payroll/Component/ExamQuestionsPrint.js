@@ -7,7 +7,7 @@ import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../Assessment/messages';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { format } from 'date-fns';
-import { Box } from '@mui/material';
+import { Box, Stack, Avatar } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
@@ -27,11 +27,12 @@ const ExamQuestionsPrint = ({
 
     const { classes } = useStyles();
     const locale = useSelector(state => state.language.locale);
-
+    const company = useSelector((state) => state.authReducer.companyInfo);
 
     
     return(
         <>
+
         <Box
         ref={printDivRef}
         sx={{
@@ -42,6 +43,9 @@ const ExamQuestionsPrint = ({
           },
         }}
       >
+        <Stack spacing={2} mb={2} mx={4} mt={4} >
+          <Avatar src={company?.logo} variant="square" />
+        </Stack>
 
           <h1 className={`${style.printPageTitleSty} `}>
             {examData?.templateName} &nbsp;&nbsp; <span>{data[0]?.monthName} / {Year.name}</span>

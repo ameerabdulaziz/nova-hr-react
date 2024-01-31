@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import { useSelector } from 'react-redux';
 import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../../messages';
-import { Box } from '@mui/material';
+import { Box, Stack, Avatar } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import api from '../../api/AsTemplateData';
@@ -28,6 +28,7 @@ setPrintId
 
     const { classes } = useStyles();
     const locale = useSelector(state => state.language.locale);
+    const company = useSelector((state) => state.authReducer.companyInfo);
 
     const [examData, setExamData] = useState();
     const [printData, setPrintData] = useState([]);
@@ -139,7 +140,9 @@ setPrintId
           },
         }}
       >
-
+        <Stack spacing={2} mx={4} mt={4} mb={2}>
+          <Avatar src={company?.logo} variant="square" />
+        </Stack>
           <h1 className={`${style.printPageTitleSty} `}>
             {examData?.templateName}
           </h1>

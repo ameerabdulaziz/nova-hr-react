@@ -1,5 +1,5 @@
 import {
-  Autocomplete, Box, Button, Grid, TextField
+  Autocomplete, Box, Button, Grid, TextField, Stack, Avatar
 } from '@mui/material';
 import { format } from 'date-fns';
 import brand from 'enl-api/dummy/brand';
@@ -24,6 +24,7 @@ function PrintForm(props) {
   const description = brand.desc;
 
   const locale = useSelector((state) => state.language.locale);
+  const company = useSelector((state) => state.authReducer.companyInfo);
 
   const documentTitle = 'Print Form - ' + format(new Date(), 'yyyy-MM-dd hh_mm_ss');
 
@@ -241,6 +242,10 @@ function PrintForm(props) {
             p: 4,
           }}
         >
+          <Stack spacing={2} mb={2} >
+            <Avatar src={company?.logo} variant="square" />
+          </Stack>
+
           {parse(formInfo.printFormat)}
         </Box>
       </PapperBlock>

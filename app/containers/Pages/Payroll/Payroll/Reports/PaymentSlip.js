@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   Grid,
   TextField,
-  Typography,
+  Typography, Stack, Avatar
 } from '@mui/material';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -38,6 +38,7 @@ function PaymentSlip(props) {
 
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
+  const company = useSelector((state) => state.authReducer.companyInfo);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -127,8 +128,8 @@ function PaymentSlip(props) {
     setIsLoading(true);
 
     try {
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
+      const companies = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(companies);
 
       const payTemplate = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(payTemplate);
@@ -551,7 +552,7 @@ function PaymentSlip(props) {
         sx={{
           display: 'none',
           px: 4,
-          fontFamily: "'Cairo', 'sans-serif'",
+          pt: 4,
           '@media print': {
             display: 'block',
             direction: 'ltr',
@@ -559,15 +560,15 @@ function PaymentSlip(props) {
           'p.MuiTypography-root': {
             fontSize: '10px',
           },
-          '.MuiTypography-root': {
-            fontFamily: "'Cairo', 'sans-serif'",
-          },
           '.MuiTableCell-root': {
-            fontFamily: "'Cairo', 'sans-serif'",
             fontSize: '10px',
           },
         }}
       >
+        <Stack spacing={2} mb={2}>
+          <Avatar src={company?.logo} variant="square" />
+        </Stack>
+
         {paymentSlipReport.map((item, index) => (
           <Box
             key={index}
