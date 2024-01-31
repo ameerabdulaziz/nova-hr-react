@@ -16,7 +16,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import useStyles from './sidebar-jss';
 import menuApi from 'enl-api/ui/menuApi';
 //import dataMenu from 'enl-api/ui/menu';
-import {syncUserMenu} from '../../redux/actions/authActions';
+import {syncUserMenu, getCompanyInfo} from '../../redux/actions/authActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory} from "react-router-dom";
 
@@ -48,11 +48,10 @@ function MainMenu(props) {
     loadTransition(false);
   };
 
-   const getdata =  async () => {    
-
-    const data =  await menuApi.fetchApi(locale);
-    const mappedMenu = data.map((item) => {
-      return {
+  const getdata = async () => {
+    try {
+      const data = await menuApi.fetchApi(locale);
+      const mappedMenu = data.map((item) => ({
         ...item,
         icon: item.icon ?? "widgets",
         child: item.child?.map((child) => ({
@@ -63,12 +62,17 @@ function MainMenu(props) {
             icon: subChild.icon ?? "layers",
           })),
         })),
-      };
-    });
-    
-    //setdataMenu(data);
-    Dispatcher(syncUserMenu(mappedMenu));
-};
+      }));
+
+      const companyInfo = await menuApi.getCompanyInfo(locale);
+
+      Dispatcher(getCompanyInfo(companyInfo));
+
+      Dispatcher(syncUserMenu(mappedMenu));
+    } catch (error) {
+      //
+    }
+  };
 
 useEffect(() => {  
   /* if(!dataMenu || dataMenu.length==0)

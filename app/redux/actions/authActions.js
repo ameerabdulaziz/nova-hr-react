@@ -90,6 +90,11 @@ export const logoutFailure = error => ({
   error
 });
 
+export const getCompanyInfo = (info) => ({
+  type: types.GET_COMPANY_INFO,
+  info
+});
+
 export const syncUser = user => ({
   type: types.SYNC_USER,
   user

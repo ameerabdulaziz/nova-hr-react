@@ -24,6 +24,8 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
+export const GET_COMPANY_INFO = 'GET_COMPANY_INFO';
+
 export const SYNC_USER = 'SYNC_USER';
 export const SYNC_USERMENU= 'SYNC_USERMENU';
 

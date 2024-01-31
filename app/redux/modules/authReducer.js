@@ -17,7 +17,8 @@ import {
   PASSWORD_FORGET_SUCCESS,
   SYNC_USER,
   SYNC_USERMENU,
-  HIDE_MSG
+  HIDE_MSG,
+  GET_COMPANY_INFO
 } from '../constants/authConstants';
 
 export const AuthState = {
@@ -25,6 +26,9 @@ export const AuthState = {
   loggedIn: null,
   user: null,
   usermenu: [],
+  companyInfo: {
+    logo: '',
+  },
   uid: null,
   message: null
 };
@@ -65,6 +69,10 @@ const authReducer = (state = AuthState, action = {}) => produce(state, draft => 
     case LOGOUT_SUCCESS:
       draft.loading = false;
       draft.loggedIn = false;
+      break;
+
+    case GET_COMPANY_INFO:
+      draft.companyInfo = action.info;
       break;
 
     case SYNC_USER:
