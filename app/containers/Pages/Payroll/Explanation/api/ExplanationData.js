@@ -6,9 +6,10 @@ const ExplanationData = (locale) => {
   
  
   Apis.GetReport = async (params) => {
-    const queryString = new URLSearchParams(params);
     const data = await axiosInstance.get(
-      `Explanation/GetReport/${locale}?${queryString}`
+      `Explanation/GetReport/${locale}`, {
+        params
+      }
     );
     const result = data.data;
 
