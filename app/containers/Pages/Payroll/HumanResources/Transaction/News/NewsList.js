@@ -27,7 +27,6 @@ function NewsList(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleClickOpen = (item) => {
-    debugger;
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -38,7 +37,7 @@ function NewsList(props) {
 
   async function deleterow() {
     try {
-      debugger;
+
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -55,6 +54,8 @@ function NewsList(props) {
   }
 
   async function fetchData() {
+    setIsLoading(true);
+
     try {
       const dataApi = await ApiData(locale).GetList();
       setdata(dataApi);
@@ -176,9 +177,9 @@ function NewsList(props) {
         <AlertPopup
           handleClose={handleClose}
           open={openParentPopup}
-          messageData={`${intl.formatMessage(
+          messageData={intl.formatMessage(
             Payrollmessages.deleteMessage
-          )}${deleteItem}`}
+          )}
           callFun={deleterow}
         />
       </PapperBlock>

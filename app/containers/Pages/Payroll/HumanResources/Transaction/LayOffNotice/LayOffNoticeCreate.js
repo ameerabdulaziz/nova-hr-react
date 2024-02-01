@@ -66,6 +66,8 @@ function LayOffNoticeCreate(props) {
   }
 
   async function fetchData() {
+    setIsLoading(true);
+
     try {
       const dataApi = await ApiData(locale).Get(id ?? 0);
       if (dataApi.id != 0) setdata(dataApi);

@@ -30,7 +30,6 @@ function CustodyReceiveList(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleClickOpen = (item) => {
-    debugger;
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -41,7 +40,6 @@ function CustodyReceiveList(props) {
 
   async function deleterow() {
     try {
-      debugger;
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
