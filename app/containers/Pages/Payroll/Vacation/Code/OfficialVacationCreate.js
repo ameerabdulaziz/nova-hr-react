@@ -171,15 +171,7 @@ useEffect(() => {
               spacing={3}
               alignItems="flex-start"
               direction="row">
-            
-              <Grid item xs={12}  md={12} 
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-                className={style.gridSty}
-                > 
-                    
+
                 <Grid item xs={12}  md={4}> 
                   <LocalizationProvider dateAdapter={AdapterMoment}>
                       <DesktopDatePicker
@@ -203,15 +195,6 @@ useEffect(() => {
             
                 </Grid>
                 
-              </Grid>
-
-              <Grid item xs={12}  md={12} 
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-              className={style.gridSty}
-              > 
                     
                 <Grid item xs={12}  md={4}> 
                   <TextField
@@ -228,16 +211,6 @@ useEffect(() => {
                   />
               
                 </Grid>
-                
-              </Grid>
-                    
-              <Grid item xs={12}  md={12} 
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-              className={style.gridSty}
-              > 
                     
                 <Grid item xs={12}  md={4}> 
                   <TextField
@@ -252,20 +225,8 @@ useEffect(() => {
                       onChange={(e) => setVacationDesEN(e.target.value)}
                   />
                 </Grid>
-                
-              </Grid>
 
-               
-
-                <Grid item xs={12}  md={12} 
-                  container
-                  spacing={3}
-                  alignItems="flex-start"
-                  direction="row"
-                  className={style.gridSty}
-                  > 
-                    
-                  <Grid item xs={12}  md={4}> 
+                <Grid item xs={12}  md={6}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -306,8 +267,6 @@ useEffect(() => {
                         />
               
                   </Grid>
-                
-              </Grid>
 
             </Grid>
 
