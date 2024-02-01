@@ -39,6 +39,7 @@ function OpeningClosingTheYearForLeaves(props) {
   const [processingCloseYear ,setProcessingCloseYear] = useState(false)
   const [processingOpenYear ,setProcessingOpenYear] = useState(false)
   const locale = useSelector(state => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [OrganizationData, setOrganizationData] = useState([]);
   const [yearData, setYearData] = useState([]);
   const { intl } = props;
@@ -56,6 +57,13 @@ const getdata =  async () => {
   
     setOrganizationData(Organizationlist)
     setYearData(YearList)
+
+      if (branchId) {
+        setOrganization(Organizationlist.find((item)=> item.id === branchId));
+        const response = await GeneralListApis(locale).getOpenMonth(branchId, 0);
+
+        setYear(YearList.find((item)=> item.id === response.yearId));
+      }
   } catch (error) {
     // 
   }finally {
@@ -186,20 +194,10 @@ useEffect(() => {
             <form>
 
             <Grid
-              // container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row">
-            
-              <Grid item xs={12}  md={12} 
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-                className={style.gridSty}
-                > 
-                    
-                  <Grid item xs={12}  md={4} > 
+              container
+              spacing={3}>
+
+                  <Grid item xs={12}  md={3} > 
                         <Autocomplete
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}             
@@ -237,17 +235,7 @@ useEffect(() => {
                             /> 
                   </Grid>
                 
-              </Grid>
-
-              <Grid item xs={12}  md={12} 
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-                className={style.gridSty}
-              > 
-                    
-                <Grid item xs={12}  md={4}> 
+                <Grid item xs={12}  md={3}> 
                         <Autocomplete
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}     
@@ -286,20 +274,8 @@ useEffect(() => {
                             /> 
               
                 </Grid>
-              </Grid>
                     
-              
-              <Grid item xs={12}  md={4}  className={style.gridSty}> 
-                  <Card className={classes.card}>
-                    <CardContent className={style.CardContentSty}>
-                      <Grid item xs={12}  md={12} 
-                        container
-                        spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
-                        >
-
-                          <Grid item xs={12}  md={6}> 
+                          <Grid item xs={12}  md={3}> 
                             <LocalizationProvider dateAdapter={AdapterMoment}>
                                 <DesktopDatePicker
                                   label={intl.formatMessage(messages.StartDate)}
@@ -322,7 +298,7 @@ useEffect(() => {
                       
                           </Grid>
 
-                          <Grid item xs={12}  md={6}> 
+                          <Grid item xs={12}  md={3}> 
                             <LocalizationProvider dateAdapter={AdapterMoment}>
                                 <DesktopDatePicker
                                   label={intl.formatMessage(messages.EndDate)}
@@ -344,20 +320,7 @@ useEffect(() => {
                             </LocalizationProvider>
                       
                           </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
-                </Grid>
 
-                <Grid item xs={12}  md={12} ></Grid>
-                
-                <Grid item xs={12}  md={12} 
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-                className={style.gridSty}
-              > 
                 <Grid item xs={12}  md={2}> 
                     <Button variant="contained" size="medium" color="primary" 
                     disabled={ (!submittingOpenYear || !processingOpenYear) && (fromDate < toDate || (fromDate === null && toDate === null)) && (apiData && apiData.id === 0)  ? false :  true}
@@ -388,7 +351,6 @@ useEffect(() => {
                     </Button>
                 </Grid>
                 
-              </Grid>
 
             </Grid>
 
