@@ -56,31 +56,31 @@ const ExamQuestionWithoutNextAndPrev = ({
                                  
                                  >
                            <Grid item xs={12} md={6} >
-                               <div className={`${style.userInfoSty}`}>
+                               <div className={`${style.userInfoSty} ${style.userInfoStyView2}`}>
                                    <p><FormattedMessage {...messages.department} />: </p> <p className={classes.textSty}>{examData?.organizationName}</p>
                                </div>
                            </Grid>
 
                            <Grid item xs={12} md={6} >
-                               <div className={`${style.userInfoSty}`}>
+                               <div className={`${style.userInfoSty} ${style.userInfoStyView2}`}>
                                    <p><FormattedMessage {...messages.employeeName} />: </p> <p className={classes.textSty}>{examData?.employeeName}</p>
                                </div>
                            </Grid>
 
                            <Grid item xs={12} md={6} >
-                               <div className={`${style.userInfoSty}`}>
+                               <div className={`${style.userInfoSty} ${style.userInfoStyView2}`}>
                                    <p><FormattedMessage {...messages.jobName} />: </p> <p className={classes.textSty}>{examData?.jobName}</p>
                                </div>
                            </Grid>
 
-                           <Grid item xs={12} md={6} >
+                           {/* <Grid item xs={12} md={6} >
                                <div className={`${style.userInfoSty}`}>
                                    <p><FormattedMessage {...messages.BirthDate} />: </p> <p className={classes.textSty}>{examData ? format(new Date(examData.birthDate), 'yyyy-MM-dd') : ""}</p>
                                </div>
-                           </Grid>
+                           </Grid> */}
 
                            <Grid item xs={12} md={6} >
-                               <div className={`${style.userInfoSty}`}>
+                               <div className={`${style.userInfoSty} ${style.userInfoStyView2}`}>
                                    <p><FormattedMessage {...messages.hiringData} />: </p> <p className={classes.textSty}>{examData ?  format(new Date(examData.hiringDate), 'yyyy-MM-dd') : ""}</p>
                                </div>
                            </Grid>
