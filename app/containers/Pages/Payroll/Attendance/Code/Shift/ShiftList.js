@@ -29,7 +29,6 @@ function ShiftList(props) {
   
   
   const handleClickOpen = (item) => {
-    debugger;
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -40,7 +39,6 @@ function ShiftList(props) {
 
   async function deleterow() {
     try {
-      debugger;
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -199,7 +197,7 @@ function ShiftList(props) {
           open={openParentPopup}
           messageData={`${intl.formatMessage(
             Payrollmessages.deleteMessage
-          )}${deleteItem}`}
+          )}`}
           callFun={deleterow}
         />
       </PapperBlock>
