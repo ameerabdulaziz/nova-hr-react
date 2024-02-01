@@ -32,6 +32,7 @@ import Payrollmessages from "../../messages";
 import api from "../api/LeaveTrxData";
 import messages from "../messages";
 import { ServerURL } from "../../api/ServerConfig";
+import { formateDate } from "../../helpers";
 
 function LeaveTrxCreate(props) {
   const { intl } = props;
@@ -186,8 +187,6 @@ function LeaveTrxCreate(props) {
     calculateDaysCount();
   }, [formInfo.toDate, formInfo.fromDate]);
 
-  const formateDate = (date) => format(new Date(date), "yyyy-MM-dd");
-
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
@@ -214,8 +213,8 @@ function LeaveTrxCreate(props) {
       vacReson: formInfo.vacReson,
       address: formInfo.address,
       notes: formInfo.notes,
-      exemptEntryRec: formInfo.exemptEntryRec,
-      exemptLeaveRec: formInfo.exemptLeaveRec ?? '',
+      exemptEntryRec: Boolean(formInfo.exemptEntryRec),
+      exemptLeaveRec: Boolean(formInfo.exemptLeaveRec),
       alternativeStaff: formInfo.alternativeStaff,
       vacCode: formInfo.vacCode,
     };
@@ -431,10 +430,6 @@ function LeaveTrxCreate(props) {
                           }
                           onChange={onVacationChange}
                           sx={{
-                            ".MuiInputBase-root": {
-                              paddingTop: "8px",
-                              paddingBottom: "8px",
-                            },
                             width: "100%",
                           }}
                           renderInput={(params) => (
@@ -705,7 +700,7 @@ function LeaveTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         multiline
-                        rows={3}
+                        rows={1}
                         required
                       />
                     </Grid>
@@ -719,7 +714,7 @@ function LeaveTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         multiline
-                        rows={3}
+                        rows={1}
                       />
                     </Grid>
                   </Grid>

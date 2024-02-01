@@ -253,7 +253,7 @@ function VacationsTypes({ intl }) {
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${deleteItem[1]}`}
+        messageData={intl.formatMessage(Payrollmessages.deleteMessage)}
         callFun={DeleteFun}
       />
     </PayRollLoader>

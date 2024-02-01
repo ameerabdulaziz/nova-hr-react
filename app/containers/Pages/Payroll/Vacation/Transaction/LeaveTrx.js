@@ -1,10 +1,10 @@
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
 import AddButton from '../../Component/AddButton';
@@ -13,6 +13,7 @@ import DeleteButton from '../../Component/DeleteButton';
 import EditButton from '../../Component/EditButton';
 import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/LeaveTrxData';
 import messages from '../messages';
@@ -47,15 +48,11 @@ function LeaveTrxList(props) {
   const deleteRow = async () => {
     try {
       setIsLoading(true);
-      const response = await api(locale).delete(deleteItem);
+      await api(locale).delete(deleteItem);
 
-      if (response.status === 200) {
-        toast.success(notif.saved);
+      toast.success(notif.saved);
 
-        fetchTableData();
-      } else {
-        toast.error(response.statusText);
-      }
+      fetchTableData();
     } catch (error) {
       //
     } finally {
@@ -77,7 +74,7 @@ function LeaveTrxList(props) {
     },
     {
       name: 'employeeId',
-      label: <FormattedMessage {...messages.employeeCode} />,
+      label: intl.formatMessage(messages.employeeCode),
       options: {
         filter: true,
       },
@@ -85,7 +82,7 @@ function LeaveTrxList(props) {
 
     {
       name: 'employeeName',
-      label: <FormattedMessage {...messages.employeeName} />,
+      label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
       },
@@ -93,45 +90,47 @@ function LeaveTrxList(props) {
 
     {
       name: 'vacationName',
-      label: <FormattedMessage {...messages.LeaveType} />,
+      label: intl.formatMessage(messages.LeaveType),
       options: {
         filter: true,
       },
     },
     {
       name: 'daysCount',
-      label: <FormattedMessage {...messages.daysCount} />,
+      label: intl.formatMessage(messages.daysCount),
       options: {
         filter: true,
       },
     },
     {
       name: 'fromDate',
-      label: <FormattedMessage {...messages.fromdate} />,
+      label: intl.formatMessage(messages.fromdate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'toDate',
-      label: <FormattedMessage {...messages.todate} />,
+      label: intl.formatMessage(messages.todate),
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     // {
     //   name: 'serial',
-    //   label: <FormattedMessage {...messages.serial} />,
+    //   label: intl.formatMessage(messages.serial),
     //   options: {
     //     filter: true,
     //   },
     // },
     {
       name: 'trxDate',
-      label: <FormattedMessage {...messages.transactionDate} />,
+      label: intl.formatMessage(messages.transactionDate),
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
 
@@ -159,7 +158,7 @@ function LeaveTrxList(props) {
 
     {
       name: 'Actions',
-      label: <FormattedMessage {...messages.actions} />,
+      label: intl.formatMessage(messages.actions),
       options: {
         filter: false,
         customBodyRender: (value, tableMeta) => (
@@ -206,9 +205,9 @@ function LeaveTrxList(props) {
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={`${intl.formatMessage(
+        messageData={intl.formatMessage(
           payrollMessages.deleteMessage
-        )}${deleteItem}`}
+        )}
         callFun={deleteRow}
       />
 
@@ -225,5 +224,9 @@ function LeaveTrxList(props) {
     </PayRollLoader>
   );
 }
+
+LeaveTrxList.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(LeaveTrxList);
