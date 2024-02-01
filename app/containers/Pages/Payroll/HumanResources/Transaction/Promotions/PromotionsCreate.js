@@ -76,6 +76,8 @@ function PromotionsCreate(props) {
   }
 
   async function fetchData() {
+    setIsLoading(true);
+
     try {
       const jobs = await GeneralListApis(locale).GetJobsList(locale);
       setJobList(jobs);

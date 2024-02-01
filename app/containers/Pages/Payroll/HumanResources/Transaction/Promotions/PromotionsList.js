@@ -56,6 +56,8 @@ function PromotionsList(props) {
   }
 
   async function fetchData() {
+    setIsLoading(true);
+
     try {
       const dataApi = await ApiData(locale).GetList();
       setdata(dataApi);
@@ -189,9 +191,9 @@ function PromotionsList(props) {
         <AlertPopup
           handleClose={handleClose}
           open={openParentPopup}
-          messageData={`${intl.formatMessage(
+          messageData={intl.formatMessage(
             Payrollmessages.deleteMessage
-          )}${deleteItem}`}
+          )}
           callFun={deleterow}
         />
       </PapperBlock>

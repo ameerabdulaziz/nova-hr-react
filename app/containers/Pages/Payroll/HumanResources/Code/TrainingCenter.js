@@ -15,7 +15,7 @@ const useStyles = makeStyles()(() => ({
 }));
 
 function TrainingCenter() {
-  const title = brand.name + ' - TrainingCenter';
+  const title = localStorage.getItem("MenuName");
   const description = brand.desc;
   const { classes } = useStyles();
 
@@ -86,7 +86,7 @@ function TrainingCenter() {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
-      <PapperBlock whiteBg icon="border_color" title="" desc="">
+      <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <div className={classes.root}>
           <EditTable
             anchorTable={anchorTable}

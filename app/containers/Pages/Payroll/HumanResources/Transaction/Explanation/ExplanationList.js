@@ -34,37 +34,37 @@ function ExplanationList(props) {
   const handleSearch = async (e) => {
     try {
       setIsLoading(true);
-      const dataApi = await ApiData(locale).GetReport(
+      const dataApi = await ApiData(locale).GetReport({
         employee,
         type,
         fromdate,
         todate,
-        false
-      );
+      });
       setdata(dataApi);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
   };
 
   async function fetchData() {
+    setIsLoading(true);
+
     try {
       const employees = await GeneralListApis(locale).GetEmployeeList(locale);
       setEmployeeList(employees);
-      const types = await GeneralListApis(locale).GetExplanationTypeList(
-        locale
-      );
+      const types = await GeneralListApis(locale).GetExplanationTypeList();
       setTypeList(types);
-      const dataApi = await ApiData(locale).GetReport(
+      const dataApi = await ApiData(locale).GetReport({
         employee,
         type,
         fromdate,
         todate,
-        false
-      );
+      });
       setdata(dataApi);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
