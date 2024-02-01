@@ -2950,7 +2950,7 @@
   "boilerplate.containers.Payroll.assessment.probationPeriodTemplate": "قالب فترة التجربة",
 
 
-  "boilerplate.containers.Payroll.assessment.AssessmentFinish": "انهاء التقييم",
+  "boilerplate.containers.Payroll.assessment.AssessmentFinish": "انهاء",
   "boilerplate.containers.Payroll.assessment.Start": "ابدا",
   "boilerplate.containers.Payroll.assessment.completedQuestions": "الأسئلة المكتملة",
   "boilerplate.containers.Payroll.assessment.ThereAreQuestionsThatYouDidNotAnswerWhichAre": "هناك أسئلة لم تجب عليها وهي",

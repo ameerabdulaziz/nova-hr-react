@@ -379,7 +379,7 @@ function AssessmentReviewEdit(props) {
                   {( startExam && !endExam) && (
                   <Grid item xs={12} className={`${style.gridContainerSty} `}  
                       > 
-                        <div className={` ${style.panarContainer} ${classes.examMainSty}`}>
+                        <div className={` ${style.panarContainer} ${style.panarContainerView2} ${classes.examMainSty}`}>
                         <div>
                             <img src={examLogo2} />
                             <div>
