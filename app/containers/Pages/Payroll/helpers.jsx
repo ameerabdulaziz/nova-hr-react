@@ -9,10 +9,11 @@ import React from 'react';
  * @returns {string | null} the formatted date string according to the specified formatting. If the
 input date is null or undefined, the function will return null.
  * @param {string | Date | null} date
+ * @param {String} formatString
  */
-function formateDate(date) {
+function formateDate(date, formatString = 'yyyy-MM-dd') {
   // TODO: Mohmmed Taysser check if date is valid
-  return date ? format(new Date(date), 'yyyy-MM-dd') : date;
+  return date ? format(new Date(date), formatString) : date;
 }
 
 /**
