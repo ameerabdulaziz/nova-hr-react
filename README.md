@@ -52,6 +52,7 @@ npm run start:prod
 ## BUGS 🐛
 
 - [ ] Exclude the **profile page** from appearing in the master data menu.
+- [ ] Exclude the **JobApplicationPreview page** from appearing in the Recruitment menu.
 - [ ] Eliminate the **debugger** from the project codebase.
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
 - [ ] Ensure that the **MUI-table** is properly translated into Arabic.
@@ -67,7 +68,8 @@ npm run start:prod
 ### TODO
 
 - [ ] Integrate a cancel button into the **editable** table component
-- [ ] Create a global component for **MUI-table** that allows for customization of printed data.
+- [x] Create a global component for **MUI-table** that allows for customization of printed data.
+- [ ] Create docs for **MUI-table**
 
 ## Pages
 
