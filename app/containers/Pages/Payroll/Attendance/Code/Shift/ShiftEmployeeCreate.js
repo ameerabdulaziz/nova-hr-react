@@ -177,7 +177,12 @@ function ShiftEmployeeCreate(props) {
                 value={data.startTime}
                 label={intl.formatMessage(messages.startTime)}
                 type="time"
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => {
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    startTime: e.target.value,
+                  }));
+                }}
                 className={classes.field}
                 InputLabelProps={{
                   shrink: true,
@@ -191,7 +196,12 @@ function ShiftEmployeeCreate(props) {
                 value={data.endTime}
                 label={intl.formatMessage(messages.endTime)}
                 type="time"
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => {
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    endTime: e.target.value,
+                  }));
+                }}
                 className={classes.field}
                 InputLabelProps={{
                   shrink: true,

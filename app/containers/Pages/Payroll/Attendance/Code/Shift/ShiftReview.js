@@ -261,6 +261,9 @@ function ShiftReview(props) {
     onSearchClose: () => {
       //some logic
     },
+    customToolbar: () => (
+      <></>
+    ),
 
     customToolbarSelect: (selectedRows) => (
       <div style={{ width: "80%" }}>

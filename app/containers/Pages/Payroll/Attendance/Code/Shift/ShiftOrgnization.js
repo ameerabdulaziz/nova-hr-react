@@ -112,7 +112,7 @@ function ShiftOrgnization(props) {
 
   
   const handleClickOpen = (item) => {
-    debugger;
+
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -123,7 +123,7 @@ function ShiftOrgnization(props) {
 
   async function deleterow() {
     try {
-      debugger;
+
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -792,7 +792,7 @@ function ShiftOrgnization(props) {
           open={openParentPopup}
           messageData={`${intl.formatMessage(
             Payrollmessages.deleteMessage
-          )}${deleteItem}`}
+          )}`}
           callFun={deleterow}
         />
     </PayRollLoader>

@@ -220,6 +220,7 @@ function ShiftTransfere(props) {
       label: <FormattedMessage {...Payrollmessages["fromdate"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {
@@ -227,6 +228,7 @@ function ShiftTransfere(props) {
       label: <FormattedMessage {...Payrollmessages["todate"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {
@@ -300,6 +302,9 @@ function ShiftTransfere(props) {
     onSearchClose: () => {
       //some logic
     },
+    customToolbar: () => (
+      <></>
+    ),
     customToolbarSelect: (selectedRows) => (
       <span>
         {/* <Button
