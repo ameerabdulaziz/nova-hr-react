@@ -22,7 +22,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -33,30 +32,13 @@ import { useHistory, useLocation } from 'react-router';
 import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate, uuid } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmploymentRequestData';
 import WorkDescriptionPopup from '../components/EmploymentRequest/WorkDescriptionPopup';
 import WorkKnowledgePopup from '../components/EmploymentRequest/WorkKnowledgePopup';
 import WorkSkillPopup from '../components/EmploymentRequest/WorkSkillPopup';
 import messages from '../messages';
-
-const uuid = () => {
-  const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
-  return (
-    S4()
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ S4()
-		+ S4()
-  );
-};
 
 function EmploymentRequestCreate(props) {
   const { intl } = props;
@@ -69,7 +51,7 @@ function EmploymentRequestCreate(props) {
   const [levelList, setLevelList] = useState([]);
   const [replacementList, setReplacementList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
-  const [jobsList, setJobList] = useState([]);
+  const [jobsList, setJobsList] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -124,8 +106,6 @@ function EmploymentRequestCreate(props) {
     other: false,
   });
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
-
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
@@ -138,13 +118,13 @@ function EmploymentRequestCreate(props) {
         description: item.description,
         id: 0,
         languageLevelID: item.levelId,
-        type: 1
+        type: 1,
       })),
       knowledgeList: workKnowledge.map((item) => ({
         description: item.description,
         id: 0,
         languageLevelID: '',
-        type: 2
+        type: 2,
       })),
       jobDescription: workDescription.map((item) => ({
         description: item.description,
@@ -176,7 +156,7 @@ function EmploymentRequestCreate(props) {
       setLevelList(levels);
 
       const jobs = await GeneralListApis(locale).GetJobList();
-      setJobList(jobs);
+      setJobsList(jobs);
 
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
@@ -191,7 +171,12 @@ function EmploymentRequestCreate(props) {
 
         setWorkDescription(dataApi.jobDescription);
         setWorkKnowledge(dataApi.knowledgeList);
-        setWorkSkill(dataApi.communicationList);
+        setWorkSkill(
+          dataApi.communicationList.map((item) => ({
+            ...item,
+            levelId: item.languageLevelID,
+          }))
+        );
 
         setLanguages({
           other: dataApi.otherLanguageLevelId !== null,

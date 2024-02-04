@@ -10,25 +10,21 @@ import {
   TextField,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/JobOfferStatusData';
 import messages from '../messages';
 
 function JobOfferStatus(props) {
   const { intl } = props;
-  const { classes } = useStyles();
 
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
@@ -45,8 +41,6 @@ function JobOfferStatus(props) {
     notes: '',
     status: null,
   });
-
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -86,6 +80,7 @@ function JobOfferStatus(props) {
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
 
@@ -93,33 +88,23 @@ function JobOfferStatus(props) {
       name: 'jobOfferDate',
       label: intl.formatMessage(messages.offerDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
     {
       name: 'candidateName',
       label: intl.formatMessage(messages.applicantName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.jobName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'departmentName',
       label: intl.formatMessage(messages.department),
-      options: {
-        filter: true,
-      },
     },
   ];
 
@@ -131,21 +116,7 @@ function JobOfferStatus(props) {
   };
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    // selectableRows: 'none',
-    searchOpen: false,
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
+    selectableRows: 'multiple',
     customToolbarSelect: (selectedRows) => (
       <>
         <IconButton
@@ -202,7 +173,7 @@ function JobOfferStatus(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <>
       <Dialog
         open={isPopupOpen}
         onClose={closePopup}
@@ -256,7 +227,7 @@ function JobOfferStatus(props) {
                 onChange={onPopupInputChange}
                 value={popupState.notes}
                 label={intl.formatMessage(payrollMessages.notes)}
-                className={classes.field}
+                fullWidth
                 variant='outlined'
                 multiline
                 rows={1}
@@ -276,17 +247,15 @@ function JobOfferStatus(props) {
         </DialogActions>
       </Dialog>
 
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      </PapperBlock>
-    </PayRollLoader>
+      <PayrollTable
+        isLoading={isLoading}
+        showLoader
+        title={Title}
+        data={tableData}
+        options={options}
+        columns={columns}
+      />
+    </>
   );
 }
 

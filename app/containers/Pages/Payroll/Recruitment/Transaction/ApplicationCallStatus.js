@@ -1,9 +1,4 @@
-import DownloadIcon from '@mui/icons-material/Download';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Autocomplete,
   Button,
@@ -12,45 +7,34 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  Menu,
-  MenuItem,
-  TextField,
+  TextField
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
-import { ServerURL } from '../../api/ServerConfig';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/ApplicationCallStatusData';
+import RowDropdown from '../components/ApplicationCallStatus/RowDropdown';
 import messages from '../messages';
 
 function ApplicationCallStatus(props) {
   const { intl } = props;
-  const { classes } = useStyles();
-  const history = useHistory();
 
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
   const [tableData, setTableData] = useState([]);
-  const [openedDropdown, setOpenedDropdown] = useState({});
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
 
-  const [callStatusList, setStatusPopupList] = useState([]);
+  const [callStatusList, setCallStatusList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -59,9 +43,6 @@ function ApplicationCallStatus(props) {
     notes: '',
     interviewTime: '',
   });
-
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
-  const formateDateTime = (date) => (date ? format(new Date(date), 'yyyy-MM-dd hh:mm:ss') : null);
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -81,7 +62,7 @@ function ApplicationCallStatus(props) {
 
     try {
       const popupStatus = await GeneralListApis(locale).GetCallStatusList();
-      setStatusPopupList(popupStatus);
+      setCallStatusList(popupStatus);
     } catch (error) {
       //
     } finally {
@@ -94,30 +75,12 @@ function ApplicationCallStatus(props) {
     fetchNeededData();
   }, []);
 
-  const onDropdownClose = (rowIndex) => setOpenedDropdown((prev) => ({
-    ...prev,
-    [rowIndex]: null,
-  }));
-
-  const onPreviewCVBtnClick = (rowIndex) => {
-    onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
-
-    history.push('/app/Pages/Recruitment/JobApplicationPreview', {
-      id,
-    });
-  };
-
-  const onUpdateStatusBtnClick = (rowIndex) => {
-    onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
-    setSelectedRowsId([id]);
+  const onUpdateStatusBtnClick = (ids) => {
+    setSelectedRowsId(ids);
     setIsPopupOpen(true);
   };
 
-  const onSendInterviewTimeBtnClick = async (rowIndex) => {
-    onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
+  const onSendInterviewTimeBtnClick = async (id) => {
     setIsLoading(true);
 
     try {
@@ -136,67 +99,49 @@ function ApplicationCallStatus(props) {
     {
       name: 'empName',
       label: intl.formatMessage(messages.applicantName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'appDate',
       label: intl.formatMessage(messages.applicationDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.jobName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'email',
       label: intl.formatMessage(messages.email),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'phone',
       label: intl.formatMessage(messages.phone),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'callStatus',
       label: intl.formatMessage(messages.callStatus),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'interviewTime',
       label: intl.formatMessage(messages.interviewTime),
       options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDateTime(value)}</pre>),
+        customBodyRender: (value) => (
+          <pre>{formateDate(value, 'yyyy-MM-dd hh:mm:ss')}</pre>
+        ),
       },
     },
 
     {
       name: 'callNote',
       label: intl.formatMessage(payrollMessages.notes),
-      options: {
-        filter: true,
-      },
     },
 
     {
@@ -204,114 +149,18 @@ function ApplicationCallStatus(props) {
       label: '',
       options: {
         filter: false,
+        print: false,
         customBodyRender: (_, tableMeta) => {
           const row = tableData[tableMeta.rowIndex];
 
           return (
-            <div>
-              <IconButton
-                onClick={(evt) => {
-                  setOpenedDropdown((prev) => ({
-                    ...prev,
-                    [tableMeta.rowIndex]: evt.currentTarget,
-                  }));
-                }}
-              >
-                <MoreVertIcon />
-              </IconButton>
-
-              <Menu
-                anchorEl={openedDropdown[tableMeta.rowIndex]}
-                open={Boolean(openedDropdown[tableMeta.rowIndex])}
-                onClose={() => onDropdownClose(tableMeta.rowIndex)}
-                slotProps={{
-                  paper: {
-                    elevation: 0,
-                    sx: {
-                      overflow: 'visible',
-                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                      mt: 1.5,
-                      '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1,
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
-                      },
-                    },
-                  },
-                }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              >
-                <MenuItem
-                  onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}
-                >
-                  <ListItemIcon>
-                    <SystemUpdateAltIcon fontSize='small' />
-                  </ListItemIcon>
-
-                  <ListItemText>
-                    {intl.formatMessage(messages.updateStatus)}
-                  </ListItemText>
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => onPreviewCVBtnClick(tableMeta.rowIndex)}
-                >
-                  <ListItemIcon>
-                    <VisibilityIcon fontSize='small' />
-                  </ListItemIcon>
-
-                  <ListItemText>
-                    {intl.formatMessage(messages.viewApplicationForm)}
-                  </ListItemText>
-                </MenuItem>
-
-                <MenuItem
-                  component='a'
-                  target='_blank'
-                  disabled={!row.cVfile}
-                  href={ServerURL + 'Doc/CVDoc/' + row.cVfile}
-                  onClick={() => onDropdownClose(tableMeta.rowIndex)}
-                >
-                  <ListItemIcon>
-                    <DownloadIcon fontSize='small' />
-                  </ListItemIcon>
-                  <ListItemText>
-                    {intl.formatMessage(messages.downloadCV)}
-                  </ListItemText>
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => onSendInterviewTimeBtnClick(tableMeta.rowIndex)
-                  }
-                  disabled={
-                    row.mailSend
-                    || (row.interviewTime == null && row.callStatusId !== 3)
-                  }
-                >
-                  <ListItemIcon>
-                    <UnsubscribeIcon fontSize='small' />
-                  </ListItemIcon>
-                  <ListItemText>
-                    {row.mailSend && '(sended) '}
-                    {intl.formatMessage(messages.sendInterviewTimeMail)}
-                  </ListItemText>
-                </MenuItem>
-              </Menu>
-            </div>
+            <RowDropdown
+              row={row}
+              tableMeta={tableMeta}
+              tableData={tableData}
+              onUpdateStatusBtnClick={onUpdateStatusBtnClick}
+              onSendInterviewTimeBtnClick={onSendInterviewTimeBtnClick}
+            />
           );
         },
       },
@@ -326,30 +175,14 @@ function ApplicationCallStatus(props) {
   };
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    // selectableRows: 'none',
-    searchOpen: false,
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
+    selectableRows: 'multiple',
     customToolbarSelect: (selectedRows) => (
-      <>
-        <IconButton
-          sx={{ mx: 2 }}
-          onClick={() => onToolBarIconClick(selectedRows.data)}
-        >
-          <ManageAccountsIcon sx={{ fontSize: '25px' }} />
-        </IconButton>
-      </>
+      <IconButton
+        sx={{ mx: 2 }}
+        onClick={() => onToolBarIconClick(selectedRows.data)}
+      >
+        <ManageAccountsIcon sx={{ fontSize: '25px' }} />
+      </IconButton>
     ),
   };
 
@@ -378,9 +211,14 @@ function ApplicationCallStatus(props) {
     evt.preventDefault();
     onPopupClose();
 
-    const popupData = { ...popupState, ids: selectedRowsId };
-
-    popupData.interviewTime = formateDateTime(popupData.interviewTime);
+    const popupData = {
+      ...popupState,
+      ids: selectedRowsId,
+      interviewTime: formateDate(
+        popupState.interviewTime,
+        'yyyy-MM-dd hh:mm:ss'
+      ),
+    };
 
     setIsLoading(true);
 
@@ -396,7 +234,7 @@ function ApplicationCallStatus(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <>
       <Dialog
         open={isPopupOpen}
         onClose={onPopupClose}
@@ -451,7 +289,7 @@ function ApplicationCallStatus(props) {
                 label={intl.formatMessage(messages.interviewTime)}
                 type='datetime-local'
                 onChange={(evt) => onPopupInputChange(evt)}
-                className={classes.field}
+                fullWidth
               />
             </Grid>
 
@@ -461,7 +299,7 @@ function ApplicationCallStatus(props) {
                 onChange={onPopupInputChange}
                 value={popupState.notes}
                 label={intl.formatMessage(payrollMessages.notes)}
-                className={classes.field}
+                fullWidth
                 variant='outlined'
                 multiline
                 rows={1}
@@ -481,17 +319,15 @@ function ApplicationCallStatus(props) {
         </DialogActions>
       </Dialog>
 
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      </PapperBlock>
-    </PayRollLoader>
+      <PayrollTable
+        isLoading={isLoading}
+        showLoader
+        title={Title}
+        data={tableData}
+        columns={columns}
+        options={options}
+      />
+    </>
   );
 }
 

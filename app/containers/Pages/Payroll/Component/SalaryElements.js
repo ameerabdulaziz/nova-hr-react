@@ -249,11 +249,11 @@ function SalaryElements(props) {
                   <TableCell>{row.elementDesc}</TableCell>
                   <TableCell>
                     <Stack direction='row' spacing={1}>
-                      <IconButton onClick={() => setSelectedRow(index)}>
+                      <IconButton color='primary' onClick={() => setSelectedRow(index)}>
                         <EditIcon />
                       </IconButton>
 
-                      <IconButton onClick={() => onDeleteBtnClick(row.id)}>
+                      <IconButton color='error' onClick={() => onDeleteBtnClick(row.id)}>
                         <DeleteIcon />
                       </IconButton>
                     </Stack>
