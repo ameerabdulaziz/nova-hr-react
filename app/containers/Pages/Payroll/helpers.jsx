@@ -90,6 +90,30 @@ function getFormData(fdObject = {}) {
   }, new FormData());
 }
 
+/**
+ * The above function generates a unique identifier using the UUID format.
+ * @returns {String} The `uuid` function returns a randomly generated UUID (Universally
+ * Unique Identifier) in the format "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", where
+ * each "x" represents a random hexadecimal digit.
+ */
+function uuid() {
+  const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
+  return (
+    S4()
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + S4()
+    + S4()
+  );
+}
+
 export {
-  formatNumber, formateDate, getCheckboxIcon, getFormData
+  formatNumber, formateDate, getCheckboxIcon, getFormData, uuid
 };
