@@ -264,6 +264,9 @@ function PayrollTable(props) {
           '@page': {
             margin: 4,
           },
+          svg: {
+            fontSize: '0.7rem',
+          }
         }}
       >
         <Stack
