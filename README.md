@@ -57,10 +57,10 @@ npm run start:prod
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
 - [ ] Ensure that the **MUI-table** is properly translated into Arabic.
 - [ ] **Notification** still not work
-- [ ] Implement error handling for API responses, especially when data is not returned. For example, `login page`
+- [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
 - [ ] Integrate dark mode support for the **loader** component
 - [ ] Complete the implementation of the **Calculate Attendance** page
-- [ ] Integrate the Leave **Balance** page with the API
+- [ ] Integrate the **LeaveBalance** page with the API
 - [ ] Dark mode not work correctly on most components
 - [ ] Implement a global loader when fetching menu data
 - [ ] Search in navbar still search on old dashboard components
@@ -132,6 +132,10 @@ npm run start:prod
 - [ ] **GovernmentSickLeave**: need workflow to be work
 - [ ] **GovernmentSickLeave**: alternativeStaff is not required but api get error as null is not accepted
 - [ ] **ImportVacations**: get error on upload (save)
+
+### Report
+
+- [ ] **LeaveReport**: return exception on success
 
 ## Docs
 
