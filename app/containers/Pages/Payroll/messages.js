@@ -554,4 +554,56 @@ employeeId: {
     id: `${scope}.confirmationMess`,
     defaultMessage: 'confirmation message',
   },
+  nextPage: {
+    id: `${scope}.nextPage`,
+    defaultMessage: 'nextPage',
+  },
+  previousPage: {
+    id: `${scope}.previousPage`,
+    defaultMessage: 'previousPage',
+  },
+  rowsPerPage: {
+    id: `${scope}.rowsPerPage`,
+    defaultMessage: 'rowsPerPage',
+  },
+  of: {
+    id: `${scope}.of`,
+    defaultMessage: 'of',
+  },
+  downloadCSV: {
+    id: `${scope}.downloadCSV`,
+    defaultMessage: 'downloadCSV',
+  },
+  viewColumns: {
+    id: `${scope}.viewColumns`,
+    defaultMessage: 'viewColumns',
+  },
+  filterTable: {
+    id: `${scope}.filterTable`,
+    defaultMessage: 'filterTable',
+  },
+  all: {
+    id: `${scope}.all`,
+    defaultMessage: 'all',
+  },
+  filters: {
+    id: `${scope}.filters`,
+    defaultMessage: 'filters',
+  },
+  showColumns: {
+    id: `${scope}.showColumns`,
+    defaultMessage: 'showColumns',
+  },
+  showHideTableColumns: {
+    id: `${scope}.showHideTableColumns`,
+    defaultMessage: 'showHideTableColumns',
+  },
+  rowSelected: {
+    id: `${scope}.rowSelected`,
+    defaultMessage: 'rowSelected',
+  },
+  deleteSelectedRows: {
+    id: `${scope}.deleteSelectedRows`,
+    defaultMessage: 'deleteSelectedRows',
+  },
 });
