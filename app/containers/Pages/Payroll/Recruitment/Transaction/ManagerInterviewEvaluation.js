@@ -3,30 +3,22 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem
+  ListItemIcon, ListItemText, Menu, MenuItem
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { format } from 'date-fns';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import { ServerURL } from '../../api/ServerConfig';
-import payrollMessages from '../../messages';
+import { formateDate } from '../../helpers';
 import api from '../api/ManagerInterviewEvaluationData';
 import messages from '../messages';
 
 function ManagerInterviewEvaluation(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const history = useHistory();
 
   const locale = useSelector((state) => state.language.locale);
@@ -36,8 +28,6 @@ function ManagerInterviewEvaluation(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const [openedDropdown, setOpenedDropdown] = useState({});
-
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -83,42 +73,29 @@ function ManagerInterviewEvaluation(props) {
     {
       name: 'empName',
       label: intl.formatMessage(messages.applicantName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'appDate',
       label: intl.formatMessage(messages.applicationDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.jobName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'hrStatus',
       label: intl.formatMessage(messages.hrStatus),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'techStatus',
       label: intl.formatMessage(messages.interviewStatus),
-      options: {
-        filter: true,
-      },
     },
 
     {
@@ -126,6 +103,7 @@ function ManagerInterviewEvaluation(props) {
       label: '',
       options: {
         filter: false,
+        print: false,
         customBodyRender: (_, tableMeta) => {
           const row = tableData[tableMeta.rowIndex];
 
@@ -223,37 +201,14 @@ function ManagerInterviewEvaluation(props) {
     },
   ];
 
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: 'none',
-    searchOpen: false,
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
-
   return (
-    <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      </PapperBlock>
-    </PayRollLoader>
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={Title}
+      data={tableData}
+      columns={columns}
+    />
   );
 }
 

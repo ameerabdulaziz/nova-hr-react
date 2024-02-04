@@ -16,13 +16,13 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import PayRollLoader from '../../Component/PayRollLoader';
+import { formateDate } from '../../helpers';
 import api from '../api/ReviewEmploymentRequestData';
 import messages from '../messages';
 
@@ -79,15 +79,19 @@ function ReviewEmploymentRequestCreate(props) {
     employeeReplacementName: '',
   });
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : '');
-
   async function fetchNeededData() {
     setIsLoading(true);
 
     try {
       const dataApi = await api(locale).GetById(id);
 
-      setFormInfo(dataApi);
+      setFormInfo({
+        ...dataApi,
+        communicationList: dataApi.communicationList.map((item) => ({
+          ...item,
+          levelId: item.languageLevelID,
+        })),
+      });
     } catch (error) {
       //
     } finally {
@@ -243,11 +247,7 @@ function ReviewEmploymentRequestCreate(props) {
               <Box sx={{ mt: 3 }}>
                 <FormControl>
                   <FormLabel>{intl.formatMessage(messages.gender)}</FormLabel>
-                  <RadioGroup
-                    row
-                    value={formInfo.genderId}
-                    name='genderId'
-                  >
+                  <RadioGroup row value={formInfo.genderId} name='genderId'>
                     <FormControlLabel
                       value={0}
                       control={<Radio disabled />}
@@ -342,11 +342,7 @@ function ReviewEmploymentRequestCreate(props) {
               <Box sx={{ mt: 3 }}>
                 <FormControl>
                   <FormLabel>{intl.formatMessage(messages.jobType)}</FormLabel>
-                  <RadioGroup
-                    row
-                    value={formInfo.jobType}
-                    name='jobType'
-                  >
+                  <RadioGroup row value={formInfo.jobType} name='jobType'>
                     <FormControlLabel
                       value={0}
                       control={<Radio disabled />}
@@ -374,11 +370,7 @@ function ReviewEmploymentRequestCreate(props) {
               <Box sx={{ mt: 3 }}>
                 <FormControl>
                   <FormLabel>{intl.formatMessage(messages.jobLevel)}</FormLabel>
-                  <RadioGroup
-                    row
-                    value={formInfo.jobLevel}
-                    name='jobLevel'
-                  >
+                  <RadioGroup row value={formInfo.jobLevel} name='jobLevel'>
                     <FormControlLabel
                       value={0}
                       control={<Radio disabled />}

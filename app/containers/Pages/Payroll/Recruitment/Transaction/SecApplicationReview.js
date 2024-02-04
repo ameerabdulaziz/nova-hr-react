@@ -23,20 +23,18 @@ import {
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import { ServerURL } from '../../api/ServerConfig';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SecApplicationReviewData';
 import messages from '../messages';
@@ -62,8 +60,6 @@ function SecApplicationReview(props) {
     appFirstStatus: null,
     reason: '',
   });
-
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -127,16 +123,12 @@ function SecApplicationReview(props) {
     {
       name: 'empName',
       label: intl.formatMessage(messages.applicantName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'appDate',
       label: intl.formatMessage(messages.applicationDate),
       options: {
-        filter: true,
         customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
@@ -144,39 +136,28 @@ function SecApplicationReview(props) {
     {
       name: 'jobName',
       label: intl.formatMessage(messages.jobName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'phone',
       label: intl.formatMessage(messages.phone),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'email',
       label: intl.formatMessage(messages.email),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'secStatus',
       label: intl.formatMessage(messages.status),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: '',
       label: '',
       options: {
+        print: false,
         filter: false,
         customBodyRender: (_, tableMeta) => {
           const row = tableData[tableMeta.rowIndex];
@@ -283,21 +264,7 @@ function SecApplicationReview(props) {
   };
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    // selectableRows: 'none',
-    searchOpen: false,
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
+    selectableRows: 'multiple',
     customToolbarSelect: (selectedRows) => (
       <>
         <IconButton
@@ -350,7 +317,7 @@ function SecApplicationReview(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <>
       <Dialog
         open={isPopupOpen}
         onClose={onPopupClose}
@@ -455,17 +422,15 @@ function SecApplicationReview(props) {
         </DialogActions>
       </Dialog>
 
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      </PapperBlock>
-    </PayRollLoader>
+      <PayrollTable
+        isLoading={isLoading}
+        showLoader
+        title={Title}
+        data={tableData}
+        columns={columns}
+        options={options}
+      />
+    </>
   );
 }
 

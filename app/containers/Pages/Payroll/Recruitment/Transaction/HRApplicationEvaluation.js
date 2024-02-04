@@ -2,15 +2,10 @@ import { Block, HourglassTop, PendingActions } from '@mui/icons-material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
-import DownloadIcon from '@mui/icons-material/Download';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonOffIcon from '@mui/icons-material/PersonOff';
 import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Autocomplete,
   Button,
@@ -23,40 +18,34 @@ import {
   DialogTitle,
   FormControlLabel,
   Grid,
-  Menu,
-  MenuItem,
-  TextField,
+  TextField
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import CounterWidget from '../../../../../components/Counter/CounterWidget';
 import useWidgetStyles from '../../../../../components/Widget/widget-jss';
 import style from '../../../../../styles/styles.scss';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
-import { ServerURL } from '../../api/ServerConfig';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/HRApplicationEvaluationData';
+import RowDropdown from '../components/HRApplicationEvaluation/RowDropdown';
 import messages from '../messages';
 
 function HRApplicationEvaluation(props) {
   const { intl } = props;
   const { classes } = useStyles();
-  const history = useHistory();
   const { classes: widgetClass } = useWidgetStyles();
 
   const locale = useSelector((state) => state.language.locale);
@@ -73,7 +62,6 @@ function HRApplicationEvaluation(props) {
   ];
 
   const [tableData, setTableData] = useState([]);
-  const [openedDropdown, setOpenedDropdown] = useState({});
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
 
@@ -122,15 +110,14 @@ function HRApplicationEvaluation(props) {
     databnkjob: null,
   });
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
-
   const fetchTableData = async () => {
     setIsLoading(true);
 
-    const formData = { ...formInfo };
-
-    formData.FromDate = formateDate(formInfo.FromDate);
-    formData.ToDate = formateDate(formInfo.ToDate);
+    const formData = {
+      ...formInfo,
+      FromDate: formateDate(formInfo.FromDate),
+      ToDate: formateDate(formInfo.ToDate),
+    };
 
     try {
       const response = await api(locale).GetList(formData);
@@ -188,30 +175,12 @@ function HRApplicationEvaluation(props) {
     fetchNeededData();
   }, []);
 
-  const onDropdownClose = (rowIndex) => setOpenedDropdown((prev) => ({
-    ...prev,
-    [rowIndex]: null,
-  }));
-
-  const onPreviewCVBtnClick = (rowIndex) => {
-    onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
-
-    history.push('/app/Pages/Recruitment/JobApplicationPreview', {
-      id,
-    });
-  };
-
-  const onUpdateStatusBtnClick = (rowIndex) => {
-    onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
-    setSelectedRowsId([id]);
+  const onUpdateStatusBtnClick = (ids) => {
+    setSelectedRowsId(ids);
     setIsPopupOpen(true);
   };
 
-  const onSendRejectMailBtnClick = async (rowIndex) => {
-    onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
+  const onSendRejectMailBtnClick = async (id) => {
     setIsLoading(true);
 
     try {
@@ -230,166 +199,53 @@ function HRApplicationEvaluation(props) {
     {
       name: 'empName',
       label: intl.formatMessage(messages.applicantName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'appDate',
       label: intl.formatMessage(messages.applicationDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.jobName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'hrStatus',
       label: intl.formatMessage(messages.hrStatus),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'techStatus',
       label: intl.formatMessage(messages.technicalStatus),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'secStatus',
       label: intl.formatMessage(messages.managerialStatus),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: '',
       label: '',
       options: {
+        print: false,
         filter: false,
         customBodyRender: (_, tableMeta) => {
           const row = tableData[tableMeta.rowIndex];
 
           return (
-            <div>
-              <IconButton
-                onClick={(evt) => {
-                  setOpenedDropdown((prev) => ({
-                    ...prev,
-                    [tableMeta.rowIndex]: evt.currentTarget,
-                  }));
-                }}
-              >
-                <MoreVertIcon />
-              </IconButton>
-
-              <Menu
-                anchorEl={openedDropdown[tableMeta.rowIndex]}
-                open={Boolean(openedDropdown[tableMeta.rowIndex])}
-                onClose={() => onDropdownClose(tableMeta.rowIndex)}
-                slotProps={{
-                  paper: {
-                    elevation: 0,
-                    sx: {
-                      overflow: 'visible',
-                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                      mt: 1.5,
-                      '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1,
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
-                      },
-                    },
-                  },
-                }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              >
-                <MenuItem
-                  onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}
-                >
-                  <ListItemIcon>
-                    <SystemUpdateAltIcon fontSize='small' />
-                  </ListItemIcon>
-
-                  <ListItemText>
-                    {intl.formatMessage(messages.updateStatus)}
-                  </ListItemText>
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => onPreviewCVBtnClick(tableMeta.rowIndex)}
-                >
-                  <ListItemIcon>
-                    <VisibilityIcon fontSize='small' />
-                  </ListItemIcon>
-
-                  <ListItemText>
-                    {intl.formatMessage(messages.viewApplicationForm)}
-                  </ListItemText>
-                </MenuItem>
-
-                <MenuItem
-                  component='a'
-                  target='_blank'
-                  disabled={!row.cVfile}
-                  href={ServerURL + 'Doc/CVDoc/' + row.cVfile}
-                  onClick={() => onDropdownClose(tableMeta.rowIndex)}
-                >
-                  <ListItemIcon>
-                    <DownloadIcon fontSize='small' />
-                  </ListItemIcon>
-                  <ListItemText>
-                    {intl.formatMessage(messages.downloadCV)}
-                  </ListItemText>
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => onSendRejectMailBtnClick(tableMeta.rowIndex)}
-                  disabled={
-                    row.mailSend
-										|| (row.appFirstStatus !== 2
-											&& row.techStatus !== 2
-											&& row.secStatus !== 2)
-                  }
-                >
-                  <ListItemIcon>
-                    <UnsubscribeIcon fontSize='small' />
-                  </ListItemIcon>
-                  <ListItemText>
-                    {row.mailSend && '(sended) '}
-                    {intl.formatMessage(messages.sendRejectMail)}
-                  </ListItemText>
-                </MenuItem>
-              </Menu>
-            </div>
+            <RowDropdown
+              row={row}
+              tableMeta={tableMeta}
+              tableData={tableData}
+              onUpdateStatusBtnClick={onUpdateStatusBtnClick}
+              onSendRejectMailBtnClick={onSendRejectMailBtnClick}
+            />
           );
         },
       },
@@ -404,30 +260,14 @@ function HRApplicationEvaluation(props) {
   };
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    // selectableRows: 'none',
-    searchOpen: false,
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
+    selectableRows: 'multiple',
     customToolbarSelect: (selectedRows) => (
-      <>
-        <IconButton
-          sx={{ mx: 2 }}
-          onClick={() => onToolBarIconClick(selectedRows.data)}
-        >
-          <ManageAccountsIcon sx={{ fontSize: '25px' }} />
-        </IconButton>
-      </>
+      <IconButton
+        sx={{ mx: 2 }}
+        onClick={() => onToolBarIconClick(selectedRows.data)}
+      >
+        <ManageAccountsIcon sx={{ fontSize: '25px' }} />
+      </IconButton>
     ),
   };
 
@@ -688,7 +528,7 @@ function HRApplicationEvaluation(props) {
                   onChange={onPopupInputChange}
                   value={popupState.reason}
                   label={intl.formatMessage(messages.reason)}
-                  className={classes.field}
+                  fullWidth
                   variant='outlined'
                   multiline
                   rows={1}
@@ -855,7 +695,7 @@ function HRApplicationEvaluation(props) {
                     onChange={onInputChange}
                     value={formInfo.Appliname}
                     label={intl.formatMessage(messages.applicantName)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                   />
                 </Grid>
@@ -866,7 +706,7 @@ function HRApplicationEvaluation(props) {
                     onChange={onNumericInputChange}
                     value={formInfo.Idcardno}
                     label={intl.formatMessage(messages.idNumber)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                   />
                 </Grid>
@@ -903,9 +743,8 @@ function HRApplicationEvaluation(props) {
                       label={intl.formatMessage(payrollMessages.fromdate)}
                       value={formInfo.FromDate}
                       onChange={(date) => onDatePickerChange(date, 'FromDate')}
-                      className={classes.field}
                       renderInput={(params) => (
-                        <TextField {...params} variant='outlined' />
+                        <TextField {...params} fullWidth variant='outlined' />
                       )}
                     />
                   </LocalizationProvider>
@@ -917,9 +756,8 @@ function HRApplicationEvaluation(props) {
                       label={intl.formatMessage(payrollMessages.todate)}
                       value={formInfo.ToDate}
                       onChange={(date) => onDatePickerChange(date, 'ToDate')}
-                      className={classes.field}
                       renderInput={(params) => (
-                        <TextField {...params} variant='outlined' />
+                        <TextField {...params} fullWidth variant='outlined' />
                       )}
                     />
                   </LocalizationProvider>
@@ -1037,7 +875,7 @@ function HRApplicationEvaluation(props) {
                     onChange={onNumericInputChange}
                     value={formInfo.Fromage}
                     label={intl.formatMessage(messages.fromAge)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                   />
                 </Grid>
@@ -1048,7 +886,7 @@ function HRApplicationEvaluation(props) {
                     onChange={onNumericInputChange}
                     value={formInfo.Toage}
                     label={intl.formatMessage(messages.toAge)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                   />
                 </Grid>
@@ -1064,14 +902,12 @@ function HRApplicationEvaluation(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable
+        isLoading={isLoading}
+        data={tableData}
+        columns={columns}
+        options={options}
+      />
     </PayRollLoader>
   );
 }
