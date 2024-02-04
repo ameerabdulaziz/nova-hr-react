@@ -1,23 +1,19 @@
-import {
-  Button,
-  Grid
-} from '@mui/material';
-import { format } from 'date-fns';
+import { Button, Grid } from '@mui/material';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
-import useStyles from '../../Style';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import messages from '../messages';
 
 function LeavesBalance(props) {
   const { intl } = props;
 
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,71 +29,35 @@ function LeavesBalance(props) {
   const columns = [
     {
       name: 'organizationName',
-      label: <FormattedMessage {...messages.organization} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.organization),
     },
     {
       name: 'employeeCode',
-      label: <FormattedMessage {...messages.employeeId} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.employeeId),
     },
     {
       name: 'employeeName',
-      label: <FormattedMessage {...messages.employeeName} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.employeeName),
     },
     {
       name: 'hiringDate',
-      label: <FormattedMessage {...messages.hiringDate} />,
+      label: intl.formatMessage(messages.hiringDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'insuranceDate',
-      label: <FormattedMessage {...messages.insuranceDate} />,
+      label: intl.formatMessage(messages.insuranceDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'total',
-      label: <FormattedMessage {...payrollMessages.total} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(payrollMessages.total),
     },
   ];
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    selectableRows: 'none',
-    serverSide: true,
-    onSearchClose: () => {
-      // some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   const fetchTableData = async () => {
     try {
@@ -106,10 +66,6 @@ function LeavesBalance(props) {
         ...formInfo,
         StatusId: formInfo.EmpStatusId,
       };
-
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
-      });
 
       console.log(formData);
 
@@ -133,7 +89,6 @@ function LeavesBalance(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
@@ -158,16 +113,18 @@ function LeavesBalance(props) {
         </Grid>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable
+        isLoading={isLoading}
+        title=''
+        data={tableData}
+        columns={columns}
+      />
     </PayRollLoader>
   );
 }
+
+LeavesBalance.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(LeavesBalance);

@@ -41,9 +41,9 @@ function getCheckboxIcon(value) {
   return (
     <div>
       {value ? (
-        <CheckIcon style={{ color: '#3f51b5' }} />
+        <CheckIcon style={{ color: '#000' }} />
       ) : (
-        <CloseIcon style={{ color: '#717171' }} />
+        <CloseIcon style={{ color: '#717171d1' }} />
       )}
     </div>
   );

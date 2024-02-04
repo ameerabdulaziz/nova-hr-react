@@ -29,6 +29,7 @@ import TextField from "@mui/material/TextField";
 import { async } from '@dabeng/react-orgchart';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 
 
 
@@ -249,17 +250,6 @@ jsonFileData.forEach( async (val, index) => {
    
 
   
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    selectableRows: "none",
-    page: 0,
-    selectableRowsHeader: false,
-    selectableRows: "none"
-  };
 
 
   const getVacTypeList = async () => {
@@ -441,15 +431,11 @@ jsonFileData.forEach( async (val, index) => {
         {fileData.length !== 0 && (
 
             // <div className={`${classes2.ImportTableContainer}  ${locale === "ar" ? classes2.tableContainerStyAr : ''}`}>
-              <div className={classes.CustomMUIDataTable}> 
-                    <MUIDataTable
+                    <PayrollTable
                     title={fileTitle}
                     data={fileData}
                     columns={columns}
-                    options={options}
-                    className={classes2.tableSty}
                     />
-            </div>
         )}
           
         </div>

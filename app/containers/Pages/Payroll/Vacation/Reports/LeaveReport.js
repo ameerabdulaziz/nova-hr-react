@@ -1,153 +1,83 @@
-import { Button, Grid } from "@mui/material";
-import { format } from "date-fns";
-import { PapperBlock } from "enl-components";
-import MUIDataTable from "mui-datatables";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { FormattedMessage, injectIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import PayRollLoader from "../../Component/PayRollLoader";
-import Search from "../../Component/Search";
-import useStyles from "../../Style";
-import payrollMessages from "../../messages";
-import API from "../api/LeaveReportData";
-import messages from "../messages";
+import { Button, Grid } from '@mui/material';
+import { PapperBlock } from 'enl-components';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
+import Search from '../../Component/Search';
+import { formateDate } from '../../helpers';
+import API from '../api/LeaveReportData';
+import messages from '../messages';
 
 function LeaveReport(props) {
   const { intl } = props;
 
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
 
-  const Title = localStorage.getItem("MenuName");
+  const Title = localStorage.getItem('MenuName');
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
     ToDate: null,
-    EmployeeId: "",
+    EmployeeId: '',
     EmpStatusId: 1,
-    OrganizationId: "",
+    OrganizationId: '',
   });
 
   const [isLoading, setIsLoading] = useState(true);
   const [columns, setColumns] = useState([
     {
-      name: "id",
+      name: 'id',
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
     {
-      name: "organizationName",
-      label: <FormattedMessage {...messages.organization} />,
+      name: 'organizationName',
+      label: intl.formatMessage(messages.organization),
+    },
+    {
+      name: 'employeeId',
+      label: intl.formatMessage(messages.employeeId),
+    },
+    {
+      name: 'employeeName',
+      label: intl.formatMessage(messages.employeeName),
+    },
+    {
+      name: 'hiringDate',
+      label: intl.formatMessage(messages.hiringDate),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
-      name: "employeeId",
-      label: <FormattedMessage {...messages.employeeId} />,
-      options: {
-        filter: true,
-      },
+      name: 'annCurrentBa',
+      label: intl.formatMessage(messages.annualBalance),
     },
     {
-      name: "employeeName",
-      label: <FormattedMessage {...messages.employeeName} />,
-      options: {
-        filter: true,
-      },
+      name: 'postedBal',
+      label: intl.formatMessage(messages.postedBalance),
     },
     {
-      name: "hiringDate",
-      label: <FormattedMessage {...messages.hiringDate} />,
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
-      },
-    },
-    {
-      name: "annCurrentBa",
-      label: <FormattedMessage {...messages.annualBalance} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "postedBal",
-      label: <FormattedMessage {...messages.postedBalance} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "annOpen",
-      label: <FormattedMessage {...messages.annualOpen} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "annCurrentBa",
-      label: <FormattedMessage {...messages.annualBalance} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "postedBal",
-      label: <FormattedMessage {...messages.postedBalance} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "annOpen",
-      label: <FormattedMessage {...messages.annualOpen} />,
-      options: {
-        filter: true,
-      },
+      name: 'annOpen',
+      label: intl.formatMessage(messages.annualOpen),
     },
   ]);
-
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
-    page: 0,
-    searchOpen: false,
-    selectableRows: "none",
-    serverSide: true,
-    onSearchClose: () => {
-      // some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
-
-  // TODO: replace it with real format until api fix
-  const formateDate = (date) => format(new Date(date), "yyyy-MM-dd");
 
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
-      const formData = { ...formInfo };
-
-      formData.FromDate = formateDate(formData.FromDate);
-      formData.ToDate = formateDate(formData.ToDate);
-
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? "" : formData[key];
-      });
+      const formData = {
+        ...formInfo,
+        FromDate: formateDate(formInfo.FromDate),
+        ToDate: formateDate(formInfo.ToDate),
+      };
 
       const dataApi = await API(locale).GetReport(formData);
 
@@ -171,9 +101,6 @@ function LeaveReport(props) {
           clonedColumn.push({
             name: key,
             label: key,
-            options: {
-              filter: true,
-            },
           });
         });
 
@@ -182,16 +109,11 @@ function LeaveReport(props) {
 
       setTableData(dataApi);
     } catch (error) {
-      toast.error(JSON.stringify(error));
-      console.log(error);
+      //
     } finally {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchTableData();
-  }, []);
 
   const onSearchBtnClick = () => {
     fetchTableData();
@@ -199,7 +121,7 @@ function LeaveReport(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Search
@@ -211,9 +133,9 @@ function LeaveReport(props) {
 
           <Grid item md={3}>
             <Button
-              variant="contained"
-              size="medium"
-              color="primary"
+              variant='contained'
+              size='medium'
+              color='primary'
               onClick={onSearchBtnClick}
             >
               <FormattedMessage {...messages.search} />
@@ -222,16 +144,18 @@ function LeaveReport(props) {
         </Grid>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable
+        isLoading={isLoading}
+        title=''
+        data={tableData}
+        columns={columns}
+      />
     </PayRollLoader>
   );
 }
+
+LeaveReport.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(LeaveReport);

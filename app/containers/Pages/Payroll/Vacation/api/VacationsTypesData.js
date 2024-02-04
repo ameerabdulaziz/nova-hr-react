@@ -23,8 +23,8 @@ const VacationsTypesData = (locale) => {
   };
 
 
-  VacationsTypesApis.Delete = async (Item) => {
-    const data = await axiosInstance.delete(`VacVacation/Delete/${Item[0]}`);
+  VacationsTypesApis.Delete = async (id) => {
+    const data = await axiosInstance.delete(`VacVacation/Delete/${id}`);
     return data;
   };
 
