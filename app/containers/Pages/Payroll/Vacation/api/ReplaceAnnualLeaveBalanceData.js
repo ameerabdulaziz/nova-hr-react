@@ -37,8 +37,8 @@ const ReplaceAnnualLeaveBalanceData = (locale) => {
   };
 
 
-  ReplaceAnnualLeaveBalanceApis.Delete = async (Item) => {
-    const data = await axiosInstance.delete(`VacEmpVacBalRepMoney/Delete/${Item[0]}`);
+  ReplaceAnnualLeaveBalanceApis.Delete = async (id) => {
+    const data = await axiosInstance.delete(`VacEmpVacBalRepMoney/Delete/${id}`);
     return data;
   };
 

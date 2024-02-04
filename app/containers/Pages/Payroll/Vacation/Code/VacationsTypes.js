@@ -1,32 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
-import brand from "enl-api/dummy/brand";
-import { injectIntl } from "react-intl";
-import VacationsTypesData from "../api/VacationsTypesData";
-import MUIDataTable from "mui-datatables";
-import messages from "../messages";
-import Payrollmessages from '../../messages';
-import useStyles from "../../Style";
-import { useSelector } from "react-redux";
-import style from "../../../../../styles/styles.scss";
-import AlertPopup from "../../Component/AlertPopup";
-import { toast } from "react-hot-toast";
-import notif from "enl-api/ui/notifMessage";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import EditButton from "../../Component/EditButton";
-import DeleteButton from "../../Component/DeleteButton";
-import AddButton from "../../Component/AddButton";
-import PayRollLoader from "../../Component/PayRollLoader";
+import notif from 'enl-api/ui/notifMessage';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayrollTable from '../../Component/PayrollTable';
+import { getCheckboxIcon } from '../../helpers';
+import VacationsTypesData from '../api/VacationsTypesData';
+import messages from '../messages';
 
 function VacationsTypes({ intl }) {
-  const title = brand.name + " - VacationsTypes";
-  const description = brand.desc;
-  const { classes, cx } = useStyles();
+  const stringMenu = localStorage.getItem('Menu');
+  const menu = stringMenu ? JSON.parse(stringMenu) : null;
+  const menuName = localStorage.getItem('MenuName');
+
   const locale = useSelector((state) => state.language.locale);
+
   const [dataTable, setDataTable] = useState([]);
-  const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const getdata = async () => {
@@ -35,17 +26,7 @@ function VacationsTypes({ intl }) {
     try {
       const data = await VacationsTypesData(locale).GetList();
 
-      let newData = data.map((items) => {
-        Object.keys(items).forEach((val) => {
-          // used to make table read date Data as a date
-          if (val === "vacationDate") {
-            items[val] = new Date(items[val]).toLocaleDateString();
-          }
-        });
-        return items;
-      });
-
-      setDataTable(newData);
+      setDataTable(data);
     } catch (error) {
       //
     } finally {
@@ -59,205 +40,107 @@ function VacationsTypes({ intl }) {
 
   const columns = [
     {
-      name: "id",
-      label: "id",
+      name: 'id',
+      label: 'id',
       options: {
         display: false,
+        print: false,
       },
     },
     {
-      name: "arName",
+      name: 'arName',
       label: intl.formatMessage(messages.arName),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "enName",
+      name: 'enName',
       label: intl.formatMessage(messages.enName),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "deducted",
+      name: 'deducted',
       label: intl.formatMessage(messages.deducted),
       options: {
-        filter: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              {value ? (
-                <CheckIcon style={{ color: "#3f51b5" }} />
-              ) : (
-                <CloseIcon style={{ color: "#717171" }} />
-              )}
-            </div>
-          );
-        },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
-      name: "hasBalance",
+      name: 'hasBalance',
       label: intl.formatMessage(messages.hasBalance),
       options: {
-        filter: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              {value ? (
-                <CheckIcon style={{ color: "#3f51b5" }} />
-              ) : (
-                <CloseIcon style={{ color: "#717171" }} />
-              )}
-            </div>
-          );
-        },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
-      name: "isYearBalance",
+      name: 'isYearBalance',
       label: intl.formatMessage(messages.isYearBalance),
       options: {
-        filter: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              {value ? (
-                <CheckIcon style={{ color: "#3f51b5" }} />
-              ) : (
-                <CloseIcon style={{ color: "#717171" }} />
-              )}
-            </div>
-          );
-        },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
-      name: "app",
+      name: 'app',
       label: intl.formatMessage(messages.shortcut),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "halfDay",
+      name: 'halfDay',
       label: intl.formatMessage(messages.halfDay),
       options: {
-        filter: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              {value ? (
-                <CheckIcon style={{ color: "#3f51b5" }} />
-              ) : (
-                <CloseIcon style={{ color: "#717171" }} />
-              )}
-            </div>
-          );
-        },
-      },
-    },
-    {
-      name: "Actions",
-      label: intl.formatMessage(messages.actions),
-      options: {
-        filter: false,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              <EditButton
-                param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/vac/VacationsTypesEdit"}
-              ></EditButton>
-
-              <DeleteButton
-                clickfnc={() => handleClickOpen(tableMeta.rowData)}
-                disabled={tableMeta.rowData[0] === 1}
-              ></DeleteButton>
-            </div>
-          );
-        },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
   ];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    // searchOpen: true,
-    selectableRows: "none",
-    customToolbar: () => (
-      <div className={style.customToolbarBtn}>
-        <AddButton url={"/app/Pages/vac/VacationsTypesCreate"}></AddButton>
-      </div>
-    ),
-  };
-
-  const handleClickOpen = (item) => {
-    setOpenParentPopup(true);
-    setDeleteItem(item);
-  };
-
-  const handleClose = () => {
-    setOpenParentPopup(false);
-  };
-
-  const DeleteFun = async () => {
+  const deleteRow = async (id) => {
     setIsLoading(true);
 
     try {
-      let response = await VacationsTypesData().Delete(deleteItem);
+      await VacationsTypesData().Delete(id);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        getdata();
-      }
+      toast.success(notif.saved);
+      getdata();
     } catch (err) {
       //
     } finally {
       setIsLoading(false);
     }
   };
-  
 
-  
+  const actions = {
+    add: {
+      url: '/app/Pages/vac/VacationsTypesCreate',
+    },
+    edit: {
+      url: '/app/Pages/vac/VacationsTypesEdit',
+    },
+    delete: {
+      api: deleteRow,
+    },
+  };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
-
+    <>
       <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
+        <title>{menuName}</title>
+        <meta name='description' content={menu?.description} />
+        <meta property='og:title' content={menuName} />
+        <meta property='og:description' content={menu?.description} />
+        <meta property='twitter:title' content={menuName} />
+        <meta property='twitter:description' content={menu?.description} />
       </Helmet>
-      <div className={classes.root}>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title={intl.formatMessage(messages.vacationsTypes)}
-            data={dataTable}
-            columns={columns}
-            options={options}
-            className={style.tableSty}
-          />
-        </div>
-      </div>
 
-      <AlertPopup
-        handleClose={handleClose}
-        open={openParentPopup}
-        messageData={intl.formatMessage(Payrollmessages.deleteMessage)}
-        callFun={DeleteFun}
+      <PayrollTable
+        isLoading={isLoading}
+        showLoader
+        title={menuName}
+        data={dataTable}
+        columns={columns}
+        actions={actions}
       />
-    </PayRollLoader>
+    </>
   );
 }
+
+VacationsTypes.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(VacationsTypes);

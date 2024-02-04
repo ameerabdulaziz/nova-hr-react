@@ -1,144 +1,90 @@
-import { Button, Grid } from "@mui/material";
-import { format } from "date-fns";
-import { PapperBlock } from "enl-components";
-import MUIDataTable from "mui-datatables";
-import React, { useEffect, useState } from "react";
-import { FormattedMessage, injectIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import PayRollLoader from "../../Component/PayRollLoader";
-import Search from "../../Component/Search";
-import useStyles from "../../Style";
-import payrollMessages from "../../messages";
-import API from "../api/BalanceUpdateLogData";
-import messages from "../messages";
+import { Button, Grid } from '@mui/material';
+import { PapperBlock } from 'enl-components';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
+import Search from '../../Component/Search';
+import { formateDate } from '../../helpers';
+import API from '../api/BalanceUpdateLogData';
+import messages from '../messages';
 
 function BalanceUpdateLog(props) {
   const { intl } = props;
 
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const Title = localStorage.getItem("MenuName");
+  const Title = localStorage.getItem('MenuName');
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
     ToDate: null,
-    EmployeeId: "",
-    OrganizationId: "",
+    EmployeeId: '',
+    OrganizationId: '',
     EmpStatusId: 1,
   });
 
   const columns = [
     {
-      name: "organizationName",
-      label: <FormattedMessage {...messages.organization} />,
+      name: 'organizationName',
+      label: intl.formatMessage(messages.organization),
+    },
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(messages.employeeId),
+    },
+    {
+      name: 'employeeName',
+      label: intl.formatMessage(messages.employeeName),
+    },
+    {
+      name: 'vacationName',
+      label: intl.formatMessage(messages.vacationName),
+    },
+    {
+      name: 'days',
+      label: intl.formatMessage(messages.daysCount),
+    },
+    {
+      name: 'trxDate',
+      label: intl.formatMessage(messages.fromdate),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
-      name: "employeeCode",
-      label: <FormattedMessage {...messages.employeeId} />,
-      options: {
-        filter: true,
-      },
+      name: 'tRxDesc',
+      label: intl.formatMessage(messages.description),
     },
     {
-      name: "employeeName",
-      label: <FormattedMessage {...messages.employeeName} />,
-      options: {
-        filter: true,
-      },
+      name: 'vacBalance',
+      label: intl.formatMessage(messages.Balance),
     },
     {
-      name: "vacationName",
-      label: <FormattedMessage {...messages.vacationName} />,
-      options: {
-        filter: true,
-      },
+      name: 'oldbalance',
+      label: intl.formatMessage(messages.oldBalance),
     },
     {
-      name: "days",
-      label: <FormattedMessage {...messages.daysCount} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "trxDate",
-      label: <FormattedMessage {...messages.fromdate} />,
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
-      },
-    },
-    {
-      name: "tRxDesc",
-      label: <FormattedMessage {...messages.description} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "vacBalance",
-      label: <FormattedMessage {...messages.Balance} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "oldbalance",
-      label: <FormattedMessage {...messages.oldBalance} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "notes",
-      label: <FormattedMessage {...messages.modificationReason} />,
-      options: {
-        filter: true,
-      },
+      name: 'notes',
+      label: intl.formatMessage(messages.modificationReason),
     },
   ];
-
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    selectableRows: "none",
-    serverSide: true,
-    onSearchClose: () => {
-      // some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
-
-  const formateDate = (date) =>
-    date ? format(new Date(date), "yyyy-MM-dd") : null;
 
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
-      const formData = { ...formInfo };
-
-      formData.FromDate = formateDate(formData.FromDate);
-      formData.ToDate = formateDate(formData.ToDate);
+      const formData = {
+        ...formInfo,
+        FromDate: formateDate(formInfo.FromDate),
+        ToDate: formateDate(formInfo.ToDate),
+      };
 
       Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? "" : formData[key];
+        formData[key] = formData[key] === null ? '' : formData[key];
       });
 
       const dataApi = await API(locale).GetReport(formData);
@@ -161,7 +107,7 @@ function BalanceUpdateLog(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Search
@@ -173,9 +119,9 @@ function BalanceUpdateLog(props) {
 
           <Grid item md={2}>
             <Button
-              variant="contained"
-              size="medium"
-              color="primary"
+              variant='contained'
+              size='medium'
+              color='primary'
               onClick={onSearchBtnClick}
             >
               <FormattedMessage {...messages.search} />
@@ -184,16 +130,19 @@ function BalanceUpdateLog(props) {
         </Grid>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable
+        isLoading={isLoading}
+        showLoader
+        title=''
+        data={tableData}
+        columns={columns}
+      />
     </PayRollLoader>
   );
 }
+
+BalanceUpdateLog.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(BalanceUpdateLog);

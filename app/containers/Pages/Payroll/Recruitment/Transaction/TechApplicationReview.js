@@ -7,17 +7,15 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate } from '../../helpers';
@@ -197,7 +195,7 @@ function TechApplicationReview(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <>
       <Dialog
         open={isPopupOpen}
         onClose={onPopupClose}
@@ -271,10 +269,15 @@ function TechApplicationReview(props) {
         </DialogActions>
       </Dialog>
 
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <PayrollTable data={tableData} columns={columns} options={options} />
-      </PapperBlock>
-    </PayRollLoader>
+      <PayrollTable
+        isLoading={isLoading}
+        showLoader
+        title={Title}
+        data={tableData}
+        columns={columns}
+        options={options}
+      />
+    </>
   );
 }
 

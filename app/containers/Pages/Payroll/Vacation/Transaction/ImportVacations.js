@@ -25,6 +25,7 @@ import { object } from "prop-types";
 import messages from "../messages";
 import { Grid } from "@mui/material";
 import PayRollLoader from "../../Component/PayRollLoader";
+import PayrollTable from "../../Component/PayrollTable";
 
 function ImportVacations({ intl }) {
   const { classes, cx } = useStyles();
@@ -224,17 +225,6 @@ function ImportVacations({ intl }) {
 
         [];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    selectableRows: "none",
-    page: 0,
-    selectableRowsHeader: false,
-    selectableRows: "none",
-  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -358,15 +348,11 @@ function ImportVacations({ intl }) {
           </Toolbar>
 
           {fileData.length !== 0 && (
-            <div className={classes.CustomMUIDataTable}>
-              <MUIDataTable
-                title={fileTitle}
-                data={fileData}
-                columns={columns}
-                options={options}
-                className={classes2.tableSty}
-              />
-            </div>
+            <PayrollTable
+              title={fileTitle}
+              data={fileData}
+              columns={columns}
+            />
           )}
         </div>
       </PapperBlock>

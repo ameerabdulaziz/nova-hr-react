@@ -1,4 +1,3 @@
-import { TableContainer } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -27,56 +26,54 @@ function PrintableTable(props) {
   const { rows, columns } = props;
 
   return (
-    <TableContainer>
-      <Table size='small' sx={{ mt: 0 }}>
-        <TableHead>
-          <StyledTableThRow>
-            <StyledTableThCell sx={{ width: '30px' }} />
+    <Table size='small' sx={{ mt: 0 }}>
+      <TableHead>
+        <StyledTableThRow>
+          <StyledTableThCell sx={{ width: '30px' }} />
 
-            {columns.map((column) => {
-              if (column?.options?.print === false) {
+          {columns.map((column) => {
+            if (column?.options?.print === false) {
+              return null;
+            }
+
+            return (
+              <StyledTableThCell key={column.name} align='center'>
+                <pre style={{ margin: 0 }}>{column.label}</pre>
+              </StyledTableThCell>
+            );
+          })}
+        </StyledTableThRow>
+      </TableHead>
+
+      <TableBody>
+        {rows.map((row, index) => (
+          <TableRow key={row.id}>
+            <StyledTableCell component='th' scope='row' sx={{ height: '22px' }} align='center'>
+              <pre style={{ margin: 0 }}>{index + 1}</pre>
+            </StyledTableCell>
+
+            {columns.map((col) => {
+              if (col?.options?.print === false) {
                 return null;
               }
 
               return (
-                <StyledTableThCell key={column.name} align='center'>
-                  <pre style={{ margin: 0 }}>{column.label}</pre>
-                </StyledTableThCell>
+                <StyledTableCell
+                  component='th'
+                  key={col.name}
+                  scope='row'
+                  align='center'
+                >
+                  {col?.options?.customBodyRender
+                    ? col?.options?.customBodyRender(row[col.name])
+                    : row[col.name]}
+                </StyledTableCell>
               );
             })}
-          </StyledTableThRow>
-        </TableHead>
-
-        <TableBody>
-          {rows.map((row, index) => (
-            <TableRow key={row.id}>
-              <StyledTableCell component='th' scope='row' align='center'>
-                <pre style={{ margin: 0 }}>{index + 1}</pre>
-              </StyledTableCell>
-
-              {columns.map((col) => {
-                if (col?.options?.print === false) {
-                  return null;
-                }
-
-                return (
-                  <StyledTableCell
-                    component='th'
-                    key={col.name}
-                    scope='row'
-                    align='center'
-                  >
-                    {col?.options?.customBodyRender
-                      ? col?.options?.customBodyRender(row[col.name])
-                      : row[col.name]}
-                  </StyledTableCell>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }
 
