@@ -1,21 +1,21 @@
 import { Button, Grid } from '@mui/material';
-import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
 import Search from '../../Component/Search';
-import useStyles from '../../Style';
 import payrollMessages from '../../messages';
 import api from '../api/InsuranceFormStatusData';
+
+import PayrollTable from '../../Component/PayrollTable';
+import { formateDate } from '../../helpers';
 import messages from '../messages';
 
 function InsuranceFormStatus(props) {
   const { intl } = props;
 
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,71 +31,37 @@ function InsuranceFormStatus(props) {
   const columns = [
     {
       name: 'employeeCode',
-      label: <FormattedMessage {...messages.employeeId} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.employeeId),
     },
     {
       name: 'employeeName',
-      label: <FormattedMessage {...messages.employeeName} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.employeeName),
     },
     {
       name: 'c1inNo',
-      label: <FormattedMessage {...messages.c1IncomingNumber} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.c1IncomingNumber),
     },
     {
       name: 'c1inDate',
-      label: <FormattedMessage {...messages.c1DeliverDate} />,
+      label: intl.formatMessage(messages.c1DeliverDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'c6inNo',
-      label: <FormattedMessage {...messages.c6IncomingNumber} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.c6IncomingNumber),
     },
     {
       name: 'c6inDate',
-      label: <FormattedMessage {...messages.c6DeliverDate} />,
+      label: intl.formatMessage(messages.c6DeliverDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
   ];
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    selectableRows: 'none',
-    serverSide: true,
-    onSearchClose: () => {
-      // some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   const fetchTableData = async () => {
     try {
@@ -153,16 +119,13 @@ function InsuranceFormStatus(props) {
         </Grid>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }
+
+InsuranceFormStatus.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(InsuranceFormStatus);

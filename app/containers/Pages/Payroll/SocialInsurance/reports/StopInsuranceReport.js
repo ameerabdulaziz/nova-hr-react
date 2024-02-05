@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/InsuranceReportApisData";
 import { useSelector } from "react-redux";
 import {
@@ -22,6 +21,8 @@ import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
+import { formateDate } from "../../helpers";
+import PayrollTable from "../../Component/PayrollTable";
 
 function StopInsuranceReport(props) {
   const { intl } = props;
@@ -86,6 +87,7 @@ function StopInsuranceReport(props) {
       name: "id",
       options: {
         display: false,
+        print: false,
       },
     },
     {
@@ -116,7 +118,7 @@ function StopInsuranceReport(props) {
       label: intl.formatMessage(messages.InsuranceEndDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -129,26 +131,7 @@ function StopInsuranceReport(props) {
     
     
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -205,14 +188,13 @@ function StopInsuranceReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
+
     </PayRollLoader>
   );
 }

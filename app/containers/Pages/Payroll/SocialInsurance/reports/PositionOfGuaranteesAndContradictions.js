@@ -1,16 +1,21 @@
 import {
-  Autocomplete, Button, Checkbox, FormControlLabel, Grid, TextField
+  Autocomplete,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
 } from '@mui/material';
-import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
-import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/PositionOfGuaranteesAndContradictionsData';
 import messages from '../messages';
@@ -18,7 +23,6 @@ import messages from '../messages';
 function PositionOfGuaranteesAndContradictions(props) {
   const { intl } = props;
 
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,158 +59,97 @@ function PositionOfGuaranteesAndContradictions(props) {
     age: null,
 
     ThreeMonths: false,
-    IsInsured: false
+    IsInsured: false,
   });
 
   const columns = [
     {
       name: 'organizationName',
-      label: <FormattedMessage {...messages.organizationName} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.organizationName),
     },
     {
       name: 'employeeCode',
-      label: <FormattedMessage {...messages.employeeId} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.employeeId),
     },
     {
       name: 'employeeName',
-      label: <FormattedMessage {...messages.employeeName} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.employeeName),
     },
     {
       name: 'birthDate',
-      label: <FormattedMessage {...messages.birthDate} />,
+      label: intl.formatMessage(messages.birthDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'staffAge',
-      label: <FormattedMessage {...messages.employeeAgeAtEndOfMonth} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.employeeAgeAtEndOfMonth),
     },
     {
       name: 'hiringDate',
-      label: <FormattedMessage {...messages.hiringDate} />,
+      label: intl.formatMessage(messages.hiringDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'insuOffice',
-      label: <FormattedMessage {...messages.insuranceOffice} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.insuranceOffice),
     },
     {
       name: 'socialInsuranceID',
-      label: <FormattedMessage {...messages.socialInsuranceID} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.socialInsuranceID),
     },
     {
       name: 'insuranceDate',
-      label: <FormattedMessage {...messages.insuranceDate} />,
+      label: intl.formatMessage(messages.insuranceDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'insuJobName',
-      label: <FormattedMessage {...messages.insuranceJob} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.insuranceJob),
     },
     {
       name: 'srcNotes',
-      label: <FormattedMessage {...messages.hrNotes} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.hrNotes),
     },
     {
       name: 'c1inNo',
-      label: <FormattedMessage {...messages.c1IncomingNumber} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.c1IncomingNumber),
     },
     {
       name: 'c1inDate',
-      label: <FormattedMessage {...messages.c1DeliverDate} />,
+      label: intl.formatMessage(messages.c1DeliverDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'c6inNo',
-      label: <FormattedMessage {...messages.c6IncomingNumber} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.c6IncomingNumber),
     },
     {
       name: 'c6inDate',
-      label: <FormattedMessage {...messages.c6DeliverDate} />,
+      label: intl.formatMessage(messages.c6DeliverDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'ka3bDate',
-      label: <FormattedMessage {...messages.workLetterDate} />,
+      label: intl.formatMessage(messages.workLetterDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'ka3bNo',
-      label: <FormattedMessage {...messages.workLetterNumber} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.workLetterNumber),
     },
   ];
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    selectableRows: 'none',
-    serverSide: true,
-    onSearchClose: () => {
-      // some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   async function fetchNeededData() {
     setIsLoading(true);
@@ -257,6 +200,7 @@ function PositionOfGuaranteesAndContradictions(props) {
 
     fetchTableData();
   };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
@@ -275,7 +219,8 @@ function PositionOfGuaranteesAndContradictions(props) {
               <Autocomplete
                 options={officeList}
                 value={
-                  officeList.find((item) => item.id === formInfo.InsOffice) ?? null
+                  officeList.find((item) => item.id === formInfo.InsOffice)
+									?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -323,7 +268,8 @@ function PositionOfGuaranteesAndContradictions(props) {
               <Autocomplete
                 options={monthsList}
                 value={
-                  monthsList.find((item) => item.id === formInfo.MonthId) ?? null
+                  monthsList.find((item) => item.id === formInfo.MonthId)
+									?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -349,7 +295,8 @@ function PositionOfGuaranteesAndContradictions(props) {
                 value={
                   ageList.find((item) => item.value === formInfo.age) ?? null
                 }
-                isOptionEqualToValue={(option, value) => option.value === value.value}
+                isOptionEqualToValue={(option, value) => option.value === value.value
+                }
                 getOptionLabel={(option) => (option ? option.label : '')}
                 onChange={(_, value) => {
                   setFormInfo((prev) => ({
@@ -367,8 +314,7 @@ function PositionOfGuaranteesAndContradictions(props) {
             </Grid>
 
             <Grid item md={12}>
-              <Grid container spacing={2} >
-
+              <Grid container spacing={2}>
                 <Grid item md={3}>
                   <FormControlLabel
                     control={
@@ -402,7 +348,6 @@ function PositionOfGuaranteesAndContradictions(props) {
                     label={intl.formatMessage(messages.hiredFromAtLeast3Months)}
                   />
                 </Grid>
-
               </Grid>
             </Grid>
 
@@ -415,16 +360,13 @@ function PositionOfGuaranteesAndContradictions(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }
+
+PositionOfGuaranteesAndContradictions.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(PositionOfGuaranteesAndContradictions);

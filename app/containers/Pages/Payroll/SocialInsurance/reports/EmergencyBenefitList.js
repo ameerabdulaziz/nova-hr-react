@@ -7,12 +7,12 @@ import {
   TextField,
 } from '@mui/material';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/EmergencyBenefitListData';
@@ -20,7 +20,6 @@ import messages from '../messages';
 
 function EmergencyBenefitList(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
@@ -51,10 +50,7 @@ function EmergencyBenefitList(props) {
         formData[key] = formData[key] === null ? '' : formData[key];
       });
 
-      const response = await api(locale).GetList(
-        organizations,
-        formData
-      );
+      const response = await api(locale).GetList(organizations, formData);
       setTableData(response);
     } catch (error) {
       //
@@ -92,85 +88,44 @@ function EmergencyBenefitList(props) {
       name: 'id',
       options: {
         display: false,
+        print: false,
       },
     },
     {
       name: 'insOrganizationName',
       label: intl.formatMessage(messages.organizationName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'orgInsuranceNo',
       label: intl.formatMessage(messages.insuranceNumber),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'govname',
       label: intl.formatMessage(messages.government),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'empCount',
       label: intl.formatMessage(messages.employeeNumber),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'totVal',
       label: intl.formatMessage(messages.basicSalary),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'totPerc',
       label: intl.formatMessage(messages.percent1),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'insuOfficeName',
       label: intl.formatMessage(messages.insuranceOffice),
-      options: {
-        filter: true,
-      },
     },
   ];
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: 'none',
-    searchOpen: false,
-    onSearchClose: () => {
-      // some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
@@ -310,16 +265,13 @@ function EmergencyBenefitList(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }
+
+EmergencyBenefitList.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(EmergencyBenefitList);
