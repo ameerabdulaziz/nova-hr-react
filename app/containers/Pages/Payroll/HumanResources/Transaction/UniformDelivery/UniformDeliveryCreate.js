@@ -149,13 +149,13 @@ function UniformDeliveryCreate(props) {
             </Grid>
             <Grid item xs={12} md={10}></Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={8}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
               ></EmployeeData>
             </Grid>
-            <Grid item xs={12} md={6}></Grid>
+            <Grid item xs={12} md={4}></Grid>
             <Grid item xs={12} md={4}>
               <Autocomplete
                 id="uniformId"

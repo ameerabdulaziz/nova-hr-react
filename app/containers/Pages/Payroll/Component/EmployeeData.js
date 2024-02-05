@@ -181,7 +181,7 @@ function EmployeeData(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={3}>
               <TextField
                 id={isSuper ? "superJob" : "job"}
                 name={isSuper ? "superJob" : "job"}
@@ -195,7 +195,7 @@ function EmployeeData(props) {
                 // InputLabelProps={{ shrink: isSuper ? data.superJob : data.job }}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={3}>
               <TextField
                 id={isSuper ? "superOrganization" : "organization"}
                 name={isSuper ? "superOrganization" : "organization"}
