@@ -1,31 +1,19 @@
 import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
-import AddButton from '../../Component/AddButton';
-import AlertPopup from '../../Component/AlertPopup';
-import DeleteButton from '../../Component/DeleteButton';
-import EditButton from '../../Component/EditButton';
-import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import { ServerURL } from '../../api/ServerConfig';
-import payrollMessages from '../../messages';
 import api from '../api/CompanyDocumentData';
 import messages from '../messages';
 
 function CompanyDocument(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
-  const [deleteItem, setDeleteItem] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
 
@@ -42,11 +30,11 @@ function CompanyDocument(props) {
     }
   };
 
-  const deleteRow = async () => {
+  const deleteRow = async (id) => {
     setIsLoading(true);
 
     try {
-      await api(locale).delete(deleteItem);
+      await api(locale).delete(id);
 
       toast.success(notif.saved);
 
@@ -56,11 +44,6 @@ function CompanyDocument(props) {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const onDeleteBtnClick = (item) => {
-    setIsDeletePopupOpen(true);
-    setDeleteItem(item);
   };
 
   useEffect(() => {
@@ -73,39 +56,28 @@ function CompanyDocument(props) {
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
 
     {
       name: 'categoryName',
       label: intl.formatMessage(messages.category),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'docTypeName',
       label: intl.formatMessage(messages.documentType),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'docDesc',
       label: intl.formatMessage(messages.documentDescription),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'docType',
       label: intl.formatMessage(messages.documentType),
-      options: {
-        filter: true,
-      },
     },
 
     {
@@ -113,8 +85,13 @@ function CompanyDocument(props) {
       label: intl.formatMessage(messages.document),
       options: {
         filter: false,
+        print: false,
         customBodyRender: (value) => (value ? (
-          <a href={`${ServerURL}Doc/CompanyDoc/${value}`} target='_blank' rel="noreferrer">
+          <a
+            href={`${ServerURL}Doc/CompanyDoc/${value}`}
+            target='_blank'
+            rel='noreferrer'
+          >
             {intl.formatMessage(messages.preview)}
           </a>
         ) : (
@@ -122,83 +99,29 @@ function CompanyDocument(props) {
         )),
       },
     },
-
-    {
-      name: 'action',
-      label: intl.formatMessage(payrollMessages.Actions),
-      options: {
-        filter: false,
-        customBodyRender: (value, tableMeta) => (
-          <div className={style.actionsSty}>
-            <EditButton
-              param={{ id: tableMeta.rowData[0] }}
-              url={'/app/Pages/MainData/CompanyDocumentEdit'}
-            />
-
-            <DeleteButton
-              clickfnc={() => onDeleteBtnClick(tableMeta.rowData[0])}
-            />
-          </div>
-        ),
-      },
-    },
   ];
 
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    onSearchClose: () => {
-      //  some logic
+  const actions = {
+    add: {
+      url: '/app/Pages/MainData/CompanyDocumentCreate',
     },
-    customToolbar: () => (
-      <AddButton url={'/app/Pages/MainData/CompanyDocumentCreate'} />
-    ),
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
+    edit: {
+      url: '/app/Pages/MainData/CompanyDocumentEdit',
+    },
+    delete: {
+      api: deleteRow,
     },
   };
-
-  const closePopup = () => {
-    setIsDeletePopupOpen(false);
-  };
-
-  const deletedDocument = useMemo(
-    () => tableData.find((item) => item.id === deleteItem),
-    [deleteItem]
-  );
 
   return (
-    <PayRollLoader isLoading={isLoading}>
-      <AlertPopup
-        handleClose={closePopup}
-        open={isDeletePopupOpen}
-        messageData={`${intl.formatMessage(
-          payrollMessages.deleteMessage
-        )} ${deletedDocument?.docType ?? ''}`}
-        callFun={deleteRow}
-      />
-
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      </PapperBlock>
-    </PayRollLoader>
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={Title}
+      data={tableData}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
 
