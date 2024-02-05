@@ -267,6 +267,7 @@ function DeviceCreate(props) {
                     variant="outlined"
                     {...params}
                     name="shiftId"
+                    label={intl.formatMessage(messages.shift)}
                     required
                   />
                 )}
@@ -294,6 +295,7 @@ function DeviceCreate(props) {
                     variant="outlined"
                     {...params}
                     name="deviceType"
+                    label={intl.formatMessage(messages.method)}
                     required
                   />
                 )}

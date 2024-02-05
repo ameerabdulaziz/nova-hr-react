@@ -881,7 +881,7 @@
   "boilerplate.components.tables.codes.templateName": "Template Name",
   "boilerplate.components.tables.codes.price": "Price",
   "boilerplate.components.tables.codes.transportaion": "Transportaion",
-  
+
   "boilerplate.components.tables.codes.DepreciationPeriod": "Depreciation Period",
 
   "boilerplate.containers.Payroll.save": "Save",
@@ -1703,6 +1703,8 @@
   "boilerplate.containers.Payroll.Attendance.ip":"Ip",
   "boilerplate.containers.Payroll.Attendance.port":"Port",
   "boilerplate.containers.Payroll.Attendance.serialNumber":"Serial Number",  
+  "boilerplate.containers.Payroll.Attendance.DeviceUpdateTitle":"Update finger print device",
+  "boilerplate.containers.Payroll.Attendance.DeviceCreateTitle":"Create finger print device",
   "boilerplate.containers.Payroll.Attendance.testConnection":"Test Connection",
   "boilerplate.containers.Payroll.Attendance.BothCheckInOut":"Check In and Out",
   "boilerplate.containers.Payroll.Attendance.checkIn":"Check In only",
@@ -1734,6 +1736,8 @@
   "boilerplate.containers.Payroll.Attendance.SearchLocation": "Search Location",
   "boilerplate.containers.Payroll.Attendance.MustToMakeThePointInsideTheDrawnArea": "Must to make the point inside the drawn area",
   "boilerplate.containers.Payroll.Attendance.selectShapeFiristToDeleteIt": "Select shape firist to delete it",
+
+  "boilerplate.containers.Payroll.Attendance.method": "Method type",
 
   
   "boilerplate.containers.Payroll.Payroll.LoanSettingTitle": "Add Loan Setting",    

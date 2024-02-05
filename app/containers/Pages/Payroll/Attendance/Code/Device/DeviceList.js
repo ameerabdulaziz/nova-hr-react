@@ -95,7 +95,7 @@ function DeviceList(props) {
     },
 
     {
-      name: "iP",
+      name: "ip",
       label: <FormattedMessage {...messages["ip"]} />,
       options: {
         filter: true,
@@ -187,7 +187,7 @@ function DeviceList(props) {
           open={openParentPopup}
           messageData={`${intl.formatMessage(
             Payrollmessages.deleteMessage
-          )}${deleteItem}`}
+          )}`}
           callFun={deleterow}
         />
       </PapperBlock>

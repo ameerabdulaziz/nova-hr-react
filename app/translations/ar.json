@@ -1526,6 +1526,8 @@
     "boilerplate.containers.Payroll.Attendance.ip":"Ip",
     "boilerplate.containers.Payroll.Attendance.port":"البورت",
     "boilerplate.containers.Payroll.Attendance.serialNumber":"الرقم التسلسلى",
+    "boilerplate.containers.Payroll.Attendance.DeviceUpdateTitle":"تعديل اجهزة البصمة",
+    "boilerplate.containers.Payroll.Attendance.DeviceCreateTitle":"اضافة اجهزة البصمه",
     "boilerplate.containers.Payroll.transportaion.ip":"النقل",
     "boilerplate.containers.Payroll.transportaion.DeviceUpdateTitle":"تعديل اجهزة البصمة",
     "boilerplate.containers.Payroll.transportaion.DeviceCreateTitle":"اضافة اجهزة البصمه",
@@ -1788,6 +1790,8 @@
     "boilerplate.containers.Payroll.Attendance.deductedEmployeeOnly": "المخصوم منهم فقط",
     "boilerplate.containers.Payroll.Attendance.DaysDeduction": "الخصم باليوم",
     "boilerplate.containers.Payroll.Attendance.CompanyRatio": "نسب الشركة",
+
+    "boilerplate.containers.Payroll.Attendance.method": "طريفة السحب",
 
     
     "boilerplate.containers.Payroll.Payroll.LoanSettingTitle": "اضافة قواعد السلف",    

@@ -906,11 +906,11 @@ transportaion: {
 },
 DeviceCreateTitle: {
   id: `${scope}.DeviceCreateTitle`,
-  defaultMessage: 'DeviceCreateTitle',
+  defaultMessage: 'Create finger print device',
 },
 DeviceUpdateTitle: {
   id: `${scope}.DeviceUpdateTitle`,
-  defaultMessage: 'DeviceUpdateTitle',
+  defaultMessage: 'Update finger print device',
 },
 devicePass: {
   id: `${scope}.devicePass`,
@@ -1921,6 +1921,10 @@ devicePass: {
   reqBeforeShiftInMinute: {
     id: `${scope}.reqBeforeShiftInMinute`,
     defaultMessage: 'reqBeforeShiftInMinute',
+  },
+  method: {
+    id: `${scope}.method`,
+    defaultMessage: 'Method',
   },
 });
 
