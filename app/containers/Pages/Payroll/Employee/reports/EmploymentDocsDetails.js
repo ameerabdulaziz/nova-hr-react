@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import { useSelector } from "react-redux";
 import {
   Button,
@@ -24,6 +23,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import ApiData from "../api/EmployeeReportsApiData";
 import PayRollLoader from "../../Component/PayRollLoader";
+import PayrollTable from "../../Component/PayrollTable";
+import { formateDate } from "../../helpers";
 
 function EmploymentDocsDetails(props) {
   const { intl } = props;
@@ -133,7 +134,7 @@ function EmploymentDocsDetails(props) {
         label: intl.formatMessage(messages.birthDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -141,7 +142,7 @@ function EmploymentDocsDetails(props) {
         label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -163,7 +164,7 @@ function EmploymentDocsDetails(props) {
       label: intl.formatMessage(messages.IDCardIssuingDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -171,7 +172,7 @@ function EmploymentDocsDetails(props) {
       label: intl.formatMessage(messages.expireDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -182,26 +183,7 @@ function EmploymentDocsDetails(props) {
       },
     },
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
-    selectableRows: "none",
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -326,14 +308,12 @@ function EmploymentDocsDetails(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
     </PayRollLoader>
   );
 }

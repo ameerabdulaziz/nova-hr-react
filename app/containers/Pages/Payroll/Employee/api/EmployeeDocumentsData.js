@@ -37,8 +37,8 @@ const EmployeeDocumentsData = (locale) => {
 
 
 
-  EmployeeDocumentsApis.Delete = async (Item) => {
-    const data = await axiosInstance.delete(`EmpDocuments/${Item[0]}`);
+  EmployeeDocumentsApis.Delete = async (id) => {
+    const data = await axiosInstance.delete(`EmpDocuments/${id}`);
     return data;
   };
 

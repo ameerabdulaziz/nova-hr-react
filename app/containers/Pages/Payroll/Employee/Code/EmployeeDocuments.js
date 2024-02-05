@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import brand from "enl-api/dummy/brand";
 import { injectIntl } from "react-intl";
 import EmployeeDocumentsData from "../api/EmployeeDocumentsData";
-import MUIDataTable from "mui-datatables";
 import messages from "../messages";
 import useStyles from "../../Style";
 import { useSelector } from "react-redux";
@@ -21,19 +20,19 @@ import AddButton from "../../Component/AddButton";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { useLocation } from "react-router-dom";
 import Payrollmessages from "../../messages";
+import PayrollTable from "../../Component/PayrollTable";
+import { getCheckboxIcon } from "../../helpers";
 
 function EmployeeDocuments({ intl }) {
   const Title = localStorage.getItem("MenuName");
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [dataTable, setDataTable] = useState([]);
-  const [openParentPopup, setOpenParentPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [employee, setEmployee] = useState("");
   const [employeeList, setEmployeeList] = useState([]);
   const { state } = useLocation();
   const employeeID = state?.employeeId;
-  const [deleteItem, setDeleteItem] = useState("");
 
   const getdata = async () => {
     try {
@@ -99,40 +98,12 @@ function EmployeeDocuments({ intl }) {
       label: intl.formatMessage(messages.HardCopy),
       options: {
         filter: true,
-      },
-    },
-    {
-      name: "Actions",
-      label: intl.formatMessage(messages.actions),
-      options: {
-        filter: false,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              <EditButton
-                param={{ id: tableMeta.rowData[0], employeeId: employee }}
-                url={"/app/Pages/Employee/EmployeeDocumentsEdit"}
-              ></EditButton>
-
-              <DeleteButton
-                clickfnc={() => handleClickOpen(tableMeta.rowData)}
-              ></DeleteButton>
-            </div>
-          );
-        },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
   ];
 
   const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: "none",
     customToolbar: () => (
       <span>
         <AddButton
@@ -144,31 +115,28 @@ function EmployeeDocuments({ intl }) {
     ),
   };
 
-  const handleClickOpen = (item) => {
-    setOpenParentPopup(true);
-    setDeleteItem(item);
-  };
-
-  const handleClose = () => {
-    setOpenParentPopup(false);
-  };
-
-  const DeleteFun = async () => {
+  const deleteRow = async (id) => {
     try {
       setIsLoading(true);
-      let response = await EmployeeDocumentsData().Delete(deleteItem);
+      await EmployeeDocumentsData().Delete(id);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        employeeChangeFun(employee);
-      } else {
-        toast.error(response.statusText);
-      }
+      toast.success(notif.saved);
+      employeeChangeFun(employee);
       setIsLoading(false);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const actions = {
+    edit: {
+      url: '/app/Pages/Employee/EmployeeDocumentsEdit',
+    },
+    delete: {
+      api: deleteRow,
+    },
   };
 
   const employeeChangeFun = async (id) => {
@@ -248,23 +216,14 @@ function EmployeeDocuments({ intl }) {
           </Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          data={dataTable}
-          columns={columns}
-          options={options}
-          className={style.tableSty}
-        />
-      </div>
 
-      <AlertPopup
-        handleClose={handleClose}
-        open={openParentPopup}
-        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${
-          deleteItem[1]
-        }`}
-        callFun={DeleteFun}
+      <PayrollTable
+        data={dataTable}
+        columns={columns}
+        options={options}
+        actions={actions}
       />
+
     </PayRollLoader>
   );
 }
