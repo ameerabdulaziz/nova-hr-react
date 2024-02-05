@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import brand from "enl-api/dummy/brand";
 import AssessmentReviewData from "../api/AssessmentReviewData";
-import MUIDataTable from "mui-datatables";
 import messages from "../messages";
 import Payrollmessages from '../../messages';
 import useStyles from "../../Style";
@@ -26,6 +25,8 @@ import {
   import Tooltip from '@mui/material/Tooltip';
   import { Link } from "react-router-dom";
   import { format } from 'date-fns';
+import { formateDate } from "../../helpers";
+import PayrollTable from "../../Component/PayrollTable";
 
 function AssessmentReview({ intl }) {
   const title = brand.name + " - AssessmentReview";
@@ -74,6 +75,7 @@ function AssessmentReview({ intl }) {
       label: "id",
       options: {
         display: false,
+        print: false,
       },
     },
     {
@@ -88,7 +90,7 @@ function AssessmentReview({ intl }) {
       label: intl.formatMessage(Payrollmessages.date),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
     {
@@ -110,6 +112,7 @@ function AssessmentReview({ intl }) {
       label: intl.formatMessage(messages.actions),
       options: {
         filter: false,
+        print: false,
         customBodyRender: (value, tableMeta) => {
           return (
             <div className={style.actionsSty}>
@@ -131,16 +134,6 @@ function AssessmentReview({ intl }) {
       },
     },
   ];
-
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-  };
 
 
   const handleSearch = async (e) => {
@@ -305,17 +298,11 @@ function AssessmentReview({ intl }) {
         </Grid>
       </PapperBlock>
 
-      <div className={classes.root}>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={dataTable}
-            columns={columns}
-            options={options}
-            className={style.tableSty}
-          />
-        </div>
-      </div>
+      <PayrollTable
+        title=""
+        data={dataTable}
+        columns={columns}
+      />
 
     </PayRollLoader>
   );

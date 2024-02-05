@@ -1,35 +1,21 @@
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
-import AddButton from '../../Component/AddButton';
-import AlertPopup from '../../Component/AlertPopup';
-import DeleteButton from '../../Component/DeleteButton';
-import EditButton from '../../Component/EditButton';
-import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
-import payrollMessages from '../../messages';
+import PayrollTable from '../../Component/PayrollTable';
+import { formateDate } from '../../helpers';
 import api from '../api/IndividualDevelopmentPlanData';
 import messages from '../messages';
 
 function IndividualDevelopmentPlan(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
-  const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
-
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -44,11 +30,11 @@ function IndividualDevelopmentPlan(props) {
     }
   };
 
-  const deleteRow = async () => {
+  const deleteRow = async (id) => {
     setIsLoading(true);
 
     try {
-      await api(locale).delete(deleteItem);
+      await api(locale).delete(id);
 
       toast.success(notif.saved);
 
@@ -58,11 +44,6 @@ function IndividualDevelopmentPlan(props) {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const onDeleteBtnClick = (item) => {
-    setOpenParentPopup(true);
-    setDeleteItem(item);
   };
 
   useEffect(() => {
@@ -75,109 +56,61 @@ function IndividualDevelopmentPlan(props) {
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'insDate',
       label: intl.formatMessage(messages.insertDate),
       options: {
-        filter: true,
-          customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
     {
       name: 'actionName',
       label: intl.formatMessage(messages.status),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'action',
-      label: intl.formatMessage(payrollMessages.Actions),
       options: {
+        print: false,
         filter: false,
-        customBodyRender: (value, tableMeta) => (
-          <div className={style.actionsSty}>
-            <EditButton
-              disabled={value !== 0}
-              param={{ id: tableMeta.rowData[0] }}
-              url={'/app/Pages/Assessment/IndividualDevelopmentPlanEdit'}
-            />
-
-            <DeleteButton
-              disabled={value !== 0}
-              clickfnc={() => onDeleteBtnClick(tableMeta.rowData[0])}
-            />
-          </div>
-        ),
+        display: false,
       },
     },
   ];
 
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    onSearchClose: () => {
-      //  some logic
+  const actions = {
+    add: {
+      url: '/app/Pages/Assessment/IndividualDevelopmentPlanCreate',
     },
-    customToolbar: () => (
-      <AddButton
-        url={'/app/Pages/Assessment/IndividualDevelopmentPlanCreate'}
-      />
-    ),
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
+    edit: {
+      disabled: (row) => row[4] !== 0,
+      url: '/app/Pages/Assessment/IndividualDevelopmentPlanEdit',
     },
-  };
-
-  const handleClose = () => {
-    setOpenParentPopup(false);
+    delete: {
+      disabled: (row) => row[4] !== 0,
+      api: deleteRow,
+    },
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
-      <AlertPopup
-        handleClose={handleClose}
-        open={openParentPopup}
-        messageData={`${intl.formatMessage(
-          payrollMessages.deleteMessage
-        )} ${deleteItem}`}
-        callFun={deleteRow}
-      />
-
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      </PapperBlock>
-    </PayRollLoader>
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={Title}
+      data={tableData}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
 

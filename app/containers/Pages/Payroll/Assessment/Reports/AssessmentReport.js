@@ -1,5 +1,4 @@
 import React, { useEffect, useState,useRef } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/AssessmentReportData";
 import AssessmentReviewData from "../api/AssessmentReviewData";
 import { useSelector } from "react-redux";
@@ -22,6 +21,7 @@ import { toast } from 'react-hot-toast';
 import  ExamQuestionsPrint  from '../../Component/ExamQuestionsPrint';
 import { useReactToPrint } from 'react-to-print';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
+import PayrollTable from "../../Component/PayrollTable";
 
 function AssessmentReport(props) {
   const { intl } = props;
@@ -110,6 +110,7 @@ function AssessmentReport(props) {
       options: {
         // filter: false,
         display: false,
+        print: false,
       },
     },
     {
@@ -182,6 +183,7 @@ function AssessmentReport(props) {
       label: intl.formatMessage(messages.Print),
       options: {
         filter: false,
+        print: false,
         customBodyRender: (value, tableMeta) => (
             <LocalPrintshopOutlinedIcon 
              className={classes.textSty}
@@ -192,26 +194,6 @@ function AssessmentReport(props) {
       },
     },
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
 
 
 const printFun = async (assessmentId) => {
@@ -467,14 +449,13 @@ const printJS = useReactToPrint({
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
+
 
 
 
