@@ -899,6 +899,8 @@
   "boilerplate.components.tables.codes.grade": "التقدير",
   "boilerplate.components.tables.codes.membershipNo": "رقم عضوية النفابة",
 
+  "boilerplate.components.tables.codes.DepreciationPeriod": "فترة الاستهلاك",
+
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",

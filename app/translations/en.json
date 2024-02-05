@@ -881,6 +881,8 @@
   "boilerplate.components.tables.codes.templateName": "Template Name",
   "boilerplate.components.tables.codes.price": "Price",
   "boilerplate.components.tables.codes.transportaion": "Transportaion",
+  
+  "boilerplate.components.tables.codes.DepreciationPeriod": "Depreciation Period",
 
   "boilerplate.containers.Payroll.save": "Save",
   "boilerplate.containers.Payroll.close": "Close",

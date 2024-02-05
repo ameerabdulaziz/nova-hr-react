@@ -367,4 +367,8 @@ export default defineMessages({
     id: `${scope}.codes.templateName`,
     defaultMessage: 'templateName',
   },
+  DepreciationPeriod: {
+    id: `${scope}.codes.DepreciationPeriod`,
+    defaultMessage: 'Depreciation Period',
+  },
 });

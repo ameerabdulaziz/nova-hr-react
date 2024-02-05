@@ -12,6 +12,7 @@ const UniformData = (locale) => {
       name: obj.arName,
       enName: obj.enName,
       defualtPrice:obj.defualtPrice,
+      depreciationPeriod:obj.depreciationPeriod,
       edited: false,
     }));
    
