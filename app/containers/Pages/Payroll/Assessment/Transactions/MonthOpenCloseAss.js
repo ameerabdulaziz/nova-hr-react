@@ -78,11 +78,15 @@ function MonthOpenCloseAss(props) {
       }
     } catch (error) {
       //
-      setFormInfo((prev) => ({
-        ...prev,
-        closedMonth: true,
-        employeeClosed: true,
-      }));
+      if(error.response.status === 404)
+      {
+        setFormInfo((prev) => ({
+          ...prev,
+          closedMonth: true,
+          employeeClosed: true,
+        }));
+      }
+      
     } finally {
       setIsLoading(false);
     }
