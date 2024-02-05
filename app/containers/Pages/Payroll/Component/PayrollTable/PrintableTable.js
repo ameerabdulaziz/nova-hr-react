@@ -9,6 +9,7 @@ import React from 'react';
 
 const StyledTableThRow = styled(TableRow)(({ theme }) => ({
   backgroundColor: theme.palette.action.selected,
+  pageBreakInside: 'avoid',
 }));
 
 const StyledTableThCell = styled(TableCell)(() => ({
@@ -47,7 +48,7 @@ function PrintableTable(props) {
 
       <TableBody>
         {rows.map((row, index) => (
-          <TableRow key={row.id}>
+          <TableRow key={row.id} sx={{ pageBreakInside: 'avoid' }} >
             <StyledTableCell component='th' scope='row' sx={{ height: '22px' }} align='center'>
               <pre style={{ margin: 0 }}>{index + 1}</pre>
             </StyledTableCell>
