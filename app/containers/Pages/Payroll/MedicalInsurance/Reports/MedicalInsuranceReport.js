@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/MedicalInsuranceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -23,6 +22,8 @@ import notif from 'enl-api/ui/notifMessage';
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { formateDate } from "../../helpers";
+import PayrollTable from "../../Component/PayrollTable";
 
 function MedicalInsuranceReport(props) {
   const { intl } = props;
@@ -80,6 +81,7 @@ function MedicalInsuranceReport(props) {
         label: intl.formatMessage(Payrollmessages.id),
       options: {
         display: false,
+        print: false,
       },
     },
     {
@@ -101,7 +103,7 @@ function MedicalInsuranceReport(props) {
       label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -109,7 +111,7 @@ function MedicalInsuranceReport(props) {
         label: intl.formatMessage(messages.insuranceDate),
         options: {
           filter: true,
-          customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+          customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
         },
       },
       {
@@ -117,7 +119,7 @@ function MedicalInsuranceReport(props) {
         label: intl.formatMessage(messages.birthDate),
         options: {
           filter: true,
-          customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+          customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
         },
       },
     {
@@ -139,6 +141,7 @@ function MedicalInsuranceReport(props) {
         label: intl.formatMessage(messages.hrNotes),
         options: {
           filter: true,
+          print: false,
           customBodyRender: (value, tableMeta) => {
             return (
               <div >
@@ -159,26 +162,6 @@ function MedicalInsuranceReport(props) {
         },
       },
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
 
 
   const createHrNotesFun = async (hrNoteVal) => {
@@ -250,14 +233,12 @@ function MedicalInsuranceReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
 
       <InsuranceFormPopUp  
         handleClose={()=>handleClose()}
