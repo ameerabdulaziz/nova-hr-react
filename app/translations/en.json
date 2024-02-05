@@ -1744,7 +1744,7 @@
   "boilerplate.containers.Payroll.Payroll.safe": "Safe Deposit",  
   "boilerplate.containers.Payroll.Payroll.maxLoan": "Maximum Loan Value",
   "boilerplate.containers.Payroll.Payroll.copytoAllBr": "Copy To All Branches",  
-  "boilerplate.containers.Payroll.Payroll.calcInsuranceWithThisTemplate": "Include Soicail Insurance",
+  "boilerplate.containers.Payroll.Payroll.calcInsuranceWithThisTemplate": "Include Social Insurance",
   "boilerplate.containers.Payroll.Payroll.rPT_details": "Detailed Report",
   "boilerplate.containers.Payroll.Payroll.sMSMSG": "SMS Message ",  
   "boilerplate.containers.Payroll.Payroll.PayTemplateCreateTitle": "Add Payment Template",
