@@ -1,209 +1,115 @@
-import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
-import ApiData from "../../api/PayTemplateData";
-import { useSelector } from "react-redux";
-import messages from "../../messages";
-import { injectIntl, FormattedMessage } from "react-intl";
-import style from "../../../../../../../app/styles/styles.scss";
-import notif from "enl-api/ui/notifMessage";
-import { toast } from "react-hot-toast";
-import useStyles from "../../../Style";
-import { PapperBlock } from "enl-components";
-import EditButton from "../../../Component/EditButton";
-import DeleteButton from "../../../Component/DeleteButton";
-import AddButton from "../../../Component/AddButton";
-import AlertPopup from "../../../Component/AlertPopup";
-import Payrollmessages from "../../../messages";
-import PayRollLoader from "../../../Component/PayRollLoader";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-
+import notif from 'enl-api/ui/notifMessage';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayrollTable from '../../../Component/PayrollTable';
+import { getCheckboxIcon } from '../../../helpers';
+import Payrollmessages from '../../../messages';
+import ApiData from '../../api/PayTemplateData';
+import messages from '../../messages';
 
 function PayTemplateList(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const Title = localStorage.getItem("MenuName");
-  const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState("");
+  const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
-
-  
-  
-  const handleClickOpen = (item) => {
-    debugger;
-    setOpenParentPopup(true);
-    setDeleteItem(item);
-  };
-
-  const handleClose = () => {
-    setOpenParentPopup(false);
-  };
-
-  async function deleterow() {
-    try {
-      debugger;
-      setIsLoading(true);
-      let response = await ApiData(locale).Delete(deleteItem);
-
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
-    } catch (err) {
-      
-    } finally {
-      setIsLoading(false);
-    }
-  }
 
   async function fetchData() {
     try {
       const dataApi = await ApiData(locale).GetList();
-      debugger;
       setdata(dataApi);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
   }
+
+  async function deleteRow(id) {
+    try {
+      setIsLoading(true);
+
+      await ApiData(locale).Delete(id);
+
+      toast.success(notif.saved);
+      fetchData();
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  const CheckBox = (value) => {
-    return (
-      <div className={style.actionsSty}>
-        {value ? (
-          <CheckIcon style={{ color: "#3f51b5" }} />
-        ) : (
-          <CloseIcon style={{ color: "#717171" }} />
-        )}
-      </div>
-    );
-  };
-
-
   const columns = [
     {
-      name: "id",
+      name: 'id',
       options: {
         filter: false,
+        display: false,
+        print: false,
       },
     },
     {
-      name: "arName",
-      label: <FormattedMessage {...Payrollmessages["arName"]} />,
+      name: 'arName',
+      label: intl.formatMessage(Payrollmessages.arName),
+    },
+
+    {
+      name: 'enName',
+      label: intl.formatMessage(Payrollmessages.enName),
+    },
+
+    {
+      name: 'calcInsuranceWithThisTemplate',
+      label: intl.formatMessage(messages.calcInsuranceWithThisTemplate),
       options: {
-        filter: true,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
     {
-      name: "enName",
-      label: <FormattedMessage {...Payrollmessages["enName"]} />,
-      options: {
-        filter: true,
-      },
-    },
-
-    {
-      name: "calcInsuranceWithThisTemplate",
-      label: <FormattedMessage {...messages["calcInsuranceWithThisTemplate"]} />,
-      options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),   
-      },
-    },
-    
-    {
-      name: "rptDetails",
-      label: <FormattedMessage {...messages["rPT_details"]} />,
-      options: {
-        filter: true,
-           
-      },
+      name: 'rptDetails',
+      label: intl.formatMessage(messages.rPT_details),
     },
     {
-      name: "smsmsg",
-      label: <FormattedMessage {...messages["sMSMSG"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "Actions",
-      options: {
-        filter: false,
-
-        customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
-          return (
-            <div className={style.actionsSty}>
-              <EditButton
-                param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/Payroll/PayTemplateEdit"}
-              ></EditButton>
-              <DeleteButton
-                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
-              ></DeleteButton>
-            </div>
-          );
-        },
-      },
+      name: 'smsmsg',
+      label: intl.formatMessage(messages.sMSMSG),
     },
   ];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    onSearchClose: () => {
-      //some logic
+  const actions = {
+    add: {
+      url: '/app/Pages/Payroll/PayTemplateCreate',
     },
-    customToolbar: () => (
-      <AddButton url={"/app/Pages/Payroll/PayTemplateCreate"}></AddButton>
-    ),
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
+    edit: {
+      url: '/app/Pages/Payroll/PayTemplateEdit',
+    },
+    delete: {
+      api: deleteRow,
     },
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>
-        <AlertPopup
-          handleClose={handleClose}
-          open={openParentPopup}
-          messageData={`${intl.formatMessage(
-            Payrollmessages.deleteMessage
-          )}${deleteItem}`}
-          callFun={deleterow}
-        />
-      </PapperBlock>
-    </PayRollLoader>
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={Title}
+      data={data}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
+
+PayTemplateList.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(PayTemplateList);

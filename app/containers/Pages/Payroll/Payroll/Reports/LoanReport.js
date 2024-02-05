@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/PayrollReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -17,6 +16,8 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { format } from "date-fns";
+import { formateDate } from "../../helpers";
+import PayrollTable from "../../Component/PayrollTable";
 
 function LoanReport(props) {
   const { intl } = props;
@@ -109,7 +110,7 @@ function LoanReport(props) {
         label: intl.formatMessage(messages.date),
         options: {
           filter: true,
-          customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+          customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
         },
       },
       {
@@ -162,26 +163,6 @@ function LoanReport(props) {
         },
       }, 
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
 
 
   return (
@@ -227,14 +208,13 @@ function LoanReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
+
     </PayRollLoader>
   );
 }

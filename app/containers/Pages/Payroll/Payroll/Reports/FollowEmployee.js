@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import { useSelector } from "react-redux";
 import {
   Button,
@@ -19,6 +18,7 @@ import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 function FollowEmployee(props) {
   const { intl } = props;
@@ -89,6 +89,7 @@ function FollowEmployee(props) {
       name: "id",
       options: {
         display: false,
+        print: false,
       },
     },
     {
@@ -113,26 +114,7 @@ function FollowEmployee(props) {
       },
     },
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
-    selectableRows: "none",
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -200,14 +182,12 @@ function FollowEmployee(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
     </PayRollLoader>
   );
 }

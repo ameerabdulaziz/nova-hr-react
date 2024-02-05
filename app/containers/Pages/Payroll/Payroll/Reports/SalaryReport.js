@@ -9,14 +9,13 @@ import {
   TextField,
 } from '@mui/material';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -25,7 +24,6 @@ import messages from '../messages';
 
 function SalaryReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const Title = localStorage.getItem('MenuName');
@@ -84,64 +82,46 @@ function SalaryReport(props) {
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
 
     {
       name: 'branchName',
       label: intl.formatMessage(messages.company),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'organizationName',
       label: intl.formatMessage(messages.department),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.job),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
     {
       name: 'monthYear',
       label: intl.formatMessage(messages.monthYear),
-      options: {
-        filter: true,
-      },
     },
 
     {
@@ -149,7 +129,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.netSalary),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -158,7 +138,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.insuranceCompanyFixed),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -167,7 +147,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.insuranceEmployeeFixed),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -176,7 +156,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.taxes),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -185,7 +165,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.totalAllownace),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -194,7 +174,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.totalDeduction),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
   ];
@@ -234,7 +214,7 @@ function SalaryReport(props) {
               label: key,
               options: {
                 filter: false,
-                customBodyRender: formatNumber,
+                customBodyRender: (value) => formatNumber(value),
               },
             });
           }
@@ -283,24 +263,6 @@ function SalaryReport(props) {
   useEffect(() => {
     fetchNeededData();
   }, []);
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -417,14 +379,7 @@ function SalaryReport(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }

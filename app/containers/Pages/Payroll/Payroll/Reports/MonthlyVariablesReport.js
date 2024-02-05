@@ -12,7 +12,6 @@ import {
   TextField,
 } from '@mui/material';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
@@ -20,7 +19,7 @@ import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
 import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -29,7 +28,6 @@ import messages from '../messages';
 
 function MonthlyVariablesReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const Title = localStorage.getItem('MenuName');
@@ -83,7 +81,11 @@ function MonthlyVariablesReport(props) {
       const months = await GeneralListApis(locale).GetMonths();
       setMonthList(months);
 
-      const elements = await GeneralListApis(locale).GetElementList(2, 0, false);
+      const elements = await GeneralListApis(locale).GetElementList(
+        2,
+        0,
+        false
+      );
       setElementsList(elements);
 
       if (branchId) {
@@ -117,9 +119,6 @@ function MonthlyVariablesReport(props) {
     {
       name: 'branchName',
       label: intl.formatMessage(messages.company),
-      options: {
-        filter: true,
-      },
     },
 
     {
@@ -127,48 +126,33 @@ function MonthlyVariablesReport(props) {
       label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
     {
       name: 'monthYear',
       label: intl.formatMessage(messages.monthYear),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'organizationName',
       label: intl.formatMessage(messages.department),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.job),
-      options: {
-        filter: true,
-      },
     },
   ];
 
@@ -178,7 +162,7 @@ function MonthlyVariablesReport(props) {
     setIsLoading(true);
 
     try {
-      const ids = formInfo.ElmentIds.map(item => item.id);
+      const ids = formInfo.ElmentIds.map((item) => item.id);
 
       const params = {
         EmployeeId: formInfo.EmployeeId,
@@ -186,7 +170,10 @@ function MonthlyVariablesReport(props) {
         TemplateId: formInfo.TemplateId,
         YearId: formInfo.YearId,
         MonthId: formInfo.MonthId,
-        isBankTransfere: formInfo.isBankTransfere === null ? null : Boolean(formInfo.isBankTransfere),
+        isBankTransfere:
+					formInfo.isBankTransfere === null
+					  ? null
+					  : Boolean(formInfo.isBankTransfere),
         isVal: formInfo.isVal,
       };
 
@@ -269,24 +256,6 @@ function MonthlyVariablesReport(props) {
   useEffect(() => {
     fetchNeededData();
   }, []);
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -393,8 +362,7 @@ function MonthlyVariablesReport(props) {
                 className={`${style.AutocompleteMulSty} ${
                   locale === 'ar' ? style.AutocompleteMulStyAR : null
                 }`}
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 value={formInfo.ElmentIds}
                 renderOption={(optionProps, option, { selected }) => (
                   <li {...optionProps} key={optionProps.id}>
@@ -426,8 +394,7 @@ function MonthlyVariablesReport(props) {
                   salaryTypesList,
                   formInfo.isBankTransfere
                 )}
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
@@ -485,14 +452,7 @@ function MonthlyVariablesReport(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }

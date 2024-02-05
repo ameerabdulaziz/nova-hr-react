@@ -13,14 +13,13 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
-import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -29,7 +28,8 @@ import messages from '../messages';
 
 function SummaryPayslip(props) {
   const { intl } = props;
-  const { classes } = useStyles();
+
+  const Title = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
@@ -160,24 +160,6 @@ function SummaryPayslip(props) {
     },
   ];
 
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: 'none',
-    searchOpen: false,
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
-
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
@@ -220,7 +202,7 @@ function SummaryPayslip(props) {
         <Card sx={{ mb: 3 }}>
           <CardContent sx={{ p: '16px!important' }}>
             <Typography variant='h6'>
-              {intl.formatMessage(messages.searchCriteria)}
+              {Title}
             </Typography>
 
             <Grid container mt={0} spacing={3}>
@@ -364,14 +346,11 @@ function SummaryPayslip(props) {
         </Card>
       </form>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable
+        title=''
+        data={tableData}
+        columns={columns}
+      />
     </PayRollLoader>
   );
 }

@@ -28,6 +28,7 @@ import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 
 import GeneralListApis from "../../../api/GeneralListApis";
+import PayrollTable from "../../../Component/PayrollTable";
 
 function ElementVlaImport({ intl }) {
   const { classes, cx } = useStyles();
@@ -92,7 +93,7 @@ function ElementVlaImport({ intl }) {
 
   const handleSubmit = async (e) => {
     try {
-      debugger;
+      
       e.preventDefault();
       setIsLoading(true);
 
@@ -112,7 +113,7 @@ function ElementVlaImport({ intl }) {
         isNotUpdate: data.isNotUpdate,
       }));
 
-      debugger;
+      
       let response = await ApiData(locale).SaveList(dataParam);
 
       if (response.status == 200) {
@@ -142,7 +143,7 @@ function ElementVlaImport({ intl }) {
       }
       setIsLoading(true);
       const result = await GeneralListApis(locale).getOpenMonth(id, 0);
-      debugger;
+      
 
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -182,7 +183,7 @@ function ElementVlaImport({ intl }) {
   }
   async function getElementData(id) {
     try {
-      debugger;
+      
       if (!id) {
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -241,17 +242,6 @@ function ElementVlaImport({ intl }) {
           },
         }))
       : [];
-
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
-    selectableRows: "none",
-    page: 0,
-    selectableRowsHeader: false,
-  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -540,15 +530,13 @@ function ElementVlaImport({ intl }) {
             <Grid item xs={12} md={1}></Grid>
             {fileData.length !== 0 && (
               <Grid item xs={12} md={12}>
-                <div className={classes.CustomMUIDataTable}>
-                  <MUIDataTable
-                    title={fileTitle}
-                    data={fileData}
-                    columns={columns}
-                    options={options}
-                    className={classes2.tableSty}
-                  />
-                </div>
+
+                <PayrollTable
+                  title={fileTitle}
+                  data={fileData}
+                  columns={columns}
+                />
+
               </Grid>
             )}
           </Grid>
