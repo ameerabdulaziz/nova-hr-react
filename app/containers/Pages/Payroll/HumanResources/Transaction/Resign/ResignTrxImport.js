@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { PapperBlock } from "enl-components";
 import { injectIntl } from "react-intl";
-import MUIDataTable from "mui-datatables";
 import { FormattedMessage } from "react-intl";
 import Toolbar from "@mui/material/Toolbar";
 import FormControl from "@mui/material/FormControl";
@@ -17,6 +16,7 @@ import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { read, utils } from "xlsx";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import PayrollTable from "../../../Component/PayrollTable";
 
 function ResignTrxImport({ intl }) {
   const { classes, cx } = useStyles();
@@ -89,13 +89,6 @@ function ResignTrxImport({ intl }) {
       : [];
 
   const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
     selectableRowsHeader: false,
   };
 
@@ -181,15 +174,12 @@ function ResignTrxImport({ intl }) {
           </Toolbar>
 
           {fileData.length !== 0 && (
-            <div className={classes.CustomMUIDataTable}>
-              <MUIDataTable
-                title={fileTitle}
-                data={fileData}
-                columns={columns}
-                options={options}
-                className={classes2.tableSty}
-              />
-            </div>
+            <PayrollTable
+              title={fileTitle}
+              data={fileData}
+              columns={columns}
+              options={options}
+            />
           )}
         </div>
       </PapperBlock>

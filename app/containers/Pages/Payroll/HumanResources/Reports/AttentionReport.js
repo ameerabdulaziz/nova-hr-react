@@ -1,5 +1,4 @@
 import React, {  useState } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/AttentionData";
 import { useSelector } from "react-redux";
 import { Button, Grid } from "@mui/material";
@@ -12,6 +11,8 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
+import { formateDate } from "../../helpers";
+import PayrollTable from "../../Component/PayrollTable";
 
 function AttentionReport(props) {
   const { intl } = props;
@@ -55,6 +56,8 @@ function AttentionReport(props) {
       label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
+        display: false,
+        print: false,
       },
     },
     {
@@ -62,7 +65,7 @@ function AttentionReport(props) {
       label: intl.formatMessage(messages.date),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -126,14 +129,13 @@ function AttentionReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
+
     </PayRollLoader>
   );
 }

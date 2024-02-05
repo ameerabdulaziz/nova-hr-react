@@ -1,69 +1,47 @@
-import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
-import ApiData from "../../api/CustodyTrxData";
-import { useSelector } from "react-redux";
-import messages from "../../messages";
-import { injectIntl, FormattedMessage } from "react-intl";
-import style from "../../../../../../../app/styles/styles.scss";
-import notif from "enl-api/ui/notifMessage";
-import { toast } from "react-hot-toast";
-import useStyles from "../../../Style";
-import { PapperBlock } from "enl-components";
-import EditButton from "../../../Component/EditButton";
-import DeleteButton from "../../../Component/DeleteButton";
-import AddButton from "../../../Component/AddButton";
-import { format } from 'date-fns';
-import AlertPopup from "../../../Component/AlertPopup";
-import Payrollmessages from "../../../messages";
-import PayRollLoader from "../../../Component/PayRollLoader";
-
+import notif from 'enl-api/ui/notifMessage';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayrollTable from '../../../Component/PayrollTable';
+import { formateDate } from '../../../helpers';
+import Payrollmessages from '../../../messages';
+import ApiData from '../../api/CustodyTrxData';
+import messages from '../../messages';
 
 function CustodyReceiveList(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const Title = localStorage.getItem("MenuName");
-  
-  const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState("");
+  const Title = localStorage.getItem('MenuName');
+
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleClickOpen = (item) => {
-    setOpenParentPopup(true);
-    setDeleteItem(item);
-  };
-
-  const handleClose = () => {
-    setOpenParentPopup(false);
-  };
-
-  async function deleterow() {
-    try {
-      setIsLoading(true);
-      let response = await ApiData(locale).Delete(deleteItem);
-
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
-    }
-  }
   async function fetchData() {
     try {
       const dataApi = await ApiData(locale).GetList(2);
       setdata(dataApi);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
   }
 
+  async function deleteRow(id) {
+    try {
+      setIsLoading(true);
+      await ApiData(locale).Delete(id);
+
+      toast.success(notif.saved);
+      fetchData();
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     fetchData();
@@ -71,134 +49,75 @@ function CustodyReceiveList(props) {
 
   const columns = [
     {
-      name: "id",
+      name: 'id',
       label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
+        display: false,
+        print: false,
       },
     },
     {
-      name: "date",
+      name: 'date',
       label: intl.formatMessage(Payrollmessages.date),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
-      name: "employeeName",
+      name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
-      name: "custodyName",
+      name: 'custodyName',
       label: intl.formatMessage(messages.custodyName),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "notes",
+      name: 'notes',
       label: intl.formatMessage(Payrollmessages.notes),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "itemSerial",
+      name: 'itemSerial',
       label: intl.formatMessage(messages.itemSerial),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "custCount",
+      name: 'custCount',
       label: intl.formatMessage(Payrollmessages.count),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "CustodyPrice",
+      name: 'CustodyPrice',
       label: intl.formatMessage(Payrollmessages.price),
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "Actions",
-      label: intl.formatMessage(Payrollmessages.Actions),
-      options: {
-        filter: false,
-
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              <EditButton
-                param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/HR/CustodyReceiveEdit"}
-              ></EditButton>
-              <DeleteButton
-                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
-              ></DeleteButton>
-            </div>
-          );
-        },
-      },
     },
   ];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,        
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    onSearchClose: () => {
-      //some logic
+  const actions = {
+    add: {
+      url: '/app/Pages/HR/CustodyReceiveCreate',
     },
-    customToolbar: () => (
-      <AddButton url={"/app/Pages/HR/CustodyReceiveCreate"}></AddButton>
-    ),
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
+    edit: {
+      url: '/app/Pages/HR/CustodyReceiveEdit',
     },
-    
+    delete: {
+      api: deleteRow,
+    },
   };
-  
+
   return (
-    <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>
-        <AlertPopup
-          handleClose={handleClose}
-          open={openParentPopup}
-          messageData={`${intl.formatMessage(
-            Payrollmessages.deleteMessage
-          )}${deleteItem}`}
-          callFun={deleterow}
-        />
-      </PapperBlock>
-    </PayRollLoader>
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={Title}
+      data={data}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
+
+CustodyReceiveList.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(CustodyReceiveList);
