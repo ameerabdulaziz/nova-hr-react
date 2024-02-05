@@ -297,11 +297,11 @@ function PayrollTable(props) {
           alignItems='center'
           mb={2}
         >
-          <Avatar src={company?.logo} variant='square' />
-
           <Typography fontWeight='bold' variant='subtitle1'>
             {menuName}
           </Typography>
+
+          <Avatar src={company?.logo} variant='square' />
         </Stack>
 
         <PrintableTable columns={columns} rows={data} />

@@ -74,7 +74,7 @@ function WorkFlowCreate(props) {
       if (response.status == 200) {
         toast.success(notif.saved);
 
-        history.push(`/app/Pages/WF/WorkFlowList`);
+        history.push(`/app/Pages/WF/WorkFlow`);
       } else toast.error(response.statusText);
     } catch (err) {
     } finally {
@@ -83,7 +83,7 @@ function WorkFlowCreate(props) {
   };
 
   async function oncancel() {
-    history.push(`/app/Pages/WF/WorkFlowList`);
+    history.push(`/app/Pages/WF/WorkFlow`);
   }
   async function fetchData() {
     try {

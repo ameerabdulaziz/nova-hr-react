@@ -11,7 +11,6 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -22,6 +21,8 @@ import payrollMessages from '../../messages';
 import API from '../api/NewEmployeeReportData';
 import messages from '../messages';
 import PayRollLoader from "../../Component/PayRollLoader";
+import { formateDate } from '../../helpers';
+import PayrollTable from '../../Component/PayrollTable';
 
 function NewEmployeeReport(props) {
   const { intl } = props;
@@ -48,6 +49,7 @@ function NewEmployeeReport(props) {
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
     {
@@ -97,7 +99,7 @@ function NewEmployeeReport(props) {
       label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -119,7 +121,7 @@ function NewEmployeeReport(props) {
       label: intl.formatMessage(messages.insuranceDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -169,7 +171,7 @@ function NewEmployeeReport(props) {
       label: intl.formatMessage(messages.qualificationDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -184,7 +186,7 @@ function NewEmployeeReport(props) {
       label: intl.formatMessage(messages.birthDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -196,28 +198,6 @@ function NewEmployeeReport(props) {
     },
   ];
 
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
-    page: 0,
-    searchOpen: false,
-    selectableRows: 'none',
-    serverSide: true,
-    onSearchClose: () => {
-      // some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
-
   async function fetchData() {
     try {
       const department = await GeneralListApis(locale).GetDepartmentList();
@@ -228,8 +208,6 @@ function NewEmployeeReport(props) {
       setIsLoading(false);
     }
   }
-
-  const formateDate = (date) => format(new Date(date), 'yyyy-MM-dd');
 
   const fetchTableData = async () => {
     try {
@@ -375,14 +353,11 @@ function NewEmployeeReport(props) {
         </Grid>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable
+        title=''
+        data={tableData}
+        columns={columns}
+      />
     </PayRollLoader>
   );
 }

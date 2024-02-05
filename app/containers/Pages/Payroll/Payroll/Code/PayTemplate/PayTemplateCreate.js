@@ -42,7 +42,6 @@ function PayTemplateCreate(props) {
 
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
-      debugger;
       setOpenPopup(false);
       try {
         setIsLoading(true);
@@ -106,7 +105,6 @@ function PayTemplateCreate(props) {
   );
 
   const handleClickOpenNamePopup = (type) => {
-    debugger;
     setType(type);
     setOpenPopup(true);
   };
@@ -120,8 +118,14 @@ function PayTemplateCreate(props) {
         (x) => x.isSelected == true
       );
       var addElement = data.addElement.filter((x) => x.isSelected == true);
-      data.addElement = addElement;
-      data.deductElements = deductElements;
+      data.addElement = addElement.map((item, index) =>({
+        ...item,
+        sort: item.sort === 0 || item.sort === '' ? index + 1 : item.sort
+      }));
+      data.deductElements = deductElements.map((item, index) =>({
+        ...item,
+        sort: item.sort === 0 || item.sort === '' ? index + 1 : item.sort
+      }));
 
       let response = await ApiData(locale).Save(data);
 
