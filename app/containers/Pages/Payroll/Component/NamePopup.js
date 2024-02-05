@@ -14,10 +14,10 @@ import { toast } from "react-hot-toast";
 import useStyles from "../Style";
 import { useSelector } from "react-redux";
 import GeneralListApis from "../api/GeneralListApis";
-import MUIDataTable from "mui-datatables";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import style from "../../../../styles/styles.scss";
+import PayrollTable from "./PayrollTable";
 
 function NamePopup(props) {
   const { intl, IsInsured, withoutSalaryStructure, branchId } = props;
@@ -172,17 +172,7 @@ function NamePopup(props) {
   }
 
   const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    // rowsPerPage: 50,
-    page: 0,
-    searchOpen: true,
-    onSearchClose: () => {
-      //some logic
-    },
+    selectableRows: "multiple",
     customToolbarSelect: (selectedRows) => (
       <div>
         <Grid container spacing={1} alignItems="flex-start" direction="row">
@@ -221,14 +211,14 @@ function NamePopup(props) {
               <CircularProgress />
             </Stack>
           ) : (
-            <div className={classes.CustomMUIDataTable}>
-              <MUIDataTable
-                title=""
-                data={EmployeeList}
-                columns={columns}
-                options={options}
-              />
-            </div>
+
+            <PayrollTable
+              title=""
+              data={EmployeeList}
+              columns={columns}
+              options={options}
+            />
+
           )}
         </DialogContent>
         <DialogActions>

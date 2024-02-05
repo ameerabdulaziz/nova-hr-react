@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { PapperBlock } from "enl-components";
 import { injectIntl } from "react-intl";
-import MUIDataTable from "mui-datatables";
 import { FormattedMessage } from "react-intl";
 import Toolbar from "@mui/material/Toolbar";
 import FormControl from "@mui/material/FormControl";

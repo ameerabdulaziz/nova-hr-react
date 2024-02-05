@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../../../Explanation/api/ExplanationData";
 import { useSelector } from "react-redux";
 import { Button, Grid, TextField, Autocomplete } from "@mui/material";
@@ -16,6 +15,8 @@ import { PapperBlock } from "enl-components";
 import EditButton from "../../../Component/EditButton";
 import style from "../../../../../../../app/styles/styles.scss";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import PayrollTable from "../../../Component/PayrollTable";
+import { formateDate } from "../../../helpers";
 
 function ExplanationList(props) {
   const { intl } = props;
@@ -79,6 +80,8 @@ function ExplanationList(props) {
       label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
+        display: false,
+        print: false,
       },
     },
     {
@@ -100,7 +103,7 @@ function ExplanationList(props) {
       label: intl.formatMessage(messages.date),
       options: {
         filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
@@ -129,6 +132,7 @@ function ExplanationList(props) {
       label: intl.formatMessage(Payrollmessages.Actions),
       options: {
         filter: false,
+        print: false,
 
         customBodyRender: (value, tableMeta) => {
           return (
@@ -144,26 +148,6 @@ function ExplanationList(props) {
     },
   ];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -272,14 +256,13 @@ function ExplanationList(props) {
             </Grid>
             <Grid item xs={12} md={12}></Grid>
           </Grid>
-          <div className={classes.CustomMUIDataTable}>
-            <MUIDataTable
-              title=""
-              data={data}
-              columns={columns}
-              options={options}
-            />
-          </div>
+
+          <PayrollTable
+            title=""
+            data={data}
+            columns={columns}
+          />
+
         </div>
       </PapperBlock>
     </PayRollLoader>
