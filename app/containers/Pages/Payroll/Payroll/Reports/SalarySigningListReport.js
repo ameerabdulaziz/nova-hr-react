@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/PayrollReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -26,6 +25,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import style from '../../../../../styles/styles.scss'
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 function SalarySigningListReport(props) {
   const { intl } = props;
@@ -160,26 +160,6 @@ function SalarySigningListReport(props) {
            },
       }: ""     
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
 
 
   async function fetchData() {
@@ -551,14 +531,13 @@ function SalarySigningListReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
+
     </PayRollLoader>
   );
 }

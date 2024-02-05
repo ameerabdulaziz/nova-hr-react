@@ -1,26 +1,21 @@
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {
   Autocomplete,
   Button,
-  Checkbox,
   FormControl,
   FormControlLabel,
   Grid,
   Radio,
   RadioGroup,
-  TextField,
+  TextField
 } from '@mui/material';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
 import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -29,7 +24,6 @@ import messages from '../messages';
 
 function DetailedPayrollReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const Title = localStorage.getItem('MenuName');
@@ -123,64 +117,46 @@ function DetailedPayrollReport(props) {
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
 
     {
       name: 'branchName',
       label: intl.formatMessage(messages.company),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'organizationName',
       label: intl.formatMessage(messages.department),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.job),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
     {
       name: 'monthYear',
       label: intl.formatMessage(messages.monthYear),
-      options: {
-        filter: true,
-      },
     },
 
     {
@@ -188,7 +164,7 @@ function DetailedPayrollReport(props) {
       label: intl.formatMessage(messages.netSalary),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -197,7 +173,7 @@ function DetailedPayrollReport(props) {
       label: intl.formatMessage(messages.insuranceCompanyFixed),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -206,7 +182,7 @@ function DetailedPayrollReport(props) {
       label: intl.formatMessage(messages.insuranceEmployeeFixed),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -215,7 +191,7 @@ function DetailedPayrollReport(props) {
       label: intl.formatMessage(messages.taxes),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -224,7 +200,7 @@ function DetailedPayrollReport(props) {
       label: intl.formatMessage(messages.totalAllownace),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -233,7 +209,7 @@ function DetailedPayrollReport(props) {
       label: intl.formatMessage(messages.totalDeduction),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
   ];
@@ -250,8 +226,12 @@ function DetailedPayrollReport(props) {
         TemplateId: formInfo.TemplateId,
         YearId: formInfo.YearId,
         MonthId: formInfo.MonthId,
-        isInsured: formInfo.isInsured === null ? null : Boolean(formInfo.isInsured),
-        isBankTransfere: formInfo.isBankTransfere === null ? null : Boolean(formInfo.isBankTransfere),
+        isInsured:
+					formInfo.isInsured === null ? null : Boolean(formInfo.isInsured),
+        isBankTransfere:
+					formInfo.isBankTransfere === null
+					  ? null
+					  : Boolean(formInfo.isBankTransfere),
         isVal: formInfo.isVal,
         CurrencyId: formInfo.CurrencyId,
       };
@@ -285,7 +265,7 @@ function DetailedPayrollReport(props) {
               label: key,
               options: {
                 filter: false,
-                customBodyRender: formatNumber,
+                customBodyRender: (value) => formatNumber(value),
               },
             });
           }
@@ -334,24 +314,6 @@ function DetailedPayrollReport(props) {
   useEffect(() => {
     fetchNeededData();
   }, []);
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -457,8 +419,7 @@ function DetailedPayrollReport(props) {
                   salaryTypesList,
                   formInfo.isBankTransfere
                 )}
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
@@ -479,12 +440,8 @@ function DetailedPayrollReport(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={insuranceList}
-                value={getAutoCompleteValue(
-                  insuranceList,
-                  formInfo.isInsured
-                )}
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                value={getAutoCompleteValue(insuranceList, formInfo.isInsured)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
@@ -506,8 +463,7 @@ function DetailedPayrollReport(props) {
               <Autocomplete
                 options={currencyList}
                 value={getAutoCompleteValue(currencyList, formInfo.CurrencyId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
@@ -565,14 +521,7 @@ function DetailedPayrollReport(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }

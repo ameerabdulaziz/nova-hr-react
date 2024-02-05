@@ -2,14 +2,13 @@ import {
   Autocomplete, Button, Grid, TextField
 } from '@mui/material';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, formateDate, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -18,7 +17,6 @@ import messages from '../messages';
 
 function AnnualTaxReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const Title = localStorage.getItem('MenuName');
@@ -59,7 +57,6 @@ function AnnualTaxReport(props) {
       const years = await GeneralListApis(locale).GetYears();
       setYearList(years);
 
-
       if (branchId) {
         const response = await GeneralListApis(locale).getOpenMonth(
           branchId,
@@ -83,6 +80,7 @@ function AnnualTaxReport(props) {
       name: 'id',
       options: {
         filter: false,
+        print: false,
         display: false,
       },
     },
@@ -90,41 +88,26 @@ function AnnualTaxReport(props) {
     {
       name: 'branchName',
       label: intl.formatMessage(messages.company),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'organizationName',
       label: intl.formatMessage(messages.department),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.job),
-      options: {
-        filter: true,
-      },
     },
 
     {
@@ -132,7 +115,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.hiringDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
@@ -141,7 +124,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.taxable),
       options: {
         filter: true,
-        customBodyRender: getCheckboxIcon,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -150,7 +133,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.consultant),
       options: {
         filter: true,
-        customBodyRender: getCheckboxIcon,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -159,7 +142,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.specialNeeds),
       options: {
         filter: true,
-        customBodyRender: getCheckboxIcon,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -168,7 +151,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.oldTaxBool),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -177,7 +160,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.oldTaxValue),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -186,7 +169,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.newTaxBool),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
@@ -195,7 +178,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.newTaxValue),
       options: {
         filter: false,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
   ];
@@ -205,8 +188,7 @@ function AnnualTaxReport(props) {
 
     const formData = {
       ...formInfo,
-      IsStopped:
-				formInfo.IsStopped === null ? null : Boolean(formInfo.IsStopped),
+      IsStopped: formInfo.IsStopped === null ? null : Boolean(formInfo.IsStopped),
     };
 
     try {
@@ -246,24 +228,6 @@ function AnnualTaxReport(props) {
   useEffect(() => {
     fetchNeededData();
   }, []);
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -354,14 +318,7 @@ function AnnualTaxReport(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }

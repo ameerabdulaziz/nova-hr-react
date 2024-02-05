@@ -64,12 +64,14 @@ npm run start:prod
 - [ ] Dark mode not work correctly on most components
 - [ ] Implement a global loader when fetching menu data
 - [ ] Search in navbar still search on old dashboard components
+- [ ] **/app/Pages/MainData/Upload_KPI_Data**: can't access
+- [ ] **mainData/UploadEmployeeData**, page what do
 
 ### TODO
 
 - [ ] Integrate a cancel button into the **editable** table component
 - [x] Create a global component for **MUI-table** that allows for customization of printed data.
-- [ ] Create docs for **MUI-table**
+- [x] Create docs for **MUI-table**
 
 ## Pages
 
@@ -88,6 +90,7 @@ npm run start:prod
 
 - [x] **personal**: delete popup show `id` instead of `name`
 - [ ] **personal**: delete success but not delete employee
+- [ ] **Report - EmployeeDataReport**: api get error
 
 ### Recruitment
 
@@ -106,6 +109,7 @@ npm run start:prod
 ### Social Insurance
 
 - [x] **/insurance/StopInsurance**: on edit, the employee not get in employee list
+- [ ] **Transaction - PositionOfGuaranteesAndContradictions**: api get 500 error
 
 ### Human Resources
 

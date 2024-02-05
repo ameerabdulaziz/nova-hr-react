@@ -4,27 +4,24 @@ import {
   Divider,
   Grid,
   Stack,
-  TextField
+  TextField,
 } from '@mui/material';
-import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import XLSX from 'xlsx-js-style';
 import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
+import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formatNumber } from '../../helpers';
+import { formatNumber, formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/BankListData';
 import messages from '../messages';
 
 function BankList(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
 
@@ -48,7 +45,7 @@ function BankList(props) {
     OrganizationId: null,
     PayTemplateId: null,
     CurrencyId: null,
-    BranchId: branchId
+    BranchId: branchId,
   });
 
   const [exportInfo, setExportInfo] = useState({
@@ -69,39 +66,28 @@ function BankList(props) {
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
 
     {
       name: 'organizationName',
       label: intl.formatMessage(messages.organization),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'jobName',
       label: intl.formatMessage(messages.job),
-      options: {
-        filter: true,
-      },
     },
 
     {
@@ -109,44 +95,20 @@ function BankList(props) {
       label: intl.formatMessage(messages.netSalary),
       options: {
         filter: true,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => formatNumber(value),
       },
     },
 
     {
       name: 'accNo',
       label: intl.formatMessage(messages.bankNumber),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'bnk_name',
       label: intl.formatMessage(messages.bankName),
-      options: {
-        filter: true,
-      },
     },
   ];
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   async function fetchNeededData() {
     setIsLoading(true);
@@ -312,7 +274,7 @@ function BankList(props) {
 
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
 
-    const fileName = getAutoCompleteValue(exportList, exportInfo.template)?.name ?? 'Payroll';
+    const fileName =			getAutoCompleteValue(exportList, exportInfo.template)?.name ?? 'Payroll';
 
     XLSX.writeFile(workbook, fileName + '.xlsx');
   };
@@ -345,8 +307,8 @@ function BankList(props) {
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
 
     const firstRow = [
-      format(today, 'dd/MM/yyyy'), // File_Date
-      format(today, 'dd/MM/yyyy'), // Value_Date
+      formateDate(today, 'dd/MM/yyyy'), // File_Date
+      formateDate(today, 'dd/MM/yyyy'), // Value_Date
       'Salary', // Narrative
       'egp', // Currency
       'CIBEEGCXXXX', // Creditor_BIC_Code
@@ -375,8 +337,8 @@ function BankList(props) {
     ];
 
     const bodyRows = tableData.map((item) => [
-      format(today, 'dd/MM/yyyy'), // File_Date
-      format(today, 'dd/MM/yyyy'), // Value_Date
+      formateDate(today, 'dd/MM/yyyy'), // File_Date
+      formateDate(today, 'dd/MM/yyyy'), // Value_Date
       'Salary', // Narrative
       'egp', // Currency
       'CIBEEGCXXXX', // Creditor_BIC_Code
@@ -482,8 +444,8 @@ function BankList(props) {
       'EGP', // Debit Account Currency
       'EGP', // Transaction currency
       formatNumber(item.netSal), // Transaction Amount
-      format(today, 'yyyyMMdd'), // Value Date
-      `${format(today, 'MMMM')} Salary yyy`, // First Party Reference
+      formateDate(today, 'yyyyMMdd'), // Value Date
+      `${formateDate(today, 'MMMM')} Salary yyy`, // First Party Reference
       '', // Payment Set Code
       item.employeeName, // Bene Name
       '', // Address 1
@@ -639,10 +601,7 @@ function BankList(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={companyList}
-                value={getAutoCompleteValue(
-                  companyList,
-                  formInfo.BranchId
-                )}
+                value={getAutoCompleteValue(companyList, formInfo.BranchId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderOption={(propsOption, option) => (
@@ -650,8 +609,7 @@ function BankList(props) {
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'BranchId')
-                }
+                onChange={(_, value) => onAutoCompleteChange(value, 'BranchId')}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -689,10 +647,7 @@ function BankList(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={currencyList}
-                value={getAutoCompleteValue(
-                  currencyList,
-                  formInfo.CurrencyId
-                )}
+                value={getAutoCompleteValue(currencyList, formInfo.CurrencyId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderOption={(propsOption, option) => (
@@ -848,14 +803,7 @@ function BankList(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }
