@@ -1,29 +1,18 @@
 import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
-import AddButton from '../../Component/AddButton';
-import AlertPopup from '../../Component/AlertPopup';
-import DeleteButton from '../../Component/DeleteButton';
-import EditButton from '../../Component/EditButton';
-import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
-import payrollMessages from '../../messages';
+import PayrollTable from '../../Component/PayrollTable';
 import api from '../api/SInsuranceOrgnizationData';
 import messages from '../messages';
 
 function SInsuranceOrgnization(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
-  const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
 
@@ -40,27 +29,20 @@ function SInsuranceOrgnization(props) {
     }
   };
 
-  const deleteRow = async () => {
+  const deleteRow = async (id) => {
     setIsLoading(true);
 
     try {
-      const response = await api(locale).delete(deleteItem);
+      await api(locale).delete(id);
 
-      if (response.status === 200) {
-        toast.success(notif.saved);
+      toast.success(notif.saved);
 
-        fetchTableData();
-      }
+      fetchTableData();
     } catch (err) {
       //
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const onDeleteBtnClick = (item) => {
-    setOpenParentPopup(true);
-    setDeleteItem(item);
   };
 
   useEffect(() => {
@@ -73,133 +55,68 @@ function SInsuranceOrgnization(props) {
       options: {
         filter: false,
         display: false,
+        print: false,
       },
     },
     {
       name: 'id',
       label: intl.formatMessage(messages.organizationId),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'arName',
       label: intl.formatMessage(messages.arName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'enName',
       label: intl.formatMessage(messages.enName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'insuranceNumber',
       label: intl.formatMessage(messages.insuranceNumber),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'address',
       label: intl.formatMessage(messages.address),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'owner',
       label: intl.formatMessage(messages.ownerName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'governorateName',
       label: intl.formatMessage(messages.government),
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: 'Actions',
-      label: <FormattedMessage {...messages.actions} />,
-      options: {
-        filter: false,
-        customBodyRender: (value, tableMeta) => (
-          <div className={style.actionsSty}>
-            <EditButton
-              param={{ id: tableMeta.rowData[0] }}
-              url={'/app/Pages/insurance/SInsuranceOrgnizationEdit'}
-            />
-
-            <DeleteButton
-              clickfnc={() => onDeleteBtnClick(tableMeta.rowData[0])}
-            />
-          </div>
-        ),
-      },
     },
   ];
 
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    onSearchClose: () => {
-      //  some logic
+  const actions = {
+    add: {
+      url: '/app/Pages/insurance/SInsuranceOrgnizationCreate',
     },
-    customToolbar: () => (
-      <AddButton url={'/app/Pages/insurance/SInsuranceOrgnizationCreate'} />
-    ),
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
+    edit: {
+      url: '/app/Pages/insurance/SInsuranceOrgnizationEdit',
     },
-  };
-
-  const handleClose = () => {
-    setOpenParentPopup(false);
+    delete: {
+      api: deleteRow,
+    },
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
-
-      <AlertPopup
-        handleClose={handleClose}
-        open={openParentPopup}
-        messageData={intl.formatMessage(
-          payrollMessages.deleteMessage
-        )}
-        callFun={deleteRow}
-      />
-
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      </PapperBlock>
-    </PayRollLoader>
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={Title}
+      data={tableData}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
+
+SInsuranceOrgnization.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(SInsuranceOrgnization);

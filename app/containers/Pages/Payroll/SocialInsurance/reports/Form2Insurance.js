@@ -14,15 +14,15 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import useStyles from '../../Style';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import InsuranceReportForm2 from '../../reports-templates/InsuranceReportForm2';
 import api from '../api/Form2InsuranceData';
@@ -52,8 +52,6 @@ function Form2Insurance(props) {
     OrderInsNo: 'false',
     HiringDate: 'false',
   });
-
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const fetchTableData = async () => {
     try {
@@ -105,49 +103,33 @@ function Form2Insurance(props) {
     {
       name: 'socialInsuranceID',
       label: intl.formatMessage(messages.insuranceNumber),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeId),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'job',
       label: intl.formatMessage(messages.job),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'gender',
       label: intl.formatMessage(messages.gender),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
 
@@ -155,48 +137,28 @@ function Form2Insurance(props) {
       name: 'insuranceDate',
       label: intl.formatMessage(messages.insuranceDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
 
     {
       name: 'mainSalary',
       label: intl.formatMessage(messages.insuranceSalary),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'insGrossSalary',
       label: intl.formatMessage(messages.grossSalary),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'mainSalaryNew',
       label: intl.formatMessage(messages.basicSalary),
-      options: {
-        filter: true,
-      },
     },
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
     print: false,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: 'none',
-    searchOpen: false,
-    onSearchClose: () => {
-      // some logic
-    },
     customToolbar: () => (
       <>
         <InsuranceReportForm2
@@ -210,13 +172,6 @@ function Form2Insurance(props) {
         />
       </>
     ),
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
   };
 
   const onFormSubmit = (evt) => {
@@ -294,9 +249,8 @@ function Form2Insurance(props) {
                       label={intl.formatMessage(messages.toDate)}
                       value={formInfo.ToDate}
                       onChange={(date) => onDatePickerChange(date, 'ToDate')}
-                      className={classes.field}
                       renderInput={(params) => (
-                        <TextField {...params} variant='outlined' />
+                        <TextField {...params} fullWidth variant='outlined' />
                       )}
                     />
                   </LocalizationProvider>
@@ -394,14 +348,12 @@ function Form2Insurance(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable
+        title=''
+        data={tableData}
+        columns={columns}
+        options={options}
+      />
     </PayRollLoader>
   );
 }

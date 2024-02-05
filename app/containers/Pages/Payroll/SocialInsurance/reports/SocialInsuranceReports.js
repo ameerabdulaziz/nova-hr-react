@@ -7,10 +7,8 @@ import {
   TextField,
   Tooltip,
 } from '@mui/material';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -18,9 +16,10 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import InsuranceFormPopUp from '../../Component/InsuranceFormPopUp';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
-import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SocialInsuranceReportData';
 import messages from '../messages';
@@ -28,7 +27,6 @@ import messages from '../messages';
 function SocialInsuranceReport(props) {
   const { intl } = props;
 
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -89,81 +87,56 @@ function SocialInsuranceReport(props) {
     {
       name: 'organizationName',
       label: intl.formatMessage(messages.organizationName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeId),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'staffAge',
       label: intl.formatMessage(messages.employeeAgeAtEndOfMonth),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'insuOffice',
       label: intl.formatMessage(messages.insuranceOffice),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'socialInsuranceID',
       label: intl.formatMessage(messages.socialInsuranceID),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'insuranceDate',
       label: intl.formatMessage(messages.insuranceDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'insuJobName',
       label: intl.formatMessage(messages.insuranceJob),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'srcNotes',
       label: intl.formatMessage(messages.hrNotes),
       options: {
-        filter: true,
         customBodyRender: (value, tableMeta) => (
           <Tooltip
             placement='top'
@@ -178,71 +151,37 @@ function SocialInsuranceReport(props) {
     {
       name: 'c1inNo',
       label: intl.formatMessage(messages.c1IncomingNumber),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'c1inDate',
       label: intl.formatMessage(messages.c1DeliverDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'c6inNo',
       label: intl.formatMessage(messages.c6IncomingNumber),
-      options: {
-        filter: true,
-      },
     },
     {
       name: 'c6inDate',
       label: intl.formatMessage(messages.c6DeliverDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'ka3bDate',
       label: intl.formatMessage(messages.workLetterDate),
       options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'ka3bNo',
       label: intl.formatMessage(messages.workLetterNumber),
-      options: {
-        filter: true,
-      },
     },
   ];
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    selectableRows: 'none',
-    serverSide: true,
-    onSearchClose: () => {
-      // some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
-  };
 
   async function fetchNeededData() {
     setIsLoading(true);
@@ -338,7 +277,8 @@ function SocialInsuranceReport(props) {
               <Autocomplete
                 options={officeList}
                 value={
-                  officeList.find((item) => item.id === formInfo.InsOffice) ?? null
+                  officeList.find((item) => item.id === formInfo.InsOffice)
+									?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -386,7 +326,8 @@ function SocialInsuranceReport(props) {
               <Autocomplete
                 options={monthsList}
                 value={
-                  monthsList.find((item) => item.id === formInfo.MonthId) ?? null
+                  monthsList.find((item) => item.id === formInfo.MonthId)
+									?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -477,14 +418,7 @@ function SocialInsuranceReport(props) {
         </form>
       </PapperBlock>
 
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=''
-          data={tableData}
-          columns={columns}
-          options={options}
-        />
-      </div>
+      <PayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }

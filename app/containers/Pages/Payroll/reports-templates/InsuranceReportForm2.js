@@ -2,11 +2,11 @@ import { Print } from '@mui/icons-material';
 import {
   Box, CircularProgress, IconButton, Tooltip
 } from '@mui/material';
-import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useReactToPrint } from 'react-to-print';
+import { formateDate } from '../helpers';
 import payrollMessages from '../messages';
 import InsuranceReportForm2Footer from './InsuranceReportForm2/InsuranceReportForm2Footer';
 import InsuranceReportForm2Header from './InsuranceReportForm2/InsuranceReportForm2Header';
@@ -14,32 +14,26 @@ import InsuranceReportForm2Table from './InsuranceReportForm2/InsuranceReportFor
 import { toArabicDigits } from './assets/helper';
 
 const ROWS_PER_PAGE = 10;
-const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + format(new Date(), 'yyyy-MM-dd hh_mm_ss');
+const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
 
 function InsuranceReportForm2(props) {
   const { intl } = props;
   const [isLoading, setIsLoading] = useState(false);
 
-  const onBeforeGetContent = () => {
-    setIsLoading(true);
-  };
-
-  const onAfterPrint = () => {
-    setIsLoading(false);
-  };
-
-  const onPrintError = () => {
-    setIsLoading(false);
-  };
-
   const printDivRef = useRef(null);
 
   const printJS = useReactToPrint({
-    content: () => printDivRef?.current,
-    onBeforeGetContent,
-    onAfterPrint,
-    onPrintError,
     documentTitle: DOCUMENT_TITLE,
+    content: () => printDivRef?.current,
+    onBeforeGetContent: () => {
+      setIsLoading(true);
+    },
+    onAfterPrint: () => {
+      setIsLoading(false);
+    },
+    onPrintError: () => {
+      setIsLoading(false);
+    },
   });
 
   const onPrintClick = async () => {
@@ -53,7 +47,11 @@ function InsuranceReportForm2(props) {
         title={intl.formatMessage(payrollMessages.Print)}
       >
         <IconButton onClick={onPrintClick}>
-          {isLoading ? <CircularProgress size={15} /> : <Print />}
+          {isLoading ? (
+            <CircularProgress size={15} />
+          ) : (
+            <Print sx={{ fontSize: '1.2rem' }} />
+          )}
         </IconButton>
       </Tooltip>
 
@@ -63,18 +61,10 @@ function InsuranceReportForm2(props) {
           display: 'none',
           direction: 'rtl',
           textAlign: 'right',
-          fontFamily: "'Cairo', 'sans-serif'",
           '@media print': {
             display: 'block',
           },
-          'p.MuiTypography-root': {
-            fontSize: '10px',
-          },
-          '.MuiTypography-root': {
-            fontFamily: "'Cairo', 'sans-serif'",
-          },
-          '.MuiTableCell-root': {
-            fontFamily: "'Cairo', 'sans-serif'",
+          'p.MuiTypography-root, .MuiTableCell-root': {
             fontSize: '10px',
           },
         }}
@@ -121,7 +111,7 @@ InsuranceReportForm2.propTypes = {
 };
 
 InsuranceReportForm2.defaultProps = {
-  rows: []
+  rows: [],
 };
 
 export default injectIntl(InsuranceReportForm2);

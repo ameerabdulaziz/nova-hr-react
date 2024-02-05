@@ -1,28 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { injectIntl } from "react-intl";
-import JobData from "../api/JobData";
-import MUIDataTable from "mui-datatables";
-import messages from "../messages";
-import useStyles from "../../Style";
-import { useSelector } from "react-redux";
-import style from "../../../../../styles/styles.scss";
-import AlertPopup from "../../Component/AlertPopup";
-import { toast } from "react-hot-toast";
-import notif from "enl-api/ui/notifMessage";
-import EditButton from "../../Component/EditButton";
-import DeleteButton from "../../Component/DeleteButton";
-import AddButton from "../../Component/AddButton";
-import Payrollmessages from "../../messages";
-import { PapperBlock } from "enl-components";
-import PayRollLoader from "../../Component/PayRollLoader";
+import notif from 'enl-api/ui/notifMessage';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayrollTable from '../../Component/PayrollTable';
+import JobData from '../api/JobData';
+import messages from '../messages';
 
 function Job({ intl }) {
-  const { classes, cx } = useStyles();
+  const Title = localStorage.getItem('MenuName');
+
   const locale = useSelector((state) => state.language.locale);
   const [dataTable, setDataTable] = useState([]);
-  const Title = localStorage.getItem("MenuName");
-  const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const getdata = async () => {
@@ -30,18 +20,9 @@ function Job({ intl }) {
       setIsLoading(true);
       const data = await JobData(locale).GetList();
 
-      // this used to convert boolean values to string before store it in redux until table can read the values
-      let newData = data.map((items) => {
-        Object.keys(items).forEach((val) => {
-          if (typeof items[val] == "boolean") {
-            items[val] = String(items[val]);
-          }
-        });
-        return items;
-      });
-
-      setDataTable(newData);
+      setDataTable(data);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
@@ -53,178 +34,72 @@ function Job({ intl }) {
 
   const columns = [
     {
-      name: "id",
+      name: 'id',
       label: intl.formatMessage(messages.id),
-      options: {
-        display: true,
-      },
     },
     {
-      name: "arName",
+      name: 'arName',
       label: intl.formatMessage(messages.arName),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "enName",
+      name: 'enName',
       label: intl.formatMessage(messages.enName),
-      options: {
-        filter: true,
-      },
     },
-    // {
-    //   name: 'jobCode',
-    //   label: intl.formatMessage(messages.jobCode),
-    //   options: {
-    //     filter: true
-    //   }
-    // },
-    // {
-    //   name: 'isLeadershipPosition',
-    //   label: intl.formatMessage(messages.isLeadershipPosition),
-    //   options: {
-    //     filter: true
-    //   }
-    // },
-    // {
-    //   name: 'medicalInsuranceStartDay',
-    //   label: intl.formatMessage(messages.medicalInsuranceStartDay),
-    //   options: {
-    //     filter: true
-    //   }
-    // },
-    // {
-    //   name: 'sancLevelName',
-    //   label: intl.formatMessage(messages.sancLevelName),
-    //   options: {
-    //     filter: true
-    //   }
-    // },
-    // {
-    //   name: 'sancLevelArName',
-    //   label: intl.formatMessage(messages.sancLevelArName),
-    //   options: {
-    //     filter: true
-    //   }
-    // },
-    {
-      name: "jobTypeName",
-      label: intl.formatMessage(messages.jobTypeName),
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "jobNatureName",
-      label: intl.formatMessage(messages.jobNatureName),
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "parentName",
-      label: intl.formatMessage(messages.parentName),
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "Actions",
-      label: intl.formatMessage(messages.actions),
-      options: {
-        filter: false,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              <EditButton
-                param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/MainData/JobEdit"}
-              ></EditButton>
 
-              <DeleteButton
-                clickfnc={() => handleClickOpen(tableMeta.rowData)}
-              ></DeleteButton>
-            </div>
-          );
-        },
-      },
+    {
+      name: 'jobTypeName',
+      label: intl.formatMessage(messages.jobTypeName),
+    },
+    {
+      name: 'jobNatureName',
+      label: intl.formatMessage(messages.jobNatureName),
+    },
+    {
+      name: 'parentName',
+      label: intl.formatMessage(messages.parentName),
     },
   ];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    customToolbar: () => (
-      <div className={style.customToolbarBtn}>
-        <AddButton url={"/app/Pages/MainData/JobCreate"}></AddButton>
-      </div>
-    ),
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
-
-  const handleClickOpen = (item) => {
-    setOpenParentPopup(true);
-    setDeleteItem(item);
-  };
-
-  const handleClose = () => {
-    setOpenParentPopup(false);
-  };
-
-  const DeleteFun = async () => {
+  const deleteRow = async (id) => {
     try {
       setIsLoading(true);
-      let response = await JobData().Delete(deleteItem);
+      await JobData().Delete(id);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        getdata();
-      } else {
-        toast.error(response.statusText);
-      }
+      toast.success(notif.saved);
+      getdata();
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
   };
 
-  return (
-    <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={dataTable}
-            columns={columns}
-            options={options}
-            className={style.tableSty}
-          />
-        </div>
+  const actions = {
+    add: {
+      url: '/app/Pages/MainData/JobCreate',
+    },
+    edit: {
+      url: '/app/Pages/MainData/JobEdit',
+    },
+    delete: {
+      api: deleteRow,
+    },
+  };
 
-        <AlertPopup
-          handleClose={handleClose}
-          open={openParentPopup}
-          messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}${
-            locale === "en" ? deleteItem[2] : deleteItem[1]
-          }`}
-          callFun={DeleteFun}
-        />
-      </PapperBlock>
-    </PayRollLoader>
+  return (
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={Title}
+      data={dataTable}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
+
+Job.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(Job);

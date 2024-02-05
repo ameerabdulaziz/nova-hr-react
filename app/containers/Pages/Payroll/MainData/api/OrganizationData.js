@@ -26,8 +26,8 @@ const OrganizationData = (locale) => {
 
 
 
-  OrganizationApis.Delete = async (Item) => {
-    const data = await axiosInstance.delete(`MdOrganization/${Item[0]}`);
+  OrganizationApis.Delete = async (id) => {
+    const data = await axiosInstance.delete(`MdOrganization/${id}`);
     return data;
   };
 

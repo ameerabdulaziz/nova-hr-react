@@ -37,8 +37,8 @@ const JobData = (locale) => {
     return result;
   }
 
-  jobApis.Delete = async (Item) => {
-    const data = await axiosInstance.delete(`MdJobs/${Item[0]}`);
+  jobApis.Delete = async (id) => {
+    const data = await axiosInstance.delete(`MdJobs/${id}`);
     return data;
   };
 

@@ -192,44 +192,65 @@ function PayrollTable(props) {
           print: false,
           display: Boolean(actions?.edit?.url || actions?.delete?.api),
           filter: false,
-          customBodyRender: (_, tableMeta) => (
-            <Stack direction='row' spacing={2}>
-              {actions?.edit && (
-                <Tooltip
-                  placement='bottom'
-                  title={intl.formatMessage(payrollMessages.edit)}
-                >
-                  <span>
-                    <IconButton
-                      color='primary'
-                      disabled={!menu.isUpdate || actions?.edit?.disabled}
-                      onClick={() => onEditActionBtnClick(tableMeta.rowData[0])}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                  </span>
-                </Tooltip>
-              )}
+          customBodyRender: (_, tableMeta) => {
+            let isDeleteBtnDisabled = !menu.isDelete;
 
-              {actions?.delete && (
-                <Tooltip
-                  placement='bottom'
-                  title={intl.formatMessage(payrollMessages.delete)}
-                >
-                  <span>
-                    <IconButton
-                      color='error'
-                      disabled={!menu.isDelete || actions?.delete?.disabled}
-                      onClick={() => onDeleteActionBtnClick(tableMeta.rowData[0])
-                      }
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </span>
-                </Tooltip>
-              )}
-            </Stack>
-          ),
+            if (typeof actions?.delete?.disabled === 'boolean') {
+              isDeleteBtnDisabled = actions?.delete?.disabled;
+            } else if (typeof actions?.delete?.disabled === 'function') {
+              isDeleteBtnDisabled = actions?.delete?.disabled(
+                tableMeta.rowData
+              );
+            }
+
+            let isEditBtnDisabled = !menu.isUpdate;
+
+            if (typeof actions?.edit?.disabled === 'boolean') {
+              isEditBtnDisabled = actions?.edit?.disabled;
+            } else if (typeof actions?.edit?.disabled === 'function') {
+              isEditBtnDisabled = actions?.edit?.disabled(tableMeta.rowData);
+            }
+
+            return (
+              <Stack direction='row' spacing={2}>
+                {actions?.edit && (
+                  <Tooltip
+                    placement='bottom'
+                    title={intl.formatMessage(payrollMessages.edit)}
+                  >
+                    <span>
+                      <IconButton
+                        color='primary'
+                        disabled={isEditBtnDisabled}
+                        onClick={() => onEditActionBtnClick(tableMeta.rowData[0])
+                        }
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </span>
+                  </Tooltip>
+                )}
+
+                {actions?.delete && (
+                  <Tooltip
+                    placement='bottom'
+                    title={intl.formatMessage(payrollMessages.delete)}
+                  >
+                    <span>
+                      <IconButton
+                        color='error'
+                        disabled={isDeleteBtnDisabled}
+                        onClick={() => onDeleteActionBtnClick(tableMeta.rowData[0])
+                        }
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </span>
+                  </Tooltip>
+                )}
+              </Stack>
+            );
+          },
         },
       },
     ],
@@ -266,7 +287,7 @@ function PayrollTable(props) {
           },
           svg: {
             fontSize: '0.7rem',
-          }
+          },
         }}
       >
         <Stack

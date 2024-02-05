@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/MedicalInsuranceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -20,6 +19,7 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
+import PayrollTable from "../../Component/PayrollTable";
 
 function medicalInsuranceListReport(props) {
   const { intl } = props;
@@ -89,6 +89,7 @@ function medicalInsuranceListReport(props) {
         label: intl.formatMessage(Payrollmessages.id),
       options: {
         display: false,
+        print: false,
       },
     },
     {
@@ -135,26 +136,7 @@ function medicalInsuranceListReport(props) {
     },
     
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -290,14 +272,13 @@ function medicalInsuranceListReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
-          title=""
-          data={data}
-          columns={columns}
-          options={options}
-        />
-      </div>
+
+      <PayrollTable
+        title=""
+        data={data}
+        columns={columns}
+      />
+
     </PayRollLoader>
   );
 }

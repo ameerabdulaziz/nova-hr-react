@@ -29,11 +29,11 @@ import { useHistory, useLocation } from 'react-router';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import PayRollLoader from '../../Component/PayRollLoader';
 import GeneralListApis from '../../api/GeneralListApis';
+import { ServerURL } from '../../api/ServerConfig';
 import payrollMessages from '../../messages';
 import { default as api } from '../api/CompanyDocumentData';
 import EmployeePopup from '../components/CompanyDocument/EmployeePopup';
 import messages from '../messages';
-import { ServerURL } from '../../api/ServerConfig';
 
 function CompanyDocumentCreate(props) {
   const { intl } = props;
@@ -209,7 +209,9 @@ function CompanyDocumentCreate(props) {
           })),
         });
 
-        setUploadedFile(`${ServerURL}Doc/CompanyDoc/${dataApi.docPath}`);
+        if (dataApi.docPath) {
+          setUploadedFile(`${ServerURL}Doc/CompanyDoc/${dataApi.docPath}`);
+        }
       }
     } catch (error) {
       //
