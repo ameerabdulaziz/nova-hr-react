@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "./api/WorkFlowData";
 import { useSelector } from "react-redux";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
@@ -21,6 +20,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { format } from "date-fns";
 import PayRollLoader from "../Component/PayRollLoader";
+import PayrollTable from "../Component/PayrollTable";
 
 
 function RequestsList(props) {
@@ -144,26 +144,6 @@ function RequestsList(props) {
 
   if (columns.length > 0) columns.push(action);
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -278,14 +258,13 @@ function RequestsList(props) {
             </Grid>
             <Grid item xs={12} md={12}></Grid>
           </Grid>
-          <div className={classes.CustomMUIDataTable}>
-            <MUIDataTable
-              title=""
-              data={data}
-              columns={columns}
-              options={options}
-            />
-          </div>
+
+          <PayrollTable
+            title=""
+            data={data}
+            columns={columns}
+          />
+
         </div>
       </PapperBlock>
     </PayRollLoader>
