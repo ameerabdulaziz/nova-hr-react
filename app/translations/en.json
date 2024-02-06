@@ -1523,6 +1523,7 @@
   "boilerplate.containers.Payroll.Attendance.AllTransactions": "All Transactions",
   "boilerplate.containers.Payroll.Attendance.FingerType": "Finger Type",
   "boilerplate.containers.Payroll.Attendance.DeviceType": "Device Type",
+  "boilerplate.containers.Payroll.Attendance.DeviceName": "Device Name",
 
 
   "boilerplate.containers.Payroll.Attendance.MonthWorkDays": "Month Work Days",

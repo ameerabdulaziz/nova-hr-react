@@ -1639,6 +1639,10 @@ devicePass: {
     id: `${scope}.DeviceType`,
     defaultMessage: 'Device Type',
   },
+  DeviceName: {
+    id: `${scope}.DeviceName`,
+    defaultMessage: 'Device Name',
+  },
   // AttendanceRatiosStatementsReport
   MonthWorkDays: {
     id: `${scope}.MonthWorkDays`,
