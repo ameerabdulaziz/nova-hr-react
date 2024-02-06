@@ -48,10 +48,7 @@ const PermissionTrxData = (locale) => {
     return result;
   };
 
-  Apis.SaveListFromImport = async (data) => {
-    const result = await axiosInstance.post("AttPermissionTrx/SaveListFromImport", data);
-    return result;
-  };
+  
 
   Apis.Delete = async (id) => {
     const result = await axiosInstance.delete(`AttPermissionTrx/Delete/${id}`);

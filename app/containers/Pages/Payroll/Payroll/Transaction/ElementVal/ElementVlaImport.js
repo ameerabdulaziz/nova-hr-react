@@ -114,7 +114,7 @@ function ElementVlaImport({ intl }) {
       }));
 
       
-      let response = await ApiData(locale).SaveList(dataParam);
+      let response = await ApiData(locale).SaveListFromImport(dataParam);
 
       if (response.status == 200) {
         if (response.data == "Success") toast.success(notif.saved);

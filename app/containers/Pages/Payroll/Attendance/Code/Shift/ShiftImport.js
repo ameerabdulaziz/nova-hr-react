@@ -64,7 +64,7 @@ function ShiftImport({ intl }) {
   const submitFun = async (e) => {
     try {
       setIsLoading(true);
-      let response = await ApiData(locale).SaveList(fileData);
+      let response = await ApiData(locale).SaveListFromImport(fileData);
 
       if (response.status == 200) {
         toast.success(notif.saved);
