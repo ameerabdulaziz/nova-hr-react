@@ -29,6 +29,7 @@ import Payrollmessages from "../../../messages";
 
 import GeneralListApis from "../../../api/GeneralListApis";
 import PayrollTable from "../../../Component/PayrollTable";
+import { ServerURL } from "../../../api/ServerConfig";
 
 function ElementVlaImport({ intl }) {
   const { classes, cx } = useStyles();
@@ -505,7 +506,8 @@ function ElementVlaImport({ intl }) {
                 <AddIcon
                   className={cx(smUp && classes.leftIcon, classes.iconSmall)}
                 />
-                {smUp && " "} Import
+
+                <FormattedMessage {...Payrollmessages.Import} />
                 <input
                   hidden
                   value={file}
@@ -518,6 +520,25 @@ function ElementVlaImport({ intl }) {
                 />
               </Button>
             </Grid>
+
+            <Grid item xs={12} md={2} >
+                  <div className={classes.actions}>
+                      <a
+                        href={`${ServerURL}Doc/ExcelForm/ElementsValue.xlsx`}
+                        target="_blank"
+                        rel="noreferrer"
+                        download
+                      >
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                        >
+                          <FormattedMessage {...Payrollmessages.Download} />
+                        </Button>
+                      </a>
+                  </div>
+                </Grid>
+
             <Grid item xs={12} md={2}>
               <Button
                 variant="contained"
