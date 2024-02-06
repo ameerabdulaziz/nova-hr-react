@@ -66,10 +66,7 @@ function EmployeeList(props) {
             sx={{ cursor: 'pointer' }}
             onClick={() => {
               history.push('/app/Pages/Employee/Personal', {
-                empid: {
-                  id: tableMeta.rowData[0],
-                  name: tableMeta.rowData[2],
-                },
+                empid: tableMeta.rowData[0],
               });
             }}
           >

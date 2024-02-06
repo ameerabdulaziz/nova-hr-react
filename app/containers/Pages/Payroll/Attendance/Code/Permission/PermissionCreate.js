@@ -304,12 +304,18 @@ function PermissionCreate(props) {
                         control={
                           <Checkbox
                             checked={data.isDeducted}
-                            onChange={(e) =>
+                            onChange={(e) =>{
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 isDeducted: e.target.checked,
-                                isDeductAnnual: !e.target.checked,
                               }))
+                              e.target.checked ?
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                isDeductAnnual: false
+                              }))
+                              : null
+                            }
                             }
                             value={data.isDeducted}
                             color="primary"
@@ -369,15 +375,22 @@ function PermissionCreate(props) {
                         control={
                           <Checkbox
                             checked={data.isDeductAnnual}
-                            onChange={(e) =>
+                            onChange={(e) =>{
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 isDeductAnnual: e.target.checked,
-                                isDeducted: !e.target.checked,
                                 deductedValue: "",
                                 elementId: null,
                                 elementName: "",
                               }))
+
+                              e.target.checked ?
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                isDeducted: false,
+                              }))
+                              : null
+                            }
                             }
                             value={data.isDeductAnnual}
                             color="primary"

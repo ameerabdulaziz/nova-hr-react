@@ -42,13 +42,13 @@ import EmployeeCreationFeedback from "../component/Personal/EmployeeCreationFeed
 function Personal(props) {
   const history = useHistory();
   // const ref = useRef(null);
-  const location = useLocation();
+
+  const { state } = useLocation();
 
   const authState = useSelector((state) => state.authReducer);
 
-  const { empid } =
-    location.state == null ? { id: 0, name: "" } : location.state;
-  const id = location.state == null ? 0 : empid;
+  const id = state && state.empid ? state.empid : 0;
+
   let dropzoneRef;
   const [progress, setProgress] = useState(false);
   const { intl, pristine } = props;

@@ -46,6 +46,12 @@ function DeviceLogReport(props) {
   });
 
 
+// used to clear table if search elements has change
+  useEffect(()=>{
+    setdata([])
+  },[searchData])
+
+
   const handleSearch = async (e) => {
     try {
       setIsLoading(true);
@@ -103,12 +109,44 @@ function DeviceLogReport(props) {
           filter: true,
         },
       },
+      searchData.GroupByDate ?
+      {
+        name: "timeIn",
+        // label: "time In",
+        label: intl.formatMessage(messages.timeIn),
+        options: {
+          filter: true,
+        },
+      } 
+      : "",
+      searchData.GroupByDate ?
+      {
+        name: "timeOut",
+        // label: "time Out",
+        label: intl.formatMessage(messages.timeOut),
+        options: {
+          filter: true,
+        },
+      } : "",
+      searchData.DisplayDeviceName ?
+      {
+        name: "devName",
+        // label: "Device Name",
+        label: intl.formatMessage(messages.DeviceName),
+        options: {
+          filter: true,
+        },
+      } : "",
       {
         name: "trxDateTime2",
         label: intl.formatMessage(messages.date),
         options: {
           filter: true,
-          customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+          customBodyRender: (value) => (<pre>{
+            searchData.GroupByDate ?
+            format(new Date(value), "yyyy-MM-dd")
+           : format(new Date(value), "yyyy-MM-dd hh:mm aa")
+            }</pre>),
         },
       },
   ];
