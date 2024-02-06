@@ -44,10 +44,11 @@ const MyNode = ({ nodeData }) => {
             <div className="image">
             <img
                 /* src={`https://randomuser.me/api/portraits/men/${nodeData.employeeid}.jpg`} */
-                src={`https://randomuser.me/api/portraits/men/1.jpg`}
+                src={nodeData.photo}
                 alt="Profile"
                 style={{ borderColor: colors[nodeData.levelNo]  }}
             />
+           
             </div>
             <div className="card-body">
             <h2>{nodeData.deptname}</h2>
