@@ -56,6 +56,12 @@ const ElementValData = (locale) => {
     const result = await axiosInstance.post("PayrollEmpElementVal/SaveList", data);
     return result;
   };
+
+  Apis.SaveListFromImport = async (data) => {
+    const result = await axiosInstance.post("PayrollEmpElementVal/SaveListFromImport", data);
+    return result;
+  };
+
   Apis.Delete = async (id) => {
     const result = await axiosInstance.delete(`PayrollEmpElementVal/Delete/${id}`);
     return result;

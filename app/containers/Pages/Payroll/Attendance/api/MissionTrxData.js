@@ -54,6 +54,13 @@ const MissionTrxData = (locale) => {
     const result = await axiosInstance.post("AttMissionTrx/SaveList",data);
     return result;
   };
+
+  Apis.SaveListFromImport = async (data) => {
+    
+    const result = await axiosInstance.post("AttMissionTrx/SaveListFromImport",data);
+    return result;
+  };
+
   Apis.Delete = async (id) => {
     
     const result = await axiosInstance.delete(`AttMissionTrx/Delete/${id}`);

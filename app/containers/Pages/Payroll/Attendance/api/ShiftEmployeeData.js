@@ -27,6 +27,11 @@ const ShiftEmployeeData = (locale) => {
     const result = await axiosInstance.post("AttShiftEmployee/SaveList",data);
     return result;
   };
+
+  Apis.SaveListFromImport = async (data) => {
+    const result = await axiosInstance.post("AttShiftEmployee/SaveListFromImport",data);
+    return result;
+  };
   
   Apis.Delete = async (id) => {
     
