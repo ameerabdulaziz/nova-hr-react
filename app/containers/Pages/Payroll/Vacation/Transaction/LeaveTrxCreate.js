@@ -215,7 +215,7 @@ function LeaveTrxCreate(props) {
       notes: formInfo.notes,
       exemptEntryRec: Boolean(formInfo.exemptEntryRec),
       exemptLeaveRec: Boolean(formInfo.exemptLeaveRec),
-      alternativeStaff: formInfo.alternativeStaff,
+      alternativeStaff: formInfo.alternativeStaff ?? '',
       vacCode: formInfo.vacCode,
     };
 

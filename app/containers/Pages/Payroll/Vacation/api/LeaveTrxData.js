@@ -1,4 +1,5 @@
 import axiosInstance from '../../api/axios';
+import { getFormData } from '../../helpers';
 const LeaveTrxData = (locale) => {
   const api = {};
 
@@ -33,15 +34,6 @@ const LeaveTrxData = (locale) => {
 
     return result;
   };
-
-  const getFormData = object => Object.entries(object).reduce((fd, [key, val]) => {
-    if (Array.isArray(val)) {
-      val.forEach(v => fd.append(key, v));
-    } else {
-      fd.append(key, val);
-    }
-    return fd;
-  }, new FormData());
 
   api.save = async (body) => {
     const result = await axiosInstance.post('VacVacationTrx/Save', getFormData(body));

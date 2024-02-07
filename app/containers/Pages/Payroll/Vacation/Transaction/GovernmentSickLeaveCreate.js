@@ -242,8 +242,8 @@ function GovernmentSickLeaveCreate(props) {
           employeeId: formData.employeeId,
           HasAlternativeEmp: formData.HasAlternativeEmp,
 
-          yearId: formData.yearId,
-          monthId: formData.monthId,
+          yearId: formData.yearId ?? '',
+          monthId: formData.monthId ?? '',
 
           VacDayChange: formData.VacDayChange ?? '',
           vacDocPath: formData.vacDocPath,
@@ -261,7 +261,7 @@ function GovernmentSickLeaveCreate(props) {
           address: formData.address,
           notes: formData.notes,
           deductAnual: formData.deductAnual,
-          alternativeStaff: formData.alternativeStaff,
+          alternativeStaff: formData.alternativeStaff ?? '',
           vacCode: formData.vacCode,
         });
 
