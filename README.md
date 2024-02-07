@@ -1,4 +1,3 @@
-
 # Payroll App
 
 ## Get Start 🚀
@@ -51,94 +50,27 @@ npm run start:prod
 
 ## BUGS 🐛
 
-- [ ] Exclude the **profile page** from appearing in the master data menu.
 - [ ] Exclude the **JobApplicationPreview page** from appearing in the Recruitment menu.
 - [ ] Eliminate the **debugger** from the project codebase.
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
 - [ ] Ensure that the **MUI-table** is properly translated into Arabic.
 - [ ] **Notification** still not work
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
-- [ ] Integrate dark mode support for the **loader** component
 - [ ] Complete the implementation of the **Calculate Attendance** page
 - [ ] Integrate the **LeaveBalance** page with the API
-- [ ] Dark mode not work correctly on most components
 - [ ] Implement a global loader when fetching menu data
-- [ ] Search in navbar still search on old dashboard components
-- [ ] **/app/Pages/MainData/Upload_KPI_Data**: can't access
-- [ ] **mainData/UploadEmployeeData**, page what do
-
-### TODO
-
+- [ ] **Search** in navbar still search on old dashboard components
 - [ ] Integrate a cancel button into the **editable** table component
-- [x] Create a global component for **MUI-table** that allows for customization of printed data.
-- [x] Create docs for **MUI-table**
-- [ ] find a way to add spacing to separate menu levels in sidebar
+- [ ] Implement a solution to add spacing between **menu** levels in the sidebar
 
 ## Pages
 
-### Complaint & Explanation
-
-### Main Data
-
-- [x] **company document**: delete popup show `id` instead of `name`
-- [ ] **Documents**: can't change `Check Expire Date` column value
-- [x] **Company Data**: not contain loader
-- [x] **Job**: duplicated page title
-- [x] **JobEdit**: get error on `medicalInsuranceStartDay` is empty
-- [x] **JobCreate**: not contain loader
-
-### Employee Data
-
-- [x] **personal**: delete popup show `id` instead of `name`
-- [x] **personal**: delete success but not delete employee
-
-### Recruitment
-
-- [x] **JobApplicationPreview**: image not get in the right format
-- [x] **JobApplicationPreview**: `computerSkills` show it's id not name
-- [x] **JobVacation/Application**: still need auth for api
-- [x] **public/JobVacation**: logo, how to change (add input field to company data page)
-- [x] **RecEvaluation**: `Element Job` get as id not name
-
-### Medical Insurance
-
-- [x] **Minsurance/StopMedicalInsurance**: on edit, the employee not get in employee list
-- [x] **Transaction - MedicalInsuranceSubscriptionCreate**: get error on save **You must complete the establishment of subscription items**
-
-### Social Insurance
-
-- [x] **/insurance/StopInsurance**: on edit, the employee not get in employee list
-- [ ] **Report - PositionOfGuaranteesAndContradictions**: api get 500 error
-
-### Human Resources
-
-- [ ] **Code - Course**: error on create
-- [ ] **PenaltyTransCreate**: need workflow to test
-- [ ] **HR/ExplanationEdit**: what should do & how to create
-- [ ] **HR/ResignTrxImport**: how to test
-- [ ] **Transaction - Explanation**: filter not work
-- [ ] **HR/EmpCourse**: not test because of **Code - Course** not get data
-
-### Vacation
-
-#### Codes
-
-- [ ] **VacationsTypes**: delete api return 500 error
-
-#### Transactions
-
-- [x] **LeaveOpenBalance**: can't save, api get error
-- [x] **OpeningClosingTheYearForLeaves**: can't open month, api get error
-- [ ] **ReplaceAnnualLeaveBalanceCreate**: element autocomplete is required but contain no data
-- [ ] **LeaveTrxCreate**: need workflow to be work
-- [ ] **LeaveTrxCreate**: alternativeStaff is not required but api get error as null is not accepted
-- [ ] **GovernmentSickLeave**: need workflow to be work
-- [ ] **GovernmentSickLeave**: alternativeStaff is not required but api get error as null is not accepted
-- [ ] **ImportVacations**: get error on upload (save)
-
-### Report
-
-- [ ] **LeaveReport**: return exception on success
+- [ ] **[Abdelrahman]** - **Main Data / Documents** : can't change **Check Expire Date** column value
+- [ ] **[Abdelrahman]** - **Vacation - Transaction / ReplaceAnnualLeaveBalanceCreate**: element autocomplete is required but contain no data
+- [ ] **Vacation / Transaction / LeaveTrxCreate**: get error on save
+- [ ] **Vacation / Transaction / GovernmentSickLeave**: get error on save
+- [ ] **Vacation / Transaction / ImportVacations**: get error on upload (save)
+- [ ] **Human Resources / Transaction / ResignTrxImport**: how to test
 
 ## Docs
 
@@ -149,14 +81,14 @@ The `PayrollTable` component is a React component designed to display and manage
 #### Usage
 
 ```jsx
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
-import { formateDate } from '../../helpers';
-import api from '../api/ExamplePageData';
-import messages from '../messages';
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import PayrollTable from "../../Component/PayrollTable";
+import { formateDate } from "../../helpers";
+import api from "../api/ExamplePageData";
+import messages from "../messages";
 
 function ExamplePage(props) {
   // Destructure props
@@ -166,7 +98,7 @@ function ExamplePage(props) {
   const locale = useSelector((state) => state.language.locale);
 
   // Retrieve title from local storage
-  const Title = localStorage.getItem('MenuName');
+  const Title = localStorage.getItem("MenuName");
 
   // State for loading status and table data
   const [isLoading, setIsLoading] = useState(true);
@@ -212,7 +144,7 @@ function ExamplePage(props) {
   // Define columns for the PayrollTable
   const columns = [
     {
-      name: 'id',
+      name: "id",
       label: intl.formatMessage(messages.id),
       options: {
         filter: false,
@@ -221,11 +153,11 @@ function ExamplePage(props) {
       },
     },
     {
-      name: 'departmentName',
+      name: "departmentName",
       label: intl.formatMessage(messages.department),
     },
     {
-      name: 'insDate',
+      name: "insDate",
       label: intl.formatMessage(messages.insertDate),
       options: {
         // Custom rendering for date column
@@ -233,7 +165,7 @@ function ExamplePage(props) {
       },
     },
     {
-      name: 'jobName',
+      name: "jobName",
       label: intl.formatMessage(messages.position),
     },
   ];
@@ -241,10 +173,10 @@ function ExamplePage(props) {
   // Define actions for the PayrollTable
   const actions = {
     add: {
-      url: '/app/Pages/Recruitment/ExamplePageCreate',
+      url: "/app/Pages/Recruitment/ExamplePageCreate",
     },
     edit: {
-      url: '/app/Pages/Recruitment/ExamplePageEdit',
+      url: "/app/Pages/Recruitment/ExamplePageEdit",
     },
     delete: {
       api: deleteRow,
@@ -288,7 +220,7 @@ export default injectIntl(ExamplePage);
 
 In the provided `ExamplePage` example, the actions object is used to configure actions associated with the `PayrollTable`. These actions typically represent operations that can be performed on the data displayed in the table. The actions object has three properties: **add**, **edit**, and **delete**, each specifying the configuration for the corresponding action.
 
-> If the corresponding configuration is not provided,  the button icon will not be displayed
+> If the corresponding configuration is not provided, the button icon will not be displayed
 
 - **Add Action** (add property):
   - `url`: Specifies the URL to navigate to when the "Add" action is triggered.
@@ -327,15 +259,15 @@ Here's an example of how the data array might look like:
 const data = [
   {
     id: 1,
-    departmentName: 'Finance',
-    insDate: '2022-02-14T12:30:00Z',
-    jobName: 'Financial Analyst',
+    departmentName: "Finance",
+    insDate: "2022-02-14T12:30:00Z",
+    jobName: "Financial Analyst",
   },
   {
     id: 2,
-    departmentName: 'Human Resources',
-    insDate: '2022-02-15T09:45:00Z',
-    jobName: 'HR Manager',
+    departmentName: "Human Resources",
+    insDate: "2022-02-15T09:45:00Z",
+    jobName: "HR Manager",
   },
   // Add more rows as needed
 ];
@@ -346,7 +278,7 @@ In this example, each object in the data array represents a row in the table. Th
 Adjust the structure of the data array based on the actual data you want to display in your table. Each property in the objects should match the name property in the corresponding column configuration within the columns array.
 
 ### Override the options
-  
+
 If you need to override the default `options` for the `PayrollTable` component
 
 ```jsx
@@ -354,13 +286,13 @@ If you need to override the default `options` for the `PayrollTable` component
 
 // Define your custom options
 const options = {
-  selectableRows: 'multiple',
+  selectableRows: "multiple",
   customToolbarSelect: (selectedRows) => (
     <IconButton
       sx={{ mx: 2 }}
       onClick={() => onToolBarIconClick(selectedRows.data)}
     >
-      <ManageAccountsIcon sx={{ fontSize: '25px' }} />
+      <ManageAccountsIcon sx={{ fontSize: "25px" }} />
     </IconButton>
   ),
 };
@@ -375,7 +307,7 @@ const options = {
   columns={columns}
   options={customOptions}
   actions={actions}
-/>
+/>;
 ```
 
 ### Add Custom Column
