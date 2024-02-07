@@ -189,6 +189,7 @@ function DetailedAttendanceReport(props) {
         label: intl.formatMessage(messages.day),
         options: {
           filter: true,
+          customBodyRender: (value) => (<pre>{value}</pre>),
         },
       },
       {
@@ -197,6 +198,17 @@ function DetailedAttendanceReport(props) {
         options: {
           filter: true,
           customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+          setCellProps: (value, rowIndex) => {
+            return {
+              style: {
+                ...(data[rowIndex].absence && { backgroundColor:'#f00' }),
+                ...(data[rowIndex].vac && { backgroundColor:'#fafa02' }),
+                ...(data[rowIndex].shiftVacancy && { backgroundColor:'#1bff00' }),
+                paddingLeft: "0",
+                textAlign: "center"
+              },
+            };
+          },
         },
       },
     {
@@ -218,6 +230,7 @@ function DetailedAttendanceReport(props) {
         label: intl.formatMessage(messages.job),
         options: {
           filter: true,
+          customBodyRender: (value) => (<pre>{value}</pre>),
         },
       },
       {
@@ -232,6 +245,7 @@ function DetailedAttendanceReport(props) {
         label: intl.formatMessage(messages.signIn),
         options: {
           filter: true,
+          customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
         },
       },
       {
@@ -239,6 +253,7 @@ function DetailedAttendanceReport(props) {
         label: intl.formatMessage(messages.signOut),
         options: {
           filter: true,
+          customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
         },
       },
       {
