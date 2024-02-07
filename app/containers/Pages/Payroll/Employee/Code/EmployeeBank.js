@@ -90,7 +90,7 @@ function EmployeeBank(props) {
   const [formInfo, setFormInfo] = useState(INIT_FORM_INFO);
 
   const [selectedEmployee, setSelectedEmployee] = useState(
-    location.state?.empid ?? 0
+    location.state?.empid?.id ?? 0
   );
   const [selectedBank, setSelectedBank] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);
