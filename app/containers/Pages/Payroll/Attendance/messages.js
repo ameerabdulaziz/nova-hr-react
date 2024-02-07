@@ -1906,13 +1906,13 @@ devicePass: {
     id: `${scope}.late`,
     defaultMessage: 'late',
   },
-  durationUntilEnd: {
-    id: `${scope}.durationUntilEnd`,
-    defaultMessage: 'duration until end',
+  LessTime: {
+    id: `${scope}.LessTime`,
+    defaultMessage: 'Less Time',
   },
-  acutanceLeave: {
-    id: `${scope}.acutanceLeave`,
-    defaultMessage: 'acutance leave',
+  AccuredLeave: {
+    id: `${scope}.AccuredLeave`,
+    defaultMessage: 'Accured Leave',
   },
   manual: {
     id: `${scope}.manual`,

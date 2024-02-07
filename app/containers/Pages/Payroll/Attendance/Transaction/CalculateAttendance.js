@@ -33,6 +33,8 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/CalculateAttendanceData';
 import messages from '../messages';
+import { format } from "date-fns";
+import { getCheckboxIcon } from '../../helpers';
 
 function CalculateAttendance(props) {
   const { intl } = props;
@@ -265,6 +267,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.day),
       options: {
         filter: true,
+        customBodyRender: (value) => (<pre>{value}</pre>),
       },
     },
 
@@ -273,6 +276,18 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.shiftDate),
       options: {
         filter: true,
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+        setCellProps: (value, rowIndex) => {
+          return {
+            style: {
+              ...(tableData[rowIndex].absence && { backgroundColor:'#f00' }),
+              ...(tableData[rowIndex].vac && { backgroundColor:'#fafa02' }),
+              ...(tableData[rowIndex].shiftVacancy && { backgroundColor:'#1bff00' }),
+              paddingLeft: "0",
+              textAlign: "center"
+            },
+          };
+        },
       },
     },
 
@@ -289,6 +304,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.signIn),
       options: {
         filter: true,
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
       },
     },
 
@@ -297,6 +313,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.signOut),
       options: {
         filter: true,
+        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
       },
     },
 
@@ -318,7 +335,7 @@ function CalculateAttendance(props) {
 
     {
       name: 'LessTime',
-      label: intl.formatMessage(messages.durationUntilEnd),
+      label: intl.formatMessage(messages.LessTime),
       options: {
         filter: true,
       },
@@ -326,7 +343,7 @@ function CalculateAttendance(props) {
 
     {
       name: 'ReplaceVac',
-      label: intl.formatMessage(messages.acutanceLeave),
+      label: intl.formatMessage(messages.AccuredLeave),
       options: {
         filter: true,
       },
@@ -337,6 +354,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.leave),
       options: {
         filter: false,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -345,6 +363,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.mission),
       options: {
         filter: false,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -353,6 +372,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.permission),
       options: {
         filter: false,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -361,6 +381,10 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.absent),
       options: {
         filter: false,
+        customBodyRender: (value) => {
+          console.log("ttt =", value)
+          return getCheckboxIcon(value)
+        },
       },
     },
 
@@ -369,6 +393,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.weekendLeave),
       options: {
         filter: false,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -377,6 +402,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.manual),
       options: {
         filter: false,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -385,6 +411,7 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.stop),
       options: {
         filter: false,
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
 
@@ -524,7 +551,7 @@ function CalculateAttendance(props) {
                   onChange={(date) => onDatePickerChange(date, 'FromDate')}
                   renderInput={(params) => (
                     <TextField
-                      required
+                      // required
                       fullWidth
                       {...params}
                       variant='outlined'
@@ -544,7 +571,7 @@ function CalculateAttendance(props) {
                   onChange={(date) => onDatePickerChange(date, 'ToDate')}
                   renderInput={(params) => (
                     <TextField
-                      required
+                      // required
                       fullWidth
                       {...params}
                       variant='outlined'
@@ -581,7 +608,7 @@ function CalculateAttendance(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    required={formInfo.OrganizationIds.length === 0}
+                    // required={formInfo.OrganizationIds.length === 0}
                     label={intl.formatMessage(messages.department)}
                   />
                 )}
@@ -615,7 +642,7 @@ function CalculateAttendance(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    required={formInfo.EmployeeIds.length === 0}
+                    // required={formInfo.EmployeeIds.length === 0}
                     label={intl.formatMessage(messages.employee)}
                   />
                 )}
