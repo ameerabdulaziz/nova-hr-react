@@ -2,6 +2,7 @@ import axiosInstance from '../../containers/Pages/Payroll/api/axios';
 
 const menuApi = {
   fetchApi: async (locale) => {
+    debugger ;
     const data = await axiosInstance.get(`Menu/${locale}`);
 
     return data.data;

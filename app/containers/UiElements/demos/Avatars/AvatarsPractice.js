@@ -164,7 +164,7 @@ function AvatarsDemo() {
             <Card className={classes.card}>
               <CardHeader
                 avatar={
-                  <Avatar src="/images/pp_girl.svg" />
+                  <Avatar src="/images/pp_girl4.svg" />
                 }
                 action={(
                   <IconButton size="large">

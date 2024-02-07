@@ -5,6 +5,7 @@ import call from "./icons8-call-50.png";
 import video from "./icons8-video-24.png";
 import chat from "./icons8-chat-50.png";
 import randomcolor from "randomcolor";
+import Face2Icon from '@mui/icons-material/Face2';
 
 function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -44,7 +45,7 @@ const MyNode = ({ nodeData }) => {
             <div className="image">
             <img
                 /* src={`https://randomuser.me/api/portraits/men/${nodeData.employeeid}.jpg`} */
-                src={nodeData.photo}
+                src={nodeData.photo?nodeData.photo:(nodeData.genderId == 1?'/images/avatars/pp_boy4.jpg':'/images/pp_girl.svg')}
                 alt="Profile"
                 style={{ borderColor: colors[nodeData.levelNo]  }}
             />
