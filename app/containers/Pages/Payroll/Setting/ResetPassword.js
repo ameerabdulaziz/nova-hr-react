@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Button, Grid, TextField, Autocomplete } from "@mui/material";
+import { Button, Grid,Typography, TextField, Autocomplete } from "@mui/material";
 import ResetPasswordData from "./api/ResetPasswordData";
 import GeneralListApis from "../api/GeneralListApis";
 import { toast } from "react-hot-toast";
@@ -53,7 +53,7 @@ function ResetPassword(props) {
   const resetAll = async () => {
     try {
       setIsLoading(true);
-      let response = await ResetPasswordData().ResetAllUsersPassword();
+      let response = await ResetPasswordData().ResetAllUsersPassword(password);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -66,10 +66,15 @@ function ResetPassword(props) {
     }
   };
 
-  const GetDepartmentList = useCallback(async () => {
+  const fetchNeededData = useCallback(async () => {
+    setIsLoading(true);
+
     try {
       const data = await GeneralListApis(locale).GetDepartmentList();
       setDepartmentList(data || []);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setemployeeList(employees || []);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -94,7 +99,7 @@ function ResetPassword(props) {
   });
 
   useEffect(() => {
-    GetDepartmentList();
+    fetchNeededData();
   }, []);
 
   useEffect(() => {
@@ -103,13 +108,18 @@ function ResetPassword(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-          <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+          <PapperBlock whiteBg icon="border_color" title={Title} desc=''>
+            <Typography color='gray'>
+              {intl.formatMessage(messages.letPasswordEmptyWillGenerateRandomPassword)}
+            </Typography>
+
             <form onSubmit={handleSubmit}>
               <Grid
                 container
                 spacing={3}
                 alignItems="flex-start"
                 direction="row"
+                mt={0}
               >
                 <Grid item xs={12} md={4}>
                   <Autocomplete
@@ -144,6 +154,7 @@ function ResetPassword(props) {
                         {...params}
                         name="employee"
                         value={employee}
+                        required
                         label={intl.formatMessage(Payrollmessages.chooseEmp)}
                       />
                     )}

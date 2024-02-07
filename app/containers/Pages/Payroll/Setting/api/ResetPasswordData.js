@@ -11,9 +11,11 @@ const ResetPasswordData = () => {
     return result;
   };
 
-  Apis.ResetAllUsersPassword = async (EmployeeId,NewPassword) => {
+  Apis.ResetAllUsersPassword = async (password) => {
   
-    const result = await axiosInstance.post(`Account/ResetAllUsersPassword`);
+    const result = await axiosInstance.post(`Account/ResetAllUsersPassword`,{
+      NewPassword: password
+    });
     
     return result;
   };
