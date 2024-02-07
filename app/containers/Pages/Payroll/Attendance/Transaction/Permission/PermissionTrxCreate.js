@@ -56,6 +56,8 @@ function PermissionTrxCreate(props) {
     notes: "",
     maxRepeated: "",
     maxMinuteNo: "",
+    maxMinutesCountGreaterThan: false,
+    maxMinutesCountDiff: false
   });
 
   const [PermissionsList, setPermissionsList] = useState([]);
@@ -114,15 +116,45 @@ function PermissionTrxCreate(props) {
             )) /
             60000
         );
-        if (diff <= maxMinuteNo)
+
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          startTime: event.target.value,
+          minutesCount: diff,
+        }));
+
+        if(diff > 0)
+        {
           setdata((prevFilters) => ({
             ...prevFilters,
-            startTime: event.target.value,
-            minutesCount: diff,
+            maxMinutesCountGreaterThan: false
           }));
-        else {
-          toast.error("max minutes count is" + data.maxMinuteNo);
+
+          if (diff > data.maxMinuteNo && data.maxMinuteNo !== null && data.maxMinuteNo !== 0)
+          {
+            toast.error(intl.formatMessage(messages.maxMinutesCountIs) + data.maxMinuteNo);
+            setdata((prevFilters) => ({
+                ...prevFilters,
+                maxMinutesCountDiff: true
+              }));
+          }
+          else
+          {
+            setdata((prevFilters) => ({
+              ...prevFilters,
+              maxMinutesCountDiff: false
+            }));
+          }
         }
+        else
+        {
+          toast.error(intl.formatMessage(messages.maxMinutesCountMustToBeGreaterThan));
+            setdata((prevFilters) => ({
+                ...prevFilters,
+                maxMinutesCountGreaterThan: true
+              }));
+        }
+
       } else
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -150,15 +182,44 @@ function PermissionTrxCreate(props) {
             60000
         );
 
-        if (diff <= data.maxMinuteNo)
+        setdata((prevFilters) => ({
+                ...prevFilters,
+                endTime: event.target.value,
+                minutesCount: diff,
+              }));
+
+        if(diff > 0)
+        {
           setdata((prevFilters) => ({
             ...prevFilters,
-            endTime: event.target.value,
-            minutesCount: diff,
+            maxMinutesCountGreaterThan: false
           }));
-        else {
-          toast.error("max minutes count is" + data.maxMinuteNo);
+
+          if (diff > data.maxMinuteNo && data.maxMinuteNo !== null && data.maxMinuteNo !== 0)
+          {
+            toast.error(intl.formatMessage(messages.maxMinutesCountIs) + data.maxMinuteNo);
+            setdata((prevFilters) => ({
+                ...prevFilters,
+                maxMinutesCountDiff: true
+              }));
+          }
+          else
+          {
+            setdata((prevFilters) => ({
+              ...prevFilters,
+              maxMinutesCountDiff: false
+            }));
+          }
         }
+        else
+        {
+          toast.error(intl.formatMessage(messages.maxMinutesCountMustToBeGreaterThan));
+            setdata((prevFilters) => ({
+                ...prevFilters,
+                maxMinutesCountGreaterThan: true
+              }));
+        }
+
       } else
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -168,12 +229,19 @@ function PermissionTrxCreate(props) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      var RepeatedNo = await getRepeatedNo();
-      if (RepeatedNo >= data.maxRepeated) {
-        toast.error("max repeated Permission is" + data.maxRepeated);
-        return;
-      } else {
+
+      if(data.maxMinutesCountDiff)
+      {
+        toast.error(intl.formatMessage(messages.maxMinutesCountIs) + data.maxMinuteNo);
+      }
+      else if(data.maxMinutesCountGreaterThan)
+      {
+        toast.error(intl.formatMessage(messages.maxMinutesCountMustToBeGreaterThan));
+      }
+      else {
+
         setIsLoading(true);
         let response = await ApiData(locale).Save(data);
 
@@ -323,8 +391,6 @@ function PermissionTrxCreate(props) {
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 calcLate: e.target.checked,
-                                calcMinus: !e.target.checked,
-                                dedRased: !e.target.checked,
                                 pminusMin: "",
                                 prasedMin: "",
                               }))
@@ -357,8 +423,6 @@ function PermissionTrxCreate(props) {
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 calcMinus: e.target.checked,
-                                calcLate: !e.target.checked,
-                                dedRased: !e.target.checked,
                                 plateMin: "",
                                 prasedMin: "",
                               }))
@@ -391,8 +455,6 @@ function PermissionTrxCreate(props) {
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 dedRased: e.target.checked,
-                                calcMinus: !e.target.checked,
-                                calcLate: !e.target.checked,
                                 plateMin: "",
                                 pminusMin: "",
                               }))
