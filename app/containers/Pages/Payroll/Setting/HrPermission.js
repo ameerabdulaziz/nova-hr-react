@@ -61,6 +61,10 @@ function HrPermission(props) {
             item.isSubmitReward = event.target.checked;
           } else if (event.target.name == 'AllSelect') {
             item.isSelected = event.target.checked;
+          } else if (event.target.name == 'AllUniformTrx') {
+            item.isSubmitUniformTrx = event.target.checked;
+          } else if (event.target.name == 'AllLoan') {
+            item.isSubmitLoan = event.target.checked;
           }
         }
 
@@ -119,6 +123,10 @@ function HrPermission(props) {
             item.isSubmitReward = event.target.checked;
           } else if (event.target.name === 'isSelected') {
             item.isSelected = event.target.checked;
+          } else if (event.target.name === 'isSubmitUniformTrx') {
+            item.isSubmitUniformTrx = event.target.checked;
+          } else if (event.target.name === 'isSubmitLoan') {
+            item.isSubmitLoan = event.target.checked;
           }
         }
 
@@ -149,6 +157,8 @@ function HrPermission(props) {
           isSubmitPenalty: item.isSubmitPenalty,
           isSubmitPermission: item.isSubmitPermission,
           isSubmitReward: item.isSubmitReward,
+          isSubmitUniformTrx: item.isSubmitUniformTrx,
+          isSubmitLoan: item.isSubmitLoan,
           isSubmitVacation: item.isSubmitVacation,
           organizationId: item.organizationId,
           organizationName: item.organizationName,
@@ -474,7 +484,64 @@ function HrPermission(props) {
                     onChange={onAllCheckboxChange}
                   />
                 </TableCell>
-                <TableCell></TableCell>
+                <TableCell
+                  style={{
+                    textWrap: 'balance',
+                    textAlign: 'center',
+                  }}
+                >
+                  <FormattedMessage {...messages.submitUniform} />
+                  <br />
+                  <Checkbox
+                    checked={
+                      !!(
+                        filteredData.length > 0
+                        && dataList.filter((crow) => crow.isSubmitUniformTrx == true)
+                          .length === filteredData.length
+                      )
+                    }
+                    color='primary'
+                    name='AllUniformTrx'
+                    indeterminate={
+                      !!(
+                        dataList.filter((crow) => crow.isSubmitUniformTrx == true)
+                          .length > 0
+                        && dataList.filter((crow) => crow.isSubmitUniformTrx == true)
+                          .length < filteredData.length
+                      )
+                    }
+                    onChange={onAllCheckboxChange}
+                  />
+                </TableCell>
+                <TableCell
+                  style={{
+                    textWrap: 'balance',
+                    textAlign: 'center',
+                  }}
+                >
+                  <FormattedMessage {...messages.loan} />
+                  <br />
+                  <Checkbox
+                    checked={
+                      !!(
+                        filteredData.length > 0
+                        && dataList.filter((crow) => crow.isSubmitLoan == true)
+                          .length === filteredData.length
+                      )
+                    }
+                    color='primary'
+                    name='AllLoan'
+                    indeterminate={
+                      !!(
+                        dataList.filter((crow) => crow.isSubmitLoan == true)
+                          .length > 0
+                        && dataList.filter((crow) => crow.isSubmitLoan == true)
+                          .length < filteredData.length
+                      )
+                    }
+                    onChange={onAllCheckboxChange}
+                  />
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -583,7 +650,37 @@ function HrPermission(props) {
                         value={row.isSubmitReward}
                       />
                     </TableCell>
-                    <TableCell></TableCell>
+                    <TableCell
+                      style={{
+                        textWrap: 'balance',
+
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Checkbox
+                        checked={row.isSubmitUniformTrx}
+                        color='primary'
+                        name='isSubmitUniformTrx'
+                        onChange={(event) => onSingleCheckboxSelect(event, row)}
+                        value={row.isSubmitUniformTrx}
+                      />
+                    </TableCell>
+
+                    <TableCell
+                      style={{
+                        textWrap: 'balance',
+
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Checkbox
+                        checked={row.isSubmitLoan}
+                        color='primary'
+                        name='isSubmitLoan'
+                        onChange={(event) => onSingleCheckboxSelect(event, row)}
+                        value={row.isSubmitLoan}
+                      />
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>

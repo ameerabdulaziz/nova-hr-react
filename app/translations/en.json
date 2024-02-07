@@ -1089,6 +1089,8 @@
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
   "boilerplate.containers.Payroll.Setting.delete": "Delete",
+  "boilerplate.containers.Payroll.Setting.loan": "Loan",
+  "boilerplate.containers.Payroll.Setting.submitUniform": "Submit Uniform",
   "boilerplate.containers.Payroll.Setting.vacation": "Vacation",
   "boilerplate.containers.Payroll.Setting.permission": "Permission",
   "boilerplate.containers.Payroll.Setting.select": "Select",

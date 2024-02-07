@@ -220,4 +220,12 @@ export default defineMessages({
     id: `${scope}.stopSending`,
     defaultMessage: 'stopSending',
   },
+  submitUniform: {
+    id: `${scope}.submitUniform`,
+    defaultMessage: 'submitUniform',
+  },
+  loan: {
+    id: `${scope}.loan`,
+    defaultMessage: 'loan',
+  },
 });

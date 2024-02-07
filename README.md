@@ -72,6 +72,7 @@ npm run start:prod
 - [ ] Integrate a cancel button into the **editable** table component
 - [x] Create a global component for **MUI-table** that allows for customization of printed data.
 - [x] Create docs for **MUI-table**
+- [ ] find a way to add spacing to separate menu levels in sidebar
 
 ## Pages
 
@@ -89,8 +90,7 @@ npm run start:prod
 ### Employee Data
 
 - [x] **personal**: delete popup show `id` instead of `name`
-- [ ] **personal**: delete success but not delete employee
-- [ ] **Report - EmployeeDataReport**: api get error
+- [x] **personal**: delete success but not delete employee
 
 ### Recruitment
 
@@ -103,13 +103,12 @@ npm run start:prod
 ### Medical Insurance
 
 - [x] **Minsurance/StopMedicalInsurance**: on edit, the employee not get in employee list
-- [x] **Transaction - MedicalInsuranceSubscriptionCreate**: get error on save `You must complete the establishment of subscription items
-`
+- [x] **Transaction - MedicalInsuranceSubscriptionCreate**: get error on save **You must complete the establishment of subscription items**
 
 ### Social Insurance
 
 - [x] **/insurance/StopInsurance**: on edit, the employee not get in employee list
-- [ ] **Transaction - PositionOfGuaranteesAndContradictions**: api get 500 error
+- [ ] **Report - PositionOfGuaranteesAndContradictions**: api get 500 error
 
 ### Human Resources
 
