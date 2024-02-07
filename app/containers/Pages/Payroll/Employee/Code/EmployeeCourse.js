@@ -15,6 +15,7 @@ import EmployeeCourseData from '../api/EmployeeCourseData';
 import GeneralListApis from '../../api/GeneralListApis';
 import { CrudTable, Notification } from 'enl-components';
 import { Grid, TextField, Autocomplete } from '@mui/material';
+import { useLocation } from 'react-router';
 
 // const useStyles = makeStyles()(() => ({
 //   root: {
@@ -24,7 +25,10 @@ import { Grid, TextField, Autocomplete } from '@mui/material';
 
 function EmployeeCourse(props) {
   const { intl } = props;
-  const [employee, setEmployee] = useState(0);
+  const location = useLocation();
+  const { empid } =
+    location.state == null ? { id: 0, name: "" } : location.state;
+  const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
   const [employeeList, setEmployeeList] = useState([]);
   const title = 'Employee Course'; //localStorage.getItem('MenuName');
   const description = brand.desc;
@@ -134,9 +138,10 @@ function EmployeeCourse(props) {
               <Autocomplete
                 id="ddlEmp"
                 options={employeeList}
+                value={employee}
                 getOptionLabel={(option) => option.name}
                 onChange={(event, value) => {
-                    setEmployee(value !== null?value.id:0);
+                    setEmployee(value );
                   
                 }}
                 renderInput={(params) => (
@@ -144,7 +149,6 @@ function EmployeeCourse(props) {
                     variant="outlined"
                     {...params}
                     name="employee"
-                    value={employee}
                     label={intl.formatMessage(messages.chooseEmp)}
                     margin="normal"
                   />
@@ -155,8 +159,9 @@ function EmployeeCourse(props) {
           </PapperBlock>
           <EditTable
             anchorTable={anchorTable}
-            title={employee}
-            API={EmployeeCourseData(employee)}
+            title={employee.name}
+            API={EmployeeCourseData(employee.id)}
+            addBtnLock={JSON.stringify(employee) === JSON.stringify({ id: 0, name: "" })}
           />
     </div>
   );

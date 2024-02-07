@@ -1,4 +1,5 @@
 import axiosInstance from '../../api/axios';
+import { getFormData } from '../../helpers';
 const API = (locale) => {
   const api = {};
 
@@ -15,15 +16,6 @@ const API = (locale) => {
 
     return result;
   };
-
-  const getFormData = object => Object.entries(object).reduce((fd, [key, val]) => {
-    if (Array.isArray(val)) {
-      val.forEach(v => fd.append(key, v));
-    } else {
-      fd.append(key, val);
-    }
-    return fd;
-  }, new FormData());
 
   api.save = async (body) => {
     const result = await axiosInstance.post('VacVacationTrx/SaveVacGovSick', getFormData(body));

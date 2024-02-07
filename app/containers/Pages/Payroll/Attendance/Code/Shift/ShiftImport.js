@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { PapperBlock } from "enl-components";
-import { injectIntl } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import MUIDataTable from "mui-datatables";
 import Toolbar from "@mui/material/Toolbar";
 import FormControl from "@mui/material/FormControl";
@@ -18,6 +18,8 @@ import { read, utils } from "xlsx";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
 import Payrollmessages from "../../../messages";
+import { Grid } from "@mui/material";
+import { ServerURL } from "../../../api/ServerConfig";
 
 function ShiftImport({ intl }) {
   const { classes, cx } = useStyles();
@@ -115,8 +117,41 @@ function ShiftImport({ intl }) {
           <Toolbar className={classes.toolbar}>
             <div className={classes.spacer} />
 
-            <div className={`${classes.title} ${classes2.importBtn}`}>
-              <FormControl variant="standard" className={cx(classes.textField)}>
+            <div className={`${classes.title} `} style={{ width: "100%" }}>
+            <Grid
+                item
+                xs={12}
+                md={12}
+                container
+                spacing={3}
+                direction="row"
+                className={`${classes2.itemsStyle}   ${
+                  locale === "en" ? classes2.btnsStyle : classes2.btnsStyleAr
+                } `}
+              >
+
+                <Grid item xs={12} md={6} lg={2}>
+                  <div className={classes.actions}>
+                    <Tooltip title="Download">
+                      <a
+                        href={`${ServerURL}Doc/ExcelForm/EmployeeShifts.xlsx`}
+                        target="_blank"
+                        rel="noreferrer"
+                        download
+                      >
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          className={classes.button}
+                        >
+                          <FormattedMessage {...Payrollmessages.Download} />
+                        </Button>
+                      </a>
+                    </Tooltip>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={2}>
                 <div className={classes.actions}>
                   <Tooltip title="Import">
                     <Button
@@ -131,7 +166,7 @@ function ShiftImport({ intl }) {
                           classes.iconSmall
                         )}
                       />
-                      {smUp && " "} Import
+                      <FormattedMessage {...Payrollmessages.Import} />
                       <input
                         hidden
                         value={file}
@@ -145,11 +180,9 @@ function ShiftImport({ intl }) {
                     </Button>
                   </Tooltip>
                 </div>
-              </FormControl>
-              <FormControl
-                variant="standard"
-                className={`${cx(classes.textField)}`}
-              >
+              </Grid>
+              <Grid item xs={12} md={6} lg={2}>
+
                 <div className={classes.actions}>
                   <Tooltip title="Reset">
                     <Button
@@ -158,16 +191,14 @@ function ShiftImport({ intl }) {
                       className={classes.button}
                       onClick={resetDataFun}
                     >
-                      {smUp && " "} Reset
+                      <FormattedMessage {...Payrollmessages.reset} />
                     </Button>
                   </Tooltip>
                 </div>
-              </FormControl>
+              </Grid>
 
-              <FormControl
-                variant="standard"
-                className={`${cx(classes.textField)}`}
-              >
+              <Grid item xs={12} md={6} lg={2}>
+
                 <div className={classes.actions}>
                   <Tooltip title="Import Excel File To Can Submit">
                     <span>
@@ -178,12 +209,15 @@ function ShiftImport({ intl }) {
                         onClick={submitFun}
                         disabled={fileData.length !== 0 ? false : true}
                       >
-                        {smUp && " "} Submit
+
+                        <FormattedMessage {...Payrollmessages.save} />
                       </Button>
                     </span>
                   </Tooltip>
                 </div>
-              </FormControl>
+
+              </Grid>
+              </Grid>
             </div>
           </Toolbar>
 

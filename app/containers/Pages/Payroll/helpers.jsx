@@ -38,14 +38,14 @@ function formatNumber(number) {
 If the value is truthy, it returns  CheckIcon, If the value is falsy, it returns a CloseIcon.
 */
 function getCheckboxIcon(value) {
-  return (
-    <div>
-      {value ? (
-        <CheckIcon style={{ color: '#000' }} />
-      ) : (
-        <CloseIcon style={{ color: '#717171d1' }} />
-      )}
-    </div>
+  if (typeof value !== 'boolean') {
+    return '';
+  }
+
+  return value ? (
+    <CheckIcon style={{ color: '#000' }} />
+  ) : (
+    <CloseIcon style={{ color: '#717171d1' }} />
   );
 }
 

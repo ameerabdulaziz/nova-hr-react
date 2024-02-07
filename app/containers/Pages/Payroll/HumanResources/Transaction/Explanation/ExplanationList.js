@@ -36,8 +36,8 @@ function ExplanationList(props) {
     try {
       setIsLoading(true);
       const dataApi = await ApiData(locale).GetReport({
-        employee,
-        type,
+        employeeId: employee,
+        typeId: type,
         fromdate,
         todate,
       });
@@ -58,8 +58,8 @@ function ExplanationList(props) {
       const types = await GeneralListApis(locale).GetExplanationTypeList();
       setTypeList(types);
       const dataApi = await ApiData(locale).GetReport({
-        employee,
-        type,
+        employeeId: employee,
+        typeId: type,
         fromdate,
         todate,
       });

@@ -44,10 +44,10 @@ function Personal(props) {
   // const ref = useRef(null);
 
   const { state } = useLocation();
-
+  const { empid } = state ?? { id: 0, name: "" };
   const authState = useSelector((state) => state.authReducer);
 
-  const id = state && state.empid ? state.empid : 0;
+  const id = empid?.id ?? 0;
 
   let dropzoneRef;
   const [progress, setProgress] = useState(false);
@@ -171,7 +171,7 @@ function Personal(props) {
       if (checkEmployeeCode) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeCode(employeeCode);
-        }, 500);
+        }, 1000);
 
         return () => {
           clearTimeout(timeoutId);
@@ -201,11 +201,11 @@ function Personal(props) {
   };
 
   useEffect(() => {
-    if (identityNumber) {
+    if (identityNumber && identityNumber.length === 14) {
       if (checkEmployeeIdentityNumber) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeIdentityNumber(identityNumber);
-        }, 500);
+        }, 1000);
 
         return () => {
           clearTimeout(timeoutId);
@@ -213,6 +213,8 @@ function Personal(props) {
       }
 
       setCheckEmployeeIdentityNumber(true);
+    } else {
+      setIsIdentityNumberExist(false);
     }
   }, [identityNumber]);
 
@@ -240,7 +242,7 @@ function Personal(props) {
       if (checkEmployeeWorkEmail) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeWorkEmail(workEmail);
-        }, 500);
+        }, 1000);
 
         return () => {
           clearTimeout(timeoutId);

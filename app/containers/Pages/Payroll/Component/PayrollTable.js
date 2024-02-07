@@ -28,6 +28,16 @@ import AlertPopup from './AlertPopup';
 import PayRollLoader from './PayRollLoader';
 import PrintableTable from './PayrollTable/PrintableTable';
 
+function Loader(props) {
+  const { isLoading, children, showLoader } = props;
+
+  if (showLoader) {
+    return <PayRollLoader isLoading={isLoading}>{children}</PayRollLoader>;
+  }
+
+  return children;
+}
+
 function PayrollTable(props) {
   const {
     intl,
@@ -257,10 +267,8 @@ function PayrollTable(props) {
     [columns, actions]
   );
 
-  const Loader = showLoader ? PayRollLoader : ({ children }) => children;
-
   return (
-    <Loader isLoading={isLoading}>
+    <Loader isLoading={isLoading} showLoader={showLoader}>
       <AlertPopup
         handleClose={() => {
           setIsDeletePopupOpen(false);
@@ -281,6 +289,7 @@ function PayrollTable(props) {
           },
           'p.MuiTypography-root, .MuiTableCell-root': {
             fontSize: '7px',
+            color: '#000',
           },
           '@page': {
             margin: 4,
@@ -338,6 +347,12 @@ PayrollTable.defaultProps = {
   actions: {},
   showLoader: false,
   title: '',
+};
+
+Loader.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  showLoader: PropTypes.bool.isRequired,
 };
 
 export default memo(injectIntl(PayrollTable));
