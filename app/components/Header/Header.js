@@ -134,8 +134,8 @@ function Header(props) {
           </span>
           <Hidden smDown>
             <NavLink to="/app" className={cx(classes.brand, classes.brandBar)}>
-              <img src={logo} alt={brand.name} />
-              {brand.name}
+              <img src={logo} alt={brand.name} style={{ width:120,height:25  }} />
+              {/* {brand.name} */}
             </NavLink>
           </Hidden>
         </div>

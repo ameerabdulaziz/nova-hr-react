@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Hidden from "@mui/material/Hidden";
 import { useHistory, NavLink, useLocation } from "react-router-dom";
 import { LoginForm, SelectLanguage } from "enl-components";
-import logo from "enl-images/logo.png";
+import logo from "enl-images/Loginlogo.png";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import useStyles from "enl-components/Forms/user-jss";
 import { FormattedMessage } from "react-intl";
@@ -108,8 +108,8 @@ function Login() {
             <div className={classes.openingWrap}>
               <div className={classes.openingHead}>
                 <NavLink to="/" className={classes.brand}>
-                  <img src={logo} alt={brand.name} />
-                  {brand.name}
+                <img src={logo} alt={brand.name}  style={{ width:200,height:50  }} />
+            {/* {brand.name} */}
                 </NavLink>
               </div>
               <Typography variant="h3" component="h1" gutterBottom>

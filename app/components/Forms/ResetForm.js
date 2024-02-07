@@ -9,7 +9,7 @@ import ArrowForward from '@mui/icons-material/ArrowForward';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import brand from 'enl-api/dummy/brand';
-import logo from 'enl-images/logo.png';
+import logo from 'enl-images/Loginlogo.png';
 import Type from 'enl-styles/Typography.scss';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { closeMsgAction } from 'enl-redux/actions/authActions';
@@ -41,8 +41,7 @@ function ResetForm(props) {
     <section>
       <div className={Type.textCenter}>
         <NavLink to="/" className={cx(classes.brand, classes.centerFlex)}>
-          <img src={logo} alt={brand.name} />
-          {brand.name}
+        <img src={logo} alt={brand.name}  style={{ width:200,height:50  }} />
         </NavLink>
       </div>
       <Paper className={classes.paperWrap}>

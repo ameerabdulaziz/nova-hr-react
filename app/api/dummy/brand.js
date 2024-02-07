@@ -7,9 +7,9 @@
 };*/
 
 module.exports = {
-  name: 'Dynamic Tech',
-  desc: 'Dynamic - Payroll System',
+  name: 'nova HR System',
+  desc: 'nova -HR System',
   prefix: 'dynamic',
-  footerText: 'Dynamic All Rights Reserved 2023',
-  logoText: 'Dynamic',
+  footerText: 'nova All Rights Reserved 2023',
+  logoText: 'nova',
 };

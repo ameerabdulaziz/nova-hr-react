@@ -61,8 +61,8 @@ function LoginForm(props) {
       <Hidden mdUp>
         <div className={classes.headLogo}>
           <NavLink to="/" className={classes.brand}>
-            <img src={logo} alt={brand.name} />
-            {brand.name}
+            <img src={logo} alt={brand.name}  style={{ width:200,height:50  }} />
+            {/* {brand.name} */}
           </NavLink>
         </div>
       </Hidden>
