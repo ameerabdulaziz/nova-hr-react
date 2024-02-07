@@ -82,7 +82,7 @@ if(isFound)
     if (userProfile) {
       return {
         avatar: userProfile.photoURL || dummy.user.avatar,
-        name: userProfile.displayName
+        name: (locale === 'en' ? userProfile?.enName : userProfile?.arName) ?? userProfile.displayName
       };
     }
     return {
