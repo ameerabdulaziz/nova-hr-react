@@ -54,6 +54,18 @@ dedRased: {
   id: `${scope}.dedRased`,
   defaultMessage: 'dedRased',
 },
+maxMinutesCountIs: {
+  id: `${scope}.maxMinutesCountIs`,
+  defaultMessage: 'Max minutes count is ',
+},
+maxMinutesCountMustToBeGreaterThan: {
+  id: `${scope}.maxMinutesCountMustToBeGreaterThan`,
+  defaultMessage: 'Max minutes count must to be greater than 0 ',
+},
+maxRepeatedPermissionIs: {
+  id: `${scope}.maxRepeatedPermissionIs`,
+  defaultMessage: 'Max repeated Permission is ',
+},
 //Permission Code
 isDeducted: {
   id: `${scope}.isDeducted`,

@@ -1231,6 +1231,9 @@
   "boilerplate.containers.Payroll.Attendance.calcLate": "Late Calulation",
   "boilerplate.containers.Payroll.Attendance.calcMinus": "Minus Calulation",
   "boilerplate.containers.Payroll.Attendance.dedRased": "Rased Deduction",
+  "boilerplate.containers.Payroll.Attendance.maxMinutesCountIs": "Max minutes count is ",
+  "boilerplate.containers.Payroll.Attendance.maxMinutesCountMustToBeGreaterThan": "Max minutes count must to be greater then 0 ",
+  "boilerplate.containers.Payroll.Attendance.maxRepeatedPermissionIs": "Max repeated Permission is ",
 
   "boilerplate.containers.Payroll.Attendance.isDeducted": "Is Deducted",
   "boilerplate.containers.Payroll.Attendance.deductedValue": "Deducted Value",
