@@ -47,7 +47,7 @@ function Personal(props) {
   const { empid } = state ?? { id: 0, name: "" };
   const authState = useSelector((state) => state.authReducer);
 
-  const id = empid.id;
+  const id = empid?.id ?? 0;
 
   let dropzoneRef;
   const [progress, setProgress] = useState(false);
