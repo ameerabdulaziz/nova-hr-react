@@ -171,7 +171,7 @@ function Personal(props) {
       if (checkEmployeeCode) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeCode(employeeCode);
-        }, 500);
+        }, 1000);
 
         return () => {
           clearTimeout(timeoutId);
@@ -201,11 +201,11 @@ function Personal(props) {
   };
 
   useEffect(() => {
-    if (identityNumber) {
+    if (identityNumber && identityNumber.length === 14) {
       if (checkEmployeeIdentityNumber) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeIdentityNumber(identityNumber);
-        }, 500);
+        }, 1000);
 
         return () => {
           clearTimeout(timeoutId);
@@ -213,6 +213,8 @@ function Personal(props) {
       }
 
       setCheckEmployeeIdentityNumber(true);
+    } else {
+      setIsIdentityNumberExist(false);
     }
   }, [identityNumber]);
 
@@ -240,7 +242,7 @@ function Personal(props) {
       if (checkEmployeeWorkEmail) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeWorkEmail(workEmail);
-        }, 500);
+        }, 1000);
 
         return () => {
           clearTimeout(timeoutId);
