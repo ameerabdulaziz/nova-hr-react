@@ -1,7 +1,14 @@
-import { Backdrop, Box, CircularProgress } from '@mui/material';
+import {
+  Backdrop, Box, CircularProgress, useTheme
+} from '@mui/material';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-function PayRollLoader({ isLoading, children }) {
+function PayRollLoader(props) {
+  const { isLoading, children } = props;
+
+  const { palette } = useTheme();
+
   return (
     <Box
       sx={{
@@ -14,7 +21,10 @@ function PayRollLoader({ isLoading, children }) {
           color: 'primary.main',
           zIndex: 10,
           position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.69)',
+          backgroundColor:
+            palette.mode === 'dark'
+              ? 'rgba(0, 0, 0, 0.5)'
+              : 'rgba(255, 255, 255, 0.69)',
         }}
         open={isLoading}
       >
@@ -25,5 +35,10 @@ function PayRollLoader({ isLoading, children }) {
     </Box>
   );
 }
+
+PayRollLoader.propTypes = {
+  isLoading: PropTypes.bool,
+  children: PropTypes.node,
+};
 
 export default PayRollLoader;
