@@ -44,10 +44,10 @@ function Personal(props) {
   // const ref = useRef(null);
 
   const { state } = useLocation();
-
+  const { empid } = state ?? { id: 0, name: "" };
   const authState = useSelector((state) => state.authReducer);
 
-  const id = state && state.empid ? state.empid : 0;
+  const id = empid.id;
 
   let dropzoneRef;
   const [progress, setProgress] = useState(false);

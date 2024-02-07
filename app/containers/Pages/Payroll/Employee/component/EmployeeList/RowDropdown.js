@@ -69,7 +69,10 @@ function RowDropdown(props) {
             onClick={() => {
               closeDropdown(tableMeta.rowIndex);
               history.push(`/app/Pages/Employee/${option.url}`, {
-                empid: tableMeta.rowData[0],
+                empid: {
+                  id: tableMeta.rowData[0],
+                  name: tableMeta.rowData[2],
+                },
               });
             }}
           >
