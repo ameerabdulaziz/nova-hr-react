@@ -146,6 +146,13 @@ useEffect(() => {
         </ListSubheader>
       );
     }
+
+    const urlToIgnore = ['/app/pages/user-profile'];
+
+    if (urlToIgnore.includes(item.link)) {
+      return null;
+    }
+
     return (
       <ListItem
         key={index.toString()}
