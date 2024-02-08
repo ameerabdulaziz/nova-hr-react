@@ -147,9 +147,9 @@ useEffect(() => {
       );
     }
 
-    const urlToIgnore = ['/app/pages/user-profile'];
+    const urlToIgnore = ['/app/pages/user-profile', '/app/pages/recruitment/jobapplicationpreview'];
 
-    if (urlToIgnore.includes(item.link)) {
+    if (urlToIgnore.includes(item.link.toLowerCase())) {
       return null;
     }
 
