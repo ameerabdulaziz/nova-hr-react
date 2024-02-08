@@ -1117,7 +1117,7 @@
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
   "boilerplate.containers.Payroll.Setting.menuName": "اسم القائمة",
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
-  "boilerplate.containers.Payroll.Setting.letPasswordEmptyWillGenerateRandomPassword": "سيؤدي ترك كلمة المرور فارغة إلى إنشاء كلمة مرور عشوائية",
+  "boilerplate.containers.Payroll.Setting.letPasswordEmptyWillGenerateRandomPassword": "لإنشاء كلمة مرور عشوائية، اترك النص فارغًا",
   "boilerplate.containers.Payroll.Setting.loan": "قرض",
   "boilerplate.containers.Payroll.Setting.submitUniform": "طلب زي",
   "boilerplate.containers.Payroll.Setting.vacation": "إجازة",
