@@ -321,106 +321,104 @@ function CreateAndEditEmployeeDocuments(props) {
               </Grid>
 
               <Grid item xs={12} md={12}>
-                <Card className={classes.card}>
-                  <CardContent>
-                    <Grid
-                      item
-                      xs={12}
-                      md={12}
-                      container
-                      spacing={3}
-                      alignItems="flex-start"
-                      direction="row"
-                    >
-                      <Grid item xs={12} md={3}>
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                          <DesktopDatePicker
-                            label={intl.formatMessage(messages.startDate)}
-                            value={startDate}
-                            onChange={(date) => {
-                              if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                                if (!isNaN(new Date(date))) { 
-                                  setStartDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                                } 
-                                else
-                                {
-                                  setStartDate(null)
-                                }
-                              }
-                            }}
-                            className={classes.field}
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                variant="outlined"
-                                required
-                              />
-                            )}
-                          />
-                        </LocalizationProvider>
-                      </Grid>
 
-                      <Grid item xs={12} md={3}>
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                          <DesktopDatePicker
-                            label={intl.formatMessage(messages.endDate)}
-                            value={endDate}
-                            onChange={(date) => {
-                              if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                                if (!isNaN(new Date(date))) { 
-                                  setEndDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                                } 
-                                else
-                                {
-                                  setEndDate(null)
-                                }
-                              }
-                            }}
-                            className={classes.field}
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                variant="outlined"
-                                required
-                              />
-                            )}
+                <Grid
+                  item
+                  xs={12}
+                  md={12}
+                  container
+                  spacing={3}
+                  alignItems="flex-start"
+                  direction="row"
+                >
+                  <Grid item xs={12} md={4}>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                        label={intl.formatMessage(messages.startDate)}
+                        value={startDate}
+                        onChange={(date) => {
+                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                            if (!isNaN(new Date(date))) { 
+                              setStartDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                            } 
+                            else
+                            {
+                              setStartDate(null)
+                            }
+                          }
+                        }}
+                        className={classes.field}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="outlined"
+                            required
                           />
-                        </LocalizationProvider>
-                      </Grid>
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
 
-                      <Grid item xs={12} md={3}>
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                          <DesktopDatePicker
-                            label={intl.formatMessage(messages.followDate)}
-                            value={followDate}
-                            onChange={(date) => {
-                              if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                                if (!isNaN(new Date(date))) { 
-                                  setFollowDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                                } 
-                                else
-                                {
-                                  setFollowDate(null)
-                                }
-                              }
-                            }}
-                            className={classes.field}
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                variant="outlined"
-                                required
-                              />
-                            )}
+                  <Grid item xs={12} md={4}>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                        label={intl.formatMessage(messages.endDate)}
+                        value={endDate}
+                        onChange={(date) => {
+                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                            if (!isNaN(new Date(date))) { 
+                              setEndDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                            } 
+                            else
+                            {
+                              setEndDate(null)
+                            }
+                          }
+                        }}
+                        className={classes.field}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="outlined"
+                            required
                           />
-                        </LocalizationProvider>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDatePicker
+                        label={intl.formatMessage(messages.followDate)}
+                        value={followDate}
+                        onChange={(date) => {
+                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                            if (!isNaN(new Date(date))) { 
+                              setFollowDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                            } 
+                            else
+                            {
+                              setFollowDate(null)
+                            }
+                          }
+                        }}
+                        className={classes.field}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            variant="outlined"
+                            required
+                          />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                </Grid>
+
               </Grid>
 
-              <Grid item xs={12} md={9}>
+              <Grid item xs={12}>
                 <TextField
                   name="note"
                   id="note"
@@ -430,83 +428,10 @@ function CreateAndEditEmployeeDocuments(props) {
                   margin="normal"
                   variant="outlined"
                   value={note}
+                  multiline
+                  rows={1}
                   onChange={(e) => setNote(e.target.value)}
                 />
-              </Grid>
-
-              <Grid
-                item
-                xs={12}
-                md={12}
-                container
-                spacing={3}
-                alignItems="center"
-                direction="row"
-              >
-                <Grid
-                  item
-                  xs={12}
-                  md={12}
-                  container
-                  spacing={3}
-                  alignItems="center"
-                  direction="row"
-                  className={style.itemsStyle}
-                >
-                  <Grid item xs={12} lg={3}>
-                    <FormControl variant="standard">
-                      <div className={classes.actions}>
-                        <Tooltip title="Upload">
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            className={style.BtnSty}
-                            component="label"
-                          >
-                            <AddIcon
-                              className={cx(
-                                smUp && classes.leftIcon,
-                                classes.iconSmall
-                              )}
-                            />
-                            <FormattedMessage {...Payrollmessages.Upload} />
-                            <input
-                              type="file"
-                              name="file"
-                              className={`custom-file-input ${style.uploadBtnSty}`}
-                              id="inputGroupFile"
-                              onChange={(e) => {
-                                uploadFileFun(e);
-                              }}
-                              accept="image/png, image/jpeg, image/jpg, image/apng, image/webp, image/svg+xml, application/pdf, .pdf"
-                              required={
-                                isPaperCopy
-                                  ? false
-                                  : uploadedFile !== null
-                                  ? false
-                                  : true
-                              }
-                            />
-                          </Button>
-                        </Tooltip>
-                      </div>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12} lg={2}>
-                    <Button
-                      variant="contained"
-                      size="medium"
-                      color="primary"
-                      className={style.printBtnSty}
-                      disabled={!uploadedFile}
-                      onClick={() => printFun()}
-                    >
-                      <FormattedMessage {...Payrollmessages.Print} />
-                    </Button>
-                  </Grid>
-                  <Grid item xs={12} md={12}></Grid>
-                </Grid>
               </Grid>
             </Grid>
 
@@ -548,30 +473,58 @@ function CreateAndEditEmployeeDocuments(props) {
           </Grid>
 
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={12}></Grid>
-            <Grid
-              item
-              xs={12}
-              md={4}
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-              className={style.itemsStyle}
-            >
-              <Grid item xs={3} md={5} lg={3}>
-                <SaveButton Id={id} />
-              </Grid>
-              <Grid item xs={3} md={5} lg={3}>
-                <Button
-                  variant="contained"
-                  size="medium"
-                  color="primary"
-                  onClick={oncancel}
-                >
-                  <FormattedMessage {...Payrollmessages.cancel} />
-                </Button>
-              </Grid>
+            <Grid item >
+              <Button
+                variant="contained"
+                color="secondary"
+                component="label"
+                startIcon={<AddIcon/>}
+              >
+                <FormattedMessage {...Payrollmessages.Upload} />
+                <input
+                  type="file"
+                  name="file"
+                  className={`custom-file-input ${style.uploadBtnSty}`}
+                  id="inputGroupFile"
+                  onChange={(e) => {
+                    uploadFileFun(e);
+                  }}
+                  accept="image/png, image/jpeg, image/jpg, image/apng, image/webp, image/svg+xml, application/pdf, .pdf"
+                  required={
+                    isPaperCopy
+                      ? false
+                      : uploadedFile !== null
+                      ? false
+                      : true
+                  }
+                />
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={!uploadedFile}
+                onClick={() => printFun()}
+              >
+                <FormattedMessage {...Payrollmessages.Print} />
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <SaveButton Id={id} />
+            </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                size="medium"
+                color="primary"
+                onClick={oncancel}
+              >
+                <FormattedMessage {...Payrollmessages.cancel} />
+              </Button>
             </Grid>
           </Grid>
         </form>
