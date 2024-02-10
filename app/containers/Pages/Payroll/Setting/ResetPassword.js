@@ -19,11 +19,12 @@ function ResetPassword(props) {
   const [departmentList, setDepartmentList] = useState([]);
   const [department, setDepartment] = useState();
   const [employeeList, setemployeeList] = useState([]);
-  const [employee, setEmployee] = useState();
+  const [employee, setEmployee] = useState(null);
   const [password, setPassword] = useState("");
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
+  const [userName, setUserName] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,94 +107,124 @@ function ResetPassword(props) {
     GetEmployeeListByDepartment();
   }, [department]);
 
+  const onEmployeeAutocompleteChange = async (value) => {
+    if (value !== null) {
+      setEmployee(value.id);
+
+      setIsLoading(true);
+
+      try {
+        const response = await ResetPasswordData().getEmployeeUsername(value.id);
+        console.log(response);
+      } catch (err) {
+        //
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    setEmployee(null);
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
-          <PapperBlock whiteBg icon="border_color" title={Title} desc=''>
-            <Grid container>
-              <Grid item xs={12} md={6} >
-                <form onSubmit={handleSubmit}>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12}>
-                      <Autocomplete
-                        id="ddldepartment"
-                        options={departmentList}
-                        getOptionLabel={(option) => option.name}
-                        onChange={(event, value) => {
-                          setDepartment(value !== null ? value.id : null);
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="department"
-                            value={department}
-                            label={intl.formatMessage(messages.chooseDept)}
-                          />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Autocomplete
-                        id="ddlEmp"
-                        options={employeeList}
-                        getOptionLabel={(option) => option.name}
-                        onChange={(event, value) =>
-                          setEmployee(value !== null ? value.id : null)
-                        }
-                        renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="employee"
-                            value={employee}
-                            required
-                            label={intl.formatMessage(Payrollmessages.chooseEmp)}
-                          />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
+      <PapperBlock whiteBg icon="border_color" title={Title} desc=''>
+        <Grid container>
+          <Grid item xs={12} md={6} >
+            <form onSubmit={handleSubmit}>
+              <Grid
+                container
+                spacing={3}
+                alignItems="flex-start"
+                direction="row"
+              >
+                <Grid item xs={12}>
+                  <Autocomplete
+                    id="ddldepartment"
+                    options={departmentList}
+                    getOptionLabel={(option) => option.name}
+                    onChange={(event, value) => {
+                      setDepartment(value !== null ? value.id : null);
+                    }}
+                    renderInput={(params) => (
                       <TextField
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        label={intl.formatMessage(messages.password)}
-                        required
-                        className={classes.field}
                         variant="outlined"
-                        type="password"
-                        autoComplete="new-password"
-                        helperText={intl.formatMessage(messages.letPasswordEmptyWillGenerateRandomPassword)}
+                        {...params}
+                        name="department"
+                        value={department}
+                        label={intl.formatMessage(messages.chooseDept)}
                       />
-                    </Grid>
-                  </Grid>
-                  <div style={{ paddingTop: "20px" }}>
-                    <Grid container spacing={3}>
-                      <Grid item>
-                        <SaveButton Id={1} />
-                      </Grid>
-                      <Grid item>
-                        <Button
-                          variant="contained"
-                          size="medium"
-                          color="primary"
-                          onClick={resetAll}
-                        >
-                          <FormattedMessage {...messages.resetallpassword} />
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </div>
-                </form>
+                    )}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Autocomplete
+                    id="ddlEmp"
+                    options={employeeList}
+                    getOptionLabel={(option) => option.name}
+                    onChange={(event, value) => onEmployeeAutocompleteChange(value)}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        name="employee"
+                        value={employee}
+                        required
+                        label={intl.formatMessage(Payrollmessages.chooseEmp)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    name="userName"
+                    value={userName}
+                    label={intl.formatMessage(messages.userName)}
+                    disabled
+                    fullWidth
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    label={intl.formatMessage(messages.password)}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                    type="password"
+                    autoComplete="new-password"
+                    helperText={intl.formatMessage(messages.letPasswordEmptyWillGenerateRandomPassword)}
+                  />
+                </Grid>
+
               </Grid>
-            </Grid>
-          </PapperBlock>
+              <div style={{ paddingTop: "20px" }}>
+                <Grid container spacing={3}>
+                  <Grid item>
+                    <SaveButton Id={1} />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      size="medium"
+                      color="primary"
+                      onClick={resetAll}
+                    >
+                      <FormattedMessage {...messages.resetallpassword} />
+                    </Button>
+                  </Grid>
+                </Grid>
+              </div>
+            </form>
+          </Grid>
+        </Grid>
+      </PapperBlock>
     </PayRollLoader>
   );
 }

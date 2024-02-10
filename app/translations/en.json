@@ -1090,6 +1090,7 @@
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
   "boilerplate.containers.Payroll.Setting.delete": "Delete",
   "boilerplate.containers.Payroll.Setting.loan": "Loan",
+  "boilerplate.containers.Payroll.Setting.userName": "Username",
   "boilerplate.containers.Payroll.Setting.letPasswordEmptyWillGenerateRandomPassword": "To generate random password leave the text empty",
   "boilerplate.containers.Payroll.Setting.submitUniform": "Submit Uniform",
   "boilerplate.containers.Payroll.Setting.vacation": "Vacation",

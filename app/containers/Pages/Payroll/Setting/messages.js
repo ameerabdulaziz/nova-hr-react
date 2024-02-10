@@ -228,6 +228,10 @@ export default defineMessages({
     id: `${scope}.loan`,
     defaultMessage: 'loan',
   },
+  userName: {
+    id: `${scope}.userName`,
+    defaultMessage: 'userName',
+  },
   letPasswordEmptyWillGenerateRandomPassword: {
     id: `${scope}.letPasswordEmptyWillGenerateRandomPassword`,
     defaultMessage: 'letPasswordEmptyWillGenerateRandomPassword',
