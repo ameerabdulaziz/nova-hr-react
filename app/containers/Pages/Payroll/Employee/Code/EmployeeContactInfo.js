@@ -179,8 +179,7 @@ function EmployeeContactInfo(props) {
                     name="telPhone"
                     value={telPhone}
                     onChange={(e) => settelPhone(e.target.value)}
-                    placeholder="Telephone"
-                    label="Telephone"
+                    label={intl.formatMessage(messages.telephone)}
                     // validate={required}
                     required
                     className={classes.field}
@@ -194,8 +193,7 @@ function EmployeeContactInfo(props) {
                     name="mobile"
                     value={mobile}
                     onChange={(e) => setmobile(e.target.value)}
-                    placeholder="mobile"
-                    label="mobile"
+                    label={intl.formatMessage(messages.mobile)}
                     // validate={required}
                     required
                     className={classes.field}
@@ -209,7 +207,6 @@ function EmployeeContactInfo(props) {
                     name="workMobile"
                     value={workMobile}
                     onChange={(e) => setworkMobile(e.target.value)}
-                    placeholder="work Mobile"
                     label="work Mobile"
                     // validate={required}
                     required
@@ -224,8 +221,7 @@ function EmployeeContactInfo(props) {
                     name="relativesPhoneNo"
                     value={relativesPhoneNo}
                     onChange={(e) => setrelativesPhoneNo(e.target.value)}
-                    placeholder="relatives Phone No"
-                    label="relatives Phone No"
+                    label={intl.formatMessage(messages.relativePhoneNumber)}
                     // validate={required}
                     required
                     className={classes.field}
@@ -241,8 +237,7 @@ function EmployeeContactInfo(props) {
                     name="mail"
                     value={mail}
                     onChange={(e) => setmail(e.target.value)}
-                    placeholder="Email"
-                    label="Email"
+                    label={intl.formatMessage(messages.email)}
                     required
                     // validate={[required, email]}
                     className={classes.field}
@@ -254,17 +249,13 @@ function EmployeeContactInfo(props) {
                 <Grid item xs={12} md={4}>
                   <TextField
                     type="email"
-                    error={email === "Invalid email"}
-                    id="workEmail"
                     name="workEmail"
                     value={workEmail}
-                    onChange={(e) => setworkEmail(e.target.value)}
-                    placeholder="work Email"
-                    label="work Email"
-                    required
-                    // validate={[required, email]}
-                    className={classes.field}
-                    autoComplete="email"
+                    label={intl.formatMessage(messages.workEmail)}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    fullWidth
                     variant="outlined"
                   />
                 </Grid>
