@@ -252,9 +252,7 @@ function EmployeeContactInfo(props) {
                     name="workEmail"
                     value={workEmail}
                     label={intl.formatMessage(messages.workEmail)}
-                    InputProps={{
-                      readOnly: true,
-                    }}
+                    disabled
                     fullWidth
                     variant="outlined"
                   />
