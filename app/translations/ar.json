@@ -2269,6 +2269,8 @@
   "boilerplate.containers.Payroll.Employee.email": "الابميل",
   "boilerplate.containers.Payroll.Employee.relativePhoneNumber": "رقم الهاتف للقرابة",
   "boilerplate.containers.Payroll.Employee.mobile": "الهاتف",
+  "boilerplate.containers.Payroll.Employee.usernameAlreadyExist": "اسم المستخدم موجود بالفعل",
+  "boilerplate.containers.Payroll.Employee.userName": "اسم المستخدم",
   "boilerplate.containers.Payroll.Employee.telephone": "رقم التلفون",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",

@@ -739,4 +739,12 @@ export default defineMessages({
     id: `${scope}.telephone`,
     defaultMessage: 'telephone',
   },
+  userName: {
+    id: `${scope}.userName`,
+    defaultMessage: 'userName',
+  },
+  usernameAlreadyExist: {
+    id: `${scope}.usernameAlreadyExist`,
+    defaultMessage: 'usernameAlreadyExist',
+  },
 });
