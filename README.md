@@ -53,7 +53,6 @@ npm run start:prod
 - [ ] Exclude the **JobApplicationPreview page** from appearing in the Recruitment menu.
 - [ ] Eliminate the **debugger** from the project codebase.
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
-- [ ] Ensure that the **MUI-table** is properly translated into Arabic.
 - [ ] **Notification** still not work
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
 - [ ] Complete the implementation of the **Calculate Attendance** page
@@ -65,7 +64,6 @@ npm run start:prod
 
 ## Pages
 
-- [ ] **[Abdelrahman]** - **Main Data / Documents** : can't change **Check Expire Date** column value
 - [ ] **[Abdelrahman]** - **Vacation - Transaction / ReplaceAnnualLeaveBalanceCreate**: element autocomplete is required but contain no data
 - [ ] **Vacation / Transaction / LeaveTrxCreate**: get error on save
 - [ ] **Vacation / Transaction / GovernmentSickLeave**: get error on save
