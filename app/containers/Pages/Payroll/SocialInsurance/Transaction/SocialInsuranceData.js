@@ -246,7 +246,6 @@ function SocialInsuranceData(props) {
                       <TextField
                         name="insNotes"
                         value={formInfo.insNotes}
-                        required
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.hrNotes)}
                         className={classes.field}
