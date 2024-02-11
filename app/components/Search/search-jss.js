@@ -120,7 +120,8 @@ const useStyles = makeStyles()((theme) => ({
     marginTop: theme.spacing(1),
     left: 0,
     right: 0,
-    overflow: 'hidden'
+    overflow: 'auto',
+    maxHeight: '300px',
   },
   suggestion: {
     display: 'block',

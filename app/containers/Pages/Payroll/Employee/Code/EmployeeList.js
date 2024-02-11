@@ -78,6 +78,12 @@ function EmployeeList(props) {
         ),
       },
     },
+
+    {
+      name: 'userName',
+      label: intl.formatMessage(messages.userName),
+    },
+
     {
       name: 'statusName',
       label: intl.formatMessage(messages.status),

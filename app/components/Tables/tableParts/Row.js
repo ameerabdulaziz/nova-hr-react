@@ -115,27 +115,34 @@ const Row = forwardRef((props, ref) => {
           );
         case 'toggle':
           return (
-            // <ToggleCell
-            //   updateRow={(event) => updateRow(event,item, branch)}
-            //   cellData={{
-            //     type: itemCell.name,
-            //     value: item[itemCell.name],
-            //     id: itemCell.name+item.id,
-            //   }}
-            //   edited={item.edited}
-            //   key={index.toString()}
-            //   branch={branch}
-            // />
-            <td 
-            className={style.actionsSty}
-            key={index.toString()}
-            >
-              {item[itemCell.name] ? (
-                <CheckIcon style={{ color: "#3f51b5" }} />
-              ) : (
-                <CloseIcon style={{ color: "#717171" }} />
-              )}
-            </td>
+            item.edited ? (
+           
+            <ToggleCell
+              updateRow={(event) => updateRow(updateAction(event,item, branch))}
+              cellData={{
+                type: itemCell.name,
+                value: item[itemCell.name],
+                id: itemCell.name+item.id,
+              }}
+              edited={item.edited}
+              key={index.toString()}
+              branch={branch}
+            />
+           
+            )
+            :
+            (
+              <td 
+              className={style.actionsSty}
+              key={index.toString()}
+              >
+                {item[itemCell.name] ? (
+                  <CheckIcon style={{ color: "#3f51b5" }} />
+                ) : (
+                  <CloseIcon style={{ color: "#717171" }} />
+                )}
+              </td>
+            )
           );
         case 'date':
           return (

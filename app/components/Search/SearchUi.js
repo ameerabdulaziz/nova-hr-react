@@ -1,41 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Autosuggest from 'react-autosuggest';
-import { NavLink } from 'react-router-dom';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import MenuItem from '@mui/material/MenuItem';
-import suggestionsApi from 'enl-api/ui/menu';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useState } from 'react';
+import Autosuggest from 'react-autosuggest';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import useStyles from './search-jss';
 
-const menu = [];
+function SearchUi(props) {
+  const [value, setValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
-function renderInput(inputProps) {
-  const { ref, ...rest } = inputProps;
+  const dataMenu = useSelector((state) => state.authReducer.usermenu);
+  const locale = useSelector((state) => state.language.locale);
+  const [menu, setMenu] = useState([]);
 
-  return (
-    <TextField
-      variant="standard"
-      className="input-header"
-      fullWidth
-      InputProps={{
-        inputRef: ref,
-        ...rest,
-      }} />
-  );
-}
+  const { classes } = useStyles();
 
-function renderSuggestion(suggestion, { query, isHighlighted }) {
-  const matches = match(suggestion.name, query);
-  const parts = parse(suggestion.name, matches);
+  const flattenMenu = useCallback(() => {
+    const links = [];
 
-  return (
-    <MenuItem selected={isHighlighted} component={NavLink} to={suggestion.link}>
-      <div>
-        {parts.map((part, index) => (
-          part.highlight ? (
+    function traverse(menuItems) {
+      menuItems.forEach((item) => {
+        if (item.link) {
+          links.push(item);
+        }
+
+        if (item.child) {
+          traverse(item.child);
+        }
+      });
+    }
+
+    traverse(dataMenu);
+
+    return links;
+  }, [dataMenu]);
+
+  useEffect(() => {
+    if (dataMenu) {
+      setMenu(flattenMenu());
+    }
+  }, [dataMenu]);
+
+  function renderInput(inputProps) {
+    const { ref, ...rest } = inputProps;
+
+    return (
+      <TextField
+        variant='standard'
+        className='input-header'
+        fullWidth
+        InputProps={{
+          inputRef: ref,
+          ...rest,
+        }}
+      />
+    );
+  }
+
+  function renderSuggestion(suggestion, { query, isHighlighted }) {
+    const matches = match(suggestion.name, query);
+    const parts = parse(suggestion.name, matches);
+
+    return (
+      <MenuItem
+        selected={isHighlighted}
+        component={NavLink}
+        to={suggestion.link}
+      >
+        <div>
+          {parts.map((part, index) => (part.highlight ? (
             <span key={String(index)} style={{ fontWeight: 700 }}>
               {part.text}
             </span>
@@ -43,60 +81,37 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
             <strong key={String(index)} style={{ fontWeight: 300 }}>
               {part.text}
             </strong>
-          )
-        ))}
-      </div>
-    </MenuItem>
-  );
-}
+          ))
+          )}
+        </div>
+      </MenuItem>
+    );
+  }
 
-function renderSuggestionsContainer(options) {
-  const { containerProps, children } = options;
+  function renderSuggestionsContainer(options) {
+    const { containerProps, children } = options;
+    return <Paper {...containerProps}>{children}</Paper>;
+  }
 
-  return (
-    <Paper {...containerProps}>
-      {children}
-    </Paper>
-  );
-}
+  function getSuggestionValue(suggestion) {
+    return locale === 'en' ? suggestion.name : suggestion.arname;
+  }
 
-function getSuggestionValue(suggestion) {
-  return suggestion.name;
-}
+  const getSuggestions = useCallback(
+    (value) => {
+      const inputValue = value.trim().toLowerCase();
 
-function getSuggestions(value) {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-  let count = 0;
-  return inputLength === 0 ? [] : menu.filter(suggestion => {
-    const keep = (!inputValue || suggestion.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) && count < 5;
-
-    if (keep) {
-      count += 1;
-    }
-
-    return keep;
-  });
-}
-
-function SearchUi(props) {
-  const [value, setValue] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
-  const { classes } = useStyles();
-
-  useEffect(() => {
-    suggestionsApi.map(item => {
-      if (item.child) {
-        item.child.map(itemChild => {
-          if (itemChild.link) {
-            menu.push(itemChild);
-          }
-          return menu;
-        });
+      if (inputValue.length === 0) {
+        return [];
       }
-      return false;
-    });
-  }, []);
+
+      return menu.filter(
+        (suggestion) => suggestion.name.toLowerCase().includes(inputValue)
+          || suggestion.arname.toLowerCase().includes(inputValue)
+      );
+    },
+    [menu]
+  );
 
   const handleSuggestionsFetchRequested = (e) => {
     setSuggestions(getSuggestions(e.value));

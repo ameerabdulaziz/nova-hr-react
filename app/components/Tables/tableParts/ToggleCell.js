@@ -22,7 +22,8 @@ function ToggleCell(props) {
   }, [updateRow, branch]);
 
   return (
-    <TableCell className={css.toggleCell} padding="none" textalign="center">
+    <TableCell className={css.toggleCell} padding="none" >
+    {/* <TableCell className={css.toggleCell} padding="none" textalign="center"> */}
       <div className={clsx(css.coverReadonly, !edited ? css.show : '')} />
       <FormControlLabel
         control={(

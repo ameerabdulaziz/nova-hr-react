@@ -20,6 +20,15 @@ const ResetPasswordData = () => {
     return result;
   };
 
+  Apis.getEmployeeUsername = async (employeeId) => {
+  
+    const result = await axiosInstance.post(`Account/getEmployeeUsername`,{
+      employeeId
+    });
+
+    return result;
+  };
+
   return  Apis;
 };
 

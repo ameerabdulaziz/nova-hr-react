@@ -83,6 +83,7 @@ function Personal(props) {
   const [genderId, setgenderId] = useState(null);
   const [genderList, setgenderList] = useState([]);
   const [branchList, setBranchList] = useState([]);
+  const [userName, setUserName] = useState('');
 
   const [nationalityId, setnationalityId] = useState(null);
   const [nationalityList, setnationalityList] = useState([]);
@@ -119,7 +120,9 @@ function Personal(props) {
   const [checkEmployeeIdentityNumber, setCheckEmployeeIdentityNumber] = useState(true);
   const [checkEmployeeWorkEmail, setCheckEmployeeWorkEmail] = useState(true);
   const [isEmailExist, setIsEmailExist] = useState(false);
-  const [isIdentityNumberExist, setIsIdentityNumberExist] = useState(false)
+  const [isIdentityNumberExist, setIsIdentityNumberExist] = useState(false);
+  const [checkEmployeeUsername, setCheckEmployeeUsername] = useState(true);
+  const [isUsernameExist, setIsUsernameExist] = useState(false);
 
   const [img, setImg] = useState(avatarApi[9]);
 
@@ -181,6 +184,41 @@ function Personal(props) {
       setCheckEmployeeCode(true);
     }
   }, [employeeCode]);
+
+  const fetchEmployeeUsername = async (code) => {
+    setIsLoading(true);
+
+    try {
+      const response = await EmployeeData(locale).checkUserNameExist(id, userName);
+
+      const isEqual = response === parseInt(code, 10);
+
+      if (!isEqual) {
+        toast.success(intl.formatMessage(messages.usernameAlreadyExist));
+        setIsUsernameExist(false);
+      }
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userName) {
+      if (checkEmployeeUsername) {
+        const timeoutId = setTimeout(() => {
+          fetchEmployeeUsername(userName);
+        }, 1000);
+
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      }
+
+      setCheckEmployeeUsername(true);
+    }
+  }, [userName]);
 
   const fetchEmployeeIdentityNumber = async (number) => {
     setIsLoading(true);
@@ -272,6 +310,11 @@ function Personal(props) {
       return;
     }
 
+    if(isUsernameExist) {
+      toast.error(intl.formatMessage(messages.usernameAlreadyExist));
+      return;
+    }
+
     try {
       setIsLoading(true);
 
@@ -283,6 +326,7 @@ function Personal(props) {
         reportTo: reportTo?.id ?? "",
         arName,
         enName,
+        userName,
         motherName: motherName ?? "",
         organizationId: organizationId?.id ?? "",
         jobId: jobId?.id ?? "",
@@ -367,6 +411,7 @@ function Personal(props) {
     setsonNo('');
     setstatusId(null);
     setWorkEmail('');
+    setUserName('');
   };
 
   const onEmployeeCreatedClose = () => {
@@ -458,6 +503,7 @@ function Personal(props) {
             setCheckEmployeeWorkEmail(false);
 
             // setid(dataApi.id);
+            setUserName(dataApi.userName ?? '');
             setemployeeCode(dataApi.employeeCode ?? '');
             setWorkEmail(dataApi.workEmail ?? '');
             setHrBranchList(dataApi.hrBranchList ?? []);
@@ -606,6 +652,19 @@ function Personal(props) {
                     onChange={id !== 0 ? undefined :(e) => setemployeeCode(e.target.value)}
                     label={intl.formatMessage(messages.employeeCode)}
                     className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    name="userName"
+                    required
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    label={intl.formatMessage(messages.userName)}
+                    fullwidth
+                    disabled={ id !== 0 }
                     variant="outlined"
                   />
                 </Grid>
@@ -1376,7 +1435,7 @@ function Personal(props) {
 
                 <Grid item xs={12}>
                   <Grid container direction="row" spacing={1}>
-                    <Grid item xs={12} md={3}>
+                    {/* <Grid item xs={12} md={3}>
                       <FormControlLabel
                         control={
                           <Switch
@@ -1389,7 +1448,7 @@ function Personal(props) {
                         }
                         label={intl.formatMessage(messages.isinsured)}
                       />
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item xs={12} md={3}>
                       <FormControlLabel

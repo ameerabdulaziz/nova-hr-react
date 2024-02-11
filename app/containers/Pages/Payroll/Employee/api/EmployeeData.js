@@ -44,6 +44,14 @@ const EmployeeData = (locale) => {
     return data.data;
   };
 
+  Apis.checkUserNameExist = async (employeeId, username) => {
+    const data = await axiosInstance.get(
+      `EmpEmployee/checkUserNameExist/${employeeId}/${username}`
+    );
+
+    return data.data;
+  };
+
   Apis.checkEmpWorkEmailExist = async (id, email) => {
     const data = await axiosInstance.get(
       `EmpEmployee/checkEmpEmailExist/${id}/${email}`

@@ -202,7 +202,8 @@
 {
     width: 30%;
     padding: 10px 20px;
-    background-color: #f7f7f7;
+    // background-color: #f7f7f7;
+    background-color: #efefef;
     margin-top: 50px;
     font-size: 20px;
     border-left: none;
@@ -320,13 +321,16 @@
                 .checkedIconeSty
                 {
                     color: #ffffff;
-                    padding: 8px;
+                    // padding: 8px;
+                    padding: 3px;
                 }
 
                 svg
                 {
-                    height: 35px;
-                    width: 35px;
+                    // height: 35px;
+                    // width: 35px;
+                    height: 23px;
+                    width: 23px;
                     border-radius: 50%;
                 }
             }
@@ -335,6 +339,7 @@
             {
                 margin-left: 20px;
                 margin-right: 20px;
+                font-size: 14px;
             }
         }
 
@@ -407,12 +412,14 @@
     h1
     {
         line-height: 31px;
+        font-size: 17px;
     }
 }
 
     .examContainer
     {
         margin: 80px 8%;
+        margin-top: 50px;
     }
 
 

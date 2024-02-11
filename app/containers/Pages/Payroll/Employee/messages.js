@@ -723,4 +723,28 @@ export default defineMessages({
     id: `${scope}.emailAlreadyExist`,
     defaultMessage: 'emailAlreadyExist',
   },
+  email: {
+    id: `${scope}.email`,
+    defaultMessage: 'email',
+  },
+  relativePhoneNumber: {
+    id: `${scope}.relativePhoneNumber`,
+    defaultMessage: 'relativePhoneNumber',
+  },
+  mobile: {
+    id: `${scope}.mobile`,
+    defaultMessage: 'mobile',
+  },
+  telephone: {
+    id: `${scope}.telephone`,
+    defaultMessage: 'telephone',
+  },
+  userName: {
+    id: `${scope}.userName`,
+    defaultMessage: 'userName',
+  },
+  usernameAlreadyExist: {
+    id: `${scope}.usernameAlreadyExist`,
+    defaultMessage: 'usernameAlreadyExist',
+  },
 });
