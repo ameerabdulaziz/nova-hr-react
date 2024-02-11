@@ -22,11 +22,9 @@ const ResetPasswordData = () => {
 
   Apis.getEmployeeUsername = async (employeeId) => {
   
-    const result = await axiosInstance.post(`Account/getEmployeeUsername`,{
-      employeeId
-    });
+    const result = await axiosInstance.get(`Account/GetUserName/${employeeId}`);
 
-    return result;
+    return result.data;
   };
 
   return  Apis;

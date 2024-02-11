@@ -115,7 +115,7 @@ function ResetPassword(props) {
 
       try {
         const response = await ResetPasswordData().getEmployeeUsername(value.id);
-        console.log(response);
+        setUserName(response);
       } catch (err) {
         //
       } finally {
