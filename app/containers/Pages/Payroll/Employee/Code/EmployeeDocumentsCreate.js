@@ -431,6 +431,7 @@ function CreateAndEditEmployeeDocuments(props) {
                   multiline
                   rows={1}
                   onChange={(e) => setNote(e.target.value)}
+                  autoComplete='off'
                 />
               </Grid>
             </Grid>

@@ -626,6 +626,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.arname)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -639,6 +640,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.enname)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -681,6 +683,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.eRPCode)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -880,6 +883,7 @@ function Personal(props) {
                     className={classes.field}
                     variant="outlined"
                     required
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -1088,6 +1092,7 @@ function Personal(props) {
                 label={intl.formatMessage(messages.workEmail)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
 
@@ -1101,6 +1106,7 @@ function Personal(props) {
                 fullWidth
                 disabled={ id !== 0 }
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
 
@@ -1179,6 +1185,7 @@ function Personal(props) {
                 className={classes.field}
                 variant="outlined"
                 onChange={(e) => setmotherName(e.target.value)}
+                autoComplete='off'
               />
             </Grid>
 

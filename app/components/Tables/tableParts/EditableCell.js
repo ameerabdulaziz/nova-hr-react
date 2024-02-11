@@ -37,7 +37,9 @@ function EditableCell(props) {
             margin="none"
             inputProps={{
               'aria-label': 'Description',
-            }} />
+            }}
+            autoComplete='off'
+            />
         </TableCell>
       );
     case 'number':
@@ -73,7 +75,9 @@ function EditableCell(props) {
             margin="none"
             inputProps={{
               'aria-label': 'Description',
-            }} />
+            }} 
+            autoComplete='off'
+            />
         </TableCell>
       );
   }
