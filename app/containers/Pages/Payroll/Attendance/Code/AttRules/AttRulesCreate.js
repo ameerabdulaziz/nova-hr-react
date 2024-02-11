@@ -219,10 +219,10 @@ function AttRulesCreate(props) {
         ...obj,
         id: 0,
       }));
-      
-      data.attControlParaVac=controlParaVacList;
+
+      data.attControlParaVac = controlParaVacList;
       debugger;
-      
+
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -239,9 +239,9 @@ function AttRulesCreate(props) {
 
   async function fetchData() {
     try {
-      
       debugger;
-      const group1data = await GeneralListApis(locale).GetElementListByType(
+      const group1data = await GeneralListApis(locale).GetElementListByTemplate(
+        1,
         2,
         2
       );
@@ -275,7 +275,7 @@ function AttRulesCreate(props) {
       setcontrolParaOvertimeList(dataApi.attControlParaOverTime);
 
       const Vacdata = await ApiData(locale).GetControlParaVac(id ?? 0);
-      setcontrolParaVacList(Vacdata); 
+      setcontrolParaVacList(Vacdata);
       setValue(1);
       setValue(0);
     } catch (err) {
@@ -288,7 +288,7 @@ function AttRulesCreate(props) {
     fetchData();
   }, []);
 
- /*  function TabContainer(props) {
+  /*  function TabContainer(props) {
     const { children } = props;
     return <div style={{ paddingTop: 8 * 3 }}>{children}</div>;
   } */
@@ -439,10 +439,10 @@ function AttRulesCreate(props) {
           {value === 0 && (
             <div style={{ paddingTop: 8 * 3 }}>
               <AbsenceRules
-               data={data}
-               setdata={setdata}
-               ChoiceList={ChoiceList}
-               group1ElemList={group1ElemList}
+                data={data}
+                setdata={setdata}
+                ChoiceList={ChoiceList}
+                group1ElemList={group1ElemList}
               />
             </div>
           )}
@@ -498,7 +498,6 @@ function AttRulesCreate(props) {
                 setdata={setdata}
                 group1ElemList={group1ElemList}
                 group2ElemList={group2ElemList}
-               
               />
             </div>
           )}
