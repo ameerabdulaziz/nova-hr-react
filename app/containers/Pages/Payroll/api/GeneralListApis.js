@@ -392,6 +392,14 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetDocumentTypeList = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetDocumentTypeList/${locale}`
+    );
+
+    return result.data;
+  };
+
   Apis.GetGovernmentSickVacList = async () => {
     const result = await axiosInstance.get(
       `GeneralList/GetGovernmentSickVacList/${locale}`
