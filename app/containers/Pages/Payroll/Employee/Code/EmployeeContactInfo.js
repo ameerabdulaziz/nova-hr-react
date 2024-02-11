@@ -252,7 +252,8 @@ function EmployeeContactInfo(props) {
                     name="workEmail"
                     value={workEmail}
                     label={intl.formatMessage(messages.workEmail)}
-                    disabled
+                    required
+                    onChange={(e) => setworkEmail(e.target.value)}
                     fullWidth
                     variant="outlined"
                   />
