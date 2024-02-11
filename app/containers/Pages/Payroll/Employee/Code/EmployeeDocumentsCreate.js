@@ -108,7 +108,7 @@ function CreateAndEditEmployeeDocuments(props) {
 
   const getdata = async () => {
     try {
-      const documentsData = await GeneralListApis(locale).MdDocuments();
+      const documentsData = await GeneralListApis(locale).GetDocumentTypeList();
       const employees = await GeneralListApis(locale).GetEmployeeList(locale);
 
       setDocumentsList(documentsData);
@@ -352,7 +352,7 @@ function CreateAndEditEmployeeDocuments(props) {
                           <TextField
                             {...params}
                             variant="outlined"
-                            required
+                            required={document?.isCheckExpireDate}
                           />
                         )}
                       />
@@ -380,7 +380,7 @@ function CreateAndEditEmployeeDocuments(props) {
                           <TextField
                             {...params}
                             variant="outlined"
-                            required
+                            required={document?.isCheckExpireDate}
                           />
                         )}
                       />
@@ -408,7 +408,7 @@ function CreateAndEditEmployeeDocuments(props) {
                           <TextField
                             {...params}
                             variant="outlined"
-                            required
+                            required={document?.isCheckExpireDate}
                           />
                         )}
                       />
