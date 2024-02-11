@@ -415,6 +415,7 @@ import {
   SalaryYearReport,
   SalarySigningListReport,
   LoanReport,
+  PeerAppraisalSetting,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1960,6 +1961,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/AssessmentReport'
           component={AssessmentReport}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/PeerAppraisalSetting'
+          component={PeerAppraisalSetting}
         />
 
         {/* Default */}

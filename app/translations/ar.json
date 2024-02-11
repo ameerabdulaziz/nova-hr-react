@@ -1024,6 +1024,8 @@
   "boilerplate.containers.Payroll.deleteSelectedRows": "حذف الصفوف المحددة",
   "boilerplate.containers.Payroll.confirmationMess": "رسالة تأكيد",
 
+  "boilerplate.containers.Payroll.view": "عرض",
+
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
   "boilerplate.containers.Payroll.dateErrorMes": "يجب اختيار تاريخ البدا وتاريخ الانتهاء",

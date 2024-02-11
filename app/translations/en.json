@@ -1011,6 +1011,8 @@
   "boilerplate.containers.Payroll.showHideTableColumns": "Show/Hide Table Columns",
   "boilerplate.containers.Payroll.rowSelected": "Row(s) Selected",
   "boilerplate.containers.Payroll.deleteSelectedRows": "Delete Selected Rows",
+
+  "boilerplate.containers.Payroll.view": "View",
   
   "boilerplate.containers.Payroll.Postmonth": "Postpone to Month",
   "boilerplate.containers.Payroll.Postyear": "Postpone to Year",
