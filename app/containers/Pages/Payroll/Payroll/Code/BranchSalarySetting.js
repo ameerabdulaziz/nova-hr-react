@@ -162,7 +162,7 @@ function BranchSalarySetting(props) {
   const departmentChangeFun = async (id) => {
     if (id) {
       const dataList = await BranchSalarySettingData().Get(id);
-
+debugger ;
       setdata({
         PersonalExemption: dataList.personalexemption
           ? dataList.personalexemption
@@ -220,6 +220,9 @@ function BranchSalarySetting(props) {
           : "",
         TheEmployeesShareOfSI: dataList.fixedElementsEmpRate
           ? dataList.fixedElementsEmpRate
+          : "",
+          NewEmpDedEl: dataList.newEmpDedEl
+          ? dataList.newEmpDedEl
           : "",
       });
     }
@@ -839,60 +842,13 @@ function BranchSalarySetting(props) {
                 <Grid
                   item
                   xs={12}
-                  md={6}
+                  md={12}
                   container
                   spacing={3}
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      name="EpidemicsContribution"
-                      id="EpidemicsContribution"
-                      type="number"
-                      placeholder={intl.formatMessage(
-                        messages.EpidemicsContribution
-                      )}
-                      label={intl.formatMessage(messages.EpidemicsContribution)}
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={data.EpidemicsContribution}
-                      onChange={(e) => {
-                        setdata((prevFilters) => ({
-                          ...prevFilters,
-                          EpidemicsContribution: e.target.value,
-                        }));
-                      }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">%</InputAdornment>
-                        ),
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      name="DisplayName"
-                      id="DisplayName"
-                      type="number"
-                      placeholder={intl.formatMessage(messages.DisplayName)}
-                      label={intl.formatMessage(messages.DisplayName)}
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={data.DisplayName}
-                      onChange={(e) => {
-                        setdata((prevFilters) => ({
-                          ...prevFilters,
-                          DisplayName: e.target.value,
-                        }));
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item md={12} xs={12}>
+                  <Grid item md={6} xs={12}>
                     <Autocomplete
                       id="ddlNewEmpDedEl"
                       options={group1ElemList}
@@ -925,6 +881,54 @@ function BranchSalarySetting(props) {
                       )}
                     />
                   </Grid>
+                  <Grid item xs={12} md={3}>
+                    <TextField
+                      name="EpidemicsContribution"
+                      id="EpidemicsContribution"
+                      type="number"
+                      placeholder={intl.formatMessage(
+                        messages.EpidemicsContribution
+                      )}
+                      label={intl.formatMessage(messages.EpidemicsContribution)}
+                      className={`${classes.field} ${style.fieldsSty}`}
+                      margin="normal"
+                      variant="outlined"
+                      value={data.EpidemicsContribution}
+                      onChange={(e) => {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          EpidemicsContribution: e.target.value,
+                        }));
+                      }}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">%</InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={3}>
+                    <TextField
+                      name="DisplayName"
+                      id="DisplayName"
+                      type="number"
+                      placeholder={intl.formatMessage(messages.DisplayName)}
+                      label={intl.formatMessage(messages.DisplayName)}
+                      className={`${classes.field} ${style.fieldsSty}`}
+                      margin="normal"
+                      variant="outlined"
+                      value={data.DisplayName}
+                      onChange={(e) => {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          DisplayName: e.target.value,
+                        }));
+                      }}
+                    />
+                  </Grid>
+
+                  
                 </Grid>
               </Grid>
             </Grid>
