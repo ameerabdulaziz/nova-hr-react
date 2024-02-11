@@ -1883,7 +1883,10 @@
     "boilerplate.containers.Payroll.Payroll.calcValMax": "Maximum Calc Value",
     "boilerplate.containers.Payroll.Payroll.val": "Value/Quantity",    
     "boilerplate.containers.Payroll.Payroll.elementType": "Element type",    
-    "boilerplate.containers.Payroll.Payroll.elementMode": "Elment Mode",    
+    "boilerplate.containers.Payroll.Payroll.elementMode": "Elment Mode",   
+    "boilerplate.containers.Payroll.Payroll.CalcMethod": "Calc Method",
+    "boilerplate.containers.Payroll.Payroll.NewEmpDedEl": "New Emp Deduction Element",
+     
     "boilerplate.containers.Payroll.Payroll.source": "Source",    
     "boilerplate.containers.Payroll.Payroll.newval": "Enter new Employee Elements",    
     "boilerplate.containers.Payroll.Payroll.ElementValCreateTitle": "Add Employee Element",

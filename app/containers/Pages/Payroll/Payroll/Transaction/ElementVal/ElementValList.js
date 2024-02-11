@@ -51,6 +51,7 @@ function ElementValList(props) {
     elementMaxVal: "",
     elementMinVal: "",
     elementModeId: "",
+    elementCalcMethodId:"",
     defaultVal: "",
   });
   const [OpenPopup, setOpenPopup] = useState(false);
@@ -433,6 +434,7 @@ function ElementValList(props) {
         elementMaxVal: "",
         elementMinVal: "",
         elementModeId: "",
+        elementCalcMethodId:"",
         defaultVal: "",
       });
       if (!id) {
@@ -457,6 +459,7 @@ function ElementValList(props) {
           elementMaxVal: 0,
           elementMinVal: 0,
           elementModeId: 0,
+          elementCalcMethodId: 0,
           defaultVal: 0,
         });
       } else {
@@ -467,6 +470,7 @@ function ElementValList(props) {
           elementMaxVal: result.elementMaxVal,
           elementMinVal: result.elementMinVal,
           elementModeId: result.elementModeId,
+          elementCalcMethodId:result.elementCalcMethodId,
           defaultVal: result.defaultVal,
         });
       }
@@ -1049,6 +1053,23 @@ function ElementValList(props) {
                           </Grid>
                           <Grid item xs={12} md={3}>
                             <TextField
+                              id="elementCalcMethod"
+                              name="elementCalcMethod"
+                              value={
+                                elementData.elementCalcMethodId == 1
+                                  ? intl.formatMessage(messages.Value)
+                                  : elementData.elementModeId == 2
+                                  ? intl.formatMessage(messages.Percentage)
+                                  : ""
+                              }
+                              label={intl.formatMessage(messages.CalcMethod)}
+                              className={classes.field}
+                              variant="outlined"
+                              disabled
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={2}>
+                            <TextField
                               id="ElementMaxVal"
                               name="ElementMaxVal"
                               value={elementData.elementMaxVal}
@@ -1057,7 +1078,7 @@ function ElementValList(props) {
                               className={classes.field}
                             />
                           </Grid>
-                          <Grid item xs={12} md={3}>
+                          <Grid item xs={12} md={2}>
                             <TextField
                               id="ElementMinVal"
                               name="ElementMinVal"
@@ -1067,7 +1088,7 @@ function ElementValList(props) {
                               className={classes.field}
                             />
                           </Grid>
-                          <Grid item xs={12} md={3}>
+                          <Grid item xs={12} md={2}>
                             <TextField
                               id="DefaultVal"
                               name="DefaultVal"

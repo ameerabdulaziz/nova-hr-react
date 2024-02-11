@@ -200,6 +200,14 @@ export default defineMessages({
     id: `${scope}.max`,
     defaultMessage: 'max',
   },
+  CalcMethod: {
+    id: `${scope}.CalcMethod`,
+    defaultMessage: 'CalcMethod',
+  },
+  NewEmpDedEl: {
+    id: `${scope}.NewEmpDedEl`,
+    defaultMessage: 'NewEmpDedEl',
+  },
   calcValMin: {
     id: `${scope}.calcValMin`,
     defaultMessage: 'calcValMin',
