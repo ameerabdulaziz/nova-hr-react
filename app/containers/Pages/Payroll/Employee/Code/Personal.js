@@ -185,16 +185,14 @@ function Personal(props) {
     }
   }, [employeeCode]);
 
-  const fetchEmployeeUsername = async (code) => {
+  const fetchEmployeeUsername = async (username) => {
     setIsLoading(true);
 
     try {
-      const response = await EmployeeData(locale).checkUserNameExist(id, userName);
+      const response = await EmployeeData(locale).checkUserNameExist(id, username);
 
-      const isEqual = response === parseInt(code, 10);
-
-      if (!isEqual) {
-        toast.success(intl.formatMessage(messages.usernameAlreadyExist));
+      if (!response) {
+        toast.error(intl.formatMessage(messages.usernameAlreadyExist));
         setIsUsernameExist(false);
       }
     } catch (error) {
@@ -280,6 +278,9 @@ function Personal(props) {
       if (checkEmployeeWorkEmail) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeWorkEmail(workEmail);
+          if (id === 0 && userName === '') {
+            setUserName(workEmail.split('@')[0]);
+          }
         }, 1000);
 
         return () => {
@@ -652,19 +653,6 @@ function Personal(props) {
                     onChange={id !== 0 ? undefined :(e) => setemployeeCode(e.target.value)}
                     label={intl.formatMessage(messages.employeeCode)}
                     className={classes.field}
-                    variant="outlined"
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <TextField
-                    name="userName"
-                    required
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    label={intl.formatMessage(messages.userName)}
-                    fullwidth
-                    disabled={ id !== 0 }
                     variant="outlined"
                   />
                 </Grid>
@@ -1064,19 +1052,6 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <TextField
-                name="workEmail"
-                type="email"
-                value={workEmail}
-                required
-                onChange={(e) => setWorkEmail(e.target.value)}
-                label={intl.formatMessage(messages.workEmail)}
-                className={classes.field}
-                variant="outlined"
-              />
-            </Grid>
-
             <Grid item xs={6} md={3}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
@@ -1099,6 +1074,34 @@ function Personal(props) {
                   )}
                 />
               </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="workEmail"
+                type="email"
+                value={workEmail}
+                required
+                onChange={(e) => {
+                  setWorkEmail(e.target.value);
+                }}
+                label={intl.formatMessage(messages.workEmail)}
+                className={classes.field}
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="userName"
+                required
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                label={intl.formatMessage(messages.userName)}
+                fullWidth
+                disabled={ id !== 0 }
+                variant="outlined"
+              />
             </Grid>
 
             <Grid item xs={6} md={3}>
