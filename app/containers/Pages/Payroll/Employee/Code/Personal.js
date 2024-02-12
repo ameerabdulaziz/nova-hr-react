@@ -666,6 +666,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.employeeCode)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -679,6 +680,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.machineCode)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -908,6 +910,7 @@ function Personal(props) {
                     className={classes.field}
                     variant="outlined"
                     required
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -1249,6 +1252,7 @@ function Personal(props) {
                 className={classes.field}
                 variant="outlined"
                 onChange={(e) => setsonNo(e.target.value)}
+                autoComplete='off'
               />
             </Grid>
 

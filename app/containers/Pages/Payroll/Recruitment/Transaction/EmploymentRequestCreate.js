@@ -989,6 +989,7 @@ function EmploymentRequestCreate(props) {
                           disabled={!languages.other}
                           onChange={onInputChange}
                           className={classes.field}
+                          autoComplete='off'
                         />
                       </Grid>
 

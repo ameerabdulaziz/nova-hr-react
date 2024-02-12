@@ -197,6 +197,7 @@ function SalaryStructureCreate(props) {
                 label={intl.formatMessage(Payrollmessages.arName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -213,6 +214,7 @@ function SalaryStructureCreate(props) {
                 label={intl.formatMessage(Payrollmessages.enName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>

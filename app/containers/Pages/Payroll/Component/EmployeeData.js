@@ -193,6 +193,7 @@ function EmployeeData(props) {
                 disabled
                 InputLabelProps={{ shrink: data.superJob || data.job  ? true:false}}
                 // InputLabelProps={{ shrink: isSuper ? data.superJob : data.job }}
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={3}>
@@ -209,6 +210,7 @@ function EmployeeData(props) {
                   shrink: data.superOrganization||data.organization ?true:false
                   // shrink: isSuper ? data.superOrganization : data.organization,
                 }}
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={2}>
@@ -248,6 +250,7 @@ function EmployeeData(props) {
                 //     ? ""
                 //     : data.hiringDate,
                 // }}
+                autoComplete='off'
               />
             </Grid>
             {GetSalary ? (
@@ -268,6 +271,7 @@ function EmployeeData(props) {
                   variant="outlined"
                   InputLabelProps={{ shrink: data.length !== 0 && data.oldElemVal ? true : false }}
                   // InputLabelProps={{ shrink: data.oldElemVal }}
+                  autoComplete='off'
                 />
               </Grid>
             ) : GetworkingYears ? (
@@ -285,6 +289,7 @@ function EmployeeData(props) {
                     shrink: data.length !== 0 && data.workingYears ? true : false,
                     // shrink: data.workingYears === null ? "" : data.workingYears,
                   }}
+                  autoComplete='off'
                 />
               </Grid>
             ) : (
@@ -305,6 +310,7 @@ function EmployeeData(props) {
                   disabled
                   InputLabelProps={{ shrink: data.month !== 0 && data.month  ?true:false}}
                   // InputLabelProps={{ shrink: data.month==0||""?true:false}}
+                  autoComplete='off'
                 />
               </Grid>
             ) : (
@@ -322,6 +328,7 @@ function EmployeeData(props) {
                   disabled
                   InputLabelProps={{ shrink: data.sixMonth !== 0 && data.sixMonth ?true:false }}
                   // InputLabelProps={{ shrink: data.sixMonth==0||""?true:false }}
+                  autoComplete='off'
                 />
               </Grid>
             ) : (
@@ -339,6 +346,7 @@ function EmployeeData(props) {
                   disabled
                   InputLabelProps={{ shrink: data.year !== 0 && data.year ?true:false }}
                   // InputLabelProps={{ shrink: data.year==0||""?true:false }}
+                  autoComplete='off'
                 />
               </Grid>
             ) : (
@@ -356,6 +364,7 @@ function EmployeeData(props) {
                   disabled
                   InputLabelProps={{ shrink: data.hiringDateNo !== 0 && data.hiringDateNo  ?true:false }}
                   // InputLabelProps={{ shrink: data.hiringDateNo==0||""?true:false }}
+                  autoComplete='off'
                 />
               </Grid>
             ) : (
@@ -373,6 +382,7 @@ function EmployeeData(props) {
                   disabled
                   InputLabelProps={{ shrink: data.lastDate !== 0 && data.lastDate ?true:false }}
                   // InputLabelProps={{ shrink: data.lastDate==0||""?true:false }}
+                  autoComplete='off'
                 />
               </Grid>
             ) : (

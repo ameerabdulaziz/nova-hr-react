@@ -160,6 +160,7 @@ function CompetenciesCreate(props) {
                 multiline
                 required
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 
@@ -174,6 +175,7 @@ function CompetenciesCreate(props) {
                 multiline
                 required
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 

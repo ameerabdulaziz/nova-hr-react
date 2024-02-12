@@ -442,6 +442,7 @@ async function getData() {
                                                 className={classes.field}
                                                 variant="outlined"
                                                 disabled
+                                                autoComplete='off'
                                                 />
                                             </Grid>
                                         
@@ -456,6 +457,7 @@ async function getData() {
                                         label={intl.formatMessage(messages.ReasonForVacation)}
                                         className={classes.field}
                                         variant="outlined"
+                                        autoComplete='off'
                                         />
                                     </Grid>                                    
                                 </Grid> 

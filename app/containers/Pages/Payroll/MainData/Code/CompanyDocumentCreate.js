@@ -356,6 +356,7 @@ function CompanyDocumentCreate(props) {
                       onChange={onInputChange}
                       fullWidth
                       required
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -369,6 +370,7 @@ function CompanyDocumentCreate(props) {
                       onChange={onInputChange}
                       fullWidth
                       required
+                      autoComplete='off'
                     />
                   </Grid>
 

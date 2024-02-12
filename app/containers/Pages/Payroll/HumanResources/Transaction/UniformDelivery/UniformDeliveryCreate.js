@@ -194,6 +194,7 @@ function UniformDeliveryCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 disabled
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={2}>
@@ -206,6 +207,7 @@ function UniformDeliveryCreate(props) {
                 variant="outlined"
                 required
                 onChange={(e) => handleChange(e)}
+                autoComplete='off'
               />
             </Grid>
 
@@ -218,6 +220,7 @@ function UniformDeliveryCreate(props) {
                 label={intl.formatMessage(messages.note)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}></Grid>

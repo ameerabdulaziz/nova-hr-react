@@ -304,6 +304,7 @@ function MissionTrxCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 disabled
+                autoComplete='off'
               />
             </Grid>
 
@@ -446,6 +447,7 @@ function MissionTrxCreate(props) {
                     label={intl.formatMessage(messages.transportationExpenses)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
                 <Grid item xs={12} md={12}>
@@ -459,6 +461,7 @@ function MissionTrxCreate(props) {
                     variant="outlined"
                     multiline
                     rows={2}
+                    autoComplete='off'
                   />
                 </Grid>
                 <Grid item xs={12} md={12}>
@@ -472,6 +475,7 @@ function MissionTrxCreate(props) {
                     variant="outlined"
                     multiline
                     rows={2}
+                    autoComplete='off'
                   />
                 </Grid>
               </Grid>

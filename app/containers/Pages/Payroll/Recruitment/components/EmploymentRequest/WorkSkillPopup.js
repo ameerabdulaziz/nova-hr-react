@@ -102,6 +102,7 @@ function WorkSkillPopup(props) {
               label={intl.formatMessage(messages.skill)}
               fullWidth
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 

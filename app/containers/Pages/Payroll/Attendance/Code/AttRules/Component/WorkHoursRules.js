@@ -90,6 +90,7 @@ function WorkHoursRules(props) {
                 label={intl.formatMessage(messages.hoursPerDay)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -101,6 +102,7 @@ function WorkHoursRules(props) {
                 label={intl.formatMessage(messages.monthDays)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -112,6 +114,7 @@ function WorkHoursRules(props) {
                 label={intl.formatMessage(messages.updateInAfter)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -123,6 +126,7 @@ function WorkHoursRules(props) {
                 label={intl.formatMessage(messages.updateOutBefore)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
           </Grid>

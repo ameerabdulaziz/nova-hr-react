@@ -247,6 +247,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(Payrollmessages.arName)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
@@ -263,6 +264,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(Payrollmessages.enName)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -281,6 +283,7 @@ function ElementsCreate(props) {
                           )}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -297,6 +300,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.minDailyWorkHours)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       
@@ -366,6 +370,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.maxRepeat)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -581,6 +586,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.defaultValue)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -629,6 +635,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.min)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -646,6 +653,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.max)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -663,6 +671,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.calcValMin)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -680,6 +689,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.calcValMax)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>

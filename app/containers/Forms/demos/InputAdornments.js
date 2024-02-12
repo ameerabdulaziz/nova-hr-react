@@ -108,6 +108,7 @@ function InputAdornments() {
               label="With normal TextField"
               id="simple-start-adornment"
               className={cx(classes.margin, classes.textField)}
+              autoComplete='off'
               InputProps={{
                 startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
               }} />
@@ -118,6 +119,7 @@ function InputAdornments() {
               className={cx(classes.margin, classes.textField)}
               value={dataState.weightRange}
               onChange={handleChange('weightRange')}
+              autoComplete='off'
               InputProps={{
                 startAdornment: <InputAdornment position="start">Kg</InputAdornment>,
               }}>
@@ -196,6 +198,7 @@ function InputAdornments() {
             className={classes.margin}
             id="input-with-icon-textfield"
             label="TextField"
+            autoComplete='off'
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -209,7 +212,7 @@ function InputAdornments() {
                 <AccountCircle />
               </Grid>
               <Grid item>
-                <TextField variant="standard" id="input-with-icon-grid" label="With a grid" />
+                <TextField variant="standard" id="input-with-icon-grid" label="With a grid" autoComplete='off' />
               </Grid>
             </Grid>
           </div>

@@ -253,6 +253,7 @@ function OvertimeHoursRequestCreate(props) {
                 name='minutesCount'
                 disabled
                 className={classes.field}
+                autoComplete='off'
               />
             </Grid>
 
@@ -266,6 +267,7 @@ function OvertimeHoursRequestCreate(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 

@@ -201,6 +201,7 @@ function ManPowerSetting(props) {
                 className={classes.field}
                 variant="outlined"
                 disabled
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={6} md={2}>

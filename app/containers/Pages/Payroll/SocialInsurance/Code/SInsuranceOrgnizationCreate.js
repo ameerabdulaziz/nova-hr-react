@@ -148,6 +148,7 @@ function SInsuranceOrgnizationCreate(props) {
                         label={intl.formatMessage(messages.arName)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -160,6 +161,7 @@ function SInsuranceOrgnizationCreate(props) {
                         label={intl.formatMessage(messages.enName)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -172,6 +174,7 @@ function SInsuranceOrgnizationCreate(props) {
                         label={intl.formatMessage(messages.insuranceNumber)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -184,6 +187,7 @@ function SInsuranceOrgnizationCreate(props) {
                         label={intl.formatMessage(messages.address)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -209,6 +213,7 @@ function SInsuranceOrgnizationCreate(props) {
                         label={intl.formatMessage(messages.ownerName)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -223,6 +228,7 @@ function SInsuranceOrgnizationCreate(props) {
                         )}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -235,6 +241,7 @@ function SInsuranceOrgnizationCreate(props) {
                         label={intl.formatMessage(messages.legalDescription)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>

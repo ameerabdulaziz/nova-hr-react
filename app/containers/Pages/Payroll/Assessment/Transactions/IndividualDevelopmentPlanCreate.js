@@ -348,6 +348,7 @@ function IndividualDevelopmentPlanCreate(props) {
                       name='currentJob'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -358,6 +359,7 @@ function IndividualDevelopmentPlanCreate(props) {
                       name='department'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -368,6 +370,7 @@ function IndividualDevelopmentPlanCreate(props) {
                       name='reportTo'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -378,6 +381,7 @@ function IndividualDevelopmentPlanCreate(props) {
                       name='currentSalary'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -388,6 +392,7 @@ function IndividualDevelopmentPlanCreate(props) {
                       label={intl.formatMessage(messages.hiringData)}
                       fullWidth
                       disabled
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -398,6 +403,7 @@ function IndividualDevelopmentPlanCreate(props) {
                       label={intl.formatMessage(messages.currentMainJobDuties)}
                       fullWidth
                       disabled
+                      autoComplete='off'
                     />
                   </Grid>
                 </Grid>

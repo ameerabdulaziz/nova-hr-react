@@ -274,6 +274,7 @@ function StuffPopup(props) {
                 label={intl.formatMessage(messages.employeeName)}
                 fullWidth
                 variant='outlined'
+                autoComplete='off'
               />
             </Grid>
 

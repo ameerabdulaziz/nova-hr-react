@@ -252,6 +252,7 @@ function SocialInsuranceData(props) {
                         variant="outlined"
                         multiline
                         rows={1}
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -289,6 +290,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.insuranceNumber)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -384,6 +386,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.insuranceSalary)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -426,6 +429,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.grossSalary)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -439,6 +443,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.mainSalary)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -480,6 +485,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.employeeFixedShare)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -493,6 +499,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.companyFixedShare)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -524,6 +531,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.c1IncomingNumber)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -561,6 +569,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.c6IncomingNumber)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -623,6 +632,7 @@ function SocialInsuranceData(props) {
                         label={intl.formatMessage(messages.workLetterNumber)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>

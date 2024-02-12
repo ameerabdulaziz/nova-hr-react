@@ -443,6 +443,7 @@ function JobAdvertisementApplication(props) {
                               fullWidth
                               variant='outlined'
                               required
+                              autoComplete='off'
                             />
                           </Grid>
 
@@ -455,6 +456,7 @@ function JobAdvertisementApplication(props) {
                               fullWidth
                               variant='outlined'
                               required
+                              autoComplete='off'
                             />
                           </Grid>
 
@@ -467,6 +469,7 @@ function JobAdvertisementApplication(props) {
                               fullWidth
                               variant='outlined'
                               required
+                              autoComplete='off'
                             />
                           </Grid>
 
@@ -673,6 +676,7 @@ function JobAdvertisementApplication(props) {
                           fullWidth
                           required
                           variant='outlined'
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -685,6 +689,7 @@ function JobAdvertisementApplication(props) {
                           fullWidth
                           required
                           variant='outlined'
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -753,6 +758,7 @@ function JobAdvertisementApplication(props) {
                           label={intl.formatMessage(messages.childrenNumber)}
                           fullWidth
                           variant='outlined'
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -783,6 +789,7 @@ function JobAdvertisementApplication(props) {
                           label={intl.formatMessage(messages.address)}
                           fullWidth
                           variant='outlined'
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -794,6 +801,7 @@ function JobAdvertisementApplication(props) {
                           label={intl.formatMessage(messages.relativePhoneNumber)}
                           fullWidth
                           variant='outlined'
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -867,6 +875,7 @@ function JobAdvertisementApplication(props) {
                           label={intl.formatMessage(messages.graduationPlace)}
                           fullWidth
                           variant='outlined'
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -1019,6 +1028,7 @@ function JobAdvertisementApplication(props) {
                           label={intl.formatMessage(messages.expectedSalary)}
                           fullWidth
                           variant='outlined'
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -1030,6 +1040,7 @@ function JobAdvertisementApplication(props) {
                           label={intl.formatMessage(messages.insuranceNumber)}
                           fullWidth
                           variant='outlined'
+                          autoComplete='off'
                         />
                       </Grid>
 

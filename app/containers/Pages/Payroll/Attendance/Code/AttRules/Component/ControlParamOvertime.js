@@ -150,6 +150,7 @@ function ControlParamOvertime(props) {
                             onChange={(e) => handleChange(e, row)}
                             label={""}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </TableCell>
 
@@ -168,6 +169,7 @@ function ControlParamOvertime(props) {
                             onChange={(e) => handleChange(e, row)}
                             label={""}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </TableCell>
 
@@ -186,6 +188,7 @@ function ControlParamOvertime(props) {
                             onChange={(e) => handleChange(e, row)}
                             label={""}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </TableCell>
 

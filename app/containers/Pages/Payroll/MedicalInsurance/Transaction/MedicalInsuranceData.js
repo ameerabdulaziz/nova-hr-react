@@ -218,6 +218,7 @@ function MedicalInsuranceData(props) {
                         variant="outlined"
                         multiline
                         rows={1}
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -255,6 +256,7 @@ function MedicalInsuranceData(props) {
                         label={intl.formatMessage(messages.medicalCardNumber)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -363,6 +365,7 @@ function MedicalInsuranceData(props) {
                         label={intl.formatMessage(messages.medicalCardNumber)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -400,6 +403,7 @@ function MedicalInsuranceData(props) {
                         label={intl.formatMessage(messages.familyCount)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 

@@ -185,6 +185,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item xs={12} md={4}>
@@ -196,6 +197,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -221,6 +223,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item xs={12} md={4}>
@@ -232,6 +235,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -257,6 +261,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item xs={12} md={4}>
@@ -268,6 +273,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -293,6 +299,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item xs={12} md={4}>
@@ -304,6 +311,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -329,6 +337,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item xs={12} md={4}>
@@ -340,6 +349,7 @@ function AbsenceRules(props) {
                             label={""}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>

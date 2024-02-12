@@ -77,6 +77,7 @@ function Complaint(props) {
                 label={intl.formatMessage(messages.location)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={8}></Grid>
@@ -94,6 +95,7 @@ function Complaint(props) {
                 label={intl.formatMessage(Payrollmessages.title)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={12}>
@@ -112,6 +114,7 @@ function Complaint(props) {
                 label={intl.formatMessage(Payrollmessages.details)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
 

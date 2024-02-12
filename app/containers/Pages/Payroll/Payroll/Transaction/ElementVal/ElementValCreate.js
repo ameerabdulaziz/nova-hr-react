@@ -272,6 +272,7 @@ function ElementValCreate(props) {
                           label={intl.formatMessage(Payrollmessages.year)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -282,6 +283,7 @@ function ElementValCreate(props) {
                           label={intl.formatMessage(Payrollmessages.month)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -390,6 +392,7 @@ function ElementValCreate(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                autoComplete='off'
                               />
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -400,6 +403,7 @@ function ElementValCreate(props) {
                                 label={intl.formatMessage(messages.max)}
                                 disabled
                                 className={classes.field}
+                                autoComplete='off'
                               />
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -410,6 +414,7 @@ function ElementValCreate(props) {
                                 label={intl.formatMessage(messages.min)}
                                 disabled
                                 className={classes.field}
+                                autoComplete='off'
                               />
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -423,6 +428,7 @@ function ElementValCreate(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                autoComplete='off'
                               />
                             </Grid>
                           </Grid>
@@ -455,6 +461,7 @@ function ElementValCreate(props) {
                       elemVal: e.target.value,
                     }));
                   }}
+                  autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -471,6 +478,7 @@ function ElementValCreate(props) {
                     notes: e.target.value,
                   }));
                 }}
+                autoComplete='off'
               />
             </Grid>
 

@@ -155,6 +155,7 @@ function ProductDetail(props) { // eslint-disable-line
                     margin="none"
                     value={qty}
                     className={classes.quantity}
+                    autoComplete='off'
                     onChange={handleQtyChange} />
                   <Button
                     variant="contained"

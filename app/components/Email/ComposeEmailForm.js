@@ -82,6 +82,7 @@ function ComposeEmailForm(props) {
             placeholder={intl.formatMessage(messages.to)}
             value={to}
             onChange={(event) => inputChange(event, 'to')}
+            autoComplete='off'
             margin="normal" />
           <TextField
             variant="standard"
@@ -91,6 +92,7 @@ function ComposeEmailForm(props) {
             placeholder={intl.formatMessage(messages.subject)}
             value={subject}
             onChange={(event) => inputChange(event, 'subject')}
+            autoComplete='off'
             margin="normal" />
           <div className={classes.editorWrap}>
             <Editor

@@ -58,6 +58,7 @@ function SearchUi(props) {
           inputRef: ref,
           ...rest,
         }}
+        autoComplete='off'
       />
     );
   }

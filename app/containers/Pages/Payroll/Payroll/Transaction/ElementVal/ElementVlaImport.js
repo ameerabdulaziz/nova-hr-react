@@ -309,6 +309,7 @@ function ElementVlaImport({ intl }) {
                           label={intl.formatMessage(Payrollmessages.year)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -319,6 +320,7 @@ function ElementVlaImport({ intl }) {
                           label={intl.formatMessage(Payrollmessages.month)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
@@ -446,6 +448,7 @@ function ElementVlaImport({ intl }) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                autoComplete='off'
                               />
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -456,6 +459,7 @@ function ElementVlaImport({ intl }) {
                                 label={intl.formatMessage(messages.max)}
                                 disabled
                                 className={classes.field}
+                                autoComplete='off'
                               />
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -466,6 +470,7 @@ function ElementVlaImport({ intl }) {
                                 label={intl.formatMessage(messages.min)}
                                 disabled
                                 className={classes.field}
+                                autoComplete='off'
                               />
                             </Grid>
                             <Grid item xs={12} md={3}>
@@ -479,6 +484,7 @@ function ElementVlaImport({ intl }) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled
+                                autoComplete='off'
                               />
                             </Grid>
                           </Grid>

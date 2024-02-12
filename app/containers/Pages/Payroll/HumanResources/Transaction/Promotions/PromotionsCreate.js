@@ -198,6 +198,7 @@ function PromotionsCreate(props) {
                 label={intl.formatMessage(messages.value)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={8}>
@@ -217,6 +218,7 @@ function PromotionsCreate(props) {
                 label={intl.formatMessage(messages.reason)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
 

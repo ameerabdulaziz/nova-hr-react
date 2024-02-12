@@ -287,6 +287,7 @@ function ResignTrxCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 required
+                autoComplete='off'
               />
             </Grid>
 
@@ -300,6 +301,7 @@ function ResignTrxCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 required
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={8}>
@@ -311,6 +313,7 @@ function ResignTrxCreate(props) {
                 label={intl.formatMessage(messages.note)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}></Grid>

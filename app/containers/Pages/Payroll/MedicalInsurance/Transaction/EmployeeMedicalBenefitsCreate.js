@@ -217,6 +217,7 @@ function EmployeeMedicalBenefitsCreate(props) {
                 className={classes.field}
                 variant='outlined'
                 required
+                autoComplete='off'
               />
             </Grid>
 
@@ -229,6 +230,7 @@ function EmployeeMedicalBenefitsCreate(props) {
                 className={classes.field}
                 variant='outlined'
                 required
+                autoComplete='off'
               />
             </Grid>
 
@@ -243,6 +245,7 @@ function EmployeeMedicalBenefitsCreate(props) {
                 required
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 

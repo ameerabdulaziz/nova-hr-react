@@ -113,6 +113,7 @@ function ExperiencePopup(props) {
               fullWidth
               required
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 
@@ -125,6 +126,7 @@ function ExperiencePopup(props) {
               fullWidth
               required
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 
@@ -137,6 +139,7 @@ function ExperiencePopup(props) {
               fullWidth
               required
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 
@@ -149,6 +152,7 @@ function ExperiencePopup(props) {
               fullWidth
               required
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 

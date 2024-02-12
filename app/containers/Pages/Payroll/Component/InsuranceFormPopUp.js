@@ -60,6 +60,7 @@ const InsuranceFormPopUp = ({
                     fullWidth
                     variant="outlined"
                     onChange={(e)=>setNote(e.target.value)}
+                    autoComplete='off'
                 />
                 
                 </DialogContent>

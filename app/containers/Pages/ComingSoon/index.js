@@ -67,6 +67,7 @@ function ComingSoon(props) {
                     className={classes.textField}
                     value={email}
                     onChange={(e) => handleChange(e)}
+                    autoComplete='off'
                     margin="normal" />
                 </FormControl>
                 <aside>

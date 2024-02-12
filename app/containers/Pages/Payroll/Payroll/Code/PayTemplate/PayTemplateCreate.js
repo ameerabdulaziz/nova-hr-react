@@ -194,6 +194,7 @@ function PayTemplateCreate(props) {
                 label={intl.formatMessage(Payrollmessages.arName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -210,6 +211,7 @@ function PayTemplateCreate(props) {
                 label={intl.formatMessage(Payrollmessages.enName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -226,6 +228,7 @@ function PayTemplateCreate(props) {
                 label={intl.formatMessage(messages.sMSMSG)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -242,6 +245,7 @@ function PayTemplateCreate(props) {
                 label={intl.formatMessage(messages.rPT_details)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={12}>

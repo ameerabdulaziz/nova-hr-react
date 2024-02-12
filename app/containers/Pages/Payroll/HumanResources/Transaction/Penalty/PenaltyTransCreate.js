@@ -400,6 +400,7 @@ function PenaltyTransCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 disabled
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -448,6 +449,7 @@ function PenaltyTransCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 //disabled={data.value ? true : false}
+                autoComplete='off'
               />
             </Grid>
 
@@ -460,6 +462,7 @@ function PenaltyTransCreate(props) {
                 label={intl.formatMessage(messages.note)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
 

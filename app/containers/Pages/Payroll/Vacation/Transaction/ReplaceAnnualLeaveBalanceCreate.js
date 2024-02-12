@@ -357,6 +357,7 @@ function oncancel(){
                                                             onChange={(e) => setJob(e.target.value)}
                                                             inputProps={{ pattern: "^[0-9.]+$" }}
                                                             disabled
+                                                            autoComplete='off'
                                                             />
                                             
                                                 </Grid>
@@ -375,6 +376,7 @@ function oncancel(){
                                                             onChange={(e) => setDepartment(e.target.value)}
                                                             inputProps={{ pattern: "^[0-9.]+$" }}
                                                             disabled
+                                                            autoComplete='off'
                                                             />
                                                 </Grid>
 
@@ -392,6 +394,7 @@ function oncancel(){
                                                             onChange={(e) => setHiringDate(e.target.value)}
                                                             inputProps={{ pattern: "^[0-9.]+$" }}
                                                             disabled
+                                                            autoComplete='off'
                                                             />
                                             
                                                 </Grid>
@@ -613,6 +616,7 @@ function oncancel(){
                                                 onChange={(e) => setCurrentBalance(e.target.value)}
                                                 inputProps={{ pattern: "^[0-9.]+$" }}
                                                 disabled
+                                                autoComplete='off'
                                             />
                                         </Grid>
 
@@ -630,6 +634,7 @@ function oncancel(){
                                             onChange={(e) => setBalanceToReplace(e.target.value)}
                                             inputProps={{ pattern: "^[0-9.]+$" }}
                                               required
+                                              autoComplete='off'
                                             />
                                         </Grid>
                                     </Grid>
@@ -670,6 +675,7 @@ function oncancel(){
                                                 value={caluVal}
                                                 inputProps={{ pattern: "^[0-9.]+$" }}
                                                 disabled
+                                                autoComplete='off'
                                                 />
                                             </Grid>
                                         </Grid>

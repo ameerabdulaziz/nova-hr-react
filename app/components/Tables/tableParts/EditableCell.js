@@ -57,6 +57,7 @@ function EditableCell(props) {
               shrink: true,
             }}
             margin="none"
+            autoComplete='off'
             disabled={!edited} />
         </TableCell>
       );

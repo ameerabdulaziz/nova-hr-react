@@ -163,6 +163,7 @@ function CreateAndEditOrg(props) {
                   variant="outlined"
                   value={arName}
                   onChange={(e) => setArName(e.target.value)}
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={4}>
@@ -177,6 +178,7 @@ function CreateAndEditOrg(props) {
                   variant="outlined"
                   value={enName}
                   onChange={(e) => setEnName(e.target.value)}
+                  autoComplete='off'
                 />
               </Grid>
             </Grid>
@@ -273,6 +275,7 @@ function CreateAndEditOrg(props) {
                     setManPower(e.target.value);
                     errorMesFun(e, "manPower");
                   }}
+                  autoComplete='off'
                 />
                 {manPower.length > 0 && !errorMesManPower && (
                   <p className={style.errorMes}>
@@ -297,6 +300,7 @@ function CreateAndEditOrg(props) {
                     errorMesFun(e, "worknature");
                   }}
                   inputProps={{ pattern: "^[0-9]+$" }}
+                  autoComplete='off'
                 />
                 {worknatureAllowance?.length > 0 && !errorMesWorknature && (
                   <p className={style.errorMes}>
@@ -317,6 +321,7 @@ function CreateAndEditOrg(props) {
                 variant="outlined"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
+                autoComplete='off'
               />
             </Grid>
           </Grid>

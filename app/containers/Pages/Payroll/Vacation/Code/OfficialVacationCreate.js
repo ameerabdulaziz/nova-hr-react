@@ -208,6 +208,7 @@ useEffect(() => {
                       variant="outlined"
                       value={vacationDesAR}
                       onChange={(e) => setVacationDesAR(e.target.value)}
+                      autoComplete='off'
                   />
               
                 </Grid>
@@ -223,6 +224,7 @@ useEffect(() => {
                       variant="outlined"
                       value={vacationDesEN}
                       onChange={(e) => setVacationDesEN(e.target.value)}
+                      autoComplete='off'
                   />
                 </Grid>
 

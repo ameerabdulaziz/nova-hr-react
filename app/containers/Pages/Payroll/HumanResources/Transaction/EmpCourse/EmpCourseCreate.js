@@ -363,6 +363,7 @@ function EmpCourseCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 required
+                autoComplete='off'
               />
             </Grid>
 
@@ -375,6 +376,7 @@ function EmpCourseCreate(props) {
                 label={intl.formatMessage(messages.note)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}></Grid>

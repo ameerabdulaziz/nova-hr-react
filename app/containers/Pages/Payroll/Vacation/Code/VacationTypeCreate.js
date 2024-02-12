@@ -308,6 +308,7 @@ useEffect(() => {
                           variant="outlined"
                           value={vacationName}
                           onChange={(e) => setVacationName(e.target.value)}
+                          autoComplete='off'
                       />
                     </Grid>
 
@@ -322,6 +323,7 @@ useEffect(() => {
                           variant="outlined"
                           value={EnName}
                           onChange={(e) => setEnName(e.target.value)}
+                          autoComplete='off'
                       />
                     </Grid>
 
@@ -337,6 +339,7 @@ useEffect(() => {
                           variant="outlined"
                           value={Shortcut}
                           onChange={(e) => setShortcut(e.target.value)}
+                          autoComplete='off'
                       />
                     </Grid>
 
@@ -490,6 +493,7 @@ useEffect(() => {
                               value={dayValue}
                               onChange={(e) => setDayValue(e.target.value)}
                               disabled={SalaryDeduction ? false: true}
+                              autoComplete='off'
                             />
                           </Grid>
 
@@ -547,6 +551,7 @@ useEffect(() => {
                         type='number'
                         value={reqBeforeShiftInMinute}
                         onChange={(e) => setReqBeforeShiftInMinute(e.target.value)}
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -604,6 +609,7 @@ useEffect(() => {
                         type='number'
                         value={replacementVacOvertimeMinNo}
                         onChange={(e) => setReplacementVacOvertimeMinNo(e.target.value)}
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -649,6 +655,7 @@ useEffect(() => {
                           disabled={!AnnualVacationDeduction}
                           value={Maximum}
                           onChange={(e) => setMaximum(e.target.value)}
+                          autoComplete='off'
                         />
                         </Grid>
 

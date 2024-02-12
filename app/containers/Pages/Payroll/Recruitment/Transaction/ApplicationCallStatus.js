@@ -293,6 +293,7 @@ function ApplicationCallStatus(props) {
                 type='datetime-local'
                 onChange={(evt) => onPopupInputChange(evt)}
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -306,6 +307,7 @@ function ApplicationCallStatus(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
           </Grid>

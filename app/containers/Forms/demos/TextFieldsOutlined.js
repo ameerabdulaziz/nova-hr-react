@@ -64,6 +64,7 @@ function TextFieldsOutlined() {
         onChange={handleChange('name')}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-uncontrolled"
@@ -72,6 +73,7 @@ function TextFieldsOutlined() {
         className={classes.textField}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         required
@@ -81,6 +83,7 @@ function TextFieldsOutlined() {
         className={classes.textField}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         error
@@ -90,6 +93,7 @@ function TextFieldsOutlined() {
         className={classes.textField}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         disabled
@@ -99,6 +103,7 @@ function TextFieldsOutlined() {
         className={classes.textField}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-email-input"
@@ -106,18 +111,20 @@ function TextFieldsOutlined() {
         className={classes.textField}
         type="email"
         name="email"
-        autoComplete="email"
+        // autoComplete="email"
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-password-input"
         label="Password"
         className={classes.textField}
         type="password"
-        autoComplete="current-password"
+        // autoComplete="current-password"
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-read-only-input"
@@ -129,6 +136,7 @@ function TextFieldsOutlined() {
           readOnly: true,
         }}
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-multiline-flexible"
@@ -141,6 +149,7 @@ function TextFieldsOutlined() {
         margin="normal"
         helperText="hello"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-multiline-static"
@@ -151,6 +160,7 @@ function TextFieldsOutlined() {
         className={classes.textField}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-helperText"
@@ -160,6 +170,7 @@ function TextFieldsOutlined() {
         helperText="Some important text"
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-with-placeholder"
@@ -168,6 +179,7 @@ function TextFieldsOutlined() {
         className={classes.textField}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-textarea"
@@ -177,6 +189,7 @@ function TextFieldsOutlined() {
         className={classes.textField}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-number"
@@ -190,6 +203,7 @@ function TextFieldsOutlined() {
         }}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-search"
@@ -198,6 +212,7 @@ function TextFieldsOutlined() {
         className={classes.textField}
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
       <TextField
         id="outlined-select-currency"
@@ -214,6 +229,7 @@ function TextFieldsOutlined() {
         helperText="Please select your currency"
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       >
         {currencies.map(option => (
           <MenuItem key={option.value} value={option.value}>
@@ -237,6 +253,7 @@ function TextFieldsOutlined() {
         helperText="Please select your currency"
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       >
         {currencies.map(option => (
           <option key={option.value} value={option.value}>
@@ -256,6 +273,7 @@ function TextFieldsOutlined() {
         InputLabelProps={{
           shrink: true,
         }}
+        autoComplete='off'
       />
       <TextField
         id="outlined-bare"
@@ -263,6 +281,7 @@ function TextFieldsOutlined() {
         defaultValue="Bare"
         margin="normal"
         variant="outlined"
+        autoComplete='off'
       />
     </form>
   );

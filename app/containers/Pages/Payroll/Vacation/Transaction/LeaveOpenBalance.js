@@ -269,6 +269,7 @@ useEffect(() => {
                             onChange={(e) => setDay(e.target.value)}
                             inputProps={{ pattern: "^[0-9.]+$" }}
                             disabled
+                            autoComplete='off'
                           />
                         </Grid>
 
@@ -286,6 +287,7 @@ useEffect(() => {
                               onChange={(e) => setOpenBalance(e.target.value)}
                               inputProps={{ pattern: "^[0-9.]+$" }}
                               required
+                              autoComplete='off'
                             />
                         </Grid>
 
@@ -303,6 +305,7 @@ useEffect(() => {
                               onChange={(e) => setBalance(e.target.value)}
                               inputProps={{ pattern: "^[0-9.]+$" }}
                               disabled
+                              autoComplete='off'
                             />
                         </Grid>
 
@@ -319,6 +322,7 @@ useEffect(() => {
                               value={PostedBalance}
                               onChange={(e) => setPostedBalance(e.target.value)}
                               inputProps={{ pattern: "^[0-9.]+$" }}
+                              autoComplete='off'
                             />
                         </Grid>
                       </Grid>

@@ -111,6 +111,7 @@ function HrLetter(props) {
                     directedTo: e.target.value,
                   }))
                 }
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -127,6 +128,7 @@ function HrLetter(props) {
                     hrLetterLang: e.target.value,
                   }))
                 }
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={12}>
@@ -145,6 +147,7 @@ function HrLetter(props) {
                     questionDetails: e.target.value,
                   }))
                 }
+                autoComplete='off'
               />
             </Grid>
 

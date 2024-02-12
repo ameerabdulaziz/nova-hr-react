@@ -103,6 +103,7 @@ function ProductPage(props) {
                   margin="none"
                   value={qty}
                   className={classes.quantity}
+                  autoComplete='off'
                   onChange={handleQtyChange} />
                 <Button variant="contained" color="secondary">
                   <AddShoppingCart />

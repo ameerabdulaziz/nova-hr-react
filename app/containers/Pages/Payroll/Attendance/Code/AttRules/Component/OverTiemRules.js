@@ -130,6 +130,7 @@ function OverTiemRules(props) {
                           label={intl.formatMessage(messages.usualOverTimeH)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={3} xs={12}>
@@ -141,6 +142,7 @@ function OverTiemRules(props) {
                           label={intl.formatMessage(messages.usualOverTimeHNight)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -185,6 +187,7 @@ function OverTiemRules(props) {
                           label={intl.formatMessage(messages.shiftVacOverTimeH)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -229,6 +232,7 @@ function OverTiemRules(props) {
                           label={intl.formatMessage(messages.vacOverTimeH)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -273,6 +277,7 @@ function OverTiemRules(props) {
                           label={intl.formatMessage(messages.worKNighDayVal)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -285,6 +290,7 @@ function OverTiemRules(props) {
                           label={intl.formatMessage(messages.overtimestartFromMin)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>

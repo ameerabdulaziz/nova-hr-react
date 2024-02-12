@@ -150,6 +150,7 @@ function StopInsuranceCreate(props) {
                   fullWidth
                   variant='outlined'
                   disabled
+                  autoComplete='off'
                 />
               )}
             </Grid>
@@ -190,6 +191,7 @@ function StopInsuranceCreate(props) {
                     variant='outlined'
                     multiline
                     rows={1}
+                    autoComplete='off'
                   />
                 </Grid>
               </Grid>
@@ -208,6 +210,7 @@ function StopInsuranceCreate(props) {
                     multiline
                     rows={1}
                     variant='outlined'
+                    autoComplete='off'
                   />
                 </Grid>
               </Grid>
@@ -223,6 +226,7 @@ function StopInsuranceCreate(props) {
                     label={intl.formatMessage(messages.c6IncomingNumber)}
                     fullWidth
                     variant='outlined'
+                    autoComplete='off'
                   />
                 </Grid>
 

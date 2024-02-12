@@ -171,7 +171,7 @@ function NewIdea(props) {
                             label={intl.formatMessage(Payrollmessages.title)}
                             className={classes.field}
                             variant="outlined"
-                            
+                            autoComplete='off'
                         />
                     </Grid>
                     <Grid item xs={12}  md={12}>                
@@ -188,7 +188,7 @@ function NewIdea(props) {
                             label={intl.formatMessage(Payrollmessages.details)}
                             className={classes.field}
                             variant="outlined"
-                            
+                            autoComplete='off'
                         />
                     </Grid>
                     

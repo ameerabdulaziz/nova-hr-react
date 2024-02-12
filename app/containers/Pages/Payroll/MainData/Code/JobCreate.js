@@ -258,6 +258,7 @@ function oncancel(){
                           variant="outlined"
                           value={arName}
                           onChange={(e) => setArName(e.target.value)}
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -273,6 +274,7 @@ function oncancel(){
                           variant="outlined"
                           value={enName}
                           onChange={(e) => setEnName(e.target.value)}
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -456,6 +458,7 @@ function oncancel(){
                           variant="outlined"
                           value={jobCode}
                           onChange={(e) => setJobCode(e.target.value)}
+                          autoComplete='off'
                         />
                     </Grid>
 
@@ -471,6 +474,7 @@ function oncancel(){
                         value={medicalInsuranceStartDay}
                         type='number'
                         onChange={(e) => setMedicalInsuranceStartDay(e.target.value)}
+                        autoComplete='off'
                       />
                     </Grid>
 
