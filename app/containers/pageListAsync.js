@@ -2507,3 +2507,10 @@ export const AssessmentReport = loadable(
     fallback: <Loading />,
   }
 );
+
+export const PeerAppraisalSetting = loadable(
+  () => import('./Pages/Payroll/Assessment/code/PeerAppraisalSetting'),
+  {
+    fallback: <Loading />,
+  }
+);

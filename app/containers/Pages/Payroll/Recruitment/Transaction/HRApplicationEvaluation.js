@@ -535,6 +535,7 @@ function HRApplicationEvaluation(props) {
                   variant='outlined'
                   multiline
                   rows={1}
+                  autoComplete='off'
                 />
               </Grid>
             )}
@@ -700,6 +701,7 @@ function HRApplicationEvaluation(props) {
                     label={intl.formatMessage(messages.applicantName)}
                     fullWidth
                     variant='outlined'
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -711,6 +713,7 @@ function HRApplicationEvaluation(props) {
                     label={intl.formatMessage(messages.idNumber)}
                     fullWidth
                     variant='outlined'
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -880,6 +883,7 @@ function HRApplicationEvaluation(props) {
                     label={intl.formatMessage(messages.fromAge)}
                     fullWidth
                     variant='outlined'
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -891,6 +895,7 @@ function HRApplicationEvaluation(props) {
                     label={intl.formatMessage(messages.toAge)}
                     fullWidth
                     variant='outlined'
+                    autoComplete='off'
                   />
                 </Grid>
 

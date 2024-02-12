@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { ServerURL } from "./ServerConfig";
+import ErrorMessages from '../../Payroll/api/ApiMessages';
 
 const axiosInstance = axios.create({
   baseURL: ServerURL,
@@ -46,7 +47,13 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 400) {
       if (error.response.data.title) toast.error(error.response.data.title);
       else if (error.response.data.error) toast.error(error.response.data.error);
-      else if (error.response.data) toast.error(error.response.data);
+      else if (error.response.data) 
+      {
+        if(!Object.keys(ErrorMessages).includes(error.response.data))
+        {
+          toast.error(error.response.data);
+        }
+      }
       else toast.error("Internal Server Error");
 
       return Promise.reject(error);

@@ -184,6 +184,7 @@ function EmployeeContactInfo(props) {
                     required
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -198,6 +199,7 @@ function EmployeeContactInfo(props) {
                     required
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -226,6 +228,7 @@ function EmployeeContactInfo(props) {
                     required
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -241,8 +244,9 @@ function EmployeeContactInfo(props) {
                     required
                     // validate={[required, email]}
                     className={classes.field}
-                    autoComplete="email"
+                    // autoComplete="email"
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -256,6 +260,7 @@ function EmployeeContactInfo(props) {
                     onChange={(e) => setworkEmail(e.target.value)}
                     fullWidth
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 

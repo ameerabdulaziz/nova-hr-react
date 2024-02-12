@@ -254,6 +254,7 @@ function JobAdvertisementCreate(props) {
                 label={intl.formatMessage(messages.jobCode)}
                 className={classes.field}
                 variant='outlined'
+                autoComplete='off'
               />
             </Grid>
 
@@ -280,6 +281,7 @@ function JobAdvertisementCreate(props) {
                 className={classes.field}
                 variant='outlined'
                 required
+                autoComplete='off'
               />
             </Grid>
 
@@ -316,6 +318,7 @@ function JobAdvertisementCreate(props) {
                 required
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 

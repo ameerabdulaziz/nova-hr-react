@@ -606,4 +606,8 @@ employeeId: {
     id: `${scope}.deleteSelectedRows`,
     defaultMessage: 'deleteSelectedRows',
   },
+  view: {
+    id: `${scope}.view`,
+    defaultMessage: 'View',
+  },
 });

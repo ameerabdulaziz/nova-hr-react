@@ -237,6 +237,7 @@ function HiringRequestCreate(props) {
                 required
                 onChange={onInputChange}
                 className={classes.field}
+                autoComplete='off'
               />
             </Grid>
 
@@ -356,6 +357,7 @@ function HiringRequestCreate(props) {
                 required
                 onChange={onNumericInputChange}
                 className={classes.field}
+                autoComplete='off'
               />
             </Grid>
 
@@ -367,6 +369,7 @@ function HiringRequestCreate(props) {
                 required
                 onChange={onNumericInputChange}
                 className={classes.field}
+                autoComplete='off'
               />
             </Grid>
 
@@ -417,6 +420,7 @@ function HiringRequestCreate(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 
@@ -431,6 +435,7 @@ function HiringRequestCreate(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 
@@ -445,6 +450,7 @@ function HiringRequestCreate(props) {
                 required
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 
