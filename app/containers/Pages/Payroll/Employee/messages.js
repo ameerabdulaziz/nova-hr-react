@@ -747,4 +747,8 @@ export default defineMessages({
     id: `${scope}.usernameAlreadyExist`,
     defaultMessage: 'usernameAlreadyExist',
   },
+  employeeNameShouldNotBeOneWord: {
+    id: `${scope}.employeeNameShouldNotBeOneWord`,
+    defaultMessage: 'employeeNameShouldNotBeOneWord',
+  },
 });

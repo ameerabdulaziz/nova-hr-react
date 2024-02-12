@@ -311,8 +311,13 @@ function Personal(props) {
       return;
     }
 
-    if(isUsernameExist) {
+    if (isUsernameExist) {
       toast.error(intl.formatMessage(messages.usernameAlreadyExist));
+      return;
+    }
+
+    if (arName.split(' ').length === 1 || enName.split(' ').length === 1) {
+      toast.error(intl.formatMessage(messages.employeeNameShouldNotBeOneWord));
       return;
     }
 
@@ -502,6 +507,7 @@ function Personal(props) {
             setCheckEmployeeCode(false);
             setCheckEmployeeIdentityNumber(false);
             setCheckEmployeeWorkEmail(false);
+            setCheckEmployeeUsername(false);
 
             // setid(dataApi.id);
             setUserName(dataApi.userName ?? '');
@@ -601,6 +607,10 @@ function Personal(props) {
     fetchData();
   }, []);
 
+  const sanitizeEmployeeNameInput = (value) => {
+    return value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, '');
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
 
@@ -622,7 +632,7 @@ function Personal(props) {
                     required
                     name="arname"
                     value={arName}
-                    onChange={(e) => setarName(e.target.value)}
+                    onChange={(e) => setarName(sanitizeEmployeeNameInput(e.target.value))}
                     label={intl.formatMessage(messages.arname)}
                     className={classes.field}
                     variant="outlined"
@@ -635,7 +645,7 @@ function Personal(props) {
                     name="enname"
                     required
                     value={enName}
-                    onChange={(e) => setenName(e.target.value)}
+                    onChange={(e) => setenName(sanitizeEmployeeNameInput(e.target.value))}
                     label={intl.formatMessage(messages.enname)}
                     className={classes.field}
                     variant="outlined"
@@ -980,6 +990,7 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="GenderId"
+                    required
                     label={intl.formatMessage(messages.gender)}
                   />
                 )}
@@ -1070,7 +1081,7 @@ function Personal(props) {
                   }}
                   className={classes.field}
                   renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
+                    <TextField {...params} variant="outlined" required />
                   )}
                 />
               </LocalizationProvider>
@@ -1131,6 +1142,7 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="birthGovId"
+                    required
                     label={intl.formatMessage(messages.gov)}
                   />
                 )}
