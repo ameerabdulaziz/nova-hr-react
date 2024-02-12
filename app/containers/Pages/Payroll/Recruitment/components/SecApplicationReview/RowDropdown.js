@@ -15,7 +15,7 @@ import messages from '../../messages';
 
 function RowDropdown(props) {
   const {
-    tableData, tableMeta, intl, row
+    tableMeta, intl, row
   } = props;
 
   const history = useHistory();
@@ -29,18 +29,16 @@ function RowDropdown(props) {
 
   const onPreviewCVBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
-    const id = tableData[rowIndex]?.id;
 
     history.push('/app/Pages/Recruitment/JobApplicationPreview', {
-      id,
+      id: row.id,
     });
   };
 
   const onUpdateStatusBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
-    const tableRow = tableData[rowIndex];
 
-    props.onUpdateStatusBtnClick(tableRow);
+    props.onUpdateStatusBtnClick(row);
   };
 
   return (
@@ -132,7 +130,6 @@ RowDropdown.propTypes = {
   intl: PropTypes.object.isRequired,
   tableMeta: PropTypes.object.isRequired,
   row: PropTypes.object.isRequired,
-  tableData: PropTypes.array.isRequired,
   onUpdateStatusBtnClick: PropTypes.func.isRequired,
 };
 

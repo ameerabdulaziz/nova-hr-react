@@ -238,11 +238,14 @@ function HRApplicationEvaluation(props) {
         customBodyRender: (_, tableMeta) => {
           const row = tableData[tableMeta.rowIndex];
 
+          if (!row) {
+            return '';
+          }
+
           return (
             <RowDropdown
               row={row}
               tableMeta={tableMeta}
-              tableData={tableData}
               onUpdateStatusBtnClick={onUpdateStatusBtnClick}
               onSendRejectMailBtnClick={onSendRejectMailBtnClick}
             />

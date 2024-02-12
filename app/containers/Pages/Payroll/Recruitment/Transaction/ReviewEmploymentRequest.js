@@ -98,13 +98,21 @@ function ReviewEmploymentRequest(props) {
       options: {
         filter: false,
         print: false,
-        customBodyRender: (_, tableMeta) => (
-          <RowDropdown
-            tableMeta={tableMeta}
-            tableData={tableData}
-            onSetHiringDateBtnClick={onSetHiringDateBtnClick}
-          />
-        ),
+        customBodyRender: (_, tableMeta) => {
+          const row = tableData[tableMeta.rowIndex];
+
+          if (!row) {
+            return '';
+          }
+
+          return (
+            <RowDropdown
+              row={row}
+              tableMeta={tableMeta}
+              onSetHiringDateBtnClick={onSetHiringDateBtnClick}
+            />
+          );
+        },
       },
     },
   ];
