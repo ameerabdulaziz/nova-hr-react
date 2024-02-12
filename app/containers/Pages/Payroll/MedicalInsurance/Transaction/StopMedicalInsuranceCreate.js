@@ -143,6 +143,7 @@ function StopMedicalInsuranceCreate(props) {
                       fullWidth
                       variant='outlined'
                       disabled
+                      autoComplete='off'
                     />
                   )}
                 </Grid>
@@ -171,6 +172,7 @@ function StopMedicalInsuranceCreate(props) {
                     required
                     multiline
                     rows={1}
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -185,6 +187,7 @@ function StopMedicalInsuranceCreate(props) {
                     required
                     multiline
                     rows={1}
+                    autoComplete='off'
                   />
                 </Grid>
 

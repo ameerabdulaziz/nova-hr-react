@@ -764,6 +764,7 @@
   "boilerplate.components.Chat.ChatRoom.send": "إرسال",
   "boilerplate.components.Search.Product.placeholder": "بحث المنتج",
   "boilerplate.components.Search.Product.results": "النتائج",
+  "boilerplate.components.Search.Product.search": "البحث",
   "boilerplate.components.Product.Cart.total": "مجموع",
   "boilerplate.components.Product.Cart.unique_item": "العناصر الفريدة في السلة",
   "boilerplate.components.Product.Cart.quantity": "الكمية",
@@ -819,6 +820,8 @@
   "boilerplate.components.tables.codes.requirements": "المتطلبات",
   "boilerplate.components.tables.codes.name": "الاسم بالعربية",
   "boilerplate.components.tables.codes.enname": "الاسم بالانجليزية",
+  "boilerplate.components.tables.codes.arName": "الاسم بالعربية",
+  "boilerplate.components.tables.codes.enName": "الاسم بالانجليزية",
   "boilerplate.components.tables.codes.govname": "المحافطة",
   "boilerplate.components.tables.codes.insuranceOffices": "مكاتب التأمين",
   "boilerplate.components.tables.codes.fromAge": "العمر من",
@@ -880,6 +883,9 @@
   "boilerplate.components.tables.codes.familyMemberValue": "قيمة أفراد العائلة",
   "boilerplate.components.tables.codes.price": "السعر",
   "boilerplate.components.tables.codes.templateName": "اسم القالب",
+  "boilerplate.components.tables.codes.validLength": "عدد الارقام",
+  "boilerplate.components.tables.codes.generalCode": "الكود العام",
+  "boilerplate.components.tables.codes.expirePeriod": "فترة انتهاء الصلاحية",
   "boilerplate.components.tables.codes.transportaion": "انتقالات",
 
   "boilerplate.components.tables.codes.fromdate": "من تاريخ",
@@ -1023,6 +1029,8 @@
   "boilerplate.containers.Payroll.rowSelected": "الصفوف المحددة",
   "boilerplate.containers.Payroll.deleteSelectedRows": "حذف الصفوف المحددة",
   "boilerplate.containers.Payroll.confirmationMess": "رسالة تأكيد",
+
+  "boilerplate.containers.Payroll.view": "عرض",
 
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
@@ -2273,6 +2281,7 @@
   "boilerplate.containers.Payroll.Employee.email": "الابميل",
   "boilerplate.containers.Payroll.Employee.relativePhoneNumber": "رقم الهاتف للقرابة",
   "boilerplate.containers.Payroll.Employee.mobile": "الهاتف",
+  "boilerplate.containers.Payroll.Employee.employeeNameShouldNotBeOneWord": "يجب أن يكون اسم الموظف أكثر من كلمة واحدة",
   "boilerplate.containers.Payroll.Employee.usernameAlreadyExist": "اسم المستخدم موجود بالفعل",
   "boilerplate.containers.Payroll.Employee.userName": "اسم المستخدم",
   "boilerplate.containers.Payroll.Employee.telephone": "رقم التلفون",

@@ -196,6 +196,7 @@ function CompetencyPopup(props) {
                           disabled={!visibleRows[index].isSelect}
                           variant='outlined'
                           size='small'
+                          autoComplete='off'
                         />
                       </TableCell>
                     </TableRow>

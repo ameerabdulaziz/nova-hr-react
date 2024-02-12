@@ -366,6 +366,7 @@ function DataFromAllDevices(props) {
                       label={intl.formatMessage(messages.ip)}
                       className={classes.field}
                       variant="outlined"
+                      autoComplete='off'
                     />
                   </Grid>
                   <Grid item xs={12} md={2}>
@@ -377,6 +378,7 @@ function DataFromAllDevices(props) {
                       label={intl.formatMessage(messages.port)}
                       className={classes.field}
                       variant="outlined"
+                      autoComplete='off'
                     />
                   </Grid>
                   <Grid item xs={12} md={5}>
@@ -484,6 +486,7 @@ function DataFromAllDevices(props) {
                       label={intl.formatMessage(messages.devicePass)}
                       className={classes.field}
                       variant="outlined"
+                      autoComplete='off'
                     />
                   </Grid>
                 </Grid>

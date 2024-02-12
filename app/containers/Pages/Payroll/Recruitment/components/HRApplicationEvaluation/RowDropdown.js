@@ -16,7 +16,7 @@ import messages from '../../messages';
 
 function RowDropdown(props) {
   const {
-    tableData, tableMeta, intl, row
+    tableMeta, intl, row
   } = props;
 
   const history = useHistory();
@@ -30,23 +30,20 @@ function RowDropdown(props) {
 
   const onPreviewCVBtnClick = (rowIndex) => {
     closeDropdown(rowIndex);
-    const id = tableData[rowIndex]?.id;
 
     history.push('/app/Pages/Recruitment/JobApplicationPreview', {
-      id,
+      id: row.id,
     });
   };
 
   const onUpdateStatusBtnClick = (rowIndex) => {
     closeDropdown(rowIndex);
-    const id = tableData[rowIndex]?.id;
-    props.onUpdateStatusBtnClick([id]);
+    props.onUpdateStatusBtnClick([row.id]);
   };
 
   const onSendRejectMailBtnClick = (rowIndex) => {
     closeDropdown(rowIndex);
-    const id = tableData[rowIndex]?.id;
-    props.onSendRejectMailBtnClick(id);
+    props.onSendRejectMailBtnClick(row.id);
   };
 
   return (
@@ -162,7 +159,6 @@ RowDropdown.propTypes = {
   intl: PropTypes.object.isRequired,
   tableMeta: PropTypes.object.isRequired,
   row: PropTypes.object.isRequired,
-  tableData: PropTypes.array.isRequired,
   onUpdateStatusBtnClick: PropTypes.func.isRequired,
   onSendRejectMailBtnClick: PropTypes.func.isRequired,
 };

@@ -125,6 +125,7 @@ function DevelopmentPlanPopup(props) {
               label={intl.formatMessage(messages.areaToImprove)}
               fullWidth
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 
@@ -137,6 +138,7 @@ function DevelopmentPlanPopup(props) {
               label={intl.formatMessage(messages.targetOfPerformance)}
               fullWidth
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 
@@ -149,6 +151,7 @@ function DevelopmentPlanPopup(props) {
               label={intl.formatMessage(messages.resources)}
               fullWidth
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 
@@ -204,6 +207,7 @@ function DevelopmentPlanPopup(props) {
                 label={intl.formatMessage(messages.otherPleaseSpecify)}
                 fullWidth
                 variant='outlined'
+                autoComplete='off'
               />
             </Grid>
           )}

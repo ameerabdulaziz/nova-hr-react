@@ -371,4 +371,16 @@ export default defineMessages({
     id: `${scope}.codes.DepreciationPeriod`,
     defaultMessage: 'Depreciation Period',
   },
+  expirePeriod: {
+    id: `${scope}.codes.expirePeriod`,
+    defaultMessage: 'expirePeriod',
+  },
+  generalCode: {
+    id: `${scope}.codes.generalCode`,
+    defaultMessage: 'generalCode',
+  },
+  validLength: {
+    id: `${scope}.codes.validLength`,
+    defaultMessage: 'validLength',
+  },
 });

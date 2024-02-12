@@ -347,6 +347,7 @@ function LoanPostpone(props) {
                         label={intl.formatMessage(Payrollmessages.year)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                     <Grid item xs={12} md={3}>
@@ -357,6 +358,7 @@ function LoanPostpone(props) {
                         label={intl.formatMessage(Payrollmessages.month)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>

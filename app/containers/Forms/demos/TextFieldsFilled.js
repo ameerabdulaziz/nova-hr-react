@@ -64,6 +64,7 @@ function TextFieldsFilled() {
         onChange={handleChange('name')}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-uncontrolled"
@@ -72,6 +73,7 @@ function TextFieldsFilled() {
         className={classes.textField}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         required
@@ -81,6 +83,7 @@ function TextFieldsFilled() {
         className={classes.textField}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         error
@@ -90,6 +93,7 @@ function TextFieldsFilled() {
         className={classes.textField}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         disabled
@@ -99,6 +103,7 @@ function TextFieldsFilled() {
         className={classes.textField}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-email-input"
@@ -106,18 +111,20 @@ function TextFieldsFilled() {
         className={classes.textField}
         type="email"
         name="email"
-        autoComplete="email"
+        // autoComplete="email"
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-password-input"
         label="Password"
         className={classes.textField}
         type="password"
-        autoComplete="current-password"
+        // autoComplete="current-password"
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-read-only-input"
@@ -129,6 +136,7 @@ function TextFieldsFilled() {
           readOnly: true,
         }}
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-multiline-flexible"
@@ -141,6 +149,7 @@ function TextFieldsFilled() {
         margin="normal"
         helperText="hello"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-multiline-static"
@@ -151,6 +160,7 @@ function TextFieldsFilled() {
         className={classes.textField}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-helperText"
@@ -160,6 +170,7 @@ function TextFieldsFilled() {
         helperText="Some important text"
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-with-placeholder"
@@ -168,6 +179,7 @@ function TextFieldsFilled() {
         className={classes.textField}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-textarea"
@@ -177,6 +189,7 @@ function TextFieldsFilled() {
         className={classes.textField}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-number"
@@ -190,6 +203,7 @@ function TextFieldsFilled() {
         }}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-search"
@@ -198,6 +212,7 @@ function TextFieldsFilled() {
         className={classes.textField}
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
       <TextField
         id="filled-select-currency"
@@ -214,6 +229,7 @@ function TextFieldsFilled() {
         helperText="Please select your currency"
         margin="normal"
         variant="filled"
+        autoComplete='off'
       >
         {currencies.map(option => (
           <MenuItem key={option.value} value={option.value}>
@@ -237,6 +253,7 @@ function TextFieldsFilled() {
         helperText="Please select your currency"
         margin="normal"
         variant="filled"
+        autoComplete='off'
       >
         {currencies.map(option => (
           <option key={option.value} value={option.value}>
@@ -256,6 +273,7 @@ function TextFieldsFilled() {
         InputLabelProps={{
           shrink: true,
         }}
+        autoComplete='off'
       />
       <TextField
         id="filled-bare"
@@ -263,6 +281,7 @@ function TextFieldsFilled() {
         defaultValue="Bare"
         margin="normal"
         variant="filled"
+        autoComplete='off'
       />
     </form>
   );

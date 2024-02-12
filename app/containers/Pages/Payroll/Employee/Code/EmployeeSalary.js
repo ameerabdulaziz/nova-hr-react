@@ -315,6 +315,7 @@ function EmployeeSalary(props) {
                     className={classes.field}
                     margin="normal"
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
               </Grid>

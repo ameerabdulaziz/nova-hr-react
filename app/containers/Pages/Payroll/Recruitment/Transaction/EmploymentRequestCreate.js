@@ -509,6 +509,7 @@ function EmploymentRequestCreate(props) {
                       required
                       onChange={onNumericInputChange}
                       className={classes.field}
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -520,6 +521,7 @@ function EmploymentRequestCreate(props) {
                       required
                       onChange={onNumericInputChange}
                       className={classes.field}
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -590,6 +592,7 @@ function EmploymentRequestCreate(props) {
                         required
                         onChange={onInputChange}
                         fullWidth
+                        autoComplete='off'
                       />
                     </Grid>
                   )}
@@ -602,6 +605,7 @@ function EmploymentRequestCreate(props) {
                       required
                       onChange={onNumericInputChange}
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -615,6 +619,7 @@ function EmploymentRequestCreate(props) {
                       variant='outlined'
                       multiline
                       rows={1}
+                      autoComplete='off'
                     />
                   </Grid>
                 </Grid>
@@ -859,6 +864,7 @@ function EmploymentRequestCreate(props) {
                         name='educationMajor'
                         onChange={onInputChange}
                         fullWidth
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -983,6 +989,7 @@ function EmploymentRequestCreate(props) {
                           disabled={!languages.other}
                           onChange={onInputChange}
                           className={classes.field}
+                          autoComplete='off'
                         />
                       </Grid>
 

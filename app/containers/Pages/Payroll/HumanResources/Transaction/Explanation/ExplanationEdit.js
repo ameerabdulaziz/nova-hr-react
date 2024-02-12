@@ -92,6 +92,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(messages.employeeName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -102,6 +103,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(messages.job)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -112,6 +114,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(messages.job)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -122,6 +125,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(Payrollmessages.type)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -132,6 +136,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(Payrollmessages.title)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={12}>
@@ -144,6 +149,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(Payrollmessages.details)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             {data.questionType == 4 ? (
@@ -155,6 +161,7 @@ function ExplanationEdit(props) {
                   label={intl.formatMessage(Payrollmessages.hrLetterDate)}
                   className={classes.field}
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
             ) : (
@@ -169,6 +176,7 @@ function ExplanationEdit(props) {
                   label={intl.formatMessage(Payrollmessages.directedTo)}
                   className={classes.field}
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
             ) : (
@@ -183,6 +191,7 @@ function ExplanationEdit(props) {
                   label={intl.formatMessage(Payrollmessages.hrLetterLang)}
                   className={classes.field}
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
             ) : (
@@ -204,6 +213,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(messages.response)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
 

@@ -222,6 +222,7 @@ function ShiftEmployeeCreate(props) {
                 label={intl.formatMessage(messages.hours)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
 

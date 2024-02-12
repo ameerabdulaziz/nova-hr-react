@@ -323,6 +323,7 @@ useEffect(() => {
                             value={DaysNumber1}
                             onChange={(e) => setDaysNumber1(e.target.value)}
                             required
+                            autoComplete='off'
                           />
                         </Grid>
 
@@ -340,6 +341,7 @@ useEffect(() => {
                               onChange={(e) => setDayValue1(e.target.value)}
                               inputProps={{ pattern: "^[0-9.]+$" }}
                               required
+                              autoComplete='off'
                             />
                         </Grid>
                       </Grid>
@@ -364,6 +366,7 @@ useEffect(() => {
                             type='number'
                             value={DaysNumber2}
                             onChange={(e) => setDaysNumber2(e.target.value)}
+                            autoComplete='off'
                           />
                         </Grid>
 
@@ -380,6 +383,7 @@ useEffect(() => {
                               value={DayValue2}
                               onChange={(e) => setDayValue2(e.target.value)}
                               inputProps={{ pattern: "^[0-9.]+$" }}
+                              autoComplete='off'
                             />
                         </Grid>
 
@@ -405,6 +409,7 @@ useEffect(() => {
                               type='number'
                               value={DaysNumber3}
                               onChange={(e) => setDaysNumber3(e.target.value)}
+                              autoComplete='off'
                             />
                           </Grid>
 
@@ -421,6 +426,7 @@ useEffect(() => {
                                 value={DayValue3}
                                 onChange={(e) => setDayValue3(e.target.value)}
                                 inputProps={{ pattern: "^[0-9.]+$" }}
+                                autoComplete='off'
                               />
                           </Grid>
 
@@ -446,6 +452,7 @@ useEffect(() => {
                               type='number'
                               value={DaysNumber4}
                               onChange={(e) => setDaysNumber4(e.target.value)}
+                              autoComplete='off'
                             />
                           </Grid>
 
@@ -462,6 +469,7 @@ useEffect(() => {
                                 value={DayValue4}
                                 onChange={(e) => setDayValue4(e.target.value)}
                                 inputProps={{ pattern: "^[0-9.]+$" }}
+                                autoComplete='off'
                               />
                           </Grid>
 

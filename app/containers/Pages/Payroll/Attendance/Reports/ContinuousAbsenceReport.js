@@ -169,6 +169,7 @@ function ContinuousAbsenceReport(props) {
                     DaysCount: evt.target.value,
                   }));
                 }}
+                autoComplete='off'
                 />
             </Grid>
 

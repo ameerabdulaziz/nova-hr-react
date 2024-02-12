@@ -68,6 +68,7 @@ const FormPopup = ({
                     variant="standard"
                     onChange={(e)=>setArNameVal(e.target.value)}
                     required={locale === "ar" ? true : false}
+                    autoComplete='off'
                 />
                 <TextField
                     margin="dense"
@@ -79,6 +80,7 @@ const FormPopup = ({
                     variant="standard"
                     onChange={(e)=>setEnNameVal(e.target.value)}
                     required={locale === "en" ? true : false}
+                    autoComplete='off'
                 />
                 
                 </DialogContent>

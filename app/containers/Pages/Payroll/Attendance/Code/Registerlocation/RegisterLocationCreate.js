@@ -458,6 +458,7 @@ useEffect(() => {
                             variant="outlined"
                             value={ArName}
                             onChange={(e) => setArName(e.target.value)}
+                            autoComplete='off'
                         />
                       </Grid>
 
@@ -472,6 +473,7 @@ useEffect(() => {
                             variant="outlined"
                             value={EnName}
                             onChange={(e) => setEnName(e.target.value)}
+                            autoComplete='off'
                         />
                       </Grid>
 
@@ -487,6 +489,7 @@ useEffect(() => {
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             required
+                            autoComplete='off'
                         />
                       </Grid>
 
@@ -502,6 +505,7 @@ useEffect(() => {
                             value={lat}
                             onChange={(e) => setLat(e.target.value)}
                             required
+                            autoComplete='off'
                         />
                       </Grid>
 
@@ -517,6 +521,7 @@ useEffect(() => {
                             value={lng}
                             onChange={(e) => setLng(e.target.value)}
                             required
+                            autoComplete='off'
                         />
                       </Grid>
 
@@ -532,6 +537,7 @@ useEffect(() => {
                             value={distance ? distance : ""}
                             onChange={(e) => setDistance(e.target.value)}
                             required={polygons.length === 0 ? true : false}
+                            autoComplete='off'
                         />
                       </Grid>
                       

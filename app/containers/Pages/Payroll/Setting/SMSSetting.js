@@ -157,6 +157,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   label={intl.formatMessage(messages.portallink)}
                   required
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={3}>
@@ -169,6 +170,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   required
                   className={classes.field} 
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={3}>
@@ -180,8 +182,9 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   variant="outlined"
                   value={data.userName}
                   onChange={(e) => handleChange(e)}
-                  autoComplete="new-password"
+                  // autoComplete="new-password"
                   fullWidth
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={3}>
@@ -195,7 +198,8 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   className={classes.field}
                   variant="outlined"
                   type="password"
-                  autoComplete="new-password"
+                  // autoComplete="new-password"
+                  autoComplete='off'
                 />
               </Grid>
 

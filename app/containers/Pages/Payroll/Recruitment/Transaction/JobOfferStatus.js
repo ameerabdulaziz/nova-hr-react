@@ -231,6 +231,7 @@ function JobOfferStatus(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
           </Grid>

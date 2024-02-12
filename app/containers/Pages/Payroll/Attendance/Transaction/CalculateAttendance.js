@@ -371,17 +371,26 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.shiftDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (
-          <pre>{format(new Date(value), "yyyy-MM-dd")}</pre>
-        ),
+        customBodyRender: (value,tableMeta) => (
+        
+          <pre style={{
+            ...(tableData[tableMeta.rowIndex].absence && { backgroundColor:'#f00' }),
+            ...(tableData[tableMeta.rowIndex].vac && { backgroundColor:'#fafa02' }),
+            ...(tableData[tableMeta.rowIndex].shiftVacancy && { backgroundColor:'#1bff00' }),
+            ...((tableData[tableMeta.rowIndex].absence 
+              || tableData[tableMeta.rowIndex].vac 
+              || tableData[tableMeta.rowIndex].shiftVacancy) && { 
+                padding: "7px",
+                borderRadius: "10px",
+                margin: "0",
+                boxShadow: "0px 1px 3px 1px #c7c7c7"
+               }),
+          }}>
+            {format(new Date(value), "yyyy-MM-dd")}
+          </pre>),
         setCellProps: (value, rowIndex) => {
           return {
             style: {
-              ...(tableData[rowIndex].absence && { backgroundColor: "#f00" }),
-              ...(tableData[rowIndex].vac && { backgroundColor: "#fafa02" }),
-              ...(tableData[rowIndex].shiftVacancy && {
-                backgroundColor: "#1bff00",
-              }),
               paddingLeft: "0",
               textAlign: "center",
             },

@@ -24,7 +24,9 @@ function AddressForm(props) {
             name="firstName"
             label={intl.formatMessage(messages.first_name)}
             fullWidth
-            autoComplete="fname" />
+            // autoComplete="fname" 
+            autoComplete='off'
+            />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -34,7 +36,9 @@ function AddressForm(props) {
             name="lastName"
             label={intl.formatMessage(messages.last_name)}
             fullWidth
-            autoComplete="lname" />
+            // autoComplete="lname" 
+            autoComplete='off'
+            />
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -44,7 +48,9 @@ function AddressForm(props) {
             name="address1"
             label={intl.formatMessage(messages.address1)}
             fullWidth
-            autoComplete="billing address-line1" />
+            // autoComplete="billing address-line1" 
+            autoComplete='off'
+            />
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -53,7 +59,9 @@ function AddressForm(props) {
             name="addiress2"
             label={intl.formatMessage(messages.address2)}
             fullWidth
-            autoComplete="billing address-line2" />
+            // autoComplete="billing address-line2" 
+            autoComplete='off'
+            />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -63,7 +71,9 @@ function AddressForm(props) {
             name="city"
             label={intl.formatMessage(messages.city)}
             fullWidth
-            autoComplete="billing address-level2" />
+            // autoComplete="billing address-level2" 
+            autoComplete='off'
+            />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -81,7 +91,9 @@ function AddressForm(props) {
             name="zip"
             label={intl.formatMessage(messages.zip)}
             fullWidth
-            autoComplete="billing postal-code" />
+            // autoComplete="billing postal-code" 
+            autoComplete='off'
+            />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -91,7 +103,9 @@ function AddressForm(props) {
             name="country"
             label={intl.formatMessage(messages.country)}
             fullWidth
-            autoComplete="billing country" />
+            // autoComplete="billing country"
+            autoComplete='off'
+             />
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel

@@ -258,6 +258,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={1}>
@@ -269,6 +270,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={2.5}>
@@ -280,6 +282,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={2.5}>
@@ -293,6 +296,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -304,6 +308,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -403,6 +408,7 @@ function LoanReqCreate(props) {
                               nativeTotalValue: e.target.value,
                             }));
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={2}>
@@ -422,6 +428,7 @@ function LoanReqCreate(props) {
                             }));
                             
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={2}>
@@ -442,6 +449,7 @@ function LoanReqCreate(props) {
                             }));
                             
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={2}>
@@ -454,6 +462,7 @@ function LoanReqCreate(props) {
                           variant="outlined"
                           required
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>

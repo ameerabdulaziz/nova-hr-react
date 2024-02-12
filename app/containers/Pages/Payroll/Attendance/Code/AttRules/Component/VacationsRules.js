@@ -140,6 +140,7 @@ function VacationsRules(props) {
                           label={intl.formatMessage(messages.annualBal)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
@@ -245,6 +246,7 @@ function VacationsRules(props) {
                           label={intl.formatMessage(messages.vac_before_SD)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
@@ -256,6 +258,7 @@ function VacationsRules(props) {
                           label={intl.formatMessage(messages.vac_before_OV)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
@@ -267,6 +270,7 @@ function VacationsRules(props) {
                           label={intl.formatMessage(messages.vac_after_SD)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
@@ -278,6 +282,7 @@ function VacationsRules(props) {
                           label={intl.formatMessage(messages.vac_after_OV)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -329,6 +334,7 @@ function VacationsRules(props) {
                                     )}
                                     className={classes.field}
                                     variant="outlined"
+                                    autoComplete='off'
                                   />
                                 </Grid>
 
@@ -343,6 +349,7 @@ function VacationsRules(props) {
                                     )}
                                     className={classes.field}
                                     variant="outlined"
+                                    autoComplete='off'
                                   />
                                 </Grid>
                               </Grid>
@@ -392,6 +399,7 @@ function VacationsRules(props) {
               label={intl.formatMessage(messages.vacPen)}
               className={classes.field}
               variant="outlined"
+              autoComplete='off'
             />
           </Grid>
           <Grid item xs={12} md={12}>

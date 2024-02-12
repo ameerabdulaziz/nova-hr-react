@@ -507,6 +507,7 @@ function EmployeeBank(props) {
                       label={intl.formatMessage(messages.bankAccount)}
                       fullWidth
                       variant='outlined'
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -520,6 +521,7 @@ function EmployeeBank(props) {
                       label={intl.formatMessage(messages.branchNumber)}
                       fullWidth
                       variant='outlined'
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -532,6 +534,7 @@ function EmployeeBank(props) {
                       label={intl.formatMessage(messages.bankEmployeeCode)}
                       fullWidth
                       variant='outlined'
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -544,6 +547,7 @@ function EmployeeBank(props) {
                       label={intl.formatMessage(messages.iban)}
                       fullWidth
                       variant='outlined'
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -556,6 +560,7 @@ function EmployeeBank(props) {
                       label={intl.formatMessage(messages.swiftCode)}
                       fullWidth
                       variant='outlined'
+                      autoComplete='off'
                     />
                   </Grid>
 

@@ -263,6 +263,7 @@ function AsTemplateCreate(props) {
                       label={intl.formatMessage(messages.templateName)}
                       fullWidth
                       variant='outlined'
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -275,6 +276,7 @@ function AsTemplateCreate(props) {
                       label={intl.formatMessage(messages.arTemplateName)}
                       fullWidth
                       variant='outlined'
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -319,6 +321,7 @@ function AsTemplateCreate(props) {
                       required
                       multiline
                       rows={1}
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -333,6 +336,7 @@ function AsTemplateCreate(props) {
                       required
                       multiline
                       rows={1}
+                      autoComplete='off'
                     />
                   </Grid>
 

@@ -92,6 +92,7 @@ function RedditTextField(props) {
     <TextField
       variant="standard"
       InputProps={{ classes, disableUnderline: true }}
+      autoComplete='off'
       {...props} />
   );
 }
@@ -137,12 +138,14 @@ export default function CustomizedInputs() {
           variant="standard"
           className={classes.margin}
           label="ThemeProvider"
+          autoComplete='off'
           id="mui-theme-provider-standard-input" />
         <TextField
           className={classes.margin}
           label="ThemeProvider"
           variant="outlined"
           id="mui-theme-provider-outlined-input"
+          autoComplete='off'
         />
       </ThemeProvider>
       <FormControl variant="standard" className={classes.marginBootstrap}>

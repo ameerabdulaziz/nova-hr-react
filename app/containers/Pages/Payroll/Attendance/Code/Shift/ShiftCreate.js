@@ -232,6 +232,7 @@ function ShiftCreate(props) {
                   label={intl.formatMessage(Payrollmessages.arName)}
                   className={classes.field}
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -243,6 +244,7 @@ function ShiftCreate(props) {
                   label={intl.formatMessage(Payrollmessages.enName)}
                   className={classes.field}
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={4}>
@@ -257,6 +259,7 @@ function ShiftCreate(props) {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={4}>
@@ -271,6 +274,7 @@ function ShiftCreate(props) {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={4}>
@@ -284,6 +288,7 @@ function ShiftCreate(props) {
                   className={classes.field}
                   variant="outlined"
                   disabled
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item xs={12} md={12}>
@@ -304,6 +309,7 @@ function ShiftCreate(props) {
                           label={intl.formatMessage(messages.allowedLate)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -315,6 +321,7 @@ function ShiftCreate(props) {
                           label={intl.formatMessage(messages.allowedEarlyEx)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -326,6 +333,7 @@ function ShiftCreate(props) {
                           label={intl.formatMessage(messages.allowedLateEx)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -337,6 +345,7 @@ function ShiftCreate(props) {
                           label={intl.formatMessage(messages.allowedEarlyenter)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -361,6 +370,7 @@ function ShiftCreate(props) {
                           label={intl.formatMessage(messages.firstM)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={4}>
@@ -372,6 +382,7 @@ function ShiftCreate(props) {
                           label={intl.formatMessage(messages.firstMfactor)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={4}>
@@ -383,6 +394,7 @@ function ShiftCreate(props) {
                           label={intl.formatMessage(messages.restTimeFactor)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -516,6 +528,7 @@ function ShiftCreate(props) {
                           InputLabelProps={{
                             shrink: true,
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -530,6 +543,7 @@ function ShiftCreate(props) {
                           InputLabelProps={{
                             shrink: true,
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>

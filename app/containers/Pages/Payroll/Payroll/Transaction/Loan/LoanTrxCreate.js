@@ -318,6 +318,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={1}>
@@ -329,6 +330,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={2.5}>
@@ -340,6 +342,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={2.5}>
@@ -353,6 +356,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -364,6 +368,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
@@ -375,6 +380,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -475,6 +481,7 @@ debugger ;
                               nativeTotalValue: e.target.value,
                             }));
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -503,6 +510,7 @@ debugger ;
                               e.target.value
                             );
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -530,6 +538,7 @@ debugger ;
                               data.totalvalue
                             );
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -542,6 +551,7 @@ debugger ;
                           variant="outlined"
                           disabled
                           required
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -555,6 +565,7 @@ debugger ;
                             className={classes.field}
                             variant="outlined"
                             disabled
+                            autoComplete='off'
                           />
                         </Grid>
                       ) : (
@@ -572,6 +583,7 @@ debugger ;
                             className={classes.field}
                             variant="outlined"
                             disabled
+                            autoComplete='off'
                           />
                         </Grid>
                       ) : (
@@ -598,6 +610,7 @@ debugger ;
                                 e.target.value
                               );
                             }}
+                            autoComplete='off'
                           />
                         </Grid>
                       ) : (
@@ -624,6 +637,7 @@ debugger ;
                                 data.newTotalvalue
                               );
                             }}
+                            autoComplete='off'
                           />
                         </Grid>
                       ) : (

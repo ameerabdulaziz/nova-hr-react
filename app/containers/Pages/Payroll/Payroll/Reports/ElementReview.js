@@ -259,7 +259,7 @@ function ElementReview(props) {
                         /> 
                     </Grid>
 
-          <Grid item xs={12}  md={6}> 
+          <Grid item xs={12} md={3}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -289,7 +289,7 @@ function ElementReview(props) {
                               {option.name}
                             </li>
                           )}
-                          style={{ width: 500 }}
+                          // style={{ width: 500 }}
                           renderInput={(params) => (
                             <TextField {...params} 
                             label={intl.formatMessage(messages.element)}
@@ -300,7 +300,7 @@ function ElementReview(props) {
                   </Grid>
 
 
-                  <Grid item xs={12}  md={4}> 
+                  <Grid item xs={12} md={3}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -330,7 +330,7 @@ function ElementReview(props) {
                               {option.name}
                             </li>
                           )}
-                          style={{ width: 500 }}
+                          // style={{ width: 500 }}
                           renderInput={(params) => (
                             <TextField {...params} 
                             label={intl.formatMessage(messages.Month)}

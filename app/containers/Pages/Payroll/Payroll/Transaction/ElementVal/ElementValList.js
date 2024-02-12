@@ -674,6 +674,7 @@ function ElementValList(props) {
                     onChange={(e) => {
                       setnewElemVal(e.target.value);
                     }}
+                    autoComplete='off'
                   />
                 </Grid>
                 <Grid item md={2} xs={12}>
@@ -879,6 +880,7 @@ function ElementValList(props) {
                         label={intl.formatMessage(Payrollmessages.year)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                     <Grid item xs={12} md={3}>
@@ -889,6 +891,7 @@ function ElementValList(props) {
                         label={intl.formatMessage(Payrollmessages.month)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -975,7 +978,7 @@ function ElementValList(props) {
                                   : null
                               }
                               onChange={(event, value) => {
-                                debugger;
+                                // debugger;
                                 if (!BranchId) {
                                   setPayTemplateId(0);
                                   toast.error("choose branch first");
@@ -1049,6 +1052,7 @@ function ElementValList(props) {
                               className={classes.field}
                               variant="outlined"
                               disabled
+                              autoComplete='off'
                             />
                           </Grid>
                           <Grid item xs={12} md={3}>
@@ -1066,6 +1070,7 @@ function ElementValList(props) {
                               className={classes.field}
                               variant="outlined"
                               disabled
+                              autoComplete='off'
                             />
                           </Grid>
                           <Grid item xs={12} md={2}>
@@ -1076,6 +1081,7 @@ function ElementValList(props) {
                               label={intl.formatMessage(messages.max)}
                               disabled
                               className={classes.field}
+                              autoComplete='off'
                             />
                           </Grid>
                           <Grid item xs={12} md={2}>
@@ -1086,6 +1092,7 @@ function ElementValList(props) {
                               label={intl.formatMessage(messages.min)}
                               disabled
                               className={classes.field}
+                              autoComplete='off'
                             />
                           </Grid>
                           <Grid item xs={12} md={2}>
@@ -1097,6 +1104,7 @@ function ElementValList(props) {
                               className={classes.field}
                               variant="outlined"
                               disabled
+                              autoComplete='off'
                             />
                           </Grid>
                         </Grid>
@@ -1136,9 +1144,10 @@ function ElementValList(props) {
                       className={classes.field}
                       variant="outlined"
                       onChange={(e) => {
-                        debugger;
+                        // debugger;
                         setNewValue(e.target.value);
                       }}
+                      autoComplete='off'
                     />
                   </Grid>
                   <Grid item xs={12} md={3.5}>
@@ -1152,6 +1161,7 @@ function ElementValList(props) {
                       onChange={(e) => {
                         setnotes(e.target.value);
                       }}
+                      autoComplete='off'
                     />
                   </Grid>
                   <Grid item xs={12} md={4}>

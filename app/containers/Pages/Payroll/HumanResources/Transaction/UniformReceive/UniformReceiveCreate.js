@@ -193,6 +193,7 @@ function UniformReceiveCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 disabled
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={2}>
@@ -205,6 +206,7 @@ function UniformReceiveCreate(props) {
                 variant="outlined"
                 required
                 onChange={(e) => handleChange(e)}
+                autoComplete='off'
               />
             </Grid>
 
@@ -217,6 +219,7 @@ function UniformReceiveCreate(props) {
                 label={intl.formatMessage(messages.note)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}></Grid>

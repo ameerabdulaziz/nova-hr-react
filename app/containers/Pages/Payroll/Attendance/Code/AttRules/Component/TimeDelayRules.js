@@ -172,6 +172,7 @@ function TimeDelayRules(props) {
                           )||null}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={12} xs={12}>
@@ -326,6 +327,7 @@ function TimeDelayRules(props) {
                           label={intl.formatMessage(messages.maxLatePerMinutes)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={4} xs={12}>
@@ -337,6 +339,7 @@ function TimeDelayRules(props) {
                           label={intl.formatMessage(messages.maxLatePerNo)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={4} xs={12}>
@@ -348,6 +351,7 @@ function TimeDelayRules(props) {
                           label={intl.formatMessage(messages.maxPerRoll1)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={6} xs={12}>
@@ -377,6 +381,7 @@ function TimeDelayRules(props) {
                           label={""}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item md={4} xs={12}>
@@ -388,6 +393,7 @@ function TimeDelayRules(props) {
                           label={intl.formatMessage(messages.lateAfterMinOver)}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>

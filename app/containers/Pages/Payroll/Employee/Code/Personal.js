@@ -185,16 +185,14 @@ function Personal(props) {
     }
   }, [employeeCode]);
 
-  const fetchEmployeeUsername = async (code) => {
+  const fetchEmployeeUsername = async (username) => {
     setIsLoading(true);
 
     try {
-      const response = await EmployeeData(locale).checkUserNameExist(id, userName);
+      const response = await EmployeeData(locale).checkUserNameExist(id, username);
 
-      const isEqual = response === parseInt(code, 10);
-
-      if (!isEqual) {
-        toast.success(intl.formatMessage(messages.usernameAlreadyExist));
+      if (!response) {
+        toast.error(intl.formatMessage(messages.usernameAlreadyExist));
         setIsUsernameExist(false);
       }
     } catch (error) {
@@ -280,6 +278,9 @@ function Personal(props) {
       if (checkEmployeeWorkEmail) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeWorkEmail(workEmail);
+          if (id === 0 && userName === '') {
+            setUserName(workEmail.split('@')[0]);
+          }
         }, 1000);
 
         return () => {
@@ -310,8 +311,13 @@ function Personal(props) {
       return;
     }
 
-    if(isUsernameExist) {
+    if (isUsernameExist) {
       toast.error(intl.formatMessage(messages.usernameAlreadyExist));
+      return;
+    }
+
+    if (arName.split(' ').length === 1 || enName.split(' ').length === 1) {
+      toast.error(intl.formatMessage(messages.employeeNameShouldNotBeOneWord));
       return;
     }
 
@@ -501,6 +507,7 @@ function Personal(props) {
             setCheckEmployeeCode(false);
             setCheckEmployeeIdentityNumber(false);
             setCheckEmployeeWorkEmail(false);
+            setCheckEmployeeUsername(false);
 
             // setid(dataApi.id);
             setUserName(dataApi.userName ?? '');
@@ -600,6 +607,10 @@ function Personal(props) {
     fetchData();
   }, []);
 
+  const sanitizeEmployeeNameInput = (value) => {
+    return value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, '');
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
 
@@ -621,10 +632,11 @@ function Personal(props) {
                     required
                     name="arname"
                     value={arName}
-                    onChange={(e) => setarName(e.target.value)}
+                    onChange={(e) => setarName(sanitizeEmployeeNameInput(e.target.value))}
                     label={intl.formatMessage(messages.arname)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -634,10 +646,11 @@ function Personal(props) {
                     name="enname"
                     required
                     value={enName}
-                    onChange={(e) => setenName(e.target.value)}
+                    onChange={(e) => setenName(sanitizeEmployeeNameInput(e.target.value))}
                     label={intl.formatMessage(messages.enname)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -653,19 +666,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.employeeCode)}
                     className={classes.field}
                     variant="outlined"
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <TextField
-                    name="userName"
-                    required
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    label={intl.formatMessage(messages.userName)}
-                    fullwidth
-                    disabled={ id !== 0 }
-                    variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -679,6 +680,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.machineCode)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -693,6 +695,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.eRPCode)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -892,6 +895,7 @@ function Personal(props) {
                     className={classes.field}
                     variant="outlined"
                     required
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -906,6 +910,7 @@ function Personal(props) {
                     className={classes.field}
                     variant="outlined"
                     required
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -992,6 +997,7 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="GenderId"
+                    required
                     label={intl.formatMessage(messages.gender)}
                   />
                 )}
@@ -1064,19 +1070,6 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <TextField
-                name="workEmail"
-                type="email"
-                value={workEmail}
-                required
-                onChange={(e) => setWorkEmail(e.target.value)}
-                label={intl.formatMessage(messages.workEmail)}
-                className={classes.field}
-                variant="outlined"
-              />
-            </Grid>
-
             <Grid item xs={6} md={3}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
@@ -1095,10 +1088,40 @@ function Personal(props) {
                   }}
                   className={classes.field}
                   renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
+                    <TextField {...params} variant="outlined" required />
                   )}
                 />
               </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="workEmail"
+                type="email"
+                value={workEmail}
+                required
+                onChange={(e) => {
+                  setWorkEmail(e.target.value);
+                }}
+                label={intl.formatMessage(messages.workEmail)}
+                className={classes.field}
+                variant="outlined"
+                autoComplete='off'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="userName"
+                required
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                label={intl.formatMessage(messages.userName)}
+                fullWidth
+                disabled={ id !== 0 }
+                variant="outlined"
+                autoComplete='off'
+              />
             </Grid>
 
             <Grid item xs={6} md={3}>
@@ -1128,6 +1151,7 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="birthGovId"
+                    required
                     label={intl.formatMessage(messages.gov)}
                   />
                 )}
@@ -1176,6 +1200,7 @@ function Personal(props) {
                 className={classes.field}
                 variant="outlined"
                 onChange={(e) => setmotherName(e.target.value)}
+                autoComplete='off'
               />
             </Grid>
 
@@ -1227,6 +1252,7 @@ function Personal(props) {
                 className={classes.field}
                 variant="outlined"
                 onChange={(e) => setsonNo(e.target.value)}
+                autoComplete='off'
               />
             </Grid>
 

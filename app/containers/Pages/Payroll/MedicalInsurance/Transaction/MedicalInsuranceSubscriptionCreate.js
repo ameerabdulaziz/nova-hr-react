@@ -327,6 +327,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                         className={classes.field}
                         variant='outlined'
                         required
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -339,6 +340,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                         className={classes.field}
                         variant='outlined'
                         required
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -362,6 +364,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                             className={classes.field}
                             required
                             variant='outlined'
+                            autoComplete='off'
                           />
                         </Grid>
 
@@ -374,6 +377,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                             className={classes.field}
                             required
                             variant='outlined'
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -390,6 +394,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                             className={classes.field}
                             required
                             variant='outlined'
+                            autoComplete='off'
                           />
                         </Grid>
 
@@ -402,6 +407,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                             className={classes.field}
                             required
                             variant='outlined'
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -418,6 +424,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                             className={classes.field}
                             required
                             variant='outlined'
+                            autoComplete='off'
                           />
                         </Grid>
 
@@ -430,6 +437,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                             className={classes.field}
                             required
                             variant='outlined'
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -454,6 +462,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                         label={intl.formatMessage(messages.employeeShare)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -465,6 +474,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                         label={intl.formatMessage(messages.companyShare)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -476,6 +486,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                         label={intl.formatMessage(messages.familyMemberValue)}
                         className={classes.field}
                         variant='outlined'
+                        autoComplete='off'
                       />
                     </Grid>
 

@@ -120,6 +120,7 @@ function GovernmentVacationPopup(props) {
             label={intl.formatMessage(payrollMessages.daysCount)}
             disabled
             value={vacationResponse.no1Choice}
+            autoComplete='off'
           />
         </Grid>
 
@@ -136,6 +137,7 @@ function GovernmentVacationPopup(props) {
             label={intl.formatMessage(payrollMessages.count_value)}
             disabled
             value={vacationResponse.no1Value}
+            autoComplete='off'
           />
         </Grid>
       </Grid>
@@ -147,6 +149,7 @@ function GovernmentVacationPopup(props) {
             label={intl.formatMessage(payrollMessages.daysCount)}
             disabled
             value={vacationResponse.no2Choice}
+            autoComplete='off'
           />
         </Grid>
 
@@ -163,6 +166,7 @@ function GovernmentVacationPopup(props) {
             label={intl.formatMessage(payrollMessages.count_value)}
             disabled
             value={vacationResponse.no2Value}
+            autoComplete='off'
           />
         </Grid>
       </Grid>
@@ -174,6 +178,7 @@ function GovernmentVacationPopup(props) {
             label={intl.formatMessage(payrollMessages.daysCount)}
             disabled
             value={vacationResponse.no3Choice}
+            autoComplete='off'
           />
         </Grid>
 
@@ -190,6 +195,7 @@ function GovernmentVacationPopup(props) {
             label={intl.formatMessage(payrollMessages.count_value)}
             disabled
             value={vacationResponse.no3Value}
+            autoComplete='off'
           />
         </Grid>
       </Grid>
@@ -201,6 +207,7 @@ function GovernmentVacationPopup(props) {
             label={intl.formatMessage(payrollMessages.daysCount)}
             disabled
             value={vacationResponse.no4Choice}
+            autoComplete='off'
           />
         </Grid>
 
@@ -217,6 +224,7 @@ function GovernmentVacationPopup(props) {
             label={intl.formatMessage(payrollMessages.count_value)}
             disabled
             value={vacationResponse.no4Value}
+            autoComplete='off'
           />
         </Grid>
       </Grid>

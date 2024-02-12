@@ -151,6 +151,7 @@ function OtherRules(props) {
                   label={intl.formatMessage(messages.AllowForForgetAtt)}
                   className={classes.field}
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item md={2} xs={12}></Grid>
@@ -181,6 +182,7 @@ function OtherRules(props) {
                             value={data.penaltyDayVal||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -192,6 +194,7 @@ function OtherRules(props) {
                             value={data.penaltyDayVal2||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -203,6 +206,7 @@ function OtherRules(props) {
                             value={data.penaltyDayVal3||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -214,6 +218,7 @@ function OtherRules(props) {
                             value={data.penaltyDayVal4||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -225,6 +230,7 @@ function OtherRules(props) {
                             value={data.penaltyDayVal5||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -258,6 +264,7 @@ function OtherRules(props) {
                             value={data.penaltyDayValOut||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -270,6 +277,7 @@ function OtherRules(props) {
                             value={data.penaltyDayValOut2||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -281,6 +289,7 @@ function OtherRules(props) {
                             value={data.penaltyDayValOut3||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -292,6 +301,7 @@ function OtherRules(props) {
                             value={data.penaltyDayValOut4||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -303,6 +313,7 @@ function OtherRules(props) {
                             value={data.penaltyDayValOut5||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         
@@ -373,6 +384,7 @@ function OtherRules(props) {
                           )}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -422,6 +434,7 @@ function OtherRules(props) {
                           )}
                           className={classes.field}
                           variant="outlined"
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>

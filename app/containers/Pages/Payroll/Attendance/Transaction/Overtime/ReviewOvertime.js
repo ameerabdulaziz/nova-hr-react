@@ -183,6 +183,7 @@ function ReviewOvertime(props) {
               name='overtimeVal'
               className={classes.field}
               onChange={(evt) => onInputChange(tableMeta.rowIndex, evt)}
+              autoComplete='off'
             />
           </>
         ),
@@ -232,6 +233,7 @@ function ReviewOvertime(props) {
               name='repVacVal'
               className={classes.field}
               onChange={(evt) => onInputChange(tableMeta.rowIndex, evt)}
+              autoComplete='off'
             />
           </>
         ),

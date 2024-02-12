@@ -163,6 +163,7 @@ function Company(props) {
                 label={intl.formatMessage(messages.arName)}
                 fullWidth
                 variant='outlined'
+                autoComplete='off'
               />
             </Grid>
 
@@ -175,6 +176,7 @@ function Company(props) {
                 label={intl.formatMessage(messages.enName)}
                 fullWidth
                 variant='outlined'
+                autoComplete='off'
               />
             </Grid>
 
@@ -187,6 +189,7 @@ function Company(props) {
                 label={intl.formatMessage(messages.phone)}
                 fullWidth
                 variant='outlined'
+                autoComplete='off'
               />
             </Grid>
 
@@ -200,6 +203,7 @@ function Company(props) {
                 label={intl.formatMessage(messages.email)}
                 fullWidth
                 variant='outlined'
+                autoComplete='off'
               />
             </Grid>
 
@@ -213,6 +217,7 @@ function Company(props) {
                 fullWidth
                 variant='outlined'
                 multiline
+                autoComplete='off'
               />
             </Grid>
 
@@ -226,6 +231,7 @@ function Company(props) {
                 fullWidth
                 variant='outlined'
                 multiline
+                autoComplete='off'
               />
             </Grid>
 
@@ -239,6 +245,7 @@ function Company(props) {
                 fullWidth
                 variant='outlined'
                 multiline
+                autoComplete='off'
               />
             </Grid>
 
@@ -251,6 +258,7 @@ function Company(props) {
                 fullWidth
                 variant='outlined'
                 multiline
+                autoComplete='off'
               />
             </Grid>
 
@@ -263,6 +271,7 @@ function Company(props) {
                 fullWidth
                 variant='outlined'
                 multiline
+                autoComplete='off'
               />
             </Grid>
 
@@ -275,6 +284,7 @@ function Company(props) {
                 fullWidth
                 variant='outlined'
                 multiline
+                autoComplete='off'
               />
             </Grid>
 
@@ -287,6 +297,7 @@ function Company(props) {
                 fullWidth
                 variant='outlined'
                 multiline
+                autoComplete='off'
               />
             </Grid>
 
@@ -315,6 +326,7 @@ function Company(props) {
                     label={intl.formatMessage(messages.apiKey)}
                     fullWidth
                     variant='outlined'
+                    autoComplete='off'
                   />
                 </Grid>
 

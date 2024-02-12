@@ -146,6 +146,7 @@ function HiringRequestEvaluationEdit(props) {
                 name='candidateName'
                 disabled
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -156,6 +157,7 @@ function HiringRequestEvaluationEdit(props) {
                 name='hiringRequestDate'
                 disabled
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -166,6 +168,7 @@ function HiringRequestEvaluationEdit(props) {
                 name='reportToName'
                 disabled
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -176,6 +179,7 @@ function HiringRequestEvaluationEdit(props) {
                 name='positionName'
                 disabled
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -186,6 +190,7 @@ function HiringRequestEvaluationEdit(props) {
                 name='departmentName'
                 disabled
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -196,6 +201,7 @@ function HiringRequestEvaluationEdit(props) {
                 name='startDate'
                 disabled
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -206,6 +212,7 @@ function HiringRequestEvaluationEdit(props) {
                 name='contractDuration'
                 disabled
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -216,6 +223,7 @@ function HiringRequestEvaluationEdit(props) {
                 name='salary'
                 disabled
                 fullWidth
+                autoComplete='off'
               />
             </Grid>
 
@@ -264,6 +272,7 @@ function HiringRequestEvaluationEdit(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 
@@ -277,6 +286,7 @@ function HiringRequestEvaluationEdit(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 
@@ -290,6 +300,7 @@ function HiringRequestEvaluationEdit(props) {
                 disabled
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 
@@ -415,6 +426,7 @@ function HiringRequestEvaluationEdit(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 

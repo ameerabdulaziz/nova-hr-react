@@ -146,6 +146,7 @@ function DelayRules(props) {
                   label={intl.formatMessage(messages.allowedPerCount)}
                   className={classes.field}
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -174,6 +175,7 @@ function DelayRules(props) {
                             value={data.delFstElDayOne||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -185,6 +187,7 @@ function DelayRules(props) {
                             value={data.delFstElDayTwo||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -196,6 +199,7 @@ function DelayRules(props) {
                             value={data.delFstElDayThree||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -207,6 +211,7 @@ function DelayRules(props) {
                             value={data.delFstElDayFour||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -218,6 +223,7 @@ function DelayRules(props) {
                             value={data.delFstElDayFive||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>
@@ -404,6 +410,7 @@ function DelayRules(props) {
                     label={intl.formatMessage(messages.lessTimestartFromMin)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
                 <Grid item md={3} xs={12}>
@@ -415,6 +422,7 @@ function DelayRules(props) {
                     label={intl.formatMessage(messages.minusMinuteFrom)}
                     className={classes.field}
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
                 <Grid item  md={2} xs={12}>
@@ -455,6 +463,7 @@ function DelayRules(props) {
                             value={data.delSecElDayOne||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -466,6 +475,7 @@ function DelayRules(props) {
                             value={data.delSecElDayTwo||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -477,6 +487,7 @@ function DelayRules(props) {
                             value={data.delSecElDayThree||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -488,6 +499,7 @@ function DelayRules(props) {
                             value={data.delSecElDayFour||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -499,6 +511,7 @@ function DelayRules(props) {
                             value={data.delSecElDayFive||null}
                             className={classes.field}
                             variant="outlined"
+                            autoComplete='off'
                           />
                         </Grid>
                       </Grid>

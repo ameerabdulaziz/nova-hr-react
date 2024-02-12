@@ -424,6 +424,20 @@ export const Currency = loadable(
   }
 );
 
+export const IdentityType = loadable(
+  () => import('./Pages/Payroll/MainData/Code/IdentityType'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const Government = loadable(
+  () => import('./Pages/Payroll/MainData/Code/Government'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const CompanyDocument = loadable(
   () => import('./Pages/Payroll/MainData/Code/CompanyDocument'),
   {
@@ -2503,6 +2517,13 @@ export const AssessmentReviewEdit = loadable(
 
 export const AssessmentReport = loadable(
   () => import('./Pages/Payroll/Assessment/Reports/AssessmentReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const PeerAppraisalSetting = loadable(
+  () => import('./Pages/Payroll/Assessment/code/PeerAppraisalSetting'),
   {
     fallback: <Loading />,
   }

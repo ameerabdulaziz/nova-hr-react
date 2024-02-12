@@ -352,6 +352,7 @@ function AttRulesCreate(props) {
                       className={classes.field}
                       sx={style}
                       variant="outlined"
+                      autoComplete='off'
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
@@ -369,6 +370,7 @@ function AttRulesCreate(props) {
                       sx={style}
                       className={classes.field}
                       variant="outlined"
+                      autoComplete='off'
                     />
                   </Grid>
                   <Grid

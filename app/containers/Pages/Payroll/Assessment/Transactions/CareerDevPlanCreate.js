@@ -296,6 +296,7 @@ function CareerDevPlanCreate(props) {
                       name='currentJob'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -306,6 +307,7 @@ function CareerDevPlanCreate(props) {
                       name='department'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -316,6 +318,7 @@ function CareerDevPlanCreate(props) {
                       name='reportTo'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -326,6 +329,7 @@ function CareerDevPlanCreate(props) {
                       name='currentSalary'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -336,6 +340,7 @@ function CareerDevPlanCreate(props) {
                       label={intl.formatMessage(messages.hiringData)}
                       fullWidth
                       disabled
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -346,6 +351,7 @@ function CareerDevPlanCreate(props) {
                       label={intl.formatMessage(messages.currentMainJobDuties)}
                       fullWidth
                       disabled
+                      autoComplete='off'
                     />
                   </Grid>
                 </Grid>
@@ -373,6 +379,7 @@ function CareerDevPlanCreate(props) {
                       onChange={onInputChange}
                       fullWidth
                       required
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -386,6 +393,7 @@ function CareerDevPlanCreate(props) {
                       multiline
                       rows={1}
                       required
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -401,6 +409,7 @@ function CareerDevPlanCreate(props) {
                       required
                       multiline
                       rows={1}
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -414,6 +423,7 @@ function CareerDevPlanCreate(props) {
                       required
                       multiline
                       rows={1}
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -427,6 +437,7 @@ function CareerDevPlanCreate(props) {
                       multiline
                       rows={1}
                       onChange={onInputChange}
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -440,6 +451,7 @@ function CareerDevPlanCreate(props) {
                       multiline
                       rows={1}
                       onChange={onInputChange}
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -452,6 +464,7 @@ function CareerDevPlanCreate(props) {
                       multiline
                       rows={1}
                       onChange={onInputChange}
+                      autoComplete='off'
                     />
                   </Grid>
 
@@ -549,6 +562,7 @@ function CareerDevPlanCreate(props) {
                         onChange={onInputChange}
                         multiline
                         rows={1}
+                        autoComplete='off'
                       />
                     </Grid>
                   )}
@@ -565,6 +579,7 @@ function CareerDevPlanCreate(props) {
                       onChange={onInputChange}
                       multiline
                       rows={1}
+                      autoComplete='off'
                     />
                   </Grid>
                 </Grid>

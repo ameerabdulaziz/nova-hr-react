@@ -138,6 +138,7 @@ function UpdateInsuranceSalary(props) {
                           <></>
                         ),
                     }}
+                    autoComplete='off'
                   />
 
                   {/* <FormControlLabel

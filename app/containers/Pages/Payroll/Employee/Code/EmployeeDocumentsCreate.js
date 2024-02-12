@@ -57,6 +57,10 @@ function CreateAndEditEmployeeDocuments(props) {
     ".pdf",
     "pdf",
   ]);
+  const { state } = useLocation();
+  const ID = state?.id;
+  const { intl } = props;
+  const { classes, cx } = useStyles();
   const [document, setDocument] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const locale = useSelector((state) => state.language.locale);
@@ -67,11 +71,7 @@ function CreateAndEditEmployeeDocuments(props) {
   const [uploadedFileType, setUploadedFileType] = useState(null);
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [employeeName, setEmployeeName] = useState([]);
-  const { state } = useLocation();
-  const ID = state?.id;
-  const employeeID = state?.employeeId;
-  const { intl } = props;
-  const { classes, cx } = useStyles();
+  const [employeeID, setEmployeeID] = useState(state?.employeeId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -108,7 +108,7 @@ function CreateAndEditEmployeeDocuments(props) {
 
   const getdata = async () => {
     try {
-      const documentsData = await GeneralListApis(locale).MdDocuments();
+      const documentsData = await GeneralListApis(locale).GetDocumentTypeList();
       const employees = await GeneralListApis(locale).GetEmployeeList(locale);
 
       setDocumentsList(documentsData);
@@ -133,6 +133,7 @@ function CreateAndEditEmployeeDocuments(props) {
       setIsLoading(true);
       const data = await EmployeeDocumentsData().GetDataById(ID, locale);
 
+      setEmployeeID(data?.employeeId);
       setid(data ? data.id : "");
       setStartDate(data ? data.startDate : null);
       setEndDate(data ? data.endDate : null);
@@ -352,7 +353,7 @@ function CreateAndEditEmployeeDocuments(props) {
                           <TextField
                             {...params}
                             variant="outlined"
-                            required
+                            required={document?.isCheckExpireDate}
                           />
                         )}
                       />
@@ -380,7 +381,7 @@ function CreateAndEditEmployeeDocuments(props) {
                           <TextField
                             {...params}
                             variant="outlined"
-                            required
+                            required={document?.isCheckExpireDate}
                           />
                         )}
                       />
@@ -408,7 +409,7 @@ function CreateAndEditEmployeeDocuments(props) {
                           <TextField
                             {...params}
                             variant="outlined"
-                            required
+                            required={document?.isCheckExpireDate}
                           />
                         )}
                       />
@@ -431,6 +432,7 @@ function CreateAndEditEmployeeDocuments(props) {
                   multiline
                   rows={1}
                   onChange={(e) => setNote(e.target.value)}
+                  autoComplete='off'
                 />
               </Grid>
             </Grid>

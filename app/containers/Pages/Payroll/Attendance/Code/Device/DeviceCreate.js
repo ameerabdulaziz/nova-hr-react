@@ -175,6 +175,7 @@ function DeviceCreate(props) {
                 label={intl.formatMessage(Payrollmessages.arName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -186,6 +187,7 @@ function DeviceCreate(props) {
                 label={intl.formatMessage(Payrollmessages.enName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -197,6 +199,7 @@ function DeviceCreate(props) {
                 label={intl.formatMessage(messages.ip)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={3}>
@@ -208,6 +211,7 @@ function DeviceCreate(props) {
                 label={intl.formatMessage(messages.port)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={3}>
@@ -220,7 +224,8 @@ function DeviceCreate(props) {
                 label={intl.formatMessage(messages.devicePass)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete="new-password"
+                // autoComplete="new-password"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -232,6 +237,7 @@ function DeviceCreate(props) {
                 label={intl.formatMessage(messages.serialNumber)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -243,6 +249,7 @@ function DeviceCreate(props) {
                 label={intl.formatMessage(messages.transportaion)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>

@@ -512,6 +512,7 @@ function PaymentSlipTotal(props) {
                   variant='outlined'
                   rows={1}
                   multiline
+                  autoComplete='off'
                 />
               </Grid>
 

@@ -332,6 +332,7 @@ function LoanSetting(props) {
                 label={intl.formatMessage(messages.maxLoan)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={6}>

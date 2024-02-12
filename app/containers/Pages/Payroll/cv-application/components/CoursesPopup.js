@@ -94,6 +94,7 @@ function CoursesPopup(props) {
               fullWidth
               required
               variant='outlined'
+              autoComplete='off'
             />
           </Grid>
 

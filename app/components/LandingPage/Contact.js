@@ -35,6 +35,7 @@ function Contact(props) {
                   required
                   onChange={e => setName(e.target.value)}
                   margin="normal"
+                  autoComplete='off'
                   classes={{
                     root: classes.contactFieldRoot,
                   }} />
@@ -50,6 +51,7 @@ function Contact(props) {
                   required
                   onChange={e => setEmail(e.target.value)}
                   margin="normal"
+                  autoComplete='off'
                   classes={{
                     root: classes.contactFieldRoot,
                   }} />
@@ -68,6 +70,7 @@ function Contact(props) {
                   onChange={e => setMessage(e.target.value)}
                   className={cx(classes.textField, classes.textarea)}
                   margin="normal"
+                  autoComplete='off'
                   classes={{
                     root: classes.contactFieldRoot,
                   }} />

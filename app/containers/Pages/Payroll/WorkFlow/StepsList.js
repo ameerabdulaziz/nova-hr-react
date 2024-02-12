@@ -154,6 +154,7 @@ const handleChange = (event, row) => {
                                   onChange={(e) => handleChange(e,row)}                        
                                   label={""}                                 
                                   variant="outlined"
+                                  autoComplete='off'
                                   />
                               </TableCell>                                                         
                               

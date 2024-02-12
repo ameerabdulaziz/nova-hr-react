@@ -58,9 +58,11 @@ npm run start:prod
 - [ ] Complete the implementation of the **Calculate Attendance** page
 - [ ] Integrate the **LeaveBalance** page with the API
 - [ ] Implement a global loader when fetching menu data
-- [ ] **Search** in navbar still search on old dashboard components
 - [ ] Integrate a cancel button into the **editable** table component
 - [ ] Implement a solution to add spacing between **menu** levels in the sidebar
+- [ ] Add export as excel option for **Payroll Table**
+- [ ] Add translation for navbar search & result arName
+- [ ] Make Employee info realtime like menu sidebar, instead of store in localStorage
 
 ## Pages
 

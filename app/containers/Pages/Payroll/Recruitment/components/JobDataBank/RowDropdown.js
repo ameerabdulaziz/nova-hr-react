@@ -14,7 +14,7 @@ import messages from '../../messages';
 
 function RowDropdown(props) {
   const {
-    tableData, tableMeta, intl, row
+    tableMeta, intl, row
   } = props;
 
   const [openedDropdown, setOpenedDropdown] = useState({});
@@ -26,8 +26,7 @@ function RowDropdown(props) {
 
   const onSaveBtnClick = (rowIndex) => {
     closeDropdown(rowIndex);
-    const id = tableData[rowIndex]?.id;
-    props.onSaveBtnClick(id);
+    props.onSaveBtnClick(row.id);
   };
 
   return (
@@ -109,7 +108,6 @@ RowDropdown.propTypes = {
   intl: PropTypes.object.isRequired,
   tableMeta: PropTypes.object.isRequired,
   row: PropTypes.object.isRequired,
-  tableData: PropTypes.array.isRequired,
   onSaveBtnClick: PropTypes.func.isRequired,
 };
 

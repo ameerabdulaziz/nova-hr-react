@@ -186,6 +186,7 @@ function SalaryElements(props) {
                 variant='outlined'
                 fullWidth
                 required
+                autoComplete='off'
               />
             </Grid>
 
@@ -199,6 +200,7 @@ function SalaryElements(props) {
                 fullWidth
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
           </Grid>

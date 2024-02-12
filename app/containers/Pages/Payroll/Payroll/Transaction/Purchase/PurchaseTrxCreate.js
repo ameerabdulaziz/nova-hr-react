@@ -395,6 +395,7 @@ function PurchaseTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -406,6 +407,7 @@ function PurchaseTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -417,6 +419,7 @@ function PurchaseTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -430,6 +433,7 @@ function PurchaseTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -441,6 +445,7 @@ function PurchaseTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
@@ -452,6 +457,7 @@ function PurchaseTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
+                          autoComplete='off'
                         />
                       </Grid>
                     </Grid>
@@ -583,6 +589,7 @@ function PurchaseTrxCreate(props) {
                               nativeTotalValue: e.target.value,
                             }));
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -611,6 +618,7 @@ function PurchaseTrxCreate(props) {
                               e.target.value
                             );
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -638,6 +646,7 @@ function PurchaseTrxCreate(props) {
                               data.totalvalue
                             );
                           }}
+                          autoComplete='off'
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -650,6 +659,7 @@ function PurchaseTrxCreate(props) {
                           variant="outlined"
                           disabled
                           required
+                          autoComplete='off'
                         />
                       </Grid>
 
@@ -663,6 +673,7 @@ function PurchaseTrxCreate(props) {
                             className={classes.field}
                             variant="outlined"
                             disabled
+                            autoComplete='off'
                           />
                         </Grid>
                       ) : (
@@ -680,6 +691,7 @@ function PurchaseTrxCreate(props) {
                             className={classes.field}
                             variant="outlined"
                             disabled
+                            autoComplete='off'
                           />
                         </Grid>
                       ) : (
@@ -706,6 +718,7 @@ function PurchaseTrxCreate(props) {
                                 e.target.value
                               );
                             }}
+                            autoComplete='off'
                           />
                         </Grid>
                       ) : (
@@ -732,6 +745,7 @@ function PurchaseTrxCreate(props) {
                                 data.newTotalvalue
                               );
                             }}
+                            autoComplete='off'
                           />
                         </Grid>
                       ) : (

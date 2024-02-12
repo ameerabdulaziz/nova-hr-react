@@ -224,6 +224,7 @@ function NewsCreate(props) {
                       header: e.target.value,
                     }))
                   }
+                  autoComplete='off'
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -243,6 +244,7 @@ function NewsCreate(props) {
                   label={intl.formatMessage(Payrollmessages.details)}
                   className={classes.field}
                   variant="outlined"
+                  autoComplete='off'
                 />
               </Grid>
             </Grid>

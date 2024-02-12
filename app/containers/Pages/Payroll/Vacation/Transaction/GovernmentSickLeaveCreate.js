@@ -640,6 +640,7 @@ function GovernmentSickLeaveCreate(props) {
                         disabled
                         label={intl.formatMessage(messages.daysCount)}
                         className={classes.field}
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -651,6 +652,7 @@ function GovernmentSickLeaveCreate(props) {
                         label={intl.formatMessage(messages.dayDeducedBy)}
                         className={classes.field}
                         disabled
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -674,6 +676,7 @@ function GovernmentSickLeaveCreate(props) {
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.telNumber)}
                         className={classes.field}
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -684,6 +687,7 @@ function GovernmentSickLeaveCreate(props) {
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.address)}
                         className={classes.field}
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -697,6 +701,7 @@ function GovernmentSickLeaveCreate(props) {
                         label={intl.formatMessage(messages.leaveReason)}
                         className={classes.field}
                         required
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -709,6 +714,7 @@ function GovernmentSickLeaveCreate(props) {
                         onChange={onInputChange}
                         label={intl.formatMessage(Payrollmessages.notes)}
                         className={classes.field}
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>

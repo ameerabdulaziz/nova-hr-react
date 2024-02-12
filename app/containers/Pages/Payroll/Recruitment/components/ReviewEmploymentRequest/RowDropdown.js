@@ -13,7 +13,7 @@ import messages from '../../messages';
 
 function RowDropdown(props) {
   const {
-    tableData, tableMeta, intl
+    row, tableMeta, intl
   } = props;
 
   const history = useHistory();
@@ -27,16 +27,14 @@ function RowDropdown(props) {
 
   const onSetHiringDateBtnClick = (rowIndex) => {
     closeDropdown(rowIndex);
-    const id = tableData[rowIndex]?.id;
-    props.onSetHiringDateBtnClick(id);
+    props.onSetHiringDateBtnClick(row.id);
   };
 
   const onPreviewEmploymentRequestClick = (rowIndex) => {
     closeDropdown(rowIndex);
-    const id = tableData[rowIndex]?.id;
 
     history.push('/app/Pages/Recruitment/ReviewEmploymentRequestEdit', {
-      id,
+      id: row.id,
     });
   };
 
@@ -117,7 +115,7 @@ function RowDropdown(props) {
 RowDropdown.propTypes = {
   intl: PropTypes.object.isRequired,
   tableMeta: PropTypes.object.isRequired,
-  tableData: PropTypes.array.isRequired,
+  row: PropTypes.object.isRequired,
   onSetHiringDateBtnClick: PropTypes.func.isRequired,
 };
 

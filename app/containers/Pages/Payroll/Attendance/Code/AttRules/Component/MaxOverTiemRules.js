@@ -77,6 +77,7 @@ function MaxOverTiemRules(props) {
                 label={intl.formatMessage(messages.maxOvertimeHrsOrdinaryDay)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -88,6 +89,7 @@ function MaxOverTiemRules(props) {
                 label={intl.formatMessage(messages.maxOvertimeHrsPerMonth)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item md={12} xs={12}>
@@ -110,6 +112,7 @@ function MaxOverTiemRules(props) {
                         )}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -141,6 +144,7 @@ function MaxOverTiemRules(props) {
                         )}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>

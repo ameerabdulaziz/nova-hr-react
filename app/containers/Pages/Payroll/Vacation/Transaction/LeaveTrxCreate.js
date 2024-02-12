@@ -641,6 +641,7 @@ function LeaveTrxCreate(props) {
                         label={intl.formatMessage(messages.daysCount)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -653,6 +654,7 @@ function LeaveTrxCreate(props) {
                         className={classes.field}
                         disabled
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -677,6 +679,7 @@ function LeaveTrxCreate(props) {
                         label={intl.formatMessage(messages.telNumber)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -688,6 +691,7 @@ function LeaveTrxCreate(props) {
                         label={intl.formatMessage(messages.address)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -702,6 +706,7 @@ function LeaveTrxCreate(props) {
                         multiline
                         rows={1}
                         required
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -715,6 +720,7 @@ function LeaveTrxCreate(props) {
                         variant="outlined"
                         multiline
                         rows={1}
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>

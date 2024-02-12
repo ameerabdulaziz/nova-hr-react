@@ -412,6 +412,7 @@ function PermissionTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         disabled={!data.calcLate}
+                        autoComplete='off'
                       />
                     </Grid>
                     <Grid item xs={12} md={8}>
@@ -444,6 +445,7 @@ function PermissionTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         disabled={!data.calcMinus}
+                        autoComplete='off'
                       />
                     </Grid>
                     <Grid item xs={12} md={8}>
@@ -476,6 +478,7 @@ function PermissionTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         disabled={!data.dedRased}
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
@@ -528,6 +531,7 @@ function PermissionTrxCreate(props) {
                     className={classes.field}
                     variant="outlined"
                     disabled
+                    autoComplete='off'
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -577,6 +581,7 @@ function PermissionTrxCreate(props) {
                     variant="outlined"
                     multiline
                     rows={2}
+                    autoComplete='off'
                   />
                 </Grid>
               </Grid>

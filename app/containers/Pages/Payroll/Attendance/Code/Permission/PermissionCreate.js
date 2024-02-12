@@ -197,6 +197,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(Payrollmessages.arName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -208,6 +209,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(Payrollmessages.enName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -219,6 +221,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(messages.shortName)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -230,6 +233,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(messages.maxMinuteNo)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -241,6 +245,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(messages.maxRepeated)}
                 className={classes.field}
                 variant="outlined"
+                autoComplete='off'
               />
             </Grid>
 
@@ -254,6 +259,7 @@ function PermissionCreate(props) {
                 fullWidth
                 value={data.reqBeforeShiftInMinute}
                 onChange={(e) => setdata(prev => ({ ...prev, reqBeforeShiftInMinute: e.target.value }))}
+                autoComplete='off'
               />
             </Grid>
 
@@ -368,6 +374,7 @@ function PermissionCreate(props) {
                         variant="outlined"
                         disabled={!data.isDeducted}
                         required={data.isDeducted}
+                        autoComplete='off'
                       />
                     </Grid>
                     <Grid item xs={12} md={12}>

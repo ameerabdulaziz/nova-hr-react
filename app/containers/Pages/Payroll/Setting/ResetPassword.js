@@ -115,7 +115,7 @@ function ResetPassword(props) {
 
       try {
         const response = await ResetPasswordData().getEmployeeUsername(value.id);
-        console.log(response);
+        setUserName(response);
       } catch (err) {
         //
       } finally {
@@ -184,6 +184,7 @@ function ResetPassword(props) {
                     disabled
                     fullWidth
                     variant="outlined"
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -198,8 +199,9 @@ function ResetPassword(props) {
                     className={classes.field}
                     variant="outlined"
                     type="password"
-                    autoComplete="new-password"
+                    // autoComplete="new-password"
                     helperText={intl.formatMessage(messages.letPasswordEmptyWillGenerateRandomPassword)}
+                    autoComplete='off'
                   />
                 </Grid>
 

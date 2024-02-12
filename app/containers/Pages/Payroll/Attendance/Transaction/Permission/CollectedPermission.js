@@ -422,6 +422,7 @@ function PermissionTrxCreate(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled={!data.calcLate}
+                                autoComplete='off'
                               />
                             </Grid>
                             <Grid item xs={12} md={8}>
@@ -456,6 +457,7 @@ function PermissionTrxCreate(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled={!data.calcMinus}
+                                autoComplete='off'
                               />
                             </Grid>
                             <Grid item xs={12} md={8}>
@@ -490,6 +492,7 @@ function PermissionTrxCreate(props) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled={!data.dedRased}
+                                autoComplete='off'
                               />
                             </Grid>
                           </Grid>
@@ -542,6 +545,7 @@ function PermissionTrxCreate(props) {
                             className={classes.field}
                             variant="outlined"
                             disabled
+                            autoComplete='off'
                           />
                         </Grid>
                         <Grid item xs={12} md={12}>
@@ -591,6 +595,7 @@ function PermissionTrxCreate(props) {
                         label={intl.formatMessage(Payrollmessages.notes)}
                         className={classes.field}
                         variant="outlined"
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>
