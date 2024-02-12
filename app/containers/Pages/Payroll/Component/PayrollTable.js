@@ -3,7 +3,6 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
-  Avatar,
   Box,
   Button,
   CircularProgress,
@@ -15,7 +14,12 @@ import {
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, {
-  memo, useCallback, useMemo, useRef, useState
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -62,12 +66,36 @@ function PayrollTable(props) {
 
   const today = formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
 
+  const documentTitle = `${title || menuName || 'Report'} ${today}`;
+
   const [isPrintLoading, setIsPrintLoading] = useState(false);
   const [deletedId, setDeletedId] = useState(null);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
+  const [filterData, setFilterData] = useState(data);
+  const [filterColumns, setFilterColumns] = useState(columns);
+  const [columnsVisibility, setColumnsVisibility] = useState([]);
+
+  useEffect(() => {
+    setFilterData(data);
+  }, [data]);
+
+  useEffect(() => {
+    const mappedColumns = columns.map((item) => ({
+      ...item,
+      options: {
+        ...item?.options,
+        viewColumns: item?.options?.viewColumns ?? Boolean(item.name),
+      },
+      isColumnVisible: true,
+    }));
+
+    setFilterColumns(mappedColumns);
+    setColumnsVisibility(mappedColumns);
+  }, [columns]);
+
   const printJS = useReactToPrint({
-    documentTitle: `${title || menuName || 'Report'} ${today}`,
+    documentTitle,
     content: () => printContainerRef?.current,
     onBeforeGetContent: () => {
       setIsPrintLoading(true);
@@ -148,6 +176,13 @@ function PayrollTable(props) {
       print: false,
       rowsPerPage: 50,
       rowsPerPageOptions: [10, 50, 100],
+      downloadOptions: {
+        filename: `${documentTitle}.csv`,
+        filterOptions: {
+          useDisplayedRowsOnly: true,
+          useDisplayedColumnsOnly: true,
+        },
+      },
       page: 0,
       selectableRows: 'none',
       searchOpen: false,
@@ -186,21 +221,61 @@ function PayrollTable(props) {
           deleteAria: intl.formatMessage(payrollMessages.deleteSelectedRows),
         },
       },
+      onDownload: (buildHead, buildBody, cols, rows) => '\uFEFF' + buildHead(cols) + buildBody(rows),
       ...options,
+      onFilterChange: (
+        changedColumn,
+        filterList,
+        type,
+        changedColumnIndex,
+        displayData
+      ) => {
+        setFilterData(displayData.map((item) => data[item.dataIndex]));
+        if (options.onFilterChange) {
+          options.onFilterChange(
+            changedColumn,
+            filterList,
+            type,
+            changedColumnIndex,
+            displayData
+          );
+        }
+      },
+      onViewColumnsChange: (changedColumn, action) => {
+        const clonedColumns = [...columnsVisibility];
+        const index = clonedColumns.findIndex(
+          (item) => item.name === changedColumn
+        );
+
+        if (index !== -1) {
+          if (action === 'remove') {
+            clonedColumns[index].isColumnVisible = false;
+          } else {
+            clonedColumns[index].isColumnVisible = true;
+          }
+        }
+
+        setColumnsVisibility(clonedColumns);
+        if (options.onViewColumnsChange) {
+          options.onViewColumnsChange(changedColumn, action);
+        }
+      },
       customToolbar,
     }),
-    [options, customToolbar, isLoading]
+    [options, columns, customToolbar, isLoading]
   );
 
   const tableColumns = useMemo(
     () => [
-      ...columns,
+      ...filterColumns,
       {
-        name: '',
+        name: 'actions',
         label: intl.formatMessage(payrollMessages.Actions),
         options: {
           print: false,
           display: Boolean(actions?.edit?.url || actions?.delete?.api),
+          download: false,
+          viewColumns: false,
           filter: false,
           customBodyRender: (_, tableMeta) => {
             let isDeleteBtnDisabled = !menu.isDelete;
@@ -264,7 +339,7 @@ function PayrollTable(props) {
         },
       },
     ],
-    [columns, actions]
+    [filterColumns, actions]
   );
 
   return (
@@ -310,10 +385,15 @@ function PayrollTable(props) {
             {menuName}
           </Typography>
 
-          <Avatar src={company?.logo} variant='square' />
+          <img src={company?.logo} alt='' height={45} />
         </Stack>
 
-        <PrintableTable columns={columns} rows={data} />
+        <PrintableTable
+          columns={tableColumns.filter(
+            (_, index) => columnsVisibility[index]?.isColumnVisible
+          )}
+          rows={filterData}
+        />
       </Box>
 
       <div className={classes.CustomMUIDataTable}>
