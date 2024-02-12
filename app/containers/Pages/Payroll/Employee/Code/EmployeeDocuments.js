@@ -21,7 +21,7 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { useLocation } from "react-router-dom";
 import Payrollmessages from "../../messages";
 import PayrollTable from "../../Component/PayrollTable";
-import { getCheckboxIcon } from "../../helpers";
+import { formateDate, getCheckboxIcon } from "../../helpers";
 
 function EmployeeDocuments({ intl }) {
   const Title = localStorage.getItem("MenuName");
@@ -62,12 +62,13 @@ function EmployeeDocuments({ intl }) {
       name: "id",
       label: intl.formatMessage(messages.id),
       options: {
-        display: true,
+        display: false,
+        print: false,
       },
     },
     {
-      name: "empName",
-      label: intl.formatMessage(messages.employeename),
+      name: "documentName",
+      label: intl.formatMessage(messages.documentType),
       options: {
         filter: true,
       },
@@ -77,6 +78,7 @@ function EmployeeDocuments({ intl }) {
       label: intl.formatMessage(messages.startDate),
       options: {
         filter: true,
+        customBodyRender: (value) => formateDate(value),
       },
     },
     {
@@ -84,6 +86,7 @@ function EmployeeDocuments({ intl }) {
       label: intl.formatMessage(messages.endDate),
       options: {
         filter: true,
+        customBodyRender: (value) => formateDate(value),
       },
     },
     {
