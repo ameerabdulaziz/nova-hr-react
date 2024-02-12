@@ -235,6 +235,7 @@ function HRInterviewEvaluationEdit(props) {
                 className={classes.field}
                 variant='outlined'
                 disabled
+                autoComplete='off'
               />
             </Grid>
 
@@ -246,6 +247,7 @@ function HRInterviewEvaluationEdit(props) {
                 className={classes.field}
                 variant='outlined'
                 disabled
+                autoComplete='off'
               />
             </Grid>
 
@@ -257,6 +259,7 @@ function HRInterviewEvaluationEdit(props) {
                 className={classes.field}
                 variant='outlined'
                 disabled
+                autoComplete='off'
               />
             </Grid>
 
@@ -268,6 +271,7 @@ function HRInterviewEvaluationEdit(props) {
                 className={classes.field}
                 variant='outlined'
                 disabled
+                autoComplete='off'
               />
             </Grid>
           </Grid>
@@ -322,6 +326,7 @@ function HRInterviewEvaluationEdit(props) {
                             }
                             variant='outlined'
                             required
+                            autoComplete='off'
                           />
                         </TableCell>
                         <TableCell>
@@ -332,6 +337,7 @@ function HRInterviewEvaluationEdit(props) {
                             className={classes.field}
                             onChange={(evt) => onTestInputChange(evt, index)}
                             variant='outlined'
+                            autoComplete='off'
                           />
                         </TableCell>
                         <TableCell>{test.finGrad}</TableCell>
@@ -397,6 +403,7 @@ function HRInterviewEvaluationEdit(props) {
                             }
                             variant='outlined'
                             required
+                            autoComplete='off'
                           />
                         </TableCell>
                         <TableCell>
@@ -408,6 +415,7 @@ function HRInterviewEvaluationEdit(props) {
                             onChange={(evt) => onJobEvaluationInputChange(evt, index)
                             }
                             variant='outlined'
+                            autoComplete='off'
                           />
                         </TableCell>
                         <TableCell>{test.finGrad}</TableCell>
@@ -469,6 +477,7 @@ function HRInterviewEvaluationEdit(props) {
                         variant='outlined'
                         multiline
                         rows={1}
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>

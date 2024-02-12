@@ -187,6 +187,7 @@ function ReviewEmploymentRequest(props) {
                 required
                 multiline
                 rows={1}
+                autoComplete='off'
               />
               <FormControlLabel
                 control={

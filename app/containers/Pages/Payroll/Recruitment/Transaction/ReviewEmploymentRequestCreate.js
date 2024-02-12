@@ -123,6 +123,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='jobId'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -133,6 +134,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='departmentId'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -143,6 +145,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='startingDate'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -153,6 +156,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='reportingTo'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -163,6 +167,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='noOfVacancies'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -173,6 +178,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='noOfSubordinates'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -185,6 +191,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='positionTypeId'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -196,6 +203,7 @@ function ReviewEmploymentRequestCreate(props) {
                       name='employeeReplacement'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
                 ) : (
@@ -206,6 +214,7 @@ function ReviewEmploymentRequestCreate(props) {
                       name='newPosition'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
                 )}
@@ -217,6 +226,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='salaryRange'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -230,6 +240,7 @@ function ReviewEmploymentRequestCreate(props) {
                     variant='outlined'
                     multiline
                     rows={1}
+                    autoComplete='off'
                   />
                 </Grid>
               </Grid>
@@ -448,6 +459,7 @@ function ReviewEmploymentRequestCreate(props) {
                       name='educationMajor'
                       disabled
                       fullWidth
+                      autoComplete='off'
                     />
                   </Grid>
                 </Grid>
@@ -482,6 +494,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='arabicLanguageLevelId'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -503,6 +516,7 @@ function ReviewEmploymentRequestCreate(props) {
                     name='englishLanguageLevelId'
                     disabled
                     fullWidth
+                    autoComplete='off'
                   />
                 </Grid>
 
@@ -526,6 +540,7 @@ function ReviewEmploymentRequestCreate(props) {
                         name='otherLanguage'
                         disabled
                         fullWidth
+                        autoComplete='off'
                       />
                     </Grid>
 
@@ -536,6 +551,7 @@ function ReviewEmploymentRequestCreate(props) {
                         name='otherLanguageLevelId'
                         disabled
                         fullWidth
+                        autoComplete='off'
                       />
                     </Grid>
                   </Grid>

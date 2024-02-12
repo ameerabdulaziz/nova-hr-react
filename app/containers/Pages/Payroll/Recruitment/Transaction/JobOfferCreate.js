@@ -324,6 +324,7 @@ function JobOfferCreate(props) {
                 required
                 onChange={onInputChange}
                 className={classes.field}
+                autoComplete='off'
               />
             </Grid>
 
@@ -466,6 +467,7 @@ function JobOfferCreate(props) {
                 required
                 onChange={onNumericInputChange}
                 className={classes.field}
+                autoComplete='off'
               />
             </Grid>
 
@@ -478,6 +480,7 @@ function JobOfferCreate(props) {
                 label={intl.formatMessage(messages.commession)}
                 className={classes.field}
                 variant='outlined'
+                autoComplete='off'
               />
             </Grid>
 
@@ -518,6 +521,7 @@ function JobOfferCreate(props) {
                 variant='outlined'
                 multiline
                 rows={1}
+                autoComplete='off'
               />
             </Grid>
 
