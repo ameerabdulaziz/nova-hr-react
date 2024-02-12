@@ -804,19 +804,19 @@ function CalculateAttendance(props) {
               </Button>
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <Button variant="contained">
                 {intl.formatMessage(messages.postToPayroll)}
               </Button>
-            </Grid>
+            </Grid> */}
 
             <Grid item>
               <Button variant="contained" onClick={handleRollBackAttendance}>
                 {intl.formatMessage(messages.rollbackAttendance)}
               </Button>
             </Grid>
-
-            <Grid item>
+{/* TO DO */}
+           {/*  <Grid item>
               <Button variant="contained">
                 {intl.formatMessage(messages.rollbackPost)}
               </Button>
@@ -832,7 +832,7 @@ function CalculateAttendance(props) {
               <Button variant="contained">
                 {intl.formatMessage(messages.cancelEarlyLeave)}
               </Button>
-            </Grid>
+            </Grid> */}
           </Grid>
         </PapperBlock>
       </form>
