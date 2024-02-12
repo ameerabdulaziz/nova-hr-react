@@ -6,6 +6,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
+import messages from "../../messages";
 import ApiData from '../../api/ElementsData';
 
 function ElementsList(props) {
@@ -43,6 +44,29 @@ function ElementsList(props) {
     }
   }
 
+  const CalcMethod = (value) => {
+    return (
+      <div>
+        {value==1 ? (
+          intl.formatMessage(messages.Value)
+        ) : (
+          intl.formatMessage(messages.Percentage)
+        )}
+      </div>
+    );
+  };
+  const ElementMode = (value) => {
+    return (
+      <div>
+        {value==1 ? (
+          intl.formatMessage(messages.constant)
+        ) : (
+          intl.formatMessage(messages.variable)
+        )}
+      </div>
+    );
+  };
+  
   const columns = [
     {
       name: 'id',
@@ -65,6 +89,22 @@ function ElementsList(props) {
       label: intl.formatMessage(Payrollmessages.enName),
       options: {
         filter: true,
+      },
+    },
+    {
+      name: 'elementCalcMethodId',
+      label: intl.formatMessage(messages.CalcMethod),
+      options: {
+        filter: true,
+        customBodyRender: (value) => CalcMethod(value),
+      },
+    },
+    {
+      name: 'elementModeId',
+      label: intl.formatMessage(messages.elementMode),
+      options: {
+        filter: true,
+        customBodyRender: (value) => ElementMode(value),
       },
     },
   ];

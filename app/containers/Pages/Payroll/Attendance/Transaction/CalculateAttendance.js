@@ -1,8 +1,8 @@
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Autocomplete,
   Button,
@@ -15,26 +15,27 @@ import {
   Menu,
   MenuItem,
   TextField,
-} from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
-import PayRollLoader from '../../Component/PayRollLoader';
-import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate } from '../../helpers';
-import payrollMessages from '../../messages';
-import api from '../api/CalculateAttendanceData';
-import messages from '../messages';
+} from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { PapperBlock } from "enl-components";
+import MUIDataTable from "mui-datatables";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import style from "../../../../../styles/styles.scss";
+import PayRollLoader from "../../Component/PayRollLoader";
+import useStyles from "../../Style";
+import GeneralListApis from "../../api/GeneralListApis";
+import { formateDate } from "../../helpers";
+import payrollMessages from "../../messages";
+import api from "../api/CalculateAttendanceData";
+import messages from "../messages";
 import { format } from "date-fns";
-import { getCheckboxIcon } from '../../helpers';
+import { getCheckboxIcon } from "../../helpers";
+import notif from "enl-api/ui/notifMessage";
 
 function CalculateAttendance(props) {
   const { intl } = props;
@@ -43,7 +44,7 @@ function CalculateAttendance(props) {
 
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const locale = useSelector((state) => state.language.locale);
-  const title = localStorage.getItem('MenuName');
+  const title = localStorage.getItem("MenuName");
 
   const [employeeList, setEmployeeList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
@@ -75,7 +76,9 @@ function CalculateAttendance(props) {
       const company = await GeneralListApis(locale).GetBranchList();
       setCompanyList(company);
 
-      const department = await GeneralListApis(locale).GetDepartmentList(branchId);
+      const department = await GeneralListApis(locale).GetDepartmentList(
+        branchId
+      );
       setDepartmentList(department);
 
       const employee = await GeneralListApis(locale).GetEmployeeList();
@@ -117,8 +120,9 @@ function CalculateAttendance(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const isValidRange = isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate)
-      && isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+    const isValidRange =
+      isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate) &&
+      isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
 
     if (!isValidRange) {
       toast.error(
@@ -133,9 +137,9 @@ function CalculateAttendance(props) {
       FromDate: formateDate(formInfo.FromDate),
       ToDate: formateDate(formInfo.ToDate),
       OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
-        ','
+        ","
       ),
-      EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(','),
+      EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
     };
 
     const body = {
@@ -152,6 +156,96 @@ function CalculateAttendance(props) {
     }
   };
 
+  const handleCalculate = async (evt) => {
+    try {
+      const isValidRange =
+        isDateInRange(
+          formInfo.FromDate,
+          openMonth.fromDate,
+          openMonth.todate
+        ) &&
+        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+
+      if (!isValidRange) {
+        toast.error(
+          intl.formatMessage(messages.startAndEndDateNotInOpenMonthRange)
+        );
+        return;
+      }
+
+      setIsLoading(true);
+
+      const formData = {
+        FromDate: formateDate(formInfo.FromDate),
+        ToDate: formateDate(formInfo.ToDate),
+        OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
+          ","
+        ),
+        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
+        IsCalculateBreak: formInfo.calculateBreak,
+      };
+
+      const body = {
+        companyId: formInfo.companyId,
+      };
+
+      const response = await api(locale).CalculateAttendance(body, formData);
+      if (response.status == 200) {
+        toast.success(notif.success);
+
+        const result = await api(locale).GetList(body, formData);
+        setTableData(result);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRollBackAttendance = async (evt) => {
+    try {
+      const isValidRange =
+        isDateInRange(
+          formInfo.FromDate,
+          openMonth.fromDate,
+          openMonth.todate
+        ) &&
+        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+
+      if (!isValidRange) {
+        toast.error(
+          intl.formatMessage(messages.startAndEndDateNotInOpenMonthRange)
+        );
+        return;
+      }
+
+      setIsLoading(true);
+
+      const formData = {
+        FromDate: formateDate(formInfo.FromDate),
+        ToDate: formateDate(formInfo.ToDate),
+        OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
+          ","
+        ),
+        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
+      };
+
+      const body = {
+        companyId: formInfo.companyId,
+      };
+
+      const response = await api(locale).RollBackAttendance(body, formData);
+      if (response.status == 200) {
+        toast.success(notif.success);
+
+        const result = await api(locale).GetList(body, formData);
+        setTableData(result);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const onCheckboxChange = (evt) => {
     setFormInfo((prev) => ({
       ...prev,
@@ -160,7 +254,7 @@ function CalculateAttendance(props) {
   };
 
   const onDatePickerChange = (value, name) => {
-    if (Object.prototype.toString.call(new Date(value)) === '[object Date]') {
+    if (Object.prototype.toString.call(new Date(value)) === "[object Date]") {
       if (!isNaN(new Date(value))) {
         setFormInfo((prev) => ({
           ...prev,
@@ -225,7 +319,7 @@ function CalculateAttendance(props) {
         null,
         null,
         null,
-        value.map((item) => item.id).join(',')
+        value.map((item) => item.id).join(",")
       );
       setEmployeeList(employee);
     } catch (error) {
@@ -247,14 +341,15 @@ function CalculateAttendance(props) {
     }));
   };
 
-  const onDropdownClose = (rowIndex) => setOpenedDropdown((prev) => ({
-    ...prev,
-    [rowIndex]: null,
-  }));
+  const onDropdownClose = (rowIndex) =>
+    setOpenedDropdown((prev) => ({
+      ...prev,
+      [rowIndex]: null,
+    }));
 
   const columns = [
     {
-      name: 'id',
+      name: "id",
       label: intl.formatMessage(messages.id),
       options: {
         filter: false,
@@ -263,28 +358,32 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'weekDayName',
+      name: "weekDayName",
       label: intl.formatMessage(messages.day),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{value}</pre>),
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
 
     {
-      name: 'shiftDate',
+      name: "shiftDate",
       label: intl.formatMessage(messages.shiftDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
+        customBodyRender: (value) => (
+          <pre>{format(new Date(value), "yyyy-MM-dd")}</pre>
+        ),
         setCellProps: (value, rowIndex) => {
           return {
             style: {
-              ...(tableData[rowIndex].absence && { backgroundColor:'#f00' }),
-              ...(tableData[rowIndex].vac && { backgroundColor:'#fafa02' }),
-              ...(tableData[rowIndex].shiftVacancy && { backgroundColor:'#1bff00' }),
+              ...(tableData[rowIndex].absence && { backgroundColor: "#f00" }),
+              ...(tableData[rowIndex].vac && { backgroundColor: "#fafa02" }),
+              ...(tableData[rowIndex].shiftVacancy && {
+                backgroundColor: "#1bff00",
+              }),
               paddingLeft: "0",
-              textAlign: "center"
+              textAlign: "center",
             },
           };
         },
@@ -292,7 +391,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'employeeName',
+      name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
       options: {
         filter: true,
@@ -300,25 +399,29 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'timeIn',
+      name: "timeIn",
       label: intl.formatMessage(messages.signIn),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
+        customBodyRender: (value) => (
+          <pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>
+        ),
       },
     },
 
     {
-      name: 'timeOut',
+      name: "timeOut",
       label: intl.formatMessage(messages.signOut),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
+        customBodyRender: (value) => (
+          <pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>
+        ),
       },
     },
 
     {
-      name: 'lateMin',
+      name: "lateMin",
       label: intl.formatMessage(messages.late),
       options: {
         filter: true,
@@ -326,7 +429,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'extraTime',
+      name: "extraTime",
       label: intl.formatMessage(messages.extraTime),
       options: {
         filter: true,
@@ -334,7 +437,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'LessTime',
+      name: "LessTime",
       label: intl.formatMessage(messages.LessTime),
       options: {
         filter: true,
@@ -342,7 +445,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'ReplaceVac',
+      name: "ReplaceVac",
       label: intl.formatMessage(messages.AccuredLeave),
       options: {
         filter: true,
@@ -350,7 +453,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'vac',
+      name: "vac",
       label: intl.formatMessage(messages.leave),
       options: {
         filter: false,
@@ -359,7 +462,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'mission',
+      name: "mission",
       label: intl.formatMessage(messages.mission),
       options: {
         filter: false,
@@ -368,7 +471,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'per',
+      name: "per",
       label: intl.formatMessage(messages.permission),
       options: {
         filter: false,
@@ -377,19 +480,19 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'absence',
+      name: "absence",
       label: intl.formatMessage(messages.absent),
       options: {
         filter: false,
         customBodyRender: (value) => {
-          console.log("ttt =", value)
-          return getCheckboxIcon(value)
+          console.log("ttt =", value);
+          return getCheckboxIcon(value);
         },
       },
     },
 
     {
-      name: 'ShiftVacancy',
+      name: "ShiftVacancy",
       label: intl.formatMessage(messages.weekendLeave),
       options: {
         filter: false,
@@ -398,7 +501,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'manual',
+      name: "manual",
       label: intl.formatMessage(messages.manual),
       options: {
         filter: false,
@@ -407,7 +510,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'stopD',
+      name: "stopD",
       label: intl.formatMessage(messages.stop),
       options: {
         filter: false,
@@ -416,8 +519,8 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: '',
-      label: '',
+      name: "",
+      label: "",
       options: {
         filter: false,
         customBodyRender: (_, tableMeta) => {
@@ -444,36 +547,36 @@ function CalculateAttendance(props) {
                   paper: {
                     elevation: 0,
                     sx: {
-                      overflow: 'visible',
-                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                      overflow: "visible",
+                      filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
                       mt: 1.5,
-                      '& .MuiAvatar-root': {
+                      "& .MuiAvatar-root": {
                         width: 32,
                         height: 32,
                         ml: -0.5,
                         mr: 1,
                       },
-                      '&:before': {
+                      "&:before": {
                         content: '""',
-                        display: 'block',
-                        position: 'absolute',
+                        display: "block",
+                        position: "absolute",
                         top: 0,
                         right: 14,
                         width: 10,
                         height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
+                        bgcolor: "background.paper",
+                        transform: "translateY(-50%) rotate(45deg)",
                         zIndex: 0,
                       },
                     },
                   },
                 }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                transformOrigin={{ horizontal: "right", vertical: "top" }}
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
               >
                 <MenuItem>
                   <ListItemIcon>
-                    <SystemUpdateAltIcon fontSize='small' />
+                    <SystemUpdateAltIcon fontSize="small" />
                   </ListItemIcon>
 
                   <ListItemText>Dummy Action</ListItemText>
@@ -481,7 +584,7 @@ function CalculateAttendance(props) {
 
                 <MenuItem>
                   <ListItemIcon>
-                    <VisibilityIcon fontSize='small' />
+                    <VisibilityIcon fontSize="small" />
                   </ListItemIcon>
 
                   <ListItemText>Dummy Action</ListItemText>
@@ -495,14 +598,14 @@ function CalculateAttendance(props) {
   ];
 
   const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
+    filterType: "dropdown",
+    responsive: "vertical",
     print: true,
     rowsPerPage: 50,
     rowsPerPageOptions: [10, 50, 100],
     page: 0,
     searchOpen: true,
-    selectableRows: 'multiple',
+    selectableRows: "multiple",
     textLabels: {
       body: {
         noMatch: isLoading
@@ -512,19 +615,20 @@ function CalculateAttendance(props) {
     },
   };
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
+  const getAutoCompleteValue = (list, key) =>
+    list.find((item) => item.id === key) ?? null;
 
   return (
     <PayRollLoader isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
-        <PapperBlock whiteBg icon='border_color' title={title} desc=''>
+        <PapperBlock whiteBg icon="border_color" title={title} desc="">
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.companyId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
@@ -548,13 +652,13 @@ function CalculateAttendance(props) {
                   value={formInfo.FromDate}
                   minDate={openMonth.fromDate}
                   maxDate={openMonth.todate}
-                  onChange={(date) => onDatePickerChange(date, 'FromDate')}
+                  onChange={(date) => onDatePickerChange(date, "FromDate")}
                   renderInput={(params) => (
                     <TextField
                       // required
                       fullWidth
                       {...params}
-                      variant='outlined'
+                      variant="outlined"
                     />
                   )}
                 />
@@ -568,13 +672,13 @@ function CalculateAttendance(props) {
                   value={formInfo.ToDate}
                   minDate={openMonth.fromDate}
                   maxDate={openMonth.todate}
-                  onChange={(date) => onDatePickerChange(date, 'ToDate')}
+                  onChange={(date) => onDatePickerChange(date, "ToDate")}
                   renderInput={(params) => (
                     <TextField
                       // required
                       fullWidth
                       {...params}
-                      variant='outlined'
+                      variant="outlined"
                     />
                   )}
                 />
@@ -587,23 +691,24 @@ function CalculateAttendance(props) {
                 multiple
                 disableCloseOnSelect
                 className={`${style.AutocompleteMulSty} ${
-                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                  locale === "ar" ? style.AutocompleteMulStyAR : null
                 }`}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 value={formInfo.OrganizationIds}
                 renderOption={(optionProps, option, { selected }) => (
                   <li {...optionProps} key={optionProps.id}>
                     <Checkbox
-                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                      checkedIcon={<CheckBoxIcon fontSize="small" />}
                       style={{ marginRight: 8 }}
                       checked={selected}
                     />
                     {option.name}
                   </li>
                 )}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onDepartmentMultiAutoCompleteChange(value)
+                getOptionLabel={(option) => (option ? option.name : "")}
+                onChange={(_, value) =>
+                  onDepartmentMultiAutoCompleteChange(value)
                 }
                 renderInput={(params) => (
                   <TextField
@@ -621,23 +726,24 @@ function CalculateAttendance(props) {
                 multiple
                 disableCloseOnSelect
                 className={`${style.AutocompleteMulSty} ${
-                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                  locale === "ar" ? style.AutocompleteMulStyAR : null
                 }`}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 value={formInfo.EmployeeIds}
                 renderOption={(optionProps, option, { selected }) => (
                   <li {...optionProps} key={optionProps.id}>
                     <Checkbox
-                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                      checkedIcon={<CheckBoxIcon fontSize="small" />}
                       style={{ marginRight: 8 }}
                       checked={selected}
                     />
                     {option.name}
                   </li>
                 )}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onEmployeeMultiAutoCompleteChange(value)
+                getOptionLabel={(option) => (option ? option.name : "")}
+                onChange={(_, value) =>
+                  onEmployeeMultiAutoCompleteChange(value)
                 }
                 renderInput={(params) => (
                   <TextField
@@ -655,7 +761,7 @@ function CalculateAttendance(props) {
                   <Checkbox
                     checked={formInfo.calculateBreak}
                     onChange={onCheckboxChange}
-                    name='calculateBreak'
+                    name="calculateBreak"
                   />
                 }
                 label={intl.formatMessage(messages.calculateBreak)}
@@ -668,7 +774,7 @@ function CalculateAttendance(props) {
                   <Checkbox
                     checked={formInfo.overnightAllowance}
                     onChange={onCheckboxChange}
-                    name='overnightAllowance'
+                    name="overnightAllowance"
                   />
                 }
                 label={intl.formatMessage(messages.overnightAllowance)}
@@ -678,43 +784,43 @@ function CalculateAttendance(props) {
 
           <Grid container spacing={2} mt={0}>
             <Grid item>
-              <Button type='submit' variant='contained'>
+              <Button type="submit" variant="contained">
                 {intl.formatMessage(messages.search)}
               </Button>
             </Grid>
 
             <Grid item>
-              <Button variant='contained'>
+              <Button variant="contained" onClick={handleCalculate}>
                 {intl.formatMessage(messages.calculate)}
               </Button>
             </Grid>
 
             <Grid item>
-              <Button variant='contained'>
+              <Button variant="contained">
                 {intl.formatMessage(messages.postToPayroll)}
               </Button>
             </Grid>
 
             <Grid item>
-              <Button variant='contained'>
+              <Button variant="contained" onClick={handleRollBackAttendance}>
                 {intl.formatMessage(messages.rollbackAttendance)}
               </Button>
             </Grid>
 
             <Grid item>
-              <Button variant='contained'>
+              <Button variant="contained">
                 {intl.formatMessage(messages.rollbackPost)}
               </Button>
             </Grid>
 
             <Grid item>
-              <Button variant='contained'>
+              <Button variant="contained">
                 {intl.formatMessage(messages.cancelLate)}
               </Button>
             </Grid>
 
             <Grid item>
-              <Button variant='contained'>
+              <Button variant="contained">
                 {intl.formatMessage(messages.cancelEarlyLeave)}
               </Button>
             </Grid>
@@ -724,7 +830,7 @@ function CalculateAttendance(props) {
 
       <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
-          title=''
+          title=""
           data={tableData}
           columns={columns}
           options={options}

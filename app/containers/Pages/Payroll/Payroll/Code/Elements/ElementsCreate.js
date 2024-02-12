@@ -8,6 +8,7 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
+
 import {
   Button,
   Grid,
@@ -114,7 +115,7 @@ function ElementsCreate(props) {
                 refElementName: Employeesdata[i].name,
                 elementId: data.id,
                 refPerc: 0,
-                refValue: '+',
+                refValue: "+",
                 isSelected: true,
               });
             }
@@ -299,8 +300,7 @@ function ElementsCreate(props) {
                           variant="outlined"
                         />
                       </Grid>
-                      
-                      
+
                       <Grid item md={12} xs={12}>
                         <FormControl
                           variant="standard"
@@ -341,7 +341,7 @@ function ElementsCreate(props) {
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   applyMinMaxOccur: e.target.checked,
-                                  elementOccurMax:""
+                                  elementOccurMax: "",
                                 }))
                               }
                               value={data.applyMinMaxOccur || null}
@@ -540,15 +540,17 @@ function ElementsCreate(props) {
                                 name="elementCalcMethodId"
                                 aria-label="Direction"
                                 value={data.elementCalcMethodId || null}
-                                onChange={(e) =>{
-                                  debugger ;
+                                onChange={(e) => {
+                                  debugger;
                                   setdata((prevFilters) => ({
                                     ...prevFilters,
                                     elementCalcMethodId: e.target.value,
-                                    payrollRefElements:e.target.value==2?[]:data.payrollRefElements
-                                  }))
-                                }
-                                }
+                                    payrollRefElements:
+                                      e.target.value == 1
+                                        ? []
+                                        : data.payrollRefElements,
+                                  }));
+                                }}
                               >
                                 <FormControlLabel
                                   value="1"
@@ -601,10 +603,10 @@ function ElementsCreate(props) {
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   applyMinMaxVal: e.target.checked,
-                                  elementMinVal:"",
-                                  elementMaxVal:"",
-                                  minOnValue:"",
-                                  maxOnValue:""
+                                  elementMinVal: "",
+                                  elementMaxVal: "",
+                                  minOnValue: "",
+                                  maxOnValue: "",
                                 }))
                               }
                               value={data.applyMinMaxVal || null}
@@ -693,23 +695,27 @@ function ElementsCreate(props) {
                   <Card className={classes.card}>
                     <CardContent>
                       <Grid container spacing={3}>
-                        <Grid item xs={6} md={2}>
+                        <Grid item xs={12} md={2}>
                           <Button
                             variant="contained"
                             size="medium"
                             color="secondary"
-                            disabled={data.elementCalcMethodId==1?false:true}
+                            disabled={
+                              data.elementCalcMethodId == 1 ? true : false
+                            }
                             onClick={() => handleClickOpenNamePopup(6)}
                           >
                             <FormattedMessage {...messages.refElement} />
                           </Button>
                         </Grid>
-                        <Grid item xs={6} md={12}>
-                          <ElementTable
-                            dataList={data.payrollRefElements}
-                            setdataList={setdata}
-                            Type={6}
-                          />
+                        <Grid item xs={12} md={12}>
+                          
+                            <ElementTable
+                              dataList={data.payrollRefElements}
+                              setdataList={setdata}
+                              Type={6}
+                            />
+                            
                         </Grid>
                       </Grid>
                     </CardContent>
@@ -721,7 +727,7 @@ function ElementsCreate(props) {
                   <Card className={classes.card}>
                     <CardContent>
                       <Grid container spacing={3}>
-                        <Grid item xs={6} md={2}>
+                        <Grid item xs={12} md={2}>
                           <Button
                             variant="contained"
                             size="medium"
@@ -731,7 +737,7 @@ function ElementsCreate(props) {
                             <FormattedMessage {...messages.basicElement} />
                           </Button>
                         </Grid>
-                        <Grid item xs={6} md={12}>
+                        <Grid item xs={12} md={12}>
                           <ElementTable
                             dataList={data.payrollRefElements2}
                             setdataList={setdata}
@@ -744,7 +750,7 @@ function ElementsCreate(props) {
                 </Grid>
               </Grid>
 
-              <Grid item xs={12} md={1}>
+              <Grid item xs={6} md={1}>
                 <Button
                   variant="contained"
                   type="submit"
@@ -754,7 +760,7 @@ function ElementsCreate(props) {
                   <FormattedMessage {...Payrollmessages.save} />
                 </Button>
               </Grid>
-              <Grid item xs={12} md={1}>
+              <Grid item xs={6} md={1}>
                 <Button
                   variant="contained"
                   size="medium"

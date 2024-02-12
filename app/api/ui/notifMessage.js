@@ -10,4 +10,5 @@ module.exports = {
   sent: 'Email sent',
   labeled: 'You just changed email label',
   error:'Something went wrong!',
+  success:'Operation Executed Successfully',
 };

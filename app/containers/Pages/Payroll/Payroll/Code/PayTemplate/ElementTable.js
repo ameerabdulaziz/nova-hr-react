@@ -139,7 +139,7 @@ function ElementTable(props) {
 
   return (
     <div className={classes.rootTable}>
-      <Table className={cx(css.tableCrud, classes.table, classes.stripped)}>
+      <Table className={cx(css.tableCrud, classes.stripped)}>
         <TableHead>
           <TableRow>
             <TableCell
@@ -174,7 +174,7 @@ function ElementTable(props) {
               <FormattedMessage {...Payrollmessages.element} />
             </TableCell>
             <TableCell
-              style={{ width: "20%", padding: "0px", textAlign: "center" }}
+              style={{ width: "10%", padding: "0px", textAlign: "center" }}
             >
               <FormattedMessage {...Payrollmessages.name} />
             </TableCell>
@@ -189,7 +189,7 @@ function ElementTable(props) {
             )}
             {Type == 1 || Type == 2 || Type == 5 || Type == 6 || Type == 7 ? (
               <TableCell
-                style={{ width: "15%", padding: "0px", textAlign: "center" }}
+                style={{ width: "5%", padding: "0px", textAlign: "center" }}
               >
                 {Type == 5 || Type == 6 || Type == 7 ? (
                   <FormattedMessage {...Payrollmessages.percentage} />
@@ -232,7 +232,7 @@ function ElementTable(props) {
                   </TableCell>
                   <TableCell
                     style={{
-                      width: "20%",
+                      width: "10%",
                       padding: "0px",
                       textAlign: "center",
                     }}
@@ -261,7 +261,7 @@ function ElementTable(props) {
                   {Type === 1 || Type === 2 ? (
                     <TableCell
                       style={{
-                        width: "15%",
+                        width: "5%",
                         padding: "0px",
                         textAlign: "center",
                       }}
@@ -280,7 +280,7 @@ function ElementTable(props) {
                   {Type === 5 ? (
                     <TableCell
                       style={{
-                        width: "15%",
+                        width: "5%",
                         padding: "0px",
                         textAlign: "center",
                       }}
@@ -299,7 +299,7 @@ function ElementTable(props) {
                   {Type == 6 || Type == 7 ? (
                     <TableCell
                       style={{
-                        width: "15%",
+                        width: "5%",
                         padding: "0px",
                         textAlign: "center",
                       }}
