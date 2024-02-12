@@ -819,6 +819,8 @@
   "boilerplate.components.tables.codes.requirements": "Requirements",
   "boilerplate.components.tables.codes.name": "Arabic Name",
   "boilerplate.components.tables.codes.enname": "English Name",
+  "boilerplate.components.tables.codes.arName": "Arabic Name",
+  "boilerplate.components.tables.codes.enName": "English Name",
   "boilerplate.components.tables.codes.govname": "Governorate",
   "boilerplate.components.tables.codes.arDesc": "Arabic Description",
   "boilerplate.components.tables.codes.enDesc": "English Description",
@@ -880,6 +882,9 @@
   "boilerplate.components.tables.codes.familyMemberValue": "Family Member Value",
   "boilerplate.components.tables.codes.templateName": "Template Name",
   "boilerplate.components.tables.codes.price": "Price",
+  "boilerplate.components.tables.codes.validLength": "Valid Length",
+  "boilerplate.components.tables.codes.generalCode": "General Code",
+  "boilerplate.components.tables.codes.expirePeriod": "Expire Period",
   "boilerplate.components.tables.codes.transportaion": "Transportaion",
 
   "boilerplate.components.tables.codes.DepreciationPeriod": "Depreciation Period",

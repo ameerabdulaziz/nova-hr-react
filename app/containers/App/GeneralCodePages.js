@@ -17,10 +17,6 @@ export const JobLevel = (props) => (
   <MainDataGeneralCode text='Job Level' table='MdJobLevel' {...props} />
 );
 
-export const Government = (props) => (
-  <MainDataGeneralCode text='Government' table='MdGovernment' {...props} />
-);
-
 export const Month = (props) => (
   <MainDataGeneralCode text='Month' table='MdMonth' {...props} />
 );
@@ -87,10 +83,6 @@ export const JobNatures = (props) => (
 
 export const SocialStatus = (props) => (
   <MainDataGeneralCode text='Social Status' table='MdSocialStatus' {...props} />
-);
-
-export const IdentityType = (props) => (
-  <MainDataGeneralCode text='Identity Type' table='MdIdentityType' {...props} />
 );
 
 export const InsuranceRegion = (props) => (

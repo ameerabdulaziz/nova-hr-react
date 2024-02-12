@@ -819,6 +819,8 @@
   "boilerplate.components.tables.codes.requirements": "المتطلبات",
   "boilerplate.components.tables.codes.name": "الاسم بالعربية",
   "boilerplate.components.tables.codes.enname": "الاسم بالانجليزية",
+  "boilerplate.components.tables.codes.arName": "الاسم بالعربية",
+  "boilerplate.components.tables.codes.enName": "الاسم بالانجليزية",
   "boilerplate.components.tables.codes.govname": "المحافطة",
   "boilerplate.components.tables.codes.insuranceOffices": "مكاتب التأمين",
   "boilerplate.components.tables.codes.fromAge": "العمر من",
@@ -880,6 +882,9 @@
   "boilerplate.components.tables.codes.familyMemberValue": "قيمة أفراد العائلة",
   "boilerplate.components.tables.codes.price": "السعر",
   "boilerplate.components.tables.codes.templateName": "اسم القالب",
+  "boilerplate.components.tables.codes.validLength": "عدد الارقام",
+  "boilerplate.components.tables.codes.generalCode": "الكود العام",
+  "boilerplate.components.tables.codes.expirePeriod": "فترة انتهاء الصلاحية",
   "boilerplate.components.tables.codes.transportaion": "انتقالات",
 
   "boilerplate.components.tables.codes.fromdate": "من تاريخ",

@@ -424,6 +424,20 @@ export const Currency = loadable(
   }
 );
 
+export const IdentityType = loadable(
+  () => import('./Pages/Payroll/MainData/Code/IdentityType'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const Government = loadable(
+  () => import('./Pages/Payroll/MainData/Code/Government'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const CompanyDocument = loadable(
   () => import('./Pages/Payroll/MainData/Code/CompanyDocument'),
   {
