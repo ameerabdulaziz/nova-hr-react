@@ -764,6 +764,7 @@
   "boilerplate.components.Chat.ChatRoom.send": "إرسال",
   "boilerplate.components.Search.Product.placeholder": "بحث المنتج",
   "boilerplate.components.Search.Product.results": "النتائج",
+  "boilerplate.components.Search.Product.search": "البحث",
   "boilerplate.components.Product.Cart.total": "مجموع",
   "boilerplate.components.Product.Cart.unique_item": "العناصر الفريدة في السلة",
   "boilerplate.components.Product.Cart.quantity": "الكمية",

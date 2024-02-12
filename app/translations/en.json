@@ -764,6 +764,7 @@
   "boilerplate.components.Chat.ChatRoom.send": "Send",
   "boilerplate.components.Search.Product.placeholder": "Search Product",
   "boilerplate.components.Search.Product.results": "Results",
+  "boilerplate.components.Search.Product.search": "Search",
   "boilerplate.components.Product.Cart.total": "Total",
   "boilerplate.components.Product.Cart.unique_item": "Unique items in Cart",
   "boilerplate.components.Product.Cart.quantity": "Quantity",

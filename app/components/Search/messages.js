@@ -16,4 +16,8 @@ export default defineMessages({
     id: `${scope}.Product.result`,
     defaultMessage: 'Results',
   },
+  search: {
+    id: `${scope}.Product.search`,
+    defaultMessage: 'search',
+  },
 });

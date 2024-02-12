@@ -6,11 +6,15 @@ import parse from 'autosuggest-highlight/parse';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 import Autosuggest from 'react-autosuggest';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import useStyles from './search-jss';
+import messages from './messages'
 
 function SearchUi(props) {
+  const { intl } = props;
+
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
@@ -64,8 +68,10 @@ function SearchUi(props) {
   }
 
   function renderSuggestion(suggestion, { query, isHighlighted }) {
-    const matches = match(suggestion.name, query);
-    const parts = parse(suggestion.name, matches);
+    const name = locale === 'en' ? suggestion.name : suggestion.arname;
+
+    const matches = match(name, query);
+    const parts = parse(name, matches);
 
     return (
       <MenuItem
@@ -95,6 +101,7 @@ function SearchUi(props) {
   }
 
   function getSuggestionValue(suggestion) {
+    console.log(suggestion);
     return locale === 'en' ? suggestion.name : suggestion.arname;
   }
 
@@ -151,7 +158,7 @@ function SearchUi(props) {
       renderSuggestion={renderSuggestion}
       className={classes.autocomplete}
       inputProps={{
-        placeholder: 'Search UI',
+        placeholder: intl.formatMessage(messages.search),
         value,
         onChange: handleChange,
       }}
@@ -161,6 +168,7 @@ function SearchUi(props) {
 
 SearchUi.propTypes = {
   history: PropTypes.object.isRequired,
+  intl: PropTypes.object.isRequired,
 };
 
-export default SearchUi;
+export default injectIntl(SearchUi);
