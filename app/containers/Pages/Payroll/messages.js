@@ -610,4 +610,8 @@ employeeId: {
     id: `${scope}.view`,
     defaultMessage: 'View',
   },
+  downloadExcel: {
+    id: `${scope}.downloadExcel`,
+    defaultMessage: 'downloadExcel',
+  },
 });

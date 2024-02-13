@@ -60,19 +60,9 @@ npm run start:prod
 - [ ] Implement a global loader when fetching menu data
 - [ ] Integrate a cancel button into the **editable** table component
 - [ ] Implement a solution to add spacing between **menu** levels in the sidebar
-- [ ] Add export as excel option for **Payroll Table**
-- [ ] Add translation for navbar search & result arName
-- [ ] Make Employee info realtime like menu sidebar, instead of store in localStorage
+- [ ] Make **Employee info** realtime like menu sidebar, instead of store in localStorage
 
-## Pages
-
-- [ ] **[Abdelrahman]** - **Vacation - Transaction / ReplaceAnnualLeaveBalanceCreate**: element autocomplete is required but contain no data
-- [ ] **Vacation / Transaction / LeaveTrxCreate**: get error on save
-- [ ] **Vacation / Transaction / GovernmentSickLeave**: get error on save
-- [ ] **Vacation / Transaction / ImportVacations**: get error on upload (save)
-- [ ] **Human Resources / Transaction / ResignTrxImport**: how to test
-
-## Docs
+## Docs 📖
 
 ### PayrollTable Component
 
@@ -301,7 +291,6 @@ const options = {
 
 // Pass the custom options to the PayrollTable component
 <PayrollTable
-  intl={intl}
   isLoading={isLoading}
   data={tableData}
   columns={columns}
