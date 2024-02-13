@@ -205,7 +205,7 @@ function SocialInsuranceData(props) {
       }
     } else {
       Object.keys(errors).forEach((key) => {
-        toast.error(JSON.stringify(errors[key]));
+        toast.error(errors[key]);
       });
     }
   };
@@ -373,7 +373,6 @@ function SocialInsuranceData(props) {
                         }}
                         renderInput={(params) => (
                           <TextField
-                            required
                             {...params}
                             label={intl.formatMessage(messages.insuranceJob)}
                           />
@@ -443,7 +442,6 @@ function SocialInsuranceData(props) {
                         name="mainSalaryNew"
                         value={insuredState.mainSalaryNew}
                         disabled={!isInsured}
-                        required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.mainSalary)}
                         fullWidth
