@@ -7,16 +7,16 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import createReducer from './reducers';
 import sagas from '../utils/sagas';
-import { createWhitelistFilter } from 'redux-persist-transform-filter';
+import createFilter , { createWhitelistFilter } from 'redux-persist-transform-filter';
 const sagaMiddleware = createSagaMiddleware();
 
 const persistConfig = {
   key: 'enlite',
   storage,
-  whitelist: ["authReducer"],
+  // whitelist: ["authReducer"],
+  whitelist: ["authReducer","ui","language"],
   transforms: [
     createWhitelistFilter('authReducer', ['user', 'loggedIn']),
-   
   ],
 };
 

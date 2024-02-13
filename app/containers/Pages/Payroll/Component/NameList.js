@@ -17,7 +17,7 @@ import useStyles from "../Style";
 import NamePopup from "./NamePopup";
 
 function NameList(props) {
-  const { intl, dataList, setdataList, Key ,withoutSalaryStructure} = props;
+  const { intl, dataList, setdataList, IsInsured, Key ,withoutSalaryStructure} = props;
   const { classes, cx } = useStyles();
   const [OpenPopup, setOpenPopup] = useState(false);
 
@@ -61,7 +61,7 @@ function NameList(props) {
 
   return (
     <div>
-      <NamePopup handleClose={handleClose} open={OpenPopup} Key={Key} withoutSalaryStructure={withoutSalaryStructure} />
+      <NamePopup handleClose={handleClose} IsInsured={IsInsured} open={OpenPopup} Key={Key} withoutSalaryStructure={withoutSalaryStructure} />
       <div>
         <Grid container spacing={3}>
           <Grid item xs={6} md={2}>

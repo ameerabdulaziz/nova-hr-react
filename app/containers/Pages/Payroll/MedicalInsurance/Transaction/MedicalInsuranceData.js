@@ -55,7 +55,7 @@ function MedicalInsuranceData(props) {
 
   const [privateInsuranceState, setPrivateMedicalState] = useState({
     privlMedCareNumber: '',
-    medInsuCatId: '',
+    medInsuCatId: null,
     medCareEndDate: null,
     familyMedcare: '',
     insuCompanyId: null
@@ -113,29 +113,54 @@ function MedicalInsuranceData(props) {
         setHasMedicalCert(response.hasMedCert);
 
         setGovernmentMedicalState({
-          govMedCareEnd: response.govMedCareEnd,
-          govMediCardNumber: response.govMediCardNumber,
+          govMedCareEnd: response.govMedCareEnd ?? null,
+          govMediCardNumber: response.govMediCardNumber ?? '',
         });
 
         setCertState({
-          medCertIssueDate: response.medCertIssueDate,
-          medCertExpDate: response.medCertExpDate,
+          medCertIssueDate: response.medCertIssueDate ?? null,
+          medCertExpDate: response.medCertExpDate ?? null,
         });
 
         setPrivateMedicalState({
-          privlMedCareNumber: response.privlMedCareNumber,
-          medInsuCatId: response.medInsuCatId,
-          medCareEndDate: response.medCareEndDate,
-          familyMedcare: response.familyMedcare,
-          insuCompanyId: response.insuCompanyId,
+          privlMedCareNumber: response.privlMedCareNumber ?? '',
+          medInsuCatId: response.medInsuCatId ?? null,
+          medCareEndDate: response.medCareEndDate ?? null,
+          familyMedcare: response.familyMedcare ?? '',
+          insuCompanyId: response.insuCompanyId ?? null,
         });
 
         setFormInfo((prev) => ({
           ...prev,
-          medInsNotes: response.medInsNotes,
+          medInsNotes: response.medInsNotes ?? '',
         }));
       } catch (error) {
-        //
+        setHasGovernmentInsurance(false);
+        setHasPrivateInsurance(false);
+        setHasMedicalCert(false);
+
+        setGovernmentMedicalState({
+          govMedCareEnd: null,
+          govMediCardNumber: '',
+        });
+
+        setCertState({
+          medCertIssueDate: null,
+          medCertExpDate: null,
+        });
+
+        setPrivateMedicalState({
+          privlMedCareNumber: '',
+          medInsuCatId: null,
+          medCareEndDate: null,
+          familyMedcare: '',
+          insuCompanyId: null,
+        });
+
+        setFormInfo((prev) => ({
+          ...prev,
+          medInsNotes: '',
+        }));
       } finally {
         setIsLoading(false);
       }
@@ -211,7 +236,6 @@ function MedicalInsuranceData(props) {
                       <TextField
                         name="medInsNotes"
                         value={formInfo.medInsNotes}
-                        required
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.hrNotes)}
                         className={classes.field}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Button, Grid, TextField, Autocomplete } from "@mui/material";
 import ResetPasswordData from "./api/ResetPasswordData";
+import PropTypes from 'prop-types';
 import GeneralListApis from "../api/GeneralListApis";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
@@ -28,24 +29,18 @@ function ResetPassword(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setIsLoading(true);
-      if (!employee || !password) {
-        toast.error("Please Select Employee and enter Password");
-        return;
-      }
 
-      const response = await ResetPasswordData().ResetUserPassword(
+      await ResetPasswordData().ResetUserPassword(
         employee,
         password
       );
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-      } else {
-        toast.error(response.statusText);
-      }
-    } catch (e) {
+      toast.success(notif.saved);
+    } catch (error) {
+      //
     } finally {
       setIsLoading(false);
     }
@@ -54,14 +49,11 @@ function ResetPassword(props) {
   const resetAll = async () => {
     try {
       setIsLoading(true);
-      let response = await ResetPasswordData().ResetAllUsersPassword(password);
+      await ResetPasswordData().ResetAllUsersPassword(password);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-      } else {
-        toast.error(response.statusText);
-      }
+      toast.success(notif.saved);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
@@ -77,6 +69,7 @@ function ResetPassword(props) {
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setemployeeList(employees || []);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
@@ -85,19 +78,20 @@ function ResetPassword(props) {
   const GetEmployeeListByDepartment = useCallback(async () => {
     try {
       setIsLoading(true);
-      if (!department) {
-        setemployeeList([]);
-        return;
-      }
-      const data = await GeneralListApis(locale).GetEmployeeListByDepartment(
-        department
-      );
+      setEmployee(null);
+      setUserName('');
+
+      const data = department
+        ? await GeneralListApis(locale).GetEmployeeListByDepartment(department)
+        : await GeneralListApis(locale).GetEmployeeList();
+
       setemployeeList(data || []);
     } catch (err) {
+      //
     } finally {
       setIsLoading(false);
     }
-  });
+  }, [department]);
 
   useEffect(() => {
     fetchNeededData();
@@ -121,9 +115,10 @@ function ResetPassword(props) {
       } finally {
         setIsLoading(false);
       }
+    } else {
+      setEmployee(null);
+      setUserName('');
     }
-
-    setEmployee(null);
   };
 
   return (
@@ -141,6 +136,7 @@ function ResetPassword(props) {
                 <Grid item xs={12}>
                   <Autocomplete
                     id="ddldepartment"
+                    value={departmentList.find(item => item.id === department) ?? null}
                     options={departmentList}
                     getOptionLabel={(option) => option.name}
                     onChange={(event, value) => {
@@ -151,7 +147,6 @@ function ResetPassword(props) {
                         variant="outlined"
                         {...params}
                         name="department"
-                        value={department}
                         label={intl.formatMessage(messages.chooseDept)}
                       />
                     )}
@@ -161,6 +156,7 @@ function ResetPassword(props) {
                   <Autocomplete
                     id="ddlEmp"
                     options={employeeList}
+                    value={employeeList.find(item => item.id === employee) ?? null}
                     getOptionLabel={(option) => option.name}
                     onChange={(event, value) => onEmployeeAutocompleteChange(value)}
                     renderInput={(params) => (
@@ -168,7 +164,6 @@ function ResetPassword(props) {
                         variant="outlined"
                         {...params}
                         name="employee"
-                        value={employee}
                         required
                         label={intl.formatMessage(Payrollmessages.chooseEmp)}
                       />
@@ -230,5 +225,9 @@ function ResetPassword(props) {
     </PayRollLoader>
   );
 }
+
+ResetPassword.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(ResetPassword);

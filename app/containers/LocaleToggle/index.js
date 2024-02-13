@@ -2,7 +2,7 @@
  *
  * LanguageToggle
  *
- */import React from 'react';
+ */import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -28,6 +28,19 @@ function LocaleToggle(props) {
       changeDirection('ltr');
     }
   };
+
+
+  // used to change defualt direction on refresh
+  useEffect(()=> {
+    if(locale === "en")
+    {
+      document.dir = 'ltr';
+    }
+    else
+    {
+      document.dir = 'rtl';
+    }
+  },[])
 
   return (
     <Toggle
