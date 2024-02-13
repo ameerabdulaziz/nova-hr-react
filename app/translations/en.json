@@ -2562,7 +2562,7 @@
 
   "boilerplate.containers.Payroll.medicalInsurance.certificateIssuedDate": "Certificate Issue Date",
   "boilerplate.containers.Payroll.medicalInsurance.certificateExpireDate": "Certificate Expire Date",
-  "boilerplate.containers.Payroll.medicalInsurance.medicalCert": "Medical Cert",
+  "boilerplate.containers.Payroll.medicalInsurance.medicalCert": "Medical Certificate",
   "boilerplate.containers.Payroll.medicalInsurance.privateMedicalInsurance": "Private Medical Insurance",
   "boilerplate.containers.Payroll.medicalInsurance.governmentMedicalInsurance": "Government Medical Insurance",
   "boilerplate.containers.Payroll.medicalInsurance.insuranceCategory": "Insurance Category",
