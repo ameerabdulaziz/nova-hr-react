@@ -1895,6 +1895,7 @@
     "boilerplate.containers.Payroll.Payroll.elementMode": "Elment Mode",   
     "boilerplate.containers.Payroll.Payroll.CalcMethod": "Calc Method",
     "boilerplate.containers.Payroll.Payroll.NewEmpDedEl": "New Emp Deduction Element",
+    "boilerplate.containers.Payroll.Payroll.MedInsElement": "Medical Ins Element",
      
     "boilerplate.containers.Payroll.Payroll.source": "Source",    
     "boilerplate.containers.Payroll.Payroll.newval": "Enter new Employee Elements",    

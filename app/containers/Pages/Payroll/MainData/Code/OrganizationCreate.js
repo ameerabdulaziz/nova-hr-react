@@ -24,7 +24,7 @@ function CreateAndEditOrg(props) {
   const [arName, setArName] = useState("");
   const [enName, setEnName] = useState("");
   const [note, setNote] = useState("");
-  const [manPower, setManPower] = useState("");
+  const [manPower, setManPower] = useState(0);
   const [worknatureAllowance, setWorknatureAllowance] = useState("");
   const [Employee, setEmployee] = useState("");
   const [parent, setParent] = useState("");
@@ -56,6 +56,7 @@ function CreateAndEditOrg(props) {
     };
 
     try {
+      debugger ;
       let response = await OrganizationData().Save(data);
 
       if (response.status == 200) {

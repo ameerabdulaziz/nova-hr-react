@@ -24,6 +24,7 @@ import notif from "enl-api/ui/notifMessage";
 import GeneralListApis from "../../api/GeneralListApis";
 import NamePopup from "../../Component/NamePopup";
 import PayRollLoader from "../../Component/PayRollLoader";
+import OrganizationData from "../../MainData/api/OrganizationData";
 
 function ManPowerSetting(props) {
   const { intl } = props;
@@ -35,7 +36,7 @@ function ManPowerSetting(props) {
   const [OpenPopup, setOpenPopup] = useState(false);
   const Title = localStorage.getItem("MenuName");
   const [totalIdealManPower, settotalIdealManPower] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);  
 
   const handleClose = useCallback(
     (data) => {
@@ -71,6 +72,7 @@ function ManPowerSetting(props) {
   };
 
   const handleEnableOne = (event, row) => {
+    debugger ;
     setdataList(
       dataList.map((x) => {
         if (x.jobId == row.jobId) {
@@ -88,6 +90,13 @@ function ManPowerSetting(props) {
   };
 
   async function on_submit() {
+    var total = dataList.reduce((n, { idealManPower }) => parseInt(n) + parseInt(idealManPower), 0);
+
+    if(total!==totalIdealManPower)
+    {
+      toast.error("Total IdealManPower for jobs  Must Equal "+totalIdealManPower);
+      return;
+    }
     if (!organization) {
       toast.error("Please Select organization");
       return;
@@ -127,6 +136,10 @@ function ManPowerSetting(props) {
           };
         }) || []
       );
+
+      const result = await OrganizationData().GetDataById(organization, locale);      
+      settotalIdealManPower(result ? result[0].manPower : "");
+
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -143,11 +156,11 @@ function ManPowerSetting(props) {
     }
   }, []);
 
-  useEffect(() => {
+ /*  useEffect(() => {
     var temp = dataList.filter((row) => row.isSelected == true);
     var total = temp.reduce((n, { idealManPower }) => parseInt(n) + parseInt(idealManPower), 0);
     settotalIdealManPower(total);
-  }, [dataList]);
+  }, [dataList]); */
 
   useEffect(() => {
     GetList();

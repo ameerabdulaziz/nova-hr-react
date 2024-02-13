@@ -1930,6 +1930,7 @@
     "boilerplate.containers.Payroll.Payroll.elementMode": "طبيعة العنصر",
     "boilerplate.containers.Payroll.Payroll.CalcMethod": "طريقة الحساب",
     "boilerplate.containers.Payroll.Payroll.NewEmpDedEl": "عنصر خصم الموظف الجديد",
+    "boilerplate.containers.Payroll.Payroll.MedInsElement": "عنصر خصم التأمين ",
     
     "boilerplate.containers.Payroll.Payroll.source": "المصدر",
     "boilerplate.containers.Payroll.Payroll.newval": "ادخال عناصر للموظفين",
