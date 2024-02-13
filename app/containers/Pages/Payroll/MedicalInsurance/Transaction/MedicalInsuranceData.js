@@ -1,12 +1,17 @@
 import {
-  Autocomplete,
   Card,
   CardContent,
   Checkbox,
   FormControlLabel,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import notif from 'enl-api/ui/notifMessage';
@@ -20,6 +25,7 @@ import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
+import { formateDate } from '../../helpers';
 import api from '../api/MedicalInsuranceData';
 import messages from '../messages';
 
@@ -30,20 +36,17 @@ function MedicalInsuranceData(props) {
   const Title = localStorage.getItem('MenuName');
   const { classes } = useStyles();
 
-  const [companyList, setCompanyList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
-
   const [hasMedicalCert, setHasMedicalCert] = useState(false);
-  const [hasPrivateInsurance, setHasPrivateInsurance] = useState(false);
   const [hasGovernmentInsurance, setHasGovernmentInsurance] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [formInfo, setFormInfo] = useState({
     employeeId: '',
     medInsNotes: '',
+    minsuranceSubscriptionModel: [],
   });
 
-  const [governmentInsuranceState, setGovernmentMedicalState] = useState({
+  const [governmentState, setGovernmentState] = useState({
     govMedCareEnd: null,
     govMediCardNumber: '',
   });
@@ -51,14 +54,6 @@ function MedicalInsuranceData(props) {
   const [certState, setCertState] = useState({
     medCertExpDate: null,
     medCertIssueDate: null,
-  });
-
-  const [privateInsuranceState, setPrivateMedicalState] = useState({
-    privlMedCareNumber: '',
-    medInsuCatId: null,
-    medCareEndDate: null,
-    familyMedcare: '',
-    insuCompanyId: null
   });
 
   const handleEmpChange = useCallback((id, name) => {
@@ -71,99 +66,56 @@ function MedicalInsuranceData(props) {
   }, []);
 
   const onGovernmentNumericInputChange = (evt) => {
-    setGovernmentMedicalState((prev) => ({
+    setGovernmentState((prev) => ({
       ...prev,
       [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
     }));
-  };
-
-  const onPrivateNumericInputChange = (evt) => {
-    setPrivateMedicalState((prev) => ({
-      ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
-    }));
-  };
-
-  const fetchNeededData = async () => {
-    setIsLoading(true);
-
-    try {
-      const company = await api(locale).GetMinsuranceCompany();
-      setCompanyList(company);
-
-      const category = await api(locale).GetMinsuranceCategory();
-      setCategoryList(category);
-    } catch (err) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const GetEmployeeInfo = async () => {
-    if (formInfo.employeeId) {
-      try {
-        setIsLoading(true);
-        const response = await api(locale).GetEmployeeById(
-          formInfo.employeeId
-        );
+    try {
+      setIsLoading(true);
+      const response = await api(locale).GetEmployeeById(formInfo.employeeId);
 
-        setHasGovernmentInsurance(response.govMedicallyInsured);
-        setHasPrivateInsurance(response.privMedCareInsured);
-        setHasMedicalCert(response.hasMedCert);
+      setHasGovernmentInsurance(response.govMedicallyInsured);
+      setHasMedicalCert(response.hasMedCert);
 
-        setGovernmentMedicalState({
-          govMedCareEnd: response.govMedCareEnd ?? null,
-          govMediCardNumber: response.govMediCardNumber ?? '',
-        });
+      setGovernmentState({
+        govMedCareEnd: response.govMedCareEnd ?? null,
+        govMediCardNumber: response.govMediCardNumber ?? '',
+      });
 
-        setCertState({
-          medCertIssueDate: response.medCertIssueDate ?? null,
-          medCertExpDate: response.medCertExpDate ?? null,
-        });
+      setCertState({
+        medCertIssueDate: response.medCertIssueDate ?? null,
+        medCertExpDate: response.medCertExpDate ?? null,
+      });
 
-        setPrivateMedicalState({
-          privlMedCareNumber: response.privlMedCareNumber ?? '',
-          medInsuCatId: response.medInsuCatId ?? null,
-          medCareEndDate: response.medCareEndDate ?? null,
-          familyMedcare: response.familyMedcare ?? '',
-          insuCompanyId: response.insuCompanyId ?? null,
-        });
+      setFormInfo((prev) => ({
+        ...prev,
+        medInsNotes: response.medInsNotes ?? '',
+        minsuranceSubscriptionModel: response.minsuranceSubscriptionModel ?? [],
+      }));
+    } catch (error) {
+      setHasGovernmentInsurance(false);
+      setHasMedicalCert(false);
 
-        setFormInfo((prev) => ({
-          ...prev,
-          medInsNotes: response.medInsNotes ?? '',
-        }));
-      } catch (error) {
-        setHasGovernmentInsurance(false);
-        setHasPrivateInsurance(false);
-        setHasMedicalCert(false);
+      setGovernmentState({
+        govMedCareEnd: null,
+        govMediCardNumber: '',
+      });
 
-        setGovernmentMedicalState({
-          govMedCareEnd: null,
-          govMediCardNumber: '',
-        });
+      setCertState({
+        medCertIssueDate: null,
+        medCertExpDate: null,
+      });
 
-        setCertState({
-          medCertIssueDate: null,
-          medCertExpDate: null,
-        });
-
-        setPrivateMedicalState({
-          privlMedCareNumber: '',
-          medInsuCatId: null,
-          medCareEndDate: null,
-          familyMedcare: '',
-          insuCompanyId: null,
-        });
-
-        setFormInfo((prev) => ({
-          ...prev,
-          medInsNotes: '',
-        }));
-      } finally {
-        setIsLoading(false);
-      }
+      setFormInfo((prev) => ({
+        ...prev,
+        medInsNotes: '',
+        minsuranceSubscriptionModel: [],
+      }));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -173,22 +125,17 @@ function MedicalInsuranceData(props) {
     let formData = {
       ...formInfo,
       govMedicallyInsured: hasGovernmentInsurance,
-      privMedCareInsured: hasPrivateInsurance,
       hasMedCert: hasMedicalCert,
     };
 
     setIsLoading(true);
-
-    if (hasPrivateInsurance) {
-      formData = { ...formData, ...privateInsuranceState };
-    }
 
     if (hasMedicalCert) {
       formData = { ...formData, ...certState };
     }
 
     if (hasGovernmentInsurance) {
-      formData = { ...formData, ...governmentInsuranceState };
+      formData = { ...formData, ...governmentState };
     }
 
     try {
@@ -203,247 +150,103 @@ function MedicalInsuranceData(props) {
   };
 
   useEffect(() => {
-    fetchNeededData();
-  }, []);
-
-  useEffect(() => {
-    GetEmployeeInfo();
+    if (formInfo.employeeId) {
+      GetEmployeeInfo();
+    }
   }, [formInfo.employeeId]);
 
   const onInputChange = (evt) => {
     setFormInfo((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
   };
 
+  const getFamilyCount = (row) => (row.fathersNo ?? 0) + (row.wivesNo ?? 0) + (row.childrenNo ?? 0);
+
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" desc="" title={Title}>
+      <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
         <form onSubmit={onFormSubmit}>
-          <Grid container spacing={3} direction="row">
+          <Grid container spacing={2} direction='row'>
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange} id={formInfo.employeeId} />
+              <EmployeeData
+                handleEmpChange={handleEmpChange}
+                id={formInfo.employeeId}
+              />
             </Grid>
 
-            <Grid item xs={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12}>
-                      <TextField
-                        name="medInsNotes"
-                        value={formInfo.medInsNotes}
-                        onChange={onInputChange}
-                        label={intl.formatMessage(messages.hrNotes)}
-                        className={classes.field}
-                        variant="outlined"
-                        multiline
-                        rows={1}
-                        autoComplete='off'
-                      />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Card className={classes.card}>
+            <Grid item xs={12} md={6}>
+              <Card className={classes.card} sx={{ mt: '0!important' }}>
                 <CardContent>
                   <FormControlLabel
                     control={
                       <Checkbox
                         checked={hasGovernmentInsurance}
-                        onChange={(evt) => setHasGovernmentInsurance(evt.target.checked)}
+                        onChange={(evt) => setHasGovernmentInsurance(evt.target.checked)
+                        }
                       />
                     }
-                    label={intl.formatMessage(messages.governmentMedicalInsurance)}
+                    label={intl.formatMessage(
+                      messages.governmentMedicalInsurance
+                    )}
                   />
 
                   <Grid
                     container
-                    spacing={3}
+                    spacing={2}
                     mt={0}
-                    alignItems="flex-start"
-                    direction="row"
+                    alignItems='flex-start'
+                    direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <TextField
-                        name="govMediCardNumber"
-                        value={governmentInsuranceState.govMediCardNumber}
+                        name='govMediCardNumber'
+                        value={governmentState.govMediCardNumber}
                         disabled={!hasGovernmentInsurance}
                         required
                         onChange={onGovernmentNumericInputChange}
                         label={intl.formatMessage(messages.medicalCardNumber)}
-                        className={classes.field}
-                        variant="outlined"
+                        fullWidth
+                        variant='outlined'
                         autoComplete='off'
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(messages.cardExpireDate)}
-                          value={governmentInsuranceState.govMedCareEnd}
+                          value={governmentState.govMedCareEnd}
                           disabled={!hasGovernmentInsurance}
                           onChange={(date) => {
-                            setGovernmentMedicalState((prevFilters) => ({
+                            setGovernmentState((prevFilters) => ({
                               ...prevFilters,
                               govMedCareEnd: date,
                             }));
                           }}
-                          className={classes.field}
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              variant="outlined"
+                              variant='outlined'
                               required
+                              fullWidth
                             />
                           )}
                         />
                       </LocalizationProvider>
                     </Grid>
-
                   </Grid>
                 </CardContent>
               </Card>
             </Grid>
 
-            <Grid item xs={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={hasPrivateInsurance}
-                        onChange={(evt) => setHasPrivateInsurance(evt.target.checked)}
-                      />
-                    }
-                    label={intl.formatMessage(messages.privateMedicalInsurance)}
-                  />
-
-                  <Grid
-                    container
-                    spacing={3}
-                    mt={0}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={3}>
-                      <Autocomplete
-                        options={companyList}
-                        value={
-                          companyList.find((item) => item.id === privateInsuranceState.insuCompanyId) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => {
-                          setPrivateMedicalState((prev) => ({
-                            ...prev,
-                            insuCompanyId: value !== null ? value.id : null,
-                          }));
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label={intl.formatMessage(messages.insuranceCompany)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <Autocomplete
-                        options={categoryList}
-                        value={
-                          categoryList.find((item) => item.id === privateInsuranceState.medInsuCatId) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => {
-                          setPrivateMedicalState((prev) => ({
-                            ...prev,
-                            medInsuCatId: value !== null ? value.id : null,
-                          }));
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label={intl.formatMessage(messages.insuranceCategory)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name="privlMedCareNumber"
-                        value={privateInsuranceState.privlMedCareNumber}
-                        disabled={!hasPrivateInsurance}
-                        required
-                        onChange={onPrivateNumericInputChange}
-                        label={intl.formatMessage(messages.medicalCardNumber)}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.medicalEndDate)}
-                          value={privateInsuranceState.medCareEndDate}
-                          disabled={!hasPrivateInsurance}
-                          onChange={(date) => {
-                            setPrivateMedicalState((prevFilters) => ({
-                              ...prevFilters,
-                              medCareEndDate: date,
-                            }));
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant="outlined"
-                              required
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name="familyMedcare"
-                        value={privateInsuranceState.familyMedcare}
-                        disabled={!hasPrivateInsurance}
-                        required
-                        onChange={onPrivateNumericInputChange}
-                        label={intl.formatMessage(messages.familyCount)}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Card className={classes.card}>
+            <Grid item xs={12} md={6}>
+              <Card className={classes.card} sx={{ mt: '0!important' }}>
                 <CardContent>
                   <FormControlLabel
                     control={
                       <Checkbox
                         checked={hasMedicalCert}
-                        onChange={(evt) => setHasMedicalCert(evt.target.checked)}
+                        onChange={(evt) => setHasMedicalCert(evt.target.checked)
+                        }
                       />
                     }
                     label={intl.formatMessage(messages.medicalCert)}
@@ -451,15 +254,17 @@ function MedicalInsuranceData(props) {
 
                   <Grid
                     container
-                    spacing={3}
+                    spacing={2}
                     mt={0}
-                    alignItems="flex-start"
-                    direction="row"
+                    alignItems='flex-start'
+                    direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
-                          label={intl.formatMessage(messages.certificateIssuedDate)}
+                          label={intl.formatMessage(
+                            messages.certificateIssuedDate
+                          )}
                           value={certState.medCertIssueDate}
                           disabled={!hasMedicalCert}
                           onChange={(date) => {
@@ -468,22 +273,24 @@ function MedicalInsuranceData(props) {
                               medCertIssueDate: date,
                             }));
                           }}
-                          className={classes.field}
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              variant="outlined"
+                              variant='outlined'
                               required
+                              fullWidth
                             />
                           )}
                         />
                       </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
-                          label={intl.formatMessage(messages.certificateExpireDate)}
+                          label={intl.formatMessage(
+                            messages.certificateExpireDate
+                          )}
                           value={certState.medCertExpDate}
                           disabled={!hasMedicalCert}
                           onChange={(date) => {
@@ -492,26 +299,87 @@ function MedicalInsuranceData(props) {
                               medCertExpDate: date,
                             }));
                           }}
-                          className={classes.field}
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              variant="outlined"
+                              variant='outlined'
                               required
+                              fullWidth
                             />
                           )}
                         />
                       </LocalizationProvider>
                     </Grid>
-
                   </Grid>
                 </CardContent>
               </Card>
             </Grid>
 
             <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={1}>
+              <TextField
+                name='medInsNotes'
+                value={formInfo.medInsNotes}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.hrNotes)}
+                fullWidth
+                variant='outlined'
+                multiline
+                rows={1}
+                autoComplete='off'
+              />
+            </Grid>
+
+            {formInfo.minsuranceSubscriptionModel.length > 0 && (
+              <Grid item xs={12}>
+                <TableContainer>
+                  <Table sx={{ minWidth: 650 }}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>
+                          {intl.formatMessage(messages.insuranceCompany)}
+                        </TableCell>
+                        <TableCell>
+                          {intl.formatMessage(messages.insuranceCategory)}
+                        </TableCell>
+                        <TableCell>
+                          {intl.formatMessage(messages.medicalCardNumber)}
+                        </TableCell>
+                        <TableCell>
+                          {intl.formatMessage(messages.medicalEndDate)}
+                        </TableCell>
+                        <TableCell>
+                          {intl.formatMessage(messages.familyCount)}
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {formInfo.minsuranceSubscriptionModel.map(
+                        (row, index) => (
+                          <TableRow
+                            key={index}
+                            sx={{
+                              '&:last-child td, &:last-child th': { border: 0 },
+                            }}
+                          >
+                            <TableCell>{row.insuCompanyName}</TableCell>
+                            <TableCell>{row.medInsuCatName}</TableCell>
+                            <TableCell>{row.privlMedCareNumber}</TableCell>
+                            <TableCell>
+                              {formateDate(row.medCareEndDate)}
+                            </TableCell>
+                            <TableCell>{getFamilyCount(row)}</TableCell>
+                          </TableRow>
+                        )
+                      )}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
+            )}
+
+            <Grid item xs={12}>
+              <Grid container spacing={2}>
+                <Grid item>
                   <SaveButton processing={isLoading} />
                 </Grid>
               </Grid>
@@ -524,7 +392,7 @@ function MedicalInsuranceData(props) {
 }
 
 MedicalInsuranceData.propTypes = {
-  intl: PropTypes.object.isRequired
+  intl: PropTypes.object.isRequired,
 };
 
 export default injectIntl(MedicalInsuranceData);

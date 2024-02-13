@@ -16,6 +16,7 @@ import payrollMessages from '../../messages';
 import api from '../api/ImportEmployeeData';
 import ErrorPopup from '../component/ImportEmployeeData/ErrorPopup';
 import messages from '../messages';
+import PayrollTable from "../../Component/PayrollTable";
 
 const XLSX_COLUMNS = [
   { label: 'Employee Code', isRequired: true, type: 'number' }, // 0
@@ -61,6 +62,11 @@ function ImportEmployeeData(props) {
     rows: [],
     modifyExistEmployee: false,
   });
+
+  const [listSheet, setListSheet] = useState([]);
+  const [cols, setCols] = useState("");
+  const [fileTitle, setFileTitle] = useState("");
+  let columns = [];
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -108,7 +114,8 @@ function ImportEmployeeData(props) {
     try {
       await api().save(body);
       toast.success(notif.saved);
-      setFormInfo({ ...formInfo, file: null, rows: [] });
+      // setFormInfo({ ...formInfo, file: null, rows: [] });
+      resetDataFun();
     } catch (error) {
       //
     } finally {
@@ -123,8 +130,10 @@ function ImportEmployeeData(props) {
     }));
   };
 
-  const checkRowsValidation = (sheet) => {
+  const checkRowsValidation = (sheet, listSheet) => {
     const [header, ...rows] = sheet;
+
+
 
     const errors = [];
 
@@ -216,6 +225,10 @@ function ImportEmployeeData(props) {
 
     if (errors.length === 0) {
       setFormInfo((prev) => ({ ...prev, rows }));
+
+       // use in list Data
+      listSheet.map((item) => setCols(Object.keys(item)));
+      setListSheet(listSheet)
     } else {
       setFileErrors(errors);
       setIsErrorPopupOpen(true);
@@ -224,6 +237,9 @@ function ImportEmployeeData(props) {
 
   const onExcelFileInputChange = (evt) => {
     const file = evt.target.files[0];
+
+    // use in list Data
+    setFileTitle(file.name.split(".")[0]);
 
     // to trigger onChange on the same file select
     evt.target.value = '';
@@ -250,8 +266,15 @@ function ImportEmployeeData(props) {
                 { raw: false, header: 1, defval: '' }
               );
 
+               // use in list Data
+              const arraySheetList = XLSX.utils.sheet_to_json(
+                workbook.Sheets[sheets[0]],
+                { raw: false, header: 0, defval: '' }
+              );
+
+
               if (arraySheet.length > 0) {
-                checkRowsValidation(arraySheet);
+                checkRowsValidation(arraySheet, arraySheetList);
                 setIsLoading(false);
               } else {
                 toast.error(intl.formatMessage(messages.fileIsEmpty));
@@ -272,6 +295,33 @@ function ImportEmployeeData(props) {
       }
     }
   };
+
+
+
+  columns =
+    cols.length !== 0
+      ? cols.map((item) => ({
+          name: item,
+          label: item,
+          options: {
+            filter: true,
+          },
+        })) : []
+
+
+        const resetDataFun = () => {
+          setListSheet([])
+          setCols("")
+          setFileTitle("")
+          columns = []
+
+          setFormInfo({
+            file: null,
+            rows: [],
+            modifyExistEmployee: false,
+          });
+        }
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -329,6 +379,13 @@ function ImportEmployeeData(props) {
 
             <Button
               variant='contained'
+              onClick={resetDataFun}
+            >
+              {intl.formatMessage(payrollMessages.reset)}
+            </Button>
+
+            <Button
+              variant='contained'
               type='submit'
               disabled={formInfo.rows.length === 0}
             >
@@ -337,6 +394,15 @@ function ImportEmployeeData(props) {
           </Stack>
         </PapperBlock>
       </form>
+
+
+      {listSheet.length !== 0 && (
+            <PayrollTable
+              title={fileTitle}
+              data={listSheet}
+              columns={columns}
+            />
+          )}
     </PayRollLoader>
   );
 }

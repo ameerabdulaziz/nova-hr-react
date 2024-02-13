@@ -3,11 +3,11 @@ import {
   Button,
   Card,
   CardContent,
-  Grid, TextField
+  Grid,
+  TextField,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -20,6 +20,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/MedicalInsuranceSubscriptionData';
 import messages from '../messages';
@@ -38,14 +39,13 @@ function MedicalInsuranceSubscriptionCreate(props) {
   const [insuranceCategoryList, setInsuranceCategoryList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [monthsList, setMonthsList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([
-  ]);
+  const [employeeList, setEmployeeList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [fixedBoxState, setFixedBoxState] = useState({
     cmpShare: '',
     employeeShare: '',
-    familyMemberValue: ''
+    familyMemberValue: '',
   });
 
   const [formInfo, setFormInfo] = useState({
@@ -63,6 +63,9 @@ function MedicalInsuranceSubscriptionCreate(props) {
     cmpFees: '',
     subMonthlyFees: '',
 
+    privlMedCareNumber: '',
+    medCareEndDate: null,
+
     childrenNo: '',
     childrenValue: '',
 
@@ -73,14 +76,14 @@ function MedicalInsuranceSubscriptionCreate(props) {
     wivesNo: '',
   });
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
-
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const formData = { ...formInfo };
-
-    formData.subDate = formateDate(formData.subDate);
+    const formData = {
+      ...formInfo,
+      medCareEndDate: formateDate(formInfo.medCareEndDate),
+      subDate: formateDate(formInfo.subDate),
+    };
 
     setIsLoading(true);
 
@@ -106,7 +109,9 @@ function MedicalInsuranceSubscriptionCreate(props) {
       const months = await GeneralListApis(locale).GetMonths();
       setMonthsList(months);
 
-      const category = await GeneralListApis(locale).GetMinsuranceCategoryList();
+      const category = await GeneralListApis(
+        locale
+      ).GetMinsuranceCategoryList();
       setInsuranceCategoryList(category);
 
       const company = await GeneralListApis(locale).GetMinsuranceCompanyList();
@@ -130,17 +135,17 @@ function MedicalInsuranceSubscriptionCreate(props) {
     setIsLoading(true);
 
     try {
-      const response = await api(locale).MinsuranceCategory(formInfo.medInsuCatId);
-
-      setFixedBoxState(
-        {
-          cmpShare: response.cmpShare,
-          employeeShare: response.employeeShare,
-          familyMemberValue: response.familyMemberValue
-        }
+      const response = await api(locale).MinsuranceCategory(
+        formInfo.medInsuCatId
       );
 
-      setFormInfo(prev => ({
+      setFixedBoxState({
+        cmpShare: response.cmpShare,
+        employeeShare: response.employeeShare,
+        familyMemberValue: response.familyMemberValue,
+      });
+
+      setFormInfo((prev) => ({
         ...prev,
         cmpFees: response.cmpShare,
         subMonthlyFees: response.employeeShare,
@@ -178,11 +183,18 @@ function MedicalInsuranceSubscriptionCreate(props) {
   };
 
   const onAutoCompleteChange = (value, name) => {
-    setFormInfo((prev) => ({ ...prev, [name]: value !== null ? value.id : null }));
+    setFormInfo((prev) => ({
+      ...prev,
+      [name]: value !== null ? value.id : null,
+    }));
   };
 
   const onEmployeeAutoCompleteChange = (value) => {
-    setFormInfo((prev) => ({ ...prev, employeeId: value !== null ? value.id : null, employeeName: value !== null ? value.name : null }));
+    setFormInfo((prev) => ({
+      ...prev,
+      employeeId: value !== null ? value.id : null,
+      employeeName: value !== null ? value.name : null,
+    }));
   };
 
   const onCancelBtnClick = () => {
@@ -194,318 +206,373 @@ function MedicalInsuranceSubscriptionCreate(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={6}>
-              <Card className={classes.card}>
-                <CardContent>
-
-                  <Grid container spacing={3} direction='row'>
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        options={employeeList}
-                        value={
-                          employeeList.find(
-                            (item) => item.id === formInfo.employeeId
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onEmployeeAutoCompleteChange(value)}
-                        renderInput={(params) => (
-                          <TextField
-                            required
-                            {...params}
-                            label={intl.formatMessage(messages.employeeName)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        options={insuranceCompanyList}
-                        value={
-                          insuranceCompanyList.find(
-                            (item) => item.id === formInfo.insCmpId
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        onChange={(_, value) => onAutoCompleteChange(value, 'insCmpId')}
-                        renderInput={(params) => (
-                          <TextField
-                            required
-                            {...params}
-                            label={intl.formatMessage(messages.insuranceCompany)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        options={insuranceCategoryList}
-                        value={
-                          insuranceCategoryList.find(
-                            (item) => item.id === formInfo.medInsuCatId
-                          ) ?? null
-                        }
-                        onChange={(_, value) => onAutoCompleteChange(value, 'medInsuCatId')}
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        renderInput={(params) => (
-                          <TextField
-                            required
-                            {...params}
-                            label={intl.formatMessage(messages.insuranceCategory)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.subscriptionDate)}
-                          value={formInfo.subDate}
-                          onChange={date => onDatePickerChange(date, 'subDate')}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField required {...params} variant='outlined' />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        options={yearList}
-                        value={
-                          yearList.find(
-                            (item) => item.id === formInfo.yearId
-                          ) ?? null
-                        }
-                        onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        renderInput={(params) => (
-                          <TextField
-                            required
-                            {...params}
-                            label={intl.formatMessage(messages.year)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        options={monthsList}
-                        value={
-                          monthsList.find(
-                            (item) => item.id === formInfo.monthId
-                          ) ?? null
-                        }
-                        onChange={(_, value) => onAutoCompleteChange(value, 'monthId')}
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
-                        getOptionLabel={(option) => (option ? option.name : '')}
-                        renderInput={(params) => (
-                          <TextField
-                            required
-                            {...params}
-                            label={intl.formatMessage(messages.month)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <TextField
-                        name='subMonthlyFees'
-                        value={formInfo.subMonthlyFees}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.employeeShare)}
-                        className={classes.field}
-                        variant='outlined'
-                        required
-                        autoComplete='off'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <TextField
-                        name='cmpFees'
-                        value={formInfo.cmpFees}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.companyShare)}
-                        className={classes.field}
-                        variant='outlined'
-                        required
-                        autoComplete='off'
-                      />
-                    </Grid>
-
-                  </Grid>
-                </CardContent>
-              </Card>
-
-              <Card className={classes.card} sx={{ mt: 3 }} >
-                <CardContent>
-
-                  <Grid container spacing={3} direction='row'>
-
-                    <Grid item md={12}>
-                      <Grid container spacing={3} direction='row'>
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='fathersNo'
-                            value={formInfo.fathersNo}
-                            onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.fatherNumbers)}
-                            className={classes.field}
-                            required
-                            variant='outlined'
-                            autoComplete='off'
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='fathersValue'
-                            value={formInfo.fathersValue}
-                            onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.value)}
-                            className={classes.field}
-                            required
-                            variant='outlined'
-                            autoComplete='off'
-                          />
-                        </Grid>
-                      </Grid>
-                    </Grid>
-
-                    <Grid item md={12}>
-                      <Grid container spacing={3} direction='row'>
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='wivesNo'
-                            value={formInfo.wivesNo}
-                            onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.wifeNumbers)}
-                            className={classes.field}
-                            required
-                            variant='outlined'
-                            autoComplete='off'
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='wivesValue'
-                            value={formInfo.wivesValue}
-                            onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.value)}
-                            className={classes.field}
-                            required
-                            variant='outlined'
-                            autoComplete='off'
-                          />
-                        </Grid>
-                      </Grid>
-                    </Grid>
-
-                    <Grid item md={12}>
-                      <Grid container spacing={3} direction='row'>
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='childrenNo'
-                            value={formInfo.childrenNo}
-                            onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.childrenNumbers)}
-                            className={classes.field}
-                            required
-                            variant='outlined'
-                            autoComplete='off'
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                          <TextField
-                            name='childrenValue'
-                            value={formInfo.childrenValue}
-                            onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.value)}
-                            className={classes.field}
-                            required
-                            variant='outlined'
-                            autoComplete='off'
-                          />
-                        </Grid>
-                      </Grid>
-                    </Grid>
-
-                  </Grid>
-                </CardContent>
-              </Card>
+            <Grid item xs={12} md={4}>
+              <Autocomplete
+                options={employeeList}
+                value={
+                  employeeList.find(
+                    (item) => item.id === formInfo.employeeId
+                  ) ?? null
+                }
+                isOptionEqualToValue={(option, value) => option.id === value.id
+                }
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(_, value) => onEmployeeAutoCompleteChange(value)
+                }
+                renderInput={(params) => (
+                  <TextField
+                    required
+                    {...params}
+                    label={intl.formatMessage(messages.employeeName)}
+                  />
+                )}
+              />
             </Grid>
 
-            <Grid item md={6}>
+            <Grid item xs={12} md={4}>
+              <Autocomplete
+                options={insuranceCompanyList}
+                value={
+                  insuranceCompanyList.find(
+                    (item) => item.id === formInfo.insCmpId
+                  ) ?? null
+                }
+                isOptionEqualToValue={(option, value) => option.id === value.id
+                }
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(_, value) => onAutoCompleteChange(value, 'insCmpId')
+                }
+                renderInput={(params) => (
+                  <TextField
+                    required
+                    {...params}
+                    label={intl.formatMessage(
+                      messages.insuranceCompany
+                    )}
+                  />
+                )}
+              />
+            </Grid>
 
-              <Card className={classes.card}>
+            <Grid item xs={12} md={4}>
+              <Autocomplete
+                options={insuranceCategoryList}
+                value={
+                  insuranceCategoryList.find(
+                    (item) => item.id === formInfo.medInsuCatId
+                  ) ?? null
+                }
+                onChange={(_, value) => onAutoCompleteChange(value, 'medInsuCatId')
+                }
+                isOptionEqualToValue={(option, value) => option.id === value.id
+                }
+                getOptionLabel={(option) => (option ? option.name : '')}
+                renderInput={(params) => (
+                  <TextField
+                    required
+                    {...params}
+                    label={intl.formatMessage(
+                      messages.insuranceCategory
+                    )}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Card className={classes.card} sx={{ mt: '0!important' }} >
                 <CardContent>
-
                   <Grid container spacing={3} direction='row'>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                       <TextField
                         name='employeeShare'
                         disabled
                         value={fixedBoxState.employeeShare}
                         label={intl.formatMessage(messages.employeeShare)}
-                        className={classes.field}
+                        fullWidth
                         variant='outlined'
                         autoComplete='off'
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                       <TextField
                         name='cmpShare'
                         disabled
                         value={fixedBoxState.cmpShare}
                         label={intl.formatMessage(messages.companyShare)}
-                        className={classes.field}
+                        fullWidth
                         variant='outlined'
                         autoComplete='off'
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                       <TextField
                         name='subMonthlyFees'
                         disabled
                         value={fixedBoxState.familyMemberValue}
                         label={intl.formatMessage(messages.familyMemberValue)}
-                        className={classes.field}
+                        fullWidth
                         variant='outlined'
                         autoComplete='off'
                       />
                     </Grid>
-
                   </Grid>
                 </CardContent>
               </Card>
+            </Grid>
 
+            <Grid item xs={12} md={4}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DatePicker
+                  label={intl.formatMessage(messages.subscriptionDate)}
+                  value={formInfo.subDate}
+                  onChange={(date) => onDatePickerChange(date, 'subDate')
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      fullWidth
+                      {...params}
+                      variant='outlined'
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DatePicker
+                  label={intl.formatMessage(messages.medicalEndDate)}
+                  value={formInfo.medCareEndDate}
+                  onChange={(date) => onDatePickerChange(date, 'medCareEndDate')
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant='outlined'
+                      fullWidth
+                      required
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <TextField
+                name='privlMedCareNumber'
+                value={formInfo.privlMedCareNumber}
+                required
+                onChange={onNumericInputChange}
+                label={intl.formatMessage(messages.medicalCardNumber)}
+                fullWidth
+                variant='outlined'
+                autoComplete='off'
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Grid container spacing={3} direction='row'>
+                <Grid item xs={12} md={2}>
+                  <Autocomplete
+                    options={yearList}
+                    value={
+                      yearList.find(
+                        (item) => item.id === formInfo.yearId
+                      ) ?? null
+                    }
+                    onChange={(_, value) => onAutoCompleteChange(value, 'yearId')
+                    }
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderInput={(params) => (
+                      <TextField
+                        required
+                        {...params}
+                        label={intl.formatMessage(messages.year)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                  <Autocomplete
+                    options={monthsList}
+                    value={
+                      monthsList.find(
+                        (item) => item.id === formInfo.monthId
+                      ) ?? null
+                    }
+                    onChange={(_, value) => onAutoCompleteChange(value, 'monthId')
+                    }
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderInput={(params) => (
+                      <TextField
+                        required
+                        {...params}
+                        label={intl.formatMessage(messages.month)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                  <TextField
+                    name='subMonthlyFees'
+                    value={formInfo.subMonthlyFees}
+                    onChange={onNumericInputChange}
+                    label={intl.formatMessage(messages.employeeShare)}
+                    fullWidth
+                    variant='outlined'
+                    required
+                    autoComplete='off'
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                  <TextField
+                    name='cmpFees'
+                    value={formInfo.cmpFees}
+                    onChange={onNumericInputChange}
+                    label={intl.formatMessage(messages.companyShare)}
+                    fullWidth
+                    variant='outlined'
+                    required
+                    autoComplete='off'
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+              <TextField
+                name='fathersNo'
+                value={formInfo.fathersNo}
+                onChange={(evt) => {
+                  const value = evt.target.value.replace(
+                    /[^\d]/g,
+                    ''
+                  );
+
+                  setFormInfo((prev) => ({
+                    ...prev,
+                    fathersNo: value,
+                    fathersValue:
+                      value * fixedBoxState.familyMemberValue,
+                  }));
+                }}
+                label={intl.formatMessage(messages.fatherNumbers)}
+                fullWidth
+                required
+                variant='outlined'
+                autoComplete='off'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+              <TextField
+                name='fathersValue'
+                value={formInfo.fathersValue}
+                onChange={onNumericInputChange}
+                label={intl.formatMessage(messages.value)}
+                fullWidth
+                required
+                variant='outlined'
+                autoComplete='off'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+              <TextField
+                name='wivesNo'
+                value={formInfo.wivesNo}
+                onChange={(evt) => {
+                  const value = evt.target.value.replace(
+                    /[^\d]/g,
+                    ''
+                  );
+
+                  setFormInfo((prev) => ({
+                    ...prev,
+                    wivesNo: value,
+                    wivesValue:
+                      value * fixedBoxState.familyMemberValue,
+                  }));
+                }}
+                label={intl.formatMessage(messages.wifeNumbers)}
+                fullWidth
+                required
+                variant='outlined'
+                autoComplete='off'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+              <TextField
+                name='wivesValue'
+                value={formInfo.wivesValue}
+                onChange={onNumericInputChange}
+                label={intl.formatMessage(messages.value)}
+                fullWidth
+                required
+                variant='outlined'
+                autoComplete='off'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+              <TextField
+                name='childrenNo'
+                value={formInfo.childrenNo}
+                onChange={(evt) => {
+                  const value = evt.target.value.replace(
+                    /[^\d]/g,
+                    ''
+                  );
+
+                  setFormInfo((prev) => ({
+                    ...prev,
+                    childrenNo: value,
+                    childrenValue:
+                      value * fixedBoxState.familyMemberValue,
+                  }));
+                }}
+                label={intl.formatMessage(messages.childrenNumbers)}
+                fullWidth
+                required
+                variant='outlined'
+                autoComplete='off'
+              />
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+              <TextField
+                name='childrenValue'
+                value={formInfo.childrenValue}
+                onChange={onNumericInputChange}
+                label={intl.formatMessage(messages.value)}
+                fullWidth
+                required
+                variant='outlined'
+                autoComplete='off'
+              />
             </Grid>
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={1}>
+                <Grid item>
                   <SaveButton Id={id} processing={isLoading} />
                 </Grid>
 
-                <Grid item xs={12} md={1}>
+                <Grid item>
                   <Button
                     variant='contained'
-                    size='medium'
                     color='primary'
                     onClick={onCancelBtnClick}
                   >

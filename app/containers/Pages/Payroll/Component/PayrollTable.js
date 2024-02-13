@@ -1,5 +1,6 @@
 import { Print } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
+import BackupTableIcon from '@mui/icons-material/BackupTable';
 import EditIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
@@ -25,6 +26,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
+import XLSX from 'xlsx-js-style';
 import useStyles from '../Style';
 import { formateDate } from '../helpers';
 import payrollMessages from '../messages';
@@ -133,9 +135,55 @@ function PayrollTable(props) {
     }
   };
 
+  const onExcelExportClick = useCallback(() => {
+    const cols = filterColumns.filter(
+      (_, index) => columnsVisibility[index]?.isColumnVisible
+    );
+
+    const sheetData = filterData.map(row => {
+      const rowData = {};
+
+      cols.forEach((col) => {
+        if (col?.options?.download !== false && col.label) {
+          rowData[col.label] = row[col.name];
+        }
+      });
+
+      return rowData;
+    });
+
+    const ws = XLSX.utils.json_to_sheet(sheetData);
+    const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+    });
+
+    const downloadURI = window.URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', downloadURI);
+    link.setAttribute('download', documentTitle);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(downloadURI);
+  }, [filterData, columns]);
+
   const customToolbar = useCallback(
     () => (
       <>
+        {options.download !== false && (
+          <Tooltip
+            placement='bottom'
+            title={intl.formatMessage(payrollMessages.downloadExcel)}
+          >
+            <IconButton onClick={onExcelExportClick}>
+              <BackupTableIcon sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </Tooltip>
+        )}
+
         {options.print !== false && (
           <Tooltip
             placement='bottom'
@@ -166,7 +214,7 @@ function PayrollTable(props) {
         {options.customToolbar && options.customToolbar()}
       </>
     ),
-    [options, isPrintLoading]
+    [options, isPrintLoading, filterData]
   );
 
   const tableOptions = useMemo(
