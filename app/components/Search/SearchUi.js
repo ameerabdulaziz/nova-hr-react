@@ -101,7 +101,6 @@ function SearchUi(props) {
   }
 
   function getSuggestionValue(suggestion) {
-    console.log(suggestion);
     return locale === 'en' ? suggestion.name : suggestion.arname;
   }
 
