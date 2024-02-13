@@ -30,7 +30,7 @@ function NavbarCV(props) {
           justifyContent='space-between'
         >
           <Grid item xs={3}>
-            <Link to='/public/JobVacation/'>
+            <Link to='/public/JobAdvertisement/'>
               <img src={getLogoUrl()} alt={config.companyName} className='logo' />
             </Link>
           </Grid>
@@ -39,7 +39,7 @@ function NavbarCV(props) {
             <Grid container spacing={2} alignItems='center'>
               <Grid item>
                 <IconButton className='theme-icon' onClick={changeTheme}>
-                  {theme === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+                  {theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
                 </IconButton>
               </Grid>
 

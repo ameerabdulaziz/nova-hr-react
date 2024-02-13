@@ -13,7 +13,7 @@ body.cv-layout-dark .cv-layout .single-course .title {
 
 body.cv-layout-dark .cv-layout .cv-job-card,
 body.cv-layout-dark .cv-layout .cv-form-card {
-	background-color: #181c31;
+	background-color: #292929;
 }
 
 body.cv-layout-dark #app {
@@ -246,7 +246,7 @@ body.cv-layout-dark .MuiChip-root.MuiChip-filled.MuiChip-sizeSmall {
 }
 
 .cv-layout .single-exp-card .title {
-	color: #000;
+	color: inherit;
 	font-size: 1rem;
 	font-weight: bold;
 }

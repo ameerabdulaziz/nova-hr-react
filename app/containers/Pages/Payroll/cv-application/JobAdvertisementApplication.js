@@ -1107,6 +1107,7 @@ function JobAdvertisementApplication(props) {
                                 size='small'
                                 className='action-btn edit-btn'
                                 aria-label='edit'
+                                color='primary'
                                 onClick={() => onExperienceEdit(exp)}
                               >
                                 <BorderColor />
@@ -1190,6 +1191,7 @@ function JobAdvertisementApplication(props) {
                                 size='small'
                                 className='action-btn edit-btn'
                                 aria-label='edit'
+                                color='primary'
                                 onClick={() => onCourseEdit(course)}
                               >
                                 <BorderColor />
