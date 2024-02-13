@@ -112,6 +112,7 @@ function MedicalInsuranceData(props) {
       setFormInfo((prev) => ({
         ...prev,
         medInsNotes: '',
+        minsuranceSubscriptionModel: [],
       }));
     } finally {
       setIsLoading(false);
