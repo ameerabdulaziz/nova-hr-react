@@ -67,14 +67,14 @@ function MinsuranceCategory() {
       width: 'auto',
       hidden: false,
     },
-    {
-      name: 'registrationPrice',
-      label: 'registrationPrice',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
-    },
+    // {
+    //   name: 'registrationPrice',
+    //   label: 'registrationPrice',
+    //   type: 'text',
+    //   initialValue: '',
+    //   width: 'auto',
+    //   hidden: false,
+    // },
     {
       name: 'edited',
       label: '',
