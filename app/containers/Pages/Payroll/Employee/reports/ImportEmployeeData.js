@@ -114,7 +114,8 @@ function ImportEmployeeData(props) {
     try {
       await api().save(body);
       toast.success(notif.saved);
-      setFormInfo({ ...formInfo, file: null, rows: [] });
+      // setFormInfo({ ...formInfo, file: null, rows: [] });
+      resetDataFun();
     } catch (error) {
       //
     } finally {
@@ -308,6 +309,20 @@ function ImportEmployeeData(props) {
         })) : []
 
 
+        const resetDataFun = () => {
+          setListSheet([])
+          setCols("")
+          setFileTitle("")
+          columns = []
+
+          setFormInfo({
+            file: null,
+            rows: [],
+            modifyExistEmployee: false,
+          });
+        }
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <ErrorPopup
@@ -361,6 +376,13 @@ function ImportEmployeeData(props) {
                 {intl.formatMessage(messages.uploadFile)}
               </Button>
             </div>
+
+            <Button
+              variant='contained'
+              onClick={resetDataFun}
+            >
+              {intl.formatMessage(payrollMessages.reset)}
+            </Button>
 
             <Button
               variant='contained'
