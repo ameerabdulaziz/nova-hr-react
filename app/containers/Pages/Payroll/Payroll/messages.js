@@ -208,6 +208,10 @@ export default defineMessages({
     id: `${scope}.NewEmpDedEl`,
     defaultMessage: 'NewEmpDedEl',
   },
+  MedInsElement: {
+    id: `${scope}.MedInsElement`,
+    defaultMessage: 'MedInsElement',
+  },
   calcValMin: {
     id: `${scope}.calcValMin`,
     defaultMessage: 'calcValMin',

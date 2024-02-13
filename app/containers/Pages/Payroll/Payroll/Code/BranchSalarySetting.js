@@ -59,6 +59,7 @@ function BranchSalarySetting(props) {
     CompanyShare: "",
     TheEmployeesShareOfSI: "",
     NewEmpDedEl: "",
+    MedInsElement:"",
   });
 
   const handleSubmit = async (e) => {
@@ -92,6 +93,7 @@ function BranchSalarySetting(props) {
       fixedElementsCompRate: data.CompanyShare,
       fixedElementsEmpRate: data.TheEmployeesShareOfSI,
       newEmpDedEl: data.NewEmpDedEl,
+      medInsElement:data.MedInsElement
     };
 
     try {
@@ -224,6 +226,10 @@ debugger ;
           NewEmpDedEl: dataList.newEmpDedEl
           ? dataList.newEmpDedEl
           : "",
+          MedInsElement: dataList.medInsElement
+          ? dataList.medInsElement
+          : "",
+          
       });
     }
   };
@@ -866,7 +872,7 @@ debugger ;
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item md={6} xs={12}>
+                  <Grid item md={3} xs={12}>
                     <Autocomplete
                       id="ddlNewEmpDedEl"
                       options={group1ElemList}
@@ -895,6 +901,39 @@ debugger ;
                           {...params}
                           name="NewEmpDedEl"
                           label={intl.formatMessage(messages.NewEmpDedEl)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item md={3} xs={12}>
+                    <Autocomplete
+                      id="ddlMedInsElement"
+                      options={group1ElemList}
+                      value={
+                        group1ElemList.find(
+                          (item) => item.id === data.MedInsElement
+                        ) || null
+                      }
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === "" ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                      }
+                      onChange={(event, value) => {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          MedInsElement: value !== null ? value.id : null,
+                        }));
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="NewEmpDedEl"
+                          label={intl.formatMessage(messages.MedInsElement)}
                         />
                       )}
                     />
