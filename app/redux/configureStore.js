@@ -17,11 +17,6 @@ const persistConfig = {
   whitelist: ["authReducer","ui","language"],
   transforms: [
     createWhitelistFilter('authReducer', ['user', 'loggedIn']),
-    createWhitelistFilter('ui', ['theme','direction','layout','palette','sidebarOpen','pageLoaded','subMenuOpen','type']),
-    // createWhitelistFilter('language', ['locale']),
-    // createWhitelistFilter('ui' , ['type']),
-    // createWhitelistFilter('authReducer', ['user', 'loggedIn']),
-    
   ],
 };
 
