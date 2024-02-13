@@ -13,6 +13,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import notif from "enl-api/ui/notifMessage";
 import { PapperBlock } from "enl-components";
 import React, { useCallback, useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 import { toast } from "react-hot-toast";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
@@ -119,35 +120,35 @@ function SocialInsuranceData(props) {
           formInfo.employeeId
         );
 
-        setIsInsured(response.isInsured);
-        setIsCalculateInsurance(response.calcSifromEmpRecordValue);
+        setIsInsured(response.isInsured ?? false);
+        setIsCalculateInsurance(response.calcSifromEmpRecordValue ?? false);
 
         setInsuredState({
-          insuranceDate: response.insuranceDate,
-          socialInsuranceId: response.socialInsuranceId,
-          insuJobId: response.insuJobId,
-          insuOfficeId: response.insuOfficeId,
-          mainSalary: response.mainSalary,
-          branchInsurance: response.branchInsurance,
-          insGrossSalary: response.insGrossSalary,
-          mainSalaryNew: response.mainSalaryNew,
+          insuranceDate: response.insuranceDate ?? null,
+          socialInsuranceId: response.socialInsuranceId ?? '',
+          insuJobId: response.insuJobId ?? null,
+          insuOfficeId: response.insuOfficeId ?? null,
+          mainSalary: response.mainSalary ?? '',
+          branchInsurance: response.branchInsurance ?? '',
+          insGrossSalary: response.insGrossSalary ?? '',
+          mainSalaryNew: response.mainSalaryNew ?? '',
         });
 
         setFixedShareState({
-          empFixedShare: response.empFixedShare,
-          compFixedShare: response.compFixedShare,
+          empFixedShare: response.empFixedShare ?? '',
+          compFixedShare: response.compFixedShare ?? '',
         });
 
         setFormInfo((prev) => ({
           ...prev,
-          insNotes: response.insNotes,
-          showSpecialInsurance: response.showSpecialInsurance,
-          ka3bDate: response.ka3bDate,
-          ka3bNo: response.ka3bNo,
-          c1inNo: response.c1inNo,
-          c6inNo: response.c6inNo,
-          c1inDate: response.c1inDate,
-          c6inDate: response.c6inDate,
+          insNotes: response.insNotes ?? '',
+          showSpecialInsurance: response.showSpecialInsurance ?? false,
+          ka3bDate: response.ka3bDate ?? null,
+          ka3bNo: response.ka3bNo ?? '',
+          c1inNo: response.c1inNo ?? '',
+          c6inNo: response.c6inNo ?? '',
+          c1inDate: response.c1inDate ?? null,
+          c6inDate: response.c6inDate ?? null,
         }));
       } catch (error) {
         //
@@ -186,6 +187,10 @@ function SocialInsuranceData(props) {
 
       if (isCalculateInsurance) {
         formData = { ...formData, ...fixedShareState };
+      }
+
+      if (isInsured) {
+        formData = { ...formData, ...insuredState };
       }
 
       try {
@@ -248,7 +253,7 @@ function SocialInsuranceData(props) {
                         value={formInfo.insNotes}
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.hrNotes)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         multiline
                         rows={1}
@@ -288,7 +293,7 @@ function SocialInsuranceData(props) {
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.insuranceNumber)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -306,11 +311,11 @@ function SocialInsuranceData(props) {
                               insuranceDate: date,
                             }));
                           }}
-                          className={classes.field}
                           renderInput={(params) => (
                             <TextField
                               {...params}
                               variant="outlined"
+                              fullWidth
                               required
                             />
                           )}
@@ -384,7 +389,7 @@ function SocialInsuranceData(props) {
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.insuranceSalary)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -427,7 +432,7 @@ function SocialInsuranceData(props) {
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.grossSalary)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -441,7 +446,7 @@ function SocialInsuranceData(props) {
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.mainSalary)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -483,7 +488,7 @@ function SocialInsuranceData(props) {
                         disabled={!isCalculateInsurance}
                         onChange={onFixedShareNumericInputChange}
                         label={intl.formatMessage(messages.employeeFixedShare)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -497,7 +502,7 @@ function SocialInsuranceData(props) {
                         disabled={!isCalculateInsurance}
                         onChange={onFixedShareNumericInputChange}
                         label={intl.formatMessage(messages.companyFixedShare)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -529,7 +534,7 @@ function SocialInsuranceData(props) {
                         value={formInfo.c1inNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.c1IncomingNumber)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -546,9 +551,8 @@ function SocialInsuranceData(props) {
                               c1inDate: date,
                             }));
                           }}
-                          className={classes.field}
                           renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
+                            <TextField fullWidth {...params} variant="outlined" />
                           )}
                         />
                       </LocalizationProvider>
@@ -567,7 +571,7 @@ function SocialInsuranceData(props) {
                         value={formInfo.c6inNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.c6IncomingNumber)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -584,9 +588,8 @@ function SocialInsuranceData(props) {
                               c6inDate: date,
                             }));
                           }}
-                          className={classes.field}
                           renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
+                            <TextField fullWidth {...params} variant="outlined" />
                           )}
                         />
                       </LocalizationProvider>
@@ -616,9 +619,8 @@ function SocialInsuranceData(props) {
                               ka3bDate: date,
                             }));
                           }}
-                          className={classes.field}
                           renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
+                            <TextField fullWidth {...params} variant="outlined" />
                           )}
                         />
                       </LocalizationProvider>
@@ -630,7 +632,7 @@ function SocialInsuranceData(props) {
                         value={formInfo.ka3bNo}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.workLetterNumber)}
-                        className={classes.field}
+                        fullWidth
                         variant="outlined"
                         autoComplete='off'
                       />
@@ -653,5 +655,9 @@ function SocialInsuranceData(props) {
     </PayRollLoader>
   );
 }
+
+SocialInsuranceData.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(SocialInsuranceData);
