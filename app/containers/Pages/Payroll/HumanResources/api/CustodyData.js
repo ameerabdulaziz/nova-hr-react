@@ -13,6 +13,7 @@ const CustodyData = (locale) => {
       name: obj.arName,
       enName: obj.enName,
       categoryName: obj.categoryName,
+      defualtPrice:obj.defualtPrice,
       custodyCategoryId: obj.custodyCategoryId,
       edited: false,
     }));
@@ -33,6 +34,7 @@ const CustodyData = (locale) => {
       arName: Item.name,
       enName: Item.enName,
       custodyCategoryId: cid,
+      defualtPrice:Item.defualtPrice,
     };
 
     const result =

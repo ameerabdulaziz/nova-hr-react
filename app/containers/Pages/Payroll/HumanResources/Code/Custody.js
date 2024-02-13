@@ -67,6 +67,14 @@ function Custody(props) {
       hidden: true,
     },
     {
+      name: 'defualtPrice',
+      label: 'price',
+      type: 'number',
+      initialValue: '0',
+      width: 'auto',
+      hidden: false,
+    },
+    {
       name: 'edited',
       label: '',
       type: 'static',

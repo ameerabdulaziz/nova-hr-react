@@ -158,11 +158,11 @@ function CustodyDeliveryCreate(props) {
             </Grid>
             <Grid item xs={12} md={10}></Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={8}>
               <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
             </Grid>
-            <Grid item xs={12} md={6}></Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4}></Grid>
+            <Grid item xs={12} md={2}>
               <Autocomplete
                 id="custodyId"
                 options={CustodyList}
@@ -215,7 +215,19 @@ function CustodyDeliveryCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-
+            <Grid item xs={12} md={2}>
+              <TextField
+                id="itemSerial"
+                name="itemSerial"
+                value={data.itemSerial}
+                onChange={(e) => handleChange(e)}
+                label={intl.formatMessage(messages.itemSerial)}
+                className={classes.field}
+                variant="outlined"
+                autoComplete='off'
+              />
+            </Grid>
+            
             <Grid item xs={12} md={8}>
               <TextField
                 id="notes"

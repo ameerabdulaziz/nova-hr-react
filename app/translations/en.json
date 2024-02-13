@@ -1754,6 +1754,8 @@
   "boilerplate.containers.Payroll.Attendance.selectShapeFiristToDeleteIt": "Select shape firist to delete it",
 
   "boilerplate.containers.Payroll.Attendance.method": "Method type",
+  
+  "boilerplate.containers.Payroll.Attendance.ShiftType": "Shift Type",
 
   
   "boilerplate.containers.Payroll.Payroll.LoanSettingTitle": "Add Loan Setting",    

@@ -55,6 +55,7 @@ note: {
   id: `${scope}.note`,
   defaultMessage: 'Note',
 },
+
 payTemplateName: {
   id: `${scope}.payTemplateName`,
   defaultMessage: 'PayTemplate Name',

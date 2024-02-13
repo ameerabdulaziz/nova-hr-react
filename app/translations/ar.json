@@ -1192,6 +1192,7 @@
   "boilerplate.containers.Payroll.HumanResources.employeeName": "الموظف",
   "boilerplate.containers.Payroll.HumanResources.monthName": "الشهر",
   "boilerplate.containers.Payroll.HumanResources.note": "ملاجظات",
+  
   "boilerplate.containers.Payroll.HumanResources.payTemplateName": "القالب",
   "boilerplate.containers.Payroll.HumanResources.reqSer": "رقم الطلب",
   "boilerplate.containers.Payroll.HumanResources.rewardsName": "المكافئة",
@@ -1496,6 +1497,8 @@
   "boilerplate.containers.Payroll.Attendance.workDays": "ايام العمل",
 
   "boilerplate.containers.Payroll.Attendance.vacEquiv": "Vacation equivalent",
+  
+  "boilerplate.containers.Payroll.Attendance.ShiftType": "نوع الوردية",
 
   
   

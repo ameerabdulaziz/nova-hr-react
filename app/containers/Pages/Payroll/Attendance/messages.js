@@ -1942,5 +1942,9 @@ devicePass: {
     id: `${scope}.method`,
     defaultMessage: 'Method',
   },
+  ShiftType: {
+    id: `${scope}.ShiftType`,
+    defaultMessage: 'ShiftType',
+  },
 });
 
