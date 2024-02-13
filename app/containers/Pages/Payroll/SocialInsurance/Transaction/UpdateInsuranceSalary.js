@@ -35,7 +35,6 @@ function UpdateInsuranceSalary(props) {
   const [updateBy, setUpdateBy] = useState('value');
   const [isValueRounding, setIsValueRounding] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [processing, setProcessing] = useState(false);
   const [formInfo, setFormInfo] = useState({
     NewMainSal: '',
   });
@@ -49,17 +48,15 @@ function UpdateInsuranceSalary(props) {
       chkRound: isValueRounding,
     };
 
-    setProcessing(true);
     setIsLoading(true);
 
     try {
-      await api(locale).save(formData, dataList.map(item => item.id));
+      await api(locale).save(formData, dataList.filter((row) => row?.isSelected).map(item => item.id));
 
       toast.success(notif.saved);
     } catch (error) {
       //
     } finally {
-      setProcessing(false);
       setIsLoading(false);
     }
   };
@@ -67,12 +64,12 @@ function UpdateInsuranceSalary(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const isSalaryValid = [].every(item => parseFloat(formInfo.NewMainSal) > item?.fixedElementsSilimit);
+    const isLimitBiggerThanSalary = dataList.filter((row) => row?.isSelected).every(item => parseFloat(formInfo.NewMainSal) > item?.fixedElementsSilimit);
 
-    if (isSalaryValid) {
-      setOpenParentPopup(true);
-    } else {
+    if (isLimitBiggerThanSalary) {
       saveInsurance();
+    } else {
+      setOpenParentPopup(true);
     }
   };
 
@@ -95,7 +92,6 @@ function UpdateInsuranceSalary(props) {
         open={openParentPopup}
         messageData={intl.formatMessage(messages.saveConfirmMessage)}
         callFun={saveInsurance}
-        processing={processing}
       />
 
       <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
@@ -128,7 +124,7 @@ function UpdateInsuranceSalary(props) {
                     value={formInfo.NewMainSal}
                     onChange={onNumericInputChange}
                     label={intl.formatMessage(messages.insuranceSalary)}
-                    className={classes.field}
+                    fullWidth
                     variant='outlined'
                     InputProps={{
                       endAdornment:
@@ -175,7 +171,7 @@ function UpdateInsuranceSalary(props) {
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={1}>
-                  <SaveButton processing={processing} />
+                  <SaveButton />
                 </Grid>
               </Grid>
             </Grid>
