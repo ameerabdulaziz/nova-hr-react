@@ -114,6 +114,21 @@ function uuid() {
   );
 }
 
+/**
+ * The function converts a string of Arabic digits to their corresponding Arabic
+ * numeral characters.
+ * @returns The function `toArabicDigits` returns a string with Arabic digits
+ * converted from the input string.
+ */
+function toArabicDigits(str = '') {
+  if (!str) {
+    return '';
+  }
+
+  const id = '٠١٢٣٤٥٦٧٨٩';
+  return str.toString().replace(/\d/g, (w) => id[+w]);
+}
+
 export {
-  formatNumber, formateDate, getCheckboxIcon, getFormData, uuid
+  formatNumber, formateDate, getCheckboxIcon, getFormData, uuid, toArabicDigits
 };

@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { toArabicDigits } from '../assets/helper';
+import { toArabicDigits } from '../../helpers';
 
 const StyledTableThRow = styled(TableRow)(({ theme }) => ({
   backgroundColor: theme.palette.action.selected,

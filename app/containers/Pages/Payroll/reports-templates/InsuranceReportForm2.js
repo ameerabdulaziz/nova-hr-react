@@ -6,12 +6,11 @@ import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useReactToPrint } from 'react-to-print';
-import { formateDate } from '../helpers';
+import { formateDate, toArabicDigits } from '../helpers';
 import payrollMessages from '../messages';
 import InsuranceReportForm2Footer from './InsuranceReportForm2/InsuranceReportForm2Footer';
 import InsuranceReportForm2Header from './InsuranceReportForm2/InsuranceReportForm2Header';
 import InsuranceReportForm2Table from './InsuranceReportForm2/InsuranceReportForm2Table';
-import { toArabicDigits } from './assets/helper';
 
 const ROWS_PER_PAGE = 10;
 const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
