@@ -141,7 +141,9 @@ setPrintId
         }}
       >
         <Stack spacing={2} mx={4} mt={4} mb={2}>
-          <Avatar src={company?.logo} variant="square" />
+          <div>
+            <img src={company?.logo} alt='' height={45} />
+          </div>
         </Stack>
           <h1 className={`${style.printPageTitleSty} `}>
             {examData?.templateName}

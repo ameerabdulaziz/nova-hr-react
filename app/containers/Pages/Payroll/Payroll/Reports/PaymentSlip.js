@@ -567,7 +567,9 @@ function PaymentSlip(props) {
         }}
       >
         <Stack spacing={2} mb={2}>
-          <Avatar src={company?.logo} variant="square" />
+          <div>
+            <img src={company?.logo} alt='' height={45} />
+          </div>
         </Stack>
 
         {paymentSlipReport.map((item, index) => (
