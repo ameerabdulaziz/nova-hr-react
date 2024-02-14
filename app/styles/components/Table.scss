@@ -31,6 +31,15 @@
         width: 100%;
       }
     }
+
+    // used to remove ( add or edit input field style ) from id column
+    td .crudInputId
+    {
+      > div 
+      {
+        border: none;
+      }
+    }
   }
   td{
     &.toggleCell{
