@@ -29,7 +29,6 @@ function EmployeeSalary(props) {
   const [isLoading, setIsLoading] = useState(true);
   const { classes } = useStyles();
   const [id, setid] = useState(0);
-  const [isBnkTransfer, setisBnkTransfer] = useState(false);
   const [taxable, settaxable] = useState(false);
   const [isConsultant, setisConsultant] = useState(false);
   const [isHours, setisHours] = useState(false);
@@ -63,7 +62,6 @@ function EmployeeSalary(props) {
       const data = {
         id: id,
         employeeId: employee.id,
-        isBnkTransfer: isBnkTransfer,
         taxable: taxable,
         isConsultant: isConsultant,
         isHours: isHours,
@@ -107,7 +105,6 @@ function EmployeeSalary(props) {
   };
   const clear = (e) => {
     setid(0);
-    setisBnkTransfer(false);
     settaxable(false);
     setisConsultant(false);
     setisHours(false);
@@ -145,7 +142,6 @@ function EmployeeSalary(props) {
 
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
-        setisBnkTransfer(dataApi[0].isBnkTransfer);
         settaxable(dataApi[0].taxable);
         setisConsultant(dataApi[0].isConsultant);
         setisHours(dataApi[0].isHours);
@@ -246,19 +242,6 @@ function EmployeeSalary(props) {
             </Grid>
 
             <form onSubmit={handleSubmit}>
-              <div>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={isBnkTransfer}
-                      disabled={employee.id === 0}
-                      onChange={() => setisBnkTransfer(!isBnkTransfer)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.isBnkTransfer)}
-                />
-              </div>
               <div>
                 <FormControlLabel
                   control={

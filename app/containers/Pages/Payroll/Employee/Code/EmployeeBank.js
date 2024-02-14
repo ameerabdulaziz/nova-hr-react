@@ -11,6 +11,7 @@ import {
   Stack,
   TextField,
   Typography,
+  Switch,
 } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Drawer from '@mui/material/Drawer';
@@ -25,15 +26,15 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Tooltip from '@mui/material/Tooltip';
 import brand from 'enl-api/dummy/brand';
 import avatarApi from 'enl-api/images/avatars';
 import notif from 'enl-api/ui/notifMessage';
 import css from 'enl-styles/Form.scss';
+import FormControlLabel from "@mui/material/FormControlLabel";
 import PropTypes from 'prop-types';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
@@ -46,6 +47,7 @@ import api from '../api/EmployeeBankData';
 import useStyles from '../component/BankList/EmpBank-jss';
 import TemplatePopup from '../component/BankList/TemplatePopup';
 import messages from '../messages';
+import { uuid } from '../../helpers';
 
 const INIT_FORM_INFO = {
   id: 0,
@@ -57,24 +59,7 @@ const INIT_FORM_INFO = {
   bnkEmpCode: '',
   swiftCode: '',
   empEmpBankElement: [],
-};
-
-const uuid = () => {
-  const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
-  return (
-    S4()
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + S4()
-    + S4()
-  );
+  isBnkTransfer: false,
 };
 
 function EmployeeBank(props) {
@@ -175,6 +160,7 @@ function EmployeeBank(props) {
           bnkEmpCode: selectedBankInfo.bnkEmpCode ?? '',
           swiftCode: selectedBankInfo.swiftCode ?? '',
           empEmpBankElement: selectedBankInfo.empEmpBankElement ?? [],
+          isBnkTransfer: selectedBankInfo?.isBnkTransfer ?? false,
         };
 
         setFormInfo(bank);
@@ -219,6 +205,7 @@ function EmployeeBank(props) {
         bnkAcc: formInfo.bnkAcc,
         swiftCode: formInfo.swiftCode,
         bnkEmpCode: formInfo.bnkEmpCode,
+        isBnkTransfer: formInfo.isBnkTransfer,
         empEmpBankElement: formInfo.empEmpBankElement.map((item) => ({
           EmpBankId: formInfo.id,
           PayTemplateId: item.payTemplateId,
@@ -449,23 +436,16 @@ function EmployeeBank(props) {
                 </IconButton>
               </div>
 
-              <Avatar
-                alt={
-                  getAutoCompleteValue(bankList, formInfo.bankId)?.name ?? ''
-                }
-                src={avatarApi[11]}
-                className={classes.avatar}
-              />
-
-              <div>
-                <Typography className={classes.userName} variant='h6'>
-                  {getAutoCompleteValue(bankList, formInfo.bankId)?.name ?? ''}
-                </Typography>
-
-                <Typography variant='caption'>
-                  {formInfo.bankBranchNo}
-                </Typography>
-              </div>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={formInfo.isBnkTransfer}
+                        onChange={() => setFormInfo(prev => ({ ...prev, isBnkTransfer: !prev.isBnkTransfer }))}
+                        color="secondary"
+                      />
+                    }
+                    label={intl.formatMessage(messages.isBnkTransfer)}
+                  />
             </section>
 
             <div className={classes.detailContact}>
