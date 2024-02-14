@@ -6,7 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import BackupTableIcon from '@mui/icons-material/BackupTable';
+import XLSX from 'xlsx-js-style';
+import { formateDate } from '../../../containers/Pages/Payroll/helpers';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -38,7 +41,7 @@ function MainTable(props) {
 
 
   const { classes, cx } = useStyles();
-  const { items, anchor, title, API, intl,IsNotSave ,isNotAdd,addBtnLock} = props;
+  const { items, anchor, downloadExcel, title, API, intl,IsNotSave ,isNotAdd,addBtnLock} = props;
 
   const branch = 'crudTableDemo';
   const [search, setsearch] = useState('');
@@ -99,6 +102,44 @@ function MainTable(props) {
     setOpenParentPopup(false);
   };
 
+  const onExcelExportClick = () => {
+    const today = formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+
+    const documentTitle = `${title || 'Export'} ${today}`;
+
+    const visibleColumns = anchor
+      .filter(item => !item.hidden && item.name !== 'action')
+      .map(item => ({ ...item, label: intl.formatMessage(messages[item.label]) }));
+
+    const sheetData = items.map(row => {
+      const rowData = {};
+
+      visibleColumns.forEach((col) => {
+        if (col?.options?.download !== false && col.label) {
+          rowData[col.label] = row[col.name];
+        }
+      });
+
+      return rowData;
+    });
+
+    const ws = XLSX.utils.json_to_sheet(sheetData);
+    const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+    });
+
+    const downloadURI = window.URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', downloadURI);
+    link.setAttribute('download', documentTitle);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(downloadURI);
+  };
 
   return (
     <div>
@@ -123,6 +164,19 @@ function MainTable(props) {
         </div>
         <div className={classes.spacer} />
         <div className={classes.actions}>
+          <Stack direction="row" spacing={2}>
+
+            {downloadExcel !== false && (
+              <Tooltip
+                placement='bottom'
+                title={intl.formatMessage(Payrollmessages.downloadExcel)}
+              >
+                <IconButton onClick={onExcelExportClick}>
+                  <BackupTableIcon sx={{ fontSize: '1.2rem' }} />
+                </IconButton>
+              </Tooltip>
+            )}
+
           {(isNotAdd)?'':
           <Tooltip title="Add Item">
             <Button
@@ -138,6 +192,7 @@ function MainTable(props) {
               {smUp && ' '} <FormattedMessage {...messages.add} />
             </Button>
           </Tooltip>}
+          </Stack>
         </div>
       </Toolbar>
       <div className={classes.rootTable}>
