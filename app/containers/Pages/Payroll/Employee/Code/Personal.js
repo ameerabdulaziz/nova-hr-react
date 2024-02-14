@@ -1476,6 +1476,19 @@ function Personal(props) {
                       />
                     </Grid> */}
 
+                    {authState.user.isHR && <Grid item xs={12} md={3}>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isHR}
+                            name='isHR'
+                            onChange={(evt) => setIsHR(evt.target.checked)}
+                          />
+                        }
+                        label={intl.formatMessage(messages.isHR)}
+                      />
+                    </Grid>}
+
                     <Grid item xs={12} md={3}>
                       <FormControlLabel
                         control={
@@ -1509,19 +1522,6 @@ function Personal(props) {
                 </Grid>
 
                 {authState.user.isHR && <>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={isHR}
-                          name='isHR'
-                          onChange={(evt) => setIsHR(evt.target.checked)}
-                        />
-                      }
-                      label={intl.formatMessage(messages.isHR)}
-                    />
-                  </Grid>
-
                   <Grid item xs={12} md={6}>
                     <Autocomplete
                       options={branchList}
