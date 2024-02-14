@@ -71,6 +71,9 @@ function EmployeeDataReport({ intl }) {
     {
       name: 'jobName',
       label: intl.formatMessage(messages.Job),
+      options: {
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
+      }
     },
     {
       name: 'gender',

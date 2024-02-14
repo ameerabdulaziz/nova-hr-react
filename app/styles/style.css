@@ -49,3 +49,10 @@ pre
 {
     font-family: "Cairo" ;
 }
+
+/* used to make max width and height for table filter */
+.tss-1apl66-MUIDataTableToolbar-filterPaper
+{
+  max-width: 400px !important;
+  max-height: 500px !important;
+}

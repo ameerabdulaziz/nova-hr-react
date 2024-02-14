@@ -501,7 +501,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: "ShiftVacancy",
+      name: "shiftVacancy",
       label: intl.formatMessage(messages.weekendLeave),
       options: {
         filter: false,

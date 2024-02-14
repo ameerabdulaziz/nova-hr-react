@@ -39,7 +39,7 @@ If the value is truthy, it returns  CheckIcon, If the value is falsy, it returns
 */
 function getCheckboxIcon(value) {
   if (typeof value !== 'boolean') {
-    return '';
+    return  <CloseIcon style={{ color: '#717171d1' }} />;
   }
 
   return value ? (
