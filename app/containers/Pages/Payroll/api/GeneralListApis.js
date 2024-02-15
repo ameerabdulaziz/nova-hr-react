@@ -493,6 +493,14 @@ const GeneralListApis = (locale) => {
     const result = await axiosInstance.get(`GeneralList/GetItemList/${locale}`);
     return result.data;
   };
+  Apis.GetWFExecutionList = async (ExecutionId, StepId, RequestId, DocumentId) => {
+    
+    const data = await axiosInstance.get(`WorkFlow/GetWFExecutionList/${locale}?ExecutionId=${ExecutionId!=null?ExecutionId:""}&StepId=${StepId!=null?StepId:""}&RequestId=${RequestId!=null?RequestId:""}&DocumentId=${DocumentId!=null?DocumentId:""}`);
+    const result = data.data;
+    
+    return result;
+  };
+
 
   return Apis;
 };

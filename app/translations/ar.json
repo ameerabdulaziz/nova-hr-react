@@ -1178,6 +1178,15 @@
   "boilerplate.containers.Payroll.Setting.dateUpdateSuccessfully": "تم تحديث التاريخ بنجاح",
   "boilerplate.containers.Payroll.Setting.monthClosedSuccessfully": "تم إغلاق الشهر بنجاح",
 
+  "boilerplate.containers.Payroll.HumanResources.quantity": "الكمية",
+  "boilerplate.containers.Payroll.HumanResources.uniformPrice": "السعر",
+  "boilerplate.containers.Payroll.HumanResources.id": "كود المستند",
+  "boilerplate.containers.Payroll.HumanResources.executionId": "الكود",
+  "boilerplate.containers.Payroll.HumanResources.employeeId": "كود الموظف",
+  "boilerplate.containers.Payroll.HumanResources.status": "الحالة",
+  "boilerplate.containers.Payroll.HumanResources.step": "المرحلة",
+  "boilerplate.containers.Payroll.HumanResources.approvedEmp": "صاحب القرار",
+
   "boilerplate.containers.Payroll.HumanResources.enName": "الاسم بالانجليزية",
   "boilerplate.containers.Payroll.HumanResources.arName": "الاسم بالعربية",
   "boilerplate.containers.Payroll.HumanResources.elementName": "العنصر",
@@ -1253,6 +1262,14 @@
   "boilerplate.containers.Payroll.HumanResources.commEndDate": "نهاية الالتزام بالعمل",
   "boilerplate.containers.Payroll.HumanResources.gradeName": "التقدير",
   "boilerplate.containers.Payroll.HumanResources.centerName": "المركز",
+
+  
+  "boilerplate.containers.Payroll.Attendance.missionId": "كود المأمورية",
+  "boilerplate.containers.Payroll.Attendance.executionId": "الكود",
+  "boilerplate.containers.Payroll.Attendance.employeeId": "كود الموظف",
+  "boilerplate.containers.Payroll.Attendance.status": "الحالة",
+  "boilerplate.containers.Payroll.Attendance.step": "المرحلة",
+  "boilerplate.containers.Payroll.Attendance.approvedEmp": "صاحب القرار",
 
   "boilerplate.containers.Payroll.Attendance.permissionName": "نوع الاذن",
   "boilerplate.containers.Payroll.Attendance.PermissionTrxCreateTitle": "اضافة اذن",
@@ -1814,6 +1831,12 @@
     "boilerplate.containers.Payroll.Attendance.method": "طريفة السحب",
 
     
+  "boilerplate.containers.Payroll.Payroll.monthName": "الشهر",
+  "boilerplate.containers.Payroll.Payroll.yearName": "السنة",
+    "boilerplate.containers.Payroll.Payroll.executionId": "الكود",
+  "boilerplate.containers.Payroll.Payroll.status": "الحالة",
+  "boilerplate.containers.Payroll.Payroll.step": "المرحلة",
+  "boilerplate.containers.Payroll.Payroll.approvedEmp": "صاحب القرار",
     "boilerplate.containers.Payroll.Payroll.LoanSettingTitle": "اضافة قواعد السلف",    
     "boilerplate.containers.Payroll.Payroll.LoanSettingUpdateTitle": "تعديل قواعد السلف",
     "boilerplate.containers.Payroll.Payroll.safeLoan": "تصرف السلف مباشرة من الخزنة",
@@ -2109,6 +2132,8 @@
   "boilerplate.containers.Payroll.Workflow.actionType": "القرار",
   "boilerplate.containers.Payroll.Workflow.workFlowCreateTitle": "اضافة دورة عمل",
   "boilerplate.containers.Payroll.Workflow.workFlowUpdateTitle": "تعديل دورة عمل",
+  "boilerplate.containers.Payroll.Workflow.noteConfirmation": "للحفظ يمكن ادخال الملاحظه وضغط نعم . للتراجع اضغط لا",
+
 
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.Employee.personal.employeeCodeAlreadyExistReplacedWithNewCode": "رمز الموظف موجود بالفعل، وتم استبداله برمز جديد",
@@ -2388,6 +2413,16 @@
   "boilerplate.containers.Payroll.Request.Transaction.AccessToTimeInOUT": "الوصول إلى وقت الداخل / الخارج",
   "boilerplate.containers.Payroll.Request.Transaction.checkIn": "عدم تسجيل بصمة حضور",
   "boilerplate.containers.Payroll.Request.Transaction.checkOut": "عدم تسجيل بصمة انصراف",
+
+  
+  "boilerplate.containers.Payroll.vac.executionId": "الكود",
+  "boilerplate.containers.Payroll.vac.step": "المرحلة",
+  "boilerplate.containers.Payroll.vac.approvedEmp": "صاحب القرار",
+  "boilerplate.containers.Payroll.vac.alternativeEmployeeName": "الموظف البديل",
+  "boilerplate.containers.Payroll.vac.alternativeTask": "المهمه البديلة",
+  "boilerplate.containers.Payroll.vac.notes": "ملاحظات",
+  "boilerplate.containers.Payroll.vac.vacType": "نوع الاجازة",
+  "boilerplate.containers.Payroll.vac.returndate": "تاريخ العودة",
 
   "boilerplate.containers.Payroll.vac.code.date": "التاريخ",
   "boilerplate.containers.Payroll.vac.attachmentIsRequire": "المرفق مطلوب",

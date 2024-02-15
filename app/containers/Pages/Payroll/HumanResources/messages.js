@@ -9,6 +9,39 @@ export const scope = 'boilerplate.containers.Payroll.HumanResources';
 
 export default defineMessages({
   //penaltyList----------------------------------------------------------------------------
+  quantity: {
+    id: `${scope}.quantity`,
+    defaultMessage: 'quantity',
+  },
+  uniformPrice: {
+    id: `${scope}.uniformPrice`,
+    defaultMessage: 'uniformPrice',
+  },
+  id: {
+    id: `${scope}.id`,
+    defaultMessage: 'id',
+  },
+  executionId: {
+    id: `${scope}.executionId`,
+    defaultMessage: 'executionId',
+  },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'mployeeId',
+  },  
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  step: {
+    id: `${scope}.step`,
+    defaultMessage: 'step',
+  },
+  approvedEmp: {
+    id: `${scope}.approvedEmp`,
+    defaultMessage: 'approvedEmp',
+  },
+
   enName: {
     id: `${scope}.enName`,
     defaultMessage: 'En Name',

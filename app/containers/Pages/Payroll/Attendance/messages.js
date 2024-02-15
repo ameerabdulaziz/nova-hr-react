@@ -9,6 +9,31 @@ export const scope = 'boilerplate.containers.Payroll.Attendance';
 
 export default defineMessages({
   //PermissionTrx----------------------------------------------------------------------------
+  
+  missionId: {
+    id: `${scope}.missionId`,
+    defaultMessage: 'missionId',
+  },
+  executionId: {
+    id: `${scope}.executionId`,
+    defaultMessage: 'executionId',
+  },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'mployeeId',
+  },  
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  step: {
+    id: `${scope}.step`,
+    defaultMessage: 'step',
+  },
+  approvedEmp: {
+    id: `${scope}.approvedEmp`,
+    defaultMessage: 'approvedEmp',
+  },
   permissionName: {
     id: `${scope}.permissionName`,
     defaultMessage: 'permissionName Name',

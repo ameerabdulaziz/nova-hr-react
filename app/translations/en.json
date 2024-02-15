@@ -1150,6 +1150,16 @@
   "boilerplate.containers.Payroll.Setting.dateUpdateSuccessfully": "Date update successfully",
   "boilerplate.containers.Payroll.Setting.monthClosedSuccessfully": "Month closed successfully",
 
+  
+  "boilerplate.containers.Payroll.HumanResources.quantity": "Quantity",
+  "boilerplate.containers.Payroll.HumanResources.uniformPrice": "Price",
+  "boilerplate.containers.Payroll.HumanResources.id": "Id",
+  "boilerplate.containers.Payroll.HumanResources.executionId": "Id",
+  "boilerplate.containers.Payroll.HumanResources.employeeId": "Employee",
+  "boilerplate.containers.Payroll.HumanResources.status": "Status",
+  "boilerplate.containers.Payroll.HumanResources.step": "Step",
+  "boilerplate.containers.Payroll.HumanResources.approvedEmp": "approved Employee",
+
   "boilerplate.containers.Payroll.HumanResources.enName": "En Name",
   "boilerplate.containers.Payroll.HumanResources.arName": "Ar Name",
   "boilerplate.containers.Payroll.HumanResources.elementName": "Element",
@@ -1224,6 +1234,14 @@
   "boilerplate.containers.Payroll.HumanResources.commEndDate": "Worker End Date",
   "boilerplate.containers.Payroll.HumanResources.gradeName": "Grade Name",
   "boilerplate.containers.Payroll.HumanResources.centerName": "Center Name",
+
+  
+  "boilerplate.containers.Payroll.Attendance.missionId": "Mission Id",
+  "boilerplate.containers.Payroll.Attendance.executionId": "Id",
+  "boilerplate.containers.Payroll.Attendance.employeeId": "Employee",
+  "boilerplate.containers.Payroll.Attendance.status": "Status",
+  "boilerplate.containers.Payroll.Attendance.step": "Step",
+  "boilerplate.containers.Payroll.Attendance.approvedEmp": "approved Employee",
 
   "boilerplate.containers.Payroll.Attendance.permissionName": "Permission Type",
   "boilerplate.containers.Payroll.Attendance.PermissionTrxCreateTitle": "Add Permission",
@@ -1759,6 +1777,12 @@
   "boilerplate.containers.Payroll.Attendance.ShiftType": "Shift Type",
 
   
+  "boilerplate.containers.Payroll.Payroll.monthName": "Month",
+  "boilerplate.containers.Payroll.Payroll.yearName": "Year",
+  "boilerplate.containers.Payroll.Payroll.executionId": "Id",
+  "boilerplate.containers.Payroll.Payroll.status": "Status",
+  "boilerplate.containers.Payroll.Payroll.step": "Step",
+  "boilerplate.containers.Payroll.Payroll.approvedEmp": "approved Employee",
   "boilerplate.containers.Payroll.Payroll.LoanSettingTitle": "Add Loan Setting",    
   "boilerplate.containers.Payroll.Payroll.LoanSettingUpdateTitle": "Update Loan Setting",  
   "boilerplate.containers.Payroll.Payroll.safeLoan": "Loan paid directly from safe",
@@ -2046,6 +2070,7 @@
   "boilerplate.containers.Payroll.Workflow.actionType": "Action",
   "boilerplate.containers.Payroll.Workflow.workFlowCreateTitle": "Add WorkFlow",
   "boilerplate.containers.Payroll.Workflow.workFlowUpdateTitle": "Upate WorkFlow",
+  "boilerplate.containers.Payroll.Workflow.noteConfirmation": "if you want to Save Eneter Note then Press Yes, for cancel press No",
 
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "Employee Code",
   "boilerplate.containers.Payroll.Employee.personal.employeeCodeAlreadyExistReplacedWithNewCode": "Employee Code Already Exist, Replaced With New Code",
@@ -2325,6 +2350,21 @@
   "boilerplate.containers.Payroll.Request.Transaction.AccessToTimeInOUT": "Access To Time In/OUT",
   "boilerplate.containers.Payroll.Request.Transaction.checkIn": "No check In",
   "boilerplate.containers.Payroll.Request.Transaction.checkOut": "No Check Out",
+
+  
+  "boilerplate.containers.Payroll.vac.executionId": "Id",
+  "boilerplate.containers.Payroll.vac.step": "Step",
+  "boilerplate.containers.Payroll.vac.approvedEmp": "approved Employee",  
+  "boilerplate.containers.Payroll.vac.alternativeEmployeeName": "alternativeEmployee",
+  "boilerplate.containers.Payroll.vac.alternativeTask": "alternative Task",
+  "boilerplate.containers.Payroll.vac.notes": "Notes",
+  "boilerplate.containers.Payroll.vac.vacType": "vacType",
+  "boilerplate.containers.Payroll.vac.returndate": "return date",
+ 
+  
+  
+  
+  
 
   "boilerplate.containers.Payroll.vac.uploadFileErrorMes": "The File Is too Large",
   "boilerplate.containers.Payroll.vac.employeeName": "Employee Name",

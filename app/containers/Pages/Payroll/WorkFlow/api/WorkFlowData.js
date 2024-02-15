@@ -20,6 +20,7 @@ const WorkFlowData = (locale) => {
     return result;
   };
 
+
   Apis.Get = async (id) => {
     
     const data = await axiosInstance.get(`WorkFlow/Get/${id}/${locale}`);
@@ -42,10 +43,10 @@ const WorkFlowData = (locale) => {
     const result = await axiosInstance.post("WorkFlow/Save",data);
     return result;
   };
-  Apis.ExecuteWorkFlow = async (executionId,actionTypeId) => {
+  Apis.ExecuteWorkFlow = async (executionId,actionTypeId,note) => {
     
 
-    const result = await axiosInstance.post("WorkFlow/ExecuteWorkFlow",{"executionId":executionId,"actionTypeId":actionTypeId});
+    const result = await axiosInstance.post("WorkFlow/ExecuteWorkFlow",{"executionId":executionId,"actionTypeId":actionTypeId,"note":note});
     return result;
   };
   

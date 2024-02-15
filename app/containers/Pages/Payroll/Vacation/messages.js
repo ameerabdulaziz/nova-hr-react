@@ -8,6 +8,49 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll.vac';
 
 export default defineMessages({
+
+  executionId: {
+    id: `${scope}.executionId`,
+    defaultMessage: 'executionId',
+  },
+  employeeId: {
+    id: `${scope}.employeeId`,
+    defaultMessage: 'mployeeId',
+  },  
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  step: {
+    id: `${scope}.step`,
+    defaultMessage: 'step',
+  },
+  approvedEmp: {
+    id: `${scope}.approvedEmp`,
+    defaultMessage: 'approvedEmp',
+  },
+  alternativeEmployeeName: {
+    id: `${scope}.alternativeEmployeeName`,
+    defaultMessage: 'alternativeEmployeeName',
+  },
+  alternativeTask: {
+    id: `${scope}.alternativeTask`,
+    defaultMessage: 'alternativeTask',
+  },
+  
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: 'notes',
+  },
+  vacType: {
+    id: `${scope}.vacType`,
+    defaultMessage: 'vacType',
+  },
+  returndate: {
+    id: `${scope}.returndate`,
+    defaultMessage: 'returndate',
+  },
+
       // Official Vacations
       OfficialVacations: {
         id: `${scope}.code.OfficialVacations`,

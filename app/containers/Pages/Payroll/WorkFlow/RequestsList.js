@@ -3,7 +3,13 @@ import ApiData from "./api/WorkFlowData";
 import { useSelector } from "react-redux";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import CloseIcon from "@mui/icons-material/Close";
+import Details from "@mui/icons-material/List";
 import Payrollmessages from "../messages";
+import missionmessages from "../Attendance/messages";
+import hrmessages from "../HumanResources/messages";
+import paymessages from "../Payroll/messages";
+import vacmessages from "../vacation/messages";
+
 import messages from "./messages";
 import style from "../../../../../app/styles/styles.scss";
 import IconButton from "@mui/material/IconButton";
@@ -21,7 +27,8 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { format } from "date-fns";
 import PayRollLoader from "../Component/PayRollLoader";
 import PayrollTable from "../Component/PayrollTable";
-
+import NotePopup from "./NotePopup";
+import WFExecutionList from "./WFExecutionList";
 
 function RequestsList(props) {
   const { intl } = props;
@@ -37,10 +44,36 @@ function RequestsList(props) {
   const [employee, setemployee] = useState(null);
   const [EmployeeList, setEmployeeList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [openNotePopup, setopenNotePopup] = useState(false);
+  const [openExecutionPoup, setExecutionPoup] = useState(false);
+  const [Note, setNote] = useState(false);
+  const [ExecutionId, setExecutionId] = useState("");
+  const [Action, setAction] = useState("");
+
+  const handleExecutionPoup = (id) => {
+    debugger;
+    setExecutionId(id);
+    setExecutionPoup(true);
+  };
+  const handleOpenNotePoup = (id, Action) => {
+    debugger;
+    setopenNotePopup(true);
+    setNote("");
+    setExecutionId(id);
+    setAction(Action);
+  };
+
+  const handleCloseNotePoup = () => {
+    setopenNotePopup(false);
+  };
+  const handleCloseExecutionPoup = () => {
+    setExecutionPoup(false);
+  };
 
   const handleSearch = async (e) => {
     try {
       setIsLoading(true);
+      debugger ;
       const dataApi = await ApiData(locale).Getrequests(
         Document.documentId,
         employee,
@@ -54,18 +87,21 @@ function RequestsList(props) {
       setIsLoading(false);
     }
   };
-  async function RequestAction(executionId, actionTypeId) {
+  async function RequestAction() {
     try {
+      debugger ;
       setIsLoading(true);
       let response = await ApiData(locale).ExecuteWorkFlow(
-        executionId,
-        actionTypeId
+        ExecutionId,
+        Action,
+        Note
       );
 
       if (response.status == 200) {
         toast.success(notif.saved);
         handleSearch();
       }
+      
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -82,7 +118,7 @@ function RequestsList(props) {
 
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
-
+      
       const dataApi = await ApiData(locale).Getrequests(
         Documents[0].id,
         employee,
@@ -100,11 +136,14 @@ function RequestsList(props) {
     fetchData();
   }, []);
 
+ 
   const columns =
     cols.length !== 0
       ? cols.map((item) => ({
           name: item,
-          label: <FormattedMessage {...Payrollmessages[item]} />,
+          label:(Document.documentId==1||Document.documentId==2)?<FormattedMessage {...missionmessages[item]} />
+          :((Document.documentId==4||Document.documentId==5||Document.documentId==8)?<FormattedMessage {...hrmessages[item]} />
+          :((Document.documentId==7)?<FormattedMessage {...paymessages[item]}/>:<FormattedMessage {...vacmessages[item]}/>)) ,
           options: {
             filter: true,
           },
@@ -123,7 +162,7 @@ function RequestsList(props) {
               color="success" /* #2196f3 */
               aria-label="Approve"
               size="large"
-              onClick={() => RequestAction(tableMeta.rowData[0], 2)}
+              onClick={() => handleOpenNotePoup(tableMeta.rowData[0], 2)}
             >
               <DoneOutlineRoundedIcon />
             </IconButton>
@@ -132,9 +171,17 @@ function RequestsList(props) {
               color="error"
               aria-label="Reject"
               size="large"
-              onClick={() => RequestAction(tableMeta.rowData[0], 3)}
+              onClick={() => handleOpenNotePoup(tableMeta.rowData[0], 3)}
             >
               <CloseIcon />
+            </IconButton>
+            <IconButton
+              color="success"
+              aria-label="Details"
+              size="large"
+              onClick={() => handleExecutionPoup(tableMeta.rowData[0])}
+            >
+              <Details />
             </IconButton>
           </div>
         );
@@ -142,13 +189,13 @@ function RequestsList(props) {
     },
   };
 
-  if (columns.length > 0) columns.push(action);
 
+
+  if (columns.length > 0) columns.push(action);
 
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        
         <div>
           <Grid container spacing={3}>
             <Grid item xs={12} md={2}>
@@ -157,13 +204,18 @@ function RequestsList(props) {
                   label={intl.formatMessage(Payrollmessages.fromdate)}
                   value={fromdate}
                   onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        setfromate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                      } 
-                      else
-                      {
-                        setfromate(null)
+                    if (
+                      Object.prototype.toString.call(new Date(date)) ===
+                      "[object Date]"
+                    ) {
+                      if (!isNaN(new Date(date))) {
+                        setfromate(
+                          date === null
+                            ? null
+                            : format(new Date(date), "yyyy-MM-dd")
+                        );
+                      } else {
+                        setfromate(null);
                       }
                     }
                   }}
@@ -180,13 +232,18 @@ function RequestsList(props) {
                   label={intl.formatMessage(Payrollmessages.todate)}
                   value={todate}
                   onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        settodate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                      } 
-                      else
-                      {
-                        settodate(null)
+                    if (
+                      Object.prototype.toString.call(new Date(date)) ===
+                      "[object Date]"
+                    ) {
+                      if (!isNaN(new Date(date))) {
+                        settodate(
+                          date === null
+                            ? null
+                            : format(new Date(date), "yyyy-MM-dd")
+                        );
+                      } else {
+                        settodate(null);
                       }
                     }
                   }}
@@ -259,12 +316,20 @@ function RequestsList(props) {
             <Grid item xs={12} md={12}></Grid>
           </Grid>
 
-          <PayrollTable
-            title=""
-            data={data}
-            columns={columns}
+          <PayrollTable title="" data={data} columns={columns} />
+          <NotePopup
+            handleClose={handleCloseNotePoup}
+            open={openNotePopup}
+            callFun={RequestAction}
+            Note={Note}
+            setNote={setNote}
+            Action={Action}
           />
-
+          <WFExecutionList
+            handleClose={handleCloseExecutionPoup}
+            open={openExecutionPoup}
+            ExecutionId={ExecutionId}
+          />
         </div>
       </PapperBlock>
     </PayRollLoader>

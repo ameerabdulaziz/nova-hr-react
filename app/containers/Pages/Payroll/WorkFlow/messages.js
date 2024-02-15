@@ -9,6 +9,10 @@ export const scope = 'boilerplate.containers.Payroll.Workflow';
 
 export default defineMessages({
   
+  noteConfirmation: {
+    id: `${scope}.noteConfirmation`,
+    defaultMessage: 'noteConfirmation',
+  },
   documentName: {
     id: `${scope}.documentName`,
     defaultMessage: 'documentName',

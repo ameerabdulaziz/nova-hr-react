@@ -8,6 +8,32 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll.Payroll';
 
 export default defineMessages({
+
+  
+  monthName: {
+    id: `${scope}.monthName`,
+    defaultMessage: 'monthName',
+  },
+  yearName: {
+    id: `${scope}.yearName`,
+    defaultMessage: 'yearName',
+  },
+  executionId: {
+    id: `${scope}.executionId`,
+    defaultMessage: 'executionId',
+  },
+  status: {
+    id: `${scope}.status`,
+    defaultMessage: 'status',
+  },
+  step: {
+    id: `${scope}.step`,
+    defaultMessage: 'step',
+  },
+  approvedEmp: {
+    id: `${scope}.approvedEmp`,
+    defaultMessage: 'approvedEmp',
+  },
   LoanSettingTitle: {
     id: `${scope}.LoanSettingTitle`,
     defaultMessage: 'LoanSettingTitle',
