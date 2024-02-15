@@ -38,6 +38,10 @@ function EmployeeContactInfo(props) {
   const [relativesPhoneNo, setrelativesPhoneNo] = useState("");
   const [mail, setmail] = useState("");
   const [workEmail, setworkEmail] = useState("");
+  const [RelativesName, setRelativesName] = useState("");
+
+  const [kinshipLinkId, setkinshipLinkId] = useState(null);
+  const [kinshipLinkList, setkinshipLinkList] = useState([]);
   const trueBool = true;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -55,6 +59,8 @@ function EmployeeContactInfo(props) {
         relativesPhoneNo: relativesPhoneNo,
         email: mail,
         workEmail: workEmail,
+        RelativesName: RelativesName,
+        KinshipLinkId: kinshipLinkId
       };
 
       const dataApi = await EmployeeContactInfoData().Save(data);
@@ -77,13 +83,20 @@ function EmployeeContactInfo(props) {
     setrelativesPhoneNo("");
     setmail("");
     setworkEmail("");
+    setRelativesName("")
+    setkinshipLinkId(null)
   };
   const GetLookup = useCallback(async () => {
     setIsLoading(true);
 
     try {
       const employeedata = await GeneralListApis(locale).GetEmployeeList();
+      const kinshipLinkdata = await GeneralListApis(locale).GetkinshipLinkList();
+
+
       setEmployeeList(employeedata || []);
+      setkinshipLinkList(kinshipLinkdata || []);
+
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -108,6 +121,8 @@ function EmployeeContactInfo(props) {
           settelPhone(dataApi[0].telPhone);
           setmail(dataApi[0].email);
           setworkEmail(dataApi[0].workEmail);
+          setRelativesName(dataApi[0].relativesName);
+          setkinshipLinkId(dataApi[0].kinshipLinkId);
         } else clear();
       } catch (e) {
       } finally {
@@ -262,6 +277,44 @@ function EmployeeContactInfo(props) {
                     variant="outlined"
                     autoComplete='off'
                   />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    name="RelativesName"
+                    value={RelativesName}
+                    label={intl.formatMessage(messages.RelativesName)}
+                    onChange={(e) => setRelativesName(e.target.value)}
+                    fullWidth
+                    variant="outlined"
+                    autoComplete='off'
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                <Autocomplete
+                  id="ddkinshipLinkId"
+                  options={kinshipLinkList}
+                  value={ kinshipLinkId && kinshipLinkList.length !== 0  ? kinshipLinkList.find((item)=> item.id === kinshipLinkId )  : null}  
+                  isOptionEqualToValue={(option, value) => option.id === value.id}    
+
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
+                  onChange={(event, value) => {
+                    if (value !== null) {
+                      setkinshipLinkId(value.id);
+                    } else {
+                      setkinshipLinkId(null);
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      name="kinshipLinkId"
+                      label={intl.formatMessage(messages.kinshipLink)}
+                      variant="outlined"
+                    />
+                  )}
+                />
                 </Grid>
 
                 <Grid item xs={12}>

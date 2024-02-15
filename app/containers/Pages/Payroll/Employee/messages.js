@@ -751,4 +751,8 @@ export default defineMessages({
     id: `${scope}.employeeNameShouldNotBeOneWord`,
     defaultMessage: 'employeeNameShouldNotBeOneWord',
   },
+  RelativesName: {
+    id: `${scope}.RelativesName`,
+    defaultMessage: 'Relatives Name',
+  },
 });
