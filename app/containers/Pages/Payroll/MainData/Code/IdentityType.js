@@ -44,7 +44,7 @@ function IdentityType() {
       hidden: false,
     },
     {
-      name: 'expirePeriod',
+      name: 'expiredPeriod',
       label: 'expirePeriod',
       type: 'number',
       initialValue: '',
