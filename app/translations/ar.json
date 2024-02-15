@@ -2158,7 +2158,7 @@
   "boilerplate.containers.Payroll.Employee.personal.eRPCode": "الرقم الدفترى",
   "boilerplate.containers.Payroll.Employee.personal.machineCode": "الرقم المرجعى",
   "boilerplate.containers.Payroll.Employee.personal.arname": "الاسم بالعربية",
-  "boilerplate.containers.Payroll.Employee.salary.identitynumberShouldBe14": "يجب أن يكون رقم الهوية 14 حرف",
+  "boilerplate.containers.Payroll.Employee.salary.identitynumberShouldBe": "يجب أن يكون رقم الهوية ",
   "boilerplate.containers.Payroll.Employee.personal.enname": "الاسم بالانجليزية",
   "boilerplate.containers.Payroll.Employee.personal.identityType": "نوع الهوية",
   "boilerplate.containers.Payroll.Employee.personal.identityIssuingAuth": "تابع لسجل مدنى",

@@ -50,17 +50,17 @@ npm run start:prod
 
 ## BUGS 🐛
 
-- [ ] Exclude the **JobApplicationPreview page** from appearing in the Recruitment menu.
 - [ ] Eliminate the **debugger** from the project codebase.
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
 - [ ] **Notification** still not work
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
 - [ ] Complete the implementation of the **Calculate Attendance** page
 - [ ] Integrate the **LeaveBalance** page with the API
-- [ ] Implement a global loader when fetching menu data
 - [ ] Integrate a cancel button into the **editable** table component
+- [ ] Implement expire date for card in **personal page**
 - [ ] Implement a solution to add spacing between **menu** levels in the sidebar
-- [ ] Make **Employee info** realtime like menu sidebar, instead of store in localStorage
+- [ ] Replace **Attendance** collection with new payroll table
+- [ ] Find a way to include images & web.config in **build**
 
 ## Docs 📖
 

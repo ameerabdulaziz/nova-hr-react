@@ -396,9 +396,9 @@ export default defineMessages({
     id: `${scope}.salary.isHours`,
     defaultMessage: 'isHours',
   },
-  identitynumberShouldBe14: {
-    id: `${scope}.salary.identitynumberShouldBe14`,
-    defaultMessage: 'identitynumberShouldBe14',
+  identitynumberShouldBe: {
+    id: `${scope}.salary.identitynumberShouldBe`,
+    defaultMessage: 'identitynumberShouldBe',
   },
 
     // employee Documents
