@@ -349,11 +349,10 @@ function CalculateAttendance(props) {
 
   const columns = [
     {
-      name: "id",
-      label: intl.formatMessage(messages.id),
+      name: "employeeCode",
+      label: intl.formatMessage(messages.EmpCode),
       options: {
-        filter: false,
-        // display: false,
+        filter: true,
       },
     },
 
@@ -413,7 +412,7 @@ function CalculateAttendance(props) {
       options: {
         filter: true,
         customBodyRender: (value) => (
-          <pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>
+          <pre>{value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}</pre>
         ),
       },
     },
@@ -424,7 +423,7 @@ function CalculateAttendance(props) {
       options: {
         filter: true,
         customBodyRender: (value) => (
-          <pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>
+          <pre>{value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}</pre>
         ),
       },
     },
