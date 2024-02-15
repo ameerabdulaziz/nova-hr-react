@@ -12,6 +12,8 @@ import MegaMenuLayout from './layouts/MegaMenu';
 import DropMenuLayout from './layouts/DropMenu';
 import useStyles from './appStyles-jss';
 import { useSelector, useDispatch } from 'react-redux';
+import API from './api';
+import { getCompanyInfo, syncUser, syncUserMenu } from '../../redux/actions/authActions';
 
 function Dashboard(props) {
   const { classes, cx } = useStyles();
@@ -33,6 +35,8 @@ function Dashboard(props) {
   const [appHeight, setAppHeight] = useState(0);
   const [openGuide, setOpenGuide] = useState(false);
   //const getAuth = useSelector(state => state.authReducer.user);
+  const Dispatcher = useDispatch();
+  const Auth = useSelector((state) => state.authReducer.loggedIn);
   
   const titleException = ['/app', '/app/crm-dashboard', '/app/crypto-dashboard'];
   const parts = history.location.pathname.split('/');
@@ -82,7 +86,7 @@ if(isFound)
     if (userProfile) {
       return {
         avatar: userProfile.photoURL || dummy.user.avatar,
-        name: (locale === 'en' ? userProfile?.enName : userProfile?.arName) ?? userProfile.displayName
+        name: (locale === 'en' ? userProfile?.enName : userProfile?.arName) ?? userProfile.name
       };
     }
     return {
@@ -120,6 +124,64 @@ if(isFound)
     return () => {
       unlisten();
     };
+  }, []);
+
+  const fetchNeededData = async () => {
+    loadTransition(false);
+
+    try {
+      const companyInfo = await API(locale).getCompanyInfo();
+      const menuItems = await API(locale).getMenu();
+      const userInfo = await API(locale).getUserInfo();
+
+      const mappedMenu = menuItems.map((item) => ({
+        ...item,
+        icon: item.icon ?? 'widgets',
+        child: item.child?.map((child) => ({
+          ...child,
+          icon: child.icon ?? 'extension',
+          child: child.child?.map((subChild) => ({
+            ...subChild,
+            icon: subChild.icon ?? 'layers',
+          })),
+        })),
+      }));
+
+      const userPayload = {
+        id: userInfo.id,
+        email: userInfo.email,
+        name: userInfo.userName,
+        avatar: null,
+        title: 'Administrator',
+        status: 'online',
+        displayName: userInfo.userName,
+        isHR: userInfo.isHR,
+        isManagement: userInfo.isManagement,
+        isSuper: userInfo.isSuper,
+        arName: userInfo.arName,
+        enName: userInfo.enName,
+        photoURL: userInfo.photo,
+        branchId: userInfo.branchId,
+      };
+
+      Dispatcher(syncUser(userPayload));
+
+      Dispatcher(getCompanyInfo(companyInfo));
+
+      Dispatcher(syncUserMenu(mappedMenu));
+    } catch (error) {
+      //
+    } finally {
+      loadTransition(true);
+    }
+  };
+
+  useEffect(() => {
+    if (Auth === null || Auth === false) {
+      history.push(`/login?redirectTo=${history.location.pathname}`);
+    }
+
+    fetchNeededData();
   }, []);
 
   return (
