@@ -229,6 +229,14 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
+
+  Apis.GetIdentityType = async () => {
+    const result = await axiosInstance.get(
+      `EmpEmployee/GetIdentityTypeList/${locale}`
+    );
+    return result.data;
+  };
+
   Apis.GetGenderList = async () => {
     const result = await axiosInstance.get(`MdGender/GetListModel/${locale}`);
     return result.data;
