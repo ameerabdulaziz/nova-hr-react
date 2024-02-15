@@ -28,10 +28,10 @@ function City(props) {
   const anchorTable = [
     {
       name: 'id',
-      label: 'code',
+      label: 'id',
       type: 'static',
       initialValue: '',
-      hidden: true,
+      hidden: false,
     },
     {
       name: 'name',

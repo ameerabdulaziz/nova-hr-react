@@ -38,6 +38,7 @@ import avatarApi from "enl-api/images/avatars";
 import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../Component/PayRollLoader";
 import EmployeeCreationFeedback from "../component/Personal/EmployeeCreationFeedback";
+import moment from "moment";
 
 function Personal(props) {
   const history = useHistory();
@@ -237,7 +238,7 @@ function Personal(props) {
   };
 
   useEffect(() => {
-    if (identityNumber && identityNumber.length === 14) {
+    if (identityNumber && identityTypeId?.validLength !== 0 && identityNumber.length === identityTypeId?.validLength) {
       if (checkEmployeeIdentityNumber) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeIdentityNumber(identityNumber);
@@ -294,10 +295,10 @@ function Personal(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const isValidIdentityNumber = identityNumber.length === 14;
+    const isValidIdentityNumber = identityNumber.length === (identityTypeId?.validLength ?? 0);
 
-    if (!isValidIdentityNumber) {
-      toast.error(intl.formatMessage(messages.identitynumberShouldBe14));
+    if (!isValidIdentityNumber && identityTypeId?.validLength !== 0) {
+      toast.error(`${intl.formatMessage(messages.identitynumberShouldBe)} ${identityTypeId?.validLength} ${locale === 'en' ? 'Number' : 'رقم'}`);
       return;
     }
 
@@ -455,7 +456,7 @@ function Personal(props) {
           GeneralListApis(locale).GetJobLevelList(),
           GeneralListApis(locale).GetDepartmentList(),
           GeneralListApis(locale).GetControlParameterList(),
-          GeneralListApis(locale).GetIdentityTypeList(),
+          GeneralListApis(locale).GetIdentityType(),
           GeneralListApis(locale).GetGenderList(),
           GeneralListApis(locale).GetNationalityList(),
           GeneralListApis(locale).GetReligionList(),
@@ -541,10 +542,8 @@ function Personal(props) {
               id: dataApi.controlParameterId,
               name: dataApi.controlParameterName,
             } : null);
-            setidentityTypeId(dataApi.identityTypeId ? {
-              id: dataApi.identityTypeId,
-              name: dataApi.identityTypeName,
-            } : null);
+            const identityType = identityTypedata.find(item => item.id === dataApi.identityTypeId);
+            setidentityTypeId(dataApi.identityTypeId && identityType ? identityType : null);
             setidentityIssuingDate(dataApi.identityIssuingDate);
             setidentityExpiry(dataApi.identityExpiry);
             setidentityNumber(dataApi.identityNumber ?? '');
@@ -607,9 +606,7 @@ function Personal(props) {
     fetchData();
   }, []);
 
-  const sanitizeEmployeeNameInput = (value) => {
-    return value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, '');
-  };
+  const sanitizeEmployeeNameInput = (value) => value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, '')
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -871,7 +868,14 @@ function Personal(props) {
                       setidentityTypeId({
                         id: value !== null ? value.id : 0,
                         name: value !== null ? value.name : "",
+                        validLength: value !== null ? value.validLength : 0,
+                        expiredPeriod : value !== null ? value.expiredPeriod : 0,
                       });
+                      if (identityIssuingDate && value && value?.expiredPeriod !== 0) {
+                        const expireDate = moment(identityIssuingDate).add(value?.expiredPeriod ?? 0, 'y');
+
+                        setidentityExpiry(expireDate.format('YYYY-MM-DD'));
+                      }
                     }}
                     renderInput={(params) => (
                       <TextField
@@ -924,6 +928,12 @@ function Personal(props) {
                         if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
                           if (!isNaN(new Date(date))) { 
                             setidentityIssuingDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+
+                            if (identityTypeId?.expiredPeriod !== 0) {
+                              const expireDate = moment(date).add(identityTypeId?.expiredPeriod ?? 0, 'y');
+
+                              setidentityExpiry(expireDate.format('YYYY-MM-DD'));
+                            }
                           } 
                           else
                           {
@@ -944,6 +954,7 @@ function Personal(props) {
                     <DesktopDatePicker
                       label={intl.formatMessage(messages.identityExpiry)}
                       required
+                      disabled={identityTypeId && identityTypeId?.expiredPeriod !== 0} 
                       value={identityExpiry}
                       onChange={(date) => {
                         if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
@@ -958,7 +969,7 @@ function Personal(props) {
                       }}
                       className={classes.field}
                       renderInput={(params) => (
-                        <TextField {...params} variant="outlined" />
+                        <TextField {...params} disabled={identityTypeId && identityTypeId?.expiredPeriod !== 0} variant="outlined" />
                       )}
                     />
                   </LocalizationProvider>
@@ -1118,7 +1129,7 @@ function Personal(props) {
                 onChange={(e) => setUserName(e.target.value)}
                 label={intl.formatMessage(messages.userName)}
                 fullWidth
-                disabled={ id !== 0 }
+                disabled={ id && id !== 0 }
                 variant="outlined"
                 autoComplete='off'
               />
@@ -1476,6 +1487,19 @@ function Personal(props) {
                       />
                     </Grid> */}
 
+                    {authState.user.isHR && <Grid item xs={12} md={3}>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isHR}
+                            name='isHR'
+                            onChange={(evt) => setIsHR(evt.target.checked)}
+                          />
+                        }
+                        label={intl.formatMessage(messages.isHR)}
+                      />
+                    </Grid>}
+
                     <Grid item xs={12} md={3}>
                       <FormControlLabel
                         control={
@@ -1509,19 +1533,6 @@ function Personal(props) {
                 </Grid>
 
                 {authState.user.isHR && <>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={isHR}
-                          name='isHR'
-                          onChange={(evt) => setIsHR(evt.target.checked)}
-                        />
-                      }
-                      label={intl.formatMessage(messages.isHR)}
-                    />
-                  </Grid>
-
                   <Grid item xs={12} md={6}>
                     <Autocomplete
                       options={branchList}

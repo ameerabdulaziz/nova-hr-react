@@ -351,7 +351,7 @@ function Company(props) {
                 </div>
 
                 {uploadedFile && (
-                  <Avatar sx={{ width: 56, height: 56 }} src={uploadedFile && uploadedFile instanceof File ? URL.createObjectURL(uploadedFile) : uploadedFile} />
+                  <img alt='' height={45} src={uploadedFile && uploadedFile instanceof File ? URL.createObjectURL(uploadedFile) : uploadedFile} />
                 )}
               </Stack>
             </Grid>

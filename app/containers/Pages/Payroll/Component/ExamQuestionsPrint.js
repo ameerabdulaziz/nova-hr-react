@@ -44,7 +44,9 @@ const ExamQuestionsPrint = ({
         }}
       >
         <Stack spacing={2} mb={2} mx={4} mt={4} >
-          <Avatar src={company?.logo} variant="square" />
+          <div>
+            <img src={company?.logo} alt='' height={45} />
+          </div>
         </Stack>
 
           <h1 className={`${style.printPageTitleSty} `}>

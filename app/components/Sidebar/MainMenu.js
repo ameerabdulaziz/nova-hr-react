@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -14,12 +14,7 @@ import Icon from '@mui/material/Icon';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import useStyles from './sidebar-jss';
-import menuApi from 'enl-api/ui/menuApi';
-//import dataMenu from 'enl-api/ui/menu';
-import {syncUserMenu, getCompanyInfo} from '../../redux/actions/authActions';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory} from "react-router-dom";
-
+import { useSelector } from 'react-redux';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
   return <NavLink to={props.to} {...props} innerRef={ref} />; // eslint-disable-line
@@ -29,8 +24,6 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 function MainMenu(props) {
   const { classes, cx } = useStyles();
   const locale = useSelector(state => state.language.locale);
-  const Auth = useSelector((state) => state.authReducer.loggedIn);
-  const history = useHistory();
   const dataMenu = useSelector(state => state.authReducer.usermenu);
   //const [dataMenu,setdataMenu]=useState([]);
   const {
@@ -40,50 +33,11 @@ function MainMenu(props) {
     loadTransition
   } = props;
   
-  const Dispatcher = useDispatch();
-
   const handleClick = () => {
     
     toggleDrawerOpen();
     loadTransition(false);
   };
-
-  const getdata = async () => {
-    try {
-      const data = await menuApi.fetchApi(locale);
-      const mappedMenu = data.map((item) => ({
-        ...item,
-        icon: item.icon ?? "widgets",
-        child: item.child?.map((child) => ({
-          ...child,
-          icon: child.icon ?? "extension",
-          child: child.child?.map((subChild) => ({
-            ...subChild,
-            icon: subChild.icon ?? "layers",
-          })),
-        })),
-      }));
-
-      const companyInfo = await menuApi.getCompanyInfo(locale);
-
-      Dispatcher(getCompanyInfo(companyInfo));
-
-      Dispatcher(syncUserMenu(mappedMenu));
-    } catch (error) {
-      //
-    }
-  };
-
-useEffect(() => {  
-  /* if(!dataMenu || dataMenu.length==0)
-  { */
-  
-  if (Auth === null || Auth===false) {
-    history.push(`/login?redirectTo=${history.location.pathname}`);
-  }
-    getdata();
-  /* } */
-}, []);
 
   const getMenus = menuArray => menuArray.map((item, index) => {
    

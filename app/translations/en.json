@@ -829,7 +829,7 @@
   "boilerplate.components.tables.codes.insuranceOffices": "Insurance Offices",
   "boilerplate.components.tables.codes.elJob": "Element Job",
   "boilerplate.components.tables.codes.elPercent": "Element Percent",
-  "boilerplate.components.tables.codes.action": "Action",
+  "boilerplate.components.tables.codes.action": "Actions",
   "boilerplate.components.tables.codes.address": "Address",
   "boilerplate.components.tables.codes.note": "Notes",
   "boilerplate.components.tables.codes.accno": "Account Number",
@@ -889,6 +889,7 @@
   "boilerplate.components.tables.codes.transportaion": "Transportaion",
 
   "boilerplate.components.tables.codes.DepreciationPeriod": "Depreciation Period",
+
 
   "boilerplate.containers.Payroll.save": "Save",
   "boilerplate.containers.Payroll.close": "Close",
@@ -2133,7 +2134,7 @@
   "boilerplate.containers.Payroll.Employee.salary.salaryStructure": "Salary Structure",
   "boilerplate.containers.Payroll.Employee.salary.isBnkTransfer": "Bank Transfer",
   "boilerplate.containers.Payroll.Employee.salary.taxable": "Taxable",
-  "boilerplate.containers.Payroll.Employee.salary.identitynumberShouldBe14": "Identity Number Should Be 14 Charater ",
+  "boilerplate.containers.Payroll.Employee.salary.identitynumberShouldBe": "Identity Number Should Be ",
   "boilerplate.containers.Payroll.Employee.salary.consultant": "Consultant",
   "boilerplate.containers.Payroll.Employee.salary.isHours": "Salary On Working Hours",
   "boilerplate.containers.Payroll.Employee.salary.hourPrice": "Hourly Value",
@@ -2164,6 +2165,7 @@
   "boilerplate.containers.Payroll.Employee.job.contractType": "Contract Type",
   "boilerplate.containers.Payroll.Employee.job.notHasMission": "Not Has Mission",
   "boilerplate.containers.Payroll.Employee.job.ruleTemplate": "Rule Template",
+  
 
   "boilerplate.containers.Payroll.Employee.doc.id": "Id",
   "boilerplate.containers.Payroll.Employee.doc.startDate": "Start Date",
@@ -2252,6 +2254,7 @@
   "boilerplate.containers.Payroll.Employee.backToEmployeeList": "Back To Employee List",
   "boilerplate.containers.Payroll.Employee.fileErrors": "File errors",
   "boilerplate.containers.Payroll.Employee.modifyEmployeeDataIfTheyAlreadyExist": "Modify employee data if they already exist",
+  "boilerplate.containers.Payroll.Employee.RelativesName": "Relatives Name",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",

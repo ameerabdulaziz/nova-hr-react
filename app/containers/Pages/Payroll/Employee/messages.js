@@ -396,9 +396,9 @@ export default defineMessages({
     id: `${scope}.salary.isHours`,
     defaultMessage: 'isHours',
   },
-  identitynumberShouldBe14: {
-    id: `${scope}.salary.identitynumberShouldBe14`,
-    defaultMessage: 'identitynumberShouldBe14',
+  identitynumberShouldBe: {
+    id: `${scope}.salary.identitynumberShouldBe`,
+    defaultMessage: 'identitynumberShouldBe',
   },
 
     // employee Documents
@@ -750,5 +750,9 @@ export default defineMessages({
   employeeNameShouldNotBeOneWord: {
     id: `${scope}.employeeNameShouldNotBeOneWord`,
     defaultMessage: 'employeeNameShouldNotBeOneWord',
+  },
+  RelativesName: {
+    id: `${scope}.RelativesName`,
+    defaultMessage: 'Relatives Name',
   },
 });

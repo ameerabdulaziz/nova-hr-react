@@ -25,10 +25,10 @@ function Documents() {
   const anchorTable = [
     {
       name: 'id',
-      label: 'code',
+      label: 'id',
       type: 'static',
       initialValue: '',
-      hidden: true,
+      hidden: false,
     },
 
     {

@@ -9,7 +9,8 @@ const IdentityTypeData = () => {
       id: obj.id,
       arName: obj.arName,
       enName: obj.enName,
-      expirePeriod: obj.expirePeriod,
+      expiredPeriod: obj.expiredPeriod,
+      validLength: obj.validLength,
       edited: false,
     }));
 
@@ -21,7 +22,8 @@ const IdentityTypeData = () => {
       id: Item.id,
       arName: Item.arName,
       enName: Item.enName,
-      expirePeriod: Item.expirePeriod,
+      validLength: Item.validLength,
+      expiredPeriod: Item.expiredPeriod,
     };
 
     const result = Item.id === 0

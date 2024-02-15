@@ -93,7 +93,6 @@ const Row = forwardRef((props, ref) => {
 
   const renderCell = dataArray => dataArray.map((itemCell, index) => {
 
-    console.log("item[itemCell.name] =",item[itemCell.name]);
     
     if (itemCell.name !== 'action' && !itemCell.hidden) {
       const inputType = anchor[index].type;
@@ -175,7 +174,7 @@ const Row = forwardRef((props, ref) => {
         default:
           
           return (
-            
+
             <EditableCell
               updateRow={(event) => updateRow(updateAction(event,item, branch))}
               cellData={{

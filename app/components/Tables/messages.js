@@ -22,7 +22,7 @@ export default defineMessages({
   },
   action: {
     id: `${scope}.codes.action`,
-    defaultMessage: 'Action',
+    defaultMessage: 'Actions',
   },
   id: {
     id: `${scope}.codes.code`,
