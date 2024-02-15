@@ -2140,6 +2140,7 @@
   "boilerplate.containers.Payroll.Employee.job.contractType": "Contract Type",
   "boilerplate.containers.Payroll.Employee.job.notHasMission": "Not Has Mission",
   "boilerplate.containers.Payroll.Employee.job.ruleTemplate": "Rule Template",
+  
 
   "boilerplate.containers.Payroll.Employee.doc.id": "Id",
   "boilerplate.containers.Payroll.Employee.doc.startDate": "Start Date",
@@ -2228,6 +2229,7 @@
   "boilerplate.containers.Payroll.Employee.backToEmployeeList": "Back To Employee List",
   "boilerplate.containers.Payroll.Employee.fileErrors": "File errors",
   "boilerplate.containers.Payroll.Employee.modifyEmployeeDataIfTheyAlreadyExist": "Modify employee data if they already exist",
+  "boilerplate.containers.Payroll.Employee.RelativesName": "Relatives Name",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",
