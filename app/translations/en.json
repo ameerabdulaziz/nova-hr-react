@@ -896,6 +896,8 @@
   "boilerplate.containers.Payroll.cancel": "Cancel",
   "boilerplate.containers.Payroll.id": "Id",
   "boilerplate.containers.Payroll.downloadExcel": "Download Excel",
+  "boilerplate.containers.Payroll.minDate": "Min Date",
+  "boilerplate.containers.Payroll.maxDate": "Max Date",
   "boilerplate.containers.Payroll.code": "Code",
   "boilerplate.containers.Payroll.delete": "Delete",
   "boilerplate.containers.Payroll.name": "Name",

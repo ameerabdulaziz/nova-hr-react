@@ -614,4 +614,12 @@ employeeId: {
     id: `${scope}.downloadExcel`,
     defaultMessage: 'downloadExcel',
   },
+  maxDate: {
+    id: `${scope}.maxDate`,
+    defaultMessage: 'maxDate',
+  },
+  minDate: {
+    id: `${scope}.minDate`,
+    defaultMessage: 'minDate',
+  },
 });

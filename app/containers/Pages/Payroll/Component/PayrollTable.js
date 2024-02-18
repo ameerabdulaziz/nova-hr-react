@@ -7,11 +7,16 @@ import {
   Box,
   Button,
   CircularProgress,
+  Grid,
   IconButton,
   Stack,
+  TextField,
   Tooltip,
   Typography,
 } from '@mui/material';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, {
@@ -34,6 +39,7 @@ import AlertPopup from './AlertPopup';
 import PayRollLoader from './PayRollLoader';
 import PrintableTable from './PayrollTable/PrintableTable';
 
+// Determine if render loader of just table without loader
 function Loader(props) {
   const { isLoading, children, showLoader } = props;
 
@@ -62,30 +68,170 @@ function PayrollTable(props) {
   const menu = stringMenu ? JSON.parse(stringMenu) : null;
   const menuName = localStorage.getItem('MenuName');
 
+  // Company info for employee
   const company = useSelector((state) => state.authReducer.companyInfo);
 
+  // Ref for print container
   const printContainerRef = useRef(null);
 
+  // Today's formatted date
   const today = formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
 
+  // Document title for printing & export
   const documentTitle = `${title || menuName || 'Report'} ${today}`;
 
   const [isPrintLoading, setIsPrintLoading] = useState(false);
   const [deletedId, setDeletedId] = useState(null);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
+  // Table state
   const [filterData, setFilterData] = useState(data);
   const [filterColumns, setFilterColumns] = useState(columns);
   const [columnsVisibility, setColumnsVisibility] = useState([]);
 
+  const getDateColumnOptions = (item) => {
+    const isNameIncludeDate = item?.name?.toLowerCase()?.includes('date');
+
+    if (isNameIncludeDate) {
+      return {
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
+        filterType: 'custom',
+        customFilterListOptions: {
+          render: (filterValue) => {
+            if (filterValue[0] && filterValue[1]) {
+              return `${intl.formatMessage(payrollMessages.minDate)}: ${
+                filterValue[0]
+              }, ${intl.formatMessage(payrollMessages.maxDate)}: ${
+                filterValue[1]
+              }`;
+            }
+
+            if (filterValue[0]) {
+              return `${intl.formatMessage(payrollMessages.minDate)}: ${
+                filterValue[0]
+              }`;
+            }
+
+            if (filterValue[1]) {
+              return `${intl.formatMessage(payrollMessages.maxDate)}: ${
+                filterValue[1]
+              }`;
+            }
+
+            return [];
+          },
+        },
+        filterOptions: {
+          names: [],
+          logic(date, filters) {
+            const date1 = new Date(date);
+            if (filters[0] && filters[1]) {
+              const start = new Date(filters[0]);
+              const end = new Date(filters[1]);
+
+              if (date1 >= start && date1 <= end) {
+                return false;
+              }
+              return true;
+            }
+            if (filters[0]) {
+              const start = new Date(filters[0]);
+              if (date1 >= start) {
+                return false;
+              }
+              return true;
+            }
+            if (filters[1]) {
+              const end = new Date(filters[1]);
+              if (date1 <= end) {
+                return false;
+              }
+              return true;
+            }
+            return false;
+          },
+          display: (filterList, onChange, index, column) => (
+            <>
+              <Typography variant='subtitle1' color='gray' mb={1}>
+                {column.label}
+              </Typography>
+
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                    <DesktopDatePicker
+                      value={
+                        filterList[index][0] === undefined
+                          ? null
+                          : filterList[index][0]
+                      }
+                      onChange={(date) => {
+                        if (
+                          Object.prototype.toString.call(new Date(date))
+                          === '[object Date]'
+                        ) {
+                          if (!isNaN(new Date(date))) {
+                            filterList[index][0] = formateDate(date);
+                          } else {
+                            filterList[index][0] = null;
+                          }
+                        }
+
+                        onChange(filterList[index], index, column);
+                      }}
+                      label={intl.formatMessage(payrollMessages.minDate)}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                    <DesktopDatePicker
+                      value={
+                        filterList[index][1] === undefined
+                          ? null
+                          : filterList[index][1]
+                      }
+                      onChange={(date) => {
+                        if (
+                          Object.prototype.toString.call(new Date(date))
+                          === '[object Date]'
+                        ) {
+                          if (!isNaN(new Date(date))) {
+                            filterList[index][1] = formateDate(date);
+                          } else {
+                            filterList[index][1] = null;
+                          }
+                        }
+
+                        onChange(filterList[index], index, column);
+                      }}
+                      label={intl.formatMessage(payrollMessages.maxDate)}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+              </Grid>
+            </>
+          ),
+        },
+      };
+    }
+    return {};
+  };
+
+  // useEffect to update filtered data when data prop changes
   useEffect(() => {
     setFilterData(data);
   }, [data]);
 
+  // useEffect to initialize columns and column visibility settings
   useEffect(() => {
     const mappedColumns = columns.map((item) => ({
       ...item,
       options: {
+        ...getDateColumnOptions(item),
         ...item?.options,
         viewColumns: item?.options?.viewColumns ?? Boolean(item.name),
       },
@@ -96,6 +242,7 @@ function PayrollTable(props) {
     setColumnsVisibility(mappedColumns);
   }, [columns]);
 
+  // useReactToPrint hook for printing functionality
   const printJS = useReactToPrint({
     documentTitle,
     content: () => printContainerRef?.current,
@@ -115,12 +262,14 @@ function PayrollTable(props) {
   };
 
   const onAddActionBtnClick = () => {
+    // Check is employee has create permission
     if (menu.isAdd) {
       history.push(actions?.add?.url);
     }
   };
 
   const onEditActionBtnClick = (id) => {
+    // Check is employee has update permission
     if (menu.isUpdate) {
       history.push(actions?.edit?.url, {
         id,
@@ -129,18 +278,22 @@ function PayrollTable(props) {
   };
 
   const onDeleteActionBtnClick = (id) => {
+    // Check is employee has delete permission
     if (menu.isDelete) {
       setDeletedId(id);
       setIsDeletePopupOpen(true);
     }
   };
 
+  // Export excel function
   const onExcelExportClick = useCallback(() => {
+    // Visible columns
     const cols = filterColumns.filter(
       (_, index) => columnsVisibility[index]?.isColumnVisible
     );
 
-    const sheetData = filterData.map(row => {
+    // Table data base on visible columns
+    const sheetData = filterData.map((row) => {
       const rowData = {};
 
       cols.forEach((col) => {
@@ -161,6 +314,7 @@ function PayrollTable(props) {
 
     const downloadURI = window.URL.createObjectURL(blob);
 
+    // Create dummy "a" link to download the file
     const link = document.createElement('a');
     link.setAttribute('href', downloadURI);
     link.setAttribute('download', documentTitle);
@@ -170,6 +324,7 @@ function PayrollTable(props) {
     URL.revokeObjectURL(downloadURI);
   }, [filterData, columns]);
 
+  // Custom toolbar for table (contain: download, print, add button)
   const customToolbar = useCallback(
     () => (
       <>
@@ -217,6 +372,7 @@ function PayrollTable(props) {
     [options, isPrintLoading, filterData]
   );
 
+  // Memoize default table options
   const tableOptions = useMemo(
     () => ({
       filterType: 'dropdown',
@@ -224,6 +380,7 @@ function PayrollTable(props) {
       print: false,
       rowsPerPage: 50,
       rowsPerPageOptions: [10, 50, 100],
+      // Download options for csv (only visible columns)
       downloadOptions: {
         filename: `${documentTitle}.csv`,
         filterOptions: {
@@ -234,6 +391,7 @@ function PayrollTable(props) {
       page: 0,
       selectableRows: 'none',
       searchOpen: false,
+      // Translation for table
       textLabels: {
         body: {
           noMatch: isLoading
@@ -269,8 +427,10 @@ function PayrollTable(props) {
           deleteAria: intl.formatMessage(payrollMessages.deleteSelectedRows),
         },
       },
+      // Add arabic unicode for excel
       onDownload: (buildHead, buildBody, cols, rows) => '\uFEFF' + buildHead(cols) + buildBody(rows),
       ...options,
+      // Save filtered rows for export & print
       onFilterChange: (
         changedColumn,
         filterList,
@@ -289,6 +449,7 @@ function PayrollTable(props) {
           );
         }
       },
+      // Add column visibility control
       onViewColumnsChange: (changedColumn, action) => {
         const clonedColumns = [...columnsVisibility];
         const index = clonedColumns.findIndex(
@@ -313,6 +474,7 @@ function PayrollTable(props) {
     [options, columns, customToolbar, isLoading]
   );
 
+  // Memoize table columns and actions (add, edit, delete) based on actions props
   const tableColumns = useMemo(
     () => [
       ...filterColumns,
@@ -392,6 +554,8 @@ function PayrollTable(props) {
 
   return (
     <Loader isLoading={isLoading} showLoader={showLoader}>
+
+      {/* Delete popup confirmation */}
       <AlertPopup
         handleClose={() => {
           setIsDeletePopupOpen(false);
@@ -401,6 +565,7 @@ function PayrollTable(props) {
         callFun={() => actions?.delete?.api(deletedId)}
       />
 
+      {/* Pdf container */}
       <Box
         ref={printContainerRef}
         sx={{
@@ -422,6 +587,7 @@ function PayrollTable(props) {
           },
         }}
       >
+        {/* Pdf Header with company logo */}
         <Stack
           spacing={2}
           direction='row'
@@ -436,6 +602,7 @@ function PayrollTable(props) {
           <img src={company?.logo} alt='' height={45} />
         </Stack>
 
+        {/* Table pdf */}
         <PrintableTable
           columns={tableColumns.filter(
             (_, index) => columnsVisibility[index]?.isColumnVisible
@@ -444,6 +611,7 @@ function PayrollTable(props) {
         />
       </Box>
 
+      {/* Main table */}
       <div className={classes.CustomMUIDataTable}>
         <MUIDataTable
           title={title}

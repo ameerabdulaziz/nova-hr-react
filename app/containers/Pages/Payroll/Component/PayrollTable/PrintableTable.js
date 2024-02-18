@@ -48,7 +48,7 @@ function PrintableTable(props) {
 
       <TableBody>
         {rows.map((row, index) => (
-          <TableRow key={row.id} sx={{ pageBreakInside: 'avoid' }} >
+          <TableRow key={index} sx={{ pageBreakInside: 'avoid' }} >
             <StyledTableCell component='th' scope='row' sx={{ height: '22px' }} align='center'>
               <pre style={{ margin: 0 }}>{index + 1}</pre>
             </StyledTableCell>
