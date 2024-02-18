@@ -159,6 +159,11 @@ function MissionTrxCreate(props) {
         .map((obj) => {
           return obj.id;
         });
+        if(SelectedIds.length == 0) 
+        {
+          toast.error("Select Employees first");
+          return ;
+        }
       data.employeesId = SelectedIds;
       let response = await ApiData(locale).SaveAll(data);
 

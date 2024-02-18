@@ -205,6 +205,12 @@ function AttRulesCreate(props) {
   async function oncancel() {
     history.push(`/app/Pages/Att/Rules`);
   }
+  async function ViewEmployees() {
+    history.push(`/app/Pages/Att/EmployeeAttendanceTemplate`, {
+      Tamplete: data.id,
+    });
+  }
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -406,9 +412,10 @@ function AttRulesCreate(props) {
                     <Grid item xs={12} md={3}>
                       <Button
                         variant="contained"
-                        type="submit"
                         size="medium"
                         color="secondary"
+                        disabled={data.id?false:true}
+                        onClick={ViewEmployees}
                       >
                         <FormattedMessage {...Payrollmessages.employees} />
                       </Button>

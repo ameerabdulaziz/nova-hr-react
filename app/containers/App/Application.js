@@ -863,6 +863,12 @@ function Application(props) {
           path='/app/Pages/Att/PermissionTrx'
           component={PermissionTrxList}
         />
+        <Route path='/app/Pages/Att/PermissionApproval' component={RequestsList} />
+        <Route path='/app/Pages/vac/VacApproval' component={RequestsList} />
+        <Route path='/app/Pages/HR/PenaltyApproval' component={RequestsList} />
+        <Route path='/app/Pages/HR/RewardsApproval' component={RequestsList} />
+        <Route path='/app/Pages/HR/UniformApproval' component={RequestsList} />
+        <Route path='/app/Pages/Payroll/LoanApproval' component={RequestsList} />
         <Route
           path='/app/Pages/Att/PermissionTrxCreate'
           component={PermissionTrxCreate}
@@ -927,6 +933,7 @@ function Application(props) {
         <Route path='/app/Pages/Att/ShiftImport' component={ShiftImport} />
 
         <Route path='/app/Pages/Att/MissionTrx' component={MissionTrxList} />
+        <Route path='/app/Pages/Att/MissionApproval' component={RequestsList} />
         <Route
           path='/app/Pages/Att/MissionTrxCreate'
           component={MissionTrxCreate}

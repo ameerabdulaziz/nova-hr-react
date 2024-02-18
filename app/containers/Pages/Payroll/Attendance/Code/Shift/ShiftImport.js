@@ -69,7 +69,7 @@ function ShiftImport({ intl }) {
       let response = await ApiData(locale).SaveListFromImport(fileData);
 
       if (response.status == 200) {
-        toast.success(notif.saved);
+        toast.error(response.data);
         resetDataFun();
       } else {
         toast.error(response.statusText);

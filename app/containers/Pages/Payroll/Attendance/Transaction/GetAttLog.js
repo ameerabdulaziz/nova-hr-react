@@ -12,6 +12,7 @@ import Payrollmessages from "../../messages";
 import PayRollLoader from "../../Component/PayRollLoader";
 import ApiData from "../api/DeviceData";
 import AddIcon from "@mui/icons-material/Add";
+import { format } from "date-fns";
 import {
   Button,
   Grid,
@@ -304,21 +305,7 @@ function DataFromAllDevices(props) {
                   control={<Radio />}
                   label={intl.formatMessage(messages.access)}
                 />
-                <FormControlLabel
-                  value="3"
-                  control={<Radio />}
-                  label={intl.formatMessage(messages.excell)}
-                />
-                <FormControlLabel
-                  value="4"
-                  control={<Radio />}
-                  label={intl.formatMessage(messages.txt)}
-                />
-                <FormControlLabel
-                  value="5"
-                  control={<Radio />}
-                  label={intl.formatMessage(messages.csv)}
-                />
+               
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -436,6 +423,7 @@ function DataFromAllDevices(props) {
                         label={intl.formatMessage(Payrollmessages.fromdate)}
                         value={FromDate}
                         onChange={(date) => {
+                          debugger;
                           if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
                             if (!isNaN(new Date(date))) { 
                               setFromDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))

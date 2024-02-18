@@ -1756,7 +1756,7 @@
   "boilerplate.containers.Payroll.Attendance.lastLog": "Last date logged",
   
   "boilerplate.containers.Payroll.Attendance.tcp": "TCP/IP",
-  "boilerplate.containers.Payroll.Attendance.access": "Access Database",
+  "boilerplate.containers.Payroll.Attendance.access": "From File(xls,csv,txt,dat)",
   "boilerplate.containers.Payroll.Attendance.excell": "Excell Sheet",
   "boilerplate.containers.Payroll.Attendance.txt": "TXT File",
   "boilerplate.containers.Payroll.Attendance.csv": "CSV File",  

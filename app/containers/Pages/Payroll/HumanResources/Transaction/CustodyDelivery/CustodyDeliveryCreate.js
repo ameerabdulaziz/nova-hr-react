@@ -59,6 +59,13 @@ function CustodyDeliveryCreate(props) {
         notes: event.target.value,
       }));
 
+      
+      if (event.target.name == "custodyPrice")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        custodyPrice: event.target.value,
+      }));
+
     if (event.target.name == "itemSerial")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -199,8 +206,8 @@ function CustodyDeliveryCreate(props) {
                 label={intl.formatMessage(Payrollmessages.price)}
                 className={classes.field}
                 variant="outlined"
-                disabled
                 autoComplete='off'
+                onChange={(e) => handleChange(e)}
               />
             </Grid>
             <Grid item xs={12} md={2}>

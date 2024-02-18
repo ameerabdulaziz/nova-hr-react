@@ -85,7 +85,7 @@ function CustodyDeliveryList(props) {
       label: intl.formatMessage(Payrollmessages.count),
     },
     {
-      name: 'CustodyPrice',
+      name: 'custodyPrice',
       label: intl.formatMessage(Payrollmessages.price),
     },
   ];

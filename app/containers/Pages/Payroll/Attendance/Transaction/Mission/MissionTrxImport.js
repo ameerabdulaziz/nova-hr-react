@@ -75,7 +75,7 @@ function MissionTrxImport({ intl }) {
       let response = await ApiData(locale).SaveList(fileData);
 
       if (response.status == 200) {
-        toast.success(notif.saved);
+        toast.error(response.data);
         resetDataFun();
       } else {
         toast.error(response.statusText);
@@ -111,13 +111,11 @@ function MissionTrxImport({ intl }) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-      
         <div className={`${classes.root} ${classes2.btnsContainer}`}>
           <Toolbar className={classes.toolbar}>
             <div className={classes.spacer} />
 
             <div className={`${classes.title} `} style={{ width: "100%" }}>
-
               <Grid
                 item
                 xs={12}
@@ -129,7 +127,6 @@ function MissionTrxImport({ intl }) {
                   locale === "en" ? classes2.btnsStyle : classes2.btnsStyleAr
                 } `}
               >
-
                 <Grid item xs={12} md={6} lg={2}>
                   <div className={classes.actions}>
                     <Tooltip title="Download">
@@ -152,69 +149,68 @@ function MissionTrxImport({ intl }) {
                 </Grid>
 
                 <Grid item xs={12} md={6} lg={2}>
-                <div className={classes.actions}>
-                  <Tooltip title="Import">
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      className={classes.button}
-                      component="label"
-                    >
-                      <AddIcon
-                        className={cx(
-                          smUp && classes.leftIcon,
-                          classes.iconSmall
-                        )}
-                      />
-
-                      <FormattedMessage {...Payrollmessages.Import} />
-                      <input
-                        hidden
-                        value={file}
-                        type="file"
-                        name="file"
-                        className="custom-file-input"
-                        id="inputGroupFile"
-                        onChange={handleImport}
-                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                      />
-                    </Button>
-                  </Tooltip>
-                </div>
-                </Grid>
-
-              <Grid item xs={12} md={6} lg={2}>
-                <div className={classes.actions}>
-                  <Tooltip title="Reset">
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      className={classes.button}
-                      onClick={resetDataFun}
-                    >
-                      <FormattedMessage {...Payrollmessages.reset} />
-                    </Button>
-                  </Tooltip>
-                </div>
-                </Grid>
-
-
-               <Grid item xs={12} md={6} lg={2}>
-                <div className={classes.actions}>
-                  <Tooltip title="Import Excel File To Can Submit">
-                    <span>
+                  <div className={classes.actions}>
+                    <Tooltip title="Import">
                       <Button
                         variant="contained"
                         color="secondary"
                         className={classes.button}
-                        onClick={submitFun}
-                        disabled={fileData.length !== 0 ? false : true}
+                        component="label"
                       >
-                        <FormattedMessage {...Payrollmessages.save} />
+                        <AddIcon
+                          className={cx(
+                            smUp && classes.leftIcon,
+                            classes.iconSmall
+                          )}
+                        />
+
+                        <FormattedMessage {...Payrollmessages.Import} />
+                        <input
+                          hidden
+                          value={file}
+                          type="file"
+                          name="file"
+                          className="custom-file-input"
+                          id="inputGroupFile"
+                          onChange={handleImport}
+                          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                        />
                       </Button>
-                    </span>
-                  </Tooltip>
-                </div>
+                    </Tooltip>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={2}>
+                  <div className={classes.actions}>
+                    <Tooltip title="Reset">
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={resetDataFun}
+                      >
+                        <FormattedMessage {...Payrollmessages.reset} />
+                      </Button>
+                    </Tooltip>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={2}>
+                  <div className={classes.actions}>
+                    <Tooltip title="Import Excel File To Can Submit">
+                      <span>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          className={classes.button}
+                          onClick={submitFun}
+                          disabled={fileData.length !== 0 ? false : true}
+                        >
+                          <FormattedMessage {...Payrollmessages.save} />
+                        </Button>
+                      </span>
+                    </Tooltip>
+                  </div>
                 </Grid>
               </Grid>
             </div>
@@ -231,7 +227,6 @@ function MissionTrxImport({ intl }) {
               />
             </div>
           )}
-          
         </div>
       </PapperBlock>
     </PayRollLoader>

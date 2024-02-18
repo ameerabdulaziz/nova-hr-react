@@ -29,16 +29,35 @@ import PayRollLoader from "../Component/PayRollLoader";
 import PayrollTable from "../Component/PayrollTable";
 import NotePopup from "./NotePopup";
 import WFExecutionList from "./WFExecutionList";
+import { useLocation } from "react-router-dom";
 
 function RequestsList(props) {
+  debugger;
   const { intl } = props;
   const { classes } = useStyles();
+  const location = useLocation();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [cols, setCols] = useState([]);
-  const [DocumentList, setDocumentList] = useState([]);
-  const [Document, setDocument] = useState({ documentId: 0, documentName: "" });
+
+  const [Document, setDocument] = useState(
+    location.pathname == "/app/Pages/Att/PermissionApproval"
+      ? 1
+      : location.pathname == "/app/Pages/Att/MissionApproval"
+      ? 2
+      : location.pathname == "/app/Pages/vac/VacApproval"
+      ? 3
+      : location.pathname == "/app/Pages/HR/PenaltyApproval"
+      ? 4
+      : location.pathname == "/app/Pages/HR/RewardsApproval"
+      ? 5
+      : location.pathname == "/app/Pages/Payroll/LoanApproval"
+      ? 7
+      : location.pathname == "/app/Pages/HR/UniformApproval"
+      ? 8
+      : 0
+  );
   const [fromdate, setfromate] = useState(null);
   const [todate, settodate] = useState(null);
   const [employee, setemployee] = useState(null);
@@ -73,9 +92,9 @@ function RequestsList(props) {
   const handleSearch = async (e) => {
     try {
       setIsLoading(true);
-      debugger ;
+      debugger;
       const dataApi = await ApiData(locale).Getrequests(
-        Document.documentId,
+        Document,
         employee,
         fromdate,
         todate
@@ -89,7 +108,7 @@ function RequestsList(props) {
   };
   async function RequestAction() {
     try {
-      debugger ;
+      debugger;
       setIsLoading(true);
       let response = await ApiData(locale).ExecuteWorkFlow(
         ExecutionId,
@@ -101,7 +120,6 @@ function RequestsList(props) {
         toast.success(notif.saved);
         handleSearch();
       }
-      
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -109,24 +127,43 @@ function RequestsList(props) {
   }
   async function fetchData() {
     try {
-      const Documents = await GeneralListApis(locale).GetDocumentList(locale);
+      /* const Documents = await GeneralListApis(locale).GetDocumentList(locale);
       setDocumentList(Documents);
       setDocument({
         documentId: Documents[0].id,
         documentName: Documents[0].name,
-      });
-
+      }); */
+      debugger;
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
-      
+      var documentId = 0;
+      if (location.pathname == "/app/Pages/Att/PermissionApproval")
+        documentId = 1;
+      else if (location.pathname == "/app/Pages/Att/MissionApproval")
+        documentId = 2;
+      else if (location.pathname == "/app/Pages/vac/VacApproval")
+        documentId = 3;
+      else if (location.pathname == "/app/Pages/HR/PenaltyApproval")
+        documentId = 4;
+      else if (location.pathname == "/app/Pages/HR/RewardsApproval")
+        documentId = 5;
+      else if (location.pathname == "/app/Pages/Payroll/LoanApproval")
+        documentId = 7;
+      else if (location.pathname == "/app/Pages/HR/UniformApproval")
+        documentId = 8;
+      else documentId = 0;
+
       const dataApi = await ApiData(locale).Getrequests(
-        Documents[0].id,
+        documentId,
         employee,
         fromdate,
         todate
       );
       setdata(dataApi);
-      dataApi.map((item) => setCols(Object.keys(item)));
+      setDocument(documentId);
+      if (dataApi && dataApi.length > 0)
+        dataApi.map((item) => setCols(Object.keys(item)));
+      else setCols([]);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -134,16 +171,22 @@ function RequestsList(props) {
   }
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [Title]);
 
- 
   const columns =
     cols.length !== 0
       ? cols.map((item) => ({
           name: item,
-          label:(Document.documentId==1||Document.documentId==2)?<FormattedMessage {...missionmessages[item]} />
-          :((Document.documentId==4||Document.documentId==5||Document.documentId==8)?<FormattedMessage {...hrmessages[item]} />
-          :((Document.documentId==7)?<FormattedMessage {...paymessages[item]}/>:<FormattedMessage {...vacmessages[item]}/>)) ,
+          label:
+            Document == 1 || Document == 2 ? (
+              <FormattedMessage {...missionmessages[item]} />
+            ) : Document == 4 || Document == 5 || Document == 8 ? (
+              <FormattedMessage {...hrmessages[item]} />
+            ) : Document == 7 ? (
+              <FormattedMessage {...paymessages[item]} />
+            ) : (
+              <FormattedMessage {...vacmessages[item]} />
+            ),
           options: {
             filter: true,
           },
@@ -188,8 +231,6 @@ function RequestsList(props) {
       },
     },
   };
-
-
 
   if (columns.length > 0) columns.push(action);
 
@@ -272,32 +313,6 @@ function RequestsList(props) {
                     name="employeeId"
                     required
                     label={intl.formatMessage(Payrollmessages.employeeName)}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                id="documentId"
-                options={DocumentList}
-                value={{ id: Document.documentId, name: Document.documentName }}
-                isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === "" || option.id === value.id
-                }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
-                onChange={(event, value) => {
-                  setDocument({
-                    documentId: value == null ? null : value.id,
-                    documentName: value == null ? null : value.name,
-                  });
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="documentId"
-                    required
-                    label={intl.formatMessage(messages.documentName)}
                   />
                 )}
               />

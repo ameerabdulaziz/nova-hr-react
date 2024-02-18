@@ -20,12 +20,15 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
+import { useLocation } from "react-router-dom";
+
 
 function EmployeeAttendanceTemplate(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-  const [Tamplete, setTamplete] = useState("");
+  const { state } = useLocation();
+  const [Tamplete, setTamplete] = useState(state ? state.Tamplete : "");
   const [TampleteList, setTampleteList] = useState([]);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
@@ -37,11 +40,8 @@ function EmployeeAttendanceTemplate(props) {
     attendanceRulesNotApplied: false,
     noAttendanceRule: false,
   });
-  
 
   const handleSearch = async (e) => {
-
-    
     try {
       setIsLoading(true);
       var formData = {
@@ -50,12 +50,14 @@ function EmployeeAttendanceTemplate(props) {
         EmployeeStatusId: searchData.EmpStatusId,
         ParaTempId: Tamplete,
         chkNoTemp: searchData.attendanceRulesNotApplied,
-        chkNoAttRule: searchData.noAttendanceRule
+        chkNoAttRule: searchData.noAttendanceRule,
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
-      const dataApi = await ApiData(locale).EmployeeAttendanceTemplateReport(formData);
+      const dataApi = await ApiData(locale).EmployeeAttendanceTemplateReport(
+        formData
+      );
       setdata(dataApi);
     } catch (err) {
     } finally {
@@ -65,7 +67,6 @@ function EmployeeAttendanceTemplate(props) {
 
   async function fetchData() {
     try {
-      
       const tamplete = await GeneralListApis(locale).GetControlParameterList();
       setTampleteList(tamplete);
     } catch (err) {
@@ -75,6 +76,7 @@ function EmployeeAttendanceTemplate(props) {
   }
   useEffect(() => {
     fetchData();
+    if (Tamplete) handleSearch();
   }, []);
 
   const columns = [
@@ -114,13 +116,12 @@ function EmployeeAttendanceTemplate(props) {
       },
     },
     {
-        name: "organizationName",
-        label: intl.formatMessage(messages.orgName),
-        options: {
-          filter: true,
-        },
+      name: "organizationName",
+      label: intl.formatMessage(messages.orgName),
+      options: {
+        filter: true,
       },
-      
+    },
   ];
   const options = {
     filterType: "dropdown",
@@ -148,7 +149,7 @@ function EmployeeAttendanceTemplate(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
-          <Search
+            <Search
               setsearchData={setsearchData}
               searchData={searchData}
               setIsLoading={setIsLoading}
@@ -166,6 +167,9 @@ function EmployeeAttendanceTemplate(props) {
               onChange={(event, value) => {
                 setTamplete(value == null ? "" : value.id);
               }}
+              value={
+                Tamplete&&TampleteList.length>0 ? TampleteList.find((item) => item.id === Tamplete) : null
+              }
               renderInput={(params) => (
                 <TextField
                   variant="outlined"
@@ -178,44 +182,40 @@ function EmployeeAttendanceTemplate(props) {
           </Grid>
 
           <Grid item md={3}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={searchData.attendanceRulesNotApplied}
-                        onChange={(evt) => {
-                          setsearchData((prev) => ({
-                            ...prev,
-                            attendanceRulesNotApplied: evt.target.checked,
-                            noAttendanceRule: false,
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchData.attendanceRulesNotApplied}
+                  onChange={(evt) => {
+                    setsearchData((prev) => ({
+                      ...prev,
+                      attendanceRulesNotApplied: evt.target.checked,
+                      noAttendanceRule: false,
+                    }));
+                  }}
+                />
+              }
+              label={intl.formatMessage(messages.attendanceRulesNotApplied)}
+            />
+          </Grid>
 
-                          }));
-                        }}
-                      />
-                    }
-                    label={intl.formatMessage(messages.attendanceRulesNotApplied)}
-                  />
-            </Grid>
-
-          
-            <Grid item md={2}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={searchData.noAttendanceRule}
-                        onChange={(evt) => {
-                          setsearchData((prev) => ({
-                            ...prev,
-                            attendanceRulesNotApplied: false,
-                            noAttendanceRule: evt.target.checked,
-                          }));
-                        }}
-                      />
-                    }
-                    label={intl.formatMessage(messages.noAttendanceRule)}
-                  />
-            </Grid>
-
-         
+          <Grid item md={2}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchData.noAttendanceRule}
+                  onChange={(evt) => {
+                    setsearchData((prev) => ({
+                      ...prev,
+                      attendanceRulesNotApplied: false,
+                      noAttendanceRule: evt.target.checked,
+                    }));
+                  }}
+                />
+              }
+              label={intl.formatMessage(messages.noAttendanceRule)}
+            />
+          </Grid>
 
           <Grid item xs={12} md={2}>
             <Button

@@ -5,14 +5,15 @@ import CompanyChartData from "../api/CompanyChartData";
 import Button from "@mui/material/Button";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-
+import { useSelector } from "react-redux";
 const EmployeeChart = () => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const orgchart = useRef();
+  const locale = useSelector((state) => state.language.locale);
 
   const getdata = async () => {
-    const result = await CompanyChartData().GetEmployeeChart();
+    const result = await CompanyChartData(locale).GetEmployeeChart();
     setData(result[0]);
     setIsLoading(false);
     console.log(result[0]);
@@ -26,7 +27,7 @@ const EmployeeChart = () => {
     orgchart.current.exportTo("organization_chart", fileextension);
   };
   const save = async () => {
-    var result = await CompanyChartData().SaveEmployeeData(data);
+    var result = await CompanyChartData(locale).SaveEmployeeData(data);
     if (result.status == 200) {
       getdata();
       toast.success("Chart Saved Successfully!");

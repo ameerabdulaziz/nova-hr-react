@@ -1233,7 +1233,7 @@
   "boilerplate.containers.Payroll.HumanResources.NewsCreateTitle": "اضافة اخبار واعلاتات",
   "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle": "تعديل اخبار واعلانات",
   "boilerplate.containers.Payroll.HumanResources.custodyName": "العهدة",
-  "boilerplate.containers.Payroll.HumanResources.itemSerial": "كود العهده",
+  "boilerplate.containers.Payroll.HumanResources.itemSerial": "السيريال",
 
   "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryCreateTitle": "اضافة تسليم عهدة",
   "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryEditTitle": "تعديل تسليم عهده",
@@ -1787,7 +1787,7 @@
     "boilerplate.containers.Payroll.Attendance.lastLog": "تاريخ اخر سحب",
 
     "boilerplate.containers.Payroll.Attendance.tcp": "TCP/IP",
-    "boilerplate.containers.Payroll.Attendance.access": "Access Database",
+    "boilerplate.containers.Payroll.Attendance.access": "From File(xls,csv,txt,dat)",
     "boilerplate.containers.Payroll.Attendance.excell": "Excell Sheet",
     "boilerplate.containers.Payroll.Attendance.txt": "TXT File",
     "boilerplate.containers.Payroll.Attendance.csv": "CSV File",

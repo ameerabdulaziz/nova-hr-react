@@ -145,7 +145,7 @@ function ShiftCreate(props) {
         setdata((prevFilters) => ({
           ...prevFilters,
           startTime: event.target.value,
-          hours: diff,
+          hours: diff<0?(diff*-1):diff
         }));
       } else
         setdata((prevFilters) => ({
@@ -175,7 +175,7 @@ function ShiftCreate(props) {
         setdata((prevFilters) => ({
           ...prevFilters,
           endTime: event.target.value,
-          hours: diff,
+          hours: diff<0?(diff*-1):diff
         }));
       } else
         setdata((prevFilters) => ({
@@ -226,7 +226,7 @@ function ShiftCreate(props) {
       setdata(dataApi);
       setdata((prevFilters) => ({
         ...prevFilters,
-        hours: diff
+        hours: diff<0?(diff*-1):diff
       }));
     }
   }

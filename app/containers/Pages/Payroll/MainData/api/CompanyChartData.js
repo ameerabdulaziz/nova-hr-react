@@ -1,17 +1,17 @@
 import axiosInstance from '../../api/axios';
-const CompanyChartData = () => {
+const CompanyChartData = (locale) => {
   const CompanyChartApis = {};
 
   CompanyChartApis.GetOrganizationChart = async () => {
     
-    const data = await axiosInstance.get('MdOrganization/GetOrganizationChart');
+    const data = await axiosInstance.get(`MdOrganization/GetOrganizationChart/${locale}`);
    
     return data.data;
   };
 
   CompanyChartApis.GetEmployeeChart = async () => {
     
-   const data = await axiosInstance.get('MdOrganization/GetEmployeeChart');
+   const data = await axiosInstance.get(`MdOrganization/GetEmployeeChart/${locale}`);
   
    return data.data;
  };
