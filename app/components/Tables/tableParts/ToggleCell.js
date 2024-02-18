@@ -24,7 +24,7 @@ function ToggleCell(props) {
   return (
     <TableCell className={css.toggleCell} padding="none" >
     {/* <TableCell className={css.toggleCell} padding="none" textalign="center"> */}
-      <div className={clsx(css.coverReadonly, !edited ? css.show : '')} />
+      <div className={clsx(css.coverReadonly, !edited ? css.show : '', cellData.disabled ? css.crudInputId : null)} />
       <FormControlLabel
         control={(
           <Switch
@@ -34,6 +34,7 @@ function ToggleCell(props) {
             checked={isChecked}
             onChange={handleChange}
             value={cellData.value.toString()}
+            disabled={cellData.disabled ? true : !edited}
           />
         )}
       />
