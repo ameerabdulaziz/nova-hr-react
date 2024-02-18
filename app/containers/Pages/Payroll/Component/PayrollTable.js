@@ -99,7 +99,7 @@ function PayrollTable(props) {
         customFilterListOptions: {
           render: (filterValue) => {
             if (filterValue[0] && filterValue[1]) {
-              return `${intl.formatMessage(payrollMessages.minDate)}: ${
+              return `${item.label} - ${intl.formatMessage(payrollMessages.minDate)}: ${
                 filterValue[0]
               }, ${intl.formatMessage(payrollMessages.maxDate)}: ${
                 filterValue[1]
@@ -107,13 +107,13 @@ function PayrollTable(props) {
             }
 
             if (filterValue[0]) {
-              return `${intl.formatMessage(payrollMessages.minDate)}: ${
+              return `${item.label} - ${intl.formatMessage(payrollMessages.minDate)}: ${
                 filterValue[0]
               }`;
             }
 
             if (filterValue[1]) {
-              return `${intl.formatMessage(payrollMessages.maxDate)}: ${
+              return `${item.label} - ${intl.formatMessage(payrollMessages.maxDate)}: ${
                 filterValue[1]
               }`;
             }
@@ -231,9 +231,12 @@ function PayrollTable(props) {
     const mappedColumns = columns.map((item) => ({
       ...item,
       options: {
+        viewColumns: item?.options?.viewColumns ?? Boolean(item.name),
+        customFilterListOptions: {
+          render: (value) => `${item.label} - ${String(value)}`,
+        },
         ...getDateColumnOptions(item),
         ...item?.options,
-        viewColumns: item?.options?.viewColumns ?? Boolean(item.name),
       },
       isColumnVisible: true,
     }));
@@ -554,7 +557,6 @@ function PayrollTable(props) {
 
   return (
     <Loader isLoading={isLoading} showLoader={showLoader}>
-
       {/* Delete popup confirmation */}
       <AlertPopup
         handleClose={() => {
