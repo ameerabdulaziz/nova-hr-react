@@ -48,10 +48,10 @@ function DatePickerCell(props) {
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <DatePicker
           name={cellData.type}
-          className={cx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
+          className={cx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt, cellData.disabled ? css.crudInputId : null)}
           placeholder="10/10/2018"
           value={event.target.value}
-          disabled={!edited}
+          disabled={cellData.disabled ? true : !edited}
           onChange={handleDateChange}
           renderInput={(params) => <TextField {...params} variant="standard" />}
         />

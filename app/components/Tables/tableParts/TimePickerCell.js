@@ -53,7 +53,7 @@ function TimePickerCell(props) {
           mask="hh:mm A"
           placeholder="08:00 AM"
           value={event.target.value}
-          disabled={!edited}
+          disabled={cellData.disabled ? true : !edited}
           renderInput={(params) => <TextField {...params} variant="standard" />}
           onChange={handleTimeChange}
         />

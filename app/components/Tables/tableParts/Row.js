@@ -102,6 +102,7 @@ const Row = forwardRef((props, ref) => {
             <SelectableCell
               updateRow={(event) => updateRow(updateAction(event,item, branch))}
               cellData={{
+                disabled: itemCell?.disabled ?? false,
                 type: itemCell.name,
                 value: item[itemCell.name],
                 id: itemCell.name+item.id,
@@ -119,6 +120,7 @@ const Row = forwardRef((props, ref) => {
             <ToggleCell
               updateRow={(event) => updateRow(updateAction(event,item, branch))}
               cellData={{
+                disabled: itemCell?.disabled ?? false,
                 type: itemCell.name,
                 value: item[itemCell.name],
                 id: itemCell.name+item.id,
@@ -148,6 +150,7 @@ const Row = forwardRef((props, ref) => {
             <DatePickerCell
               updateRow={(event) => updateRow(updateAction(event,item, branch))}
               cellData={{
+                disabled: itemCell?.disabled ?? false,
                 type: itemCell.name,
                 value: item[itemCell.name],
                 id: itemCell.name+item.id,
@@ -162,6 +165,7 @@ const Row = forwardRef((props, ref) => {
             <TimePickerCell
               updateRow={(event) => updateRow(updateAction(event, item,branch))}
               cellData={{
+                disabled: itemCell?.disabled ?? false,
                 type: itemCell.name,
                 value: item[itemCell.name],
                 id: itemCell.name+item.id,
@@ -178,6 +182,7 @@ const Row = forwardRef((props, ref) => {
             <EditableCell
               updateRow={(event) => updateRow(updateAction(event,item, branch))}
               cellData={{
+                disabled: itemCell?.disabled ?? false,
                 type: itemCell.name,
                 value: item[itemCell.name],
                 id: itemCell.name+item.id,

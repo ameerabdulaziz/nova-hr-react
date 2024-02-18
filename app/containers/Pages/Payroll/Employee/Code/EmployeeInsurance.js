@@ -99,8 +99,9 @@ function EmployeeInsurance(props) {
       label: "monthno",
       type: "text",
       width: "auto",
-      initialValue: 1,
+      initialValue: '',
       hidden: false,
+      disabled: true,
     },
     {
       name: "notes",

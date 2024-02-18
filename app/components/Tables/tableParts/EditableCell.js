@@ -29,12 +29,12 @@ function EditableCell(props) {
             variant="standard"
             placeholder={cellData.type}
             name={cellData.type}
-            className={clsx(css.crudInput , inputType === "static" ? css.crudInputId : null, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
+            className={clsx(css.crudInput , inputType === "static" || cellData.disabled ? css.crudInputId : null, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
             // className={clsx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
             id={cellData.id.toString()}
             value={cellData.value}
             onChange={(event) => handleUpdate(event)}
-            disabled={cellData.type === "id" ? true : !edited }
+            disabled={cellData.type === "id" || cellData.disabled ? true : !edited }
             margin="none"
             inputProps={{
               'aria-label': 'Description',
@@ -50,7 +50,7 @@ function EditableCell(props) {
             variant="standard"
             id={cellData.id.toString()}
             name={cellData.type}
-            className={clsx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
+            className={clsx(css.crudInput, cellData.disabled ? css.crudInputId : null, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
             value={cellData.value}
             onChange={(event) => handleUpdate(event)}
             type="number"
@@ -59,7 +59,7 @@ function EditableCell(props) {
             }}
             margin="none"
             autoComplete='off'
-            disabled={!edited} />
+            disabled={ cellData.disabled ? true : !edited} />
         </TableCell>
       );
     default:
@@ -69,13 +69,13 @@ function EditableCell(props) {
             variant="standard"
             placeholder={cellData.type}
             name={cellData.type}
-            className={clsx(css.crudInput , inputType === "static" ? css.crudInputId : null, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
+            className={clsx(css.crudInput , inputType === "static" || cellData.disabled ? css.crudInputId : null, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
             // className={clsx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
             id={cellData.id.toString()}
             value={cellData.value}
             onChange={(event) => handleUpdate(event)}
             // disabled={!edited}
-            disabled={cellData.type === "id" ? true : !edited }
+            disabled={cellData.type === "id" || cellData.disabled ? true : !edited }
             margin="none"
             inputProps={{
               'aria-label': 'Description',

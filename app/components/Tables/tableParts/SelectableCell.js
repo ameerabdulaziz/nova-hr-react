@@ -27,11 +27,11 @@ function SelectableCell(props) {
         variant="standard"
         name={cellData.type}
         id={cellData.id.toString()}
-        className={clsx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
+        className={clsx(css.crudInput, cellData.disabled ? css.crudInputId : null, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
         value={cellData.value}
         onChange={handleChange}
         displayEmpty
-        disabled={!edited}
+        disabled={cellData.disabled ? true : !edited}
         renderValue={option => option}
         margin="none">
         {options.map((option, index) => <MenuItem value={option} key={index.toString()}>{option}</MenuItem>)}

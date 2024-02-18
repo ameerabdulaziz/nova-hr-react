@@ -911,6 +911,8 @@
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",
   "boilerplate.containers.Payroll.downloadExcel": "تنزيل Excel",
+  "boilerplate.containers.Payroll.minDate": "اقل تاريخ",
+  "boilerplate.containers.Payroll.maxDate": "اعلي تاريخ",
   "boilerplate.containers.Payroll.id": "كود الموظف",
   "boilerplate.containers.Payroll.code": "الكود",
   "boilerplate.containers.Payroll.delete": "حذف",

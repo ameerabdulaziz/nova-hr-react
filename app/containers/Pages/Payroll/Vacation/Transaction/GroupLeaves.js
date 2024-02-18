@@ -102,7 +102,7 @@ else if(type === "endDate")
 {
     if(data.fromdate !== null)
             {
-                let totalDaysVal = Math.floor( (new Date(date) - new Date(data.fromdate)) / 1000 / 60 / 60 / 24 ) + 1
+                let totalDaysVal = Math.floor( (new Date(date) - new Date(data.fromdate)) / 1000 / 60 / 60 / 24 ) + 2
                 if(totalDaysVal > 0)
                 {
                     if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
@@ -331,8 +331,8 @@ async function getData() {
                 alignItems="flex-start"
                 direction="row">
                     
-                    <Grid item xs={12} md={6}> 
-                        <Card className={classes.card}>
+                    <Grid item xs={12} md={9}> 
+                        <Card className={classes.card} sx={{m:'0!important'}} >
                             <CardContent>
                                 <Grid container spacing={3} alignItems="flex-start" direction="row">  
                               
@@ -463,36 +463,16 @@ async function getData() {
                                 </Grid> 
                             </CardContent> 
                         </Card>
-                    </Grid>                
-                    <Grid item xs={12} md={6}>  
-                        <Grid item xs={12} md={12}>                                                            
-                            <Card className={classes.card}>
-                                <CardContent>                                
-                                    <NameList
-                                        dataList={dataList}            
-                                        setdataList={setdataList}
-                                        Key={"Employee"}
-                                    />
-                                </CardContent>
-                            </Card>
-                        </Grid>   
-                    </Grid>   
-
-
-                    <Grid item xs={12} md={12}
-                        container
-                        spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
-                        className={style.itemsStyle}
-                        >
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                    <Grid container spacing={2} direction='column' >
                 
-                    <Grid item xs={6} sm={4} md={2}>
+                    <Grid item >
                         <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={handleReset} >
                             <FormattedMessage {...Payrollmessages.add} /> 
                         </Button>
                     </Grid>
-                    <Grid item xs={6} sm={4} md={2}>
+                    <Grid item >
                         <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={getData} disabled={previewprocessing} >
                         {previewprocessing && (
                             <CircularProgress
@@ -503,7 +483,7 @@ async function getData() {
                         <FormattedMessage {...Payrollmessages.preview} /> 
                         </Button>
                     </Grid>
-                    <Grid item xs={6} sm={4} md={2}>                  
+                    <Grid item >                  
                         <Button variant="contained" type="submit" size="medium" style={{width:100}} color="secondary" disabled={ processing} >
                             {processing && (
                             <CircularProgress
@@ -514,7 +494,7 @@ async function getData() {
                         <FormattedMessage {...Payrollmessages.save} /> 
                         </Button>
                     </Grid>
-                    <Grid item xs={6} sm={4} md={2}>
+                    <Grid item >
                         <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={handleDelete} disabled={deleteprocessing}  >
                         {deleteprocessing && (
                             <CircularProgress
@@ -526,7 +506,19 @@ async function getData() {
                         </Button>
                     </Grid>
 
-                </Grid>
+                </Grid>                
+                    </Grid>
+                    <Grid item xs={12} >  
+                            <Card className={classes.card} sx={{m:'0!important'}} >
+                                <CardContent>                                
+                                    <NameList
+                                        dataList={dataList}            
+                                        setdataList={setdataList}
+                                        Key={"Employee"}
+                                    />
+                                </CardContent>
+                            </Card>
+                    </Grid>   
 
 
             </Grid>            
