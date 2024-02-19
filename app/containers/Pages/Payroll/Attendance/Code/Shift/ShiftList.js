@@ -15,6 +15,8 @@ import AddButton from "../../../Component/AddButton";
 import AlertPopup from "../../../Component/AlertPopup";
 import Payrollmessages from "../../../messages";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 function ShiftList(props) {
   const { intl } = props;
@@ -25,6 +27,7 @@ function ShiftList(props) {
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  
 
   
   
@@ -58,6 +61,7 @@ function ShiftList(props) {
   async function fetchData() {
     try {
       const dataApi = await ApiData(locale).GetList();
+      debugger;
       setdata(dataApi);
     } catch (err) {
     } finally {
@@ -67,6 +71,18 @@ function ShiftList(props) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const CheckBox = (value) => {
+    return (
+      <div className={style.actionsSty}>
+        {value ? (
+          <CheckIcon style={{ color: "#3f51b5" }} />
+        ) : (
+          <CloseIcon style={{ color: "#717171" }} />
+        )}
+      </div>
+    );
+  };
 
   const columns = [
     {
@@ -110,6 +126,7 @@ function ShiftList(props) {
       label: <FormattedMessage {...messages["shft2d"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => CheckBox(value),
       },
     },
     {
@@ -117,6 +134,7 @@ function ShiftList(props) {
       label: <FormattedMessage {...messages["shft10Hours"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => CheckBox(value),
       },
     },
     {
@@ -124,6 +142,7 @@ function ShiftList(props) {
       label: <FormattedMessage {...messages["hoursFromEmp"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => CheckBox(value),
       },
     },
     {
@@ -131,6 +150,7 @@ function ShiftList(props) {
       label: <FormattedMessage {...messages["webHide"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => CheckBox(value),
       },
     },
     {

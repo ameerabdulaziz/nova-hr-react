@@ -142,13 +142,13 @@ function ShiftReview(props) {
         filter: true,
       },
     },
-    {
-      name: "shiftId",
+    /* {
+      name: "shiftCode",
       label: <FormattedMessage {...messages["shiftId"]} />,
       options: {
         filter: true,
       },
-    },
+    }, */
 
     {
       name: "shiftName",

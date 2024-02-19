@@ -947,7 +947,7 @@
   "boilerplate.containers.Payroll.workingYears": "Working Years",
   "boilerplate.containers.Payroll.step": "Step",
   "boilerplate.containers.Payroll.status": "Status",
-  "boilerplate.containers.Payroll.approvedEmp": "Decision Maker",
+  "boilerplate.containers.Payroll.approvedEmp": "WF Decision Maker",
   "boilerplate.containers.Payroll.edit": "Edit",
   "boilerplate.containers.Payroll.addNew": "Add",
   "boilerplate.containers.Payroll.saturday": "Saturday",

@@ -45,6 +45,7 @@ function ShiftEmployeeCreate(props) {
     startTime: "",
     endTime: "",
     workHours: "",
+    hoursFromEmp: false,
     fromDate: format(new Date(), "yyyy-MM-dd"),
     toDate: format(new Date(), "yyyy-MM-dd"),
     vsaturday: false,
@@ -96,14 +97,22 @@ function ShiftEmployeeCreate(props) {
     fetchData();
   }, []);
 
-  async function getShiftData(id) {
-    const result = await shiftApi(locale).Get(id);
+  async function getShiftData(value) {
+    debugger ;
+    if (value == null) {
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        shiftId: 0,
+        shiftName: "",
+        startTime: "",
+        endTime: "",
+        workHours: "",
+        hoursFromEmp:false,
+      }));
+    } else {
+      const result = await shiftApi(locale).Get(value.id);
 
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      startTime: result.startTime,
-      endTime: result.endTime,
-      workHours: 
+      var diff =
         (new Date(
           0,
           0,
@@ -118,8 +127,17 @@ function ShiftEmployeeCreate(props) {
             result.startTime.split(":")[0],
             result.startTime.split(":")[1]
           )) /
-          3600000
-    }));
+        3600000;
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        shiftId: result.id,
+        shiftName: value !== null ? value.name : "",
+        startTime: result.startTime,
+        endTime: result.endTime,
+        workHours: diff < 0 ? diff * -1 : diff,
+        hoursFromEmp: result.hoursFromEmp,
+      }));
+    }
   }
   return (
     <div>
@@ -151,12 +169,12 @@ function ShiftEmployeeCreate(props) {
                 getOptionLabel={(option) => (option.name ? option.name : "")}
                 value={{ id: data.shiftId, name: data.shiftName }}
                 onChange={(event, value) => {
-                  setdata((prevFilters) => ({
+                  /* setdata((prevFilters) => ({
                     ...prevFilters,
                     shiftId: value !== null ? value.id : 0,
                     shiftName: value !== null ? value.name : "",
-                  }));
-                  getShiftData(value.id);
+                  })); */
+                  getShiftData(value);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -177,6 +195,7 @@ function ShiftEmployeeCreate(props) {
                 value={data.startTime}
                 label={intl.formatMessage(messages.startTime)}
                 type="time"
+                disabled
                 onChange={(e) => {
                   setdata((prevFilters) => ({
                     ...prevFilters,
@@ -196,6 +215,7 @@ function ShiftEmployeeCreate(props) {
                 value={data.endTime}
                 label={intl.formatMessage(messages.endTime)}
                 type="time"
+                disabled
                 onChange={(e) => {
                   setdata((prevFilters) => ({
                     ...prevFilters,
@@ -222,7 +242,8 @@ function ShiftEmployeeCreate(props) {
                 label={intl.formatMessage(messages.hours)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
+                disabled={!data.hoursFromEmp}
               />
             </Grid>
 
@@ -233,20 +254,24 @@ function ShiftEmployeeCreate(props) {
                   label={intl.formatMessage(Payrollmessages.fromdate)}
                   value={data.fromDate}
                   onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
+                    if (
+                      Object.prototype.toString.call(new Date(date)) ===
+                      "[object Date]"
+                    ) {
+                      if (!isNaN(new Date(date))) {
                         setdata((prevFilters) => ({
-                            ...prevFilters,
-                            fromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                          }))
-                      }
-                      else
-                      {
+                          ...prevFilters,
+                          fromDate:
+                            date === null
+                              ? null
+                              : format(new Date(date), "yyyy-MM-dd"),
+                        }));
+                      } else {
                         setdata((prevFilters) => ({
                           ...prevFilters,
                           fromDate: null,
-                        }))
-                      } 
+                        }));
+                      }
                     }
                   }}
                   className={classes.field}
@@ -262,20 +287,24 @@ function ShiftEmployeeCreate(props) {
                   label={intl.formatMessage(Payrollmessages.todate)}
                   value={data.toDate}
                   onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
+                    if (
+                      Object.prototype.toString.call(new Date(date)) ===
+                      "[object Date]"
+                    ) {
+                      if (!isNaN(new Date(date))) {
                         setdata((prevFilters) => ({
-                            ...prevFilters,
-                            toDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                          }))
-                      }
-                      else
-                      {
+                          ...prevFilters,
+                          toDate:
+                            date === null
+                              ? null
+                              : format(new Date(date), "yyyy-MM-dd"),
+                        }));
+                      } else {
                         setdata((prevFilters) => ({
                           ...prevFilters,
                           toDate: null,
-                        }))
-                      } 
+                        }));
+                      }
                     }
                   }}
                   className={classes.field}
