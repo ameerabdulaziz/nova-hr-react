@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import Autocomplete from '@mui/material/Autocomplete';
 import GovernmentSickLeaveSettingData from '../api/GovernmentSickLeaveSettingData';
 import { useSelector } from 'react-redux';
@@ -157,18 +158,13 @@ useEffect(() => {
             <Grid
               container
               spacing={3}
+              mt={0}
               alignItems="flex-start"
               direction="row">
             
-              <Grid item xs={12}  md={12} 
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-                className={style.gridSty}
-                > 
-                    
-                  <Grid item xs={12}  md={4}> 
+              <Grid item xs={12} >
+                <Grid container spacing={3}>
+                  <Grid item xs={12}  md={3}> 
                         <Autocomplete
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -196,7 +192,7 @@ useEffect(() => {
                                 {...params}
                                 name="VacationType"
                                   label={intl.formatMessage(messages.VacationType) }
-                                margin="normal" 
+                                
                                 className={style.fieldsSty}
                                 required
                                 />
@@ -205,18 +201,8 @@ useEffect(() => {
                             /> 
             
                   </Grid>
-                
-              </Grid>
 
-              <Grid item xs={12}  md={12} 
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-                className={style.gridSty}
-              > 
-                    
-                <Grid item xs={12}  md={4}> 
+                  <Grid item xs={12}  md={3}> 
                         <Autocomplete
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -246,7 +232,7 @@ useEffect(() => {
                                 {...params}
                                 name="element"
                                   label={intl.formatMessage(messages.element) }
-                                margin="normal" 
+                                
                                 className={style.fieldsSty}
                                 required
                                 />
@@ -255,16 +241,8 @@ useEffect(() => {
                             /> 
               
                 </Grid>
-              </Grid>
-                    
-              <Grid item xs={12}  md={12} 
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-                className={style.gridSty}
-              > 
-                <Grid item xs={12}  md={2}> 
+
+                <Grid item > 
                   <FormControlLabel  
                     control={ 
                       <Switch  
@@ -280,7 +258,7 @@ useEffect(() => {
                     /> 
                 </Grid>
 
-                <Grid item xs={12}  md={2}> 
+                <Grid item > 
                   <FormControlLabel  
                     control={ 
                       <Switch  
@@ -295,29 +273,30 @@ useEffect(() => {
                       label={intl.formatMessage(messages.Every3Years) }
                     /> 
                 </Grid>
+                </Grid>
                 
               </Grid>
 
-              <Grid item xs={12}  md={4}  className={style.gridSty}> 
-                  <Card className={classes.card}>
-                        <p className={style.EmployeeDaysDeductionTitle}> {intl.formatMessage(messages.EmployeeDeduction)}  </p>
-                    <CardContent className={style.CardContentSty}>
-                      <Grid item xs={12}  md={12} 
+              <Grid item xs={12}> 
+                  <Card className={classes.card} sx={{mt:'0!important'}} >
+                    <CardContent>
+                        <Typography color='gray' variant='subtitle1' > {intl.formatMessage(messages.EmployeeDeduction)}  </Typography>
+
+                      <Grid
                         container
-                        spacing={3}
+                        spacing={2}
+                        mt={0}
                         alignItems="flex-start"
                         direction="row"
-                        className={style.EmployeeDaysDeduction}
                         >
     
-                        <Grid item xs={12}  md={4} lg={6} > 
+                        <Grid item xs={6}  md={3} > 
                           <TextField
                             name="DaysNumber"
                             id="DaysNumber"
                             placeholder={intl.formatMessage(messages.DaysNumber) }
                             label={intl.formatMessage(messages.DaysNumber)}
-                            className={`${classes.field} ${style.fieldsSty}`}
-                            margin="normal"
+                            fullWidth
                             variant="outlined"
                             type='number'
                             value={DaysNumber1}
@@ -327,14 +306,13 @@ useEffect(() => {
                           />
                         </Grid>
 
-                        <Grid item xs={12}  md={4} lg={6} > 
+                        <Grid item xs={6}  md={3} > 
                             <TextField
                             name="CountValueDay"
                             id="CountValueDay"
                             placeholder={intl.formatMessage(messages.CountValueDay) }
                             label={intl.formatMessage(messages.CountValueDay)}
-                            className={`${classes.field} ${style.fieldsSty}`}
-                            margin="normal"
+                            fullWidth
                             variant="outlined"
                             type='text'
                               value={DayValue1}
@@ -344,24 +322,14 @@ useEffect(() => {
                               autoComplete='off'
                             />
                         </Grid>
-                      </Grid>
 
-                      <Grid item xs={12}  md={12} 
-                        container
-                        spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
-                        className={style.EmployeeDaysDeduction}
-                        >
-    
-                        <Grid item xs={12}  md={4} lg={6} > 
+                        <Grid item xs={6}  md={3} > 
                           <TextField
                             name="DaysNumber"
                             id="DaysNumber"
                             placeholder={intl.formatMessage(messages.DaysNumber) }
                             label={intl.formatMessage(messages.DaysNumber)}
-                            className={`${classes.field} ${style.fieldsSty}`}
-                            margin="normal"
+                            fullWidth
                             variant="outlined"
                             type='number'
                             value={DaysNumber2}
@@ -370,14 +338,13 @@ useEffect(() => {
                           />
                         </Grid>
 
-                        <Grid item xs={12}  md={4} lg={6} > 
+                        <Grid item xs={6}  md={3} > 
                             <TextField
                             name="CountValueDay"
                             id="CountValueDay"
                             placeholder={intl.formatMessage(messages.CountValueDay) }
                             label={intl.formatMessage(messages.CountValueDay)}
-                            className={`${classes.field} ${style.fieldsSty}`}
-                            margin="normal"
+                            fullWidth
                             variant="outlined"
                             type='text'
                               value={DayValue2}
@@ -386,25 +353,14 @@ useEffect(() => {
                               autoComplete='off'
                             />
                         </Grid>
-
-                      </Grid>
-
-                      <Grid item xs={12}  md={12} 
-                        container
-                        spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
-                        className={style.EmployeeDaysDeduction}
-                        >
     
-                          <Grid item xs={12}  md={4} lg={6} > 
+                          <Grid item xs={6}  md={3} > 
                             <TextField
                               name="DaysNumber"
                               id="DaysNumber"
                               placeholder={intl.formatMessage(messages.DaysNumber) }
                               label={intl.formatMessage(messages.DaysNumber)}
-                              className={`${classes.field} ${style.fieldsSty}`}
-                              margin="normal"
+                              fullWidth  
                               variant="outlined"
                               type='number'
                               value={DaysNumber3}
@@ -413,14 +369,13 @@ useEffect(() => {
                             />
                           </Grid>
 
-                          <Grid item xs={12}  md={4} lg={6} > 
+                          <Grid item xs={6}  md={3} > 
                               <TextField
                               name="CountValueDay"
                               id="CountValueDay"
                               placeholder={intl.formatMessage(messages.CountValueDay) }
                               label={intl.formatMessage(messages.CountValueDay)}
-                              className={`${classes.field} ${style.fieldsSty}`}
-                              margin="normal"
+                              fullWidth  
                               variant="outlined"
                               type='text'
                                 value={DayValue3}
@@ -430,24 +385,13 @@ useEffect(() => {
                               />
                           </Grid>
 
-                      </Grid>
-
-                      <Grid item xs={12}  md={12} 
-                        container
-                        spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
-                        className={style.EmployeeDaysDeduction}
-                        >
-    
-                          <Grid item xs={12}  md={4} lg={6} > 
+                          <Grid item xs={6}  md={3} > 
                             <TextField
                               name="DaysNumber"
                               id="DaysNumber"
                               placeholder={intl.formatMessage(messages.DaysNumber) }
                               label={intl.formatMessage(messages.DaysNumber)}
-                              className={`${classes.field} ${style.fieldsSty}`}
-                              margin="normal"
+                              fullWidth  
                               variant="outlined"
                               type='number'
                               value={DaysNumber4}
@@ -456,14 +400,13 @@ useEffect(() => {
                             />
                           </Grid>
 
-                          <Grid item xs={12}  md={4} lg={6} > 
+                          <Grid item xs={6}  md={3} > 
                               <TextField
                               name="CountValueDay"
                               id="CountValueDay"
                               placeholder={intl.formatMessage(messages.CountValueDay) }
                               label={intl.formatMessage(messages.CountValueDay)}
-                              className={`${classes.field} ${style.fieldsSty}`}
-                              margin="normal"
+                              fullWidth  
                               variant="outlined"
                               type='text'
                                 value={DayValue4}
