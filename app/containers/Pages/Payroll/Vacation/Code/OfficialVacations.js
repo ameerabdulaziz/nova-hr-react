@@ -52,10 +52,6 @@ function OfficialVacations({ intl }) {
     {
       name: 'id',
       label: 'id',
-      options: {
-        display: false,
-        print: false,
-      },
     },
     {
       name: 'arName',
