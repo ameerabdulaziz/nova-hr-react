@@ -90,7 +90,7 @@ function PayrollTable(props) {
   const [columnsVisibility, setColumnsVisibility] = useState([]);
 
   const getDateColumnOptions = (item) => {
-    const isNameIncludeDate = item?.name?.toLowerCase()?.includes('date');
+    const isNameIncludeDate = item?.name?.toLowerCase()?.endsWith('date');
 
     if (isNameIncludeDate) {
       return {
