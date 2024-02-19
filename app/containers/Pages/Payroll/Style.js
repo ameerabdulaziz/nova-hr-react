@@ -285,7 +285,7 @@ rootTable: {
     color: "red",
   },
   selectEmpButton: {
-    width:"80%",float:"left"
+    width:"70%",float:"left"
   },
   searchButton: {
     width:"20%",float:"left"
