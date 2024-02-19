@@ -42,10 +42,6 @@ function VacationsTypes({ intl }) {
     {
       name: 'id',
       label: 'id',
-      options: {
-        display: false,
-        print: false,
-      },
     },
     {
       name: 'arName',

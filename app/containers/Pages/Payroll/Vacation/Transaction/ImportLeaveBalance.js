@@ -41,10 +41,8 @@ function ImportLeaveBalance({intl }) {
   const [jsonFileData, setJsonFileData] = useState([]);
   const [fileTitle, setFileTitle] = useState("");
   const [file, setFile] = useState("");
-  const [fileApiLock, setFileApiLock] = useState(false);
   const Title = localStorage.getItem("MenuName");  
   let columns = []
-  const [processing, setprocessing] = useState(false);
   const [VacationType, setVacationType] = useState(null);
   const [LeavesList, setLeavesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -147,7 +145,7 @@ let lock = true
 jsonFileData.forEach( async (val, index) => {
     if (
       Object.keys(val).some((key) => {
-        return val[key] == null || val[key] == "";
+        return val[key] === null || val[key] === "";
       })
     )
     {
@@ -160,8 +158,7 @@ jsonFileData.forEach( async (val, index) => {
   if(lock)
   {
   try{
-        setprocessing(true); 
-        setIsLoading(false);
+        setIsLoading(true);
           let response = await  ApiData(locale).SaveList(jsonFileData,VacationType);
   
           if (response.status==200) {
@@ -169,11 +166,9 @@ jsonFileData.forEach( async (val, index) => {
             resetDataFun();
           }
   
-          setprocessing(false);
         } catch (err) {
           //
         } finally {
-          setprocessing(false);
           setIsLoading(false);
         }
   }
@@ -275,27 +270,20 @@ jsonFileData.forEach( async (val, index) => {
     <PayRollLoader isLoading={isLoading}>
       
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <div className={`${classes.root} ${classes2.btnsContainer}`}  >
-        
-        <Toolbar className={classes.toolbar} style={ locale === "ar" ? {justifyContent: "flex-start"} : {justifyContent: "end"}}>
 
-        <div className={`${classes.title} `} style={{width: "100%"}}>
-
-        <Grid item xs={12} md={12}
+        <Grid
                         container
                         spacing={3}
+                        mt={0}
                         direction="row"
-                        className={`${classes2.itemsStyle}   ${locale === "en" ? classes2.btnsStyle : classes2.btnsStyleAr} `}
                         >
 
-          <Grid item xs={12}   lg={4}>
-            <div className={classes.actions}>     
+          <Grid item md={4} >
             <Autocomplete
               id="ddlMenu"
-              className={`${classes2.comboBoxSty} ${classes2.comboBoxSty2}`}
               options={LeavesList}
+              value={LeavesList.find((item)=> item.id === VacationType) ?? null}
               // options={topFilms}
-              sx={{ width: "300px", paddingTop: "0px" }}
               getOptionLabel={(option) =>
                 option.name || ""
                 // option ? option.name : ""
@@ -322,16 +310,13 @@ jsonFileData.forEach( async (val, index) => {
                   {...params}
                   name="LeaveType"
                    label= {intl.formatMessage(messages.LeaveType)}
-                  margin="normal"
                 />
               )}
             />
-          </div>
 
         </Grid>
 
-      <Grid item xs={12} md={6} lg={2}>
-            <div className={classes.actions}>     
+      <Grid item >
               <Tooltip title="Download">             
               <a 
                 href={`${ServerURL}Doc/ExcelForm/VacBalanceForm.xlsx`} 
@@ -340,25 +325,21 @@ jsonFileData.forEach( async (val, index) => {
                   <Button
                   variant="contained"
                   color="secondary"
-                  className={classes.button}
                 >
                    <FormattedMessage {...Payrollmessages.Download} /> 
                 </Button>
               </a>
 
               </Tooltip>
-          </div>
 
         </Grid>
 
-        <Grid item xs={12} md={6} lg={2}>
-            <div className={classes.actions}>     
+        <Grid item >
             <Tooltip title="Import">
 
             <Button
                 variant="contained"
                 color="secondary"
-                className={classes.button}
                 component="label"
             >
                 <AddIcon
@@ -377,55 +358,42 @@ jsonFileData.forEach( async (val, index) => {
                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
             </Button>
             </Tooltip>
-            </div>
 </Grid>
 
-<Grid item  xs={12} md={6} lg={2}>
-            <div className={classes.actions}>     
+<Grid item  >
               <Tooltip title="Reset">             
                 <Button
                   variant="contained"
                   color="secondary"
-                  className={classes.button}
                   onClick={resetDataFun}
                 >
                     <FormattedMessage {...Payrollmessages.reset} /> 
                 </Button>
               </Tooltip>
-          </div>
 
         </Grid>
 
-        <Grid item xs={12} md={6} lg={2}>
+        <Grid item >
 
-            <div className={classes.actions}>     
               <Tooltip title="Import Excel File To Can Submit">              
                 <span>
                 <Button
                   variant="contained"
                   color="secondary"
-                  className={classes.button}
                   onClick={submitFun}
-                  disabled={fileData.length !== 0 && VacationType !== null && !processing ? false : true}
+                  disabled={fileData.length !== 0 && VacationType !== null ? false : true}
                 >
-                  {processing && (
-                            <CircularProgress
-                                size={24}
-                                className={classes.buttonProgress}
-                            />
-                            )}
                     <FormattedMessage {...Payrollmessages.save} /> 
                   
                 </Button>
                 </span>
               </Tooltip>
-          </div>
 
         </Grid>
 
         </Grid>
-        </div>
-      </Toolbar>
+
+      </PapperBlock>
 
         {fileData.length !== 0 && (
 
@@ -437,8 +405,6 @@ jsonFileData.forEach( async (val, index) => {
                     />
         )}
           
-        </div>
-      </PapperBlock>
     </PayRollLoader>
   );
 }

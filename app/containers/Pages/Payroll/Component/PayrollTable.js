@@ -90,7 +90,7 @@ function PayrollTable(props) {
   const [columnsVisibility, setColumnsVisibility] = useState([]);
 
   const getDateColumnOptions = (item) => {
-    const isNameIncludeDate = item?.name?.toLowerCase()?.includes('date');
+    const isNameIncludeDate = item?.name?.toLowerCase()?.endsWith('date');
 
     if (isNameIncludeDate) {
       return {
@@ -325,7 +325,7 @@ function PayrollTable(props) {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(downloadURI);
-  }, [filterData, columns]);
+  }, [filterData, filterColumns, columnsVisibility]);
 
   // Custom toolbar for table (contain: download, print, add button)
   const customToolbar = useCallback(

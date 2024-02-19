@@ -145,6 +145,7 @@ useEffect(() => {
               container
               spacing={3}
               alignItems="flex-start"
+              mt={0}
               direction="row">
             
               <Grid item xs={12}  md={12} 
@@ -255,7 +256,7 @@ useEffect(() => {
                         direction="row"
                         >
     
-                        <Grid item xs={12}  md={2} lg={1} > 
+                        <Grid item xs={12}  md={3} > 
                           <TextField
                             name="usedLeaves"
                             id="usedLeaves"
@@ -273,7 +274,7 @@ useEffect(() => {
                           />
                         </Grid>
 
-                        <Grid item xs={12}  md={2} lg={1} > 
+                        <Grid item xs={12}  md={3} > 
                             <TextField
                             name="OpenBalance"
                             id="OpenBalance"
@@ -291,7 +292,7 @@ useEffect(() => {
                             />
                         </Grid>
 
-                        <Grid item xs={12}  md={2}  lg={1}> 
+                        <Grid item xs={12}  md={3}> 
                             <TextField
                             name="Balance"
                             id="Balance"
@@ -309,7 +310,7 @@ useEffect(() => {
                             />
                         </Grid>
 
-                        <Grid item xs={12}  md={2} lg={1} > 
+                        <Grid item xs={12}  md={3} > 
                             <TextField
                             name="PostedBalance"
                             id="PostedBalance"

@@ -134,6 +134,10 @@ if(isFound)
       const menuItems = await API(locale).getMenu();
       const userInfo = await API(locale).getUserInfo();
 
+      if (!userInfo) {
+        signOut();
+      }
+
       const mappedMenu = menuItems.map((item) => ({
         ...item,
         icon: item.icon ?? 'widgets',

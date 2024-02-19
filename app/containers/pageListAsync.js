@@ -1728,6 +1728,13 @@ export const NewEmployeeReport = loadable(
   }
 );
 
+export const EmployeeStatusReport = loadable(
+  () => import('./Pages/Payroll/Employee/reports/EmployeeStatusReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const EmployeeDataReport = loadable(
   () => import('./Pages/Payroll/Employee/reports/EmployeeDataReport'),
   {

@@ -267,6 +267,7 @@ import {
   SInsuranceOrgnization,
   SInsuranceOrgnizationCreate,
   EmployeeDataReport,
+  EmployeeStatusReport,
   followStaffContracts,
   SocialInsuranceData,
   EmploymentDocsDetails,
@@ -1311,6 +1312,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Employee/EmployeeDocuments'
           component={EmployeeDocuments}
+        />
+
+        <Route
+          path='/app/Pages/Employee/EmployeeStatusReport'
+          component={EmployeeStatusReport}
         />
 
         <Route

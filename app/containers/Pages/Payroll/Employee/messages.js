@@ -755,4 +755,54 @@ export default defineMessages({
     id: `${scope}.RelativesName`,
     defaultMessage: 'Relatives Name',
   },
+
+  // EmployeeStatusReport
+  youMustChooseAnEmployee: {
+    id: `${scope}.youMustChooseAnEmployee`,
+    defaultMessage: 'youMustChooseAnEmployee',
+  },
+  vacationReport: {
+    id: `${scope}.vacationReport`,
+    defaultMessage: 'vacationReport',
+  },
+  rewordsReport: {
+    id: `${scope}.rewordsReport`,
+    defaultMessage: 'rewordsReport',
+  },
+  penaltyReport: {
+    id: `${scope}.penaltyReport`,
+    defaultMessage: 'penaltyReport',
+  },
+  jobsReport: {
+    id: `${scope}.jobsReport`,
+    defaultMessage: 'jobsReport',
+  },
+  departmentReport: {
+    id: `${scope}.departmentReport`,
+    defaultMessage: 'departmentReport',
+  },
+  employeeInfo: {
+    id: `${scope}.employeeInfo`,
+    defaultMessage: 'employeeInfo',
+  },
+  reportingTo: {
+    id: `${scope}.reportingTo`,
+    defaultMessage: 'reportingTo',
+  },
+  phone: {
+    id: `${scope}.phone`,
+    defaultMessage: 'phone',
+  },
+  vacation: {
+    id: `${scope}.vacation`,
+    defaultMessage: 'vacation',
+  },
+  absent: {
+    id: `${scope}.absent`,
+    defaultMessage: 'absent',
+  },
+  statusInfo: {
+    id: `${scope}.statusInfo`,
+    defaultMessage: 'statusInfo',
+  }
 });
