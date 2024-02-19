@@ -262,7 +262,7 @@ function EmployeeAttendance(props) {
         setdata((prevFilters) => ({
           ...prevFilters,
           startTime: event.target.value,
-          workHours: diff,
+          workHours: diff < 0 ? diff * -1 : diff,
         }));
       } else
         setdata((prevFilters) => ({
@@ -293,7 +293,7 @@ function EmployeeAttendance(props) {
         setdata((prevFilters) => ({
           ...prevFilters,
           endTime: event.target.value,
-          workHours: diff,
+          workHours: diff < 0 ? diff * -1 : diff,
         }));
       } else
         setdata((prevFilters) => ({
@@ -340,27 +340,27 @@ function EmployeeAttendance(props) {
       }
       setIsLoading(true);
       const result = await shiftApi(locale).Get(id);
-
+      var diff= (new Date(
+        0,
+        0,
+        0,
+        result.endTime.split(":")[0],
+        result.endTime.split(":")[1]
+      ) -
+        new Date(
+          0,
+          0,
+          0,
+          result.startTime.split(":")[0],
+          result.startTime.split(":")[1]
+        )) /
+      3600000;
       setdata((prevFilters) => ({
         ...prevFilters,
         startTime: result.startTime,
         endTime: result.endTime,
-        workHours:
-          (new Date(
-            0,
-            0,
-            0,
-            result.endTime.split(":")[0],
-            result.endTime.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              result.startTime.split(":")[0],
-              result.startTime.split(":")[1]
-            )) /
-          3600000,
+        workHours:diff < 0 ? diff * -1 : diff,
+         
       }));
     } catch (err) {
     } finally {
