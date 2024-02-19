@@ -325,7 +325,7 @@ function PayrollTable(props) {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(downloadURI);
-  }, [filterData, columns]);
+  }, [filterData, filterColumns, columnsVisibility]);
 
   // Custom toolbar for table (contain: download, print, add button)
   const customToolbar = useCallback(
