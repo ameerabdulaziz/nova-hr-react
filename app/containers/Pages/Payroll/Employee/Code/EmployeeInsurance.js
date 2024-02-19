@@ -30,7 +30,6 @@ function EmployeeInsurance(props) {
   const [employeeList, setEmployeeList] = useState([]);
   const title = "Employee Insurance"; //localStorage.getItem('MenuName');
   const description = brand.desc;
-  console.log(description + "*" + title);
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
 
@@ -99,8 +98,8 @@ function EmployeeInsurance(props) {
       label: "monthno",
       type: "text",
       width: "auto",
-      initialValue: '',
-      hidden: false,
+      initialValue: 0,
+      hidden: true,
       disabled: true,
     },
     {
