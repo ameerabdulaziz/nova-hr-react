@@ -56,11 +56,17 @@ npm run start:prod
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
 - [ ] Complete the implementation of the **Calculate Attendance** page
 - [ ] Integrate the **LeaveBalance** page with the API
+- [ ] Integrate the **EmployeeStatusReport** page with the API
 - [ ] Integrate a cancel button into the **editable** table component
 - [ ] Implement expire date for card in **personal page**
 - [ ] Implement a solution to add spacing between **menu** levels in the sidebar
 - [ ] Replace **Attendance** collection with new payroll table
 - [ ] Find a way to include images & web.config in **build**
+- [ ] Improve **React-to-print** package the need state before print
+
+## TODO
+
+- [ ] Display row number in the table, [link](https://github.com/gregnb/mui-datatables/issues/1379)
 
 ## Docs 📖
 

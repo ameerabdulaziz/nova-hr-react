@@ -27,6 +27,7 @@ import PayRollLoader from '../Component/PayRollLoader';
 import useStyles from '../Style';
 import payrollMessages from '../messages';
 import api from './api/HrPermissionData';
+import TreePopup from './components/HrPermission/TreePopup';
 import messages from './messages';
 
 function HrPermission(props) {
@@ -40,6 +41,8 @@ function HrPermission(props) {
   const [employeeList, setEmployeeList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(true);
+  const [isTreePopupOpen, setIsTreePopupOpen] = useState(false);
+  const [chartData, setChartData] = useState(null);
 
   const Title = localStorage.getItem('MenuName');
 
@@ -192,6 +195,12 @@ function HrPermission(props) {
     try {
       const employees = await api(locale).GetHrList();
       setEmployeeList(employees || []);
+
+      const chart = await api(locale).GetSimpleOrganizationChart();
+
+      if (chart?.[0]) {
+        setChartData(chart[0]);
+      }
     } catch (err) {
       //
     } finally {
@@ -211,6 +220,30 @@ function HrPermission(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
+
+      <TreePopup isOpen={isTreePopupOpen} chartData={chartData} setIsOpen={setIsTreePopupOpen} onSave={values => {
+        const t = values.clone();
+
+        paginatedData.forEach(item => {
+          t.addIsCheckProperty(String(item.organizationId), true);
+        });
+
+        setDataList(t.getCheckedLeafNodes().map(item => ({
+          id: item.id,
+          organizationName: item.value,
+          organizationId: item.id,
+          isSubmitPermission: false,
+          isSubmitMission: false,
+          isSubmitVacation: false,
+          isSubmitPenalty: false,
+          isSubmitOverTime: false,
+          isSubmitReward: false,
+          isSubmitUniformTrx: false,
+          isSubmitLoan: false,
+          isSelected: false,
+        })));
+      }} />
+
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container mb={5} spacing={3}>
           <Grid item xs={6} md={3}>
@@ -255,14 +288,23 @@ function HrPermission(props) {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6} md={2}>
+          <Grid item>
             <Button
               variant='contained'
-              size='medium'
               color='primary'
               onClick={onSaveBtnClick}
             >
               <FormattedMessage {...payrollMessages.save} />
+            </Button>
+          </Grid>
+
+          <Grid item>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => setIsTreePopupOpen(true)}
+            >
+              Open Tree
             </Button>
           </Grid>
         </Grid>
