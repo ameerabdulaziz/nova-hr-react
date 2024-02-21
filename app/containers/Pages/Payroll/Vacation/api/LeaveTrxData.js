@@ -35,6 +35,14 @@ const LeaveTrxData = (locale) => {
     return result;
   };
 
+  api.print = async (id) => {
+    const data = await axiosInstance.get(
+      `VacVacationTrx/GetPrintForm/${id}`
+    );
+
+    return data.data;
+  };
+
   api.save = async (body) => {
     const result = await axiosInstance.post('VacVacationTrx/Save', getFormData(body));
 

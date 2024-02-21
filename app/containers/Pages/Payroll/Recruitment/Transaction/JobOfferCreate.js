@@ -1,6 +1,5 @@
 import {
   Autocomplete,
-  Avatar,
   Box,
   Button,
   Grid,
@@ -559,7 +558,9 @@ function JobOfferCreate(props) {
                       }}
                     >
                       <Stack spacing={2} px={2}>
-                        <Avatar src={company?.logo} variant='square' />
+                        <div>
+                          <img src={company?.logo} alt='' height={45} />
+                        </div>
                       </Stack>
 
                       <div className='ql-snow' style={{ direction: 'ltr' }}>

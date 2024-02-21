@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../../api/MissionTrxData";
+import { Print } from '@mui/icons-material';
+import {
+  Box,
+  IconButton,
+  Stack
+} from '@mui/material';
 import { useSelector } from "react-redux";
 import messages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import style from "../../../../../../../app/styles/styles.scss";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
+import parse from 'html-react-parser';
 import useStyles from "../../../Style";
 import { PapperBlock } from "enl-components";
 import EditButton from "../../../Component/EditButton";
@@ -16,16 +23,37 @@ import { format } from 'date-fns';
 import AlertPopup from "../../../Component/AlertPopup";
 import Payrollmessages from "../../../messages";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import { useReactToPrint } from "react-to-print";
+import { formateDate } from "../../../helpers";
 
 function MissionTrxList(props) {
   const { intl } = props;
   const { classes } = useStyles();
+  const company = useSelector((state) => state.authReducer.companyInfo);
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [printContent, setPrintContent] = useState('');
+  const documentTitle = 'Mission ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+
+  const printDivRef = useRef(null);
+
+  const printJS = useReactToPrint({
+    content: () => printDivRef?.current,
+    documentTitle,
+    onBeforeGetContent: () => {
+      setIsLoading(true);
+    },
+    onAfterPrint: () => {
+      setIsLoading(false);
+    },
+    onPrintError: () => {
+      setIsLoading(false);
+    },
+  });
 
   const handleClickOpen = (item) => {
     debugger;
@@ -68,6 +96,24 @@ function MissionTrxList(props) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const onPrintBtnClick = async (id) => {
+    setIsLoading(true);
+
+    try {
+      const response = await ApiData(locale).print(id);
+      setPrintContent(response);
+
+      // TODO: Mohammed-Taysser - refactor it
+      setTimeout(() => {
+        printJS();
+      }, 1);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const columns = [
     {
@@ -146,6 +192,20 @@ function MissionTrxList(props) {
       },
     },
     {
+      name: "Print",
+      label: <FormattedMessage {...Payrollmessages["Print"]} />,
+      options: {
+        filter: false,
+        print: false,
+        download: false,
+        customBodyRender: (_, tableMeta) => (
+          <IconButton onClick={() => onPrintBtnClick(tableMeta.rowData[0])}>
+            <Print sx={{ fontSize: '1.2rem' }} />
+          </IconButton>
+        ),
+      },
+    },
+    {
       name: "Actions",
       options: {
         filter: false,
@@ -196,7 +256,28 @@ function MissionTrxList(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
+        <Box
+          ref={printDivRef}
+          sx={{
+            display: 'none',
+            '@media print': {
+              display: 'block',
+            },
+            px: 2,
+            py: 4,
+          }}
+        >
+          <Stack spacing={2} px={2}>
+            <div>
+              <img src={company?.logo} alt='' height={45} />
+            </div>
+          </Stack>
+
+          <div className='ql-snow' style={{ direction: 'ltr' }}>
+            <div className='ql-editor'>{parse(printContent)}</div>
+          </div>
+        </Box>
+
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title=""

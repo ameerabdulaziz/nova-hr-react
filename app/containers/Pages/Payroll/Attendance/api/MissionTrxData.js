@@ -23,6 +23,14 @@ const MissionTrxData = (locale) => {
     return result;
   };
 
+  Apis.print = async (id) => {
+    
+    const data = await axiosInstance.get(`AttMissionTrx/GetPrintForm/${id}`);
+    
+    return data.data;
+
+  };
+
   Apis.Get = async (id) => {
     
     const data = await axiosInstance.get(`AttMissionTrx/Get/${id}/${locale}`);

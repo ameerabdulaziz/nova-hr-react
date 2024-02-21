@@ -20,6 +20,14 @@ const PermissionTrxData = (locale) => {
     return result;
   };
 
+  Apis.print = async (id) => {
+    const data = await axiosInstance.get(
+      `AttPermissionTrx/GetPrintForm/${id}`
+    );
+
+    return data.data;
+  };
+
   Apis.Get = async (id) => {
     const data = await axiosInstance.get(
       `AttPermissionTrx/Get/${id}/${locale}`

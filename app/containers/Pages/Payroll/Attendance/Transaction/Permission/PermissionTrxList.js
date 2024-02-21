@@ -1,4 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Print } from '@mui/icons-material';
+import {
+  Box,
+  IconButton,
+  Stack
+} from '@mui/material';
+import parse from 'html-react-parser';
+import { useReactToPrint } from "react-to-print";
+import { formateDate } from "../../../helpers";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../../api/PermissionTrxData";
 import { useSelector } from "react-redux";
@@ -27,6 +36,25 @@ function PermissionTrxList(props) {
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const company = useSelector((state) => state.authReducer.companyInfo);
+  const [printContent, setPrintContent] = useState('');
+  const documentTitle = 'Permission ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+
+  const printDivRef = useRef(null);
+
+  const printJS = useReactToPrint({
+    content: () => printDivRef?.current,
+    documentTitle,
+    onBeforeGetContent: () => {
+      setIsLoading(true);
+    },
+    onAfterPrint: () => {
+      setIsLoading(false);
+    },
+    onPrintError: () => {
+      setIsLoading(false);
+    },
+  });
 
   const handleClickOpen = (item) => {
     debugger;
@@ -65,6 +93,24 @@ function PermissionTrxList(props) {
       setIsLoading(false);
     }
   }
+
+  const onPrintBtnClick = async (id) => {
+    setIsLoading(true);
+
+    try {
+      const response = await ApiData(locale).print(id);
+      setPrintContent(response);
+
+      // TODO: Mohammed-Taysser - refactor it
+      setTimeout(() => {
+        printJS();
+      }, 1);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -137,6 +183,20 @@ function PermissionTrxList(props) {
       },
     },
     {
+      name: "Print",
+      label: <FormattedMessage {...Payrollmessages["Print"]} />,
+      options: {
+        filter: false,
+        print: false,
+        download: false,
+        customBodyRender: (_, tableMeta) => (
+          <IconButton onClick={() => onPrintBtnClick(tableMeta.rowData[0])}>
+            <Print sx={{ fontSize: '1.2rem' }} />
+          </IconButton>
+        ),
+      },
+    },
+    {
       name: "Actions",
       options: {
         filter: false,
@@ -187,7 +247,28 @@ function PermissionTrxList(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
+        <Box
+          ref={printDivRef}
+          sx={{
+            display: 'none',
+            '@media print': {
+              display: 'block',
+            },
+            px: 2,
+            py: 4,
+          }}
+        >
+          <Stack spacing={2} px={2}>
+            <div>
+              <img src={company?.logo} alt='' height={45} />
+            </div>
+          </Stack>
+
+          <div className='ql-snow' style={{ direction: 'ltr' }}>
+            <div className='ql-editor'>{parse(printContent)}</div>
+          </div>
+        </Box>
+
         <div className={classes.CustomMUIDataTable}>
           <MUIDataTable
             title=""

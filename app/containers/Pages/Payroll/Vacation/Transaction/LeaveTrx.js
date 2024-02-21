@@ -1,22 +1,51 @@
+import { Print } from '@mui/icons-material';
+import {
+  Box,
+  IconButton,
+  Stack
+} from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
+import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import { useReactToPrint } from 'react-to-print';
 import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/LeaveTrxData';
 import messages from '../messages';
 
+import 'react-quill/dist/quill.snow.css';
+
 function LeaveTrxList(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const company = useSelector((state) => state.authReducer.companyInfo);
   const Title = localStorage.getItem('MenuName');
 
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [printContent, setPrintContent] = useState('');
+  const documentTitle = 'Leave ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+
+  const printDivRef = useRef(null);
+
+  const printJS = useReactToPrint({
+    content: () => printDivRef?.current,
+    documentTitle,
+    onBeforeGetContent: () => {
+      setIsLoading(true);
+    },
+    onAfterPrint: () => {
+      setIsLoading(false);
+    },
+    onPrintError: () => {
+      setIsLoading(false);
+    },
+  });
 
   const fetchTableData = async () => {
     try {
@@ -37,6 +66,24 @@ function LeaveTrxList(props) {
       toast.success(notif.saved);
 
       fetchTableData();
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onPrintBtnClick = async (id) => {
+    setIsLoading(true);
+
+    try {
+      const response = await api(locale).print(id);
+      setPrintContent(response);
+
+      // TODO: Mohammed-Taysser - refactor it
+      setTimeout(() => {
+        printJS();
+      }, 1);
     } catch (error) {
       //
     } finally {
@@ -78,24 +125,15 @@ function LeaveTrxList(props) {
     {
       name: 'fromDate',
       label: intl.formatMessage(messages.fromdate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'toDate',
       label: intl.formatMessage(messages.todate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
 
     {
       name: 'trxDate',
       label: intl.formatMessage(messages.transactionDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
 
     {
@@ -109,6 +147,21 @@ function LeaveTrxList(props) {
     {
       name: 'approvedEmp',
       label: intl.formatMessage(payrollMessages.approvedEmp),
+    },
+
+    {
+      name: 'print',
+      label: intl.formatMessage(payrollMessages.Print),
+      options: {
+        filter: false,
+        print: false,
+        download: false,
+        customBodyRender: (_, tableMeta) => (
+          <IconButton onClick={() => onPrintBtnClick(tableMeta.rowData[0])}>
+            <Print sx={{ fontSize: '1.2rem' }} />
+          </IconButton>
+        ),
+      },
     },
   ];
 
@@ -125,14 +178,38 @@ function LeaveTrxList(props) {
   };
 
   return (
-    <PayrollTable
-      isLoading={isLoading}
-      showLoader
-      title={Title}
-      data={tableData}
-      columns={columns}
-      actions={actions}
-    />
+    <>
+      <Box
+        ref={printDivRef}
+        sx={{
+          display: 'none',
+          '@media print': {
+            display: 'block',
+          },
+          px: 2,
+          py: 4,
+        }}
+      >
+        <Stack spacing={2} px={2}>
+          <div>
+            <img src={company?.logo} alt='' height={45} />
+          </div>
+        </Stack>
+
+        <div className='ql-snow' style={{ direction: 'ltr' }}>
+          <div className='ql-editor'>{parse(printContent)}</div>
+        </div>
+      </Box>
+
+      <PayrollTable
+        isLoading={isLoading}
+        showLoader
+        title={Title}
+        data={tableData}
+        columns={columns}
+        actions={actions}
+      />
+    </>
   );
 }
 
