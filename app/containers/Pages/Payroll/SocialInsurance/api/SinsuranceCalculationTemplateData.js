@@ -14,6 +14,8 @@ const SinsuranceCalculationTemplateData = () => {
       employeeShare: obj.employeeShare,
       fromAge: obj.fromAge,
       toAge: obj.toAge,
+      isPercentage: obj.isPercentage ?? false,
+      newSalaryLimit: obj.newSalaryLimit ?? '',
       edited: false,
     }));
 
@@ -30,6 +32,8 @@ const SinsuranceCalculationTemplateData = () => {
       employeeShare: Item.employeeShare,
       fromAge: Item.fromAge,
       toAge: Item.toAge,
+      isPercentage: Item.isPercentage,
+      newSalaryLimit: Item.newSalaryLimit,
     };
 
     const result = Item.id === 0
