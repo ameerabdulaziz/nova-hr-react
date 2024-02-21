@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
+import payrollMessages from '../../../messages';
+import messages from '../../messages';
 import Tree from './Tree';
 
 function TreePopup(props) {
@@ -93,7 +95,7 @@ function TreePopup(props) {
         }),
       }}
     >
-      <DialogTitle>addOrChangeStuff</DialogTitle>
+      <DialogTitle>{intl.formatMessage(messages.organizationTree)}</DialogTitle>
 
       <DialogContent>
         <Box
@@ -130,10 +132,10 @@ function TreePopup(props) {
 
       <DialogActions>
         <Button onClick={closePopup}>
-        close
+          {intl.formatMessage(payrollMessages.close)}
         </Button>
         <Button onClick={onSaveBtnClick} variant='contained'>
-        save
+          {intl.formatMessage(payrollMessages.save)}
         </Button>
       </DialogActions>
     </Dialog>

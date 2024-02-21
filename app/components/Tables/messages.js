@@ -383,4 +383,12 @@ export default defineMessages({
     id: `${scope}.codes.validLength`,
     defaultMessage: 'validLength',
   },
+  isPercentage: {
+    id: `${scope}.codes.isPercentage`,
+    defaultMessage: 'isPercentage',
+  },
+  newSalaryLimit: {
+    id: `${scope}.codes.newSalaryLimit`,
+    defaultMessage: 'newSalaryLimit',
+  },
 });

@@ -828,7 +828,9 @@
   "boilerplate.components.tables.codes.toAge": "العمر الي",
   "boilerplate.components.tables.codes.employeeShare": "حصة الموظف من التأمينات",
   "boilerplate.components.tables.codes.companyShare": "حصة الشركة من التأمينات",
-  "boilerplate.components.tables.codes.salaryLimit": "حد الراتب",
+  "boilerplate.components.tables.codes.salaryLimit": "الحد الادنى للمرتب التامين",
+  "boilerplate.components.tables.codes.newSalaryLimit": "الحد الادنى للاجر الاساسى",
+  "boilerplate.components.tables.codes.isPercentage": "هل نسبة مئوية",
   "boilerplate.components.tables.codes.jobCode": "كود الوظيفة",
   "boilerplate.components.tables.codes.action": "الإجراءات",
   "boilerplate.components.tables.codes.address": "العنوان",
@@ -1127,6 +1129,7 @@
 
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
   "boilerplate.containers.Payroll.Setting.menuName": "اسم القائمة",
+  "boilerplate.containers.Payroll.Setting.organizationTree": "الهيكل التنظيمي للمنظمة",
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
   "boilerplate.containers.Payroll.Setting.letPasswordEmptyWillGenerateRandomPassword": "لإنشاء كلمة مرور عشوائية، اترك النص فارغًا",
   "boilerplate.containers.Payroll.Setting.userName": "اسم المستخدم",

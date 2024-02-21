@@ -37,7 +37,7 @@ function HrPermission(props) {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
-  const [employee, setEmployee] = useState();
+  const [employee, setEmployee] = useState(null);
   const [employeeList, setEmployeeList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(true);
@@ -88,11 +88,10 @@ function HrPermission(props) {
     let filteredData = data;
 
     if (query.length !== 0) {
-      filteredData = filteredData.filter(
-        (item) => item.organizationName
-          .toString()
-          .toLowerCase()
-          .includes(query.toLowerCase())
+      filteredData = filteredData.filter((item) => item.organizationName
+        .toString()
+        .toLowerCase()
+        .includes(query.toLowerCase())
       );
     }
 
@@ -153,7 +152,7 @@ function HrPermission(props) {
 
       await api(locale).save({
         employee,
-        dataList: dataList.map(item => ({
+        dataList: dataList.map((item) => ({
           isSelected: item.isSelected,
           isSubmitMission: item.isSubmitMission,
           isSubmitOverTime: item.isSubmitOverTime,
@@ -216,33 +215,43 @@ function HrPermission(props) {
     fetchNeededData();
   }, []);
 
+  const onTreePopupSave = (tree) => {
+    const clonedTree = tree.clone();
+
+    paginatedData.forEach((item) => {
+      clonedTree.addIsCheckProperty(String(item.organizationId), true);
+    });
+
+    setDataList(
+      clonedTree.getCheckedLeafNodes().map((item) => ({
+        id: item.id,
+        organizationName: item.value,
+        organizationId: item.id,
+        isSubmitPermission: false,
+        isSubmitMission: false,
+        isSubmitVacation: false,
+        isSubmitPenalty: false,
+        isSubmitOverTime: false,
+        isSubmitReward: false,
+        isSubmitUniformTrx: false,
+        isSubmitLoan: false,
+        isSelected: false,
+      }))
+    );
+  };
+
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
-      <TreePopup isOpen={isTreePopupOpen} chartData={chartData} setIsOpen={setIsTreePopupOpen} onSave={values => {
-        const t = values.clone();
-
-        paginatedData.forEach(item => {
-          t.addIsCheckProperty(String(item.organizationId), true);
-        });
-
-        setDataList(t.getCheckedLeafNodes().map(item => ({
-          id: item.id,
-          organizationName: item.value,
-          organizationId: item.id,
-          isSubmitPermission: false,
-          isSubmitMission: false,
-          isSubmitVacation: false,
-          isSubmitPenalty: false,
-          isSubmitOverTime: false,
-          isSubmitReward: false,
-          isSubmitUniformTrx: false,
-          isSubmitLoan: false,
-          isSelected: false,
-        })));
-      }} />
+      {chartData && (
+        <TreePopup
+          isOpen={isTreePopupOpen}
+          chartData={chartData}
+          setIsOpen={setIsTreePopupOpen}
+          onSave={onTreePopupSave}
+        />
+      )}
 
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container mb={5} spacing={3}>
@@ -258,7 +267,7 @@ function HrPermission(props) {
                 </li>
               )}
               onChange={(_, value) => {
-                setEmployee(value.id);
+                setEmployee(value ? value.id : null);
               }}
               renderInput={(params) => (
                 <TextField
@@ -302,9 +311,10 @@ function HrPermission(props) {
             <Button
               variant='contained'
               color='secondary'
+              disabled={employee === null}
               onClick={() => setIsTreePopupOpen(true)}
             >
-              Open Tree
+              {intl.formatMessage(messages.organizationTree)}
             </Button>
           </Grid>
         </Grid>
@@ -329,21 +339,18 @@ function HrPermission(props) {
                     checked={
                       !!(
                         filteredData.length > 0
-                        && dataList.filter(
-                          (crow) => crow.isSelected == true
-                        ).length === filteredData.length
+                        && dataList.filter((crow) => crow.isSelected == true)
+                          .length === filteredData.length
                       )
                     }
                     color='primary'
                     name='AllSelect'
                     indeterminate={
                       !!(
-                        dataList.filter(
-                          (crow) => crow.isSelected == true
-                        ).length > 0
-                        && dataList.filter(
-                          (crow) => crow.isSelected == true
-                        ).length < filteredData.length
+                        dataList.filter((crow) => crow.isSelected == true)
+                          .length > 0
+                        && dataList.filter((crow) => crow.isSelected == true)
+                          .length < filteredData.length
                       )
                     }
                     onChange={onAllCheckboxChange}
@@ -538,18 +545,21 @@ function HrPermission(props) {
                     checked={
                       !!(
                         filteredData.length > 0
-                        && dataList.filter((crow) => crow.isSubmitUniformTrx == true)
-                          .length === filteredData.length
+                        && dataList.filter(
+                          (crow) => crow.isSubmitUniformTrx == true
+                        ).length === filteredData.length
                       )
                     }
                     color='primary'
                     name='AllUniformTrx'
                     indeterminate={
                       !!(
-                        dataList.filter((crow) => crow.isSubmitUniformTrx == true)
-                          .length > 0
-                        && dataList.filter((crow) => crow.isSubmitUniformTrx == true)
-                          .length < filteredData.length
+                        dataList.filter(
+                          (crow) => crow.isSubmitUniformTrx == true
+                        ).length > 0
+                        && dataList.filter(
+                          (crow) => crow.isSubmitUniformTrx == true
+                        ).length < filteredData.length
                       )
                     }
                     onChange={onAllCheckboxChange}

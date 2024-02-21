@@ -839,6 +839,8 @@
   "boilerplate.components.tables.codes.toAge": "To Age",
   "boilerplate.components.tables.codes.companyShare": "Company Share",
   "boilerplate.components.tables.codes.employeeShare": "Employee Share",
+  "boilerplate.components.tables.codes.newSalaryLimit": "New Salary Limit",
+  "boilerplate.components.tables.codes.isPercentage": "Is Percentage",
   "boilerplate.components.tables.codes.salaryLimit": "Salary Limit",
   "boilerplate.components.tables.codes.jobCode": "Jop Code",
   "boilerplate.components.tables.codes.currency": "Currency",
@@ -1100,6 +1102,7 @@
   
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
+  "boilerplate.containers.Payroll.Setting.organizationTree": "Organization Tree",
   "boilerplate.containers.Payroll.Setting.delete": "Delete",
   "boilerplate.containers.Payroll.Setting.loan": "Loan",
   "boilerplate.containers.Payroll.Setting.userName": "Username",

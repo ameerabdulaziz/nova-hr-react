@@ -236,4 +236,8 @@ export default defineMessages({
     id: `${scope}.letPasswordEmptyWillGenerateRandomPassword`,
     defaultMessage: 'letPasswordEmptyWillGenerateRandomPassword',
   },
+  organizationTree: {
+    id: `${scope}.organizationTree`,
+    defaultMessage: 'organizationTree',
+  },
 });
