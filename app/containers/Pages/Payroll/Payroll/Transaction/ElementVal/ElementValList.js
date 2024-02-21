@@ -441,7 +441,7 @@ function ElementValList(props) {
         setElementList([]);
       } else {
         const result = await GeneralListApis(locale).GetElementListByTemplate(
-          id
+          id, 0
         );
         setElementList(result);
       }
