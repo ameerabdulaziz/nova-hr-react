@@ -432,10 +432,10 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetBranchList = async () => {
+  Apis.GetBranchList = async (IsMainBr) => {
 
     const data = await axiosInstance.get(
-      `GeneralList/GetBranchList/${locale}`
+      `GeneralList/GetBranchList/${locale}?${IsMainBr ? `IsMainBr=${IsMainBr}` : ''}`
     );
 
     return data.data;

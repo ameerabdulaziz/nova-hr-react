@@ -142,7 +142,7 @@ function BranchSalarySetting(props) {
 
   async function fetchData() {
     try {
-      const list1 = await GeneralListApis(locale).GetBranchList();
+      const list1 = await GeneralListApis(locale).GetBranchList(true);
       setBranchList(list1);
 
       const group1data = await GeneralListApis(locale).GetElementListByTemplate(

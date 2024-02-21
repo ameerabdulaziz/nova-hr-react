@@ -55,7 +55,7 @@ function MonthOpenCloseAss(props) {
     setIsLoading(true);
 
     try {
-      const organizations = await GeneralListApis(locale).GetBranchList();
+      const organizations = await GeneralListApis(locale).GetBranchList(true);
       setOrganizationList(organizations);
 
       const years = await GeneralListApis(locale).GetYears();

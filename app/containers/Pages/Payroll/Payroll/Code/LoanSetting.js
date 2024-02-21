@@ -109,7 +109,7 @@ function LoanSetting(props) {
   async function fetchData() {
     try {
       debugger;
-      const list1 = await glApis(locale).GetBranchList();
+      const list1 = await glApis(locale).GetBranchList(true);
       setBranchList(list1);
 
       const  list= await glApis(locale).GetPayTemplateList();

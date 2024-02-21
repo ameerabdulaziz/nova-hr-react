@@ -154,7 +154,7 @@ function ElementTaxIns(props) {
   async function fetchData() {
     try {
       debugger;
-      const list1 = await glApis(locale).GetBranchList();
+      const list1 = await glApis(locale).GetBranchList(true);
       setBranchList(list1);
     } catch (err) {
     } finally {

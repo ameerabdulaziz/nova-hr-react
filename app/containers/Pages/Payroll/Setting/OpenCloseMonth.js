@@ -51,7 +51,7 @@ function OpenCloseMonth(props) {
     setIsLoading(true);
 
     try {
-      const company = await GeneralListApis(locale).GetBranchList();
+      const company = await GeneralListApis(locale).GetBranchList(true);
       setCompanyList(company);
 
       const years = await GeneralListApis(locale).GetYears();

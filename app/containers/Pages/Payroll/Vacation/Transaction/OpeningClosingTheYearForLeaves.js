@@ -52,7 +52,7 @@ const getdata =  async () => {
   setIsLoading(true);
 
   try {
-    const Organizationlist = await GeneralListApis(locale).GetBranchList(locale);  
+    const Organizationlist = await GeneralListApis(locale).GetBranchList(true);  
     const YearList =  await await GeneralListApis(locale).GetYears();   
   
     setOrganizationData(Organizationlist)
