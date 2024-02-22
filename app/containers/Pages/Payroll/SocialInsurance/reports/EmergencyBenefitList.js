@@ -151,12 +151,6 @@ function EmergencyBenefitList(props) {
                     organizationId: value !== null ? value : null,
                   }));
                 }}
-                sx={{
-                  '.MuiInputBase-root': {
-                    paddingTop: '8px',
-                    paddingBottom: '8px',
-                  },
-                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
