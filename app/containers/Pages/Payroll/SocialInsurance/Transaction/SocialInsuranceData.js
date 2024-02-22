@@ -5,91 +5,81 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import notif from "enl-api/ui/notifMessage";
-import { PapperBlock } from "enl-components";
-import React, { useCallback, useEffect, useState } from "react";
+  TextField
+} from '@mui/material';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import notif from 'enl-api/ui/notifMessage';
+import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
-import { toast } from "react-hot-toast";
-import { FormattedMessage, injectIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import EmployeeData from "../../Component/EmployeeData";
-import PayRollLoader from "../../Component/PayRollLoader";
-import SaveButton from "../../Component/SaveButton";
-import useStyles from "../../Style";
-import api from "../api/SocialInsuranceData";
-import messages from "../messages";
+import React, { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import EmployeeData from '../../Component/EmployeeData';
+import PayRollLoader from '../../Component/PayRollLoader';
+import SaveButton from '../../Component/SaveButton';
+import useStyles from '../../Style';
+import api from '../api/SocialInsuranceData';
+import messages from '../messages';
 
 function SocialInsuranceData(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
-  const Title = localStorage.getItem("MenuName");
+  const Title = localStorage.getItem('MenuName');
   const { classes } = useStyles();
 
   const [insuranceOfficeList, setInsuranceOfficeList] = useState([]);
   const [insuranceJobList, setInsuranceJobList] = useState([]);
   const [branchInsuranceList, setBranchInsuranceList] = useState([]);
+  const [calculationTemplateList, setCalculationTemplateList] = useState([]);
 
-  const [isCalculateInsurance, setIsCalculateInsurance] = useState(false);
   const [isInsured, setIsInsured] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [formInfo, setFormInfo] = useState({
-    employeeId: "",
+    employeeId: '',
     HasAlternativeEmp: false,
 
-    insNotes: "",
+    insNotes: '',
     showSpecialInsurance: false,
 
     ka3bDate: null,
-    ka3bNo: "",
+    ka3bNo: '',
 
-    c1inNo: "",
-    c6inNo: "",
+    c1inNo: '',
+    c6inNo: '',
     c1inDate: null,
     c6inDate: null,
   });
 
   const [insuredState, setInsuredState] = useState({
     insuranceDate: null,
-    socialInsuranceId: "",
+    socialInsuranceId: '',
     insuJobId: null,
     insuOfficeId: null,
-    mainSalary: "",
+    mainSalary: '',
     branchInsurance: null,
-    insGrossSalary: "",
-    mainSalaryNew: "",
-  });
-  const [fixedShareState, setFixedShareState] = useState({
-    empFixedShare: "",
-    compFixedShare: "",
+    insGrossSalary: '',
+    mainSalaryNew: '',
+    calculationTemplate: null
   });
 
   const handleEmpChange = useCallback((id, name) => {
-    if (name == "employeeId")
-    setFormInfo((prevFilters) => ({
+    if (name == 'employeeId') {
+      setFormInfo((prevFilters) => ({
         ...prevFilters,
         employeeId: id,
       }));
+    }
   }, []);
 
   const onInsuredNumericInputChange = (evt) => {
     setInsuredState((prev) => ({
       ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
-    }));
-  };
-
-  const onFixedShareNumericInputChange = (evt) => {
-    setFixedShareState((prev) => ({
-      ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
     }));
   };
 
@@ -105,6 +95,9 @@ function SocialInsuranceData(props) {
 
       const organizations = await api(locale).GetSInsuranceOrgnization();
       setBranchInsuranceList(organizations);
+
+      const insuranceTemplate = await api(locale).SinsuranceCalculationTemplate();
+      setCalculationTemplateList(insuranceTemplate);
     } catch (err) {
       //
     } finally {
@@ -121,7 +114,6 @@ function SocialInsuranceData(props) {
         );
 
         setIsInsured(response.isInsured ?? false);
-        setIsCalculateInsurance(response.calcSifromEmpRecordValue ?? false);
 
         setInsuredState({
           insuranceDate: response.insuranceDate ?? null,
@@ -132,11 +124,7 @@ function SocialInsuranceData(props) {
           branchInsurance: response.branchInsurance ?? '',
           insGrossSalary: response.insGrossSalary ?? '',
           mainSalaryNew: response.mainSalaryNew ?? '',
-        });
-
-        setFixedShareState({
-          empFixedShare: response.empFixedShare ?? '',
-          compFixedShare: response.compFixedShare ?? '',
+          calculationTemplate: response.calculationTemplate ?? null,
         });
 
         setFormInfo((prev) => ({
@@ -179,15 +167,10 @@ function SocialInsuranceData(props) {
       let formData = {
         ...formInfo,
         isInsured,
-        calcSifromEmpRecordValue: isCalculateInsurance,
       };
 
       setProcessing(true);
       setIsLoading(true);
-
-      if (isCalculateInsurance) {
-        formData = { ...formData, ...fixedShareState };
-      }
 
       if (isInsured) {
         formData = { ...formData, ...insuredState };
@@ -225,7 +208,7 @@ function SocialInsuranceData(props) {
   const onNumericInputChange = (evt) => {
     setFormInfo((prev) => ({
       ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
     }));
   };
 
@@ -239,34 +222,7 @@ function SocialInsuranceData(props) {
             </Grid>
 
             <Grid item xs={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12}>
-                      <TextField
-                        name="insNotes"
-                        value={formInfo.insNotes}
-                        onChange={onInputChange}
-                        label={intl.formatMessage(messages.hrNotes)}
-                        fullWidth
-                        variant="outlined"
-                        multiline
-                        rows={1}
-                        autoComplete='off'
-                      />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Card className={classes.card}>
+              <Card className={classes.card} sx={{ mt: '0!important' }} >
                 <CardContent>
                   <FormControlLabel
                     control={
@@ -285,6 +241,33 @@ function SocialInsuranceData(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
+                    <Grid item xs={12} md={3}>
+                      <Autocomplete
+                        options={calculationTemplateList}
+                        value={
+                          calculationTemplateList.find(
+                            (item) => item.id === insuredState.calculationTemplateId
+                          ) ?? null
+                        }
+                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option ? option.name : '')}
+                        onChange={(_, value) => {
+                          setInsuredState((prev) => ({
+                            ...prev,
+                            calculationTemplateId: value !== null ? value.id : null,
+                          }));
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            required={isInsured}
+                            {...params}
+                            label={intl.formatMessage(messages.calculationTemplate)}
+                          />
+                        )}
+                      />
+                    </Grid>
+
                     <Grid item xs={12} md={3}>
                       <TextField
                         name="socialInsuranceId"
@@ -332,10 +315,9 @@ function SocialInsuranceData(props) {
                             (alt) => alt.id === insuredState.insuOfficeId
                           ) ?? null
                         }
-                        isOptionEqualToValue={(option, value) =>
-                          option.id === value.id
+                        isOptionEqualToValue={(option, value) => option.id === value.id
                         }
-                        getOptionLabel={(option) => (option ? option.name : "")}
+                        getOptionLabel={(option) => (option ? option.name : '')}
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
@@ -361,10 +343,9 @@ function SocialInsuranceData(props) {
                             (alt) => alt.id === insuredState.insuJobId
                           ) ?? null
                         }
-                        isOptionEqualToValue={(option, value) =>
-                          option.id === value.id
+                        isOptionEqualToValue={(option, value) => option.id === value.id
                         }
-                        getOptionLabel={(option) => (option ? option.name : "")}
+                        getOptionLabel={(option) => (option ? option.name : '')}
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
@@ -403,10 +384,9 @@ function SocialInsuranceData(props) {
                             (alt) => alt.id === insuredState.branchInsurance
                           ) ?? null
                         }
-                        isOptionEqualToValue={(option, value) =>
-                          option.id === value.id
+                        isOptionEqualToValue={(option, value) => option.id === value.id
                         }
-                        getOptionLabel={(option) => (option ? option.name : "")}
+                        getOptionLabel={(option) => (option ? option.name : '')}
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
@@ -455,189 +435,145 @@ function SocialInsuranceData(props) {
             </Grid>
 
             <Grid item xs={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={isCalculateInsurance}
-                        onChange={(evt) =>
-                          setIsCalculateInsurance(evt.target.checked)
-                        }
-                      />
-                    }
-                    label={intl.formatMessage(
-                      messages.calculateInsuranceFromTheFollowingValue
-                    )}
-                  />
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6} >
+                  <Card className={classes.card} sx={{ mt: '0!important' }} >
+                    <CardContent>
+                      <Grid
+                        container
+                        mb={3}
+                        spacing={3}
+                        alignItems="flex-start"
+                        direction="row"
+                      >
+                        <Grid item xs={12} md={6}>
+                          <TextField
+                            name="c1inNo"
+                            value={formInfo.c1inNo}
+                            onChange={onNumericInputChange}
+                            label={intl.formatMessage(messages.c1IncomingNumber)}
+                            fullWidth
+                            variant="outlined"
+                            autoComplete='off'
+                          />
+                        </Grid>
 
-                  <Grid
-                    my={0}
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name="empFixedShare"
-                        value={fixedShareState.empFixedShare}
-                        required
-                        disabled={!isCalculateInsurance}
-                        onChange={onFixedShareNumericInputChange}
-                        label={intl.formatMessage(messages.employeeFixedShare)}
-                        fullWidth
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
+                        <Grid item xs={12} md={6}>
+                          <LocalizationProvider dateAdapter={AdapterMoment}>
+                            <DatePicker
+                              label={intl.formatMessage(messages.c1DeliverDate)}
+                              value={formInfo.c1inDate}
+                              onChange={(date) => {
+                                setFormInfo((prevFilters) => ({
+                                  ...prevFilters,
+                                  c1inDate: date,
+                                }));
+                              }}
+                              renderInput={(params) => (
+                                <TextField fullWidth {...params} variant="outlined" />
+                              )}
+                            />
+                          </LocalizationProvider>
+                        </Grid>
+                      </Grid>
 
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name="compFixedShare"
-                        value={fixedShareState.compFixedShare}
-                        required
-                        disabled={!isCalculateInsurance}
-                        onChange={onFixedShareNumericInputChange}
-                        label={intl.formatMessage(messages.companyFixedShare)}
-                        fullWidth
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-                  </Grid>
+                      <Grid
+                        container
+                        spacing={3}
+                        alignItems="flex-start"
+                        direction="row"
+                      >
+                        <Grid item xs={12} md={6}>
+                          <TextField
+                            name="c6inNo"
+                            value={formInfo.c6inNo}
+                            onChange={onNumericInputChange}
+                            label={intl.formatMessage(messages.c6IncomingNumber)}
+                            fullWidth
+                            variant="outlined"
+                            autoComplete='off'
+                          />
+                        </Grid>
 
-                  <Typography mt={3} color="gray">
-                    <FormattedMessage
-                      {...messages.percentageInsuranceSalaryMessage}
-                    />
-                  </Typography>
-                </CardContent>
-              </Card>
+                        <Grid item xs={12} md={6}>
+                          <LocalizationProvider dateAdapter={AdapterMoment}>
+                            <DatePicker
+                              label={intl.formatMessage(messages.c6DeliverDate)}
+                              value={formInfo.c6inDate}
+                              onChange={(date) => {
+                                setFormInfo((prevFilters) => ({
+                                  ...prevFilters,
+                                  c6inDate: date,
+                                }));
+                              }}
+                              renderInput={(params) => (
+                                <TextField fullWidth {...params} variant="outlined" />
+                              )}
+                            />
+                          </LocalizationProvider>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+                <Grid item xs={12} md={6} >
+                  <Card className={classes.card} sx={{ mt: '0!important' }} >
+                    <CardContent>
+                      <Grid
+                        container
+                        spacing={3}
+                        alignItems="flex-start"
+                        direction="row"
+                      >
+                        <Grid item xs={12} md={6}>
+                          <LocalizationProvider dateAdapter={AdapterMoment}>
+                            <DatePicker
+                              label={intl.formatMessage(messages.workLetterDate)}
+                              value={formInfo.ka3bDate}
+                              onChange={(date) => {
+                                setFormInfo((prevFilters) => ({
+                                  ...prevFilters,
+                                  ka3bDate: date,
+                                }));
+                              }}
+                              renderInput={(params) => (
+                                <TextField fullWidth {...params} variant="outlined" />
+                              )}
+                            />
+                          </LocalizationProvider>
+                        </Grid>
+
+                        <Grid item xs={12} md={6}>
+                          <TextField
+                            name="ka3bNo"
+                            value={formInfo.ka3bNo}
+                            onChange={onNumericInputChange}
+                            label={intl.formatMessage(messages.workLetterNumber)}
+                            fullWidth
+                            variant="outlined"
+                            autoComplete='off'
+                          />
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
             </Grid>
 
             <Grid item xs={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    mb={3}
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name="c1inNo"
-                        value={formInfo.c1inNo}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.c1IncomingNumber)}
-                        fullWidth
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.c1DeliverDate)}
-                          value={formInfo.c1inDate}
-                          onChange={(date) => {
-                            setFormInfo((prevFilters) => ({
-                              ...prevFilters,
-                              c1inDate: date,
-                            }));
-                          }}
-                          renderInput={(params) => (
-                            <TextField fullWidth {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                  </Grid>
-
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name="c6inNo"
-                        value={formInfo.c6inNo}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.c6IncomingNumber)}
-                        fullWidth
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.c6DeliverDate)}
-                          value={formInfo.c6inDate}
-                          onChange={(date) => {
-                            setFormInfo((prevFilters) => ({
-                              ...prevFilters,
-                              c6inDate: date,
-                            }));
-                          }}
-                          renderInput={(params) => (
-                            <TextField fullWidth {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.workLetterDate)}
-                          value={formInfo.ka3bDate}
-                          onChange={(date) => {
-                            setFormInfo((prevFilters) => ({
-                              ...prevFilters,
-                              ka3bDate: date,
-                            }));
-                          }}
-                          renderInput={(params) => (
-                            <TextField fullWidth {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name="ka3bNo"
-                        value={formInfo.ka3bNo}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.workLetterNumber)}
-                        fullWidth
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
+              <TextField
+                name="insNotes"
+                value={formInfo.insNotes}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.hrNotes)}
+                fullWidth
+                variant="outlined"
+                multiline
+                rows={1}
+                autoComplete='off'
+              />
             </Grid>
 
             <Grid item xs={12}>

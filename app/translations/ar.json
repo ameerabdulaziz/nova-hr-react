@@ -2663,6 +2663,7 @@
   "boilerplate.containers.Payroll.insurance.InsuranceEndDate": "تاريخ الانتهاء",
   "boilerplate.containers.Payroll.insurance.InsuranceReasone": "السبب",
   "boilerplate.containers.Payroll.insurance.orgName": "القسم",
+  "boilerplate.containers.Payroll.insurance.calculationTemplate": "قالب الحساب",
   "boilerplate.containers.Payroll.insurance.hiringDate": "تاريخ التعيين",
   "boilerplate.containers.Payroll.insurance.gender": "النوع",
   "boilerplate.containers.Payroll.insurance.toDate": "ألي تاريخ",

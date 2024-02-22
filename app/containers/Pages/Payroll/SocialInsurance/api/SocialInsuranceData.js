@@ -26,6 +26,12 @@ const SocialInsuranceData = (locale) => {
     return data.data;
   };
 
+  api.SinsuranceCalculationTemplate = async () => {
+    const data = await axiosInstance.get(`SinsuranceCalculationTemplate/GetListModel/${locale}`);
+
+    return data.data;
+  };
+
   api.save = async (body) => {
     const data = await axiosInstance.post('SInsuranceEmployee/Save', body);
 

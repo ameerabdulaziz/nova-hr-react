@@ -321,4 +321,8 @@ export default defineMessages({
     id: `${scope}.orderBy`,
     defaultMessage: 'orderBy',
   },
+  calculationTemplate: {
+    id: `${scope}.calculationTemplate`,
+    defaultMessage: 'calculationTemplate',
+  },
 });
