@@ -133,6 +133,7 @@ function NamePopup(props) {
       label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
+        display: false,
       },
     },
     {

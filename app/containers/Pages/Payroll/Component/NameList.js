@@ -110,9 +110,9 @@ function NameList(props) {
                         onChange={handlepermcheckboxAll}
                       />
                     </TableCell>
-                    <TableCell style={{ width: "25%", padding: "0px" }}>
+                    {/* <TableCell style={{ width: "25%", padding: "0px" }}>
                       <FormattedMessage {...Payrollmessages.id} />
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell style={{ width: "50%", padding: "0px" }}>
                       <FormattedMessage {...Payrollmessages.name} />
                     </TableCell>
@@ -137,9 +137,9 @@ function NameList(props) {
                               value={row.isSelected}
                             />
                           </TableCell>
-                          <TableCell style={{ width: "25%", padding: "0px" }}>
+                          {/* <TableCell style={{ width: "25%", padding: "0px" }}>
                             {row.id}
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell style={{ width: "50%", padding: "0px" }}>
                             {row.name}
                           </TableCell>
