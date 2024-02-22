@@ -27,6 +27,7 @@ import PayRollLoader from '../Component/PayRollLoader';
 import useStyles from '../Style';
 import payrollMessages from '../messages';
 import api from './api/HrPermissionData';
+import Tree from './components/HrPermission/Tree';
 import TreePopup from './components/HrPermission/TreePopup';
 import messages from './messages';
 
@@ -43,6 +44,7 @@ function HrPermission(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [isTreePopupOpen, setIsTreePopupOpen] = useState(false);
   const [chartData, setChartData] = useState(null);
+  const [tree, setTree] = useState(Tree.buildTreeFromArray(null));
 
   const Title = localStorage.getItem('MenuName');
 
@@ -143,7 +145,7 @@ function HrPermission(props) {
 
   async function onSaveBtnClick() {
     if (!employee) {
-      toast.error('Please Select Employee');
+      toast.error(intl.formatMessage(messages.pleaseSelectEmployee));
       return;
     }
 
@@ -183,6 +185,16 @@ function HrPermission(props) {
       setIsLoading(true);
       const data = await api(locale).getList(employee);
       setDataList(data || []);
+
+      if (data) {
+        const clonedTree = Tree.buildTreeFromArray(chartData);
+        data.forEach((item) => {
+          clonedTree.addIsCheckProperty(String(item.organizationId), true);
+        });
+        setTree(clonedTree);
+      } else {
+        setTree(Tree.buildTreeFromArray(chartData));
+      }
     } catch (err) {
       //
     } finally {
@@ -199,6 +211,9 @@ function HrPermission(props) {
 
       if (chart?.[0]) {
         setChartData(chart[0]);
+        setTree(Tree.buildTreeFromArray(chart[0]));
+      } else {
+        setTree(Tree.buildTreeFromArray(chartData));
       }
     } catch (err) {
       //
@@ -215,28 +230,33 @@ function HrPermission(props) {
     fetchNeededData();
   }, []);
 
-  const onTreePopupSave = (tree) => {
-    const clonedTree = tree.clone();
-
-    paginatedData.forEach((item) => {
-      clonedTree.addIsCheckProperty(String(item.organizationId), true);
-    });
-
+  const onTreePopupSave = (changedTree) => {
+    setTree(changedTree.clone());
     setDataList(
-      clonedTree.getCheckedLeafNodes().map((item) => ({
-        id: item.id,
-        organizationName: item.value,
-        organizationId: item.id,
-        isSubmitPermission: false,
-        isSubmitMission: false,
-        isSubmitVacation: false,
-        isSubmitPenalty: false,
-        isSubmitOverTime: false,
-        isSubmitReward: false,
-        isSubmitUniformTrx: false,
-        isSubmitLoan: false,
-        isSelected: false,
-      }))
+      changedTree.getCheckedLeafNodes().map((item) => {
+        const existOrganization = dataList.find(
+          (org) => String(org.organizationId) === item.id
+        );
+
+        if (existOrganization) {
+          return existOrganization;
+        }
+
+        return {
+          id: item.id,
+          organizationName: item.value,
+          organizationId: item.id,
+          isSubmitPermission: false,
+          isSubmitMission: false,
+          isSubmitVacation: false,
+          isSubmitPenalty: false,
+          isSubmitOverTime: false,
+          isSubmitReward: false,
+          isSubmitUniformTrx: false,
+          isSubmitLoan: false,
+          isSelected: true,
+        };
+      })
     );
   };
 
@@ -244,9 +264,10 @@ function HrPermission(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      {chartData && (
+      {chartData?.length > 0 && (
         <TreePopup
           isOpen={isTreePopupOpen}
+          tree={tree.clone()}
           chartData={chartData}
           setIsOpen={setIsTreePopupOpen}
           onSave={onTreePopupSave}

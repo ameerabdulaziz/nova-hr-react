@@ -14,40 +14,29 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import payrollMessages from '../../../messages';
 import messages from '../../messages';
-import Tree from './Tree';
 
 function TreePopup(props) {
   const {
-    intl,
-    isOpen,
-    setIsOpen,
-    chartData,
-    onSave,
+    intl, isOpen, setIsOpen, tree, onSave, chartData
   } = props;
+  const [clonedTree, setClonedTree] = useState(tree);
 
-  const [tree, setTree] = useState(Tree.buildTreeFromArray(chartData));
   useEffect(() => {
-    if (isOpen) {
-      if (chartData) {
-        setTree(Tree.buildTreeFromArray(chartData));
-      }
-    } else {
-      Tree.buildTreeFromArray(null);
-    }
-  }, [isOpen]);
+    setClonedTree(tree);
+  }, [tree]);
 
   const closePopup = () => {
     setIsOpen(false);
   };
 
   const onClickNode = (nodeData) => {
-    const node = tree.find(nodeData.id);
+    const node = clonedTree.find(nodeData.id);
 
     if (node?.disabled) {
       return;
     }
 
-    setTree((prevTree) => {
+    setClonedTree((prevTree) => {
       const newTree = prevTree.clone();
       newTree.addIsCheckProperty(
         nodeData.id,
@@ -58,7 +47,7 @@ function TreePopup(props) {
   };
 
   const MyNode = ({ nodeData }) => {
-    const node = tree.find(nodeData.id);
+    const node = clonedTree.find(nodeData.id);
 
     return (
       <Button
@@ -74,13 +63,9 @@ function TreePopup(props) {
   };
 
   const onSaveBtnClick = () => {
-    onSave(tree);
+    onSave(clonedTree);
     closePopup();
   };
-
-  if (!chartData) {
-    return null;
-  }
 
   return (
     <Dialog
@@ -115,8 +100,8 @@ function TreePopup(props) {
                 },
             },
             '.orgchart-container': {
-              height: '500px'
-            }
+              height: '500px',
+            },
           }}
         >
           <OrganizationChart
@@ -147,7 +132,8 @@ TreePopup.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
-  chartData: PropTypes.object.isRequired,
+  tree: PropTypes.object.isRequired,
+  chartData: PropTypes.array.isRequired,
 };
 
 export default injectIntl(TreePopup);

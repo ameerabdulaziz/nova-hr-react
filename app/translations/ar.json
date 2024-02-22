@@ -1164,6 +1164,7 @@
   "boilerplate.containers.Payroll.Setting.resetallpassword": "استرجاع الكل",
   "boilerplate.containers.Payroll.Setting.resetpassword": "استرجاع كلمة المرور",
   "boilerplate.containers.Payroll.Setting.department": "القسم",
+  "boilerplate.containers.Payroll.Setting.pleaseSelectEmployee": "الرجاء تحديد الموظف",
   "boilerplate.containers.Payroll.Setting.employee": "الموظف",
   "boilerplate.containers.Payroll.Setting.printForm": "نموذج الطباعة",
   "boilerplate.containers.Payroll.Setting.lastDayToApproveEmployeeRequests": "آخر يوم للموافقة على طلبات الموظف",

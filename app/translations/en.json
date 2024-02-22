@@ -1138,6 +1138,7 @@
   "boilerplate.containers.Payroll.Setting.resetpassword": "Reset Password",
   "boilerplate.containers.Payroll.Setting.department": "Department",
   "boilerplate.containers.Payroll.Setting.employee": "Employee",
+  "boilerplate.containers.Payroll.Setting.pleaseSelectEmployee": "Please Select Employee",
   "boilerplate.containers.Payroll.Setting.printForm": "Print Form",
   "boilerplate.containers.Payroll.Setting.lastDayToApproveEmployeeRequests": "Last Day To Approve Employee Requests",
   "boilerplate.containers.Payroll.Setting.fromDate": "From Date",

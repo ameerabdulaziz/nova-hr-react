@@ -240,4 +240,8 @@ export default defineMessages({
     id: `${scope}.organizationTree`,
     defaultMessage: 'organizationTree',
   },
+  pleaseSelectEmployee: {
+    id: `${scope}.pleaseSelectEmployee`,
+    defaultMessage: 'pleaseSelectEmployee',
+  },
 });
