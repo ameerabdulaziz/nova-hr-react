@@ -47,7 +47,7 @@ function Form2Insurance(props) {
   const [formInfo, setFormInfo] = useState({
     InsuranceOrg: '',
     InsOffice: '',
-    ToDate: null,
+    ToDate: new Date(),
     InsDate: 'false',
     OrderInsNo: 'false',
     HiringDate: 'false',
