@@ -27,6 +27,7 @@ import messages from '../messages';
 function SocialInsuranceReport(props) {
   const { intl } = props;
 
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +57,7 @@ function SocialInsuranceReport(props) {
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
     OrganizationId: null,
+    BranchId: branchId,
     EmpStatusId: 1,
 
     InsOffice: '',
@@ -195,6 +197,19 @@ function SocialInsuranceReport(props) {
 
       const office = await api(locale).GetSInsuranceOffices();
       setOfficeList(office);
+
+      if (branchId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          branchId,
+          0
+        );
+
+        setFormInfo((prev) => ({
+          ...prev,
+          MonthId: response.monthId,
+          YearId: response.yearId,
+        }));
+      }
     } catch (error) {
       //
     } finally {
