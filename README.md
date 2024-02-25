@@ -67,6 +67,7 @@ npm run start:prod
 ## TODO
 
 - [ ] Display row number in the table, [link](https://github.com/gregnb/mui-datatables/issues/1379)
+- [ ] Add Print column to payroll table
 
 ## Docs 📖
 
