@@ -74,6 +74,9 @@ function PayrollTable(props) {
   // Ref for print container
   const printContainerRef = useRef(null);
 
+  // Store selected rows
+  const [rowsSelected, setRowsSelected] = useState([]);
+
   // Today's formatted date
   const today = formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
 
@@ -99,23 +102,23 @@ function PayrollTable(props) {
         customFilterListOptions: {
           render: (filterValue) => {
             if (filterValue[0] && filterValue[1]) {
-              return `${item.label} - ${intl.formatMessage(payrollMessages.minDate)}: ${
-                filterValue[0]
-              }, ${intl.formatMessage(payrollMessages.maxDate)}: ${
-                filterValue[1]
-              }`;
+              return `${item.label} - ${intl.formatMessage(
+                payrollMessages.minDate
+              )}: ${filterValue[0]}, ${intl.formatMessage(
+                payrollMessages.maxDate
+              )}: ${filterValue[1]}`;
             }
 
             if (filterValue[0]) {
-              return `${item.label} - ${intl.formatMessage(payrollMessages.minDate)}: ${
-                filterValue[0]
-              }`;
+              return `${item.label} - ${intl.formatMessage(
+                payrollMessages.minDate
+              )}: ${filterValue[0]}`;
             }
 
             if (filterValue[1]) {
-              return `${item.label} - ${intl.formatMessage(payrollMessages.maxDate)}: ${
-                filterValue[1]
-              }`;
+              return `${item.label} - ${intl.formatMessage(
+                payrollMessages.maxDate
+              )}: ${filterValue[1]}`;
             }
 
             return [];
@@ -224,6 +227,9 @@ function PayrollTable(props) {
   // useEffect to update filtered data when data prop changes
   useEffect(() => {
     setFilterData(data);
+
+    // Reset selected rows when data prop changes
+    setRowsSelected([]);
   }, [data]);
 
   // useEffect to initialize columns and column visibility settings
@@ -267,7 +273,9 @@ function PayrollTable(props) {
   const onAddActionBtnClick = () => {
     // Check is employee has create permission
     if (menu.isAdd) {
-      history.push(actions?.add?.url);
+      history.push(actions?.add?.url, {
+        ...(actions?.add?.params || {}),
+      });
     }
   };
 
@@ -276,6 +284,7 @@ function PayrollTable(props) {
     if (menu.isUpdate) {
       history.push(actions?.edit?.url, {
         id,
+        ...(actions?.edit?.params || {}),
       });
     }
   };
@@ -285,6 +294,9 @@ function PayrollTable(props) {
     if (menu.isDelete) {
       setDeletedId(id);
       setIsDeletePopupOpen(true);
+
+      // Reset selected rows
+      setRowsSelected([]);
     }
   };
 
@@ -328,8 +340,16 @@ function PayrollTable(props) {
   }, [filterData, filterColumns, columnsVisibility]);
 
   // Custom toolbar for table (contain: download, print, add button)
-  const customToolbar = useCallback(
-    () => (
+  const customToolbar = useCallback(() => {
+    let isAddBtnDisabled = !menu.isAdd;
+
+    if (typeof actions?.add?.disabled === 'boolean') {
+      isAddBtnDisabled = actions?.add?.disabled;
+    } else if (typeof actions?.add?.disabled === 'function') {
+      isAddBtnDisabled = actions?.add?.disabled();
+    }
+
+    return (
       <>
         {options.download !== false && (
           <Tooltip
@@ -359,7 +379,7 @@ function PayrollTable(props) {
 
         {actions.add && (
           <Button
-            disabled={!menu.isAdd}
+            disabled={isAddBtnDisabled}
             variant='contained'
             onClick={onAddActionBtnClick}
             color='primary'
@@ -371,9 +391,8 @@ function PayrollTable(props) {
 
         {options.customToolbar && options.customToolbar()}
       </>
-    ),
-    [options, isPrintLoading, filterData]
-  );
+    );
+  }, [options, isPrintLoading, filterData, actions]);
 
   // Memoize default table options
   const tableOptions = useMemo(
@@ -382,6 +401,12 @@ function PayrollTable(props) {
       responsive: 'vertical',
       print: false,
       rowsPerPage: 50,
+      // Initial selected rows
+      rowsSelected,
+      onRowSelectionChange: (rows, allRows) => {
+        // Set selected rows
+        setRowsSelected(allRows.map((row) => row.dataIndex));
+      },
       rowsPerPageOptions: [10, 50, 100],
       // Download options for csv (only visible columns)
       downloadOptions: {
