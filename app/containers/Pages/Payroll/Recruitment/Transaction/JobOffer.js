@@ -82,7 +82,7 @@ function JobOffer(props) {
   ];
 
   const actions = {
-    create: {
+    add: {
       url: '/app/Pages/Recruitment/JobOfferCreate',
     },
     edit: {
