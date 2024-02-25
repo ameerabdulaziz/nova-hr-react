@@ -30,6 +30,10 @@ import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function MissionTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -57,6 +61,13 @@ function MissionTrxCreate(props) {
   const [MissionsList, setMissionsList] = useState([]);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
+
+  const [DateError, setDateError] = useState({});
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")
@@ -152,18 +163,47 @@ function MissionTrxCreate(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+    
     try {
-      debugger;
+
       setIsLoading(true);
 
-      let response = await ApiData(locale).Save(data);
-
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        history.push(`/app/Pages/Att/MissionTrx`);
-      } else {
-        toast.error(response.statusText);
+      const apiData = {
+        id: data.id,
+        fromDate: dateFormatFun(data.fromDate),
+        toDate: dateFormatFun(data.toDate),
+        employeeId: data.employeeId,
+        missionId: data.missionId,
+        missionName: data.missionName,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        minutesCount: data.minutesCount,
+        exemptEntryRec: data.exemptEntryRec,
+        exemptLeaveRec: data.exemptLeaveRec,
+        missionDestination: data.missionDestination,
+        isOverTime: data.isOverTime,
+        isMustAttend: data.isMustAttend,
+        transportationExpenses: data.transportationExpenses,
+        notes: data.notes,
       }
+
+      console.log("apiData =", apiData);
+
+      // let response = await ApiData(locale).Save(apiData);
+      // // let response = await ApiData(locale).Save(data);
+
+      // if (response.status == 200) {
+      //   toast.success(notif.saved);
+      //   history.push(`/app/Pages/Att/MissionTrx`);
+      // } else {
+      //   toast.error(response.statusText);
+      // }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -207,64 +247,78 @@ function MissionTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={2}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(Payrollmessages.fromdate)}
-                  value={data.fromDate}
-                  onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        setdata((prevFilters) => ({
-                            ...prevFilters,
-                            fromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                          }))
-                      }
-                      else
-                      {
-                        setdata((prevFilters) => ({
-                          ...prevFilters,
-                          fromDate: null,
-                        }))
-                      } 
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(Payrollmessages.todate)}
-                  value={data.toDate}
-                  onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        setdata((prevFilters) => ({
-                            ...prevFilters,
-                            toDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                          }))
-                      }
-                      else
-                      {
-                        setdata((prevFilters) => ({
-                          ...prevFilters,
-                          toDate: null,
-                        }))
-                      } 
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+       
+
+                  <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.fromdate)}
+                          value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              fromDate: date,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
+
+
+                <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.todate)}
+                          value={data.toDate ? dayjs(data.toDate) : data.toDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              toDate: date ,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`toDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`toDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
             <Grid item xs={12} md={2}>
               <TextField
                 id="startTime"

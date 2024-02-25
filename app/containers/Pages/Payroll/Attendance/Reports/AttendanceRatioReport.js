@@ -23,6 +23,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../api/GeneralListApis";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function AttendanceRatioReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -40,8 +44,24 @@ function AttendanceRatioReport(props) {
   });
 
 
+  const [DateError, setDateError] = useState({});
+
+
+   // used to reformat date before send it to api
+   const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
 
   const handleSearch = async (e) => {
+
+
+    	// used to stop call api if user select wrong date
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
 
     if(FromDate !== null )
     {
@@ -49,7 +69,7 @@ function AttendanceRatioReport(props) {
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: FromDate,
+        FromDate: dateFormatFun(FromDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -156,29 +176,35 @@ function AttendanceRatioReport(props) {
 
         <Grid container spacing={2}>
 
-        <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.fromdate)}
-                value={FromDate}
-                onChange={(date) => {
-                  if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                    if (!isNaN(new Date(date))) { 
-                      setFromDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                    }
-                    else
-                    {
-                      setFromDate(null)
-                    } 
-                  } 
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined"   />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
+                  <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.fromdate)}
+                        value={FromDate  ? dayjs(FromDate) : FromDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setFromDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`FromDate`]: true
+                            }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`FromDate`]: false
+                            }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
           <Grid item xs={12} md={10}>
             <Search
@@ -186,6 +212,8 @@ function AttendanceRatioReport(props) {
                searchData={searchData}
                setIsLoading={setIsLoading}
                notShowDate={true}
+               DateError={DateError}
+               setDateError={setDateError}
             ></Search>
           </Grid>
 

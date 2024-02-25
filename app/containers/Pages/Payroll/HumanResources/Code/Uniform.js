@@ -59,7 +59,7 @@ function Uniform(props) {
     {
       name: 'depreciationPeriod',
       label: 'DepreciationPeriod',
-      type: 'text',
+      type: 'number',
       initialValue: '',
       width: 'auto',
       hidden: false,

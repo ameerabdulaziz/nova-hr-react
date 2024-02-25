@@ -37,15 +37,31 @@ function ContinuousAbsenceReport(props) {
     employeesWithAttendanceRule: false,
   });
 
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
 
   const handleSearch = async (e) => {
+
+     // used to stop call api if user select wrong date
+     if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     if(searchData.FromDate !== null && searchData.ToDate !== null)
     {
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
+        FromDate: dateFormatFun(searchData.FromDate),
+        ToDate: dateFormatFun(searchData.ToDate),
         dayscount: searchData.DaysCount,
         Attrulechk: searchData.employeesWithAttendanceRule ,
         EmployeeId: searchData.EmployeeId,
@@ -154,6 +170,8 @@ function ContinuousAbsenceReport(props) {
                setsearchData={setsearchData}
                searchData={searchData}
                setIsLoading={setIsLoading}
+               DateError={DateError}
+               setDateError={setDateError}
             ></Search>
           </Grid>
 

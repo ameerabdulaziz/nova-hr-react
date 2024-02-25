@@ -21,6 +21,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 
+import { toast } from "react-hot-toast";
+
 function RegisterInAndOutReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -38,13 +40,27 @@ function RegisterInAndOutReport(props) {
     RegType: 1,
   });
 
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
 
   const handleSearch = async (e) => {
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
+        FromDate: dateFormatFun(searchData.FromDate),
+        ToDate: dateFormatFun(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -143,6 +159,7 @@ function RegisterInAndOutReport(props) {
       },
     },
   };
+  
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -153,6 +170,8 @@ function RegisterInAndOutReport(props) {
                setsearchData={setsearchData}
                searchData={searchData}
                setIsLoading={setIsLoading}
+               DateError={DateError}
+              setDateError={setDateError}
             ></Search>
           </Grid>
 

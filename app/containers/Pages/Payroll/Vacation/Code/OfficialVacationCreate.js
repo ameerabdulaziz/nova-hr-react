@@ -27,6 +27,10 @@ import SaveButton from '../../Component/SaveButton';
 import PayRollLoader from '../../Component/PayRollLoader';
 
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 
 
 function CreateOfficialVacation(props) {
@@ -48,11 +52,23 @@ function CreateOfficialVacation(props) {
   const { classes } = useStyles();
 
 
-
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
     setIsLoading(true)
     setProcessing(true)
 
@@ -71,7 +87,7 @@ function CreateOfficialVacation(props) {
       id: id,
       arName: vacationDesAR ? vacationDesAR : "",
       enName: vacationDesEN ? vacationDesEN : "",
-      vacationDate: date,
+      vacationDate: dateFormatFun(date),
       parsId: elementsData,
     };
 
@@ -172,28 +188,41 @@ useEffect(() => {
               alignItems="flex-start"
               direction="row">
 
-                <Grid item xs={12}  md={4}> 
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
+                  <Grid item xs={12}  md={4}> 
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
                         label={intl.formatMessage(Payrollmessages.date)}
-                        value={date}
-                        onChange={(date) => { 
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                            if (!isNaN(new Date(date))) { 
-                              setDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                            } 
-                            else
-                            {
-                              setDate(null)
-                            }
+                          value={date ? dayjs(date) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`date`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`date`]: false
+                              }))
                           }
                         }}
-                        className={classes.field}
-                        renderInput={(params) => <TextField {...params} variant="outlined"  required/>}
-                      />
-                  </LocalizationProvider>
-            
-                </Grid>
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
                 
                     
                 <Grid item xs={12}  md={4}> 

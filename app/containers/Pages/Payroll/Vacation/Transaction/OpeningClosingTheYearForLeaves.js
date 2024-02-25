@@ -23,7 +23,9 @@ import { format } from "date-fns";
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import PayRollLoader from '../../Component/PayRollLoader';
 
-
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 
 function OpeningClosingTheYearForLeaves(props) {
@@ -46,6 +48,12 @@ function OpeningClosingTheYearForLeaves(props) {
   const { classes } = useStyles();
 
 
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
 
 
 const getdata =  async () => {
@@ -100,6 +108,13 @@ useEffect(() => {
 
 
   const openYearFun = async () => {
+
+    	// used to stop call api if user select wrong date
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
     setSubmittingOpenYear(true)
     setProcessingOpenYear(true)
     setIsLoading(true);
@@ -107,8 +122,8 @@ useEffect(() => {
     const data = {
         organizationId: Organization.id,
         yearId: Year.id,
-        startDateVac: fromDate,
-        endDateVac: toDate,
+        startDateVac: dateFormatFun(fromDate),
+        endDateVac: dateFormatFun(toDate),
         yearName: Year.name
         };
 
@@ -136,6 +151,12 @@ useEffect(() => {
 
 
   const closeYearFun = async () => {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
    
     setSubmittingCloseYear(true)
     setProcessingCloseYear(true)
@@ -144,8 +165,8 @@ useEffect(() => {
     const data = {
       organizationId: Organization.id,
       yearId: Year.id,
-      startDateVac: fromDate,
-      endDateVac: toDate,
+      startDateVac: dateFormatFun(fromDate),
+      endDateVac: dateFormatFun(toDate),
       yearName: Year.name
       };
 
@@ -275,30 +296,44 @@ useEffect(() => {
               
                 </Grid>
                     
-                          <Grid item xs={12}  md={3}> 
-                            <LocalizationProvider dateAdapter={AdapterMoment}>
-                                <DesktopDatePicker
-                                  label={intl.formatMessage(messages.StartDate)}
-                                  value={fromDate}
-                                  onChange={(date) => { 
-                                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                                      if (!isNaN(new Date(date))) { 
-                                        setFromDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                                      } 
-                                      else
-                                      {
-                                        setFromDate(null)
-                                      }
-                                    }
-                                  }}
-                                  className={classes.field}
-                                  renderInput={(params) => <TextField {...params} variant="outlined"  required={toDate !== null ? true : false}/>}
-                                />
-                            </LocalizationProvider>
-                      
-                          </Grid>
 
                           <Grid item xs={12}  md={3}> 
+                          
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker 
+                                label={intl.formatMessage(messages.StartDate)}
+                                  value={fromDate ? dayjs(fromDate) : null}
+                                className={classes.field}
+                                  onChange={(date) => {
+                                    setFromDate(date)
+                                }}
+                                onError={(error,value)=>{
+                                  if(error !== null)
+                                  {
+                                    setDateError((prevState) => ({
+                                        ...prevState,
+                                          [`fromDate`]: true
+                                      }))
+                                  }
+                                  else
+                                  {
+                                    setDateError((prevState) => ({
+                                        ...prevState,
+                                          [`fromDate`]: false
+                                      }))
+                                  }
+                                }}
+                                slotProps={{
+                                    textField: {
+                                        required: toDate !== null ? true : false,
+                                      },
+                                    }}
+                                />
+                            </LocalizationProvider>
+                          </Grid>
+
+
+                          {/* <Grid item xs={12}  md={3}> 
                             <LocalizationProvider dateAdapter={AdapterMoment}>
                                 <DesktopDatePicker
                                   label={intl.formatMessage(messages.EndDate)}
@@ -319,6 +354,41 @@ useEffect(() => {
                                 />
                             </LocalizationProvider>
                       
+                          </Grid> */}
+
+                          <Grid item xs={12}  md={3}> 
+                          
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker 
+                                label={intl.formatMessage(messages.EndDate)}
+                                  value={toDate ? dayjs(toDate) : null}
+                                className={classes.field}
+                                  onChange={(date) => {
+                                    sethiringDate(date)
+                                }}
+                                onError={(error,value)=>{
+                                  if(error !== null)
+                                  {
+                                    setDateError((prevState) => ({
+                                        ...prevState,
+                                          [`toDate`]: true
+                                      }))
+                                  }
+                                  else
+                                  {
+                                    setDateError((prevState) => ({
+                                        ...prevState,
+                                          [`toDate`]: false
+                                      }))
+                                  }
+                                }}
+                                slotProps={{
+                                    textField: {
+                                        required: fromDate !== null ? true : false,
+                                      },
+                                    }}
+                                />
+                            </LocalizationProvider>
                           </Grid>
 
                 <Grid item xs={12}  md={2}> 

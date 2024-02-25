@@ -28,6 +28,11 @@ import NameList from "../../../Component/NameList";
 import AlertPopup from "../../../Component/AlertPopup";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function MissionTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -56,8 +61,18 @@ function MissionTrxCreate(props) {
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const [DateError, setDateError] = useState({});
+
+
+   // used to reformat date before send it to api
+   const dateFormatFun = (date) => {
+    return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
   const handleClickOpen = (item) => {
-    debugger;
+
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -152,6 +167,34 @@ function MissionTrxCreate(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+// used to stop call api if user select wrong date
+if (Object.values(DateError).includes(true)) {  
+  toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+  return;
+}
+
+
+const apiData = {
+  fromDate: dateFormatFun(data.fromDate),
+    toDate: dateFormatFun(data.toDate),
+    missionId: data.missionId,
+    missionName: data.missionName,
+    startTime: data.startTime,
+    endTime: data.endTime,
+    minutesCount: data.minutesCount,
+    exemptEntryRec: data.exemptEntryRec,
+    exemptLeaveRec: data.exemptLeaveRec,
+    missionDestination: data.missionDestination,
+    isOverTime: data.isOverTime,
+    isMustAttend: data.isMustAttend,
+    transportationExpenses: data.transportationExpenses,
+    notes: data.notes,
+    employeesId: data.employeesId,
+    isNotUpdate: data.isNotUpdate,
+}
+
+
     try {
       setIsLoading(true);
       var SelectedIds = dataList
@@ -164,8 +207,10 @@ function MissionTrxCreate(props) {
           toast.error("Select Employees first");
           return ;
         }
-      data.employeesId = SelectedIds;
-      let response = await ApiData(locale).SaveAll(data);
+        apiData.employeesId = SelectedIds;
+      // data.employeesId = SelectedIds;
+      let response = await ApiData(locale).SaveAll(apiData);
+      // let response = await ApiData(locale).SaveAll(data);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -177,10 +222,39 @@ function MissionTrxCreate(props) {
     }
   };
   const handleDelete = async (e) => {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
+    const apiData = {
+      fromDate: dateFormatFun(data.fromDate),
+        toDate: dateFormatFun(data.toDate),
+        missionId: data.missionId,
+        missionName: data.missionName,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        minutesCount: data.minutesCount,
+        exemptEntryRec: data.exemptEntryRec,
+        exemptLeaveRec: data.exemptLeaveRec,
+        missionDestination: data.missionDestination,
+        isOverTime: data.isOverTime,
+        isMustAttend: data.isMustAttend,
+        transportationExpenses: data.transportationExpenses,
+        notes: data.notes,
+        employeesId: data.employeesId,
+        isNotUpdate: data.isNotUpdate,
+    }
+
+
     try {
       setIsLoading(true);
 
-      let response = await ApiData(locale).DeleteAll(data);
+      let response = await ApiData(locale).DeleteAll(apiData);
+      // let response = await ApiData(locale).DeleteAll(data);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -228,10 +302,39 @@ function MissionTrxCreate(props) {
   }, []);
 
   async function getData() {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+    const apiData = {
+      fromDate: dateFormatFun(data.fromDate),
+        toDate: dateFormatFun(data.toDate),
+        missionId: data.missionId,
+        missionName: data.missionName,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        minutesCount: data.minutesCount,
+        exemptEntryRec: data.exemptEntryRec,
+        exemptLeaveRec: data.exemptLeaveRec,
+        missionDestination: data.missionDestination,
+        isOverTime: data.isOverTime,
+        isMustAttend: data.isMustAttend,
+        transportationExpenses: data.transportationExpenses,
+        notes: data.notes,
+        employeesId: data.employeesId,
+        isNotUpdate: data.isNotUpdate,
+    }
+
+
     try {
       setIsLoading(true);
-      if (data.missionId && data.startTime && data.endTime) {
-        const result = await ApiData(locale).getMissions(data);
+      if (apiData.missionId && apiData.startTime && apiData.endTime) {
+        const result = await ApiData(locale).getMissions(apiData);
+      // if (data.missionId && data.startTime && data.endTime) {
+      //   const result = await ApiData(locale).getMissions(data);
 
         setdataList(
           result.employees.map((obj) => {
@@ -285,11 +388,11 @@ function MissionTrxCreate(props) {
                         label={intl.formatMessage(messages.isNotUpdateMission)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={data.fromDate}
+                          // value={data.fromDate}
                           onChange={(date) => {
                             if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
                               if (!isNaN(new Date(date))) { 
@@ -313,12 +416,47 @@ function MissionTrxCreate(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
+
                     <Grid item xs={12} md={6}>
+                  
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker 
+                          label={intl.formatMessage(Payrollmessages.fromdate)}
+                          value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
+                          className={classes.field}
+                            onChange={(date) => {
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                fromDate: date ,
+                              }))
+                          }}
+                          onError={(error,value)=>{
+                            if(error !== null)
+                            {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: true
+                              }))
+                            }
+                            else
+                            {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: false
+                              }))
+                            }
+                          }}
+                          />
+                      </LocalizationProvider>
+                  </Grid>
+
+
+                    {/* <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(Payrollmessages.todate)}
-                          value={data.toDate}
+                          // value={data.toDate}
                           onChange={(date) => {
                             if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
                               if (!isNaN(new Date(date))) { 
@@ -342,7 +480,42 @@ function MissionTrxCreate(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
+
+              <Grid item xs={12} md={6}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                      label={intl.formatMessage(Payrollmessages.todate)}
+                      value={data.toDate  ? dayjs(data.toDate) : data.toDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            toDate: date ,
+                          }))
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`toDate`]: true
+                          }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`toDate`]: false
+                          }))
+                        }
+                      }}
+                      />
+                  </LocalizationProvider>
+              </Grid>
+
+
                     <Grid item xs={12} md={4}>
                       <TextField
                         id="startTime"

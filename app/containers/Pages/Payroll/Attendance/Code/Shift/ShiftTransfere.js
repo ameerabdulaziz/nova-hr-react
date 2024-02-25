@@ -31,6 +31,12 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import CheckIcon from "@mui/icons-material/Check";
 
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
+
 function ShiftTransfere(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -61,7 +67,22 @@ function ShiftTransfere(props) {
   );
   const [isLoading, setIsLoading] = useState(true);
 
+  const [DateError, setDateError] = useState({});
+
+    // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+    }
+
   async function handleUpdate(selectedRows) {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
       setIsLoading(true);
       const shifts = [];
@@ -71,8 +92,8 @@ function ShiftTransfere(props) {
           employeeId: dataList[selectedRows.data[i].dataIndex].employeeId,
           shiftId: data.shiftId,
           workHours: data.workHours,
-          fromDate: data.fromDate,
-          toDate: data.toDate,
+          fromDate: dateFormatFun(data.fromDate),
+          toDate: dateFormatFun(data.toDate),
           vsaturday: data.vsaturday,
           vsunday: data.vsunday,
           vmonday: data.vmonday,
@@ -384,37 +405,52 @@ function ShiftTransfere(props) {
                       )}
                     />
                   </Grid>
+           
                   <Grid item xs={12} md={4}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
                         label={intl.formatMessage(Payrollmessages.fromdate)}
-                        value={OLdFromData}
-                        onChange={(date) => {
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                        value={OLdFromData  ? dayjs(OLdFromData) : OLdFromData}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setOLdFromData(date)
                             if (!isNaN(new Date(date))) { 
-                                setOLdFromData(date === null ? null : format(new Date(date), "yyyy-MM-dd"));
-                                getShiftData(
-                                  OldShiftId,
-                                  date === null ? null : format(new Date(date), "yyyy-MM-dd")
-                                )
+                              getShiftData(
+                                OldShiftId,
+                                date === null ? null : format(new Date(date), "yyyy-MM-dd")
+                              )
                             } 
                             else
                             {
-                              setOLdFromData(null);
                                 getShiftData(
                                   OldShiftId,
                                   null
                                 )
                             }
-                          } 
                         }}
-                        className={classes.field}
-                        renderInput={(params) => (
-                          <TextField {...params} variant="outlined" />
-                        )}
-                      />
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`OLdFromData`]: true
+                            }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`OLdFromData`]: false
+                            }))
+                          }
+                        }}
+
+                        />
                     </LocalizationProvider>
                   </Grid>
+
+
                   <Grid item xs={12} md={4}>
                     <TextField
                       id="startTime"
@@ -499,64 +535,76 @@ function ShiftTransfere(props) {
                       )}
                     />
                   </Grid>
+                 
                   <Grid item xs={12} md={3}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
                         label={intl.formatMessage(Payrollmessages.fromdate)}
-                        value={data.fromDate}
-                        onChange={(date) => {
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                            if (!isNaN(new Date(date))) { 
-                              setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  fromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                }))
-                            }
-                            else
-                            {
-                              setdata((prevFilters) => ({
-                                ...prevFilters,
-                                fromDate: null,
-                              }))
-                            } 
+                        value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              fromDate: date,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`fromDate`]: true
+                            }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`fromDate`]: false
+                            }))
                           }
                         }}
-                        className={classes.field}
-                        renderInput={(params) => (
-                          <TextField {...params} variant="outlined" />
-                        )}
-                      />
+
+                        />
                     </LocalizationProvider>
                   </Grid>
-                  <Grid item xs={12} md={3}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
-                        label={intl.formatMessage(Payrollmessages.todate)}
-                        value={data.toDate}
+
+                <Grid item xs={12} md={3}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                      label={intl.formatMessage(Payrollmessages.todate)}
+                      value={data.toDate  ? dayjs(data.toDate) : data.toDate}
+                      className={classes.field}
                         onChange={(date) => {
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                            if (!isNaN(new Date(date))) { 
-                              setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  toDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                }))
-                            }
-                            else
-                            {
-                              setdata((prevFilters) => ({
-                                ...prevFilters,
-                                toDate: null,
-                              }))
-                            } 
-                          }
-                        }}
-                        className={classes.field}
-                        renderInput={(params) => (
-                          <TextField {...params} variant="outlined" />
-                        )}
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            toDate: date,
+                          }))
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`toDate`]: true
+                          }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`toDate`]: false
+                          }))
+                        }
+                      }}
+
                       />
-                    </LocalizationProvider>
-                  </Grid>
+                  </LocalizationProvider>
+                </Grid>
+
+
                   <Grid item xs={12} md={12}>
                     <Card className={classes.card}>
                       <CardContent>

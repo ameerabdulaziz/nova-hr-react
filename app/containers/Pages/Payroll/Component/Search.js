@@ -10,6 +10,10 @@ import { useSelector } from "react-redux";
 import { Grid, TextField, Autocomplete } from "@mui/material";
 import { format } from "date-fns";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function Search(props) {
   const {
     intl,
@@ -18,6 +22,8 @@ function Search(props) {
     notShowDate,
     setIsLoading,
     notShowStatus,
+    DateError,
+    setDateError
   } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -26,43 +32,25 @@ function Search(props) {
   const [companyList, setCompanyList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
 
+
+
   const handleChange = useCallback(async (name, value) => {
     if (name == "fromDate")
     {
-      if (Object.prototype.toString.call(new Date(value)) === "[object Date]") {
-        if (!isNaN(new Date(value))) { 
-          setsearchData((prevFilters) => ({
-              ...prevFilters,
-              FromDate: value === null ? null : format(new Date(value), "yyyy-MM-dd"),
-            }))
-        }
-        else
-        {
-          setsearchData((prevFilters) => ({
-            ...prevFilters,
-            FromDate: null,
-          }))
-        } 
-      }
+ 
+      setsearchData((prevFilters) => ({
+                ...prevFilters,
+                FromDate: value ,
+              }))
     }
 
     if (name == "toDate")
     {
-      if (Object.prototype.toString.call(new Date(value)) === "[object Date]") {
-        if (!isNaN(new Date(value))) { 
-          setsearchData((prevFilters) => ({
-              ...prevFilters,
-              ToDate: value === null ? null : format(new Date(value), "yyyy-MM-dd"),
-            }))
-        }
-        else
-        {
-          setsearchData((prevFilters) => ({
-            ...prevFilters,
-            ToDate: null,
-          }))
-        } 
-      }
+
+      setsearchData((prevFilters) => ({
+                ...prevFilters,
+                ToDate: value 
+              }))
     }
 
     if (name == "employeeId")
@@ -259,40 +247,98 @@ function Search(props) {
         {notShowDate ? (
           ""
         ) : (
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.fromdate)}
-                value={searchData.FromDate}
-                onChange={(date) => {
-                  handleChange("fromDate", date);
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
+          // <Grid item xs={12} md={2}>
+          //   <LocalizationProvider dateAdapter={AdapterMoment}>
+          //     <DesktopDatePicker
+          //       label={intl.formatMessage(Payrollmessages.fromdate)}
+          //       value={searchData.FromDate}
+          //       onChange={(date) => {
+          //         handleChange("fromDate", date);
+          //       }}
+          //       className={classes.field}
+          //       renderInput={(params) => (
+          //         <TextField {...params} variant="outlined" />
+          //       )}
+          //     />
+          //   </LocalizationProvider>
+          // </Grid>
+
+          <Grid item xs={12} md={2}> 
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       label={intl.formatMessage(Payrollmessages.fromdate)}
+                        value={searchData.FromDate ? dayjs(searchData.FromDate) : searchData.FromDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          handleChange("fromDate", date);
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`FromDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`FromDate`]: false
+                            }))
+                        }
+                      }}
+                      />
+                  </LocalizationProvider>
+            </Grid>
         )}
         {notShowDate ? (
           ""
         ) : (
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.todate)}
-                value={searchData.ToDate}
-                onChange={(date) => {
-                  handleChange("toDate", date);
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined" />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
+          // <Grid item xs={12} md={2}>
+          //   <LocalizationProvider dateAdapter={AdapterMoment}>
+          //     <DesktopDatePicker
+          //       label={intl.formatMessage(Payrollmessages.todate)}
+          //       value={searchData.ToDate}
+          //       onChange={(date) => {
+          //         handleChange("toDate", date);
+          //       }}
+          //       className={classes.field}
+          //       renderInput={(params) => (
+          //         <TextField {...params} variant="outlined" />
+          //       )}
+          //     />
+          //   </LocalizationProvider>
+          // </Grid>
+
+          <Grid item xs={12} md={2}> 
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       label={intl.formatMessage(Payrollmessages.todate)}
+                        value={searchData.ToDate ? dayjs(searchData.ToDate) : searchData.ToDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          handleChange("toDate", date);
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`toDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`toDate`]: false
+                            }))
+                        }
+                      }}
+                      />
+                  </LocalizationProvider>
+            </Grid>
         )}
       </Grid>
     </div>

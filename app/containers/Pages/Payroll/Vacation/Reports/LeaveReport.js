@@ -11,6 +11,10 @@ import { formateDate } from '../../helpers';
 import API from '../api/LeaveReportData';
 import messages from '../messages';
 
+import { format } from "date-fns";
+import { toast } from "react-hot-toast";
+import Payrollmessages from "../../messages";
+
 function LeaveReport(props) {
   const { intl } = props;
 
@@ -26,6 +30,16 @@ function LeaveReport(props) {
     EmpStatusId: 1,
     OrganizationId: '',
   });
+
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
+
 
   const [isLoading, setIsLoading] = useState(true);
   const [columns, setColumns] = useState([
@@ -71,10 +85,20 @@ function LeaveReport(props) {
   ]);
 
   const fetchTableData = async () => {
+
+     // used to stop call api if user select wrong date
+     if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
       setIsLoading(true);
       const formData = {
         ...formInfo,
+        // FromDate: dateFormatFun(formInfo.FromDate),
+        // ToDate: dateFormatFun(formInfo.ToDate),
         FromDate: formateDate(formInfo.FromDate),
         ToDate: formateDate(formInfo.ToDate),
       };
@@ -128,6 +152,8 @@ function LeaveReport(props) {
               setsearchData={setFormInfo}
               searchData={formInfo}
               setIsLoading={setIsLoading}
+              DateError={DateError}
+               setDateError={setDateError}
             />
           </Grid>
 

@@ -24,6 +24,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import GeneralListApis from "../../api/GeneralListApis";
 
+import { toast } from "react-hot-toast";
+
 function DeviceLogReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -45,6 +47,14 @@ function DeviceLogReport(props) {
     GroupByDate: true,
   });
 
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
 
 // used to clear table if search elements has change
   useEffect(()=>{
@@ -53,11 +63,18 @@ function DeviceLogReport(props) {
 
 
   const handleSearch = async (e) => {
+     // used to stop call api if user select wrong date
+     if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
+        FromDate: dateFormatFun(searchData.FromDate),
+        ToDate: dateFormatFun(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -199,6 +216,8 @@ function DeviceLogReport(props) {
                setsearchData={setsearchData}
                searchData={searchData}
                setIsLoading={setIsLoading}
+               DateError={DateError}
+               setDateError={setDateError}
             ></Search>
           </Grid>
 

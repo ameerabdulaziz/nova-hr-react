@@ -30,6 +30,12 @@ import GeneralListApis from "../../../api/GeneralListApis";
 import ItemTable from "./ItemTable";
 import NamePopup from "../../../Component/NamePopup";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
+
+
 function PurchaseTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -77,9 +83,16 @@ function PurchaseTrxCreate(props) {
   });
   const history = useHistory();
 
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
-      debugger;
+
       setOpenPopup(false);
       try {
         setIsLoading(true);
@@ -130,7 +143,7 @@ function PurchaseTrxCreate(props) {
   );
 
   const handleClickOpenNamePopup = () => {
-    debugger;
+ 
     setOpenPopup(true);
   };
   const handleEmpChange = useCallback(
@@ -148,8 +161,16 @@ function PurchaseTrxCreate(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    	// used to stop call api if user select wrong date
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
+
     try {
-      debugger;
+ 
       var total = data.details.reduce(
         (n, { payVal }) => parseInt(n) + parseInt(payVal),
         0
@@ -163,6 +184,9 @@ function PurchaseTrxCreate(props) {
 
       var items = data.items.filter((x) => x.isSelected == true);
       data.items = items;
+
+      data.transDate = dateFormatFun(data.transDate)
+
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -357,7 +381,7 @@ function PurchaseTrxCreate(props) {
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-                      <Grid item xs={12} md={6}>
+                      {/* <Grid item xs={12} md={6}>
                         <LocalizationProvider dateAdapter={AdapterMoment}>
                           <DesktopDatePicker
                             label={intl.formatMessage(Payrollmessages.date)}
@@ -385,7 +409,42 @@ function PurchaseTrxCreate(props) {
                             )}
                           />
                         </LocalizationProvider>
-                      </Grid>
+                      </Grid> */}
+
+                  <Grid item xs={12} md={6}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.date)}
+                          value={data.transDate ? dayjs(data.transDate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              transDate: date ,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`transDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`transDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
                       <Grid item xs={12} md={3}>
                         <TextField
                           id="YearId"

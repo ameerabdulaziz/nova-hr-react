@@ -40,6 +40,11 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import EmployeeCreationFeedback from "../component/Personal/EmployeeCreationFeedback";
 import moment from "moment";
 
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function Personal(props) {
   const history = useHistory();
   // const ref = useRef(null);
@@ -126,6 +131,8 @@ function Personal(props) {
   const [isUsernameExist, setIsUsernameExist] = useState(false);
 
   const [img, setImg] = useState(avatarApi[9]);
+
+  const [DateError, setDateError] = useState({});
 
   const [files] = useState([]);
   const acceptedFiles = ["image/jpeg", "image/png", "image/bmp"];
@@ -293,8 +300,18 @@ function Personal(props) {
     }
   }, [workEmail]);
 
+
+    // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+    return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const isValidIdentityNumber = identityNumber.length === (identityTypeId?.validLength ?? 0);
 
     if (!isValidIdentityNumber && identityTypeId?.validLength !== 0) {
@@ -322,6 +339,13 @@ function Personal(props) {
       return;
     }
 
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
       setIsLoading(true);
 
@@ -338,17 +362,17 @@ function Personal(props) {
         organizationId: organizationId?.id ?? "",
         jobId: jobId?.id ?? "",
         jobLevelId: jobLevelId?.id ?? "",
-        hiringDate: hiringDate ?? "",
+        hiringDate: dateFormatFun(hiringDate) ,
         controlParameterId: controlParameterId?.id ?? "",
         identityTypeId: identityTypeId?.id ?? "",
-        identityIssuingDate: identityIssuingDate ?? "",
-        identityExpiry: identityExpiry ?? "",
+        identityIssuingDate: dateFormatFun(identityIssuingDate),
+        identityExpiry: dateFormatFun(identityExpiry),
         identityNumber: identityNumber ?? "",
         identityIssuingAuth: identityIssuingAuth ?? "",
         genderId: genderId?.id ?? "",
         nationalityId: nationalityId?.id ?? "",
         religionId: religionId?.id ?? "",
-        birthDate: birthDate ?? "",
+        birthDate: dateFormatFun(birthDate),
         birthGovId: birthGovId?.id ?? "",
         birthCityId: birthCityId?.id ?? "",
         socialStatusId: socialStatusId?.id ?? "",
@@ -366,6 +390,7 @@ function Personal(props) {
         isHr: isHR,
         hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
+
 
       await EmployeeData(locale).Saveform(data);
 
@@ -735,29 +760,41 @@ function Personal(props) {
                   />
                 </Grid>
 
+                  
                   <Grid item xs={12} md={3}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
-                        name="hdate"
-                        label={intl.formatMessage(messages.hiringDate)}
-                        value={hiringDate}
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       name="hdate"
+                       label={intl.formatMessage(messages.hiringDate)}
+                       value={hiringDate  ? dayjs(hiringDate) : hiringDate}
+                      className={classes.field}
                         onChange={(date) => {
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                            if (!isNaN(new Date(date))) { 
-                              sethiringDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                            } 
-                            else
-                            {
-                              sethiringDate(null)
-                            }
-                          }
-                        }}
-                        className={classes.field}
-                        renderInput={(params) => (
-                          <TextField {...params} required variant="outlined" />
-                        )}
+                          sethiringDate(date)
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`hiringDate`]: true
+                          }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`hiringDate`]: false
+                          }))
+                        }
+                      }}
+                       slotProps={{
+                          textField: {
+                              required: true,
+                            },
+                          }}
                       />
-                    </LocalizationProvider>
+                  </LocalizationProvider>
                   </Grid>
 
                 <Grid item xs={12} md={3}>
@@ -918,62 +955,86 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                    <DesktopDatePicker
-                      label={intl.formatMessage(messages.identityIssuingDate)}
-                      value={identityIssuingDate}
-                      required
-                      onChange={(date) => {
-                        if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                          if (!isNaN(new Date(date))) { 
-                            setidentityIssuingDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
+                
 
-                            if (identityTypeId?.expiredPeriod !== 0) {
-                              const expireDate = moment(date).add(identityTypeId?.expiredPeriod ?? 0, 'y');
+                  <Grid item xs={12} md={3}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.identityIssuingDate)}
+                        value={identityIssuingDate ? dayjs(identityIssuingDate) : identityIssuingDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setidentityIssuingDate(date)
 
-                              setidentityExpiry(expireDate.format('YYYY-MM-DD'));
+
+                            if (identityTypeId?.expiredPeriod && identityTypeId?.expiredPeriod !== 0) {
+                              if(date)
+                              {
+                                const expireDate = moment(date).add(identityTypeId?.expiredPeriod ?? 0, 'y');
+  
+                                setidentityExpiry(expireDate.format('YYYY-MM-DD'));
+                              }
+                              else
+                              {
+                                setidentityExpiry(null);
+                              }
                             }
-                          } 
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`identityIssuingDate`]: true
+                            }))
+                          }
                           else
                           {
-                            setidentityIssuingDate(null)
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`identityIssuingDate`]: false
+                            }))
                           }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
+
+                <Grid item xs={12} md={3}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                      label={intl.formatMessage(messages.identityExpiry)}
+                      disabled={identityTypeId && identityTypeId?.expiredPeriod !== 0} 
+                      value={identityExpiry ? dayjs(identityExpiry) : identityExpiry}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setidentityExpiry(date)
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`identityExpiry`]: true
+                          }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`identityExpiry`]: false
+                          }))
                         }
                       }}
-                      className={classes.field}
-                      renderInput={(params) => (
-                        <TextField {...params} variant="outlined" />
-                      )}
-                    />
+                      />
                   </LocalizationProvider>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                    <DesktopDatePicker
-                      label={intl.formatMessage(messages.identityExpiry)}
-                      required
-                      disabled={identityTypeId && identityTypeId?.expiredPeriod !== 0} 
-                      value={identityExpiry}
-                      onChange={(date) => {
-                        if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                          if (!isNaN(new Date(date))) { 
-                            setidentityExpiry(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                          } 
-                          else
-                          {
-                            setidentityExpiry(null)
-                          }
-                        }
-                      }}
-                      className={classes.field}
-                      renderInput={(params) => (
-                        <TextField {...params} disabled={identityTypeId && identityTypeId?.expiredPeriod !== 0} variant="outlined" />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </Grid>
+
               </Grid>
             </Grid>
 
@@ -1081,29 +1142,42 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={6} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(messages.birthDate)}
-                  value={birthDate}
-                  onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        setbirthDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                      } 
-                      else
-                      {
-                        setbirthDate(null)
-                      }
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" required />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+
+                <Grid item xs={12} md={3}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                      label={intl.formatMessage(messages.birthDate)}
+                      value={birthDate ? dayjs(birthDate) : birthDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setbirthDate(date)
+                      }}
+
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`birthDate`]: true
+                            }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`birthDate`]: false
+                            }))
+                          }
+                        }}
+                         slotProps={{
+                            textField: {
+                              required: true,
+                              },
+                            }}
+                      />
+                  </LocalizationProvider>
+                </Grid>
 
             <Grid item xs={12} md={3}>
               <TextField

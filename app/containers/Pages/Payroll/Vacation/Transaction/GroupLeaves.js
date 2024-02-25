@@ -20,6 +20,11 @@ import NameList from '../../Component/NameList';
 import style from '../../../../../styles/styles.scss'
 import PayRollLoader from '../../Component/PayRollLoader';
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
+
 
 function GroupLeaves(props) {
   const { intl } = props;
@@ -44,6 +49,13 @@ function GroupLeaves(props) {
   const [deleteprocessing, setdeleteprocessing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
 
 
 const dateChangeFun = (date, type) => {
@@ -56,23 +68,29 @@ if(type === "startDate")
 
         if(totalDaysVal > 0)
         {
-            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                if (!isNaN(new Date(date))) { 
-                  setdata((prevFilters) => ({
-                      ...prevFilters,
-                      fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                      daysCount: totalDaysVal
-                    }))
-                }
-                else
-                {
-                  setdata((prevFilters) => ({
-                    ...prevFilters,
-                    fromdate: null,
-                    daysCount: totalDaysVal
-                  }))
-                } 
-              }
+            // if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+            //     if (!isNaN(new Date(date))) { 
+            //       setdata((prevFilters) => ({
+            //           ...prevFilters,
+            //           fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+            //           daysCount: totalDaysVal
+            //         }))
+            //     }
+            //     else
+            //     {
+            //       setdata((prevFilters) => ({
+            //         ...prevFilters,
+            //         fromdate: null,
+            //         daysCount: totalDaysVal
+            //       }))
+            //     } 
+            //   }
+
+            setdata((prevFilters) => ({
+                          ...prevFilters,
+                          fromdate: dateFormatFun(date) ,
+                          daysCount: totalDaysVal
+                        }))
         }
         else
         {
@@ -81,21 +99,26 @@ if(type === "startDate")
     }
     else
     {
-        if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-            if (!isNaN(new Date(date))) { 
-              setdata((prevFilters) => ({
-                  ...prevFilters,
-                  fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                }))
-            }
-            else
-            {
-              setdata((prevFilters) => ({
-                ...prevFilters,
-                fromdate: null,
-              }))
-            } 
-          }
+        // if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+        //     if (!isNaN(new Date(date))) { 
+        //       setdata((prevFilters) => ({
+        //           ...prevFilters,
+        //           fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+        //         }))
+        //     }
+        //     else
+        //     {
+        //       setdata((prevFilters) => ({
+        //         ...prevFilters,
+        //         fromdate: null,
+        //       }))
+        //     } 
+        //   }
+
+        setdata((prevFilters) => ({
+                      ...prevFilters,
+                      fromdate: dateFormatFun(date) ,
+                    }))
     }
 }
 else if(type === "endDate")
@@ -105,23 +128,29 @@ else if(type === "endDate")
                 let totalDaysVal = Math.floor( (new Date(date) - new Date(data.fromdate)) / 1000 / 60 / 60 / 24 ) + 2
                 if(totalDaysVal > 0)
                 {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                        if (!isNaN(new Date(date))) { 
-                          setdata((prevFilters) => ({
-                              ...prevFilters,
-                              Todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                              daysCount: totalDaysVal
-                            }))
-                        }
-                        else
-                        {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            Todate: null,
-                            daysCount: totalDaysVal
-                          }))
-                        } 
-                      }
+                    // if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                    //     if (!isNaN(new Date(date))) { 
+                    //       setdata((prevFilters) => ({
+                    //           ...prevFilters,
+                    //           Todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                    //           daysCount: totalDaysVal
+                    //         }))
+                    //     }
+                    //     else
+                    //     {
+                    //       setdata((prevFilters) => ({
+                    //         ...prevFilters,
+                    //         Todate: null,
+                    //         daysCount: totalDaysVal
+                    //       }))
+                    //     } 
+                    //   }
+
+                    setdata((prevFilters) => ({
+                        ...prevFilters,
+                        Todate: dateFormatFun(date) ,
+                        daysCount: totalDaysVal
+                      }))
                 }
                 else
                 {
@@ -130,21 +159,26 @@ else if(type === "endDate")
             }
             else
             {
-                if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                    if (!isNaN(new Date(date))) { 
-                      setdata((prevFilters) => ({
-                          ...prevFilters,
-                          Todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                        }))
-                    }
-                    else
-                    {
-                      setdata((prevFilters) => ({
-                        ...prevFilters,
-                        Todate: null,
-                      }))
-                    } 
-                  }
+                // if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
+                //     if (!isNaN(new Date(date))) { 
+                //       setdata((prevFilters) => ({
+                //           ...prevFilters,
+                //           Todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
+                //         }))
+                //     }
+                //     else
+                //     {
+                //       setdata((prevFilters) => ({
+                //         ...prevFilters,
+                //         Todate: null,
+                //       }))
+                //     } 
+                //   }
+
+                setdata((prevFilters) => ({
+                    ...prevFilters,
+                    Todate: dateFormatFun(date) ,
+                  }))
             }
 }
 
@@ -183,6 +217,14 @@ else if(type === "endDate")
   const handleSubmit = async (e) => {
     
     e.preventDefault();   
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
+
     try{
        
       setprocessing(true); 
@@ -192,6 +234,10 @@ else if(type === "endDate")
 
       if(SelectedIds.length > 0)
       {
+
+        data.TrxDate = dateFormatFun(data.TrxDate)
+
+
             let response = await  ApiData(locale).SaveAll(data);
 
             if (response.status==200) {
@@ -222,8 +268,17 @@ else if(type === "endDate")
   const handleDelete = async (e) => {
     setdeleteprocessing(true);
     setIsLoading(true);
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
+
     try{
        
+        data.TrxDate = dateFormatFun(data.TrxDate)
      
     let response = await  ApiData(locale).DeleteAll(data);
 
@@ -276,11 +331,20 @@ catch (err) {
   }, []);
 
 async function getData() {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
     
     // if(data.VacCode && data.fromdate&&data.Todate) {
     setpreviewprocessing(true);
     setIsLoading(true);
     try {
+
+        data.TrxDate = dateFormatFun(data.TrxDate)
+
         const result = await ApiData(locale).getVacations(data);
     
             if(result.employees.length !== 0 &&  result.vacation !== null)
@@ -336,33 +400,46 @@ async function getData() {
                             <CardContent>
                                 <Grid container spacing={3} alignItems="flex-start" direction="row">  
                               
-                                    <Grid item xs={12}  md={6}>                
-                                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                                            <DesktopDatePicker
+ 
+                                        <Grid item xs={12}  md={6}>  
+                                    
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DatePicker 
                                                 label={intl.formatMessage(Payrollmessages.date)}
-                                                value={data?.TrxDate}
-                                                onChange={(date) => { 
-                                                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                                                        if (!isNaN(new Date(date))) { 
-                                                          setdata((prevFilters) => ({
-                                                              ...prevFilters,
-                                                              TrxDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                                            }))
-                                                        }
-                                                        else
-                                                        {
-                                                          setdata((prevFilters) => ({
-                                                            ...prevFilters,
-                                                            TrxDate: null,
-                                                          }))
-                                                        } 
-                                                      }
-                                                }}
+                                                value={data?.TrxDate ? dayjs(data?.TrxDate) : null}
                                                 className={classes.field}
-                                                renderInput={(params) => <TextField {...params} variant="outlined" required />}
-                                            />
-                                        </LocalizationProvider>
-                                    </Grid>
+                                                    onChange={(date) => {
+                                                        setdata((prevFilters) => ({
+                                                            ...prevFilters,
+                                                            TrxDate: date ,
+                                                        }))
+                                                }}
+                                                onError={(error,value)=>{
+                                                    if(error !== null)
+                                                    {
+                                                    setDateError((prevState) => ({
+                                                        ...prevState,
+                                                            [`TrxDate`]: true
+                                                        }))
+                                                    }
+                                                    else
+                                                    {
+                                                    setDateError((prevState) => ({
+                                                        ...prevState,
+                                                            [`TrxDate`]: false
+                                                        }))
+                                                    }
+                                                }}
+                                                slotProps={{
+                                                    textField: {
+                                                        required: true,
+                                                        },
+                                                    }}
+                                                />
+                                            </LocalizationProvider>
+                                        </Grid>
+
+
                                     <Grid item xs={12} md={6}>
                                         <Autocomplete  
                                             id="vacationType"                        
@@ -404,33 +481,79 @@ async function getData() {
                                         spacing={3}
                                         alignItems="flex-start"
                                         direction="row">
+
+
+                                        <Grid item xs={12} md={4}>
+                                        
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DatePicker 
+                                                label={intl.formatMessage(messages.startDate)}
+                                                value={data?.fromdate ? dayjs(data?.fromdate) : null}
+                                                className={classes.field}
+                                                    onChange={(date) => {
+                                                        dateChangeFun(date, "startDate")
+                                                }}
+                                                onError={(error,value)=>{
+                                                    if(error !== null)
+                                                    {
+                                                    setDateError((prevState) => ({
+                                                        ...prevState,
+                                                            [`fromdate`]: true
+                                                        }))
+                                                    }
+                                                    else
+                                                    {
+                                                    setDateError((prevState) => ({
+                                                        ...prevState,
+                                                            [`fromdate`]: false
+                                                        }))
+                                                    }
+                                                }}
+                                                slotProps={{
+                                                    textField: {
+                                                        required: true,
+                                                        },
+                                                    }}
+                                                />
+                                            </LocalizationProvider>
+                                        </Grid>
+
+
                                             <Grid item xs={12} md={4}>
-                                  
-                                            <LocalizationProvider dateAdapter={AdapterMoment}>
-                                                    <DesktopDatePicker
-                                                        label={intl.formatMessage(messages.startDate)}
-                                                        value={data?.fromdate}
-                                                  
-                                                        onChange={(date) => { dateChangeFun(date, "startDate")}}
-                                                        className={classes.field}
-                                                        renderInput={(params) => <TextField {...params} variant="outlined" name="startDate" required  />}
-                                                        
+                                            
+                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                    <DatePicker 
+                                                    label={intl.formatMessage(messages.endDate)}
+                                                    value={data?.Todate ? dayjs(data?.Todate) : null}
+                                                    className={classes.field}
+                                                        onChange={(date) => {
+                                                            dateChangeFun(date, "endDate")
+                                                    }}
+                                                    onError={(error,value)=>{
+                                                        if(error !== null)
+                                                        {
+                                                        setDateError((prevState) => ({
+                                                            ...prevState,
+                                                                [`Todate`]: true
+                                                            }))
+                                                        }
+                                                        else
+                                                        {
+                                                        setDateError((prevState) => ({
+                                                            ...prevState,
+                                                                [`Todate`]: false
+                                                            }))
+                                                        }
+                                                    }}
+                                                    slotProps={{
+                                                        textField: {
+                                                            required: true,
+                                                            },
+                                                        }}
                                                     />
                                                 </LocalizationProvider>
                                             </Grid>
-                                            <Grid item xs={12} md={4}>
-                                                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                                                    <DesktopDatePicker
-                                                     
-                                                    // label="end date"
-                                                        label={intl.formatMessage(messages.endDate)}
-                                                        value={data?.Todate}
-                                                        onChange={(date) => { dateChangeFun(date, "endDate")}}
-                                                        className={classes.field}
-                                                        renderInput={(params) => <TextField {...params} variant="outlined" name="endDate"  required  />}
-                                                    />
-                                                </LocalizationProvider>
-                                            </Grid>                
+
                                             <Grid item xs={12} md={4}>                    
                                                 <TextField
                                                 id="daysCount"

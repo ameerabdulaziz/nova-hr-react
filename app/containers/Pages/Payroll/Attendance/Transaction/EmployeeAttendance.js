@@ -39,6 +39,7 @@ import AlertPopup from "../../Component/AlertPopup";
 import PayRollLoader from "../../Component/PayRollLoader";
 import Search from "../../Component/Search";
 
+
 function EmployeeAttendance(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -73,11 +74,20 @@ function EmployeeAttendance(props) {
   const [deleteItem, setDeleteItem] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
       setOpenPopup(false);
       try {
-        debugger;
+
         setIsLoading(true);
         let EmployeesId = [];
         for (let i = 0; i < Employeesdata.length; i++) {
@@ -85,8 +95,8 @@ function EmployeeAttendance(props) {
         }
 
         let param = {
-          fromDate: searchData.FromDate,
-          toDate: searchData.ToDate,
+          fromDate: dateFormatFun(searchData.FromDate),
+          toDate: dateFormatFun(searchData.ToDate),
           timeIn: data.startTime,
           timeOut: data.endTime,
           shiftCode: data.shiftId,
@@ -98,7 +108,7 @@ function EmployeeAttendance(props) {
           timeInOrOut: TimeInOrOut,
           employeesId: EmployeesId,
         };
-        debugger;
+    
         let response = await ApiData(locale).SaveAll(param);
 
         if (response.status == 200) {
@@ -116,11 +126,17 @@ function EmployeeAttendance(props) {
   );
 
   const handleClickOpenNamePopup = () => {
-    setOpenPopup(true);
+    if (!Object.values(DateError).includes(true)) {  
+      setOpenPopup(true);
+    }
+    else
+    {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+    }
   };
 
   const handleClickOpen = (item, selectedRows) => {
-    debugger;
+
     setOpenParentPopup(true);
     if (selectedRows != null) {
       for (let i = 0; i < selectedRows.data.length; i++) {
@@ -137,7 +153,7 @@ function EmployeeAttendance(props) {
 
   async function deleterow() {
     try {
-      debugger;
+     
       setIsLoading(true);
       let response = null;
       if (deleteItem.length == 1)
@@ -304,12 +320,20 @@ function EmployeeAttendance(props) {
   };
 
   const handleSearch = async (e) => {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
-      debugger;
+   
       setIsLoading(true);
       const dataApi = await ShiftEmployeeApiData(locale).GetEmpAttendance(
-        searchData.FromDate,
-        searchData.ToDate,
+        dateFormatFun(searchData.FromDate),
+        dateFormatFun(searchData.ToDate),
         searchData.EmployeeId,
         searchData.OrganizationId,
         searchData.EmpStatusId,
@@ -574,6 +598,8 @@ function EmployeeAttendance(props) {
                 setsearchData={setsearchData}
                 searchData={searchData}
                 setIsLoading={setIsLoading}
+                DateError={DateError}
+                setDateError={setDateError}
               ></Search>
             </Grid>
             <Grid item xs={12} md={12}>

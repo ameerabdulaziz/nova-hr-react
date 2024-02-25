@@ -28,6 +28,8 @@ import { useReactToPrint } from 'react-to-print';
 import DetailedAttendanceReportTemplate from "../../reports-templates/DetailedAttendanceReportTemplate"
 import { format } from "date-fns";
 
+import { toast } from "react-hot-toast";
+
 function DetailedAttendanceReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -53,6 +55,15 @@ function DetailedAttendanceReport(props) {
   });
 
 
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
+
       const [headerType, setHeaderType] = useState();
 
 
@@ -61,6 +72,14 @@ function DetailedAttendanceReport(props) {
 
 
   const handleSearch = async (printType) => {
+
+      // used to stop call api if user select wrong date
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
+
 
     let ShiftData = ""
     if(Shift !== null)
@@ -79,8 +98,8 @@ function DetailedAttendanceReport(props) {
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
+        FromDate: dateFormatFun(searchData.FromDate),
+        ToDate: dateFormatFun(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -463,6 +482,8 @@ function DetailedAttendanceReport(props) {
                setsearchData={setsearchData}
                searchData={searchData}
                setIsLoading={setIsLoading}
+               DateError={DateError}
+               setDateError={setDateError}
             ></Search>
           </Grid>
 

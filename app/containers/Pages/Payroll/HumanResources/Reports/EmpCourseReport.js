@@ -20,6 +20,8 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { formateDate } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
 
+import { toast } from 'react-hot-toast';
+
 function EmpCourseReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -36,13 +38,31 @@ function EmpCourseReport(props) {
     OrganizationId: "",
     EmpStatusId: 1,
   });
+
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
+
   
   const handleSearch = async (e) => {
+
+     // used to stop call api if user select wrong date
+     if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
       setIsLoading(true);
       var formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
+        FromDate: dateFormatFun(searchData.FromDate),
+        ToDate: dateFormatFun(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         CourseId: Course,
         OrganizationId: searchData.OrganizationId,
@@ -139,6 +159,8 @@ function EmpCourseReport(props) {
               setsearchData={setsearchData}
               searchData={searchData}
               setIsLoading={setIsLoading}
+              DateError={DateError}
+              setDateError={setDateError}
             ></Search>
           </Grid>
           <Grid item xs={12} md={4}>

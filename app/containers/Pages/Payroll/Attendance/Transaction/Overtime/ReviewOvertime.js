@@ -24,6 +24,9 @@ import payrollMessages from '../../../messages';
 import api from '../../api/ReviewOvertimeData';
 import messages from '../../messages';
 
+import Payrollmessages from "../../../messages";
+
+
 function ReviewOvertime(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -46,10 +49,27 @@ function ReviewOvertime(props) {
     OrganizationId: '',
   });
 
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
   const fetchTableData = async () => {
+
+     // used to stop call api if user select wrong date
+     if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
     setIsLoading(true);
 
     const formData = { ...formInfo };
+    formData.FromDate = dateFormatFun(formData.FromDate)
+    formData.ToDate = dateFormatFun(formData.ToDate)
     setUpdatedTableData({});
 
     Object.keys(formData).forEach((key) => {
@@ -312,6 +332,8 @@ function ReviewOvertime(props) {
                 setsearchData={setFormInfo}
                 searchData={formInfo}
                 setIsLoading={setIsLoading}
+                DateError={DateError}
+               setDateError={setDateError}
               />
             </Grid>
 

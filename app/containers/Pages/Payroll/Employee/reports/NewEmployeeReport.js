@@ -24,6 +24,11 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { formateDate } from '../../helpers';
 import PayrollTable from '../../Component/PayrollTable';
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import Payrollmessages from "../../messages";
+
 function NewEmployeeReport(props) {
   const { intl } = props;
 
@@ -42,6 +47,15 @@ function NewEmployeeReport(props) {
     OrganizationId: '',
     ShowSalary: false,
   });
+
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
 
   const columns = [
     {
@@ -210,6 +224,15 @@ function NewEmployeeReport(props) {
   }
 
   const fetchTableData = async () => {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+    
+
+
     try {
       setIsLoading(true);
       const formData = { ...formInfo };
@@ -267,7 +290,7 @@ function NewEmployeeReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          {/* <Grid item xs={12} md={3}>
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DesktopDatePicker
                 label={intl.formatMessage(messages.fromDate)}
@@ -295,9 +318,42 @@ function NewEmployeeReport(props) {
                 )}
               />
             </LocalizationProvider>
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={3}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.fromDate)}
+                          value={formInfo.FromDate ? dayjs(formInfo.FromDate) : formInfo.FromDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setFormInfo((prev) => ({
+                              ...prev,
+                              FromDate: date ,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`FromDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`FromDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+          {/* <Grid item xs={12} md={3}>
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DesktopDatePicker
                 label={intl.formatMessage(messages.toDate)}
@@ -325,7 +381,42 @@ function NewEmployeeReport(props) {
                 )}
               />
             </LocalizationProvider>
-          </Grid>
+          </Grid> */}
+
+                  <Grid item xs={12} md={3}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.toDate)}
+                          value={formInfo.ToDate ? dayjs(formInfo.ToDate) : formInfo.ToDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setFormInfo((prev) => ({
+                              ...prev,
+                              ToDate: date,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`ToDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`ToDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
 
           <Grid item md={3}>
             <FormControlLabel

@@ -72,8 +72,26 @@ function MonthlyAttendanceReport(props) {
   });
 
 
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+  
+
+
 
   const handleSearch = async (e) => {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
 
     let subDate = Math.abs(new Date( searchData.ToDate ) - new Date( searchData.FromDate ) )  /(1000 * 3600 * 24) + 1
     if(searchData.FromDate !== null && searchData.ToDate !== null && subDate <= 30)
@@ -83,8 +101,8 @@ function MonthlyAttendanceReport(props) {
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
+        FromDate: dateFormatFun(searchData.FromDate),
+        ToDate: dateFormatFun(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -196,6 +214,7 @@ function MonthlyAttendanceReport(props) {
       },
     },
   };
+  
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -206,6 +225,8 @@ function MonthlyAttendanceReport(props) {
                setsearchData={setsearchData}
                searchData={searchData}
                setIsLoading={setIsLoading}
+               DateError={DateError}
+              setDateError={setDateError}
             ></Search>
           </Grid>
 

@@ -27,6 +27,11 @@ import SaveButton from '../../Component/SaveButton';
 import PayRollLoader from '../../Component/PayRollLoader';
 
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
+
 
 
 function CreateAndEditReplaceAnnualLeaveBalance(props) {
@@ -59,6 +64,12 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
   const history = useHistory(); 
 
 
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
 
 
   const handleSubmit = async (e) => {
@@ -66,9 +77,15 @@ function CreateAndEditReplaceAnnualLeaveBalance(props) {
     setProcessing(true)
     setIsLoading(true);
 
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
     const data = {
         id: id,
-        trxDate: date,
+        trxDate: dateFormatFun(date),
         elementId: Element.id,
         payTemplateId: Templet.id,
         employeeId: Employee.id,
@@ -262,7 +279,7 @@ function oncancel(){
                             className={style.gridSty}
                             > 
                     
-                                <Grid item xs={12}  md={12} > 
+                                {/* <Grid item xs={12}  md={12} > 
                                     <LocalizationProvider dateAdapter={AdapterMoment}>
                                         <DesktopDatePicker
                                             label={intl.formatMessage(Payrollmessages.date)}
@@ -283,7 +300,43 @@ function oncancel(){
                                         />
                                     </LocalizationProvider>
                             
-                                </Grid>
+                                </Grid> */}
+
+                                <Grid item xs={12}  md={12} > 
+                            
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker 
+                                    label={intl.formatMessage(Payrollmessages.date)}
+                                    value={date ? dayjs(date) : null}
+                                    className={classes.field}
+                                        onChange={(date) => {
+                                            setDate(date)
+                                    }}
+                                    onError={(error,value)=>{
+                                        if(error !== null)
+                                        {
+                                        setDateError((prevState) => ({
+                                            ...prevState,
+                                                [`date`]: true
+                                            }))
+                                        }
+                                        else
+                                        {
+                                        setDateError((prevState) => ({
+                                            ...prevState,
+                                                [`date`]: false
+                                            }))
+                                        }
+                                    }}
+                                    slotProps={{
+                                        textField: {
+                                            required: true,
+                                            },
+                                        }}
+                                    />
+                                </LocalizationProvider>
+                            </Grid>
+
                         </Grid>
 
                         <Grid item xs={12}  md={12} 

@@ -23,6 +23,10 @@ import { format } from "date-fns";
 import PayRollLoader from "../../Component/PayRollLoader";
 import style from '../../../../../styles/styles.scss'
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function EmployeeContract(props) {
   const { intl, pristine } = props;
 
@@ -57,7 +61,25 @@ function EmployeeContract(props) {
 
   const [required, setRequired] = useState({ required: false });
 
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+   // return  date && !DateError ? format(new Date(date), "yyyy-MM-dd") : ""
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
+
   const handleSubmit = async (e) => {
+
+    	// used to stop call api if user select wrong date
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
+
     try {
       e.preventDefault();
       setIsLoading(true);
@@ -72,10 +94,11 @@ function EmployeeContract(props) {
         kinshipEmpId: kinshipEmpId.id ?? "",
         hasAlternativeEmp: hasAlternativeEmp,
         contractTypeId: contractTypeId.id ?? "",
-        contractStartDate: contractStartDate,
-        contractEndDate: contractEndDate,
+        contractStartDate: dateFormatFun(contractStartDate),
+        contractEndDate: dateFormatFun(contractEndDate),
         notHasMission: notHasMission,
       };
+
 
       const dataApi = await EmployeeContractData(locale).Save(data);
       if (dataApi.status == 200) {
@@ -384,7 +407,7 @@ function EmployeeContract(props) {
               </div>
               <br />
               <div>
-                <LocalizationProvider dateAdapter={AdapterMoment}>
+                {/* <LocalizationProvider dateAdapter={AdapterMoment}>
                   <DesktopDatePicker
                     label={intl.formatMessage(messages.contractStartDate)}
                     value={contractStartDate}
@@ -404,11 +427,40 @@ function EmployeeContract(props) {
                       <TextField {...params} variant="outlined" />
                     )}
                   />
-                </LocalizationProvider>
+                </LocalizationProvider> */}
+
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       label={intl.formatMessage(messages.contractStartDate)}
+                        value={contractStartDate ? dayjs(contractStartDate) : contractStartDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setcontractStartDate(date)
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`contractStartDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`contractStartDate`]: false
+                            }))
+                        }
+                      }}
+                      />
+                  </LocalizationProvider>
+
+
               </div>
               <br />
               <div>
-                <LocalizationProvider dateAdapter={AdapterMoment}>
+                {/* <LocalizationProvider dateAdapter={AdapterMoment}>
                   <DesktopDatePicker
                     label={intl.formatMessage(messages.contractEndDate)}
                     value={contractEndDate}
@@ -428,7 +480,34 @@ function EmployeeContract(props) {
                       <TextField {...params} variant="outlined" />
                     )}
                   />
-                </LocalizationProvider>
+                </LocalizationProvider> */}
+
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       label={intl.formatMessage(messages.contractEndDate)}
+                        value={contractEndDate ? dayjs(contractEndDate) : contractEndDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setcontractEndDate(date)
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`contractEndDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`contractEndDate`]: false
+                            }))
+                        }
+                      }}
+                      />
+                  </LocalizationProvider>
               </div>
 
               <div>

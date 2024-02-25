@@ -622,4 +622,8 @@ employeeId: {
     id: `${scope}.minDate`,
     defaultMessage: 'minDate',
   },
+  DateNotValid: {
+    id: `${scope}.DateNotValid`,
+    defaultMessage: 'Date Not Valid',
+  },
 });

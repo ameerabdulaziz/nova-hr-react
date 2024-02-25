@@ -28,6 +28,12 @@ import EmployeeData from "../../../Component/EmployeeData";
 import { format } from "date-fns";
 import GeneralListApis from "../../../api/GeneralListApis";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
+
+
 function LoanReqCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -66,6 +72,16 @@ function LoanReqCreate(props) {
 
   const history = useHistory();
 
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
+
+
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId") {
       setdata((prevFilters) => ({
@@ -80,8 +96,17 @@ function LoanReqCreate(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    	// used to stop call api if user select wrong date
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
+
     try {
-      debugger;
+
+      data.transDate = dateFormatFun(data.transDate)
       
       let response = await ApiData(locale).Save(data);
 
@@ -140,7 +165,7 @@ function LoanReqCreate(props) {
 
   async function getOpenMonth(id) {
     try {
-      debugger;
+
       if (!id) {
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -157,7 +182,7 @@ function LoanReqCreate(props) {
       }
       setIsLoading(true);
       const result = await GeneralListApis(locale).getOpenMonth(0, id);
-      debugger;
+
 
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -220,7 +245,7 @@ function LoanReqCreate(props) {
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-                      <Grid item xs={12} md={2}>
+                      {/* <Grid item xs={12} md={2}>
                         <LocalizationProvider dateAdapter={AdapterMoment}>
                           <DesktopDatePicker
                             label={intl.formatMessage(Payrollmessages.date)}
@@ -248,7 +273,42 @@ function LoanReqCreate(props) {
                             )}
                           />
                         </LocalizationProvider>
-                      </Grid>
+                      </Grid> */}
+
+                  <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.date)}
+                          value={data.transDate ? dayjs(data.transDate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              transDate: date,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`transDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`transDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
                       <Grid item xs={12} md={1}>
                         <TextField
                           id="YearId"

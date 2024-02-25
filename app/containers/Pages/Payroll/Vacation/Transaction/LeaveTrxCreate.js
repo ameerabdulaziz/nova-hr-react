@@ -34,6 +34,12 @@ import messages from "../messages";
 import { ServerURL } from "../../api/ServerConfig";
 import { formateDate } from "../../helpers";
 
+
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function LeaveTrxCreate(props) {
   const { intl } = props;
   const validPDFTypes = ["application/pdf", ".pdf", "pdf"];
@@ -90,6 +96,14 @@ function LeaveTrxCreate(props) {
     alternativeStaff: null,
     vacCode: null,
   });
+
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
 
   const handleChange = useCallback((id,name) => {
     if(name=="employeeId")
@@ -189,6 +203,12 @@ function LeaveTrxCreate(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
     let errors = {};
 
@@ -376,7 +396,7 @@ function LeaveTrxCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={4}>
+                    {/* <Grid item xs={12} md={4}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(Payrollmessages.date)}
@@ -408,7 +428,47 @@ function LeaveTrxCreate(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
+
+                  <Grid item xs={12} md={4}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.date)}
+                          value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setFormInfo((prevFilters) => ({
+                              ...prevFilters,
+                              trxDate: date ,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`trxDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`trxDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
 
                     <Grid item xs={12} md={4}>
                       <Stack
@@ -561,7 +621,7 @@ function LeaveTrxCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={3}>
+                    {/* <Grid item xs={12} md={3}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(messages.fromdate)}
@@ -596,9 +656,50 @@ function LeaveTrxCreate(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
 
-                    <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={3}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                         label={intl.formatMessage(messages.fromdate)}
+                          value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setFormInfo((prev) => ({
+                              ...prev,
+                              fromDate: date ,
+                            }))
+                        }}
+                        maxDate={
+                          formInfo.vacCode !== 5 ? formInfo.toDate : null
+                        }
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+                    {/* <Grid item xs={12} md={3}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(messages.todate)}
@@ -631,7 +732,47 @@ function LeaveTrxCreate(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
+
+                  <Grid item xs={12} md={3}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.todate)}
+                          value={formInfo.toDate ? dayjs(formInfo.toDate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setFormInfo((prev) => ({
+                              ...prev,
+                              toDate: date ,
+                            }))
+                        }}
+                        disabled={formInfo.vacCode === 5}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`toDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`toDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
 
                     <Grid item xs={12} md={3}>
                       <TextField

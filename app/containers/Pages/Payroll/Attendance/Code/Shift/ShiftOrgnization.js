@@ -39,6 +39,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import AlertPopup from "../../../Component/AlertPopup";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function ShiftOrgnization(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -69,9 +73,18 @@ function ShiftOrgnization(props) {
   const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const [DateError, setDateError] = useState({});
+
+// used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+    return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
       setOpenPopup(false);
+
       try {
         setIsLoading(true);
         const shifts = Employeesdata.map((obj) => ({
@@ -79,8 +92,8 @@ function ShiftOrgnization(props) {
           employeeId: obj.id,
           shiftId: data.shiftId,
           workHours: data.workHours,
-          fromDate: data.fromDate,
-          toDate: data.toDate,
+          fromDate: dateFormatFun(data.fromDate),
+          toDate: dateFormatFun(data.toDate),
           vsaturday: data.vsaturday,
           vsunday: data.vsunday,
           vmonday: data.vmonday,
@@ -89,6 +102,7 @@ function ShiftOrgnization(props) {
           vthursday: data.vthursday,
           vfriday: data.vfriday,
         }));
+
         let response = await ApiData(locale).SaveList(shifts);
 
         if (response.status == 200) {
@@ -99,6 +113,7 @@ function ShiftOrgnization(props) {
           toast.error(response.statusText);
         }
       } catch (err) {
+
       } finally {
         setIsLoading(false);
       }
@@ -107,7 +122,15 @@ function ShiftOrgnization(props) {
   );
 
   const handleClickOpenNamePopup = () => {
-    setOpenPopup(true);
+    if(!Object.values(DateError).includes(true))
+    {
+
+      setOpenPopup(true);
+    }
+    else
+    {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid))
+    }
   };
 
   
@@ -141,6 +164,13 @@ function ShiftOrgnization(props) {
   }
 
   async function handleUpdate(selectedRows) {
+
+// used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) { 
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
     try {
       const shifts = [];
       for (let i = 0; i < selectedRows.data.length; i++) {
@@ -149,8 +179,8 @@ function ShiftOrgnization(props) {
           employeeId: dataList[selectedRows.data[i].dataIndex].employeeId,
           shiftId: data.shiftId,
           workHours: data.workHours,
-          fromDate: data.fromDate,
-          toDate: data.toDate,
+          fromDate: dateFormatFun(data.fromDate),
+          toDate: dateFormatFun(data.toDate),
           vsaturday: data.vsaturday,
           vsunday: data.vsunday,
           vmonday: data.vmonday,
@@ -160,6 +190,8 @@ function ShiftOrgnization(props) {
           vfriday: data.vfriday,
         });
       }
+
+
       if (shifts.length > 0) {
         setIsLoading(true);
         let response = await ApiData(locale).SaveList(shifts);
@@ -369,7 +401,7 @@ function ShiftOrgnization(props) {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
+
           return (
             <div className={style.actionsSty}>
               <DeleteButton
@@ -445,6 +477,8 @@ function ShiftOrgnization(props) {
       },
     },
   };
+
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -559,64 +593,78 @@ function ShiftOrgnization(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={data.fromDate}
+ 
+
+                  <Grid item xs={12} md={3}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.fromdate)}
+                        value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
+                        className={classes.field}
                           onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    fromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  fromDate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
+
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              fromDate: date ,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+
+                          if(error !== null)
+                          {
+                            setDateError((prevFilters) => ({
+                              ...prevFilters,
+                                [`fromDate`]: true
+                            }))
+                          }
+                          else
+                          {
+                            setDateError((prevFilters) => ({
+                              ...prevFilters,
+                                [`fromDate`]: false
+                            }))
+                          }
+                        }}
                         />
-                      </LocalizationProvider>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.todate)}
-                          value={data.toDate}
-                          onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    toDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  toDate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
+                    </LocalizationProvider>
+                  </Grid>
+
+
+                <Grid item xs={12} md={3}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                      label={intl.formatMessage(Payrollmessages.todate)}
+                      value={data.toDate ? dayjs(data.toDate) : data.toDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            toDate: date ,
+                          }))
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevFilters) => ({
+                            ...prevFilters,
+                              [`toDate`]: true
+                          }))
+                        }
+                        else
+                        {
+                          setDateError((prevFilters) => ({
+                            ...prevFilters,
+                              [`toDate`]: false
+                          }))
+                        }
+                      }}
+                      />
+                  </LocalizationProvider>
+                </Grid>
+
+
                     <Grid item xs={12} md={12}>
                       <Card className={classes.card}>
                         <CardContent>

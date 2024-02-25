@@ -23,6 +23,10 @@ import { formateDate } from '../../helpers';
 import API from '../api/LeaveTrxReportData';
 import messages from '../messages';
 
+import { format } from "date-fns";
+import { toast } from "react-hot-toast";
+import Payrollmessages from "../../messages";
+
 function LeaveTrxReport(props) {
   const { intl } = props;
 
@@ -43,6 +47,14 @@ function LeaveTrxReport(props) {
     VacationId: [],
     InsertDate: false,
   });
+
+  const [DateError, setDateError] = useState({});
+
+
+
+
+
+
 
   const columns = [
     {
@@ -119,6 +131,14 @@ function LeaveTrxReport(props) {
   }
 
   const fetchTableData = async () => {
+
+      // used to stop call api if user select wrong date
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
+
     try {
       setIsLoading(true);
       const formData = { ...formInfo };
@@ -159,6 +179,8 @@ function LeaveTrxReport(props) {
               setsearchData={setFormInfo}
               searchData={formInfo}
               setIsLoading={setIsLoading}
+              DateError={DateError}
+               setDateError={setDateError}
             />
           </Grid>
 

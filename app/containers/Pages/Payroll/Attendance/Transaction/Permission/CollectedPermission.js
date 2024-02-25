@@ -29,13 +29,26 @@ import NameList from "../../../Component/NameList";
 import { Backdrop, CircularProgress, Box } from "@mui/material";
 import AlertPopup from "../../../Component/AlertPopup";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function PermissionTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { classes } = useStyles();
   const Title = localStorage.getItem("MenuName");
+
+
+ // used to reformat date before send it to api
+ const dateFormatFun = (date) => {
+  return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+}
+
+
   const [data, setdata] = useState({
-    date: format(new Date(), "yyyy-MM-dd"),
+    date: dateFormatFun(new Date()),
+    // date: format(new Date(), "yyyy-MM-dd"),
     permissionId: "",
     permissionName: "",
     startTime: "",
@@ -60,8 +73,13 @@ function PermissionTrxCreate(props) {
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [DateError, setDateError] = useState({});
+
+
+  
+
   const handleClickOpen = (item) => {
-    debugger;
+
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -168,6 +186,14 @@ function PermissionTrxCreate(props) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+// used to stop call api if user select wrong date
+if (Object.values(DateError).includes(true)) {  
+  toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+  return;
+}
+
+
     try {
       setIsLoading(true);
       var SelectedIds = dataList
@@ -188,6 +214,13 @@ function PermissionTrxCreate(props) {
     }
   };
   const handleDelete = async (e) => {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
     try {
       setIsLoading(true);
       let response = await ApiData(locale).DeleteAll(data);
@@ -242,6 +275,13 @@ function PermissionTrxCreate(props) {
   }, []);
 
   async function getData() {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
     try {
       
       if (data.permissionId && data.startTime && data.endTime) {
@@ -314,11 +354,11 @@ function PermissionTrxCreate(props) {
                         label={intl.formatMessage(messages.isNotUpdate)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DesktopDatePicker
                           label={intl.formatMessage(Payrollmessages.date)}
-                          value={data.date}
+                          // value={data.date}
                           onChange={(date) => {
                             if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
                               if (!isNaN(new Date(date))) { 
@@ -342,7 +382,43 @@ function PermissionTrxCreate(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
+
+
+                  <Grid item xs={12} md={6}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.date)}
+                          value={data.date ? dayjs(data.date) : data.date}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              date: date ,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`date`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`date`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
                     <Grid item xs={12} md={6}>
                       <Autocomplete
                         id="permissionid"

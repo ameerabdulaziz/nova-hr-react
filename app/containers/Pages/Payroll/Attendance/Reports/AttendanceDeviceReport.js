@@ -24,6 +24,12 @@ import style from '../../../../../styles/styles.scss'
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { toast } from "react-hot-toast";
+
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 function AttendanceDeviceReport(props) {
   const { intl } = props;
@@ -37,11 +43,17 @@ function AttendanceDeviceReport(props) {
   const [Shift, setShift] = useState(null);
   const [ShiftList, setShiftList] = useState([]);
 
+  const [DateError, setDateError] = useState({});
+
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
+    // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+    }
 
   const handleSearch = async (e) => {
 
@@ -54,13 +66,17 @@ function AttendanceDeviceReport(props) {
         })
     }
 
-
+	// used to stop call api if user select wrong date
+  if (Object.values(DateError).includes(true)) {  
+    toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+    return;
+  }
 
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: FromDate,
-        ToDate: ToDate,
+        FromDate: dateFormatFun(FromDate),
+        ToDate: dateFormatFun(ToDate),
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
@@ -160,53 +176,65 @@ function AttendanceDeviceReport(props) {
 
         <Grid container spacing={2}>
 
-        <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.fromdate)}
-                value={FromDate}
-                onChange={(date) => {
-                  if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                    if (!isNaN(new Date(date))) { 
-                      setFromDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                    }
-                    else
-                    {
-                      setFromDate(null)
-                    } 
-                  } 
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined"   />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
+                  <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                       label={intl.formatMessage(Payrollmessages.fromdate)}
+                        value={FromDate  ? dayjs(FromDate) : FromDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setFromDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`FromDate`]: true
+                            }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                                [`FromDate`]: false
+                            }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
-          <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.todate)}
-                value={ToDate}
-                onChange={(date) => {
-                  if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                    if (!isNaN(new Date(date))) { 
-                        setToDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                    } 
-                    else
-                    {
-                      setToDate(null)
-                    }
-                  } 
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined"   />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
+                <Grid item xs={12} md={2}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                     label={intl.formatMessage(Payrollmessages.todate)}
+                      value={ToDate  ? dayjs(ToDate) : ToDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setToDate(date)
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`ToDate`]: true
+                          }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                              [`ToDate`]: false
+                          }))
+                        }
+                      }}
+                      />
+                  </LocalizationProvider>
+                </Grid>
 
 
           <Grid item xs={12}  md={4}> 

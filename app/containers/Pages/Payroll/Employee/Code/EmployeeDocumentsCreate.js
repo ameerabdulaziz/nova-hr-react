@@ -31,6 +31,11 @@ import { ServerURL } from "../../api/ServerConfig";
 import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
+
 function CreateAndEditEmployeeDocuments(props) {
   const [id, setid] = useState(0);
   const [startDate, setStartDate] = useState(null);
@@ -73,8 +78,25 @@ function CreateAndEditEmployeeDocuments(props) {
   const [employeeName, setEmployeeName] = useState([]);
   const [employeeID, setEmployeeID] = useState(state?.employeeId);
 
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+   // return  date && !DateError ? format(new Date(date), "yyyy-MM-dd") : ""
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
       setIsLoading(true);
       const data = {
@@ -83,9 +105,9 @@ function CreateAndEditEmployeeDocuments(props) {
         documentId: document.id ? document.id : "",
         documentUrl: "",
         isPaperCopy: isPaperCopy,
-        startDate: startDate,
-        endDate: endDate,
-        followDate: followDate,
+        startDate: dateFormatFun(startDate),
+        endDate: dateFormatFun(endDate),
+        followDate: dateFormatFun(followDate),
         notes: note.length !== 0 ? note : "",
         Image:
           uploadedFile && uploadedFile instanceof File ? uploadedFile : null,
@@ -332,7 +354,7 @@ function CreateAndEditEmployeeDocuments(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={4}>
+                  {/* <Grid item xs={12} md={4}>
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                       <DesktopDatePicker
                         label={intl.formatMessage(messages.startDate)}
@@ -358,9 +380,44 @@ function CreateAndEditEmployeeDocuments(props) {
                         )}
                       />
                     </LocalizationProvider>
-                  </Grid>
+                  </Grid> */}
 
                   <Grid item xs={12} md={4}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.startDate)}
+                          value={startDate ? dayjs(startDate) : startDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setStartDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`startDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`startDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: document?.isCheckExpireDate,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+                  {/* <Grid item xs={12} md={4}>
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                       <DesktopDatePicker
                         label={intl.formatMessage(messages.endDate)}
@@ -386,9 +443,44 @@ function CreateAndEditEmployeeDocuments(props) {
                         )}
                       />
                     </LocalizationProvider>
-                  </Grid>
+                  </Grid> */}
 
-                  <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                      label={intl.formatMessage(messages.endDate)}
+                        value={endDate ? dayjs(endDate) : endDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setEndDate(date)
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`endDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`endDate`]: false
+                            }))
+                        }
+                      }}
+                      slotProps={{
+                          textField: {
+                              required: document?.isCheckExpireDate,
+                            },
+                          }}
+                      />
+                  </LocalizationProvider>
+                </Grid>
+
+                  {/* <Grid item xs={12} md={4}>
                     <LocalizationProvider dateAdapter={AdapterMoment}>
                       <DesktopDatePicker
                         label={intl.formatMessage(messages.followDate)}
@@ -414,7 +506,42 @@ function CreateAndEditEmployeeDocuments(props) {
                         )}
                       />
                     </LocalizationProvider>
-                  </Grid>
+                  </Grid> */}
+
+                <Grid item xs={12} md={4}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                      label={intl.formatMessage(messages.followDate)}
+                        value={followDate ? dayjs(followDate) : followDate}
+                      className={classes.field}
+                        onChange={(date) => {
+                          setFollowDate(date)
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`followDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`followDate`]: false
+                            }))
+                        }
+                      }}
+                      slotProps={{
+                          textField: {
+                              required: document?.isCheckExpireDate,
+                            },
+                          }}
+                      />
+                  </LocalizationProvider>
+                </Grid>
                 </Grid>
 
               </Grid>

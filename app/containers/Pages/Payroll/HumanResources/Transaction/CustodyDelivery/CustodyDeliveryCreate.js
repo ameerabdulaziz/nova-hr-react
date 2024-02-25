@@ -21,6 +21,11 @@ import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function CustodyDeliveryCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -43,6 +48,14 @@ function CustodyDeliveryCreate(props) {
   });
   const [CustodyList, setCustodyList] = useState([]);
   const history = useHistory();
+
+
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")
@@ -81,8 +94,20 @@ function CustodyDeliveryCreate(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
       setIsLoading(true);
+
+      data.date = dateFormatFun(data.date);
+
+
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -134,7 +159,7 @@ function CustodyDeliveryCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={2}>
+            {/* <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
                   label={intl.formatMessage(messages.date)}
@@ -162,7 +187,42 @@ function CustodyDeliveryCreate(props) {
                   )}
                 />
               </LocalizationProvider>
-            </Grid>
+            </Grid> */}
+
+                  <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.date)}
+                          value={data.date ? dayjs(data.date) : data.date}
+                        //value={hiringDate && !DateError ? dayjs(hiringDate) : hiringDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              date: date,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`date`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`date`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
             <Grid item xs={12} md={10}></Grid>
 
             <Grid item xs={12} md={8}>

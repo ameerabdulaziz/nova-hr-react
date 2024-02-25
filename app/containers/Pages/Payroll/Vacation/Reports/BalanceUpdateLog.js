@@ -11,6 +11,10 @@ import { formateDate } from '../../helpers';
 import API from '../api/BalanceUpdateLogData';
 import messages from '../messages';
 
+import { format } from "date-fns";
+import { toast } from "react-hot-toast";
+import Payrollmessages from "../../messages";
+
 function BalanceUpdateLog(props) {
   const { intl } = props;
 
@@ -27,6 +31,11 @@ function BalanceUpdateLog(props) {
     OrganizationId: '',
     EmpStatusId: 1,
   });
+
+  const [DateError, setDateError] = useState({});
+
+
+
 
   const columns = [
     {
@@ -75,6 +84,14 @@ function BalanceUpdateLog(props) {
   ];
 
   const fetchTableData = async () => {
+
+     // used to stop call api if user select wrong date
+     if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+    
     try {
       setIsLoading(true);
       const formData = {
@@ -114,6 +131,8 @@ function BalanceUpdateLog(props) {
               setsearchData={setFormInfo}
               searchData={formInfo}
               setIsLoading={setIsLoading}
+              DateError={DateError}
+               setDateError={setDateError}
             />
           </Grid>
 

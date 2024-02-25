@@ -25,6 +25,10 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { formateDate } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 function MedicalInsuranceReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -41,6 +45,15 @@ function MedicalInsuranceReport(props) {
     EmpStatusId: 1,
   });
 
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
+
   const [hrNotes, setHrNotes] = useState(false);
   const [rowIndexVal, setRowIndexVal] = useState("");
 
@@ -54,10 +67,18 @@ function MedicalInsuranceReport(props) {
 
 
   const handleSearch = async (e) => {
+
+     // used to stop call api if user select wrong date
+     if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     try {
       setIsLoading(true);
       var formData = {
-        ToDate: ToDate,
+        ToDate: dateFormatFun(ToDate),
         EmployeeId: searchData.EmployeeId,
         EmpStatusId: searchData.EmpStatusId,
         OrganizationId: searchData.OrganizationId,
@@ -185,30 +206,35 @@ function MedicalInsuranceReport(props) {
 
         <Grid container spacing={2}>
 
-        <Grid item xs={12} md={2}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(Payrollmessages.todate)}
-                value={ToDate}
-                onChange={(date) => {
-                  if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                    if (!isNaN(new Date(date))) { 
-                      setToDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                    } 
-                    else
-                    {
-                      setToDate(null)
-                    }
-                  }
-                    
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant="outlined"   />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
+                  <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.todate)}
+                          value={ToDate ? dayjs(ToDate) : ToDate}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setToDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`ToDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`ToDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
           <Grid item xs={12} md={10}>
             <Search

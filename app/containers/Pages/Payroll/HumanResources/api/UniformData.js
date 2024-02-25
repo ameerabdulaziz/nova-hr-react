@@ -28,6 +28,7 @@ const UniformData = (locale) => {
       arName: Item.name,
       enName: Item.enName,
       defualtPrice: Item.defualtPrice,
+      depreciationPeriod:Item.depreciationPeriod,
     };
 
     const result =

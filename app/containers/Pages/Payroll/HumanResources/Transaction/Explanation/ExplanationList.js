@@ -18,6 +18,11 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import PayrollTable from "../../../Component/PayrollTable";
 import { formateDate } from "../../../helpers";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import { toast } from "react-hot-toast";
+
 function ExplanationList(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -32,14 +37,34 @@ function ExplanationList(props) {
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
+
   const handleSearch = async (e) => {
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+    let Fromdate = dateFormatFun(fromdate)
+    let Todate = dateFormatFun(todate)
+    
     try {
       setIsLoading(true);
       const dataApi = await ApiData(locale).GetReport({
         employeeId: employee,
         typeId: type,
-        fromdate,
-        todate,
+        Fromdate,
+        Todate,
       });
       setdata(dataApi);
     } catch (err) {
@@ -153,7 +178,7 @@ function ExplanationList(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div>          
           <Grid container spacing={3}>
-            <Grid item xs={12} md={2}>
+            {/* <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
                   label={intl.formatMessage(Payrollmessages.fromdate)}
@@ -175,8 +200,40 @@ function ExplanationList(props) {
                   )}
                 />
               </LocalizationProvider>
-            </Grid>
-            <Grid item xs={12} md={2}>
+            </Grid> */}
+
+                  <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.fromdate)}
+                          value={fromdate ? dayjs(fromdate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setfromate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromdate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromdate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
+            {/* <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DesktopDatePicker
                   label={intl.formatMessage(Payrollmessages.todate)}
@@ -198,7 +255,39 @@ function ExplanationList(props) {
                   )}
                 />
               </LocalizationProvider>
-            </Grid>
+            </Grid> */}
+
+                  <Grid item xs={12} md={2}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.todate)}
+                          value={todate ? dayjs(todate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            settodate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`todate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`todate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+
             <Grid item xs={12} md={2}>
               <Autocomplete
                 id="typeId"

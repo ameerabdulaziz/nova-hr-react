@@ -23,6 +23,8 @@ import ApiData from "../api/AttendanceReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { format } from "date-fns";
 
+import { toast } from "react-hot-toast";
+
 function EarlyLeavingReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -42,7 +44,21 @@ function EarlyLeavingReport(props) {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+  const [DateError, setDateError] = useState({});
+
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
+
   const handleSearch = async (e) => {
+
+     // used to stop call api if user select wrong date
+     if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
 
     let ShiftData = []
@@ -59,8 +75,8 @@ function EarlyLeavingReport(props) {
       setIsLoading(true);
 
       let formData = {
-        FromDate: searchData.FromDate,
-        ToDate: searchData.ToDate,
+        FromDate: dateFormatFun(searchData.FromDate),
+        ToDate: dateFormatFun(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -177,6 +193,7 @@ options: {
       },
     },
   };
+  
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -187,6 +204,8 @@ options: {
               setsearchData={setsearchData}
               searchData={searchData}
               setIsLoading={setIsLoading}
+              DateError={DateError}
+              setDateError={setDateError}
             ></Search>
           </Grid>
 

@@ -27,6 +27,13 @@ import EmployeeData from "../../../Component/EmployeeData";
 import toast from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
+
+
+
 function SalaryCalculation(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -54,9 +61,18 @@ function SalaryCalculation(props) {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
+
+
   async function Getookup() {
     try {
-      debugger;
+
       const BrList = await GeneralListApis(locale).GetBranchList();
       setBranchList(BrList);
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
@@ -93,7 +109,7 @@ function SalaryCalculation(props) {
       setIsLoading(true);
 
       const result = await GeneralListApis(locale).getOpenMonth(id, 0);
-      debugger;
+
       setOpenMonth({
         monthId: result.monthId,
         yearId: result.yearId,
@@ -104,7 +120,7 @@ function SalaryCalculation(props) {
         isPartCalc: false,
         stopAttendance: result.stopAttendance,
       });
-      debugger;
+
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -142,27 +158,35 @@ function SalaryCalculation(props) {
   };
 
   const handleCalculate = async () => {
+
+    	// used to stop call api if user select wrong date
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+
+
     try {
       if (!PayTemplateId) {
         toast.error("you must choose Template");
         return;
       }
       setIsLoading(true);
-      debugger;
+
       var formData = {
         BranchId: BranchId,
         EmployeeId: EmployeeId,
         PayTemplateID: PayTemplateId,
         PartCalc: OpenMonth.isPartCalc,
-        FromDate: OpenMonth.fromdate,
-        ToDate: OpenMonth.todate,
+        FromDate: dateFormatFun(OpenMonth.fromdate),
+        ToDate: dateFormatFun(OpenMonth.todate),
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
 
       var response = await ApiData(locale).CalculateSalary(formData);
-      debugger;
+
       if (response.status == 200) {
         toast.success(response.data);
         var formData = {
@@ -188,7 +212,7 @@ function SalaryCalculation(props) {
         return;
       }
       setIsLoading(true);
-      debugger;
+
       var formData = {
         BranchId: BranchId,
         EmployeeId: EmployeeId,
@@ -199,7 +223,7 @@ function SalaryCalculation(props) {
       });
 
       var response = await ApiData(locale).DeleteSalary(formData);
-      debugger;
+
       if (response.status == 200) {        
         toast.success("Deleted Success");
         var formData = {
@@ -226,7 +250,7 @@ function SalaryCalculation(props) {
         return;
       }
       setIsLoading(true);
-      debugger;
+
       var formData = {
         BranchId: BranchId,
         yearId: OpenMonth.yearId,
@@ -239,7 +263,7 @@ function SalaryCalculation(props) {
       });
 
       var response = await ApiData(locale).StopOrOperateAttendance(formData);
-      debugger;
+
       if (response.status == 200) {
         toast.success(notif.saved);
         setOpenMonth((prevFilters) => ({
@@ -260,7 +284,7 @@ function SalaryCalculation(props) {
         return;
       }
       setIsLoading(true);
-      debugger;
+
       var formData = {
         BranchId: BranchId,
         yearId: OpenMonth.yearId,
@@ -273,7 +297,7 @@ function SalaryCalculation(props) {
       });
 
       var response = await ApiData(locale).ShowOrHideReport(formData);
-      debugger;
+
       if (response.status == 200) {
         toast.success(notif.saved);
         setIsShowReport(!IsShowReport);
@@ -286,7 +310,7 @@ function SalaryCalculation(props) {
 
   async function FunctionIsShowReport(id) {
     try {
-      debugger;
+
       if (!BranchId) {
         setPayTemplateId(0);
         toast.error("you must choose Template");
@@ -543,67 +567,74 @@ function SalaryCalculation(props) {
                     xs={12}
                     md={12}
                   >
-                    <Grid item xs={12} md={4}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={OpenMonth.fromdate}
-                          onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setOpenMonth((prevFilters) => ({
-                                    ...prevFilters,
-                                    fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setOpenMonth((prevFilters) => ({
-                                  ...prevFilters,
-                                  fromdate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          disabled={!OpenMonth.isPartCalc}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
 
-                    <Grid item xs={12} md={4}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.todate)}
-                          value={OpenMonth.todate}
+                  <Grid item xs={12} md={4}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.fromdate)}
+                          value={OpenMonth.fromdate ? dayjs(OpenMonth.fromdate) : null}
+                        className={classes.field}
                           onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setOpenMonth((prevFilters) => ({
-                                    ...prevFilters,
-                                    todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setOpenMonth((prevFilters) => ({
-                                  ...prevFilters,
-                                  todate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          disabled={!OpenMonth.isPartCalc}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
+                            setOpenMonth((prevFilters) => ({
+                              ...prevFilters,
+                              fromdate: date ,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromdate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromdate`]: false
+                              }))
+                          }
+                        }}
                         />
-                      </LocalizationProvider>
-                    </Grid>
+                    </LocalizationProvider>
+                  </Grid>
+
+
+                  <Grid item xs={12} md={3}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(Payrollmessages.todate)}
+                          value={OpenMonth.todate ? dayjs(OpenMonth.todate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            setOpenMonth((prevFilters) => ({
+                              ...prevFilters,
+                              todate: date ,
+                            }))
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`todate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`todate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
                     <Grid item xs={12} md={4}>
                       <FormControlLabel
                         control={
