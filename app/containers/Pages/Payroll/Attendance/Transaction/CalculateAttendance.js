@@ -16,7 +16,7 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { PapperBlock } from "enl-components";
 import MUIDataTable from "mui-datatables";
@@ -36,6 +36,11 @@ import messages from "../messages";
 import { format } from "date-fns";
 import { getCheckboxIcon } from "../../helpers";
 import notif from "enl-api/ui/notifMessage";
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import Payrollmessages from "../../messages";
 
 function CalculateAttendance(props) {
   const { intl } = props;
@@ -68,6 +73,14 @@ function CalculateAttendance(props) {
     calculateBreak: false,
     overnightAllowance: false,
   });
+
+console.log("formInfo =", formInfo);
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
 
   async function fetchNeededData() {
     setIsLoading(true);
@@ -119,6 +132,12 @@ function CalculateAttendance(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
     const isValidRange =
       isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate) &&
@@ -254,19 +273,11 @@ function CalculateAttendance(props) {
   };
 
   const onDatePickerChange = (value, name) => {
-    if (Object.prototype.toString.call(new Date(value)) === "[object Date]") {
-      if (!isNaN(new Date(value))) {
-        setFormInfo((prev) => ({
-          ...prev,
-          [name]: value === null ? null : formateDate(value),
-        }));
-      } else {
-        setFormInfo((prev) => ({
-          ...prev,
-          [name]: null,
-        }));
-      }
-    }
+
+    setFormInfo((prev) => ({
+            ...prev,
+            [name]: value ,
+          }));
   };
 
   const onCompanyAutoCompleteChange = async (value) => {
@@ -493,7 +504,6 @@ function CalculateAttendance(props) {
       options: {
         filter: false,
         customBodyRender: (value) => {
-          console.log("ttt =", value);
           return getCheckboxIcon(value);
         },
       },
@@ -653,45 +663,65 @@ function CalculateAttendance(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
-                  label={intl.formatMessage(messages.startDate)}
-                  value={formInfo.FromDate}
-                  minDate={openMonth.fromDate}
-                  maxDate={openMonth.todate}
-                  onChange={(date) => onDatePickerChange(date, "FromDate")}
-                  renderInput={(params) => (
-                    <TextField
-                      // required
-                      fullWidth
-                      {...params}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+                  <Grid item xs={12} md={4}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                         label={intl.formatMessage(messages.startDate)}
+                          value={formInfo.FromDate  ? dayjs(formInfo.FromDate) : null}
+                        className={classes.field}
+                          onChange={(date) => {
+                            onDatePickerChange(date, "FromDate")
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`FromDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`FromDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
             <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
-                  label={intl.formatMessage(messages.endDate)}
-                  value={formInfo.ToDate}
-                  minDate={openMonth.fromDate}
-                  maxDate={openMonth.todate}
-                  onChange={(date) => onDatePickerChange(date, "ToDate")}
-                  renderInput={(params) => (
-                    <TextField
-                      // required
-                      fullWidth
-                      {...params}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       label={intl.formatMessage(messages.endDate)}
+                        value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
+                      className={classes.field}
+                        onChange={(date) => {
+                          onDatePickerChange(date, "ToDate")
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`ToDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`ToDate`]: false
+                            }))
+                        }
+                      }}
+                      />
+                  </LocalizationProvider>
+                </Grid>
 
             <Grid item xs={12} md={6}>
               <Autocomplete
