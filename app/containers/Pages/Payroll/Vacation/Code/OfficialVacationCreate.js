@@ -37,7 +37,7 @@ function CreateOfficialVacation(props) {
   const [id, setid] = useState(0);
   const [vacationDesEN, setVacationDesEN] = useState('');
   const [vacationDesAR, setVacationDesAR] = useState('');
-  const [element, setElement] = useState('');
+  const [element, setElement] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);

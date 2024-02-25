@@ -223,9 +223,9 @@ function LeaveTrxCreate(props) {
       ReplaceDate: formInfo.ReplaceDate ?? '',
       alternativeTask: formInfo.alternativeTask,
 
-      trxDate: formInfo.trxDate,
-      fromDate: formInfo.fromDate,
-      toDate: formInfo.toDate,
+      trxDate: formateDate(formInfo.trxDate),
+      fromDate: formateDate(formInfo.fromDate),
+      toDate: formateDate(formInfo.toDate),
       daysCount: formInfo.daysCount,
       dayDeducedBy: formInfo.dayDeducedBy,
       tel: formInfo.tel,
@@ -267,9 +267,6 @@ function LeaveTrxCreate(props) {
     }
 
     if (Object.keys(errors).length === 0) {
-      formData.trxDate = formateDate(formData.trxDate);
-      formData.fromDate = formateDate(formData.fromDate);
-      formData.toDate = formateDate(formData.toDate);
 
       setProcessing(true);
       setIsLoading(true);

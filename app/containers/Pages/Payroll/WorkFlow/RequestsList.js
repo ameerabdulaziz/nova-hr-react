@@ -36,7 +36,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 function RequestsList(props) {
-  debugger;
+
   const { intl } = props;
   const { classes } = useStyles();
   const location = useLocation();
@@ -163,7 +163,7 @@ function RequestsList(props) {
         documentId: Documents[0].id,
         documentName: Documents[0].name,
       }); */
-      debugger;
+
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
       var documentId = 0;

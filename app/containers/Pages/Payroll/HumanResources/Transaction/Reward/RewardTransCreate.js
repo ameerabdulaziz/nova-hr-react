@@ -116,9 +116,10 @@ function RewardTransCreate(props) {
 
     try {
       setIsLoading(true);
-      let response = await ApiData(locale).Save(data);
 
       data.date = dateFormatFun(data.date)
+
+      let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
         toast.success(notif.saved);
