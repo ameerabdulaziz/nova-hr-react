@@ -11,6 +11,7 @@ import payrollMessages from '../messages';
 import InsuranceReportForm2Footer from './InsuranceReportForm2/InsuranceReportForm2Footer';
 import InsuranceReportForm2Header from './InsuranceReportForm2/InsuranceReportForm2Header';
 import InsuranceReportForm2Table from './InsuranceReportForm2/InsuranceReportForm2Table';
+import { useSelector } from 'react-redux';
 
 const ROWS_PER_PAGE = 10;
 const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
@@ -18,6 +19,7 @@ const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + formateDate(new Date(), 'y
 function InsuranceReportForm2(props) {
   const { intl } = props;
   const [isLoading, setIsLoading] = useState(false);
+  const locale = useSelector((state) => state.language.locale);
 
   const printDivRef = useRef(null);
 
@@ -58,8 +60,8 @@ function InsuranceReportForm2(props) {
         ref={printDivRef}
         sx={{
           display: 'none',
-          direction: 'rtl',
-          textAlign: 'right',
+          direction: 'ltr',
+          ...(locale === 'en' ? { textAlign: 'right', direction: 'rtl', } : {}),
           '@media print': {
             display: 'block',
           },

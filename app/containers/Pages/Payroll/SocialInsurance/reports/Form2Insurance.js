@@ -5,12 +5,11 @@ import {
   CardContent,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Grid,
   Radio,
   RadioGroup,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -195,131 +194,137 @@ function Form2Insurance(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <form onSubmit={onFormSubmit}>
+          <Grid container mt={0} mb={5} spacing={2}>
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                options={organizationList}
+                value={
+                  organizationList.find(
+                    (item) => item.id === formInfo.InsuranceOrg
+                  ) ?? null
+                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(_, value) => onAutoCompleteChange(value, 'InsuranceOrg')
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    label={intl.formatMessage(messages.organizationName)}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                options={officeList}
+                value={
+                  officeList.find((item) => item.id === formInfo.InsOffice)
+									?? null
+                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(_, value) => onAutoCompleteChange(value, 'InsOffice')
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(messages.insuranceOffice)}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={3}>
+                      <LocalizationProvider dateAdapter={AdapterMoment}>
+                        <DatePicker
+                          label={intl.formatMessage(messages.toDate)}
+                          value={formInfo.ToDate}
+                          onChange={(date) => onDatePickerChange(date, 'ToDate')
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              fullWidth
+                              variant='outlined'
+                            />
+                          )}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+
+                    <Grid item>
+                      <RadioGroup
+                        row
+                        value={formInfo.InsDate}
+                        onChange={(evt) => {
+                          setFormInfo((prev) => ({
+                            ...prev,
+                            InsDate: evt.target.value,
+                          }));
+                        }}
+                      >
+                        <FormControlLabel
+                          value='true'
+                          control={<Radio />}
+                          label={intl.formatMessage(messages.hiringDate)}
+                        />
+                        <FormControlLabel
+                          value='false'
+                          control={<Radio />}
+                          label={intl.formatMessage(messages.insuranceDate)}
+                        />
+                      </RadioGroup>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item>
+              <FormControl>
+                <RadioGroup
+                  row
+                  value={formInfo.OrderInsNo}
+                  onChange={(evt) => {
+                    setFormInfo((prev) => ({
+                      ...prev,
+                      OrderInsNo: evt.target.value,
+                    }));
+                  }}
+                >
+                  <FormControlLabel
+                    value='true'
+                    control={<Radio />}
+                    label={`${intl.formatMessage(
+                      messages.orderBy
+                    )} ${intl.formatMessage(messages.insuranceNumber)}`}
+                  />
+                  <FormControlLabel
+                    value='false'
+                    control={<Radio />}
+                    label={`${intl.formatMessage(
+                      messages.orderBy
+                    )} ${intl.formatMessage(messages.insuranceDate)}`}
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} md={12}>
+              <Button variant='contained' color='primary' type='submit'>
+                <FormattedMessage {...payrollMessages.search} />
+              </Button>
+            </Grid>
+          </Grid>
+
           <Card className={classes.card}>
-            <CardContent>
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={3}>
-                  <Autocomplete
-                    options={organizationList}
-                    value={
-                      organizationList.find(
-                        (item) => item.id === formInfo.InsuranceOrg
-                      ) ?? null
-                    }
-                    isOptionEqualToValue={(option, value) => option.id === value.id
-                    }
-                    getOptionLabel={(option) => (option ? option.name : '')}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'InsuranceOrg')
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        required
-                        label={intl.formatMessage(messages.organizationName)}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <Autocomplete
-                    options={officeList}
-                    value={
-                      officeList.find(
-                        (item) => item.id === formInfo.InsOffice
-                      ) ?? null
-                    }
-                    isOptionEqualToValue={(option, value) => option.id === value.id
-                    }
-                    getOptionLabel={(option) => (option ? option.name : '')}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'InsOffice')
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={intl.formatMessage(messages.insuranceOffice)}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                    <DatePicker
-                      label={intl.formatMessage(messages.toDate)}
-                      value={formInfo.ToDate}
-                      onChange={(date) => onDatePickerChange(date, 'ToDate')}
-                      renderInput={(params) => (
-                        <TextField {...params} fullWidth variant='outlined' />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-
-                <Grid item md={12}>
-                  <RadioGroup
-                    row
-                    value={formInfo.InsDate}
-                    onChange={(evt) => {
-                      setFormInfo((prev) => ({
-                        ...prev,
-                        InsDate: evt.target.value,
-                      }));
-                    }}
-                  >
-                    <FormControlLabel
-                      value='true'
-                      control={<Radio />}
-                      label={intl.formatMessage(messages.hiringDate)}
-                    />
-                    <FormControlLabel
-                      value='false'
-                      control={<Radio />}
-                      label={intl.formatMessage(messages.insuranceNumber)}
-                    />
-                  </RadioGroup>
-                </Grid>
-
-                <Grid item md={12}>
-                  <FormControl>
-                    <FormLabel>
-                      <FormattedMessage {...messages.orderBy} />
-                    </FormLabel>
-
-                    <RadioGroup
-                      row
-                      value={formInfo.OrderInsNo}
-                      onChange={(evt) => {
-                        setFormInfo((prev) => ({
-                          ...prev,
-                          OrderInsNo: evt.target.value,
-                        }));
-                      }}
-                    >
-                      <FormControlLabel
-                        value='true'
-                        control={<Radio />}
-                        label={intl.formatMessage(messages.insuranceNumber)}
-                      />
-                      <FormControlLabel
-                        value='false'
-                        control={<Radio />}
-                        label={intl.formatMessage(messages.insuranceDate)}
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <Button variant='contained' color='primary' type='submit'>
-                    <FormattedMessage {...payrollMessages.search} />
-                  </Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-
-          <Card sx={{ mt: 4 }} className={classes.card}>
             <CardContent>
               <Grid container justifyContent='space-around' spacing={2}>
                 <Grid item xs={4} textAlign='center'>
@@ -329,12 +334,12 @@ function Form2Insurance(props) {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={4} textAlign='center'>
+                {/* <Grid item xs={4} textAlign='center'>
                   <Typography>{extraData.total ?? 0}</Typography>
                   <Typography variant='subtitle1'>
                     <FormattedMessage {...messages.totalVariable} />
                   </Typography>
-                </Grid>
+                </Grid> */}
 
                 <Grid item xs={4} textAlign='center'>
                   <Typography>{extraData.total ?? 0}</Typography>
