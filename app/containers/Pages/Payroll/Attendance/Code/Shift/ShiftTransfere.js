@@ -62,6 +62,7 @@ function ShiftTransfere(props) {
   });
   const [ShiftsList, setShiftsList] = useState([]);
   const [OldShiftId, setOldShiftId] = useState("");
+  const [rowsSelected, setRowsSelected] = useState([]);
   const [OLdFromData, setOLdFromData] = useState(
     format(new Date(), "yyyy-MM-dd")
   );
@@ -110,6 +111,7 @@ function ShiftTransfere(props) {
 
         setdataList([]);
         setOldShiftId("");
+        setRowsSelected([]);
         setOLdFromData(format(new Date(), "yyyy-MM-dd"));
         setdata({
           id: 0,
@@ -138,6 +140,7 @@ function ShiftTransfere(props) {
   }
 
   async function Getookup() {
+    setIsLoading(true);
     try {
       const shifts = await GeneralListApis(locale).GetShiftList();
       setShiftsList(shifts);
@@ -319,6 +322,11 @@ function ShiftTransfere(props) {
     filter: false,
     search: false,
     selection: true,
+    rowsSelected,
+    onRowSelectionChange: (rows, allRows) => {
+      // Set selected rows
+      setRowsSelected(allRows.map((row) => row.dataIndex));
+    },
     page: 0,
     onSearchClose: () => {
       //some logic

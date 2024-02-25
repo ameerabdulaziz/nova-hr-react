@@ -7,25 +7,22 @@ import {
   Stack,
   TextField
 } from '@mui/material';
-import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
-import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../../Component/PayRollLoader';
+import PayrollTable from '../../../Component/PayrollTable';
 import Search from '../../../Component/Search';
 import useStyles from '../../../Style';
 import GeneralListApis from '../../../api/GeneralListApis';
+import { formateDate } from '../../../helpers';
 import payrollMessages from '../../../messages';
 import api from '../../api/ReviewOvertimeData';
 import messages from '../../messages';
-
-import Payrollmessages from "../../../messages";
-
 
 function ReviewOvertime(props) {
   const { intl } = props;
@@ -38,6 +35,7 @@ function ReviewOvertime(props) {
   const [tableData, setTableData] = useState([]);
   const [shiftList, setShiftList] = useState([]);
   const [updatedTableData, setUpdatedTableData] = useState({});
+  const [DateError, setDateError] = useState({});
   const [formInfo, setFormInfo] = useState({
     shiftCode: null,
     OffVacCheck: false,
@@ -49,27 +47,18 @@ function ReviewOvertime(props) {
     OrganizationId: '',
   });
 
-  const [DateError, setDateError] = useState({});
-
-
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
-
   const fetchTableData = async () => {
-
-     // used to stop call api if user select wrong date
-     if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
     setIsLoading(true);
 
     const formData = { ...formInfo };
-    formData.FromDate = dateFormatFun(formData.FromDate)
-    formData.ToDate = dateFormatFun(formData.ToDate)
+    formData.FromDate = formateDate(formData.FromDate);
+    formData.ToDate = formateDate(formData.ToDate);
     setUpdatedTableData({});
 
     Object.keys(formData).forEach((key) => {
@@ -141,71 +130,50 @@ function ReviewOvertime(props) {
     {
       name: 'employeeId',
       label: intl.formatMessage(payrollMessages.employeeId),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'shift',
       label: intl.formatMessage(messages.shift),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'shiftDate',
       label: intl.formatMessage(messages.AttendanceDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
-      },
     },
 
     {
       name: 'extraTime',
       label: intl.formatMessage(messages.overTime),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'reqSerial',
       label: intl.formatMessage(messages.requestSerial),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'overtimeVal',
       label: intl.formatMessage(messages.modifiedOvertime),
       options: {
-        filter: true,
         sort: false,
         customBodyRender: (value, tableMeta) => (
-          <>
-            <TextField
-              value={
-                updatedTableData[tableMeta.rowIndex]?.overtimeVal
-								?? tableData[tableMeta.rowIndex].overtimeVal
-              }
-              name='overtimeVal'
-              className={classes.field}
-              onChange={(evt) => onInputChange(tableMeta.rowIndex, evt)}
-              autoComplete='off'
-            />
-          </>
+
+          <TextField
+            value={
+              updatedTableData[tableMeta.rowIndex]?.overtimeVal
+                ?? tableData[tableMeta.rowIndex].overtimeVal
+            }
+            name='overtimeVal'
+            className={classes.field}
+            onChange={(evt) => onInputChange(tableMeta.rowIndex, evt)}
+            autoComplete='off'
+          />
         ),
       },
     },
@@ -214,19 +182,16 @@ function ReviewOvertime(props) {
       name: 'calcASRepVac',
       label: intl.formatMessage(messages.accruedLeave),
       options: {
-        filter: true,
         sort: false,
         customBodyRender: (value, tableMeta) => (
-          <>
-            <Checkbox
-              checked={
-                updatedTableData[tableMeta.rowIndex]?.calcASRepVac
-								?? tableData[tableMeta.rowIndex].calcASRepVac
-              }
-              name='calcASRepVac'
-              onChange={(evt) => onCheckboxChange(tableMeta.rowIndex, evt)}
-            />
-          </>
+          <Checkbox
+            checked={
+              updatedTableData[tableMeta.rowIndex]?.calcASRepVac
+                ?? tableData[tableMeta.rowIndex].calcASRepVac
+            }
+            name='calcASRepVac'
+            onChange={(evt) => onCheckboxChange(tableMeta.rowIndex, evt)}
+          />
         ),
         customHeadLabelRender: (columnMeta) => (
           <Stack direction='row' alignItems='center' sx={{ cursor: 'pointer' }} onClick={onAccruedLeaveBtnClick}>
@@ -241,21 +206,18 @@ function ReviewOvertime(props) {
       name: 'repVacVal',
       label: intl.formatMessage(messages.accruedLeaveMin),
       options: {
-        filter: true,
         sort: false,
         customBodyRender: (value, tableMeta) => (
-          <>
-            <TextField
-              value={
-                updatedTableData[tableMeta.rowIndex]?.repVacVal
-								?? tableData[tableMeta.rowIndex].repVacVal
-              }
-              name='repVacVal'
-              className={classes.field}
-              onChange={(evt) => onInputChange(tableMeta.rowIndex, evt)}
-              autoComplete='off'
-            />
-          </>
+          <TextField
+            value={
+              updatedTableData[tableMeta.rowIndex]?.repVacVal
+                ?? tableData[tableMeta.rowIndex].repVacVal
+            }
+            name='repVacVal'
+            className={classes.field}
+            onChange={(evt) => onInputChange(tableMeta.rowIndex, evt)}
+            autoComplete='off'
+          />
         ),
       },
     },
@@ -266,27 +228,6 @@ function ReviewOvertime(props) {
       ...prev,
       [name]: value !== null ? value.id : null,
     }));
-  };
-
-  const options = {
-    filterType: 'dropdown',
-    responsive: 'vertical',
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    selectableRows: 'none',
-    onSearchClose: () => {
-      //  some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(payrollMessages.loading)
-          : intl.formatMessage(payrollMessages.noMatchingRecord),
-      },
-    },
   };
 
   const onFormSubmit = async (evt) => {
@@ -333,7 +274,7 @@ function ReviewOvertime(props) {
                 searchData={formInfo}
                 setIsLoading={setIsLoading}
                 DateError={DateError}
-               setDateError={setDateError}
+                setDateError={setDateError}
               />
             </Grid>
 
@@ -342,7 +283,7 @@ function ReviewOvertime(props) {
                 options={shiftList}
                 value={
                   shiftList.find((item) => item?.id === formInfo.shiftCode)
-									?? null
+                  ?? null
                 }
                 isOptionEqualToValue={(option, value) => option?.id === value?.id
                 }
@@ -372,8 +313,8 @@ function ReviewOvertime(props) {
             </Grid>
 
             <Grid item md={12}>
-              <Grid container>
-                <Grid item md={2}>
+              <Grid container spacing={2}>
+                <Grid item>
                   <Button
                     variant='contained'
                     size='medium'
@@ -384,7 +325,7 @@ function ReviewOvertime(props) {
                   </Button>
                 </Grid>
 
-                <Grid item md={2}>
+                <Grid item>
                   <Button
                     variant='outlined'
                     size='medium'
@@ -399,14 +340,12 @@ function ReviewOvertime(props) {
           </Grid>
         </PapperBlock>
 
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=''
-            data={tableData}
-            columns={columns}
-            options={options}
-          />
-        </div>
+        <PayrollTable
+          isLoading={isLoading}
+          title={Title}
+          data={tableData}
+          columns={columns}
+        />
       </form>
     </PayRollLoader>
   );

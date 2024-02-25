@@ -6,12 +6,9 @@ import Payrollmessages from "../../../messages";
 import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
-import { useHistory } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
-import { injectIntl, intlShape, FormattedMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import {
   Button,
   Grid,
@@ -22,26 +19,20 @@ import {
 } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { format } from "date-fns";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../../api/ShiftEmployeeData";
-import style from "../../../../../../../app/styles/styles.scss";
-import DeleteButton from "../../../Component/DeleteButton";
 import NamePopup from "../../../Component/NamePopup";
 import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import AlertPopup from "../../../Component/AlertPopup";
 import PayRollLoader from "../../../Component/PayRollLoader";
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import { formateDate, getCheckboxIcon } from "../../../helpers";
+import PayrollTable from "../../../Component/PayrollTable";
 
 function ShiftOrgnization(props) {
   const { intl } = props;
@@ -66,20 +57,11 @@ function ShiftOrgnization(props) {
     vthursday: false,
     vfriday: false,
   });
-  const history = useHistory();
+
   const [OpenPopup, setOpenPopup] = useState(false);
   const [ShiftsList, setShiftsList] = useState([]);
-  const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-
-
   const [DateError, setDateError] = useState({});
-
-// used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-    return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
 
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
@@ -92,8 +74,8 @@ function ShiftOrgnization(props) {
           employeeId: obj.id,
           shiftId: data.shiftId,
           workHours: data.workHours,
-          fromDate: dateFormatFun(data.fromDate),
-          toDate: dateFormatFun(data.toDate),
+          fromDate: formateDate(data.fromDate),
+          toDate: formateDate(data.toDate),
           vsaturday: data.vsaturday,
           vsunday: data.vsunday,
           vmonday: data.vmonday,
@@ -133,29 +115,18 @@ function ShiftOrgnization(props) {
     }
   };
 
-  
-  const handleClickOpen = (item) => {
 
-    setOpenParentPopup(true);
-    setDeleteItem(item);
-  };
+;
 
-  const handleClose = () => {
-    setOpenParentPopup(false);
-  };
-
-  async function deleterow() {
+  async function deleteRow(id) {
     try {
 
       setIsLoading(true);
-      let response = await ApiData(locale).Delete(deleteItem);
+      await ApiData(locale).Delete(id);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        getShiftData(data.shiftId);
-      } else {
-        toast.error(response.statusText);
-      }
+      toast.success(notif.saved);
+      getShiftData(data.shiftId);
+
     } catch (err) {
       
     } finally {
@@ -179,8 +150,8 @@ function ShiftOrgnization(props) {
           employeeId: dataList[selectedRows.data[i].dataIndex].employeeId,
           shiftId: data.shiftId,
           workHours: data.workHours,
-          fromDate: dateFormatFun(data.fromDate),
-          toDate: dateFormatFun(data.toDate),
+          fromDate: formateDate(data.fromDate),
+          toDate: formateDate(data.toDate),
           vsaturday: data.vsaturday,
           vsunday: data.vsunday,
           vmonday: data.vmonday,
@@ -210,6 +181,8 @@ function ShiftOrgnization(props) {
   }
   
   async function Getookup() {
+    setIsLoading(true);
+
     try {
       const shifts = await GeneralListApis(locale).GetShiftList();
       setShiftsList(shifts);
@@ -267,18 +240,6 @@ function ShiftOrgnization(props) {
     }
   }
 
-  const CheckBox = (value) => {
-    return (
-      <div className={style.actionsSty}>
-        {value ? (
-          <CheckIcon style={{ color: "#3f51b5" }} />
-        ) : (
-          <CloseIcon style={{ color: "#717171" }} />
-        )}
-      </div>
-    );
-  };
-
   const columns = [
     {
       name: "id",
@@ -288,128 +249,81 @@ function ShiftOrgnization(props) {
     },
     {
       name: "employeeId",
-      label: <FormattedMessage {...Payrollmessages["employeeId"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(Payrollmessages.employeeId),
     },
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(Payrollmessages.employeeName),
     },
 
     {
       name: "startTime",
-      label: <FormattedMessage {...messages["startTime"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.startTime),
     },
     {
       name: "endTime",
-      label: <FormattedMessage {...messages["endTime"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.endTime),
     },
     {
       name: "fromDate",
-      label: <FormattedMessage {...Payrollmessages["fromdate"]} />,
-      options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
-      },
+      label: intl.formatMessage(Payrollmessages.fromdate),
     },
     {
       name: "toDate",
-      label: <FormattedMessage {...Payrollmessages["todate"]} />,
-      options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
-      },
+      label: intl.formatMessage(Payrollmessages.todate),
     },
     {
       name: "workHours",
-      label: <FormattedMessage {...messages["hours"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.hours),
     },
     {
       name: "vsaturday",
-      label: <FormattedMessage {...Payrollmessages["saturday"]} />,
+      label: intl.formatMessage(Payrollmessages.saturday),
       options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
       name: "vsunday",
-      label: <FormattedMessage {...Payrollmessages["sunday"]} />,
+      label: intl.formatMessage(Payrollmessages.sunday),
       options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
       name: "vmonday",
-      label: <FormattedMessage {...Payrollmessages["monday"]} />,
+      label: intl.formatMessage(Payrollmessages.monday),
       options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
       name: "vtuesday",
-      label: <FormattedMessage {...Payrollmessages["tuesday"]} />,
+      label: intl.formatMessage(Payrollmessages.tuesday),
       options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
       name: "vwednesday",
-      label: <FormattedMessage {...Payrollmessages["wednesday"]} />,
+      label: intl.formatMessage(Payrollmessages.wednesday),
       options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
       name: "vthursday",
-      label: <FormattedMessage {...Payrollmessages["thursday"]} />,
+      label: intl.formatMessage(Payrollmessages.thursday),
       options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
       name: "vfriday",
-      label: <FormattedMessage {...Payrollmessages["friday"]} />,
+      label: intl.formatMessage(Payrollmessages.friday),
       options: {
-        filter: true,
-        customBodyRender: (value) => CheckBox(value),
-      },
-    },
-    {
-      name: "Actions",
-      options: {
-        filter: false,
-
-        customBodyRender: (value, tableMeta) => {
-
-          return (
-            <div className={style.actionsSty}>
-              <DeleteButton
-                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
-              ></DeleteButton>
-            </div>
-          );
-        },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
   ];
@@ -420,13 +334,7 @@ function ShiftOrgnization(props) {
     viewColumns: false,
     filter: false,
     search: false,
-    selection: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    onSearchClose: () => {
-      //some logic
-    },
+    selectableRows: 'multiple',
     customToolbar: () => (
       <Button
         variant="contained"
@@ -453,7 +361,6 @@ function ShiftOrgnization(props) {
             </Button> */}
             <Tooltip
               title={intl.formatMessage(Payrollmessages.applynewshift)}
-              cursor="pointer"
               className="mr-6"
             >
               <IconButton
@@ -468,17 +375,13 @@ function ShiftOrgnization(props) {
         </Grid>
       </div>
     ),
-
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
   };
 
-
+  const actions = {
+    delete: {
+      api: deleteRow,
+    },
+  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -821,29 +724,18 @@ function ShiftOrgnization(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={12}>
-              <div className={classes.CustomMUIDataTable}>
-                {/* <ThemeProvider theme={theme}> */}
-                <MUIDataTable
-                  title=""
-                  data={dataList}
-                  columns={columns}
-                  options={options}
-                />
-                {/* </ThemeProvider> */}
-              </div>
-            </Grid>
           </Grid>
         </div>
       </PapperBlock>
-      <AlertPopup
-          handleClose={handleClose}
-          open={openParentPopup}
-          messageData={`${intl.formatMessage(
-            Payrollmessages.deleteMessage
-          )}`}
-          callFun={deleterow}
-        />
+
+      <PayrollTable
+        isLoading={isLoading}
+        title=''
+        data={dataList}
+        columns={columns}
+        actions={actions}
+        options={options}
+      />
     </PayRollLoader>
   );
 }

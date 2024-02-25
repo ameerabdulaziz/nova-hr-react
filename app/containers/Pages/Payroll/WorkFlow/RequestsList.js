@@ -429,7 +429,6 @@ function RequestsList(props) {
             <Grid item xs={12} md={12}></Grid>
           </Grid>
 
-          <PayrollTable title="" data={data} columns={columns} />
           <NotePopup
             handleClose={handleCloseNotePoup}
             open={openNotePopup}
@@ -445,6 +444,8 @@ function RequestsList(props) {
           />
         </div>
       </PapperBlock>
+
+      <PayrollTable title="" data={data} columns={columns} />
     </PayRollLoader>
   );
 }

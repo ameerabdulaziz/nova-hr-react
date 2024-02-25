@@ -136,15 +136,16 @@ function EmployeeAttendance(props) {
   };
 
   const handleClickOpen = (item, selectedRows) => {
+    const clonedItems = [...deleteItem];
 
     setOpenParentPopup(true);
     if (selectedRows != null) {
       for (let i = 0; i < selectedRows.data.length; i++) {
-        deleteItem.push(dataList[selectedRows.data[i].dataIndex].id);
+        clonedItems.push(dataList[selectedRows.data[i].dataIndex].id);
       }
-    } else if (item != null) deleteItem.push(item);
+    } else if (item != null) clonedItems.push(item);
 
-    //setDeleteItem(item);
+    setDeleteItem(clonedItems);
   };
 
   const handleClose = () => {
@@ -164,6 +165,7 @@ function EmployeeAttendance(props) {
       if (response.status == 200) {
         toast.success(notif.saved);
         handleSearch();
+        setDeleteItem([]);
       } else {
         toast.error(response.statusText);
       }

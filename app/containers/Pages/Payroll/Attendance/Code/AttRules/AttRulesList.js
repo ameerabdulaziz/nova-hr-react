@@ -1,48 +1,36 @@
-import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
-import ApiData from "../../api/AttRulesData";
-import { useSelector } from "react-redux";
-import messages from "../../messages";
-import { injectIntl, FormattedMessage } from "react-intl";
-import style from "../../../../../../../app/styles/styles.scss";
-import notif from "enl-api/ui/notifMessage";
-import { toast } from "react-hot-toast";
-import useStyles from "../../../Style";
-import { PapperBlock } from "enl-components";
-import EditButton from "../../../Component/EditButton";
-import DeleteButton from "../../../Component/DeleteButton";
-import AddButton from "../../../Component/AddButton";
-import AlertPopup from "../../../Component/AlertPopup";
-import Payrollmessages from "../../../messages";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import notif from 'enl-api/ui/notifMessage';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayrollTable from '../../../Component/PayrollTable';
+import Payrollmessages from '../../../messages';
+import ApiData from '../../api/AttRulesData';
 
 function AttRulesList(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const Title = localStorage.getItem("MenuName");
-  const [openParentPopup, setOpenParentPopup] = useState(false);
-  const [deleteItem, setDeleteItem] = useState("");
+  const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
 
-  
-  
-  const handleClickOpen = (item) => {
-    debugger;
-    setOpenParentPopup(true);
-    setDeleteItem(item);
-  };
-
-  const handleClose = () => {
-    setOpenParentPopup(false);
-  };
-
-  async function deleterow() {
+  async function fetchData() {
+    setIsLoading(true);
     try {
-      debugger;
+      const dataApi = await ApiData(locale).GetList();
+      setdata(dataApi);
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function deleteRow(id) {
+    try {
       setIsLoading(true);
-      let response = await ApiData(locale).Delete(deleteItem);
+      const response = await ApiData(locale).Delete(id);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -51,117 +39,61 @@ function AttRulesList(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      
+      //
     } finally {
       setIsLoading(false);
     }
   }
 
-  async function fetchData() {
-    try {
-      const dataApi = await ApiData(locale).GetList();
-      setdata(dataApi);
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
-    }
-  }
   useEffect(() => {
     fetchData();
   }, []);
 
   const columns = [
     {
-      name: "id",
+      name: 'id',
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
       },
     },
     {
-      name: "arName",
-      label: <FormattedMessage {...Payrollmessages["arName"]} />,
-      options: {
-        filter: true,
-      },
+      name: 'arName',
+      label: intl.formatMessage(Payrollmessages.arName),
     },
 
     {
-      name: "enName",
-      label: <FormattedMessage {...Payrollmessages["enName"]} />,
-      options: {
-        filter: true,
-      },
-    },
-    {
-      name: "Actions",
-      options: {
-        filter: false,
-
-        customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
-          return (
-            <div className={style.actionsSty}>
-              <EditButton
-                param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/Att/RulesEdit"}
-              ></EditButton>
-              <DeleteButton
-                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
-              ></DeleteButton>
-            </div>
-          );
-        },
-      },
+      name: 'enName',
+      label: intl.formatMessage(Payrollmessages.enName),
     },
   ];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: true,
-    onSearchClose: () => {
-      //some logic
+  const actions = {
+    add: {
+      url: '/app/Pages/Att/RulesCreate',
     },
-    customToolbar: () => (
-      <AddButton url={"/app/Pages/Att/RulesCreate"}></AddButton>
-    ),
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
+    edit: {
+      url: '/app/Pages/Att/RulesEdit',
+    },
+    delete: {
+      api: deleteRow,
     },
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        
-        <div className={classes.CustomMUIDataTable}>
-          <MUIDataTable
-            title=""
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </div>
-        <AlertPopup
-          handleClose={handleClose}
-          open={openParentPopup}
-          messageData={`${intl.formatMessage(
-            Payrollmessages.deleteMessage
-          )}${deleteItem}`}
-          callFun={deleterow}
-        />
-      </PapperBlock>
-    </PayRollLoader>
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={Title}
+      data={data}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
+
+AttRulesList.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(AttRulesList);
