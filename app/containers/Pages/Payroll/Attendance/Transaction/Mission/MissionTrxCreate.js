@@ -193,17 +193,16 @@ function MissionTrxCreate(props) {
         notes: data.notes,
       }
 
-      console.log("apiData =", apiData);
 
-      // let response = await ApiData(locale).Save(apiData);
-      // // let response = await ApiData(locale).Save(data);
+      let response = await ApiData(locale).Save(apiData);
+      // let response = await ApiData(locale).Save(data);
 
-      // if (response.status == 200) {
-      //   toast.success(notif.saved);
-      //   history.push(`/app/Pages/Att/MissionTrx`);
-      // } else {
-      //   toast.error(response.statusText);
-      // }
+      if (response.status == 200) {
+        toast.success(notif.saved);
+        history.push(`/app/Pages/Att/MissionTrx`);
+      } else {
+        toast.error(response.statusText);
+      }
     } catch (err) {
     } finally {
       setIsLoading(false);
