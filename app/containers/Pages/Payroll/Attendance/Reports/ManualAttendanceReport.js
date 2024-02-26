@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
-import MUIDataTable from "mui-datatables";
+import React, { useState } from "react";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -8,19 +7,17 @@ import {
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
-import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { format } from "date-fns";
-
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 function ManualAttendanceReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
@@ -78,95 +75,48 @@ function ManualAttendanceReport(props) {
       name: "Id",
       label: intl.formatMessage(Payrollmessages.id),
       options: {
-        display: false
+        display: false,
+        print: false,
+        download: false,
       },
     },
     {
         name: "employeeCode",
         label: intl.formatMessage(messages.EmpCode),
-        options: {
-          filter: true,
-        },
       },
     {
         name: "employeeName",
         label: intl.formatMessage(messages.employeeName),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "TrxSer",
         label: intl.formatMessage(messages.serial),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "shiftDate",
         label: intl.formatMessage(messages.AttendanceDate),
-        options: {
-          filter: true,
-            customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
-        },
       },
       {
         name: "shiftName",
         label: intl.formatMessage(messages.shift),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "timeIn",
         label: intl.formatMessage(messages.signIn),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "timeOut",
         label: intl.formatMessage(messages.signOut),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "not",
         label: intl.formatMessage(messages.notes),
-        options: {
-          filter: true,
-        },
       },
     {
         name: "organizationName",
         label: intl.formatMessage(messages.orgName),
-        options: {
-          filter: true,
-        },
       },
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
-  
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -195,14 +145,12 @@ function ManualAttendanceReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
     </PayRollLoader>
   );
 }

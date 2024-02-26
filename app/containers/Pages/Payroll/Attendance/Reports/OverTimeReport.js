@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -10,7 +9,6 @@ import {
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
-import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
@@ -19,13 +17,12 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
-
 import { format } from "date-fns";
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 function OverTimeReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
@@ -94,42 +91,29 @@ function OverTimeReport(props) {
             label: intl.formatMessage(Payrollmessages.id),
           options: {
             display: false,
+            print: false,
+            download: false,
           },
         },
         {
           name: "organizationName",
           label: intl.formatMessage(messages.orgName),
-          options: {
-            filter: true,
-          },
         },
         {
           name: "employeeCode",
           label: intl.formatMessage(messages.EmpCode),
-          options: {
-            filter: true,
-          },
         },
         {
           name: "employeeName",
           label: intl.formatMessage(messages.employeeName),
-          options: {
-            filter: true,
-          },
         },
         {
           name: "overtime",
           label: intl.formatMessage(messages.ExtraTime),
-          options: {
-            filter: true,
-          },
         },
         {
           name: "manulaOvertime",
           label: intl.formatMessage(messages.ManualExtraTime),
-          options: {
-            filter: true,
-          },
         },  
       ];
   }
@@ -143,13 +127,14 @@ function OverTimeReport(props) {
             label: intl.formatMessage(Payrollmessages.id),
           options: {
             display: false,
+            print: false,
+            download: false,
           },
         },
         {
           name: "organizationName",
           label: intl.formatMessage(messages.orgName),
           options: {
-            filter: true,
             ...(windowSize.innerWidth >= 768 && {  // this condation used to check screen size , in mobile screen hide this option (make columns freze)
                 setCellProps: () => ({
                     style: {
@@ -184,7 +169,6 @@ function OverTimeReport(props) {
           name: "employeeCode",
           label: intl.formatMessage(messages.EmpCode),
           options: {
-            filter: true,
             ...(windowSize.innerWidth >= 768 && {  // this condation used to check screen size , in mobile screen hide this option (make columns freze)
             setCellProps: () => ({
                 style: {
@@ -219,7 +203,6 @@ function OverTimeReport(props) {
           name: "employeeName",
           label: intl.formatMessage(messages.employeeName),
           options: {
-            filter: true,
             ...(windowSize.innerWidth >= 768 && {   // this condation used to check screen size , in mobile screen hide this option (make columns freze)
             setCellProps: () => ({
                 style: {
@@ -253,219 +236,126 @@ function OverTimeReport(props) {
         {
           name: "day1",
           label: intl.formatMessage(messages.Day1),
-          options: {
-            filter: true,
-          },
         },
         {
             name: "day2",
             label: intl.formatMessage(messages.Day2),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day3",
             label: intl.formatMessage(messages.Day3),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day4",
           label: intl.formatMessage(messages.Day4),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day5",
           label: intl.formatMessage(messages.day5),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day6",
               label: intl.formatMessage(messages.Day6),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day7",
           label: intl.formatMessage(messages.Day7),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day8",
           label: intl.formatMessage(messages.Day8),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day9",
           label: intl.formatMessage(messages.Day9),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day10",
           label: intl.formatMessage(messages.Day10),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day11",
               label: intl.formatMessage(messages.Day11),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day12",
               label: intl.formatMessage(messages.Day12),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day13",
           label: intl.formatMessage(messages.Day13),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day14",
           label: intl.formatMessage(messages.Day14),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day15",
               label: intl.formatMessage(messages.Day15),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day16",
           label: intl.formatMessage(messages.Day16),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day17",
               label: intl.formatMessage(messages.Day17),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day18",
           label: intl.formatMessage(messages.Day18),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day19",
               label: intl.formatMessage(messages.Day19),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day20",
               label: intl.formatMessage(messages.Day20),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day21",
               label: intl.formatMessage(messages.Day21),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day22",
           label: intl.formatMessage(messages.Day22),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day23",
               label: intl.formatMessage(messages.Day23),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day24",
               label: intl.formatMessage(messages.Day24),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day25",
           label: intl.formatMessage(messages.Day25),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day26",
           label: intl.formatMessage(messages.Day26),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day27",
               label: intl.formatMessage(messages.Day27),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day28",
           label: intl.formatMessage(messages.Day28),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day29",
           label: intl.formatMessage(messages.Day29),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day30",
           label: intl.formatMessage(messages.Day30),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "day31",
           label: intl.formatMessage(messages.Day31),
-            options: {
-              filter: true,
-            },
           },
       ];
   }
@@ -479,62 +369,31 @@ function OverTimeReport(props) {
             label: intl.formatMessage(Payrollmessages.id),
           options: {
             display: false,
+            print: false,
+            download: false,
           },
         },
         {
           name: "organizationName",
           label: intl.formatMessage(messages.orgName),
-          options: {
-            filter: true,
-          },
         },
         {
           name: "organizationId",
           label: "brCode",
         //   label: intl.formatMessage(messages.EmpCode),
-          options: {
-            filter: true,
-          },
         },
         {
           name: "overtime",
           label: "val1",
         //   label: intl.formatMessage(messages.employeeName),
-          options: {
-            filter: true,
-          },
         },
         {
           name: "manulaOvertime",
           label: "overTimeVal",
         //   label: intl.formatMessage(messages.AttendanceDate),
-          options: {
-            filter: true,
-          },
         },   
       ];
   }
-
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
 
 
 
@@ -673,14 +532,12 @@ function OverTimeReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
     </PayRollLoader>
   );
 }

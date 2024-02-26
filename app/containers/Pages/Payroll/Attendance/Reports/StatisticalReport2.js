@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
-import MUIDataTable from "mui-datatables";
+import React, { useEffect, useState } from "react";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -8,20 +7,18 @@ import {
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
-import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-
 import { format } from "date-fns";
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 
 function StatisticalReport2(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
@@ -84,7 +81,9 @@ function StatisticalReport2(props) {
           name: "Id",
           label: intl.formatMessage(Payrollmessages.id),
           options: {
-            display: false
+            display: false,
+            print: false,
+            download: false,
           },
         },
         {
@@ -214,249 +213,130 @@ function StatisticalReport2(props) {
           {
             name: "absence",
             label: intl.formatMessage(messages.Absence),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "vac1",
             label: intl.formatMessage(messages.leaves),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "vac14",
             label: intl.formatMessage(messages.casualL),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "vac3",
             label: intl.formatMessage(messages.deductedL),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "vac10",
             label: intl.formatMessage(messages.payedL),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "vac2",
             label: intl.formatMessage(messages.sickL),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "vac4in",
             label: intl.formatMessage(messages.workedOfficial),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "vac4notin",
             label: intl.formatMessage(messages.Official),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "vac4intime",
             label: intl.formatMessage(messages.workedOfficialT),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "shiftVacInCount",
             label: intl.formatMessage(messages.workedWeekendCount),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "shiftVacnotInCount",
             label: intl.formatMessage(messages.Weekend),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "shiftVacInTime",
             label: intl.formatMessage(messages.workedWeekendT),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "notIn",
             label: intl.formatMessage(messages.missingSignIn),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "notOut",
             label: intl.formatMessage(messages.missingSignOut),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "notINOut",
             label: intl.formatMessage(messages.total),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "morningPer",
             label: intl.formatMessage(messages.dayPermissionC),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "morningPerMin",
             label: intl.formatMessage(messages.dayPermissionT),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "nightPer",
             label: intl.formatMessage(messages.nightPermissionC),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "nightPerMin",
             label: intl.formatMessage(messages.nightPermissionT),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "lateNoPer",
             label: intl.formatMessage(messages.lateCount),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "lateNoPerMin",
             label: intl.formatMessage(messages.lateTime),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "leaveEarlyNoPer",
             label: intl.formatMessage(messages.leaveEarlyC),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "leaveEarlyNoPerMin",
             label: intl.formatMessage(messages.leaveEarlyT),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "morMiss",
             label: intl.formatMessage(messages.dayMissionsCount),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "morMissMin",
             label: intl.formatMessage(messages.dayMissionT),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "nightMiss",
             label: intl.formatMessage(messages.nightMissionC),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "nightMissMin",
             label: intl.formatMessage(messages.nightMissionT),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "allDayMiss",
             label: intl.formatMessage(messages.fullDayMissions),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "overTimeC",
             label: intl.formatMessage(messages.overTimeC),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "overTimeMin",
             label: intl.formatMessage(messages.overTimeT),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "appOvertime",
             label: intl.formatMessage(messages.confirmedOverTime),
-            options: {
-              filter: true,
-            },
           },
         ])
     }
   },[data])
-
-
- 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
-
-
- 
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -486,14 +366,11 @@ function StatisticalReport2(props) {
         </Grid>
       </PapperBlock>
       { data.length !== 0 && (
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
       )}
     </PayRollLoader>
   );

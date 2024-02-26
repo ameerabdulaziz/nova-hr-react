@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -17,8 +16,8 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { format } from "date-fns";
 import style from '../../../../../styles/styles.scss'
-
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 
 function WorkinHoursByTimeReport(props) {
@@ -91,87 +90,42 @@ function WorkinHoursByTimeReport(props) {
           name: "employeeId",
           label: intl.formatMessage(Payrollmessages.id),
           options: {
-            filter: false,
-            display: false
+            display: false,
+            print: false,
+            download: false,
           },
         },
         {
             name: "organizationName",
             label: intl.formatMessage(messages.orgName),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "employeeCode",
             label: intl.formatMessage(messages.EmpCode),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "employeeName",
             label: intl.formatMessage(messages.employeeName),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "date",
             label: intl.formatMessage(messages.date),
-            options: {
-              filter: true,
-              customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
-            },
           },
           {
             name: "timeIn",
             label: intl.formatMessage(messages.signIn),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "timeout",
             label: intl.formatMessage(messages.signOut),
-            options: {
-              filter: true,
-            },
           },
           {
             name: "hourNo",
             label: intl.formatMessage(messages.totalWorkHours),
-            options: {
-              filter: true,
-            },
           },
         ])
     }
   },[data])
-
-
-
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
-  
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -240,14 +194,11 @@ function WorkinHoursByTimeReport(props) {
         </Grid>
       </PapperBlock>
       { data.length !== 0 && (
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
       )}
     </PayRollLoader>
   );

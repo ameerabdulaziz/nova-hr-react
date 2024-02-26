@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
+import React, { useState } from "react";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -10,22 +9,18 @@ import {
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
-import useStyles from "../../Style";
 import { format } from "date-fns";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import style from "../../../../../styles/styles.scss";
-
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
+import { getCheckboxIcon } from "../../helpers";
 
 function OverTimeDayNightReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
@@ -87,134 +82,69 @@ function OverTimeDayNightReport(props) {
         label: intl.formatMessage(Payrollmessages.id),
       options: {
         display: false,
+        print: false,
+        download: false,
       },
     },
     {
       name: "organizationName",
       label: intl.formatMessage(messages.orgName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
     {
         name: "shiftDate",
         label: intl.formatMessage(messages.AttendanceDate),
-        options: {
-          filter: true,
-          customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
-        },
       },
     {
       name: "extraTime",
       label: intl.formatMessage(messages.overTime),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "vac",
       label: intl.formatMessage(messages.leave),
       options: {
-        filter: true,
-        customBodyRender: (value, tableMeta) => {
-            return (
-              <div className={style.actionsSty}>
-                {value ? (
-                  <CheckIcon style={{ color: "#3f51b5" }} />
-                ) : (
-                  <CloseIcon style={{ color: "#717171" }} />
-                )}
-              </div>
-            );
-          },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
         name: "overtimeVal",
         label: intl.formatMessage(messages.modifiedOverTime),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "dayOverTime",
         label: intl.formatMessage(messages.dayOverTime),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "nightOverTime",
         label: intl.formatMessage(messages.nightOverTime),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "vacValue",
         label: intl.formatMessage(messages.vacationValue),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "dayFactV",
         label: intl.formatMessage(messages.dayOverTimeValue),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "nightFactV",
         label: intl.formatMessage(messages.nightOverTimeValue),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "vacFacV",
         label: intl.formatMessage(messages.vacationValue),
-        options: {
-          filter: true,
-        },
       },
     
     
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -261,14 +191,12 @@ function OverTimeDayNightReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
     </PayRollLoader>
   );
 }

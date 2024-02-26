@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/PermissionTrxData";
 import { useSelector } from "react-redux";
 import {
@@ -10,7 +9,6 @@ import {
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
-import useStyles from "../../Style";
 import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
@@ -18,12 +16,11 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 function PermissionTrxReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [Permission, setPermission] = useState("");
   const [PermissionsList, setPermissionsList] = useState([]);
@@ -98,110 +95,59 @@ function PermissionTrxReport(props) {
     {
       name: "id",
       options: {
-        filter: false,
+        display: false,
+        print: false,
+        download: false,
       },
     },
     {
       name: "date",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
-      options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
-      },
+      label: intl.formatMessage(Payrollmessages.date),
     },
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(Payrollmessages.employeeName),
     },
     {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "permissionName",
-      label: <FormattedMessage {...messages["permissionName"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.permissionName),
     },
 
     {
       name: "startTime",
-      label: <FormattedMessage {...messages["startTime"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.startTime),
     },
     {
       name: "endTime",
-      label: <FormattedMessage {...messages["endTime"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.endTime),
     },
     {
       name: "minutesCount",
-      label: <FormattedMessage {...messages["minutesCount"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(messages.minutesCount),
     },
     {
       name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(Payrollmessages.notes),
     },
     {
       name: "step",
-      label: <FormattedMessage {...Payrollmessages["step"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(Payrollmessages.step),
     },
     {
       name: "status",
-      label: <FormattedMessage {...Payrollmessages["status"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(Payrollmessages.status),
     },
     {
       name: "approvedEmp",
-      label: <FormattedMessage {...Payrollmessages["approvedEmp"]} />,
-      options: {
-        filter: true,
-      },
+      label: intl.formatMessage(Payrollmessages.approvedEmp),
     },
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -309,14 +255,12 @@ function PermissionTrxReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
     </PayRollLoader>
   );
 }

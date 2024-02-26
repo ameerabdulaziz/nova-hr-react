@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
-import MUIDataTable from "mui-datatables";
+import React, { useEffect, useState } from "react";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -18,14 +17,12 @@ import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../api/GeneralListApis";
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import PayrollTable from "../../Component/PayrollTable";
 
 function AttendanceRatioReport(props) {
   const { intl } = props;
@@ -115,60 +112,28 @@ function AttendanceRatioReport(props) {
         label: intl.formatMessage(Payrollmessages.id),
       options: {
         display: false,
+        print: false,
+        download: false,
       },
     },
     {
       name: "organizationName",
       label: intl.formatMessage(messages.orgName),
-      options: {
-        filter: true,
-      },
     },
     {
         name: "totalEmp",
         label: intl.formatMessage(messages.totalWorking),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "workingEmp",
         label: intl.formatMessage(messages.currentAttendance),
-        options: {
-          filter: true,
-        },
       },
     {
       name: "diff",
       label: intl.formatMessage(messages.diff),
-      options: {
-        filter: true,
-      },
     },
 
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
-
-
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -256,14 +221,12 @@ function AttendanceRatioReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
 
     </PayRollLoader>
   );

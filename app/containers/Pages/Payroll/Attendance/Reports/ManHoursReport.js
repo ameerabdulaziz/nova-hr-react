@@ -18,15 +18,14 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 function ManHoursReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [ShiftList, setShiftList] = useState([]);
-  const [Deleted, setDeleted] = useState("");
   const [Shift, setShift] = useState("");
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
@@ -101,89 +100,46 @@ function ManHoursReport(props) {
         label: intl.formatMessage(Payrollmessages.id),
       options: {
         display: false,
+        print: false,
+        download: false,
       },
     },
     {
         name: "organizationName",
         label: intl.formatMessage(messages.orgName),
-        options: {
-          filter: true,
-        },
       },
     {
         name: "shiftName",
         label: intl.formatMessage(messages.shift),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "shiftDate",
         label: intl.formatMessage(messages.date),
-        options: {
-          filter: true,
-            customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
-        },
       },
     {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "shifttime",
       label: intl.formatMessage(messages.shiftHours),
-      options: {
-        filter: true,
-      },
     },
     {
         name: "worktime",
         label: intl.formatMessage(messages.workingHours),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "accurate",
         label: intl.formatMessage(messages.verificationRate),
-        options: {
-          filter: true,
-        },
       },
     
     
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
-  
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -237,14 +193,12 @@ function ManHoursReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
     </PayRollLoader>
   );
 }

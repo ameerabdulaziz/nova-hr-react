@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import MUIDataTable from "mui-datatables";
+import React, { useCallback, useMemo, useState } from "react";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -10,19 +9,17 @@ import {
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
-import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-
 import { format } from "date-fns";
 import { toast } from "react-hot-toast";
+import PayrollTable from "../../Component/PayrollTable";
 
 function WorkinLeavesReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
@@ -78,6 +75,9 @@ function WorkinLeavesReport(props) {
     }
   };
 
+  const isApiDataContain = useCallback(key => {
+    return Boolean(data.some((obj) => Object.keys(obj).includes(key)));
+  }, [data]);
 
   const columns = [
     {
@@ -85,71 +85,47 @@ function WorkinLeavesReport(props) {
         label: intl.formatMessage(Payrollmessages.id),
       options: {
         display: false,
+        print: false,
+        download: false,
       },
     },
     {
       name: "organizationName",
       label: intl.formatMessage(messages.orgName),
-      options: {
-        filter: true,
-      },
     },
     // check if api data contain ( employeeCode ) to show the column in the table
-    data.some(obj => Object.keys(obj).includes("employeeCode")) ? 
     {
         name: "employeeCode",
             label: intl.formatMessage(messages.EmpCode),
               options: {
-                filter: true,
+                display: isApiDataContain("employeeCode"),
+                print: isApiDataContain("employeeCode"),
+                download: isApiDataContain("employeeCode"),
               },
     }
-    : "",
+ ,
      // check if api data contain ( employeeName ) to show the column in the table
-    data.some(obj => Object.keys(obj).includes("employeeName")) ? 
     {
         name: "employeeName",
           label: intl.formatMessage(messages.employeeName),
           options: {
-            filter: true,
+            display: isApiDataContain("employeeName"),
+            print: isApiDataContain("employeeName"),
+            download: isApiDataContain("employeeName"),
           },
     }
-    : "",
+   ,
     {
       name: "val",
       label: intl.formatMessage(messages.accruedLeaveHours),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "days",
       label: intl.formatMessage(messages.byDays),
-      options: {
-        filter: true,
-      },
     },
     
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -215,14 +191,12 @@ function WorkinLeavesReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
     </PayRollLoader>
   );
 }

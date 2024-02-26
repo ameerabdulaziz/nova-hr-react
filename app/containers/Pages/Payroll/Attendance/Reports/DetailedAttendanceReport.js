@@ -1,5 +1,4 @@
 import React, { useEffect, useState,useRef } from "react";
-import MUIDataTable from "mui-datatables";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -11,28 +10,24 @@ import {
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
-import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import style from "../../../../../styles/styles.scss";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import Autocomplete from '@mui/material/Autocomplete';
 import GeneralListApis from "../../api/GeneralListApis";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useReactToPrint } from 'react-to-print';
 import DetailedAttendanceReportTemplate from "../../reports-templates/DetailedAttendanceReportTemplate"
 import { format } from "date-fns";
-
 import { toast } from "react-hot-toast";
+import { formateDate, getCheckboxIcon } from "../../helpers";
+import PayrollTable from "../../Component/PayrollTable";
 
 function DetailedAttendanceReport(props) {
   const { intl } = props;
-  const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const [printData, setPrintData] = useState([]);
@@ -56,13 +51,6 @@ function DetailedAttendanceReport(props) {
 
 
   const [DateError, setDateError] = useState({});
-
-
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
-
 
       const [headerType, setHeaderType] = useState();
 
@@ -98,8 +86,8 @@ function DetailedAttendanceReport(props) {
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: dateFormatFun(searchData.FromDate),
-        ToDate: dateFormatFun(searchData.ToDate),
+        FromDate: formateDate(searchData.FromDate),
+        ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -159,55 +147,38 @@ function DetailedAttendanceReport(props) {
         label: intl.formatMessage(Payrollmessages.id),
       options: {
         display: false,
+        print: false,
+        download: false,
       },
     },
     {
       name: "organizationName",
       label: intl.formatMessage(messages.orgName),
-      options: {
-        filter: true,
-      },
     },
     {
         name: "shiftId",
         label: intl.formatMessage(messages.shiftCode),
-        options: {
-          filter: true,
-        },
       },
     {
         name: "shiftname",
         label: intl.formatMessage(messages.shift),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "startTime",
         label: intl.formatMessage(messages.shiftStart),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "endTime",
         label: intl.formatMessage(messages.shiftEnd),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "shiftTime", 
         label: intl.formatMessage(messages.shiftHours),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "dayName", 
         label: intl.formatMessage(messages.day),
         options: {
-          filter: true,
           customBodyRender: (value) => (<pre>{value}</pre>),
         },
       },
@@ -215,9 +186,12 @@ function DetailedAttendanceReport(props) {
         name: "shiftDate",
         label: intl.formatMessage(messages.AttendanceDate),
         options: {
-          filter: true,
           customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
           setCellProps: (value, rowIndex) => {
+            if(!Boolean(rowIndex && data[rowIndex])){
+              return null
+            }
+
             return {
               style: {
                 ...(data[rowIndex].absence && { backgroundColor:'#f00' }),
@@ -233,37 +207,26 @@ function DetailedAttendanceReport(props) {
     {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
     {
         name: "jobName",
         label: intl.formatMessage(messages.job),
         options: {
-          filter: true,
           customBodyRender: (value) => (<pre>{value}</pre>),
         },
       },
       {
         name: "socialInsuranceId",
         label: intl.formatMessage(messages.insuranceNumber),
-        options: {
-          filter: true,
-        },
       },
     {
         name: "timeIn", 
         label: intl.formatMessage(messages.signIn),
         options: {
-          filter: true,
           customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
         },
       },
@@ -271,165 +234,70 @@ function DetailedAttendanceReport(props) {
         name: "timeOut",
         label: intl.formatMessage(messages.signOut),
         options: {
-          filter: true,
           customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
         },
       },
       {
         name: "worktime", 
         label: intl.formatMessage(messages.workingHours),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "lateMin", 
         label: intl.formatMessage(messages.lateness),
-        options: {
-          filter: true,
-        },
       },
     
     {
       name: "extraTime", 
       label: intl.formatMessage(messages.OverTime),
-      options: {
-        filter: true,
-      },
     },
     {
         name: "lessTime",
         label: intl.formatMessage(messages.lessTime),
-        options: {
-          filter: true,
-        },
       },
       {
         name: "replaceVac", 
         label: intl.formatMessage(messages.AccruedLeave),
-        options: {
-          filter: true,
-        },
       },
     {
       name: "vac",
       label: intl.formatMessage(messages.leave),
       options: {
-        filter: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              {value ? (
-                <CheckIcon style={{ color: "#3f51b5" }} />
-              ) : (
-                <CloseIcon style={{ color: "#717171" }} />
-              )}
-            </div>
-          );
-        },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
       name: "mission",
       label: intl.formatMessage(messages.mission),
       options: {
-        filter: true,
-        customBodyRender: (value, tableMeta) => {
-            return (
-              <div className={style.actionsSty}>
-                {value ? (
-                  <CheckIcon style={{ color: "#3f51b5" }} />
-                ) : (
-                  <CloseIcon style={{ color: "#717171" }} />
-                )}
-              </div>
-            );
-          },
+        customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
         name: "per", 
         label: intl.formatMessage(messages.permission),
         options: {
-          filter: true,
-          customBodyRender: (value, tableMeta) => {
-            return (
-              <div className={style.actionsSty}>
-                {value ? (
-                  <CheckIcon style={{ color: "#3f51b5" }} />
-                ) : (
-                  <CloseIcon style={{ color: "#717171" }} />
-                )}
-              </div>
-            );
-          },
+          customBodyRender: (value) => getCheckboxIcon(value),
         },
       },
       {
         name: "absence",
         label: intl.formatMessage(messages.absence),
         options: {
-          filter: true,
-          customBodyRender: (value, tableMeta) => {
-            return (
-              <div className={style.actionsSty}>
-                {value ? (
-                  <CheckIcon style={{ color: "#3f51b5" }} />
-                ) : (
-                  <CloseIcon style={{ color: "#717171" }} />
-                )}
-              </div>
-            );
-          },
+          customBodyRender: (value) => getCheckboxIcon(value),
         },
       },
       {
         name: "shiftVacancy", 
         label: intl.formatMessage(messages.weekend),
         options: {
-          filter: true,
-          customBodyRender: (value, tableMeta) => {
-            return (
-              <div className={style.actionsSty}>
-                {value ? (
-                  <CheckIcon style={{ color: "#3f51b5" }} />
-                ) : (
-                  <CloseIcon style={{ color: "#717171" }} />
-                )}
-              </div>
-            );
-          },
+          customBodyRender: (value) => getCheckboxIcon(value),
         },
       },
       {
         name: "earlyLeave",
         label: intl.formatMessage(messages.earlyLeaveMin),
-        options: {
-          filter: true,
-        },
       },
   ];
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
-
 
 
   const onBeforeGetContent = () => {
@@ -672,14 +540,13 @@ function DetailedAttendanceReport(props) {
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
-      <div className={classes.CustomMUIDataTable}>
-        <MUIDataTable
+
+        <PayrollTable
           title=""
           data={data}
           columns={columns}
-          options={options}
         />
-      </div>
+
       
   
       <DetailedAttendanceReportTemplate 
