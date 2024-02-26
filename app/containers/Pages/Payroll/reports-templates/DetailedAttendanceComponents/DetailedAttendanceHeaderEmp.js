@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
   import React from 'react';
   import style from "../../../../../styles/pagesStyle/DetailedAttendanceReportTemplateSty.scss";
   import { useSelector } from "react-redux";
@@ -10,9 +10,15 @@ import { Grid } from '@mui/material';
   function DetailedAttendanceHeaderEmp({Data,date}) {
 
     const locale = useSelector((state) => state.language.locale);
+    const company = useSelector((state) => state.authReducer.companyInfo);
 
     return (
       <div className={style.headerContainer}>
+         <Stack spacing={2} mb={2}>
+          <div>
+            <img src={company?.logo} alt='' height={45} />
+          </div>
+        </Stack>
       <Grid item xs={12} md={12}>
         <h1><FormattedMessage {...messages.DetailedAttendanceAndLeaveReport} /></h1>
        </Grid>

@@ -29,6 +29,7 @@ import { format } from "date-fns";
                     {/* print by employee */}
                     { headerType === "employee" ?
                             Data.map((data,index)=>(
+                                index <= 30 ? 
                                 <TableRow key={index}>
                                         <TableCell align='center' >
                                             {data.dayName}
@@ -94,6 +95,7 @@ import { format } from "date-fns";
                         
                                         </TableCell>
                                 </TableRow>
+                                : null
                         ))
                         : 
                             //  print by Date 

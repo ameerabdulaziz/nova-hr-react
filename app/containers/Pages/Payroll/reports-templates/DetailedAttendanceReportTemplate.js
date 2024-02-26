@@ -13,7 +13,7 @@ function DetailedAttendanceReportTemplate(props) {
 
   const { intl } = props;
 
-  const company = useSelector((state) => state.authReducer.companyInfo);
+
 
   const [employeeHeaders, setEmployeeHeaders] = useState([
     intl.formatMessage(messages.day), 
@@ -61,11 +61,6 @@ function DetailedAttendanceReportTemplate(props) {
           },
         }}
       >
-        <Stack spacing={2} mb={2}>
-          <div>
-            <img src={company?.logo} alt='' height={45} />
-          </div>
-        </Stack>
 
             {props.data.map((empData,index)=>(
                 <div key={index}>
@@ -73,7 +68,7 @@ function DetailedAttendanceReportTemplate(props) {
                   {  props.headerType === "date" && (  <DetailedAttendanceHeaderDate Data={empData} date={props.date} /> ) }
                   
                   <DetailedAttendanceTable header={props.headerType === "date" ? dateHeaders   : employeeHeaders } Data={empData.details} headerType={props.headerType} />
-                  <DetailedAttendanceFooter  Data={empData} />
+                  {props.headerType === "employee" && ( <DetailedAttendanceFooter  Data={empData} /> )}
               </div>
             ))}
         
