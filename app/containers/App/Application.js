@@ -417,6 +417,7 @@ import {
   SalarySigningListReport,
   LoanReport,
   PeerAppraisalSetting,
+  LocationLog
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1352,6 +1353,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Employee/EmploymentDocs'
           component={EmploymentDocs}
+        />
+
+        <Route
+          path='/app/Pages/Employee/LocationLog'
+          component={LocationLog}
         />
 
         {/* Map */}

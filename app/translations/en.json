@@ -2274,6 +2274,10 @@
   "boilerplate.containers.Payroll.Employee.modifyEmployeeDataIfTheyAlreadyExist": "Modify employee data if they already exist",
   "boilerplate.containers.Payroll.Employee.RelativesName": "Relatives Name",
 
+  "boilerplate.containers.Payroll.Employee.fakeAddress": "Fake Address",
+  "boilerplate.containers.Payroll.Employee.jobName": "Job Name",
+  "boilerplate.containers.Payroll.Employee.insDate": "insDate",
+
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",
   "boilerplate.containers.Payroll.MainData.codes.hrForm": "HR Form",

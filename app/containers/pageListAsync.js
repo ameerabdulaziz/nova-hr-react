@@ -1770,6 +1770,13 @@ export const ImportEmployeeData = loadable(
   }
 );
 
+export const LocationLog = loadable(
+  () => import('./Pages/Payroll/Employee/reports/LocationLog'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 /// ///////////////////////////////////////////////////////////////////////////////////////
 export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
   fallback: <Loading />,

@@ -804,5 +804,17 @@ export default defineMessages({
   statusInfo: {
     id: `${scope}.statusInfo`,
     defaultMessage: 'statusInfo',
-  }
+  },
+  fakeAddress: {
+    id: `${scope}.fakeAddress`,
+    defaultMessage: 'Fake Address',
+  },
+  jobName: {
+    id: `${scope}.jobName`,
+    defaultMessage: 'Job Name',
+  },
+  insDate: {
+    id: `${scope}.insDate`,
+    defaultMessage: 'insDate',
+  },
 });

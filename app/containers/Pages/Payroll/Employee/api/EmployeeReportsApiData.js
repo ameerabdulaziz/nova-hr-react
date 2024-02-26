@@ -31,6 +31,16 @@ const EmployeeReportsApiData = (locale) => {
     return result;
   };
 
+  EmployeeReportsApi.LocationLogReportApi = async (params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `AttLocationEmployee/GetLocationLogList/${locale}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
   return EmployeeReportsApi;
 };
 
