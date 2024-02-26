@@ -12,7 +12,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
@@ -28,6 +28,12 @@ import useStyles from '../../Style';
 import { formateDate } from '../../helpers';
 import api from '../api/MedicalInsuranceData';
 import messages from '../messages';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import { format } from "date-fns";
+import Payrollmessages from "../../messages";
 
 function MedicalInsuranceData(props) {
   const { intl } = props;
@@ -55,6 +61,14 @@ function MedicalInsuranceData(props) {
     medCertExpDate: null,
     medCertIssueDate: null,
   });
+
+
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
 
   const handleEmpChange = useCallback((id, name) => {
     if (name === 'employeeId') {
@@ -86,8 +100,8 @@ function MedicalInsuranceData(props) {
       });
 
       setCertState({
-        medCertIssueDate: response.medCertIssueDate ?? null,
-        medCertExpDate: response.medCertExpDate ?? null,
+        medCertIssueDate: dateFormatFun(response.medCertIssueDate) ?? null,
+        medCertExpDate: dateFormatFun(response.medCertExpDate) ?? null,
       });
 
       setFormInfo((prev) => ({
@@ -122,6 +136,12 @@ function MedicalInsuranceData(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
     let formData = {
       ...formInfo,
       govMedicallyInsured: hasGovernmentInsurance,
@@ -131,10 +151,15 @@ function MedicalInsuranceData(props) {
     setIsLoading(true);
 
     if (hasMedicalCert) {
+      certState.medCertExpDate = dateFormatFun(certState.medCertExpDate)
+      certState.medCertIssueDate = dateFormatFun(certState.medCertIssueDate)
+
       formData = { ...formData, ...certState };
     }
 
     if (hasGovernmentInsurance) {
+      governmentState.govMedCareEnd = dateFormatFun(governmentState.govMedCareEnd)
+
       formData = { ...formData, ...governmentState };
     }
 
@@ -210,7 +235,7 @@ function MedicalInsuranceData(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(messages.cardExpireDate)}
@@ -232,7 +257,45 @@ function MedicalInsuranceData(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
+
+                  <Grid item xs={12} md={6}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.cardExpireDate)}
+                          value={governmentState.govMedCareEnd ? dayjs(governmentState.govMedCareEnd) : null}
+                          disabled={!hasGovernmentInsurance}
+                          onChange={(date) => {
+                            setGovernmentState((prevFilters) => ({
+                              ...prevFilters,
+                              govMedCareEnd: date,
+                            }));
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`govMedCareEnd`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`govMedCareEnd`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
                   </Grid>
                 </CardContent>
               </Card>
@@ -259,7 +322,7 @@ function MedicalInsuranceData(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(
@@ -283,9 +346,49 @@ function MedicalInsuranceData(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
 
-                    <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(
+                          messages.certificateIssuedDate
+                        )}
+                          value={certState.medCertIssueDate ? dayjs(certState.medCertIssueDate) : null}
+                          disabled={!hasMedicalCert}
+                          onChange={(date) => {
+                            setCertState((prevFilters) => ({
+                              ...prevFilters,
+                              medCertIssueDate: date,
+                            }));
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`medCertIssueDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`medCertIssueDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
+                    {/* <Grid item xs={12} md={6}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
                           label={intl.formatMessage(
@@ -309,7 +412,48 @@ function MedicalInsuranceData(props) {
                           )}
                         />
                       </LocalizationProvider>
-                    </Grid>
+                    </Grid> */}
+
+                  <Grid item xs={12} md={6}>
+                  
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(
+                          messages.certificateExpireDate
+                        )}
+                          value={certState.medCertExpDate ? dayjs(certState.medCertExpDate) : null}
+                          disabled={!hasMedicalCert}
+                          onChange={(date) => {
+                            setCertState((prevFilters) => ({
+                              ...prevFilters,
+                              medCertExpDate: date,
+                            }));
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`medCertExpDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`medCertExpDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
+
                   </Grid>
                 </CardContent>
               </Card>
