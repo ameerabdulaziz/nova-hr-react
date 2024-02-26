@@ -9,7 +9,7 @@ const MinsuranceCentersData = () => {
       id: obj.id,
       name: obj.arName,
       EnName: obj.enName,
-      price: obj.price,
+      phone: obj.phone,
       address: obj.address,
       edited: false,
     }));
@@ -22,7 +22,7 @@ const MinsuranceCentersData = () => {
       id: Item.id,
       arName: Item.name,
       enName: Item.EnName,
-      price: Item.price,
+      phone: Item.phone,
       address: Item.address,
     };
 

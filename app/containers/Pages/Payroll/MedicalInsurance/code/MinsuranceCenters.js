@@ -52,8 +52,8 @@ function MinsuranceCenters() {
       hidden: false,
     },
     {
-      name: 'price',
-      label: 'price',
+      name: 'phone',
+      label: 'MedicalCenterPhoneNumber',
       type: 'text',
       initialValue: '',
       width: 'auto',

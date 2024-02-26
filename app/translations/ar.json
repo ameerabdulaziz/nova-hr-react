@@ -909,6 +909,8 @@
 
   "boilerplate.components.tables.codes.DepreciationPeriod": "فترة الاستهلاك",
 
+  "boilerplate.components.tables.codes.MedicalCenterPhoneNumber": "رقم التليفون",
+
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",

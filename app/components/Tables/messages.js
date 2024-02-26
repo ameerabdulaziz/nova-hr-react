@@ -391,4 +391,8 @@ export default defineMessages({
     id: `${scope}.codes.newSalaryLimit`,
     defaultMessage: 'newSalaryLimit',
   },
+  MedicalCenterPhoneNumber: {
+    id: `${scope}.codes.MedicalCenterPhoneNumber`,
+    defaultMessage: 'Medical Center PhoneNumber',
+  },
 });

@@ -892,6 +892,8 @@
 
   "boilerplate.components.tables.codes.DepreciationPeriod": "Depreciation Period",
 
+  "boilerplate.components.tables.codes.MedicalCenterPhoneNumber": "Phone Number",
+
 
   "boilerplate.containers.Payroll.save": "Save",
   "boilerplate.containers.Payroll.close": "Close",
