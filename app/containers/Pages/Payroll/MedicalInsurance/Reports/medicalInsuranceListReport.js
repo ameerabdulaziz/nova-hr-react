@@ -53,8 +53,8 @@ function medicalInsuranceListReport(props) {
         MedInsuCatId: MedicalInsuranceCategory,
         EmpStatusId: searchData.EmpStatusId,
         all: searchData.all ? true: "",
-        PrivMed: searchData.PrivMed,
-        GovIns: searchData.GovIns,
+        PrivMed: searchData.PrivMed ? true: "",
+        GovIns: searchData.GovIns ? true: "",
           };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
