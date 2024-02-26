@@ -163,6 +163,16 @@ function SocialInsuranceData(props) {
       }
     }
 
+    if (insuredState.socialInsuranceId.length > 20) {
+      errors.socialInsuranceId = intl.formatMessage(
+        messages.socialInsuranceNumberMustBeLessThan20Number
+      );
+    } else {
+      const { socialInsuranceId, ...reset } = errors;
+
+      errors = reset;
+    }
+
     if (Object.keys(errors).length === 0) {
       let formData = {
         ...formInfo,

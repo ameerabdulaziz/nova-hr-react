@@ -325,4 +325,8 @@ export default defineMessages({
     id: `${scope}.calculationTemplate`,
     defaultMessage: 'calculationTemplate',
   },
+  socialInsuranceNumberMustBeLessThan20Number: {
+    id: `${scope}.socialInsuranceNumberMustBeLessThan20Number`,
+    defaultMessage: 'socialInsuranceNumberMustBeLessThan20Number',
+  },
 });
