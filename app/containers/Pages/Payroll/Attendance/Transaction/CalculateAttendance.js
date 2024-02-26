@@ -554,6 +554,8 @@ function CalculateAttendance(props) {
                   label={intl.formatMessage(messages.startDate)}
                   value={formInfo.FromDate ? dayjs(formInfo.FromDate) : null}
                   className={classes.field}
+                  minDate={openMonth.fromDate}
+                  maxDate={openMonth.todate}
                   onChange={(date) => {
                     onDatePickerChange(date, 'FromDate');
                   }}
@@ -578,6 +580,8 @@ function CalculateAttendance(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.endDate)}
+                  minDate={openMonth.fromDate}
+                  maxDate={openMonth.todate}
                   value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
                   className={classes.field}
                   onChange={(date) => {
