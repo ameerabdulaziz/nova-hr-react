@@ -119,7 +119,7 @@ function MissionTrxCreate(props) {
         setdata((prevFilters) => ({
           ...prevFilters,
           startTime: event.target.value,
-          minutesCount: diff,
+          minutesCount: diff < 0 ? diff * -1 : diff,
         }));
       } else
         setdata((prevFilters) => ({
@@ -151,7 +151,7 @@ function MissionTrxCreate(props) {
         setdata((prevFilters) => ({
           ...prevFilters,
           endTime: event.target.value,
-          minutesCount: diff,
+          minutesCount: diff < 0 ? diff * -1 : diff,
         }));
       } else
         setdata((prevFilters) => ({

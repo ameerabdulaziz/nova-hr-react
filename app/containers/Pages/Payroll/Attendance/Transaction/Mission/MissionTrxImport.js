@@ -68,7 +68,7 @@ function MissionTrxImport({ intl }) {
       const response = await ApiData(locale).SaveList(fileData);
 
       if (response.status == 200) {
-        toast.error(response.data);
+        toast.success(response.data);
         resetDataFun();
       } else {
         toast.error(response.statusText);
