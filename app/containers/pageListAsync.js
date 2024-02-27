@@ -910,6 +910,13 @@ export const EmpCourseReport = loadable(
   }
 );
 
+export const ResignReqTrxCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ResignReqTrx/ResignReqTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Attendance /////////////////////////////////////////////////////////////////////////////////
 
 export const PermissionTrxList = loadable(
