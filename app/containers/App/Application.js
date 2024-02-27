@@ -417,7 +417,8 @@ import {
   SalarySigningListReport,
   LoanReport,
   PeerAppraisalSetting,
-  LocationLog
+  LocationLog,
+  ResignReqTrxCreate
 } from '../pageListAsync';
 
 function Application(props) {
@@ -859,6 +860,11 @@ function Application(props) {
           component={LayOffNoticeReport}
         />
         <Route path='/app/Pages/HR/Items' component={Items} />
+
+        <Route
+          path='/app/Pages/HR/ResignReqTrxCreate'
+          component={ResignReqTrxCreate}
+        />
 
         {/* Attendance */}
         <Route
