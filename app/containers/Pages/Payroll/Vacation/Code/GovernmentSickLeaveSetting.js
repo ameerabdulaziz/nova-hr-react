@@ -95,7 +95,7 @@ const getdata =  async () => {
     setIsLoading(true);
 
     const GovernmentSickVacList = await GeneralListApis(locale).GetGovernmentSickVacList(locale);    
-    const ElementListByType = await GeneralListApis(locale).GetElementListByType(2);    
+    const ElementListByType = await GeneralListApis(locale).GetElementList(0,0,"",2);    
   
     setGovernmentSickVacData(GovernmentSickVacList)
     setElementListByTypeData(ElementListByType)

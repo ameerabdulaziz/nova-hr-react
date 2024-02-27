@@ -138,7 +138,23 @@ function ElementsCreate(props) {
     setType(type);
     setOpenPopup(true);
   };
+  const handledeleteRef = () => {
+    
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      payrollRefElements:[],
+    }))
+  };
 
+  const handledeleteRef2 = () => {
+    
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      payrollRefElements2:[],
+    }))
+  };
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -705,7 +721,7 @@ function ElementsCreate(props) {
                   <Card className={classes.card}>
                     <CardContent>
                       <Grid container spacing={3}>
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={12} md={4}>
                           <Button
                             variant="contained"
                             size="medium"
@@ -716,6 +732,19 @@ function ElementsCreate(props) {
                             onClick={() => handleClickOpenNamePopup(6)}
                           >
                             <FormattedMessage {...messages.refElement} />
+                          </Button>
+                        </Grid>
+                        <Grid item xs={12} md={1}>
+                          <Button
+                            variant="contained"
+                            size="medium"
+                            color="secondary"
+                            disabled={
+                              data.elementCalcMethodId == 1 ? true : false
+                            }
+                            onClick={() => handledeleteRef()}
+                          >
+                            <FormattedMessage {...Payrollmessages.delete} />
                           </Button>
                         </Grid>
                         <Grid item xs={12} md={12}>
@@ -737,7 +766,7 @@ function ElementsCreate(props) {
                   <Card className={classes.card}>
                     <CardContent>
                       <Grid container spacing={3}>
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={12} md={3}>
                           <Button
                             variant="contained"
                             size="medium"
@@ -745,6 +774,16 @@ function ElementsCreate(props) {
                             onClick={() => handleClickOpenNamePopup(7)}
                           >
                             <FormattedMessage {...messages.basicElement} />
+                          </Button>
+                        </Grid>
+                        <Grid item xs={12} md={2}>
+                          <Button
+                            variant="contained"
+                            size="medium"
+                            color="secondary"                            
+                            onClick={() => handledeleteRef2()}
+                          >
+                            <FormattedMessage {...Payrollmessages.delete} />
                           </Button>
                         </Grid>
                         <Grid item xs={12} md={12}>

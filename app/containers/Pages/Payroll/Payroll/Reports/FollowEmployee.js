@@ -71,7 +71,7 @@ function FollowEmployee(props) {
 
   async function fetchData() {
     try {
-      const elements = await GeneralListApis(locale).GetElementListByType(1);
+      const elements = await GeneralListApis(locale).GetElementList(0,0,"",1);
     
     setElementsList(elements)
 

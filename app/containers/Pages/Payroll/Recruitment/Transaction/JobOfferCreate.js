@@ -135,7 +135,7 @@ function JobOfferCreate(props) {
     setIsLoading(true);
 
     try {
-      const elements = await GeneralListApis(locale).GetElementListByType(1);
+      const elements = await GeneralListApis(locale).GetElementList(0,0,"",1);
       setSalaryElementsList(elements);
 
       const department = await GeneralListApis(locale).GetDepartmentList();

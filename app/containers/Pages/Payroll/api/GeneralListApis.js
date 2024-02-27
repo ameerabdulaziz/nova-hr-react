@@ -60,25 +60,14 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetElementList = async (ElementMode_ID, ElementCalcMethod_ID, isRefrance) => {
+  Apis.GetElementList = async (ElementModeId, ElementCalcMethodId, isRefrance,TypeID) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetElementList/${locale}?${
-        ElementMode_ID ? `ElementMode_ID=${ElementMode_ID}` : ""
-      }${
-        ElementCalcMethod_ID
-          ? `&ElementCalcMethod_ID=${ElementCalcMethod_ID}`
-          : ""
-      }${isRefrance ? `&isRefrance=${isRefrance}` : ""}`
+      `GeneralList/GetElementList/${locale}?TypeID=${TypeID}&ElementCalcMethodId=${ElementCalcMethodId?ElementCalcMethodId:0}&ElementModeId=${ElementModeId?ElementModeId:0}&isRefrance=${isRefrance?isRefrance:""}`
     );
     return result.data;
   };
 
-  Apis.GetElementListByType = async (TypeID,ElementCalcMethodId) => {
-    const result = await axiosInstance.get(
-      `GeneralList/GetElementList/${locale}?TypeID=${TypeID}&ElementCalcMethodId=${ElementCalcMethodId?ElementCalcMethodId:0}`
-    );
-    return result.data;
-  };
+
   Apis.GetElementListByTemplate = async (templateId,TypeID,ElementCalcMethodId,ElementModeId , isRefrance) => {
     const result = await axiosInstance.get(
       `GeneralList/GetElementListByTemplate/${templateId}/${locale}?TypeID=${TypeID}&ElementCalcMethodId=${ElementCalcMethodId?ElementCalcMethodId:0}&ElementModeId=${ElementModeId?ElementModeId:0}&isRefrance=${isRefrance?isRefrance:""}`

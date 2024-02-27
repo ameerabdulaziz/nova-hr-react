@@ -17,7 +17,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import ControlParamLate from "./ControlParamLate";
 
 function TimeDelayRules(props) {
-  const { intl, data, setdata, group1ElemList,group2ElemList ,controlParaLateList,setControlParaLateList} = props;
+  const { intl, data, setdata, group1ElemList ,controlParaLateList,setControlParaLateList} = props;
 
   const { classes } = useStyles();
 
@@ -131,8 +131,8 @@ function TimeDelayRules(props) {
                       <Grid item md={6} xs={12}>
                         <Autocomplete
                           id="lateTimeMinusEl"
-                          options={group2ElemList}
-                          value={group2ElemList.find(
+                          options={group1ElemList}
+                          value={group1ElemList.find(
                             (item) => item.id === data.lateTimeMinusEl
                           )||null}
                           isOptionEqualToValue={(option, value) =>

@@ -165,7 +165,7 @@ const getdata =  async () => {
   setIsLoading(true);
 
   try {    
-    const elements = await GeneralListApis(locale).GetElementListByType(2);    
+    const elements = await GeneralListApis(locale).GetElementList(0,0,"",2);    
   
     setElementsData(elements)
 

@@ -34,6 +34,7 @@ function BranchSalarySetting(props) {
   const [BranchList, setBranchList] = useState([]);
   const [brCode, setBrCode] = useState(null);
   const [group1ElemList, setgroup1ElemList] = useState([]);
+  const [MedInsElemList, setMedInsElemList] = useState([]);
   const [data, setdata] = useState({
     PersonalExemption: "",
     specialNeedsExemption: "",
@@ -151,6 +152,13 @@ function BranchSalarySetting(props) {
         2
       );
       setgroup1ElemList(group1data);
+
+      const meddata = await GeneralListApis(locale).GetElementListByTemplate(
+        1,
+        2,
+        1
+      );
+      setMedInsElemList(meddata);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -908,9 +916,9 @@ debugger ;
                   <Grid item md={3} xs={12}>
                     <Autocomplete
                       id="ddlMedInsElement"
-                      options={group1ElemList}
+                      options={MedInsElemList}
                       value={
-                        group1ElemList.find(
+                        MedInsElemList.find(
                           (item) => item.id === data.MedInsElement
                         ) || null
                       }

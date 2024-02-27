@@ -253,25 +253,19 @@ function AttRulesCreate(props) {
       );
       setgroup1ElemList(group1data);
 
-      const group2data = await GeneralListApis(locale).GetElementListByType(
-        2,
-        1
-      );
+      const group2data = await GeneralListApis(locale).GetElementList(0,1,"",2);
+       
       setgroup2ElemList(group2data);
 
-      const group3data = await GeneralListApis(locale).GetElementListByType(2);
+      const group3data = await GeneralListApis(locale).GetElementList(0,0,"",2);
       setgroup3ElemList(group3data);
 
-      const group4data = await GeneralListApis(locale).GetElementListByType(
-        1,
-        1
-      );
+      const group4data = await GeneralListApis(locale).GetElementList(0,1,"",1);
+      
       setgroup4ElemList(group4data);
 
-      const group5data = await GeneralListApis(locale).GetElementListByType(
-        1,
-        2
-      );
+      const group5data = await GeneralListApis(locale).GetElementList(0,2,"",1);
+      
       setgroup5ElemList(group5data);
 
       const dataApi = await ApiData(locale).Get(id ?? 0);
@@ -471,7 +465,6 @@ function AttRulesCreate(props) {
                 data={data}
                 setdata={setdata}
                 group1ElemList={group1ElemList}
-                group2ElemList={group2ElemList}
                 controlParaLateList={controlParaLateList}
                 setControlParaLateList={setControlParaLateList}
               />

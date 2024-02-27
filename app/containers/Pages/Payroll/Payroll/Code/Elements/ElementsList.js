@@ -43,7 +43,17 @@ function ElementsList(props) {
       setIsLoading(false);
     }
   }
-
+  const ElemType = (value) => {
+    return (
+      <div>
+        {value==1 ? (
+          intl.formatMessage(messages.Allowance)
+        ) : (
+          intl.formatMessage(messages.Deduct)
+        )}
+      </div>
+    );
+  };
   const CalcMethod = (value) => {
     return (
       <div>
@@ -55,6 +65,7 @@ function ElementsList(props) {
       </div>
     );
   };
+  
   const ElementMode = (value) => {
     return (
       <div>
@@ -89,6 +100,14 @@ function ElementsList(props) {
       label: intl.formatMessage(Payrollmessages.enName),
       options: {
         filter: true,
+      },
+    },
+    {
+      name: 'elementTypeId',
+      label: intl.formatMessage(Payrollmessages.type),
+      options: {
+        filter: true,
+        customBodyRender: (value) => ElemType(value),
       },
     },
     {

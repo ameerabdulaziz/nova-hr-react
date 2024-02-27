@@ -28,11 +28,9 @@ import EmployeeData from "../../../Component/EmployeeData";
 import { format } from "date-fns";
 import GeneralListApis from "../../../api/GeneralListApis";
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-
-
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function LoanReqCreate(props) {
   const { intl } = props;
@@ -73,16 +71,14 @@ function LoanReqCreate(props) {
   const history = useHistory();
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
-
-
-
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
   const handleEmpChange = useCallback((id, name) => {
+    debugger ;
     if (name == "employeeId") {
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -92,22 +88,18 @@ function LoanReqCreate(props) {
     }
   }, []);
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    	// used to stop call api if user select wrong date
-      if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-        return;
-      }
-
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
     try {
+      data.transDate = dateFormatFun(data.transDate);
 
-      data.transDate = dateFormatFun(data.transDate)
-      
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -124,7 +116,7 @@ function LoanReqCreate(props) {
   async function oncancel() {
     history.push(`/app/Pages/Payroll/LoanReq`);
   }
-  
+
   async function changeYear(value) {
     if (value != null && value.id < data.yearId) {
       toast.error("year must be grater than or equal opne Year");
@@ -133,39 +125,36 @@ function LoanReqCreate(props) {
         stYearId: data.yearId,
         stYearName: data.yearName,
       }));
-      
-    } else
-    {
+    } else {
       setdata((prevFilters) => ({
         ...prevFilters,
         stYearId: value !== null ? value.id : 0,
         stYearName: value !== null ? value.name : "",
       }));
-      
     }
   }
   async function changeMonth(value) {
-    if (value != null && value.id < data.monthId && data.stYearId < data.yearId) {
+    if (
+      value != null &&
+      value.id < data.monthId &&
+      data.stYearId < data.yearId
+    ) {
       toast.error("month must be grater than or equal opne Month");
       setdata((prevFilters) => ({
         ...prevFilters,
         stMonthId: data.monthId,
       }));
-      
-    } else
-    {
+    } else {
       setdata((prevFilters) => ({
         ...prevFilters,
         stMonthId: value !== null ? value.id : 0,
         stMonthName: value !== null ? value.name : 0,
       }));
-      
     }
   }
 
   async function getOpenMonth(id) {
     try {
-
       if (!id) {
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -182,7 +171,6 @@ function LoanReqCreate(props) {
       }
       setIsLoading(true);
       const result = await GeneralListApis(locale).getOpenMonth(0, id);
-
 
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -207,8 +195,10 @@ function LoanReqCreate(props) {
       const months = await GeneralListApis(locale).GetMonths();
       setMonthList(months);
 
-      const dataApi = await ApiData(locale).Get(id ?? 0);
-      setdata(dataApi);
+      
+        const dataApi = await ApiData(locale).Get(id??0);
+        setdata(dataApi);
+        
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -275,39 +265,36 @@ function LoanReqCreate(props) {
                         </LocalizationProvider>
                       </Grid> */}
 
-                  <Grid item xs={12} md={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.date)}
-                          value={data.transDate ? dayjs(data.transDate) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              transDate: date,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`transDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`transDate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+                      <Grid item xs={12} md={2}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            label={intl.formatMessage(Payrollmessages.date)}
+                            value={
+                              data.transDate ? dayjs(data.transDate) : null
+                            }
+                            className={classes.field}
+                            onChange={(date) => {
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                transDate: date,
+                              }));
+                            }}
+                            onError={(error, value) => {
+                              if (error !== null) {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  [`transDate`]: true,
+                                }));
+                              } else {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  [`transDate`]: false,
+                                }));
+                              }
+                            }}
+                          />
+                        </LocalizationProvider>
+                      </Grid>
 
                       <Grid item xs={12} md={1}>
                         <TextField
@@ -318,7 +305,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={1}>
@@ -330,7 +317,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={2.5}>
@@ -342,7 +329,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={2.5}>
@@ -356,7 +343,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -368,7 +355,7 @@ function LoanReqCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                     </Grid>
@@ -391,7 +378,6 @@ function LoanReqCreate(props) {
                             value.id === "" ||
                             option.id === value.id
                           }
-                          
                           getOptionLabel={(option) =>
                             option.name ? option.name : ""
                           }
@@ -411,7 +397,6 @@ function LoanReqCreate(props) {
                               {...params}
                               name="stYearName"
                               required
-                              
                               label={intl.formatMessage(Payrollmessages.year)}
                             />
                           )}
@@ -426,7 +411,6 @@ function LoanReqCreate(props) {
                             value.id === "" ||
                             option.id === value.id
                           }
-                          
                           getOptionLabel={(option) =>
                             option.name ? option.name : ""
                           }
@@ -438,7 +422,7 @@ function LoanReqCreate(props) {
                               : null
                           }
                           onChange={(event, value) => {
-                            changeMonth(value)
+                            changeMonth(value);
                           }}
                           renderInput={(params) => (
                             <TextField
@@ -446,7 +430,6 @@ function LoanReqCreate(props) {
                               {...params}
                               name="stMonthName"
                               required
-                              
                               label={intl.formatMessage(Payrollmessages.month)}
                             />
                           )}
@@ -468,7 +451,7 @@ function LoanReqCreate(props) {
                               nativeTotalValue: e.target.value,
                             }));
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={2}>
@@ -484,11 +467,13 @@ function LoanReqCreate(props) {
                             setdata((prevFilters) => ({
                               ...prevFilters,
                               totalvalue: e.target.value,
-                              payvalue: (data.paysNo && data.totalvalue)?e.target.value/ data.paysNo:0,
+                              payvalue:
+                                data.paysNo && data.totalvalue
+                                  ? e.target.value / data.paysNo
+                                  : 0,
                             }));
-                            
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={2}>
@@ -507,9 +492,8 @@ function LoanReqCreate(props) {
                               paysNo: e.target.value,
                               payvalue: data.totalvalue / e.target.value,
                             }));
-                            
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={2}>
@@ -522,7 +506,7 @@ function LoanReqCreate(props) {
                           variant="outlined"
                           required
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                     </Grid>
@@ -530,7 +514,6 @@ function LoanReqCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-
 
             <Grid item xs={12} md={1}>
               <Button

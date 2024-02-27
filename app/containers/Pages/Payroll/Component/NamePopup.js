@@ -88,10 +88,7 @@ function NamePopup(props) {
         );
       } else if (Key == "Element") {
         debugger;
-        var result = await GeneralListApis(locale).GetElementListByType(
-          ElementType,
-          0
-        );
+        var result = await GeneralListApis(locale).GetElementList(0,0,"",ElementType);
 
         if (ElementId) {
           data = result.filter((x) => x.id != ElementId);
