@@ -475,7 +475,6 @@ function JobOfferCreate(props) {
                 name='commession'
                 value={formInfo.commession}
                 onChange={onInputChange}
-                required
                 label={intl.formatMessage(messages.commession)}
                 className={classes.field}
                 variant='outlined'
@@ -503,7 +502,6 @@ function JobOfferCreate(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    required
                     label={intl.formatMessage(messages.salaryStructure)}
                   />
                 )}
