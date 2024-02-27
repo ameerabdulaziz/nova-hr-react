@@ -671,7 +671,7 @@ function JobAdvertisementApplication(props) {
                         <TextField
                           name='idcardNumber'
                           value={formInfo.idcardNumber}
-                          onChange={onNumericInputChange}
+                          onChange={onInputChange}
                           label={intl.formatMessage(messages.IDNumber)}
                           fullWidth
                           required
