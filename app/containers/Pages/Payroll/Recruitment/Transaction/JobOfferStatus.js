@@ -229,6 +229,7 @@ function JobOfferStatus(props) {
                 label={intl.formatMessage(payrollMessages.notes)}
                 fullWidth
                 variant='outlined'
+                required
                 multiline
                 rows={1}
                 autoComplete='off'

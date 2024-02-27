@@ -535,6 +535,7 @@ function HRApplicationEvaluation(props) {
                   variant='outlined'
                   multiline
                   rows={1}
+                  required
                   autoComplete='off'
                 />
               </Grid>
