@@ -54,7 +54,7 @@ function MedicalInsuranceData(props) {
 
   const [governmentState, setGovernmentState] = useState({
     govMedCareEnd: null,
-    govMediCardNumber: '',
+    medicalNumber: '',
   });
 
   const [certState, setCertState] = useState({
@@ -96,7 +96,7 @@ function MedicalInsuranceData(props) {
 
       setGovernmentState({
         govMedCareEnd: response.govMedCareEnd ?? null,
-        govMediCardNumber: response.govMediCardNumber ?? '',
+        medicalNumber: response.govMediCardNumber ?? '',
       });
 
       setCertState({
@@ -115,7 +115,7 @@ function MedicalInsuranceData(props) {
 
       setGovernmentState({
         govMedCareEnd: null,
-        govMediCardNumber: '',
+        medicalNumber: '',
       });
 
       setCertState({
@@ -160,7 +160,11 @@ function MedicalInsuranceData(props) {
     if (hasGovernmentInsurance) {
       governmentState.govMedCareEnd = dateFormatFun(governmentState.govMedCareEnd)
 
-      formData = { ...formData, ...governmentState };
+      formData = {
+        ...formData,
+        govMediCardNumber: governmentState.medicalNumber,
+        govMedCareEnd: governmentState.govMedCareEnd
+      };
     }
 
     try {
@@ -223,8 +227,8 @@ function MedicalInsuranceData(props) {
                   >
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='govMediCardNumber'
-                        value={governmentState.govMediCardNumber}
+                        name='medicalNumber'
+                        value={governmentState.medicalNumber}
                         disabled={!hasGovernmentInsurance}
                         required
                         onChange={onGovernmentNumericInputChange}
