@@ -2686,6 +2686,8 @@
 
   "boilerplate.containers.Payroll.recruitment.grossSalary": "Gross Salary",
   "boilerplate.containers.Payroll.recruitment.id": "Id",
+  "boilerplate.containers.Payroll.recruitment.employeeAlreadyExistInEmployeeList": "Employee Already Exist In Employee List",
+  "boilerplate.containers.Payroll.recruitment.employeeCode": "Employee Code",
   "boilerplate.containers.Payroll.recruitment.insertDate": "Insert Date",
   "boilerplate.containers.Payroll.recruitment.generalInformation": "General Information",
   "boilerplate.containers.Payroll.recruitment.salaryRange": "Salary Range",

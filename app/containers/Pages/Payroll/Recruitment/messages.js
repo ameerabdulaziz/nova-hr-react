@@ -206,6 +206,14 @@ export default defineMessages({
     id: `${scope}.employeeName`,
     defaultMessage: 'employeeName',
   },
+  employeeCode: {
+    id: `${scope}.employeeCode`,
+    defaultMessage: 'employeeCode',
+  },
+  employeeAlreadyExistInEmployeeList: {
+    id: `${scope}.employeeAlreadyExistInEmployeeList`,
+    defaultMessage: 'employeeAlreadyExistInEmployeeList',
+  },
   qualification: {
     id: `${scope}.qualification`,
     defaultMessage: 'qualification',

@@ -2740,6 +2740,8 @@
   "boilerplate.containers.Payroll.medicalInsurance.All": "الكل",
 
   "boilerplate.containers.Payroll.recruitment.id": "الكود",
+  "boilerplate.containers.Payroll.recruitment.employeeAlreadyExistInEmployeeList": "الموظف موجود بالفعل في قائمة الموظفين",
+  "boilerplate.containers.Payroll.recruitment.employeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.recruitment.insertDate": "تاريخ الإدراج",
   "boilerplate.containers.Payroll.recruitment.generalInformation": "معلومات عامة",
   "boilerplate.containers.Payroll.recruitment.salaryRange": "نطاق الراتب",
