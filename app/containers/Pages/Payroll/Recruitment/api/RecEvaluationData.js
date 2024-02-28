@@ -20,6 +20,8 @@ const RecEvaluationData = () => {
       elFinGrad: obj.elFinGrad,
       elPercent: obj.elPercent,
       elJob: obj.jobName,
+      isManger: obj.isManger ?? false,
+      isHr: obj.isHr ?? false,
       edited: false,
     }));
 
@@ -45,6 +47,8 @@ const RecEvaluationData = () => {
       elJob,
       elPercent: Item.elPercent,
       elFinGrad: Item.elFinGrad,
+      isManger: Item.isManger,
+      isHr: Item.isHr,
     };
 
     const result = Item.id === 0
