@@ -63,11 +63,13 @@ npm run start:prod
 - [ ] Replace **Attendance** collection with new payroll table
 - [ ] Find a way to include images & web.config in **build**
 - [ ] Improve **React-to-print** package the need state before print
+- [ ] Fix selection column in **editable** table (use id instead of name)
 
 ## TODO
 
 - [ ] Display row number in the table, [link](https://github.com/gregnb/mui-datatables/issues/1379)
 - [ ] Add Print column to payroll table
+- [ ] **Recruitment** - add pdf download instead of open in new tab
 
 ## Docs 📖
 

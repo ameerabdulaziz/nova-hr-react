@@ -31,6 +31,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import { formateDate } from "../../../helpers";
 
 function ShiftReview(props) {
   const { intl } = props;
@@ -138,6 +139,7 @@ function ShiftReview(props) {
       name: "id",
       options: {
         filter: false,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
@@ -145,6 +147,7 @@ function ShiftReview(props) {
       label: <FormattedMessage {...Payrollmessages["weekDayName"]} />,
       options: {
         filter: false,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
@@ -183,12 +186,14 @@ function ShiftReview(props) {
       label: <FormattedMessage {...messages["timeIn"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (<pre>{formateDate(value, 'yyyy-MM-dd hh:mm:ss a')}</pre>),
       },
     },
     {
       name: "timeOut",
       label: <FormattedMessage {...messages["timeOut"]} />,
       options: {
+        customBodyRender: (value) => (<pre>{formateDate(value, 'yyyy-MM-dd hh:mm:ss a')}</pre>),
         filter: true,
       },
     },
