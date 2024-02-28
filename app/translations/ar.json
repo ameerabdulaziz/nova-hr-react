@@ -816,6 +816,8 @@
   "boilerplate.components.tables.codes.code": "الكود",
   "boilerplate.components.tables.codes.from": "من",
   "boilerplate.components.tables.codes.to": "الي",
+  "boilerplate.components.tables.codes.isHR": "مسؤول موارد بشرية",
+  "boilerplate.components.tables.codes.isManager": "مدير",
   "boilerplate.components.tables.codes.choiceGrade": "درجة الاختيار",
   "boilerplate.components.tables.codes.requirements": "المتطلبات",
   "boilerplate.components.tables.codes.name": "الاسم بالعربية",
@@ -910,6 +912,8 @@
   "boilerplate.components.tables.codes.DepreciationPeriod": "فترة الاستهلاك",
 
   "boilerplate.components.tables.codes.MedicalCenterPhoneNumber": "رقم التليفون",
+
+  "boilerplate.components.tables.codes.receiverJobInResignation": "استلام العهد فى الاستقالات",
 
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
@@ -2740,6 +2744,8 @@
   "boilerplate.containers.Payroll.medicalInsurance.All": "الكل",
 
   "boilerplate.containers.Payroll.recruitment.id": "الكود",
+  "boilerplate.containers.Payroll.recruitment.employeeAlreadyExistInEmployeeList": "الموظف موجود بالفعل في قائمة الموظفين",
+  "boilerplate.containers.Payroll.recruitment.employeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.recruitment.insertDate": "تاريخ الإدراج",
   "boilerplate.containers.Payroll.recruitment.generalInformation": "معلومات عامة",
   "boilerplate.containers.Payroll.recruitment.salaryRange": "نطاق الراتب",

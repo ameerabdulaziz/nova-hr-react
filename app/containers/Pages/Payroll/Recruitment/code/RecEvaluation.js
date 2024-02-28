@@ -83,6 +83,25 @@ function RecEvaluation() {
       width: 'auto',
       hidden: false,
     },
+
+    {
+      name: 'isHr',
+      label: 'isHR',
+      type: 'toggle',
+      initialValue: false,
+      width: 'auto',
+      hidden: false,
+    },
+
+    {
+      name: 'isManger',
+      label: 'isManager',
+      type: 'toggle',
+      initialValue: false,
+      width: 'auto',
+      hidden: false,
+    },
+
     {
       name: 'edited',
       label: '',

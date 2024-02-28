@@ -15,6 +15,13 @@ const API = (locale) => {
     return result;
   };
 
+  api.CheckIfExistEmp = async (cardNumber, email) => {
+    const data = await axiosInstance.get(
+      `RecJobApplicationEvaluation/CheckIfExistEmp/${cardNumber}/${email}/${locale}`);
+
+    return data.data;
+  };
+
   api.SaveHR = async (body) => {
     const data = await axiosInstance.post(
       'RecJobApplicationEvaluation/SaveHR',

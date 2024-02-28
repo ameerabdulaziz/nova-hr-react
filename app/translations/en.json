@@ -830,6 +830,8 @@
   "boilerplate.components.tables.codes.elJob": "Element Job",
   "boilerplate.components.tables.codes.elPercent": "Element Percent",
   "boilerplate.components.tables.codes.action": "Actions",
+  "boilerplate.components.tables.codes.isHR": "Is HR",
+  "boilerplate.components.tables.codes.isManager": "Is Manager",
   "boilerplate.components.tables.codes.address": "Address",
   "boilerplate.components.tables.codes.note": "Notes",
   "boilerplate.components.tables.codes.accno": "Account Number",
@@ -893,6 +895,8 @@
   "boilerplate.components.tables.codes.DepreciationPeriod": "Depreciation Period",
 
   "boilerplate.components.tables.codes.MedicalCenterPhoneNumber": "Phone Number",
+
+  "boilerplate.components.tables.codes.receiverJobInResignation": "Receiver Job In Resignation",
 
 
   "boilerplate.containers.Payroll.save": "Save",
@@ -2686,6 +2690,8 @@
 
   "boilerplate.containers.Payroll.recruitment.grossSalary": "Gross Salary",
   "boilerplate.containers.Payroll.recruitment.id": "Id",
+  "boilerplate.containers.Payroll.recruitment.employeeAlreadyExistInEmployeeList": "Employee Already Exist In Employee List",
+  "boilerplate.containers.Payroll.recruitment.employeeCode": "Employee Code",
   "boilerplate.containers.Payroll.recruitment.insertDate": "Insert Date",
   "boilerplate.containers.Payroll.recruitment.generalInformation": "General Information",
   "boilerplate.containers.Payroll.recruitment.salaryRange": "Salary Range",

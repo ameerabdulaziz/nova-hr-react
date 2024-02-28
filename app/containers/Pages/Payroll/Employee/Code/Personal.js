@@ -98,7 +98,7 @@ function Personal(props) {
   const [birthDate, setbirthDate] = useState(null);
   const [workEmail, setWorkEmail] = useState('');
   const [isHR, setIsHR] = useState(false);
-  const [hrBranchList, setHrBranchList] = useState([])
+  // const [hrBranchList, setHrBranchList] = useState([])
 
   const [birthGovId, setbirthGovId] = useState(null);
   const [birthGovList, setbirthGovList] = useState([]);
@@ -388,7 +388,7 @@ function Personal(props) {
         userId: 0,
         workEmail,
         isHr: isHR,
-        hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
+        // hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
 
@@ -418,7 +418,7 @@ function Personal(props) {
     seteRPCode('');
     setgenderId(null);
     sethiringDate(null);
-    setHrBranchList([]);
+    // setHrBranchList([]);
     setidentityExpiry(null);
     setidentityIssuingAuth('');
     setidentityIssuingDate(null);
@@ -539,7 +539,7 @@ function Personal(props) {
             setUserName(dataApi.userName ?? '');
             setemployeeCode(dataApi.employeeCode ?? '');
             setWorkEmail(dataApi.workEmail ?? '');
-            setHrBranchList(dataApi.hrBranchList ?? []);
+            // setHrBranchList(dataApi.hrBranchList ?? []);
             setIsHR(dataApi.isHr);
             seteRPCode(dataApi.eRPCode ?? '');
             setmachineCode(dataApi.machineCode ?? '');
@@ -1606,7 +1606,7 @@ function Personal(props) {
                   </Grid>
                 </Grid>
 
-                {authState.user.isHR && <>
+                {/* {authState.user.isHR && <>
                   <Grid item xs={12} md={6}>
                     <Autocomplete
                       options={branchList}
@@ -1641,7 +1641,7 @@ function Personal(props) {
                       )}
                     />
                   </Grid>
-                </>}
+                </>} */}
 
               </Grid>
             </Grid>

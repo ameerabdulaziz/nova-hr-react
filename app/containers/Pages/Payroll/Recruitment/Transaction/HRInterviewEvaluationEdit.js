@@ -31,7 +31,7 @@ function HRInterviewEvaluationEdit(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
-  const id = location.state?.id ?? 0;
+  const { hasTechnicalReview = false, id = 0 } = location.state;
   const { classes } = useStyles();
   const history = useHistory();
   const Title = localStorage.getItem('MenuName');
@@ -53,6 +53,7 @@ function HRInterviewEvaluationEdit(props) {
 
     status: null,
     comment: '',
+    hasTechnicalReview,
   });
 
   async function fetchNeededData() {
@@ -114,6 +115,7 @@ function HRInterviewEvaluationEdit(props) {
 
       status: formInfo.status,
       comment: formInfo.comment,
+      hasTechnicalReview: formInfo.hasTechnicalReview,
 
       JobEvaluationList: jobEvaluationMapped,
       HrtestList: hrTestsMapped,

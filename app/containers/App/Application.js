@@ -418,7 +418,9 @@ import {
   LoanReport,
   PeerAppraisalSetting,
   LocationLog,
-  ResignReqTrxCreate
+  ResignReqTrxCreate,
+  ResignReqTrxEdit,
+  ResignReqTrxList
 } from '../pageListAsync';
 
 function Application(props) {
@@ -864,6 +866,16 @@ function Application(props) {
         <Route
           path='/app/Pages/HR/ResignReqTrxCreate'
           component={ResignReqTrxCreate}
+        />
+
+        <Route
+          path='/app/Pages/HR/ResignReqTrxEdit'
+          component={ResignReqTrxEdit}
+        />
+
+        <Route
+          path='/app/Pages/HR/ResignReqTrx'
+          component={ResignReqTrxList}
         />
 
         {/* Attendance */}

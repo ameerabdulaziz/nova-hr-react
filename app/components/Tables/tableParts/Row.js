@@ -39,7 +39,7 @@ const Row = forwardRef((props, ref) => {
     anchor,
     item,  
     API,IsNotSave,isNotAdd,
-    handleClickOpen
+    handleClickOpen, setIsLoading
   } = props;
 
   const branch = 'crudTableDemo' ;
@@ -61,9 +61,12 @@ const Row = forwardRef((props, ref) => {
     {
       if(API && !IsNotSave)
       {
+        setIsLoading(true);
         const data =  await API.Delete(item);
         if(data.status === 200)
           removeRow(removeAction(item,true, branch));
+
+        setIsLoading(false);
       }
       else
         removeRow(removeAction(item,false, branch));
@@ -78,12 +81,14 @@ const Row = forwardRef((props, ref) => {
   const eventDone = useCallback(async() => {
     if(API && !IsNotSave)
     {
-      
+      setIsLoading(true);
       const data =  await API.Save(item);
       if(data.status === 200)
       {
         finishEditRow(saveAction(item,item.id===0?data.data.id:0,true, branch));
       }
+
+      setIsLoading(false);
     }
     else
         finishEditRow(saveAction(item,item.id,false, branch));
@@ -134,7 +139,7 @@ const Row = forwardRef((props, ref) => {
             :
             (
               <td 
-              className={style.actionsSty}
+              // className={style.actionsSty}
               key={index.toString()}
               >
                 {item[itemCell.name] ? (

@@ -18,7 +18,8 @@ import {
   DialogTitle,
   FormControlLabel,
   Grid,
-  TextField
+  TextField,
+  Typography,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -75,6 +76,8 @@ function HRApplicationEvaluation(props) {
   const [managerialLevelList, setManagerialLevelList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isFetchExistEmployeeData, setIsFetchExistEmployeeData] =		useState(false);
+  const [existEmployeeInfo, setExistEmployeeInfo] = useState(null);
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
@@ -171,6 +174,23 @@ function HRApplicationEvaluation(props) {
     }
   }
 
+  const fetchExistEmployeeData = async (id) => {
+    setIsFetchExistEmployeeData(true);
+    const row = tableData.find((item) => item.id === id);
+
+    try {
+      const response = await api(locale).CheckIfExistEmp(
+        row.idcardNumber,
+        row.email
+      );
+      setExistEmployeeInfo(response);
+    } catch (error) {
+      //
+    } finally {
+      setIsFetchExistEmployeeData(false);
+    }
+  };
+
   useEffect(() => {
     fetchNeededData();
   }, []);
@@ -178,6 +198,10 @@ function HRApplicationEvaluation(props) {
   const onUpdateStatusBtnClick = (ids) => {
     setSelectedRowsId(ids);
     setIsPopupOpen(true);
+
+    if (ids.length === 1) {
+      fetchExistEmployeeData(ids[0]);
+    }
   };
 
   const onSendRejectMailBtnClick = async (id) => {
@@ -315,6 +339,7 @@ function HRApplicationEvaluation(props) {
 
   const onPopupClose = () => {
     setIsPopupOpen(false);
+    setExistEmployeeInfo(null);
 
     setPopupState({
       appFirstStatus: null,
@@ -343,7 +368,7 @@ function HRApplicationEvaluation(props) {
 
     if (popupState.appFirstStatus === 1 || popupState.appFirstStatus === 3) {
       body.secStaff = popupState.secStaff;
-      body.techEmpList = popupState.techEmpList.map((item) => item.id);
+      body.techEmpList = !popupState.notTechnicalReview ? popupState.techEmpList.map((item) => item.id) : [];
     }
 
     if (popupState.appFirstStatus !== 1) {
@@ -384,41 +409,88 @@ function HRApplicationEvaluation(props) {
         </DialogTitle>
 
         <DialogContent sx={{ pt: '10px !important' }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <Autocomplete
-                options={statusPopupList}
-                value={
-                  statusPopupList.find(
-                    (item) => item.id === popupState.appFirstStatus
-                  ) ?? null
-                }
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompletePopupChange(value, 'appFirstStatus')
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.status)}
-                  />
-                )}
-              />
-            </Grid>
+          <PayRollLoader isLoading={isFetchExistEmployeeData}>
+            {existEmployeeInfo && (
+              <Card className={classes.card} sx={{ mt: '0!important' }}>
+                <CardContent>
+                  <Typography>
+                    {intl.formatMessage(
+                      messages.employeeAlreadyExistInEmployeeList
+                    )}
+                  </Typography>
+                  <Grid container mt={0} spacing={2}>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        name='employeeCode'
+                        value={existEmployeeInfo.employeeCode}
+                        label={intl.formatMessage(messages.employeeCode)}
+                        fullWidth
+                        variant='outlined'
+                        disabled
+                        autoComplete='off'
+                      />
+                    </Grid>
 
-            {popupState.appFirstStatus === 6 && (
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        name='employeeName'
+                        value={existEmployeeInfo.employeeName}
+                        label={intl.formatMessage(messages.employeeName)}
+                        fullWidth
+                        variant='outlined'
+                        disabled
+                        autoComplete='off'
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        name='jobName'
+                        value={existEmployeeInfo.jobName}
+                        label={intl.formatMessage(messages.jobName)}
+                        fullWidth
+                        variant='outlined'
+                        disabled
+                        autoComplete='off'
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        name='department'
+                        value={existEmployeeInfo.department}
+                        label={intl.formatMessage(messages.department)}
+                        fullWidth
+                        variant='outlined'
+                        disabled
+                        autoComplete='off'
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        name='status'
+                        value={existEmployeeInfo.status}
+                        label={intl.formatMessage(messages.status)}
+                        fullWidth
+                        variant='outlined'
+                        disabled
+                        autoComplete='off'
+                      />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            )}
+
+            <Grid container spacing={2} mt={existEmployeeInfo ? 2 : undefined}>
               <Grid item xs={12} md={6}>
                 <Autocomplete
-                  options={jobList}
+                  options={statusPopupList}
                   value={
-                    jobList.find((item) => item.id === popupState.databnkjob)
-										?? null
+                    statusPopupList.find(
+                      (item) => item.id === popupState.appFirstStatus
+                    ) ?? null
                   }
                   isOptionEqualToValue={(option, value) => option.id === value.id
                   }
@@ -428,27 +500,25 @@ function HRApplicationEvaluation(props) {
                       {option.name}
                     </li>
                   )}
-                  onChange={(_, value) => onAutoCompletePopupChange(value, 'databnkjob')
+                  onChange={(_, value) => onAutoCompletePopupChange(value, 'appFirstStatus')
                   }
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={intl.formatMessage(messages.jobName)}
+                      required
+                      label={intl.formatMessage(messages.status)}
                     />
                   )}
                 />
               </Grid>
-            )}
 
-            {(popupState.appFirstStatus === 1
-							|| popupState.appFirstStatus === 3) && (
-              <>
+              {popupState.appFirstStatus === 6 && (
                 <Grid item xs={12} md={6}>
                   <Autocomplete
-                    options={managerialLevelList}
+                    options={jobList}
                     value={
-                      managerialLevelList.find(
-                        (item) => item.id === popupState.secStaff
+                      jobList.find(
+                        (item) => item.id === popupState.databnkjob
                       ) ?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
@@ -459,88 +529,122 @@ function HRApplicationEvaluation(props) {
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompletePopupChange(value, 'secStaff')
+                    onChange={(_, value) => onAutoCompletePopupChange(value, 'databnkjob')
                     }
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        label={intl.formatMessage(messages.managerialLevel)}
+                        label={intl.formatMessage(messages.jobName)}
                       />
                     )}
                   />
                 </Grid>
+              )}
 
-                <Grid item xs={12}>
-                  <Autocomplete
-                    options={technicalEmployeeList}
-                    multiple
-                    disableCloseOnSelect
-                    className={`${style.AutocompleteMulSty} ${
-                      locale === 'ar' ? style.AutocompleteMulStyAR : null
-                    }`}
-                    value={popupState.techEmpList}
-                    renderOption={(props, option, { selected }) => (
-                      <li {...props}>
-                        <Checkbox
-                          icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                          checkedIcon={<CheckBoxIcon fontSize='small' />}
-                          style={{ marginRight: 8 }}
-                          checked={selected}
+              {(popupState.appFirstStatus === 1
+                || popupState.appFirstStatus === 3) && (
+                <>
+                  <Grid item xs={12} md={6}>
+                    <Autocomplete
+                      options={managerialLevelList}
+                      value={
+                        managerialLevelList.find(
+                          (item) => item.id === popupState.secStaff
+                        ) ?? null
+                      }
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      renderOption={(propsOption, option) => (
+                        <li {...propsOption} key={option.id}>
+                          {option.name}
+                        </li>
+                      )}
+                      onChange={(_, value) => onAutoCompletePopupChange(value, 'secStaff')
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={intl.formatMessage(messages.managerialLevel)}
                         />
-                        {option.name}
-                      </li>
-                    )}
-                    getOptionLabel={(option) => (option ? option.name : '')}
-                    onChange={(_, value) => {
-                      setPopupState((prev) => ({
-                        ...prev,
-                        techEmpList: value,
-                      }));
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={intl.formatMessage(messages.technical)}
-                      />
-                    )}
-                  />
-                </Grid>
-              </>
-            )}
+                      )}
+                    />
+                  </Grid>
 
-            <Grid item xs={12} md={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={popupState.notTechnicalReview}
-                    onChange={(evt) => setPopupState((prevFilters) => ({
-                      ...prevFilters,
-                      notTechnicalReview: evt.target.checked,
-                    }))
-                    }
-                  />
-                }
-                label={intl.formatMessage(messages.managerNotReviewCV)}
-              />
-            </Grid>
+                  <Grid item xs={12}>
+                    <Autocomplete
+                      options={technicalEmployeeList}
+                      multiple
+                      disableCloseOnSelect
+                      disabled={popupState.notTechnicalReview}
+                      className={`${style.AutocompleteMulSty} ${
+                        locale === 'ar' ? style.AutocompleteMulStyAR : null
+                      }`}
+                      value={popupState.techEmpList}
+                      renderOption={(props, option, { selected }) => (
+                        <li {...props}>
+                          <Checkbox
+                            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                            checkedIcon={<CheckBoxIcon fontSize='small' />}
+                            style={{ marginRight: 8 }}
+                            checked={selected}
+                          />
+                          {option.name}
+                        </li>
+                      )}
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      onChange={(_, value) => {
+                        setPopupState((prev) => ({
+                          ...prev,
+                          techEmpList: value,
+                        }));
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          disabled={popupState.notTechnicalReview}
+                          label={intl.formatMessage(messages.technical)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </>
+              )}
 
-            {popupState.appFirstStatus !== 1 && (
               <Grid item xs={12} md={12}>
-                <TextField
-                  name='reason'
-                  onChange={onPopupInputChange}
-                  value={popupState.reason}
-                  label={intl.formatMessage(messages.reason)}
-                  fullWidth
-                  variant='outlined'
-                  multiline
-                  rows={1}
-                  required
-                  autoComplete='off'
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={popupState.notTechnicalReview}
+                      onChange={(evt) => setPopupState((prevFilters) => ({
+                        ...prevFilters,
+                        notTechnicalReview: evt.target.checked,
+                      }))
+                      }
+                    />
+                  }
+                  label={intl.formatMessage(messages.managerNotReviewCV)}
                 />
               </Grid>
-            )}
-          </Grid>
+
+              {popupState.appFirstStatus !== 1 && (
+                <Grid item xs={12} md={12}>
+                  <TextField
+                    name='reason'
+                    onChange={onPopupInputChange}
+                    value={popupState.reason}
+                    label={intl.formatMessage(messages.reason)}
+                    fullWidth
+                    variant='outlined'
+                    multiline
+                    rows={1}
+                    required
+                    autoComplete='off'
+                  />
+                </Grid>
+              )}
+            </Grid>
+          </PayRollLoader>
         </DialogContent>
 
         <DialogActions>
@@ -673,7 +777,7 @@ function HRApplicationEvaluation(props) {
                     options={jobAdvList}
                     value={
                       jobAdvList.find((item) => item.id === formInfo.JobAdv)
-											?? null
+                      ?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
@@ -723,7 +827,7 @@ function HRApplicationEvaluation(props) {
                     options={statusList}
                     value={
                       statusList.find((item) => item.id === formInfo.Status)
-											?? null
+                      ?? null
                     }
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }

@@ -387,6 +387,14 @@ export default defineMessages({
     id: `${scope}.codes.isPercentage`,
     defaultMessage: 'isPercentage',
   },
+  isHR: {
+    id: `${scope}.codes.isHR`,
+    defaultMessage: 'isHR',
+  },
+  isManager: {
+    id: `${scope}.codes.isManager`,
+    defaultMessage: 'isManager',
+  },
   newSalaryLimit: {
     id: `${scope}.codes.newSalaryLimit`,
     defaultMessage: 'newSalaryLimit',
@@ -394,5 +402,9 @@ export default defineMessages({
   MedicalCenterPhoneNumber: {
     id: `${scope}.codes.MedicalCenterPhoneNumber`,
     defaultMessage: 'Medical Center PhoneNumber',
+  },
+  receiverJobInResignation: {
+    id: `${scope}.codes.receiverJobInResignation`,
+    defaultMessage: 'Receiver Job In Resignation',
   },
 });

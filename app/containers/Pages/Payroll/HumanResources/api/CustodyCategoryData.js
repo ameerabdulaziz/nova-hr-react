@@ -15,6 +15,7 @@ const CustodyCategory = (locale) => {
       enName: obj.enName,
       jobName: obj.jobName,
       jobId: obj.jobId,
+      receiverJobInResignation:obj.receiverJobInResignation,
       edited: false,
     }));
    

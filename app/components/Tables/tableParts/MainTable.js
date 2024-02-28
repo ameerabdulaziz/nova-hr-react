@@ -41,7 +41,7 @@ function MainTable(props) {
 
 
   const { classes, cx } = useStyles();
-  const { items, anchor, downloadExcel, title, API, intl,IsNotSave ,isNotAdd,addBtnLock} = props;
+  const { items, anchor, downloadExcel, title, setIsLoading, API, intl,IsNotSave ,isNotAdd,addBtnLock} = props;
 
   const branch = 'crudTableDemo';
   const [search, setsearch] = useState('');
@@ -53,11 +53,11 @@ function MainTable(props) {
   console.log('MainTable');
   const getItems = (dataArray) =>IsNotSave?dataArray
   .map((item) => (
-    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd} handleClickOpen={handleClickOpen} ref={childRef} />
+    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd} handleClickOpen={handleClickOpen} ref={childRef} setIsLoading={setIsLoading} />
   )):dataArray
   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
   .map((item) => (
-    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd} handleClickOpen={handleClickOpen} ref={childRef}   />
+    <Row anchor={anchor} item={item} key={item.id} API={API} IsNotSave={IsNotSave} isNotAdd={isNotAdd} handleClickOpen={handleClickOpen} ref={childRef} setIsLoading={setIsLoading}   />
   ));
   
   const getData = () => {

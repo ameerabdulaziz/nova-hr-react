@@ -917,6 +917,20 @@ export const ResignReqTrxCreate = loadable(
   }
 );
 
+export const ResignReqTrxEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ResignReqTrx/ResignReqTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ResignReqTrxList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/ResignReqTrx/ResignReqTrx'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Attendance /////////////////////////////////////////////////////////////////////////////////
 
 export const PermissionTrxList = loadable(
