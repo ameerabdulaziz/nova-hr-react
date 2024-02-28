@@ -232,7 +232,7 @@ function WorkFlowCreate(props) {
                     <Grid item xs={12} md={12}>
                       <Card className={classes.card}>
                         <CardContent>
-                          <StepsList dataList={Steps} setdataList={setSteps} />
+                          <StepsList dataList={Steps} setdataList={setSteps} setActionList={setActions} ActionList={Actions} />
                         </CardContent>
                       </Card>
                     </Grid>

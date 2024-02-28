@@ -896,6 +896,8 @@
 
   "boilerplate.components.tables.codes.MedicalCenterPhoneNumber": "Phone Number",
 
+  "boilerplate.components.tables.codes.receiverJobInResignation": "Receiver Job In Resignation",
+
 
   "boilerplate.containers.Payroll.save": "Save",
   "boilerplate.containers.Payroll.close": "Close",
