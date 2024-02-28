@@ -109,40 +109,40 @@ function ResignReqTrxCreate(props) {
     
 
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       
-      data.date = dateFormatFun(data.date)
-      data.lworkingDay = dateFormatFun(data.lworkingDay)
+      // data.date = dateFormatFun(data.date)
+      // data.lworkingDay = dateFormatFun(data.lworkingDay)
 
-      let response = await ApiData(locale).Save(data);
+      // let response = await ApiData(locale).Save(data);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        history.push(`/app/Pages/HR/ResignTrx`);
-      } else {
-        toast.error(response.statusText);
-      }
+      // if (response.status == 200) {
+      //   toast.success(notif.saved);
+      //   history.push(`/app/Pages/HR/ResignReqTrx`);
+      // } else {
+      //   toast.error(response.statusText);
+      // }
     } catch (err) {
     } finally {
       setIsLoading(false);
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/HR/ResignTrx`);
+    history.push(`/app/Pages/HR/ResignReqTrx`);
   }
   async function fetchData() {
     try {
-      const resigns = await GeneralListApis(locale).GetResignReasonList();
-      setResignList(resigns);
+      // const resigns = await GeneralListApis(locale).GetResignReasonList();
+      // setResignList(resigns);
 
-      const payTemplates = await GeneralListApis(locale).GetPayTemplateList();
-      setPayTemplateList(payTemplates);
+      // const payTemplates = await GeneralListApis(locale).GetPayTemplateList();
+      // setPayTemplateList(payTemplates);
 
-      if (id) {
-        const dataApi = await ApiData(locale).Get(id ?? 0);
+      // if (id) {
+      //   const dataApi = await ApiData(locale).Get(id ?? 0);
 
-        setdata(dataApi);
-      }
+      //   setdata(dataApi);
+      // }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -153,31 +153,31 @@ function ResignReqTrxCreate(props) {
     fetchData();
   }, []);
 
-  async function getElements(id) {
-    try {
-      setIsLoading(true);
-      if (!id) {
-        setVacElementList([]);
-        setSettlElementList([]);
-      } else {
-        const Elements = await GeneralListApis(locale).GetElementListByTemplate(
-          id
-        );
-        setVacElementList(Elements);
-        setSettlElementList(Elements);
-      }
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        settlElementId: 0,
-        settlElementName: "",
-        vacElementId: 0,
-        vacElementIdName: "",
-      }));
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  // async function getElements(id) {
+  //   try {
+  //     setIsLoading(true);
+  //     if (!id) {
+  //       setVacElementList([]);
+  //       setSettlElementList([]);
+  //     } else {
+  //       const Elements = await GeneralListApis(locale).GetElementListByTemplate(
+  //         id
+  //       );
+  //       setVacElementList(Elements);
+  //       setSettlElementList(Elements);
+  //     }
+  //     setdata((prevFilters) => ({
+  //       ...prevFilters,
+  //       settlElementId: 0,
+  //       settlElementName: "",
+  //       vacElementId: 0,
+  //       vacElementIdName: "",
+  //     }));
+  //   } catch (err) {
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
 
   // const divices = ["Labtop","Mobile","Tablet","Computer"]
   const divices = "Labtop,Mobile,Tablet,Computer"
