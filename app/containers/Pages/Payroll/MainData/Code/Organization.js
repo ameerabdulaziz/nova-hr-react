@@ -57,6 +57,10 @@ function Organization({ intl }) {
       name: 'manPower',
       label: intl.formatMessage(messages.manPower),
     },
+    {
+      name: 'IsDisclaimer',
+      label: intl.formatMessage(messages.translate),
+    },
   ];
 
   const deleteRow = async (id) => {

@@ -2426,6 +2426,8 @@
   "boilerplate.containers.Payroll.MainData.codes.uploadLogo": "تحميل الشعار",
   "boilerplate.containers.Payroll.MainData.codes.logoIsRequired": "الشعار مطلوب",
 
+  "boilerplate.containers.Payroll.MainData.codes.translate": "اخلاء طرف",
+
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "قائمة الأذونات",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "كود الموظف",
   "boilerplate.containers.Payroll.Request.Transaction.employeeName": "اسم الموظف",
