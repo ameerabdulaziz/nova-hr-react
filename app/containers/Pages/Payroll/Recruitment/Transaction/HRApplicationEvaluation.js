@@ -368,7 +368,7 @@ function HRApplicationEvaluation(props) {
 
     if (popupState.appFirstStatus === 1 || popupState.appFirstStatus === 3) {
       body.secStaff = popupState.secStaff;
-      body.techEmpList = popupState.techEmpList.map((item) => item.id);
+      body.techEmpList = !popupState.notTechnicalReview ? popupState.techEmpList.map((item) => item.id) : [];
     }
 
     if (popupState.appFirstStatus !== 1) {
@@ -576,6 +576,7 @@ function HRApplicationEvaluation(props) {
                       options={technicalEmployeeList}
                       multiple
                       disableCloseOnSelect
+                      disabled={popupState.notTechnicalReview}
                       className={`${style.AutocompleteMulSty} ${
                         locale === 'ar' ? style.AutocompleteMulStyAR : null
                       }`}
@@ -601,6 +602,7 @@ function HRApplicationEvaluation(props) {
                       renderInput={(params) => (
                         <TextField
                           {...params}
+                          disabled={popupState.notTechnicalReview}
                           label={intl.formatMessage(messages.technical)}
                         />
                       )}
