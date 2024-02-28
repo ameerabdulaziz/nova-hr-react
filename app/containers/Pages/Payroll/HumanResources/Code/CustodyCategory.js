@@ -68,6 +68,13 @@ function CustodyCategory(props) {
       hidden: true,
     },
     {
+      name: 'receiverJobInResignation',
+      label: 'receiverJobInResignation',
+      type: 'text',
+      width: 'auto',
+      hidden: false,
+    },
+    {
       name: 'edited',
       label: '',
       type: 'static',

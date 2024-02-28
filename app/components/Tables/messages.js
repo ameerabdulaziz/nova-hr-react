@@ -403,4 +403,8 @@ export default defineMessages({
     id: `${scope}.codes.MedicalCenterPhoneNumber`,
     defaultMessage: 'Medical Center PhoneNumber',
   },
+  receiverJobInResignation: {
+    id: `${scope}.codes.receiverJobInResignation`,
+    defaultMessage: 'Receiver Job In Resignation',
+  },
 });

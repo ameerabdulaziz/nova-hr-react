@@ -913,6 +913,8 @@
 
   "boilerplate.components.tables.codes.MedicalCenterPhoneNumber": "رقم التليفون",
 
+  "boilerplate.components.tables.codes.receiverJobInResignation": "استلام العهد فى الاستقالات",
+
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",
