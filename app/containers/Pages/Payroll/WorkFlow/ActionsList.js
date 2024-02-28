@@ -18,7 +18,7 @@ function ActionsList(props) {
 const handledelete = (event, row) => {
   
     setdataList(
-        dataList.filter((x) => (x.id != row.id))
+        dataList.filter((x) => (x.formId != row.formId))
       );
 };
 
@@ -29,7 +29,8 @@ const handleAdd = () => {
     toast.error("enter steps first");
     return 
   }
-  setdataList((prev) => [...prev, {id:(dataList.length)+1,arName:"",enName:"",actionType:2,stepId:Steps[0].id,stepName:Steps[0].arName,nextStepId:0,nextStepName:""}]);
+  var formId=dataList.length>0?(dataList[dataList.length-1].formId)+1:1 ;
+  setdataList((prev) => [...prev, {formId:formId,id:0,arName:"",enName:"",actionType:2,stepId:Steps[0].formId,stepName:Steps[0].arName,nextStepId:0,nextStepName:""}]);
 }
 
 
@@ -38,7 +39,7 @@ const handleChange = (event, row) => {
   
   setdataList(
       dataList.map((x) => {
-        if (x.id == row.id) {
+        if (x.formId == row.formId) {
           if (event.target.name == "arName") {
             x.arName = event.target.value;
             x.enName = event.target.value;
@@ -48,11 +49,11 @@ const handleChange = (event, row) => {
           } 
           if (event.target.name == "stepId") {
             x.stepId = event.target.value;
-            x.stepName=Steps.find((ele) => ele.id ===event.target.value).arName
+            x.stepName=Steps.find((ele) => ele.formId ===event.target.value).arName
           } 
           if (event.target.name == "nextStepId") {
-            x.nextStepId = event.target.value;
-            x.nextStepName=Steps.find((ele) => ele.id ===event.target.value).arName
+            x.nextStepId = event.target.value??"";
+            x.nextStepName=event.target.value?Steps.find((ele) => ele.formId ===event.target.value).arName:"";
           } 
 
         }
@@ -95,8 +96,8 @@ const handleChange = (event, row) => {
                         dataList.map((row) => {
                         return (
                           
-                            <TableRow hover key={row.id} sx={{ height: 1 }} style={{padding:'0px'}}> 
-                              <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>{row.id}</TableCell>
+                            <TableRow hover key={row.formId} sx={{ height: 1 }} style={{padding:'0px'}}> 
+                              <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>{row.formId}</TableCell>
                               <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>
                                 <TextField
                                   style={{width:'200px'}}
@@ -120,7 +121,7 @@ const handleChange = (event, row) => {
                                   > 
                                   {Steps.length !== 0 &&
                                   Steps.map((model,index) => {                      
-                                    return  <MenuItem key={index} value={model.id}>{model.arName}</MenuItem>
+                                    return  <MenuItem key={index} value={model.formId}>{model.arName}</MenuItem>
                                   })}
                                 </Select>
                               </TableCell>  
@@ -152,7 +153,7 @@ const handleChange = (event, row) => {
                                   </MenuItem>
                                   {Steps.length !== 0 &&
                                   Steps.map((model,index) => {                      
-                                    return  <MenuItem key={index} value={model.id}>{model.arName}</MenuItem>
+                                    return  <MenuItem key={index} value={model.formId}>{model.arName}</MenuItem>
                                   })}
                                 </Select>
                               </TableCell>  

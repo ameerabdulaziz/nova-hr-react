@@ -12,12 +12,13 @@ import StepsTarget from './StepsTarget';
 
 function StepsList(props) {
   
-  const {intl,dataList,setdataList} = props;
+  const {intl,dataList,setdataList,ActionList,setActionList} = props;
   const {classes,cx} = useStyles();  
   const [OpenPopup, setOpenPopup] = useState(false);
   const [Selectedid, setSelectedid] = useState(0);
   const [stepsemployeeList, setstepsemployeeList] = useState([]);
   const [stepsjobList, setstepsjobList] = useState([]);
+  
 
   const handleClosePopUp = () => {   
     
@@ -75,13 +76,16 @@ function StepsList(props) {
 const handledelete = (event, row) => {
   
     setdataList(
-        dataList.filter((x) => (x.id != row.id))
+        dataList.filter((x) => (x.formId != row.formId))
+      );
+      setActionList(
+        ActionList.filter((x) => (x.stepId != row.formId)&& (x.nextStepId != row.formId))
       );
 };
 
 const handleAdd = () => {
-  
-  setdataList((prev) => [...prev, {id:(dataList.length)+1,arName:"",approvalType:1}]);
+  var formId=dataList.length>0?(dataList[dataList.length-1].formId)+1:1 ;
+  setdataList((prev) => [...prev, {formId:formId,id:0,arName:"",approvalType:1}]);
 }
 
 
@@ -90,7 +94,7 @@ const handleChange = (event, row) => {
   
   setdataList(
       dataList.map((x) => {
-        if (x.id == row.id) {
+        if (x.formId == row.formId) {
           if (event.target.name == "arName") {
             x.arName = event.target.value;
             x.enName = event.target.value;
@@ -143,8 +147,8 @@ const handleChange = (event, row) => {
                         dataList.map((row) => {
                         return (
                           
-                            <TableRow hover key={row.id} sx={{ height: 1 }} style={{padding:'0px'}}> 
-                              <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>{row.id}</TableCell>
+                            <TableRow hover key={row.formId} sx={{ height: 1 }} style={{padding:'0px'}}> 
+                              <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>{row.formId}</TableCell>
                               <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>
                                 <TextField
                                   style={{width:'400px'}}
