@@ -41,6 +41,7 @@ function RowDropdown(props) {
 
     history.push('/app/Pages/Recruitment/HRInterviewEvaluationEdit', {
       id: row.id,
+      hasTechnicalReview: row.hasTechnicalReview,
     });
   };
 
