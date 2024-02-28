@@ -47,6 +47,7 @@ function CrudTable(props) {
       IsNotSave={IsNotSave}
       isNotAdd={isNotAdd}
       addBtnLock={addBtnLock}
+      setIsLoading={setIsLoading}
     />
   );
 }
