@@ -797,7 +797,7 @@ function JobAdvertisementApplication(props) {
                         <TextField
                           name='relativesPhone'
                           value={formInfo.relativesPhone}
-                          onChange={onInputChange}
+                          onChange={onNumericInputChange}
                           label={intl.formatMessage(messages.relativePhoneNumber)}
                           fullWidth
                           variant='outlined'
