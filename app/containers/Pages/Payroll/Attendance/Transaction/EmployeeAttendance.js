@@ -394,18 +394,6 @@ function EmployeeAttendance(props) {
     }
   }
 
-  const CheckBox = (value) => {
-    return (
-      <div className={style.actionsSty}>
-        {value ? (
-          <CheckIcon style={{ color: "#3f51b5" }} />
-        ) : (
-          <CloseIcon style={{ color: "#717171" }} />
-        )}
-      </div>
-    );
-  };
-
   const columns = [
     {
       name: "id",
@@ -413,12 +401,21 @@ function EmployeeAttendance(props) {
         filter: false,
       },
     },
+
     {
-      name: "employeeId",
-      label: <FormattedMessage {...Payrollmessages["employeeId"]} />,
+      name: 'employeeId',
+      label: intl.formatMessage(Payrollmessages.employeeId),
       options: {
-        filter: true,
+        filter: false,
+        display: false,
+        download: false,
+        print: false,
       },
+    },
+
+    {
+      name: "employeeCode",
+      label: intl.formatMessage(Payrollmessages.employeeCode),
     },
 
     {

@@ -4,6 +4,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import { formateDate, getCheckboxIcon } from '../../helpers';
+import payrollMessages from '../../messages';
 import EmployeeDataReportData from '../api/EmployeeDataReportData';
 import messages from '../messages';
 
@@ -43,7 +44,18 @@ function EmployeeDataReport({ intl }) {
     },
     {
       name: 'employeeId',
-      label: intl.formatMessage(messages.EmpCode),
+      label: intl.formatMessage(payrollMessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        download: false,
+        print: false,
+      },
+    },
+
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
     {
       name: 'employeeName',

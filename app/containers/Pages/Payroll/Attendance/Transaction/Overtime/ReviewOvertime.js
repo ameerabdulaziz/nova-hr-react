@@ -130,6 +130,17 @@ function ReviewOvertime(props) {
     {
       name: 'employeeId',
       label: intl.formatMessage(payrollMessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        download: false,
+        print: false,
+      },
+    },
+
+    {
+      name: "employeeCode",
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
 
     {

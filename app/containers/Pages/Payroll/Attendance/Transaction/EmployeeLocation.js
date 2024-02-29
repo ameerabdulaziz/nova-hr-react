@@ -25,9 +25,7 @@ import GeneralListApis from "../../api/GeneralListApis";
 import NamePopup from "../../Component/NamePopup";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { format, toDate } from "date-fns";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -209,29 +207,6 @@ function EmployeeLocation(props) {
         <NamePopup handleClose={handleClose} open={OpenPopup} Key="Employee" />
         <div>
           <Grid container spacing={3}>
-            {/* <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(Payrollmessages.fromdate)}
-                  // value={FromDate}
-                  onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        setFromDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                      }
-                      else
-                      {
-                        setFromDate(null)
-                      } 
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid> */}
 
                 <Grid item xs={12} md={3}>
                   
@@ -263,30 +238,6 @@ function EmployeeLocation(props) {
                     </LocalizationProvider>
                   </Grid>
 
-            {/* <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(Payrollmessages.todate)}
-                  // value={ToDate}
-                  onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        setToDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                      } 
-                      else
-                      {
-                        setToDate(null)
-                      }
-                    }
-                    
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid> */}
 
                 <Grid item xs={12} md={3}>
                   
@@ -421,7 +372,7 @@ function EmployeeLocation(props) {
                       >
                         <FormattedMessage {...Payrollmessages.id} />
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         style={{
                           width: "5px",
                           padding: "0px",
@@ -429,7 +380,7 @@ function EmployeeLocation(props) {
                         }}
                       >
                         <FormattedMessage {...Payrollmessages.employeeId} />
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell
                         style={{
                           width: "20px",
@@ -504,7 +455,7 @@ function EmployeeLocation(props) {
                             >
                               {row.id}
                             </TableCell>
-                            <TableCell
+                            {/* <TableCell
                               style={{
                                 width: "5px",
                                 padding: "0px",
@@ -512,7 +463,7 @@ function EmployeeLocation(props) {
                               }}
                             >
                               {row.employeeId}
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell
                               style={{
                                 width: "20px",

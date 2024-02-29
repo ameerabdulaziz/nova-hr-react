@@ -250,6 +250,17 @@ function ShiftOrgnization(props) {
     {
       name: "employeeId",
       label: intl.formatMessage(Payrollmessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        download: false,
+        print: false,
+      },
+    },
+
+    {
+      name: "employeeCode",
+      label: intl.formatMessage(Payrollmessages.employeeCode),
     },
 
     {

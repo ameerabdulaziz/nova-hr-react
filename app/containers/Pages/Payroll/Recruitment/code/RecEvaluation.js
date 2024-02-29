@@ -86,7 +86,7 @@ function RecEvaluation() {
 
     {
       name: 'isHr',
-      label: 'isHR',
+      label: 'viewHR',
       type: 'toggle',
       initialValue: false,
       width: 'auto',
@@ -95,7 +95,7 @@ function RecEvaluation() {
 
     {
       name: 'isManger',
-      label: 'isManager',
+      label: 'viewManager',
       type: 'toggle',
       initialValue: false,
       width: 'auto',

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/GovernmentSickLeaveData';
+import payrollMessages from '../../messages';
 import messages from '../messages';
 
 function GovernmentSickLeave(props) {
@@ -61,7 +62,18 @@ function GovernmentSickLeave(props) {
     },
     {
       name: 'employeeId',
-      label: intl.formatMessage(messages.employeeCode),
+      label: intl.formatMessage(payrollMessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        download: false,
+        print: false,
+      },
+    },
+
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
 
     {

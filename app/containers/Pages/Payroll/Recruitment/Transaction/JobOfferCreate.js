@@ -6,8 +6,10 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import parse from 'html-react-parser';
@@ -52,6 +54,8 @@ function JobOfferCreate(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [printContent, setPrintContent] = useState('');
   const documentTitle = 'Job Offer ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+
+  const [DateError, setDateError] = useState({});
 
   const printDivRef = useRef(null);
 
@@ -106,6 +110,12 @@ function JobOfferCreate(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     const formData = {
       ...formInfo,
       jobOfferDate: formateDate(formInfo.jobOfferDate),
@@ -135,7 +145,7 @@ function JobOfferCreate(props) {
     setIsLoading(true);
 
     try {
-      const elements = await GeneralListApis(locale).GetElementList(0,0,"",1);
+      const elements = await GeneralListApis(locale).GetElementList(0, 0, '', 1);
       setSalaryElementsList(elements);
 
       const department = await GeneralListApis(locale).GetDepartmentList();
@@ -328,15 +338,31 @@ function JobOfferCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.offerDate)}
-                  value={formInfo.jobOfferDate}
-                  onChange={(date) => onDatePickerChange(date, 'jobOfferDate')}
+                  value={formInfo.jobOfferDate ? dayjs(formInfo.jobOfferDate) : null}
                   className={classes.field}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
+                  onChange={(date) => onDatePickerChange(date, 'jobOfferDate')}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        jobOfferDate: true
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        jobOfferDate: false
+                      }));
+                    }
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -420,15 +446,31 @@ function JobOfferCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.startDate)}
-                  value={formInfo.startDate}
-                  onChange={(date) => onDatePickerChange(date, 'startDate')}
+                  value={formInfo.startDate ? dayjs(formInfo.startDate) : null}
                   className={classes.field}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
+                  onChange={(date) => onDatePickerChange(date, 'startDate')}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        startDate: true
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        startDate: false
+                      }));
+                    }
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -438,7 +480,7 @@ function JobOfferCreate(props) {
                 options={reportList}
                 value={
                   reportList.find((item) => item.id === formInfo.reportTo)
-									?? null
+                  ?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}

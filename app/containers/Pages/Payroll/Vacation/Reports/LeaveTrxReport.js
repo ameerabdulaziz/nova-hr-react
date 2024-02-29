@@ -22,6 +22,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate } from '../../helpers';
 import API from '../api/LeaveTrxReportData';
 import messages from '../messages';
+import payrollMessages from '../../messages';
 
 import { format } from "date-fns";
 import { toast } from "react-hot-toast";
@@ -71,7 +72,18 @@ function LeaveTrxReport(props) {
     },
     {
       name: 'employeeId',
-      label: <FormattedMessage {...messages.employeeId} />,
+      label: intl.formatMessage(payrollMessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        download: false,
+        print: false,
+      },
+    },
+
+    {
+      name: "employeeCode",
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
     {
       name: 'employeeName',

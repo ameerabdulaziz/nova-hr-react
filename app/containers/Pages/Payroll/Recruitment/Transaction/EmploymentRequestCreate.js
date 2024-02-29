@@ -20,8 +20,11 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -106,8 +109,16 @@ function EmploymentRequestCreate(props) {
     other: false,
   });
 
+  const [DateError, setDateError] = useState({});
+
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
     setIsLoading(true);
 
@@ -459,16 +470,32 @@ function EmploymentRequestCreate(props) {
                   </Grid>
 
                   <Grid item xs={12} md={4}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
+
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(messages.startDate)}
-                        value={formInfo.startingDate}
+                        value={formInfo.startingDate ? dayjs(formInfo.startingDate) : null}
+                        className={classes.field}
                         onChange={(date) => onDatePickerChange(date, 'startingDate')
                         }
-                        className={classes.field}
-                        renderInput={(params) => (
-                          <TextField required {...params} variant='outlined' />
-                        )}
+                        onError={(error, value) => {
+                          if (error !== null) {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              startingDate: true
+                            }));
+                          } else {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              startingDate: false
+                            }));
+                          }
+                        }}
+                        slotProps={{
+                          textField: {
+                            required: true,
+                          },
+                        }}
                       />
                     </LocalizationProvider>
                   </Grid>

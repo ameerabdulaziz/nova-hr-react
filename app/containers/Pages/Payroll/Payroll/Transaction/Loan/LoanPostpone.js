@@ -222,11 +222,19 @@ function LoanPostpone(props) {
       },
     },
     {
-      name: "employeeId",
-      label: <FormattedMessage {...Payrollmessages["employeeId"]} />,
+      name: 'employeeId',
+      label: intl.formatMessage(Payrollmessages.employeeId),
       options: {
-        filter: true,
+        filter: false,
+        display: false,
+        download: false,
+        print: false,
       },
+    },
+
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(Payrollmessages.employeeCode),
     },
 
     {

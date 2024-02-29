@@ -14,9 +14,11 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -76,10 +78,18 @@ function HiringRequestCreate(props) {
     comments: '',
   });
 
+  const [DateError, setDateError] = useState({});
+
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
     const formData = {
       ...formInfo,
@@ -93,10 +103,10 @@ function HiringRequestCreate(props) {
       hiringRequestId: id,
     }));
 
-    formData.RecHiringReqAssignEmployee =			formData.RecHiringReqAssignEmployee.map((item) => ({
-			  id: 0,
-			  hiringRequestId: id,
-			  employeeId: item.id,
+    formData.RecHiringReqAssignEmployee = formData.RecHiringReqAssignEmployee.map((item) => ({
+      id: 0,
+      hiringRequestId: id,
+      employeeId: item.id,
     }));
 
     setIsLoading(true);
@@ -116,7 +126,7 @@ function HiringRequestCreate(props) {
     setIsLoading(true);
 
     try {
-      const elements = await GeneralListApis(locale).GetElementList(0,0,"",1);
+      const elements = await GeneralListApis(locale).GetElementList(0, 0, '', 1);
       setSalaryElementsList(elements);
 
       const department = await GeneralListApis(locale).GetDepartmentList();
@@ -242,16 +252,32 @@ function HiringRequestCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.date)}
-                  value={formInfo.hiringRequestDate}
+                  value={formInfo.hiringRequestDate ? dayjs(formInfo.hiringRequestDate) : null}
+                  className={classes.field}
                   onChange={(date) => onDatePickerChange(date, 'hiringRequestDate')
                   }
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        hiringRequestDate: true
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        hiringRequestDate: false
+                      }));
+                    }
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -261,7 +287,7 @@ function HiringRequestCreate(props) {
                 options={reportList}
                 value={
                   reportList.find((item) => item.id === formInfo.reportTo)
-									?? null
+                  ?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -336,15 +362,31 @@ function HiringRequestCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.startDate)}
-                  value={formInfo.startDate}
-                  onChange={(date) => onDatePickerChange(date, 'startDate')}
+                  value={formInfo.startDate ? dayjs(formInfo.startDate) : null}
                   className={classes.field}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
+                  onChange={(date) => onDatePickerChange(date, 'startDate')}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        startDate: true
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        startDate: false
+                      }));
+                    }
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>

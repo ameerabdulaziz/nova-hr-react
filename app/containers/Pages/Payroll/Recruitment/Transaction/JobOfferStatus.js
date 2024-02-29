@@ -73,6 +73,11 @@ function JobOfferStatus(props) {
     fetchNeededData();
   }, []);
 
+  const onUpdateStatusBtnClick = (id) => {
+    setSelectedRowsId([id]);
+    setIsPopupOpen(true);
+  };
+
   const columns = [
     {
       name: 'id',
@@ -106,6 +111,23 @@ function JobOfferStatus(props) {
       name: 'departmentName',
       label: intl.formatMessage(messages.department),
     },
+
+    {
+      name: 'id',
+      label: intl.formatMessage(payrollMessages.Actions),
+      options: {
+        filter: false,
+        print: false,
+        customBodyRender: (value) => (
+          <Button
+            variant='text'
+            onClick={() => onUpdateStatusBtnClick(value)}
+          >
+            {intl.formatMessage(messages.updateStatus)}
+          </Button>
+        ),
+      },
+    },
   ];
 
   const onToolBarIconClick = (rows) => {
@@ -118,14 +140,12 @@ function JobOfferStatus(props) {
   const options = {
     selectableRows: 'multiple',
     customToolbarSelect: (selectedRows) => (
-      <>
-        <IconButton
-          sx={{ mx: 2 }}
-          onClick={() => onToolBarIconClick(selectedRows.data)}
-        >
-          <ManageAccountsIcon sx={{ fontSize: '25px' }} />
-        </IconButton>
-      </>
+      <IconButton
+        sx={{ mx: 2 }}
+        onClick={() => onToolBarIconClick(selectedRows.data)}
+      >
+        <ManageAccountsIcon sx={{ fontSize: '25px' }} />
+      </IconButton>
     ),
   };
 
