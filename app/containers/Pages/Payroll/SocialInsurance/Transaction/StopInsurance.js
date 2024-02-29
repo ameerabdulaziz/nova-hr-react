@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/StopInsuranceData';
 import messages from '../messages';
+import payrollMessages from '../../messages';
 
 function StopInsurance(props) {
   const { intl } = props;
@@ -61,7 +62,18 @@ function StopInsurance(props) {
     },
     {
       name: 'employeeId',
-      label: intl.formatMessage(messages.employeeId),
+      label: intl.formatMessage(payrollMessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false,
+      },
+    },
+
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
 
     {

@@ -6,6 +6,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/MedicalInsuranceSubscriptionData';
 import messages from '../messages';
+import payrollMessages from '../../messages';
 
 function MedicalInsuranceSubscription(props) {
   const { intl } = props;
@@ -58,7 +59,18 @@ function MedicalInsuranceSubscription(props) {
 
     {
       name: 'employeeId',
-      label: intl.formatMessage(messages.employeeId),
+      label: intl.formatMessage(payrollMessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false,
+      },
+    },
+
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
 
     {

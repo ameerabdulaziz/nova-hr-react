@@ -57,7 +57,18 @@ function LeaveReport(props) {
     },
     {
       name: 'employeeId',
-      label: intl.formatMessage(messages.employeeId),
+      label: intl.formatMessage(Payrollmessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false,
+      },
+    },
+
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(Payrollmessages.employeeCode),
     },
     {
       name: 'employeeName',

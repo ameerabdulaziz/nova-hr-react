@@ -59,6 +59,17 @@ function StopMedicalInsurance(props) {
     {
       name: 'employeeId',
       label: intl.formatMessage(payrollMessages.employeeId),
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false,
+      },
+    },
+
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
 
     {

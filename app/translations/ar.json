@@ -915,6 +915,7 @@
 
   "boilerplate.components.tables.codes.receiverJobInResignation": "استلام العهد فى الاستقالات",
 
+  "boilerplate.containers.Payroll.employeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",
