@@ -18,6 +18,8 @@ import { PapperBlock } from "enl-components";
 import useStyles from "../../Style";
 import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 function CreateAndEditOrg(props) {
   const [id, setid] = useState(0);
@@ -39,6 +41,7 @@ function CreateAndEditOrg(props) {
   const { intl } = props;
 
   const [isLoading, setIsLoading] = useState(true);
+  const [translate ,setTranslate] = useState(false)
 
   const { classes } = useStyles();
   const handleSubmit = async (e) => {
@@ -53,10 +56,11 @@ function CreateAndEditOrg(props) {
       worknatureAllowance: parseInt(worknatureAllowance),
       note: note.length !== 0 ? note : "",
       employeeId: Employee.id ? Employee.id : "",
+      IsDisclaimer: translate
     };
 
     try {
-      debugger ;
+
       let response = await OrganizationData().Save(data);
 
       if (response.status == 200) {
@@ -94,11 +98,12 @@ function CreateAndEditOrg(props) {
       setEnName(data ? data[0].enName : "");
       setParent(data ? { id: data[0].parentId, name: data[0].parentName } : "");
       setManPower(data ? data[0].manPower : "");
-      setWorknatureAllowance(data ? data[0].worknatureAllowance : "");
+      setWorknatureAllowance(data && data[0].worknatureAllowance ? data[0].worknatureAllowance : "");
       setNote(data && data[0].note ? data[0].note : "");
       setEmployee(
         data ? { id: data[0].employeeId, name: data[0].empName } : ""
       );
+      setTranslate(data && data[0].IsDisclaimer ? data[0].IsDisclaimer : false)
     } catch (e) {
     } finally {
       setIsLoading(false);
@@ -309,6 +314,22 @@ function CreateAndEditOrg(props) {
                     <FormattedMessage {...messages.errorMes} />{" "}
                   </p>
                 )}
+              </Grid>
+
+              <Grid item> 
+                <FormControlLabel  
+                  control={ 
+                    <Switch  
+                    checked={translate } 
+                    onChange={() => 
+                      setTranslate(!translate)
+                    }
+                     color="primary" 
+                    className={style.BtnSty}
+                     />} 
+                  label="translate"
+                  // label={intl.formatMessage(messages.SalaryDeduction) }
+                  /> 
               </Grid>
             </Grid>
             <Grid item xs={12} md={8}>
