@@ -342,6 +342,7 @@ import {
   DataFromAllDevices,
   JobRequirements,
   RecHrTest,
+  RecHrTestCreate,
   AttendanceRatiosStatementsReport,
   RecEvaluation,
   RecEvaluationCreate,
@@ -1718,6 +1719,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/RecHrTest'
           component={RecHrTest}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecHrTestCreate'
+          component={RecHrTestCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecHrTestEdit'
+          component={RecHrTestCreate}
         />
 
         <Route

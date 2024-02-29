@@ -2238,6 +2238,13 @@ export const RecHrTest = loadable(
   }
 );
 
+export const RecHrTestCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/RecHrTestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const RecEvaluation = loadable(
   () => import('./Pages/Payroll/Recruitment/code/RecEvaluation'),
   {

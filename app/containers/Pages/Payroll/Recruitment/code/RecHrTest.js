@@ -1,109 +1,109 @@
-import brand from 'enl-api/dummy/brand';
-import { PapperBlock } from 'enl-components';
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { makeStyles } from 'tss-react/mui';
-import { EditTable } from '../../../../Tables/demos';
-import RecHrTestData from '../api/RecHrTestData';
+import tableMessage from '../../../../../components/Tables/messages';
+import PayrollTable from '../../Component/PayrollTable';
+import payrollMessages from '../../messages';
+import api from '../api/RecHrTestData';
 
-const useStyles = makeStyles()(() => ({
-  root: {
-    flexGrow: 1,
-  },
-}));
-
-function RecHrTest() {
+function RecHrTest(props) {
+  const { intl } = props;
   const title = localStorage.getItem('MenuName');
-  const description = brand.desc;
-  const { classes } = useStyles();
 
-  const anchorTable = [
+  const [tableData, setTableData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchTableData = async () => {
+    try {
+      const response = await api().GetList();
+      setTableData(response);
+    } catch (error) {
+      console.log(error);
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteRow = async (id) => {
+    try {
+      setIsLoading(true);
+      await api().delete(id);
+
+      fetchTableData();
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTableData();
+  }, []);
+
+  const columns = [
     {
       name: 'id',
-      label: 'code',
-      type: 'static',
-      initialValue: '',
-      hidden: true,
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+      },
     },
+
     {
-      name: 'name',
-      label: 'name',
-      type: 'text',
-      width: 'auto',
-      initialValue: '',
-      hidden: false,
+      name: 'arName',
+      label: intl.formatMessage(payrollMessages.arName),
     },
+
     {
-      name: 'EnName',
-      label: 'enname',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      name: 'enName',
+      label: intl.formatMessage(payrollMessages.enName),
     },
+
     {
       name: 'arDesc',
-      label: 'arDesc',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      label: intl.formatMessage(tableMessage.arDesc),
     },
+
     {
       name: 'enDesc',
-      label: 'enDesc',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      label: intl.formatMessage(tableMessage.enDesc),
     },
+
     {
       name: 'finalGrad',
-      label: 'finalGrad',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
-    },
-    {
-      name: 'edited',
-      label: '',
-      type: 'static',
-      initialValue: '',
-      hidden: true,
-    },
-    {
-      name: 'action',
-      label: 'action',
-      type: 'static',
-      initialValue: '',
-      hidden: false,
+      label: intl.formatMessage(tableMessage.finalGrad),
     },
   ];
 
-  return (
-    <>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
+  const actions = {
+    add: {
+      url: '/app/Pages/Recruitment/RecHrTestCreate',
+    },
+    edit: {
+      url: '/app/Pages/Recruitment/RecHrTestEdit',
+    },
+    delete: {
+      api: deleteRow,
+    },
+  };
 
-      <PapperBlock whiteBg icon="border_color" title={title} desc="">
-        <div className={classes.root}>
-          <EditTable
-            anchorTable={anchorTable}
-            title={title}
-            API={RecHrTestData()}
-          />
-        </div>
-      </PapperBlock>
-    </>
+  return (
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={title}
+      data={tableData}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
+
+RecHrTest.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(RecHrTest);

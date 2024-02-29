@@ -1,41 +1,28 @@
 import axiosInstance from '../../api/axios';
+
 const RecHrTestData = () => {
   const api = {};
 
   api.GetList = async () => {
     const data = await axiosInstance.get('RecHrTest');
-    const result = data.data;
-    const finalData = result.map((obj) => ({
-      id: obj.id,
-      name: obj.arName,
-      EnName: obj.enName,
-      arDesc: obj.arDesc,
-      enDesc: obj.enDesc,
-      finalGrad: obj.finalGrad,
-      edited: false,
-    }));
-
-    return finalData;
+    return data.data;
   };
 
-  api.Save = async (Item) => {
-    const data = {
-      id: Item.id,
-      arName: Item.name,
-      enName: Item.EnName,
-      arDesc: Item.arDesc,
-      enDesc: Item.enDesc,
-      finalGrad: Item.finalGrad,
-    };
+  api.GetById = async (id) => {
+    const data = await axiosInstance.get(`RecHrTest/${id}`);
+    return data.data;
+  };
 
-    const result = Item.id === 0
-      ? await axiosInstance.post('RecHrTest', data)
-      : await axiosInstance.put(`RecHrTest/${Item.id}`, data);
+  api.save = async (body) => {
+    const result = body.id === 0
+      ? await axiosInstance.post('RecHrTest', body)
+      : await axiosInstance.put(`RecHrTest/${body.id}`, body);
     return result;
   };
 
-  api.Delete = async (Item) => {
-    const data = await axiosInstance.delete(`RecHrTest/${Item.id}`);
+  api.delete = async (id) => {
+    const data = await axiosInstance.delete(`RecHrTest/${id}`);
+
     return data;
   };
 
