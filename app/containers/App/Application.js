@@ -344,6 +344,7 @@ import {
   RecHrTest,
   AttendanceRatiosStatementsReport,
   RecEvaluation,
+  RecEvaluationCreate,
   /* HRApplication, */
   GetAttLog,
   HRApplicationEvaluation,
@@ -1722,6 +1723,16 @@ function Application(props) {
         <Route
           path='/app/Pages/Recruitment/RecEvaluation'
           component={RecEvaluation}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecEvaluationCreate'
+          component={RecEvaluationCreate}
+        />
+
+        <Route
+          path='/app/Pages/Recruitment/RecEvaluationEdit'
+          component={RecEvaluationCreate}
         />
 
         <Route

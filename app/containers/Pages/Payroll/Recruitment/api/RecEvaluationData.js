@@ -1,64 +1,29 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import axiosInstance from '../../api/axios';
 
-const RecEvaluationData = () => {
-  const lang = useSelector((state) => state.language.locale);
+const RecEvaluationData = (locale) => {
   const api = {};
-  const [jobList, setJobList] = useState([]);
 
-  api.GetList = async (anchorTable) => {
-    const data = await axiosInstance.get(`RecEvaluation/GetAllData/${lang}`);
-    const result = data.data;
+  api.GetList = async () => {
+    const data = await axiosInstance.get(`RecEvaluation/GetAllData/${locale}`);
 
-    const finaldata = result.recEvaluationList.map((obj) => ({
-      id: obj.id,
-      name: obj.arName,
-      EnName: obj.enName,
-      arDesc: obj.arDesc,
-      enDesc: obj.enDesc,
-      elFinGrad: obj.elFinGrad,
-      elPercent: obj.elPercent,
-      elJob: obj.jobName,
-      isManger: obj.isManger ?? false,
-      isHr: obj.isHr ?? false,
-      edited: false,
-    }));
-
-    const jobs = result.jobList.map((obj) => obj.name);
-
-    setJobList(result.jobList);
-
-    anchorTable[7].options = jobs;
-    anchorTable[7].initialValue = jobs[0];
-
-    return { finaldata, anchorTable };
+    return data.data.recEvaluationList;
   };
 
-  api.Save = async (Item) => {
-    const elJob = jobList.find((ele) => ele.name === Item.elJob)?.id;
+  api.GetById = async (id) => {
+    const data = await axiosInstance.get(`RecEvaluation/${id}`);
 
-    const data = {
-      id: Item.id,
-      arName: Item.name,
-      enName: Item.EnName,
-      arDesc: Item.arDesc,
-      enDesc: Item.enDesc,
-      elJob,
-      elPercent: Item.elPercent,
-      elFinGrad: Item.elFinGrad,
-      isManger: Item.isManger,
-      isHr: Item.isHr,
-    };
+    return data.data;
+  };
 
-    const result = Item.id === 0
-      ? await axiosInstance.post('RecEvaluation', data)
-      : await axiosInstance.put(`RecEvaluation/${Item.id}`, data);
+  api.save = async (body) => {
+    const result = body.id === 0
+      ? await axiosInstance.post('RecEvaluation', body)
+      : await axiosInstance.put(`RecEvaluation/${body.id}`, body);
     return result;
   };
 
-  api.Delete = async (Item) => {
-    const data = await axiosInstance.delete(`RecEvaluation/${Item.id}`);
+  api.delete = async (id) => {
+    const data = await axiosInstance.delete(`RecEvaluation/${id}`);
     return data;
   };
 

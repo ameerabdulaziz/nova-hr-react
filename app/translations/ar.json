@@ -818,6 +818,8 @@
   "boilerplate.components.tables.codes.to": "الي",
   "boilerplate.components.tables.codes.isHR": "مسؤول موارد بشرية",
   "boilerplate.components.tables.codes.isManager": "مدير",
+  "boilerplate.components.tables.codes.viewHR": "اظهار HR",
+  "boilerplate.components.tables.codes.viewManager": "اظهار للمدير",
   "boilerplate.components.tables.codes.choiceGrade": "درجة الاختيار",
   "boilerplate.components.tables.codes.requirements": "المتطلبات",
   "boilerplate.components.tables.codes.name": "الاسم بالعربية",

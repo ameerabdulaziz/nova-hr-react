@@ -2245,6 +2245,13 @@ export const RecEvaluation = loadable(
   }
 );
 
+export const RecEvaluationCreate = loadable(
+  () => import('./Pages/Payroll/Recruitment/code/RecEvaluationCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const HRApplicationEvaluation = loadable(
   () => import('./Pages/Payroll/Recruitment/Transaction/HRApplicationEvaluation'),
   {

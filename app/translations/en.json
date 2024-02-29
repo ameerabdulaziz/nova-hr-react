@@ -830,6 +830,8 @@
   "boilerplate.components.tables.codes.elJob": "Element Job",
   "boilerplate.components.tables.codes.elPercent": "Element Percent",
   "boilerplate.components.tables.codes.action": "Actions",
+  "boilerplate.components.tables.codes.viewHR": "View HR",
+  "boilerplate.components.tables.codes.viewManager": "View Manager",
   "boilerplate.components.tables.codes.isHR": "Is HR",
   "boilerplate.components.tables.codes.isManager": "Is Manager",
   "boilerplate.components.tables.codes.address": "Address",

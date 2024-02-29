@@ -395,6 +395,14 @@ export default defineMessages({
     id: `${scope}.codes.isManager`,
     defaultMessage: 'isManager',
   },
+  viewHR: {
+    id: `${scope}.codes.viewHR`,
+    defaultMessage: 'viewHR',
+  },
+  viewManager: {
+    id: `${scope}.codes.viewManager`,
+    defaultMessage: 'viewManager',
+  },
   newSalaryLimit: {
     id: `${scope}.codes.newSalaryLimit`,
     defaultMessage: 'newSalaryLimit',
