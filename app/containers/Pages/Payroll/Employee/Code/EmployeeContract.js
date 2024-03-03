@@ -72,6 +72,7 @@ function EmployeeContract(props) {
 
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
 
     	// used to stop call api if user select wrong date
       if (Object.values(DateError).includes(true)) {  
@@ -81,7 +82,6 @@ function EmployeeContract(props) {
 
 
     try {
-      e.preventDefault();
       setIsLoading(true);
 
       const data = {
@@ -135,8 +135,8 @@ function EmployeeContract(props) {
     setkinshipEmpId("");
     sethasAlternativeEmp(false);
     setcontractTypeId("");
-    setcontractStartDate(format(new Date(), "yyyy-MM-dd"));
-    setcontractEndDate(format(new Date(), "yyyy-MM-dd"));
+    setcontractStartDate(dayjs());
+    setcontractEndDate(dayjs());
     setnotHasMission(false);
   };
   const GetLookup = useCallback(async () => {
@@ -197,8 +197,8 @@ function EmployeeContract(props) {
             id: dataApi[0].contractTypeId,
             name: dataApi[0].contractTypeName,
           });
-          setcontractStartDate(dataApi[0].contractStartDate);
-          setcontractEndDate(dataApi[0].contractEndDate);
+          setcontractStartDate(dayjs(dataApi[0].contractStartDate));
+          setcontractEndDate(dayjs(dataApi[0].contractEndDate));
           setnotHasMission(dataApi[0].notHasMission);
         } else clear();
       } catch (e) {
@@ -487,6 +487,7 @@ function EmployeeContract(props) {
                        label={intl.formatMessage(messages.contractEndDate)}
                         value={contractEndDate ? dayjs(contractEndDate) : contractEndDate}
                       className={classes.field}
+                      minDate={contractStartDate}
                         onChange={(date) => {
                           setcontractEndDate(date)
                       }}
