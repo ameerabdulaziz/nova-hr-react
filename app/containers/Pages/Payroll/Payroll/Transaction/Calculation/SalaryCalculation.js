@@ -340,6 +340,9 @@ function SalaryCalculation(props) {
       name: "id",
       options: {
         filter: false,
+        display: false,
+        download: false,
+        print: false,
       },
     },
     {
