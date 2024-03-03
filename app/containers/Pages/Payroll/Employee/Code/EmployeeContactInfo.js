@@ -196,7 +196,6 @@ function EmployeeContactInfo(props) {
                     onChange={(e) => settelPhone(e.target.value)}
                     label={intl.formatMessage(messages.telephone)}
                     // validate={required}
-                    required
                     className={classes.field}
                     variant="outlined"
                     autoComplete='off'
@@ -240,7 +239,6 @@ function EmployeeContactInfo(props) {
                     onChange={(e) => setrelativesPhoneNo(e.target.value)}
                     label={intl.formatMessage(messages.relativePhoneNumber)}
                     // validate={required}
-                    required
                     className={classes.field}
                     variant="outlined"
                     autoComplete='off'
@@ -256,7 +254,6 @@ function EmployeeContactInfo(props) {
                     value={mail}
                     onChange={(e) => setmail(e.target.value)}
                     label={intl.formatMessage(messages.email)}
-                    required
                     // validate={[required, email]}
                     className={classes.field}
                     // autoComplete="email"
