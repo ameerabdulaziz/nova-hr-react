@@ -46,7 +46,7 @@ function SalaryCalculation(props) {
   const [BranchId, setBranchId] = useState(branchId);
   const [EmployeeId, setEmployeeId] = useState(0);
   const [PayTemplateList, setPayTemplateList] = useState([]);
-  const [PayTemplateId, setPayTemplateId] = useState(0);
+  const [PayTemplateId, setPayTemplateId] = useState(1);
   const [IsShowReport, setIsShowReport] = useState(0);
 
   const [OpenMonth, setOpenMonth] = useState({
@@ -340,6 +340,9 @@ function SalaryCalculation(props) {
       name: "id",
       options: {
         filter: false,
+        display: false,
+        download: false,
+        print: false,
       },
     },
     {
@@ -482,9 +485,42 @@ function SalaryCalculation(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <Grid container spacing={2} alignItems="flex-start" direction="row">
+        <Grid container spacing={2} mt={0} alignItems="flex-start" direction="row">
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={3}>
+                <Autocomplete
+                  id="PayTemplateId"
+                  options={PayTemplateList}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
+                  value={
+                    PayTemplateId
+                      ? PayTemplateList.find((item) => item.id === PayTemplateId) ?? null
+                      : null
+                  }
+                  onChange={(event, value) => {
+                    setPayTemplateId(value !== null ? value.id : 0);
+                    FunctionIsShowReport(value !== null ? value.id : 0);
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="outlined"
+                      {...params}
+                      name="PayTemplateId"
+                      required
+                      label={intl.formatMessage(messages.payTemplate)}
+                    />
+                  )}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+
           <Grid item xs={12} md={6}>
-            <Card className={classes.card}>
+            <Card className={classes.card} sx={{ mt: '0!important' }} >
               <CardContent>
                 <Grid
                   container
@@ -559,7 +595,7 @@ function SalaryCalculation(props) {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Card className={classes.card}>
+            <Card className={classes.card} sx={{ mt: '0!important' }} >
               <CardContent>
                 <Grid
                   container
@@ -675,36 +711,8 @@ function SalaryCalculation(props) {
               branchId={BranchId}
             ></EmployeeData>
           </Grid>
-          <Grid item xs={12} md={3}>
-            <Autocomplete
-              id="PayTemplateId"
-              options={PayTemplateList}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              value={
-                PayTemplateId
-                  ? PayTemplateList.find((item) => item.id === PayTemplateId)
-                  : null
-              }
-              onChange={(event, value) => {
-                debugger;
-                setPayTemplateId(value !== null ? value.id : 0);
-                FunctionIsShowReport(value !== null ? value.id : 0);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="PayTemplateId"
-                  required
-                  label={intl.formatMessage(messages.payTemplate)}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} md={1}>
+
+          <Grid item>
             <Button
               variant="contained"
               size="medium"
@@ -714,7 +722,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...Payrollmessages.search} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={1.9}>
+          <Grid item>
             <Button
               variant="contained"
               size="medium"
@@ -724,7 +732,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...messages.Calculate} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={1.6}>
+          <Grid item>
             <Button
               variant="contained"
               size="medium"
@@ -734,7 +742,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...messages.DeleteSalary} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={1.8}>
+          <Grid item>
             <Button
               variant="contained"
               size="medium"
@@ -748,7 +756,7 @@ function SalaryCalculation(props) {
               )}
             </Button>
           </Grid>
-          <Grid item xs={12} md={1}>
+          <Grid item>
             <Button
               variant="contained"
               size="medium"
@@ -762,21 +770,19 @@ function SalaryCalculation(props) {
               )}
             </Button>
           </Grid>
-
-          <Grid item xs={12} md={12}>
-            <div className={classes.CustomMUIDataTable}>
-              {/* <ThemeProvider theme={theme}> */}
-              <MUIDataTable
-                title=""
-                data={dataList}
-                columns={columns}
-                options={options}
-              />
-              {/* </ThemeProvider> */}
-            </div>
-          </Grid>
         </Grid>
       </PapperBlock>
+
+      <div className={classes.CustomMUIDataTable}>
+        {/* <ThemeProvider theme={theme}> */}
+        <MUIDataTable
+          title=""
+          data={dataList}
+          columns={columns}
+          options={options}
+        />
+        {/* </ThemeProvider> */}
+      </div>
     </PayRollLoader>
   );
 }

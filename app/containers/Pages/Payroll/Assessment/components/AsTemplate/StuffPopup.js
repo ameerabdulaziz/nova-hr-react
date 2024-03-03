@@ -70,14 +70,6 @@ function StuffPopup(props) {
     });
   };
 
-  useEffect(() => {
-    if (isOpen) {
-      setEmployeeApi(selectedStuff);
-    } else {
-      resetData();
-    }
-  }, [isOpen]);
-
   const getEmployees = useCallback(() => {
     const selectedEmployeeIds = selectedEmployee.map((item) => item.employeeId);
 
@@ -96,6 +88,8 @@ function StuffPopup(props) {
 
   const fetchEmployees = async () => {
     setIsLoading(true);
+
+    setPage(0);
 
     const jobsIds = filters.jobs.map((item) => item.id);
 
@@ -124,6 +118,15 @@ function StuffPopup(props) {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      setEmployeeApi(selectedStuff);
+      fetchEmployees();
+    } else {
+      resetData();
+    }
+  }, [isOpen]);
 
   const filteredEmployee = useMemo(() => {
     let filteredData = [...employeeApi];

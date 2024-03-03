@@ -70,7 +70,7 @@ const GeneralListApis = (locale) => {
 
   Apis.GetElementListByTemplate = async (templateId,TypeID,ElementCalcMethodId,ElementModeId , isRefrance) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetElementListByTemplate/${templateId}/${locale}?TypeID=${TypeID}&ElementCalcMethodId=${ElementCalcMethodId?ElementCalcMethodId:0}&ElementModeId=${ElementModeId?ElementModeId:0}&isRefrance=${isRefrance?isRefrance:""}`
+      `GeneralList/GetElementListByTemplate/${templateId}/${locale}?TypeID=${TypeID ?? ''}&ElementCalcMethodId=${ElementCalcMethodId?ElementCalcMethodId:0}&ElementModeId=${ElementModeId?ElementModeId:0}&isRefrance=${isRefrance?isRefrance:""}`
     );
     return result.data;
   };
