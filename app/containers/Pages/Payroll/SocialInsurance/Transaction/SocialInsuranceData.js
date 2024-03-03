@@ -5,10 +5,12 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -20,6 +22,7 @@ import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
+import payrollMessages from '../../messages';
 import api from '../api/SocialInsuranceData';
 import messages from '../messages';
 
@@ -36,6 +39,7 @@ function SocialInsuranceData(props) {
   const [calculationTemplateList, setCalculationTemplateList] = useState([]);
 
   const [isInsured, setIsInsured] = useState(false);
+  const [DateError, setDateError] = useState({});
 
   const [isLoading, setIsLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -64,7 +68,7 @@ function SocialInsuranceData(props) {
     branchInsurance: null,
     insGrossSalary: '',
     mainSalaryNew: '',
-    calculationTemplate: null
+    calculationTemplateId: null,
   });
 
   const handleEmpChange = useCallback((id, name) => {
@@ -96,13 +100,43 @@ function SocialInsuranceData(props) {
       const organizations = await api(locale).GetSInsuranceOrgnization();
       setBranchInsuranceList(organizations);
 
-      const insuranceTemplate = await api(locale).SinsuranceCalculationTemplate();
+      const insuranceTemplate = await api(
+        locale
+      ).SinsuranceCalculationTemplate();
       setCalculationTemplateList(insuranceTemplate);
     } catch (err) {
       //
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const resetFields = () => {
+    setIsInsured(false);
+
+    setInsuredState({
+      insuranceDate: null,
+      socialInsuranceId: '',
+      insuJobId: null,
+      insuOfficeId: null,
+      mainSalary: '',
+      branchInsurance: null,
+      insGrossSalary: '',
+      mainSalaryNew: '',
+      calculationTemplateId: null,
+    });
+
+    setFormInfo((prev) => ({
+      ...prev,
+      insNotes: '',
+      showSpecialInsurance: false,
+      ka3bDate: null,
+      ka3bNo: '',
+      c1inNo: '',
+      c6inNo: '',
+      c1inDate: null,
+      c6inDate: null,
+    }));
   };
 
   const GetEmployeeInfo = async () => {
@@ -121,10 +155,10 @@ function SocialInsuranceData(props) {
           insuJobId: response.insuJobId ?? null,
           insuOfficeId: response.insuOfficeId ?? null,
           mainSalary: response.mainSalary ?? '',
-          branchInsurance: response.branchInsurance ?? '',
+          branchInsurance: response.branchInsurance ?? null,
           insGrossSalary: response.insGrossSalary ?? '',
           mainSalaryNew: response.mainSalaryNew ?? '',
-          calculationTemplate: response.calculationTemplate ?? null,
+          calculationTemplateId: response.calculationTemplateId ?? null,
         });
 
         setFormInfo((prev) => ({
@@ -143,11 +177,19 @@ function SocialInsuranceData(props) {
       } finally {
         setIsLoading(false);
       }
+    } else {
+      resetFields();
     }
   };
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
     let errors = {};
 
@@ -177,6 +219,7 @@ function SocialInsuranceData(props) {
       let formData = {
         ...formInfo,
         isInsured,
+        calculationTemplateId: insuredState.calculationTemplateId,
       };
 
       setProcessing(true);
@@ -224,15 +267,18 @@ function SocialInsuranceData(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" desc="" title={Title}>
+      <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
         <form onSubmit={onFormSubmit}>
-          <Grid container spacing={3} direction="row">
+          <Grid container spacing={3} direction='row'>
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange} id={formInfo.employeeId} />
+              <EmployeeData
+                handleEmpChange={handleEmpChange}
+                id={formInfo.employeeId}
+              />
             </Grid>
 
             <Grid item xs={12}>
-              <Card className={classes.card} sx={{ mt: '0!important' }} >
+              <Card className={classes.card} sx={{ mt: '0!important' }}>
                 <CardContent>
                   <FormControlLabel
                     control={
@@ -248,8 +294,8 @@ function SocialInsuranceData(props) {
                     container
                     spacing={3}
                     mt={0}
-                    alignItems="flex-start"
-                    direction="row"
+                    alignItems='flex-start'
+                    direction='row'
                   >
                     <Grid item xs={12} md={3}>
                       <Autocomplete
@@ -265,14 +311,17 @@ function SocialInsuranceData(props) {
                         onChange={(_, value) => {
                           setInsuredState((prev) => ({
                             ...prev,
-                            calculationTemplateId: value !== null ? value.id : null,
+                            calculationTemplateId:
+                              value !== null ? value.id : null,
                           }));
                         }}
                         renderInput={(params) => (
                           <TextField
                             required={isInsured}
                             {...params}
-                            label={intl.formatMessage(messages.calculationTemplate)}
+                            label={intl.formatMessage(
+                              messages.calculationTemplate
+                            )}
                           />
                         )}
                       />
@@ -280,23 +329,28 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name="socialInsuranceId"
+                        name='socialInsuranceId'
                         value={insuredState.socialInsuranceId}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.insuranceNumber)}
                         fullWidth
-                        variant="outlined"
+                        variant='outlined'
                         autoComplete='off'
                       />
                     </Grid>
 
                     <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(messages.insuranceDate)}
-                          value={insuredState.insuranceDate}
+                          value={
+                            insuredState.insuranceDate
+                              ? dayjs(insuredState.insuranceDate)
+                              : null
+                          }
+                          className={classes.field}
                           disabled={!isInsured}
                           onChange={(date) => {
                             setInsuredState((prevFilters) => ({
@@ -304,14 +358,24 @@ function SocialInsuranceData(props) {
                               insuranceDate: date,
                             }));
                           }}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant="outlined"
-                              fullWidth
-                              required
-                            />
-                          )}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                insuranceDate: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                insuranceDate: false,
+                              }));
+                            }
+                          }}
+                          slotProps={{
+                            textField: {
+                              required: true,
+                            },
+                          }}
                         />
                       </LocalizationProvider>
                     </Grid>
@@ -373,14 +437,14 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name="mainSalary"
+                        name='mainSalary'
                         value={insuredState.mainSalary}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.insuranceSalary)}
                         fullWidth
-                        variant="outlined"
+                        variant='outlined'
                         autoComplete='off'
                       />
                     </Grid>
@@ -415,27 +479,27 @@ function SocialInsuranceData(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name="insGrossSalary"
+                        name='insGrossSalary'
                         value={insuredState.insGrossSalary}
                         disabled={!isInsured}
                         required
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.grossSalary)}
                         fullWidth
-                        variant="outlined"
+                        variant='outlined'
                         autoComplete='off'
                       />
                     </Grid>
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name="mainSalaryNew"
+                        name='mainSalaryNew'
                         value={insuredState.mainSalaryNew}
                         disabled={!isInsured}
                         onChange={onInsuredNumericInputChange}
                         label={intl.formatMessage(messages.mainSalary)}
                         fullWidth
-                        variant="outlined"
+                        variant='outlined'
                         autoComplete='off'
                       />
                     </Grid>
@@ -446,42 +510,59 @@ function SocialInsuranceData(props) {
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={6} >
-                  <Card className={classes.card} sx={{ mt: '0!important' }} >
+                <Grid item xs={12} md={6}>
+                  <Card className={classes.card} sx={{ mt: '0!important' }}>
                     <CardContent>
                       <Grid
                         container
                         mb={3}
                         spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
+                        alignItems='flex-start'
+                        direction='row'
                       >
                         <Grid item xs={12} md={6}>
                           <TextField
-                            name="c1inNo"
+                            name='c1inNo'
                             value={formInfo.c1inNo}
                             onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.c1IncomingNumber)}
+                            label={intl.formatMessage(
+                              messages.c1IncomingNumber
+                            )}
                             fullWidth
-                            variant="outlined"
+                            variant='outlined'
                             autoComplete='off'
                           />
                         </Grid>
 
                         <Grid item xs={12} md={6}>
-                          <LocalizationProvider dateAdapter={AdapterMoment}>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                               label={intl.formatMessage(messages.c1DeliverDate)}
-                              value={formInfo.c1inDate}
+                              value={
+                                formInfo.c1inDate
+                                  ? dayjs(formInfo.c1inDate)
+                                  : null
+                              }
+                              className={classes.field}
                               onChange={(date) => {
                                 setFormInfo((prevFilters) => ({
                                   ...prevFilters,
                                   c1inDate: date,
                                 }));
                               }}
-                              renderInput={(params) => (
-                                <TextField fullWidth {...params} variant="outlined" />
-                              )}
+                              onError={(error, value) => {
+                                if (error !== null) {
+                                  setDateError((prevState) => ({
+                                    ...prevState,
+                                    c1inDate: true,
+                                  }));
+                                } else {
+                                  setDateError((prevState) => ({
+                                    ...prevState,
+                                    c1inDate: false,
+                                  }));
+                                }
+                              }}
                             />
                           </LocalizationProvider>
                         </Grid>
@@ -490,35 +571,52 @@ function SocialInsuranceData(props) {
                       <Grid
                         container
                         spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
+                        alignItems='flex-start'
+                        direction='row'
                       >
                         <Grid item xs={12} md={6}>
                           <TextField
-                            name="c6inNo"
+                            name='c6inNo'
                             value={formInfo.c6inNo}
                             onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.c6IncomingNumber)}
+                            label={intl.formatMessage(
+                              messages.c6IncomingNumber
+                            )}
                             fullWidth
-                            variant="outlined"
+                            variant='outlined'
                             autoComplete='off'
                           />
                         </Grid>
 
                         <Grid item xs={12} md={6}>
-                          <LocalizationProvider dateAdapter={AdapterMoment}>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                               label={intl.formatMessage(messages.c6DeliverDate)}
-                              value={formInfo.c6inDate}
+                              value={
+                                formInfo.c6inDate
+                                  ? dayjs(formInfo.c6inDate)
+                                  : null
+                              }
+                              className={classes.field}
                               onChange={(date) => {
                                 setFormInfo((prevFilters) => ({
                                   ...prevFilters,
                                   c6inDate: date,
                                 }));
                               }}
-                              renderInput={(params) => (
-                                <TextField fullWidth {...params} variant="outlined" />
-                              )}
+                              onError={(error, value) => {
+                                if (error !== null) {
+                                  setDateError((prevState) => ({
+                                    ...prevState,
+                                    c6inDate: true,
+                                  }));
+                                } else {
+                                  setDateError((prevState) => ({
+                                    ...prevState,
+                                    c6inDate: false,
+                                  }));
+                                }
+                              }}
                             />
                           </LocalizationProvider>
                         </Grid>
@@ -527,41 +625,60 @@ function SocialInsuranceData(props) {
                   </Card>
                 </Grid>
 
-                <Grid item xs={12} md={6} >
-                  <Card className={classes.card} sx={{ mt: '0!important' }} >
+                <Grid item xs={12} md={6}>
+                  <Card className={classes.card} sx={{ mt: '0!important' }}>
                     <CardContent>
                       <Grid
                         container
                         spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
+                        alignItems='flex-start'
+                        direction='row'
                       >
                         <Grid item xs={12} md={6}>
-                          <LocalizationProvider dateAdapter={AdapterMoment}>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
-                              label={intl.formatMessage(messages.workLetterDate)}
-                              value={formInfo.ka3bDate}
+                              label={intl.formatMessage(
+                                messages.workLetterDate
+                              )}
+                              value={
+                                formInfo.ka3bDate
+                                  ? dayjs(formInfo.ka3bDate)
+                                  : null
+                              }
+                              className={classes.field}
                               onChange={(date) => {
                                 setFormInfo((prevFilters) => ({
                                   ...prevFilters,
                                   ka3bDate: date,
                                 }));
                               }}
-                              renderInput={(params) => (
-                                <TextField fullWidth {...params} variant="outlined" />
-                              )}
+                              onError={(error, value) => {
+                                if (error !== null) {
+                                  setDateError((prevState) => ({
+                                    ...prevState,
+                                    ka3bDate: true,
+                                  }));
+                                } else {
+                                  setDateError((prevState) => ({
+                                    ...prevState,
+                                    ka3bDate: false,
+                                  }));
+                                }
+                              }}
                             />
                           </LocalizationProvider>
                         </Grid>
 
                         <Grid item xs={12} md={6}>
                           <TextField
-                            name="ka3bNo"
+                            name='ka3bNo'
                             value={formInfo.ka3bNo}
                             onChange={onNumericInputChange}
-                            label={intl.formatMessage(messages.workLetterNumber)}
+                            label={intl.formatMessage(
+                              messages.workLetterNumber
+                            )}
                             fullWidth
-                            variant="outlined"
+                            variant='outlined'
                             autoComplete='off'
                           />
                         </Grid>
@@ -574,12 +691,12 @@ function SocialInsuranceData(props) {
 
             <Grid item xs={12}>
               <TextField
-                name="insNotes"
+                name='insNotes'
                 value={formInfo.insNotes}
                 onChange={onInputChange}
                 label={intl.formatMessage(messages.hrNotes)}
                 fullWidth
-                variant="outlined"
+                variant='outlined'
                 multiline
                 rows={1}
                 autoComplete='off'
