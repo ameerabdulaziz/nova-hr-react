@@ -174,7 +174,7 @@ function ElementVlaImport({ intl }) {
         return;
       }
       setIsLoading(true);
-      const result = await GeneralListApis(locale).GetElementListByTemplate(id);
+      const result = await GeneralListApis(locale).GetElementListByTemplate(id, '');
 
       setElementList(result);
     } catch (err) {
