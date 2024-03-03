@@ -36,7 +36,7 @@ function EmployeeDocuments({ intl }) {
 
   const getdata = async () => {
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList(locale);
+      const employees = await GeneralListApis(locale).GetEmployeeList();
 
       setEmployeeList(employees);
     } catch (err) {
