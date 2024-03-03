@@ -74,6 +74,7 @@ function PurchaseTrxCreate(props) {
     yearId: 0,
     yearName: "",
     notes: "",
+    isAllowUpdate:true,
     remainLoansValue: "",
     remainLoansNo: "",
     newTotalvalue: "",
@@ -181,7 +182,7 @@ function PurchaseTrxCreate(props) {
         return;
       }
       setIsLoading(true);
-
+debugger ;
       var items = data.items.filter((x) => x.isSelected == true);
       data.items = items;
 
@@ -325,6 +326,7 @@ function PurchaseTrxCreate(props) {
   }
   async function fetchData() {
     try {
+      debugger ;
       const years = await GeneralListApis(locale).GetYears();
       setOrignalYearList(years);
       const months = await GeneralListApis(locale).GetMonths();
