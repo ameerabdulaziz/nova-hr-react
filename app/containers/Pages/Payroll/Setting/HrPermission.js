@@ -264,7 +264,7 @@ function HrPermission(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      {chartData?.length > 0 && (
+      {chartData && Object.keys(chartData).length > 0 && (
         <TreePopup
           isOpen={isTreePopupOpen}
           tree={tree.clone()}
@@ -332,7 +332,7 @@ function HrPermission(props) {
             <Button
               variant='contained'
               color='secondary'
-              disabled={employee === null}
+              disabled={employee === null || !(chartData && Object.keys(chartData).length > 0)}
               onClick={() => setIsTreePopupOpen(true)}
             >
               {intl.formatMessage(messages.organizationTree)}
