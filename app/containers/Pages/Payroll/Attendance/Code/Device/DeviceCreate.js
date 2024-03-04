@@ -74,7 +74,7 @@ function DeviceCreate(props) {
     if (event.target.name == "devicePass") {
       setdata((prevFilters) => ({
         ...prevFilters,
-        devicePass: event.target.value,
+        devicePass: event.target.value.replace(/[^\d]/g, ''),
       }));
     }
     if (event.target.name == "serialNumber") {
