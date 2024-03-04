@@ -974,7 +974,6 @@ function Personal(props) {
                     label={intl.formatMessage(messages.identityIssuingAuth)}
                     className={classes.field}
                     variant="outlined"
-                    required
                     autoComplete='off'
                   />
                 </Grid>
@@ -1275,7 +1274,6 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="birthGovId"
-                    required
                     label={intl.formatMessage(messages.gov)}
                   />
                 )}
@@ -1359,7 +1357,6 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="socialStatusId"
-                    required
                     label={intl.formatMessage(messages.socialStatus)}
                   />
                 )}
