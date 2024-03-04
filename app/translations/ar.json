@@ -964,6 +964,7 @@
   "boilerplate.containers.Payroll.company": "الشركة",
   "boilerplate.containers.Payroll.preview": "عرض",
 
+
   "boilerplate.containers.Payroll.executionId": "WorkFlow Id",
   "boilerplate.containers.Payroll.permissionName": "اسم الاذن",
   "boilerplate.containers.Payroll.startTime": "من ساعه",
@@ -1043,6 +1044,8 @@
   "boilerplate.containers.Payroll.rowSelected": "الصفوف المحددة",
   "boilerplate.containers.Payroll.deleteSelectedRows": "حذف الصفوف المحددة",
   "boilerplate.containers.Payroll.confirmationMess": "رسالة تأكيد",
+
+  "boilerplate.containers.Payroll.DateNotValid": "التاريخ غير صحيح",
 
   "boilerplate.containers.Payroll.view": "عرض",
 

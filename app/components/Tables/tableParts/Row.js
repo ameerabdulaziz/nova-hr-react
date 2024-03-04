@@ -12,7 +12,7 @@ import SelectableCell from './SelectableCell';
 import ToggleCell from './ToggleCell';
 import DatePickerCell from './DatePickerCell';
 import TimePickerCell from './TimePickerCell';
-import { useDispatch } from 'react-redux';
+import {useSelector,  useDispatch } from 'react-redux';
 import {
   removeAction,
   updateAction,
@@ -34,7 +34,6 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-// const Row = (props,ref) => {
   const Row = forwardRef((props, ref) => {
   const {
     classes,
@@ -48,11 +47,11 @@ const useStyles = makeStyles()((theme) => ({
   } = props;
 
   const { intl } = props;
+  const locale = useSelector(state => state.language.locale);
 
 
   const [DateError, setDateError] = useState({});
 
-  console.log("DateError444 =",DateError);
   
   // used to reformat date before send it to api
     const dateFormatFun = (date) => {
@@ -100,20 +99,14 @@ const useStyles = makeStyles()((theme) => ({
     if(API && !IsNotSave)
     {
       if (Object.values(DateError).includes(true)) {  
-        toast.error("Date Not Valid");
+        toast.error(locale === "en" ? "Date Not Valid" : "التاريخ غير صحيح");
         // toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       }
       else
       {
-        
-
         const apidata = {...item}
 
         apidata.qualificationDate = dateFormatFun(apidata.qualificationDate)
-
-        console.log("done =", item);
-
-        console.log("done2 =", apidata);
 
       setIsLoading(true);
       const data =  await API.Save(apidata);
@@ -249,7 +242,6 @@ const useStyles = makeStyles()((theme) => ({
   }));
 
 
-  console.log("RawTable");
   return (
     <tr className={item.edited ? css.editing : ''}>
       {renderCell(anchor)}
@@ -292,25 +284,5 @@ Row.propTypes = {
 };
 
 
-// function withIntl(Component) {
-//   class Wrapper extends React.Component {
-//     render() {
-//       const {innerRef, ...props} = this.props;
-//       return (
-//         <Component
-//           ref={innerRef}
-//           {...props} />
-//       );
-//     }
-//   };
-//   const IntlWrapper = injectIntl(Wrapper);
-//   return forwardRef((props, ref) => (
-//     <IntlWrapper {...props} innerRef={ref} />
-//   ));
-// };
-
-
-// export default injectIntl(Row, {forwardref: true});
-// export default injectIntl(Row);
 export default Row;
-// export default withIntl(Row);
+
