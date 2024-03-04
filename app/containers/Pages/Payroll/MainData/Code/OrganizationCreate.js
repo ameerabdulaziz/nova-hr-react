@@ -41,7 +41,7 @@ function CreateAndEditOrg(props) {
   const { intl } = props;
 
   const [isLoading, setIsLoading] = useState(true);
-  const [translate ,setTranslate] = useState(false)
+  const [IsDisclaimer ,setIsDisclaimer] = useState(false)
 
   const { classes } = useStyles();
   const handleSubmit = async (e) => {
@@ -56,7 +56,7 @@ function CreateAndEditOrg(props) {
       worknatureAllowance: parseInt(worknatureAllowance),
       note: note.length !== 0 ? note : "",
       employeeId: Employee.id ? Employee.id : "",
-      IsDisclaimer: translate
+      isDisclaimer: IsDisclaimer
     };
 
     try {
@@ -103,7 +103,7 @@ function CreateAndEditOrg(props) {
       setEmployee(
         data ? { id: data[0].employeeId, name: data[0].empName } : ""
       );
-      setTranslate(data && data[0].IsDisclaimer ? data[0].IsDisclaimer : false)
+      setIsDisclaimer(data && data[0].isDisclaimer ? data[0].isDisclaimer : false)
     } catch (e) {
     } finally {
       setIsLoading(false);
@@ -320,15 +320,15 @@ function CreateAndEditOrg(props) {
                 <FormControlLabel  
                   control={ 
                     <Switch  
-                    checked={translate } 
+                    checked={IsDisclaimer} 
                     onChange={() => 
-                      setTranslate(!translate)
+                      setIsDisclaimer(!IsDisclaimer)
                     }
                      color="primary" 
                     className={style.BtnSty}
                      />} 
-                  label="translate"
-                  // label={intl.formatMessage(messages.SalaryDeduction) }
+                  // label="IsDisclaimer"
+                  label={intl.formatMessage(messages.IsDisclaimer) }
                   /> 
               </Grid>
             </Grid>

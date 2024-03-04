@@ -964,6 +964,7 @@
   "boilerplate.containers.Payroll.company": "الشركة",
   "boilerplate.containers.Payroll.preview": "عرض",
 
+
   "boilerplate.containers.Payroll.executionId": "WorkFlow Id",
   "boilerplate.containers.Payroll.permissionName": "اسم الاذن",
   "boilerplate.containers.Payroll.startTime": "من ساعه",
@@ -1043,6 +1044,8 @@
   "boilerplate.containers.Payroll.rowSelected": "الصفوف المحددة",
   "boilerplate.containers.Payroll.deleteSelectedRows": "حذف الصفوف المحددة",
   "boilerplate.containers.Payroll.confirmationMess": "رسالة تأكيد",
+
+  "boilerplate.containers.Payroll.DateNotValid": "التاريخ غير صحيح",
 
   "boilerplate.containers.Payroll.view": "عرض",
 
@@ -2431,7 +2434,7 @@
   "boilerplate.containers.Payroll.MainData.codes.uploadLogo": "تحميل الشعار",
   "boilerplate.containers.Payroll.MainData.codes.logoIsRequired": "الشعار مطلوب",
 
-  "boilerplate.containers.Payroll.MainData.codes.translate": "اخلاء طرف",
+  "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "اخلاء طرف",
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "قائمة الأذونات",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "كود الموظف",

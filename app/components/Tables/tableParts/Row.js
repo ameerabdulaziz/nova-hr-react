@@ -12,7 +12,7 @@ import SelectableCell from './SelectableCell';
 import ToggleCell from './ToggleCell';
 import DatePickerCell from './DatePickerCell';
 import TimePickerCell from './TimePickerCell';
-import { useDispatch } from 'react-redux';
+import {useSelector,  useDispatch } from 'react-redux';
 import {
   removeAction,
   updateAction,
@@ -23,6 +23,10 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import style from "../../../styles/styles.scss";
+import { toast } from "react-hot-toast";
+import { format } from "date-fns";
+import Payrollmessages from '../../../containers/Pages/Payroll/messages';
+import { FormattedMessage ,injectIntl } from 'react-intl';
 
 const useStyles = makeStyles()((theme) => ({
   button: {
@@ -30,7 +34,7 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-const Row = forwardRef((props, ref) => {
+  const Row = forwardRef((props, ref) => {
   const {
     classes,
     cx
@@ -41,6 +45,18 @@ const Row = forwardRef((props, ref) => {
     API,IsNotSave,isNotAdd,
     handleClickOpen, setIsLoading
   } = props;
+
+  const { intl } = props;
+  const locale = useSelector(state => state.language.locale);
+
+
+  const [DateError, setDateError] = useState({});
+
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
 
   const branch = 'crudTableDemo' ;
   const removeRow = useDispatch();
@@ -79,10 +95,22 @@ const Row = forwardRef((props, ref) => {
   }, [editRow, item, branch]);
 
   const eventDone = useCallback(async() => {
+
     if(API && !IsNotSave)
     {
+      if (Object.values(DateError).includes(true)) {  
+        toast.error(locale === "en" ? "Date Not Valid" : "التاريخ غير صحيح");
+        // toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      }
+      else
+      {
+        const apidata = {...item}
+
+        apidata.qualificationDate = dateFormatFun(apidata.qualificationDate)
+
       setIsLoading(true);
-      const data =  await API.Save(item);
+      const data =  await API.Save(apidata);
+      // const data =  await API.Save(item);
       if(data.status === 200)
       {
         finishEditRow(saveAction(item,item.id===0?data.data.id:0,true, branch));
@@ -90,11 +118,12 @@ const Row = forwardRef((props, ref) => {
 
       setIsLoading(false);
     }
+    }
     else
         finishEditRow(saveAction(item,item.id,false, branch));
 
      
-  }, [finishEditRow, item, branch]);
+  }, [finishEditRow, item, branch,DateError]);
 
   const renderCell = dataArray => dataArray.map((itemCell, index) => {
 
@@ -163,6 +192,7 @@ const Row = forwardRef((props, ref) => {
               edited={item.edited}
               key={index.toString()}
               branch={branch}
+              setDateError={setDateError}
             />
           );
         case 'time':
@@ -212,7 +242,6 @@ const Row = forwardRef((props, ref) => {
   }));
 
 
-  console.log("RawTable");
   return (
     <tr className={item.edited ? css.editing : ''}>
       {renderCell(anchor)}
@@ -246,11 +275,14 @@ const Row = forwardRef((props, ref) => {
       </TableCell>
     </tr>
   );
-})
+}
+)
 
 Row.propTypes = {
   anchor: PropTypes.array.isRequired,
   item: PropTypes.object.isRequired,  
 };
 
+
 export default Row;
+

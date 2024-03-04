@@ -1010,6 +1010,8 @@
   "boilerplate.containers.Payroll.employees": "View Employees",
   "boilerplate.containers.Payroll.confirmationMess": "Confirmation Message",
 
+  "boilerplate.containers.Payroll.DateNotValid": "Date Not Valid",
+
   "boilerplate.containers.Payroll.VacationName": "Vacation",
   "boilerplate.containers.Payroll.Actions": "Actions",
   "boilerplate.containers.Payroll.EditHrNotes": "Edit Hr Notes",
@@ -2370,7 +2372,7 @@
   "boilerplate.containers.Payroll.MainData.codes.uploadLogo": "Upload Logo",
   "boilerplate.containers.Payroll.MainData.codes.logoIsRequired": "Logo is required",
 
-  "boilerplate.containers.Payroll.MainData.codes.translate": "translate",
+  "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "Is Disclaimer",
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "Permissions List",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "Employee Id",

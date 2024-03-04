@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import OrganizationData from '../api/OrganizationData';
 import messages from '../messages';
+import { getCheckboxIcon } from '../../helpers';
 
 function Organization({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -58,8 +59,11 @@ function Organization({ intl }) {
       label: intl.formatMessage(messages.manPower),
     },
     {
-      name: 'IsDisclaimer',
-      label: intl.formatMessage(messages.translate),
+      name: 'isDisclaimer',
+      label: intl.formatMessage(messages.IsDisclaimer),
+      options: {
+        customBodyRender: (value) => getCheckboxIcon(value),
+      },
     },
   ];
 

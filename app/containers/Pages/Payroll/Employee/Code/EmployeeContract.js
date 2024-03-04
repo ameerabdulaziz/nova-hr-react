@@ -15,8 +15,7 @@ import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import EmployeeContractData from "../api/EmployeeContractData";
-import { useLocation } from "react-router-dom";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { format } from "date-fns";
@@ -28,10 +27,34 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 function EmployeeContract(props) {
+
+    // decode URL 
+    let url = decodeURI(window.location.href)
+
+    const isValidJSON = (str) => {
+      try {
+        JSON.parse(str);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    };
+   
+    const isValidEncode = str => {
+      try {
+        atob(str)
+        return true;
+      } catch (e) {
+        return false;
+      }
+    };
+   
+    // get employee data from url
+    const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
+   
   const { intl, pristine } = props;
 
-  const location = useLocation();
-  const { empid } = location.state ?? { id: 0, name: "" };
+
   const { classes } = useStyles();
   const title = localStorage.getItem("MenuName");
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
@@ -407,27 +430,6 @@ function EmployeeContract(props) {
               </div>
               <br />
               <div>
-                {/* <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <DesktopDatePicker
-                    label={intl.formatMessage(messages.contractStartDate)}
-                    value={contractStartDate}
-                    onChange={(date) => {
-                      if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                        if (!isNaN(new Date(date))) { 
-                          setcontractStartDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                        } 
-                        else
-                        {
-                          setcontractStartDate(null)
-                        }
-                      }
-                    }}
-                    className={classes.field}
-                    renderInput={(params) => (
-                      <TextField {...params} variant="outlined" />
-                    )}
-                  />
-                </LocalizationProvider> */}
 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
@@ -460,27 +462,6 @@ function EmployeeContract(props) {
               </div>
               <br />
               <div>
-                {/* <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <DesktopDatePicker
-                    label={intl.formatMessage(messages.contractEndDate)}
-                    value={contractEndDate}
-                    onChange={(date) => {
-                      if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                        if (!isNaN(new Date(date))) { 
-                          setcontractEndDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                        } 
-                        else
-                        {
-                          setcontractEndDate(null)
-                        }
-                      }
-                    }}
-                    className={classes.field}
-                    renderInput={(params) => (
-                      <TextField {...params} variant="outlined" />
-                    )}
-                  />
-                </LocalizationProvider> */}
 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
