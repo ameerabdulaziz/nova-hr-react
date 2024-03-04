@@ -58,16 +58,12 @@ npm run start:prod
 - [ ] Integrate the **LeaveBalance** page with the API
 - [ ] Integrate the **EmployeeStatusReport** page with the API
 - [ ] Integrate a cancel button into the **editable** table component
-- [ ] Implement expire date for card in **personal page**
 - [ ] Implement a solution to add spacing between **menu** levels in the sidebar
-- [ ] Replace **Attendance** collection with new payroll table
-- [ ] Find a way to include images & web.config in **build**
 - [ ] Improve **React-to-print** package the need state before print
 - [ ] Fix selection column in **editable** table (use id instead of name)
 
 ## TODO
 
-- [ ] Display row number in the table, [link](https://github.com/gregnb/mui-datatables/issues/1379)
 - [ ] Add Print column to payroll table
 - [ ] **Recruitment** - add pdf download instead of open in new tab
 
@@ -228,7 +224,7 @@ In the provided `ExamplePage` example, the actions object is used to configure a
 - **Delete Action** (delete property):
   - `api`: Specifies a function that will be called when the "Delete" action is triggered.
 
-### Columns
+#### Columns
 
 The `columns` prop in the `PayrollTable` component is an array of objects, where each object represents a column in the table. The configuration of each column is specified using the following properties:
 
@@ -248,7 +244,7 @@ The `columns` prop in the `PayrollTable` component is an array of objects, where
   - **print** (boolean, default: true): Enable or disable printing for this column.
   - **customBodyRender** (function, optional): A custom rendering function for the cell content. This function allows you to customize how the data in the column is displayed.
 
-### Data
+#### Data
 
 The `data` prop in the `PayrollTable` component represents the actual data that you want to display in the table. It expects an array of objects, where each object corresponds to a row in the table, and the properties of the object represent the values for each column.
 
@@ -276,7 +272,7 @@ In this example, each object in the data array represents a row in the table. Th
 
 Adjust the structure of the data array based on the actual data you want to display in your table. Each property in the objects should match the name property in the corresponding column configuration within the columns array.
 
-### Override the options
+#### Override the options
 
 If you need to override the default `options` for the `PayrollTable` component
 
@@ -308,7 +304,7 @@ const options = {
 />;
 ```
 
-### Add Custom Column
+#### Add Custom Column
 
 If you want to add a custom `column` to your `PayrollTable` component and ensure that the **print** option for this column is set to `false`, you can include the options object within the column configuration.
 
