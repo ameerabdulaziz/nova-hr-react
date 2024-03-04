@@ -5,8 +5,7 @@ import {
   Stack,
   TextField
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -18,6 +17,11 @@ import GeneralListApis from '../api/GeneralListApis';
 import { formateDate } from '../helpers';
 import api from './api/OpenCloseMonthData';
 import messages from './messages';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import Payrollmessages from '../../Payroll/messages';
 
 function OpenCloseMonth(props) {
   const { intl } = props;
@@ -46,6 +50,15 @@ function OpenCloseMonth(props) {
     stopAttendance: false,
     closedMonth: false,
   });
+
+
+  const [DateError, setDateError] = useState({});
+  
+  // used to reformat date before send it to api
+    const dateFormatFun = (date) => {
+     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
+
 
   async function fetchNeededData() {
     setIsLoading(true);
@@ -107,6 +120,13 @@ function OpenCloseMonth(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
+
     /* assigning the name of the submit button that triggered the form submission to the variable
     `submiter`. This can be useful if you have multiple submit buttons in the
     form and you want to determine which button was clicked when handling the
@@ -126,6 +146,7 @@ function OpenCloseMonth(props) {
     };
 
     try {
+
       if (submitter === 'openMonth') {
         await api(locale).OpenMonth(body);
         toast.success(intl.formatMessage(messages.monthOpenedSuccessfully));
@@ -153,19 +174,11 @@ function OpenCloseMonth(props) {
   };
 
   const onDatePickerChange = (value, name) => {
-    if (Object.prototype.toString.call(new Date(value)) === '[object Date]') {
-      if (!isNaN(new Date(value))) {
-        setFormInfo((prev) => ({
-          ...prev,
-          [name]: value === null ? null : formateDate((value)),
-        }));
-      } else {
-        setFormInfo((prev) => ({
-          ...prev,
-          [name]: null,
-        }));
-      }
-    }
+  
+    setFormInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const onAutoCompleteChange = (value, name) => {
@@ -259,57 +272,137 @@ function OpenCloseMonth(props) {
 
           <Grid container spacing={2} mt={0} >
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
-                  label={intl.formatMessage(messages.fromDate)}
-                  value={formInfo.fromDate}
-                  onChange={(date) => onDatePickerChange(date, 'fromDate')}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+                  <Grid item xs={12} md={3}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.fromDate)}
+                          value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
+                          onChange={(date) => {
+                            onDatePickerChange(date, 'fromDate')
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
-                  label={intl.formatMessage(messages.toDate)}
-                  value={formInfo.todate}
-                  onChange={(date) => onDatePickerChange(date, 'todate')}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+                  <Grid item xs={12} md={3}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.toDate)}
+                          value={formInfo.todate ? dayjs(formInfo.todate) : null}
+                          onChange={(date) => {
+                            onDatePickerChange(date, 'todate')
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`todate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`todate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
-                  label={intl.formatMessage(messages.attendancePeriodFromDate)}
-                  value={formInfo.fromDateAtt}
-                  onChange={(date) => onDatePickerChange(date, 'fromDateAtt')}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+                  <Grid item xs={12} md={3}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.attendancePeriodFromDate)}
+                          value={formInfo.fromDateAtt ? dayjs(formInfo.fromDateAtt) : null}
+                          onChange={(date) => {
+                            onDatePickerChange(date, 'fromDateAtt')
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDateAtt`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDateAtt`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
-                  label={intl.formatMessage(messages.attendancePeriodToDate)}
-                  value={formInfo.todateAtt}
-                  onChange={(date) => onDatePickerChange(date, 'todateAtt')}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+                  <Grid item xs={12} md={3}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.attendancePeriodToDate)}
+                          value={formInfo.todateAtt ? dayjs(formInfo.todateAtt) : null}
+                          onChange={(date) => {
+                            onDatePickerChange(date, 'todateAtt')
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`todateAtt`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`todateAtt`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
             <Grid item xs={12} md={12}>
               <FormControlLabel
@@ -326,19 +419,39 @@ function OpenCloseMonth(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
-                  label={intl.formatMessage(messages.lastApprovalDate)}
-                  value={formInfo.requestEndDate}
-                  onChange={(date) => onDatePickerChange(date, 'requestEndDate')}
-                  disabled={!formInfo.lastDayToApproveEmployeeRequests}
-                  renderInput={(params) => (
-                    <TextField required {...params} disabled={!formInfo.lastDayToApproveEmployeeRequests} variant='outlined' />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+                  <Grid item xs={12} md={3}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.lastApprovalDate)}
+                          value={formInfo.requestEndDate ? dayjs(formInfo.requestEndDate) : null}
+                          onChange={(date) => {
+                            onDatePickerChange(date, 'requestEndDate')
+                        }}
+                        disabled={!formInfo.lastDayToApproveEmployeeRequests}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`requestEndDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`requestEndDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
+                        />
+                    </LocalizationProvider>
+                  </Grid>
 
           </Grid>
 
