@@ -1277,6 +1277,8 @@
   "boilerplate.containers.Payroll.HumanResources.commEndDate": "نهاية الالتزام بالعمل",
   "boilerplate.containers.Payroll.HumanResources.gradeName": "التقدير",
   "boilerplate.containers.Payroll.HumanResources.centerName": "المركز",
+  "boilerplate.containers.Payroll.HumanResources.resignationDate": "تاريخ الاستقالة",
+  "boilerplate.containers.Payroll.HumanResources.lastWorkingDay": "اخر يوم عمل",
 
   
   "boilerplate.containers.Payroll.Attendance.missionId": "كود المأمورية",

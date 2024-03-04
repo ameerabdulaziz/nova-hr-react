@@ -1170,6 +1170,8 @@
   "boilerplate.containers.Payroll.HumanResources.quantity": "Quantity",
   "boilerplate.containers.Payroll.HumanResources.uniformPrice": "Price",
   "boilerplate.containers.Payroll.HumanResources.id": "Id",
+  "boilerplate.containers.Payroll.HumanResources.resignationDate": "Resignation Date",
+  "boilerplate.containers.Payroll.HumanResources.lastWorkingDay": "Last Working Day",
   "boilerplate.containers.Payroll.HumanResources.executionId": "Id",
   "boilerplate.containers.Payroll.HumanResources.employeeId": "Employee",
   "boilerplate.containers.Payroll.HumanResources.status": "Status",
