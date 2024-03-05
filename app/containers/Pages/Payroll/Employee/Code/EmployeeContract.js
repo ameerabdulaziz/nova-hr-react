@@ -15,13 +15,9 @@ import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import EmployeeContractData from "../api/EmployeeContractData";
-
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { format } from "date-fns";
 import PayRollLoader from "../../Component/PayRollLoader";
-import style from '../../../../../styles/styles.scss'
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -234,301 +230,295 @@ function EmployeeContract(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
-       
-        <Grid
-          container
-          spacing={3}
-          alignItems="flex-start"
-          direction="row"
-          justifyContent="center"
-        >
-          <Grid item xs={12} md={6}>
-            <Autocomplete
-              id="ddlEmp"
-              options={employeeList}
-              value={{ id: employee.id, name: employee.name }}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setEmployee({
-                  id: value !== null ? value.id : 0,
-                  name: value !== null ? value.name : "",
-                });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employee"
-                  //  value={employee.id}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                  margin="normal"
-                />
-              )}
-            />
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={3} mt={0} >
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                id="ddlEmp"
+                options={employeeList}
+                value={{ id: employee.id, name: employee.name }}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  setEmployee({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="employee"
+                    //  value={employee.id}
+                    label={intl.formatMessage(messages.chooseEmp)}
+                  />
+                )}
+              />
+            </Grid>
 
-            <form onSubmit={handleSubmit}>
-              <br />
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                id="ddlhiringSourceId"
+                options={hiringSourceList}
+                value={hiringSourceId.length !== 0 ?{
+                  id: hiringSourceId.id,
+                  name: hiringSourceId.name,
+                }: null}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  sethiringSourceId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    //margin="normal"
+                    required
+                    {...params}
+                    name="hiringSourceId"
+                    label={intl.formatMessage(messages.hiringSource)}
+                    variant="outlined"
+                  />
+                )}
+              />
+            </Grid>
 
-              <div>
-                <Autocomplete
-                  id="ddlhiringSourceId"
-                  options={hiringSourceList}
-                  value={hiringSourceId.length !== 0 ?{
-                    id: hiringSourceId.id,
-                    name: hiringSourceId.name,
-                  }: null}
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === "" || option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option.name ? option.name : "")}
-                  onChange={(event, value) => {
-                    sethiringSourceId({
-                      id: value !== null ? value.id : 0,
-                      name: value !== null ? value.name : "",
-                    });
+            <Grid item xs={12} md={3}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker 
+                  label={intl.formatMessage(messages.contractStartDate)}
+                  value={contractStartDate ? dayjs(contractStartDate) : contractStartDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setcontractStartDate(date)
                   }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
-                      required
-                      {...params}
-                      name="hiringSourceId"
-                      label={intl.formatMessage(messages.hiringSource)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-
-              <div>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={isKinship}
-                      onChange={() => {
-                        setisKinship(!isKinship);
-                        setRequired({ required: !isKinship });
-                      }}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.isKinship)}
-                />
-              </div>
-
-              <div>
-                <Autocomplete
-                  id="ddkinshipLinkId"
-                  required
-                  options={kinshipLinkList}
-                  value={kinshipLinkId.length !== 0 ?{
-                    id: kinshipLinkId.id,
-                    name: kinshipLinkId.name,
-                  }: null}
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === "" || option.id === value.id
-                  }
-                  {...required}
-                  getOptionLabel={(option) => (option.name ? option.name : "")}
-                  onChange={(event, value) => {
-                    setkinshipLinkId({
-                      id: value !== null ? value.id : 0,
-                      name: value !== null ? value.name : "",
-                    });
+                  onError={(error,value)=>{
+                    if(error !== null)
+                    {
+                      setDateError((prevState) => ({
+                          ...prevState,
+                            [`contractStartDate`]: true
+                        }))
+                    }
+                    else
+                    {
+                      setDateError((prevState) => ({
+                          ...prevState,
+                            [`contractStartDate`]: false
+                        }))
+                    }
                   }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
-                      {...required}
-                      {...params}
-                      name="kinshipLinkId"
-                      label={intl.formatMessage(messages.kinshipLink)}
-                      variant="outlined"
-                    />
-                  )}
                 />
-              </div>
-              <br />
-              <div>
-                <Autocomplete
-                  id="ddlkinshipEmpId"
-                  {...required}
-                  options={kinshipEmpList}
-                  value={kinshipEmpId.length !== 0 ?{
-                    id: kinshipEmpId.id,
-                    name: kinshipEmpId.name,
-                  }: null}
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === "" || option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option.name ? option.name : "")}
-                  onChange={(event, value) => {
-                    setkinshipEmpId({
-                      id: value !== null ? value.id : 0,
-                      name: value !== null ? value.name : "",
-                    });
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
-                      {...required}
-                      {...params}
-                      name="kinshipEmpId"
-                      label={intl.formatMessage(messages.kinshipEmp)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
+              </LocalizationProvider>
+            </Grid>
 
-              <div>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={hasAlternativeEmp}
-                      onChange={() => sethasAlternativeEmp(!hasAlternativeEmp)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.hasAlternativeEmp)}
-                />
-              </div>
+            <Grid item xs={12} md={3}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.contractEndDate)}
+                          value={contractEndDate ? dayjs(contractEndDate) : contractEndDate}
+                        className={classes.field}
+                        minDate={contractStartDate}
+                          onChange={(date) => {
+                            setcontractEndDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`contractEndDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`contractEndDate`]: false
+                              }))
+                          }
+                        }}
+                        />
+                    </LocalizationProvider>
 
-              <div>
-                <Autocomplete
-                  id="ddlcontractTypeId"
-                  required
-                  options={contractTypeList}
-                  value={contractTypeId.length !== 0 ?{
-                    id: contractTypeId.id,
-                    name: contractTypeId.name,
-                  }: null}
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === "" || option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option.name ? option.name : "")}
-                  onChange={(event, value) => {
-                    setcontractTypeId({
-                      id: value !== null ? value.id : 0,
-                      name: value !== null ? value.name : "",
-                    });
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      //margin="normal"
+            </Grid>
 
-                      {...params}
-                      name="contractTypeId"
-                      label={intl.formatMessage(messages.contractType)}
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </div>
-              <br />
-              <div>
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                id="ddlcontractTypeId"
+                required
+                options={contractTypeList}
+                value={contractTypeId.length !== 0 ?{
+                  id: contractTypeId.id,
+                  name: contractTypeId.name,
+                }: null}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  setcontractTypeId({
+                    id: value !== null ? value.id : 0,
+                    name: value !== null ? value.name : "",
+                  });
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    //margin="normal"
 
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                       label={intl.formatMessage(messages.contractStartDate)}
-                        value={contractStartDate ? dayjs(contractStartDate) : contractStartDate}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setcontractStartDate(date)
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`contractStartDate`]: true
-                            }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`contractStartDate`]: false
-                            }))
-                        }
-                      }}
+                    {...params}
+                    name="contractTypeId"
+                    label={intl.formatMessage(messages.contractType)}
+                    variant="outlined"
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={hasAlternativeEmp}
+                    onChange={() => sethasAlternativeEmp(!hasAlternativeEmp)}
+                    color="secondary"
+                  />
+                }
+                label={intl.formatMessage(messages.hasAlternativeEmp)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={notHasMission}
+                    onChange={() => setnotHasMission(!notHasMission)}
+                    color="secondary"
+                  />
+                }
+                label={intl.formatMessage(messages.notHasMission)}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={3}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={isKinship}
+                        onChange={() => {
+                          setisKinship(!isKinship);
+                          setRequired({ required: !isKinship });
+                        }}
+                        color="secondary"
                       />
-                  </LocalizationProvider>
+                    }
+                    label={intl.formatMessage(messages.isKinship)}
+                  />
+                </Grid>
 
-
-              </div>
-              <br />
-              <div>
-
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                       label={intl.formatMessage(messages.contractEndDate)}
-                        value={contractEndDate ? dayjs(contractEndDate) : contractEndDate}
-                      className={classes.field}
-                      minDate={contractStartDate}
-                        onChange={(date) => {
-                          setcontractEndDate(date)
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`contractEndDate`]: true
-                            }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`contractEndDate`]: false
-                            }))
-                        }
-                      }}
+                <Grid item xs={12} md={3}>
+                  <Autocomplete
+                    id="ddkinshipLinkId"
+                    required
+                    options={kinshipLinkList}
+                    value={kinshipLinkId.length !== 0 ?{
+                      id: kinshipLinkId.id,
+                      name: kinshipLinkId.name,
+                    }: null}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" || option.id === value.id
+                    }
+                    {...required}
+                    getOptionLabel={(option) => (option.name ? option.name : "")}
+                    onChange={(event, value) => {
+                      setkinshipLinkId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        //margin="normal"
+                        {...required}
+                        {...params}
+                        name="kinshipLinkId"
+                        label={intl.formatMessage(messages.kinshipLink)}
+                        variant="outlined"
                       />
-                  </LocalizationProvider>
-              </div>
+                    )}
+                  />
+                </Grid>
 
-              <div>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={notHasMission}
-                      onChange={() => setnotHasMission(!notHasMission)}
-                      color="secondary"
-                    />
-                  }
-                  label={intl.formatMessage(messages.notHasMission)}
-                />
-              </div>
+                <Grid item xs={12} md={3}>
+                  <Autocomplete
+                    id="ddlkinshipEmpId"
+                    {...required}
+                    options={kinshipEmpList}
+                    value={kinshipEmpId.length !== 0 ?{
+                      id: kinshipEmpId.id,
+                      name: kinshipEmpId.name,
+                    }: null}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 || value.id === "" || option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option.name ? option.name : "")}
+                    onChange={(event, value) => {
+                      setkinshipEmpId({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      });
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        //margin="normal"
+                        {...required}
+                        {...params}
+                        name="kinshipEmpId"
+                        label={intl.formatMessage(messages.kinshipEmp)}
+                        variant="outlined"
+                      />
+                    )}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
 
-              <br />
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                    disabled={employee.id === 0}
+                  >
+                    <FormattedMessage {...Payrollmessages.save} />
+                  </Button>
+                </Grid>
 
-              <div>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  disabled={employee.id === 0}
-                  className={style.generalBtnStys}
-                >
-                  <FormattedMessage {...Payrollmessages.save} />
-                </Button>
-                <Button
-                  type="button"
-                  disabled={employee.id === 0 || pristine}
-                  onClick={() => deletedata()}
-                  className={style.generalBtnStys}
-                >
-                  <FormattedMessage {...Payrollmessages.delete} />
-                </Button>
-              </div>
-            </form>
+                <Grid item>
+                  <Button
+                    type="button"
+                    disabled={employee.id === 0 || pristine}
+                    onClick={() => deletedata()}
+                  >
+                    <FormattedMessage {...Payrollmessages.delete} />
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
+        </form>
       </PapperBlock>
     </PayRollLoader>
   );
