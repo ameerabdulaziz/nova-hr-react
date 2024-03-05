@@ -697,6 +697,13 @@ export const NewsCreate = loadable(
   }
 );
 
+export const ResignationReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/ResignationReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ExplanationReport = loadable(
   () => import('./Pages/Payroll/HumanResources/Reports/ExplanationReport'),
   {

@@ -175,6 +175,7 @@ import {
   ExplanationList,
   ExplanationEdit,
   ExplanationReport,
+  ResignationReport,
   Complaint,
   HrLetter,
   NewIdea,
@@ -742,6 +743,11 @@ function Application(props) {
         <Route
           path='/app/Pages/HR/ExplanationReport'
           component={ExplanationReport}
+        />
+
+        <Route
+          path='/app/Pages/HR/ResignationReport'
+          component={ResignationReport}
         />
 
         <Route path='/app/Pages/EXP/Complaint' component={Complaint} />

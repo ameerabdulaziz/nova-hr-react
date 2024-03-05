@@ -1282,6 +1282,9 @@
   "boilerplate.containers.Payroll.HumanResources.centerName": "المركز",
   "boilerplate.containers.Payroll.HumanResources.resignationDate": "تاريخ الاستقالة",
   "boilerplate.containers.Payroll.HumanResources.lastWorkingDay": "اخر يوم عمل",
+  "boilerplate.containers.Payroll.HumanResources.department": "القسم",
+  "boilerplate.containers.Payroll.HumanResources.comment": "تعليق",
+  "boilerplate.containers.Payroll.HumanResources.receiver": "المستلم",
 
   
   "boilerplate.containers.Payroll.Attendance.missionId": "كود المأمورية",
