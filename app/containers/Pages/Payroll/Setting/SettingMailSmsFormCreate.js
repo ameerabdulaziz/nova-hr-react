@@ -309,7 +309,7 @@ function SettingMailSmsFormCreate(props) {
           desc=''
           title={intl.formatMessage(payrollMessages.preview)}
         >
-          <div className='ql-snow' style={{ direction: 'ltr' }} >
+          <div className='ql-snow'>
             <div className='ql-editor'>{parse(formInfo.body)}</div>
           </div>
         </PapperBlock>
