@@ -30,9 +30,12 @@ function RowDropdown(props) {
   const onPreviewCVBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
 
-    history.push('/app/Pages/Recruitment/JobApplicationPreview', {
-      id: row.id,
-    });
+
+    window.open(`${encodeURI(`/app/Pages/Recruitment/JobApplicationPreview/${btoa(JSON.stringify(
+      {
+        id: row.id
+      }
+    ))}`)}`, '_blank')?.focus()
   };
 
   const onUpdateStatusBtnClick = (rowIndex) => {
