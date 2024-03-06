@@ -66,6 +66,26 @@ export default defineMessages({
     id: `${scope}.lastWorkingDay`,
     defaultMessage: 'lastWorkingDay',
   },
+  address: {
+    id: `${scope}.address`,
+    defaultMessage: 'address',
+  },
+  personalEmail: {
+    id: `${scope}.personalEmail`,
+    defaultMessage: 'personalEmail',
+  },
+  mobileNumber: {
+    id: `${scope}.mobileNumber`,
+    defaultMessage: 'mobileNumber',
+  },
+  custodies: {
+    id: `${scope}.custodies`,
+    defaultMessage: 'custodies',
+  },
+  homeNumber: {
+    id: `${scope}.homeNumber`,
+    defaultMessage: 'homeNumber',
+  },
   receiver: {
     id: `${scope}.receiver`,
     defaultMessage: 'receiver',
