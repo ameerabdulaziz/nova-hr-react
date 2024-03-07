@@ -58,6 +58,46 @@ export default defineMessages({
     id: `${scope}.type`,
     defaultMessage: 'type',
   },
+  resignationDate: {
+    id: `${scope}.resignationDate`,
+    defaultMessage: 'resignationDate',
+  },
+  lastWorkingDay: {
+    id: `${scope}.lastWorkingDay`,
+    defaultMessage: 'lastWorkingDay',
+  },
+  address: {
+    id: `${scope}.address`,
+    defaultMessage: 'address',
+  },
+  personalEmail: {
+    id: `${scope}.personalEmail`,
+    defaultMessage: 'personalEmail',
+  },
+  mobileNumber: {
+    id: `${scope}.mobileNumber`,
+    defaultMessage: 'mobileNumber',
+  },
+  custodies: {
+    id: `${scope}.custodies`,
+    defaultMessage: 'custodies',
+  },
+  homeNumber: {
+    id: `${scope}.homeNumber`,
+    defaultMessage: 'homeNumber',
+  },
+  receiver: {
+    id: `${scope}.receiver`,
+    defaultMessage: 'receiver',
+  },
+  department: {
+    id: `${scope}.department`,
+    defaultMessage: 'department',
+  },
+  comment: {
+    id: `${scope}.comment`,
+    defaultMessage: 'comment',
+  },
   createPenaltyTitle: {
     id: `${scope}.createPenaltyTitle`,
     defaultMessage: 'Create Penalty',

@@ -964,6 +964,7 @@
   "boilerplate.containers.Payroll.company": "الشركة",
   "boilerplate.containers.Payroll.preview": "عرض",
 
+
   "boilerplate.containers.Payroll.executionId": "WorkFlow Id",
   "boilerplate.containers.Payroll.permissionName": "اسم الاذن",
   "boilerplate.containers.Payroll.startTime": "من ساعه",
@@ -1043,6 +1044,8 @@
   "boilerplate.containers.Payroll.rowSelected": "الصفوف المحددة",
   "boilerplate.containers.Payroll.deleteSelectedRows": "حذف الصفوف المحددة",
   "boilerplate.containers.Payroll.confirmationMess": "رسالة تأكيد",
+
+  "boilerplate.containers.Payroll.DateNotValid": "التاريخ غير صحيح",
 
   "boilerplate.containers.Payroll.view": "عرض",
 
@@ -1173,6 +1176,7 @@
   "boilerplate.containers.Payroll.Setting.resetallpassword": "استرجاع الكل",
   "boilerplate.containers.Payroll.Setting.resetpassword": "استرجاع كلمة المرور",
   "boilerplate.containers.Payroll.Setting.department": "القسم",
+  "boilerplate.containers.Payroll.Setting.resign": "الاستقالة",
   "boilerplate.containers.Payroll.Setting.pleaseSelectEmployee": "الرجاء تحديد الموظف",
   "boilerplate.containers.Payroll.Setting.employee": "الموظف",
   "boilerplate.containers.Payroll.Setting.printForm": "نموذج الطباعة",
@@ -1277,7 +1281,16 @@
   "boilerplate.containers.Payroll.HumanResources.commEndDate": "نهاية الالتزام بالعمل",
   "boilerplate.containers.Payroll.HumanResources.gradeName": "التقدير",
   "boilerplate.containers.Payroll.HumanResources.centerName": "المركز",
-
+  "boilerplate.containers.Payroll.HumanResources.resignationDate": "تاريخ الاستقالة",
+  "boilerplate.containers.Payroll.HumanResources.lastWorkingDay": "اخر يوم عمل",
+  "boilerplate.containers.Payroll.HumanResources.department": "القسم",
+  "boilerplate.containers.Payroll.HumanResources.comment": "تعليق",
+  "boilerplate.containers.Payroll.HumanResources.receiver": "المستلم",
+  "boilerplate.containers.Payroll.HumanResources.custodies": "العهد",
+  "boilerplate.containers.Payroll.HumanResources.homeNumber": "رقم المنزل",
+  "boilerplate.containers.Payroll.HumanResources.address": "العنوان",
+  "boilerplate.containers.Payroll.HumanResources.mobileNumber": "رقم الهاتف",
+  "boilerplate.containers.Payroll.HumanResources.personalEmail": "البريد الإلكتروني الشخصي",
   
   "boilerplate.containers.Payroll.Attendance.missionId": "كود المأمورية",
   "boilerplate.containers.Payroll.Attendance.executionId": "الكود",
@@ -2429,7 +2442,7 @@
   "boilerplate.containers.Payroll.MainData.codes.uploadLogo": "تحميل الشعار",
   "boilerplate.containers.Payroll.MainData.codes.logoIsRequired": "الشعار مطلوب",
 
-  "boilerplate.containers.Payroll.MainData.codes.translate": "اخلاء طرف",
+  "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "اخلاء طرف",
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "قائمة الأذونات",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "كود الموظف",

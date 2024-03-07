@@ -6,44 +6,47 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
-import Payrollmessages from '../../../messages';
-import ApiData from '../../api/RewardTransData';
+import api from '../../api/ResignReqTrxData';
 import messages from '../../messages';
 
 function ResignReqTrx(props) {
   const { intl } = props;
+  const title = localStorage.getItem('MenuName');
+
   const locale = useSelector((state) => state.language.locale);
-  const [data, setdata] = useState([]);
-  const Title = localStorage.getItem('MenuName');
+
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-//   async function fetchData() {
-//     try {
-//       const dataApi = await ApiData(locale).GetList();
-//       setdata(dataApi);
-//     } catch (err) {
-//       //
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   }
+  async function fetchData() {
+    try {
+      const dataApi = await api(locale).getList();
+      setData(dataApi);
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
-//   async function deleteRow(id) {
-//     try {
-//       setIsLoading(true);
-//       await ApiData(locale).Delete(id);
+  async function deleteRow(id) {
+    try {
+      setIsLoading(true);
 
-//       toast.success(notif.saved);
-//       fetchData();
-//     } catch (err) {
-//       //
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   }
+      await api(locale).delete(id);
+
+      toast.success(notif.saved);
+
+      fetchData();
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
-    // fetchData();
+    fetchData();
   }, []);
 
   const columns = [
@@ -55,26 +58,27 @@ function ResignReqTrx(props) {
         print: false,
       },
     },
+
     {
       name: 'date',
-      label: "Resignation date",
-    //   label: intl.formatMessage(messages.date),
+      label: intl.formatMessage(messages.resignationDate),
+    },
+
+    {
+      name: 'lworkingDay',
+      label: intl.formatMessage(messages.lastWorkingDay),
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
+
     {
-      name: 'employeeName',
-      label: "Last working day",
-    //   label: intl.formatMessage(messages.employeeName),
+      name: 'resignReasonName',
+      label: intl.formatMessage(messages.resignReasonName),
     },
+
     {
-      name: 'superEmployeeName',
-      label: "Reason",
-    //   label: intl.formatMessage(messages.superEmployeeName),
-    },
-    {
-      name: 'note',
+      name: 'notes',
       label: intl.formatMessage(messages.note),
     },
   ];
@@ -87,15 +91,15 @@ function ResignReqTrx(props) {
       url: '/app/Pages/HR/ResignReqTrxEdit',
     },
     delete: {
-    //   api: deleteRow,
+      api: deleteRow,
     },
   };
 
   return (
     <PayrollTable
-    //   isLoading={isLoading}
+      isLoading={isLoading}
       showLoader
-      title={Title}
+      title={title}
       data={data}
       columns={columns}
       actions={actions}

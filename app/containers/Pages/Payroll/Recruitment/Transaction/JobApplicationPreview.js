@@ -19,7 +19,6 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import PayRollLoader from '../../Component/PayRollLoader';
 import cvMessages from '../../cv-application/messages';
@@ -27,10 +26,34 @@ import api from '../api/JobApplicationPreviewData';
 import { formateDate } from '../../helpers';
 
 function JobApplicationPreview(props) {
+
+ // decode URL 
+ let url = decodeURI(window.location.href)
+
+ const isValidJSON = (str) => {
+   try {
+     JSON.parse(str);
+     return true;
+   } catch (e) {
+     return false;
+   }
+ };
+
+ const isValidEncode = str => {
+   try {
+     atob(str)
+     return true;
+   } catch (e) {
+     return false;
+   }
+ };
+
+  // get employee data from url
+ const { id } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : 0;
+
+
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  const location = useLocation();
-  const id = location.state?.id ?? 0;
 
   const [isLoading, setIsLoading] = useState(false);
   const [isCVPopupOpen, setIsCVPopupOpen] = useState(false);

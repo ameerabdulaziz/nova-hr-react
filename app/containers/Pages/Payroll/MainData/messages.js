@@ -280,8 +280,8 @@ OrganizationsList: {
     id: `${scope}.codes.logoIsRequired`,
     defaultMessage: 'logoIsRequired',
   },
-  translate: {
-    id: `${scope}.codes.translate`,
-    defaultMessage: 'Translate',
+  IsDisclaimer: {
+    id: `${scope}.codes.IsDisclaimer`,
+    defaultMessage: 'Is Disclaimer',
   },
 });

@@ -30,7 +30,7 @@ const XLSX_COLUMNS = [
   { label: 'Nationality', isRequired: false, type: 'number' }, // 8
   { label: 'Governorate', isRequired: false, type: 'number' }, // 9
   { label: 'City', isRequired: false, type: 'number' }, // 10
-  { label: 'Social Status', isRequired: true, type: 'number' }, // 11
+  { label: 'Social Status', isRequired: false, type: 'number' }, // 11
   { label: 'Military Status', isRequired: false, type: 'number' }, // 12
   { label: 'Work Email', isRequired: true, type: 'string' }, // 13
   { label: 'Hiring Date', isRequired: true, type: 'date' }, // 14
@@ -41,7 +41,7 @@ const XLSX_COLUMNS = [
   { label: 'Insurance Date', isRequired: false, type: 'date' }, // 19
   { label: 'Roles Template', isRequired: false, type: 'string' }, // 20
   { label: 'Card Type', isRequired: true, type: 'number' }, // 21
-  { label: 'Card Issuing Auth', isRequired: true, type: 'string' }, // 22
+  { label: 'Card Issuing Auth', isRequired: false, type: 'string' }, // 22
   { label: 'Identity no', isRequired: true, type: 'number' }, // 23
   { label: 'Issuing Date', isRequired: false, type: 'date' }, // 24
   { label: 'Expire Date', isRequired: false, type: 'date' }, // 25

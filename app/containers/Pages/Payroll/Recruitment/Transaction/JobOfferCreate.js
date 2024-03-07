@@ -603,7 +603,7 @@ function JobOfferCreate(props) {
                         </div>
                       </Stack>
 
-                      <div className='ql-snow' style={{ direction: 'ltr' }}>
+                      <div className='ql-snow'>
                         <div className='ql-editor'>{parse(printContent)}</div>
                       </div>
                     </Box>

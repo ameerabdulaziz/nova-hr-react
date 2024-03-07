@@ -9,6 +9,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TableCell from '@mui/material/TableCell';
 import css from 'enl-styles/Table.scss';
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+
 const useStyles = makeStyles()(() => ({
   datepicker: {
     '& button': {
@@ -24,7 +27,8 @@ function DatePickerCell(props) {
     edited,
     cellData,
     branch,
-    updateRow
+    updateRow,
+    setDateError
   } = props;
 
   const [state] = useState({
@@ -39,22 +43,41 @@ function DatePickerCell(props) {
   const handleDateChange = useCallback(date => {
     const { event } = state;
     event.target.value = date;
+    console.log("event =", event);
     updateRow(event, branch);
   }, [updateRow, branch]);
 
   const { event } = state;
   return (
     <TableCell textalign="center" className={classes.datepicker}>
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <DatePicker
+
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker 
           name={cellData.type}
-          className={cx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt, cellData.disabled ? css.crudInputId : null)}
-          placeholder="10/10/2018"
-          value={event.target.value}
-          disabled={cellData.disabled ? true : !edited}
-          onChange={handleDateChange}
-          renderInput={(params) => <TextField {...params} variant="standard" />}
-        />
+            value={event.target.value ? dayjs(event.target.value) : null}
+            className={cx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt, cellData.disabled ? css.crudInputId : null)}
+            disabled={cellData.disabled ? true : !edited}
+            onChange={(date) => {
+              handleDateChange(date)
+          }}
+          onError={(error,value)=>{
+            if(error !== null)
+            {
+              setDateError((prevState) => ({
+                  ...prevState,
+                    [`valueDate`]: true
+                }))
+            }
+            else
+            {
+              setDateError((prevState) => ({
+                  ...prevState,
+                    [`valueDate`]: false
+                }))
+            }
+          }}
+          />
       </LocalizationProvider>
     </TableCell>
   );

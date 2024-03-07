@@ -70,6 +70,8 @@ function HrPermission(props) {
             item.isSubmitUniformTrx = event.target.checked;
           } else if (event.target.name == 'AllLoan') {
             item.isSubmitLoan = event.target.checked;
+          } else if (event.target.name == 'AllResign') {
+            item.isSubmitResign = event.target.checked;
           }
         }
 
@@ -131,6 +133,8 @@ function HrPermission(props) {
             item.isSubmitUniformTrx = event.target.checked;
           } else if (event.target.name === 'isSubmitLoan') {
             item.isSubmitLoan = event.target.checked;
+          } else if (event.target.name === 'isSubmitResign') {
+            item.isSubmitResign = event.target.checked;
           }
         }
 
@@ -164,6 +168,7 @@ function HrPermission(props) {
           isSubmitUniformTrx: item.isSubmitUniformTrx,
           isSubmitLoan: item.isSubmitLoan,
           isSubmitVacation: item.isSubmitVacation,
+          isSubmitResign: item.isSubmitResign,
           organizationId: item.organizationId,
           organizationName: item.organizationName,
         })),
@@ -254,6 +259,7 @@ function HrPermission(props) {
           isSubmitReward: false,
           isSubmitUniformTrx: false,
           isSubmitLoan: false,
+          isSubmitResign: false,
           isSelected: true,
         };
       })
@@ -264,7 +270,7 @@ function HrPermission(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      {chartData?.length > 0 && (
+      {chartData && Object.keys(chartData).length > 0 && (
         <TreePopup
           isOpen={isTreePopupOpen}
           tree={tree.clone()}
@@ -332,7 +338,7 @@ function HrPermission(props) {
             <Button
               variant='contained'
               color='secondary'
-              disabled={employee === null}
+              disabled={employee === null || !(chartData && Object.keys(chartData).length > 0)}
               onClick={() => setIsTreePopupOpen(true)}
             >
               {intl.formatMessage(messages.organizationTree)}
@@ -615,6 +621,35 @@ function HrPermission(props) {
                     onChange={onAllCheckboxChange}
                   />
                 </TableCell>
+                <TableCell
+                  style={{
+                    textWrap: 'balance',
+                    textAlign: 'center',
+                  }}
+                >
+                  <FormattedMessage {...messages.resign} />
+                  <br />
+                  <Checkbox
+                    checked={
+                      !!(
+                        filteredData.length > 0
+                        && dataList.filter((crow) => crow.isSubmitResign == true)
+                          .length === filteredData.length
+                      )
+                    }
+                    color='primary'
+                    name='AllResign'
+                    indeterminate={
+                      !!(
+                        dataList.filter((crow) => crow.isSubmitResign == true)
+                          .length > 0
+                        && dataList.filter((crow) => crow.isSubmitResign == true)
+                          .length < filteredData.length
+                      )
+                    }
+                    onChange={onAllCheckboxChange}
+                  />
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -752,6 +787,22 @@ function HrPermission(props) {
                         name='isSubmitLoan'
                         onChange={(event) => onSingleCheckboxSelect(event, row)}
                         value={row.isSubmitLoan}
+                      />
+                    </TableCell>
+
+                    <TableCell
+                      style={{
+                        textWrap: 'balance',
+
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Checkbox
+                        checked={row.isSubmitResign}
+                        color='primary'
+                        name='isSubmitResign'
+                        onChange={(event) => onSingleCheckboxSelect(event, row)}
+                        value={row.isSubmitResign}
                       />
                     </TableCell>
                   </TableRow>

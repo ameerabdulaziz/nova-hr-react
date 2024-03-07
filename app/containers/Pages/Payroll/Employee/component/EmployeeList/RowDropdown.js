@@ -69,25 +69,15 @@ function RowDropdown(props) {
             onClick={() => {
               closeDropdown(tableMeta.rowIndex);
               
-     
-            // solution 1
-              // window.open(`${encodeURI(`/app/Pages/Employee/${option.url}/${btoa(JSON.stringify(
-              //   {
-              //     empid: {
-              //       id: tableMeta.rowData[0],
-              //       name: tableMeta.rowData[2],
-              //     },
-              //   }
-              // ))}`)}`, '_blank')?.focus()
+              window.open(`${encodeURI(`/app/Pages/Employee/${option.url}/${btoa(JSON.stringify(
+                {
+                  empid: {
+                    id: tableMeta.rowData[0],
+                    name: tableMeta.rowData[2],
+                  },
+                }
+              ))}`)}`, '_blank')?.focus()
 
-              history.push(`/app/Pages/Employee/${option.url}`, {
-                empid: {
-                  id: tableMeta.rowData[0],
-                  name: tableMeta.rowData[2],
-                },
-              });
-
-             
             }}
           >
             {option.name}

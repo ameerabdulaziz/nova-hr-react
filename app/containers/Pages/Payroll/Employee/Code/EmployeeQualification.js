@@ -9,7 +9,6 @@ import { injectIntl } from "react-intl";
 import { useSelector, useDispatch } from "react-redux";
 import messages from "../messages";
 import { EditTable } from "../../../../Tables/demos";
-import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import EmployeeQualificationData from "../api/EmployeeQualificationData";
@@ -40,10 +39,34 @@ const useStyles = makeStyles()(() => ({
 }));
 
 function EmployeeQualification(props) {
+
+ // decode URL 
+ let url = decodeURI(window.location.href)
+
+ const isValidJSON = (str) => {
+   try {
+     JSON.parse(str);
+     return true;
+   } catch (e) {
+     return false;
+   }
+ };
+
+ const isValidEncode = str => {
+   try {
+     atob(str)
+     return true;
+   } catch (e) {
+     return false;
+   }
+ };
+
+ // get employee data from url
+ const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
+
+
   const history = useHistory();
-  const location = useLocation();
-  const { empid } =
-    location.state == null ? { id: 0, name: "" } : location.state;
+
   const { intl } = props;
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
   const [employeeList, setEmployeeList] = useState([]);

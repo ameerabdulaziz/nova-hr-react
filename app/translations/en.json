@@ -1010,6 +1010,8 @@
   "boilerplate.containers.Payroll.employees": "View Employees",
   "boilerplate.containers.Payroll.confirmationMess": "Confirmation Message",
 
+  "boilerplate.containers.Payroll.DateNotValid": "Date Not Valid",
+
   "boilerplate.containers.Payroll.VacationName": "Vacation",
   "boilerplate.containers.Payroll.Actions": "Actions",
   "boilerplate.containers.Payroll.EditHrNotes": "Edit Hr Notes",
@@ -1124,6 +1126,7 @@
   "boilerplate.containers.Payroll.Setting.penalty": "Penalty",
   "boilerplate.containers.Payroll.Setting.overTime": "Over Time",
   "boilerplate.containers.Payroll.Setting.reward": "Reward",
+  "boilerplate.containers.Payroll.Setting.resign": "Resign",
   "boilerplate.containers.Payroll.Setting.organization": "Organization",
   "boilerplate.containers.Payroll.Setting.subject": "Subject",
   "boilerplate.containers.Payroll.Setting.addDecorator": "Add Decorator",
@@ -1170,6 +1173,16 @@
   "boilerplate.containers.Payroll.HumanResources.quantity": "Quantity",
   "boilerplate.containers.Payroll.HumanResources.uniformPrice": "Price",
   "boilerplate.containers.Payroll.HumanResources.id": "Id",
+  "boilerplate.containers.Payroll.HumanResources.resignationDate": "Resignation Date",
+  "boilerplate.containers.Payroll.HumanResources.lastWorkingDay": "Last Working Day",
+  "boilerplate.containers.Payroll.HumanResources.department": "Department",
+  "boilerplate.containers.Payroll.HumanResources.receiver": "Receiver",
+  "boilerplate.containers.Payroll.HumanResources.custodies": "Custodies",
+  "boilerplate.containers.Payroll.HumanResources.homeNumber": "Home Number",
+  "boilerplate.containers.Payroll.HumanResources.address": "Address",
+  "boilerplate.containers.Payroll.HumanResources.mobileNumber": "Mobile Number",
+  "boilerplate.containers.Payroll.HumanResources.personalEmail": "Personal Email",
+  "boilerplate.containers.Payroll.HumanResources.comment": "Comment",
   "boilerplate.containers.Payroll.HumanResources.executionId": "Id",
   "boilerplate.containers.Payroll.HumanResources.employeeId": "Employee",
   "boilerplate.containers.Payroll.HumanResources.status": "Status",
@@ -2368,7 +2381,7 @@
   "boilerplate.containers.Payroll.MainData.codes.uploadLogo": "Upload Logo",
   "boilerplate.containers.Payroll.MainData.codes.logoIsRequired": "Logo is required",
 
-  "boilerplate.containers.Payroll.MainData.codes.translate": "translate",
+  "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "Is Disclaimer",
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "Permissions List",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "Employee Id",

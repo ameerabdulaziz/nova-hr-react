@@ -22,6 +22,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import unionBy from 'lodash/unionBy';
 import PropTypes from 'prop-types';
 import React, { useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -91,7 +92,7 @@ function StuffInfo(props) {
   const onEmployeeSave = (items) => {
     setFormInfo((prev) => ({
       ...prev,
-      asTemplateEmployee: items,
+      asTemplateEmployee: unionBy(prev.asTemplateEmployee, items, 'employeeId'),
     }));
 
     setIsEmployeePopupOpen(false);

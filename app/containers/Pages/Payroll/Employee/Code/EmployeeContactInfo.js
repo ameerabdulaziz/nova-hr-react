@@ -13,7 +13,6 @@ import { Autocomplete } from "@mui/material";
 import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
 import notif from "enl-api/ui/notifMessage";
-import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../Component/PayRollLoader";
 
 import style from '../../../../../styles/styles.scss'
@@ -24,8 +23,32 @@ const email = (value) =>
     : undefined;
 
 function EmployeeContactInfo(props) {
-  const location = useLocation();
-  const { empid } = location.state ?? { id: 0, name: "" };
+
+
+   // decode URL 
+ let url = decodeURI(window.location.href)
+
+ const isValidJSON = (str) => {
+   try {
+     JSON.parse(str);
+     return true;
+   } catch (e) {
+     return false;
+   }
+ };
+
+ const isValidEncode = str => {
+   try {
+     atob(str)
+     return true;
+   } catch (e) {
+     return false;
+   }
+ };
+
+ // get employee data from url
+ const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
+
   const { intl, pristine } = props;
   const title = localStorage.getItem("MenuName");
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });

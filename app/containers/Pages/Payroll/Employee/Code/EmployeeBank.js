@@ -39,7 +39,7 @@ import { Helmet } from 'react-helmet';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+
 import PayRollLoader from '../../Component/PayRollLoader';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
@@ -63,8 +63,33 @@ const INIT_FORM_INFO = {
 };
 
 function EmployeeBank(props) {
+
+ // decode URL 
+ let url = decodeURI(window.location.href)
+
+ const isValidJSON = (str) => {
+   try {
+     JSON.parse(str);
+     return true;
+   } catch (e) {
+     return false;
+   }
+ };
+
+ const isValidEncode = str => {
+   try {
+     atob(str)
+     return true;
+   } catch (e) {
+     return false;
+   }
+ };
+
+ // get employee data from url
+ const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
+
   const { intl } = props;
-  const location = useLocation();
+
 
   const title = brand.name + ' - Banks';
   const description = brand.desc;
@@ -74,8 +99,9 @@ function EmployeeBank(props) {
 
   const [formInfo, setFormInfo] = useState(INIT_FORM_INFO);
 
+ 
   const [selectedEmployee, setSelectedEmployee] = useState(
-    location.state?.empid?.id ?? 0
+    empid?.id ?? 0
   );
   const [selectedBank, setSelectedBank] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);

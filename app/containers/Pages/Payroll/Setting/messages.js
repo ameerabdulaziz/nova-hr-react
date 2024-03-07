@@ -244,4 +244,8 @@ export default defineMessages({
     id: `${scope}.pleaseSelectEmployee`,
     defaultMessage: 'pleaseSelectEmployee',
   },
+  resign: {
+    id: `${scope}.resign`,
+    defaultMessage: 'resign',
+  },
 });

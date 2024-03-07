@@ -49,50 +49,33 @@ function Personal(props) {
   const history = useHistory();
   // const ref = useRef(null);
 
-  const { state } = useLocation();
-  const { empid } = state ?? { id: 0, name: "" };
   const authState = useSelector((state) => state.authReducer);
 
+  // decode URL 
+  let url = decodeURI(window.location.href)
+
+  const isValidJSON = (str) => {
+    try {
+      JSON.parse(str);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const isValidEncode = str => {
+    try {
+      atob(str)
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+   // get employee data from url
+  const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
+
   const id = empid?.id ?? 0;
-
-
-  // let url = decodeURI(window.location.href)
-
-  // const isValidJSON = (str) => {
-  //   try {
-  //     JSON.parse(str);
-
-  //     console.log("yes1");
-  //     return true;
-  //   } catch (e) {
-  //     console.log("no1");
-  //     return false;
-  //   }
-  // };
-
-
-
-  // const isValidEncode = str => {
-  //   try {
-  //     atob(str)
-  //     console.log("yes");
-  //     return true;
-  //   } catch (e) {
-  //     console.log("no");
-  //     return false;
-  //   }
-  // };
-
-
-
-
-
-  // const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
-  // // const { empid } = isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
-
-  // const id = empid?.id ?? 0;
-
- 
 
   let dropzoneRef;
   const [progress, setProgress] = useState(false);
@@ -974,7 +957,6 @@ function Personal(props) {
                     label={intl.formatMessage(messages.identityIssuingAuth)}
                     className={classes.field}
                     variant="outlined"
-                    required
                     autoComplete='off'
                   />
                 </Grid>
@@ -1275,7 +1257,6 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="birthGovId"
-                    required
                     label={intl.formatMessage(messages.gov)}
                   />
                 )}
@@ -1359,7 +1340,6 @@ function Personal(props) {
                     variant="outlined"
                     {...params}
                     name="socialStatusId"
-                    required
                     label={intl.formatMessage(messages.socialStatus)}
                   />
                 )}

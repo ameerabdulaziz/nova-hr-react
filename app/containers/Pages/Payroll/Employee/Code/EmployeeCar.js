@@ -15,14 +15,37 @@ import useStyles from "../../Style";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
-import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../Component/PayRollLoader";
 import style from '../../../../../styles/styles.scss'
 
 function EmployeeCar(props) {
+
+   // decode URL 
+   let url = decodeURI(window.location.href)
+
+   const isValidJSON = (str) => {
+     try {
+       JSON.parse(str);
+       return true;
+     } catch (e) {
+       return false;
+     }
+   };
+  
+   const isValidEncode = str => {
+     try {
+       atob(str)
+       return true;
+     } catch (e) {
+       return false;
+     }
+   };
+  
+   // get employee data from url
+   const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
+  
   const { intl, pristine } = props;
-  const location = useLocation();
-  const { empid } = location.state ?? { id: 0, name: "" };
+
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
   const [isLoading, setIsLoading] = useState(true);
   const title = localStorage.getItem("MenuName");
