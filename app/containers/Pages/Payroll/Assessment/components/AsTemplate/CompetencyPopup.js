@@ -65,13 +65,6 @@ function CompetencyPopup(props) {
     }
   }, [isOpen]);
 
-  const onNumericInputChange = (evt, index) => {
-    const clonedItems = [...formInfo];
-    clonedItems[index].totalGrade = evt.target.value.replace(/[^\d]/g, '');
-
-    setFormInfo(clonedItems);
-  };
-
   const onSkillPopupClose = () => {
     setIsOpen(false);
   };
@@ -82,13 +75,6 @@ function CompetencyPopup(props) {
     onSave(formInfo.filter((item) => item.isSelect));
 
     setIsOpen(false);
-  };
-
-  const onCheckboxChange = (evt, index) => {
-    const clonedItems = [...formInfo];
-    clonedItems[index].isSelect = evt.target.checked;
-
-    setFormInfo(clonedItems);
   };
 
   const onAllCheckboxChange = (evt) => {
@@ -120,6 +106,41 @@ function CompetencyPopup(props) {
     () => formInfo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [page, rowsPerPage, formInfo]
   );
+
+  const onCheckboxChange = (evt, index) => {
+    const clonedItems = [...formInfo];
+
+    const competency = visibleRows[index];
+
+    const competencyIndex = clonedItems.findIndex(
+      (item) => item.id === competency.id
+    );
+
+    if (competencyIndex !== -1) {
+      clonedItems[competencyIndex].isSelect = evt.target.checked;
+    }
+
+    setFormInfo(clonedItems);
+  };
+
+  const onNumericInputChange = (evt, index) => {
+    const clonedItems = [...formInfo];
+
+    const competency = visibleRows[index];
+
+    const competencyIndex = clonedItems.findIndex(
+      (item) => item.id === competency.id
+    );
+
+    if (competencyIndex !== -1) {
+      clonedItems[competencyIndex].totalGrade = evt.target.value.replace(
+        /[^\d]/g,
+        ''
+      );
+    }
+
+    setFormInfo(clonedItems);
+  };
 
   return (
     <Dialog
