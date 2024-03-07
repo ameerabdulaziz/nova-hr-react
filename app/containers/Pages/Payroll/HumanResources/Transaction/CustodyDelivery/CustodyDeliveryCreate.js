@@ -258,7 +258,7 @@ function CustodyDeliveryCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={1}>
               <TextField
                 id="custodyPrice"
                 name="custodyPrice"
@@ -270,7 +270,7 @@ function CustodyDeliveryCreate(props) {
                 onChange={(e) => handleChange(e)}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={1}>
               <TextField
                 id="custCount"
                 name="custCount"
@@ -280,6 +280,18 @@ function CustodyDeliveryCreate(props) {
                 variant="outlined"
                 onChange={(e) => handleChange(e)}
                 autoComplete='off'
+              />
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <TextField
+                id="total"
+                name="total"
+                value={data.custCount*data.custodyPrice}
+                label={intl.formatMessage(Payrollmessages.total)}
+                className={classes.field}
+                variant="outlined"
+                autoComplete='off'
+                disabled
               />
             </Grid>
             <Grid item xs={12} md={2}>

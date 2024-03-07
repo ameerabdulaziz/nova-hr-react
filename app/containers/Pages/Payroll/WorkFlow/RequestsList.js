@@ -10,6 +10,7 @@ import hrmessages from "../HumanResources/messages";
 import paymessages from "../Payroll/messages";
 import vacmessages from "../Vacation/messages";
 
+import Icon from "@mui/material/Icon";
 import messages from "./messages";
 import style from "../../../../../app/styles/styles.scss";
 import IconButton from "@mui/material/IconButton";
@@ -31,12 +32,11 @@ import NotePopup from "./NotePopup";
 import WFExecutionList from "./WFExecutionList";
 import { useLocation } from "react-router-dom";
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function RequestsList(props) {
-
   const { intl } = props;
   const { classes } = useStyles();
   const location = useLocation();
@@ -60,6 +60,10 @@ function RequestsList(props) {
       ? 7
       : location.pathname == "/app/Pages/HR/UniformApproval"
       ? 8
+      : location.pathname == "/app/Pages/HR/ResignApproval"
+      ? 9
+      : location.pathname == "/app/Pages/HR/CustodyApproval"
+      ? 9
       : 0
   );
   const [fromdate, setfromate] = useState(null);
@@ -71,26 +75,26 @@ function RequestsList(props) {
   const [openExecutionPoup, setExecutionPoup] = useState(false);
   const [Note, setNote] = useState(false);
   const [ExecutionId, setExecutionId] = useState("");
+  const [Id, setId] = useState("");
   const [Action, setAction] = useState("");
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
-  const handleExecutionPoup = (id) => {
-
-    setExecutionId(id);
+  const handleExecutionPoup = (Id) => {
+    setExecutionId(Id);
     setExecutionPoup(true);
   };
-  const handleOpenNotePoup = (id, Action) => {
-
+  const handleOpenNotePoup = (id, Action, DocId) => {
     setopenNotePopup(true);
     setNote("");
     setExecutionId(id);
     setAction(Action);
+    setId(DocId);
   };
 
   const handleCloseNotePoup = () => {
@@ -101,28 +105,29 @@ function RequestsList(props) {
   };
 
   const handleSearch = async (e) => {
-
-    	// used to stop call api if user select wrong date
-      if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-        return;
-      }
-
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
     try {
       setIsLoading(true);
-
-      let Fromdate = dateFormatFun(fromdate)
-      let Todate = dateFormatFun(todate)
-;
+      debugger;
+      let Fromdate = dateFormatFun(fromdate);
+      let Todate = dateFormatFun(todate);
       const dataApi = await ApiData(locale).Getrequests(
         Document,
         employee,
         Fromdate,
-        Todate
+        Todate,
+        location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false
       );
       setdata(dataApi);
-      dataApi.map((item) => setCols(Object.keys(item)));
+      if (dataApi && dataApi.length > 0) {
+        var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
+        setCols(data);
+      } else setCols([]);fetchData()
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -130,14 +135,14 @@ function RequestsList(props) {
   };
   async function RequestAction() {
     try {
-
       setIsLoading(true);
       let response = await ApiData(locale).ExecuteWorkFlow(
         ExecutionId,
         Action,
-        Note
+        Note,
+        Id
       );
-
+      debugger;
       if (response.status == 200) {
         toast.success(notif.saved);
         handleSearch();
@@ -148,22 +153,13 @@ function RequestsList(props) {
     }
   }
   async function fetchData() {
-
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
 
-    
     try {
-      /* const Documents = await GeneralListApis(locale).GetDocumentList(locale);
-      setDocumentList(Documents);
-      setDocument({
-        documentId: Documents[0].id,
-        documentName: Documents[0].name,
-      }); */
-
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
       var documentId = 0;
@@ -181,23 +177,28 @@ function RequestsList(props) {
         documentId = 7;
       else if (location.pathname == "/app/Pages/HR/UniformApproval")
         documentId = 8;
+      else if (location.pathname == "/app/Pages/HR/ResignApproval")
+        documentId = 9;
+      else if (location.pathname == "/app/Pages/HR/CustodyApproval")
+        documentId = 9;
       else documentId = 0;
 
+      let Fromdate = dateFormatFun(fromdate);
+      let Todate = dateFormatFun(todate);
 
-      let Fromdate = dateFormatFun(fromdate)
-      let Todate = dateFormatFun(todate)
-      
       const dataApi = await ApiData(locale).Getrequests(
         documentId,
         employee,
         Fromdate,
-        Todate
+        Todate,
+        location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false
       );
       setdata(dataApi);
       setDocument(documentId);
-      if (dataApi && dataApi.length > 0)
-        dataApi.map((item) => setCols(Object.keys(item)));
-      else setCols([]);
+      if (dataApi && dataApi.length > 0) {
+        var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
+        setCols(data);
+      } else setCols([]);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -214,7 +215,10 @@ function RequestsList(props) {
           label:
             Document == 1 || Document == 2 ? (
               <FormattedMessage {...missionmessages[item]} />
-            ) : Document == 4 || Document == 5 || Document == 8 ? (
+            ) : Document == 4 ||
+              Document == 5 ||
+              Document == 8 ||
+              Document == 9 ? (
               <FormattedMessage {...hrmessages[item]} />
             ) : Document == 7 ? (
               <FormattedMessage {...paymessages[item]} />
@@ -232,34 +236,43 @@ function RequestsList(props) {
       filter: false,
 
       customBodyRender: (value, tableMeta) => {
-        console.log("tableMeta =", tableMeta);
+        let filterdrow = null;
+        if (tableMeta && data && data.length > 0)
+          filterdrow = data.filter(
+            (i) => i.executionId == tableMeta.rowData[0]
+          );
         return (
           <div className={style.actionsSty}>
-            <IconButton
-              color="success" /* #2196f3 */
-              aria-label="Approve"
-              size="large"
-              onClick={() => handleOpenNotePoup(tableMeta.rowData[0], 2)}
-            >
-              <DoneOutlineRoundedIcon />
-            </IconButton>
-
-            <IconButton
-              color="error"
-              aria-label="Reject"
-              size="large"
-              onClick={() => handleOpenNotePoup(tableMeta.rowData[0], 3)}
-            >
-              <CloseIcon />
-            </IconButton>
             <IconButton
               color="success"
               aria-label="Details"
               size="large"
               onClick={() => handleExecutionPoup(tableMeta.rowData[0])}
             >
-              <Details />
+              <Icon>{<Details />}</Icon>
             </IconButton>
+
+            {filterdrow &&
+              filterdrow.length > 0 &&
+              filterdrow[0].actions.length !== 0 &&
+              filterdrow[0].actions.map((row) => {
+                return (
+                  <IconButton
+                    color="success"
+                    aria-label={row.name}
+                    size="large"
+                    onClick={() =>
+                      handleOpenNotePoup(
+                        tableMeta.rowData[0],
+                        row.id,
+                        tableMeta.rowData[1]
+                      )
+                    }
+                  >
+                    <Icon>{row.icon}</Icon>
+                  </IconButton>
+                );
+              })}
           </div>
         );
       },
@@ -302,36 +315,31 @@ function RequestsList(props) {
               </LocalizationProvider>
             </Grid> */}
 
-                  <Grid item xs={12} md={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                         label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={fromdate ? dayjs(fromdate) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setfromate(date);
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`fromdate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`fromdate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.fromdate)}
+                  value={fromdate ? dayjs(fromdate) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setfromate(date);
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`fromdate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`fromdate`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
             {/* <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -362,36 +370,31 @@ function RequestsList(props) {
               </LocalizationProvider>
             </Grid> */}
 
-                  <Grid item xs={12} md={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.todate)}
-                          value={todate ? dayjs(todate) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            settodate(date)
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`todate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`todate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.todate)}
+                  value={todate ? dayjs(todate) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    settodate(date);
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`todate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`todate`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
             <Grid item xs={12} md={3}>
               <Autocomplete

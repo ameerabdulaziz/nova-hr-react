@@ -28,9 +28,9 @@ const WorkFlowData = (locale) => {
     return data.data;
 
   };
-  Apis.Getrequests = async (documentid,employee,fromdate,todate) => {
+  Apis.Getrequests = async (documentid,employee,fromdate,todate,IsCustody) => {
     
-    const data = await axiosInstance.get(`WorkFlow/Getrequests/${locale}?DocumentId=${documentid}&FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}`);
+    const data = await axiosInstance.get(`WorkFlow/Getrequests/${locale}?DocumentId=${documentid}&FromDate=${fromdate!=null?fromdate:""}&ToDate=${todate!=null?todate:""}&EmployeeId=${employee!=null?employee:""}&IsCustody=${IsCustody!=null?IsCustody:""}`);
     
     return data.data;
 
@@ -43,10 +43,10 @@ const WorkFlowData = (locale) => {
     const result = await axiosInstance.post("WorkFlow/Save",data);
     return result;
   };
-  Apis.ExecuteWorkFlow = async (executionId,actionTypeId,note) => {
+  Apis.ExecuteWorkFlow = async (executionId,actionTypeId,note,DocId) => {
     
 
-    const result = await axiosInstance.post("WorkFlow/ExecuteWorkFlow",{"executionId":executionId,"actionTypeId":actionTypeId,"note":note});
+    const result = await axiosInstance.post(`WorkFlow/ExecuteWorkFlow/${locale}`,{"executionId":executionId,"actionTypeId":actionTypeId,"note":note,"DocId":DocId});
     return result;
   };
   

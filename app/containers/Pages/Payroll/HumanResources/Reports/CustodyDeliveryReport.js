@@ -147,6 +147,13 @@ function CustodyDeliveryReport(props) {
         filter: true,
       },
     },
+    {
+      name: "total",
+      label: intl.formatMessage(Payrollmessages.total),
+      options: {
+        filter: true,
+      },
+    },
   ];
 
   return (

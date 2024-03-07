@@ -30,11 +30,9 @@ import GeneralListApis from "../../../api/GeneralListApis";
 import ItemTable from "./ItemTable";
 import NamePopup from "../../../Component/NamePopup";
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-
-
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function PurchaseTrxCreate(props) {
   const { intl } = props;
@@ -58,11 +56,7 @@ function PurchaseTrxCreate(props) {
     monthName: "",
     nativeTotalValue: "",
     notes: "",
-    payElementId: 0,
-    payElementName: "",
     paysNo: "",
-    payTempId: 0,
-    payTempName: "",
     payvalue: "",
     printed: false,
     stMonthId: 0,
@@ -74,7 +68,7 @@ function PurchaseTrxCreate(props) {
     yearId: 0,
     yearName: "",
     notes: "",
-    isAllowUpdate:true,
+    isAllowUpdate: true,
     remainLoansValue: "",
     remainLoansNo: "",
     newTotalvalue: "",
@@ -85,15 +79,14 @@ function PurchaseTrxCreate(props) {
   const history = useHistory();
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
-
       setOpenPopup(false);
       try {
         setIsLoading(true);
@@ -144,7 +137,6 @@ function PurchaseTrxCreate(props) {
   );
 
   const handleClickOpenNamePopup = () => {
- 
     setOpenPopup(true);
   };
   const handleEmpChange = useCallback(
@@ -163,15 +155,13 @@ function PurchaseTrxCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    	// used to stop call api if user select wrong date
-      if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-        return;
-      }
-
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
     try {
- 
       var total = data.details.reduce(
         (n, { payVal }) => parseInt(n) + parseInt(payVal),
         0
@@ -182,11 +172,11 @@ function PurchaseTrxCreate(props) {
         return;
       }
       setIsLoading(true);
-debugger ;
+      debugger;
       var items = data.items.filter((x) => x.isSelected == true);
       data.items = items;
 
-      data.transDate = dateFormatFun(data.transDate)
+      data.transDate = dateFormatFun(data.transDate);
 
       let response = await ApiData(locale).Save(data);
 
@@ -237,12 +227,11 @@ debugger ;
     }));
   }
 
-  async function handleApply(paysNo, yearName, monthId, totalvalue,fromdata) {
-    if(fromdata)
-    {
-      paysNo=data.paysNo;
-      yearName=data.yearName;
-      monthId=data.monthId;
+  async function handleApply(paysNo, yearName, monthId, totalvalue, fromdata) {
+    if (fromdata) {
+      paysNo = data.paysNo;
+      yearName = data.yearName;
+      monthId = data.monthId;
     }
 
     if (paysNo && yearName && monthId && totalvalue) {
@@ -326,19 +315,23 @@ debugger ;
   }
   async function fetchData() {
     try {
-      debugger ;
+      debugger;
       const years = await GeneralListApis(locale).GetYears();
       setOrignalYearList(years);
       const months = await GeneralListApis(locale).GetMonths();
       setOrignalMonthList(months);
 
       const dataApi = await ApiData(locale).Get(id ?? 0);
-      var items = dataApi.items.map((obj) => {
-        return {
-          ...obj,
-          isSelected: true,
-        };
-      });
+      var items = [];
+      if (dataApi.items != null)
+        items =
+          dataApi.items ??
+          dataApi.items.map((obj) => {
+            return {
+              ...obj,
+              isSelected: true,
+            };
+          });
       dataApi.items = items;
       setdata(dataApi);
     } catch (err) {
@@ -413,39 +406,36 @@ debugger ;
                         </LocalizationProvider>
                       </Grid> */}
 
-                  <Grid item xs={12} md={6}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.date)}
-                          value={data.transDate ? dayjs(data.transDate) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              transDate: date ,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`transDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`transDate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+                      <Grid item xs={12} md={6}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            label={intl.formatMessage(Payrollmessages.date)}
+                            value={
+                              data.transDate ? dayjs(data.transDate) : null
+                            }
+                            className={classes.field}
+                            onChange={(date) => {
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                transDate: date,
+                              }));
+                            }}
+                            onError={(error, value) => {
+                              if (error !== null) {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  [`transDate`]: true,
+                                }));
+                              } else {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  [`transDate`]: false,
+                                }));
+                              }
+                            }}
+                          />
+                        </LocalizationProvider>
+                      </Grid>
 
                       <Grid item xs={12} md={3}>
                         <TextField
@@ -456,7 +446,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -468,35 +458,10 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
-                        <TextField
-                          id="payTempName"
-                          name="payTempName"
-                          value={data.payTempName}
-                          label={intl.formatMessage(messages.payTemplate)}
-                          className={classes.field}
-                          variant="outlined"
-                          disabled
-                          autoComplete='off'
-                        />
-                      </Grid>
-                      <Grid item xs={12} md={6}>
-                        <TextField
-                          id="payElementName"
-                          name="payElementName"
-                          value={data.payElementName}
-                          label={intl.formatMessage(
-                            messages.payTemplateElement
-                          )}
-                          className={classes.field}
-                          variant="outlined"
-                          disabled
-                          autoComplete='off'
-                        />
-                      </Grid>
+
                       <Grid item xs={12} md={6}>
                         <TextField
                           id="elementName"
@@ -506,7 +471,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
@@ -518,7 +483,7 @@ debugger ;
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                     </Grid>
@@ -556,8 +521,7 @@ debugger ;
                 </Card>
               </Grid>
             </Grid>
-           
-           
+
             <Grid item xs={12} md={4}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
@@ -650,7 +614,7 @@ debugger ;
                               nativeTotalValue: e.target.value,
                             }));
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -679,7 +643,7 @@ debugger ;
                               e.target.value
                             );
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -707,7 +671,7 @@ debugger ;
                               data.totalvalue
                             );
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -720,7 +684,7 @@ debugger ;
                           variant="outlined"
                           disabled
                           required
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
 
@@ -734,7 +698,7 @@ debugger ;
                             className={classes.field}
                             variant="outlined"
                             disabled
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       ) : (
@@ -752,7 +716,7 @@ debugger ;
                             className={classes.field}
                             variant="outlined"
                             disabled
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       ) : (
@@ -779,7 +743,7 @@ debugger ;
                                 e.target.value
                               );
                             }}
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       ) : (
@@ -806,7 +770,7 @@ debugger ;
                                 data.newTotalvalue
                               );
                             }}
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       ) : (
