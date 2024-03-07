@@ -4,4 +4,4 @@ export const getAccessToken = () => {
   return token;
 };
 
-export const ServerURL = process.env.SERVER_URL;
+export const ServerURL = window.config.apiUrl;
