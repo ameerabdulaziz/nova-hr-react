@@ -43,7 +43,7 @@ function BankList(props) {
     MonthId: null,
     BankId: null,
     OrganizationId: null,
-    PayTemplateId: null,
+    PayTemplateId: 1,
     CurrencyId: null,
     BranchId: branchId,
   });

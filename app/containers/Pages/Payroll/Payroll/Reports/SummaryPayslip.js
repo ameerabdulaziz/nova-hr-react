@@ -43,7 +43,7 @@ function SummaryPayslip(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const [formInfo, setFormInfo] = useState({
-    PayTemplateId: null,
+    PayTemplateId: 1,
     EmployeeId: null,
     cash: false,
     bankonly: false,

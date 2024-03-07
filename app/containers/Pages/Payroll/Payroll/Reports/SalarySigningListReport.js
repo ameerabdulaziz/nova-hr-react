@@ -163,6 +163,8 @@ function SalarySigningListReport(props) {
 
 
   async function fetchData() {
+    setIsLoading(true);
+
     try {
       
       const jobs = await GeneralListApis(locale).GetJobsList();
@@ -177,6 +179,11 @@ function SalarySigningListReport(props) {
       setMonthList(months)
       setYearList(years)
 
+      const defaultTemplate = template.find((item) => item.id === 1);
+
+      if (defaultTemplate) {
+        setTemplate(defaultTemplate);
+      }
 
       if (branchId) {
         const response = await GeneralListApis(locale).getOpenMonth(
@@ -219,6 +226,7 @@ function SalarySigningListReport(props) {
                         id="ddlMenu"   
                         isOptionEqualToValue={(option, value) => option.id === value.id}                      
                         options={TemplatesList.length != 0 ? TemplatesList: []}
+                        value={Template}
                         getOptionLabel={(option) =>(
                             option  ? option.name : ""
                         )
