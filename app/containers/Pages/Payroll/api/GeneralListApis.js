@@ -62,7 +62,7 @@ const GeneralListApis = (locale) => {
 
   Apis.GetElementList = async (ElementModeId, ElementCalcMethodId, isRefrance,TypeID) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetElementList/${locale}?TypeID=${TypeID}&ElementCalcMethodId=${ElementCalcMethodId?ElementCalcMethodId:0}&ElementModeId=${ElementModeId?ElementModeId:0}&isRefrance=${isRefrance?isRefrance:""}`
+      `GeneralList/GetElementList/${locale}?TypeID=${TypeID ?? ''}&ElementCalcMethodId=${ElementCalcMethodId?ElementCalcMethodId:0}&ElementModeId=${ElementModeId?ElementModeId:0}&isRefrance=${isRefrance?isRefrance:""}`
     );
     return result.data;
   };
