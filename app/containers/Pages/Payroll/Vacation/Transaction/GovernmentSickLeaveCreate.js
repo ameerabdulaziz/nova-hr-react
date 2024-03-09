@@ -594,7 +594,7 @@ function GovernmentSickLeaveCreate(props) {
                     <Grid item xs={12} md={3}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
-                          label={intl.formatMessage(messages.fromdate)}
+                          label={intl.formatMessage(messages.fromDate)}
                           value={formInfo.fromDate}
                           maxDate={
                             formInfo.vacCode !== 5 ? formInfo.toDate : null
@@ -616,7 +616,7 @@ function GovernmentSickLeaveCreate(props) {
                     <Grid item xs={12} md={3}>
                       <LocalizationProvider dateAdapter={AdapterMoment}>
                         <DatePicker
-                          label={intl.formatMessage(messages.todate)}
+                          label={intl.formatMessage(messages.toDate)}
                           value={formInfo.toDate}
                           disabled={formInfo.vacCode === 5}
                           onChange={(date) => {

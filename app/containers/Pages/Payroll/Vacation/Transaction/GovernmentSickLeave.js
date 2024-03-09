@@ -91,14 +91,14 @@ function GovernmentSickLeave(props) {
     },
     {
       name: 'fromDate',
-      label: intl.formatMessage(messages.fromdate),
+      label: intl.formatMessage(messages.fromDate),
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'toDate',
-      label: intl.formatMessage(messages.todate),
+      label: intl.formatMessage(messages.toDate),
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },

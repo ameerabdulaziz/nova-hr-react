@@ -135,11 +135,11 @@ function LeaveTrxList(props) {
     },
     {
       name: 'fromDate',
-      label: intl.formatMessage(messages.fromdate),
+      label: intl.formatMessage(messages.fromDate),
     },
     {
       name: 'toDate',
-      label: intl.formatMessage(messages.todate),
+      label: intl.formatMessage(messages.toDate),
     },
 
     {

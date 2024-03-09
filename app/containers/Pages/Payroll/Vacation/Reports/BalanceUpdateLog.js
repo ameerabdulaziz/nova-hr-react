@@ -60,7 +60,7 @@ function BalanceUpdateLog(props) {
     },
     {
       name: 'trxDate',
-      label: intl.formatMessage(messages.fromdate),
+      label: intl.formatMessage(messages.fromDate),
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },

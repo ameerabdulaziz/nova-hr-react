@@ -137,7 +137,7 @@ function LoanReport(props) {
       },
       {
         name: "totalvalue",
-        label: intl.formatMessage(messages.totalValue),
+        label: intl.formatMessage(messages.totalvalue),
         options: {
           filter: true,
         },
@@ -172,7 +172,7 @@ function LoanReport(props) {
       },
       {
         name: "notes",
-        label: intl.formatMessage(messages.Notes),
+        label: intl.formatMessage(messages.notes),
         options: {
           filter: true,
         },

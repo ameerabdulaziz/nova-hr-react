@@ -102,14 +102,14 @@ function LeaveTrxReport(props) {
     },
     {
       name: 'fromDate',
-      label: <FormattedMessage {...messages.fromdate} />,
+      label: <FormattedMessage {...messages.fromDate} />,
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'toDate',
-      label: <FormattedMessage {...messages.todate} />,
+      label: <FormattedMessage {...messages.toDate} />,
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },

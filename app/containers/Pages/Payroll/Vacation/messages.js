@@ -42,6 +42,10 @@ export default defineMessages({
     id: `${scope}.notes`,
     defaultMessage: 'notes',
   },
+  trxDate: {
+    id: `${scope}.trxDate`,
+    defaultMessage: 'trxDate',
+  },
   vacType: {
     id: `${scope}.vacType`,
     defaultMessage: 'vacType',
@@ -366,6 +370,10 @@ export default defineMessages({
     id: `${scope}.department`,
     defaultMessage: 'department',
   },
+  id: {
+    id: `${scope}.id`,
+    defaultMessage: 'id',
+  },
   employeeId: {
     id: `${scope}.employeeId`,
     defaultMessage: 'employeeId',
@@ -398,13 +406,13 @@ export default defineMessages({
     id: `${scope}.organization`,
     defaultMessage: 'organization',
   },
-  fromdate: {
-    id: `${scope}.fromdate`,
-    defaultMessage: 'fromdate',
+  fromDate: {
+    id: `${scope}.fromDate`,
+    defaultMessage: 'fromDate',
   },
-  todate: {
-    id: `${scope}.todate`,
-    defaultMessage: 'todate',
+  toDate: {
+    id: `${scope}.toDate`,
+    defaultMessage: 'toDate',
   },
   employeeName: {
     id: `${scope}.employeeName`,

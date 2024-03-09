@@ -31,7 +31,7 @@ import PayrollTable from "../Component/PayrollTable";
 import NotePopup from "./NotePopup";
 import WFExecutionList from "./WFExecutionList";
 import { useLocation } from "react-router-dom";
-
+import Tooltip from "@mui/material/Tooltip";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
@@ -97,8 +97,6 @@ function RequestsList(props) {
     setExecutionPoup(true);
   };
   const handleOpenNotePoup = (id, Action) => {
-    
-    
     setPostDate({
       executionId: id,
       actionTypeId: Action,
@@ -107,7 +105,7 @@ function RequestsList(props) {
       itemsCount: 0,
       itemSerial: "",
       executionDate: null,
-    })
+    });
     setopenNotePopup(true);
   };
 
@@ -151,8 +149,7 @@ function RequestsList(props) {
   async function RequestAction() {
     try {
       setIsLoading(true);
-      let response = await ApiData(locale).ExecuteWorkFlow(postDate
-      );
+      let response = await ApiData(locale).ExecuteWorkFlow(postDate);
       debugger;
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -231,7 +228,8 @@ function RequestsList(props) {
             ) : Document == 4 ||
               Document == 5 ||
               Document == 8 ||
-              Document == 9 || Document == 10 ? (
+              Document == 9 ||
+              Document == 10 ? (
               <FormattedMessage {...hrmessages[item]} />
             ) : Document == 7 ? (
               <FormattedMessage {...paymessages[item]} />
@@ -256,33 +254,38 @@ function RequestsList(props) {
           );
         return (
           <div className={style.actionsSty}>
-            <IconButton
-              color="success"
-              aria-label="Details"
-              size="large"
-              onClick={() => handleExecutionPoup(tableMeta.rowData[0])}
+            <Tooltip
+              title={intl.formatMessage(Payrollmessages.details)}
+              cursor="pointer"
+              className="mr-6"
             >
-              <Icon>{<Details />}</Icon>
-            </IconButton>
+              <IconButton
+                color="success"
+                aria-label="Details"
+                size="large"
+                onClick={() => handleExecutionPoup(tableMeta.rowData[0])}
+              >
+                <Icon>{<Details />}</Icon>
+              </IconButton>
+            </Tooltip>
 
             {filterdrow &&
               filterdrow.length > 0 &&
               filterdrow[0].actions.length !== 0 &&
               filterdrow[0].actions.map((row) => {
                 return (
-                  <IconButton
-                    color="success"
-                    aria-label={row.name}
-                    size="large"
-                    onClick={() =>
-                      handleOpenNotePoup(
-                        tableMeta.rowData[0],
-                        row.id
-                      )
-                    }
-                  >
-                    <Icon>{row.icon}</Icon>
-                  </IconButton>
+                  <Tooltip title={row.name} cursor="pointer" className="mr-6">
+                    <IconButton
+                      color="success"
+                      aria-label={row.name}
+                      size="large"
+                      onClick={() =>
+                        handleOpenNotePoup(tableMeta.rowData[0], row.id)
+                      }
+                    >
+                      <Icon>{row.icon}</Icon>
+                    </IconButton>
+                  </Tooltip>
                 );
               })}
           </div>
@@ -450,7 +453,11 @@ function RequestsList(props) {
             callFun={RequestAction}
             postDate={postDate}
             setPostDate={setPostDate}
-            isCustody={location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false}
+            isCustody={
+              location.pathname == "/app/Pages/HR/CustodyApproval"
+                ? true
+                : false
+            }
           />
           <WFExecutionList
             handleClose={handleCloseExecutionPoup}

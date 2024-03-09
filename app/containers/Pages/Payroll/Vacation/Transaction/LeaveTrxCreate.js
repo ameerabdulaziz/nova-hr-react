@@ -659,7 +659,7 @@ function LeaveTrxCreate(props) {
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
-                         label={intl.formatMessage(messages.fromdate)}
+                         label={intl.formatMessage(messages.fromDate)}
                           value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
                         className={classes.field}
                           onChange={(date) => {
@@ -735,7 +735,7 @@ function LeaveTrxCreate(props) {
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
-                        label={intl.formatMessage(messages.todate)}
+                        label={intl.formatMessage(messages.toDate)}
                           value={formInfo.toDate ? dayjs(formInfo.toDate) : null}
                         className={classes.field}
                           onChange={(date) => {

@@ -622,7 +622,7 @@ function PurchaseTrxCreate(props) {
                           id="totalValue"
                           name="totalValue"
                           value={data.totalvalue}
-                          label={intl.formatMessage(messages.totalValue)}
+                          label={intl.formatMessage(messages.totalvalue)}
                           className={classes.field}
                           variant="outlined"
                           disabled={true}

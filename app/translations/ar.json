@@ -964,8 +964,7 @@
   "boilerplate.containers.Payroll.company": "الشركة",
   "boilerplate.containers.Payroll.preview": "عرض",
 
-
-  "boilerplate.containers.Payroll.executionId": "WorkFlow Id",
+  "boilerplate.containers.Payroll.executionId": "Id",
   "boilerplate.containers.Payroll.permissionName": "اسم الاذن",
   "boilerplate.containers.Payroll.startTime": "من ساعه",
   "boilerplate.containers.Payroll.endTime": "الى ساعه",
@@ -1861,7 +1860,8 @@
     
   "boilerplate.containers.Payroll.Payroll.monthName": "الشهر",
   "boilerplate.containers.Payroll.Payroll.yearName": "السنة",
-    "boilerplate.containers.Payroll.Payroll.executionId": "الكود",
+    "boilerplate.containers.Payroll.Payroll.executionId": "الكود",    
+    "boilerplate.containers.Payroll.Payroll.id": "الكود",
   "boilerplate.containers.Payroll.Payroll.status": "الحالة",
   "boilerplate.containers.Payroll.Payroll.step": "المرحلة",
   "boilerplate.containers.Payroll.Payroll.approvedEmp": "صاحب القرار",
@@ -2001,7 +2001,7 @@
     
 
     "boilerplate.containers.Payroll.Payroll.nativeTotalValue": "اصل السلفة",
-    "boilerplate.containers.Payroll.Payroll.totalValue": "قيمة الاقساط",
+    "boilerplate.containers.Payroll.Payroll.totalvalue": "قيمة الاقساط",
     "boilerplate.containers.Payroll.Payroll.paysNo": "عدد الاقساط",
     "boilerplate.containers.Payroll.Payroll.payvalue": "قيمة القسط",
     "boilerplate.containers.Payroll.Payroll.lineNo": "رقم السطر",
@@ -2146,7 +2146,7 @@
     "boilerplate.containers.Payroll.Payroll.BasicLoan":"اصل السلفة",
     "boilerplate.containers.Payroll.Payroll.paid":"مدفوع",
     "boilerplate.containers.Payroll.Payroll.outstanding":"المتبقى",
-    "boilerplate.containers.Payroll.Payroll.Notes":"ملاحظات",
+    "boilerplate.containers.Payroll.Payroll.notes":"ملاحظات",
     "boilerplate.containers.Payroll.Payroll.EndedLoans":"انتهاء السلفة",
 
     "boilerplate.containers.Payroll.Payroll.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement":"يجب عليك اختيار كل السنوات وكل الشهور وعنصر واحد على الأقل",
@@ -2518,8 +2518,8 @@
   "boilerplate.containers.Payroll.vac.vacationName": "نوع الاجازة",
   "boilerplate.containers.Payroll.vac.filterOnRegistrationHistory": "تصفية علي تاريخ التسجيل",
   "boilerplate.containers.Payroll.vac.appointmentDate": "تاريخ التعيين",
-  "boilerplate.containers.Payroll.vac.fromdate": "من تاريخ",
-  "boilerplate.containers.Payroll.vac.todate": "الى تاريخ",
+  "boilerplate.containers.Payroll.vac.fromDate": "من تاريخ",
+  "boilerplate.containers.Payroll.vac.toDate": "الى تاريخ",
   "boilerplate.containers.Payroll.vac.employeeId": "كود الموظف",
   "boilerplate.containers.Payroll.vac.daysCount": "عدد الايام",
   "boilerplate.containers.Payroll.vac.employeeName": "اسم الموظف",
@@ -2539,6 +2539,8 @@
   "boilerplate.containers.Payroll.vac.leaveReason": "سبب الاجازة",
   "boilerplate.containers.Payroll.vac.exemptEntryRec": "اعفاء من تسجيل الحضور",
   "boilerplate.containers.Payroll.vac.exemptLeaveRec": "اعفاء من تسجيل الانصراف",
+  "boilerplate.containers.Payroll.vac.id": "الكود",
+  "boilerplate.containers.Payroll.vac.trxDate": "التاريخ",
   "boilerplate.containers.Payroll.vac.section": "القسم",
   "boilerplate.containers.Payroll.vac.consumedLeave": "الاجازة المستخدمة",
   "boilerplate.containers.Payroll.vac.insuranceDate": "تاريخ التامين",

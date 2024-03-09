@@ -22,6 +22,10 @@ export default defineMessages({
     id: `${scope}.executionId`,
     defaultMessage: 'executionId',
   },
+  id: {
+    id: `${scope}.id`,
+    defaultMessage: 'id',
+  },
   status: {
     id: `${scope}.status`,
     defaultMessage: 'status',
@@ -294,9 +298,9 @@ export default defineMessages({
     id: `${scope}.nativeTotalValue`,
     defaultMessage: 'nativeTotalValue',
   },
-  totalValue: {
-    id: `${scope}.totalValue`,
-    defaultMessage: 'totalValue',
+  totalvalue: {
+    id: `${scope}.totalvalue`,
+    defaultMessage: 'totalvalue',
   },
   paysNo: {
     id: `${scope}.paysNo`,
@@ -1005,9 +1009,9 @@ export default defineMessages({
     id: `${scope}.outstanding`,
     defaultMessage: "Outstanding",
   }, 
-  Notes: {
-    id: `${scope}.Notes`,
-    defaultMessage: "Notes",
+  notes: {
+    id: `${scope}.notes`,
+    defaultMessage: "notes",
   }, 
   EndedLoans: {
     id: `${scope}.EndedLoans`,
