@@ -62,7 +62,7 @@ function ElementValList(props) {
   const { state } = useLocation();
   const BranchIdState = state?.branchId ?? branchId;
   const EmployeeIdState = state?.employeeId;
-  const PayTemplateIdState = state?.payTemplateId;
+  const PayTemplateIdState = state?.payTemplateId ?? 1;
   const ElementIdState = state?.elementId;
   const [EmployeeList, setEmployeeList] = useState([]);
   const [EmployeeId, setEmployeeId] = useState(0);

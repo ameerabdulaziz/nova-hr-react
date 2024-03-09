@@ -103,7 +103,7 @@ function PaymentSlipTotal(props) {
   ];
 
   const [formInfo, setFormInfo] = useState({
-    templateId: null,
+    templateId: 1,
     branchId,
     currenyId: null,
     yearId: null,
@@ -122,8 +122,8 @@ function PaymentSlipTotal(props) {
     setIsLoading(true);
 
     try {
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
+      const companies = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(companies);
 
       const payTemplate = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(payTemplate);

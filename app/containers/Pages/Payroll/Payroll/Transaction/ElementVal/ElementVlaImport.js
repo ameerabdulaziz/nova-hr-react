@@ -49,7 +49,7 @@ function ElementVlaImport({ intl }) {
   const [data, setdata] = useState({
     id: 0,
     branchId: branchId ?? 0,
-    payTemplateId: 0,
+    payTemplateId: 1,
     elementId: 0,
     elementMaxVal: "",
     elementMinVal: "",
@@ -220,6 +220,8 @@ function ElementVlaImport({ intl }) {
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(PayList);
 
+      getElementList(1);
+
       if (data.branchId) {
         getOpenMonth(data.branchId);
       }
@@ -374,7 +376,7 @@ function ElementVlaImport({ intl }) {
                                   data.payTemplateId
                                     ? PayTemplateList.find(
                                         (item) => item.id === data.payTemplateId
-                                      )
+                                      ) ?? null
                                     : null
                                 }
                                 onChange={(event, value) => {

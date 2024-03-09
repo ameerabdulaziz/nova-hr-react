@@ -43,7 +43,7 @@ function MonthlyVariablesReport(props) {
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
     BranchId: branchId,
-    TemplateId: null,
+    TemplateId: 1,
     YearId: null,
     MonthId: null,
     ElmentIds: [],

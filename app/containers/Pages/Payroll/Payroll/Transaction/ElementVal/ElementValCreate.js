@@ -40,7 +40,7 @@ function ElementValCreate(props) {
     id: 0,
     branchId:0,
     employeeId: 0,
-    payTemplateId: 0,
+    payTemplateId: 1,
     elementId: 0,
     elementMaxVal: "",
     elementMinVal: "",
@@ -179,6 +179,7 @@ function ElementValCreate(props) {
       const BrList = await GeneralListApis(locale).GetBranchList();
       setBranchList(BrList);
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
+      getElementList(1);
       setPayTemplateList(PayList);
       if (id) {
         
@@ -319,7 +320,7 @@ function ElementValCreate(props) {
                                   data.payTemplateId
                                     ? PayTemplateList.find(
                                         (item) => item.id === data.payTemplateId
-                                      )
+                                      ) ?? null
                                     : null
                                 }
                                 onChange={(event, value) => {

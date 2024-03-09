@@ -37,7 +37,7 @@ function SalaryReport(props) {
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
     BranchId: branchId,
-    TemplateId: null,
+    TemplateId: 1,
     YearId: null,
     Type: '1',
 

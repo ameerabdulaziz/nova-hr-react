@@ -105,7 +105,7 @@ function PaymentSlip(props) {
   ];
 
   const [formInfo, setFormInfo] = useState({
-    templateId: null,
+    templateId: 1,
     branchId,
     currenyId: null,
     yearId: null,

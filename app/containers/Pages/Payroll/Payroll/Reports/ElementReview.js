@@ -116,6 +116,8 @@ function ElementReview(props) {
   };
 
   async function fetchData() {
+    setIsLoading(true);
+
     try {
       const elements = await GeneralListApis(locale).GetElementList();
       const template = await GeneralListApis(locale).GetPayTemplateList();
@@ -124,6 +126,12 @@ function ElementReview(props) {
 
       setElementsList(elements)
       setTemplatesList(template)
+
+      const defaultTemplate = template.find((item) => item.id === 1);
+
+      if (defaultTemplate) {
+        setTemplate(defaultTemplate);
+      }
 
       setMonthList(months)
       setYearList(years)
@@ -227,6 +235,7 @@ function ElementReview(props) {
                         id="ddlMenu"   
                         isOptionEqualToValue={(option, value) => option.id === value.id}                      
                         options={TemplatesList.length != 0 ? TemplatesList: []}
+                        value={Template}
                         getOptionLabel={(option) =>(
                             option  ? option.name : ""
                         )
