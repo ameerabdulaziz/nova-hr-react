@@ -64,6 +64,8 @@ function RequestsList(props) {
       ? 9
       : location.pathname == "/app/Pages/HR/CustodyApproval"
       ? 9
+      : location.pathname == "/app/Pages/HR/DocumentApproval"
+      ? 10
       : 0
   );
   const [fromdate, setfromate] = useState(null);
@@ -73,11 +75,16 @@ function RequestsList(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [openNotePopup, setopenNotePopup] = useState(false);
   const [openExecutionPoup, setExecutionPoup] = useState(false);
-  const [Note, setNote] = useState(false);
   const [ExecutionId, setExecutionId] = useState("");
-  const [Id, setId] = useState("");
-  const [Action, setAction] = useState("");
-
+  const [postDate, setPostDate] = useState({
+    executionId: 0,
+    actionTypeId: 0,
+    note: "",
+    docId: Document,
+    itemsCount: 0,
+    itemSerial: "",
+    executionDate: null,
+  });
   const [DateError, setDateError] = useState({});
 
   // used to reformat date before send it to api
@@ -89,12 +96,19 @@ function RequestsList(props) {
     setExecutionId(Id);
     setExecutionPoup(true);
   };
-  const handleOpenNotePoup = (id, Action, DocId) => {
+  const handleOpenNotePoup = (id, Action) => {
+    
+    
+    setPostDate({
+      executionId: id,
+      actionTypeId: Action,
+      note: "",
+      docId: Document,
+      itemsCount: 0,
+      itemSerial: "",
+      executionDate: null,
+    })
     setopenNotePopup(true);
-    setNote("");
-    setExecutionId(id);
-    setAction(Action);
-    setId(DocId);
   };
 
   const handleCloseNotePoup = () => {
@@ -127,7 +141,8 @@ function RequestsList(props) {
       if (dataApi && dataApi.length > 0) {
         var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
         setCols(data);
-      } else setCols([]);fetchData()
+      } else setCols([]);
+      fetchData();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -136,11 +151,7 @@ function RequestsList(props) {
   async function RequestAction() {
     try {
       setIsLoading(true);
-      let response = await ApiData(locale).ExecuteWorkFlow(
-        ExecutionId,
-        Action,
-        Note,
-        Id
+      let response = await ApiData(locale).ExecuteWorkFlow(postDate
       );
       debugger;
       if (response.status == 200) {
@@ -181,6 +192,8 @@ function RequestsList(props) {
         documentId = 9;
       else if (location.pathname == "/app/Pages/HR/CustodyApproval")
         documentId = 9;
+      else if (location.pathname == "/app/Pages/HR/DocumentApproval")
+        documentId = 10;
       else documentId = 0;
 
       let Fromdate = dateFormatFun(fromdate);
@@ -218,7 +231,7 @@ function RequestsList(props) {
             ) : Document == 4 ||
               Document == 5 ||
               Document == 8 ||
-              Document == 9 ? (
+              Document == 9 || Document == 10 ? (
               <FormattedMessage {...hrmessages[item]} />
             ) : Document == 7 ? (
               <FormattedMessage {...paymessages[item]} />
@@ -264,8 +277,7 @@ function RequestsList(props) {
                     onClick={() =>
                       handleOpenNotePoup(
                         tableMeta.rowData[0],
-                        row.id,
-                        tableMeta.rowData[1]
+                        row.id
                       )
                     }
                   >
@@ -436,9 +448,9 @@ function RequestsList(props) {
             handleClose={handleCloseNotePoup}
             open={openNotePopup}
             callFun={RequestAction}
-            Note={Note}
-            setNote={setNote}
-            Action={Action}
+            postDate={postDate}
+            setPostDate={setPostDate}
+            isCustody={location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false}
           />
           <WFExecutionList
             handleClose={handleCloseExecutionPoup}

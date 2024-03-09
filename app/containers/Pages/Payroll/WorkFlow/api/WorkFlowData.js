@@ -43,10 +43,9 @@ const WorkFlowData = (locale) => {
     const result = await axiosInstance.post("WorkFlow/Save",data);
     return result;
   };
-  Apis.ExecuteWorkFlow = async (executionId,actionTypeId,note,DocId) => {
+  Apis.ExecuteWorkFlow = async (PostDate) => {
     
-
-    const result = await axiosInstance.post(`WorkFlow/ExecuteWorkFlow/${locale}`,{"executionId":executionId,"actionTypeId":actionTypeId,"note":note,"DocId":DocId});
+    const result = await axiosInstance.post(`WorkFlow/ExecuteWorkFlow/${locale}`,PostDate);
     return result;
   };
   
