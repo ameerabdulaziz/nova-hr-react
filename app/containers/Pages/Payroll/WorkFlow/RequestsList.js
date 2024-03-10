@@ -96,7 +96,7 @@ function RequestsList(props) {
     setExecutionId(Id);
     setExecutionPoup(true);
   };
-  const handleOpenNotePoup = (id, Action) => {
+  const handleOpenNotePoup = (id, Action,executionDate) => {
     setPostDate({
       executionId: id,
       actionTypeId: Action,
@@ -104,7 +104,7 @@ function RequestsList(props) {
       docId: Document,
       itemsCount: 0,
       itemSerial: "",
-      executionDate: null,
+      executionDate: executionDate,
     });
     setopenNotePopup(true);
   };
@@ -280,7 +280,7 @@ function RequestsList(props) {
                       aria-label={row.name}
                       size="large"
                       onClick={() =>
-                        handleOpenNotePoup(tableMeta.rowData[0], row.id)
+                        handleOpenNotePoup(tableMeta.rowData[0], row.id,(documentId==10? tableMeta.rowData[3]:null))
                       }
                     >
                       <Icon>{row.icon}</Icon>
