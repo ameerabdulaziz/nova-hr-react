@@ -423,7 +423,10 @@ import {
   LocationLog,
   ResignReqTrxCreate,
   ResignReqTrxEdit,
-  ResignReqTrxList
+  ResignReqTrxList,
+  HrEmployeeDocumentTrxCreate,
+  HrEmployeeDocumentTrxEdit,
+  HrEmployeeDocumentTrxList,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -884,6 +887,21 @@ function Application(props) {
         <Route
           path='/app/Pages/HR/ResignReqTrx'
           component={ResignReqTrxList}
+        />
+
+        <Route
+          path='/app/Pages/HR/HrEmployeeDocumentTrxCreate'
+          component={HrEmployeeDocumentTrxCreate}
+        />
+
+        <Route
+          path='/app/Pages/HR/HrEmployeeDocumentTrxEdit'
+          component={HrEmployeeDocumentTrxEdit}
+        />
+
+        <Route
+          path='/app/Pages/HR/HrEmployeeDocumentTrx'
+          component={HrEmployeeDocumentTrxList}
         />
 
         {/* Attendance */}

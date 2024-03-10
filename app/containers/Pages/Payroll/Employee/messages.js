@@ -825,4 +825,12 @@ export default defineMessages({
     id: `${scope}.createAddress`,
     defaultMessage: 'createAddress',
   },
+  outDate: {
+    id: `${scope}.outDate`,
+    defaultMessage: 'outDate',
+  },
+  inDate: {
+    id: `${scope}.inDate`,
+    defaultMessage: 'inDate',
+  },
 });

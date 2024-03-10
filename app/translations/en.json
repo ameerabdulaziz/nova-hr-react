@@ -1173,6 +1173,7 @@
   "boilerplate.containers.Payroll.HumanResources.quantity": "Quantity",
   "boilerplate.containers.Payroll.HumanResources.uniformPrice": "Price",
   "boilerplate.containers.Payroll.HumanResources.id": "Id",
+  "boilerplate.containers.Payroll.HumanResources.returnDate": "Return Date",
   "boilerplate.containers.Payroll.HumanResources.resignationDate": "Resignation Date",
   "boilerplate.containers.Payroll.HumanResources.lastWorkingDay": "Last Working Day",
   "boilerplate.containers.Payroll.HumanResources.department": "Department",
@@ -2304,6 +2305,8 @@
   "boilerplate.containers.Payroll.Employee.fakeAddress": "Fake Address",
   "boilerplate.containers.Payroll.Employee.jobName": "Job Name",
   "boilerplate.containers.Payroll.Employee.insDate": "insDate",
+  "boilerplate.containers.Payroll.Employee.inDate": "In Date",
+  "boilerplate.containers.Payroll.Employee.outDate": "Out Date",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",

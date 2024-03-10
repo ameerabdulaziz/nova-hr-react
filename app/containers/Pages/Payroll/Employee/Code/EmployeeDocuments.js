@@ -97,11 +97,19 @@ function EmployeeDocuments({ intl }) {
       },
     },
     {
+      name: "inDate",
+      label: intl.formatMessage(messages.inDate),
+    },
+    {
+      name: "outDate",
+      label: intl.formatMessage(messages.outDate),
+    },
+    {
       name: "isPaperCopy",
       label: intl.formatMessage(messages.HardCopy),
       options: {
         filter: true,
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => getCheckboxIcon(typeof value === 'string' ? value === 'true' : value),
       },
     },
   ];

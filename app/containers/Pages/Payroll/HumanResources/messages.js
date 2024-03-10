@@ -98,6 +98,10 @@ export default defineMessages({
     id: `${scope}.comment`,
     defaultMessage: 'comment',
   },
+  returnDate: {
+    id: `${scope}.returnDate`,
+    defaultMessage: 'returnDate',
+  },
   createPenaltyTitle: {
     id: `${scope}.createPenaltyTitle`,
     defaultMessage: 'Create Penalty',
