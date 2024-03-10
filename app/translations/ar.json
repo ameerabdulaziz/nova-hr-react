@@ -2363,6 +2363,8 @@
   "boilerplate.containers.Payroll.Employee.fakeAddress": "عنوان وهمي",
   "boilerplate.containers.Payroll.Employee.jobName": "اسم الوظيفة",
   "boilerplate.containers.Payroll.Employee.insDate": "التاريخ",
+  "boilerplate.containers.Payroll.Employee.inDate": "استلام المستند من الموظف",
+  "boilerplate.containers.Payroll.Employee.outDate": "تسليم المستند للموظف",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",

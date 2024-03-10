@@ -38,6 +38,8 @@ import dayjs from 'dayjs';
 
 function CreateAndEditEmployeeDocuments(props) {
   const [id, setid] = useState(0);
+  const authState = useSelector((state) => state.authReducer);
+  const { isHR } = authState.user;
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [followDate, setFollowDate] = useState(null);
@@ -74,6 +76,8 @@ function CreateAndEditEmployeeDocuments(props) {
   const [documentsList, setDocumentsList] = useState([]);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [uploadedFileType, setUploadedFileType] = useState(null);
+  const [inDate, setInDate] = useState(null);
+  const [outDate, setOutDate] = useState(null);
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [employeeName, setEmployeeName] = useState([]);
   const [employeeID, setEmployeeID] = useState(state?.employeeId);
@@ -111,6 +115,8 @@ function CreateAndEditEmployeeDocuments(props) {
         notes: note.length !== 0 ? note : "",
         Image:
           uploadedFile && uploadedFile instanceof File ? uploadedFile : null,
+        inDate,
+        outDate,
       };
       let response = await EmployeeDocumentsData().Save(data);
 
@@ -162,6 +168,8 @@ function CreateAndEditEmployeeDocuments(props) {
       setFollowDate(data ? data.followDate : null);
       setNote(data && data.notes ? data.notes : "");
       setIsPaperCopy(data ? data.isPaperCopy : false);
+      setInDate(data && data.inDate ? data.inDate : null);
+      setOutDate(data && data.outDate ? data.outDate : null);
       setDocument(
         data &&
           data.documentId &&
@@ -354,34 +362,6 @@ function CreateAndEditEmployeeDocuments(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  {/* <Grid item xs={12} md={4}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
-                        label={intl.formatMessage(messages.startDate)}
-                        value={startDate}
-                        onChange={(date) => {
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                            if (!isNaN(new Date(date))) { 
-                              setStartDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                            } 
-                            else
-                            {
-                              setStartDate(null)
-                            }
-                          }
-                        }}
-                        className={classes.field}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="outlined"
-                            required={document?.isCheckExpireDate}
-                          />
-                        )}
-                      />
-                    </LocalizationProvider>
-                  </Grid> */}
-
                   <Grid item xs={12} md={4}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -417,34 +397,6 @@ function CreateAndEditEmployeeDocuments(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  {/* <Grid item xs={12} md={4}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
-                        label={intl.formatMessage(messages.endDate)}
-                        value={endDate}
-                        onChange={(date) => {
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                            if (!isNaN(new Date(date))) { 
-                              setEndDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                            } 
-                            else
-                            {
-                              setEndDate(null)
-                            }
-                          }
-                        }}
-                        className={classes.field}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="outlined"
-                            required={document?.isCheckExpireDate}
-                          />
-                        )}
-                      />
-                    </LocalizationProvider>
-                  </Grid> */}
-
                 <Grid item xs={12} md={4}>
                   
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -479,34 +431,6 @@ function CreateAndEditEmployeeDocuments(props) {
                       />
                   </LocalizationProvider>
                 </Grid>
-
-                  {/* <Grid item xs={12} md={4}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                      <DesktopDatePicker
-                        label={intl.formatMessage(messages.followDate)}
-                        value={followDate}
-                        onChange={(date) => {
-                          if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                            if (!isNaN(new Date(date))) { 
-                              setFollowDate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                            } 
-                            else
-                            {
-                              setFollowDate(null)
-                            }
-                          }
-                        }}
-                        className={classes.field}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="outlined"
-                            required={document?.isCheckExpireDate}
-                          />
-                        )}
-                      />
-                    </LocalizationProvider>
-                  </Grid> */}
 
                 <Grid item xs={12} md={4}>
                   
@@ -545,6 +469,73 @@ function CreateAndEditEmployeeDocuments(props) {
                 </Grid>
 
               </Grid>
+
+              { id !== 0 && isHR && <Grid item xs={12} md={12}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={4}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label={intl.formatMessage(messages.inDate)}
+                        value={inDate ? dayjs(inDate) : inDate}
+                        className={classes.field}
+                        onChange={(date) => {
+                          setInDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if (error !== null) {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              [`inDate`]: true
+                            }));
+                          } else  {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              [`inDate`]: false
+                            }));
+                          }
+                        }}
+                        slotProps={{
+                          textField: {
+                            required: true,
+                          },
+                        }}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label={intl.formatMessage(messages.outDate)}
+                        value={outDate ? dayjs(outDate) : outDate}
+                        className={classes.field}
+                        onChange={(date) => {
+                          setOutDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if (error !== null) {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              [`outDate`]: true
+                            }));
+                          } else  {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              [`outDate`]: false
+                            }));
+                          }
+                        }}
+                        slotProps={{
+                          textField: {
+                            required: true,
+                          },
+                        }}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+                </Grid>
+
+              </Grid>}
 
               <Grid item xs={12}>
                 <TextField
