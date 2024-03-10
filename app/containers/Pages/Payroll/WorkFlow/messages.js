@@ -17,6 +17,10 @@ export default defineMessages({
     id: `${scope}.documentName`,
     defaultMessage: 'documentName',
   },
+  documentType: {
+    id: `${scope}.documentType`,
+    defaultMessage: 'documentType',
+  },
   approval: {
     id: `${scope}.approval`,
     defaultMessage: 'approval',

@@ -2094,6 +2094,8 @@
   "boilerplate.containers.Payroll.transportaion.devicePass":"Device Password",
 
   "boilerplate.containers.Payroll.Workflow.documentName": "Document Name",
+  
+  "boilerplate.containers.Payroll.Workflow.documentType": "Document Type",
   "boilerplate.containers.Payroll.Workflow.step": "Step",
   "boilerplate.containers.Payroll.Workflow.nextStep": "Next Step",
   "boilerplate.containers.Payroll.Workflow.approval": "Approval",

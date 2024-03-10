@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast';
 
 function ActionsList(props) {
   
-  const {intl,dataList,setdataList,Steps} = props;
+  const {intl,dataList,setdataList,Steps,ActionsTypeList} = props;
   const {classes,cx} = useStyles();  
   const [OpenPopup, setOpenPopup] = useState(false);
 
@@ -134,9 +134,11 @@ const handleChange = (event, row) => {
                                   variant="standard"
                                   value={row.actionType}
                                   onChange={(e) => handleChange(e,row)}    
-                                 >                                
-                                  <MenuItem value={2}>Approve</MenuItem>
-                                  <MenuItem value={3}>Reject</MenuItem>
+                                 >                           
+                                  {ActionsTypeList.length !== 0 &&
+                                  ActionsTypeList.map((model,index) => {                      
+                                    return  <MenuItem key={index} value={model.id}>{model.name}</MenuItem>
+                                  })}
                                 </Select>
                               </TableCell>  
                               <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}>

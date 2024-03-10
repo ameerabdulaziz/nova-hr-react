@@ -67,6 +67,11 @@ function WorkFlowList(props) {
       name: 'documentName',
       label: intl.formatMessage(messages.documentName),
     },
+    {
+      name: 'docTypeName',
+      label: intl.formatMessage(messages.documentType),
+    },
+    
   ];
 
   const actions = {

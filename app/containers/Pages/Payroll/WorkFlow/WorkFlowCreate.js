@@ -14,7 +14,7 @@ import {
   TextField,
   Autocomplete,
   Card,
-  CardContent,  
+  CardContent,
 } from "@mui/material";
 import useStyles from "../Style";
 import PropTypes from "prop-types";
@@ -24,6 +24,7 @@ import StepsList from "./StepsList";
 import ActionsList from "./ActionsList";
 import GeneralListApis from "../api/GeneralListApis";
 import PayRollLoader from "../Component/PayRollLoader";
+import Vacapi from "../Vacation/api/LeaveTrxData";
 
 function WorkFlowCreate(props) {
   const { intl } = props;
@@ -37,11 +38,15 @@ function WorkFlowCreate(props) {
     arName: "",
     enName: "",
     documentId: "",
+    docTypeId: "",
+    docTypeName: "",
     documentName: "",
   });
 
   const [employeeList, setemployeeList] = useState([]);
   const [DocumentList, setDocumentList] = useState([]);
+  const [DocTypeList, setDocTypeList] = useState([]);
+  const [ActionsTypeList, setActionsTypeList] = useState([]);
   const [Steps, setSteps] = useState([]);
   const [Actions, setActions] = useState([]);
   const [jobList, setjobList] = useState([]);
@@ -65,17 +70,31 @@ function WorkFlowCreate(props) {
     e.preventDefault();
     try {
       setIsLoading(true);
-      data.employeeList = employeeList.filter((row) => row.isSelected == true);
-      data.jobList = jobList.filter((row) => row.isSelected == true);
-      data.steps = Steps;
-      data.actions = Actions;
-      let response = await ApiData(locale).Save(data);
+      debugger;
+      var isValid = true;
+      for (const item of Actions) {
+        var result = ActionsTypeList.filter((row) => row.id == item.actionType);
+        if (result.length == 0) {
+          toast.error(item.arName + " has invalid Action Type");
+          isValid = false;
+          break;
+        }
+      }
+      if (isValid) {
+        data.employeeList = employeeList.filter(
+          (row) => row.isSelected == true
+        );
+        data.jobList = jobList.filter((row) => row.isSelected == true);
+        data.steps = Steps;
+        data.actions = Actions;
+        let response = await ApiData(locale).Save(data);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
+        if (response.status == 200) {
+          toast.success(notif.saved);
 
-        history.push(`/app/Pages/WF/WorkFlow`);
-      } else toast.error(response.statusText);
+          history.push(`/app/Pages/WF/WorkFlow`);
+        } else toast.error(response.statusText);
+      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -85,6 +104,47 @@ function WorkFlowCreate(props) {
   async function oncancel() {
     history.push(`/app/Pages/WF/WorkFlow`);
   }
+  async function getDocType(DocumentId, fromchange) {
+    try {
+      debugger;
+      if (DocumentId) {
+        setIsLoading(true);
+        let result = [];
+        if (DocumentId == 1)
+          result = await GeneralListApis(locale).GetPermissionList();
+        else if (DocumentId == 2)
+          result = await GeneralListApis(locale).GetMissionList();
+        else if (DocumentId == 3)
+          result = await Vacapi(locale).GetVacationType();
+        else if (DocumentId == 4)
+          result = await GeneralListApis(locale).GetPenaltyList();
+        else if (DocumentId == 5)
+          result = await GeneralListApis(locale).GetRewards();
+
+        setDocTypeList(result);
+        result = await GeneralListApis(locale).GetActionByDocList(DocumentId);
+        setActionsTypeList(result);
+        if (fromchange)
+          setdata((prevFilters) => ({
+            ...prevFilters,
+            docTypeId: "",
+            docTypeName: "",
+          }));
+      } else {
+        setDocTypeList([]);
+        setActionsTypeList([]);
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          docTypeId: "",
+          docTypeName: "",
+        }));
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   async function fetchData() {
     try {
       const Documents = await GeneralListApis(locale).GetDocumentList(locale);
@@ -115,6 +175,7 @@ function WorkFlowCreate(props) {
         );
         setSteps(dataApi.steps || []);
         setActions(dataApi.actions || []);
+        getDocType(dataApi.documentId);
       }
     } catch (err) {
     } finally {
@@ -159,7 +220,7 @@ function WorkFlowCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         required
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -172,10 +233,10 @@ function WorkFlowCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         required
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={2}>
                       <Autocomplete
                         id="documentId"
                         options={DocumentList}
@@ -194,6 +255,7 @@ function WorkFlowCreate(props) {
                             documentId: value !== null ? value.id : 0,
                             documentName: value !== null ? value.name : "",
                           }));
+                          getDocType(value !== null ? value.id : 0, true);
                         }}
                         renderInput={(params) => (
                           <TextField
@@ -202,6 +264,37 @@ function WorkFlowCreate(props) {
                             name="documentId"
                             required
                             label={intl.formatMessage(messages.documentName)}
+                          />
+                        )}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                      <Autocomplete
+                        id="docTypeId"
+                        options={DocTypeList}
+                        value={{ id: data.docTypeId, name: data.docTypeName }}
+                        isOptionEqualToValue={(option, value) =>
+                          value &&
+                          (value.id === 0 ||
+                            value.id === "" ||
+                            option.id === value.id)
+                        }
+                        getOptionLabel={(option) =>
+                          option.name ? option.name : ""
+                        }
+                        onChange={(event, value) => {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            docTypeId: value !== null ? value.id : 0,
+                            docTypeName: value !== null ? value.name : "",
+                          }));
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="docTypeId"
+                            label={intl.formatMessage(messages.documentType)}
                           />
                         )}
                       />
@@ -232,7 +325,12 @@ function WorkFlowCreate(props) {
                     <Grid item xs={12} md={12}>
                       <Card className={classes.card}>
                         <CardContent>
-                          <StepsList dataList={Steps} setdataList={setSteps} setActionList={setActions} ActionList={Actions} />
+                          <StepsList
+                            dataList={Steps}
+                            setdataList={setSteps}
+                            setActionList={setActions}
+                            ActionList={Actions}
+                          />
                         </CardContent>
                       </Card>
                     </Grid>
@@ -243,6 +341,7 @@ function WorkFlowCreate(props) {
                             dataList={Actions}
                             setdataList={setActions}
                             Steps={Steps}
+                            ActionsTypeList={ActionsTypeList}
                           />
                         </CardContent>
                       </Card>

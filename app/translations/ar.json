@@ -2154,6 +2154,9 @@
     
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
+  
+  "boilerplate.containers.Payroll.Workflow.documentType": "نوع الملف",
+  
   "boilerplate.containers.Payroll.Workflow.step": "المرحلة",
   "boilerplate.containers.Payroll.Workflow.nextStep": "المرحلة التالية",
   "boilerplate.containers.Payroll.Workflow.approval": "الموافقة",
