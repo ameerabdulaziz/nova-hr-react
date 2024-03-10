@@ -1200,6 +1200,7 @@
   "boilerplate.containers.Payroll.HumanResources.uniformPrice": "السعر",
   "boilerplate.containers.Payroll.HumanResources.id": "كود المستند",
   "boilerplate.containers.Payroll.HumanResources.executionId": "الكود",
+  "boilerplate.containers.Payroll.HumanResources.transactionDate": "تاريخ العودة",
   "boilerplate.containers.Payroll.HumanResources.employeeId": "كود الموظف",
   "boilerplate.containers.Payroll.HumanResources.status": "الحالة",
   "boilerplate.containers.Payroll.HumanResources.step": "المرحلة",

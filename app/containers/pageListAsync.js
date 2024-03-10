@@ -938,6 +938,27 @@ export const ResignReqTrxList = loadable(
   }
 );
 
+export const HrEmployeeDocumentTrxCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/HrEmployeeDocumentTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const HrEmployeeDocumentTrxEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/HrEmployeeDocumentTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const HrEmployeeDocumentTrxList = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/HrEmployeeDocumentTrx'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Attendance /////////////////////////////////////////////////////////////////////////////////
 
 export const PermissionTrxList = loadable(
