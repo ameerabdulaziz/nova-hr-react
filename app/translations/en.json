@@ -2279,6 +2279,8 @@
   "boilerplate.containers.Payroll.Employee.employeeInfo": "Employee Info",
   "boilerplate.containers.Payroll.Employee.reportingTo": "Reporting To",
   "boilerplate.containers.Payroll.Employee.phone": "Phone",
+  "boilerplate.containers.Payroll.Employee.editAddress": "Edit Address",
+  "boilerplate.containers.Payroll.Employee.createAddress": "Create Address",
   "boilerplate.containers.Payroll.Employee.vacation": "Vacation",
   "boilerplate.containers.Payroll.Employee.absent": "Absent",
   "boilerplate.containers.Payroll.Employee.statusInfo": "Status Info",
