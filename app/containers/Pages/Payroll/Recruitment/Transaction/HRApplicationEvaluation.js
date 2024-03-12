@@ -201,6 +201,19 @@ function HRApplicationEvaluation(props) {
 
     if (ids.length === 1) {
       fetchExistEmployeeData(ids[0]);
+
+      const row = tableData.find((item) => item.id === ids[0]);
+
+      if (row) {
+        setPopupState({
+          appFirstStatus: row.appFirstStatus ?? null,
+          reason: row.reason ?? '',
+          techEmpList: row.techEmpList ?? [],
+          secStaff: row.secStaff ?? null,
+          notTechnicalReview: row.notTechnicalReview ?? false,
+          databnkjob: row.databnkjob ?? null,
+        });
+      }
     }
   };
 
