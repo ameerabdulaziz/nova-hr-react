@@ -39,7 +39,7 @@ function MainMenu(props) {
     loadTransition(false);
   };
 
-  const getMenus = menuArray => menuArray.map((item, index) => {
+  const getMenus = (menuArray, level = 1) => menuArray.map((item, index) => {
    
     if (item.child || item.linkParent) {
       return (
@@ -79,9 +79,10 @@ function MainMenu(props) {
               in={open.indexOf(item.key) > -1}
               timeout="auto"
               unmountOnExit
+              sx={{ paddingInlineStart: level === 0 ? '25px' : 0 }}
             >
               <List className={classes.dense} component="nav" dense>
-                { getMenus(item.child, 'key') }
+                { getMenus(item.child, level + 1) }
               </List>
             </Collapse>
           )}
@@ -131,7 +132,7 @@ function MainMenu(props) {
   return (
     dataMenu?
     <div>
-      {getMenus(dataMenu)}
+      {getMenus(dataMenu, 0)}
     </div>:''
   );
 }
