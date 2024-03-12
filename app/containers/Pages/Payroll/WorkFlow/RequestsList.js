@@ -9,7 +9,6 @@ import missionmessages from "../Attendance/messages";
 import hrmessages from "../HumanResources/messages";
 import paymessages from "../Payroll/messages";
 import vacmessages from "../Vacation/messages";
-
 import Icon from "@mui/material/Icon";
 import messages from "./messages";
 import style from "../../../../../app/styles/styles.scss";
@@ -57,6 +56,8 @@ function RequestsList(props) {
       : location.pathname == "/app/Pages/HR/RewardsApproval"
       ? 5
       : location.pathname == "/app/Pages/Payroll/LoanApproval"
+      ? 6
+      : location.pathname == "/app/Pages/Att/OvertimeApproval"
       ? 7
       : location.pathname == "/app/Pages/HR/UniformApproval"
       ? 8
@@ -96,7 +97,7 @@ function RequestsList(props) {
     setExecutionId(Id);
     setExecutionPoup(true);
   };
-  const handleOpenNotePoup = (id, Action,executionDate) => {
+  const handleOpenNotePoup = (id, Action, executionDate) => {
     setPostDate({
       executionId: id,
       actionTypeId: Action,
@@ -181,6 +182,8 @@ function RequestsList(props) {
         documentId = 4;
       else if (location.pathname == "/app/Pages/HR/RewardsApproval")
         documentId = 5;
+      else if (location.pathname == "/app/Pages/Att/OvertimeApproval")
+        documentId = 6;
       else if (location.pathname == "/app/Pages/Payroll/LoanApproval")
         documentId = 7;
       else if (location.pathname == "/app/Pages/HR/UniformApproval")
@@ -223,7 +226,7 @@ function RequestsList(props) {
       ? cols.map((item) => ({
           name: item,
           label:
-            Document == 1 || Document == 2 ? (
+            Document == 1 || Document == 2 || Document == 6 ? (
               <FormattedMessage {...missionmessages[item]} />
             ) : Document == 4 ||
               Document == 5 ||
@@ -233,8 +236,10 @@ function RequestsList(props) {
               <FormattedMessage {...hrmessages[item]} />
             ) : Document == 7 ? (
               <FormattedMessage {...paymessages[item]} />
-            ) : (
+            ) : Document == 3 ? (
               <FormattedMessage {...vacmessages[item]} />
+            ) : (
+              <FormattedMessage {...Payrollmessages[item]} />
             ),
           options: {
             filter: true,
@@ -280,7 +285,11 @@ function RequestsList(props) {
                       aria-label={row.name}
                       size="large"
                       onClick={() =>
-                        handleOpenNotePoup(tableMeta.rowData[0], row.id,(documentId==10? tableMeta.rowData[3]:null))
+                        handleOpenNotePoup(
+                          tableMeta.rowData[0],
+                          row.id,
+                          documentId == 10 ? tableMeta.rowData[3] : null
+                        )
                       }
                     >
                       <Icon>{row.icon}</Icon>
