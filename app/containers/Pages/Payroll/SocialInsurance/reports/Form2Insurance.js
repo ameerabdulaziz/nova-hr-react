@@ -9,13 +9,16 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
@@ -35,6 +38,7 @@ function Form2Insurance(props) {
 
   const [tableData, setTableData] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
+  const [dateError, setDateError] = useState({});
   const [officeList, setOfficeList] = useState([]);
   const [extraData, setExtraData] = useState({
     total: 0,
@@ -159,22 +163,26 @@ function Form2Insurance(props) {
   const options = {
     print: false,
     customToolbar: () => (
-      <>
-        <InsuranceReportForm2
-          rows={tableData}
-          organizationId={formInfo.InsuranceOrg || 0}
-          totalSalary={extraData.total ?? 0}
-          organizationName={
-            organizationList.find((item) => item.id === formInfo.InsuranceOrg)
-              ?.name ?? ''
-          }
-        />
-      </>
+      <InsuranceReportForm2
+        rows={tableData}
+        organizationId={formInfo.InsuranceOrg || 0}
+        totalSalary={extraData.total ?? 0}
+        organizationName={
+          organizationList.find((item) => item.id === formInfo.InsuranceOrg)
+            ?.name ?? ''
+        }
+      />
     ),
   };
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
     fetchTableData();
   };
@@ -222,7 +230,7 @@ function Form2Insurance(props) {
                 options={officeList}
                 value={
                   officeList.find((item) => item.id === formInfo.InsOffice)
-									?? null
+                  ?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -242,19 +250,28 @@ function Form2Insurance(props) {
                 <CardContent>
                   <Grid container spacing={2}>
                     <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(messages.toDate)}
-                          value={formInfo.ToDate}
+                          value={
+                            formInfo.ToDate ? dayjs(formInfo.ToDate) : null
+                          }
+                          className={classes.field}
                           onChange={(date) => onDatePickerChange(date, 'ToDate')
                           }
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              fullWidth
-                              variant='outlined'
-                            />
-                          )}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                ToDate: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                ToDate: false,
+                              }));
+                            }
+                          }}
                         />
                       </LocalizationProvider>
                     </Grid>

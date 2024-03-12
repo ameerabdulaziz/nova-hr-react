@@ -54,16 +54,12 @@ npm run start:prod
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
 - [ ] **Notification** still not work
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
-- [ ] Complete the implementation of the **Calculate Attendance** page
 - [ ] Integrate the **LeaveBalance** page with the API
 - [ ] Integrate the **EmployeeStatusReport** page with the API
 - [ ] Integrate a cancel button into the **editable** table component
-- [ ] Implement a solution to add spacing between **menu** levels in the sidebar
 - [ ] Improve **React-to-print** package the need state before print
 - [ ] Fix selection column in **editable** table (use id instead of name)
-
-## TODO
-
+- [ ] Implement "react-window" or similar package for the **payroll** table
 - [ ] Add Print column to payroll table
 - [ ] **Recruitment** - add pdf download instead of open in new tab
 

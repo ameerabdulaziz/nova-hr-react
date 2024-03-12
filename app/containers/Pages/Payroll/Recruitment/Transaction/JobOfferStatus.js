@@ -76,6 +76,15 @@ function JobOfferStatus(props) {
   const onUpdateStatusBtnClick = (id) => {
     setSelectedRowsId([id]);
     setIsPopupOpen(true);
+
+    const row = tableData.find((item) => item.id === id);
+
+    if (row) {
+      setPopupState({
+        notes: row.callNote ?? '',
+        status: row.callStatusId ?? null,
+      });
+    }
   };
 
   const columns = [

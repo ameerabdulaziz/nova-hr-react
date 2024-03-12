@@ -78,6 +78,18 @@ function ApplicationCallStatus(props) {
   const onUpdateStatusBtnClick = (ids) => {
     setSelectedRowsId(ids);
     setIsPopupOpen(true);
+
+    if (ids.length === 1) {
+      const row = tableData.find((item) => item.id === ids[0]);
+
+      if (row) {
+        setPopupState({
+          appFirstStatus: row.callStatusId ?? null,
+          notes: row.callNote ?? '',
+          interviewTime: row.interviewTime ?? '',
+        });
+      }
+    }
   };
 
   const onSendInterviewTimeBtnClick = async (id) => {

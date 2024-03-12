@@ -78,6 +78,15 @@ function TechApplicationReview(props) {
   const onUpdateStatusBtnClick = (id) => {
     setSelectedRowsId([id]);
     setIsPopupOpen(true);
+
+    const row = tableData.find((item) => item.id === id);
+
+    if (row) {
+      setPopupState({
+        appFirstStatus: row.techStatusId ?? null,
+        reason: row.reason ?? '',
+      });
+    }
   };
 
   const columns = [

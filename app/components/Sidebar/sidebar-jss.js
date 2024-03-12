@@ -140,7 +140,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   },
   child: {
     '& a': {
-      paddingLeft: theme.spacing(5),
+      paddingLeft: theme.spacing(2),
     }
   },
   title: {

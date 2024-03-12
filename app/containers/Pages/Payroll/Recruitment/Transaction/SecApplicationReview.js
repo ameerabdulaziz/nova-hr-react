@@ -225,7 +225,7 @@ function SecApplicationReview(props) {
         </DialogTitle>
 
         <DialogContent>
-          <Table size='small'>
+          {selectedRowEmployee?.length > 0 && <Table size='small'>
             <TableHead>
               <TableRow>
                 <TableCell>
@@ -254,7 +254,7 @@ function SecApplicationReview(props) {
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+          </Table>}
 
           <Grid container spacing={2} mt={0}>
             <Grid item xs={12} md={6}>
