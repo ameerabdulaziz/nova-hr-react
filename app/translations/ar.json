@@ -588,6 +588,8 @@
   "boilerplate.components.Widgets.CarouselWidget.read_more": "قراءة المزيد",
   "boilerplate.components.Widgets.NewsWidget.next": "التالى",
   "boilerplate.components.Widgets.NewsWidget.back": "الى الخلف",
+  "boilerplate.components.Widgets.noNotification": "لا يوجد تنبيهات",  
+  "boilerplate.components.Widgets.open": "فتح",
   "boilerplate.components.Profile.cover.add_to_connection": "إضافة إلى الاتصال",
   "boilerplate.components.Profile.tab.about": "حول",
   "boilerplate.components.Profile.tab.connections": "روابط",

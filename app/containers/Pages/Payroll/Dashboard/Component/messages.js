@@ -103,7 +103,7 @@ export default defineMessages({
   },
   
   notification1: {
-    id: `${scope}.PerformanceChartWidget.notification`,
+    id: `${scope}.PerformanceChartWidget.notification1`,
     defaultMessage: 'notification',
   },
   orgchar: {
@@ -465,5 +465,13 @@ export default defineMessages({
   address: {
     id: `${scope}.about.address`,
     defaultMessage: 'Address',
+  },
+  open: {
+    id: `${scope}.open`,
+    defaultMessage: 'open',
+  },
+  noNotification: {
+    id: `${scope}.noNotification`,
+    defaultMessage: 'noNotification',
   },
 });

@@ -198,7 +198,7 @@ function MonthCalendar(props) {
       <button onClick={onNextClick}>next</button> */}
 
       <TableContainer>
-        <Table size='small' sx={{ mb: 0 }} >
+        <Table size='small'>
           <TableHead>
             <TableRow>
               {dayNames.map((day, dayIndex) => (

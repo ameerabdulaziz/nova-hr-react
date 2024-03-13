@@ -1,82 +1,124 @@
-import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Hidden from "@mui/material/Hidden";
-import Badge from "@mui/material/Badge";
-import Paper from "@mui/material/Paper";
-import PhoneIcon from "@mui/icons-material/Phone";
-import Chat from "@mui/icons-material/Chat";
-import Mail from "@mui/icons-material/Mail";
-import NotificationsActive from "@mui/icons-material/NotificationsActive";
-import Info from "@mui/icons-material/Info";
-import Warning from "@mui/icons-material/Warning";
-import Check from "@mui/icons-material/CheckCircle";
-import Error from "@mui/icons-material/RemoveCircle";
-import AccountBox from "@mui/icons-material/AccountBox";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PlaylistAddCheck from "@mui/icons-material/PlaylistAddCheck";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import IconButton from "@mui/material/IconButton";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import dataContact from "enl-api/apps/contactData";
-import messageStyles from "enl-styles/Messages.scss";
-import { injectIntl, FormattedMessage } from "react-intl";
-import messages from "./messages";
-import useStyles from "./widget-jss";
-import Grid from "@mui/material/Grid";
-import { PapperBlock } from "enl-components";
-import Divider from "@mui/material/Divider";
-import FilterCenterFocus from "@mui/icons-material/FilterCenterFocus";
+import NotificationsActive from '@mui/icons-material/NotificationsActive';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Hidden from '@mui/material/Hidden';
+import Icon from '@mui/material/Icon';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import { PapperBlock } from 'enl-components';
+import messageStyles from 'enl-styles/Messages.scss';
+import React, { useEffect, useState } from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import PayRollLoader from '../../Component/PayRollLoader';
+import { formateDate } from '../../helpers';
+import api from '../api';
+import messages from './messages';
+import useStyles from './widget-jss';
+// import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 
-function NotificationWidget(props) {
-  const { intl } = props;
+function NotificationWidget() {
   const { classes } = useStyles();
+  const history = useHistory();
+
+  const locale = useSelector((state) => state.language.locale);
+
+  const [notification, setNotification] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getNotifications = async () => {
+    setIsLoading(true);
+
+    try {
+      const notifications = await api(locale).getNotifications();
+      setNotification(notifications);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+
+  const onOpenBtnClick = (url) => {
+    if (url) {
+      history.push(url);
+    }
+  };
 
   return (
-    <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
-      <Typography className={classes.smallTitle} variant="button">
-        <NotificationsActive className={classes.leftIcon} />
-        <FormattedMessage {...messages.notification1} />
-      </Typography>
-      <Divider className={classes.divider} />
+    <PayRollLoader isLoading={isLoading}>
+      <PapperBlock whiteBg noMargin title='' icon='timeline' desc=''>
+        <Typography className={classes.smallTitle} variant='button'>
+          <NotificationsActive className={classes.leftIcon} />
+          <FormattedMessage {...messages.notification1} />
+        </Typography>
 
-      <List>
-        <ListItem className={messageStyles.messageWarning}>
-          <ListItemAvatar>
-            <Avatar className={messageStyles.icon}>
-              <NotificationsActive />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Notification1 Notification1 Notification1 " secondary="12 Oct 2018" />
-          <Hidden smDown>
-            <ListItemSecondaryAction>
-              <Button
-                variant="outlined"
-                size="small"
-                color="primary"
-                className={classes.button}
-              >
-                Open
-              </Button>
-             
-            </ListItemSecondaryAction>
-          </Hidden>
-          
-        </ListItem>
-        <ListItem className={messageStyles.messageWarning}>
+        <Divider className={classes.divider} />
+
+        {notification.length > 0 ? (
+          <List sx={{ height: '376px', overflow: 'auto' }}>
+            {notification.map((item, index) => (
+              <ListItem key={index} className={messageStyles.messageWarning}>
+                <ListItemAvatar>
+                  <Avatar className={messageStyles.icon}>
+                    <Icon>{item.iconClass}</Icon>
+                  </Avatar>
+                </ListItemAvatar>
+
+                <Stack
+                  direction='row'
+                  alignItems='center'
+                  justifyContent='space-between'
+                  sx={{ width: '100%' }}
+                >
+                  <ListItemText
+                    sx={{ whiteSpace: 'wrap' }}
+                    primary={item.description}
+                    secondary={formateDate(item.date, 'dd MMM yyyy')}
+                  />
+
+                  <Hidden smDown>
+                    <Button
+                      variant='outlined'
+                      size='small'
+                      onClick={() => onOpenBtnClick(item.url)}
+                      color='primary'
+                    >
+                      <FormattedMessage {...messages.open} />
+                    </Button>
+                  </Hidden>
+                </Stack>
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <Stack
+            direction='row'
+            sx={{ minHeight: '376px' }}
+            alignItems='center'
+            justifyContent='center'
+            textAlign='center'
+          >
+            <Box>
+              <NotificationsActive sx={{ color: '#a7acb2', fontSize: 30 }} />
+              <Typography color='#a7acb2' variant='body1'>
+                <FormattedMessage {...messages.noNotification} />
+              </Typography>
+            </Box>
+          </Stack>
+        )}
+        {/* <ListItem className={messageStyles.messageWarning}>
           <ListItemAvatar>
             <Avatar className={messageStyles.icon}>
               <NotificationsActive />
@@ -93,10 +135,10 @@ function NotificationWidget(props) {
               >
                 Open
               </Button>
-             
+
             </ListItemSecondaryAction>
           </Hidden>
-         
+
         </ListItem>
         <ListItem className={messageStyles.messageWarning}>
           <ListItemAvatar>
@@ -115,10 +157,10 @@ function NotificationWidget(props) {
               >
                 Open
               </Button>
-              
+
             </ListItemSecondaryAction>
           </Hidden>
-         
+
         </ListItem>
         <ListItem className={messageStyles.messageWarning}>
           <ListItemAvatar>
@@ -137,13 +179,35 @@ function NotificationWidget(props) {
               >
                 Open
               </Button>
-             
+
             </ListItemSecondaryAction>
           </Hidden>
-         
+
         </ListItem>
-      </List>
-    </PapperBlock>
+        <ListItem className={messageStyles.messageWarning}>
+          <ListItemAvatar>
+            <Avatar className={messageStyles.icon}>
+              <NotificationsActive />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Notification5 Notification5 Notification5 " secondary="12 Oct 2018" />
+          <Hidden smDown>
+            <ListItemSecondaryAction>
+              <Button
+                variant="outlined"
+                size="small"
+                color="primary"
+                className={classes.button}
+              >
+                Open
+              </Button>
+
+            </ListItemSecondaryAction>
+          </Hidden>
+
+        </ListItem> */}
+      </PapperBlock>
+    </PayRollLoader>
   );
 }
 

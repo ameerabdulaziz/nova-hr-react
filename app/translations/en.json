@@ -588,6 +588,7 @@
   "boilerplate.components.Widgets.CarouselWidget.read_more": "Read More",
   "boilerplate.components.Widgets.NewsWidget.next": "Next",
   "boilerplate.components.Widgets.NewsWidget.back": "Back",
+  "boilerplate.components.Widgets.open": "Open",
   "boilerplate.components.Profile.cover.add_to_connection": "Add to Connection",
   "boilerplate.components.Profile.tab.about": "ABOUT",
   "boilerplate.components.Profile.tab.connections": "CONNECTIONS",
@@ -1062,6 +1063,7 @@
   
   "boilerplate.components.Widgets.PerformanceChartWidget.rewards": "Rewards",
   "boilerplate.components.Widgets.PerformanceChartWidget.penalty": "Penalty",
+  "boilerplate.components.Widgets.noNotification": "No Notifications",  
   "boilerplate.components.Widgets.PerformanceChartWidget.notification1": "Notifications",  
   "boilerplate.components.Widgets.PerformanceChartWidget.orgchar": "Organization Level Demographics",
   "boilerplate.components.Widgets.PerformanceChartWidget.marital": "Marital Status Demographics",  
