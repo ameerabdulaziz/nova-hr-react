@@ -1297,6 +1297,8 @@
   "boilerplate.containers.Payroll.Attendance.employeeId": "كود الموظف",
   "boilerplate.containers.Payroll.Attendance.status": "الحالة",
   "boilerplate.containers.Payroll.Attendance.step": "المرحلة",
+  "boilerplate.containers.Payroll.Attendance.swapShift": "تحويل الي الوردية",
+  "boilerplate.containers.Payroll.Attendance.supervisor": "المشرف",
   "boilerplate.containers.Payroll.Attendance.approvedEmp": "صاحب القرار",
 
   "boilerplate.containers.Payroll.Attendance.permissionName": "نوع الاذن",

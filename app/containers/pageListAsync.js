@@ -1076,6 +1076,19 @@ export const MissionTrxCreate = loadable(
   }
 );
 
+export const SwapShiftTrx = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/SwapShiftTrx'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const SwapShiftTrxCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/SwapShiftTrxCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const CalculateAttendance = loadable(
   () => import('./Pages/Payroll/Attendance/Transaction/CalculateAttendance'),
   {

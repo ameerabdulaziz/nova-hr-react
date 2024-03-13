@@ -242,6 +242,8 @@ import {
   ReplaceAnnualLeaveBalance,
   OpeningClosingTheYearForLeaves,
   ShiftCreate,
+  SwapShiftTrx,
+  SwapShiftTrxCreate,
   ShiftList,
   ShiftEmployeeList,
   ShiftEmployeeCreate,
@@ -958,6 +960,9 @@ function Application(props) {
         <Route path='/app/Pages/Att/Shift' component={ShiftList} />
         <Route path='/app/Pages/Att/ShiftCreate' component={ShiftCreate} />
         <Route path='/app/Pages/Att/ShiftEdit' component={ShiftCreate} />
+
+        <Route path='/app/Pages/Att/SwapShiftTrx' component={SwapShiftTrx} />
+        <Route path='/app/Pages/Att/SwapShiftTrxCreate' component={SwapShiftTrxCreate} />
 
         <Route
           path='/app/Pages/Att/ShiftEmployee'

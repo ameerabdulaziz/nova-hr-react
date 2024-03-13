@@ -1971,5 +1971,13 @@ devicePass: {
     id: `${scope}.ShiftType`,
     defaultMessage: 'ShiftType',
   },
+  swapShift: {
+    id: `${scope}.swapShift`,
+    defaultMessage: 'swapShift',
+  },
+  supervisor: {
+    id: `${scope}.supervisor`,
+    defaultMessage: 'supervisor',
+  },
 });
 

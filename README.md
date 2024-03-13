@@ -55,6 +55,7 @@ npm run start:prod
 - [ ] **Notification** still not work
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
 - [ ] Integrate the **LeaveBalance** page with the API
+- [ ] Integrate the **SwapShiftTrx** page with the API
 - [ ] Integrate the **EmployeeStatusReport** page with the API
 - [ ] Integrate a cancel button into the **editable** table component
 - [ ] Improve **React-to-print** package the need state before print
