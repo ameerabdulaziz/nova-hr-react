@@ -15,7 +15,9 @@ import { useHistory } from 'react-router-dom';
 import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
+import api from '../api/SwapShiftTrxData';
 import messages from '../messages';
 
 function SwapShiftTrxCreate(props) {
@@ -35,8 +37,8 @@ function SwapShiftTrxCreate(props) {
     attendanceDate: null,
     shiftId: null,
     swapShiftId: null,
-    startTime: '',
-    endTime: '',
+    swapStartTime: '',
+    swapEndTime: '',
     workHours: '',
   });
 
@@ -49,8 +51,8 @@ function SwapShiftTrxCreate(props) {
   };
 
   useEffect(() => {
-    if (formInfo.endTime && formInfo.startTime) {
-      const timeDifference = extractTime(formInfo.endTime) - extractTime(formInfo.startTime);
+    if (formInfo.swapEndTime && formInfo.swapStartTime) {
+      const timeDifference = extractTime(formInfo.swapEndTime) - extractTime(formInfo.swapStartTime);
       const diffToMinutes = timeDifference / (60 * 60 * 1000);
       const workHours = diffToMinutes < 0 ? diffToMinutes * -1 : diffToMinutes;
       const formattedHours = workHours % 1 === 0 ? `${workHours}` : `${workHours.toFixed(3)}`;
@@ -60,7 +62,7 @@ function SwapShiftTrxCreate(props) {
         workHours: formattedHours,
       }));
     }
-  }, [formInfo.startTime, formInfo.endTime]);
+  }, [formInfo.swapStartTime, formInfo.swapEndTime]);
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -71,17 +73,25 @@ function SwapShiftTrxCreate(props) {
       return;
     }
 
-    console.log(formInfo);
-    return;
+    try {
+      setIsLoading(true);
 
-    // try {
-    //   setIsLoading(true);
-    //   history.push('/app/Pages/Att/SwapShiftTrx');
-    // } catch (err) {
-    //   //
-    // } finally {
-    //   setIsLoading(false);
-    // }
+      const formData = {
+        id: 0,
+        attendanceDate: formateDate(formInfo.attendanceDate),
+        shiftId: formInfo.shiftId,
+        swapShiftId: formInfo.swapShiftId,
+        notes: '',
+      };
+
+      await api(locale).save(formData);
+
+      history.push('/app/Pages/Att/SwapShiftTrx');
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   function onCancel() {
@@ -101,13 +111,40 @@ function SwapShiftTrxCreate(props) {
     }
   }
 
+  async function fetchAttendanceDateInfo() {
+    setIsLoading(true);
+
+    try {
+      const shiftInfo = await api(locale).getAttendanceDate(formateDate(formInfo.attendanceDate));
+
+      setFormInfo((prev) => ({
+        ...prev,
+        shiftId: shiftInfo.shiftCode,
+        swapStartTime: shiftInfo.startTime,
+        swapEndTime: shiftInfo.endTime,
+      }));
+    } catch (err) {
+      setFormInfo((prev) => ({
+        ...prev,
+        shiftId: null,
+        swapStartTime: '',
+        swapEndTime: '',
+        workHours: '',
+      }));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (formInfo.attendanceDate) {
+      fetchAttendanceDateInfo();
+    }
+  }, [formInfo.attendanceDate]);
+
   useEffect(() => {
     fetchData();
   }, []);
-
-  const onInputChange = (evt) => {
-    setFormInfo((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
-  };
 
   const onAutoCompleteChange = (value, name) => {
     setFormInfo((prev) => ({
@@ -127,6 +164,7 @@ function SwapShiftTrxCreate(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.AttendanceDate)}
+                  minDate={dayjs()}
                   value={
                     formInfo.attendanceDate
                       ? dayjs(formInfo.attendanceDate)
@@ -166,13 +204,13 @@ function SwapShiftTrxCreate(props) {
                 options={shiftList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option.name ? option.name : '')}
-                onChange={(_, value) => onAutoCompleteChange(value, 'shiftId')}
                 value={getAutoCompleteValue(shiftList, formInfo.shiftId)}
+                disabled
                 renderInput={(params) => (
                   <TextField
                     variant='outlined'
                     {...params}
-                    required
+                    disabled
                     label={intl.formatMessage(messages.shiftName)}
                   />
                 )}
@@ -200,13 +238,12 @@ function SwapShiftTrxCreate(props) {
 
             <Grid item xs={12} md={4}>
               <TextField
-                name='startTime'
-                value={formInfo.startTime}
+                name='swapStartTime'
+                value={formInfo.swapStartTime}
                 label={intl.formatMessage(messages.startTime)}
                 type='time'
-                onChange={onInputChange}
                 fullWidth
-                required
+                disabled
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -215,13 +252,12 @@ function SwapShiftTrxCreate(props) {
 
             <Grid item xs={12} md={4}>
               <TextField
-                name='endTime'
-                value={formInfo.endTime}
+                name='swapEndTime'
+                value={formInfo.swapEndTime}
                 label={intl.formatMessage(messages.endTime)}
                 type='time'
-                onChange={onInputChange}
                 fullWidth
-                required
+                disabled
                 InputLabelProps={{
                   shrink: true,
                 }}

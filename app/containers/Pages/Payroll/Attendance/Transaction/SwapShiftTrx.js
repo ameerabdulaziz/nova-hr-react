@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
-// import api from '../api/SwapShiftTrxData';
+import api from '../api/SwapShiftTrxData';
 import messages from '../messages';
 
 function SwapShiftTrx(props) {
@@ -19,8 +19,8 @@ function SwapShiftTrx(props) {
 
   async function fetchData() {
     try {
-      // const dataApi = await api(locale).getList();
-      // setTableData(dataApi);
+      const dataApi = await api(locale).getList();
+      setTableData(dataApi);
     } catch (err) {
       //
     } finally {
@@ -32,7 +32,7 @@ function SwapShiftTrx(props) {
     try {
       setIsLoading(true);
 
-      // await api(locale).delete(id);
+      await api(locale).delete(id);
 
       toast.success(notif.saved);
 
@@ -59,12 +59,12 @@ function SwapShiftTrx(props) {
     },
 
     {
-      name: 'date',
+      name: 'attendanceDate',
       label: intl.formatMessage(messages.AttendanceDate),
     },
 
     {
-      name: 'returnDate',
+      name: 'shiftName',
       label: intl.formatMessage(messages.shiftName),
     },
 
@@ -79,9 +79,10 @@ function SwapShiftTrx(props) {
     },
 
     {
-      name: 'swapShift',
+      name: 'swapShiftName',
       label: intl.formatMessage(messages.swapShift),
     },
+
     {
       name: 'swapStartTime',
       label: intl.formatMessage(messages.startTime),
@@ -93,13 +94,18 @@ function SwapShiftTrx(props) {
     },
 
     {
-      name: 'employeeName',
+      name: 'approvedEmp',
       label: intl.formatMessage(messages.employeeName),
     },
 
     {
-      name: 'supervisor',
-      label: intl.formatMessage(messages.supervisor),
+      name: 'status',
+      label: intl.formatMessage(messages.status),
+    },
+
+    {
+      name: 'step',
+      label: intl.formatMessage(messages.step),
     },
   ];
 
