@@ -17,33 +17,12 @@ import Payrollmessages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import PayRollLoader from "../../Component/PayRollLoader";
 import style from '../../../../../styles/styles.scss'
+import DecryptUrl from "../../Component/DecryptUrl";
 
 function EmployeeCar(props) {
 
-   // decode URL 
-   let url = decodeURI(window.location.href)
-
-   const isValidJSON = (str) => {
-     try {
-       JSON.parse(str);
-       return true;
-     } catch (e) {
-       return false;
-     }
-   };
-  
-   const isValidEncode = str => {
-     try {
-       atob(str)
-       return true;
-     } catch (e) {
-       return false;
-     }
-   };
-  
-   // get employee data from url
-   const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
-  
+  // get employee data from url
+  const empid  = DecryptUrl()
   const { intl, pristine } = props;
 
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });

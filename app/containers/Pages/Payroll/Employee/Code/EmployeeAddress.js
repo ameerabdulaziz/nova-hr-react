@@ -24,6 +24,7 @@ import payrollMessages from '../../messages';
 import api from '../api/EmployeeAddressData';
 import EditTableRowPopup from '../component/EmployeeAddress/EditTableRowPopup';
 import messages from '../messages';
+import DecryptUrl from "../../Component/DecryptUrl";
 
 function EmployeeAddress(props) {
   const [tableData, setTableData] = useState([]);
@@ -33,32 +34,8 @@ function EmployeeAddress(props) {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  // decode URL
-  const url = decodeURI(window.location.href);
-
-  const isValidJSON = (str) => {
-    try {
-      JSON.parse(str);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const isValidEncode = (str) => {
-    try {
-      atob(str);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
   // get employee data from url
-  const { empid } =		isValidEncode(url.split('/').at(-1))
-		&& isValidJSON(atob(url.split('/').at(-1)))
-		  ? JSON.parse(atob(url.split('/').at(-1)))
-		  : { id: 0, name: '' };
+  const empid  = DecryptUrl()
 
   const { intl } = props;
   const title = localStorage.getItem('MenuName');

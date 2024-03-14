@@ -21,33 +21,12 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import DecryptUrl from "../../Component/DecryptUrl";
 
 function EmployeeContract(props) {
 
-    // decode URL 
-    let url = decodeURI(window.location.href)
-
-    const isValidJSON = (str) => {
-      try {
-        JSON.parse(str);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    };
-   
-    const isValidEncode = str => {
-      try {
-        atob(str)
-        return true;
-      } catch (e) {
-        return false;
-      }
-    };
-   
-    // get employee data from url
-    const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
-   
+  // get employee data from url
+  const empid  = DecryptUrl()
   const { intl, pristine } = props;
 
 

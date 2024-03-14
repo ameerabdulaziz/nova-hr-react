@@ -48,6 +48,7 @@ import useStyles from '../component/BankList/EmpBank-jss';
 import TemplatePopup from '../component/BankList/TemplatePopup';
 import messages from '../messages';
 import { uuid } from '../../helpers';
+import DecryptUrl from "../../Component/DecryptUrl";
 
 const INIT_FORM_INFO = {
   id: 0,
@@ -64,30 +65,8 @@ const INIT_FORM_INFO = {
 
 function EmployeeBank(props) {
 
- // decode URL 
- let url = decodeURI(window.location.href)
-
- const isValidJSON = (str) => {
-   try {
-     JSON.parse(str);
-     return true;
-   } catch (e) {
-     return false;
-   }
- };
-
- const isValidEncode = str => {
-   try {
-     atob(str)
-     return true;
-   } catch (e) {
-     return false;
-   }
- };
-
- // get employee data from url
- const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
-
+  // get employee data from url
+  const empid  = DecryptUrl()
   const { intl } = props;
 
 

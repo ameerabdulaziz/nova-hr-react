@@ -18,34 +18,13 @@ import Payrollmessages from "../../messages";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { PapperBlock } from "enl-components";
 import style from '../../../../../styles/styles.scss'
+import DecryptUrl from "../../Component/DecryptUrl";
 
 
 function EmployeeSalary(props) {
 
-   // decode URL 
- let url = decodeURI(window.location.href)
-
- const isValidJSON = (str) => {
-   try {
-     JSON.parse(str);
-     return true;
-   } catch (e) {
-     return false;
-   }
- };
-
- const isValidEncode = str => {
-   try {
-     atob(str)
-     return true;
-   } catch (e) {
-     return false;
-   }
- };
-
- // get employee data from url
- const { empid } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : { id: 0, name: "" };
-
+  // get employee data from url
+  const empid  = DecryptUrl()
   const { intl, pristine } = props;
   const Title = localStorage.getItem("MenuName");
 
