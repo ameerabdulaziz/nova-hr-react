@@ -15,7 +15,7 @@ const CalculateAttendanceData = (locale) => {
   };
 
   Apis.CalculateAttendance = async (body = {}, params = {}) => {
-    debugger;
+
 
     const result = await axiosInstance.get(
       `AttendanceCalculation/CalculateAttendance/${locale}/${body.companyId}`,
@@ -28,7 +28,7 @@ const CalculateAttendanceData = (locale) => {
   };
 
   Apis.RollBackAttendance = async (body = {}, params = {}) => {
-    debugger;
+
 
     const result = await axiosInstance.get(
       `AttendanceCalculation/RollBackAttendance/${body.companyId}`,
@@ -39,6 +39,12 @@ const CalculateAttendanceData = (locale) => {
 
     return result;
   };
+
+  Apis.Save = async (data) => {
+    
+        const result = await axiosInstance.post(`AttEmployeeAttendance/Save/${locale}`,data);
+        return result;
+      };
 
   return Apis;
 };

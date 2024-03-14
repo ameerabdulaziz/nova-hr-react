@@ -1810,6 +1810,16 @@
   
   "boilerplate.containers.Payroll.Attendance.ShiftType": "Shift Type",
 
+  "boilerplate.containers.Payroll.Attendance.AddAttendance": "Add Attendance",
+  "boilerplate.containers.Payroll.Attendance.CancelLate": "Cancel Late",
+  "boilerplate.containers.Payroll.Attendance.EarlyLeave": "Early Leave",
+  "boilerplate.containers.Payroll.Attendance.AddVacation": "Add Vacation",
+  "boilerplate.containers.Payroll.Attendance.AddMission": "Add Mission",
+  "boilerplate.containers.Payroll.Attendance.AddPermission": "Add Permission",
+  "boilerplate.containers.Payroll.Attendance.leaveErrorMes": "The leave has been registered before",
+  "boilerplate.containers.Payroll.Attendance.missionErrorMes": "The mission has been registered before",
+  "boilerplate.containers.Payroll.Attendance.permissionErrorMes": "The permission has been registered before",
+ 
   
   "boilerplate.containers.Payroll.Payroll.monthName": "Month",
   "boilerplate.containers.Payroll.Payroll.yearName": "Year",

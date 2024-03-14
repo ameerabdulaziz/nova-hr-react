@@ -18,9 +18,7 @@ import {
 } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
@@ -34,6 +32,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import DecryptUrl from "../../../Component/DecryptUrl";
 
 function PermissionTrxCreate(props) {
   const { intl } = props;
@@ -65,18 +64,43 @@ function PermissionTrxCreate(props) {
     maxMinutesCountDiff: false
   });
 
+  const empid  = DecryptUrl()
+
   const [PermissionsList, setPermissionsList] = useState([]);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
 
-
   const [DateError, setDateError] = useState({});
-
 
    // used to reformat date before send it to api
    const dateFormatFun = (date) => {
       return  date ? format(new Date(date), "yyyy-MM-dd") : ""
    }
+
+   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
+   useEffect(()=>{
+    if(empid)
+    {
+      let startTime , endTime , total
+
+          if(empid.timeIn && empid.timeOut)
+          {
+            startTime = new Date(empid.timeIn).getTime()
+            endTime = new Date(empid.timeOut).getTime()
+            total = Math.abs( Math.round( ((startTime - endTime) / 1000) / 60 ) )
+          }
+
+      setdata((prev) => ({
+        ...prev,
+        employeeId: empid.id,
+        date: empid.shiftDate,
+        startTime: empid.timeIn ? format(new Date(empid.timeIn), 'HH:mm') : "",
+        endTime: empid.timeOut ? format(new Date(empid.timeOut), 'HH:mm') : "",
+        minutesCount: empid.timeIn && empid.timeOut ? total : ""
+      }));
+    }
+
+  },[])
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")

@@ -1551,13 +1551,15 @@
   "boilerplate.containers.Payroll.Attendance.ShiftType": "نوع الوردية",
 
   
-  
-  
-  
-
-  
-  
-
+  "boilerplate.containers.Payroll.Attendance.AddAttendance": "اضافة حضور وانصراف",
+  "boilerplate.containers.Payroll.Attendance.CancelLate": "الغاء التاخير",
+  "boilerplate.containers.Payroll.Attendance.EarlyLeave": "الغاء الانصراف المبكر",
+  "boilerplate.containers.Payroll.Attendance.AddVacation": "اضافة إجازة",
+  "boilerplate.containers.Payroll.Attendance.AddMission": "اضافة مامورية",
+  "boilerplate.containers.Payroll.Attendance.AddPermission": "اضافة اذن",
+  "boilerplate.containers.Payroll.Attendance.leaveErrorMes": "تم تسجيل الاجازه من قبل",
+  "boilerplate.containers.Payroll.Attendance.missionErrorMes": "تم تسجيل المامورية من قبل",
+  "boilerplate.containers.Payroll.Attendance.permissionErrorMes": "تم تسجيل الاذن من قبل",
   
   
   

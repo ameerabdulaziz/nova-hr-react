@@ -30,6 +30,7 @@ import Payrollmessages from '../../messages';
 import api from '../api/CalculateAttendanceData';
 import RowDropdown from '../components/CalculateAttendance/RowDropdown';
 import messages from '../messages';
+import CalculateAttendancePopUp from '../../Component/CalculateAttendancePopUp';
 
 function CalculateAttendance(props) {
   const { intl } = props;
@@ -45,6 +46,12 @@ function CalculateAttendance(props) {
   const [companyList, setCompanyList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [selectedRowData, setSelectedRowData] = useState();
+  const [popUpTitle, setPopUpTitle] = useState("");
+  const [disabledLock, setDisabledLock] = useState(false);
+  const [shortcutType, setShortcutType] = useState();
+  const [isLoadingPopup, setIsLoadingPopup] = useState(false);
+  const [openParentPopup, setOpenParentPopup] = useState(false);
 
   const [openMonth, setOpenMonth] = useState({
     todate: null,
@@ -330,7 +337,37 @@ function CalculateAttendance(props) {
     }));
   };
 
+
+
+
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+    setSelectedRowData()
+  };
+
+
+  const handleClickOpen = (item,popUpTitle,disabledLock,shortcutType) => {
+
+    setOpenParentPopup(true);
+    setSelectedRowData(item);
+    setPopUpTitle(popUpTitle)
+    setDisabledLock(disabledLock)
+    setShortcutType(shortcutType)
+    setIsLoadingPopup(true)
+  };
+
+
   const columns = [
+    {
+      name: 'employeeId',
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false
+      },
+    },
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.EmpCode),
@@ -343,31 +380,36 @@ function CalculateAttendance(props) {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
-
+    {
+      name: 'shiftCode',
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false
+      },
+    },
     {
       name: 'shiftDate',
       label: intl.formatMessage(messages.shiftDate),
       options: {
         customBodyRender: (value, tableMeta) => {
-          if (!(tableMeta?.rowIndex && tableData[tableMeta.rowIndex])) {
-            return null;
-          }
 
           return (
             <pre
               style={{
-                ...(tableData[tableMeta.rowIndex].absence && {
+                ...(tableData?.[tableMeta?.rowIndex]?.absence && {
                   backgroundColor: '#f00',
                 }),
-                ...(tableData[tableMeta.rowIndex].vac && {
+                ...(tableData?.[tableMeta?.rowIndex]?.vac && {
                   backgroundColor: '#fafa02',
                 }),
-                ...(tableData[tableMeta.rowIndex].shiftVacancy && {
+                ...(tableData?.[tableMeta?.rowIndex]?.shiftVacancy && {
                   backgroundColor: '#1bff00',
                 }),
-                ...((tableData[tableMeta.rowIndex].absence
-                  || tableData[tableMeta.rowIndex].vac
-                  || tableData[tableMeta.rowIndex].shiftVacancy) && {
+                ...((tableData?.[tableMeta?.rowIndex]?.absence
+                  || tableData?.[tableMeta?.rowIndex]?.vac
+                  || tableData?.[tableMeta?.rowIndex]?.shiftVacancy) && {
                   padding: '7px',
                   borderRadius: '10px',
                   margin: '0',
@@ -513,16 +555,51 @@ function CalculateAttendance(props) {
             return '';
           }
 
-          return <RowDropdown row={row} tableMeta={tableMeta} />;
+          return <RowDropdown row={row} tableMeta={tableMeta} 
+          handleClickOpen={handleClickOpen} />;
         },
+      },
+    },
+    {
+      name: 'startTime',
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false
+      },
+    },
+    {
+      name: 'endTime',
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false
       },
     },
   ];
 
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
+
   return (
     <PayRollLoader isLoading={isLoading}>
+
+        <CalculateAttendancePopUp
+          handleClose={handleClose}
+          open={openParentPopup}
+          messageData={`${intl.formatMessage(
+            Payrollmessages.deleteMessage
+          )}`}
+          Data={selectedRowData}
+          popUpTitle={popUpTitle}
+          disabledLock={disabledLock}
+          shortcutType={shortcutType}
+          isLoadingPopup={isLoadingPopup}
+          setIsLoadingPopup={setIsLoadingPopup}
+        />
+
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' title={title} desc=''>
           <Grid container spacing={2}>
@@ -554,8 +631,8 @@ function CalculateAttendance(props) {
                   label={intl.formatMessage(messages.startDate)}
                   value={formInfo.FromDate ? dayjs(formInfo.FromDate) : null}
                   className={classes.field}
-                  minDate={openMonth.fromDate}
-                  maxDate={openMonth.todate}
+                  minDate={dayjs(openMonth.fromDate)}
+                  maxDate={dayjs(openMonth.todate)}
                   onChange={(date) => {
                     onDatePickerChange(date, 'FromDate');
                   }}
@@ -580,8 +657,8 @@ function CalculateAttendance(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.endDate)}
-                  minDate={openMonth.fromDate}
-                  maxDate={openMonth.todate}
+                  minDate={dayjs(openMonth.fromDate)}
+                  maxDate={dayjs(openMonth.todate)}
                   value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
                   className={classes.field}
                   onChange={(date) => {

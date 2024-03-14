@@ -1979,5 +1979,41 @@ devicePass: {
     id: `${scope}.supervisor`,
     defaultMessage: 'supervisor',
   },
+  AddAttendance: {
+    id: `${scope}.AddAttendance`,
+    defaultMessage: 'Add Attendance',
+  },
+  CancelLate: {
+    id: `${scope}.CancelLate`,
+    defaultMessage: 'Cancel Late',
+  },
+  EarlyLeave: {
+    id: `${scope}.EarlyLeave`,
+    defaultMessage: 'Early Leave',
+  },  
+  AddVacation: {
+    id: `${scope}.AddVacation`,
+    defaultMessage: 'Add Vacation',
+  }, 
+  AddMission: {
+    id: `${scope}.AddMission`,
+    defaultMessage: 'Add Mission',
+  },
+  AddPermission: {
+    id: `${scope}.AddPermission`,
+    defaultMessage: 'Add Permission',
+  }, 
+  leaveErrorMes: {
+    id: `${scope}.leaveErrorMes`,
+    defaultMessage: 'The leave has been registered before',
+  }, 
+  missionErrorMes: {
+    id: `${scope}.missionErrorMes`,
+    defaultMessage: 'The mission has been registered before',
+  }, 
+  permissionErrorMes: {
+    id: `${scope}.permissionErrorMes`,
+    defaultMessage: 'The permission has been registered before',
+  }, 
 });
 

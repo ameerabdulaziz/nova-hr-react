@@ -33,6 +33,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import DecryptUrl from "../../../Component/DecryptUrl";
 
 function MissionTrxCreate(props) {
   const { intl } = props;
@@ -68,6 +69,35 @@ function MissionTrxCreate(props) {
   const dateFormatFun = (date) => {
       return  date ? format(new Date(date), "yyyy-MM-dd") : ""
    }
+
+  const empid  = DecryptUrl()
+
+   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
+      useEffect(()=>{
+        if(empid)
+        {
+          let startTime , endTime , total
+
+          if(empid.timeIn && empid.timeOut)
+          {
+            startTime = new Date(empid.timeIn).getTime()
+            endTime = new Date(empid.timeOut).getTime()
+            total = Math.abs( Math.round( ((startTime - endTime) / 1000) / 60 ) )
+          }
+
+          setdata((prev) => ({
+            ...prev,
+            employeeId: empid.id,
+            fromDate: empid.shiftDate,
+            toDate: empid.shiftDate,
+            startTime: empid.timeIn ? format(new Date(empid.timeIn), 'HH:mm') : "",
+            endTime: empid.timeOut ? format(new Date(empid.timeOut), 'HH:mm'): "",
+            minutesCount: empid.timeIn && empid.timeOut ? total : ""
+          }));
+
+        }
+      },[])
+
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")
@@ -231,6 +261,8 @@ function MissionTrxCreate(props) {
   useEffect(() => {
     fetchData();
   }, []);
+
+
 
   return (
     <PayRollLoader isLoading={isLoading}>

@@ -9,8 +9,6 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
 import notif from "enl-api/ui/notifMessage";
@@ -39,6 +37,7 @@ import { formateDate } from "../../helpers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import DecryptUrl from "../../Component/DecryptUrl";
 
 function LeaveTrxCreate(props) {
   const { intl } = props;
@@ -57,9 +56,14 @@ function LeaveTrxCreate(props) {
     "image/svg+xml",
     "svg+xml",
   ];
+
+  const empid  = DecryptUrl()
+
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const id = location.state?.id ?? 0;
+
+  // const id = (location.state && location.state.id) ? location.state.id : (empid && empid.length !== 0 && empid.id) ? empid.id : 0;
   const { classes } = useStyles();
   const history = useHistory();
 
@@ -96,6 +100,19 @@ function LeaveTrxCreate(props) {
     alternativeStaff: null,
     vacCode: null,
   });
+
+  useEffect(()=>{
+    if(empid)
+    {
+      setFormInfo((prev) => ({
+        ...prev,
+        employeeId: empid.id,
+        trxDate: empid.shiftDate,
+        fromDate: empid.shiftDate,
+        toDate: empid.shiftDate,
+      }));
+    }
+  },[])
 
   const [DateError, setDateError] = useState({});
   
@@ -393,40 +410,7 @@ function LeaveTrxCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    {/* <Grid item xs={12} md={4}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.date)}
-                          value={formInfo.trxDate}
-                          onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setFormInfo((prevFilters) => ({
-                                    ...prevFilters,
-                                    trxDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setFormInfo((prevFilters) => ({
-                                  ...prevFilters,
-                                  trxDate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant="outlined"
-                              required
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
-
+                    
                   <Grid item xs={12} md={4}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -618,43 +602,7 @@ function LeaveTrxCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    {/* <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(messages.fromdate)}
-                          value={formInfo.fromDate}
-                          maxDate={
-                            formInfo.vacCode !== 5 ? formInfo.toDate : null
-                          }
-                          onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setFormInfo((prev) => ({
-                                    ...prev,
-                                    fromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setFormInfo((prev) => ({
-                                  ...prev,
-                                  fromDate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant="outlined"
-                              required
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
-
+                 
                   <Grid item xs={12} md={3}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -669,7 +617,7 @@ function LeaveTrxCreate(props) {
                             }))
                         }}
                         maxDate={
-                          formInfo.vacCode !== 5 ? formInfo.toDate : null
+                          formInfo.vacCode !== 5 ? dayjs(formInfo.toDate) : null
                         }
                         onError={(error,value)=>{
                           if(error !== null)
@@ -695,41 +643,6 @@ function LeaveTrxCreate(props) {
                         />
                     </LocalizationProvider>
                   </Grid>
-
-                    {/* <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(messages.todate)}
-                          value={formInfo.toDate}
-                          disabled={formInfo.vacCode === 5}
-                          onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setFormInfo((prev) => ({
-                                    ...prev,
-                                    toDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setFormInfo((prev) => ({
-                                  ...prev,
-                                  toDate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant="outlined"
-                              required
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
 
                   <Grid item xs={12} md={3}>
                   
