@@ -157,7 +157,7 @@ function ImportFileWithKPI({ intl }) {
                   <Autocomplete
                     id="ddlMenu"
                     className={classes2.kpiComboBoxSty}
-                    value={kpiType ? kpiType : {}}
+                    value={kpiType ? kpiType : null}
                     options={kpiTypeList}
                     sx={{ margin: "0px" }}
                     getOptionLabel={(option) =>
