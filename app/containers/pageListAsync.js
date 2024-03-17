@@ -2618,3 +2618,25 @@ export const PeerAppraisalSetting = loadable(
     fallback: <Loading />,
   }
 );
+
+// Smart Objective
+export const EmployeeObjective = loadable(
+  () => import('./Pages/Payroll/SmartObjective/transaction/EmployeeObjective'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeObjectiveCreate = loadable(
+  () => import('./Pages/Payroll/SmartObjective/transaction/EmployeeObjectiveCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ObjectiveReport = loadable(
+  () => import('./Pages/Payroll/SmartObjective/reports/ObjectiveReport'),
+  {
+    fallback: <Loading />,
+  }
+);

@@ -3135,5 +3135,18 @@
   "boilerplate.containers.Payroll.assessment.Print": "طباعة",
   "boilerplate.containers.Payroll.assessment.ManagerChoose": "اختيار المدير",
   "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "يجب عليك اختيار السنة",
-  "boilerplate.containers.Payroll.assessment.AssessmentReport": "تقرير التقييم"
+  "boilerplate.containers.Payroll.assessment.AssessmentReport": "تقرير التقييم",
+
+  "boilerplate.containers.Payroll.SmartObjective.objective": "الهدف",
+  "boilerplate.containers.Payroll.SmartObjective.measurementTool": "أداة القياس",
+  "boilerplate.containers.Payroll.SmartObjective.dueDate": "تاريخ الاستحقاق",
+  "boilerplate.containers.Payroll.SmartObjective.achieved": "تم تحقيقه",
+  "boilerplate.containers.Payroll.SmartObjective.weight": "الهدف",
+  "boilerplate.containers.Payroll.SmartObjective.weightedScore": "نتيجة الهدف",
+  "boilerplate.containers.Payroll.SmartObjective.comment": "التعليق",
+  "boilerplate.containers.Payroll.SmartObjective.employeeComment": "تعليق الموظف",
+  "boilerplate.containers.Payroll.SmartObjective.department": "القسم",
+  "boilerplate.containers.Payroll.SmartObjective.averageExecutionOfObjective": "التنفيذ المتوسط للهدف",
+  "boilerplate.containers.Payroll.SmartObjective.totalWeight": "اجمالى الاهداف",
+  "boilerplate.containers.Payroll.SmartObjective.totalScore": "النتيجة الإجمالية"
 }

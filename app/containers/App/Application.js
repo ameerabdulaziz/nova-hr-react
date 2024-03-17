@@ -429,6 +429,9 @@ import {
   HrEmployeeDocumentTrxCreate,
   HrEmployeeDocumentTrxEdit,
   HrEmployeeDocumentTrxList,
+  ObjectiveReport,
+  EmployeeObjective,
+  EmployeeObjectiveCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2060,6 +2063,11 @@ function Application(props) {
           path='/app/Pages/Assessment/PeerAppraisalSetting'
           component={PeerAppraisalSetting}
         />
+
+        <Route path='/app/Pages/SmartObjective/ObjectiveReport' component={ObjectiveReport} />
+        <Route path='/app/Pages/SmartObjective/EmployeeObjective' component={EmployeeObjective} />
+        <Route path='/app/Pages/SmartObjective/EmployeeObjectiveCreate' component={EmployeeObjectiveCreate} />
+        <Route path='/app/Pages/SmartObjective/EmployeeObjectiveEdit' component={EmployeeObjectiveCreate} />
 
         {/* Default */}
         <Route component={NotFound} />

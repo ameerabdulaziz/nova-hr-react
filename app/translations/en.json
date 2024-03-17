@@ -3088,8 +3088,19 @@
   "boilerplate.containers.Payroll.assessment.Print": "Print",
   "boilerplate.containers.Payroll.assessment.ManagerChoose": "Manager Choose",
   "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "You must to choose year",
-  "boilerplate.containers.Payroll.assessment.AssessmentReport": "Assessment Report"
+  "boilerplate.containers.Payroll.assessment.AssessmentReport": "Assessment Report",
 
 
-  
+  "boilerplate.containers.Payroll.SmartObjective.objective": "Objective",
+  "boilerplate.containers.Payroll.SmartObjective.measurementTool": "Measurement Tool",
+  "boilerplate.containers.Payroll.SmartObjective.dueDate": "Due Date",
+  "boilerplate.containers.Payroll.SmartObjective.achieved": "Achieved",
+  "boilerplate.containers.Payroll.SmartObjective.weight": "Weight",
+  "boilerplate.containers.Payroll.SmartObjective.weightedScore": "Weighted Score",
+  "boilerplate.containers.Payroll.SmartObjective.comment": "Comment",
+  "boilerplate.containers.Payroll.SmartObjective.employeeComment": "Employee Comment",
+  "boilerplate.containers.Payroll.SmartObjective.department": "Department",
+  "boilerplate.containers.Payroll.SmartObjective.averageExecutionOfObjective": "Average Execution Of Objective",
+  "boilerplate.containers.Payroll.SmartObjective.totalWeight": "Total Weight",
+  "boilerplate.containers.Payroll.SmartObjective.totalScore": "Total Score"
 }
