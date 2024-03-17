@@ -10,12 +10,11 @@ import {
   Grid,
   IconButton,
   Stack,
-  TextField,
   Tooltip,
   Typography,
 } from '@mui/material';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { toast } from "react-hot-toast";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
@@ -38,6 +37,8 @@ import payrollMessages from '../messages';
 import AlertPopup from './AlertPopup';
 import PayRollLoader from './PayRollLoader';
 import PrintableTable from './PayrollTable/PrintableTable';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 // Determine if render loader of just table without loader
 function Loader(props) {
@@ -100,25 +101,24 @@ function PayrollTable(props) {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
         filterType: 'custom',
         customFilterListOptions: {
+          // Get filter label depend on value (min & max or min or max)
           render: (filterValue) => {
+            const minDateLabel = intl.formatMessage(payrollMessages.minDate)
+            const maxDateLabel = intl.formatMessage(payrollMessages.maxDate)
+
+            // min & max filter label
             if (filterValue[0] && filterValue[1]) {
-              return `${item.label} - ${intl.formatMessage(
-                payrollMessages.minDate
-              )}: ${filterValue[0]}, ${intl.formatMessage(
-                payrollMessages.maxDate
-              )}: ${filterValue[1]}`;
+              return `${item.label} - ${minDateLabel}: ${filterValue[0]}, ${maxDateLabel}: ${filterValue[1]}`;
             }
 
+            // min filter label
             if (filterValue[0]) {
-              return `${item.label} - ${intl.formatMessage(
-                payrollMessages.minDate
-              )}: ${filterValue[0]}`;
+              return `${item.label} - ${minDateLabel}: ${filterValue[0]}`;
             }
 
+            // max filter label
             if (filterValue[1]) {
-              return `${item.label} - ${intl.formatMessage(
-                payrollMessages.maxDate
-              )}: ${filterValue[1]}`;
+              return `${item.label} - ${maxDateLabel}: ${filterValue[1]}`;
             }
 
             return [];
@@ -126,27 +126,35 @@ function PayrollTable(props) {
         },
         filterOptions: {
           names: [],
+          // logic for date calculation
           logic(date, filters) {
+            // column date
             const date1 = new Date(date);
-            if (filters[0] && filters[1]) {
-              const start = new Date(filters[0]);
-              const end = new Date(filters[1]);
 
-              if (date1 >= start && date1 <= end) {
-                return false;
-              }
-              return true;
-            }
+            // has min & max date
             if (filters[0]) {
-              const start = new Date(filters[0]);
-              if (date1 >= start) {
+              const minDate = new Date(filters[0]);
+              const maxDate = new Date(filters[1]);
+
+              if (date1 >= minDate && date1 <= maxDate) {
                 return false;
               }
               return true;
             }
+
+            // has min date only
+            if (filters[0]) {
+              const minDate = new Date(filters[0]);
+              if (date1 >= minDate) {
+                return false;
+              }
+              return true;
+            }
+
+            // has max date only
             if (filters[1]) {
-              const end = new Date(filters[1]);
-              if (date1 <= end) {
+              const maxDate = new Date(filters[1]);
+              if (date1 <= maxDate) {
                 return false;
               }
               return true;
@@ -161,57 +169,32 @@ function PayrollTable(props) {
 
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                    <DesktopDatePicker
-                      value={
-                        filterList[index][0] === undefined
-                          ? null
-                          : filterList[index][0]
-                      }
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      sx={{ width: '100%' }}
+                      value={filterList[index][0] ? dayjs(filterList[index][0]) : null}
                       onChange={(date) => {
-                        if (
-                          Object.prototype.toString.call(new Date(date))
-                          === '[object Date]'
-                        ) {
-                          if (!isNaN(new Date(date))) {
-                            filterList[index][0] = formateDate(date);
-                          } else {
-                            filterList[index][0] = null;
-                          }
+                        if (new Date(date).toString() !== "Invalid Date") {
+                          filterList[index][0] = formateDate(date);
+                          onChange(filterList[index], index, column);
                         }
-
-                        onChange(filterList[index], index, column);
                       }}
                       label={intl.formatMessage(payrollMessages.minDate)}
-                      renderInput={(params) => <TextField {...params} />}
                     />
                   </LocalizationProvider>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                    <DesktopDatePicker
-                      value={
-                        filterList[index][1] === undefined
-                          ? null
-                          : filterList[index][1]
-                      }
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      value={filterList[index][1] ? dayjs(filterList[index][1]) : null}
                       onChange={(date) => {
-                        if (
-                          Object.prototype.toString.call(new Date(date))
-                          === '[object Date]'
-                        ) {
-                          if (!isNaN(new Date(date))) {
-                            filterList[index][1] = formateDate(date);
-                          } else {
-                            filterList[index][1] = null;
-                          }
+                        if (new Date(date).toString() !== "Invalid Date") {
+                          filterList[index][1] = formateDate(date);
+                          onChange(filterList[index], index, column);
                         }
-
-                        onChange(filterList[index], index, column);
                       }}
                       label={intl.formatMessage(payrollMessages.maxDate)}
-                      renderInput={(params) => <TextField {...params} />}
                     />
                   </LocalizationProvider>
                 </Grid>
@@ -238,6 +221,8 @@ function PayrollTable(props) {
       ...item,
       options: {
         viewColumns: item?.options?.viewColumns ?? Boolean(item.name),
+
+        // Ensure that boolean value are shown
         customFilterListOptions: {
           render: (value) => `${item.label} - ${String(value)}`,
         },
