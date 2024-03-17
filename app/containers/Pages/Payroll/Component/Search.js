@@ -23,7 +23,8 @@ function Search(props) {
     setIsLoading,
     notShowStatus,
     DateError,
-    setDateError
+    setDateError,
+    requireEmployee
   } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -201,6 +202,7 @@ function Search(props) {
                 variant="outlined"
                 {...params}
                 name="employeeId"
+                required={requireEmployee}
                 label={intl.formatMessage(Payrollmessages.employeeName)}
               />
             )}
