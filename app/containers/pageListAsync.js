@@ -498,8 +498,8 @@ export const EditOrganization = loadable(
   }
 );
 
-export const ImportFile = loadable(
-  () => import('./Pages/Payroll/MainData/Code/ImportFile'),
+export const UploadFileWithKPI = loadable(
+  () => import('./Pages/Payroll/KPI/UploadFileWithKPI'),
   {
     fallback: <Loading />,
   }

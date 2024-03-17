@@ -183,7 +183,7 @@ import {
   NewsList,
   NewsCreate,
   NewsEdit,
-  ImportFile,
+  UploadFileWithKPI,
   UploadEmployeeData,
   Custody,
   CustodyCategory,
@@ -627,10 +627,7 @@ function Application(props) {
           path='/app/Pages/MainData/OrganizationEdit'
           component={EditOrganization}
         />
-        <Route
-          path='/app/Pages/MainData/Upload_KPI_Data'
-          component={ImportFile}
-        />
+
         <Route
           path='/app/Pages/MainData/UploadEmployeeData'
           component={UploadEmployeeData}
@@ -2064,10 +2061,19 @@ function Application(props) {
           component={PeerAppraisalSetting}
         />
 
+        {/* SmartObjective */}
+
         <Route path='/app/Pages/SmartObjective/ObjectiveReport' component={ObjectiveReport} />
         <Route path='/app/Pages/SmartObjective/EmployeeObjective' component={EmployeeObjective} />
         <Route path='/app/Pages/SmartObjective/EmployeeObjectiveCreate' component={EmployeeObjectiveCreate} />
         <Route path='/app/Pages/SmartObjective/EmployeeObjectiveEdit' component={EmployeeObjectiveCreate} />
+
+        {/* KPI */}
+
+        <Route
+          path='/app/Pages/KPI/Upload_KPI_Data'
+          component={UploadFileWithKPI}
+        />
 
         {/* Default */}
         <Route component={NotFound} />

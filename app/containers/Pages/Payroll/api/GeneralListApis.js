@@ -505,6 +505,14 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetKpiTypeList = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetKPITypeList/${locale}`
+    );
+
+    return result.data;
+  };
+
 
   return Apis;
 };
