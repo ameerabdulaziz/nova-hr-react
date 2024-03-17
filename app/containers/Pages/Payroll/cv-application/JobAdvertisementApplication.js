@@ -16,8 +16,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
@@ -29,7 +31,13 @@ import { useParams } from 'react-router-dom';
 import FileViewerPopup from '../../../../components/Popup/fileViewerPopup';
 import { ThemeContext } from '../../../App/ThemeWrapper';
 import PayRollLoader from '../Component/PayRollLoader';
-import { formateDate, getFormData } from '../helpers';
+import {
+  extractBirthDayFromIdentityNumber,
+  formateDate,
+  getFormData,
+  uuid,
+} from '../helpers';
+import payrollMessages from '../messages';
 import API from './api';
 import CoursesPopup from './components/CoursesPopup';
 import ExperiencePopup from './components/ExperiencePopup';
@@ -55,6 +63,7 @@ function JobAdvertisementApplication(props) {
     },
   ];
 
+  const [dateError, setDateError] = useState({});
   const [isCVPopupOpen, setIsCVPopupOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -129,9 +138,7 @@ function JobAdvertisementApplication(props) {
     setIsSubmitting(true);
 
     try {
-      const militaryStatus = await API(
-        locale
-      ).GetMilitaryStatusList();
+      const militaryStatus = await API(locale).GetMilitaryStatusList();
       setMilitaryStatusList(militaryStatus);
 
       const jobs = await API(locale).GetJobList();
@@ -146,17 +153,13 @@ function JobAdvertisementApplication(props) {
       const grads = await API(locale).GetGradeList();
       setGraduationGradList(grads);
 
-      const qualification = await API(
-        locale
-      ).GetQualificationsList();
+      const qualification = await API(locale).GetQualificationsList();
       setQualificationList(qualification);
 
       const IDTypes = await API(locale).GetIdentityTypeList();
       setIDTypeList(IDTypes);
 
-      const linkSources = await API(
-        locale
-      ).GetHiringSourceList();
+      const linkSources = await API(locale).GetHiringSourceList();
       setLinkSourceList(linkSources);
 
       const configResponse = await API(locale).GetCompanyData();
@@ -199,24 +202,6 @@ function JobAdvertisementApplication(props) {
 
   const onCVPopupBtnClick = () => {
     setIsCVPopupOpen(true);
-  };
-
-  const uuid = () => {
-    const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
-    return (
-      S4()
-      + S4()
-      + '-'
-      + S4()
-      + '-'
-      + S4()
-      + '-'
-      + S4()
-      + '-'
-      + S4()
-      + S4()
-      + S4()
-    );
   };
 
   const onExperienceSave = (experience) => {
@@ -290,6 +275,13 @@ function JobAdvertisementApplication(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     setIsSubmitting(true);
 
     const formData = { ...formInfo };
@@ -337,6 +329,21 @@ function JobAdvertisementApplication(props) {
       ...prev,
       [evt.target.name]: evt.target.value,
     }));
+  };
+
+  const onIdCardNumberInputChange = (evt) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.value,
+    }));
+
+    // extract birthday from identity number
+    if (evt.target.value.length === 14 && !formInfo.birthDate) {
+      setFormInfo((prev) => ({
+        ...prev,
+        birthDate: extractBirthDayFromIdentityNumber(evt.target.value),
+      }));
+    }
   };
 
   const onCheckboxChange = (evt) => {
@@ -649,7 +656,8 @@ function JobAdvertisementApplication(props) {
                           }
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
-                          getOptionLabel={(option) => (option ? option.name : '')}
+                          getOptionLabel={(option) => (option ? option.name : '')
+                          }
                           onChange={(_, value) => onAutoCompleteChange(value, 'identityTypeId')
                           }
                           renderInput={(params) => (
@@ -671,7 +679,7 @@ function JobAdvertisementApplication(props) {
                         <TextField
                           name='idcardNumber'
                           value={formInfo.idcardNumber}
-                          onChange={onInputChange}
+                          onChange={onIdCardNumberInputChange}
                           label={intl.formatMessage(messages.IDNumber)}
                           fullWidth
                           required
@@ -694,20 +702,35 @@ function JobAdvertisementApplication(props) {
                       </Grid>
 
                       <Grid item xs={12} md={3}>
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
                             label={intl.formatMessage(messages.issueDate)}
-                            value={formInfo.idcardIssuingDate}
+                            value={
+                              formInfo.idcardIssuingDate
+                                ? dayjs(formInfo.idcardIssuingDate)
+                                : null
+                            }
                             onChange={(date) => onDatePickerChange(date, 'idcardIssuingDate')
                             }
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                fullWidth
-                                required
-                                variant='outlined'
-                              />
-                            )}
+                            sx={{ width: '100%' }}
+                            onError={(error, value) => {
+                              if (error !== null) {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  issueDate: true,
+                                }));
+                              } else {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  issueDate: false,
+                                }));
+                              }
+                            }}
+                            slotProps={{
+                              textField: {
+                                required: true,
+                              },
+                            }}
                           />
                         </LocalizationProvider>
                       </Grid>
@@ -732,7 +755,8 @@ function JobAdvertisementApplication(props) {
                           }
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
-                          getOptionLabel={(option) => (option ? option.name : '')}
+                          getOptionLabel={(option) => (option ? option.name : '')
+                          }
                           onChange={(_, value) => onAutoCompleteChange(value, 'socialStatusId')
                           }
                           renderInput={(params) => (
@@ -763,20 +787,35 @@ function JobAdvertisementApplication(props) {
                       </Grid>
 
                       <Grid item xs={12} md={4}>
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
                             label={intl.formatMessage(messages.birthDate)}
-                            value={formInfo.birthDate}
+                            value={
+                              formInfo.birthDate
+                                ? dayjs(formInfo.birthDate)
+                                : null
+                            }
                             onChange={(date) => onDatePickerChange(date, 'birthDate')
                             }
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                fullWidth
-                                required
-                                variant='outlined'
-                              />
-                            )}
+                            sx={{ width: '100%' }}
+                            onError={(error, value) => {
+                              if (error !== null) {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  birthDate: true,
+                                }));
+                              } else {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  birthDate: false,
+                                }));
+                              }
+                            }}
+                            slotProps={{
+                              textField: {
+                                required: true,
+                              },
+                            }}
                           />
                         </LocalizationProvider>
                       </Grid>
@@ -798,7 +837,9 @@ function JobAdvertisementApplication(props) {
                           name='relativesPhone'
                           value={formInfo.relativesPhone}
                           onChange={onNumericInputChange}
-                          label={intl.formatMessage(messages.relativePhoneNumber)}
+                          label={intl.formatMessage(
+                            messages.relativePhoneNumber
+                          )}
                           fullWidth
                           variant='outlined'
                           autoComplete='off'
@@ -814,7 +855,9 @@ function JobAdvertisementApplication(props) {
                                 onChange={onCheckboxChange}
                               />
                             }
-                            label={intl.formatMessage(messages.hasDrivingLicense)}
+                            label={intl.formatMessage(
+                              messages.hasDrivingLicense
+                            )}
                           />
                           <FormControlLabel
                             control={
@@ -848,7 +891,8 @@ function JobAdvertisementApplication(props) {
                           }
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
-                          getOptionLabel={(option) => (option ? option.name : '')}
+                          getOptionLabel={(option) => (option ? option.name : '')
+                          }
                           onChange={(_, value) => onAutoCompleteChange(value, 'qualificationId')
                           }
                           renderInput={(params) => (
@@ -889,14 +933,17 @@ function JobAdvertisementApplication(props) {
                           }
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
-                          getOptionLabel={(option) => (option ? option.name : '')}
+                          getOptionLabel={(option) => (option ? option.name : '')
+                          }
                           onChange={(_, value) => onAutoCompleteChange(value, 'GraduationStatusId')
                           }
                           renderInput={(params) => (
                             <TextField
                               {...params}
                               required
-                              label={intl.formatMessage(messages.graduationGrade)}
+                              label={intl.formatMessage(
+                                messages.graduationGrade
+                              )}
                             />
                           )}
                           renderOption={(propsOption, option) => (
@@ -908,20 +955,35 @@ function JobAdvertisementApplication(props) {
                       </Grid>
 
                       <Grid item xs={12} md={4}>
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
                             label={intl.formatMessage(messages.graduationDate)}
-                            value={formInfo.QualificationDate}
+                            value={
+                              formInfo.QualificationDate
+                                ? dayjs(formInfo.QualificationDate)
+                                : null
+                            }
                             onChange={(date) => onDatePickerChange(date, 'QualificationDate')
                             }
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                fullWidth
-                                required
-                                variant='outlined'
-                              />
-                            )}
+                            sx={{ width: '100%' }}
+                            onError={(error, value) => {
+                              if (error !== null) {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  QualificationDate: true,
+                                }));
+                              } else {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  QualificationDate: false,
+                                }));
+                              }
+                            }}
+                            slotProps={{
+                              textField: {
+                                required: true,
+                              },
+                            }}
                           />
                         </LocalizationProvider>
                       </Grid>
@@ -936,14 +998,17 @@ function JobAdvertisementApplication(props) {
                           }
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
-                          getOptionLabel={(option) => (option ? option.name : '')}
+                          getOptionLabel={(option) => (option ? option.name : '')
+                          }
                           onChange={(_, value) => onAutoCompleteChange(value, 'computerSkills')
                           }
                           renderInput={(params) => (
                             <TextField
                               {...params}
                               required
-                              label={intl.formatMessage(messages.computerSkills)}
+                              label={intl.formatMessage(
+                                messages.computerSkills
+                              )}
                             />
                           )}
                           renderOption={(propsOption, option) => (
@@ -969,12 +1034,14 @@ function JobAdvertisementApplication(props) {
                           options={jobList}
                           disabled={Boolean(formInfo.jobId)}
                           value={
-                            jobList.find((item) => item.id === formInfo.jobId)
-                          ?? null
+                            jobList.find(
+                              (item) => item.id === formInfo.jobId
+                            ) ?? null
                           }
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
-                          getOptionLabel={(option) => (option ? option.name : '')}
+                          getOptionLabel={(option) => (option ? option.name : '')
+                          }
                           onChange={(_, value) => onAutoCompleteChange(value, 'jobId')
                           }
                           renderInput={(params) => (
@@ -1002,7 +1069,8 @@ function JobAdvertisementApplication(props) {
                           }
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
-                          getOptionLabel={(option) => (option ? option.name : '')}
+                          getOptionLabel={(option) => (option ? option.name : '')
+                          }
                           onChange={(_, value) => onAutoCompleteChange(value, 'workingFrom')
                           }
                           renderInput={(params) => (
@@ -1054,7 +1122,8 @@ function JobAdvertisementApplication(props) {
                           }
                           isOptionEqualToValue={(option, value) => option.id === value.id
                           }
-                          getOptionLabel={(option) => (option ? option.name : '')}
+                          getOptionLabel={(option) => (option ? option.name : '')
+                          }
                           onChange={(_, value) => onAutoCompleteChange(value, 'sourceLink')
                           }
                           renderInput={(params) => (
@@ -1123,17 +1192,13 @@ function JobAdvertisementApplication(props) {
                                 <Delete />
                               </IconButton>
 
-                              <div className='title'>
-                                {exp.jobName}
-                              </div>
+                              <div className='title'>{exp.jobName}</div>
                               <span className='info'>
                                 {formateDate(exp.fromDate)} -{' '}
                                 {formateDate(exp.toDate)}
                               </span>
 
-                              <div>
-                                {exp.departmentName}
-                              </div>
+                              <div>{exp.departmentName}</div>
                             </div>
                           </Grid>
                         ))}

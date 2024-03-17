@@ -39,12 +39,11 @@ import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../Component/PayRollLoader";
 import EmployeeCreationFeedback from "../component/Personal/EmployeeCreationFeedback";
 import moment from "moment";
-
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import DecryptUrl from "../../Component/DecryptUrl";
+import { extractBirthDayFromIdentityNumber } from "../../helpers";
 
 function Personal(props) {
   const history = useHistory();
@@ -246,6 +245,22 @@ function Personal(props) {
   };
 
   useEffect(() => {
+    // extract birthday from identity number
+    // 1. check if identity number is 14 characters
+    // 2. check if birth date is empty
+    // 3. check if id is 0 (means create new employee)
+    // 4. check if valid length is 14 (14 is the length of a valid identity number)
+    if (
+      identityNumber.length === 14
+      && !birthDate
+      && id === 0
+      && !!identityTypeId?.validLength
+      && parseInt(identityTypeId.validLength, 10) === 14
+    ) {
+      setbirthDate(extractBirthDayFromIdentityNumber(identityNumber));
+    }
+
+    // Check if identity number is not exsit
     if (identityNumber && identityTypeId?.validLength !== 0 && identityNumber.length === identityTypeId?.validLength) {
       if (checkEmployeeIdentityNumber) {
         const timeoutId = setTimeout(() => {
