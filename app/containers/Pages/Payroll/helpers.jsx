@@ -1,6 +1,7 @@
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import React from 'react';
 
 /**
@@ -39,7 +40,7 @@ If the value is truthy, it returns  CheckIcon, If the value is falsy, it returns
 */
 function getCheckboxIcon(value) {
   if (typeof value !== 'boolean') {
-    return  <CloseIcon style={{ color: '#717171d1' }} />;
+    return <CloseIcon style={{ color: '#717171d1' }} />;
   }
 
   return value ? (
@@ -117,8 +118,7 @@ function uuid() {
 /**
  * The function converts a string of Arabic digits to their corresponding Arabic
  * numeral characters.
- * @returns The function `toArabicDigits` returns a string with Arabic digits
- * converted from the input string.
+ * @returns {string}
  */
 function toArabicDigits(str = '') {
   if (!str) {
@@ -129,6 +129,31 @@ function toArabicDigits(str = '') {
   return str.toString().replace(/\d/g, (w) => id[+w]);
 }
 
+/**
+ * The function extracts the birth date from a 14-character identity number and
+ * returns it if the person is between 16 and 80 years old.
+ * @returns {dayjs.Dayjs | null}
+ */
+function extractBirthDayFromIdentityNumber(identityNumber = '') {
+  if (identityNumber.length === 14) {
+    // _DDMMYY___....
+    const day = identityNumber.slice(1, 3);
+    const month = identityNumber.slice(3, 5);
+    const year = identityNumber.slice(5, 7);
+    const date = dayjs(`${day}-${month}-${year}`);
+
+    if (date.isValid()) {
+      // set is between 16 & 80 year old
+      if (dayjs().diff(date, 'year') >= 16 && dayjs().diff(date, 'year') <= 80) {
+        return date;
+      }
+    }
+  }
+
+  return null;
+}
+
 export {
-  formatNumber, formateDate, getCheckboxIcon, getFormData, uuid, toArabicDigits
+  formatNumber, formateDate, getCheckboxIcon, getFormData, uuid, toArabicDigits,
+  extractBirthDayFromIdentityNumber,
 };
