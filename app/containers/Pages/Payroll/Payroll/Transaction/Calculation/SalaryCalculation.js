@@ -359,6 +359,9 @@ function SalaryCalculation(props) {
     {
       name: 'employeeCode',
       label: intl.formatMessage(Payrollmessages.employeeCode),
+      options: {
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
+      },
     },
 
     {
@@ -366,6 +369,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -373,6 +377,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...Payrollmessages["yearName"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -380,6 +385,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...Payrollmessages["monthName"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -387,6 +393,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...messages["grossSal"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -394,6 +401,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...messages["empInsSalary"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -401,6 +409,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...messages["insuCompValFixed"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -408,6 +417,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...messages["insuEmpValFixed"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -415,6 +425,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...messages["taxBool"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -422,6 +433,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...messages["taxVal"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -429,6 +441,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...messages["totDed"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -436,6 +449,7 @@ function SalaryCalculation(props) {
       label: <FormattedMessage {...messages["netSal"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
   ];

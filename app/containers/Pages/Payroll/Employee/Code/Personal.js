@@ -48,12 +48,14 @@ import { extractBirthDayFromIdentityNumber } from "../../helpers";
 function Personal(props) {
   const history = useHistory();
   // const ref = useRef(null);
+  const location = useLocation();
 
   const authState = useSelector((state) => state.authReducer);
 
-  // get employee data from url
-  const empid  = DecryptUrl()
+  // get employee data from route state or url
+  const empid  = location.state ? location.state.empid : DecryptUrl()
   const id = empid?.id ?? 0;
+
 
   let dropzoneRef;
   const [progress, setProgress] = useState(false);

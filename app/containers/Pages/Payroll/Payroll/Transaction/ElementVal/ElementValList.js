@@ -125,7 +125,7 @@ function ElementValList(props) {
     async (Employeesdata) => {
       setOpenPopup(false);
       try {
-        debugger;
+       
         setIsLoading(true);
         const data = Employeesdata.map((obj) => ({
           id: 0,
@@ -171,7 +171,7 @@ function ElementValList(props) {
   };
 
   const handleClickOpen = (item) => {
-    debugger;
+  
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
@@ -182,7 +182,7 @@ function ElementValList(props) {
 
   async function deleterow() {
     try {
-      debugger;
+     
       setIsLoading(true);
       let response = await ApiData(locale).Delete(deleteItem);
 
@@ -305,7 +305,7 @@ function ElementValList(props) {
 
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(PayList);
-      debugger;
+    
       if (BranchIdState) {
         setBranchId(BranchIdState);
         getOpenMonth(BranchIdState);
@@ -359,7 +359,7 @@ function ElementValList(props) {
       }));
   }
   async function changeMonth(value) {
-    debugger;
+   
 
     setOpenMonth((prevFilters) => ({
       ...prevFilters,
@@ -392,7 +392,7 @@ function ElementValList(props) {
       );
       setEmployeeList(EmpList);
       const result = await GeneralListApis(locale).getOpenMonth(id, 0);
-      debugger;
+     
       setOpenMonth({
         monthId: result.monthId,
         yearId: result.yearId,
@@ -403,7 +403,7 @@ function ElementValList(props) {
         stMonthId: result.monthId,
         stMonthName: result.monthName,
       });
-      debugger;
+     
       setYearList(
         yearList.filter(
           (row) => parseInt(row.name) >= parseInt(result.yearName)
@@ -426,7 +426,7 @@ function ElementValList(props) {
   }
   async function getElementList(id) {
     try {
-      debugger;
+      
 
       setIsLoading(true);
       setElementData({
@@ -527,6 +527,7 @@ function ElementValList(props) {
       label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -542,6 +543,7 @@ function ElementValList(props) {
       label: <FormattedMessage {...messages["payTemplate"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -549,6 +551,7 @@ function ElementValList(props) {
       label: <FormattedMessage {...Payrollmessages["element"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -556,6 +559,7 @@ function ElementValList(props) {
       label: <FormattedMessage {...messages["elementType"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -563,6 +567,7 @@ function ElementValList(props) {
       label: <FormattedMessage {...messages["elementMode"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -570,6 +575,7 @@ function ElementValList(props) {
       label: <FormattedMessage {...messages["val"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -577,6 +583,7 @@ function ElementValList(props) {
       label: <FormattedMessage {...messages["source"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -584,6 +591,7 @@ function ElementValList(props) {
       label: <FormattedMessage {...Payrollmessages["notes"]} />,
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <div style={{maxWidth: "200px", width: "max-content"}}>{value}</div> : ''),
       },
     },
     {
@@ -592,7 +600,6 @@ function ElementValList(props) {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
-          console.log("tableMeta =", tableMeta);
           return (
             <div className={style.actionsSty}>
               <EditButton

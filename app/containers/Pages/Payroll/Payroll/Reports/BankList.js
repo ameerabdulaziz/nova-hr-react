@@ -95,7 +95,7 @@ function BankList(props) {
       label: intl.formatMessage(messages.netSalary),
       options: {
         filter: true,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 

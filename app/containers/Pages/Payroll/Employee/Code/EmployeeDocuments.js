@@ -78,7 +78,7 @@ function EmployeeDocuments({ intl }) {
       label: intl.formatMessage(messages.startDate),
       options: {
         filter: true,
-        customBodyRender: (value) => formateDate(value),
+        customBodyRender: (value) => <pre> {formateDate(value)} </pre>,
       },
     },
     {
@@ -86,7 +86,7 @@ function EmployeeDocuments({ intl }) {
       label: intl.formatMessage(messages.endDate),
       options: {
         filter: true,
-        customBodyRender: (value) => formateDate(value),
+        customBodyRender: (value) => <pre> {formateDate(value)} </pre>,
       },
     },
     {

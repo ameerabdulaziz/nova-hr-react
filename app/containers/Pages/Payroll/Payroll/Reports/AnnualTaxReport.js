@@ -151,7 +151,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.oldTaxBool),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -160,7 +160,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.oldTaxValue),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -169,7 +169,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.newTaxBool),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -178,7 +178,7 @@ function AnnualTaxReport(props) {
       label: intl.formatMessage(messages.newTaxValue),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
   ];

@@ -129,7 +129,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.netSalary),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -138,7 +138,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.insuranceCompanyFixed),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -147,7 +147,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.insuranceEmployeeFixed),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -156,7 +156,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.taxes),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -165,7 +165,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.totalAllownace),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -174,7 +174,7 @@ function SalaryReport(props) {
       label: intl.formatMessage(messages.totalDeduction),
       options: {
         filter: false,
-        customBodyRender: (value) => formatNumber(value),
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
   ];
@@ -214,7 +214,7 @@ function SalaryReport(props) {
               label: key,
               options: {
                 filter: false,
-                customBodyRender: (value) => formatNumber(value),
+                customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
               },
             });
           }

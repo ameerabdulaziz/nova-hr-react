@@ -45,36 +45,36 @@ function ElementsList(props) {
   }
   const ElemType = (value) => {
     return (
-      <div>
+      <>
         {value==1 ? (
           intl.formatMessage(messages.Allowance)
         ) : (
           intl.formatMessage(messages.Deduct)
         )}
-      </div>
+      </>
     );
   };
   const CalcMethod = (value) => {
     return (
-      <div>
+      <>
         {value==1 ? (
           intl.formatMessage(messages.Value)
         ) : (
           intl.formatMessage(messages.Percentage)
         )}
-      </div>
+      </>
     );
   };
   
   const ElementMode = (value) => {
     return (
-      <div>
+      <>
         {value==1 ? (
           intl.formatMessage(messages.constant)
         ) : (
           intl.formatMessage(messages.variable)
         )}
-      </div>
+      </>
     );
   };
   
@@ -107,7 +107,7 @@ function ElementsList(props) {
       label: intl.formatMessage(Payrollmessages.type),
       options: {
         filter: true,
-        customBodyRender: (value) => ElemType(value),
+        customBodyRender: (value) => <pre> {ElemType(value)} </pre>,
       },
     },
     {
@@ -115,7 +115,7 @@ function ElementsList(props) {
       label: intl.formatMessage(messages.CalcMethod),
       options: {
         filter: true,
-        customBodyRender: (value) => CalcMethod(value),
+        customBodyRender: (value) => <pre> {CalcMethod(value)} </pre>,
       },
     },
     {
@@ -123,7 +123,7 @@ function ElementsList(props) {
       label: intl.formatMessage(messages.elementMode),
       options: {
         filter: true,
-        customBodyRender: (value) => ElementMode(value),
+        customBodyRender: (value) => <pre> {ElementMode(value)} </pre>,
       },
     },
   ];

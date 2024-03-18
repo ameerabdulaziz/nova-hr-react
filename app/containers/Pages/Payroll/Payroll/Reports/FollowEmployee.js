@@ -97,6 +97,7 @@ function FollowEmployee(props) {
       label: intl.formatMessage(messages.FromMonth),
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {
@@ -104,6 +105,7 @@ function FollowEmployee(props) {
         label: intl.formatMessage(messages.ToMonth),
       options: {
         filter: true,
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
       },
     },
     {

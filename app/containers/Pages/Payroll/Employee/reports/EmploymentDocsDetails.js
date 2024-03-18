@@ -180,6 +180,7 @@ function EmploymentDocsDetails(props) {
       label: intl.formatMessage(messages.notes),
       options: {
         filter: true,
+        noWrap:true
       },
     },
   ];

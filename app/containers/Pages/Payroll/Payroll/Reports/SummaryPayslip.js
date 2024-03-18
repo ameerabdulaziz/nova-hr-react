@@ -137,7 +137,7 @@ function SummaryPayslip(props) {
       label: intl.formatMessage(messages.allowances),
       options: {
         filter: true,
-        customBodyRender: formatNumber,
+        customBodyRender:(value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -146,7 +146,7 @@ function SummaryPayslip(props) {
       label: intl.formatMessage(messages.deductions),
       options: {
         filter: true,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -155,7 +155,7 @@ function SummaryPayslip(props) {
       label: intl.formatMessage(messages.netSalary),
       options: {
         filter: true,
-        customBodyRender: formatNumber,
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
   ];
