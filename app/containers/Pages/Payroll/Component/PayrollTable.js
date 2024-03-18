@@ -13,9 +13,10 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { toast } from "react-hot-toast";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from 'dayjs';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, {
@@ -37,8 +38,6 @@ import payrollMessages from '../messages';
 import AlertPopup from './AlertPopup';
 import PayRollLoader from './PayRollLoader';
 import PrintableTable from './PayrollTable/PrintableTable';
-import dayjs from 'dayjs';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 // Determine if render loader of just table without loader
 function Loader(props) {
@@ -103,8 +102,8 @@ function PayrollTable(props) {
         customFilterListOptions: {
           // Get filter label depend on value (min & max or min or max)
           render: (filterValue) => {
-            const minDateLabel = intl.formatMessage(payrollMessages.minDate)
-            const maxDateLabel = intl.formatMessage(payrollMessages.maxDate)
+            const minDateLabel = intl.formatMessage(payrollMessages.minDate);
+            const maxDateLabel = intl.formatMessage(payrollMessages.maxDate);
 
             // min & max filter label
             if (filterValue[0] && filterValue[1]) {
@@ -172,9 +171,13 @@ function PayrollTable(props) {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       sx={{ width: '100%' }}
-                      value={filterList[index][0] ? dayjs(filterList[index][0]) : null}
+                      value={
+                        filterList[index][0]
+                          ? dayjs(filterList[index][0])
+                          : null
+                      }
                       onChange={(date) => {
-                        if (new Date(date).toString() !== "Invalid Date") {
+                        if (new Date(date).toString() !== 'Invalid Date') {
                           filterList[index][0] = formateDate(date);
                           onChange(filterList[index], index, column);
                         }
@@ -187,9 +190,13 @@ function PayrollTable(props) {
                 <Grid item xs={12} md={6}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                      value={filterList[index][1] ? dayjs(filterList[index][1]) : null}
+                      value={
+                        filterList[index][1]
+                          ? dayjs(filterList[index][1])
+                          : null
+                      }
                       onChange={(date) => {
-                        if (new Date(date).toString() !== "Invalid Date") {
+                        if (new Date(date).toString() !== 'Invalid Date') {
                           filterList[index][1] = formateDate(date);
                           onChange(filterList[index], index, column);
                         }
@@ -215,12 +222,23 @@ function PayrollTable(props) {
     setRowsSelected([]);
   }, [data]);
 
+  const wrapValueInPre = (value, options) => {
+    if (options?.noWrap) {
+      return value;
+    }
+
+    return <pre>{value}</pre>;
+  };
+
   // useEffect to initialize columns and column visibility settings
   useEffect(() => {
     const mappedColumns = columns.map((item) => ({
       ...item,
       options: {
         viewColumns: item?.options?.viewColumns ?? Boolean(item.name),
+
+        // Make sure every column wrap with <pre>
+        customBodyRender: (value) => wrapValueInPre(value, item?.options),
 
         // Ensure that boolean value are shown
         customFilterListOptions: {

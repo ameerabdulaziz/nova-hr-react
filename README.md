@@ -70,6 +70,10 @@ npm run start:prod
 
 The `PayrollTable` component is a React component designed to display and manage payroll data in a tabular format. It provides features such as printing, adding, editing, and deleting rows.
 
+> Date format: `YYYY-MM-DD` by default for each column ending with **Date** word, and also change filter input to be **from** and **to** date.
+>
+> Also to make all words in the column in the same line, each column value wrapped in `<pre>` tag. So to ignore it use **noWrap** option in column config.
+
 #### Usage
 
 ```jsx
@@ -216,10 +220,13 @@ In the provided `ExamplePage` example, the actions object is used to configure a
 
 - **Add Action** (add property):
   - `url`: Specifies the URL to navigate to when the "Add" action is triggered.
+  - `disabled`: Specifies whether the "Add" action should be disabled or not, can be boolean or function that take row data and returns a boolean.
 - **Edit Action** (edit property):
   - `url`: Specifies the URL to navigate to when the "Edit" action is triggered.
+  - `disabled`: Specifies whether the "Add" action should be disabled or not, can be boolean or function that take row data and returns a boolean.
 - **Delete Action** (delete property):
   - `api`: Specifies a function that will be called when the "Delete" action is triggered.
+  - `disabled`: Specifies whether the "Add" action should be disabled or not, can be boolean or function that take row data and returns a boolean.
 
 #### Columns
 
