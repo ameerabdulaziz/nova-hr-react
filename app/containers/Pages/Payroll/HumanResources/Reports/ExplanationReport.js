@@ -118,43 +118,28 @@ function ExplanationReport(props) {
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "job",
       label: intl.formatMessage(messages.job),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "expTypeName",
       label: intl.formatMessage(Payrollmessages.type),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "questionTitle",
       label: intl.formatMessage(Payrollmessages.title),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "questionDetails",
       label: intl.formatMessage(Payrollmessages.details),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "response",
       label: intl.formatMessage(messages.response),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
     },
   ];

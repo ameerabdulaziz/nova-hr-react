@@ -111,6 +111,9 @@ function ManualAttendanceReport(props) {
       {
         name: "not",
         label: intl.formatMessage(messages.notes),
+        options: {
+          customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+        },
       },
     {
         name: "organizationName",

@@ -53,6 +53,9 @@ function RegisterLocation({ intl }) {
     {
       name: 'address',
       label: intl.formatMessage(messages.Address),
+      options: {
+        noWrap: true,
+      },
     },
     {
       name: 'locLat',

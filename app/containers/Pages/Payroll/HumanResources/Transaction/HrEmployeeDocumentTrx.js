@@ -81,6 +81,9 @@ function HrEmployeeDocumentTrx(props) {
     {
       name: 'notes',
       label: intl.formatMessage(messages.note),
+      options: {
+        noWrap: true,
+      },
     },
   ];
 

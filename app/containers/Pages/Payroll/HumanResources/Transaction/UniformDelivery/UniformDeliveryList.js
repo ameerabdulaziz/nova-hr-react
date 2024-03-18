@@ -77,6 +77,9 @@ function UniformDeliveryList(props) {
     {
       name: 'notes',
       label: intl.formatMessage(Payrollmessages.notes),
+      options: {
+        noWrap: true,
+      },
     },
     {
       name: 'quantity',

@@ -19,9 +19,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -32,28 +33,11 @@ import { useHistory, useLocation } from 'react-router';
 import PayRollLoader from '../../Component/PayRollLoader';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate, uuid } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/IndividualDevelopmentPlanData';
 import DevelopmentPlanPopup from '../components/IndividualDevelopmentPlan/DevelopmentPlanPopup';
 import messages from '../messages';
-
-const uuid = () => {
-  const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
-  return (
-    S4()
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ S4()
-		+ S4()
-  );
-};
 
 function IndividualDevelopmentPlanCreate(props) {
   const { intl } = props;
@@ -72,7 +56,8 @@ function IndividualDevelopmentPlanCreate(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const [isDevelopmentPlanPopupOpen, setIsDevelopmentPlanPopupOpen] = useState(false);
-  const [selectedPlan, setSelectedDevelopmentPlan] = useState(null);
+  const [selectedDevelopmentPlan, setSelectedDevelopmentPlan] = useState(null);
+  const [dateError, setDateError] = useState({});
 
   const [jobInfo, setJobInfo] = useState({
     currentJob: '',
@@ -90,10 +75,14 @@ function IndividualDevelopmentPlanCreate(props) {
     asIndividualDevelopmentPlanDetails: [],
   });
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
-
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
     setIsLoading(true);
 
@@ -202,13 +191,13 @@ function IndividualDevelopmentPlanCreate(props) {
   };
 
   useEffect(() => {
-    if (selectedPlan) {
+    if (selectedDevelopmentPlan) {
       setIsDevelopmentPlanPopupOpen(true);
     }
-  }, [selectedPlan]);
+  }, [selectedDevelopmentPlan]);
 
   const onDevelopmentPlanSave = (employee) => {
-    if (selectedPlan) {
+    if (selectedDevelopmentPlan) {
       const cloned = [...formInfo.asIndividualDevelopmentPlanDetails];
       const index = cloned.findIndex((item) => item.id === employee.id);
       if (index !== -1) {
@@ -281,7 +270,7 @@ function IndividualDevelopmentPlanCreate(props) {
         isOpen={isDevelopmentPlanPopupOpen}
         setIsOpen={setIsDevelopmentPlanPopupOpen}
         onSave={onDevelopmentPlanSave}
-        selectedPlan={selectedPlan}
+        selectedPlan={selectedDevelopmentPlan}
         activityList={activityList}
         setSelectedPlan={setSelectedDevelopmentPlan}
       />
@@ -295,16 +284,30 @@ function IndividualDevelopmentPlanCreate(props) {
 
                 <Grid container spacing={3} mt={0} direction='row'>
                   <Grid item xs={12} md={4}>
-                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(messages.date)}
-                        value={formInfo.insertDate}
-                        onChange={(date) => onDatePickerChange(date, 'insertDate')
+                        value={
+                          formInfo.insertDate
+                            ? dayjs(formInfo.insertDate)
+                            : null
                         }
                         className={classes.field}
-                        renderInput={(params) => (
-                          <TextField required {...params} variant='outlined' />
-                        )}
+                        onChange={(date) => onDatePickerChange(date, 'insertDate')
+                        }
+                        onError={(error) => {
+                          if (error !== null) {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              insertDate: true,
+                            }));
+                          } else {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              insertDate: false,
+                            }));
+                          }
+                        }}
                       />
                     </LocalizationProvider>
                   </Grid>

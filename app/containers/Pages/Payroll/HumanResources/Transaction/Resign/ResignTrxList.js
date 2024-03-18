@@ -59,9 +59,6 @@ function ResignTrxList(props) {
     {
       name: 'date',
       label: intl.formatMessage(messages.date),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
 
     {
@@ -84,6 +81,9 @@ function ResignTrxList(props) {
     {
       name: 'note',
       label: intl.formatMessage(messages.note),
+      options: {
+        noWrap: true,
+      },
     },
   ];
 

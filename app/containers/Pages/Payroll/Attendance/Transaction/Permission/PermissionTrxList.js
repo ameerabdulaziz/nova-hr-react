@@ -118,6 +118,9 @@ function PermissionTrxList(props) {
     {
       name: 'notes',
       label: <FormattedMessage {...Payrollmessages.notes} />,
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
     {
       name: 'step',

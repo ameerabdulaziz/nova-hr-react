@@ -7,9 +7,7 @@ import { useSelector } from 'react-redux';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/UniformTrxData';
 import messages from '../../messages';
-
 import PayrollTable from '../../../Component/PayrollTable';
-import { formateDate } from '../../../helpers';
 
 function UniformReceiveList(props) {
   const { intl } = props;
@@ -61,10 +59,6 @@ function UniformReceiveList(props) {
     {
       name: 'date',
       label: intl.formatMessage(Payrollmessages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'employeeName',
@@ -78,6 +72,9 @@ function UniformReceiveList(props) {
     {
       name: 'notes',
       label: intl.formatMessage(Payrollmessages.notes),
+      options: {
+        noWrap: true,
+      },
     },
     {
       name: 'quantity',

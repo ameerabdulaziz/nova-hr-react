@@ -143,7 +143,7 @@ function StopInsuranceReport(props) {
       name: "insReason",
       label: intl.formatMessage(messages.InsuranceReasone),
       options: {
-        filter: true,
+        noWrap: true,
       },
     },
     

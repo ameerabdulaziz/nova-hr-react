@@ -18,7 +18,6 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import { formateDate } from "../../helpers";
-
 import { toast } from 'react-hot-toast';
 
 function CustodyReceiveReport(props) {
@@ -40,14 +39,6 @@ function CustodyReceiveReport(props) {
 
   const [DateError, setDateError] = useState({});
 
-
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
-
-
-
   const handleSearch = async (e) => {
 
      // used to stop call api if user select wrong date
@@ -60,8 +51,8 @@ function CustodyReceiveReport(props) {
     try {
       setIsLoading(true);
       var formData = {
-        FromDate: dateFormatFun(searchData.FromDate),
-        ToDate: dateFormatFun(searchData.ToDate),
+        FromDate: formateDate(searchData.FromDate),
+        ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         CustodyId: custody,
         TrxType: 2,
@@ -105,46 +96,31 @@ function CustodyReceiveReport(props) {
     {
       name: "date",
       label: intl.formatMessage(Payrollmessages.date),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: "custodyName",
       label: intl.formatMessage(messages.custodyName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "notes",
       label: intl.formatMessage(Payrollmessages.notes),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
     },
 
     {
       name: "custCount",
       label: intl.formatMessage(Payrollmessages.count),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "custodyPrice",
       label: intl.formatMessage(Payrollmessages.price),
-      options: {
-        filter: true,
-      },
     },
   ];
 

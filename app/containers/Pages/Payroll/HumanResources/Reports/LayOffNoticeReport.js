@@ -14,9 +14,7 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { formateDate } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
-
 import { toast } from 'react-hot-toast';
 
 function LayOffNoticeReport(props) {
@@ -86,23 +84,16 @@ function LayOffNoticeReport(props) {
     {
       name: "noticeDate",
       label: intl.formatMessage(messages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "reason",
       label: intl.formatMessage(messages.reason),
       options: {
-        filter: true,
+        noWrap: true,
       },
     },
   ];

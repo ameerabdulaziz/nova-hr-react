@@ -68,6 +68,9 @@ function BalanceUpdateLog(props) {
     {
       name: 'tRxDesc',
       label: intl.formatMessage(messages.description),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
     {
       name: 'vacBalance',
@@ -80,6 +83,9 @@ function BalanceUpdateLog(props) {
     {
       name: 'notes',
       label: intl.formatMessage(messages.modificationReason),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
   ];
 

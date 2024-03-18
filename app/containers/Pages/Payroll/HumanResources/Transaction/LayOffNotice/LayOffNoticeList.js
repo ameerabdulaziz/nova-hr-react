@@ -77,6 +77,7 @@ function LayOffNoticeList(props) {
       label: intl.formatMessage(messages.reason),
       options: {
         filter: true,
+        noWrap: true,
       },
     },
   ];

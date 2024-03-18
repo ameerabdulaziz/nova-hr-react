@@ -399,6 +399,7 @@ function EmployeeAttendance(props) {
       name: "id",
       options: {
         filter: false,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
 
@@ -416,27 +417,30 @@ function EmployeeAttendance(props) {
     {
       name: "employeeCode",
       label: intl.formatMessage(Payrollmessages.employeeCode),
+      options: {
+        customBodyRender: (value) => <pre>{value}</pre>,
+      },
     },
 
     {
       name: "employeeName",
       label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
       options: {
-        filter: true,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "organizationName",
       label: <FormattedMessage {...Payrollmessages["organizationName"]} />,
       options: {
-        filter: true,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "shiftCode",
       label: <FormattedMessage {...messages["shiftCode"]} />,
       options: {
-        filter: true,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
 
@@ -444,21 +448,20 @@ function EmployeeAttendance(props) {
       name: "shiftName",
       label: <FormattedMessage {...messages["shiftName"]} />,
       options: {
-        filter: true,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "weekDayName",
       label: <FormattedMessage {...Payrollmessages["weekDayName"]} />,
       options: {
-        filter: true,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "shiftDate",
       label: <FormattedMessage {...Payrollmessages["date"]} />,
       options: {
-        filter: true,
         customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
@@ -466,21 +469,21 @@ function EmployeeAttendance(props) {
       name: "timeIn",
       label: <FormattedMessage {...messages["timeIn"]} />,
       options: {
-        filter: true,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "timeOut",
       label: <FormattedMessage {...messages["timeOut"]} />,
       options: {
-        filter: true,
+        customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "notes",
       label: <FormattedMessage {...messages["notes"]} />,
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
     },
 

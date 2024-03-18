@@ -142,7 +142,7 @@ function ResignTrxReport(props) {
       name: "note",
       label: intl.formatMessage(messages.note),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
     },
     {

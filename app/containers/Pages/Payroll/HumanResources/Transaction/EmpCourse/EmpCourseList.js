@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
-import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/EmpCourseData';
 import messages from '../../messages';
@@ -69,16 +68,10 @@ function EmpCourseList(props) {
     {
       name: 'startDate',
       label: intl.formatMessage(Payrollmessages.fromdate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'finishDate',
       label: intl.formatMessage(Payrollmessages.todate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'CourseCost',
@@ -87,6 +80,9 @@ function EmpCourseList(props) {
     {
       name: 'notes',
       label: intl.formatMessage(Payrollmessages.notes),
+      options: {
+        noWrap: true,
+      },
     },
   ];
 

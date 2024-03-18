@@ -136,7 +136,7 @@ function InsuranceNotifications(props) {
       name: "notes",
       label: intl.formatMessage(messages.notes),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
     },
     {

@@ -65,11 +65,17 @@ function RecHrTest(props) {
     {
       name: 'arDesc',
       label: intl.formatMessage(tableMessage.arDesc),
+      options: {
+        noWrap: true,
+      },
     },
 
     {
       name: 'enDesc',
       label: intl.formatMessage(tableMessage.enDesc),
+      options: {
+        noWrap: true,
+      },
     },
 
     {

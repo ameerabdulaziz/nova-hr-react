@@ -168,6 +168,9 @@ function ResignationReport(props) {
     {
       name: 'resignReasonName',
       label: intl.formatMessage(messages.reason),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
 
     {

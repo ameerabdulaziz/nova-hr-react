@@ -97,6 +97,9 @@ function StopInsurance(props) {
     {
       name: 'notes',
       label: intl.formatMessage(messages.notes),
+      options: {
+        noWrap: true,
+      },
     },
   ];
 

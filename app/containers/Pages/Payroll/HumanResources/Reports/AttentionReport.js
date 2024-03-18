@@ -11,9 +11,7 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { formateDate } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
-
 import { toast } from 'react-hot-toast';
 
 function AttentionReport(props) {
@@ -83,47 +81,20 @@ function AttentionReport(props) {
     {
       name: "attentionDate",
       label: intl.formatMessage(messages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "reason",
       label: intl.formatMessage(messages.reason),
       options: {
-        filter: true,
+        noWrap: true,
       },
     },
   ];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    selectableRows: "none",
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">

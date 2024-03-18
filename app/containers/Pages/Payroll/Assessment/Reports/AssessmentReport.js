@@ -166,7 +166,7 @@ function AssessmentReport(props) {
       name: "mgrStaffAllert", 
       label: intl.formatMessage(messages.NoteForEmployee),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : ''),
       },
     },
 
@@ -174,14 +174,14 @@ function AssessmentReport(props) {
       name: "mgrComment", 
       label: intl.formatMessage(messages.ManagerNote),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : ''),
       },
     },
     {
       name: "staffTrainingReq",
       label: intl.formatMessage(messages.EmployeeTrainingRequest),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : ''),
       },
     },
     {

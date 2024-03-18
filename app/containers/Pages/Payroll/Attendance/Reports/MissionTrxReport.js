@@ -136,6 +136,9 @@ function MissionTrxReport(props) {
     {
       name: "notes",
       label: intl.formatMessage(Payrollmessages.notes),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
     {
       name: "step",

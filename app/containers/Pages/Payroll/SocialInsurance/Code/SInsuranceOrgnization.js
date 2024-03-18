@@ -80,6 +80,9 @@ function SInsuranceOrgnization(props) {
     {
       name: 'address',
       label: intl.formatMessage(messages.address),
+      options: {
+        noWrap: true,
+      },
     },
     {
       name: 'owner',

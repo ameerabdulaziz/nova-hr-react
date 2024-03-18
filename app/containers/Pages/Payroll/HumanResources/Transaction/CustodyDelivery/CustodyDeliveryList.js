@@ -75,6 +75,9 @@ function CustodyDeliveryList(props) {
     {
       name: 'notes',
       label: intl.formatMessage(Payrollmessages.notes),
+      options: {
+        noWrap: true,
+      },
     },
     {
       name: 'itemSerial',

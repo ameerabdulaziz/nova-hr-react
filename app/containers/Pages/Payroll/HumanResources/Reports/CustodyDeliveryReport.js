@@ -114,45 +114,30 @@ function CustodyDeliveryReport(props) {
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: "custodyName",
       label: intl.formatMessage(messages.custodyName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "notes",
       label: intl.formatMessage(Payrollmessages.notes),
       options: {
-        filter: true,
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
     },
     {
       name: "custCount",
       label: intl.formatMessage(Payrollmessages.count),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "custodyPrice",
       label: intl.formatMessage(Payrollmessages.price),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "total",
       label: intl.formatMessage(Payrollmessages.total),
-      options: {
-        filter: true,
-      },
     },
   ];
 

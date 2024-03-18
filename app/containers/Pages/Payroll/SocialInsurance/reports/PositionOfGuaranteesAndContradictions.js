@@ -115,6 +115,9 @@ function PositionOfGuaranteesAndContradictions(props) {
     {
       name: 'srcNotes',
       label: intl.formatMessage(messages.hrNotes),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
     {
       name: 'c1inNo',

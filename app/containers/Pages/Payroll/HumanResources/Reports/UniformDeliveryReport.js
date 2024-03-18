@@ -18,7 +18,6 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import { formateDate } from "../../helpers";
-
 import { toast } from 'react-hot-toast';
 
 function UniformDeliveryReport(props) {
@@ -40,13 +39,6 @@ function UniformDeliveryReport(props) {
 
   const [DateError, setDateError] = useState({});
 
-
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
-  
-
   const handleSearch = async (e) => {
 
      // used to stop call api if user select wrong date
@@ -59,8 +51,8 @@ function UniformDeliveryReport(props) {
     try {
       setIsLoading(true);
       var formData = {
-        FromDate: dateFormatFun(searchData.FromDate),
-        ToDate: dateFormatFun(searchData.ToDate),
+        FromDate: formateDate(searchData.FromDate),
+        ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         UniformId: Uniform,
         TrxType: 1,
@@ -104,46 +96,30 @@ function UniformDeliveryReport(props) {
     {
       name: "date",
       label: intl.formatMessage(Payrollmessages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: "uniformName",
       label: intl.formatMessage(messages.uniformName),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "notes",
       label: intl.formatMessage(Payrollmessages.notes),
       options: {
-        filter: true,
+        noWrap: true,
       },
     },
     {
       name: "quantity",
       label: intl.formatMessage(Payrollmessages.count),
-      options: {
-        filter: true,
-      },
     },
     {
       name: "uniformPrice",
       label: intl.formatMessage(Payrollmessages.price),
-      options: {
-        filter: true,
-      },
     },
   ];
 

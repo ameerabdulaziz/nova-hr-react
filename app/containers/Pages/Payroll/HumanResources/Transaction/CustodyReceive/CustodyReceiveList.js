@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
-import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/CustodyTrxData';
 import messages from '../../messages';
@@ -60,10 +59,6 @@ function CustodyReceiveList(props) {
     {
       name: 'date',
       label: intl.formatMessage(Payrollmessages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'employeeName',
@@ -77,6 +72,9 @@ function CustodyReceiveList(props) {
     {
       name: 'notes',
       label: intl.formatMessage(Payrollmessages.notes),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
     {
       name: 'itemSerial',

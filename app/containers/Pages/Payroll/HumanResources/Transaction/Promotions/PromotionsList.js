@@ -87,6 +87,9 @@ function PromotionsList(props) {
     {
       name: 'reason',
       label: intl.formatMessage(messages.reason),
+      options: {
+        noWrap: true,
+      },
     },
   ];
 

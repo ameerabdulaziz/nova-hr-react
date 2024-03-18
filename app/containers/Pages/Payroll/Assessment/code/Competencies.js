@@ -62,11 +62,17 @@ function Competencies(props) {
     {
       name: 'enName',
       label: intl.formatMessage(messages.competencyName),
+      options: {
+        noWrap: true,
+      },
     },
 
     {
       name: 'arName',
       label: intl.formatMessage(messages.arCompetencyName),
+      options: {
+        noWrap: true,
+      },
     },
 
     {

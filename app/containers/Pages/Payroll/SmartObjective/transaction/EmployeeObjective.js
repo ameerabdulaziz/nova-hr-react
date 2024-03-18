@@ -138,11 +138,17 @@ function EmployeeObjective(props) {
     {
       name: 'comment',
       label: intl.formatMessage(messages.comment),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
 
     {
       name: 'employeeComment',
       label: intl.formatMessage(messages.employeeComment),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
   ];
 

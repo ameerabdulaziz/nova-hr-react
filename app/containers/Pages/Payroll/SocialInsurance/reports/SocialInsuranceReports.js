@@ -207,7 +207,9 @@ function SocialInsuranceReport(props) {
         setFormInfo((prev) => ({
           ...prev,
           MonthId: response.monthId,
+          MonthName: response.monthName,
           YearId: response.yearId,
+          YearName: response.yearName,
         }));
       }
     } catch (error) {

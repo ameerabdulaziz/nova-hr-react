@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
-import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/NewsData';
 
@@ -60,16 +59,10 @@ function NewsList(props) {
     {
       name: 'fromDate',
       label: intl.formatMessage(Payrollmessages.fromdate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'toDate',
       label: intl.formatMessage(Payrollmessages.todate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'header',
@@ -78,6 +71,9 @@ function NewsList(props) {
     {
       name: 'details',
       label: intl.formatMessage(Payrollmessages.details),
+      options: {
+        noWrap: true,
+      },
     },
     {
       name: 'newsTypeName',

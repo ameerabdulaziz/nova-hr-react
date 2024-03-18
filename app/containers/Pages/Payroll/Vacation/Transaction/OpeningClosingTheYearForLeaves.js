@@ -222,7 +222,7 @@ useEffect(() => {
                   <Grid item xs={12}  md={3} > 
                         <Autocomplete
                             id="ddlMenu"   
-                            isOptionEqualToValue={(option, value) => option.id === value.id}             
+                            isOptionEqualToValue={(option, value) => option?.id === value?.id}             
                             value={Organization}                    
                             options={OrganizationData.length != 0 ? OrganizationData: []}
                             getOptionLabel={(option) =>(
