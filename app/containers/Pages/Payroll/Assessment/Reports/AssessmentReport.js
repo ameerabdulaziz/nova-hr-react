@@ -6,7 +6,8 @@ import {
   Button,
   Grid,
   TextField,
-  Autocomplete
+  Autocomplete,
+  Checkbox
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -22,6 +23,8 @@ import  ExamQuestionsPrint  from '../../Component/ExamQuestionsPrint';
 import { useReactToPrint } from 'react-to-print';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import PayrollTable from "../../Component/PayrollTable";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 function AssessmentReport(props) {
   const { intl } = props;
@@ -55,13 +58,16 @@ function AssessmentReport(props) {
 
 
 
-
   const handleSearch = async (e) => {
     if(Year.length !== 0)
     {
         try {
         setIsLoading(true);
+
+        // const EmployeeIds = Employee.map(item => item.id).join(',')
+
         
+        // const dataApi = await ApiData(locale).GetDataById(Year.id,Department,EmployeeIds,Month);
         const dataApi = await ApiData(locale).GetDataById(Year.id,Department,Employee,Month);
 
         dataApi[0].SalfEvaluation = dataApi[0].employeeEvalChoice ? [dataApi[0].employeeEvalChoice," (",dataApi[0].employeeEval,"%",")"] : null
@@ -323,6 +329,52 @@ const printJS = useReactToPrint({
           )}
         />
       </Grid>
+
+      {/* ///// */}
+
+      {/* <Grid item xs={12} md={3}>
+                <Autocomplete
+                  options={EmployeeList.length != 0 ? EmployeeList: []}
+                  multiple
+                  disableCloseOnSelect
+                  className={`${style.AutocompleteMulSty} ${
+                    locale === 'ar' ? style.AutocompleteMulStyAR : null
+                  }`}
+                  isOptionEqualToValue={(option, value) => option.id === value.id
+                  }
+                  // value={reqDayNotAllow}
+                  renderOption={(optionProps, option, { selected }) => (
+                    <li {...optionProps} key={optionProps.id}>
+                      <Checkbox
+                        icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                        checkedIcon={<CheckBoxIcon fontSize='small' />}
+                        style={{ marginRight: 8 }}
+                        checked={selected}
+                      />
+                      {option.name}
+                    </li>
+                  )}
+                  getOptionLabel={(option) => (option ? option.name : '')}
+                  // onChange={(_, value) => setReqDayNotAllow(value)}
+                  onChange={(event, value) => {
+                    console.log("value =",value);
+                    if (value !== null) {
+                        setEmployee(value);
+                    } else {
+                        setEmployee("");
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      // label={intl.formatMessage(messages.reqDayNotAllow)}
+                      label={intl.formatMessage(messages.employeeName)}
+                    />
+                  )}
+                />
+              </Grid> */}
+
+      {/* ////// */}
 
       <Grid item xs={12} md={3}>
             

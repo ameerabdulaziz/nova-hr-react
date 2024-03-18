@@ -1,6 +1,5 @@
 
 const DecryptUrl = () => {
-    console.log("helooo444");
 
       // decode URL 
       let url = decodeURI(window.location.href)
