@@ -22,6 +22,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import DecryptUrl from "../../Component/DecryptUrl";
+import ContractTypeData from '../../MainData/api/ContractTypeData';
 
 function EmployeeContract(props) {
 
@@ -37,8 +38,8 @@ function EmployeeContract(props) {
   const [isKinship, setisKinship] = useState(false);
   const [notHasMission, setnotHasMission] = useState(false);
   const [hasAlternativeEmp, sethasAlternativeEmp] = useState(false);
-  const [contractStartDate, setcontractStartDate] = useState("");
-  const [contractEndDate, setcontractEndDate] = useState("");
+  const [contractStartDate, setcontractStartDate] = useState(null);
+  const [contractEndDate, setcontractEndDate] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const [hiringSourceId, sethiringSourceId] = useState("");
@@ -50,7 +51,7 @@ function EmployeeContract(props) {
   const [kinshipEmpId, setkinshipEmpId] = useState("");
   const [kinshipEmpList, setkinshipEmpList] = useState([]);
 
-  const [contractTypeId, setcontractTypeId] = useState("");
+  const [contractTypeId, setcontractTypeId] = useState(null);
   const [contractTypeList, setcontractTypeList] = useState([]);
 
   const [employeeList, setemployeeList] = useState([]);
@@ -78,7 +79,6 @@ function EmployeeContract(props) {
         return;
       }
 
-
     try {
       setIsLoading(true);
 
@@ -91,7 +91,7 @@ function EmployeeContract(props) {
         kinshipLinkId: kinshipLinkId.id ?? "",
         kinshipEmpId: kinshipEmpId.id ?? "",
         hasAlternativeEmp: hasAlternativeEmp,
-        contractTypeId: contractTypeId.id ?? "",
+        contractTypeId: contractTypeId?.id ?? "",
         contractStartDate: dateFormatFun(contractStartDate),
         contractEndDate: dateFormatFun(contractEndDate),
         notHasMission: notHasMission,
@@ -99,6 +99,7 @@ function EmployeeContract(props) {
 
 
       const dataApi = await EmployeeContractData(locale).Save(data);
+
       if (dataApi.status == 200) {
         if (id == 0) setid(dataApi.data.id);
         toast.success(notif.saved);
@@ -132,9 +133,9 @@ function EmployeeContract(props) {
     setkinshipLinkId("");
     setkinshipEmpId("");
     sethasAlternativeEmp(false);
-    setcontractTypeId("");
-    setcontractStartDate(dayjs());
-    setcontractEndDate(dayjs());
+    setcontractTypeId(null);
+    setcontractStartDate(null);
+    setcontractEndDate(null);
     setnotHasMission(false);
   };
   const GetLookup = useCallback(async () => {
@@ -155,7 +156,12 @@ function EmployeeContract(props) {
       const ContractTypedata = await GeneralListApis(
         locale
       ).GetContractTypeList();
-      setcontractTypeList(ContractTypedata || []);
+      // setcontractTypeList(ContractTypedata || []);
+
+      const ContractTypedata2 = await ContractTypeData(
+        locale
+      ).GetList();
+      setcontractTypeList(ContractTypedata2 || []);
 
       //  const kinshipEmpdata = await GeneralListApis(locale).GetEmployeeList();
     } catch (err) {
@@ -206,6 +212,30 @@ function EmployeeContract(props) {
     }
     fetchData();
   }, [employee]);
+
+
+  const contractStartDateFun = (date) => {
+    setcontractStartDate(date)
+
+    const startDate = new Date(date);
+
+    if(!contractTypeId)
+    {
+      startDate.setFullYear(startDate.getFullYear() + 1, startDate.getMonth() , startDate.getDate() - 1);
+
+      setcontractEndDate(startDate)
+    }
+
+    if(contractTypeId)
+    {
+      if(contractTypeId.contractPeriod !== 0)
+      {
+        startDate.setMonth( startDate.getMonth() + contractTypeId.contractPeriod , startDate.getDate() - 1);
+        setcontractEndDate(startDate)
+      }
+    }
+  }
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
@@ -276,7 +306,7 @@ function EmployeeContract(props) {
                   value={contractStartDate ? dayjs(contractStartDate) : contractStartDate}
                   className={classes.field}
                   onChange={(date) => {
-                    setcontractStartDate(date)
+                    contractStartDateFun(date)
                   }}
                   onError={(error,value)=>{
                     if(error !== null)
@@ -308,6 +338,7 @@ function EmployeeContract(props) {
                           onChange={(date) => {
                             setcontractEndDate(date)
                         }}
+                        disabled={contractTypeId && contractTypeId.contractPeriod !== 0 ? true : false}
                         onError={(error,value)=>{
                           if(error !== null)
                           {
@@ -334,7 +365,7 @@ function EmployeeContract(props) {
                 id="ddlcontractTypeId"
                 required
                 options={contractTypeList}
-                value={contractTypeId.length !== 0 ?{
+                value={contractTypeId?{
                   id: contractTypeId.id,
                   name: contractTypeId.name,
                 }: null}
@@ -343,10 +374,21 @@ function EmployeeContract(props) {
                 }
                 getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                  setcontractTypeId({
-                    id: value !== null ? value.id : 0,
-                    name: value !== null ? value.name : "",
-                  });
+                  if(value !== null)
+                  {
+                    setcontractTypeId({
+                      id: value.id,
+                      name: value.name ,
+                      contractPeriod: value.contractPeriod ,
+                    });
+                  }
+                  else
+                  {
+                    setcontractTypeId(null)
+                  }
+
+                  setcontractStartDate(null)
+                  setcontractEndDate(null)
                 }}
                 renderInput={(params) => (
                   <TextField
