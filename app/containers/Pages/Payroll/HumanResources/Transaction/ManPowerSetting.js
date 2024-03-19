@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { PapperBlock } from "enl-components";
 import css from "enl-styles/Table.scss";
 import {
@@ -12,7 +12,10 @@ import {
   TableCell,
   TableHead,
   TableRow,
-} from "@mui/material";
+  Box,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Payrollmessages from "../../messages";
 import messages from "../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
@@ -25,6 +28,9 @@ import GeneralListApis from "../../api/GeneralListApis";
 import NamePopup from "../../Component/NamePopup";
 import PayRollLoader from "../../Component/PayRollLoader";
 import OrganizationData from "../../MainData/api/OrganizationData";
+import { useReactToPrint } from 'react-to-print';
+import PrintableTable from "../components/ManPowerSetting/PrintableTable";
+import { formateDate } from "../../helpers";
 
 function ManPowerSetting(props) {
   const { intl } = props;
@@ -37,6 +43,29 @@ function ManPowerSetting(props) {
   const Title = localStorage.getItem("MenuName");
   const [totalIdealManPower, settotalIdealManPower] = useState("");
   const [isLoading, setIsLoading] = useState(true);  
+
+  const menuName = localStorage.getItem('MenuName');
+
+  const company = useSelector((state) => state.authReducer.companyInfo);
+  const printContainerRef = useRef(null);
+  const today = formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+
+  // Document title for printing & export
+  const documentTitle = `${menuName || 'Man Power Report'} ${today}`;
+
+  const printJS = useReactToPrint({
+    documentTitle,
+    content: () => printContainerRef?.current,
+    onBeforeGetContent: () => {
+      setIsLoading(true);
+    },
+    onAfterPrint: () => {
+      setIsLoading(false);
+    },
+    onPrintError: () => {
+      setIsLoading(false);
+    },
+  });
 
   const handleClose = useCallback(
     (data) => {
@@ -170,8 +199,59 @@ function ManPowerSetting(props) {
     GetorganizationList();
   }, []);
 
+  const onPrintBtnClick = () => {
+    printJS();
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
+      <Box
+        ref={printContainerRef}
+        sx={{
+          display: 'none',
+          pageBreakBefore: 'always',
+          direction: 'ltr',
+          '@media print': {
+            display: 'block',
+          },
+          'p.MuiTypography-root, .MuiTableCell-root': {
+            fontSize: '7px',
+            color: '#000',
+          },
+          '@page': {
+            margin: 4,
+          },
+          svg: {
+            fontSize: '0.7rem',
+          },
+        }}
+      >
+        <Stack
+          spacing={2}
+          direction='row'
+          justifyContent='space-between'
+          alignItems='center'
+          mb={2}
+        >
+          <Typography fontWeight='bold' variant='subtitle1'>
+            {menuName}
+          </Typography>
+
+          <img src={company?.logo} alt='' height={45} />
+        </Stack>
+
+        <Stack direction='row' alignItems='center' gap={1} mb={1} >
+          <Typography>{intl.formatMessage(messages.organization)} : </Typography>
+          <Typography fontWeight='bold'>{organizationList.find((x) => x.id === organization)?.name}</Typography>
+        </Stack>
+
+        <Stack direction='row' alignItems='center' gap={1} mb={2} >
+          <Typography>{intl.formatMessage(Payrollmessages.total)} : </Typography>
+          <Typography fontWeight='bold'>{totalIdealManPower}</Typography>
+        </Stack>
+
+        <PrintableTable rows={dataList}/>
+      </Box>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <NamePopup handleClose={handleClose} open={OpenPopup} Key="Job" />
         <div>
@@ -217,7 +297,7 @@ function ManPowerSetting(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item>
               <Button
                 variant="contained"
                 size="medium"
@@ -227,7 +307,7 @@ function ManPowerSetting(props) {
                 <FormattedMessage {...Payrollmessages.chooseJob} />
               </Button>
             </Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item>
               <Button
                 variant="contained"
                 size="medium"
@@ -235,6 +315,11 @@ function ManPowerSetting(props) {
                 onClick={on_submit}
               >
                 <FormattedMessage {...Payrollmessages.save} />
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" onClick={onPrintBtnClick} disabled={!organization} >
+                <FormattedMessage {...Payrollmessages.Print} />
               </Button>
             </Grid>
             <Grid item xs={12} md={12}>

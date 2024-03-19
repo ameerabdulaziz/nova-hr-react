@@ -1258,7 +1258,7 @@
   "boilerplate.containers.Payroll.HumanResources.settElemnt": "Settlement Element",
   "boilerplate.containers.Payroll.HumanResources.workingYears": "Working Years",
   "boilerplate.containers.Payroll.HumanResources.source": "Source",
-  "boilerplate.containers.Payroll.HumanResources.idealManPower": "idealManPower",
+  "boilerplate.containers.Payroll.HumanResources.idealManPower": "Ideal ManPower",
   "boilerplate.containers.Payroll.HumanResources.courseName": "Course Name",
   "boilerplate.containers.Payroll.HumanResources.EmpCourseCreateTitle": "Add Employee Course",
   "boilerplate.containers.Payroll.HumanResources.EmpCourseUpdateTitle": "Update Employee Course",
