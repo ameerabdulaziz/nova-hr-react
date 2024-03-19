@@ -24,33 +24,14 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import cvMessages from '../../cv-application/messages';
 import api from '../api/JobApplicationPreviewData';
 import { formateDate } from '../../helpers';
+import DecryptUrl from "../../Component/DecryptUrl";
 
 function JobApplicationPreview(props) {
 
- // decode URL 
- let url = decodeURI(window.location.href)
 
- const isValidJSON = (str) => {
-   try {
-     JSON.parse(str);
-     return true;
-   } catch (e) {
-     return false;
-   }
- };
-
- const isValidEncode = str => {
-   try {
-     atob(str)
-     return true;
-   } catch (e) {
-     return false;
-   }
- };
-
-  // get employee data from url
- const { id } =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : 0;
-
+// get employee data from url
+const  empid   = DecryptUrl()
+const id  = empid.id
 
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);

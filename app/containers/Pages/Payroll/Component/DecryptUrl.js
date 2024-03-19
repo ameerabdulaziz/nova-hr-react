@@ -24,7 +24,7 @@ const DecryptUrl = () => {
     
        // get employee data from url
       const {empid}  =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) : {empid:{id: 0, name: ""}};
-      
+
       return empid
 }
 
