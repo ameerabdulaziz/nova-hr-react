@@ -108,7 +108,7 @@ function WorkinLeavesDetailsReport(props) {
     },
     {
         name: "shiftDate",
-        label: intl.formatMessage(messages.AttendanceDate),
+        label: intl.formatMessage(messages.attendanceDate),
       },
     
   ];

@@ -94,7 +94,7 @@ function ManualAttendanceReport(props) {
       },
       {
         name: "shiftDate",
-        label: intl.formatMessage(messages.AttendanceDate),
+        label: intl.formatMessage(messages.attendanceDate),
       },
       {
         name: "shiftName",

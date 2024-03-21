@@ -163,7 +163,7 @@ function SwapShiftTrxCreate(props) {
             <Grid item xs={12} md={4}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label={intl.formatMessage(messages.AttendanceDate)}
+                  label={intl.formatMessage(messages.attendanceDate)}
                   minDate={dayjs()}
                   value={
                     formInfo.attendanceDate

@@ -60,7 +60,7 @@ function SwapShiftTrx(props) {
 
     {
       name: 'attendanceDate',
-      label: intl.formatMessage(messages.AttendanceDate),
+      label: intl.formatMessage(messages.attendanceDate),
     },
 
     {

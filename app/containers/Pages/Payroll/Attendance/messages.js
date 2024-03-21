@@ -873,7 +873,7 @@ includingEmployeesWithoutAttendanceRule: {
   defaultMessage: 'includingEmployeesWithoutAttendanceRule',
 },
 // OverTimeDetailsReport
-AttendanceDate: {
+attendanceDate: {
   id: `${scope}.AttendanceDate`,
   defaultMessage: 'Attendance Date',
 },
@@ -1974,6 +1974,10 @@ devicePass: {
   swapShift: {
     id: `${scope}.swapShift`,
     defaultMessage: 'swapShift',
+  },
+  swapShiftName: {
+    id: `${scope}.swapShiftName`,
+    defaultMessage: 'swapShiftName',
   },
   supervisor: {
     id: `${scope}.supervisor`,

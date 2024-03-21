@@ -185,7 +185,7 @@ function DetailedAttendanceReport(props) {
       },
       {
         name: "shiftDate",
-        label: intl.formatMessage(messages.AttendanceDate),
+        label: intl.formatMessage(messages.attendanceDate),
         options: {
           customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
           setCellProps: (value, rowIndex) => {

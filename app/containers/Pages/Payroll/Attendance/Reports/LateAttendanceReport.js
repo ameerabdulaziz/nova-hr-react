@@ -153,7 +153,7 @@ function LateAttendanceReport(props) {
         },
         {
           name: "shiftDate",
-          label: intl.formatMessage(messages.AttendanceDate),
+          label: intl.formatMessage(messages.attendanceDate),
         },
         {
           name: "timeIn",

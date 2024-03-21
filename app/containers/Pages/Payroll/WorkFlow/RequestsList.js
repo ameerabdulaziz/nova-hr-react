@@ -57,7 +57,7 @@ function RequestsList(props) {
       ? 5
       : location.pathname == "/app/Pages/Payroll/LoanApproval"
       ? 6
-      : location.pathname == "/app/Pages/Att/OvertimeApproval"
+      : location.pathname == "/app/Pages/Att/OvertimeApproval"  
       ? 7
       : location.pathname == "/app/Pages/HR/UniformApproval"
       ? 8
@@ -67,6 +67,8 @@ function RequestsList(props) {
       ? 9
       : location.pathname == "/app/Pages/HR/DocumentApproval"
       ? 10
+      : location.pathname == "/app/Pages/Att/ShiftSwapApproval"
+      ? 11
       : 0
   );
   const [fromdate, setfromate] = useState(null);
@@ -194,6 +196,8 @@ function RequestsList(props) {
         documentId = 9;
       else if (location.pathname == "/app/Pages/HR/DocumentApproval")
         documentId = 10;
+        else if (location.pathname == "/app/Pages/Att/ShiftSwapApproval")
+        documentId = 11;
       else documentId = 0;
 
       let Fromdate = dateFormatFun(fromdate);
@@ -226,7 +230,7 @@ function RequestsList(props) {
       ? cols.map((item) => ({
           name: item,
           label:
-            Document == 1 || Document == 2 || Document == 6 ? (
+            Document == 1 || Document == 2 || Document == 6 || Document ==11 ? (
               <FormattedMessage {...missionmessages[item]} />
             ) : Document == 4 ||
               Document == 5 ||
@@ -288,7 +292,7 @@ function RequestsList(props) {
                         handleOpenNotePoup(
                           tableMeta.rowData[0],
                           row.id,
-                          documentId == 10 ? tableMeta.rowData[3] : null
+                          Document == 10 ? tableMeta.rowData[3] : null
                         )
                       }
                     >

@@ -1274,6 +1274,7 @@
   "boilerplate.containers.Payroll.Attendance.status": "Status",
   "boilerplate.containers.Payroll.Attendance.step": "Step",
   "boilerplate.containers.Payroll.Attendance.swapShift": "Swap Shift",
+  "boilerplate.containers.Payroll.Attendance.swapShiftName": "Swap Shift",
   "boilerplate.containers.Payroll.Attendance.supervisor": "Supervisor",
   "boilerplate.containers.Payroll.Attendance.approvedEmp": "approved Employee",
 

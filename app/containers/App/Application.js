@@ -921,6 +921,7 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/LoanApproval' component={RequestsList} />
         <Route path='/app/Pages/HR/DocumentApproval' component={RequestsList} />
         <Route path='/app/Pages/Att/OvertimeApproval' component={RequestsList} />
+        <Route path='/app/Pages/Att/ShiftSwapApproval' component={RequestsList} />
         
         <Route
           path='/app/Pages/Att/PermissionTrxCreate'
