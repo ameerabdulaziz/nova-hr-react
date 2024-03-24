@@ -25,7 +25,7 @@ function StepsList(props) {
     
     setdataList(
       dataList.map((x) => {
-        if (x.id == Selectedid) {
+        if (x.formId == Selectedid) {
             x.stepsEmployeeList = stepsemployeeList.filter((row) => row.isSelected==true);
             x.stepsJobList = stepsjobList.filter((row) => row.isSelected==true);
         }
@@ -35,9 +35,9 @@ function StepsList(props) {
     setOpenPopup(false);
   }
   const handleOpenPopUp = (event, row) => {
-    
-    setSelectedid(row.id);
-    var rowEmployeeList = dataList.find((x) => x.id==row.id).stepsEmployeeList ; 
+    debugger ;
+    setSelectedid(row.formId);
+    var rowEmployeeList = dataList.find((x) => x.formId==row.formId).stepsEmployeeList ; 
     if(rowEmployeeList !=null && rowEmployeeList!==undefined)
     {
       if(Object.hasOwn(rowEmployeeList, 'isSelected'))
@@ -54,7 +54,7 @@ function StepsList(props) {
    else
       setstepsemployeeList([]);  
 
-    var rowJobList =dataList.find((x) => x.id==row.id).stepsJobList;
+    var rowJobList =dataList.find((x) => x.formId==row.formId).stepsJobList;
     if(rowJobList !=null && rowJobList!==undefined)
     {
       if(Object.hasOwn(rowJobList, 'isSelected'))
