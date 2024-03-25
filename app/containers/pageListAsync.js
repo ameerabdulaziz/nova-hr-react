@@ -959,6 +959,13 @@ export const HrEmployeeDocumentTrxList = loadable(
   }
 );
 
+export const ManPowerReport = loadable(
+  () => import('./Pages/Payroll/HumanResources/Reports/ManPowerReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Attendance /////////////////////////////////////////////////////////////////////////////////
 
 export const PermissionTrxList = loadable(

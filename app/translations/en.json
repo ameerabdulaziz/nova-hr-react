@@ -1267,6 +1267,12 @@
   "boilerplate.containers.Payroll.HumanResources.gradeName": "Grade Name",
   "boilerplate.containers.Payroll.HumanResources.centerName": "Center Name",
 
+  "boilerplate.containers.Payroll.HumanResources.OrganizationUnit": "Organization Unit",
+  "boilerplate.containers.Payroll.HumanResources.planedManPower": "Planed ManPower",
+  "boilerplate.containers.Payroll.HumanResources.vacancies": "Vacancies",
+  "boilerplate.containers.Payroll.HumanResources.percent": "Percent",
+  "boilerplate.containers.Payroll.HumanResources.actualManPower": "Actual ManPower",
+
   
   "boilerplate.containers.Payroll.Attendance.missionId": "Mission Id",
   "boilerplate.containers.Payroll.Attendance.executionId": "Id",

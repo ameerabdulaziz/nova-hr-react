@@ -402,5 +402,26 @@ centerName: {
   id: `${scope}.centerName`,
   defaultMessage: 'centerName',
 },
+//  ManPowerReport
+OrganizationUnit: {
+  id: `${scope}.OrganizationUnit`,
+  defaultMessage: 'Organization Unit',
+},
+planedManPower: {
+  id: `${scope}.planedManPower`,
+  defaultMessage: 'Planed ManPower',
+},
+vacancies: {
+  id: `${scope}.vacancies`,
+  defaultMessage: 'Vacancies',
+},
+percent: {
+  id: `${scope}.percent`,
+  defaultMessage: 'Percent',
+},
+actualManPower: {
+  id: `${scope}.actualManPower`,
+  defaultMessage: 'Actual ManPower',
+},
 
 });

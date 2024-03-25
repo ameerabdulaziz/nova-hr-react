@@ -24,7 +24,9 @@ function Search(props) {
     notShowStatus,
     DateError,
     setDateError,
-    requireEmployee
+    requireEmployee,
+    notShowEmployeeName,
+    BranchIdRequired
   } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -141,6 +143,7 @@ function Search(props) {
               <TextField
                 {...params}
                 label={intl.formatMessage(Payrollmessages.company)}
+                required={BranchIdRequired ? BranchIdRequired : false}
               />
             )}
           />
@@ -179,6 +182,9 @@ function Search(props) {
             )}
           />
         </Grid>
+        {notShowEmployeeName ? ( 
+          "" 
+        ) : (
         <Grid item xs={12} md={3}>
           <Autocomplete
             id="employeeId"
@@ -208,6 +214,8 @@ function Search(props) {
             )}
           />
         </Grid>
+        )}
+
         {notShowStatus ? (
           ""
         ) : (

@@ -432,6 +432,7 @@ import {
   ObjectiveReport,
   EmployeeObjective,
   EmployeeObjectiveCreate,
+  ManPowerReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -904,6 +905,11 @@ function Application(props) {
         <Route
           path='/app/Pages/HR/HrEmployeeDocumentTrx'
           component={HrEmployeeDocumentTrxList}
+        />
+
+        <Route
+          path='/app/Pages/HR/ManPowerReport'
+          component={ManPowerReport}
         />
 
         {/* Attendance */}
