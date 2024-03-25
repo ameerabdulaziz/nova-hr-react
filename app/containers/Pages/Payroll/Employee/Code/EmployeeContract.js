@@ -153,15 +153,11 @@ function EmployeeContract(props) {
         locale
       ).GetkinshipLinkList();
       setkinshipLinkList(kinshipLinkdata || []);
-      const ContractTypedata = await GeneralListApis(
-        locale
-      ).GetContractTypeList();
-      // setcontractTypeList(ContractTypedata || []);
 
-      const ContractTypedata2 = await ContractTypeData(
+      const ContractTypedata = await ContractTypeData(
         locale
       ).GetList();
-      setcontractTypeList(ContractTypedata2 || []);
+      setcontractTypeList(ContractTypedata || []);
 
       //  const kinshipEmpdata = await GeneralListApis(locale).GetEmployeeList();
     } catch (err) {
@@ -367,18 +363,24 @@ function EmployeeContract(props) {
                 options={contractTypeList}
                 value={contractTypeId?{
                   id: contractTypeId.id,
-                  name: contractTypeId.name,
+                  ...(locale === "en" ? {
+                    enName: contractTypeId.name
+                  } : {
+                    name: contractTypeId.name
+                  })
                 }: null}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
+                getOptionLabel={(option) => (
+                  option ? locale === "en" ? option.enName : option.name : ""
+                  )}
                 onChange={(event, value) => {
                   if(value !== null)
                   {
                     setcontractTypeId({
                       id: value.id,
-                      name: value.name ,
+                      name: locale === "en" ?  value.enName  : value.name ,
                       contractPeriod: value.contractPeriod ,
                     });
                   }

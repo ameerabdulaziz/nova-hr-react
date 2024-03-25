@@ -9,7 +9,7 @@ const ContractTypeData = () => {
     const finaldata = result.map((obj) => ({
       id: obj.id,
       name: obj.arName,
-      EnName: obj.enName,
+      enName: obj.enName,
       contractPeriod: obj.contractPeriod,
       edited: false,
     }));
