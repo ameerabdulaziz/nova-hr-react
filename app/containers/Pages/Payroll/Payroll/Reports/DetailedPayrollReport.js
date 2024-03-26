@@ -269,10 +269,17 @@ function DetailedPayrollReport(props) {
               },
             });
           }
+          else
+            {
+              var filterdobj = staticColumns.filter(
+                (i) => i.name == key
+              );
+              newColumns.push(filterdobj[0]);
+            }
         });
       }
-
-      setColumns([...staticColumns, ...newColumns]);
+debugger ;
+      setColumns(newColumns);
     } catch (error) {
       //
     } finally {
