@@ -39,7 +39,7 @@ function AssessmentReport(props) {
   const [DepartmentList, setDepartmentList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
   const [YearList, setYearList] = useState([]);
-  const [Employee, setEmployee] = useState("");
+  const [Employee, setEmployee] = useState([]);
   const [Department, setDepartment] = useState("");
   const [Month, setMonth] = useState("");
   const [Year, setYear] = useState("");
@@ -64,11 +64,10 @@ function AssessmentReport(props) {
         try {
         setIsLoading(true);
 
-        // const EmployeeIds = Employee.map(item => item.id).join(',')
+        const EmployeeIds = Employee.map(item => item.id).join(',')
 
         
-        // const dataApi = await ApiData(locale).GetDataById(Year.id,Department,EmployeeIds,Month);
-        const dataApi = await ApiData(locale).GetDataById(Year.id,Department,Employee,Month);
+        const dataApi = await ApiData(locale).GetDataById(Year.id,Department,EmployeeIds,Month);
 
         dataApi[0].SalfEvaluation = dataApi[0].employeeEvalChoice ? [dataApi[0].employeeEvalChoice," (",dataApi[0].employeeEval,"%",")"] : null
         dataApi[0].ManagerEvaluation = dataApi[0].mgrEvalChoice ? [dataApi[0].mgrEvalChoice," (",dataApi[0].mgrEval,"%",")"] : null
@@ -293,46 +292,7 @@ const printJS = useReactToPrint({
         
         <Grid container spacing={2}>
 
-          <Grid item xs={12} md={3}>
-            
-            <Autocomplete
-            id="ddlMenu"   
-            isOptionEqualToValue={(option, value) => option.id === value.id}                      
-            options={EmployeeList.length != 0 ? EmployeeList: []}
-            getOptionLabel={(option) =>(
-                option  ? option.name : ""
-            )
-            }
-            renderOption={(props, option) => {
-                return (
-                <li {...props} key={option.id}>
-                    {option.name}
-                </li>
-                );
-            }}
-            onChange={(event, value) => {
-                if (value !== null) {
-                    setEmployee(value.id);
-                } else {
-                    setEmployee("");
-                }
-            }}
-            renderInput={(params) => (
-            <TextField
-                {...params}
-                name="VacationType"
-                label={intl.formatMessage(messages.employeeName)}
-                margin="normal" 
-                className={style.fieldsSty}
-                
-                />
-          )}
-        />
-      </Grid>
-
-      {/* ///// */}
-
-      {/* <Grid item xs={12} md={3}>
+      <Grid item xs={12} md={3}>
                 <Autocomplete
                   options={EmployeeList.length != 0 ? EmployeeList: []}
                   multiple
@@ -372,7 +332,7 @@ const printJS = useReactToPrint({
                     />
                   )}
                 />
-              </Grid> */}
+              </Grid>
 
       {/* ////// */}
 

@@ -1293,6 +1293,12 @@
   "boilerplate.containers.Payroll.HumanResources.address": "العنوان",
   "boilerplate.containers.Payroll.HumanResources.mobileNumber": "رقم الهاتف",
   "boilerplate.containers.Payroll.HumanResources.personalEmail": "البريد الإلكتروني الشخصي",
+
+  "boilerplate.containers.Payroll.HumanResources.OrganizationUnit": "الاداره",
+  "boilerplate.containers.Payroll.HumanResources.planedManPower": "قوة العمالة المخططة",
+  "boilerplate.containers.Payroll.HumanResources.vacancies": "الوظائف الشاغرة  + / -",
+  "boilerplate.containers.Payroll.HumanResources.percent": "النسبة المئوية",
+  "boilerplate.containers.Payroll.HumanResources.actualManPower": "عدد العاملين",
   
   "boilerplate.containers.Payroll.Attendance.missionId": "كود المأمورية",
   "boilerplate.containers.Payroll.Attendance.executionId": "الكود",

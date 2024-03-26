@@ -47,7 +47,7 @@ function PrintableTable(props) {
       </TableHead>
 
       <TableBody>
-        {rows.map((row, index) => (
+        {rows.filter(item => item?.header !== true).map((row, index) => (
           <TableRow key={index} sx={{ pageBreakInside: 'avoid' }} >
             <StyledTableCell component='th' scope='row' sx={{ height: '22px' }} align='center'>
               <pre style={{ margin: 0 }}>{index + 1}</pre>
@@ -65,7 +65,7 @@ function PrintableTable(props) {
                   scope='row'
                   align='center'
                 >
-                  {col?.options?.customBodyRender
+                  {col?.options?.customBodyRender && !Boolean(col?.options?.noFormatOnPrint)
                     ? col?.options?.customBodyRender(row[col.name])
                     : row[col.name]}
                 </StyledTableCell>

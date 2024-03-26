@@ -311,7 +311,7 @@ function PayrollTable(props) {
     );
 
     // Table data base on visible columns
-    const sheetData = filterData.map((row) => {
+    const sheetData = filterData.filter(item => item?.header !== true).map((row) => {
       const rowData = {};
 
       cols.forEach((col) => {
@@ -459,7 +459,19 @@ function PayrollTable(props) {
         },
       },
       // Add arabic unicode for excel
-      onDownload: (buildHead, buildBody, cols, rows) => '\uFEFF' + buildHead(cols) + buildBody(rows),
+      onDownload: (buildHead, buildBody, cols, rows) => {
+        console.log(cols, rows, filterData);
+        const realRows = []
+
+        filterData.forEach((item, index) =>{
+          if(item?.header !== true){
+            realRows.push(rows[index])
+          }
+        })
+
+        console.log(realRows);
+        return '\uFEFF' + buildHead(cols) + buildBody(realRows);
+      },
       ...options,
       // Save filtered rows for export & print
       onFilterChange: (
