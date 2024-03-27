@@ -403,9 +403,9 @@ centerName: {
   defaultMessage: 'centerName',
 },
 //  ManPowerReport
-OrganizationUnit: {
-  id: `${scope}.OrganizationUnit`,
-  defaultMessage: 'Organization Unit',
+departmentName: {
+  id: `${scope}.departmentName`,
+  defaultMessage: 'Department',
 },
 planedManPower: {
   id: `${scope}.planedManPower`,

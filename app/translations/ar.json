@@ -1294,7 +1294,7 @@
   "boilerplate.containers.Payroll.HumanResources.mobileNumber": "رقم الهاتف",
   "boilerplate.containers.Payroll.HumanResources.personalEmail": "البريد الإلكتروني الشخصي",
 
-  "boilerplate.containers.Payroll.HumanResources.OrganizationUnit": "الاداره",
+  "boilerplate.containers.Payroll.HumanResources.departmentName": "الاداره",
   "boilerplate.containers.Payroll.HumanResources.planedManPower": "قوة العمالة المخططة",
   "boilerplate.containers.Payroll.HumanResources.vacancies": "الوظائف الشاغرة  + / -",
   "boilerplate.containers.Payroll.HumanResources.percent": "النسبة المئوية",
@@ -3156,5 +3156,7 @@
   "boilerplate.containers.Payroll.SmartObjective.department": "القسم",
   "boilerplate.containers.Payroll.SmartObjective.averageExecutionOfObjective": "التنفيذ المتوسط للهدف",
   "boilerplate.containers.Payroll.SmartObjective.totalWeight": "اجمالى الاهداف",
-  "boilerplate.containers.Payroll.SmartObjective.totalScore": "النتيجة الإجمالية"
+  "boilerplate.containers.Payroll.SmartObjective.totalScore": "النتيجة الإجمالية",
+
+  "boilerplate.containers.Payroll.KPI.uploadErrorMess": "لم يتم حفظ هذه البيانات بسبب عدم اكتمالها"
 }
