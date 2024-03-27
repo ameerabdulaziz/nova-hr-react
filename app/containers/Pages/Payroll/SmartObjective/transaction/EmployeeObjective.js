@@ -1,7 +1,5 @@
 import {
-  Autocomplete,
-  Button,
-  Grid, TextField
+  Autocomplete, Button, Grid, TextField
 } from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
@@ -10,12 +8,12 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
+import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
-// import api from '../api/EmployeeObjectiveData';
-import PayRollLoader from '../../Component/PayRollLoader';
-import Search from '../../Component/Search';
+import api from '../api/EmployeeObjectiveData';
 import messages from '../messages';
 
 function EmployeeObjective(props) {
@@ -23,6 +21,10 @@ function EmployeeObjective(props) {
   const title = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
+  const authState = useSelector((state) => state.authReducer);
+  const { isHR, isManagement } = authState.user;
+
+  const isNormalEmployee = !isHR && !isManagement;
 
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -37,12 +39,12 @@ function EmployeeObjective(props) {
     monthId: null,
   });
 
-  const fetchTableData = async (id = 0) => {
+  const fetchTableData = async () => {
     setIsLoading(true);
 
     try {
-      // const response = await api(locale).getList(id);
-      // setTableData(response);
+      const response = await api(locale).getList(formInfo);
+      setTableData(response);
     } catch (error) {
       //
     } finally {
@@ -74,11 +76,11 @@ function EmployeeObjective(props) {
   const deleteRow = async (id) => {
     try {
       setIsLoading(true);
-      // await api(locale).delete(id);
+      await api(locale).delete(id);
 
       toast.success(notif.saved);
 
-      fetchTableData(employee.id);
+      fetchTableData();
     } catch (error) {
       //
     } finally {
@@ -106,7 +108,7 @@ function EmployeeObjective(props) {
     },
 
     {
-      name: 'objective',
+      name: 'objectiveDescription',
       label: intl.formatMessage(messages.objective),
     },
 
@@ -121,7 +123,7 @@ function EmployeeObjective(props) {
     },
 
     {
-      name: 'achieved',
+      name: 'execution',
       label: intl.formatMessage(messages.achieved),
     },
 
@@ -136,18 +138,30 @@ function EmployeeObjective(props) {
     },
 
     {
-      name: 'comment',
+      name: 'evalNotes',
       label: intl.formatMessage(messages.comment),
       options: {
-        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+        customBodyRender: (value) => (value ? (
+          <div style={{ maxWidth: '200px', width: 'max-content' }}>
+            {value}
+          </div>
+        ) : (
+          ''
+        )),
       },
     },
 
     {
-      name: 'employeeComment',
+      name: 'staffComment',
       label: intl.formatMessage(messages.employeeComment),
       options: {
-        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+        customBodyRender: (value) => (value ? (
+          <div style={{ maxWidth: '200px', width: 'max-content' }}>
+            {value}
+          </div>
+        ) : (
+          ''
+        )),
       },
     },
   ];
@@ -155,6 +169,7 @@ function EmployeeObjective(props) {
   const actions = {
     add: {
       url: '/app/Pages/SmartObjective/EmployeeObjectiveCreate',
+      disabled: isNormalEmployee,
     },
     edit: {
       url: '/app/Pages/SmartObjective/EmployeeObjectiveEdit',
@@ -167,7 +182,7 @@ function EmployeeObjective(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    console.log(formInfo);
+    fetchTableData();
   };
 
   return (
@@ -181,17 +196,13 @@ function EmployeeObjective(props) {
                 searchData={formInfo}
                 setIsLoading={setIsLoading}
                 notShowDate
-                requireEmployee
               />
             </Grid>
 
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={yearList}
-                value={getAutoCompleteValue(
-                  yearList,
-                  formInfo.yearId
-                )}
+                value={getAutoCompleteValue(yearList, formInfo.yearId)}
                 onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -202,7 +213,6 @@ function EmployeeObjective(props) {
                 )}
                 renderInput={(params) => (
                   <TextField
-                    required
                     {...params}
                     label={intl.formatMessage(payrollMessages.year)}
                   />
@@ -213,10 +223,7 @@ function EmployeeObjective(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={monthsList}
-                value={getAutoCompleteValue(
-                  monthsList,
-                  formInfo.monthId
-                )}
+                value={getAutoCompleteValue(monthsList, formInfo.monthId)}
                 onChange={(_, value) => onAutoCompleteChange(value, 'monthId')}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderOption={(propsOption, option) => (
@@ -227,7 +234,6 @@ function EmployeeObjective(props) {
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderInput={(params) => (
                   <TextField
-                    required
                     {...params}
                     label={intl.formatMessage(payrollMessages.month)}
                   />
