@@ -46,6 +46,7 @@ function Login() {
         Dispatcher(loginSuccess());
 
         localStorage.setItem("Token", res.data.token);
+        localStorage.setItem("IsStaticDashboard", res.data.isStaticDashboard);
         let user = {
           id: res.data.id,
           email: res.data.email,

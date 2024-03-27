@@ -11,6 +11,30 @@ const dashboardData = (locale) => {
     return data.data;
   };
 
+  api.getAgeDemographics = async () => {
+    const data = await axiosInstance.get(
+      `Dashboard/GetAgeDemographics`
+    );
+
+    return data.data;
+  };
+
+  api.getGenderRatio = async () => {
+    const data = await axiosInstance.get(
+      `Dashboard/GetGenderRatio`
+    );
+
+    return data.data;
+  };
+
+  api.getEmpWithBestAtt = async () => {
+    const data = await axiosInstance.get(
+      `Dashboard/GetEmpWithBestAtt`
+    );
+
+    return data.data;
+  };
+
   return api;
 };
 
