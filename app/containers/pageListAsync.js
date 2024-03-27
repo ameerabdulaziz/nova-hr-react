@@ -498,13 +498,6 @@ export const EditOrganization = loadable(
   }
 );
 
-export const UploadFileWithKPI = loadable(
-  () => import('./Pages/Payroll/KPI/UploadFileWithKPI'),
-  {
-    fallback: <Loading />,
-  }
-);
-
 export const UploadEmployeeData = loadable(
   () => import('./Pages/Payroll/MainData/Code/UploadEmployeeData'),
   {
@@ -2643,6 +2636,23 @@ export const EmployeeObjectiveCreate = loadable(
 
 export const ObjectiveReport = loadable(
   () => import('./Pages/Payroll/SmartObjective/reports/ObjectiveReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+/// KPI ///////////////////////
+
+export const UploadFileWithKPI = loadable(
+  () => import('./Pages/Payroll/KPI/UploadFileWithKPI'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const KpiData = loadable(
+  () => import('./Pages/Payroll/KPI/KpiData'),
   {
     fallback: <Loading />,
   }

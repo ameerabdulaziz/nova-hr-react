@@ -52,7 +52,10 @@ axiosInstance.interceptors.response.use(
       {
         if(!Object.keys(ErrorMessages).includes(error.response.data))
         {
-          toast.error(error.response.data);
+          if(typeof error.response.data !== "object")
+          {
+            toast.error(error.response.data);
+          }
         }
       }
       else toast.error("Internal Server Error");

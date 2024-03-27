@@ -91,12 +91,12 @@ function EmployeeStatusReport(props) {
 
     {
       name: 'fromDate',
-      label: intl.formatMessage(vacationMessages.fromdate),
+      label: intl.formatMessage(vacationMessages.fromDate),
     },
 
     {
       name: 'toDate',
-      label: intl.formatMessage(vacationMessages.todate),
+      label: intl.formatMessage(vacationMessages.toDate),
     },
 
     {

@@ -92,7 +92,7 @@ const columns = [
 
     {
       name: 'departmentName',
-      label: intl.formatMessage(messages.OrganizationUnit),
+      label: intl.formatMessage(messages.departmentName),
       options: {
         noFormatOnPrint:true,
         filter: false,

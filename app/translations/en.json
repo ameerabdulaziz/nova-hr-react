@@ -1267,7 +1267,7 @@
   "boilerplate.containers.Payroll.HumanResources.gradeName": "Grade Name",
   "boilerplate.containers.Payroll.HumanResources.centerName": "Center Name",
 
-  "boilerplate.containers.Payroll.HumanResources.OrganizationUnit": "Organization Unit",
+  "boilerplate.containers.Payroll.HumanResources.departmentName": "Department",
   "boilerplate.containers.Payroll.HumanResources.planedManPower": "Planed ManPower",
   "boilerplate.containers.Payroll.HumanResources.vacancies": "Vacancies",
   "boilerplate.containers.Payroll.HumanResources.percent": "Percent",
@@ -3109,5 +3109,7 @@
   "boilerplate.containers.Payroll.SmartObjective.department": "Department",
   "boilerplate.containers.Payroll.SmartObjective.averageExecutionOfObjective": "Average Execution Of Objective",
   "boilerplate.containers.Payroll.SmartObjective.totalWeight": "Total Weight",
-  "boilerplate.containers.Payroll.SmartObjective.totalScore": "Total Score"
+  "boilerplate.containers.Payroll.SmartObjective.totalScore": "Total Score",
+
+  "boilerplate.containers.Payroll.KPI.uploadErrorMess": "This data has not been preserved due to incompleteness"
 }

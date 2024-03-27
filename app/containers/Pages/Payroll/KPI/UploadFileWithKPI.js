@@ -10,10 +10,8 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import useStyles from "../Style";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import classes2 from "../../../../styles/styles.scss";
-
 import { read, utils, writeFile } from "xlsx";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -22,15 +20,17 @@ import PayrollTable from "../Component/PayrollTable";
 import GeneralListApis from '../api/GeneralListApis';
 import Payrollmessages from "../messages";
 import { ServerURL } from "../api/ServerConfig";
+import api from './api/KPI_API_Data';
+import { toast } from "react-hot-toast";
+import notif from 'enl-api/ui/notifMessage';
+import messages from './messages';
 
 function ImportFileWithKPI({ intl }) {
-  const title = brand.name + " - Job";
+  const title = brand.name + " - KPI";
   const description = brand.desc;
   const { classes, cx } = useStyles();
   const smUp = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const locale = useSelector((state) => state.language.locale);
-  const history = useHistory();
-  const [search, setsearch] = useState("");
   const [cols, setCols] = useState("");
   const [kpiTypeList, setkpiTypeList] = useState([])
   const [kpiType, setKpiType] = useState();
@@ -38,8 +38,8 @@ function ImportFileWithKPI({ intl }) {
   const [fileData, setFileData] = useState([]);
   const [fileTitle, setFileTitle] = useState("");
   const [file, setFile] = useState("");
-  const [upload, setUpload] = useState("");
   const [processing, setprocessing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   let columns = [];
 
@@ -54,19 +54,6 @@ function ImportFileWithKPI({ intl }) {
         }))
       : [];
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 15, 50, 100],
-    selectableRows: "none",
-    page: 0,
-    selectableRowsHeader: false,
-  };
-
-  //////////////////
-
   const handleImport = ($event) => {
     const files = $event.target.files;
     if (files.length) {
@@ -80,8 +67,9 @@ function ImportFileWithKPI({ intl }) {
           const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
             raw: false,
           });
-          setFileData(rows);
-
+          // add id to each row before sent it to API
+          const newRows = rows.map(row => ({...row, id: 0}))
+          setFileData(newRows);
           rows.map((item) => setCols(Object.keys(item)));
         }
       };
@@ -98,18 +86,60 @@ function ImportFileWithKPI({ intl }) {
     setKpiType()
   };
 
-  const submitFun = () => {
-    kpiTypeList.map((val) => {
-      if (comboBoxVal === val.id) {
-        console.log("Data =", [{ type: val.name, data: fileData }]);
+  const submitFun = async () => {
+
+    let URL 
+
+    if(kpiType.id === 1)
+    {
+      URL = "KpiAbsenteeism"
+    }
+
+    if(kpiType.id === 2)
+    {
+      URL = "KpiAht"
+    }
+
+    if(kpiType.id === 3)
+    {
+      URL = "KpiCsat"
+    }
+
+    if(kpiType.id === 4)
+    {
+      URL = "KpiIc"
+    }
+
+    if(kpiType.id === 5)
+    {
+      URL = "KpiQa"
+    }
+
+    if(kpiType.id === 6)
+    {
+      URL = "KpiUtilization"
+    }
+
+    try {
+      await api(locale).Save(URL, fileData);
+      toast.success(notif.saved);
+      resetDataFun()
+    } catch (error) {
+      //
+      if(error.response.data && !error.response.data.status)
+      {
+        toast.error(intl.formatMessage(messages.uploadErrorMess));
+        setFileData(error.response.data)
       }
-    });
+    } finally {
+      setIsLoading(false);
+    }
+
+
   };
 
-
-
     const  kpiTypeFun = async () => {
-    // setIsLoading(true);
+    setIsLoading(true); 
 
     try {
       const kpiTypeData = await GeneralListApis(locale).GetKpiTypeList();
@@ -117,7 +147,7 @@ function ImportFileWithKPI({ intl }) {
     } catch (error) {
       //
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -173,8 +203,10 @@ function ImportFileWithKPI({ intl }) {
                     onChange={(event, value) => {
                       if (value !== null) {
                         setKpiType(value);
+                        setFileData([])
                       } else {
                         setKpiType("");
+                        setFileData([])
                       }
                     }}
                     renderInput={(params) => (
@@ -286,7 +318,7 @@ function ImportFileWithKPI({ intl }) {
           </Toolbar>
 
           {fileData.length !== 0 && (
-            <div className={classes.CustomMUIDataTable}>
+            <div className={classes.CustomMUIDataTable} style={{marginTop: "40px"}}>
               <PayrollTable
               title={fileTitle}
               data={fileData}
