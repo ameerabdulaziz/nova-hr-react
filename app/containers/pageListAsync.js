@@ -2657,3 +2657,17 @@ export const KpiData = loadable(
     fallback: <Loading />,
   }
 );
+
+export const KPI_LOB_Report = loadable(
+  () => import('./Pages/Payroll/KPI/Reports/KPI_LOB_Report'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const KPI_SupervisorReport = loadable(
+  () => import('./Pages/Payroll/KPI/Reports/KPI_SupervisorReport'),
+  {
+    fallback: <Loading />,
+  }
+);

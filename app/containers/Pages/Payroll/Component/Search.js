@@ -2,9 +2,7 @@ import React, { memo, useState, useEffect, useCallback } from "react";
 import Payrollmessages from "../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import useStyles from "../Style";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../api/GeneralListApis";
 import { useSelector } from "react-redux";
 import { Grid, TextField, Autocomplete } from "@mui/material";
@@ -26,7 +24,9 @@ function Search(props) {
     setDateError,
     requireEmployee,
     notShowEmployeeName,
-    BranchIdRequired
+    BranchIdRequired,
+    notShowOrganization,
+    notShowCompany
   } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -124,6 +124,9 @@ function Search(props) {
   return (
     <div>
       <Grid container spacing={2} alignItems="flex-start" direction="row">
+      {notShowCompany ? (
+        ""
+        ) : (
         <Grid item xs={12} md={3}>
           <Autocomplete
             options={companyList}
@@ -148,7 +151,11 @@ function Search(props) {
             )}
           />
         </Grid>
+        )}
 
+      {notShowOrganization ? (
+        ""
+        ) : (
         <Grid item xs={12} md={3}>
           <Autocomplete
             id="organizationId"
@@ -182,6 +189,8 @@ function Search(props) {
             )}
           />
         </Grid>
+        )}
+
         {notShowEmployeeName ? ( 
           "" 
         ) : (
@@ -257,22 +266,6 @@ function Search(props) {
         {notShowDate ? (
           ""
         ) : (
-          // <Grid item xs={12} md={2}>
-          //   <LocalizationProvider dateAdapter={AdapterMoment}>
-          //     <DesktopDatePicker
-          //       label={intl.formatMessage(Payrollmessages.fromdate)}
-          //       value={searchData.FromDate}
-          //       onChange={(date) => {
-          //         handleChange("fromDate", date);
-          //       }}
-          //       className={classes.field}
-          //       renderInput={(params) => (
-          //         <TextField {...params} variant="outlined" />
-          //       )}
-          //     />
-          //   </LocalizationProvider>
-          // </Grid>
-
           <Grid item xs={12} md={2}> 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
@@ -305,22 +298,6 @@ function Search(props) {
         {notShowDate ? (
           ""
         ) : (
-          // <Grid item xs={12} md={2}>
-          //   <LocalizationProvider dateAdapter={AdapterMoment}>
-          //     <DesktopDatePicker
-          //       label={intl.formatMessage(Payrollmessages.todate)}
-          //       value={searchData.ToDate}
-          //       onChange={(date) => {
-          //         handleChange("toDate", date);
-          //       }}
-          //       className={classes.field}
-          //       renderInput={(params) => (
-          //         <TextField {...params} variant="outlined" />
-          //       )}
-          //     />
-          //   </LocalizationProvider>
-          // </Grid>
-
           <Grid item xs={12} md={2}> 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
