@@ -1063,7 +1063,8 @@
   
   "boilerplate.components.Widgets.PerformanceChartWidget.rewards": "Rewards",
   "boilerplate.components.Widgets.PerformanceChartWidget.penalty": "Penalty",
-  "boilerplate.components.Widgets.noNotification": "No Notifications",  
+  "boilerplate.components.Widgets.noNotification": "No Notifications",
+  "boilerplate.components.Widgets.noData": "No Data",     
   "boilerplate.components.Widgets.PerformanceChartWidget.notification1": "Notifications",  
   "boilerplate.components.Widgets.PerformanceChartWidget.orgchar": "Organization Level Demographics",
   "boilerplate.components.Widgets.PerformanceChartWidget.marital": "Marital Status Demographics",  

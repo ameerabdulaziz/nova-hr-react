@@ -16,6 +16,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import "enl-styles/vendors/rechart/styles.css";
 import Check from "@mui/icons-material/CheckCircle";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
+import Box from '@mui/material/Box';
 import {
   ComposedChart,
   Line,
@@ -36,11 +37,21 @@ import HikingSharpIcon from "@mui/icons-material/HikingSharp";
 import HotTubSharpIcon from "@mui/icons-material/HotTubSharp";
 import PayRollLoader from "../../Component/PayRollLoader";
 import api from "../api";
+import Stack from '@mui/material/Stack';
+import NotificationsActive from '@mui/icons-material/NotificationsActive';
 
 function PerformanceChartWidget(props) {
   const { intl } = props;
   const { classes, cx } = useStyles();
   const [attendance, setaAttendance] = useState([]);
+  const [barData, setBarData] = useState({
+    vacation: 0,
+    overTime: 0,
+    permissions: 0,
+    missions: 0,
+    penalty: 0,
+    rewards: 0,
+  });
   const [dataPerformance, setDataPerformance] = useState([
     {
       name: "22-Down",
@@ -100,6 +111,9 @@ function PerformanceChartWidget(props) {
 
         const data2 = await api(locale).getEmpWithBestAtt();
         setaAttendance(data2);
+
+        const data3 = await api(locale).getBarData();
+        if (data3.length > 0) setBarData(data3[0]);
       }
     } catch (error) {
     } finally {
@@ -121,7 +135,7 @@ function PerformanceChartWidget(props) {
                   <HomeSharpIcon />
                 </Avatar>
                 <Typography variant="h6">
-                  <span className={classes.orangeText}>40</span>
+                  <span className={classes.orangeText}>{barData.vacation}</span>
                   <Typography noWrap>
                     <FormattedMessage {...messages.Vacations} />
                   </Typography>
@@ -132,7 +146,7 @@ function PerformanceChartWidget(props) {
                   <HotTubSharpIcon />
                 </Avatar>
                 <Typography variant="h6">
-                  <span className={classes.indigoText}>125</span>
+                  <span className={classes.indigoText}>{barData.overTime}</span>
                   <Typography noWrap>
                     <FormattedMessage {...messages.Overtime} />
                   </Typography>
@@ -143,7 +157,7 @@ function PerformanceChartWidget(props) {
                   <HikingSharpIcon />
                 </Avatar>
                 <Typography variant="h6">
-                  <span className={classes.blueText}>17</span>
+                  <span className={classes.blueText}>{barData.missions}</span>
                   <Typography noWrap>
                     <FormattedMessage {...messages.Mession} />
                   </Typography>
@@ -154,7 +168,9 @@ function PerformanceChartWidget(props) {
                   <HistoryToggleOffSharpIcon />
                 </Avatar>
                 <Typography variant="h6">
-                  <span className={classes.purpleText}>18</span>
+                  <span className={classes.purpleText}>
+                    {barData.permissions}
+                  </span>
                   <Typography noWrap>
                     <FormattedMessage {...messages.Permission} />
                   </Typography>
@@ -165,7 +181,7 @@ function PerformanceChartWidget(props) {
                   <AddCard />
                 </Avatar>
                 <Typography variant="h6">
-                  <span className={classes.tealText}>8</span>
+                  <span className={classes.tealText}>{barData.rewards}</span>
                   <Typography noWrap>
                     <FormattedMessage {...messages.rewards} />
                   </Typography>
@@ -176,7 +192,7 @@ function PerformanceChartWidget(props) {
                   <CreditCardOffIcon />
                 </Avatar>
                 <Typography variant="h6">
-                  <span className={classes.pinkText}>5</span>
+                  <span className={classes.pinkText}>{barData.penalty}</span>
                   <Typography noWrap>
                     <FormattedMessage {...messages.penalty} />
                   </Typography>
@@ -233,41 +249,60 @@ function PerformanceChartWidget(props) {
                 <Divider className={classes.divider} />
 
                 <div className={classes.divnotification}>
-                  <List>
-                    {attendance.map((item, index) => (
-                      <Fragment>
-                        <ListItem>
-                          <ListItemAvatar>
-                            <Avatar
-                              className={cx(
-                                classes.avatar,
-                                classes.purpleAvatar
-                              )}
-                            >
-                              <Check />
-                            </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText primary={item.name} />
+                  {attendance.length > 0 ? (
+                    <List>
+                      {attendance.map((item, index) => (
+                        <Fragment>
+                          <ListItem>
+                            <ListItemAvatar>
+                              <Avatar
+                                className={cx(
+                                  classes.avatar,
+                                  classes.purpleAvatar
+                                )}
+                              >
+                                <Check />
+                              </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={item.name} />
 
-                          <ListItemText
-                            primary={item.percentage}
-                            className={
-                              locale == "en"
-                                ? cx(classes.textRight)
-                                : cx(classes.textLeft)
-                            }
-                          />
-                        </ListItem>
-                        <li className={cx(classes.paddingProgress)}>
-                          <LinearProgress
-                            variant="determinate"
-                            className={cx(classes.blueProgress)}
-                            value={90}
-                          />
-                        </li>
-                      </Fragment>
-                    ))}
-                  </List>
+                            <ListItemText
+                              primary={item.percentage}
+                              className={
+                                locale == "en"
+                                  ? cx(classes.textRight)
+                                  : cx(classes.textLeft)
+                              }
+                            />
+                          </ListItem>
+                          <li className={cx(classes.paddingProgress)}>
+                            <LinearProgress
+                              variant="determinate"
+                              className={cx(classes.blueProgress)}
+                              value={90}
+                            />
+                          </li>
+                        </Fragment>
+                      ))}
+                    </List>
+                  ) : (
+                    <Stack
+                      direction="row"
+                      sx={{ minHeight: "376px" }}
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                    >
+                      <Box>
+                        <NotificationsActive
+                          sx={{ color: "#a7acb2", fontSize: 30 }}
+                        />
+                        <Typography color="#a7acb2" variant="body1">
+                          <FormattedMessage {...messages.noData} />
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  )}
                 </div>
               </Grid>
             </Grid>

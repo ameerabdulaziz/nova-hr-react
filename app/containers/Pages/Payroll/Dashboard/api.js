@@ -1,4 +1,4 @@
-import axiosInstance from '../api/axios';
+import axiosInstance from "../api/axios";
 
 const dashboardData = (locale) => {
   const api = {};
@@ -12,26 +12,24 @@ const dashboardData = (locale) => {
   };
 
   api.getAgeDemographics = async () => {
-    const data = await axiosInstance.get(
-      `Dashboard/GetAgeDemographics`
-    );
+    const data = await axiosInstance.get(`Dashboard/GetAgeDemographics`);
 
     return data.data;
   };
 
   api.getGenderRatio = async () => {
-    const data = await axiosInstance.get(
-      `Dashboard/GetGenderRatio`
-    );
-
+    const data = await axiosInstance.get(`Dashboard/GetGenderRatio`);
     return data.data;
   };
 
   api.getEmpWithBestAtt = async () => {
-    const data = await axiosInstance.get(
-      `Dashboard/GetEmpWithBestAtt`
-    );
+    const data = await axiosInstance.get(`Dashboard/GetEmpWithBestAtt`);
 
+    return data.data;
+  };
+
+  api.getBarData = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetBarData`);
     return data.data;
   };
 

@@ -474,4 +474,8 @@ export default defineMessages({
     id: `${scope}.noNotification`,
     defaultMessage: 'noNotification',
   },
+  noData: {
+    id: `${scope}.noData`,
+    defaultMessage: 'noData',
+  },
 });
