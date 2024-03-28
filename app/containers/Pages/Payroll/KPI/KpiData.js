@@ -41,7 +41,7 @@ function KpiData(props) {
   let mainColumns = [
     {
       name: 'employeeName',
-      label: 'Employee',
+      label: 'Employee Name',
     },
     {
       name: 'teamLeader',

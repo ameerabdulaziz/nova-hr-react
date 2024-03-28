@@ -434,6 +434,8 @@ import {
   EmployeeObjectiveCreate,
   ManPowerReport,
   KpiData,
+  KPI_LOB_Report,
+  KPI_SupervisorReport
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2086,6 +2088,16 @@ function Application(props) {
         <Route
           path='/app/Pages/KPI/KpiData'
           component={KpiData}
+        />
+
+        <Route
+          path='/app/Pages/KPI/KPILOBReport'
+          component={KPI_LOB_Report}
+        />
+
+        <Route
+          path='/app/Pages/KPI/KPISupervisorReport'
+          component={KPI_SupervisorReport}
         />
 
         {/* Default */}
