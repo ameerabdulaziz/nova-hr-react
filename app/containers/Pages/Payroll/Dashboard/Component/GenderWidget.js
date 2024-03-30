@@ -65,7 +65,7 @@ function GenderWidget(props) {
 
   const getGenderRatio = async () => {
     try {
-      debugger;
+      
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
         const data = await api(locale).getGenderRatio();

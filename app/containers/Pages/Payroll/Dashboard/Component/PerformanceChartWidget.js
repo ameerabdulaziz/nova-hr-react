@@ -101,9 +101,9 @@ function PerformanceChartWidget(props) {
   const [isLoading, setIsLoading] = useState(false);
   const IsStaticDashboard = localStorage.getItem("IsStaticDashboard");
 
-  const getAgeDemographics = async () => {
+  const getdata = async () => {
     try {
-      debugger;
+      
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
         const data = await api(locale).getAgeDemographics();
@@ -122,7 +122,7 @@ function PerformanceChartWidget(props) {
   };
 
   useEffect(() => {
-    getAgeDemographics();
+    getdata();
   }, []);
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -279,7 +279,7 @@ function PerformanceChartWidget(props) {
                             <LinearProgress
                               variant="determinate"
                               className={cx(classes.blueProgress)}
-                              value={90}
+                              value={item.percentage}
                             />
                           </li>
                         </Fragment>

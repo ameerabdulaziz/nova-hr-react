@@ -33,6 +33,35 @@ const dashboardData = (locale) => {
     return data.data;
   };
 
+  api.getNationalty = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetNationalty/${locale}`);
+    return data.data;
+  };
+
+  api.getServicePeriod = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetServicePeriod`);
+    return data.data;
+  };
+  api.getMainBarData = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMainBarData`);
+    return data.data;
+  };
+  api.getSocialStatus = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetSocialStatus/${locale}`);
+    return data.data;
+  };
+  api.getEmpWithHighestAbscence = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetEmpWithHighestAbscence/${locale}`);
+    return data.data;
+  };
+  api.getOrgLevel = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOrgLevel`);
+    return data.data;
+  };
+
+
+  
+
   return api;
 };
 

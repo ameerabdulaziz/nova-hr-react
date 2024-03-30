@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
-import NotificationsActive from "@mui/icons-material/NotificationsActive";
-
+import React, { useEffect, useState } from "react";
+import PayRollLoader from "../../Component/PayRollLoader";
+import api from "../api";
+import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import { injectIntl, FormattedMessage } from "react-intl";
 import messages from "./messages";
@@ -30,36 +31,7 @@ import {
 } from "@mui/material/colors";
 import useStyles from "./fluidChart-jss";
 
-export const data2 = [
-  {
-    name: "Year1",
-    count: 2400,
-  },
-  {
-    name: "Year2",
-    count: 1398,
-  },
-  {
-    name: "Year3",
-    count: 9800,
-  },
-  {
-    name: "Year4",
-    count: 3908,
-  },
-  {
-    name: "Year5",
-    count: 4800,
-  },
-  {
-    name: "Year6",
-    count: 3800,
-  },
-  {
-    name: "Year7",
-    count: 4300,
-  },
-];
+
 
 const colors = [
   red[500],
@@ -112,8 +84,60 @@ TriangleBar.defaultProps = {
 function ServicePeriodWidget(props) {
   const { intl } = props;
   const { classes } = useStyles();
+  const [data2,setData2] = useState([
+    {
+      name: "Year1",
+      count: 2400,
+    },
+    {
+      name: "Year2",
+      count: 1398,
+    },
+    {
+      name: "Year3",
+      count: 9800,
+    },
+    {
+      name: "Year4",
+      count: 3908,
+    },
+    {
+      name: "Year5",
+      count: 4800,
+    },
+    {
+      name: "Year6",
+      count: 3800,
+    },
+    {
+      name: "Year7",
+      count: 4300,
+    },
+  ]);
+  const locale = useSelector((state) => state.language.locale);
+  const [isLoading, setIsLoading] = useState(false);
+  const IsStaticDashboard = localStorage.getItem("IsStaticDashboard");
+  
+  const getServicePeriod = async () => {
+    try {
+      
+      if (IsStaticDashboard == "false") {
+        setIsLoading(true);
 
+        const data = await api(locale).getServicePeriod();
+        setData2(data);
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getServicePeriod();
+  }, []);
   return (
+    <PayRollLoader isLoading={isLoading}>
     <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
       <div>
         <Typography className={classes.smallTitle} variant="button">
@@ -164,6 +188,7 @@ function ServicePeriodWidget(props) {
         </div>
       </div>
     </PapperBlock>
+    </PayRollLoader>
   );
 }
 
