@@ -33,49 +33,85 @@ const StyledTableCell = styled(TableCell)(() => ({
 const DepartmentTableWithoutIntl = (props) => {
   const { departmentList, intl } = props;
 
-  return <Table size='small' sx={{ my: 0 }}>
-    <TableHead>
-      <StyledTableThRow>
-        <StyledTableThCell>{intl.formatMessage(messages.department)}</StyledTableThCell>
-        <StyledTableThCell>{intl.formatMessage(messages.status)}</StyledTableThCell>
-        <StyledTableThCell>{intl.formatMessage(messages.comment)}</StyledTableThCell>
-      </StyledTableThRow>
-    </TableHead>
+  return (
+    <Table
+      size='small'
+      sx={{
+        my: 0,
+        'p.MuiTypography-root, .MuiTableCell-root': {
+          color: '#000',
+        },
+      }}
+    >
+      <TableHead>
+        <StyledTableThRow>
+          <StyledTableThCell>
+            {intl.formatMessage(messages.department)}
+          </StyledTableThCell>
+          <StyledTableThCell>
+            {intl.formatMessage(messages.status)}
+          </StyledTableThCell>
+          <StyledTableThCell>
+            {intl.formatMessage(messages.comment)}
+          </StyledTableThCell>
+        </StyledTableThRow>
+      </TableHead>
 
-    <TableBody>
-      {departmentList.map((row, index) => (
-        <TableRow key={index}>
-          <StyledTableCell sx={{ height: '22px' }}>{row.departmentName}</StyledTableCell>
-          <StyledTableCell>{row.status}</StyledTableCell>
-          <StyledTableCell>{row.comment}</StyledTableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>;
+      <TableBody>
+        {departmentList.map((row, index) => (
+          <TableRow key={index}>
+            <StyledTableCell sx={{ height: '22px' }}>
+              {row.departmentName}
+            </StyledTableCell>
+            <StyledTableCell>{row.status}</StyledTableCell>
+            <StyledTableCell>{row.comment}</StyledTableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
 };
 
 const CustodyTableWithoutIntl = (props) => {
   const { custodyList, intl } = props;
 
-  return <Table size='small' sx={{ my: 0 }}>
-    <TableHead>
-      <StyledTableThRow>
-        <StyledTableThCell>{intl.formatMessage(messages.custodyName)}</StyledTableThCell>
-        <StyledTableThCell>{intl.formatMessage(messages.receiver)}</StyledTableThCell>
-        <StyledTableThCell>{intl.formatMessage(messages.status)}</StyledTableThCell>
-      </StyledTableThRow>
-    </TableHead>
+  return (
+    <Table
+      size='small'
+      sx={{
+        my: 0,
+        'p.MuiTypography-root, .MuiTableCell-root': {
+          color: '#000',
+        },
+      }}
+    >
+      <TableHead>
+        <StyledTableThRow>
+          <StyledTableThCell>
+            {intl.formatMessage(messages.custodyName)}
+          </StyledTableThCell>
+          <StyledTableThCell>
+            {intl.formatMessage(messages.receiver)}
+          </StyledTableThCell>
+          <StyledTableThCell>
+            {intl.formatMessage(messages.status)}
+          </StyledTableThCell>
+        </StyledTableThRow>
+      </TableHead>
 
-    <TableBody>
-      {custodyList.map((row, index) => (
-        <TableRow key={index}>
-          <StyledTableCell sx={{ height: '22px' }}>{row.custodyName}</StyledTableCell>
-          <StyledTableCell>{row.reciever}</StyledTableCell>
-          <StyledTableCell>{row.status}</StyledTableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>;
+      <TableBody>
+        {custodyList.map((row, index) => (
+          <TableRow key={index}>
+            <StyledTableCell sx={{ height: '22px' }}>
+              {row.custodyName}
+            </StyledTableCell>
+            <StyledTableCell>{row.reciever}</StyledTableCell>
+            <StyledTableCell>{row.status}</StyledTableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
 };
 
 const DepartmentTable = injectIntl(DepartmentTableWithoutIntl);
@@ -95,8 +131,11 @@ function PrintableRow(props) {
 
     const replaceOptions = {
       replace(domNode) {
-        if (custodyList.length === 0 && domNode.type === 'text'
-        && domNode.data === '@CustodyList@') {
+        if (
+          custodyList.length === 0
+          && domNode.type === 'text'
+          && domNode.data === '@CustodyList@'
+        ) {
           return <></>;
         }
 
@@ -108,8 +147,11 @@ function PrintableRow(props) {
           return <CustodyTable custodyList={custodyList} />;
         }
 
-        if (departmentList.length === 0 && domNode.type === 'text'
-        && domNode.data === '@EvacuationList@') {
+        if (
+          departmentList.length === 0
+          && domNode.type === 'text'
+          && domNode.data === '@EvacuationList@'
+        ) {
           return <></>;
         }
 
