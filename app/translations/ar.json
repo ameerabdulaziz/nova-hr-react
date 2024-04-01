@@ -3146,6 +3146,10 @@
   "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "يجب عليك اختيار السنة",
   "boilerplate.containers.Payroll.assessment.AssessmentReport": "تقرير التقييم",
 
+  "boilerplate.containers.Payroll.assessment.totalDegree": "الدرجة (%)",
+  "boilerplate.containers.Payroll.assessment.evaluatedEmployee": "الموظف المقيم",
+  "boilerplate.containers.Payroll.assessment.Appraisal": "التقييم",
+
   "boilerplate.containers.Payroll.SmartObjective.objective": "الهدف",
   "boilerplate.containers.Payroll.SmartObjective.measurementTool": "أداة القياس",
   "boilerplate.containers.Payroll.SmartObjective.dueDate": "تاريخ الاستحقاق",
