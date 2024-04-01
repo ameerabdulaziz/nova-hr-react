@@ -735,6 +735,10 @@ export default defineMessages({
     id: `${scope}.mobile`,
     defaultMessage: 'mobile',
   },
+  workMobile: {
+    id: `${scope}.workMobile`,
+    defaultMessage: 'workMobile',
+  },
   telephone: {
     id: `${scope}.telephone`,
     defaultMessage: 'telephone',

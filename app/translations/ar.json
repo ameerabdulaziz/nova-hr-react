@@ -2362,6 +2362,7 @@
   "boilerplate.containers.Payroll.Employee.usernameAlreadyExist": "اسم المستخدم موجود بالفعل",
   "boilerplate.containers.Payroll.Employee.userName": "اسم المستخدم",
   "boilerplate.containers.Payroll.Employee.telephone": "رقم التلفون",
+  "boilerplate.containers.Payroll.Employee.workMobile": "رقم الهاتف للعمل",
   "boilerplate.containers.Payroll.Employee.RelativesName": "اسم القريب",
   "boilerplate.containers.Payroll.Employee.youMustChooseAnEmployee": "يجب اختيار موظف",
   "boilerplate.containers.Payroll.Employee.vacationReport": "تقرير الإجازات",

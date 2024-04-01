@@ -2294,6 +2294,7 @@
   "boilerplate.containers.Payroll.Employee.pleaseFillAllRequiredFields": "Please fill all required fields",
   "boilerplate.containers.Payroll.Employee.pleaseMakeSureInsuredFieldsHasInsuranceDate": "Please make sure insured fields have insurance date",
   "boilerplate.containers.Payroll.Employee.uploadFile": "Upload",
+  "boilerplate.containers.Payroll.Employee.workMobile": "Work Mobile",
   "boilerplate.containers.Payroll.Employee.userName": "Username",
   "boilerplate.containers.Payroll.Employee.youMustChooseAnEmployee": "You must choose an employee",
   "boilerplate.containers.Payroll.Employee.vacationReport": "Vacation Report",
