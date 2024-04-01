@@ -435,7 +435,8 @@ import {
   ManPowerReport,
   KpiData,
   KPI_LOB_Report,
-  KPI_SupervisorReport
+  KPI_SupervisorReport,
+  PeerAppraisalList
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2069,6 +2070,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/PeerAppraisalSetting'
           component={PeerAppraisalSetting}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/PeerAppraisalList'
+          component={PeerAppraisalList}
         />
 
         {/* SmartObjective */}

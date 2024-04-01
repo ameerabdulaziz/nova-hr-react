@@ -3098,6 +3098,10 @@
   "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "You must to choose year",
   "boilerplate.containers.Payroll.assessment.AssessmentReport": "Assessment Report",
 
+  "boilerplate.containers.Payroll.assessment.totalDegree": "Grade (%)",
+  "boilerplate.containers.Payroll.assessment.evaluatedEmployee": "Evaluated Employee",
+  "boilerplate.containers.Payroll.assessment.Appraisal": "Appraisal",
+
 
   "boilerplate.containers.Payroll.SmartObjective.objective": "Objective",
   "boilerplate.containers.Payroll.SmartObjective.measurementTool": "Measurement Tool",
