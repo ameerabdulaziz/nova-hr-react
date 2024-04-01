@@ -107,7 +107,7 @@ function LeaveTrxCreate(props) {
       setFormInfo((prev) => ({
         ...prev,
         employeeId: empid.id,
-        trxDate: empid.shiftDate,
+        trxDate: empid.shiftDate ?? new Date(),
         fromDate: empid.shiftDate,
         toDate: empid.shiftDate,
       }));
@@ -242,7 +242,7 @@ function LeaveTrxCreate(props) {
 
       trxDate: formateDate(formInfo.trxDate),
       fromDate: formateDate(formInfo.fromDate),
-      toDate: formateDate(formInfo.toDate),
+      // toDate: formateDate(formInfo.toDate),
       daysCount: formInfo.daysCount,
       dayDeducedBy: formInfo.dayDeducedBy,
       tel: formInfo.tel,
@@ -257,6 +257,8 @@ function LeaveTrxCreate(props) {
     };
 
     if (formInfo.vacCode !== 5) {
+      formData.toDate = formateDate(formInfo.toDate);
+
       if (formInfo.fromDate && formInfo.toDate) {
         const isFromDateLessThanToDate =
           new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
