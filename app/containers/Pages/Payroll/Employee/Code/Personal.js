@@ -43,7 +43,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import DecryptUrl from "../../Component/DecryptUrl";
-import { extractBirthDayFromIdentityNumber } from "../../helpers";
+import { extractBirthDayFromIdentityNumber, validateEmail } from "../../helpers";
 
 function Personal(props) {
   const history = useHistory();
@@ -301,7 +301,7 @@ function Personal(props) {
 
   useEffect(() => {
     if (workEmail) {
-      if (checkEmployeeWorkEmail) {
+      if (checkEmployeeWorkEmail && validateEmail(workEmail)) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeWorkEmail(workEmail);
           if (id === 0 && userName === '') {
@@ -962,7 +962,6 @@ function Personal(props) {
                     id="identityNumber"
                     name="identityNumber"
                     value={identityNumber}
-                    type="number"
                     onChange={(e) => setidentityNumber(e.target.value)}
                     label={intl.formatMessage(messages.identitynumber)}
                     className={classes.field}

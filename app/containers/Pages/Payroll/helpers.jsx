@@ -101,17 +101,17 @@ function uuid() {
   const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
   return (
     S4()
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + S4()
-    + S4()
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ S4()
+		+ S4()
   );
 }
 
@@ -144,7 +144,10 @@ function extractBirthDayFromIdentityNumber(identityNumber = '') {
 
     if (date.isValid()) {
       // set is between 16 & 80 year old
-      if (dayjs().diff(date, 'year') >= 16 && dayjs().diff(date, 'year') <= 80) {
+      if (
+        dayjs().diff(date, 'year') >= 16
+				&& dayjs().diff(date, 'year') <= 80
+      ) {
         return date;
       }
     }
@@ -153,7 +156,19 @@ function extractBirthDayFromIdentityNumber(identityNumber = '') {
   return null;
 }
 
+/**
+ * Validates if an email address is in a correct format.
+ *
+ * @param {string} email - The email address to be validated.
+ * @return {boolean} Returns true if the email address is valid, false otherwise.
+ */
+function validateEmail(email) {
+  return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    email
+  );
+}
+
 export {
-  formatNumber, formateDate, getCheckboxIcon, getFormData, uuid, toArabicDigits,
-  extractBirthDayFromIdentityNumber,
+  extractBirthDayFromIdentityNumber, formateDate, formatNumber, getCheckboxIcon,
+  getFormData, toArabicDigits, uuid, validateEmail
 };
