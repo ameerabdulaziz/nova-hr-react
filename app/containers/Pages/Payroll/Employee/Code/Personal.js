@@ -43,7 +43,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import DecryptUrl from "../../Component/DecryptUrl";
-import { extractBirthDayFromIdentityNumber, validateEmail } from "../../helpers";
+import { extractBirthDayFromIdentityNumber, formateDate, validateEmail } from "../../helpers";
 
 function Personal(props) {
   const history = useHistory();
@@ -927,7 +927,7 @@ function Personal(props) {
                         expiredPeriod : value !== null ? value.expiredPeriod : 0,
                       });
                       if (identityIssuingDate && value && value?.expiredPeriod !== 0) {
-                        const expireDate = moment(identityIssuingDate).add(value?.expiredPeriod ?? 0, 'y');
+                        const expireDate = moment(formateDate(identityIssuingDate)).add(value?.expiredPeriod ?? 0, 'y');
 
                         setidentityExpiry(expireDate.format('YYYY-MM-DD'));
                       }
@@ -987,8 +987,7 @@ function Personal(props) {
                             if (identityTypeId?.expiredPeriod && identityTypeId?.expiredPeriod !== 0) {
                               if(date)
                               {
-                                const expireDate = moment(date).add(identityTypeId?.expiredPeriod ?? 0, 'y');
-  
+                                const expireDate = moment(formateDate(date)).add(identityTypeId?.expiredPeriod ?? 0, 'y');
                                 setidentityExpiry(expireDate.format('YYYY-MM-DD'));
                               }
                               else
