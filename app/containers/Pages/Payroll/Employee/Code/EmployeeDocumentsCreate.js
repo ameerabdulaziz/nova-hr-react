@@ -115,9 +115,16 @@ function CreateAndEditEmployeeDocuments(props) {
         notes: note.length !== 0 ? note : "",
         Image:
           uploadedFile && uploadedFile instanceof File ? uploadedFile : null,
-        inDate,
-        outDate,
       };
+
+      if (inDate) {
+        data.inDate = dateFormatFun(inDate);
+      }
+
+      if (outDate) {
+        data.outDate = dateFormatFun(outDate);
+      }
+
       let response = await EmployeeDocumentsData().Save(data);
 
       if (response.status == 200) {
@@ -137,7 +144,7 @@ function CreateAndEditEmployeeDocuments(props) {
   const getdata = async () => {
     try {
       const documentsData = await GeneralListApis(locale).GetDocumentTypeList();
-      const employees = await GeneralListApis(locale).GetEmployeeList(locale);
+      const employees = await GeneralListApis(locale).GetEmployeeList();
 
       setDocumentsList(documentsData);
       setEmployeeName(
