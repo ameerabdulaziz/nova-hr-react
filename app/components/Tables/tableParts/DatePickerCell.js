@@ -61,6 +61,7 @@ function DatePickerCell(props) {
             onChange={(date) => {
               handleDateChange(date)
           }}
+          sx={{width: '100%'}}
           onError={(error,value)=>{
             if(error !== null)
             {

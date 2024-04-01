@@ -29,6 +29,7 @@ function SelectableCell(props) {
         id={cellData.id.toString()}
         className={clsx(css.crudInput, cellData.disabled ? css.crudInputId : null, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
         value={cellData.value}
+        sx={{width: '100%'}}
         onChange={handleChange}
         displayEmpty
         disabled={cellData.disabled ? true : !edited}

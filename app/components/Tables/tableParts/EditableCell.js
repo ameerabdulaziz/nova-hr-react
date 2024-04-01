@@ -31,6 +31,7 @@ function EditableCell(props) {
             name={cellData.type}
             className={clsx(css.crudInput , inputType === "static" || cellData.disabled ? css.crudInputId : null, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
             // className={clsx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
+            sx={{width: '100%'}}
             id={cellData.id.toString()}
             value={cellData.value}
             onChange={(event) => handleUpdate(event)}
