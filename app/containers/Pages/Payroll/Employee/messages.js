@@ -837,4 +837,16 @@ export default defineMessages({
     id: `${scope}.inDate`,
     defaultMessage: 'inDate',
   },
+  allData: {
+    id: `${scope}.allData`,
+    defaultMessage: 'allData',
+  },
+  someData: {
+    id: `${scope}.someData`,
+    defaultMessage: 'someData',
+  },
+  field: {
+    id: `${scope}.field`,
+    defaultMessage: 'field',
+  },
 });

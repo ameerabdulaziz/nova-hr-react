@@ -2376,6 +2376,9 @@
   "boilerplate.containers.Payroll.Employee.reportingTo": "التبليغ إلى",
   "boilerplate.containers.Payroll.Employee.phone": "الهاتف",
   "boilerplate.containers.Payroll.Employee.vacation": "الإجازة",
+  "boilerplate.containers.Payroll.Employee.allData": "كل البيانات",
+  "boilerplate.containers.Payroll.Employee.someData": "بعض البيانات",
+  "boilerplate.containers.Payroll.Employee.field": "البيان",
   "boilerplate.containers.Payroll.Employee.absent": "الغياب",
   "boilerplate.containers.Payroll.Employee.statusInfo": "معلومات الحالة",
 

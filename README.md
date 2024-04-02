@@ -63,6 +63,7 @@ npm run start:prod
 - [ ] Add Print column to payroll table
 - [ ] **Recruitment** - add pdf download instead of open in new tab
 - [ ] update docs & add apiUrl change way
+- [ ] Integrate **ImportEmployeeData** with api for some-data update
 
 ## Docs 📖
 
