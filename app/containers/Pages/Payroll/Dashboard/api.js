@@ -90,6 +90,15 @@ const dashboardData = (locale) => {
     const data = await axiosInstance.get(`Dashboard/GetGenderSalary/${locale}`);
     return data.data;
   };
+  api.getMonthlyPyarollData = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyPyarollData`);
+    return data.data;
+  };
+  api.getPyarollData = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetPyarollData`);
+    return data.data;
+  };
+  
   
 
   
