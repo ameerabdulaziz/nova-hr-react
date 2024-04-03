@@ -13,7 +13,7 @@ import GenderSalaryBiChartWidget from "./Component/GenderSalaryBiChartWidget";
 import OvertimeWidget from "./Component/OvertimeWidget";
 import AbscenceWidget from "./Component/AbscenceWidget";
 import TaxInsWidget from "./Component/TaxInsWidget";
-import MedicalInsWidget from "./Component/MedicalInsWidget";
+import VacWidget from "./Component/VacWidget";
 
 import AbscencebichartWidget  from "./Component/AbscencebichartWidget";
 
@@ -51,7 +51,7 @@ function ManagementDashboard() {
           <TaxInsWidget />
         </Grid>
         <Grid item md={6} xs={12}>
-          <MedicalInsWidget />
+          <VacWidget />
         </Grid>
       </Grid>
       <Divider className={classes.divider} />

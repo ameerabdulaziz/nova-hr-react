@@ -170,9 +170,9 @@ export default defineMessages({
     id: `${scope}.PerformanceChartWidget.TaxInsWidget`,
     defaultMessage: 'TaxInsWidget',
   },
-  MedicalInsWidget: {
-    id: `${scope}.PerformanceChartWidget.MedicalInsWidget`,
-    defaultMessage: 'MedicalInsWidget',
+  VacWidget: {
+    id: `${scope}.PerformanceChartWidget.VacWidget`,
+    defaultMessage: 'VacWidget',
   },
   OtherOvertimevsLateWidget: {
     id: `${scope}.PerformanceChartWidget.OtherOvertimevsLateWidget`,

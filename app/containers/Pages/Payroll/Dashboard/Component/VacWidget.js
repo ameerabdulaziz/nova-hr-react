@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState,useEffect  } from "react";
 import Typography from "@mui/material/Typography";
 import { injectIntl, FormattedMessage } from "react-intl";
 import messages from "./messages";
-import { useSelector } from "react-redux";
 import { PapperBlock } from "enl-components";
 import Divider from "@mui/material/Divider";
-import FilterCenterFocus from "@mui/icons-material/LineAxis";
+import BarCharticon from "@mui/icons-material/BarChart";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -17,74 +16,72 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import useStyles from "./fluidChart-jss";
+import { createTheme } from "@mui/material/styles";
+import ThemePallete from "enl-api/palette/themePalette";
 import PayRollLoader from "../../Component/PayRollLoader";
 import api from "../api";
-import useStyles from "./fluidChart-jss";
+import { useSelector } from "react-redux";
 
-function TaxInsWidget(props) {
+const theme = createTheme(ThemePallete.magentaTheme);
+const color = {
+  primary: theme.palette.primary.main,
+  primaryDark: theme.palette.primary.dark,
+  secondary: theme.palette.secondary.main,
+  secondaryDark: theme.palette.secondary.dark,
+};
+
+function VacWidget(props) {
   const { intl } = props;
   const { classes } = useStyles();
-
-  const [data,setData] = useState([
+  const [data1, setData] = useState([
     {
       name: "Jan",
-      tax: 40,
-      ins: 70,
+      value: 40,
     },
     {
       name: "Feb",
-      tax: 50,
-      ins: 60,
+      value: 45,
     },
     {
       name: "Mar",
-      tax: 60,
-      ins: 70,
+      value: 27,
     },
     {
       name: "Apr",
-      tax: 90,
-      ins: 100,
+      value: 50,
     },
     {
       name: "May",
-      tax: 80,
-      ins: 70,
+      value: 32,
     },
     {
       name: "Jun",
-      tax: 40,
-      ins: 50,
+      value: 50,
     },
     {
       name: "Jul",
-      tax: 50,
-      ins: 70,
+      value: 24,
     },
     {
       name: "Aug",
-      tax: 60,
-      ins: 85,
+      value: 32,
     },
     {
       name: "Sept",
-      tax: 55,
-      ins: 40,
+      value: 40,
     },
     {
       name: "Oct",
-      tax: 60,
-      ins: 70,
+      value: 50,
     },
     {
       name: "Nov",
-      tax: 80,
-      ins: 20,
+      value: 50,
     },
     {
       name: "Dec",
-      tax: 100,
-      ins: 100,
+      value: 79,
     },
   ]);
   const locale = useSelector((state) => state.language.locale);
@@ -93,9 +90,10 @@ function TaxInsWidget(props) {
 
   const getdata = async () => {
     try {
+      debugger;
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
-        const data = await api(locale).getMonthlyTaxIns();
+        const data = await api(locale).getMonthlyVac();
         setData(data);
       }
     } catch (error) {
@@ -112,17 +110,17 @@ function TaxInsWidget(props) {
       <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
         <div>
           <Typography className={classes.smallTitle} variant="button">
-            <FilterCenterFocus className={classes.leftIcon} />
-            <FormattedMessage {...messages.TaxInsWidget} />
+            <BarCharticon className={classes.leftIcon} />
+            <FormattedMessage {...messages.VacWidget} />
           </Typography>
           <Divider className={classes.divider} />
           <div className={classes.chartWrap}>
             <div className={classes.chartFluid}>
               <ResponsiveContainer width={550} height="100%">
-                <LineChart
+                <BarChart
                   width={550}
-                  height={300}
-                  data={data}
+                  height={398}
+                  data={data1}
                   margin={{
                     top: 70,
                     right: 40,
@@ -130,6 +128,32 @@ function TaxInsWidget(props) {
                     bottom: 5,
                   }}
                 >
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="5%"
+                        stopColor={color.primary}
+                        stopOpacity={0.8}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor={color.primaryDark}
+                        stopOpacity={1}
+                      />
+                    </linearGradient>
+                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="5%"
+                        stopColor={color.secondary}
+                        stopOpacity={0.8}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor={color.secondaryDark}
+                        stopOpacity={1}
+                      />
+                    </linearGradient>
+                  </defs>
                   <XAxis dataKey="name" tickLine={false} />
                   <YAxis
                     axisLine={false}
@@ -140,31 +164,8 @@ function TaxInsWidget(props) {
                   <CartesianGrid vertical={false} strokeDasharray="3 3" />
                   <CartesianAxis vertical={false} />
                   <Tooltip />
-                  <Legend
-                    iconType="circle"
-                    verticalALign="bottom"
-                    iconSize={10}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="tax"
-                    strokeWidth={5}
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="female"
-                    strokeWidth={5}
-                    stroke="#82ca9d"
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="ins"
-                    strokeWidth={5}
-                    stroke="#b3d4fc"
-                  />
-                </LineChart>
+                  <Bar dataKey="value" fillOpacity="1" fill="url(#colorUv)" />
+                </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
@@ -174,4 +175,4 @@ function TaxInsWidget(props) {
   );
 }
 
-export default injectIntl(TaxInsWidget);
+export default injectIntl(VacWidget);

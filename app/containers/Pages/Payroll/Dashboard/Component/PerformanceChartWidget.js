@@ -16,7 +16,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import "enl-styles/vendors/rechart/styles.css";
 import Check from "@mui/icons-material/CheckCircle";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import {
   ComposedChart,
   Line,
@@ -37,13 +37,34 @@ import HikingSharpIcon from "@mui/icons-material/HikingSharp";
 import HotTubSharpIcon from "@mui/icons-material/HotTubSharp";
 import PayRollLoader from "../../Component/PayRollLoader";
 import api from "../api";
-import Stack from '@mui/material/Stack';
-import NotificationsActive from '@mui/icons-material/NotificationsActive';
+import Stack from "@mui/material/Stack";
+import NotificationsActive from "@mui/icons-material/NotificationsActive";
 
 function PerformanceChartWidget(props) {
   const { intl } = props;
   const { classes, cx } = useStyles();
-  const [attendance, setaAttendance] = useState([]);
+  const [attendance, setaAttendance] = useState([
+    {
+      name: "Nermen Ahmed",
+      percentage: "90",
+    },
+    {
+      name: "Ahmed Awad",
+      percentage: "80",
+    },
+    {
+      name: "Wessam Mohamed",
+      percentage: "70",
+    },
+    {
+      name: "Noha Abdelbaset",
+      percentage: "70",
+    },
+    {
+      name: "Shymaa Abdelhameed",
+      percentage: "60",
+    },
+  ]);
   const [barData, setBarData] = useState({
     vacation: 0,
     overTime: 0,
@@ -103,7 +124,6 @@ function PerformanceChartWidget(props) {
 
   const getdata = async () => {
     try {
-      
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
         const data = await api(locale).getAgeDemographics();
@@ -267,7 +287,7 @@ function PerformanceChartWidget(props) {
                             <ListItemText primary={item.name} />
 
                             <ListItemText
-                              primary={item.percentage}
+                              primary={`${item.percentage}%`}
                               className={
                                 locale == "en"
                                   ? cx(classes.textRight)

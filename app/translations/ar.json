@@ -1107,7 +1107,7 @@
   
   "boilerplate.components.Widgets.PerformanceChartWidget.AbscenceWidget": "Monthly Abscence chart",
   
-  "boilerplate.components.Widgets.PerformanceChartWidget.MedicalInsWidget": "Monthly Medical Ins chart",
+  "boilerplate.components.Widgets.PerformanceChartWidget.VacWidget": "Monthly Vacations chart",
   
   "boilerplate.components.Widgets.PerformanceChartWidget.TaxInsWidget": "Monthly Tax - Social Ins chart",
   "boilerplate.components.Widgets.PerformanceChartWidget.LatePerMinWidget": "Late Per Minutes Chart",

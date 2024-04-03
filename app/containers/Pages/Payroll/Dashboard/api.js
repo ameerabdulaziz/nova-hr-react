@@ -58,8 +58,41 @@ const dashboardData = (locale) => {
     const data = await axiosInstance.get(`Dashboard/GetOrgLevel`);
     return data.data;
   };
+  api.getMonthlySalary = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlySalary/${locale}`);
+    return data.data;
+  };
+  api.getSalaryYearly = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetSalaryYearly`);
+    return data.data;
+  };
+  api.getMonthlyOvertime = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyOvertime/${locale}`);
+    return data.data;
+  };
+  api.getMonthlyAbscence = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyAbscence/${locale}`);
+    return data.data;
+  };
+  api.getMonthlyTaxIns = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyTaxIns/${locale}`);
+    return data.data;
+  };
+  api.getMonthlyVac = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyVac/${locale}`);
+    return data.data;
+  };
+  api.getGrossSalary = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetGrossSalary`);
+    return data.data;
+  };
+  api.getGenderSalary = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetGenderSalary/${locale}`);
+    return data.data;
+  };
+  
 
-
+  
   
 
   return api;

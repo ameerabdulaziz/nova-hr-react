@@ -67,7 +67,7 @@ function NotificationWidget() {
         <Divider className={classes.divider} />
 
         {notification.length > 0 ? (
-          <List sx={{ height: '376px', overflow: 'auto' }}>
+          <List sx={{ height: '325px', overflow: 'auto' }}>
             {notification.map((item, index) => (
               <ListItem key={index} className={messageStyles.messageWarning}>
                 <ListItemAvatar>
