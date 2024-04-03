@@ -364,11 +364,31 @@ function AssessmentReviewEdit(props) {
       setProcessing(false)
     }
   }
+
+  const endExamFun = () => {
+    let lock = true
+    // used in if user click on finish button and he choose radio without textarea, do not close exam until he enter data
+    Object.keys(questionsAnswers).forEach(function(key, index) {
+      if(!Object.keys(questionsAnswers[key]).some(key => key === 'textareaVal'))
+      {
+        lock = false
+      }
+    });
+
+    if(!lock)
+    {
+      toast.error(intl.formatMessage(messages.textareaErrMes));
+    }
+    else
+    {
+      setEndExam(true)
+    }
+
+  }
    
   
   return (
     <PayRollLoader isLoading={isLoading} whiteBg icon="border_color" >
-
         <Card >
             <CardContent  className={style.examCardContentSty}>
                 <Grid item xs={12}  md={12} 
@@ -376,69 +396,58 @@ function AssessmentReviewEdit(props) {
                 alignItems="flex-start"
                 direction="row"
                 >
+                  {/* Banner */}
                   {( startExam && !endExam) && (
-                  <Grid item xs={12} className={`${style.gridContainerSty} `}  
-                      > 
-                        <div className={` ${style.panarContainer} ${style.panarContainerView2} ${classes.examMainSty}`}>
-                        <div>
-                            <img src={examLogo2} />
-                            <div>
-                                <p>{examData?.templateName}</p>
-                            </div>
-                            </div>
-
-                           
+                  <Grid item xs={12} className={`${style.gridContainerSty} `}> 
+                          <div className={` ${style.panarContainer} ${style.panarContainerView2} ${classes.examMainSty}`}>
                           <div>
+                              <img src={examLogo2} />
+                              <div>
+                                  <p>{examData?.templateName}</p>
+                              </div>
+                          </div>
 
+                          <div>
                               <Button
                                   variant="contained"
                                   size="medium"
                                   color="primary"
-                                  onClick={() => setEndExam(true)}
+                                  onClick={() => endExamFun()}
                                   >
                                     <FormattedMessage {...messages.AssessmentFinish} />
                               </Button>
-
                               <p>
                                   {examData?.employeeName}
                               </p>
                               <PersonIcon />
-                          </div>
-
-                            
+                          </div>                            
                         </div>               
                     </Grid>
                     )}
-
+                    {/* start page left side */}
                     {!startExam && (
-                    <Grid item xs={12}  md={6} className={`${style.gridContainerSty} `}  
-                      > 
+                    <Grid item xs={12}  md={6} className={`${style.gridContainerSty} `}> 
                         <div className={`${style.mainContainer} ${classes.examMainSty}`}>
-
                             <div>
                                 <img src={examLogo2} />
                                 <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} />  :  examData?.templateName :  <FormattedMessage {...messages.AssessmentDurationEnded} /> }</h1>
                             </div>
-
                         </div>               
                     </Grid>
                     )}
 
-
+                  {/* start page right side */}
                   {!startExam && (
-                    <Grid item xs={12} md={6} className={`${style.gridContainerSty} `}  
-                      > 
-                    
+                    <Grid item xs={12} md={6} className={`${style.gridContainerSty} `}> 
                     <div className={`${style.startExamContainer}`}>
                     <div>
-                                
-                                <img src={examLogo} />
-                                <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} /> :  examData?.templateName : <FormattedMessage {...messages.AssessmentDurationEnded} />}</h1>
-                                {examData && (
-                                <p>
-                                    {examData?.templateDesc}
-                                </p>
-                                )}
+                        <img src={examLogo} />
+                        <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} /> :  examData?.templateName : <FormattedMessage {...messages.AssessmentDurationEnded} />}</h1>
+                            {examData && (
+                              <p>
+                                {examData?.templateDesc}
+                              </p>
+                            )}
 
                             {examData && (
                                 <Button
@@ -455,14 +464,13 @@ function AssessmentReviewEdit(props) {
                                  >
                                   <FormattedMessage {...messages.Start} />
                                 </Button>
-                                  )}
-                            </div>
+                            )}
+                    </div>
                     </div>
                     </Grid>
-                    )}
+                  )}
 
-                    {
-                      (startExam && !endExam && !userInfo && (examData.showStyle === 1)) && (
+                    {(startExam && !endExam && !userInfo && (examData.showStyle === 1)) && (
                         <ExamQuestionNextAndPrev 
                         examData={examData} 
                         questionNum={questionNum}
@@ -479,12 +487,10 @@ function AssessmentReviewEdit(props) {
                         intl={intl}
                         AssessmentReviewLock={AssessmentReviewLock}
                         />
-                      )
-                    }
+                    )}
 
 
-                  {
-                      (startExam && !endExam && !userInfo && (examData.showStyle === 2)) && (
+                  {(startExam && !endExam && !userInfo && (examData.showStyle === 2)) && (
                         <ExamQuestionWithoutNextAndPrev 
                           examData={examData} 
                           choices={choices}
@@ -499,9 +505,7 @@ function AssessmentReviewEdit(props) {
                         />
 
                       )}
-           
-              
-
+                    {/* End window */}
                     {endExam && (
                     <Grid item xs={12} >
                       <div className={ `${style.resultContainerSty} ${classes.containerSty}`}>
@@ -539,9 +543,6 @@ function AssessmentReviewEdit(props) {
                             )}
                         </div>
 
-                        
-
-
                         <Grid item xs={12}
                           container
                           spacing={3}
@@ -561,25 +562,18 @@ function AssessmentReviewEdit(props) {
                               </Grid>
 
                           </Grid>
-
                       </div>
                     </Grid>
                     )}
-
-
+                  {/* employee Information */}
                   {userInfo && (examData?.showStyle === 1) && (
-                    <Grid item xs={12}  > 
-                       
+                    <Grid item xs={12} > 
                         <div className={`${style.examContainer} ${style.userInfoContainer}`}>
-                          
                             <div>
-
                             <Grid
-                                  container
-                                  spacing={3}
-                                  direction="row"
-                                  
-                                  >
+                              container
+                              spacing={3}
+                              direction="row">
                             <Grid item xs={12} md={6} >
                                 <div className={`${style.userInfoSty}`}>
                                     <p><FormattedMessage {...messages.department} /> : </p> <p className={classes.textSty}>{examData?.organizationName}</p>
@@ -611,19 +605,13 @@ function AssessmentReviewEdit(props) {
                             </Grid>
 
                             </Grid>
-                                
-
-                                 <div className={style.lineStye}></div>
-
+                              <div className={style.lineStye}></div>
                                 <Grid
                                   container
                                   spacing={3}
                                   alignItems="flex-end"
                                   direction="row"
-                                  
                                   >
-                                  
-                    
                                     <Grid item xs={12}
                                     container
                                     spacing={3}
@@ -633,8 +621,7 @@ function AssessmentReviewEdit(props) {
                                     justifyContent="end"
                                     >
                                  
-
-                              {examData?.competencyList.length >= questionNum + 1  && (<>
+                                {examData?.competencyList.length >= questionNum + 1  && (<>
                                   <Grid item xs={6} md={3} lg={2}>
                                     <Button
                                       variant="contained"
@@ -649,7 +636,7 @@ function AssessmentReviewEdit(props) {
                                   </Grid>
                                   </>)}
 
-                                  {examData?.competencyList.length < questionNum + 1   && (<>
+                                {examData?.competencyList.length < questionNum + 1   && (<>
                                   <Grid item xs={6} md={3} lg={2}>
                                     <Button
                                       variant="contained"
@@ -662,21 +649,15 @@ function AssessmentReviewEdit(props) {
                                     </Button>
                                   </Grid>
                                   </>)}
-
                                   </Grid>
                                 </Grid>
                             </div>
                         </div>                   
-                    
                     </Grid>
-
                   )}
-
-
                 </Grid>
             </CardContent>
         </Card>
-
     </PayRollLoader>
   );
 }

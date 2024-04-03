@@ -363,12 +363,30 @@ function EmployeeAssessment(props) {
   }
 
 
+  const endExamFun = () => {
+    let lock = true
+    // used in if user click on finish button and he choose radio without textarea, do not close exam until he enter data
+    Object.keys(questionsAnswers).forEach(function(key, index) {
+      if(!Object.keys(questionsAnswers[key]).some(key => key === 'textareaVal'))
+      {
+        lock = false
+      }
+    });
 
+    if(!lock)
+    {
+      toast.error(intl.formatMessage(messages.textareaErrMes));
+    }
+    else
+    {
+      setEndExam(true)
+    }
+
+  }
     
   
   return (
     <PayRollLoader isLoading={isLoading} whiteBg icon="border_color" >
-
         <Card >
             <CardContent  className={style.examCardContentSty}>
                 <Grid item xs={12}  md={12} 
@@ -376,64 +394,54 @@ function EmployeeAssessment(props) {
                 alignItems="flex-start"
                 direction="row"
                 >
+                  {/* Banner */}
                   {( startExam && !endExam) && (
                   <Grid item xs={12} className={`${style.gridContainerSty} `}  
                       > 
-                        <div className={` ${style.panarContainer} ${classes.examMainSty}`}>
-                        <div>
-                            <img src={examLogo2} />
-                            <div>
-                                <p>{examData?.templateName}</p>
-                            </div>
-                            </div>
-                            
+                          <div className={` ${style.panarContainer} ${classes.examMainSty}`}>
+                          <div>
+                              <img src={examLogo2} />
+                              <div>
+                                  <p>{examData?.templateName}</p>
+                              </div>
+                          </div>
                           <div>
                             <Button
                                 variant="contained"
                                 size="medium"
                                 color="primary"
-                                 onClick={() => setEndExam(true)}
+                                onClick={() => endExamFun()}
                                  >
                                   <FormattedMessage {...messages.AssessmentFinish} />
-                                  </Button>
-                                  </div>
-
-                            
+                            </Button>
+                          </div>
                         </div>               
                     </Grid>
                     )}
-
+                     {/* start page left side */}
                     {!startExam && (
-                    <Grid item xs={12}  md={6} className={`${style.gridContainerSty} `}  
-                      > 
+                    <Grid item xs={12}  md={6} className={`${style.gridContainerSty} `} > 
                         <div className={`${style.mainContainer} ${classes.examMainSty}`}>
-
                             <div>
                                 <img src={examLogo2} />
                                 <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} />  :  examData?.templateName :  <FormattedMessage {...messages.AssessmentDurationEnded} /> }</h1>
                             </div>
-
-                            
                         </div>               
                     </Grid>
                     )}
 
-
+                  {/* start page right side */}
                   {!startExam && (
-                    <Grid item xs={12} md={6} className={`${style.gridContainerSty} `}  
-                      > 
-                    
-                    <div className={`${style.startExamContainer}`}>
-                    <div>
-                                
-                                <img src={examLogo} />
-                                <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} /> :  examData?.templateName : <FormattedMessage {...messages.AssessmentDurationEnded} />}</h1>
-                                {examData && (
-                                <p>
-                                    {examData?.templateDesc}
-                                </p>
-                                )}
-
+                    <Grid item xs={12} md={6} className={`${style.gridContainerSty} `} > 
+                      <div className={`${style.startExamContainer}`}>
+                        <div>
+                          <img src={examLogo} />
+                          <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} /> :  examData?.templateName : <FormattedMessage {...messages.AssessmentDurationEnded} />}</h1>
+                            {examData && (
+                              <p>
+                                {examData?.templateDesc}
+                              </p>
+                            )}
                             {examData && (examData.isClosed === false) && (
                                 <Button
                                 variant="contained"
@@ -443,14 +451,13 @@ function EmployeeAssessment(props) {
                                  >
                                   <FormattedMessage {...messages.Start} />
                                 </Button>
-                                  )}
-                            </div>
-                    </div>
+                            )}
+                        </div>
+                      </div>
                     </Grid>
-                    )}
+                  )}
 
-                    {
-                      (startExam && !endExam && (examData.showStyle === 1)) && (
+                    {(startExam && !endExam && (examData.showStyle === 1)) && (
                         <ExamQuestionNextAndPrev 
                         examData={examData} 
                         questionNum={questionNum}
@@ -464,34 +471,28 @@ function EmployeeAssessment(props) {
                         textareaEmpTrainingVal={textareaEmpTrainingVal}
                         intl={intl}
                         />
-                      )
-                    }
+                    )}
 
-
-                  {
-                      (startExam && !endExam && (examData.showStyle === 2)) && (
-                        <ExamQuestionWithoutNextAndPrev 
-                        examData={examData} 
-                        choices={choices}
-                        allQuestionsAnswers={allQuestionsAnswers}
-                        saveAllQuestions={saveAllQuestions}
-                        finishExamFun={finishExamFun}
-                        textareaEmpTrainingVal={textareaEmpTrainingVal}
-                        intl={intl}
-                        />
-
-                      )}
-           
-              
-
-                    {endExam && (
+                    {(startExam && !endExam && (examData.showStyle === 2)) && (
+                          <ExamQuestionWithoutNextAndPrev 
+                          examData={examData} 
+                          choices={choices}
+                          allQuestionsAnswers={allQuestionsAnswers}
+                          saveAllQuestions={saveAllQuestions}
+                          finishExamFun={finishExamFun}
+                          textareaEmpTrainingVal={textareaEmpTrainingVal}
+                          intl={intl}
+                          />
+                    )}
+                {/* End window */}
+                  {endExam && (
                     <Grid item xs={12} >
                       <div className={ `${style.resultContainerSty} ${classes.containerSty}`}>
-                        <div className={`${classes.examMainSty}`}>
-                          <img src={finishLogo} />
-                          <h1 >
-                              <FormattedMessage {...messages.ThankYouForCompleteTheAssessment} />
-                          </h1>
+                          <div className={`${classes.examMainSty}`}>
+                            <img src={finishLogo} />
+                            <h1 >
+                                <FormattedMessage {...messages.ThankYouForCompleteTheAssessment} />
+                            </h1>
                           </div>
 
                           <div>
@@ -506,7 +507,6 @@ function EmployeeAssessment(props) {
                               <Typography position='absolute' className={`${classes.textSty}`}>{(Object.keys(questionsAnswers).length*100)/examData?.competencyList.length}%</Typography>
                           </>)}
 
-
                           {examData.showStyle === 2 && (<>
                               <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(Object.keys(allQuestionsAnswers ).length*100)/examData?.competencyList.length} />
                               <Typography position='absolute' className={`${classes.textSty}`}>{(Object.keys(allQuestionsAnswers ).length*100)/examData?.competencyList.length}%</Typography>
@@ -520,9 +520,6 @@ function EmployeeAssessment(props) {
                             </p>
                             )}
                         </div>
-
-                        
-
 
                         <Grid item xs={12}
                           container
@@ -576,7 +573,6 @@ function EmployeeAssessment(props) {
                 </Grid>
             </CardContent>
         </Card>
-
     </PayRollLoader>
   );
 }
