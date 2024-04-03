@@ -1,5 +1,14 @@
 import {
-  Button, Checkbox, FormControlLabel, Stack
+  Autocomplete,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Stack,
+  TextField,
 } from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
@@ -11,14 +20,14 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import XLSX from 'xlsx-js-style';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import { ServerURL } from '../../api/ServerConfig';
 import payrollMessages from '../../messages';
 import api from '../api/ImportEmployeeData';
 import ErrorPopup from '../component/ImportEmployeeData/ErrorPopup';
 import messages from '../messages';
-import PayrollTable from "../../Component/PayrollTable";
 
-const XLSX_COLUMNS = [
+const ALL_INFO_XLSX_COLUMNS = [
   { label: 'Employee Code', isRequired: true, type: 'number' }, // 0
   { label: 'Arabic Name', isRequired: true, type: 'string' }, // 1
   { label: 'English Name', isRequired: true, type: 'string' }, // 2
@@ -61,12 +70,28 @@ function ImportEmployeeData(props) {
     file: null,
     rows: [],
     modifyExistEmployee: false,
+    fieldId: null,
+    importType: 'all',
   });
 
-  const [listSheet, setListSheet] = useState([]);
-  const [cols, setCols] = useState("");
-  const [fileTitle, setFileTitle] = useState("");
-  let columns = [];
+  const [fieldsList, setFieldsList] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [columns, setColumns] = useState([]);
+  const [fileTitle, setFileTitle] = useState('');
+
+  const resetFields = () => {
+    setTableData([]);
+    setColumns([]);
+    setFileTitle('');
+
+    setFormInfo({
+      file: null,
+      rows: [],
+      modifyExistEmployee: false,
+      fieldId: null,
+      importType: 'all',
+    });
+  };
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -114,8 +139,7 @@ function ImportEmployeeData(props) {
     try {
       await api().save(body);
       toast.success(notif.saved);
-      // setFormInfo({ ...formInfo, file: null, rows: [] });
-      resetDataFun();
+      resetFields();
     } catch (error) {
       //
     } finally {
@@ -123,17 +147,8 @@ function ImportEmployeeData(props) {
     }
   };
 
-  const onCheckboxChange = (evt) => {
-    setFormInfo((prev) => ({
-      ...prev,
-      [evt.target.name]: evt.target.checked,
-    }));
-  };
-
-  const checkRowsValidation = (sheet, listSheet) => {
+  const checkAllRowsValidation = (sheet) => {
     const [header, ...rows] = sheet;
-
-
 
     const errors = [];
 
@@ -150,7 +165,10 @@ function ImportEmployeeData(props) {
       }
 
       header.forEach((columnName, columnIndex) => {
-        if (XLSX_COLUMNS[columnIndex].isRequired && !row[columnIndex]) {
+        if (
+          ALL_INFO_XLSX_COLUMNS[columnIndex].isRequired
+          && !row[columnIndex]
+        ) {
           errors.push(
             locale === 'en'
               ? `Row ${
@@ -161,7 +179,7 @@ function ImportEmployeeData(props) {
         }
 
         if (row[columnIndex]) {
-          switch (XLSX_COLUMNS[columnIndex].type) {
+          switch (ALL_INFO_XLSX_COLUMNS[columnIndex].type) {
             case 'number':
               if (isNaN(row[columnIndex])) {
                 errors.push(
@@ -223,23 +241,65 @@ function ImportEmployeeData(props) {
       });
     });
 
-    if (errors.length === 0) {
-      setFormInfo((prev) => ({ ...prev, rows }));
+    return { errors, rows };
+  };
 
-       // use in list Data
-      listSheet.map((item) => setCols(Object.keys(item)));
-      setListSheet(listSheet)
+  const onFileExcelLoaded = (result) => {
+    const workbook = XLSX.read(result);
+    const sheets = workbook.SheetNames;
+
+    if (sheets.length) {
+      const arraySheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheets[0]], {
+        raw: false,
+        header: 1,
+        defval: '',
+      });
+
+      // Get data in JSON format for table display
+      const sheetAsJSON = XLSX.utils.sheet_to_json(workbook.Sheets[sheets[0]], {
+        raw: false,
+        header: 0,
+        defval: '',
+      });
+
+      if (arraySheet.length > 0) {
+        if (formInfo.importType === 'all') {
+          const { errors, rows } = checkAllRowsValidation(arraySheet);
+          if (errors.length === 0) {
+            setFormInfo((prev) => ({ ...prev, rows }));
+
+            setTableData(sheetAsJSON);
+
+            if (sheetAsJSON[0]) {
+              const cols = Object.keys(sheetAsJSON[0]).map((item) => ({
+                name: item,
+                label: item,
+              }));
+
+              setColumns(cols);
+            }
+          } else {
+            setFileErrors(errors);
+            setIsErrorPopupOpen(true);
+          }
+        }
+
+        setIsLoading(false);
+      } else {
+        toast.error(intl.formatMessage(messages.fileIsEmpty));
+        setIsLoading(false);
+      }
     } else {
-      setFileErrors(errors);
-      setIsErrorPopupOpen(true);
+      toast.error(intl.formatMessage(messages.fileIsEmpty));
+      setIsLoading(false);
     }
   };
 
   const onExcelFileInputChange = (evt) => {
     const file = evt.target.files[0];
 
-    // use in list Data
-    setFileTitle(file.name.split(".")[0]);
+    setFormInfo((prev) => ({ ...prev, rows: [] }));
+    setFileTitle(file.name.split('.')[0]);
 
     // to trigger onChange on the same file select
     evt.target.value = '';
@@ -257,33 +317,7 @@ function ImportEmployeeData(props) {
           setIsLoading(true);
 
           reader.onload = (event) => {
-            const workbook = XLSX.read(event.target.result);
-            const sheets = workbook.SheetNames;
-
-            if (sheets.length) {
-              const arraySheet = XLSX.utils.sheet_to_json(
-                workbook.Sheets[sheets[0]],
-                { raw: false, header: 1, defval: '' }
-              );
-
-               // use in list Data
-              const arraySheetList = XLSX.utils.sheet_to_json(
-                workbook.Sheets[sheets[0]],
-                { raw: false, header: 0, defval: '' }
-              );
-
-
-              if (arraySheet.length > 0) {
-                checkRowsValidation(arraySheet, arraySheetList);
-                setIsLoading(false);
-              } else {
-                toast.error(intl.formatMessage(messages.fileIsEmpty));
-                setIsLoading(false);
-              }
-            } else {
-              toast.error(intl.formatMessage(messages.fileIsEmpty));
-              setIsLoading(false);
-            }
+            onFileExcelLoaded(event.target.result);
           };
 
           reader.readAsArrayBuffer(file);
@@ -296,32 +330,28 @@ function ImportEmployeeData(props) {
     }
   };
 
+  const onAutoCompleteChange = (value, name) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [name]: value !== null ? value.id : null,
+    }));
+  };
 
+  const onCheckboxChange = (evt) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.checked,
+    }));
+  };
 
-  columns =
-    cols.length !== 0
-      ? cols.map((item) => ({
-          name: item,
-          label: item,
-          options: {
-            filter: true,
-          },
-        })) : []
+  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
-
-        const resetDataFun = () => {
-          setListSheet([])
-          setCols("")
-          setFileTitle("")
-          columns = []
-
-          setFormInfo({
-            file: null,
-            rows: [],
-            modifyExistEmployee: false,
-          });
-        }
-
+  const onRadioInputChange = (evt) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.value,
+    }));
+  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -334,18 +364,69 @@ function ImportEmployeeData(props) {
 
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' title={title} desc=''>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formInfo.modifyExistEmployee}
-                onChange={onCheckboxChange}
-                name='modifyExistEmployee'
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <FormControl>
+                <RadioGroup
+                  row
+                  value={formInfo.importType}
+                  onChange={onRadioInputChange}
+                  name='importType'
+                >
+                  <FormControlLabel
+                    value='all'
+                    control={<Radio />}
+                    label={intl.formatMessage(messages.allData)}
+                  />
+                  <FormControlLabel
+                    value='field'
+                    control={<Radio />}
+                    label={intl.formatMessage(messages.someData)}
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <Autocomplete
+                options={fieldsList}
+                value={getAutoCompleteValue(fieldsList, formInfo.fieldId)}
+                disabled={formInfo.importType !== 'field'}
+                onChange={(_, value) => onAutoCompleteChange(value, 'fieldId')}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id + option.name}>
+                    {option.name}
+                  </li>
+                )}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    disabled={formInfo.importType !== 'field'}
+                    label={intl.formatMessage(messages.field)}
+                  />
+                )}
               />
-            }
-            label={intl.formatMessage(
-              messages.modifyEmployeeDataIfTheyAlreadyExist
-            )}
-          />
+            </Grid>
+
+            <Grid item>
+              <FormControlLabel
+                disabled={formInfo.importType !== 'all'}
+                control={
+                  <Checkbox
+                    disabled={formInfo.importType !== 'all'}
+                    checked={formInfo.modifyExistEmployee}
+                    onChange={onCheckboxChange}
+                    name='modifyExistEmployee'
+                  />
+                }
+                label={intl.formatMessage(
+                  messages.modifyEmployeeDataIfTheyAlreadyExist
+                )}
+              />
+            </Grid>
+          </Grid>
 
           <Stack direction='row' spacing={2} mt={3}>
             <Button
@@ -360,7 +441,7 @@ function ImportEmployeeData(props) {
 
             <div>
               <input
-                accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
+                accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
                 id='excel-attachment-button-file'
                 name='Competency'
                 type='file'
@@ -377,10 +458,7 @@ function ImportEmployeeData(props) {
               </Button>
             </div>
 
-            <Button
-              variant='contained'
-              onClick={resetDataFun}
-            >
+            <Button variant='contained' onClick={resetFields}>
               {intl.formatMessage(payrollMessages.reset)}
             </Button>
 
@@ -395,14 +473,9 @@ function ImportEmployeeData(props) {
         </PapperBlock>
       </form>
 
-
-      {listSheet.length !== 0 && (
-            <PayrollTable
-              title={fileTitle}
-              data={listSheet}
-              columns={columns}
-            />
-          )}
+      {tableData.length !== 0 && (
+        <PayrollTable title={fileTitle} data={tableData} columns={columns} />
+      )}
     </PayRollLoader>
   );
 }

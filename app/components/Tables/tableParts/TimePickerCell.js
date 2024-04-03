@@ -51,6 +51,7 @@ function TimePickerCell(props) {
           name={cellData.type}
           className={cx(css.crudInput, theme.palette.mode === 'dark' ? css.lightTxt : css.darkTxt)}
           mask="hh:mm A"
+          sx={{width: '100%'}}
           placeholder="08:00 AM"
           value={event.target.value}
           disabled={cellData.disabled ? true : !edited}

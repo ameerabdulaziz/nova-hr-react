@@ -192,12 +192,13 @@ function EmployeeContactInfo(props) {
 
                 <Grid item xs={12} md={4}>
                   <TextField
-                    id="telPhone"
-                    name="telPhone"
-                    value={telPhone}
-                    onChange={(e) => settelPhone(e.target.value)}
-                    label={intl.formatMessage(messages.telephone)}
+                    id="mobile"
+                    name="mobile"
+                    value={mobile}
+                    onChange={(e) => setmobile(e.target.value)}
+                    label={intl.formatMessage(messages.mobile)}
                     // validate={required}
+                    required
                     className={classes.field}
                     variant="outlined"
                     autoComplete='off'
@@ -206,13 +207,12 @@ function EmployeeContactInfo(props) {
 
                 <Grid item xs={12} md={4}>
                   <TextField
-                    id="mobile"
-                    name="mobile"
-                    value={mobile}
-                    onChange={(e) => setmobile(e.target.value)}
-                    label={intl.formatMessage(messages.mobile)}
+                    id="telPhone"
+                    name="telPhone"
+                    value={telPhone}
+                    onChange={(e) => settelPhone(e.target.value)}
+                    label={intl.formatMessage(messages.workMobile)}
                     // validate={required}
-                    required
                     className={classes.field}
                     variant="outlined"
                     autoComplete='off'
@@ -250,6 +250,20 @@ function EmployeeContactInfo(props) {
                 <Grid item xs={12} md={4}>
                   <TextField
                     type="email"
+                    name="workEmail"
+                    value={workEmail}
+                    label={intl.formatMessage(messages.workEmail)}
+                    required
+                    onChange={(e) => setworkEmail(e.target.value)}
+                    fullWidth
+                    variant="outlined"
+                    autoComplete='off'
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    type="email"
                     error={email === "Invalid email"}
                     id="mail"
                     name="mail"
@@ -259,20 +273,6 @@ function EmployeeContactInfo(props) {
                     // validate={[required, email]}
                     className={classes.field}
                     // autoComplete="email"
-                    variant="outlined"
-                    autoComplete='off'
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-                  <TextField
-                    type="email"
-                    name="workEmail"
-                    value={workEmail}
-                    label={intl.formatMessage(messages.workEmail)}
-                    required
-                    onChange={(e) => setworkEmail(e.target.value)}
-                    fullWidth
                     variant="outlined"
                     autoComplete='off'
                   />

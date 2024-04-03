@@ -57,7 +57,10 @@ function DetailedAttendanceReportTemplate(props) {
           display: 'none',
           '@media print': {
             display: 'block',
-            direction: "ltr"
+            direction: "ltr",
+            'p.MuiTypography-root, .MuiTableCell-root': {
+              color: '#000',
+            },
           },
         }}
       >

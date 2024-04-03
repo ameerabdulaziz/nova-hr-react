@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   Grid,
   TextField,
-  Typography, Stack, Avatar
+  Typography, Stack
 } from '@mui/material';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -558,11 +558,9 @@ function PaymentSlip(props) {
             display: 'block',
             direction: 'ltr',
           },
-          'p.MuiTypography-root': {
-            fontSize: '10px',
-          },
-          '.MuiTableCell-root': {
-            fontSize: '10px',
+          'p.MuiTypography-root, .MuiTableCell-root': {
+            fontSize: '7px',
+            color: '#000',
           },
         }}
       >

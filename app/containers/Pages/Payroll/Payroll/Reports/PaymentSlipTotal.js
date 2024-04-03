@@ -536,11 +536,9 @@ function PaymentSlipTotal(props) {
             display: 'block',
             direction: 'ltr',
           },
-          'p.MuiTypography-root': {
+          'p.MuiTypography-root, .MuiTableCell-root': {
             fontSize: '10px',
-          },
-          '.MuiTableCell-root': {
-            fontSize: '10px',
+            color: '#000',
           },
         }}
       >

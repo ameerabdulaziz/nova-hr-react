@@ -6,8 +6,10 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -34,6 +36,8 @@ function MedicalInsuranceSubscriptionCreate(props) {
   const id = location.state?.id ?? 0;
 
   const title = localStorage.getItem('MenuName');
+
+  const [dateError, setDateError] = useState({});
 
   const [insuranceCompanyList, setInsuranceCompanyList] = useState([]);
   const [insuranceCategoryList, setInsuranceCategoryList] = useState([]);
@@ -79,6 +83,12 @@ function MedicalInsuranceSubscriptionCreate(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
+    // used to stop call api if user select wrong date
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     const formData = {
       ...formInfo,
       medCareEndDate: formateDate(formInfo.medCareEndDate),
@@ -123,6 +133,16 @@ function MedicalInsuranceSubscriptionCreate(props) {
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
         setFormInfo(dataApi);
+      } else {
+        // set default year and month
+        const today = new Date();
+        const yearId = years.find((y) => y.name === today.getFullYear().toString())?.id ?? null;
+
+        setFormInfo((prev) => ({
+          ...prev,
+          yearId,
+          monthId: today.getMonth() + 1,
+        }));
       }
     } catch (error) {
       //
@@ -214,11 +234,9 @@ function MedicalInsuranceSubscriptionCreate(props) {
                     (item) => item.id === formInfo.employeeId
                   ) ?? null
                 }
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onEmployeeAutoCompleteChange(value)
-                }
+                onChange={(_, value) => onEmployeeAutoCompleteChange(value)}
                 renderInput={(params) => (
                   <TextField
                     required
@@ -237,18 +255,14 @@ function MedicalInsuranceSubscriptionCreate(props) {
                     (item) => item.id === formInfo.insCmpId
                   ) ?? null
                 }
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onAutoCompleteChange(value, 'insCmpId')
-                }
+                onChange={(_, value) => onAutoCompleteChange(value, 'insCmpId')}
                 renderInput={(params) => (
                   <TextField
                     required
                     {...params}
-                    label={intl.formatMessage(
-                      messages.insuranceCompany
-                    )}
+                    label={intl.formatMessage(messages.insuranceCompany)}
                   />
                 )}
               />
@@ -264,23 +278,20 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 }
                 onChange={(_, value) => onAutoCompleteChange(value, 'medInsuCatId')
                 }
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderInput={(params) => (
                   <TextField
                     required
                     {...params}
-                    label={intl.formatMessage(
-                      messages.insuranceCategory
-                    )}
+                    label={intl.formatMessage(messages.insuranceCategory)}
                   />
                 )}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Card className={classes.card} sx={{ mt: '0!important' }} >
+              <Card className={classes.card} sx={{ mt: '0!important' }}>
                 <CardContent>
                   <Grid container spacing={3} direction='row'>
                     <Grid item xs={12} md={4}>
@@ -324,39 +335,64 @@ function MedicalInsuranceSubscriptionCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.subscriptionDate)}
-                  value={formInfo.subDate}
-                  onChange={(date) => onDatePickerChange(date, 'subDate')
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      required
-                      fullWidth
-                      {...params}
-                      variant='outlined'
-                    />
-                  )}
+                  value={formInfo.subDate ? dayjs(formInfo.subDate) : null}
+                  className={classes.field}
+                  onChange={(date) => onDatePickerChange(date, 'subDate')}
+                  onError={(error) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        subDate: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        subDate: false,
+                      }));
+                    }
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>
 
             <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.medicalEndDate)}
-                  value={formInfo.medCareEndDate}
+                  value={
+                    formInfo.medCareEndDate
+                      ? dayjs(formInfo.medCareEndDate)
+                      : null
+                  }
+                  className={classes.field}
                   onChange={(date) => onDatePickerChange(date, 'medCareEndDate')
                   }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant='outlined'
-                      fullWidth
-                      required
-                    />
-                  )}
+                  onError={(error) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        medCareEndDate: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        medCareEndDate: false,
+                      }));
+                    }
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -380,9 +416,8 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   <Autocomplete
                     options={yearList}
                     value={
-                      yearList.find(
-                        (item) => item.id === formInfo.yearId
-                      ) ?? null
+                      yearList.find((item) => item.id === formInfo.yearId)
+                      ?? null
                     }
                     onChange={(_, value) => onAutoCompleteChange(value, 'yearId')
                     }
@@ -403,9 +438,8 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   <Autocomplete
                     options={monthsList}
                     value={
-                      monthsList.find(
-                        (item) => item.id === formInfo.monthId
-                      ) ?? null
+                      monthsList.find((item) => item.id === formInfo.monthId)
+                      ?? null
                     }
                     onChange={(_, value) => onAutoCompleteChange(value, 'monthId')
                     }
@@ -455,21 +489,16 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 name='fathersNo'
                 value={formInfo.fathersNo}
                 onChange={(evt) => {
-                  const value = evt.target.value.replace(
-                    /[^\d]/g,
-                    ''
-                  );
+                  const value = evt.target.value.replace(/[^\d]/g, '');
 
                   setFormInfo((prev) => ({
                     ...prev,
                     fathersNo: value,
-                    fathersValue:
-                      value * fixedBoxState.familyMemberValue,
+                    fathersValue: value * fixedBoxState.familyMemberValue,
                   }));
                 }}
                 label={intl.formatMessage(messages.fatherNumbers)}
                 fullWidth
-                required
                 variant='outlined'
                 autoComplete='off'
               />
@@ -482,7 +511,6 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 onChange={onNumericInputChange}
                 label={intl.formatMessage(messages.value)}
                 fullWidth
-                required
                 variant='outlined'
                 autoComplete='off'
               />
@@ -493,21 +521,16 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 name='wivesNo'
                 value={formInfo.wivesNo}
                 onChange={(evt) => {
-                  const value = evt.target.value.replace(
-                    /[^\d]/g,
-                    ''
-                  );
+                  const value = evt.target.value.replace(/[^\d]/g, '');
 
                   setFormInfo((prev) => ({
                     ...prev,
                     wivesNo: value,
-                    wivesValue:
-                      value * fixedBoxState.familyMemberValue,
+                    wivesValue: value * fixedBoxState.familyMemberValue,
                   }));
                 }}
                 label={intl.formatMessage(messages.wifeNumbers)}
                 fullWidth
-                required
                 variant='outlined'
                 autoComplete='off'
               />
@@ -520,7 +543,6 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 onChange={onNumericInputChange}
                 label={intl.formatMessage(messages.value)}
                 fullWidth
-                required
                 variant='outlined'
                 autoComplete='off'
               />
@@ -531,21 +553,16 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 name='childrenNo'
                 value={formInfo.childrenNo}
                 onChange={(evt) => {
-                  const value = evt.target.value.replace(
-                    /[^\d]/g,
-                    ''
-                  );
+                  const value = evt.target.value.replace(/[^\d]/g, '');
 
                   setFormInfo((prev) => ({
                     ...prev,
                     childrenNo: value,
-                    childrenValue:
-                      value * fixedBoxState.familyMemberValue,
+                    childrenValue: value * fixedBoxState.familyMemberValue,
                   }));
                 }}
                 label={intl.formatMessage(messages.childrenNumbers)}
                 fullWidth
-                required
                 variant='outlined'
                 autoComplete='off'
               />
@@ -558,7 +575,6 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 onChange={onNumericInputChange}
                 label={intl.formatMessage(messages.value)}
                 fullWidth
-                required
                 variant='outlined'
                 autoComplete='off'
               />

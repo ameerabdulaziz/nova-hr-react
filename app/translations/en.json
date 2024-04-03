@@ -2294,6 +2294,7 @@
   "boilerplate.containers.Payroll.Employee.pleaseFillAllRequiredFields": "Please fill all required fields",
   "boilerplate.containers.Payroll.Employee.pleaseMakeSureInsuredFieldsHasInsuranceDate": "Please make sure insured fields have insurance date",
   "boilerplate.containers.Payroll.Employee.uploadFile": "Upload",
+  "boilerplate.containers.Payroll.Employee.workMobile": "Work Mobile",
   "boilerplate.containers.Payroll.Employee.userName": "Username",
   "boilerplate.containers.Payroll.Employee.youMustChooseAnEmployee": "You must choose an employee",
   "boilerplate.containers.Payroll.Employee.vacationReport": "Vacation Report",
@@ -2308,6 +2309,9 @@
   "boilerplate.containers.Payroll.Employee.createAddress": "Create Address",
   "boilerplate.containers.Payroll.Employee.vacation": "Vacation",
   "boilerplate.containers.Payroll.Employee.absent": "Absent",
+  "boilerplate.containers.Payroll.Employee.allData": "All Data",
+  "boilerplate.containers.Payroll.Employee.someData": "Some Data",
+  "boilerplate.containers.Payroll.Employee.field": "Field",
   "boilerplate.containers.Payroll.Employee.statusInfo": "Status Info",
   "boilerplate.containers.Payroll.Employee.employeeNameShouldNotBeOneWord": "Employee Name Should Be More Than One Word",
   "boilerplate.containers.Payroll.Employee.usernameAlreadyExist": "Username Already Exist",
@@ -3097,6 +3101,10 @@
   "boilerplate.containers.Payroll.assessment.ManagerChoose": "Manager Choose",
   "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "You must to choose year",
   "boilerplate.containers.Payroll.assessment.AssessmentReport": "Assessment Report",
+
+  "boilerplate.containers.Payroll.assessment.totalDegree": "Grade (%)",
+  "boilerplate.containers.Payroll.assessment.evaluatedEmployee": "Evaluated Employee",
+  "boilerplate.containers.Payroll.assessment.Appraisal": "Appraisal",
 
 
   "boilerplate.containers.Payroll.SmartObjective.objective": "Objective",

@@ -2619,6 +2619,13 @@ export const PeerAppraisalSetting = loadable(
   }
 );
 
+export const PeerAppraisalList = loadable(
+  () => import('./Pages/Payroll/Assessment/Transactions/PeerAppraisalList'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Smart Objective
 export const EmployeeObjective = loadable(
   () => import('./Pages/Payroll/SmartObjective/transaction/EmployeeObjective'),

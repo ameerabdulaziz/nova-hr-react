@@ -311,17 +311,19 @@ function PayrollTable(props) {
     );
 
     // Table data base on visible columns
-    const sheetData = filterData.filter(item => item?.header !== true).map((row) => {
-      const rowData = {};
+    const sheetData = filterData
+      .filter((item) => item?.header !== true)
+      .map((row) => {
+        const rowData = {};
 
-      cols.forEach((col) => {
-        if (col?.options?.download !== false && col.label) {
-          rowData[col.label] = row[col.name];
-        }
+        cols.forEach((col) => {
+          if (col?.options?.download !== false && col.label) {
+            rowData[col.label] = row[col.name];
+          }
+        });
+
+        return rowData;
       });
-
-      return rowData;
-    });
 
     const ws = XLSX.utils.json_to_sheet(sheetData);
     const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
@@ -461,13 +463,13 @@ function PayrollTable(props) {
       // Add arabic unicode for excel
       onDownload: (buildHead, buildBody, cols, rows) => {
         console.log(cols, rows, filterData);
-        const realRows = []
+        const realRows = [];
 
-        filterData.forEach((item, index) =>{
-          if(item?.header !== true){
-            realRows.push(rows[index])
+        filterData.forEach((item, index) => {
+          if (item?.header !== true) {
+            realRows.push(rows[index]);
           }
-        })
+        });
 
         console.log(realRows);
         return '\uFEFF' + buildHead(cols) + buildBody(realRows);
@@ -481,7 +483,10 @@ function PayrollTable(props) {
         changedColumnIndex,
         displayData
       ) => {
-        setFilterData(displayData.map((item) => data[item.dataIndex]));
+        if (displayData) {
+          setFilterData(displayData.map((item) => data[item.dataIndex]));
+        }
+
         if (options.onFilterChange) {
           options.onFilterChange(
             changedColumn,

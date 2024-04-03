@@ -43,7 +43,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import DecryptUrl from "../../Component/DecryptUrl";
-import { extractBirthDayFromIdentityNumber } from "../../helpers";
+import { extractBirthDayFromIdentityNumber, formateDate, validateEmail } from "../../helpers";
 
 function Personal(props) {
   const history = useHistory();
@@ -301,7 +301,7 @@ function Personal(props) {
 
   useEffect(() => {
     if (workEmail) {
-      if (checkEmployeeWorkEmail) {
+      if (checkEmployeeWorkEmail && validateEmail(workEmail)) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeWorkEmail(workEmail);
           if (id === 0 && userName === '') {
@@ -927,7 +927,7 @@ function Personal(props) {
                         expiredPeriod : value !== null ? value.expiredPeriod : 0,
                       });
                       if (identityIssuingDate && value && value?.expiredPeriod !== 0) {
-                        const expireDate = moment(identityIssuingDate).add(value?.expiredPeriod ?? 0, 'y');
+                        const expireDate = moment(formateDate(identityIssuingDate)).add(value?.expiredPeriod ?? 0, 'y');
 
                         setidentityExpiry(expireDate.format('YYYY-MM-DD'));
                       }
@@ -962,7 +962,6 @@ function Personal(props) {
                     id="identityNumber"
                     name="identityNumber"
                     value={identityNumber}
-                    type="number"
                     onChange={(e) => setidentityNumber(e.target.value)}
                     label={intl.formatMessage(messages.identitynumber)}
                     className={classes.field}
@@ -988,8 +987,7 @@ function Personal(props) {
                             if (identityTypeId?.expiredPeriod && identityTypeId?.expiredPeriod !== 0) {
                               if(date)
                               {
-                                const expireDate = moment(date).add(identityTypeId?.expiredPeriod ?? 0, 'y');
-  
+                                const expireDate = moment(formateDate(date)).add(identityTypeId?.expiredPeriod ?? 0, 'y');
                                 setidentityExpiry(expireDate.format('YYYY-MM-DD'));
                               }
                               else

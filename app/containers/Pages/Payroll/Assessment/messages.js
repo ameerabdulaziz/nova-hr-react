@@ -570,4 +570,17 @@ export default defineMessages({
     id: `${scope}.noDevelopmentPlan`,
     defaultMessage: 'noDevelopmentPlan',
   },
+  // PeerAppraisalList
+  totalDegree: {
+    id: `${scope}.totalDegree`,
+    defaultMessage: 'Grade (%)',
+  },
+  evaluatedEmployee: {
+    id: `${scope}.evaluatedEmployee`,
+    defaultMessage: 'Evaluated Employee',
+  },
+  Appraisal: {
+    id: `${scope}.Appraisal`,
+    defaultMessage: 'Appraisal',
+  },
 });
