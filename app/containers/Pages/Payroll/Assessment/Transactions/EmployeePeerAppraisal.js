@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import EmployeeAssessmentData from '../api/EmployeeAssessmentData';
+import PeerAppraisalData from '../api/PeerAppraisalSettingData';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/pagesStyle/EmployeeAssessmentSty.scss'
-import {  useHistory, useLocation  } from 'react-router-dom';
+import { useLocation  } from 'react-router-dom';
 import { FormattedMessage , injectIntl } from 'react-intl';
 import messages from '../messages';
 import PropTypes from 'prop-types';
@@ -21,32 +21,25 @@ import notif from 'enl-api/ui/notifMessage';
 
 
 
-function EmployeeAssessment(props) {
+function EmployeePeerAppraisal(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [processing ,setProcessing] = useState(false)
   const locale = useSelector(state => state.language.locale);
   const { state } = useLocation()
-  const history=useHistory(); 
   const { intl } = props;
   const { classes } = useStyles();
-
- 
   const [examData, setExamData] = useState();
   const [startExam, setStartExam] = useState(false);
   const [endExam, setEndExam] = useState(false);
-
-    const [questionNum, setQuestionNum] = useState(0)
-    const [question, setQuestion] = useState()
-    const [choices, setChoices] = useState()
-    const [questionsAnswers, setQuestionsAnswers] = useState([])
-    const [allQuestionsAnswers, setAllQuestionsAnswers] = useState({})
-
-    const [uncompletedQuestionsList, setUncompletedQuestionsList] = useState([]);
-    const [textareaEmpTrainingVal, setTextareaEmpTrainingVal] = useState("");
-    const [saveBtnLock, setSaveBtnLock] = useState(false);
-   
-
-
+  const [questionNum, setQuestionNum] = useState(0)
+  const [question, setQuestion] = useState()
+  const [choices, setChoices] = useState()
+  const [questionsAnswers, setQuestionsAnswers] = useState([])
+  const [allQuestionsAnswers, setAllQuestionsAnswers] = useState({})
+  const [uncompletedQuestionsList, setUncompletedQuestionsList] = useState([]);
+  const [textareaEmpTrainingVal, setTextareaEmpTrainingVal] = useState("");
+  const [saveBtnLock, setSaveBtnLock] = useState(false);
+  const ID = state?.id;
 
 
     useEffect(()=>{
@@ -154,7 +147,6 @@ function EmployeeAssessment(props) {
 
   }
 
-
   const checkUnansweredQuestionsFun = () => {
     let questionNums = []
     examData.competencyList.map((que,index)=>{
@@ -200,7 +192,7 @@ function EmployeeAssessment(props) {
 
   async function fetchData() {
     try {
-      const examQuestionsData = await EmployeeAssessmentData(locale).Get();
+      const examQuestionsData = await PeerAppraisalData(locale).GetAssessmentPeerAppraisalData(ID);
       setExamData(examQuestionsData[0]);
       
 
@@ -227,7 +219,6 @@ function EmployeeAssessment(props) {
         if(examQuestionsData[0].showStyle === 2)
         {
         setAllQuestionsAnswers(prveState => (
-     
             {
               ...prveState,
               [`que${index + 1}`] : {
@@ -240,13 +231,9 @@ function EmployeeAssessment(props) {
           ))
         }
 
-
         setTextareaEmpTrainingVal(examQuestionsData[0].staffTrainingReq)
-
         }
       })
-
-      
 
     } catch (err) {
     } finally {
@@ -257,9 +244,6 @@ function EmployeeAssessment(props) {
   useEffect(() => {
     fetchData();
   }, []);
-
-
-
 
 
   const submitFun = async (buttonType) => {
@@ -311,13 +295,10 @@ function EmployeeAssessment(props) {
             }
 
           }
-          });
+        });
       }
     }
-
     })
-
-
 
     let data = {
       "assessmentId": examData.assessmentId,
@@ -327,10 +308,8 @@ function EmployeeAssessment(props) {
       "competencyList": examData.competencyList
     }
 
-
-
     try {
-      let response = await EmployeeAssessmentData().Save(data);
+      let response = await PeerAppraisalData().SaveAssessmentPeerAppraisalData(data);
 
       if (response.status==200) {
         toast.success(notif.saved);
@@ -383,7 +362,6 @@ function EmployeeAssessment(props) {
     }
 
   }
-    
   
   return (
     <PayRollLoader isLoading={isLoading} whiteBg icon="border_color" >
@@ -396,62 +374,63 @@ function EmployeeAssessment(props) {
                 >
                   {/* Banner */}
                   {( startExam && !endExam) && (
-                  <Grid item xs={12} className={`${style.gridContainerSty} `}  
-                      > 
-                          <div className={` ${style.panarContainer} ${classes.examMainSty}`}>
-                          <div>
-                              <img src={examLogo2} />
-                              <div>
-                                  <p>{examData?.templateName}</p>
-                              </div>
-                          </div>
-                          <div>
-                            <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                onClick={() => endExamFun()}
-                                 >
-                                  <FormattedMessage {...messages.AssessmentFinish} />
-                            </Button>
-                          </div>
-                        </div>               
-                    </Grid>
-                    )}
-                     {/* start page left side */}
-                    {!startExam && (
-                    <Grid item xs={12}  md={6} className={`${style.gridContainerSty} `} > 
-                        <div className={`${style.mainContainer} ${classes.examMainSty}`}>
+                    <Grid item xs={12} className={`${style.gridContainerSty} `} > 
+                            <div className={` ${style.panarContainer} ${classes.examMainSty}`}>
                             <div>
                                 <img src={examLogo2} />
-                                <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} />  :  examData?.templateName :  <FormattedMessage {...messages.AssessmentDurationEnded} /> }</h1>
+                                <div>
+                                    <p>{examData?.templateName}</p>
+                                </div>
                             </div>
-                        </div>               
-                    </Grid>
+                              
+                            <div>
+                              <Button
+                                  variant="contained"
+                                  size="medium"
+                                  color="primary"
+                                  onClick={() => endExamFun()}
+                                  >
+                                    <FormattedMessage {...messages.AssessmentFinish} />
+                              </Button>
+                            </div>
+                          </div>               
+                      </Grid>
+                    )}
+                    {/* start page left side */}
+                    {!startExam && (
+                      <Grid item xs={12}  md={6} className={`${style.gridContainerSty} `}> 
+                          <div className={`${style.mainContainer} ${classes.examMainSty}`}>
+                              <div>
+                                  <img src={examLogo2} />
+                                  <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} />  :  examData?.templateName :  <FormattedMessage {...messages.AssessmentDurationEnded} /> }</h1>
+                              </div>
+                          </div>               
+                      </Grid>
                     )}
 
                   {/* start page right side */}
                   {!startExam && (
-                    <Grid item xs={12} md={6} className={`${style.gridContainerSty} `} > 
+                    <Grid item xs={12} md={6} className={`${style.gridContainerSty} `}> 
                       <div className={`${style.startExamContainer}`}>
                         <div>
                           <img src={examLogo} />
                           <h1 className={`${classes.textSty}`}>{ examData ? examData.isClosed ? <FormattedMessage {...messages.AssessmentUnderReview} /> :  examData?.templateName : <FormattedMessage {...messages.AssessmentDurationEnded} />}</h1>
-                            {examData && (
-                              <p>
-                                {examData?.templateDesc}
-                              </p>
-                            )}
-                            {examData && (examData.isClosed === false) && (
-                                <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                 onClick={() => setStartExam(true)}
-                                 >
-                                  <FormattedMessage {...messages.Start} />
-                                </Button>
-                            )}
+                          {examData && (
+                            <p>
+                              {examData?.templateDesc}
+                            </p>
+                           )}
+
+                          {examData && (examData.isClosed === false) && (
+                            <Button
+                              variant="contained"
+                              size="medium"
+                              color="primary"
+                              onClick={() => setStartExam(true)}
+                               >
+                                <FormattedMessage {...messages.Start} />
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </Grid>
@@ -473,24 +452,26 @@ function EmployeeAssessment(props) {
                         />
                     )}
 
+
                     {(startExam && !endExam && (examData.showStyle === 2)) && (
-                          <ExamQuestionWithoutNextAndPrev 
-                          examData={examData} 
-                          choices={choices}
-                          allQuestionsAnswers={allQuestionsAnswers}
-                          saveAllQuestions={saveAllQuestions}
-                          finishExamFun={finishExamFun}
-                          textareaEmpTrainingVal={textareaEmpTrainingVal}
-                          intl={intl}
-                          />
+                        <ExamQuestionWithoutNextAndPrev 
+                        examData={examData} 
+                        choices={choices}
+                        allQuestionsAnswers={allQuestionsAnswers}
+                        saveAllQuestions={saveAllQuestions}
+                        finishExamFun={finishExamFun}
+                        textareaEmpTrainingVal={textareaEmpTrainingVal}
+                        intl={intl}
+                        />
+
                     )}
-                {/* End window */}
-                  {endExam && (
+                    {/* End window */}
+                    {endExam && (
                     <Grid item xs={12} >
                       <div className={ `${style.resultContainerSty} ${classes.containerSty}`}>
                           <div className={`${classes.examMainSty}`}>
                             <img src={finishLogo} />
-                            <h1 >
+                            <h1>
                                 <FormattedMessage {...messages.ThankYouForCompleteTheAssessment} />
                             </h1>
                           </div>
@@ -506,6 +487,7 @@ function EmployeeAssessment(props) {
                               <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(Object.keys(questionsAnswers).length*100)/examData?.competencyList.length} />
                               <Typography position='absolute' className={`${classes.textSty}`}>{(Object.keys(questionsAnswers).length*100)/examData?.competencyList.length}%</Typography>
                           </>)}
+
 
                           {examData.showStyle === 2 && (<>
                               <CircularProgress variant="determinate" style={{transform: 'scaleX(-1) rotate(-90deg'}}  value={(Object.keys(allQuestionsAnswers ).length*100)/examData?.competencyList.length} />
@@ -528,7 +510,7 @@ function EmployeeAssessment(props) {
                           >
 
                           {uncompletedQuestionsList.length !== 0 && (
-                            <Grid item xs={12}  lg={4}>
+                            <Grid item xs={12} lg={6}>
                               <Button
                                 variant="contained"
                                 size="medium"
@@ -537,11 +519,10 @@ function EmployeeAssessment(props) {
                               >
                                 <FormattedMessage {...messages.BackToAssessment} />
                               </Button>
-                              </Grid>
+                            </Grid>
                           )}
 
-
-                            <Grid item xs={12}   lg={uncompletedQuestionsList.length !== 0 ? 4 : 6}>
+                            <Grid item xs={12} lg={uncompletedQuestionsList.length !== 0 ? 6 : 12}>
                               <Button
                                 variant="contained"
                                 size="medium"
@@ -551,25 +532,11 @@ function EmployeeAssessment(props) {
                               >
                                 <FormattedMessage {...messages.save} />
                               </Button>
-                              </Grid>
-
-                              <Grid item xs={12}  lg={uncompletedQuestionsList.length !== 0 ? 4 : 6}>
-                              <Button
-                                variant="contained"
-                                size="medium"
-                                color="primary"
-                                onClick={()=>submitFun("submit")}
-                                disabled={uncompletedQuestionsList.length === 0 ? false : true}
-                              >
-                                <FormattedMessage {...messages.submit} />
-                              </Button>
-                              </Grid>
-                          </Grid>
-
+                            </Grid>
+                        </Grid>
                       </div>
                     </Grid>
                     )}
-
                 </Grid>
             </CardContent>
         </Card>
@@ -577,8 +544,8 @@ function EmployeeAssessment(props) {
   );
 }
 
-EmployeeAssessment.propTypes = {
+EmployeePeerAppraisal.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(EmployeeAssessment); 
+export default injectIntl(EmployeePeerAppraisal); 

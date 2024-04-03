@@ -3105,6 +3105,7 @@
   "boilerplate.containers.Payroll.assessment.totalDegree": "Grade (%)",
   "boilerplate.containers.Payroll.assessment.evaluatedEmployee": "Evaluated Employee",
   "boilerplate.containers.Payroll.assessment.Appraisal": "Appraisal",
+  "boilerplate.containers.Payroll.assessment.textareaErrMes": "Text field is required",
 
 
   "boilerplate.containers.Payroll.SmartObjective.objective": "Objective",

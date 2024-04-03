@@ -21,9 +21,19 @@ const PeerAppraisalSettingData = (locale) => {
 
 
 
-Apis.GetPeerAppraisalData = async () => {
-    const data = await axiosInstance.get(`PeerAppraisal/GetPeerAppraisalList/${locale}`);
+  Apis.GetPeerAppraisalData = async () => {
+      const data = await axiosInstance.get(`PeerAppraisal/GetPeerAppraisalList/${locale}`);
+      return data.data;
+    };
+
+  Apis.GetAssessmentPeerAppraisalData = async (id) => {
+    const data = await axiosInstance.get(`PeerAppraisal/GetEmployeePeerAppraisal/${locale}/${id}`);
     return data.data;
+  };
+
+  Apis.SaveAssessmentPeerAppraisalData = async (data) => {
+    const result = await axiosInstance.post(`PeerAppraisal/Save`, data);
+    return result;
   };
 
   

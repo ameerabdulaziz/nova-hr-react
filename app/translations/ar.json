@@ -3153,6 +3153,7 @@
   "boilerplate.containers.Payroll.assessment.totalDegree": "الدرجة (%)",
   "boilerplate.containers.Payroll.assessment.evaluatedEmployee": "الموظف المقيم",
   "boilerplate.containers.Payroll.assessment.Appraisal": "التقييم",
+  "boilerplate.containers.Payroll.assessment.textareaErrMes": "الحقل النصي مطلوب",
 
   "boilerplate.containers.Payroll.SmartObjective.objective": "الهدف",
   "boilerplate.containers.Payroll.SmartObjective.measurementTool": "أداة القياس",
