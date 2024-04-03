@@ -7,12 +7,13 @@ import api from '../api/PeerAppraisalSettingData';
 import payrollMessages from '../../messages';
 import messages from '../messages';
 import { Button } from "@mui/material";
+import {  useHistory  } from 'react-router-dom';
 
 function PeerAppraisalList(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
-
+  const history = useHistory(); 
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
 
@@ -35,7 +36,7 @@ function PeerAppraisalList(props) {
 
   const columns = [
     {
-      name: 'id',
+      name: 'employeeId',
       options: {
         filter: false,
         display: false,
@@ -74,7 +75,14 @@ function PeerAppraisalList(props) {
         filter: false,
         print: false,
         customBodyRender: (value, tableMeta) => (
-          <Button variant="contained" size="medium" color="primary" >
+          <Button 
+            variant="contained" 
+            size="medium" 
+            color="primary" 
+            onClick={()=>history.push(`/app/Pages/Assessment/EmployeePeerAppraisal`, {
+              id: tableMeta.rowData[0]
+            })}
+            >
             {intl.formatMessage(messages.Appraisal)}
           </Button>
         ),
