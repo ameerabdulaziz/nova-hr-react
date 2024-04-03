@@ -101,17 +101,17 @@ function uuid() {
   const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
   return (
     S4()
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ S4()
-		+ S4()
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + S4()
+    + S4()
   );
 }
 
@@ -146,7 +146,7 @@ function extractBirthDayFromIdentityNumber(identityNumber = '') {
       // set is between 16 & 80 year old
       if (
         dayjs().diff(date, 'year') >= 16
-				&& dayjs().diff(date, 'year') <= 80
+        && dayjs().diff(date, 'year') <= 80
       ) {
         return date;
       }
@@ -168,7 +168,26 @@ function validateEmail(email) {
   );
 }
 
+/**
+ * Returns the year and month identifiers based on the current date and the given list of years.
+ *
+ * @param {Array} years - An array of year objects.
+ * @return {Object} An object containing the year and month identifiers.
+ */
+function getDefaultYearAndMonth(years = []) {
+  const today = new Date();
+  const monthId = today.getMonth() + 1;
+  const yearId = years.find((year) => year.name === today.getFullYear().toString())?.id ?? null;
+
+  return { yearId, monthId };
+}
+
 export {
-  extractBirthDayFromIdentityNumber, formateDate, formatNumber, getCheckboxIcon,
-  getFormData, toArabicDigits, uuid, validateEmail
+  extractBirthDayFromIdentityNumber,
+  formateDate,
+  formatNumber,
+  getCheckboxIcon, getDefaultYearAndMonth, getFormData,
+  toArabicDigits,
+  uuid,
+  validateEmail
 };
