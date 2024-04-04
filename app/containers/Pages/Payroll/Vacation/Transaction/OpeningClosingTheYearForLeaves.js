@@ -18,9 +18,7 @@ import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import {Card ,CardContent} from "@mui/material";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from "date-fns";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import PayRollLoader from '../../Component/PayRollLoader';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -332,30 +330,6 @@ useEffect(() => {
                                 />
                             </LocalizationProvider>
                           </Grid>
-
-
-                          {/* <Grid item xs={12}  md={3}> 
-                            <LocalizationProvider dateAdapter={AdapterMoment}>
-                                <DesktopDatePicker
-                                  label={intl.formatMessage(messages.EndDate)}
-                                  value={toDate}
-                                  onChange={(date) => { 
-                                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                                      if (!isNaN(new Date(date))) { 
-                                        setToDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                                      } 
-                                      else
-                                      {
-                                        setToDate(null)
-                                      }
-                                    }
-                                  }}
-                                  className={classes.field}
-                                  renderInput={(params) => <TextField {...params} variant="outlined"  required={fromDate !== null ? true : false}/>}
-                                />
-                            </LocalizationProvider>
-                      
-                          </Grid> */}
 
                           <Grid item xs={12}  md={3}> 
                           
