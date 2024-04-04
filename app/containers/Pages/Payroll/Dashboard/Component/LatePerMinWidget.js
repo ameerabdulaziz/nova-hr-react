@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState ,useEffect} from "react";
 import Typography from "@mui/material/Typography";
 import { injectIntl, FormattedMessage } from "react-intl";
 import messages from "./messages";
@@ -19,6 +19,9 @@ import {
 import useStyles from "./fluidChart-jss";
 import { createTheme } from "@mui/material/styles";
 import ThemePallete from "enl-api/palette/themePalette";
+import PayRollLoader from "../../Component/PayRollLoader";
+import api from "../api";
+import { useSelector } from "react-redux";
 
 const theme = createTheme(ThemePallete.magentaTheme);
 const color = {
@@ -27,62 +30,86 @@ const color = {
   secondary: theme.palette.secondary.main,
   secondaryDark: theme.palette.secondary.dark,
 };
-const data1 = [
-  {
-    name: 'Jan',
-    value: 40,
-  },
-  {
-    name: 'Feb',
-    value: 45,
-  },
-  {
-    name: 'Mar',
-    value: 27,
-  },
-  {
-    name: 'Apr',
-    value: 50,
-  },
-  {
-    name: 'May',
-    value: 32,
-  },
-  {
-    name: 'Jun',
-    value: 50,
-  },
-  {
-    name: 'Jul',
-    value: 24,
-  },
-  {
-    name: 'Aug',
-    value: 32,
-  },
-  {
-    name: 'Sept',
-    value: 40,
-  },
-  {
-    name: 'Oct',
-    value: 50,
-  },
-  {
-    name: 'Nov',
-    value: 50,
-  },
-  {
-    name: 'Dec',
-    value: 79,
-  },
-];
+
 
 function LatePerMinWidget(props) {
   const { intl } = props;
   const { classes } = useStyles();
+  const [data1,setData1] = useState([
+    {
+      name: 'Jan',
+      value: 40,
+    },
+    {
+      name: 'Feb',
+      value: 45,
+    },
+    {
+      name: 'Mar',
+      value: 27,
+    },
+    {
+      name: 'Apr',
+      value: 50,
+    },
+    {
+      name: 'May',
+      value: 32,
+    },
+    {
+      name: 'Jun',
+      value: 50,
+    },
+    {
+      name: 'Jul',
+      value: 24,
+    },
+    {
+      name: 'Aug',
+      value: 32,
+    },
+    {
+      name: 'Sept',
+      value: 40,
+    },
+    {
+      name: 'Oct',
+      value: 50,
+    },
+    {
+      name: 'Nov',
+      value: 50,
+    },
+    {
+      name: 'Dec',
+      value: 79,
+    },
+  ]);
+
+  const locale = useSelector((state) => state.language.locale);
+  const [isLoading, setIsLoading] = useState(false);
+  const IsStaticDashboard = localStorage.getItem("IsStaticDashboard");
+
+  const getdata = async () => {
+    try {
+      if (IsStaticDashboard == "false") {
+        setIsLoading(true);
+        
+        const data = await api(locale).getMonthlyLate();
+        setData1(data);
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, []);
 
   return (
+    <PayRollLoader isLoading={isLoading}>
     <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
       <div>
         <Typography className={classes.smallTitle} variant="button">
@@ -147,6 +174,7 @@ function LatePerMinWidget(props) {
         </div>
       </div>
     </PapperBlock>
+    </PayRollLoader>
   );
 }
 

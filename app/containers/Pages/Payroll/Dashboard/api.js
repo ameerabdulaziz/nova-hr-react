@@ -66,8 +66,8 @@ const dashboardData = (locale) => {
     const data = await axiosInstance.get(`Dashboard/GetSalaryYearly`);
     return data.data;
   };
-  api.getMonthlyOvertime = async () => {
-    const data = await axiosInstance.get(`Dashboard/GetMonthlyOvertime/${locale}`);
+  api.getMonthlyOvertime = async (isCurrentUser) => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyOvertime/${locale}?isCurrentUser=${isCurrentUser?isCurrentUser:false}`);
     return data.data;
   };
   api.getMonthlyAbscence = async () => {
@@ -98,9 +98,33 @@ const dashboardData = (locale) => {
     const data = await axiosInstance.get(`Dashboard/GetPyarollData`);
     return data.data;
   };
-  
-  
 
+  api.getMonthlyAttData = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyAttData`);
+    return data.data;
+  };
+  
+  api.getAttData = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetAttData`);
+    return data.data;
+  };
+
+  api.getMonthlyWorkHours = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyWorkHours/${locale}`);
+    return data.data;
+  };
+  api.getVacationsPercentage = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetVacationsPercentage/${locale}`);
+    return data.data;
+  };
+  api.getMonthlyLate = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyLate/${locale}`);
+    return data.data;
+  };
+  
+  
+  
+  
   
   
 
