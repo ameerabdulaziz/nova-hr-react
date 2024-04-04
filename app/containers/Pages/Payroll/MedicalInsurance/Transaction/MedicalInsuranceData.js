@@ -13,7 +13,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -28,7 +27,6 @@ import useStyles from '../../Style';
 import { formateDate } from '../../helpers';
 import api from '../api/MedicalInsuranceData';
 import messages from '../messages';
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -239,30 +237,6 @@ function MedicalInsuranceData(props) {
                       />
                     </Grid>
 
-                    {/* <Grid item xs={12} md={6}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.cardExpireDate)}
-                          value={governmentState.govMedCareEnd}
-                          disabled={!hasGovernmentInsurance}
-                          onChange={(date) => {
-                            setGovernmentState((prevFilters) => ({
-                              ...prevFilters,
-                              govMedCareEnd: date,
-                            }));
-                          }}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant='outlined'
-                              required
-                              fullWidth
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
-
                   <Grid item xs={12} md={6}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -326,32 +300,6 @@ function MedicalInsuranceData(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    {/* <Grid item xs={12} md={6}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(
-                            messages.certificateIssuedDate
-                          )}
-                          value={certState.medCertIssueDate}
-                          disabled={!hasMedicalCert}
-                          onChange={(date) => {
-                            setCertState((prevFilters) => ({
-                              ...prevFilters,
-                              medCertIssueDate: date,
-                            }));
-                          }}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant='outlined'
-                              required
-                              fullWidth
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
-
                   <Grid item xs={12} md={6}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -391,32 +339,6 @@ function MedicalInsuranceData(props) {
                         />
                     </LocalizationProvider>
                   </Grid>
-
-                    {/* <Grid item xs={12} md={6}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(
-                            messages.certificateExpireDate
-                          )}
-                          value={certState.medCertExpDate}
-                          disabled={!hasMedicalCert}
-                          onChange={(date) => {
-                            setCertState((prevFilters) => ({
-                              ...prevFilters,
-                              medCertExpDate: date,
-                            }));
-                          }}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              variant='outlined'
-                              required
-                              fullWidth
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
 
                   <Grid item xs={12} md={6}>
                   

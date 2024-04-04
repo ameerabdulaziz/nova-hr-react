@@ -22,7 +22,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate } from '../../helpers';
+import { formateDate, getDefaultYearAndMonth } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/MedicalInsuranceSubscriptionData';
 import messages from '../messages';
@@ -57,7 +57,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
 
     employeeId: '',
     employeeName: '',
-    subDate: null,
+    subDate: new Date(),
     insCmpId: '',
     medInsuCatId: '',
 
@@ -68,7 +68,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
     subMonthlyFees: '',
 
     privlMedCareNumber: '',
-    medCareEndDate: null,
+    medCareEndDate: new Date(),
 
     childrenNo: '',
     childrenValue: '',
@@ -134,14 +134,12 @@ function MedicalInsuranceSubscriptionCreate(props) {
         const dataApi = await api(locale).GetById(id);
         setFormInfo(dataApi);
       } else {
-        // set default year and month
-        const today = new Date();
-        const yearId = years.find((y) => y.name === today.getFullYear().toString())?.id ?? null;
+        const today = getDefaultYearAndMonth(years);
 
         setFormInfo((prev) => ({
           ...prev,
-          yearId,
-          monthId: today.getMonth() + 1,
+          yearId: today.yearId,
+          monthId: today.monthId,
         }));
       }
     } catch (error) {

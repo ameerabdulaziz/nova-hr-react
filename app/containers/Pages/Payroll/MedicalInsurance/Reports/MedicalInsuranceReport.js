@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import ApiData from "../api/MedicalInsuranceReportsData";
 import { useSelector } from "react-redux";
 import {
   Button,
   Grid,
   Tooltip,
-  TextField
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -19,12 +18,9 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import  InsuranceFormPopUp  from '../../Component/InsuranceFormPopUp';
 import notif from 'enl-api/ui/notifMessage';
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { formateDate } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';

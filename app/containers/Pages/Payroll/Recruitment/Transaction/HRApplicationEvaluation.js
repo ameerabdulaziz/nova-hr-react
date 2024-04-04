@@ -22,8 +22,10 @@ import {
   Typography,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -62,6 +64,7 @@ function HRApplicationEvaluation(props) {
     },
   ];
 
+  const [dateError, setDateError] = useState({});
   const [tableData, setTableData] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
@@ -314,6 +317,11 @@ function HRApplicationEvaluation(props) {
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     fetchTableData();
   };
 
@@ -381,7 +389,9 @@ function HRApplicationEvaluation(props) {
 
     if (popupState.appFirstStatus === 1 || popupState.appFirstStatus === 3) {
       body.secStaff = popupState.secStaff;
-      body.techEmpList = !popupState.notTechnicalReview ? popupState.techEmpList.map((item) => item.id) : [];
+      body.techEmpList = !popupState.notTechnicalReview
+        ? popupState.techEmpList.map((item) => item.id)
+        : [];
     }
 
     if (popupState.appFirstStatus !== 1) {
@@ -862,27 +872,37 @@ function HRApplicationEvaluation(props) {
                 </Grid>
 
                 <Grid item xs={12} md={3}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(payrollMessages.fromdate)}
-                      value={formInfo.FromDate}
+                      value={
+                        formInfo.FromDate ? dayjs(formInfo.FromDate) : null
+                      }
+                      sx={{ width: '100%' }}
                       onChange={(date) => onDatePickerChange(date, 'FromDate')}
-                      renderInput={(params) => (
-                        <TextField {...params} fullWidth variant='outlined' />
-                      )}
+                      onError={(error) => {
+                        setDateError((prevState) => ({
+                          ...prevState,
+                          FromDate: error !== null,
+                        }));
+                      }}
                     />
                   </LocalizationProvider>
                 </Grid>
 
                 <Grid item xs={12} md={3}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(payrollMessages.todate)}
-                      value={formInfo.ToDate}
+                      value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
+                      sx={{ width: '100%' }}
                       onChange={(date) => onDatePickerChange(date, 'ToDate')}
-                      renderInput={(params) => (
-                        <TextField {...params} fullWidth variant='outlined' />
-                      )}
+                      onError={(error) => {
+                        setDateError((prevState) => ({
+                          ...prevState,
+                          ToDate: error !== null,
+                        }));
+                      }}
                     />
                   </LocalizationProvider>
                 </Grid>

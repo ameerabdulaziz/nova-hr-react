@@ -6,8 +6,6 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
 import { PapperBlock } from 'enl-components';
@@ -23,7 +21,6 @@ import messages from '../messages';
 import PayRollLoader from "../../Component/PayRollLoader";
 import { formateDate } from '../../helpers';
 import PayrollTable from '../../Component/PayrollTable';
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -298,36 +295,6 @@ function NewEmployeeReport(props) {
             />
           </Grid>
 
-          {/* <Grid item xs={12} md={3}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(messages.fromDate)}
-                value={formInfo.FromDate}
-                onChange={(date) => {
-                  if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                    if (!isNaN(new Date(date))) { 
-                      setFormInfo((prev) => ({
-                          ...prev,
-                          FromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                        }))
-                    }
-                    else
-                    {
-                      setFormInfo((prev) => ({
-                        ...prev,
-                        FromDate: null,
-                      }))
-                    } 
-                  }
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant='outlined' />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid> */}
-
                   <Grid item xs={12} md={3}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -360,36 +327,6 @@ function NewEmployeeReport(props) {
                         />
                     </LocalizationProvider>
                   </Grid>
-
-          {/* <Grid item xs={12} md={3}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label={intl.formatMessage(messages.toDate)}
-                value={formInfo.ToDate}
-                onChange={(date) => {
-                  if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                    if (!isNaN(new Date(date))) { 
-                      setFormInfo((prev) => ({
-                          ...prev,
-                          ToDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                        }))
-                    }
-                    else
-                    {
-                      setFormInfo((prev) => ({
-                        ...prev,
-                        ToDate: null,
-                      }))
-                    } 
-                  }
-                }}
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField {...params} variant='outlined' />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid> */}
 
                   <Grid item xs={12} md={3}>
                   

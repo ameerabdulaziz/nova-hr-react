@@ -7,11 +7,15 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
+import payrollMessages from '../../messages';
 import messages from '../messages';
 
 function CoursesPopup(props) {
@@ -19,6 +23,7 @@ function CoursesPopup(props) {
     intl, isOpen, setIsOpen, onSave, selectedCourse, setSelectedCourse
   } = props;
 
+  const [dateError, setDateError] = useState({});
   const [formInfo, setFormInfo] = useState({
     courseName: '',
     endDate: null,
@@ -59,6 +64,12 @@ function CoursesPopup(props) {
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
+
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     onSave(formInfo);
 
     setIsOpen(false);
@@ -99,14 +110,23 @@ function CoursesPopup(props) {
           </Grid>
 
           <Grid item xs={12} lg={6}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={intl.formatMessage(messages.endDate)}
-                value={formInfo.endDate}
+                value={formInfo.endDate ? dayjs(formInfo.endDate) : null}
+                sx={{ width: '100%' }}
                 onChange={(date) => onDatePickerChange(date, 'endDate')}
-                renderInput={(params) => (
-                  <TextField {...params} fullWidth required variant='outlined' />
-                )}
+                onError={(error) => {
+                  setDateError((prevState) => ({
+                    ...prevState,
+                    endDate: error !== null,
+                  }));
+                }}
+                slotProps={{
+                  textField: {
+                    required: true,
+                  },
+                }}
               />
             </LocalizationProvider>
           </Grid>

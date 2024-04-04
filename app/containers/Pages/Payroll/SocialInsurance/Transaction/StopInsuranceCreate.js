@@ -1,8 +1,10 @@
 import {
   Autocomplete, Button, Grid, TextField
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -28,6 +30,7 @@ function StopInsuranceCreate(props) {
   const history = useHistory();
 
   const [employeeList, setEmployeeList] = useState([]);
+  const [dateError, setDateError] = useState({});
 
   const [isLoading, setIsLoading] = useState(true);
   const [formInfo, setFormInfo] = useState({
@@ -35,7 +38,7 @@ function StopInsuranceCreate(props) {
 
     employeeId: '',
     employeeName: '',
-    insEndDate: null,
+    insEndDate: new Date(),
     insReason: '',
     notes: '',
     c6inDate: null,
@@ -62,6 +65,11 @@ function StopInsuranceCreate(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
     const formData = {
       ...formInfo,
@@ -96,6 +104,10 @@ function StopInsuranceCreate(props) {
       ...prev,
       [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
     }));
+  };
+
+  const onDatePickerChange = (value, name) => {
+    setFormInfo((prev) => ({ ...prev, [name]: value }));
   };
 
   const onCancelBtnClick = () => {
@@ -156,24 +168,25 @@ function StopInsuranceCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.endDate)}
-                  value={formInfo.insEndDate}
-                  onChange={(date) => {
-                    setFormInfo((prevFilters) => ({
-                      ...prevFilters,
-                      insEndDate: date,
+                  value={
+                    formInfo.insEndDate ? dayjs(formInfo.insEndDate) : null
+                  }
+                  sx={{ width: '100%' }}
+                  onChange={(date) => onDatePickerChange(date, 'insEndDate')}
+                  onError={(error) => {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      insEndDate: error !== null,
                     }));
                   }}
-                  renderInput={(params) => (
-                    <TextField
-                      required
-                      {...params}
-                      fullWidth
-                      variant='outlined'
-                    />
-                  )}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -231,19 +244,20 @@ function StopInsuranceCreate(props) {
                 </Grid>
 
                 <Grid item xs={12} md={3}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(messages.c6DeliverDate)}
-                      value={formInfo.c6inDate}
-                      onChange={(date) => {
-                        setFormInfo((prevFilters) => ({
-                          ...prevFilters,
-                          c6inDate: date,
+                      value={
+                        formInfo.c6inDate ? dayjs(formInfo.c6inDate) : null
+                      }
+                      sx={{ width: '100%' }}
+                      onChange={(date) => onDatePickerChange(date, 'c6inDate')}
+                      onError={(error) => {
+                        setDateError((prevState) => ({
+                          ...prevState,
+                          c6inDate: error !== null,
                         }));
                       }}
-                      renderInput={(params) => (
-                        <TextField {...params} fullWidth variant='outlined' />
-                      )}
                     />
                   </LocalizationProvider>
                 </Grid>

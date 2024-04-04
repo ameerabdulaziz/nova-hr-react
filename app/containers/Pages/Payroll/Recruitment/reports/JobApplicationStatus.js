@@ -6,11 +6,14 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
@@ -29,6 +32,7 @@ function JobApplicationStatus(props) {
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
+  const [dateError, setDateError] = useState({});
   const [tableData, setTableData] = useState([]);
 
   const [statusList, setStatusList] = useState([]);
@@ -99,7 +103,7 @@ function JobApplicationStatus(props) {
       label: intl.formatMessage(messages.applicationDate),
       options: {
         filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
       },
     },
 
@@ -163,6 +167,11 @@ function JobApplicationStatus(props) {
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     fetchTableData();
   };
 
@@ -212,29 +221,37 @@ function JobApplicationStatus(props) {
                 </Grid>
 
                 <Grid item xs={12} md={3}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(payrollMessages.fromdate)}
-                      value={formInfo.FromDate}
+                      value={
+                        formInfo.FromDate ? dayjs(formInfo.FromDate) : null
+                      }
+                      sx={{ width: '100%' }}
                       onChange={(date) => onDatePickerChange(date, 'FromDate')}
-                      className={classes.field}
-                      renderInput={(params) => (
-                        <TextField {...params} variant='outlined' />
-                      )}
+                      onError={(error) => {
+                        setDateError((prevState) => ({
+                          ...prevState,
+                          FromDate: error !== null,
+                        }));
+                      }}
                     />
                   </LocalizationProvider>
                 </Grid>
 
                 <Grid item xs={12} md={3}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(payrollMessages.todate)}
-                      value={formInfo.ToDate}
+                      value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
+                      sx={{ width: '100%' }}
                       onChange={(date) => onDatePickerChange(date, 'ToDate')}
-                      className={classes.field}
-                      renderInput={(params) => (
-                        <TextField {...params} variant='outlined' />
-                      )}
+                      onError={(error) => {
+                        setDateError((prevState) => ({
+                          ...prevState,
+                          ToDate: error !== null,
+                        }));
+                      }}
                     />
                   </LocalizationProvider>
                 </Grid>
@@ -275,11 +292,7 @@ function JobApplicationStatus(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
-        data={tableData}
-        columns={columns}
-        isLoading={isLoading}
-      />
+      <PayrollTable data={tableData} columns={columns} isLoading={isLoading} />
     </PayRollLoader>
   );
 }

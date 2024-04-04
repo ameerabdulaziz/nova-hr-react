@@ -67,6 +67,55 @@ npm run start:prod
 
 ## Docs 📖
 
+### Date Picker Replacement
+
+#### Import Date Picker
+
+```jsx
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+```
+
+#### State Date Picker
+
+```jsx
+const [dateError, setDateError] = useState({});
+```
+
+#### On Submit
+
+```jsx
+if (Object.values(dateError).includes(true)) {
+  toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+  return;
+}
+```
+
+#### Date Picker Body
+
+```jsx
+<LocalizationProvider dateAdapter={AdapterDayjs}>
+  <DatePicker
+    label={intl.formatMessage(messages.endDate)}
+    value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
+    sx={{ width: '100%' }}
+    onChange={(date) => onDatePickerChange(date, 'trxDate')}
+    onError={(error) => {
+      setDateError((prevState) => ({
+        ...prevState,
+        trxDate: error !== null
+      }));
+    }}
+    slotProps={{
+      textField: {
+        required: true,
+      },
+    }}
+  />
+</LocalizationProvider>
+```
+
 ### PayrollTable Component
 
 The `PayrollTable` component is a React component designed to display and manage payroll data in a tabular format. It provides features such as printing, adding, editing, and deleting rows.

@@ -5,13 +5,17 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  TextField
+  TextField,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
+import payrollMessages from '../../messages';
 import messages from '../messages';
 
 function ExperiencePopup(props) {
@@ -24,6 +28,7 @@ function ExperiencePopup(props) {
     setSelectedWorkExperience,
   } = props;
 
+  const [dateError, setDateError] = useState({});
   const [formInfo, setFormInfo] = useState({
     jobName: '',
     departmentName: '',
@@ -76,6 +81,12 @@ function ExperiencePopup(props) {
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
+
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     onSave(formInfo);
 
     setIsOpen(false);
@@ -157,27 +168,45 @@ function ExperiencePopup(props) {
           </Grid>
 
           <Grid item xs={12} lg={6}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={intl.formatMessage(messages.startDate)}
-                value={formInfo.fromDate}
+                value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
+                sx={{ width: '100%' }}
                 onChange={(date) => onDatePickerChange(date, 'fromDate')}
-                renderInput={(params) => (
-                  <TextField {...params} fullWidth required variant='outlined' />
-                )}
+                onError={(error) => {
+                  setDateError((prevState) => ({
+                    ...prevState,
+                    fromDate: error !== null,
+                  }));
+                }}
+                slotProps={{
+                  textField: {
+                    required: true,
+                  },
+                }}
               />
             </LocalizationProvider>
           </Grid>
 
           <Grid item xs={12} lg={6}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={intl.formatMessage(messages.endDate)}
-                value={formInfo.toDate}
+                value={formInfo.toDate ? dayjs(formInfo.toDate) : null}
+                sx={{ width: '100%' }}
                 onChange={(date) => onDatePickerChange(date, 'toDate')}
-                renderInput={(params) => (
-                  <TextField {...params} fullWidth required variant='outlined' />
-                )}
+                onError={(error) => {
+                  setDateError((prevState) => ({
+                    ...prevState,
+                    toDate: error !== null,
+                  }));
+                }}
+                slotProps={{
+                  textField: {
+                    required: true,
+                  },
+                }}
               />
             </LocalizationProvider>
           </Grid>

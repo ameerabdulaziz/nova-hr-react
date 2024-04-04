@@ -21,7 +21,6 @@ import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -78,7 +77,7 @@ function EmploymentRequestCreate(props) {
     genderId: null,
     departmentId: null,
     comments: '',
-    startingDate: null,
+    startingDate: new Date(),
     reportingTo: null,
     noOfVacancies: '',
     salaryRange: '',

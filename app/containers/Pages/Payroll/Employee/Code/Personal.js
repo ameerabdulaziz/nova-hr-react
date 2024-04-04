@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { PapperBlock } from "enl-components";
 import EmployeeData from "../api/EmployeeData";
 import messages from "../messages";
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Payrollmessages from "../../messages";
 import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
@@ -18,16 +16,12 @@ import {
   Grid,
   TextField,
   Autocomplete,
-  Checkbox,
 } from "@mui/material";
 import useStyles from "../../Style";
 import Dropzone from "react-dropzone";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../api/GeneralListApis";
 import { format } from "date-fns";
-import style from '../../../../../styles/styles.scss';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Type from "enl-styles/Typography.scss";
@@ -79,7 +73,7 @@ function Personal(props) {
   const [jobList, setjobList] = useState([]);
   const [jobLevelId, setjobLevelId] = useState(null);
   const [jobLevelList, setjobLevelList] = useState([]);
-  const [hiringDate, sethiringDate] = useState(null);
+  const [hiringDate, sethiringDate] = useState(new Date());
   const [controlParameterId, setcontrolParameterId] = useState(null);
   const [controlParameterList, setcontrolParameterList] = useState([]);
   const [identityTypeId, setidentityTypeId] = useState(null);

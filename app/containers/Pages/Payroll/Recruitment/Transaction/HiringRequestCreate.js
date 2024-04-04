@@ -63,9 +63,9 @@ function HiringRequestCreate(props) {
   const [formInfo, setFormInfo] = useState({
     id,
 
-    hiringRequestDate: null,
+    hiringRequestDate: new Date(),
     candidateName: '',
-    startDate: null,
+    startDate: new Date(),
     JobApplicarionId: null,
     RecHiringReqAssignEmployee: [],
     reportTo: null,
