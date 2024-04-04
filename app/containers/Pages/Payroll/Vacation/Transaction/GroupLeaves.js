@@ -10,14 +10,11 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import {Button ,Grid,TextField, Autocomplete ,Card ,CardContent} from "@mui/material";
 import useStyles from '../../Style';
 import PropTypes from 'prop-types';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import GeneralListApis from '../../api/GeneralListApis';
 import { format } from "date-fns";
 import CircularProgress from '@mui/material/CircularProgress';
 import NameList from '../../Component/NameList';
-import style from '../../../../../styles/styles.scss'
 import PayRollLoader from '../../Component/PayRollLoader';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -33,7 +30,7 @@ function GroupLeaves(props) {
   const Title = localStorage.getItem("MenuName");
   
   const [data, setdata] = useState({
-    "TrxDate":null,
+    "TrxDate":new Date(),
     "VacCode":null,
     "fromdate":null, 
     "Todate":null,    
@@ -56,132 +53,81 @@ function GroupLeaves(props) {
      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
+  useEffect(()=>{
+    dateChangeFun(dateFormatFun(new Date()), "startDate")
+    // dateChangeFun(new Date(), "endDate")
+  },[])
+
+  useEffect(()=>{
+    // dateChangeFun(new Date(), "startDate")
+    dateChangeFun(dateFormatFun(new Date()), "endDate")
+  },[data.fromdate])
+
 
 
 const dateChangeFun = (date, type) => {
 
-if(type === "startDate")
-{
-    if(data.Todate !== null)
+    if(type === "startDate")
     {
-       let totalDaysVal = Math.floor( (new Date(data.Todate) - new Date(date)) / 1000 / 60 / 60 / 24) + 1
-
-        if(totalDaysVal > 0)
+        if(data.Todate !== null)
         {
-            // if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-            //     if (!isNaN(new Date(date))) { 
-            //       setdata((prevFilters) => ({
-            //           ...prevFilters,
-            //           fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-            //           daysCount: totalDaysVal
-            //         }))
-            //     }
-            //     else
-            //     {
-            //       setdata((prevFilters) => ({
-            //         ...prevFilters,
-            //         fromdate: null,
-            //         daysCount: totalDaysVal
-            //       }))
-            //     } 
-            //   }
+        let totalDaysVal = Math.floor( (new Date(data.Todate).setHours(0, 0, 0) - new Date(date)) / 1000 / 60 / 60 / 24) + 1
 
-            setdata((prevFilters) => ({
-                          ...prevFilters,
-                          fromdate: dateFormatFun(date) ,
-                          daysCount: totalDaysVal
-                        }))
-        }
-        else
-        {
-            toast.error(intl.formatMessage(messages.startEndDateError));
-        }
-    }
-    else
-    {
-        // if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-        //     if (!isNaN(new Date(date))) { 
-        //       setdata((prevFilters) => ({
-        //           ...prevFilters,
-        //           fromdate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-        //         }))
-        //     }
-        //     else
-        //     {
-        //       setdata((prevFilters) => ({
-        //         ...prevFilters,
-        //         fromdate: null,
-        //       }))
-        //     } 
-        //   }
-
-        setdata((prevFilters) => ({
-                      ...prevFilters,
-                      fromdate: dateFormatFun(date) ,
-                    }))
-    }
-}
-else if(type === "endDate")
-{
-    if(data.fromdate !== null)
+            if(totalDaysVal > 0)
             {
-                let totalDaysVal = Math.floor( (new Date(date) - new Date(data.fromdate)) / 1000 / 60 / 60 / 24 ) + 2
-                if(totalDaysVal > 0)
-                {
-                    // if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                    //     if (!isNaN(new Date(date))) { 
-                    //       setdata((prevFilters) => ({
-                    //           ...prevFilters,
-                    //           Todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                    //           daysCount: totalDaysVal
-                    //         }))
-                    //     }
-                    //     else
-                    //     {
-                    //       setdata((prevFilters) => ({
-                    //         ...prevFilters,
-                    //         Todate: null,
-                    //         daysCount: totalDaysVal
-                    //       }))
-                    //     } 
-                    //   }
-
-                    setdata((prevFilters) => ({
-                        ...prevFilters,
-                        Todate: dateFormatFun(date) ,
-                        daysCount: totalDaysVal
-                      }))
-                }
-                else
-                {
-                    toast.error(intl.formatMessage(messages.startEndDateError));
-                }
+                setdata((prevState) => ({
+                    ...prevState,
+                    fromdate: dateFormatFun(date) ,
+                    daysCount: totalDaysVal
+                }))
             }
             else
             {
-                // if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                //     if (!isNaN(new Date(date))) { 
-                //       setdata((prevFilters) => ({
-                //           ...prevFilters,
-                //           Todate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                //         }))
-                //     }
-                //     else
-                //     {
-                //       setdata((prevFilters) => ({
-                //         ...prevFilters,
-                //         Todate: null,
-                //       }))
-                //     } 
-                //   }
-
-                setdata((prevFilters) => ({
-                    ...prevFilters,
-                    Todate: dateFormatFun(date) ,
-                  }))
+                setdata((prevState) => ({
+                    ...prevState,
+                    daysCount: ""
+                }))
+                toast.error(intl.formatMessage(messages.startEndDateError));
             }
-}
-
+        }
+        else
+        {
+            setdata((prevState) => ({
+                ...prevState,
+                fromdate: dateFormatFun(date) ,
+            }))
+        }
+    }
+    else if(type === "endDate")
+    {
+        if(data.fromdate !== null)
+            {
+                let totalDaysVal = Math.floor( (new Date(date) - new Date(data.fromdate).setHours(0, 0, 0)) / 1000 / 60 / 60 / 24 ) + 1
+                if(totalDaysVal > 0)
+                {
+                    setdata((prevState) => ({
+                        ...prevState,
+                        Todate: dateFormatFun(date),
+                        daysCount: totalDaysVal
+                        }))
+                    }
+                    else
+                    {
+                        setdata((prevState) => ({
+                            ...prevState,
+                            daysCount: ""
+                        }))
+                        toast.error(intl.formatMessage(messages.startEndDateError));
+                    }
+                }
+                else
+                {
+                    setdata((prevState) => ({
+                        ...prevState,
+                        Todate: dateFormatFun(date) ,
+                    }))
+                }
+    }
 }
 
 
@@ -224,6 +170,11 @@ else if(type === "endDate")
         return;
       }
 
+      if(data.daysCount === "")
+      {
+        toast.error(intl.formatMessage(messages.startEndDateError));
+        return;
+      }
 
     try{
        
@@ -234,9 +185,7 @@ else if(type === "endDate")
 
       if(SelectedIds.length > 0)
       {
-
         data.TrxDate = dateFormatFun(data.TrxDate)
-
 
             let response = await  ApiData(locale).SaveAll(data);
 
@@ -248,7 +197,6 @@ else if(type === "endDate")
             {
                 toast.error(response.statusText);
             }
-
     }
     else
     {
@@ -257,7 +205,6 @@ else if(type === "endDate")
     
     }
     catch (err) {
-        //   toast.error(err.response.data);
     } finally {
         setprocessing(false);
         setIsLoading(false);
@@ -275,7 +222,6 @@ else if(type === "endDate")
         return;
       }
 
-
     try{
        
         data.TrxDate = dateFormatFun(data.TrxDate)
@@ -287,17 +233,15 @@ else if(type === "endDate")
         toast.success(notif.saved);
         handleReset();
     }
-
     
-    
-}
-catch (err) {
-    //
-} finally {
+    }
+    catch (err) {
+        //
+    } finally {
         setdeleteprocessing(false);
         setprocessing(false);
         setIsLoading(false);
-    }
+        }
   }
 
   const handleReset = async (e) => {
@@ -384,7 +328,6 @@ async function getData() {
 }
 
 
-  
   return (
     <PayRollLoader isLoading={isLoading}>
         <PapperBlock whiteBg icon="border_color" title={Title} desc={""}>
@@ -482,16 +425,14 @@ async function getData() {
                                         alignItems="flex-start"
                                         direction="row">
 
-
                                         <Grid item xs={12} md={4}>
-                                        
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <DatePicker 
                                                 label={intl.formatMessage(messages.startDate)}
-                                                value={data?.fromdate ? dayjs(data?.fromdate) : null}
+                                                value={data.fromdate ? dayjs(data.fromdate) : null}
                                                 className={classes.field}
-                                                    onChange={(date) => {
-                                                        dateChangeFun(date, "startDate")
+                                                onChange={(date) => {
+                                                    dateChangeFun(date, "startDate")
                                                 }}
                                                 onError={(error,value)=>{
                                                     if(error !== null)
@@ -518,16 +459,15 @@ async function getData() {
                                             </LocalizationProvider>
                                         </Grid>
 
-
                                             <Grid item xs={12} md={4}>
                                             
                                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                     <DatePicker 
                                                     label={intl.formatMessage(messages.endDate)}
-                                                    value={data?.Todate ? dayjs(data?.Todate) : null}
+                                                    value={data.Todate ? dayjs(data.Todate) : null}
                                                     className={classes.field}
-                                                        onChange={(date) => {
-                                                            dateChangeFun(date, "endDate")
+                                                    onChange={(date) => {
+                                                        dateChangeFun(date, "endDate")
                                                     }}
                                                     onError={(error,value)=>{
                                                         if(error !== null)

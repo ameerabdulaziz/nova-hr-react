@@ -550,23 +550,35 @@ function CareerDevPlanCreate(props) {
 
                   {formInfo.effectiveOn === 5 && (
                     <Grid item xs={12} md={4}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.effectiveOnOther)}
-                          value={formInfo.effectiveOnOtherValue}
-                          onChange={(date) => onDatePickerChange(date, 'effectiveOnOtherValue')
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label={intl.formatMessage(messages.effectiveOnOther)}
+                        value={
+                          formInfo.effectiveOnOtherValue ? dayjs(formInfo.effectiveOnOtherValue) : null
+                        }
+                        className={classes.field}
+                        onChange={(date) => onDatePickerChange(date, 'effectiveOnOtherValue')}
+                        onError={(error) => {
+                          if (error !== null) {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              effectiveOnOtherValue: true,
+                            }));
+                          } else {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              effectiveOnOtherValue: false,
+                            }));
                           }
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField
-                              required
-                              {...params}
-                              variant='outlined'
-                            />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
+                        }}
+                        slotProps={{
+                          textField: {
+                              required: true,
+                            },
+                          }}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
                   )}
 
                   {formInfo.actionPlanResult === 5 && (

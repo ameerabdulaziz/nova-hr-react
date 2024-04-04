@@ -1,8 +1,10 @@
 import {
   Autocomplete, Button, Grid, TextField
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -28,6 +30,8 @@ function StopMedicalInsuranceCreate(props) {
 
   const title = localStorage.getItem('MenuName');
 
+  const [dateError, setDateError] = useState({});
+
   const [employeeList, setEmployeeList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,13 +40,19 @@ function StopMedicalInsuranceCreate(props) {
 
     employeeId: '',
     employeeName: '',
-    trxDate: null,
+    trxDate: new Date(),
     insReason: '',
     notes: '',
   });
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
     const formData = { ...formInfo, trxDate: formateDate(formInfo.trxDate) };
 
@@ -123,7 +133,8 @@ function StopMedicalInsuranceCreate(props) {
                           (item) => item.id === formInfo.employeeId
                         ) ?? null
                       }
-                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
                       getOptionLabel={(option) => (option ? option.name : '')}
                       onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')
                       }
@@ -149,14 +160,23 @@ function StopMedicalInsuranceCreate(props) {
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(messages.endDate)}
-                      value={formInfo.trxDate}
+                      value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
+                      sx={{ width: '100%' }}
                       onChange={(date) => onDatePickerChange(date, 'trxDate')}
-                      renderInput={(params) => (
-                        <TextField required {...params} fullWidth variant='outlined' />
-                      )}
+                      onError={(error) => {
+                        setDateError((prevState) => ({
+                          ...prevState,
+                          trxDate: error !== null,
+                        }));
+                      }}
+                      slotProps={{
+                        textField: {
+                          required: true,
+                        },
+                      }}
                     />
                   </LocalizationProvider>
                 </Grid>

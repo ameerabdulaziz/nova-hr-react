@@ -6,11 +6,12 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  TextField,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -30,6 +31,7 @@ function Employment(props) {
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
+  const [dateError, setDateError] = useState({});
   const [tableData, setTableData] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
@@ -151,6 +153,12 @@ function Employment(props) {
 
   const onPopupFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     onPopupClose();
 
     const body = {
@@ -194,19 +202,23 @@ function Employment(props) {
         <DialogContent sx={{ pt: '10px !important' }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.date)}
-                  value={popupState.date}
+                  value={popupState.date ? dayjs(popupState.date) : null}
+                  sx={{ width: '100%' }}
                   onChange={(date) => onPopupDatePickerChange(date, 'date')}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant='outlined'
-                      fullWidth
-                      required
-                    />
-                  )}
+                  onError={(error) => {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      date: error !== null,
+                    }));
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>

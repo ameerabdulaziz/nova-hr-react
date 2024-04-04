@@ -108,8 +108,8 @@ function LeaveTrxCreate(props) {
         ...prev,
         employeeId: empid.id,
         trxDate: empid.shiftDate ?? new Date(),
-        fromDate: empid.shiftDate,
-        toDate: empid.shiftDate,
+        fromDate: empid.shiftDate ?? new Date(),
+        toDate: empid.shiftDate ?? new Date(),
       }));
     }
   },[])
@@ -192,8 +192,8 @@ function LeaveTrxCreate(props) {
         obj.toDate = formInfo.fromDate;
         obj.daysCount = 0.5;
       } else {
-        const dateDiffTo = new Date(formInfo.toDate).getTime();
-        const dateDiffFrom = new Date(formInfo.fromDate).getTime();
+        const dateDiffTo = new Date(formateDate(formInfo.toDate)).getTime();
+        const dateDiffFrom = new Date(formateDate(formInfo.fromDate)).getTime();
 
         const timeDiff = dateDiffTo - dateDiffFrom;
 

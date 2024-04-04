@@ -18,9 +18,7 @@ import {
 } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { format } from "date-fns";
 import Checkbox from "@mui/material/Checkbox";
@@ -354,36 +352,6 @@ if (Object.values(DateError).includes(true)) {
                         label={intl.formatMessage(messages.isNotUpdate)}
                       />
                     </Grid>
-                    {/* <Grid item xs={12} md={6}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.date)}
-                          // value={data.date}
-                          onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    date: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  date: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
-
 
                   <Grid item xs={12} md={6}>
                   

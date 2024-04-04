@@ -9,8 +9,6 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
 import notif from "enl-api/ui/notifMessage";
@@ -32,6 +30,12 @@ import { ServerURL } from "../../api/ServerConfig";
 import PropTypes from 'prop-types';
 import api from "../api/GovernmentSickLeaveData";
 import messages from "../messages";
+import { getDefaultYearAndMonth } from "../../helpers";
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 
 function GovernmentSickLeaveCreate(props) {
   const { intl } = props;
@@ -78,9 +82,9 @@ function GovernmentSickLeaveCreate(props) {
     ReplaceDate: '',
     alternativeTask: null,
 
-    trxDate: null,
-    fromDate: null,
-    toDate: null,
+    trxDate: new Date(),
+    fromDate: new Date(),
+    toDate: new Date(),
     daysCount: "",
     dayDeducedBy: "",
     tel: "",
@@ -92,6 +96,13 @@ function GovernmentSickLeaveCreate(props) {
     alternativeStaff: null,
     vacCode: null,
   });
+  const [DateError, setDateError] = useState({});
+
+   // used to reformat date before send it to api
+   const dateFormatFun = (date) => {
+    // return  date && !DateError ? format(new Date(date), "yyyy-MM-dd") : ""
+      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+   }
 
   const handleChange = useCallback((id,name) => {
     if(name=="employeeId")
@@ -123,6 +134,9 @@ function GovernmentSickLeaveCreate(props) {
       const monthResponse = await GeneralListApis(locale).GetMonths();
       setMonthsList(monthResponse);
 
+      const today = getDefaultYearAndMonth(yearResponse);
+
+
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
         setFormInfo(dataApi);
@@ -130,12 +144,22 @@ function GovernmentSickLeaveCreate(props) {
           setUploadedFile(`${ServerURL}Doc/VacDoc/${dataApi.vacDocPath}`);
         }
       }
+      else
+      {
+        setFormInfo((prev) => ({
+          ...prev,
+          monthId: today ? today.monthId : null,
+          yearId: today ? today.yearId : null,
+        }));
+      }
     } catch (err) {
       //
     } finally {
       setIsLoading(false);
     }
   };
+
+  console.log("formInfo =",formInfo);
 
   const GetAlternativeEmployee = async () => {
     if (formInfo.employeeId) {
@@ -197,6 +221,12 @@ function GovernmentSickLeaveCreate(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+
     let errors = {};
 
     const formData = { ...formInfo };
@@ -250,9 +280,9 @@ function GovernmentSickLeaveCreate(props) {
           ReplaceDate: formData.ReplaceDate ?? '',
           alternativeTask: formData.alternativeTask,
 
-          trxDate: formData.trxDate,
-          fromDate: formData.fromDate,
-          toDate: formData.toDate,
+          trxDate: dateFormatFun(formData.trxDate),
+          fromDate: dateFormatFun(formData.fromDate),
+          toDate: dateFormatFun(formData.toDate),
           daysCount: formData.daysCount,
           dayDeducedBy: formData.dayDeducedBy,
           tel: formData.tel,
@@ -384,24 +414,43 @@ function GovernmentSickLeaveCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={4}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(Payrollmessages.date)}
-                          value={formInfo.trxDate}
-                          onChange={(date) => {
-                            setFormInfo((prevFilters) => ({
-                              ...prevFilters,
-                              trxDate: date,
-                            }));
+
+                <Grid item xs={12} md={4}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       label={intl.formatMessage(Payrollmessages.date)}
+                        value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
+                        className={classes.field}
+                        onChange={(date) => {
+                          setFormInfo((prevFilters) => ({
+                            ...prevFilters,
+                            trxDate: date,
+                          }));
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`trxDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`trxDate`]: false
+                            }))
+                        }
+                      }}
+                       slotProps={{
+                          textField: {
+                              required: true,
+                            },
                           }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} required />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
+                      />
+                  </LocalizationProvider>
+                  </Grid>
 
                     <Grid item xs={12} md={4}>
                       <Stack
@@ -591,47 +640,87 @@ function GovernmentSickLeaveCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.fromDate)}
-                          value={formInfo.fromDate}
+
+                  <Grid item xs={12} md={3}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker 
+                        label={intl.formatMessage(messages.fromDate)}
+                          value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
+                          className={classes.field}
                           maxDate={
-                            formInfo.vacCode !== 5 ? formInfo.toDate : null
+                            formInfo.vacCode !== 5 ? dayjs(formInfo.toDate) : null
                           }
                           onChange={(date) => {
-                            setFormInfo((prev) => ({
-                              ...prev,
+                            setFormInfo((prevFilters) => ({
+                              ...prevFilters,
                               fromDate: date,
                             }));
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} required />
-                          )}
+                        }}
+                        onError={(error,value)=>{
+                          if(error !== null)
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: true
+                              }))
+                          }
+                          else
+                          {
+                            setDateError((prevState) => ({
+                                ...prevState,
+                                  [`fromDate`]: false
+                              }))
+                          }
+                        }}
+                        slotProps={{
+                            textField: {
+                                required: true,
+                              },
+                            }}
                         />
-                      </LocalizationProvider>
+                    </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.toDate)}
-                          value={formInfo.toDate}
-                          disabled={formInfo.vacCode === 5}
-                          onChange={(date) => {
-                            setFormInfo((prev) => ({
-                              ...prev,
-                              toDate: date,
-                            }));
+                <Grid item xs={12} md={3}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                        label={intl.formatMessage(messages.toDate)}
+                        value={formInfo.toDate ? dayjs(formInfo.toDate) : null}
+                        disabled={formInfo.vacCode === 5}
+                        className={classes.field}
+                        maxDate={
+                          formInfo.vacCode !== 5 ? dayjs(formInfo.toDate) : null
+                        }
+                        onChange={(date) => {
+                          setFormInfo((prevFilters) => ({
+                            ...prevFilters,
+                            toDate: date,
+                          }));
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`toDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`toDate`]: false
+                            }))
+                        }
+                      }}
+                       slotProps={{
+                          textField: {
+                              required: true,
+                            },
                           }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} required />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
+                      />
+                  </LocalizationProvider>
+                  </Grid>
 
                     <Grid item xs={12} md={3}>
                       <TextField

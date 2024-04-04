@@ -8,13 +8,18 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import useStyles from '../../../Style';
 import messages from '../../messages';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import { toast } from 'react-hot-toast';
+import Payrollmessages from '../../../messages';
 
 function DevelopmentPlanPopup(props) {
   const {
@@ -38,6 +43,9 @@ function DevelopmentPlanPopup(props) {
     resources: '',
     dateForCompletion: null,
   });
+
+  const [DateError, setDateError] = useState({});
+
 
   useEffect(() => {
     if (isOpen && selectedPlan) {
@@ -78,9 +86,17 @@ function DevelopmentPlanPopup(props) {
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
+
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+    }
+    else
+    {
+
     onSave(formInfo);
 
     setIsOpen(false);
+    }
   };
 
   const onDatePickerChange = (value, name) => {
@@ -155,20 +171,39 @@ function DevelopmentPlanPopup(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DatePicker
-                label={intl.formatMessage(messages.dateForCompletion)}
-                value={formInfo.dateForCompletion}
-                onChange={(date) => onDatePickerChange(date, 'dateForCompletion')
-                }
-                className={classes.field}
-                renderInput={(params) => (
-                  <TextField required {...params} variant='outlined' />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
+                <Grid item xs={12} md={6}>  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       label={intl.formatMessage(messages.dateForCompletion)}
+                        value={formInfo.dateForCompletion ? dayjs(formInfo.dateForCompletion) : null}
+                        className={classes.field}
+                        onChange={(date) => {
+                          onDatePickerChange(date, 'dateForCompletion')
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`dateForCompletion`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`dateForCompletion`]: false
+                            }))
+                        }
+                      }}
+                       slotProps={{
+                          textField: {
+                              required: true,
+                            },
+                          }}
+                      />
+                  </LocalizationProvider>
+                  </Grid>
 
           <Grid item xs={12} md={6}>
             <Autocomplete

@@ -19,9 +19,7 @@ import {
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import PayRollLoader from "../../../Component/PayRollLoader";
 import LoanDetailTable from "./LoanDetailTable";
 import EmployeeData from "../../../Component/EmployeeData";

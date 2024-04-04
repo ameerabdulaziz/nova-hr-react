@@ -19,9 +19,7 @@ import {
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import PayRollLoader from "../../../Component/PayRollLoader";
 import LoanDetailTable from "./LoanDetailTable";
 import EmployeeData from "../../../Component/EmployeeData";
@@ -235,35 +233,6 @@ function LoanReqCreate(props) {
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-                      {/* <Grid item xs={12} md={2}>
-                        <LocalizationProvider dateAdapter={AdapterMoment}>
-                          <DesktopDatePicker
-                            label={intl.formatMessage(Payrollmessages.date)}
-                            value={data.transDate}
-                            onChange={(date) => {
-                              if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                                if (!isNaN(new Date(date))) { 
-                                  setdata((prevFilters) => ({
-                                      ...prevFilters,
-                                      transDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                    }))
-                                }
-                                else
-                                {
-                                  setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    transDate: null,
-                                  }))
-                                } 
-                              }
-                            }}
-                            className={classes.field}
-                            renderInput={(params) => (
-                              <TextField {...params} variant="outlined" />
-                            )}
-                          />
-                        </LocalizationProvider>
-                      </Grid> */}
 
                       <Grid item xs={12} md={2}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>

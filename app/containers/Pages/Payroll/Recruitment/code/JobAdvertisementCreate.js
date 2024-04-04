@@ -1,9 +1,10 @@
 import {
   Autocomplete, Button, Grid, TextField
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -18,6 +19,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api, { tableData } from '../api/JobAdvertisementData';
 import messages from '../messages';
@@ -36,6 +38,7 @@ function JobAdvertisementCreate(props) {
 
   const title = localStorage.getItem('MenuName');
 
+  const [dateError, setDateError] = useState({});
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [jobList, setJobList] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
@@ -56,8 +59,6 @@ function JobAdvertisementCreate(props) {
     employmentComments,
     employmentId,
   });
-
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const save = async () => {
     setIsLoading(true);
@@ -85,10 +86,18 @@ function JobAdvertisementCreate(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const response = await api(locale).CheckManPower(formInfo.organizationId, formInfo.jobId);
+      const response = await api(locale).CheckManPower(
+        formInfo.organizationId,
+        formInfo.jobId
+      );
       if (response) {
         setOpenParentPopup(true);
         setIsLoading(false);
@@ -211,7 +220,6 @@ function JobAdvertisementCreate(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
@@ -259,15 +267,25 @@ function JobAdvertisementCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.expireDate)}
-                  value={formInfo.expireDate}
+                  value={
+                    formInfo.expireDate ? dayjs(formInfo.expireDate) : null
+                  }
+                  sx={{ width: '100%' }}
                   onChange={(date) => onDatePickerChange(date, 'expireDate')}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
+                  onError={(error) => {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      expireDate: error !== null,
+                    }));
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>

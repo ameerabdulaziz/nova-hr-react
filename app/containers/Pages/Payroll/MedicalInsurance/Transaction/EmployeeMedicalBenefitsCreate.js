@@ -1,9 +1,10 @@
 import {
   Autocomplete, Button, Grid, TextField
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { format } from 'date-fns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -16,6 +17,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
+import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeMedicalBenefitsData';
 import messages from '../messages';
@@ -30,6 +32,8 @@ function EmployeeMedicalBenefitsCreate(props) {
 
   const title = localStorage.getItem('MenuName');
 
+  const [dateError, setDateError] = useState({});
+
   const [employeeList, setEmployeeList] = useState([]);
   const [codesList, setCodesList] = useState([]);
   const [centersList, setCentersList] = useState([]);
@@ -40,7 +44,7 @@ function EmployeeMedicalBenefitsCreate(props) {
 
     employeeId: '',
     employeeName: '',
-    trxDate: null,
+    trxDate: new Date(),
     medItemCode: '',
     medCentId: '',
     totalvalue: '',
@@ -48,14 +52,15 @@ function EmployeeMedicalBenefitsCreate(props) {
     notes: '',
   });
 
-  const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
-
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const formData = { ...formInfo };
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
-    formData.trxDate = formateDate(formData.trxDate);
+    const formData = { ...formInfo, trxDate: formateDate(formInfo.trxDate) };
 
     setIsLoading(true);
 
@@ -78,7 +83,9 @@ function EmployeeMedicalBenefitsCreate(props) {
       const employees = await GeneralListApis(locale).GetEmployeeList(false);
       setEmployeeList(employees);
 
-      const centers = await GeneralListApis(locale).GetMedicalInsuranceCentersList();
+      const centers = await GeneralListApis(
+        locale
+      ).GetMedicalInsuranceCentersList();
       setCentersList(centers);
 
       const codes = await GeneralListApis(locale).GetMedicalInsuranceItemList();
@@ -134,15 +141,23 @@ function EmployeeMedicalBenefitsCreate(props) {
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
             <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.applicationDate)}
-                  value={formInfo.trxDate}
+                  value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
+                  sx={{ width: '100%' }}
                   onChange={(date) => onDatePickerChange(date, 'trxDate')}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
+                  onError={(error) => {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      trxDate: error !== null,
+                    }));
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -157,7 +172,8 @@ function EmployeeMedicalBenefitsCreate(props) {
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')}
+                onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')
+                }
                 renderInput={(params) => (
                   <TextField
                     required
@@ -172,7 +188,8 @@ function EmployeeMedicalBenefitsCreate(props) {
               <Autocomplete
                 options={codesList}
                 value={
-                  codesList.find((item) => item.id === formInfo.medItemCode) ?? null
+                  codesList.find((item) => item.id === formInfo.medItemCode)
+                  ?? null
                 }
                 onChange={(_, value) => onAutoCompleteChange(value, 'medItemCode')
                 }
@@ -192,7 +209,8 @@ function EmployeeMedicalBenefitsCreate(props) {
               <Autocomplete
                 options={centersList}
                 value={
-                  centersList.find((item) => item.id === formInfo.medCentId) ?? null
+                  centersList.find((item) => item.id === formInfo.medCentId)
+                  ?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
