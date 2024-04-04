@@ -17,9 +17,7 @@ import {
 } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { format } from "date-fns";
 import Checkbox from "@mui/material/Checkbox";
@@ -388,35 +386,6 @@ const apiData = {
                         label={intl.formatMessage(messages.isNotUpdateMission)}
                       />
                     </Grid>
-                    {/* <Grid item xs={12} md={6}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.fromdate)}
-                          // value={data.fromDate}
-                          onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    fromDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  fromDate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
 
                     <Grid item xs={12} md={6}>
                   
@@ -450,37 +419,6 @@ const apiData = {
                           />
                       </LocalizationProvider>
                   </Grid>
-
-
-                    {/* <Grid item xs={12} md={6}>
-                      <LocalizationProvider dateAdapter={AdapterMoment}>
-                        <DesktopDatePicker
-                          label={intl.formatMessage(Payrollmessages.todate)}
-                          // value={data.toDate}
-                          onChange={(date) => {
-                            if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                              if (!isNaN(new Date(date))) { 
-                                setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    toDate: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                                  }))
-                              }
-                              else
-                              {
-                                setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  toDate: null,
-                                }))
-                              } 
-                            }
-                          }}
-                          className={classes.field}
-                          renderInput={(params) => (
-                            <TextField {...params} variant="outlined" />
-                          )}
-                        />
-                      </LocalizationProvider>
-                    </Grid> */}
 
               <Grid item xs={12} md={6}>
                   

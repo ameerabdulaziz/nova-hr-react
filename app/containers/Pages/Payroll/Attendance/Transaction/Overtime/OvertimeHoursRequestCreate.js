@@ -1,8 +1,7 @@
 import {
   Autocomplete, Button, Grid, TextField
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import {  LocalizationProvider } from '@mui/x-date-pickers';
 import { format } from 'date-fns';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
@@ -19,6 +18,11 @@ import GeneralListApis from '../../../api/GeneralListApis';
 import payrollMessages from '../../../messages';
 import api from '../../api/OvertimeHoursRequestData';
 import messages from '../../messages';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import Payrollmessages from "../../../messages";
 
 function OvertimeHoursRequestCreate(props) {
   const { intl } = props;
@@ -37,17 +41,25 @@ function OvertimeHoursRequestCreate(props) {
     id,
 
     employeeId: '',
-    trxDate: null,
+    trxDate: new Date(),
     startTime: '',
     endTime: '',
     minutesCount: '',
     notes: '',
   });
 
+  const [DateError, setDateError] = useState({});
+
   const formateDate = (date) => (date ? format(new Date(date), 'yyyy-MM-dd') : null);
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {  
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
     const formData = {
       id,
@@ -202,19 +214,39 @@ function OvertimeHoursRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DatePicker
-                  label={intl.formatMessage(payrollMessages.date)}
-                  value={formInfo.trxDate}
-                  onChange={(date) => onDatePickerChange(date, 'trxDate')}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField required {...params} variant='outlined' />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid>
+                <Grid item xs={12} md={3}>  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                        label={intl.formatMessage(payrollMessages.date)}
+                        value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
+                        className={classes.field}
+                        onChange={(date) => {
+                          onDatePickerChange(date, 'trxDate')
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`trxDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`trxDate`]: false
+                            }))
+                        }
+                      }}
+                       slotProps={{
+                          textField: {
+                              required: true,
+                            },
+                          }}
+                      />
+                  </LocalizationProvider>
+                  </Grid>
           </Grid>
 
           <Grid container spacing={3} mt={0} direction='row'>

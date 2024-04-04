@@ -21,9 +21,7 @@ import { Button, Grid, TextField, Autocomplete } from "@mui/material";
 import { injectIntl, FormattedMessage } from "react-intl";
 import PropTypes from "prop-types";
 import GeneralListApis from "../api/GeneralListApis";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { format } from "date-fns";
 import PayRollLoader from "../Component/PayRollLoader";
 import PayrollTable from "../Component/PayrollTable";
@@ -314,34 +312,6 @@ function RequestsList(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div>
           <Grid container spacing={3}>
-            {/* <Grid item xs={12} md={2}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(Payrollmessages.fromdate)}
-                  value={fromdate}
-                  onChange={(date) => {
-                    if (
-                      Object.prototype.toString.call(new Date(date)) ===
-                      "[object Date]"
-                    ) {
-                      if (!isNaN(new Date(date))) {
-                        setfromate(
-                          date === null
-                            ? null
-                            : format(new Date(date), "yyyy-MM-dd")
-                        );
-                      } else {
-                        setfromate(null);
-                      }
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid> */}
 
             <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -368,35 +338,6 @@ function RequestsList(props) {
                 />
               </LocalizationProvider>
             </Grid>
-
-            {/* <Grid item xs={12} md={2}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(Payrollmessages.todate)}
-                  value={todate}
-                  onChange={(date) => {
-                    if (
-                      Object.prototype.toString.call(new Date(date)) ===
-                      "[object Date]"
-                    ) {
-                      if (!isNaN(new Date(date))) {
-                        settodate(
-                          date === null
-                            ? null
-                            : format(new Date(date), "yyyy-MM-dd")
-                        );
-                      } else {
-                        settodate(null);
-                      }
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid> */}
 
             <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>

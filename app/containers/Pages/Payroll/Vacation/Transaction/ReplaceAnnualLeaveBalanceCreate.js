@@ -19,9 +19,7 @@ import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import {Card ,CardContent} from "@mui/material";
 import {  useHistory, useLocation  } from 'react-router-dom';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { format } from "date-fns";
 import SaveButton from '../../Component/SaveButton';
 import PayRollLoader from '../../Component/PayRollLoader';
@@ -37,7 +35,7 @@ import dayjs from 'dayjs';
 function CreateAndEditReplaceAnnualLeaveBalance(props) {
   const [id, setid] = useState(0);
   const [Employee, setEmployee] = useState(null);
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(new Date());
   const [Templet, setTemplet] = useState(null);
   const [Element, setElement] = useState(null);
   const [Year, setYear] = useState(null);
@@ -257,53 +255,13 @@ function oncancel(){
        }
           desc={""}>
            <form onSubmit={handleSubmit}> 
-
-            <Grid
-            //   container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row">
-
-                <Grid item xs={12}  md={12} 
-                    // container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                    className={style.gridSty}> 
-            
                         <Grid item xs={12}  md={6} lg={4}
                             container
                             spacing={3}
                             alignItems="flex-start"
                             direction="row"
-                            className={style.gridSty}
-                            > 
-                    
-                                {/* <Grid item xs={12}  md={12} > 
-                                    <LocalizationProvider dateAdapter={AdapterMoment}>
-                                        <DesktopDatePicker
-                                            label={intl.formatMessage(Payrollmessages.date)}
-                                            value={date}
-                                            onChange={(date) => { 
-                                                if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                                                    if (!isNaN(new Date(date))) { 
-                                                        setDate(  date === null ? null : format(new Date(date), "yyyy-MM-dd"),)
-                                                    } 
-                                                    else
-                                                    {
-                                                        setDate(null)
-                                                    }
-                                                  }
-                                            }}
-                                            className={classes.field}
-                                            renderInput={(params) => <TextField {...params} variant="outlined"  required/>}
-                                        />
-                                    </LocalizationProvider>
-                            
-                                </Grid> */}
-
-                                <Grid item xs={12}  md={12} > 
-                            
+                            className={style.gridSty}> 
+                            <Grid item xs={12}  md={12} > 
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DatePicker 
                                     label={intl.formatMessage(Payrollmessages.date)}
@@ -336,7 +294,6 @@ function oncancel(){
                                     />
                                 </LocalizationProvider>
                             </Grid>
-
                         </Grid>
 
                         <Grid item xs={12}  md={12} 
@@ -449,7 +406,6 @@ function oncancel(){
                                                             disabled
                                                             autoComplete='off'
                                                             />
-                                            
                                                 </Grid>
                                         </Grid>
                                     </CardContent>
@@ -497,7 +453,6 @@ function oncancel(){
                                         className={style.fieldsSty}
                                         required
                                         />
-                                        
                                     )}
                                     /> 
                             </Grid>
@@ -544,7 +499,6 @@ function oncancel(){
                                         className={style.fieldsSty}
                                         required
                                         />
-                                        
                                     )}
                                     /> 
                             </Grid>
@@ -636,7 +590,6 @@ function oncancel(){
                                 </Grid>
 
                         </Grid>
-                </Grid>    
         
                 <Grid item xs={12}  md={12} lg={4}
                     container
@@ -644,7 +597,6 @@ function oncancel(){
                     alignItems="flex-start"
                     direction="row"
                     > 
-             
                         <Grid item xs={12}  md={12}  > 
                             <Card className={classes.card}>
                                 <CardContent className={style.CardContentSty}>
@@ -654,7 +606,6 @@ function oncancel(){
                                         alignItems="flex-start"
                                         direction="row"
                                         >
-    
                                         <Grid item xs={12}  md={6} lg={6} > 
                                             <TextField
                                                 name="CurrentBalance"
@@ -737,15 +688,11 @@ function oncancel(){
                             </Card>
                         </Grid>
                 </Grid> 
-            </Grid>
-
-
               <Grid
                 container
                 spacing={3}
                 alignItems="flex-start"
                 direction="row">
-                 
                   <Grid item xs={12} md={12}></Grid>
                   <Grid item xs={12} md={4}
                   container
@@ -754,23 +701,20 @@ function oncancel(){
                   direction="row"
                   className={style.itemsStyle}
                   >
-                <Grid item xs={3}  md={5} lg={3}>                  
-                     <SaveButton Id={id} processing={processing} />
-                </Grid>
-                <Grid item xs={3}  md={5} lg={3}>
-                    <Button variant="contained" size="medium" color="primary" 
-                    onClick={oncancel}
-                     >
-                       <FormattedMessage {...Payrollmessages.cancel} /> 
-                    </Button>
-                </Grid>
-
+                    <Grid item xs={3}  md={5} lg={3}>                  
+                        <SaveButton Id={id} processing={processing} />
+                    </Grid>
+                    <Grid item xs={3}  md={5} lg={3}>
+                        <Button variant="contained" size="medium" color="primary" 
+                        onClick={oncancel}
+                        >
+                            <FormattedMessage {...Payrollmessages.cancel} /> 
+                        </Button>
+                    </Grid>
                 </Grid>
               </Grid>
           </form>
       </PapperBlock>         
-
-     
     </PayRollLoader>
   );
 }

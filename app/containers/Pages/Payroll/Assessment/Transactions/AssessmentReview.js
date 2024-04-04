@@ -25,7 +25,7 @@ import {
   import Tooltip from '@mui/material/Tooltip';
   import { Link } from "react-router-dom";
   import { format } from 'date-fns';
-import { formateDate } from "../../helpers";
+import { formateDate, getDefaultYearAndMonth } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
 
 function AssessmentReview({ intl }) {
@@ -53,10 +53,13 @@ function AssessmentReview({ intl }) {
       const empolyees = await GeneralListApis(locale).GetEmployeeList();
       const months = await GeneralListApis(locale).GetMonths();
       const years = await GeneralListApis(locale).GetYears();
+      const today = getDefaultYearAndMonth(years);
 
       setEmployeeList(empolyees)
       setMonthList(months)
       setYearList(years)
+      setMonth( today ? months.find((item)=> item.id === today.monthId) : null)
+      setYear( today ? years.find((item)=> item.id === today.yearId) : null)
 
     } catch (error) {
       //
@@ -155,8 +158,6 @@ function AssessmentReview({ intl }) {
     }
   };
 
-
-
   return (
     <PayRollLoader isLoading={isLoading}>
 
@@ -214,6 +215,7 @@ function AssessmentReview({ intl }) {
            
             <Autocomplete
                 id="ddlMenu"   
+                value={ Month ? Month : null }
                 isOptionEqualToValue={(option, value) => option.id === value.id}                      
                 options={MonthList.length != 0 ? MonthList: []}
                 getOptionLabel={(option) =>(
@@ -251,6 +253,7 @@ function AssessmentReview({ intl }) {
             
                  <Autocomplete
                 id="ddlMenu"   
+                value={ Year ? Year : null }
                 isOptionEqualToValue={(option, value) => option.id === value.id}                      
                 options={YearList.length != 0 ? YearList: []}
                 getOptionLabel={(option) =>(
