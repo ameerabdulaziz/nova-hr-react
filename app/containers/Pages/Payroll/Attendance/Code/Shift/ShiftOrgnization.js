@@ -424,7 +424,7 @@ function ShiftOrgnization(props) {
                           option.id === value.id
                         }
                         getOptionLabel={(option) =>
-                          option.name ? option.name : ""
+                          option.id && option.name ? `${option.id} - ${option.name} ` : ""
                         }
                         value={{ id: data.shiftId, name: data.shiftName }}
                         onChange={(event, value) => {

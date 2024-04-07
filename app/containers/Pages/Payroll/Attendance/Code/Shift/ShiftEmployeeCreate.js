@@ -207,7 +207,7 @@ if (Object.values(DateError).includes(true)) {
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
+                getOptionLabel={(option) => (option.id && option.name ? `${option.id} - ${option.name} `: "")}
                 value={{ id: data.shiftId, name: data.shiftName }}
                 onChange={(event, value) => {
                   /* setdata((prevFilters) => ({
