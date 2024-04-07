@@ -219,7 +219,7 @@ const getEditdata =  async () => {
         };
       }) : [];
 
-      const days = data.reqDayNotAllow.split(',').map(dayName => {
+      const days = data.reqDayNotAllow ? data.reqDayNotAllow.split(',').map(dayName => {
         const day = dayList.find((item) => item.name === dayName);
 
         if (day) {
@@ -230,7 +230,7 @@ const getEditdata =  async () => {
           id: dayName,
           name: dayName,
         };
-      });
+      }) : [];
 
       setReqDayNotAllow(days);
       setBranchIds(branches);
