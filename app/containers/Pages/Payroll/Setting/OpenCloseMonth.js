@@ -22,10 +22,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Payrollmessages from '../../Payroll/messages';
+import useStyles from '../Style';
 
 function OpenCloseMonth(props) {
   const { intl } = props;
-
+  const { classes } = useStyles();
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const locale = useSelector((state) => state.language.locale);
   const title = localStorage.getItem('MenuName');
@@ -275,6 +276,7 @@ function OpenCloseMonth(props) {
                   <Grid item xs={12} md={3}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
+                        className={classes.field}
                         label={intl.formatMessage(messages.fromDate)}
                           value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
                           onChange={(date) => {
@@ -308,6 +310,7 @@ function OpenCloseMonth(props) {
                   <Grid item xs={12} md={3}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
+                        className={classes.field}
                         label={intl.formatMessage(messages.toDate)}
                           value={formInfo.todate ? dayjs(formInfo.todate) : null}
                           onChange={(date) => {
@@ -341,6 +344,7 @@ function OpenCloseMonth(props) {
                   <Grid item xs={12} md={3}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
+                        className={classes.field}
                         label={intl.formatMessage(messages.attendancePeriodFromDate)}
                           value={formInfo.fromDateAtt ? dayjs(formInfo.fromDateAtt) : null}
                           onChange={(date) => {
@@ -374,6 +378,7 @@ function OpenCloseMonth(props) {
                   <Grid item xs={12} md={3}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
+                        className={classes.field}
                         label={intl.formatMessage(messages.attendancePeriodToDate)}
                           value={formInfo.todateAtt ? dayjs(formInfo.todateAtt) : null}
                           onChange={(date) => {
@@ -422,6 +427,7 @@ function OpenCloseMonth(props) {
                   <Grid item xs={12} md={3}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
+                        className={classes.field}
                         label={intl.formatMessage(messages.lastApprovalDate)}
                           value={formInfo.requestEndDate ? dayjs(formInfo.requestEndDate) : null}
                           onChange={(date) => {
