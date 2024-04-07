@@ -23,7 +23,6 @@ function MissionTrxImport({ intl }) {
   const [fileTitle, setFileTitle] = useState('');
   const [file, setFile] = useState('');
   const Title = localStorage.getItem('MenuName');
-  let columns = [];
   const [isLoading, setIsLoading] = useState(false);
 
   const handleImport = ($event) => {
@@ -44,7 +43,13 @@ function MissionTrxImport({ intl }) {
               raw: false,
             });
             setFileData(rows);
-            rows.map((item) => setCols(Object.keys(item)));
+             setCols(Object.keys(rows[0]).map((item) => ({
+              name: item,
+              label: item,
+              options: {
+                filter: true,
+              },
+            })));
           }
         };
         reader.readAsArrayBuffer(file);
@@ -78,16 +83,6 @@ function MissionTrxImport({ intl }) {
       setIsLoading(false);
     }
   };
-
-  columns = cols.length !== 0
-    ? cols.map((item) => ({
-      name: item,
-      label: item,
-      options: {
-        filter: true,
-      },
-    }))
-    : [];
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -151,7 +146,7 @@ function MissionTrxImport({ intl }) {
       </PapperBlock>
 
       {fileData.length !== 0 && (
-        <PayrollTable title={fileTitle} data={fileData} columns={columns} />
+        <PayrollTable title={fileTitle} data={fileData} columns={cols} />
       )}
     </PayRollLoader>
   );

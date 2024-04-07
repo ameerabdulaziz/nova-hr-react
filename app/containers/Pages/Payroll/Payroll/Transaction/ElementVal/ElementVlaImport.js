@@ -41,7 +41,6 @@ function ElementVlaImport({ intl }) {
   const [fileTitle, setFileTitle] = useState("");
   const [file, setFile] = useState("");
   const Title = localStorage.getItem("MenuName");
-  let columns = [];
   const [isLoading, setIsLoading] = useState(true);
   const [PayTemplateList, setPayTemplateList] = useState([]);
   const [BranchList, setBranchList] = useState([]);
@@ -78,7 +77,13 @@ function ElementVlaImport({ intl }) {
             raw: false,
           });
           setFileData(rows);
-          rows.map((item) => setCols(Object.keys(item)));
+          setCols(Object.keys(rows[0]).map((item) => ({
+            name: item,
+            label: item,
+            options: {
+              filter: true,
+            },
+          })));
         }
       };
       reader.readAsArrayBuffer(file);
@@ -234,17 +239,6 @@ function ElementVlaImport({ intl }) {
   useEffect(() => {
     GetLookup();
   }, []);
-
-  columns =
-    cols.length !== 0
-      ? cols.map((item) => ({
-          name: item,
-          label: item,
-          options: {
-            filter: true,
-          },
-        }))
-      : [];
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -559,13 +553,11 @@ function ElementVlaImport({ intl }) {
             <Grid item xs={12} md={1}></Grid>
             {fileData.length !== 0 && (
               <Grid item xs={12} md={12}>
-
                 <PayrollTable
                   title={fileTitle}
                   data={fileData}
-                  columns={columns}
+                  columns={cols}
                 />
-
               </Grid>
             )}
           </Grid>

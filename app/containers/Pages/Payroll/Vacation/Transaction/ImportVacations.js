@@ -38,7 +38,7 @@ function ImportVacations({ intl }) {
   const [isLoading, setIsLoading] = useState(false);
   const [fileApiLock, setFileApiLock] = useState(false);
   const Title = localStorage.getItem("MenuName");
-  let columns = [];
+
   const [processing, setprocessing] = useState(false);
 
   const handleImport = ($event) => {
@@ -109,7 +109,13 @@ function ImportVacations({ intl }) {
           setJsonFileData(jsonData);
           setFileData(rows);
 
-          rows.map((item) => setCols(Object.keys(item)));
+          setCols(Object.keys(rows[0]).map((item) => ({
+            name: item,
+            label: item,
+            options: {
+              filter: true,
+            },
+          })));
         }
       };
       reader.readAsArrayBuffer(file);
@@ -161,68 +167,6 @@ function ImportVacations({ intl }) {
       }
     }
   };
-
-  columns =
-    cols.length !== 0
-      ? cols.map((item) => ({
-          name: item,
-          label: item,
-          options: {
-            filter: true,
-          },
-        }))
-      : // [
-        //   {
-        //     name: "اسم الموظف",
-        //     label: "Employee Name",
-        //     // label: intl.formatMessage(messages.id),
-        //     options: {
-        //       display: true
-        //     }
-        //   },
-        //   {
-        //     name: 'من يوم',
-        //     label: "From",
-        //     // label: intl.formatMessage(messages.arName),
-        //     options: {
-        //       filter: true
-        //     }
-        //   },
-        //   {
-        //       name: 'الى يوم',
-        //       label: "To",
-        //       // label: intl.formatMessage(messages.enName),
-        //       options: {
-        //         filter: true
-        //       }
-        //     },
-        //     {
-        //       name: 'اسم الاجازة',
-        //       label: "Vacation name",
-        //       // label: intl.formatMessage(messages.parentNameOrg),
-        //       options: {
-        //         filter: true
-        //       }
-        //     },
-        //     {
-        //       name: 'كود الاجازة',
-        //       label: "Vacation code",
-        //       // label: intl.formatMessage(messages.empName),
-        //       options: {
-        //         filter: true
-        //       }
-        //     },
-        //     {
-        //       name: 'ملاحظات',
-        //       label: "Notes",
-        //       // label: intl.formatMessage(messages.manPower),
-        //       options: {
-        //         filter: true
-        //       }
-        //     }
-        // ]
-
-        [];
 
 
   return (
@@ -350,7 +294,7 @@ function ImportVacations({ intl }) {
             <PayrollTable
               title={fileTitle}
               data={fileData}
-              columns={columns}
+              columns={cols}
             />
           )}
         </div>

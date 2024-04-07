@@ -41,18 +41,18 @@ function ImportFileWithKPI({ intl }) {
   const [processing, setprocessing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  let columns = [];
+  // let columns = [];
 
-  columns =
-    cols.length !== 0
-      ? cols.map((item) => ({
-          name: item,
-          label: item,
-          options: {
-            customBodyRender: value => value
-          },
-        }))
-      : [];
+  // columns =
+  //   cols.length !== 0
+  //     ? cols.map((item) => ({
+  //         name: item,
+  //         label: item,
+  //         options: {
+  //           customBodyRender: value => value
+  //         },
+  //       }))
+  //     : [];
 
   const handleImport = ($event) => {
     const files = $event.target.files;
@@ -70,7 +70,14 @@ function ImportFileWithKPI({ intl }) {
           // add id to each row before sent it to API
           const newRows = rows.map(row => ({...row, id: 0}))
           setFileData(newRows);
-          rows.map((item) => setCols(Object.keys(item)));
+          setCols(Object.keys(rows[0]).map((item) => ({
+            name: item,
+            label: item,
+            options: {
+              customBodyRender: value => value
+            },
+          })));
+          // rows.map((item) => setCols(Object.keys(item)));
         }
       };
       reader.readAsArrayBuffer(file);
@@ -322,7 +329,7 @@ function ImportFileWithKPI({ intl }) {
               <PayrollTable
               title={fileTitle}
               data={fileData}
-              columns={columns}
+              columns={cols}
             />
             </div>
           )}

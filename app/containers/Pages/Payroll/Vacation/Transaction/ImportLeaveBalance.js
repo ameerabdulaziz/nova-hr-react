@@ -117,9 +117,21 @@ function ImportLeaveBalance({intl }) {
                 setJsonFileData(jsonData)
                 setFileData(rows)
 
-                rows.map(item => (
-                    setCols(Object.keys(item))
-                ))
+                console.log("rows =", rows);
+
+                setCols(Object.keys(rows[0]).map(item => (
+                  {
+                     name: item,
+                     label: item,
+                     options: {
+                       filter: true
+                     }
+                  }
+                 )) )
+
+                // rows.map(item => (
+                //     setCols(Object.keys(item))
+                // ))
               
             }
         }
@@ -141,110 +153,38 @@ const resetDataFun = () => {
 const submitFun = async (e) => {
 let lock = true
 
-// used to check if file has empty cells
-jsonFileData.forEach( async (val, index) => {
-    if (
-      Object.keys(val).some((key) => {
-        return val[key] === null || val[key] === "";
-      })
-    )
-    {
-      lock = false
-      toast.error(`There is missed values in row number ${index + 1} in the file`);
-    }
-  });
-
-
-  if(lock)
-  {
-  try{
-        setIsLoading(true);
-          let response = await  ApiData(locale).SaveList(jsonFileData,VacationType);
-  
-          if (response.status==200) {
-            toast.success(notif.saved);
-            resetDataFun();
-          }
-  
-        } catch (err) {
-          //
-        } finally {
-          setIsLoading(false);
+    // used to check if file has empty cells
+    jsonFileData.forEach( async (val, index) => {
+        if (
+          Object.keys(val).some((key) => {
+            return val[key] === null || val[key] === "";
+          })
+        )
+        {
+          lock = false
+          toast.error(`There is missed values in row number ${index + 1} in the file`);
         }
-  }
-    
+      });
+
+
+      if(lock)
+      {
+      try{
+            setIsLoading(true);
+              let response = await  ApiData(locale).SaveList(jsonFileData,VacationType);
+      
+              if (response.status==200) {
+                toast.success(notif.saved);
+                resetDataFun();
+              }
+      
+            } catch (err) {
+              //
+            } finally {
+              setIsLoading(false);
+            }
+      }
 }
-
-   columns =  cols.length !== 0?
-   cols.map(item => (
-    {
-       name: item,
-       label: item,
-       options: {
-         filter: true
-       }
-    }
-   )) 
-
-
-  // [
-  //   {
-  //     name: "اسم الموظف",
-  //     label: "Employee Name",
-  //     // label: intl.formatMessage(messages.id),
-  //     options: {
-  //       display: true
-  //     }
-  //   },
-  //   {
-  //     name: 'من يوم',
-  //     label: "From",
-  //     // label: intl.formatMessage(messages.arName),
-  //     options: {
-  //       filter: true
-  //     }
-  //   },
-  //   {
-  //       name: 'الى يوم',
-  //       label: "To",
-  //       // label: intl.formatMessage(messages.enName),
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'اسم الاجازة',
-  //       label: "Vacation name",
-  //       // label: intl.formatMessage(messages.parentNameOrg),
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'كود الاجازة',
-  //       label: "Vacation code",
-  //       // label: intl.formatMessage(messages.empName),
-  //       options: {
-  //         filter: true
-  //       }
-  //     },
-  //     {
-  //       name: 'ملاحظات',
-  //       label: "Notes",
-  //       // label: intl.formatMessage(messages.manPower),
-  //       options: {
-  //         filter: true
-  //       }
-  //     }
-  // ]
-   
-   
-   
-   : []
-   
-
-  
-
 
   const getVacTypeList = async () => {
     try {
@@ -262,147 +202,130 @@ jsonFileData.forEach( async (val, index) => {
     getVacTypeList()
   },[])
 
-
-
-
-
   return (
     <PayRollLoader isLoading={isLoading}>
-      
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-
         <Grid
-                        container
-                        spacing={3}
-                        mt={0}
-                        direction="row"
+            container
+            spacing={3}
+            mt={0}
+            direction="row">
+              <Grid item md={4} >
+                <Autocomplete
+                  id="ddlMenu"
+                  options={LeavesList}
+                  value={LeavesList.find((item)=> item.id === VacationType) ?? null}
+                  // options={topFilms}
+                  getOptionLabel={(option) =>
+                    option.name || ""
+                    // option ? option.name : ""
+                    // option ? option.title : ""
+                    // locale=="en"?option.enName:option.arName
+                  }
+                  renderOption={(props, option) => {
+                    
+                    return (
+                      <li {...props} key={option.id}>
+                        {option.name}
+                      </li>
+                    );
+                  }}
+                  onChange={(event, value) => {
+                    if (value !== null) {
+                      setVacationType(value.id);
+                    } else {
+                      setVacationType(null);
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      name="LeaveType"
+                      label= {intl.formatMessage(messages.LeaveType)}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item >
+                  <Tooltip title="Download">             
+                  <a 
+                    href={`${ServerURL}Doc/ExcelForm/VacBalanceForm.xlsx`} 
+                    target="_blank" rel="noreferrer"  
+                    download>
+                      <Button
+                      variant="contained"
+                      color="secondary"
+                    >
+                      <FormattedMessage {...Payrollmessages.Download} /> 
+                    </Button>
+                  </a>
+
+                  </Tooltip>
+
+              </Grid>
+
+              <Grid item >
+                  <Tooltip title="Import">
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        component="label"
+                    >
+                        <AddIcon
+                        className={cx(smUp && classes.leftIcon, classes.iconSmall)}
+                        />
+                        <FormattedMessage {...Payrollmessages.Import} /> 
+                        
+                        <input 
+                        hidden 
+                        value={file}
+                        type="file" 
+                        name="file" 
+                        className="custom-file-input" 
+                        id="inputGroupFile" 
+                        onChange={handleImport}
+                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+                    </Button>
+                  </Tooltip>
+              </Grid>
+
+              <Grid item  >
+                    <Tooltip title="Reset">             
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={resetDataFun}
+                      >
+                          <FormattedMessage {...Payrollmessages.reset} /> 
+                      </Button>
+                    </Tooltip>
+              </Grid>
+
+              <Grid item >
+                    <Tooltip title="Import Excel File To Can Submit">              
+                      <span>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={submitFun}
+                          disabled={fileData.length !== 0 && VacationType !== null ? false : true}
                         >
-
-          <Grid item md={4} >
-            <Autocomplete
-              id="ddlMenu"
-              options={LeavesList}
-              value={LeavesList.find((item)=> item.id === VacationType) ?? null}
-              // options={topFilms}
-              getOptionLabel={(option) =>
-                option.name || ""
-                // option ? option.name : ""
-                // option ? option.title : ""
-                // locale=="en"?option.enName:option.arName
-              }
-              renderOption={(props, option) => {
-                
-                return (
-                  <li {...props} key={option.id}>
-                    {option.name}
-                  </li>
-                );
-              }}
-              onChange={(event, value) => {
-                if (value !== null) {
-                  setVacationType(value.id);
-                } else {
-                  setVacationType(null);
-                }
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  name="LeaveType"
-                   label= {intl.formatMessage(messages.LeaveType)}
-                />
-              )}
-            />
-
-        </Grid>
-
-      <Grid item >
-              <Tooltip title="Download">             
-              <a 
-                href={`${ServerURL}Doc/ExcelForm/VacBalanceForm.xlsx`} 
-                target="_blank" rel="noreferrer"  
-                download>
-                  <Button
-                  variant="contained"
-                  color="secondary"
-                >
-                   <FormattedMessage {...Payrollmessages.Download} /> 
-                </Button>
-              </a>
-
-              </Tooltip>
-
-        </Grid>
-
-        <Grid item >
-            <Tooltip title="Import">
-
-            <Button
-                variant="contained"
-                color="secondary"
-                component="label"
-            >
-                <AddIcon
-                className={cx(smUp && classes.leftIcon, classes.iconSmall)}
-                />
-                <FormattedMessage {...Payrollmessages.Import} /> 
-                
-                <input 
-                hidden 
-                value={file}
-                type="file" 
-                name="file" 
-                className="custom-file-input" 
-                id="inputGroupFile" 
-                onChange={handleImport}
-                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
-            </Button>
-            </Tooltip>
-</Grid>
-
-<Grid item  >
-              <Tooltip title="Reset">             
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={resetDataFun}
-                >
-                    <FormattedMessage {...Payrollmessages.reset} /> 
-                </Button>
-              </Tooltip>
-
-        </Grid>
-
-        <Grid item >
-
-              <Tooltip title="Import Excel File To Can Submit">              
-                <span>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={submitFun}
-                  disabled={fileData.length !== 0 && VacationType !== null ? false : true}
-                >
-                    <FormattedMessage {...Payrollmessages.save} /> 
-                  
-                </Button>
-                </span>
-              </Tooltip>
-
-        </Grid>
-
+                            <FormattedMessage {...Payrollmessages.save} /> 
+                        </Button>
+                      </span>
+                    </Tooltip>
+              </Grid>
         </Grid>
 
       </PapperBlock>
 
         {fileData.length !== 0 && (
-
-            // <div className={`${classes2.ImportTableContainer}  ${locale === "ar" ? classes2.tableContainerStyAr : ''}`}>
-                    <PayrollTable
-                    title={fileTitle}
-                    data={fileData}
-                    columns={columns}
-                    />
+          <PayrollTable
+          title={fileTitle}
+          data={fileData}
+          columns={cols}
+          />
         )}
           
     </PayRollLoader>

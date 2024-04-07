@@ -28,7 +28,6 @@ function ResignTrxImport({ intl }) {
   const [file, setFile] = useState("");
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(false);
-  let columns = [];
 
   const handleImport = ($event) => {
     const files = $event.target.files;
@@ -46,7 +45,13 @@ function ResignTrxImport({ intl }) {
             raw: false,
           });
           setFileData(rows);
-          rows.map((item) => setCols(Object.keys(item)));
+         setCols(Object.keys(rows[0]).map((item) => ({
+          name: item,
+          label: item,
+          options: {
+            filter: true,
+          },
+        })));
         }
       };
       reader.readAsArrayBuffer(file);
@@ -77,17 +82,7 @@ function ResignTrxImport({ intl }) {
     }
   };
 
-  columns =
-    cols.length !== 0
-      ? cols.map((item) => ({
-          name: item,
-          label: item,
-          options: {
-            filter: true,
-          },
-        }))
-      : [];
-
+ 
   const options = {
     selectableRowsHeader: false,
   };
@@ -177,7 +172,7 @@ function ResignTrxImport({ intl }) {
             <PayrollTable
               title={fileTitle}
               data={fileData}
-              columns={columns}
+              columns={cols}
               options={options}
             />
           )}
