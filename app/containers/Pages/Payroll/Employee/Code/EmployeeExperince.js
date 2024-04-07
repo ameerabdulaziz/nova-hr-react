@@ -100,14 +100,6 @@ function EmployeeExperince(props) {
       hidden: false,
     },
     {
-      name: "monthNo",
-      label: "monthno",
-      type: "number",
-      width: "auto",
-      initialValue: 1,
-      hidden: false,
-    },
-    {
       name: "notes",
       label: "note",
       type: "text",
