@@ -2019,5 +2019,9 @@ devicePass: {
     id: `${scope}.permissionErrorMes`,
     defaultMessage: 'The permission has been registered before',
   }, 
+  workHours: {
+    id: `${scope}.workHours`,
+    defaultMessage: 'Work Hours',
+  }, 
 });
 

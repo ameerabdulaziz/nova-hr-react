@@ -1827,6 +1827,7 @@
   "boilerplate.containers.Payroll.Attendance.leaveErrorMes": "The leave has been registered before",
   "boilerplate.containers.Payroll.Attendance.missionErrorMes": "The mission has been registered before",
   "boilerplate.containers.Payroll.Attendance.permissionErrorMes": "The permission has been registered before",
+  "boilerplate.containers.Payroll.Attendance.workHours": "Work Hours",
  
   
   "boilerplate.containers.Payroll.Payroll.monthName": "Month",

@@ -1569,6 +1569,7 @@
   "boilerplate.containers.Payroll.Attendance.leaveErrorMes": "تم تسجيل الاجازه من قبل",
   "boilerplate.containers.Payroll.Attendance.missionErrorMes": "تم تسجيل المامورية من قبل",
   "boilerplate.containers.Payroll.Attendance.permissionErrorMes": "تم تسجيل الاذن من قبل",
+  "boilerplate.containers.Payroll.Attendance.workHours": "عدد ساعات العمل الفعلية",
   
   
   
