@@ -238,7 +238,7 @@ function LeaveTrxCreate(props) {
       VacDayChange: formInfo.vacDayChange ?? '',
       vacDocPath: formInfo.vacDocPath,
       ReplaceDate: formInfo.ReplaceDate ?? '',
-      alternativeTask: formInfo.alternativeTask,
+      alternativeTask: formInfo.alternativeTask ?? '',
 
       trxDate: formateDate(formInfo.trxDate),
       fromDate: formateDate(formInfo.fromDate),
@@ -246,14 +246,14 @@ function LeaveTrxCreate(props) {
       daysCount: formInfo.daysCount,
       dayDeducedBy: formInfo.dayDeducedBy,
       tel: formInfo.tel,
-      doc: formInfo.doc,
+      doc: formInfo.doc ?? '',
       vacReson: formInfo.vacReson,
       address: formInfo.address,
       notes: formInfo.notes,
       exemptEntryRec: Boolean(formInfo.exemptEntryRec),
       exemptLeaveRec: Boolean(formInfo.exemptLeaveRec),
       alternativeStaff: formInfo.alternativeStaff ?? '',
-      vacCode: formInfo.vacCode,
+      vacCode: formInfo.vacCode ?? '',
     };
 
     if (formInfo.vacCode !== 5) {
