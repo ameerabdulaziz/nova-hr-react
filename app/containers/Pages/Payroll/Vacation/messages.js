@@ -201,6 +201,10 @@ export default defineMessages({
         id: `${scope}.code.MustAttachFile`,
         defaultMessage: 'Must attach file',
       },
+      webInvisible: {
+        id: `${scope}.code.webInvisible`,
+        defaultMessage: 'Used for Hr',
+      },
       // Government Sick Leave Setting
       GovernmentSickLeaveSetting: {
         id: `${scope}.code.GovernmentSickLeaveSetting`,

@@ -2539,6 +2539,8 @@
   "boilerplate.containers.Payroll.vac.code.AnnualInAdvance": "Annual in advance",
   "boilerplate.containers.Payroll.vac.code.MustAttachFile": "Must attach file",
 
+  "boilerplate.containers.Payroll.vac.code.webInvisible": "Used for Hr",
+
   "boilerplate.containers.Payroll.vac.code.GovernmentSickLeaveSetting": "Government sick leave setting",
   "boilerplate.containers.Payroll.vac.code.VacationType": "Leave type",
   "boilerplate.containers.Payroll.vac.code.Yearly": "Yearly",
