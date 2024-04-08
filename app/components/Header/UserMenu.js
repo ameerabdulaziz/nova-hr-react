@@ -162,7 +162,10 @@ function UserMenu(props) {
           </ListItemIcon>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={signOut}>
+        <MenuItem onClick={()=>{
+          signOut()
+          localStorage.removeItem("Token");
+          }}>
           <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>
