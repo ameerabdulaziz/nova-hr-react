@@ -102,6 +102,7 @@ function CreateVacationType(props) {
 
   const [isOfficialVacation, setIsOfficialVacation] = useState(false);
   const [allowLessOneDay, setAllowLessOneDay] = useState(false);
+  const [webInvisible, setWebInvisible] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -137,9 +138,9 @@ function CreateVacationType(props) {
       haveReplacementDay,
       allowLessOneDay,
       isOfficialVacation,
+      webInvisible,
       branchIds: branchIds.map(item => item.id).join(','),
     };
-
 
 
 
@@ -219,7 +220,7 @@ const getEditdata =  async () => {
         };
       }) : [];
 
-      const days = data.reqDayNotAllow.split(',').map(dayName => {
+      const days = data.reqDayNotAllow ? data.reqDayNotAllow.split(',').map(dayName => {
         const day = dayList.find((item) => item.name === dayName);
 
         if (day) {
@@ -230,7 +231,7 @@ const getEditdata =  async () => {
           id: dayName,
           name: dayName,
         };
-      });
+      }) : [];
 
       setReqDayNotAllow(days);
       setBranchIds(branches);
@@ -852,6 +853,20 @@ useEffect(() => {
                                   className={style.BtnSty}
                                   />} 
                                   label={intl.formatMessage(messages.AllowLessOneDay) }
+                                  /> 
+                              </Grid>
+                              <Grid item xs={12} md={6}  lg={4} > 
+                                <FormControlLabel  
+                                  control={ 
+                                  <Switch  
+                                  checked={webInvisible} 
+                                  onChange={() => 
+                                    setWebInvisible(!webInvisible)
+                                  }
+                                  color="primary" 
+                                  className={style.BtnSty}
+                                  />} 
+                                  label={intl.formatMessage(messages.webInvisible) }
                                   /> 
                               </Grid>
                       </Grid>

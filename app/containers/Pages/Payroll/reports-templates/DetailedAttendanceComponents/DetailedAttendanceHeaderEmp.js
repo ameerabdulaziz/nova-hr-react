@@ -5,6 +5,7 @@ import { Grid, Stack } from '@mui/material';
   import { format } from "date-fns";
   import messages from "../../Attendance/messages";
   import {  FormattedMessage } from "react-intl";
+  import { formateDate } from "../../helpers";
 
   
   function DetailedAttendanceHeaderEmp({Data,date}) {
@@ -166,7 +167,7 @@ import { Grid, Stack } from '@mui/material';
                               <span><FormattedMessage {...messages.date} /></span>
                             </Grid>
                             <Grid item xs={8} >
-                              <span>{date.FromDate} - {date.ToDate}</span>
+                              <span>{formateDate(date.FromDate)} - {formateDate(date.ToDate)}</span>
                             </Grid>
                           </Grid>
                        

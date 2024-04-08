@@ -872,8 +872,8 @@
   "boilerplate.components.tables.codes.enJobKpi": "Job Kpi",
   "boilerplate.components.tables.codes.arJobKpi": "Arabic Job Kpi",
   "boilerplate.components.tables.codes.course": "Course",
-  "boilerplate.components.tables.codes.startdate": "Start Date",
-  "boilerplate.components.tables.codes.enddate": "End Date",
+  "boilerplate.components.tables.codes.startdate": "Start Insurance",
+  "boilerplate.components.tables.codes.enddate": "End Insurance",
   "boilerplate.components.tables.codes.araddress": "Arabic Address",
   "boilerplate.components.tables.codes.enaddress": "English Address",
   "boilerplate.components.tables.codes.city": "City",
@@ -1827,6 +1827,7 @@
   "boilerplate.containers.Payroll.Attendance.leaveErrorMes": "The leave has been registered before",
   "boilerplate.containers.Payroll.Attendance.missionErrorMes": "The mission has been registered before",
   "boilerplate.containers.Payroll.Attendance.permissionErrorMes": "The permission has been registered before",
+  "boilerplate.containers.Payroll.Attendance.workHours": "Work Hours",
  
   
   "boilerplate.containers.Payroll.Payroll.monthName": "Month",
@@ -2334,6 +2335,8 @@
   "boilerplate.containers.Payroll.Employee.inDate": "In Date",
   "boilerplate.containers.Payroll.Employee.outDate": "Out Date",
 
+  "boilerplate.containers.Payroll.Employee.empErrMes": "You must to choose employee name",
+
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",
   "boilerplate.containers.Payroll.MainData.codes.hrForm": "HR Form",
@@ -2484,7 +2487,7 @@
   "boilerplate.containers.Payroll.vac.leaveReason": "Leave Reason",
   "boilerplate.containers.Payroll.vac.exemptEntryRec": "Exempt Entry Rec.",
   "boilerplate.containers.Payroll.vac.exemptLeaveRec": "Exempt Leave Rec.",
-  "boilerplate.containers.Payroll.vac.id": "Id",
+  "boilerplate.containers.Payroll.vac.id": "Transaction",
   "boilerplate.containers.Payroll.vac.trxDate": "date",
   "boilerplate.containers.Payroll.vac.section": "Section",
   "boilerplate.containers.Payroll.vac.hiringMonth": "Hiring Month",
@@ -2535,6 +2538,8 @@
   "boilerplate.containers.Payroll.vac.code.DoesnotTakeAWeekOff": "Doesn't take the weekend off",
   "boilerplate.containers.Payroll.vac.code.AnnualInAdvance": "Annual in advance",
   "boilerplate.containers.Payroll.vac.code.MustAttachFile": "Must attach file",
+
+  "boilerplate.containers.Payroll.vac.code.webInvisible": "Used for Hr",
 
   "boilerplate.containers.Payroll.vac.code.GovernmentSickLeaveSetting": "Government sick leave setting",
   "boilerplate.containers.Payroll.vac.code.VacationType": "Leave type",

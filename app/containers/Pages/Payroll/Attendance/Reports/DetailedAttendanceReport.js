@@ -344,7 +344,6 @@ function DetailedAttendanceReport(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
             <Search
@@ -410,10 +409,9 @@ function DetailedAttendanceReport(props) {
                             />
                           )}
                         />
-              
-                  </Grid>
+            </Grid>
 
-                  <Grid item xs={12} md={12}></Grid>
+            <Grid item xs={12} md={12}></Grid>
 
             <Grid item md={6} lg={3}>
                   <FormControlLabel
@@ -516,28 +514,28 @@ function DetailedAttendanceReport(props) {
           <Grid item xs={12} md={12}></Grid>
 
           <Grid item xs={12} lg={2}>
-                    <Button
-                      variant="contained"
-                      size="medium"
-                      color="primary"
-                      className={style.printBtnSty}
-                    onClick={()=>onPrintClick("employee")}
-                    >
-                      <FormattedMessage {...messages.PrintByEmployee} />
-                    </Button>
-                  </Grid>
+            <Button
+              variant="contained"
+              size="medium"
+              color="primary"
+              className={style.printBtnSty}
+            onClick={()=>onPrintClick("employee")}
+            >
+              <FormattedMessage {...messages.PrintByEmployee} />
+            </Button>
+          </Grid>
 
-                  <Grid item xs={12} lg={2}>
-                    <Button
-                      variant="contained"
-                      size="medium"
-                      color="primary"
-                      className={style.printBtnSty}
-                    onClick={()=>onPrintClick("date")}
-                    >
-                      <FormattedMessage {...messages.PrintByDate} />
-                    </Button>
-                  </Grid>
+          <Grid item xs={12} lg={2}>
+            <Button
+              variant="contained"
+              size="medium"
+              color="primary"
+              className={style.printBtnSty}
+            onClick={()=>onPrintClick("date")}
+            >
+              <FormattedMessage {...messages.PrintByDate} />
+            </Button>
+          </Grid>
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
@@ -548,8 +546,6 @@ function DetailedAttendanceReport(props) {
           columns={columns}
         />
 
-      
-  
       <DetailedAttendanceReportTemplate 
         printDivRef={printDivRef} 
         headerType={headerType }
@@ -557,10 +553,7 @@ function DetailedAttendanceReport(props) {
         date={searchData}
       />
 
-
     </PayRollLoader>
-
-    
   );
 }
 

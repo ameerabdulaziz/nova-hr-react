@@ -38,19 +38,7 @@ function UploadEmployeeData({ intl }) {
   const [fileTitle, setFileTitle] = useState("");
   const [file, setFile] = useState("");
 
-  let columns = [];
-
-  columns =
-    cols.length !== 0
-      ? cols.map((item) => ({
-          name: item,
-          label: item,
-          options: {
-            filter: true,
-          },
-        }))
-      : [];
-
+  
   const options = {
     filterType: "dropdown",
     responsive: "vertical",
@@ -81,7 +69,13 @@ function UploadEmployeeData({ intl }) {
           });
           setFileData(rows);
           console.log("file2 =", rows);
-          rows.map((item) => setCols(Object.keys(item)));
+          setCols(Object.keys(rows[0]).map((item) => ({
+            name: item,
+            label: item,
+            options: {
+              filter: true,
+            },
+          })));
         }
       };
       reader.readAsArrayBuffer(file);
@@ -223,7 +217,7 @@ function UploadEmployeeData({ intl }) {
               <MUIDataTable
                 title={fileTitle}
                 data={fileData}
-                columns={columns}
+                columns={cols}
                 options={options}
                 className={classes2.tableSty}
               />

@@ -162,11 +162,11 @@ export default defineMessages({
   },
   startdate: {
     id: `${scope}.codes.startdate`,
-    defaultMessage: 'Start Date',
+    defaultMessage: 'Start Insurance',
   },
   enddate: {
     id: `${scope}.codes.enddate`,
-    defaultMessage: 'End Date',
+    defaultMessage: 'End Insurance',
   },
   arJobKpi: {
     id: `${scope}.codes.arJobKpi`,

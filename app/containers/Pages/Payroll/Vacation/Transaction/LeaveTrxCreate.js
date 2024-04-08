@@ -216,7 +216,7 @@ function LeaveTrxCreate(props) {
 
   useEffect(() => {
     calculateDaysCount();
-  }, [formInfo.toDate, formInfo.fromDate]);
+  }, [formInfo.toDate, formInfo.fromDate, formInfo.vacCode]);
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -238,22 +238,22 @@ function LeaveTrxCreate(props) {
       VacDayChange: formInfo.vacDayChange ?? '',
       vacDocPath: formInfo.vacDocPath,
       ReplaceDate: formInfo.ReplaceDate ?? '',
-      alternativeTask: formInfo.alternativeTask,
+      alternativeTask: formInfo.alternativeTask ?? '',
 
       trxDate: formateDate(formInfo.trxDate),
       fromDate: formateDate(formInfo.fromDate),
-      // toDate: formateDate(formInfo.toDate),
+      toDate: formateDate(formInfo.toDate),
       daysCount: formInfo.daysCount,
       dayDeducedBy: formInfo.dayDeducedBy,
       tel: formInfo.tel,
-      doc: formInfo.doc,
+      doc: formInfo.doc ?? '',
       vacReson: formInfo.vacReson,
       address: formInfo.address,
       notes: formInfo.notes,
       exemptEntryRec: Boolean(formInfo.exemptEntryRec),
       exemptLeaveRec: Boolean(formInfo.exemptLeaveRec),
       alternativeStaff: formInfo.alternativeStaff ?? '',
-      vacCode: formInfo.vacCode,
+      vacCode: formInfo.vacCode ?? '',
     };
 
     if (formInfo.vacCode !== 5) {
@@ -273,7 +273,9 @@ function LeaveTrxCreate(props) {
       }
     }
 
-    if (formInfo.vacCode === 5) {
+    const currentVacation = vacationsList.find((vac) => vac.id === formInfo.vacCode);
+
+    if (currentVacation?.hasAttachFile) {
       if (!formInfo.vacDocPath) {
         if (formInfo.doc) {
           const { doc, ...reset } = errors;
@@ -286,7 +288,6 @@ function LeaveTrxCreate(props) {
     }
 
     if (Object.keys(errors).length === 0) {
-
       setProcessing(true);
       setIsLoading(true);
 
@@ -335,8 +336,6 @@ function LeaveTrxCreate(props) {
         setFormInfo((prev) => ({
           ...prev,
           vacCode: value.id,
-          toDate: null,
-          daysCount: "",
         }));
       }
     } else {

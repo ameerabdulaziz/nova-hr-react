@@ -382,12 +382,11 @@ function CalculateAttendance(props) {
     },
     {
       name: 'shiftCode',
-      options: {
-        filter: false,
-        display: false,
-        print: false,
-        download: false
-      },
+      label: intl.formatMessage(messages.shiftCode),
+    },
+    {
+      name: 'shiftName',
+      label: intl.formatMessage(messages.shiftName),
     },
     {
       name: 'shiftDate',
@@ -458,7 +457,10 @@ function CalculateAttendance(props) {
         ),
       },
     },
-
+    {
+      name: 'workHours',
+      label: intl.formatMessage(messages.workHours),
+    },
     {
       name: 'lateMin',
       label: intl.formatMessage(messages.late),
