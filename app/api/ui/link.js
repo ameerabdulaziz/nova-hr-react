@@ -1,5 +1,5 @@
 module.exports = {
-  dashboard: '/app',
+  dashboard: '/app/HrDashboard',
   login: '/login',
   register: '/register-firebase',
   market: '#',

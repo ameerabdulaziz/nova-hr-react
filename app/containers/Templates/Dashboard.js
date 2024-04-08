@@ -65,7 +65,7 @@ function Dashboard(props) {
         else finalpath = path;
         
         if (node.link && node.link === path) {
-          alert(finalpath);
+          
           return node;
         }
         if (node.child) {
@@ -93,7 +93,7 @@ function Dashboard(props) {
     place = locale == "en" ? result.name : result.arname;
   } else if (
     pathname != "/app/pages/error" &&
-    pathname != "/app/HrDashboard" &&
+    pathname != "/app" &&
     dataMenu
   ) {
     debugger;

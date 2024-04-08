@@ -75,7 +75,7 @@ function Login() {
         };
         Dispatcher(syncUser(user));
         if (res.data.isHR)
-          history.push(redirectTo == null || redirectTo === "/login"  ? "/app/HrDashboard" : redirectTo);
+          history.push(redirectTo == null || redirectTo === "/login"  ? "/app" : redirectTo);
         else if (res.data.isManagement)
           history.push(
             redirectTo == null || redirectTo === "/login"  ? "/app/ManagementDashboard/" : redirectTo
