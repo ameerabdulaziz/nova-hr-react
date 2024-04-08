@@ -372,7 +372,7 @@ export default defineMessages({
   },
   id: {
     id: `${scope}.id`,
-    defaultMessage: 'id',
+    defaultMessage: 'Transaction',
   },
   employeeId: {
     id: `${scope}.employeeId`,

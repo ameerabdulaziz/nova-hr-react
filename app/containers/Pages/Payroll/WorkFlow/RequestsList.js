@@ -126,7 +126,6 @@ function RequestsList(props) {
 
     try {
       setIsLoading(true);
-      debugger;
       let Fromdate = dateFormatFun(fromdate);
       let Todate = dateFormatFun(todate);
       const dataApi = await ApiData(locale).Getrequests(
@@ -139,6 +138,13 @@ function RequestsList(props) {
       setdata(dataApi);
       if (dataApi && dataApi.length > 0) {
         var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
+        // used to remove executionId from table
+        if(Document === 3)
+        {
+          const index = data.indexOf("executionId");
+          data.splice(index, 1);
+        }
+
         setCols(data);
       } else setCols([]);
       fetchData();
@@ -151,7 +157,6 @@ function RequestsList(props) {
     try {
       setIsLoading(true);
       let response = await ApiData(locale).ExecuteWorkFlow(postDate);
-      debugger;
       if (response.status == 200) {
         toast.success(notif.saved);
         handleSearch();
@@ -212,6 +217,12 @@ function RequestsList(props) {
       setDocument(documentId);
       if (dataApi && dataApi.length > 0) {
         var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
+        // used to remove executionId from table
+        if(documentId === 3)
+        {
+          const index = data.indexOf("executionId");
+          data.splice(index, 1);
+        }
         setCols(data);
       } else setCols([]);
     } catch (err) {
@@ -249,9 +260,6 @@ function RequestsList(props) {
         }))
       :
        [];
-
-console.log("columns =",columns);
-
 
   const action = {
     name: "Actions",

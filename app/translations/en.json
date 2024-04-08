@@ -2487,7 +2487,7 @@
   "boilerplate.containers.Payroll.vac.leaveReason": "Leave Reason",
   "boilerplate.containers.Payroll.vac.exemptEntryRec": "Exempt Entry Rec.",
   "boilerplate.containers.Payroll.vac.exemptLeaveRec": "Exempt Leave Rec.",
-  "boilerplate.containers.Payroll.vac.id": "Id",
+  "boilerplate.containers.Payroll.vac.id": "Transaction",
   "boilerplate.containers.Payroll.vac.trxDate": "date",
   "boilerplate.containers.Payroll.vac.section": "Section",
   "boilerplate.containers.Payroll.vac.hiringMonth": "Hiring Month",
