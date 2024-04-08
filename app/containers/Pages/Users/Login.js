@@ -17,7 +17,7 @@ import {
   loginFailure,
   syncUser,
 } from "../../../redux/actions/authActions";
-import { useDispatch } from "react-redux";
+import {useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
 
 function Login() {
@@ -30,6 +30,15 @@ function Login() {
   const location = useLocation();
   const { redirectTo } = queryString.parse(location.search);
   const submitForm = (values) => setValueForm(values);
+  const Auth = useSelector((state) => state.authReducer.loggedIn);
+
+
+  // used to check if user login before and try to open login page redirect him to /app
+  useEffect(() => {
+    if (Auth === true &&  localStorage.getItem("Token")) {
+      history.push(`/app`);
+    }
+  }, []);
 
   async function fetchData() {
     if (valueForm) {
@@ -65,16 +74,15 @@ function Login() {
           branchId: res.data.branchId,
         };
         Dispatcher(syncUser(user));
-        debugger;
         if (res.data.isHR)
-          history.push(redirectTo == null ? "/app" : redirectTo);
+          history.push(redirectTo == null || redirectTo === "/login"  ? "/app" : redirectTo);
         else if (res.data.isManagement)
           history.push(
-            redirectTo == null ? "/app/ManagementDashboard/" : redirectTo
+            redirectTo == null || redirectTo === "/login"  ? "/app/ManagementDashboard/" : redirectTo
           );
         else
         history.push(
-          redirectTo == null ? "/app/EmployeeDashboard/" : redirectTo
+          redirectTo == null || redirectTo === "/login"  ? "/app/EmployeeDashboard/" : redirectTo
         );
 
         //history.push('/app');

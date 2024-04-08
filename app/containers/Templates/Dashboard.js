@@ -181,6 +181,7 @@ if(isFound)
   };
 
   useEffect(() => {
+    console.log("history.location.pathname =",history.location.pathname);
     if (Auth === null || Auth === false) {
       history.push(`/login?redirectTo=${history.location.pathname}`);
     }

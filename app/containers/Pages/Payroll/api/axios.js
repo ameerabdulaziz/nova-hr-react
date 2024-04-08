@@ -73,6 +73,7 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401) {
       if (error.response.data.title) toast.error(error.response.data.title);
       else toast.error("Unauthorized");
+      localStorage.removeItem("Token");
 
       window.location.href = "/login?redirectTo=" + window.location.pathname;
 
