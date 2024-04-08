@@ -978,7 +978,6 @@ debugger ;
                     <TextField
                       name="DisplayName"
                       id="DisplayName"
-                      type="number"
                       placeholder={intl.formatMessage(messages.DisplayName)}
                       label={intl.formatMessage(messages.DisplayName)}
                       className={`${classes.field} ${style.fieldsSty}`}
