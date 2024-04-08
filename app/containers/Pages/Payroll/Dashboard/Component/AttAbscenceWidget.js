@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ useEffect, useState }from "react";
 import PropTypes from "prop-types";
 import {
   PieChart,
@@ -27,10 +27,13 @@ import messages from "./messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import ThemePallete from "enl-api/palette/themePalette";
 import { createTheme } from "@mui/material/styles";
+import PayRollLoader from "../../Component/PayRollLoader";
+import api from "../api";
+import { useSelector } from "react-redux";
 
 function AttAbscenceWidget(props) {
   const { classes, cx } = useStyles();
-  const data6 = [
+  const [data6,setData] = useState([
     {
       name: "Attendance",
       value: 80,
@@ -39,7 +42,7 @@ function AttAbscenceWidget(props) {
       name: "Abscence",
       value: 20,
     },
-  ];
+  ]);
   const colors = [
    
     indigo[500],
@@ -91,8 +94,30 @@ function AttAbscenceWidget(props) {
     percent: 0,
   };
   const theme = createTheme(ThemePallete.purpleTheme);
+  const locale = useSelector((state) => state.language.locale);
+  const [isLoading, setIsLoading] = useState(false);
+  const IsStaticDashboard = localStorage.getItem("IsStaticDashboard");
+
+  const getdata = async () => {
+    try {
+      if (IsStaticDashboard == "false") {
+        setIsLoading(true);
+        
+        const data2 = await api(locale).getAttAbscence();
+        setData(data2);
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, []);
 
   return (
+    <PayRollLoader isLoading={isLoading}>
     <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
       <Grid item md={12} xs={12}>
         <Typography className={classes.smallTitle} variant="button">
@@ -132,6 +157,7 @@ function AttAbscenceWidget(props) {
         </div>
       </Grid>
     </PapperBlock>
+    </PayRollLoader>
   );
 }
 

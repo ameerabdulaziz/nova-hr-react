@@ -67,7 +67,7 @@ function Login() {
         Dispatcher(syncUser(user));
         debugger;
         if (res.data.isHR)
-          history.push(redirectTo == null ? "/app" : redirectTo);
+          history.push(redirectTo == null ? "/app/HrDashboard" : redirectTo);
         else if (res.data.isManagement)
           history.push(
             redirectTo == null ? "/app/ManagementDashboard/" : redirectTo

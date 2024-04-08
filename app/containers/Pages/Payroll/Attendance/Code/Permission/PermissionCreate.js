@@ -144,7 +144,7 @@ function PermissionCreate(props) {
   }
   async function fetchData() {
     try{
-    const elements = await GeneralListApis(locale).GetElementList(locale);
+    const elements = await GeneralListApis(locale).GetElementList();
     setElementList(elements);
 
     if (id) {

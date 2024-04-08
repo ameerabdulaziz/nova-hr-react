@@ -448,7 +448,7 @@ function Application(props) {
     <Dashboard history={history} changeMode={changeMode}>
       <Switch>
         {/* Home */}
-        <Route exact path='/app' component={AdminDashboard} />
+        <Route exact path='/app/HrDashboard' component={AdminDashboard} />
         <Route path='/app/ManagementDashboard' component={ManagementDashboard} />
         <Route path='/app/EmployeeDashboard' component={EmployeeDashboard} />
         <Route path='/app/dashboard/marketing' component={MarketingDashboard} />

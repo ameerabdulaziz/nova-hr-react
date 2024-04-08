@@ -22,14 +22,14 @@ const dashboardData = (locale) => {
     return data.data;
   };
 
-  api.getEmpWithBestAtt = async () => {
-    const data = await axiosInstance.get(`Dashboard/GetEmpWithBestAtt`);
+  api.getEmpWithBestAtt = async (isWorest) => {
+    const data = await axiosInstance.get(`Dashboard/GetEmpWithBestAtt?isWorest=${isWorest?isWorest:false}`);
 
     return data.data;
   };
 
-  api.getBarData = async () => {
-    const data = await axiosInstance.get(`Dashboard/GetBarData`);
+  api.getBarData = async (isnotCalcPermission) => {
+    const data = await axiosInstance.get(`Dashboard/GetBarData?isnotCalcPermission=${isnotCalcPermission?isnotCalcPermission:false}`);
     return data.data;
   };
 
@@ -58,8 +58,8 @@ const dashboardData = (locale) => {
     const data = await axiosInstance.get(`Dashboard/GetOrgLevel`);
     return data.data;
   };
-  api.getMonthlySalary = async () => {
-    const data = await axiosInstance.get(`Dashboard/GetMonthlySalary/${locale}`);
+  api.getMonthlySalary = async (isCurrentUser) => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlySalary/${locale}?isCurrentUser=${isCurrentUser?isCurrentUser:false}`);
     return data.data;
   };
   api.getSalaryYearly = async () => {
@@ -121,13 +121,25 @@ const dashboardData = (locale) => {
     const data = await axiosInstance.get(`Dashboard/GetMonthlyLate/${locale}`);
     return data.data;
   };
-  
-  
-  
-  
-  
-  
+  api.getAttAbscence = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetAttAbscence`);
+    return data.data;
+  };
+  api.getRewardPenalty = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetRewardPenalty`);
+    return data.data;
+  };
+  api.getOvertimeVSLate = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOvertimeVSLate`);
+    return data.data;
+  };
 
+  api.getMonthlyOvertimeAndLate = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetMonthlyOvertimeAndLate`);
+    return data.data;
+  };
+
+  
   return api;
 };
 

@@ -1,30 +1,12 @@
-import React from "react";
+import React ,{useEffect,useState}from "react";
 import PropTypes from "prop-types";
-import Grid from "@mui/material/Grid";
-import CardGiftcard from "@mui/icons-material/CardGiftcard";
-import LocalLibrary from "@mui/icons-material/LocalLibrary";
-import Computer from "@mui/icons-material/Computer";
-import Toys from "@mui/icons-material/Toys";
-import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import Style from "@mui/icons-material/Style";
 import Typography from "@mui/material/Typography";
 import colorfull from "enl-api/palette/colorfull";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { injectIntl, FormattedMessage } from "react-intl";
 import messages from "./messages";
 import useStyles from "./fluidChart-jss";
 import { PapperBlock } from "enl-components";
-import Check from "@mui/icons-material/CheckCircle";
-import { useSelector } from "react-redux";
-import LinearProgress from "@mui/material/LinearProgress";
-import HotTubSharpIcon from "@mui/icons-material/HotTubSharp";
-import AddCard from "@mui/icons-material/AddCard";
-import CreditCardOffIcon from "@mui/icons-material/CreditCardOff";
-import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
 import {
   BarChart,
@@ -36,6 +18,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import PayRollLoader from "../../Component/PayRollLoader";
+import api from "../api";
+import { useSelector } from "react-redux";
 
 const color = {
   primary: colorfull[0],
@@ -44,7 +29,11 @@ const color = {
   fourth: colorfull[3],
 };
 
-const dataSales = [
+
+function EmpSalaryChartWidget(props) {
+  const { intl } = props;
+  const { classes, cx } = useStyles();
+const [dataSales,setData] = useState([
   {
     name: "Jan",
     gross: 40,
@@ -105,13 +94,31 @@ const dataSales = [
     gross: 79,
     net: 101,
   },
-];
-function EmpSalaryChartWidget(props) {
-  const { intl } = props;
-  const { classes, cx } = useStyles();
+]);
+const locale = useSelector((state) => state.language.locale);
+const [isLoading, setIsLoading] = useState(false);
+const IsStaticDashboard = localStorage.getItem("IsStaticDashboard");
 
-  const locale = useSelector((state) => state.language.locale);
-  return (
+const getdata = async () => {
+  try {
+    if (IsStaticDashboard == "false") {
+      setIsLoading(true);
+      
+      const data2 = await api(locale).getMonthlySalary(true);
+      setData(data2);
+    }
+  } catch (error) {
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+useEffect(() => {
+  getdata();
+}, []);
+
+return (
+  <PayRollLoader isLoading={isLoading}>
     <PapperBlock whiteBg noMargin title={""}>
       <div>
         <Typography className={classes.smallTitle} variant="button">
@@ -152,6 +159,7 @@ function EmpSalaryChartWidget(props) {
         </div>
       </div>
     </PapperBlock>
+    </PayRollLoader>
   );
 }
 

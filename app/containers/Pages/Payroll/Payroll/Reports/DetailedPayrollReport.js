@@ -232,7 +232,7 @@ function DetailedPayrollReport(props) {
 					formInfo.isBankTransfere === null
 					  ? null
 					  : Boolean(formInfo.isBankTransfere),
-        isVal: formInfo.isVal,
+        //isVal: formInfo.isVal,
         CurrencyId: formInfo.CurrencyId,
       };
 
@@ -488,7 +488,7 @@ debugger ;
               />
             </Grid>
 
-            <Grid item md={3} xs={12}>
+            {/* <Grid item md={3} xs={12}>
               <FormControl>
                 <RadioGroup
                   row
@@ -508,7 +508,7 @@ debugger ;
                   />
                 </RadioGroup>
               </FormControl>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={12}>
               <EmployeeData

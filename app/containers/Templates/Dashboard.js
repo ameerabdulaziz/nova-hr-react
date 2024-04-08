@@ -1,19 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { PropTypes } from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { GuideSlider } from 'enl-components';
-import { toggleAction, openAction, playTransitionAction } from 'enl-redux/actions/uiActions';
-import { logout } from 'enl-redux/actions/authActions';
-import dummy from 'enl-api/dummy/dummyContents';
-import LeftSidebarLayout from './layouts/LeftSidebar';
-import LeftSidebarBigLayout from './layouts/LeftSidebarBig';
-import MegaMenuLayout from './layouts/MegaMenu';
-import DropMenuLayout from './layouts/DropMenu';
-import useStyles from './appStyles-jss';
-import { useSelector, useDispatch } from 'react-redux';
-import API from './api';
-import { getCompanyInfo, syncUser, syncUserMenu } from '../../redux/actions/authActions';
+import React, { useState, useEffect } from "react";
+import { PropTypes } from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { GuideSlider } from "enl-components";
+import {
+  toggleAction,
+  openAction,
+  playTransitionAction,
+} from "enl-redux/actions/uiActions";
+import { logout } from "enl-redux/actions/authActions";
+import dummy from "enl-api/dummy/dummyContents";
+import LeftSidebarLayout from "./layouts/LeftSidebar";
+import LeftSidebarBigLayout from "./layouts/LeftSidebarBig";
+import MegaMenuLayout from "./layouts/MegaMenu";
+import DropMenuLayout from "./layouts/DropMenu";
+import useStyles from "./appStyles-jss";
+import { useSelector, useDispatch } from "react-redux";
+import API from "./api";
+import {
+  getCompanyInfo,
+  syncUser,
+  syncUserMenu,
+} from "../../redux/actions/authActions";
 
 function Dashboard(props) {
   const { classes, cx } = useStyles();
@@ -30,68 +38,97 @@ function Dashboard(props) {
     changeMode,
     signOut,
     user,
-    isAuthenticated
+    isAuthenticated,
   } = props;
   const [appHeight, setAppHeight] = useState(0);
   const [openGuide, setOpenGuide] = useState(false);
   //const getAuth = useSelector(state => state.authReducer.user);
   const Dispatcher = useDispatch();
   const Auth = useSelector((state) => state.authReducer.loggedIn);
-  
-  const titleException = ['/app', '/app/crm-dashboard', '/app/crypto-dashboard'];
-  const parts = history.location.pathname.split('/');
-  let place = parts[parts.length - 1].replace('-', ' ');
-  const pathname = history.location.pathname;   
-  const dataMenu = useSelector(state => state.authReducer.usermenu);  
-  const locale = useSelector(state => state.language.locale);
-  function findNode ( array,path) {
-    
-    if(array)
-    {
+
+  const titleException = [
+    "/app",
+    "/app/crm-dashboard",
+    "/app/crypto-dashboard",
+  ];
+  const parts = history.location.pathname.split("/");
+  let place = parts[parts.length - 1].replace("-", " ");
+  const pathname = history.location.pathname;
+  const dataMenu = useSelector((state) => state.authReducer.usermenu);
+  const locale = useSelector((state) => state.language.locale);
+  function findNode(array, path) {
+    if (array) {
       for (const node of array) {
-      if(node.link && node.link===path)return node;    
-      if (node.child) {
-          const child = findNode(node.child,path);
-              if(child) return child
-                  
+        let finalpath = "";
+        if (path.endsWith("/"))
+          finalpath = path.substring(0, path.lastIndexOf("/"));
+        else finalpath = path;
+        
+        if (node.link && node.link === path) {
+          alert(finalpath);
+          return node;
+        }
+        if (node.child) {
+          const child = findNode(node.child, path);
+          if (child) return child;
         }
       }
     }
   }
 
-var result = findNode(dataMenu, place.endsWith("Create")?pathname.replace('Create', ''):(place.endsWith("Edit")?pathname.replace('Edit', ''):pathname));
-if(result) 
-{
-  localStorage.setItem("MenuName", locale=="en"?result.name:result.arname); 
-  localStorage.setItem("Menu", JSON.stringify(result)); 
-  place=locale=="en"?result.name:result.arname;
-}
-else if(pathname!="/app/pages/error"&&pathname!="/app" && dataMenu) 
-{
-  var isFound = false;
-  children.props.children[0].props.path
-  for (const item of children.props.children) {
-    if (item.props.path === pathname) {
-      isFound=true ;
-      break ;
-    }
-  }
-if(isFound)
-  history.push(`/app/pages/error`); 
-}
-  
+  var result = findNode(
+    dataMenu,
+    place.endsWith("Create")
+      ? pathname.replace("Create", "")
+      : place.endsWith("Edit")
+      ? pathname.replace("Edit", "")
+      : pathname
+  );
+  if (result) {
+    localStorage.setItem(
+      "MenuName",
+      locale == "en" ? result.name : result.arname
+    );
+    localStorage.setItem("Menu", JSON.stringify(result));
+    place = locale == "en" ? result.name : result.arname;
+  } else if (
+    pathname != "/app/pages/error" &&
+    pathname != "/app/HrDashboard" &&
+    dataMenu
+  ) {
+    debugger;
 
-  const profile = userProfile => {
-    
+    var isFound = false;
+    //children.props.children[0].props.path
+
+    for (const item of children.props.children) {
+      /* if (
+        item.props.path ===
+        (pathname.endsWith("/")
+          ? pathname.substring(0, pathname.lastIndexOf("/"))
+          : pathname)
+      )  */
+      if(pathname.includes(item.props.path)) 
+      {
+        isFound = true;
+        break;
+      }
+    }
+    if (isFound) history.push(`/app/pages/error`);
+  }
+
+  const profile = (userProfile) => {
     if (userProfile) {
       return {
         avatar: userProfile.photoURL || dummy.user.avatar,
-        name: (locale === 'en' ? userProfile?.enName : userProfile?.arName) ?? userProfile.name
+        name:
+          (locale === "en" ? userProfile?.enName : userProfile?.arName) ??
+          userProfile.name,
       };
     }
     return {
       avatar: dummy.user.avatar,
-      name: dummy.user.name
+      name: dummy.user.name,
     };
   };
 
@@ -140,13 +177,13 @@ if(isFound)
 
       const mappedMenu = menuItems.map((item) => ({
         ...item,
-        icon: item.icon ?? 'widgets',
+        icon: item.icon ?? "widgets",
         child: item.child?.map((child) => ({
           ...child,
-          icon: child.icon ?? 'extension',
+          icon: child.icon ?? "extension",
           child: child.child?.map((subChild) => ({
             ...subChild,
-            icon: subChild.icon ?? 'layers',
+            icon: subChild.icon ?? "layers",
           })),
         })),
       }));
@@ -156,8 +193,8 @@ if(isFound)
         email: userInfo.email,
         name: userInfo.userName,
         avatar: null,
-        title: 'Administrator',
-        status: 'online',
+        title: "Administrator",
+        status: "online",
         displayName: userInfo.userName,
         isHR: userInfo.isHR,
         isManagement: userInfo.isManagement,
@@ -191,17 +228,18 @@ if(isFound)
   return (
     <div
       style={{ minHeight: appHeight }}
-      className={
-        cx(
-          classes.appFrameInner,
-          layout === 'top-navigation' || layout === 'mega-menu' ? classes.topNav : classes.sideNav,
-          mode === 'dark' ? 'dark-mode' : 'light-mode'
-        )
-      }
+      className={cx(
+        classes.appFrameInner,
+        layout === "top-navigation" || layout === "mega-menu"
+          ? classes.topNav
+          : classes.sideNav,
+        mode === "dark" ? "dark-mode" : "light-mode"
+      )}
     >
       <GuideSlider openGuide={openGuide} closeGuide={handleCloseGuide} />
-      { /* Left Sidebar Layout */
-        layout === 'sidebar' && (
+      {
+        /* Left Sidebar Layout */
+        layout === "sidebar" && (
           <LeftSidebarLayout
             history={history}
             toggleDrawer={toggleDrawer}
@@ -217,12 +255,13 @@ if(isFound)
             isLogin={isAuthenticated}
             userAttr={profile(user)}
           >
-            { children }
+            {children}
           </LeftSidebarLayout>
         )
       }
-      { /* Left Big-Sidebar Layout */
-        layout === 'big-sidebar' && (
+      {
+        /* Left Big-Sidebar Layout */
+        layout === "big-sidebar" && (
           <LeftSidebarBigLayout
             history={history}
             toggleDrawer={toggleDrawer}
@@ -238,12 +277,13 @@ if(isFound)
             isLogin={isAuthenticated}
             userAttr={profile(user)}
           >
-            { children }
+            {children}
           </LeftSidebarBigLayout>
         )
       }
-      { /* Top Bar with Dropdown Menu */
-        layout === 'top-navigation' && (
+      {
+        /* Top Bar with Dropdown Menu */
+        layout === "top-navigation" && (
           <DropMenuLayout
             history={history}
             toggleDrawer={toggleDrawer}
@@ -259,12 +299,13 @@ if(isFound)
             isLogin={isAuthenticated}
             userAttr={profile(user)}
           >
-            { children }
+            {children}
           </DropMenuLayout>
         )
       }
-      { /* Top Bar with Mega Menu */
-        layout === 'mega-menu' && (
+      {
+        /* Top Bar with Mega Menu */
+        layout === "mega-menu" && (
           <MegaMenuLayout
             history={history}
             toggleDrawer={toggleDrawer}
@@ -280,7 +321,7 @@ if(isFound)
             isLogin={isAuthenticated}
             userAttr={profile(user)}
           >
-            { children }
+            {children}
           </MegaMenuLayout>
         )
       }
@@ -306,10 +347,10 @@ Dashboard.propTypes = {
 
 Dashboard.defaultProps = {
   user: null,
-  isAuthenticated: null
+  isAuthenticated: null,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   sidebarOpen: state.ui.sidebarOpen,
   pageLoaded: state.ui.pageLoaded,
   mode: state.ui.type,
@@ -318,16 +359,13 @@ const mapStateToProps = state => ({
   user: state.authReducer.user,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   toggleDrawer: () => dispatch(toggleAction),
   initialOpen: bindActionCreators(openAction, dispatch),
   loadTransition: bindActionCreators(playTransitionAction, dispatch),
-  signOut: bindActionCreators(logout, dispatch)
+  signOut: bindActionCreators(logout, dispatch),
 });
 
-const DashboardMaped = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Dashboard);
+const DashboardMaped = connect(mapStateToProps, mapDispatchToProps)(Dashboard);
 
 export default DashboardMaped;
