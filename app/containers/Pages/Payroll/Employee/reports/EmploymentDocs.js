@@ -27,6 +27,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import { formateDate, getCheckboxIcon } from "../../helpers";
+import { toast } from "react-hot-toast";
 
 
 function EmploymentDocs(props) {
@@ -61,31 +62,45 @@ function EmploymentDocs(props) {
             DocumentTypeData.push(ele.id)
         })
     }
-    
 
-    try {
-      setIsLoading(true);
+      if(searchData.EmployeeId !== "" )
+      {
+        try {
+          setIsLoading(true);
 
-      let formData = {
-        EmployeeId: searchData.EmployeeId,
-        OrganizationId: searchData.OrganizationId,
-        EmpStatusId: searchData.EmpStatusId,
-        Bank: Bank,
-        Cash: Cash,
-        SoftCopy: SoftCopy,
-        HardCopy: HardCopy,
-      };
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? "" : formData[key];
-      });
-      
-      const dataApi = await ApiData(locale).GetEmploymentDocsReport(formData, DocumentTypeData);
-      setdata(dataApi);
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
+          let formData = {
+            EmployeeId: searchData.EmployeeId,
+            OrganizationId: searchData.OrganizationId,
+            EmpStatusId: searchData.EmpStatusId,
+            Bank: Bank,
+            Cash: Cash,
+            SoftCopy: SoftCopy,
+            HardCopy: HardCopy,
+          };
+          Object.keys(formData).forEach((key) => {
+            formData[key] = formData[key] === null ? "" : formData[key];
+          });
+          
+          const dataApi = await ApiData(locale).GetEmploymentDocsReport(formData, DocumentTypeData);
+          setdata(dataApi);
+        } catch (err) {
+        } finally {
+          setIsLoading(false);
+        }
+    }
+    else
+    {
+      toast.error(intl.formatMessage(messages.empErrMes));
     }
   };
+
+  // used to clear table if employee name field empty
+  useEffect(()=>{
+    if(searchData.EmployeeId === "")
+    {
+      setdata([])
+    }
+  },[searchData.EmployeeId ])
 
   async function fetchData() {
     try {

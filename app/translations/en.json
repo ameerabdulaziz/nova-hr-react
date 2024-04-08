@@ -2335,6 +2335,8 @@
   "boilerplate.containers.Payroll.Employee.inDate": "In Date",
   "boilerplate.containers.Payroll.Employee.outDate": "Out Date",
 
+  "boilerplate.containers.Payroll.Employee.empErrMes": "You must to choose employee name",
+
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",
   "boilerplate.containers.Payroll.MainData.codes.hrForm": "HR Form",

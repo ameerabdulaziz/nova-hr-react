@@ -247,7 +247,12 @@ function RequestsList(props) {
             filter: true,
           },
         }))
-      : [];
+      :
+       [];
+
+console.log("columns =",columns);
+
+
   const action = {
     name: "Actions",
     options: {

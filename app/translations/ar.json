@@ -2389,6 +2389,8 @@
   "boilerplate.containers.Payroll.Employee.inDate": "استلام المستند من الموظف",
   "boilerplate.containers.Payroll.Employee.outDate": "تسليم المستند للموظف",
 
+  "boilerplate.containers.Payroll.Employee.empErrMes": "يجب ان تختار اسم الموظف",
+
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
   "boilerplate.containers.Payroll.MainData.codes.hrForm": "نموذج الموارد البشرية",

@@ -849,4 +849,9 @@ export default defineMessages({
     id: `${scope}.field`,
     defaultMessage: 'field',
   },
+  // EmploymentDocs
+  empErrMes: {
+    id: `${scope}.empErrMes`,
+    defaultMessage: 'You must to choose employee',
+  },
 });
