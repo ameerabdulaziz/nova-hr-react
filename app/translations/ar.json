@@ -2168,7 +2168,7 @@
 
     "boilerplate.containers.Payroll.Payroll.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement":"يجب عليك اختيار كل السنوات وكل الشهور وعنصر واحد على الأقل",
     
-    "boilerplate.containers.Payroll.Payroll.elementValColNum":"رقم العمود الذى يحتوى على قيمة",
+    "boilerplate.containers.Payroll.Payroll.elementValColNum":"رقم العمود الذى يحتوى على القيمة",
     
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",
