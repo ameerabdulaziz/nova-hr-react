@@ -2168,6 +2168,7 @@
 
     "boilerplate.containers.Payroll.Payroll.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement":"يجب عليك اختيار كل السنوات وكل الشهور وعنصر واحد على الأقل",
     
+    "boilerplate.containers.Payroll.Payroll.elementValColNum":"element Val Col Num",
     
   
   "boilerplate.containers.Payroll.Workflow.documentName": "اسم الملف",

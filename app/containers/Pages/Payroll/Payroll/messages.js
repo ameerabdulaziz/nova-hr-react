@@ -1022,4 +1022,9 @@ export default defineMessages({
     id: `${scope}.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement`,
     defaultMessage: "You must to choose all years , all months and at least one element",
   }, 
+  // ElementVlaImport
+  elementValColNum: {
+    id: `${scope}.elementValColNum`,
+    defaultMessage: "element Val Col Num",
+  }, 
 });

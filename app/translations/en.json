@@ -2110,6 +2110,8 @@
   "boilerplate.containers.Payroll.Payroll.EndedLoans":"Ended Loans",
 
   "boilerplate.containers.Payroll.Payroll.YouMustToChooseAllYears_AllMonthsAndAtLeastOneElement":"You must to choose all years , all months and at least one element",
+
+  "boilerplate.containers.Payroll.Payroll.elementValColNum":"element Val Col Num",
   
 
   "boilerplate.containers.Payroll.transportaion.ip":"Transportaion",  
