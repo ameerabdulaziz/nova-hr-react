@@ -66,6 +66,7 @@ function UploadEmployeeData({ intl }) {
         if (sheets.length) {
           const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
             raw: false,
+            defval:"",
           });
           setFileData(rows);
           console.log("file2 =", rows);

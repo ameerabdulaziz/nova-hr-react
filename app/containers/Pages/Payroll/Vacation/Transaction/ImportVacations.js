@@ -58,6 +58,7 @@ function ImportVacations({ intl }) {
         if (sheets.length) {
           const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
             raw: false,
+            defval:"",
           });
           if (rows.length !== 0) {
             // the below code used to recustomize the file data before send it to Api

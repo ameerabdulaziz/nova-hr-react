@@ -67,7 +67,7 @@ function ImportLeaveBalance({intl }) {
             
             if (sheets.length) {
              
-                const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {raw: false});
+                const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {raw: false, defval:"",});
                if(rows.length !== 0)
                {
               
