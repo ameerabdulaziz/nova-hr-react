@@ -62,7 +62,7 @@ const EmployeeData = (locale) => {
 
   Apis.checkEmpIdentityNumberExist = async (id, number) => {
     const data = await axiosInstance.get(
-      `EmpEmployee/checkEmpIdentityNoExist/${id}/${number}`
+      `EmpEmployee/checkEmpIdentityNoExist/${locale}/${id}/${number}`
     );
 
     return data.data;

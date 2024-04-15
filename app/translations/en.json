@@ -2316,6 +2316,8 @@
   "boilerplate.containers.Payroll.Employee.statusInfo": "Status Info",
   "boilerplate.containers.Payroll.Employee.employeeNameShouldNotBeOneWord": "Employee Name Should Be More Than One Word",
   "boilerplate.containers.Payroll.Employee.usernameAlreadyExist": "Username Already Exist",
+  "boilerplate.containers.Payroll.Employee.employeeAlreadyExistWhatActionYouWant": "Employee Already Exist What Action You Want",
+  "boilerplate.containers.Payroll.Employee.fillInputs": "Fill Inputs",
   "boilerplate.containers.Payroll.Employee.email": "Email",
   "boilerplate.containers.Payroll.Employee.nickName": "Nick Name",
   "boilerplate.containers.Payroll.Employee.relativePhoneNumber": "Relative Phone Number",
