@@ -178,7 +178,7 @@ function Header(props) {
                 showTitle && classes.show,
               )}
             >
-              {menuMessages[title] !== undefined ? <FormattedMessage {...menuMessages[title]} /> : title}
+              {menuMessages[title] !== undefined ? <FormattedMessage {...menuMessages[title]} /> :(title=="app"?"Hr Dashboard":title)}
             </Typography>
           </div>
         </Hidden>

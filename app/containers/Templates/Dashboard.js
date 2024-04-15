@@ -63,9 +63,8 @@ function Dashboard(props) {
         if (path.endsWith("/"))
           finalpath = path.substring(0, path.lastIndexOf("/"));
         else finalpath = path;
-        
+
         if (node.link && node.link === path) {
-          
           return node;
         }
         if (node.child) {
@@ -94,6 +93,8 @@ function Dashboard(props) {
   } else if (
     pathname != "/app/pages/error" &&
     pathname != "/app" &&
+    pathname != "/app/EmployeeDashboard" &&
+    pathname != "/app/ManagementDashboard" &&
     dataMenu
   ) {
     debugger;
@@ -108,8 +109,7 @@ function Dashboard(props) {
           ? pathname.substring(0, pathname.lastIndexOf("/"))
           : pathname)
       )  */
-      if(pathname.includes(item.props.path)) 
-      {
+      if (pathname.includes(item.props.path)) {
         isFound = true;
         break;
       }
@@ -218,7 +218,7 @@ function Dashboard(props) {
   };
 
   useEffect(() => {
-    console.log("history.location.pathname =",history.location.pathname);
+    console.log("history.location.pathname =", history.location.pathname);
     if (Auth === null || Auth === false) {
       history.push(`/login?redirectTo=${history.location.pathname}`);
     }
