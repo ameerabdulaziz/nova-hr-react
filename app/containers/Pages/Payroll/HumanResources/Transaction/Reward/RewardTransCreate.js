@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
-import { injectIntl, intlShape, FormattedMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import {
   Button,
   Grid,
@@ -20,10 +20,7 @@ import {
 } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import GeneralListApis from "../../../api/GeneralListApis";
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 import EmployeeData from "../../../Component/EmployeeData";
@@ -33,7 +30,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { NavLink } from "react-router-dom";
 import { ServerURL } from "../../../api/ServerConfig";
 import PayRollLoader from "../../../Component/PayRollLoader";
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -204,36 +200,6 @@ function RewardTransCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            {/* <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(messages.date)}
-                  value={data.date}
-                  onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        setdata((prevFilters) => ({
-                            ...prevFilters,
-                            date: date === null ? null : format(new Date(date), "yyyy-MM-dd"),
-                          }))
-                      }
-                      else
-                      {
-                        setdata((prevFilters) => ({
-                          ...prevFilters,
-                          date: null,
-                        }))
-                      } 
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid> */}
-
                   <Grid item xs={12} md={4}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>

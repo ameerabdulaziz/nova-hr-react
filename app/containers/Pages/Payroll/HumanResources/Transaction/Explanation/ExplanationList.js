@@ -4,12 +4,10 @@ import { useSelector } from "react-redux";
 import { Button, Grid, TextField, Autocomplete } from "@mui/material";
 import messages from "../../messages";
 import Payrollmessages from "../../../messages";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import useStyles from "../../../Style";
 import { format } from "date-fns";
 import GeneralListApis from "../../../api/GeneralListApis";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import EditButton from "../../../Component/EditButton";
@@ -17,7 +15,6 @@ import style from "../../../../../../../app/styles/styles.scss";
 import PayRollLoader from "../../../Component/PayRollLoader";
 import PayrollTable from "../../../Component/PayrollTable";
 import { formateDate } from "../../../helpers";
-
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -178,30 +175,6 @@ function ExplanationList(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div>          
           <Grid container spacing={3}>
-            {/* <Grid item xs={12} md={2}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(Payrollmessages.fromdate)}
-                  value={fromdate}
-                  onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        setfromate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                      } 
-                      else
-                      {
-                        setfromate(null)
-                      }
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid> */}
-
                   <Grid item xs={12} md={2}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -231,31 +204,6 @@ function ExplanationList(props) {
                         />
                     </LocalizationProvider>
                   </Grid>
-
-
-            {/* <Grid item xs={12} md={2}>
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DesktopDatePicker
-                  label={intl.formatMessage(Payrollmessages.todate)}
-                  value={todate}
-                  onChange={(date) => {
-                    if (Object.prototype.toString.call(new Date(date)) === "[object Date]") {
-                      if (!isNaN(new Date(date))) { 
-                        settodate(date === null ? null : format(new Date(date), "yyyy-MM-dd"))
-                      } 
-                      else
-                      {
-                        settodate(null)
-                      }
-                    }
-                  }}
-                  className={classes.field}
-                  renderInput={(params) => (
-                    <TextField {...params} variant="outlined" />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid> */}
 
                   <Grid item xs={12} md={2}>
                   

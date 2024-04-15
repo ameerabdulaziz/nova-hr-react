@@ -55,8 +55,8 @@ function HrEmployeeDocumentTrxCreate(props) {
 
   const [formInfo, setFormInfo] = useState({
     id,
-    date: null,
-    returnDate: null,
+    date: new Date(),
+    returnDate: new Date(),
     empDocumentId: null,
     notes: '',
   });
