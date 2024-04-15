@@ -66,6 +66,7 @@ function ImportFileWithKPI({ intl }) {
         if (sheets.length) {
           const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
             raw: false,
+            defval:"",
           });
           // add id to each row before sent it to API
           const newRows = rows.map(row => ({...row, id: 0}))
