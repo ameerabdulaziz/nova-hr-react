@@ -54,7 +54,7 @@ npm run start:prod
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
 - [ ] **Notification** still not work
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
-- [ ] Integrate the **LeaveBalance** page with the API
+- [ ] Integrate the **LeavesBalance** page with the API
 - [ ] Integrate the **EmployeeStatusReport** page with the API
 - [ ] Integrate a cancel button into the **editable** table component
 - [ ] Improve **React-to-print** package the need state before print
@@ -62,10 +62,25 @@ npm run start:prod
 - [ ] Implement "react-window" or similar package for the **payroll** table
 - [ ] Add Print column to payroll table
 - [ ] **Recruitment** - add pdf download instead of open in new tab
-- [ ] update docs & add apiUrl change way
 - [ ] Integrate **ImportEmployeeData** with api for some-data update
 
 ## Docs 📖
+
+### API Base URL
+
+Replace the reading from **.env** to a global variable in **window object**.
+
+The API base URL is configured in [**index.html**](app/index.html), if any change is made, you should restart the server to take effect.
+
+It can be configured in the following way:
+
+```js
+window.config = {
+  apiUrl: "http://92.205.178.113:801/",
+};
+```
+
+The code above will add a new property in the window object called **config** and set **apiUrl** to `http://92.205.178.113:801/`.
 
 ### Date Picker Replacement
 

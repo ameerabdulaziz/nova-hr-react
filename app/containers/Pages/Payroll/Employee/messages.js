@@ -849,6 +849,10 @@ export default defineMessages({
     id: `${scope}.field`,
     defaultMessage: 'field',
   },
+  nickName: {
+    id: `${scope}.nickName`,
+    defaultMessage: 'nickName',
+  },
   // EmploymentDocs
   empErrMes: {
     id: `${scope}.empErrMes`,

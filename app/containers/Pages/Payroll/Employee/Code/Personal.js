@@ -86,6 +86,7 @@ function Personal(props) {
   const [genderList, setgenderList] = useState([]);
   const [branchList, setBranchList] = useState([]);
   const [userName, setUserName] = useState('');
+  const [nickName, setNickName] = useState('');
 
   const [nationalityId, setnationalityId] = useState(null);
   const [nationalityList, setnationalityList] = useState([]);
@@ -400,6 +401,7 @@ function Personal(props) {
         userId: 0,
         workEmail,
         isHr: isHR,
+        nickName,
         // hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
@@ -456,6 +458,7 @@ function Personal(props) {
     setstatusId(null);
     setWorkEmail('');
     setUserName('');
+    setNickName('');
   };
 
   const onEmployeeCreatedClose = () => {
@@ -549,6 +552,7 @@ function Personal(props) {
 
             // setid(dataApi.id);
             setUserName(dataApi.userName ?? '');
+            setNickName(dataApi.nickName ?? '');
             setemployeeCode(dataApi.employeeCode ?? '');
             setWorkEmail(dataApi.workEmail ?? '');
             // setHrBranchList(dataApi.hrBranchList ?? []);
@@ -682,6 +686,19 @@ function Personal(props) {
                     value={enName}
                     onChange={(e) => setenName(sanitizeEmployeeNameInput(e.target.value))}
                     label={intl.formatMessage(messages.enname)}
+                    className={classes.field}
+                    variant="outlined"
+                    autoComplete='off'
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    id="nickName"
+                    name="nickName"
+                    value={nickName}
+                    onChange={(e) => setNickName(e.target.value)}
+                    label={intl.formatMessage(messages.nickName)}
                     className={classes.field}
                     variant="outlined"
                     autoComplete='off'

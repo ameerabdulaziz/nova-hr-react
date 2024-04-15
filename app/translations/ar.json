@@ -2361,6 +2361,7 @@
   "boilerplate.containers.Payroll.Employee.mobile": "الهاتف",
   "boilerplate.containers.Payroll.Employee.employeeNameShouldNotBeOneWord": "يجب أن يكون اسم الموظف أكثر من كلمة واحدة",
   "boilerplate.containers.Payroll.Employee.usernameAlreadyExist": "اسم المستخدم موجود بالفعل",
+  "boilerplate.containers.Payroll.Employee.nickName": "اسم الشهرة",
   "boilerplate.containers.Payroll.Employee.userName": "اسم المستخدم",
   "boilerplate.containers.Payroll.Employee.telephone": "رقم التلفون",
   "boilerplate.containers.Payroll.Employee.workMobile": "رقم الهاتف للعمل",
