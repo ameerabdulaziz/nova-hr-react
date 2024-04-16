@@ -10,7 +10,6 @@ import { toast } from "react-hot-toast";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import { injectIntl, FormattedMessage } from "react-intl";
-
 import {
   Button,
   Grid,
@@ -21,7 +20,6 @@ import useStyles from "../../Style";
 import Dropzone from "react-dropzone";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import GeneralListApis from "../../api/GeneralListApis";
-import { format } from "date-fns";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Type from "enl-styles/Typography.scss";
@@ -31,6 +29,7 @@ import Typography from "@mui/material/Typography";
 import avatarApi from "enl-api/images/avatars";
 import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../Component/PayRollLoader";
+import EmployeeExistFeedback from "../component/Personal/EmployeeExistFeedback";
 import EmployeeCreationFeedback from "../component/Personal/EmployeeCreationFeedback";
 import moment from "moment";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -50,9 +49,7 @@ function Personal(props) {
   const empid  = location.state ? location.state.empid : DecryptUrl()
   const id = empid?.id ?? 0;
 
-
   let dropzoneRef;
-  const [progress, setProgress] = useState(false);
   const { intl, pristine } = props;
   const [isLoading, setIsLoading] = useState(true);
   const { classes } = useStyles();
@@ -84,8 +81,8 @@ function Personal(props) {
   const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
   const [genderId, setgenderId] = useState(null);
   const [genderList, setgenderList] = useState([]);
-  const [branchList, setBranchList] = useState([]);
   const [userName, setUserName] = useState('');
+  const [nickName, setNickName] = useState('');
 
   const [nationalityId, setnationalityId] = useState(null);
   const [nationalityList, setnationalityList] = useState([]);
@@ -112,17 +109,20 @@ function Personal(props) {
   const [isResident, setisResident] = useState(false);
 
   const [saluteId, setsaluteId] = useState(null);
-  const [saluteList, setsaluteList] = useState([]);
   const [statusId, setstatusId] = useState(null);
   const [statusList, setstatusList] = useState([]);
 
   const locale = useSelector((state) => state.language.locale);
 
   const [isEmployeeCreatedOpen, setIsEmployeeCreatedOpen] = useState(false);
+
+  const [previousEmployeeInfo, setPreviousEmployeeInfo] = useState(null);
+  const [isEmployeeExistOpen, setIsEmployeeExistOpen] = useState(false);
+  const [isIdentityNumberExist, setIsIdentityNumberExist] = useState(false);
+
   const [checkEmployeeIdentityNumber, setCheckEmployeeIdentityNumber] = useState(true);
   const [checkEmployeeWorkEmail, setCheckEmployeeWorkEmail] = useState(true);
   const [isEmailExist, setIsEmailExist] = useState(false);
-  const [isIdentityNumberExist, setIsIdentityNumberExist] = useState(false);
   const [checkEmployeeUsername, setCheckEmployeeUsername] = useState(true);
   const [isUsernameExist, setIsUsernameExist] = useState(false);
 
@@ -227,11 +227,15 @@ function Personal(props) {
 
     try {
       const response = await EmployeeData(locale).checkEmpIdentityNumberExist(id, number);
-      setIsIdentityNumberExist(!response);
 
-      if (!response) {
+      if (response && response.statusId !== 1) {
+        setIsEmployeeExistOpen(true);
+        setPreviousEmployeeInfo(response);
+      } else if (response && response.statusId === 1) {
         toast.error(intl.formatMessage(messages.identityNumberAlreadyExist));
-        setCheckEmployeeIdentityNumber(false);
+        setIsIdentityNumberExist(true);
+      } else if (!response) {
+        setIsIdentityNumberExist(false);
       }
     } catch (error) {
       //
@@ -243,7 +247,7 @@ function Personal(props) {
   useEffect(() => {
     // extract birthday from identity number
     // 1. check if identity number is 14 characters
-    // 2. check if birth date is empty
+    // 2. check if birth date is not empty
     // 3. check if id is 0 (means create new employee)
     // 4. check if valid length is 14 (14 is the length of a valid identity number)
     if (
@@ -256,7 +260,7 @@ function Personal(props) {
       setbirthDate(extractBirthDayFromIdentityNumber(identityNumber));
     }
 
-    // Check if identity number is not exsit
+    // Check if identity number is not exist
     if (identityNumber && identityTypeId?.validLength !== 0 && identityNumber.length === identityTypeId?.validLength) {
       if (checkEmployeeIdentityNumber) {
         const timeoutId = setTimeout(() => {
@@ -269,8 +273,6 @@ function Personal(props) {
       }
 
       setCheckEmployeeIdentityNumber(true);
-    } else {
-      setIsIdentityNumberExist(false);
     }
   }, [identityNumber]);
 
@@ -312,15 +314,6 @@ function Personal(props) {
     }
   }, [workEmail]);
 
-
-    // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-    return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
-
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -336,11 +329,6 @@ function Personal(props) {
       return;
     }
 
-    if (isIdentityNumberExist) {
-      toast.error(intl.formatMessage(messages.identityNumberAlreadyExist));
-      return;
-    }
-
     if (isUsernameExist) {
       toast.error(intl.formatMessage(messages.usernameAlreadyExist));
       return;
@@ -348,6 +336,11 @@ function Personal(props) {
 
     if (arName.split(' ').length === 1 || enName.split(' ').length === 1) {
       toast.error(intl.formatMessage(messages.employeeNameShouldNotBeOneWord));
+      return;
+    }
+
+    if (isIdentityNumberExist) {
+      toast.error(intl.formatMessage(messages.identityNumberAlreadyExist));
       return;
     }
 
@@ -374,17 +367,17 @@ function Personal(props) {
         organizationId: organizationId?.id ?? "",
         jobId: jobId?.id ?? "",
         jobLevelId: jobLevelId?.id ?? "",
-        hiringDate: dateFormatFun(hiringDate) ,
+        hiringDate: formateDate(hiringDate) ,
         controlParameterId: controlParameterId?.id ?? "",
         identityTypeId: identityTypeId?.id ?? "",
-        identityIssuingDate: dateFormatFun(identityIssuingDate),
-        identityExpiry: dateFormatFun(identityExpiry),
+        identityIssuingDate: formateDate(identityIssuingDate),
+        identityExpiry: formateDate(identityExpiry),
         identityNumber: identityNumber ?? "",
         identityIssuingAuth: identityIssuingAuth ?? "",
         genderId: genderId?.id ?? "",
         nationalityId: nationalityId?.id ?? "",
         religionId: religionId?.id ?? "",
-        birthDate: dateFormatFun(birthDate),
+        birthDate: formateDate(birthDate),
         birthGovId: birthGovId?.id ?? "",
         birthCityId: birthCityId?.id ?? "",
         socialStatusId: socialStatusId?.id ?? "",
@@ -400,6 +393,7 @@ function Personal(props) {
         userId: 0,
         workEmail,
         isHr: isHR,
+        nickName,
         // hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
@@ -456,6 +450,7 @@ function Personal(props) {
     setstatusId(null);
     setWorkEmail('');
     setUserName('');
+    setNickName('');
   };
 
   const onEmployeeCreatedClose = () => {
@@ -465,6 +460,81 @@ function Personal(props) {
 
   const onEmployeeCreatedConfirm = () => {
     history.push('/app/Pages/Employee/EmployeeList');
+  };
+
+  const onEmployeeExistClose = () => {
+    setIsEmployeeExistOpen(false);
+    setPreviousEmployeeInfo(null);
+  };
+
+  const onEmployeeExistConfirm = () => {
+    // start fill employee info
+    setIsEmployeeExistOpen(false);
+
+    setCheckEmployeeCode(false);
+    setCheckEmployeeWorkEmail(false);
+    setCheckEmployeeUsername(false);
+
+    setWorkEmail(previousEmployeeInfo.workEmail ?? '');
+    setIsHR(previousEmployeeInfo.isHr);
+    setUserName(previousEmployeeInfo.userName ?? '');
+    setmotherName(previousEmployeeInfo.motherName ?? '');
+    setorganizationId(previousEmployeeInfo.organizationId ? {
+      id: previousEmployeeInfo.organizationId,
+      name: previousEmployeeInfo.organizationName,
+    } : null);
+    setjobId(previousEmployeeInfo.jobId ? {
+      id: previousEmployeeInfo.jobId,
+      name: previousEmployeeInfo.jobName,
+    } : null);
+    setjobLevelId(previousEmployeeInfo.jobLevelId ? {
+      id: previousEmployeeInfo.jobLevelId,
+      name: previousEmployeeInfo.jobLevelName,
+    } : null);
+    setcontrolParameterId(previousEmployeeInfo.controlParameterId ? {
+      id: previousEmployeeInfo.controlParameterId,
+      name: previousEmployeeInfo.controlParameterName,
+    } : null);
+    setidentityIssuingDate(previousEmployeeInfo.identityIssuingDate);
+    setidentityExpiry(previousEmployeeInfo.identityExpiry);
+    setidentityIssuingAuth(previousEmployeeInfo.identityIssuingAuth ?? '');
+    setgenderId(previousEmployeeInfo.genderId ? {
+      id: previousEmployeeInfo.genderId,
+      name: previousEmployeeInfo.genderName,
+    } : null);
+    setnationalityId(previousEmployeeInfo.nationalityId ? {
+      id: previousEmployeeInfo.nationalityId,
+      name: previousEmployeeInfo.nationalityName,
+    } : null);
+    setreligionId(previousEmployeeInfo.religionId ? {
+      id: previousEmployeeInfo.religionId,
+      name: previousEmployeeInfo.religionName,
+    } : null);
+    setbirthDate(previousEmployeeInfo.birthDate);
+    setbirthGovId(previousEmployeeInfo.birthGovId ? {
+      id: previousEmployeeInfo.birthGovId,
+      name: previousEmployeeInfo.birthGovName,
+    } : null);
+    setbirthCityId(previousEmployeeInfo.birthCityId ? {
+      id: previousEmployeeInfo.birthCityId,
+      name: previousEmployeeInfo.birthCityName,
+    } : null);
+    setsocialStatusId(previousEmployeeInfo.socialStatusId ? {
+      id: previousEmployeeInfo.socialStatusId,
+      name: previousEmployeeInfo.socialStatusName,
+    } : null);
+    setsonNo(previousEmployeeInfo.sonNo ?? '');
+    setmilitaryStatusId(previousEmployeeInfo.militaryStatusId ? {
+      id: previousEmployeeInfo.militaryStatusId,
+      name: previousEmployeeInfo.militaryStatusName,
+    } : null);
+    setisInsured(previousEmployeeInfo.isInsured);
+    setisSpecialNeeds(previousEmployeeInfo.isSpecialNeeds);
+    setsaluteId(previousEmployeeInfo.saluteId ? {
+      id: previousEmployeeInfo.saluteId,
+      name: previousEmployeeInfo.saluteName,
+    } : null);
+    setisResident(previousEmployeeInfo.isResident);
   };
 
   useEffect(() => {
@@ -484,9 +554,7 @@ function Personal(props) {
           BirthCitydata,
           socialStatusdata,
           MilitaryStatusdata,
-          Salutedata,
           Statusdata,
-          branches
         ] = await Promise.all([
           GeneralListApis(locale).GetEmployeeList(),
           GeneralListApis(locale).GetJobList(),
@@ -501,12 +569,8 @@ function Personal(props) {
           GeneralListApis(locale).GetCityList(),
           GeneralListApis(locale).GetSocialStatusList(),
           GeneralListApis(locale).GetMilitaryStatusList(),
-          GeneralListApis(locale).GetSaluteList(),
           GeneralListApis(locale).GetEmpStatusList(),
-          EmployeeData(locale).GetBranchList(),
         ]);
-
-        setBranchList(branches || []);
 
         setreportToList(employeedata || []);
 
@@ -534,8 +598,6 @@ function Personal(props) {
 
         setmilitaryStatusList(MilitaryStatusdata || []);
 
-        setsaluteList(Salutedata || []);
-
         setstatusList(Statusdata || []);
 
         if (id > 0) {
@@ -549,6 +611,7 @@ function Personal(props) {
 
             // setid(dataApi.id);
             setUserName(dataApi.userName ?? '');
+            setNickName(dataApi.nickName ?? '');
             setemployeeCode(dataApi.employeeCode ?? '');
             setWorkEmail(dataApi.workEmail ?? '');
             // setHrBranchList(dataApi.hrBranchList ?? []);
@@ -643,7 +706,7 @@ function Personal(props) {
     fetchData();
   }, []);
 
-  const sanitizeEmployeeNameInput = (value) => value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, '')
+  const sanitizeEmployeeNameInput = (value) => value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, '');
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -652,6 +715,12 @@ function Personal(props) {
         isOpen={isEmployeeCreatedOpen}
         onClose={onEmployeeCreatedClose}
         onConfirm={onEmployeeCreatedConfirm}
+      />
+
+      <EmployeeExistFeedback
+        isOpen={isEmployeeExistOpen}
+        onClose={onEmployeeExistClose}
+        onConfirm={onEmployeeExistConfirm}
       />
 
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -682,6 +751,19 @@ function Personal(props) {
                     value={enName}
                     onChange={(e) => setenName(sanitizeEmployeeNameInput(e.target.value))}
                     label={intl.formatMessage(messages.enname)}
+                    className={classes.field}
+                    variant="outlined"
+                    autoComplete='off'
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    id="nickName"
+                    name="nickName"
+                    value={nickName}
+                    onChange={(e) => setNickName(e.target.value)}
+                    label={intl.formatMessage(messages.nickName)}
                     className={classes.field}
                     variant="outlined"
                     autoComplete='off'

@@ -59,6 +59,7 @@ function ElementVlaImport({ intl }) {
     monthName: "",
     yearName: "",
     isNotUpdate: false,
+    elementValColNum: 4
   });
 
   const handleImport = ($event) => {
@@ -75,8 +76,14 @@ function ElementVlaImport({ intl }) {
         if (sheets.length) {
           const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
             raw: false,
+            defval:"",
           });
-          setFileData(rows);
+          // check if EmployeeId and ElemVal columns in file not valid delete them
+         let filtedRows = rows.filter(object => {
+            return (!isNaN(object.ElemVal) && object.ElemVal.trim().length !== 0) 
+              && (!isNaN(object.EmployeeId) && object.EmployeeId.trim().length !== 0) 
+          });
+          setFileData(filtedRows);
           setCols(Object.keys(rows[0]).map((item) => ({
             name: item,
             label: item,
@@ -113,7 +120,9 @@ function ElementVlaImport({ intl }) {
         yearId: data.yearId,
         monthId: data.monthId,
         transDate: obj.TransDate,
-        elemVal: obj.ElemVal,
+        elemVal: data.elementValColNum.length !== 0 ? 
+        obj[Object.keys(obj)[data.elementValColNum - 1]]
+        :  obj.ElemVal,
         notes: obj.Notes,
         trxSorce: "EXL",
         isNotUpdate: data.isNotUpdate,
@@ -336,6 +345,26 @@ function ElementVlaImport({ intl }) {
                           }
                           label={intl.formatMessage(messages.isNotUpdate)}
                         />
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                          <TextField
+                            id="elementValColNum"
+                            name="elementValColNum"
+                            value={data.elementValColNum}
+                            label={intl.formatMessage(
+                              messages.elementValColNum
+                            )}
+                            onChange={(e)=>{
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                elementValColNum: e.target.value,
+                              }))
+                            }}
+                            type="number"
+                            className={classes.field}
+                            variant="outlined"
+                            autoComplete='off'
+                          />
                       </Grid>
                     </Grid>
                     <Grid

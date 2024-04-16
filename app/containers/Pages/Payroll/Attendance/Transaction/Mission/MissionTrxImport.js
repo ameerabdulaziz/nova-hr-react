@@ -41,6 +41,7 @@ function MissionTrxImport({ intl }) {
           if (sheets.length) {
             const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
               raw: false,
+              defval:"",
             });
             setFileData(rows);
              setCols(Object.keys(rows[0]).map((item) => ({

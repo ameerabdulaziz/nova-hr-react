@@ -11,6 +11,8 @@ import messages from '../../messages';
 function OvertimeHoursRequest(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const authState = useSelector((state) => state.authReducer);
+  const { isHR } = authState.user;
   const Title = localStorage.getItem('MenuName');
 
   const [isLoading, setIsLoading] = useState(true);
@@ -115,9 +117,11 @@ function OvertimeHoursRequest(props) {
     },
     edit: {
       url: '/app/Pages/Att/OvertimeHoursRequestEdit',
+      disabled: isHR ? false : (row) => row[8] !== null,
     },
     delete: {
       api: deleteRow,
+      disabled: isHR ? false : (row) => row[8] !== null,
     },
   };
 

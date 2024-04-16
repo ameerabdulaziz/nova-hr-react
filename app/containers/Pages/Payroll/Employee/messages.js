@@ -849,6 +849,18 @@ export default defineMessages({
     id: `${scope}.field`,
     defaultMessage: 'field',
   },
+  nickName: {
+    id: `${scope}.nickName`,
+    defaultMessage: 'nickName',
+  },
+  employeeAlreadyExistWhatActionYouWant: {
+    id: `${scope}.employeeAlreadyExistWhatActionYouWant`,
+    defaultMessage: 'employeeAlreadyExistWhatActionYouWant',
+  },
+  fillInputs: {
+    id: `${scope}.fillInputs`,
+    defaultMessage: 'fillInputs',
+  },
   // EmploymentDocs
   empErrMes: {
     id: `${scope}.empErrMes`,

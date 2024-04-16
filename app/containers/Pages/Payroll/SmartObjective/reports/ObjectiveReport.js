@@ -140,7 +140,6 @@ function ObjectiveReport(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    required
                     label={intl.formatMessage(payrollMessages.employeeName)}
                   />
                 )}
@@ -166,7 +165,6 @@ function ObjectiveReport(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    required
                     label={intl.formatMessage(messages.department)}
                   />
                 )}
@@ -188,7 +186,6 @@ function ObjectiveReport(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    required
                     label={intl.formatMessage(payrollMessages.year)}
                   />
                 )}

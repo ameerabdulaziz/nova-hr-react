@@ -16,6 +16,8 @@ import messages from '../../messages';
 function PermissionTrxList(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const authState = useSelector((state) => state.authReducer);
+  const { isHR } = authState.user;
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
@@ -156,9 +158,11 @@ function PermissionTrxList(props) {
     },
     edit: {
       url: '/app/Pages/Att/PermissionTrxEdit',
+      disabled: isHR ? false : (row) => row[7] !== null
     },
     delete: {
       api: deleteRow,
+      disabled: isHR ? false : (row) => row[7] !== null
     },
   };
 

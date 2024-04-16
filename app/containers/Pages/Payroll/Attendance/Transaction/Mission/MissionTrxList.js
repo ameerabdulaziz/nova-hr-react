@@ -18,6 +18,8 @@ function MissionTrxList(props) {
   const { intl } = props;
   const company = useSelector((state) => state.authReducer.companyInfo);
   const locale = useSelector((state) => state.language.locale);
+  const authState = useSelector((state) => state.authReducer);
+  const { isHR } = authState.user;
   const [data, setData] = useState([]);
   const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
@@ -165,9 +167,11 @@ function MissionTrxList(props) {
     },
     edit: {
       url: '/app/Pages/Att/MissionTrxEdit',
+      disabled: isHR ? false : (row) => row[8] !== null,
     },
     delete: {
       api: deleteRow,
+      disabled: isHR ? false : (row) => row[8] !== null,
     },
   };
 
