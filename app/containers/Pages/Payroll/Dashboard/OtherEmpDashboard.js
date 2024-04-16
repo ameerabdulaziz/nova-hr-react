@@ -15,7 +15,7 @@ import OtherVacationsWidget from "./Component/OtherVacationsWidget";
 import OtherPermessionWidget from "./Component/OtherPermessionWidget";
 import OthermessionWidget from "./Component/OthermessionWidget";
 
-import OtherAttbichartWidget  from "./Component/OtherAttbichartWidget";
+import OtherAttbichartWidget from "./Component/OtherAttbichartWidget";
 
 function OtherEmpDashboard() {
   const title = brand.name + " - Management Dashboard";
@@ -31,7 +31,7 @@ function OtherEmpDashboard() {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
-      
+
       <OtherOvertimevsLateWidget />
       <Divider className={classes.divider} />
       <OtherYearlyDataWidget />
@@ -56,15 +56,14 @@ function OtherEmpDashboard() {
       <Divider className={classes.divider} />
       <Grid container spacing={3} className={classes.root}>
         <Grid item md={4} xs={12}>
-        <OtherActualAttWidget/>
+          <OtherActualAttWidget />
         </Grid>
-        
+
         <Grid item md={4} xs={12}>
-          
-          <OtherAttbichartWidget/>
+          <OtherAttbichartWidget />
         </Grid>
         <Grid item md={4} xs={12}>
-          <OtherActualHoursBiWidget/>
+          <OtherActualHoursBiWidget />
         </Grid>
       </Grid>
     </div>

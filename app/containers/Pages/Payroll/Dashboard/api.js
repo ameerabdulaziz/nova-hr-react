@@ -139,6 +139,37 @@ const dashboardData = (locale) => {
     return data.data;
   };
 
+  api.getOtherYearlyData = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOtherYearlyData`);
+    return data.data;
+  };
+  api.getOtherWorkHours = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOtherWorkHours`);
+    return data.data;
+  };
+
+  api.getOtherVacations = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOtherVacations`);
+    return data.data;
+  };
+
+  api.getOtherPermession = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOtherPermession`);
+    return data.data;
+  };
+  api.getOtherMession = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOtherMession`);
+    return data.data;
+  };
+  api.getOtherActualAtt = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOtherActualAtt`);
+    return data.data;
+  };
+  api.getOtherActualHoursBi = async () => {
+    const data = await axiosInstance.get(`Dashboard/GetOtherActualHoursBi`);
+    return data.data;
+  };
+  
   
   return api;
 };
