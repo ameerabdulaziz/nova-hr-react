@@ -24,6 +24,8 @@ function LeaveTrxList(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const company = useSelector((state) => state.authReducer.companyInfo);
+  const authState = useSelector((state) => state.authReducer);
+  const { isHR } = authState.user;
   const Title = localStorage.getItem('MenuName');
 
   const [tableData, setTableData] = useState([]);
@@ -182,11 +184,11 @@ function LeaveTrxList(props) {
     },
     edit: {
       url: '/app/Pages/vac/LeaveTrxEdit',
-      disabled: (row) => row[10] !== null,
+      disabled: isHR ? false : (row) => row[10] !== null,
     },
     delete: {
       api: deleteRow,
-      disabled: (row) => row[10] !== null,
+      disabled: isHR ? false : (row) => row[10] !== null,
     },
   };
 
