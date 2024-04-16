@@ -20,7 +20,7 @@ import style from "../../../../styles/styles.scss";
 import PayrollTable from "./PayrollTable";
 
 function NamePopup(props) {
-  const { intl, IsInsured, withoutSalaryStructure, branchId } = props;
+  const { intl, IsInsured, withoutSalaryStructure, branchId, setOpenPopup } = props;
   const [isLoading, setIsLoading] = useState(false);
   const { classes, cx } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -222,6 +222,14 @@ function NamePopup(props) {
         <DialogActions>
           <Button className={style.deleteAlertBtnSty} onClick={CloseClick}>
             <FormattedMessage {...Payrollmessages.close} />
+          </Button>
+          <Button 
+          className={style.deleteAlertBtnSty} 
+          onClick={()=> {
+            handleClose([])
+            setOpenPopup(false)
+            }}>
+            <FormattedMessage {...Payrollmessages.cancel} />
           </Button>
           {/* <Button
             className={style.deleteAlertBtnSty}
