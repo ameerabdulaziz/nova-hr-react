@@ -61,7 +61,7 @@ function NameList(props) {
 
   return (
     <div>
-      <NamePopup handleClose={handleClose} IsInsured={IsInsured} open={OpenPopup} Key={Key} withoutSalaryStructure={withoutSalaryStructure} />
+      <NamePopup handleClose={handleClose} setOpenPopup={setOpenPopup} IsInsured={IsInsured} open={OpenPopup} Key={Key} withoutSalaryStructure={withoutSalaryStructure} />
       <div>
         <Grid container spacing={3}>
           <Grid item xs={6} md={2}>

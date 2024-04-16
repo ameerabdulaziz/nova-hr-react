@@ -76,7 +76,7 @@ function PeerAppraisalSetting(props) {
         setIsLoading(true);
 
         let formData = {
-          id: data.length !== 0 ? data[0].id : 0,
+          id: data ? data[0].id : 0,
           employeeId: employee,
           monthId: month,
           yearId: year,
