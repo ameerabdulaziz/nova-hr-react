@@ -156,9 +156,11 @@ function PermissionTrxList(props) {
     },
     edit: {
       url: '/app/Pages/Att/PermissionTrxEdit',
+      disabled: (row) => row[7] !== null
     },
     delete: {
       api: deleteRow,
+      disabled: (row) => row[7] !== null
     },
   };
 

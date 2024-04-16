@@ -165,9 +165,11 @@ function MissionTrxList(props) {
     },
     edit: {
       url: '/app/Pages/Att/MissionTrxEdit',
+      disabled: (row) => row[8] !== null,
     },
     delete: {
       api: deleteRow,
+      disabled: (row) => row[8] !== null,
     },
   };
 

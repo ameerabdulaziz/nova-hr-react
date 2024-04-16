@@ -182,9 +182,11 @@ function LeaveTrxList(props) {
     },
     edit: {
       url: '/app/Pages/vac/LeaveTrxEdit',
+      disabled: (row) => row[10] !== null,
     },
     delete: {
       api: deleteRow,
+      disabled: (row) => row[10] !== null,
     },
   };
 

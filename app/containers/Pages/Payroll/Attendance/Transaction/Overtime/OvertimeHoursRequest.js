@@ -115,9 +115,11 @@ function OvertimeHoursRequest(props) {
     },
     edit: {
       url: '/app/Pages/Att/OvertimeHoursRequestEdit',
+      disabled: (row) => row[8] !== null,
     },
     delete: {
       api: deleteRow,
+      disabled: (row) => row[8] !== null,
     },
   };
 
