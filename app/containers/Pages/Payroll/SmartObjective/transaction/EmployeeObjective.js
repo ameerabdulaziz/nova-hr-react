@@ -65,7 +65,6 @@ function EmployeeObjective(props) {
       //
     } finally {
       setIsLoading(false);
-      fetchTableData();
     }
   };
 
@@ -196,6 +195,8 @@ function EmployeeObjective(props) {
                 searchData={formInfo}
                 setIsLoading={setIsLoading}
                 notShowDate
+                requireEmployee
+                notShowStatus
               />
             </Grid>
 
@@ -214,6 +215,7 @@ function EmployeeObjective(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    required
                     label={intl.formatMessage(payrollMessages.year)}
                   />
                 )}
