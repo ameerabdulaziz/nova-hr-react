@@ -118,6 +118,7 @@ function Personal(props) {
 
   const [previousEmployeeInfo, setPreviousEmployeeInfo] = useState(null);
   const [isEmployeeExistOpen, setIsEmployeeExistOpen] = useState(false);
+  const [isIdentityNumberExist, setIsIdentityNumberExist] = useState(false);
 
   const [checkEmployeeIdentityNumber, setCheckEmployeeIdentityNumber] = useState(true);
   const [checkEmployeeWorkEmail, setCheckEmployeeWorkEmail] = useState(true);
@@ -227,9 +228,14 @@ function Personal(props) {
     try {
       const response = await EmployeeData(locale).checkEmpIdentityNumberExist(id, number);
 
-      if (response) {
-        setPreviousEmployeeInfo(response);
+      if (response && response.statusId !== 1) {
         setIsEmployeeExistOpen(true);
+        setPreviousEmployeeInfo(response);
+      } else if (response && response.statusId === 1) {
+        toast.error(intl.formatMessage(messages.identityNumberAlreadyExist));
+        setIsIdentityNumberExist(true);
+      } else if (!response) {
+        setIsIdentityNumberExist(false);
       }
     } catch (error) {
       //
@@ -330,6 +336,11 @@ function Personal(props) {
 
     if (arName.split(' ').length === 1 || enName.split(' ').length === 1) {
       toast.error(intl.formatMessage(messages.employeeNameShouldNotBeOneWord));
+      return;
+    }
+
+    if (isIdentityNumberExist) {
+      toast.error(intl.formatMessage(messages.identityNumberAlreadyExist));
       return;
     }
 

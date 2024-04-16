@@ -52,7 +52,7 @@ npm run start:prod
 
 - [ ] Eliminate the **debugger** from the project codebase.
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
-- [ ] **Notification** still not work
+- [ ] **Notification** still not work (on click **view** button the notification still appear)
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
 - [ ] Integrate the **LeavesBalance** page with the API
 - [ ] Integrate the **EmployeeStatusReport** page with the API
@@ -64,11 +64,11 @@ npm run start:prod
 - [ ] **Recruitment** - add pdf download instead of open in new tab
 - [ ] Integrate **ImportEmployeeData** with api for some-data update
 
-## Docs 📖
+# Docs 📖
 
-### API Base URL
+## API Base URL
 
-Replace the reading from **.env** to a global variable in **window object**.
+During to SaaS development, we replace the reading of the API base URL from **.env** to a global variable in **window object**. this will make it easier to change any variable without the need to build the project again.
 
 The API base URL is configured in [**index.html**](app/index.html), if any change is made, you should restart the server to take effect.
 
@@ -82,9 +82,9 @@ window.config = {
 
 The code above will add a new property in the window object called **config** and set **apiUrl** to `http://92.205.178.113:801/`.
 
-### Date Picker Replacement
+## Date Picker Replacement
 
-#### Import Date Picker
+### Import Date Picker
 
 ```jsx
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -92,13 +92,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 ```
 
-#### State Date Picker
+### State Date Picker
 
 ```jsx
 const [dateError, setDateError] = useState({});
 ```
 
-#### On Submit
+### On Submit
 
 ```jsx
 if (Object.values(dateError).includes(true)) {
@@ -107,7 +107,7 @@ if (Object.values(dateError).includes(true)) {
 }
 ```
 
-#### Date Picker Body
+### Date Picker Body
 
 ```jsx
 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -131,7 +131,7 @@ if (Object.values(dateError).includes(true)) {
 </LocalizationProvider>
 ```
 
-### PayrollTable Component
+## PayrollTable Component
 
 The `PayrollTable` component is a React component designed to display and manage payroll data in a tabular format. It provides features such as printing, adding, editing, and deleting rows.
 
@@ -139,7 +139,7 @@ The `PayrollTable` component is a React component designed to display and manage
 >
 > Also to make all words in the column in the same line, each column value wrapped in `<pre>` tag. So to ignore it use **noWrap** option in column config.
 
-#### Usage
+### Usage
 
 ```jsx
 import PropTypes from "prop-types";
@@ -266,7 +266,7 @@ ExamplePage.propTypes = {
 export default injectIntl(ExamplePage);
 ```
 
-#### Props
+### Props
 
 | Prop Name    | Type     | Default | Description                                                                              |
 | ------------ | -------- | ------- | ---------------------------------------------------------------------------------------- |
@@ -277,7 +277,7 @@ export default injectIntl(ExamplePage);
 | `columns`    | `array`  | `[]`    | An array of column configurations for the table.                                         |
 | `actions`    | `object` | `null`  | An object containing configurations for actions like adding, editing, and deleting rows. |
 
-#### Actions
+### Actions
 
 In the provided `ExamplePage` example, the actions object is used to configure actions associated with the `PayrollTable`. These actions typically represent operations that can be performed on the data displayed in the table. The actions object has three properties: **add**, **edit**, and **delete**, each specifying the configuration for the corresponding action.
 
@@ -293,7 +293,7 @@ In the provided `ExamplePage` example, the actions object is used to configure a
   - `api`: Specifies a function that will be called when the "Delete" action is triggered.
   - `disabled`: Specifies whether the "Add" action should be disabled or not, can be boolean or function that take row data and returns a boolean.
 
-#### Columns
+### Columns
 
 The `columns` prop in the `PayrollTable` component is an array of objects, where each object represents a column in the table. The configuration of each column is specified using the following properties:
 
@@ -313,7 +313,7 @@ The `columns` prop in the `PayrollTable` component is an array of objects, where
   - **print** (boolean, default: true): Enable or disable printing for this column.
   - **customBodyRender** (function, optional): A custom rendering function for the cell content. This function allows you to customize how the data in the column is displayed.
 
-#### Data
+### Data
 
 The `data` prop in the `PayrollTable` component represents the actual data that you want to display in the table. It expects an array of objects, where each object corresponds to a row in the table, and the properties of the object represent the values for each column.
 
@@ -341,7 +341,7 @@ In this example, each object in the data array represents a row in the table. Th
 
 Adjust the structure of the data array based on the actual data you want to display in your table. Each property in the objects should match the name property in the corresponding column configuration within the columns array.
 
-#### Override the options
+### Override the options
 
 If you need to override the default `options` for the `PayrollTable` component
 
@@ -373,7 +373,7 @@ const options = {
 />;
 ```
 
-#### Add Custom Column
+### Add Custom Column
 
 If you want to add a custom `column` to your `PayrollTable` component and ensure that the **print** option for this column is set to `false`, you can include the options object within the column configuration.
 
