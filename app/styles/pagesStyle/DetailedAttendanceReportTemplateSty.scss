@@ -5,6 +5,20 @@
 }
 
 
+.headerContainer
+{
+    h1
+    {
+        display: flex;
+
+        div
+        {
+            width: 100%;
+        }
+    }
+}
+
+
 .headerContainer,
 .FooterContainer
 {
@@ -105,6 +119,16 @@
     background-color: #ffffff;
     padding: 10px 20px 10px 20px;
 
+    .tableCellSty
+    {
+        pre
+        {
+            font-size: 8px;
+        }
+    }
+
+    
+
     table
     {
         margin: 0;
@@ -131,6 +155,11 @@
         {
             height: auto;
             width: 12px;
+        }
+
+        pre
+        {
+            margin: 0;
         }
     }
 }

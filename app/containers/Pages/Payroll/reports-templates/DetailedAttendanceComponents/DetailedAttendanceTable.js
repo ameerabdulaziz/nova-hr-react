@@ -32,32 +32,36 @@ import { format } from "date-fns";
                                 index <= 30 ? 
                                 <TableRow key={index}>
                                         <TableCell align='center' >
-                                            {data.dayName}
+                                            <pre>{data.dayName}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            {format(new Date(data.shiftDate), "yyyy-MM-dd")}
+                                            <pre>{format(new Date(data.shiftDate), "yyyy-MM-dd")}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            {data.timeIn}
+                                            <pre>{format(new Date(data.timeIn), "HH:mm:ss")}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            {data.timeOut}
+                                            <pre>{format(new Date(data.timeOut), "HH:mm:ss")}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            {data.worktime}
+                                            <pre>{data.worktime}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            {data.lateMin}
+                                            <pre>{data.lateMin}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            {data.extraTime}
+                                            <pre>{data.extraTime}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            {data.lessTime}
+                                            <pre>{data.lessTime}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
                                             {data.vac ? (
-                                                    <CheckIcon style={{ color: "#3f51b5" }} />
+                                                    // <CheckIcon style={{ color: "#3f51b5" }} />
+                                                <div className={style.tableCellSty}>
+                                                    {/* <CheckIcon style={{ color: "#3f51b5" }} /> */}
+                                                    <pre>{data.jobName}</pre>
+                                                </div>
                                                 ) : (
                                                     <CloseIcon style={{ color: "#717171" }} />
                                                 )}
@@ -71,7 +75,11 @@ import { format } from "date-fns";
                                         </TableCell>
                                         <TableCell align='center' >
                                             {data.per ? (
-                                                    <CheckIcon style={{ color: "#3f51b5" }} />
+                                                    // <CheckIcon style={{ color: "#3f51b5" }} />
+                                                <div className={style.tableCellSty}>
+                                                    {/* <CheckIcon style={{ color: "#3f51b5" }} /> */}
+                                                    <pre>{data.jobName}</pre>
+                                                </div>
                                                 ) : (
                                                     <CloseIcon style={{ color: "#717171" }} />
                                                 )}
@@ -91,7 +99,7 @@ import { format } from "date-fns";
                                                 )}
                                         </TableCell>
                                         <TableCell align='center' >
-                                            {data.Manual}
+                                            <pre>{data.Manual}</pre>
                         
                                         </TableCell>
                                 </TableRow>
@@ -102,28 +110,28 @@ import { format } from "date-fns";
                         Data.map((data,index)=>(
                             <TableRow key={index}>
                                     <TableCell align='center' >
-                                        {data.employeeCode}
+                                        <pre>{data.employeeCode}</pre>
                                     </TableCell>
                                     <TableCell align='center' >
-                                        {data.employeeName}
+                                        <pre>{data.employeeName}</pre>
                                     </TableCell>
                                     <TableCell align='center' >
-                                        {data.timeIn}
+                                        <pre>{data.timeIn}</pre>
                                     </TableCell>
                                     <TableCell align='center' >
-                                        {data.timeOut}
+                                        <pre>{data.timeOut}</pre>
                                     </TableCell>
                                     <TableCell align='center' >
-                                        {data.worktime}
+                                        <pre>{data.worktime}</pre>
                                     </TableCell>
                                     <TableCell align='center' >
-                                        {data.lateMin}
+                                        <pre>{data.lateMin}</pre>
                                     </TableCell>
                                     <TableCell align='center' >
-                                        {data.extraTime}
+                                        <pre>{data.extraTime}</pre>
                                     </TableCell>
                                     <TableCell align='center' >
-                                        {data.lessTime}
+                                        <pre>{data.lessTime}</pre>
                                     </TableCell>
                                     <TableCell align='center' >
                                         {data.vac ? (
