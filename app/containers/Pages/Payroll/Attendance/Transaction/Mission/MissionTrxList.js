@@ -1,5 +1,7 @@
-import { Print } from '@mui/icons-material';
-import { Box, IconButton, Stack } from '@mui/material';
+import { List, Print } from '@mui/icons-material';
+import {
+  Box, IconButton, Stack, Tooltip
+} from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
@@ -10,7 +12,8 @@ import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
-import Payrollmessages from '../../../messages';
+import payrollMessages from '../../../messages';
+import WFExecutionList from '../../../WorkFlow/WFExecutionList';
 import ApiData from '../../api/MissionTrxData';
 import messages from '../../messages';
 
@@ -24,6 +27,9 @@ function MissionTrxList(props) {
   const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
   const [printContent, setPrintContent] = useState('');
+
+  const [requestId, setRequestId] = useState(null);
+
   const documentTitle = 'Mission ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
 
   const printDivRef = useRef(null);
@@ -58,14 +64,10 @@ function MissionTrxList(props) {
   async function deleteRow(id) {
     try {
       setIsLoading(true);
-      const response = await ApiData(locale).Delete(id);
+      await ApiData(locale).Delete(id);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
+      toast.success(notif.saved);
+      fetchData();
     } catch (err) {
       //
     } finally {
@@ -95,69 +97,63 @@ function MissionTrxList(props) {
     }
   };
 
+  const onExecutionBtnClick = async (id) => {
+    setRequestId(id);
+  };
+
+  const onWFExecutionPopupClose = () => {
+    setRequestId(null);
+  };
+
   const columns = [
     {
       name: 'id',
-      label: intl.formatMessage(Payrollmessages.id),
+      label: intl.formatMessage(payrollMessages.id),
       options: {
         filter: false,
       },
     },
     {
       name: 'fromDate',
-      label: <FormattedMessage {...Payrollmessages.fromdate} />,
+      label: intl.formatMessage(payrollMessages.fromdate),
     },
     {
       name: 'toDate',
-      label: <FormattedMessage {...Payrollmessages.todate} />,
+      label: intl.formatMessage(payrollMessages.todate),
     },
 
     {
       name: 'employeeName',
-      label: <FormattedMessage {...Payrollmessages.employeeName} />,
+      label: intl.formatMessage(payrollMessages.employeeName),
     },
 
     {
       name: 'missionName',
-      label: <FormattedMessage {...messages.missionName} />,
+      label: intl.formatMessage(messages.missionName),
     },
     {
       name: 'minutesCount',
-      label: <FormattedMessage {...messages.minutesCount} />,
+      label: intl.formatMessage(messages.minutesCount),
     },
 
     {
       name: 'notes',
-      label: <FormattedMessage {...Payrollmessages.notes} />,
+      label: intl.formatMessage(payrollMessages.notes),
       options: {
         customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
     },
     {
       name: 'step',
-      label: <FormattedMessage {...Payrollmessages.step} />,
+      label: intl.formatMessage(payrollMessages.step),
     },
     {
       name: 'status',
-      label: <FormattedMessage {...Payrollmessages.status} />,
+      label: intl.formatMessage(payrollMessages.status),
     },
     {
       name: 'approvedEmp',
-      label: <FormattedMessage {...Payrollmessages.approvedEmp} />,
-    },
-    {
-      name: 'Print',
-      label: <FormattedMessage {...Payrollmessages.Print} />,
-      options: {
-        filter: false,
-        print: false,
-        download: false,
-        customBodyRender: (_, tableMeta) => (
-          <IconButton onClick={() => onPrintBtnClick(tableMeta.rowData[0])}>
-            <Print sx={{ fontSize: '1.2rem' }} />
-          </IconButton>
-        ),
-      },
+      label: intl.formatMessage(payrollMessages.approvedEmp),
     },
   ];
 
@@ -167,16 +163,52 @@ function MissionTrxList(props) {
     },
     edit: {
       url: '/app/Pages/Att/MissionTrxEdit',
+      // disabled edit action is not HR and status is null
+      // row[8] === status
       disabled: isHR ? false : (row) => row[8] !== null,
     },
     delete: {
       api: deleteRow,
+      // disabled delete action is not HR and status is null
+      // row[8] === status
       disabled: isHR ? false : (row) => row[8] !== null,
     },
+    extraActions: (row) => (
+      <>
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(payrollMessages.Print)}
+        >
+          <span>
+            <IconButton onClick={() => onPrintBtnClick(row[0])}>
+              <Print sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(payrollMessages.details)}
+        >
+          <span>
+            <IconButton onClick={() => onExecutionBtnClick(row[0])}>
+              <List sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </>
+    ),
   };
 
   return (
     <>
+      <WFExecutionList
+        handleClose={onWFExecutionPopupClose}
+        open={Boolean(requestId)}
+        RequestId={requestId}
+        DocumentId={2}
+      />
+
       <Box
         ref={printDivRef}
         sx={{

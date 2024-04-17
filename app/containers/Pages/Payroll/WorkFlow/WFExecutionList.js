@@ -27,7 +27,7 @@ function WFExecutionList(props) {
   const { classes, cx } = useStyles();
   const [data, setdata] = useState([]);
   const locale = useSelector((state) => state.language.locale);
-  const { intl,handleClose, ExecutionId,open } = props;
+  const { intl,handleClose, ExecutionId,open, RequestId, DocumentId } = props;
   
   const CloseClick = async () => {
     
@@ -39,7 +39,7 @@ function WFExecutionList(props) {
       setIsLoading(true);
 
       var result = await GeneralListApis(locale).GetWFExecutionList(
-        ExecutionId
+        ExecutionId, RequestId, DocumentId
       );
       setdata(result);
     } catch (err) {

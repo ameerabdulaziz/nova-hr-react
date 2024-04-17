@@ -1,15 +1,19 @@
-import { Print } from '@mui/icons-material';
-import { Box, IconButton, Stack } from '@mui/material';
+import { List, Print } from '@mui/icons-material';
+import {
+  Box, IconButton, Stack, Tooltip
+} from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import parse from 'html-react-parser';
+import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
-import Payrollmessages from '../../../messages';
+import payrollMessages from '../../../messages';
+import WFExecutionList from '../../../WorkFlow/WFExecutionList';
 import ApiData from '../../api/PermissionTrxData';
 import messages from '../../messages';
 
@@ -18,12 +22,14 @@ function PermissionTrxList(props) {
   const locale = useSelector((state) => state.language.locale);
   const authState = useSelector((state) => state.authReducer);
   const { isHR } = authState.user;
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
   const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
   const company = useSelector((state) => state.authReducer.companyInfo);
   const [printContent, setPrintContent] = useState('');
   const documentTitle = 'Permission ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+
+  const [requestId, setRequestId] = useState(null);
 
   const printDivRef = useRef(null);
 
@@ -44,7 +50,7 @@ function PermissionTrxList(props) {
   async function fetchData() {
     try {
       const dataApi = await ApiData(locale).GetList();
-      setdata(dataApi);
+      setData(dataApi);
     } catch (err) {
       //
     } finally {
@@ -55,14 +61,10 @@ function PermissionTrxList(props) {
   async function deleteRow(id) {
     try {
       setIsLoading(true);
-      const response = await ApiData(locale).Delete(id);
+      await ApiData(locale).Delete(id);
 
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        fetchData();
-      } else {
-        toast.error(response.statusText);
-      }
+      toast.success(notif.saved);
+      fetchData();
     } catch (err) {
       //
     } finally {
@@ -101,56 +103,56 @@ function PermissionTrxList(props) {
     },
     {
       name: 'date',
-      label: <FormattedMessage {...Payrollmessages.date} />,
+      label: intl.formatMessage(payrollMessages.date),
     },
 
     {
       name: 'employeeName',
-      label: <FormattedMessage {...Payrollmessages.employeeName} />,
+      label: intl.formatMessage(payrollMessages.employeeName),
     },
 
     {
       name: 'permissionName',
-      label: <FormattedMessage {...messages.permissionName} />,
+      label: intl.formatMessage(messages.permissionName),
     },
     {
       name: 'minutesCount',
-      label: <FormattedMessage {...messages.minutesCount} />,
+      label: intl.formatMessage(messages.minutesCount),
     },
     {
       name: 'notes',
-      label: <FormattedMessage {...Payrollmessages.notes} />,
+      label: intl.formatMessage(payrollMessages.notes),
       options: {
-        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+        customBodyRender: (value) => (value ? (
+          <div style={{ maxWidth: '200px', width: 'max-content' }}>
+            {value}
+          </div>
+        ) : (
+          ''
+        )),
       },
     },
     {
       name: 'step',
-      label: <FormattedMessage {...Payrollmessages.step} />,
+      label: intl.formatMessage(payrollMessages.step),
     },
     {
       name: 'status',
-      label: <FormattedMessage {...Payrollmessages.status} />,
+      label: intl.formatMessage(payrollMessages.status),
     },
     {
       name: 'approvedEmp',
-      label: <FormattedMessage {...Payrollmessages.approvedEmp} />,
-    },
-    {
-      name: 'Print',
-      label: <FormattedMessage {...Payrollmessages.Print} />,
-      options: {
-        filter: false,
-        print: false,
-        download: false,
-        customBodyRender: (_, tableMeta) => (
-          <IconButton onClick={() => onPrintBtnClick(tableMeta.rowData[0])}>
-            <Print sx={{ fontSize: '1.2rem' }} />
-          </IconButton>
-        ),
-      },
+      label: intl.formatMessage(payrollMessages.approvedEmp),
     },
   ];
+
+  const onExecutionBtnClick = async (id) => {
+    setRequestId(id);
+  };
+
+  const onWFExecutionPopupClose = () => {
+    setRequestId(null);
+  };
 
   const actions = {
     add: {
@@ -158,16 +160,52 @@ function PermissionTrxList(props) {
     },
     edit: {
       url: '/app/Pages/Att/PermissionTrxEdit',
-      disabled: isHR ? false : (row) => row[7] !== null
+      // disabled edit action is not HR and status is null
+      // row[7] === status
+      disabled: isHR ? false : (row) => row[7] !== null,
     },
     delete: {
       api: deleteRow,
-      disabled: isHR ? false : (row) => row[7] !== null
+      // disabled delete action is not HR and status is null
+      // row[7] === status
+      disabled: isHR ? false : (row) => row[7] !== null,
     },
+    extraActions: (row) => (
+      <>
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(payrollMessages.Print)}
+        >
+          <span>
+            <IconButton onClick={() => onPrintBtnClick(row[0])}>
+              <Print sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(payrollMessages.details)}
+        >
+          <span>
+            <IconButton onClick={() => onExecutionBtnClick(row[0])}>
+              <List sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </>
+    ),
   };
 
   return (
     <>
+      <WFExecutionList
+        handleClose={onWFExecutionPopupClose}
+        open={Boolean(requestId)}
+        RequestId={requestId}
+        DocumentId={1}
+      />
+
       <Box
         ref={printDivRef}
         sx={{
@@ -201,5 +239,9 @@ function PermissionTrxList(props) {
     </>
   );
 }
+
+PermissionTrxList.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(PermissionTrxList);
