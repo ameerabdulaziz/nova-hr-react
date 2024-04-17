@@ -234,13 +234,13 @@ function PerformanceChartWidget2(props) {
                         <Bar
                           dataKey="value"
                           fill="#8884d8"
-                          shape={<TriangleBar />}
+                          shape={TriangleBar}
                           label={{ position: "top" }}
                         >
                           {data2.map((entry, index) => (
                             <Cell
                               key={`cell-${index.toString()}`}
-                              fill={colors[index % 20]}
+                              fill={colors[index % colors.length]}
                             />
                           ))}
                         </Bar>

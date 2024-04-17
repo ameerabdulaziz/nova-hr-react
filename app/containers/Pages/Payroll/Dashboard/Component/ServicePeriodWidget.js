@@ -41,27 +41,6 @@ const colors = [
   blue[500],
   cyan[500],
   teal[500],
-  red[500],
-  pink[500],
-  purple[500],
-  indigo[500],
-  blue[500],
-  cyan[500],
-  teal[500],
-  red[500],
-  pink[500],
-  purple[500],
-  indigo[500],
-  blue[500],
-  cyan[500],
-  teal[500],
-  red[500],
-  pink[500],
-  purple[500],
-  indigo[500],
-  blue[500],
-  cyan[500],
-  teal[500],
 ];
 
 const getPath = (x, y, width, height) =>
@@ -193,13 +172,13 @@ function ServicePeriodWidget(props) {
                 <Bar
                   dataKey="count"
                   fill="#8884d8"
-                  shape={<TriangleBar />}
+                  shape={TriangleBar}
                   label={{ position: "top" }}
                 >
                   {data2.map((entry, index) => (
                     <Cell
                       key={`cell-${index.toString()}`}
-                      fill={colors[index % 20]}
+                      fill={colors[index % colors.length]}
                     />
                   ))}
                 </Bar>
