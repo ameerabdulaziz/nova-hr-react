@@ -1,10 +1,10 @@
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -42,6 +42,7 @@ function Company(props) {
     cvarSubTitle: '',
     cvenTitle: '',
     cvenSubTitle: '',
+    monthlySmartObjective: false,
   });
 
   const onFormSubmit = async (evt) => {
@@ -61,6 +62,7 @@ function Company(props) {
 
     try {
       await api(locale).Save(body);
+      toast.success(notif.saved);
     } catch (error) {
       //
     } finally {
@@ -83,6 +85,7 @@ function Company(props) {
       cvarSubTitle: '',
       cvenTitle: '',
       cvenSubTitle: '',
+      monthlySmartObjective: false,
     });
   };
 
@@ -107,6 +110,7 @@ function Company(props) {
         cvarSubTitle: response.cvarSubTitle ?? '',
         cvenTitle: response.cvenTitle ?? '',
         cvenSubTitle: response.cvenSubTitle ?? '',
+        monthlySmartObjective: response.monthlySmartObjective ?? false,
       });
 
       setUploadedFile(response.logo);
@@ -327,6 +331,19 @@ function Company(props) {
                     fullWidth
                     variant='outlined'
                     autoComplete='off'
+                  />
+                </Grid>
+
+                <Grid item>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formInfo.monthlySmartObjective}
+                        onChange={onCheckboxChange}
+                        name='monthlySmartObjective'
+                      />
+                    }
+                    label={intl.formatMessage(messages.monthlySmartObjective)}
                   />
                 </Grid>
 

@@ -2344,6 +2344,7 @@
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",
+  "boilerplate.containers.Payroll.MainData.codes.monthlySmartObjective": "Monthly Smart Objective",
   "boilerplate.containers.Payroll.MainData.codes.hrForm": "HR Form",
   "boilerplate.containers.Payroll.MainData.codes.companyPolicy": "Company Policy",
   "boilerplate.containers.Payroll.MainData.codes.arName": "AR Name",
