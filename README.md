@@ -87,9 +87,9 @@ The code above will add a new property in the window object called **config** an
 ### Import Date Picker
 
 ```jsx
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 ```
 
 ### State Date Picker
@@ -114,12 +114,12 @@ if (Object.values(dateError).includes(true)) {
   <DatePicker
     label={intl.formatMessage(messages.endDate)}
     value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
-    sx={{ width: '100%' }}
-    onChange={(date) => onDatePickerChange(date, 'trxDate')}
+    sx={{ width: "100%" }}
+    onChange={(date) => onDatePickerChange(date, "trxDate")}
     onError={(error) => {
       setDateError((prevState) => ({
         ...prevState,
-        trxDate: error !== null
+        trxDate: error !== null,
       }));
     }}
     slotProps={{
@@ -292,6 +292,30 @@ In the provided `ExamplePage` example, the actions object is used to configure a
 - **Delete Action** (delete property):
   - `api`: Specifies a function that will be called when the "Delete" action is triggered.
   - `disabled`: Specifies whether the "Add" action should be disabled or not, can be boolean or function that take row data and returns a boolean.
+
+### Extra Actions
+
+If you need to add extra actions, you can do so by adding them to the `actions` object within the `extraActions` property which a function that take row data and returns a JSX element.
+
+> Note: The extra actions will be displayed as the first item of actions column. and it will be a child of the **Stack** component.
+
+```jsx
+const actions = {
+  // ...
+  extraActions: (row) => (
+    <Tooltip
+      placement='bottom'
+      title={intl.formatMessage(payrollMessages.details)}
+    >
+      <span>
+        <IconButton onClick={() => onExecutionBtnClick(row[0])}>
+          <List sx={{ fontSize: "1.2rem" }} />
+        </IconButton>
+      </span>
+    </Tooltip>
+  ),
+};
+```
 
 ### Columns
 

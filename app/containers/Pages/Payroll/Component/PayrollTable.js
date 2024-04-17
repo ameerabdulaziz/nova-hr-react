@@ -555,7 +555,9 @@ function PayrollTable(props) {
             }
 
             return (
-              <Stack direction='row' spacing={2}>
+              <Stack direction='row' spacing={1}>
+                {actions?.extraActions && actions?.extraActions(tableMeta.rowData)}
+
                 {actions?.edit && (
                   <Tooltip
                     placement='bottom'
