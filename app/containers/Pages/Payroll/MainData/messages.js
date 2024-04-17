@@ -276,6 +276,10 @@ OrganizationsList: {
     id: `${scope}.codes.uploadLogo`,
     defaultMessage: 'uploadLogo',
   },
+  monthlySmartObjective: {
+    id: `${scope}.codes.monthlySmartObjective`,
+    defaultMessage: 'monthlySmartObjective',
+  },
   logoIsRequired: {
     id: `${scope}.codes.logoIsRequired`,
     defaultMessage: 'logoIsRequired',

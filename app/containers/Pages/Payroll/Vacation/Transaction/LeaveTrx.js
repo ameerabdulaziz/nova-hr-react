@@ -1,8 +1,6 @@
-import { Print } from '@mui/icons-material';
+import { List, Print } from '@mui/icons-material';
 import {
-  Box,
-  IconButton,
-  Stack
+  Box, IconButton, Stack, Tooltip
 } from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import parse from 'html-react-parser';
@@ -15,6 +13,7 @@ import { useReactToPrint } from 'react-to-print';
 import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
+import WFExecutionList from '../../WorkFlow/WFExecutionList';
 import api from '../api/LeaveTrxData';
 import messages from '../messages';
 
@@ -32,6 +31,8 @@ function LeaveTrxList(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [printContent, setPrintContent] = useState('');
   const documentTitle = 'Leave ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+
+  const [requestId, setRequestId] = useState(null);
 
   const printDivRef = useRef(null);
 
@@ -91,6 +92,14 @@ function LeaveTrxList(props) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const onExecutionBtnClick = async (id) => {
+    setRequestId(id);
+  };
+
+  const onWFExecutionPopupClose = () => {
+    setRequestId(null);
   };
 
   useEffect(() => {
@@ -161,21 +170,6 @@ function LeaveTrxList(props) {
       name: 'approvedEmp',
       label: intl.formatMessage(payrollMessages.approvedEmp),
     },
-
-    {
-      name: 'print',
-      label: intl.formatMessage(payrollMessages.Print),
-      options: {
-        filter: false,
-        print: false,
-        download: false,
-        customBodyRender: (_, tableMeta) => (
-          <IconButton onClick={() => onPrintBtnClick(tableMeta.rowData[0])}>
-            <Print sx={{ fontSize: '1.2rem' }} />
-          </IconButton>
-        ),
-      },
-    },
   ];
 
   const actions = {
@@ -184,16 +178,53 @@ function LeaveTrxList(props) {
     },
     edit: {
       url: '/app/Pages/vac/LeaveTrxEdit',
+      // disabled edit action is not HR and status is null
+      // row[10] === status
       disabled: isHR ? false : (row) => row[10] !== null,
     },
     delete: {
       api: deleteRow,
+      // disabled delete action is not HR and status is null
+      // row[10] === status
       disabled: isHR ? false : (row) => row[10] !== null,
     },
+    // row[0] === id
+    extraActions: (row) => (
+      <>
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(payrollMessages.Print)}
+        >
+          <span>
+            <IconButton onClick={() => onPrintBtnClick(row[0])}>
+              <Print sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(payrollMessages.details)}
+        >
+          <span>
+            <IconButton onClick={() => onExecutionBtnClick(row[0])}>
+              <List sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </>
+    ),
   };
 
   return (
     <>
+      <WFExecutionList
+        handleClose={onWFExecutionPopupClose}
+        open={Boolean(requestId)}
+        RequestId={requestId}
+        DocumentId={3}
+      />
+
       <Box
         ref={printDivRef}
         sx={{

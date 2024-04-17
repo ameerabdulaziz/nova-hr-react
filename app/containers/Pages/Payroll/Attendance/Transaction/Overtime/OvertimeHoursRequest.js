@@ -1,3 +1,5 @@
+import { List } from '@mui/icons-material';
+import { IconButton, Tooltip } from '@mui/material';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -5,6 +7,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
 import payrollMessages from '../../../messages';
+import WFExecutionList from '../../../WorkFlow/WFExecutionList';
 import api from '../../api/OvertimeHoursRequestData';
 import messages from '../../messages';
 
@@ -15,6 +18,7 @@ function OvertimeHoursRequest(props) {
   const { isHR } = authState.user;
   const Title = localStorage.getItem('MenuName');
 
+  const [requestId, setRequestId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
 
@@ -93,7 +97,13 @@ function OvertimeHoursRequest(props) {
       name: 'notes',
       label: intl.formatMessage(payrollMessages.notes),
       options: {
-        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+        customBodyRender: (value) => (value ? (
+          <div style={{ maxWidth: '200px', width: 'max-content' }}>
+            {value}
+          </div>
+        ) : (
+          ''
+        )),
       },
     },
 
@@ -111,29 +121,62 @@ function OvertimeHoursRequest(props) {
     },
   ];
 
+  const onExecutionBtnClick = async (id) => {
+    setRequestId(id);
+  };
+
+  const onWFExecutionPopupClose = () => {
+    setRequestId(null);
+  };
+
   const actions = {
     add: {
       url: '/app/Pages/Att/OvertimeHoursRequestCreate',
     },
     edit: {
       url: '/app/Pages/Att/OvertimeHoursRequestEdit',
+      // disabled edit action is not HR and status is null
+      // row[8] === status
       disabled: isHR ? false : (row) => row[8] !== null,
     },
     delete: {
       api: deleteRow,
+      // disabled delete action is not HR and status is null
+      // row[8] === status
       disabled: isHR ? false : (row) => row[8] !== null,
     },
+    extraActions: (row) => (
+      <Tooltip
+        placement='bottom'
+        title={intl.formatMessage(payrollMessages.details)}
+      >
+        <span>
+          <IconButton onClick={() => onExecutionBtnClick(row[0])}>
+            <List sx={{ fontSize: '1.2rem' }} />
+          </IconButton>
+        </span>
+      </Tooltip>
+    ),
   };
 
   return (
-    <PayrollTable
-      isLoading={isLoading}
-      showLoader
-      title={Title}
-      data={tableData}
-      columns={columns}
-      actions={actions}
-    />
+    <>
+      <WFExecutionList
+        handleClose={onWFExecutionPopupClose}
+        open={Boolean(requestId)}
+        RequestId={requestId}
+        DocumentId={6}
+      />
+
+      <PayrollTable
+        isLoading={isLoading}
+        showLoader
+        title={Title}
+        data={tableData}
+        columns={columns}
+        actions={actions}
+      />
+    </>
   );
 }
 

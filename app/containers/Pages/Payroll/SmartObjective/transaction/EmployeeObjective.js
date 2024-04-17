@@ -22,6 +22,7 @@ function EmployeeObjective(props) {
 
   const locale = useSelector((state) => state.language.locale);
   const authState = useSelector((state) => state.authReducer);
+  const company = useSelector((state) => state.authReducer.companyInfo);
   const { isHR, isManagement } = authState.user;
 
   const isNormalEmployee = !isHR && !isManagement;
@@ -222,26 +223,30 @@ function EmployeeObjective(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={monthsList}
-                value={getAutoCompleteValue(monthsList, formInfo.monthId)}
-                onChange={(_, value) => onAutoCompleteChange(value, 'monthId')}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id + option.name}>
-                    {option.name}
-                  </li>
-                )}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(payrollMessages.month)}
-                  />
-                )}
-              />
-            </Grid>
+            {company?.monthlySmartObjective && (
+              <Grid item xs={12} md={3}>
+                <Autocomplete
+                  options={monthsList}
+                  value={getAutoCompleteValue(monthsList, formInfo.monthId)}
+                  onChange={(_, value) => onAutoCompleteChange(value, 'monthId')
+                  }
+                  isOptionEqualToValue={(option, value) => option.id === value.id
+                  }
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id + option.name}>
+                      {option.name}
+                    </li>
+                  )}
+                  getOptionLabel={(option) => (option ? option.name : '')}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={intl.formatMessage(payrollMessages.month)}
+                    />
+                  )}
+                />
+              </Grid>
+            )}
 
             <Grid item xs={12}>
               <Grid container spacing={2}>
