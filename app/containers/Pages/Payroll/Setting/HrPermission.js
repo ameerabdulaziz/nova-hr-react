@@ -23,12 +23,13 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import OrganizationTree from '../Component/OrganizationTree/Tree';
+import OrganizationTreePopup from '../Component/OrganizationTree/TreePopup';
 import PayRollLoader from '../Component/PayRollLoader';
 import useStyles from '../Style';
+import GeneralListApis from '../api/GeneralListApis';
 import payrollMessages from '../messages';
 import api from './api/HrPermissionData';
-import Tree from './components/HrPermission/Tree';
-import TreePopup from './components/HrPermission/TreePopup';
 import messages from './messages';
 
 function HrPermission(props) {
@@ -44,7 +45,7 @@ function HrPermission(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [isTreePopupOpen, setIsTreePopupOpen] = useState(false);
   const [chartData, setChartData] = useState(null);
-  const [tree, setTree] = useState(Tree.buildTreeFromArray(null));
+  const [tree, setTree] = useState(OrganizationTree.buildTreeFromArray(null));
 
   const Title = localStorage.getItem('MenuName');
 
@@ -192,13 +193,13 @@ function HrPermission(props) {
       setDataList(data || []);
 
       if (data) {
-        const clonedTree = Tree.buildTreeFromArray(chartData);
+        const clonedTree = OrganizationTree.buildTreeFromArray(chartData);
         data.forEach((item) => {
           clonedTree.addIsCheckProperty(String(item.organizationId), true);
         });
         setTree(clonedTree);
       } else {
-        setTree(Tree.buildTreeFromArray(chartData));
+        setTree(OrganizationTree.buildTreeFromArray(chartData));
       }
     } catch (err) {
       //
@@ -212,13 +213,13 @@ function HrPermission(props) {
       const employees = await api(locale).GetHrList();
       setEmployeeList(employees || []);
 
-      const chart = await api(locale).GetSimpleOrganizationChart();
+      const chart = await GeneralListApis(locale).GetSimpleOrganizationChart();
 
       if (chart?.[0]) {
         setChartData(chart[0]);
-        setTree(Tree.buildTreeFromArray(chart[0]));
+        setTree(OrganizationTree.buildTreeFromArray(chart[0]));
       } else {
-        setTree(Tree.buildTreeFromArray(chartData));
+        setTree(OrganizationTree.buildTreeFromArray(chartData));
       }
     } catch (err) {
       //
@@ -271,7 +272,7 @@ function HrPermission(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       {chartData && Object.keys(chartData).length > 0 && (
-        <TreePopup
+        <OrganizationTreePopup
           isOpen={isTreePopupOpen}
           tree={tree.clone()}
           chartData={chartData}
@@ -341,7 +342,7 @@ function HrPermission(props) {
               disabled={employee === null || !(chartData && Object.keys(chartData).length > 0)}
               onClick={() => setIsTreePopupOpen(true)}
             >
-              {intl.formatMessage(messages.organizationTree)}
+              {intl.formatMessage(payrollMessages.organizationTree)}
             </Button>
           </Grid>
         </Grid>

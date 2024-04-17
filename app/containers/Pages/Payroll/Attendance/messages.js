@@ -2022,6 +2022,14 @@ devicePass: {
   workHours: {
     id: `${scope}.workHours`,
     defaultMessage: 'Work Hours',
-  }, 
+  },
+  addOrChangeOrganization: {
+    id: `${scope}.addOrChangeOrganization`,
+    defaultMessage: 'addOrChangeOrganization',
+  },
+  noOrganizationSelect: {
+    id: `${scope}.noOrganizationSelect`,
+    defaultMessage: 'noOrganizationSelect',
+  },
 });
 

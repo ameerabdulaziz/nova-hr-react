@@ -630,4 +630,8 @@ employeeId: {
     id: `${scope}.DateNotValid`,
     defaultMessage: 'Date Not Valid',
   },
+  organizationTree: {
+    id: `${scope}.organizationTree`,
+    defaultMessage: 'organizationTree',
+  },
 });

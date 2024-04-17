@@ -18,14 +18,6 @@ const UserMenuData = (lang) => {
     return data.data;
   };
 
-  api.GetSimpleOrganizationChart = async () => {
-    const data = await axiosInstance.get(
-      `MdOrganization/GetSimpleOrganizationChart/${lang}`
-    );
-
-    return data.data;
-  };
-
   api.save = async (body) => {
     const result = await axiosInstance.post(
       `MdOrganizationEmployee/Save/${body.employee}`,

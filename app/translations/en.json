@@ -904,6 +904,7 @@
 
   "boilerplate.containers.Payroll.employeeCode": "Employee Code",
   "boilerplate.containers.Payroll.save": "Save",
+  "boilerplate.containers.Payroll.organizationTree": "Organization Tree",
   "boilerplate.containers.Payroll.close": "Close",
   "boilerplate.containers.Payroll.cancel": "Cancel",
   "boilerplate.containers.Payroll.id": "Id",
@@ -1116,7 +1117,6 @@
   
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
-  "boilerplate.containers.Payroll.Setting.organizationTree": "Organization Tree",
   "boilerplate.containers.Payroll.Setting.delete": "Delete",
   "boilerplate.containers.Payroll.Setting.loan": "Loan",
   "boilerplate.containers.Payroll.Setting.userName": "Username",
@@ -1280,6 +1280,8 @@
   "boilerplate.containers.Payroll.Attendance.employeeId": "Employee",
   "boilerplate.containers.Payroll.Attendance.status": "Status",
   "boilerplate.containers.Payroll.Attendance.step": "Step",
+  "boilerplate.containers.Payroll.Attendance.addOrChangeOrganization": "Add Or Change Organization",
+  "boilerplate.containers.Payroll.Attendance.noOrganizationSelect": "No Organization Select",
   "boilerplate.containers.Payroll.Attendance.swapShift": "Swap Shift",
   "boilerplate.containers.Payroll.Attendance.swapShiftName": "Swap Shift",
   "boilerplate.containers.Payroll.Attendance.supervisor": "Supervisor",

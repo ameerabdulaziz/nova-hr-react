@@ -513,6 +513,13 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetSimpleOrganizationChart = async () => {
+    const data = await axiosInstance.get(
+      `MdOrganization/GetSimpleOrganizationChart/${locale}`
+    );
+
+    return data.data;
+  };
 
   return Apis;
 };

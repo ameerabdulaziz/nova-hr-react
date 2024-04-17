@@ -17,15 +17,23 @@ import {
   Autocomplete,
   Card,
   CardContent,
+  Typography,
+  Stack,
 } from "@mui/material";
+import PeopleIcon from '@mui/icons-material/People';
+import Business from '@mui/icons-material/Business';
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { useLocation } from "react-router-dom";
 import style from '../../../../../../styles/styles.scss'
+import ResignReqTrxSty from '../../../../../../styles/pagesStyle/ResignReqTrxSty.scss';
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import OrganizationTree from '../../../Component/OrganizationTree/Tree';
+import OrganizationTreePopup from '../../../Component/OrganizationTree/TreePopup';
+import { Box } from "@mui/material";
 
 function PermissionCreate(props) {
   const { intl } = props;
@@ -33,6 +41,10 @@ function PermissionCreate(props) {
   const location = useLocation();
   const { id } = location.state ?? 0;
   const { classes } = useStyles();
+
+  const [organizationChartData, setOrganizationChartData] = useState(null);
+  const [isTreePopupOpen, setIsTreePopupOpen] = useState(false);
+  const [organizationTree, setOrganizationTree] = useState(OrganizationTree.buildTreeFromArray(null));
 
   const dayList = [
     {
@@ -79,6 +91,9 @@ function PermissionCreate(props) {
     isDeductAnnual: false,
     reqDayNotAllow: [],
     reqBeforeShiftInMinute: '',
+    allowToTime: '',
+    allowFromTime: '',
+    organizationIds: [],
   });
   const [ElementList, setElementList] = useState([]);
   const history = useHistory();
@@ -127,7 +142,11 @@ function PermissionCreate(props) {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const body = { ...data, reqDayNotAllow: data.reqDayNotAllow.map(item => item.name).join(',') };
+      const body = {
+        ...data,
+        reqDayNotAllow: data.reqDayNotAllow.map(item => item.name).join(','),
+        organizationIds: data.organizationIds.map(item => item.id).join(','),
+      };
 
       await ApiData(locale).Save(body);
 
@@ -147,8 +166,25 @@ function PermissionCreate(props) {
     const elements = await GeneralListApis(locale).GetElementList();
     setElementList(elements);
 
+      const chart = await GeneralListApis(locale).GetSimpleOrganizationChart();
+
+      if (chart?.[0]) {
+        setOrganizationChartData(chart[0]);
+        setOrganizationTree(OrganizationTree.buildTreeFromArray(chart[0]));
+      } else {
+        setOrganizationTree(OrganizationTree.buildTreeFromArray(organizationChartData));
+      }
+
     if (id) {
       const dataApi = await ApiData(locale).Get(id ?? 0);
+        const clonedTree = OrganizationTree.buildTreeFromArray(chart?.[0] ?? organizationChartData);
+
+        if (dataApi.organizationIds) {
+          dataApi.organizationIds.split(',').forEach((item) => {
+            clonedTree.addIsCheckProperty(String(item), true);
+          });
+          setOrganizationTree(clonedTree);
+        }
 
         const days = dataApi.reqDayNotAllow ? dataApi.reqDayNotAllow.split(',').map(dayName => {
           const day = dayList.find((item) => item.name === dayName);
@@ -163,7 +199,7 @@ function PermissionCreate(props) {
           };
         }) : [];
 
-        setdata({ ...dataApi, reqDayNotAllow: days });
+        setdata({ ...dataApi, reqDayNotAllow: days, organizationIds: clonedTree.getCheckedLeafNodes() });
     }
   }
   catch (e) {}
@@ -174,8 +210,30 @@ function PermissionCreate(props) {
     fetchData();
   }, []);
 
+  const onTreePopupSave = (changedTree) => {
+    setOrganizationTree(changedTree.clone());
+    setdata(prev => ({ ...prev, organizationIds: changedTree.getCheckedLeafNodes() }));
+  };
+
+  const onTimePickerChange = (evt) => {
+    setdata((prev) => ({
+      ...prev,
+      [evt.target.name]: evt.target.value,
+    }));
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
+      {organizationChartData && Object.keys(organizationChartData).length > 0 && (
+        <OrganizationTreePopup
+          isOpen={isTreePopupOpen}
+          tree={organizationTree.clone()}
+          chartData={organizationChartData}
+          setIsOpen={setIsTreePopupOpen}
+          onSave={onTreePopupSave}
+        />
+      )}
+
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -263,6 +321,34 @@ function PermissionCreate(props) {
               />
             </Grid>
 
+            <Grid item xs={12} md={4}>
+              <TextField
+                value={data.allowFromTime}
+                label={intl.formatMessage(messages.startTime)}
+                type='time'
+                name='allowFromTime'
+                onChange={onTimePickerChange}
+                className={classes.field}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <TextField
+                value={data.allowToTime}
+                label={intl.formatMessage(messages.endTime)}
+                type='time'
+                name='allowToTime'
+                onChange={onTimePickerChange}
+                className={classes.field}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+
             <Grid item xs={12} md={6}>
               <Autocomplete
                 options={dayList}
@@ -294,6 +380,61 @@ function PermissionCreate(props) {
                   />
                 )}
               />
+            </Grid>
+
+            <Grid item xs={12}>
+
+              <Card>
+                <CardContent sx={{ p: '16px!important' }}>
+                  <Grid container justifyContent='space-between' alignItems='center' mb={3}>
+                    <Grid item>
+                      <Typography variant='h6'>
+                        {intl.formatMessage(messages.orgName)}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item>
+                      <Button
+                        variant='contained'
+                        disabled={!(organizationChartData && Object.keys(organizationChartData).length > 0)}
+                        onClick={() => setIsTreePopupOpen(true)}
+                      >
+                        {intl.formatMessage(messages.addOrChangeOrganization)}
+                      </Button>
+                    </Grid>
+                  </Grid>
+
+                  {data.organizationIds && data.organizationIds.length > 0 ? (
+                    <div className={`${ResignReqTrxSty.cardContainer}`}>
+                      <Grid container spacing={3}>
+                        {data.organizationIds.map((item, index) => (
+                          <Grid item key={index}>
+                            <div className={ResignReqTrxSty.custodiesContainer}>
+                              <Business className={classes.textSty} />
+                              <span>{item.value}</span>
+                            </div>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </div>
+                  ) : (
+                    <Stack
+                      direction='row'
+                      sx={{ minHeight: 200 }}
+                      alignItems='center'
+                      justifyContent='center'
+                      textAlign='center'
+                    >
+                      <Box>
+                        <PeopleIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
+                        <Typography color='#a7acb2' variant='body1'>
+                          {intl.formatMessage(messages.noOrganizationSelect)}
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  )}
+                </CardContent>
+              </Card>
             </Grid>
 
             <Grid item xs={12} md={12}>

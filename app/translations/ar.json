@@ -998,6 +998,7 @@
   "boilerplate.containers.Payroll.daysCount": "عدد الايام",
   "boilerplate.containers.Payroll.day": "اليوم",
   "boilerplate.containers.Payroll.employeeDeduced": "خصم الموظف",
+  "boilerplate.containers.Payroll.organizationTree": "الهيكل التنظيمي للمنظمة",
   "boilerplate.containers.Payroll.value": "القيمة",
   "boilerplate.containers.Payroll.Yearly": "سنويا",
   "boilerplate.containers.Payroll.Every3Years": "كل 3 سنوات",
@@ -1143,7 +1144,6 @@
 
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
   "boilerplate.containers.Payroll.Setting.menuName": "اسم القائمة",
-  "boilerplate.containers.Payroll.Setting.organizationTree": "الهيكل التنظيمي للمنظمة",
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
   "boilerplate.containers.Payroll.Setting.letPasswordEmptyWillGenerateRandomPassword": "لإنشاء كلمة مرور عشوائية، اترك النص فارغًا",
   "boilerplate.containers.Payroll.Setting.userName": "اسم المستخدم",
@@ -1313,6 +1313,8 @@
   "boilerplate.containers.Payroll.Attendance.approvedEmp": "صاحب القرار",
 
   "boilerplate.containers.Payroll.Attendance.permissionName": "نوع الاذن",
+  "boilerplate.containers.Payroll.Attendance.addOrChangeOrganization": "إضافة أو تغيير الادارة",
+  "boilerplate.containers.Payroll.Attendance.noOrganizationSelect": "لم يتم تحديد ادارة",
   "boilerplate.containers.Payroll.Attendance.PermissionTrxCreateTitle": "اضافة اذن",
   "boilerplate.containers.Payroll.Attendance.PermissionTrxUpdateTitle": "تعديل اذن",
   "boilerplate.containers.Payroll.Attendance.showWeekendOnly": "أجازات الورديات فقط",
