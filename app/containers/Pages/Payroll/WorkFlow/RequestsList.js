@@ -217,12 +217,12 @@ function RequestsList(props) {
       setDocument(documentId);
       if (dataApi && dataApi.length > 0) {
         var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
-        // used to remove executionId from table
+       /*  // used to remove executionId from table
         if(documentId === 3)
         {
           const index = data.indexOf("executionId");
           data.splice(index, 1);
-        }
+        } */
         setCols(data);
       } else setCols([]);
     } catch (err) {
