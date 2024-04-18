@@ -86,8 +86,8 @@ function MissionTrxCreate(props) {
           setdata((prev) => ({
             ...prev,
             employeeId: empid.id,
-            fromDate: empid.shiftDate,
-            toDate: empid.shiftDate,
+            fromDate: empid.shiftDate ?? new Date(),
+            toDate: empid.shiftDate ?? new Date(),
             startTime: empid.timeIn ? format(new Date(empid.timeIn), 'HH:mm') : "",
             endTime: empid.timeOut ? format(new Date(empid.timeOut), 'HH:mm'): "",
             minutesCount: empid.timeIn && empid.timeOut ? total : ""
