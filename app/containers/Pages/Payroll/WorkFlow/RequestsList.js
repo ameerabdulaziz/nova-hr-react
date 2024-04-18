@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import CloseIcon from "@mui/icons-material/Close";
 import Details from "@mui/icons-material/List";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Payrollmessages from "../messages";
 import missionmessages from "../Attendance/messages";
 import hrmessages from "../HumanResources/messages";
@@ -32,6 +33,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import { ServerURL } from "../api/ServerConfig";
 
 function RequestsList(props) {
   const { intl } = props;
@@ -317,6 +319,42 @@ function RequestsList(props) {
       },
     },
   };
+
+  if (Document === 3 && columns.length > 0) {
+    columns.push({
+      name: 'vacDocPath',
+      label: intl.formatMessage(Payrollmessages.attachment),
+      options: {
+        filter: false,
+        print: false,
+        download: false,
+        customBodyRender: (value) => {
+          if (!value) {
+            return '';
+          }
+
+          return (
+            <a
+              href={`${ServerURL}Doc/VacDoc/${value}`}
+              target='_blank'
+              rel='noreferrer'
+            >
+              <Tooltip
+                placement='bottom'
+                title={intl.formatMessage(Payrollmessages.preview)}
+              >
+                <span>
+                  <IconButton>
+                    <VisibilityIcon sx={{ fontSize: '1.2rem' }} />
+                  </IconButton>
+                </span>
+              </Tooltip>
+            </a>
+          );
+        },
+      },
+    },);
+  }
 
   if (columns.length > 0) columns.push(action);
 
