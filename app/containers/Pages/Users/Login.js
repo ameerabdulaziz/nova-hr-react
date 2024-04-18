@@ -34,11 +34,11 @@ function Login() {
 
 
   // used to check if user login before and try to open login page redirect him to /app
-  useEffect(() => {
-    if (Auth === true &&  localStorage.getItem("Token")) {
-      history.push(`/app`);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Auth === true &&  localStorage.getItem("Token")) {
+  //     history.push(`/app`);
+  //   }
+  // }, []);
 
   async function fetchData() {
     if (valueForm) {
