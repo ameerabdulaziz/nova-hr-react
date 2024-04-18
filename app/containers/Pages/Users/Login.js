@@ -78,11 +78,11 @@ function Login() {
           history.push(redirectTo == null || redirectTo === "/login"  ? "/app" : redirectTo);
         else if (res.data.isManagement)
           history.push(
-            redirectTo == null || redirectTo === "/login"  ? "/app/ManagementDashboard/" : redirectTo
+            redirectTo == null || redirectTo === "/login"  ? "/app/ManagementDashboard" : redirectTo
           );
         else
         history.push(
-          redirectTo == null || redirectTo === "/login"  ? "/app/EmployeeDashboard/" : redirectTo
+          redirectTo == null || redirectTo === "/login"  ? "/app/EmployeeDashboard" : redirectTo
         );
 
         //history.push('/app');
