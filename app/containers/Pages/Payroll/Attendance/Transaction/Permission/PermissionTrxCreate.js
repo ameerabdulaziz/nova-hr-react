@@ -93,7 +93,7 @@ function PermissionTrxCreate(props) {
       setdata((prev) => ({
         ...prev,
         employeeId: empid.id,
-        date: empid.shiftDate,
+        date: empid.shiftDate ?? new Date(),
         startTime: empid.timeIn ? format(new Date(empid.timeIn), 'HH:mm') : "",
         endTime: empid.timeOut ? format(new Date(empid.timeOut), 'HH:mm') : "",
         minutesCount: empid.timeIn && empid.timeOut ? total : ""
@@ -390,7 +390,7 @@ function PermissionTrxCreate(props) {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(Payrollmessages.date)}
-                          value={data.date ? dayjs(data.date) : data.date}
+                          value={data.date ? dayjs(data.date) : null}
                         className={classes.field}
                           onChange={(date) => {
                             setdata((prevFilters) => ({

@@ -12,8 +12,7 @@ import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import payrollMessages from '../../../messages';
-import messages from '../../messages';
+import payrollMessages from '../../messages';
 
 function TreePopup(props) {
   const {
@@ -80,7 +79,7 @@ function TreePopup(props) {
         }),
       }}
     >
-      <DialogTitle>{intl.formatMessage(messages.organizationTree)}</DialogTitle>
+      <DialogTitle>{intl.formatMessage(payrollMessages.organizationTree)}</DialogTitle>
 
       <DialogContent>
         <Box

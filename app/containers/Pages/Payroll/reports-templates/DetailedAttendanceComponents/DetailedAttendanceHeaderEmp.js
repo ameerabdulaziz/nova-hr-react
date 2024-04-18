@@ -15,13 +15,16 @@ import { Grid, Stack } from '@mui/material';
 
     return (
       <div className={style.headerContainer}>
-         <Stack spacing={2} mb={2}>
-          <div>
-            <img src={company?.logo} alt='' height={45} />
-          </div>
-        </Stack>
       <Grid item xs={12} md={12}>
-        <h1><FormattedMessage {...messages.DetailedAttendanceAndLeaveReport} /></h1>
+        <h1 >
+          <div >
+            <FormattedMessage {...messages.DetailedAttendanceAndLeaveReport} />
+          </div>
+          <div style={locale === "en" ? {textAlign: "right"} : {textAlign: "left"}}>
+            <img src={company?.logo} alt='' height={35}  />
+          </div>
+        </h1>
+        
        </Grid>
 
        <Grid container spacing={3} alignItems="flex-start" direction="row">

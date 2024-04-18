@@ -60,7 +60,6 @@ npm run start:prod
 - [ ] Improve **React-to-print** package the need state before print
 - [ ] Fix selection column in **editable** table (use id instead of name)
 - [ ] Implement "react-window" or similar package for the **payroll** table
-- [ ] Add Print column to payroll table
 - [ ] **Recruitment** - add pdf download instead of open in new tab
 - [ ] Integrate **ImportEmployeeData** with api for some-data update
 
@@ -130,6 +129,134 @@ if (Object.values(dateError).includes(true)) {
   />
 </LocalizationProvider>
 ```
+
+## Organization Tree Component
+
+Provide a tree component to display the organization structure. with ability to select and deselect the organization. also if any organization is selected, then all its children will be selected.
+
+### Usage
+
+#### Add OrganizationTree component import
+
+```jsx
+import OrgTree from "../../../Component/OrganizationTree/Tree";
+import TreePopup from "../../../Component/OrganizationTree/TreePopup";
+```
+
+#### Set OrganizationTree component state
+
+```jsx
+const [organizationData, setOrganizationData] = useState(null);
+const [isTreeOpen, setIsTreeOpen] = useState(false);
+const [tree, setTree] = useState(OrgTree.buildTreeFromArray(null));
+```
+
+#### Get organization data from API
+
+```jsx
+const chartInfo = await GeneralListApis(locale).GetSimpleOrganizationChart();
+setOrganizationData(chartInfo);
+setTree(OrgTree.buildTreeFromArray(chartInfo));
+```
+
+#### Add selected organization
+
+```jsx
+const tempTree = OrgTree.buildTreeFromArray(chartInfo);
+arrayOfIds.forEach((id) => {
+  tempTree.addIsCheckProperty(id, true);
+});
+setTree(tempTree);
+```
+
+#### Create onSave callback
+
+```jsx
+const onTreePopupSave = (changedTree) => {
+  setOrganizationTree(changedTree.clone());
+  console.log(changedTree.getCheckedLeafNodes());
+};
+```
+
+#### Add Tree Popup
+
+```jsx
+{
+  organizationData && Object.keys(organizationData).length > 0 && (
+    <OrganizationTreePopup
+      isOpen={isTreeOpen}
+      tree={tree.clone()}
+      chartData={organizationData}
+      setIsOpen={setIsTreeOpen}
+      onSave={onTreePopupSave}
+    />
+  );
+}
+```
+
+#### Open The Tree
+
+```jsx
+<Button
+  variant='contained'
+  disabled={!(organizationData && Object.keys(organizationData).length > 0)}
+  onClick={() => setIsTreeOpen(true)}
+>
+  Open Tree
+</Button>
+```
+
+### TreePopup Props
+
+| Prop Name   | Type       | Default | Description                                                             |
+| ----------- | ---------- | ------- | ----------------------------------------------------------------------- |
+| `isOpen`    | `bool`     | `-`     | A boolean flag indicating whether the popup is open.                    |
+| `setIsOpen` | `function` | `-`     | A function to close/open the popup.                                     |
+| `onSave`    | `function` | `-`     | A callback function fire when the save button is clicked.               |
+| `chartData` | `array`    | `-`     | An array of objects representing the data to be displayed in the popup. |
+| `tree`      | `Tree`     | `-`     | An tree object representing the organization structure.                 |
+
+### Tree Data Structure
+
+- `preOrderTraversal()`
+
+  Performs pre-order traversal of the tree and returns an array of nodes.
+
+- `postOrderTraversal()`
+
+  Performs post-order traversal of the tree and returns an array of nodes.
+
+- `remove(id)`
+
+  Removes the node with the given id from the tree.
+
+- `find(id)`
+
+  Finds and returns the first node with the specified id.
+
+- `addIsCheckProperty(id, isCheck)`
+
+  Adds an `isCheck` property to the specified node and disables its children based on the `isCheck` value.
+
+  Example: `tree.addIsCheckProperty(1, true);`
+
+- `clone()`
+
+  Creates a deep copy of the tree. very useful when you want to modify the tree without modifying the original tree.
+
+  for example select new organization and set it into the state
+
+- `insert(parentNodeId, id, value)`
+
+  Inserts a new node with the given id and optional value under the specified parent node.
+
+- `getCheckedLeafNodes()`
+
+  Retrieves checked leaf nodes (nodes without children) without the parent property.
+
+- `buildTreeFromArray([])`
+
+  Static Method to Build Tree from Array, if pass a `null` it will create empty tree.
 
 ## PayrollTable Component
 

@@ -263,7 +263,19 @@ function DetailedAttendanceReport(props) {
       name: "vac",
       label: intl.formatMessage(messages.leave),
       options: {
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value, tableMeta) => {
+          if(value)
+          {
+          return <div className={style.tableCellSty}>
+            {getCheckboxIcon(value)}
+            <pre>{data[tableMeta?.rowIndex]?.jobName}</pre>
+          </div>
+         }
+         else
+         {
+          return getCheckboxIcon(value)
+         }
+      },
       },
     },
     {
@@ -277,7 +289,19 @@ function DetailedAttendanceReport(props) {
         name: "per", 
         label: intl.formatMessage(messages.permission),
         options: {
-          customBodyRender: (value) => getCheckboxIcon(value),
+          customBodyRender: (value, tableMeta) => {
+            if(value)
+            {
+             return <div>
+              {getCheckboxIcon(value)}
+              <pre>{data[tableMeta?.rowIndex]?.jobName}</pre>
+            </div>
+            }
+            else
+            {
+             return getCheckboxIcon(value)
+            }
+          },
         },
       },
       {
