@@ -1051,6 +1051,7 @@
   "boilerplate.containers.Payroll.DateNotValid": "التاريخ غير صحيح",
 
   "boilerplate.containers.Payroll.view": "عرض",
+  "boilerplate.containers.Payroll.attachment": "المرفق",
 
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",

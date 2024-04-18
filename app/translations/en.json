@@ -1037,6 +1037,7 @@
   "boilerplate.containers.Payroll.rowSelected": "Row(s) Selected",
   "boilerplate.containers.Payroll.deleteSelectedRows": "Delete Selected Rows",
 
+  "boilerplate.containers.Payroll.attachment": "Attachment",
   "boilerplate.containers.Payroll.view": "View",
   
   "boilerplate.containers.Payroll.Postmonth": "Postpone to Month",

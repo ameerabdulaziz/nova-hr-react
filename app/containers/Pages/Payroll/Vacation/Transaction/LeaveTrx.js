@@ -1,4 +1,5 @@
 import { List, Print } from '@mui/icons-material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box, IconButton, Stack, Tooltip
 } from '@mui/material';
@@ -10,6 +11,7 @@ import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
+import { ServerURL } from '../../api/ServerConfig';
 import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -30,7 +32,7 @@ function LeaveTrxList(props) {
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [printContent, setPrintContent] = useState('');
-  const documentTitle = 'Leave ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+  const documentTitle =		'Leave ' + formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
 
   const [requestId, setRequestId] = useState(null);
 
@@ -169,6 +171,39 @@ function LeaveTrxList(props) {
     {
       name: 'approvedEmp',
       label: intl.formatMessage(payrollMessages.approvedEmp),
+    },
+    {
+      name: 'vacDocPath',
+      label: intl.formatMessage(payrollMessages.attachment),
+      options: {
+        filter: false,
+        print: false,
+        download: false,
+        customBodyRender: (value) => {
+          if (!value) {
+            return '';
+          }
+
+          return (
+            <a
+              href={`${ServerURL}Doc/VacDoc/${value}`}
+              target='_blank'
+              rel='noreferrer'
+            >
+              <Tooltip
+                placement='bottom'
+                title={intl.formatMessage(payrollMessages.preview)}
+              >
+                <span>
+                  <IconButton>
+                    <VisibilityIcon sx={{ fontSize: '1.2rem' }} />
+                  </IconButton>
+                </span>
+              </Tooltip>
+            </a>
+          );
+        },
+      },
     },
   ];
 

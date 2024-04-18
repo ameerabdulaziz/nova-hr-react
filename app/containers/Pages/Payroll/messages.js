@@ -634,4 +634,8 @@ employeeId: {
     id: `${scope}.organizationTree`,
     defaultMessage: 'organizationTree',
   },
+  attachment: {
+    id: `${scope}.attachment`,
+    defaultMessage: 'attachment',
+  },
 });
