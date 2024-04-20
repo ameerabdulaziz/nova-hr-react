@@ -235,11 +235,11 @@ function RequestsList(props) {
   useEffect(() => {
     fetchData();
   }, [Title]);
-
+  debugger;
   const columns =
     cols.length !== 0
       ? cols.map((item) => ({
-          name: item,
+          name: item,          
           label:
             Document == 1 || Document == 2 || Document == 6 || Document ==11 ? (
               <FormattedMessage {...missionmessages[item]} />
@@ -258,6 +258,7 @@ function RequestsList(props) {
             ),
           options: {
             filter: true,
+            display:  item.includes("Id")||item.includes("id")?false:true,
           },
         }))
       :
