@@ -1,26 +1,35 @@
-import React from "react";
+import React,{useEffect} from "react";
 import brand from "enl-api/dummy/brand";
 import { Helmet } from "react-helmet";
 import Hidden from "@mui/material/Hidden";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import MonthCalendar from "../Component/MonthCalendar";
-import CounterIconsWidget  from "./Component/CounterIconsWidget";
-import PerformanceChartWidget  from "./Component/PerformanceChartWidget";
-import GenderWidget  from "./Component/GenderWidget";
-import NotificationWidget  from "./Component/NotificationWidget";
-import ServicePeriodWidget  from "./Component/ServicePeriodWidget";
-import NationalityWidget  from "./Component/NationalityWidget";
-import  MaritalStatusWidget  from "./Component/MaritalStatusWidget";
-import  OrgLevelWidget  from "./Component/OrgLevelWidget";
-
-import AbscencebichartWidget  from "./Component/AbscencebichartWidget";
+import CounterIconsWidget from "./Component/CounterIconsWidget";
+import PerformanceChartWidget from "./Component/PerformanceChartWidget";
+import GenderWidget from "./Component/GenderWidget";
+import NotificationWidget from "./Component/NotificationWidget";
+import ServicePeriodWidget from "./Component/ServicePeriodWidget";
+import NationalityWidget from "./Component/NationalityWidget";
+import MaritalStatusWidget from "./Component/MaritalStatusWidget";
+import OrgLevelWidget from "./Component/OrgLevelWidget";
+import { useHistory } from "react-router-dom";
+import AbscencebichartWidget from "./Component/AbscencebichartWidget";
 import useStyles from "./dashboard-jss";
 
 function AdminDashboard() {
   const title = brand.name + " - HR Dashboard";
   const description = brand.desc;
   const { classes } = useStyles();
+  const history = useHistory();
+  const IsHR = localStorage.getItem("IsHR");
+  const IsManagement = localStorage.getItem("IsManagement");
+
+  useEffect(() => {
+    if (IsHR=="true") history.push("/app");
+    else if (IsManagement=="true") history.push("/app/ManagementDashboard");
+    else history.push("/app/EmployeeDashboard");
+  }, []);
   return (
     <div>
       <Helmet>
@@ -32,7 +41,7 @@ function AdminDashboard() {
         <meta property="twitter:description" content={description} />
       </Helmet>
       {/* 1st Section */}
-       <Grid container spacing={0} className={classes.root}>
+      <Grid container spacing={0} className={classes.root}>
         <Grid item xs={12}>
           <CounterIconsWidget />
         </Grid>
@@ -45,7 +54,7 @@ function AdminDashboard() {
         </Grid>
       </Grid>
       {/* 3rd Section */}
-       <Grid container spacing={3} className={classes.root}>
+      <Grid container spacing={3} className={classes.root}>
         <Grid item md={6} xs={12}>
           <Divider className={classes.divider} />
           <NotificationWidget />
@@ -75,7 +84,7 @@ function AdminDashboard() {
           <AbscencebichartWidget />
         </Grid>
         <Grid item md={4} sm={12} xs={12}>
-        <OrgLevelWidget></OrgLevelWidget>
+          <OrgLevelWidget></OrgLevelWidget>
         </Grid>
       </Grid>
     </div>
