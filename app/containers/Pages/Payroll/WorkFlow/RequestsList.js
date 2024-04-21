@@ -80,7 +80,7 @@ function RequestsList(props) {
   const [openExecutionPoup, setExecutionPoup] = useState(false);
   const [ExecutionId, setExecutionId] = useState("");
   const [postDate, setPostDate] = useState({
-    executionId: 0,
+    executionId: [],
     actionTypeId: 0,
     note: "",
     docId: Document,
@@ -101,7 +101,7 @@ function RequestsList(props) {
   };
   const handleOpenNotePoup = (id, Action, executionDate) => {
     setPostDate({
-      executionId: id,
+      executionId: [id],
       actionTypeId: Action,
       note: "",
       docId: Document,
@@ -238,7 +238,7 @@ function RequestsList(props) {
 
   const columns =
     cols.length !== 0
-      ? cols.map((item) => ({
+      ? cols.filter(item => item !== 'vacDocPath').map((item) => ({
           name: item,
           label:
             Document == 1 || Document == 2 || Document == 6 || Document ==11 ? (
