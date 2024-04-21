@@ -874,8 +874,8 @@
   "boilerplate.components.tables.codes.add": "اضافة جديد",
   "boilerplate.components.tables.codes.phone": "رقم الهاتف",
   "boilerplate.components.tables.codes.course": "اسم الدورة",
-  "boilerplate.components.tables.codes.startdate": "بداية التامين",
-  "boilerplate.components.tables.codes.enddate": "انتهاء التامين",
+  "boilerplate.components.tables.codes.startdate": "تاريخ البدء",
+  "boilerplate.components.tables.codes.enddate": "تاريخ الانتهاء",
   "boilerplate.components.tables.codes.araddress": "العنوان بالعربية",
   "boilerplate.components.tables.codes.enaddress": "العنوان بالانجليزية",
   "boilerplate.components.tables.codes.city": "المدينة",
@@ -919,6 +919,9 @@
   "boilerplate.components.tables.codes.MedicalCenterPhoneNumber": "رقم التليفون",
 
   "boilerplate.components.tables.codes.receiverJobInResignation": "استلام العهد فى الاستقالات",
+
+  "boilerplate.components.tables.codes.startInsurance": "بداية التامين",
+  "boilerplate.components.tables.codes.endInsurance": "انتهاء التامين",
 
   "boilerplate.containers.Payroll.employeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.save": "حفظ",

@@ -85,7 +85,7 @@ function EmployeeExperince(props) {
     },
     {
       name: "startDate",
-      label: "startdate",
+      label: "startInsurance",
       type: "date",
       initialValue: new Date(),
       width: "auto",
@@ -93,7 +93,7 @@ function EmployeeExperince(props) {
     },
     {
       name: "endDate",
-      label: "enddate",
+      label: "endInsurance",
       width: "auto",
       type: "date",
       initialValue: new Date(),

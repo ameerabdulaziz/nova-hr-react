@@ -162,11 +162,11 @@ export default defineMessages({
   },
   startdate: {
     id: `${scope}.codes.startdate`,
-    defaultMessage: 'Start Insurance',
+    defaultMessage: 'Start Date',
   },
   enddate: {
     id: `${scope}.codes.enddate`,
-    defaultMessage: 'End Insurance',
+    defaultMessage: 'End Date',
   },
   arJobKpi: {
     id: `${scope}.codes.arJobKpi`,
@@ -414,5 +414,12 @@ export default defineMessages({
   receiverJobInResignation: {
     id: `${scope}.codes.receiverJobInResignation`,
     defaultMessage: 'Receiver Job In Resignation',
+  }, startInsurance: {
+    id: `${scope}.codes.startInsurance`,
+    defaultMessage: 'Start Insurance',
+  },
+  endInsurance: {
+    id: `${scope}.codes.endInsurance`,
+    defaultMessage: 'End Insurance',
   },
 });

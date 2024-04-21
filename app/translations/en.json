@@ -872,8 +872,8 @@
   "boilerplate.components.tables.codes.enJobKpi": "Job Kpi",
   "boilerplate.components.tables.codes.arJobKpi": "Arabic Job Kpi",
   "boilerplate.components.tables.codes.course": "Course",
-  "boilerplate.components.tables.codes.startdate": "Start Insurance",
-  "boilerplate.components.tables.codes.enddate": "End Insurance",
+  "boilerplate.components.tables.codes.startdate": "Start Date",
+  "boilerplate.components.tables.codes.enddate": "End Date",
   "boilerplate.components.tables.codes.araddress": "Arabic Address",
   "boilerplate.components.tables.codes.enaddress": "English Address",
   "boilerplate.components.tables.codes.city": "City",
@@ -900,6 +900,9 @@
   "boilerplate.components.tables.codes.MedicalCenterPhoneNumber": "Phone Number",
 
   "boilerplate.components.tables.codes.receiverJobInResignation": "Receiver Job In Resignation",
+
+  "boilerplate.components.tables.codes.startInsurance": "Start Insurance",
+  "boilerplate.components.tables.codes.endInsurance": "End Insurance",
 
 
   "boilerplate.containers.Payroll.employeeCode": "Employee Code",
