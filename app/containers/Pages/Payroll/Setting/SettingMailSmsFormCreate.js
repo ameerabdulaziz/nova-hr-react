@@ -259,6 +259,7 @@ function SettingMailSmsFormCreate(props) {
                         { list: 'bullet' },
                         { indent: '-1' },
                         { indent: '+1' },
+                        { align: [] }
                       ],
                       [{ script: 'sub' }, { script: 'super' }],
                       [{ color: [] }, { background: [] }],
