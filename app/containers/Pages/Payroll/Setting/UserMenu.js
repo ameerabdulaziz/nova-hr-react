@@ -35,7 +35,7 @@ function UserMenu(props) {
   const [query, setQuery] = useState("");  
   const [dataList, setdataList] = useState([]);
   const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(25);
   const [employee, setEmployee] = useState();  
   const [employeeList, setEmployeeList] = useState([]);  
   const [MenuList, setMenuList] = useState([]);
@@ -91,9 +91,7 @@ const applyFilters = (data, query, menu) =>{
   if(menu)
     datafiltered = data.filter((item) =>item.parentID==menu) ;
   if (query.length !== 0)
-  datafiltered = datafiltered.filter((item) =>
-        item.parentName.toString().toLowerCase().includes(query.toLowerCase())||
-        item.menuName.toString().toLowerCase().includes(query.toLowerCase())
+  datafiltered = datafiltered.filter((item) =>  item.menuName.toString().toLowerCase().includes(query.toLowerCase())
   ) ;
  
     return datafiltered ;
@@ -137,8 +135,34 @@ const handleEnableOne = (event, row) => {
     
 };
 
+const handleDeleteCheckbox = (event, row) => {
+  
+  setdataList(
+      dataList.map((x) => {
+        if (x.menuID == row.menuID) {
+          x.isDelete = event.target.checked;
+
+          // not check anything if column is checked
+          if (event.target.checked && !x.isUpdate && !x.isAdd && !x.isView && !x.isPrint) {
+            x.isUpdate = true;
+            x.isAdd = true;
+            x.isPrint = true;
+            x.isView = true;
+          }
+        }
+        return x;
+      })
+    );
+
+  
+};
+
 const filteredData = applyFilters(dataList, query, menu);
 const paginatedData = applyPagination(filteredData, page, limit);
+
+  useEffect(() => {
+    setPage(0);
+  }, [query, limit, filteredData]);
 
 async function on_submit() {
     if (!employee){
@@ -206,7 +230,7 @@ async function on_submit() {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <div>
-            <Grid container spacing={3}>            
+            <Grid container spacing={3} mb={3}>            
                 <Grid item xs={6} md={3}>
                     <Autocomplete
                         id="ddlEmp"                        
@@ -245,9 +269,9 @@ async function on_submit() {
                         )}
                     />
                 </Grid>
-                <Grid item xs={6} md={4} >
+                <Grid item xs={6} md={3} >
                 
-                    <FormControl variant="filled" className={classes.searchtext} >
+                    <FormControl variant="filled">
                         <Input
                         id="search_filter"
                         //style={{height:"50px"}}
@@ -255,6 +279,7 @@ async function on_submit() {
                         placeholder={intl.formatMessage(messages.search)}
                         onChange={(e) =>setQuery(e.target.value)}
                         value={query}
+                        fullWidth
                         endAdornment={
                             <InputAdornment position="end">
                             <IconButton aria-label="Search filter" size="large">
@@ -265,7 +290,7 @@ async function on_submit() {
                         />
                     </FormControl>
                 </Grid>
-                <Grid item xs={6} md={2}>
+                <Grid item>
                     
                 <Button variant="contained" size="medium" color="primary" onClick={on_submit} >
                   <FormattedMessage {...Payrollmessages.save} />
@@ -273,72 +298,71 @@ async function on_submit() {
                 </Grid>   
             </Grid>
             <div className={classes.rootTable}>
-                <Table className={cx(css.tableCrud, classes.table, classes.stripped)}>
+                <Table small className={cx(css.tableCrud, classes.table, classes.stripped)}>
                     <TableHead>
                     <TableRow>               
                         <TableCell ><FormattedMessage {...messages.parentName} /></TableCell>
                         <TableCell ><FormattedMessage {...messages.menuName}/></TableCell>
-                        <TableCell  style={{textWrap: 'balance',width: '70px',textAlign:'center'}}>
-                        <FormattedMessage {...messages.delete}/>                        
+                        <TableCell  sx={{width: '70px', p: '0 10px !important'}}>
+                        <FormattedMessage {...messages.delete}/>    <br/>                    
                         <Checkbox
-                            checked={filteredData.length > 0 &&  dataList.filter((crow) => crow.isDelete==true).length === filteredData.length?true:false}
+                            checked={filteredData.length > 0 &&  filteredData.filter((crow) => crow.isDelete==true).length === filteredData.length?true:false}
                             color="primary"
                             name="AllDelete"
-                            indeterminate={dataList.filter((crow) => crow.isDelete==true).length > 0 && dataList.filter((crow) => crow.isDelete==true).length < filteredData.length?true:false}
+                            indeterminate={filteredData.filter((crow) => crow.isDelete==true).length > 0 && filteredData.filter((crow) => crow.isDelete==true).length < filteredData.length?true:false}
                             onChange={handlepermcheckboxAll}
                         />
                         </TableCell>
-                        <TableCell  style={{textWrap: 'balance',width: '70px',textAlign:'center'}} >
-                        <FormattedMessage {...messages.update}/>
+                        <TableCell  sx={{width: '70px', p: '0 10px !important'}} >
+                        <FormattedMessage {...messages.update}/><br/>
                         <Checkbox
-                            checked={filteredData.length > 0 && dataList.filter((crow) => crow.isUpdate==true).length === filteredData.length?true:false}
+                            checked={filteredData.length > 0 && filteredData.filter((crow) => crow.isUpdate==true).length === filteredData.length?true:false}
                             color="primary"
                             name="AllUpdate"
-                            indeterminate={dataList.filter((crow) => crow.isUpdate==true).length > 0 && dataList.filter((crow) => crow.isUpdate==true).length < filteredData.length?true:false}
+                            indeterminate={filteredData.filter((crow) => crow.isUpdate==true).length > 0 && filteredData.filter((crow) => crow.isUpdate==true).length < filteredData.length?true:false}
                             onChange={handlepermcheckboxAll}
                         />
                         </TableCell>
-                        <TableCell  style={{textWrap: 'balance',width: '70px',textAlign:'center'}}>
-                        <FormattedMessage {...messages.add}/>
+                        <TableCell  sx={{width: '70px', p: '0 10px !important'}}>
+                        <FormattedMessage {...messages.add}/> <br/>
                         <Checkbox
-                            checked={filteredData.length > 0 && dataList.filter((crow) => crow.isAdd==true).length === filteredData.length?true:false}
+                            checked={filteredData.length > 0 && filteredData.filter((crow) => crow.isAdd==true).length === filteredData.length?true:false}
                             color="primary"
                             name="AllAdd"
-                            indeterminate={dataList.filter((crow) => crow.isAdd==true).length > 0 && dataList.filter((crow) => crow.isAdd==true).length < filteredData.length?true:false}
+                            indeterminate={filteredData.filter((crow) => crow.isAdd==true).length > 0 && filteredData.filter((crow) => crow.isAdd==true).length < filteredData.length?true:false}
                             onChange={handlepermcheckboxAll}
                         />
                         </TableCell>
-                        <TableCell  style={{textWrap: 'balance',width: '70px',textAlign:'center'}}>
-                        <FormattedMessage {...messages.view}/>
+                        <TableCell  sx={{width: '70px', p: '0 10px !important'}}>
+                        <FormattedMessage {...messages.view}/> <br/>
                         <Checkbox
-                            checked={filteredData.length > 0 && dataList.filter((crow) => crow.isView==true).length === filteredData.length?true:false}
+                            checked={filteredData.length > 0 && filteredData.filter((crow) => crow.isView==true).length === filteredData.length?true:false}
                             color="primary"
                             name="AllView"
-                            indeterminate={dataList.filter((crow) => crow.isView==true).length > 0 && dataList.filter((crow) => crow.isView==true).length < filteredData.length?true:false}
+                            indeterminate={filteredData.filter((crow) => crow.isView==true).length > 0 && filteredData.filter((crow) => crow.isView==true).length < filteredData.length?true:false}
                             onChange={handlepermcheckboxAll}
                         />
                         </TableCell>
-                        <TableCell  style={{textWrap: 'balance',width: '70px',textAlign:'center'}} >
-                        <FormattedMessage {...messages.print}/>
+                        <TableCell  sx={{width: '70px', p: '0 10px !important'}} >
+                        <FormattedMessage {...messages.print}/> <br/>
                         <Checkbox
-                            checked={filteredData.length > 0 && dataList.filter((crow) => crow.isPrint==true).length === filteredData.length?true:false}
+                            checked={filteredData.length > 0 && filteredData.filter((crow) => crow.isPrint==true).length === filteredData.length?true:false}
                             color="primary"
                             name="AllPrint"
-                            indeterminate={dataList.filter((crow) => crow.isPrint==true).length > 0 && dataList.filter((crow) => crow.isPrint==true).length < filteredData.length?true:false}
+                            indeterminate={filteredData.filter((crow) => crow.isPrint==true).length > 0 && filteredData.filter((crow) => crow.isPrint==true).length < filteredData.length?true:false}
                             onChange={handlepermcheckboxAll}
                         />
                         </TableCell>
-                        <TableCell  style={{textWrap: 'balance',width: '70px',textAlign:'center'}}>
-                        <FormattedMessage {...messages.favorites}/>
+                        <TableCell  sx={{width: '70px', p: '0 10px !important'}}>
+                        <FormattedMessage {...messages.favorites}/> <br/>
                         <Checkbox
-                            checked={filteredData.length > 0 && dataList.filter((crow) => crow.isFav==true).length === filteredData.length?true:false}
+                            checked={filteredData.length > 0 && filteredData.filter((crow) => crow.isFav==true).length === filteredData.length?true:false}
                             color="primary"
                             name="AllFav"
-                            indeterminate={dataList.filter((crow) => crow.isFav==true).length > 0 && dataList.filter((crow) => crow.isFav==true).length < filteredData.length?true:false}
+                            indeterminate={filteredData.filter((crow) => crow.isFav==true).length > 0 && filteredData.filter((crow) => crow.isFav==true).length < filteredData.length?true:false}
                             onChange={handlepermcheckboxAll}
                         />
                         </TableCell>
-                        <TableCell ></TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -348,21 +372,20 @@ async function on_submit() {
                             <TableRow
                             hover
                             key={row.menuID}
-                            sx={{ height: 1 }}
                             >
-                            <TableCell>{row.parentName}</TableCell>
+                            <TableCell sx={{p: '0 10px'}} >{row.parentName}</TableCell>
                             
-                            <TableCell>{row.menuName}</TableCell>
-                            <TableCell>
+                            <TableCell sx={{p: '0 10px'}} >{row.menuName}</TableCell>
+                            <TableCell sx={{p: '0 10px'}} >
                                 <Checkbox
                                 checked={row.isDelete}
                                 color="primary"
                                 name="isdelete"
-                                onChange={(event) => handleEnableOne(event, row)}
+                                onChange={(event) => handleDeleteCheckbox(event, row)}
                                 value={row.isDelete}
                                 />
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={{p: '0 10px'}} >
                                 <Checkbox
                                 checked={row.isUpdate}
                                 color="primary"
@@ -372,7 +395,7 @@ async function on_submit() {
                                 />
                             </TableCell>
 
-                            <TableCell>
+                            <TableCell sx={{p: '0 10px'}} >
                                 <Checkbox
                                 checked={row.isAdd}
                                 color="primary"
@@ -382,7 +405,7 @@ async function on_submit() {
                                 />
                             </TableCell>
 
-                            <TableCell>
+                            <TableCell sx={{p: '0 10px'}} >
                                 <Checkbox
                                 checked={row.isView}
                                 color="primary"
@@ -391,7 +414,7 @@ async function on_submit() {
                                 value={row.isView}
                                 />
                             </TableCell>
-                            <TableCell>
+                            <TableCell sx={{p: '0 10px'}} >
                                 <Checkbox
                                 checked={row.isPrint}
                                 color="primary"
@@ -400,7 +423,7 @@ async function on_submit() {
                                 value={row.isPrint}
                                 />
                             </TableCell>
-                                <TableCell>
+                                <TableCell sx={{p: '0 10px'}} >
                                 <Checkbox
                                 checked={row.isFav}
                                 color="primary"
@@ -409,7 +432,6 @@ async function on_submit() {
                                 value={row.isFav}
                                 />
                             </TableCell>
-                            <TableCell></TableCell>
 
                             </TableRow>
                         );
@@ -423,7 +445,7 @@ async function on_submit() {
                     onRowsPerPageChange={handleLimitChange}
                     page={page}
                     rowsPerPage={limit}
-                    rowsPerPageOptions={[5, 10, 25]}
+                    rowsPerPageOptions={[25, 50, 100]}
                 />  
             </div>
         </div>       
