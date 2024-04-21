@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import brand from "enl-api/dummy/brand";
 import { Helmet } from "react-helmet";
 import Grid from "@mui/material/Grid";
@@ -7,7 +8,6 @@ import SalaryYearlyWidget from "./Component/SalaryYearlyWidget";
 import useStyles from "./dashboard-jss";
 import StatisticsWidget from "./Component/StatisticsWidget";
 import SalaryChartWidget from "./Component/SalaryChartWidget";
-import OrgLevelWidget from "./Component/OrgLevelWidget";
 import GrossBiChartWidget from "./Component/GrossBiChartWidget";
 import GenderSalaryBiChartWidget from "./Component/GenderSalaryBiChartWidget";
 import OvertimeWidget from "./Component/OvertimeWidget";
@@ -15,12 +15,21 @@ import AbscenceWidget from "./Component/AbscenceWidget";
 import TaxInsWidget from "./Component/TaxInsWidget";
 import VacWidget from "./Component/VacWidget";
 
-import AbscencebichartWidget  from "./Component/AbscencebichartWidget";
+import AbscencebichartWidget from "./Component/AbscencebichartWidget";
 
 function ManagementDashboard() {
   const title = brand.name + " - Management Dashboard";
   const description = brand.desc;
   const { classes } = useStyles();
+  const history = useHistory();
+  const IsHR = localStorage.getItem("IsHR");
+  const IsManagement = localStorage.getItem("IsManagement");
+
+  useEffect(() => {
+    if (IsHR=="true") history.push("/app");
+    else if (IsManagement=="true") history.push("/app/ManagementDashboard");
+    else history.push("/app/EmployeeDashboard");
+  }, []);
   return (
     <div>
       <Helmet>
@@ -57,9 +66,9 @@ function ManagementDashboard() {
       <Divider className={classes.divider} />
       <Grid container spacing={3} className={classes.root}>
         <Grid item md={4} xs={12}>
-          <AbscencebichartWidget/>
+          <AbscencebichartWidget />
         </Grid>
-        
+
         <Grid item md={4} xs={12}>
           <GrossBiChartWidget></GrossBiChartWidget>
         </Grid>

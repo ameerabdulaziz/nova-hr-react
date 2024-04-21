@@ -235,7 +235,7 @@ function RequestsList(props) {
   useEffect(() => {
     fetchData();
   }, [Title]);
-
+  debugger;
   const columns =
     cols.length !== 0
       ? cols.filter(item => item !== 'vacDocPath').map((item) => ({
@@ -258,6 +258,7 @@ function RequestsList(props) {
             ),
           options: {
             filter: true,
+            display:  item.includes("Id")||item.includes("id")?false:true,
           },
         }))
       :

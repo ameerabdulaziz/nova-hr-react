@@ -43,6 +43,7 @@ function Login() {
   async function fetchData() {
     if (valueForm) {
       try {
+        debugger;
         Dispatcher(login());
 
         const data = {
@@ -56,6 +57,8 @@ function Login() {
 
         localStorage.setItem("Token", res.data.token);
         localStorage.setItem("IsStaticDashboard", res.data.isStaticDashboard);
+        localStorage.setItem("IsHR", res.data.isHR);
+        localStorage.setItem("IsManagement", res.data.isManagement);
         let user = {
           id: res.data.id,
           email: res.data.email,
