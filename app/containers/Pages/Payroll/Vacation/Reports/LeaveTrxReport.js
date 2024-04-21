@@ -68,7 +68,7 @@ function LeaveTrxReport(props) {
     },
     {
       name: 'organizationName',
-      label: <FormattedMessage {...messages.organization} />,
+      label: intl.formatMessage(messages.organization),
     },
     {
       name: 'employeeId',
@@ -87,44 +87,44 @@ function LeaveTrxReport(props) {
     },
     {
       name: 'employeeName',
-      label: <FormattedMessage {...messages.employeeName} />,
+      label: intl.formatMessage(messages.employeeName),
     },
     {
       name: 'hiringDate',
-      label: <FormattedMessage {...messages.hiringDate} />,
+      label: intl.formatMessage(messages.hiringDate),
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'vacationName',
-      label: <FormattedMessage {...messages.vacationName} />,
+      label: intl.formatMessage(messages.vacationName),
     },
     {
       name: 'fromDate',
-      label: <FormattedMessage {...messages.fromDate} />,
+      label: intl.formatMessage(messages.fromDate),
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'toDate',
-      label: <FormattedMessage {...messages.toDate} />,
+      label: intl.formatMessage(messages.toDate),
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
     {
       name: 'daysCount',
-      label: <FormattedMessage {...messages.daysCount} />,
+      label: intl.formatMessage(messages.daysCount),
     },
     {
       name: 'dayEqual',
-      label: <FormattedMessage {...messages.dayDeducedBy} />,
+      label: intl.formatMessage(messages.dayDeducedBy),
     },
     {
       name: 'trxDate',
-      label: <FormattedMessage {...messages.registrationDate} />,
+      label: intl.formatMessage(messages.registrationDate),
       options: {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },

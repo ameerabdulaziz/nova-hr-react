@@ -402,7 +402,7 @@ function PayrollTable(props) {
   // Memoize default table options
   const tableOptions = useMemo(
     () => ({
-      filterType: 'dropdown',
+      filterType: "multiselect",
       responsive: 'vertical',
       print: false,
       rowsPerPage: 50,
