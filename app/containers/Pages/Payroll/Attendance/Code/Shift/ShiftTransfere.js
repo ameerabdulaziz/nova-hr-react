@@ -209,7 +209,7 @@ function ShiftTransfere(props) {
     },
     {
       name: "employeeId",
-      label: <FormattedMessage {...Payrollmessages["employeeId"]} />,
+      label: intl.formatMessage(Payrollmessages["employeeId"]),
       options: {
         filter: true,
       },
@@ -217,7 +217,7 @@ function ShiftTransfere(props) {
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
+      label: intl.formatMessage(Payrollmessages["employeeName"]),
       options: {
         filter: true,
       },
@@ -225,21 +225,21 @@ function ShiftTransfere(props) {
 
     {
       name: "startTime",
-      label: <FormattedMessage {...messages["startTime"]} />,
+      label: intl.formatMessage(messages["startTime"]),
       options: {
         filter: true,
       },
     },
     {
       name: "endTime",
-      label: <FormattedMessage {...messages["endTime"]} />,
+      label: intl.formatMessage(messages["endTime"]),
       options: {
         filter: true,
       },
     },
     {
       name: "fromDate",
-      label: <FormattedMessage {...Payrollmessages["fromdate"]} />,
+      label: intl.formatMessage(Payrollmessages["fromdate"]),
       options: {
         filter: true,
         customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
@@ -247,7 +247,7 @@ function ShiftTransfere(props) {
     },
     {
       name: "toDate",
-      label: <FormattedMessage {...Payrollmessages["todate"]} />,
+      label: intl.formatMessage(Payrollmessages["todate"]),
       options: {
         filter: true,
         customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
@@ -255,56 +255,56 @@ function ShiftTransfere(props) {
     },
     {
       name: "workHours",
-      label: <FormattedMessage {...messages["hours"]} />,
+      label: intl.formatMessage(messages["hours"]),
       options: {
         filter: true,
       },
     },
     {
       name: "vsaturday",
-      label: <FormattedMessage {...Payrollmessages["saturday"]} />,
+      label: intl.formatMessage(Payrollmessages["saturday"]),
       options: {
         filter: true,
       },
     },
     {
       name: "vsunday",
-      label: <FormattedMessage {...Payrollmessages["sunday"]} />,
+      label: intl.formatMessage(Payrollmessages["sunday"]),
       options: {
         filter: true,
       },
     },
     {
       name: "vmonday",
-      label: <FormattedMessage {...Payrollmessages["monday"]} />,
+      label: intl.formatMessage(Payrollmessages["monday"]),
       options: {
         filter: true,
       },
     },
     {
       name: "vtuesday",
-      label: <FormattedMessage {...Payrollmessages["tuesday"]} />,
+      label: intl.formatMessage(Payrollmessages["tuesday"]),
       options: {
         filter: true,
       },
     },
     {
       name: "vwednesday",
-      label: <FormattedMessage {...Payrollmessages["wednesday"]} />,
+      label: intl.formatMessage(Payrollmessages["wednesday"]),
       options: {
         filter: true,
       },
     },
     {
       name: "vthursday",
-      label: <FormattedMessage {...Payrollmessages["thursday"]} />,
+      label: intl.formatMessage(Payrollmessages["thursday"]),
       options: {
         filter: true,
       },
     },
     {
       name: "vfriday",
-      label: <FormattedMessage {...Payrollmessages["friday"]} />,
+      label: intl.formatMessage(Payrollmessages["friday"]),
       options: {
         filter: true,
       },

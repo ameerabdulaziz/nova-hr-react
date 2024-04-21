@@ -364,7 +364,7 @@ function SalaryCalculation(props) {
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
+      label: intl.formatMessage(Payrollmessages["employeeName"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -372,7 +372,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "yearName",
-      label: <FormattedMessage {...Payrollmessages["yearName"]} />,
+      label: intl.formatMessage(Payrollmessages["yearName"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -380,7 +380,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "monthName",
-      label: <FormattedMessage {...Payrollmessages["monthName"]} />,
+      label: intl.formatMessage(Payrollmessages["monthName"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -388,7 +388,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "grossSal",
-      label: <FormattedMessage {...messages["grossSal"]} />,
+      label: intl.formatMessage(messages["grossSal"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -396,7 +396,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "empInsSalary",
-      label: <FormattedMessage {...messages["empInsSalary"]} />,
+      label: intl.formatMessage(messages["empInsSalary"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -404,7 +404,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "insuCompValFixed",
-      label: <FormattedMessage {...messages["insuCompValFixed"]} />,
+      label: intl.formatMessage(messages["insuCompValFixed"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -412,7 +412,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "insuEmpValFixed",
-      label: <FormattedMessage {...messages["insuEmpValFixed"]} />,
+      label: intl.formatMessage(messages["insuEmpValFixed"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -420,7 +420,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "taxBool",
-      label: <FormattedMessage {...messages["taxBool"]} />,
+      label: intl.formatMessage(messages["taxBool"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -428,7 +428,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "taxVal",
-      label: <FormattedMessage {...messages["taxVal"]} />,
+      label: intl.formatMessage(messages["taxVal"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -436,7 +436,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "totDed",
-      label: <FormattedMessage {...messages["totDed"]} />,
+      label: intl.formatMessage(messages["totDed"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -444,7 +444,7 @@ function SalaryCalculation(props) {
     },
     {
       name: "netSal",
-      label: <FormattedMessage {...messages["netSal"]} />,
+      label: intl.formatMessage(messages["netSal"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),

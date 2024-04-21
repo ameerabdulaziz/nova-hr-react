@@ -257,7 +257,7 @@ function EmployeeAttendance(props) {
       setIsStop(false);
       setIsDrop(false);
     }
-    debugger;
+
     if (event.target.name == "startTime") {
       if (data.endTime != "") {
         var diff =
@@ -424,21 +424,21 @@ function EmployeeAttendance(props) {
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
+      label: intl.formatMessage(Payrollmessages["employeeName"]),
       options: {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "organizationName",
-      label: <FormattedMessage {...Payrollmessages["organizationName"]} />,
+      label: intl.formatMessage(Payrollmessages["organizationName"]),
       options: {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "shiftCode",
-      label: <FormattedMessage {...messages["shiftCode"]} />,
+      label: intl.formatMessage(messages["shiftCode"]),
       options: {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
@@ -446,42 +446,42 @@ function EmployeeAttendance(props) {
 
     {
       name: "shiftName",
-      label: <FormattedMessage {...messages["shiftName"]} />,
+      label: intl.formatMessage(messages["shiftName"]),
       options: {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "weekDayName",
-      label: <FormattedMessage {...Payrollmessages["weekDayName"]} />,
+      label: intl.formatMessage(Payrollmessages["weekDayName"]),
       options: {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "shiftDate",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
+      label: intl.formatMessage(Payrollmessages["date"]),
       options: {
         customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
       },
     },
     {
       name: "timeIn",
-      label: <FormattedMessage {...messages["timeIn"]} />,
+      label: intl.formatMessage(messages["timeIn"]),
       options: {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "timeOut",
-      label: <FormattedMessage {...messages["timeOut"]} />,
+      label: intl.formatMessage(messages["timeOut"]),
       options: {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
       name: "notes",
-      label: <FormattedMessage {...messages["notes"]} />,
+      label: intl.formatMessage(messages["notes"]),
       options: {
         customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
@@ -489,6 +489,7 @@ function EmployeeAttendance(props) {
 
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages["Actions"]),
       options: {
         filter: false,
 

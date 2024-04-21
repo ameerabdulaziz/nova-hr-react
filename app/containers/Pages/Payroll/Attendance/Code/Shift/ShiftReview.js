@@ -15,9 +15,7 @@ import {
 } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { format } from "date-fns";
 import CheckIcon from "@mui/icons-material/Check";
@@ -144,7 +142,7 @@ function ShiftReview(props) {
     },
     {
       name: "weekDayName",
-      label: <FormattedMessage {...Payrollmessages["weekDayName"]} />,
+      label: intl.formatMessage(Payrollmessages["weekDayName"]),
       options: {
         filter: false,
         customBodyRender: (value) => <pre>{value}</pre>,
@@ -152,7 +150,7 @@ function ShiftReview(props) {
     },
     {
       name: "shiftDate",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
+      label: intl.formatMessage(Payrollmessages["date"]),
       options: {
         filter: false,
         customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd")}</pre>),
@@ -160,14 +158,14 @@ function ShiftReview(props) {
     },
     {
       name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
+      label: intl.formatMessage(Payrollmessages["employeeName"]),
       options: {
         filter: true,
       },
     },
     /* {
       name: "shiftCode",
-      label: <FormattedMessage {...messages["shiftId"]} />,
+      label: intl.formatMessage(messages["shiftId"]),
       options: {
         filter: true,
       },
@@ -175,7 +173,7 @@ function ShiftReview(props) {
 
     {
       name: "shiftName",
-      label: <FormattedMessage {...messages["shiftName"]} />,
+      label: intl.formatMessage(messages["shiftName"]),
       options: {
         filter: true,
       },
@@ -183,7 +181,7 @@ function ShiftReview(props) {
 
     {
       name: "timeIn",
-      label: <FormattedMessage {...messages["timeIn"]} />,
+      label: intl.formatMessage(messages["timeIn"]),
       options: {
         filter: true,
         customBodyRender: (value) => (<pre>{formateDate(value, 'yyyy-MM-dd hh:mm:ss a')}</pre>),
@@ -191,7 +189,7 @@ function ShiftReview(props) {
     },
     {
       name: "timeOut",
-      label: <FormattedMessage {...messages["timeOut"]} />,
+      label: intl.formatMessage(messages["timeOut"]),
       options: {
         customBodyRender: (value) => (<pre>{formateDate(value, 'yyyy-MM-dd hh:mm:ss a')}</pre>),
         filter: true,
@@ -199,35 +197,35 @@ function ShiftReview(props) {
     },
     {
       name: "lateMin",
-      label: <FormattedMessage {...messages["lateMin"]} />,
+      label: intl.formatMessage(messages["lateMin"]),
       options: {
         filter: true,
       },
     },
     {
       name: "extraTime",
-      label: <FormattedMessage {...messages["extraTime"]} />,
+      label: intl.formatMessage(messages["extraTime"]),
       options: {
         filter: true,
       },
     },
     {
       name: "lessTime",
-      label: <FormattedMessage {...messages["lessTime"]} />,
+      label: intl.formatMessage(messages["lessTime"]),
       options: {
         filter: true,
       },
     },
     {
       name: "breakTime",
-      label: <FormattedMessage {...messages["breakTime"]} />,
+      label: intl.formatMessage(messages["breakTime"]),
       options: {
         filter: true,
       },
     },
     {
       name: "vac",
-      label: <FormattedMessage {...messages["vac"]} />,
+      label: intl.formatMessage(messages["vac"]),
       options: {
         filter: true,
         customBodyRender: (value) => CheckBox(value),
@@ -236,7 +234,7 @@ function ShiftReview(props) {
 
     {
       name: "mission",
-      label: <FormattedMessage {...messages["mission"]} />,
+      label: intl.formatMessage(messages["mission"]),
       options: {
         filter: true,
         customBodyRender: (value) => CheckBox(value),
@@ -244,7 +242,7 @@ function ShiftReview(props) {
     },
     {
       name: "per",
-      label: <FormattedMessage {...messages["per"]} />,
+      label: intl.formatMessage(messages["per"]),
 
       options: {
         filter: true,
@@ -253,14 +251,14 @@ function ShiftReview(props) {
     },
     {
       name: "shiftVacancy",
-      label: <FormattedMessage {...messages["shiftVacancy"]} />,
+      label: intl.formatMessage(messages["shiftVacancy"]),
       options: {
         filter: true,
       },
     },
     {
       name: "absence",
-      label: <FormattedMessage {...messages["absence"]} />,
+      label: intl.formatMessage(messages["absence"]),
       options: {
         filter: true,
       },

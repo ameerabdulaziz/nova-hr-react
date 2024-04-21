@@ -22,7 +22,7 @@ function DataFromAllDevices(props) {
 
   async function fetchData() {
     try {
-      debugger;
+
       const dataApi = await ApiData(locale).GetList();
       setdata(dataApi);
     } catch (err) {
@@ -33,7 +33,7 @@ function DataFromAllDevices(props) {
 
   async function handleGetData(selectedRows) {
     try {
-      debugger;
+
       const params = [];
       for (let i = 0; i < selectedRows.data.length; i++) {
         params.push(data[selectedRows.data[i].dataIndex].id);
@@ -71,7 +71,7 @@ function DataFromAllDevices(props) {
     },
     {
       name: "arName",
-      label: <FormattedMessage {...Payrollmessages["arName"]} />,
+      label: intl.formatMessage(Payrollmessages["arName"]),
       options: {
         filter: true,
       },
@@ -79,7 +79,7 @@ function DataFromAllDevices(props) {
 
     {
       name: "enName",
-      label: <FormattedMessage {...Payrollmessages["enName"]} />,
+      label: intl.formatMessage(Payrollmessages["enName"]),
       options: {
         filter: true,
       },
@@ -87,14 +87,14 @@ function DataFromAllDevices(props) {
 
     {
       name: "ip",
-      label: <FormattedMessage {...messages["ip"]} />,
+      label: intl.formatMessage(messages["ip"]),
       options: {
         filter: true,
       },
     },
     {
       name: "port",
-      label: <FormattedMessage {...messages["port"]} />,
+      label: intl.formatMessage(messages["port"]),
       options: {
         filter: true,
       },
@@ -102,7 +102,7 @@ function DataFromAllDevices(props) {
 
     {
       name: "lastLog",
-      label: <FormattedMessage {...messages["lastLog"]} />,
+      label: intl.formatMessage(messages["lastLog"]),
       options: {
         filter: true,
         /*  customBodyRender: (value) =>

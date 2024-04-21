@@ -524,7 +524,7 @@ function ElementValList(props) {
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
+      label: intl.formatMessage(Payrollmessages["employeeName"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -532,7 +532,7 @@ function ElementValList(props) {
     },
     {
       name: "transDate",
-      label: <FormattedMessage {...Payrollmessages["date"]} />,
+      label: intl.formatMessage(Payrollmessages["date"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : ''),
@@ -540,7 +540,7 @@ function ElementValList(props) {
     },
     {
       name: "payTemplateName",
-      label: <FormattedMessage {...messages["payTemplate"]} />,
+      label: intl.formatMessage(messages["payTemplate"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -548,7 +548,7 @@ function ElementValList(props) {
     },
     {
       name: "elementName",
-      label: <FormattedMessage {...Payrollmessages["element"]} />,
+      label: intl.formatMessage(Payrollmessages["element"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -556,7 +556,7 @@ function ElementValList(props) {
     },
     {
       name: "elementType",
-      label: <FormattedMessage {...messages["elementType"]} />,
+      label: intl.formatMessage(messages["elementType"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -564,7 +564,7 @@ function ElementValList(props) {
     },
     {
       name: "elementMode",
-      label: <FormattedMessage {...messages["elementMode"]} />,
+      label: intl.formatMessage(messages["elementMode"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -572,7 +572,7 @@ function ElementValList(props) {
     },
     {
       name: "elemVal",
-      label: <FormattedMessage {...messages["val"]} />,
+      label: intl.formatMessage(messages["val"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -580,7 +580,7 @@ function ElementValList(props) {
     },
     {
       name: "trxSorce",
-      label: <FormattedMessage {...messages["source"]} />,
+      label: intl.formatMessage(messages["source"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
@@ -588,7 +588,7 @@ function ElementValList(props) {
     },
     {
       name: "notes",
-      label: <FormattedMessage {...Payrollmessages["notes"]} />,
+      label: intl.formatMessage(Payrollmessages["notes"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <div style={{maxWidth: "200px", width: "max-content"}}>{value}</div> : ''),
@@ -596,6 +596,7 @@ function ElementValList(props) {
     },
     {
       name: "Actions",
+      label: intl.formatMessage(Payrollmessages["Actions"]),
       options: {
         filter: false,
 

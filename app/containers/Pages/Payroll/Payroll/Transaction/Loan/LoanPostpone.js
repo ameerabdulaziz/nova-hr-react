@@ -239,14 +239,14 @@ function LoanPostpone(props) {
 
     {
       name: "employeeName",
-      label: <FormattedMessage {...Payrollmessages["employeeName"]} />,
+      label: intl.formatMessage(Payrollmessages["employeeName"]),
       options: {
         filter: true,
       },
     },
     {
       name: "payVal",
-      label: <FormattedMessage {...messages["payvalue"]} />,
+      label: intl.formatMessage(messages["payvalue"]),
       options: {
         filter: true,
       },

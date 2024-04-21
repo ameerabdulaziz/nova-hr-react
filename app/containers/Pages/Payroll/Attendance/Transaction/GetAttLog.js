@@ -240,14 +240,14 @@ function DataFromAllDevices(props) {
   const columns = [
     {
       name: "enrollNumber",
-      //label: <FormattedMessage {...Payrollmessages["employeeId"]} />,
+      //label: intl.formatMessage(Payrollmessages["employeeId"]),
       options: {
         filter: true,
       },
     },
     {
       name: "date",
-      label: <FormattedMessage {...messages["date"]} />,
+      label: intl.formatMessage(messages["date"]),
       options: {
         filter: true,
         /*  customBodyRender: (value) =>
@@ -257,7 +257,7 @@ function DataFromAllDevices(props) {
 
     {
       name: "verifyMode",
-      //label: <FormattedMessage {...messages["verifyMode"]} />,
+      //label: intl.formatMessage(messages["verifyMode"]),
       options: {
         filter: true,
       },
@@ -265,14 +265,14 @@ function DataFromAllDevices(props) {
 
     {
       name: "inOutMode",
-      //label: <FormattedMessage {...messages["inOutMode"]} />,
+      //label: intl.formatMessage(messages["inOutMode"]),
       options: {
         filter: true,
       },
     },
     {
       name: "workCode",
-      //label: <FormattedMessage {...messages["workCode"]} />,
+      //label: intl.formatMessage(messages["workCode"]),
       options: {
         filter: true,
       },
