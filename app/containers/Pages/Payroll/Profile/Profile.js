@@ -5,10 +5,8 @@ import AppBar from '@mui/material/AppBar';
 import Hidden from '@mui/material/Hidden';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import brand from 'enl-api/dummy/brand';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import useStyles from '../../../../components/Profile/cover-jss';
@@ -30,8 +28,6 @@ TabContainer.propTypes = { children: PropTypes.node.isRequired };
 function Profile(props) {
   const { intl } = props;
   const { classes } = useStyles();
-  const title = brand.name + ' - Profile';
-  const description = brand.desc;
 
   const locale = useSelector((state) => state.language.locale);
 
@@ -83,15 +79,6 @@ function Profile(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <Helmet>
-        <title>{title}</title>
-        <meta name='description' content={description} />
-        <meta property='og:title' content={title} />
-        <meta property='og:description' content={description} />
-        <meta property='twitter:title' content={title} />
-        <meta property='twitter:description' content={description} />
-      </Helmet>
-
       <Cover
         coverImg=''
         avatar={profileInfo.photo}

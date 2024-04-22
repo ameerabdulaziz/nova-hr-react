@@ -1,7 +1,5 @@
 import React, { useEffect,useState } from "react";
 import { useHistory } from "react-router-dom";
-import brand from "enl-api/dummy/brand";
-import { Helmet } from "react-helmet";
 import Hidden from "@mui/material/Hidden";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -18,8 +16,6 @@ import RewardsPenaltyWidget  from "./Component/RewardsPenaltyWidget";
 import useStyles from "./dashboard-jss";
 
 function EmployeeDashboard() {
-  // const title = brand.name + " - HR Dashboard";
-  const description = brand.desc;
   const { classes } = useStyles();
   const history = useHistory();
   const IsHR = localStorage.getItem("IsHR");
@@ -34,25 +30,8 @@ function EmployeeDashboard() {
     else history.push("/app/EmployeeDashboard");
   }, []);
 
-  // useEffect(()=>{
-  //   localStorage.setItem(
-  //     "MenuName", "HR Dashboard2")
-  // },[])
-
-  console.log("tttt");
   return (
     <div>
-      {/* <Helmet>
-         //<title>{title}</title>
-        <title>{brand.name + " - " + title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet> */}
-      
-      
       <Grid container spacing={3} className={classes.root}>
         <Grid item xs={12}>
           <PerformanceChartWidget2 />

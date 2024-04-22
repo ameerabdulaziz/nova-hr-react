@@ -2,8 +2,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { makeStyles } from 'tss-react/mui';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import brand from 'enl-api/dummy/brand';
 import { PapperBlock } from 'enl-components';
 import { injectIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,7 +17,6 @@ const useStyles = makeStyles()(() => ({
 
 function Bank() {
   const title = localStorage.getItem('MenuName');
-  const description = brand.desc;
   const { classes } = useStyles();
 
   const anchorTable = [
@@ -89,14 +86,6 @@ function Bank() {
 
   return (
     <div>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <div className={classes.root}>
           <EditTable

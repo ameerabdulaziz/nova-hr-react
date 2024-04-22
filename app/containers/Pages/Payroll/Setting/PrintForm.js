@@ -7,7 +7,6 @@ import { PapperBlock } from 'enl-components';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
@@ -20,8 +19,7 @@ import messages from './messages';
 function PrintForm(props) {
   const { intl } = props;
 
-  const title = brand.name;
-  const description = brand.desc;
+  const title = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
   const company = useSelector((state) => state.authReducer.companyInfo);
@@ -142,15 +140,6 @@ function PrintForm(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <Helmet>
-        <title>{title}</title>
-        <meta name='description' content={description} />
-        <meta property='og:title' content={title} />
-        <meta property='og:description' content={description} />
-        <meta property='twitter:title' content={title} />
-        <meta property='twitter:description' content={description} />
-      </Helmet>
-
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>

@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
-import brand from 'enl-api/dummy/brand';
 import { PapperBlock } from 'enl-components';
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { makeStyles } from 'tss-react/mui';
 import { EditTable } from '../../../../Tables/demos';
@@ -16,7 +14,6 @@ const useStyles = makeStyles()(() => ({
 
 function MinsuranceCenters() {
   const title = localStorage.getItem('MenuName');
-  const description = brand.desc;
   const { classes } = useStyles();
 
   const anchorTable = [
@@ -77,15 +74,6 @@ function MinsuranceCenters() {
 
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
-
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <div className={classes.root}>
           <EditTable

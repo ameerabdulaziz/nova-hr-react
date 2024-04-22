@@ -1,6 +1,4 @@
 import React,{useEffect,useState} from "react";
-import brand from "enl-api/dummy/brand";
-import { Helmet } from "react-helmet";
 import Hidden from "@mui/material/Hidden";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -18,8 +16,6 @@ import AbscencebichartWidget from "./Component/AbscencebichartWidget";
 import useStyles from "./dashboard-jss";
 
 function AdminDashboard() {
-  // const title = brand.name + " - HR Dashboard";
-  const description = brand.desc;
   const { classes } = useStyles();
   const history = useHistory();
   const IsHR = localStorage.getItem("IsHR");
@@ -33,22 +29,8 @@ function AdminDashboard() {
     else history.push("/app/EmployeeDashboard");
   }, []);
 
-  // useEffect(()=>{
-  //   localStorage.setItem(
-  //     "MenuName", "HR Dashboard777")
-  // },[])
-
   return (
     <div>
-      {/* <Helmet>
-       // <title>{title}</title>
-        <title>{brand.name + " - " + title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet> */}
       {/* 1st Section */}
       <Grid container spacing={0} className={classes.root}>
         <Grid item xs={12}>

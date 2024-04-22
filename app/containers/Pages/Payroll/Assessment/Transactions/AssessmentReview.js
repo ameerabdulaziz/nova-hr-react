@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
-import brand from "enl-api/dummy/brand";
 import AssessmentReviewData from "../api/AssessmentReviewData";
 import messages from "../messages";
 import Payrollmessages from '../../messages';
@@ -29,8 +27,6 @@ import { formateDate, getDefaultYearAndMonth } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
 
 function AssessmentReview({ intl }) {
-  const title = brand.name + " - AssessmentReview";
-  const description = brand.desc;
   const { classes, cx } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [dataTable, setDataTable] = useState([]);
@@ -160,16 +156,6 @@ function AssessmentReview({ intl }) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
-
 
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         

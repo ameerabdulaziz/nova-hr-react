@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { Helmet } from "react-helmet";
-import brand from "enl-api/dummy/brand";
 import { PapperBlock } from "enl-components";
 import { injectIntl } from "react-intl";
 import MUIDataTable from "mui-datatables";
@@ -26,8 +24,6 @@ import TextField from "@mui/material/TextField";
 import messages from "../messages";
 
 function UploadEmployeeData({ intl }) {
-  const title = brand.name + " - Job";
-  const description = brand.desc;
   const { classes, cx } = useStyles();
   const smUp = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const locale = useSelector((state) => state.language.locale);
@@ -99,14 +95,6 @@ function UploadEmployeeData({ intl }) {
 
   return (
     <div>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
       <PapperBlock whiteBg icon="border_color" title="" desc="">
         <div className={`${classes.root} ${classes2.btnsContainer}`}>
           <Toolbar className={classes.toolbar}>

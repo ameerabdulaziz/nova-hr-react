@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import brand from "enl-api/dummy/brand";
-import { Helmet } from "react-helmet";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import SalaryYearlyWidget from "./Component/SalaryYearlyWidget";
@@ -18,8 +16,6 @@ import VacWidget from "./Component/VacWidget";
 import AbscencebichartWidget from "./Component/AbscencebichartWidget";
 
 function ManagementDashboard() {
-  // const title = brand.name + " - Management Dashboard";
-  const description = brand.desc;
   const { classes } = useStyles();
   const history = useHistory();
   const IsHR = localStorage.getItem("IsHR");
@@ -33,14 +29,6 @@ function ManagementDashboard() {
   }, []);
   return (
     <div>
-      {/* <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet> */}
       <StatisticsWidget />
       <Divider className={classes.divider} />
       <SalaryChartWidget />

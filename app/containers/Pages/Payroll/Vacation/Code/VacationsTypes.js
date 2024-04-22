@@ -1,7 +1,6 @@
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -114,15 +113,6 @@ function VacationsTypes({ intl }) {
 
   return (
     <>
-      {/* <Helmet>
-        <title>{menuName}</title>
-        <meta name='description' content={menu?.description} />
-        <meta property='og:title' content={menuName} />
-        <meta property='og:description' content={menu?.description} />
-        <meta property='twitter:title' content={menuName} />
-        <meta property='twitter:description' content={menu?.description} />
-      </Helmet> */}
-
       <PayrollTable
         isLoading={isLoading}
         showLoader

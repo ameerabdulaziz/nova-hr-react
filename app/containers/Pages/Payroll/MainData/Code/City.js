@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { makeStyles } from 'tss-react/mui';
-import { Helmet } from 'react-helmet';
-import brand from 'enl-api/dummy/brand';
+// import { Helmet } from 'react-helmet';
+// import brand from 'enl-api/dummy/brand';
 import { PapperBlock } from 'enl-components';
 
 import { EditTable } from '../../../../Tables/demos';
@@ -22,7 +22,6 @@ function City(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const title = localStorage.getItem('MenuName');
-  const description = brand.desc;
   const { classes } = useStyles();
 
   const anchorTable = [
@@ -84,14 +83,6 @@ function City(props) {
 
   return (
     <div>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-      </Helmet>
       <PapperBlock whiteBg icon="border_color" title={title ?? ''} desc="">
         <div className={classes.root}>
           {
