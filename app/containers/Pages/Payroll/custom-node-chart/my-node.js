@@ -1,9 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./my-node.css";
-import call from "./icons8-call-50.png";
-import video from "./icons8-video-24.png";
-import chat from "./icons8-chat-50.png";
 import randomcolor from "randomcolor";
 import Face2Icon from '@mui/icons-material/Face2';
 
@@ -54,21 +51,9 @@ const MyNode = ({ nodeData }) => {
             <div className="card-body">
             <h2>{nodeData.deptname}</h2>
             <p className="name">{nodeData.empname}</p>
-            <p>{nodeData.title}</p>
             </div>
             <div className="card-footer" style={{ background: colors[nodeData.levelNo] }}>
-            <img
-                src={chat}
-                alt="Chat"
-            />
-            <img
-                src={call}
-                alt="Call"
-            />
-            <img
-                src={video}
-                alt="Video"
-            />
+              {nodeData.title}
             </div>
             <div></div>
         </div>
