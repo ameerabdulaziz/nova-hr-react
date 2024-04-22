@@ -114,14 +114,14 @@ function VacationsTypes({ intl }) {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>{menuName}</title>
         <meta name='description' content={menu?.description} />
         <meta property='og:title' content={menuName} />
         <meta property='og:description' content={menu?.description} />
         <meta property='twitter:title' content={menuName} />
         <meta property='twitter:description' content={menu?.description} />
-      </Helmet>
+      </Helmet> */}
 
       <PayrollTable
         isLoading={isLoading}

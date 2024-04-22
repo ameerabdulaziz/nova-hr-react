@@ -22,6 +22,8 @@ import {
   syncUser,
   syncUserMenu,
 } from "../../redux/actions/authActions";
+import { Helmet } from "react-helmet";
+import brand from "enl-api/dummy/brand";
 
 function Dashboard(props) {
   const { classes, cx } = useStyles();
@@ -42,9 +44,11 @@ function Dashboard(props) {
   } = props;
   const [appHeight, setAppHeight] = useState(0);
   const [openGuide, setOpenGuide] = useState(false);
+  const [title, setTitle] = useState(localStorage.getItem("MenuName"));
   //const getAuth = useSelector(state => state.authReducer.user);
   const Dispatcher = useDispatch();
   const Auth = useSelector((state) => state.authReducer.loggedIn);
+  const description = brand.desc;
 
   const titleException = [
     "/app",
@@ -97,7 +101,7 @@ function Dashboard(props) {
     pathname != "/app/ManagementDashboard" &&
     dataMenu
   ) {
-    debugger;
+
 
     var isFound = false;
     //children.props.children[0].props.path
@@ -116,6 +120,16 @@ function Dashboard(props) {
     }
     if (isFound) history.push(`/app/pages/error`);
   }
+
+  // used to read page name ( MenuName ) from localStorage
+  useEffect(()=>{
+    if(localStorage.getItem("MenuName"))
+    {
+      console.log("innnn = ", localStorage.getItem("MenuName"));
+      setTitle(localStorage.getItem("MenuName"))
+    }
+
+  },[localStorage.getItem("MenuName")])
 
   const profile = (userProfile) => {
     if (userProfile) {
@@ -237,6 +251,14 @@ function Dashboard(props) {
         mode === "dark" ? "dark-mode" : "light-mode"
       )}
     >
+       <Helmet>
+        <title>{brand.name + " - " + title}</title>
+        <meta name='description' content={description} />
+        <meta property='og:title' content={title} />
+        <meta property='og:description' content={description} />
+        <meta property='twitter:title' content={title} />
+        <meta property='twitter:description' content={description} />
+      </Helmet>
       <GuideSlider openGuide={openGuide} closeGuide={handleCloseGuide} />
       {
         /* Left Sidebar Layout */

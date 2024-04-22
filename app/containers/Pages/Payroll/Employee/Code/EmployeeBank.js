@@ -35,7 +35,6 @@ import css from 'enl-styles/Form.scss';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -49,6 +48,7 @@ import TemplatePopup from '../component/BankList/TemplatePopup';
 import messages from '../messages';
 import { uuid } from '../../helpers';
 import DecryptUrl from "../../Component/DecryptUrl";
+import { PapperBlock } from 'enl-components';
 
 const INIT_FORM_INFO = {
   id: 0,
@@ -70,7 +70,7 @@ function EmployeeBank(props) {
   const { intl } = props;
 
 
-  const title = brand.name + ' - Banks';
+  const title = localStorage.getItem('MenuName');
   const description = brand.desc;
   const { classes, cx } = useStyles();
 
@@ -315,15 +315,6 @@ function EmployeeBank(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <Helmet>
-        <title>{title}</title>
-        <meta name='description' content={description} />
-        <meta property='og:title' content={title} />
-        <meta property='og:description' content={description} />
-        <meta property='twitter:title' content={title} />
-        <meta property='twitter:description' content={description} />
-      </Helmet>
-
       <TemplatePopup
         isOpen={isPopupOpen}
         setIsOpen={setIsPopupOpen}
@@ -333,7 +324,7 @@ function EmployeeBank(props) {
         currencyList={currencyList}
         payTemplateList={payTemplateList}
       />
-
+<PapperBlock whiteBg icon='border_color' title={title} desc=''>
       <form onSubmit={onFormSubmit}>
         <div className={cx(classes.root, classes.padding)}>
         <Grid container >
@@ -677,6 +668,7 @@ function EmployeeBank(props) {
           </Grid>
         </div>
       </form>
+      </PapperBlock>
     </PayRollLoader>
   );
 }

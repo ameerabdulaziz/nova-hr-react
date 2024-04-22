@@ -43,7 +43,6 @@ function Login() {
   async function fetchData() {
     if (valueForm) {
       try {
-        debugger;
         Dispatcher(login());
 
         const data = {
@@ -77,6 +76,7 @@ function Login() {
           branchId: res.data.branchId,
         };
         Dispatcher(syncUser(user));
+        localStorage.setItem("MenuName", "Dashboard")
         if (res.data.isHR)
           history.push(redirectTo == null || redirectTo === "/login"  ? "/app" : redirectTo);
         else if (res.data.isManagement)
@@ -102,6 +102,12 @@ function Login() {
   useEffect(() => {
     fetchData();
   }, [valueForm]);
+
+  // clear (Menu , MenuName ) from localStorage
+  useEffect(() => {
+    localStorage.removeItem("Menu");
+    localStorage.removeItem("MenuName");
+  }, []);
 
   return (
     <div className={classes.rootFull}>

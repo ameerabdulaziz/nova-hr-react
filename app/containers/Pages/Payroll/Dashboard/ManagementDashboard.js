@@ -18,7 +18,7 @@ import VacWidget from "./Component/VacWidget";
 import AbscencebichartWidget from "./Component/AbscencebichartWidget";
 
 function ManagementDashboard() {
-  const title = brand.name + " - Management Dashboard";
+  // const title = brand.name + " - Management Dashboard";
   const description = brand.desc;
   const { classes } = useStyles();
   const history = useHistory();
@@ -26,20 +26,21 @@ function ManagementDashboard() {
   const IsManagement = localStorage.getItem("IsManagement");
 
   useEffect(() => {
+    localStorage.setItem("MenuName", "Dashboard")
     if (IsHR=="true") history.push("/app");
     else if (IsManagement=="true") history.push("/app/ManagementDashboard");
     else history.push("/app/EmployeeDashboard");
   }, []);
   return (
     <div>
-      <Helmet>
+      {/* <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
-      </Helmet>
+      </Helmet> */}
       <StatisticsWidget />
       <Divider className={classes.divider} />
       <SalaryChartWidget />

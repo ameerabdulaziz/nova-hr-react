@@ -2,8 +2,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { makeStyles } from 'tss-react/mui';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import brand from 'enl-api/dummy/brand';
 import { PapperBlock } from 'enl-components';
 import { injectIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,8 +30,6 @@ function EmployeeCourse(props) {
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
   const [employeeList, setEmployeeList] = useState([]);
   const title = 'Employee Course'; //localStorage.getItem('MenuName');
-  const description = brand.desc;
-  console.log(description + '*' + title);
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
 
