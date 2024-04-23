@@ -83,9 +83,9 @@ function LeaveTrxCreate(props) {
     ReplaceDate: '',
     alternativeTask: null,
 
-    trxDate: null,
-    fromDate: null,
-    toDate: null,
+    trxDate: dayjs(),
+    fromDate: dayjs(),
+    toDate: dayjs(),
     replaceDate: null,
     daysCount: '',
     dayDeducedBy: '',
@@ -180,7 +180,9 @@ function LeaveTrxCreate(props) {
   };
 
   const calculateDaysCount = () => {
-    if (formInfo.toDate && formInfo.fromDate) {
+    const isValidDate = dayjs(formInfo.fromDate).isValid() && dayjs(formInfo.toDate).isValid();
+
+    if (formInfo.toDate && formInfo.fromDate && isValidDate) {
       const obj = {
         toDate: formInfo.toDate,
         fromDate: formInfo.fromDate,
@@ -190,14 +192,12 @@ function LeaveTrxCreate(props) {
       if (formInfo.vacCode === 5 || selectedLeave?.haveReplacementDay) {
         obj.toDate = formInfo.fromDate;
       } else {
-        const dateDiffTo = new Date(formateDate(formInfo.toDate)).getTime();
-        const dateDiffFrom = new Date(formateDate(formInfo.fromDate)).getTime();
+        const dateDiffTo = formateDate(formInfo.toDate);
+        const dateDiffFrom = formateDate(formInfo.fromDate);
 
-        const timeDiff = dateDiffTo - dateDiffFrom;
+        const daysCount = dayjs(dateDiffTo).diff(dateDiffFrom, 'days');
 
-        const daysCount = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-
-        obj.daysCount = timeDiff >= 0 ? daysCount + 1 : 0;
+        obj.daysCount = daysCount >= 0 ? daysCount + 1 : 0;
       }
 
       setFormInfo((prev) => ({ ...prev, ...obj }));
