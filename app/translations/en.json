@@ -2607,6 +2607,8 @@
 
   "boilerplate.containers.Payroll.vac.Transaction.VacationType": "Leave type",
   "boilerplate.containers.Payroll.vac.Transaction.startDate": "Start date",
+  "boilerplate.containers.Payroll.vac.Transaction.replaceDate": "Replacement date",
+  "boilerplate.containers.Payroll.vac.Transaction.daysCountShouldBeBetween0And1": "Days Count Should Be Between 0 And 1",
   "boilerplate.containers.Payroll.vac.Transaction.endDate": "End date",
   "boilerplate.containers.Payroll.vac.Transaction.totalDays": "Total days",
   "boilerplate.containers.Payroll.vac.Transaction.ReasonForVacation": "Reason for leave",

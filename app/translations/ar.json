@@ -2654,7 +2654,9 @@
 
   "boilerplate.containers.Payroll.vac.Transaction.VacationType": "نوع الإجازة",
   "boilerplate.containers.Payroll.vac.Transaction.startDate": "تاريخ البدء",
+  "boilerplate.containers.Payroll.vac.Transaction.daysCountShouldBeBetween0And1": "يجب أن يكون عدد الأيام بين 0 و1",
   "boilerplate.containers.Payroll.vac.Transaction.endDate": "تاريخ الانتهاء",
+  "boilerplate.containers.Payroll.vac.Transaction.replaceDate": "تاريخ الاستبدال",
   "boilerplate.containers.Payroll.vac.Transaction.totalDays": "عدد الايام",
   "boilerplate.containers.Payroll.vac.Transaction.ReasonForVacation": "سبب الإجازة",
   "boilerplate.containers.Payroll.vac.Transaction.employeesErrorMes": "يجب اختيار موظف واحد على الأقل",

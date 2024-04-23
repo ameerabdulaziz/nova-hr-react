@@ -636,4 +636,12 @@ company: {
     id: `${scope}.Transaction.HaveReplacementDay`,
     defaultMessage: 'HaveReplacementDay',
   },
+  replaceDate: {
+    id: `${scope}.Transaction.replaceDate`,
+    defaultMessage: 'replaceDate',
+  },
+  daysCountShouldBeBetween0And1: {
+    id: `${scope}.Transaction.daysCountShouldBeBetween0And1`,
+    defaultMessage: 'daysCountShouldBeBetween0And1',
+  },
 });
