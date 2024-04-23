@@ -3140,5 +3140,7 @@
   "boilerplate.containers.Payroll.SmartObjective.totalWeight": "Total Weight",
   "boilerplate.containers.Payroll.SmartObjective.totalScore": "Total Score",
 
-  "boilerplate.containers.Payroll.KPI.uploadErrorMess": "This data has not been preserved due to incompleteness"
+  "boilerplate.containers.Payroll.KPI.uploadErrorMess": "This data has not been preserved due to incompleteness",
+
+  "boilerplate.containers.Payroll.Employee.ExpiryCardErrMes": "Card Expired"
 }

@@ -128,7 +128,6 @@ function Dashboard(props) {
   useEffect(()=>{
     if(localStorage.getItem("MenuName"))
     {
-      console.log("innnn = ", localStorage.getItem("MenuName"));
       setTitle(localStorage.getItem("MenuName"))
     }
 

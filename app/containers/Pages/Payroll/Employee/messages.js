@@ -866,4 +866,9 @@ export default defineMessages({
     id: `${scope}.empErrMes`,
     defaultMessage: 'You must to choose employee',
   },
+  // personal
+  ExpiryCardErrMes: {
+    id: `${scope}.ExpiryCardErrMes`,
+    defaultMessage: 'Card Expired',
+  },
 });

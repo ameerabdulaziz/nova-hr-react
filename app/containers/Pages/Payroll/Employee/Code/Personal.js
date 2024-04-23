@@ -37,6 +37,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import DecryptUrl from "../../Component/DecryptUrl";
 import { extractBirthDayFromIdentityNumber, formateDate, validateEmail } from "../../helpers";
+import style from '../../../../../styles/styles.scss';
 
 function Personal(props) {
   const history = useHistory();
@@ -77,6 +78,7 @@ function Personal(props) {
   const [identityTypeList, setidentityTypeList] = useState([]);
   const [identityIssuingDate, setidentityIssuingDate] = useState(null);
   const [identityExpiry, setidentityExpiry] = useState(null);
+  const [identityExpiryErrMes, setIdentityExpiryErrMes] = useState("");
   const [identityNumber, setidentityNumber] = useState("");
   const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
   const [genderId, setgenderId] = useState(null);
@@ -708,6 +710,22 @@ function Personal(props) {
 
   const sanitizeEmployeeNameInput = (value) => value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, '');
 
+
+  const cardExpiryCheckFun = (date) => {
+    // setIdentityExpiryErrMes
+    const dateCheck = Math.floor( (new Date(date).setHours(0, 0, 0) - new Date()) / 1000 / 60 / 60 / 24) + 1
+    console.log("identityExpiry =", dateCheck);
+    console.log("identityExpiry2 =", date);
+    if(dateCheck <= 0)
+    {
+      setIdentityExpiryErrMes(intl.formatMessage(messages.ExpiryCardErrMes))
+    }
+    else
+    {
+      setIdentityExpiryErrMes("")
+    }
+  }
+
   return (
     <PayRollLoader isLoading={isLoading}>
 
@@ -1104,6 +1122,7 @@ function Personal(props) {
                       className={classes.field}
                         onChange={(date) => {
                           setidentityExpiry(date)
+                          cardExpiryCheckFun(date)
                       }}
                       onError={(error,value)=>{
                         if(error !== null)
@@ -1120,6 +1139,11 @@ function Personal(props) {
                               [`identityExpiry`]: false
                           }))
                         }
+                      }}
+                      slotProps={{
+                        textField: {
+                          helperText: <span className={style.CardExpiredSty}>{identityExpiryErrMes}</span>,
+                        },
                       }}
                       />
                   </LocalizationProvider>
