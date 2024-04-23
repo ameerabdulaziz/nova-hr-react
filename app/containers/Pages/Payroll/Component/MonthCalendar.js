@@ -1,4 +1,12 @@
-import { Chip, Stack } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Chip,
+  Popover,
+  Stack,
+  Typography,
+} from '@mui/material';
+import Divider from '@mui/material/Divider';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,24 +14,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
 import PapperBlock from '../../../../components/PapperBlock/PapperBlock';
+import api from '../Dashboard/api';
 import payrollMessages from '../messages';
-
-const EXAMPLE_DATA = [
-  {
-    title: 'Sample Title 1',
-    description: 'This is the description for sample title 1.',
-    id: 1,
-    date: '2024-01-02',
-  },
-];
+import PayRollLoader from './PayRollLoader';
 
 function MonthCalendar(props) {
   const { intl } = props;
 
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const currentDate = new Date();
+  const locale = useSelector((state) => state.language.locale);
+  const [isLoading, setIsLoading] = useState(false);
+  const [groupedDocuments, setGroupedDocuments] = useState({});
 
   const dayNames = [
     intl.formatMessage(payrollMessages.sunday),
@@ -50,6 +55,35 @@ function MonthCalendar(props) {
     intl.formatMessage(payrollMessages.december),
   ];
 
+  const fetchNeededData = async () => {
+    try {
+      setIsLoading(true);
+
+      const documents = await api(locale).GetCalendarData();
+
+      const groupedByDayNumber = {};
+
+      documents.forEach((doc) => {
+        const key = new Date(doc.date).getDate();
+
+        if (!groupedByDayNumber[key]) {
+          groupedByDayNumber[key] = [];
+        }
+        groupedByDayNumber[key].push(doc);
+      });
+
+      setGroupedDocuments(groupedByDayNumber);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
+
   const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
 
   const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
@@ -57,15 +91,6 @@ function MonthCalendar(props) {
   const generateCalendar = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-
-    const organizedData = EXAMPLE_DATA.reduce((prev, current) => {
-      const day = new Date(current.date).getDate();
-      if (!prev[day]) {
-        prev[day] = [];
-      }
-      prev[day].push(current);
-      return prev;
-    }, {});
 
     const daysInMonth = getDaysInMonth(year, month);
     const firstDayOfMonth = getFirstDayOfMonth(year, month);
@@ -108,28 +133,29 @@ function MonthCalendar(props) {
             verticalAlign: 'unset',
           }}
         >
-          {/* TODO: Handel if data is larger, show only 3 maybe with modal */}
-          <div> {i + 1}</div>
-          {organizedData[i + 1] && (
+          {currentDate.getDate() === i + 1 ? (
+            <Chip
+              size='small'
+              label={i + 1}
+              variant='outlined'
+              sx={{
+                height: 'auto',
+                '& .MuiChip-label': {
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                  maxWidth: '50px',
+                  fontSize: '10px',
+                },
+              }}
+            />
+          ) : (
+            <div> {i + 1}</div>
+          )}
+          {groupedDocuments[i + 1] && (
             <Stack direction='column' spacing='3px'>
-              {organizedData[i + 1].map((item) => (
-                <div key={item.id}>
-                  <Chip
-                    size='small'
-                    label={item.title}
-                    variant='outlined'
-                    sx={{
-                      height: 'auto',
-                      '& .MuiChip-label': {
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                        overflow: 'hidden',
-                        maxWidth: '50px',
-                        fontSize: '10px',
-                      },
-                    }}
-                  />
-                </div>
+              {groupedDocuments[i + 1].map((item, index) => (
+                <HRDivider action={item} key={index} />
               ))}
             </Stack>
           )}
@@ -185,38 +211,83 @@ function MonthCalendar(props) {
   // }
 
   return (
-    <PapperBlock
-      title={`${
-        monthNames[currentDate.getMonth()]
-      } ${currentDate.getFullYear()}`}
-      icon='contacts'
-      whiteBg
-      noMargin
-      desc=''
-    >
-      {/* <button onClick={onPrevClick} >prev</button>
+    <PayRollLoader isLoading={isLoading}>
+      <PapperBlock
+        title={`${
+          monthNames[currentDate.getMonth()]
+        } ${currentDate.getFullYear()}`}
+        icon='contacts'
+        whiteBg
+        noMargin
+        desc=''
+      >
+        {/* <button onClick={onPrevClick} >prev</button>
       <button onClick={onNextClick}>next</button> */}
 
-      <TableContainer>
-        <Table size='small'>
-          <TableHead>
-            <TableRow>
-              {dayNames.map((day, dayIndex) => (
-                <TableCell sx={{ px: 0, fontSize: '12px' }} key={dayIndex}>
-                  {day}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>{generateCalendar()}</TableBody>
-        </Table>
-      </TableContainer>
-    </PapperBlock>
+        <TableContainer>
+          <Table size='small'>
+            <TableHead>
+              <TableRow>
+                {dayNames.map((day, dayIndex) => (
+                  <TableCell sx={{ px: 0, fontSize: '12px' }} key={dayIndex}>
+                    {day}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>{generateCalendar()}</TableBody>
+          </Table>
+        </TableContainer>
+      </PapperBlock>
+    </PayRollLoader>
   );
 }
+const HRDivider = (props) => {
+  const { action } = props;
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  return (
+    <>
+      <Popover
+        sx={{
+          pointerEvents: 'none',
+        }}
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        disableRestoreFocus
+      >
+        <Card sx={{ p: '8px !important' }}>
+          <CardContent>
+            <Typography>{action.title}</Typography>
+            <Typography>{action.details}</Typography>
+          </CardContent>
+        </Card>
+      </Popover>
+
+      <Divider
+        onMouseEnter={(evt) => {
+          setAnchorEl(evt.currentTarget);
+        }}
+        onMouseLeave={() => {
+          setAnchorEl(null);
+        }}
+        sx={{
+          borderColor: 'error.main', // TODO: create function for get color by docType
+          borderWidth: '2px',
+        }}
+      />
+    </>
+  );
+};
 
 MonthCalendar.propTypes = {
   intl: PropTypes.object.isRequired,
+};
+
+HRDivider.propTypes = {
+  action: PropTypes.object.isRequired,
 };
 
 export default injectIntl(MonthCalendar);

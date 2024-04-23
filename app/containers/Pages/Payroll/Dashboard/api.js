@@ -17,6 +17,14 @@ const dashboardData = (locale) => {
     return data.data;
   };
 
+  api.GetCalendarData = async () => {
+    const data = await axiosInstance.get(
+      `Dashboard/GetCalendarData/${locale}`
+    );
+
+    return data.data;
+  };
+
   api.getGenderRatio = async () => {
     const data = await axiosInstance.get(`Dashboard/GetGenderRatio`);
     return data.data;
