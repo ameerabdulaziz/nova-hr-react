@@ -71,10 +71,8 @@ function RowDropdown(props) {
               
               window.open(`${encodeURI(`/app/Pages/Employee/${option.url}/${btoa(JSON.stringify(
                 {
-                  empid: {
                     id: tableMeta.rowData[0],
                     name: tableMeta.rowData[2],
-                  },
                 }
               ))}`)}`, '_blank')?.focus()
 

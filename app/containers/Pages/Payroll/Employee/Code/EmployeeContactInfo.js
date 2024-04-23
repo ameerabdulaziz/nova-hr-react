@@ -17,6 +17,7 @@ import PayRollLoader from "../../Component/PayRollLoader";
 
 import style from '../../../../../styles/styles.scss'
 import DecryptUrl from "../../Component/DecryptUrl";
+import { useLocation } from "react-router-dom";
 
 const email = (value) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
@@ -25,8 +26,10 @@ const email = (value) =>
 
 function EmployeeContactInfo(props) {
 
+  const location = useLocation();
+
   // get employee data from url
-  const empid  = DecryptUrl()
+  const empid  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
 
   const { intl, pristine } = props;
   const title = localStorage.getItem("MenuName");

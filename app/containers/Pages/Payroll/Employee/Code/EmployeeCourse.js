@@ -14,6 +14,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import { CrudTable, Notification } from 'enl-components';
 import { Grid, TextField, Autocomplete } from '@mui/material';
 import DecryptUrl from "../../Component/DecryptUrl";
+import { useLocation } from 'react-router';
 
 // const useStyles = makeStyles()(() => ({
 //   root: {
@@ -23,8 +24,10 @@ import DecryptUrl from "../../Component/DecryptUrl";
 
 function EmployeeCourse(props) {
 
+  const location = useLocation();
+
   // get employee data from url
-  const empid  = DecryptUrl()
+    const empid  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
   const { intl } = props;
 
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });

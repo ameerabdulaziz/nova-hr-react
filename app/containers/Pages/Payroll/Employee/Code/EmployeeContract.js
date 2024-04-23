@@ -23,11 +23,14 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import DecryptUrl from "../../Component/DecryptUrl";
 import ContractTypeData from '../../MainData/api/ContractTypeData';
+import { useLocation } from "react-router-dom";
 
 function EmployeeContract(props) {
 
+  const location = useLocation();
+  
   // get employee data from url
-  const empid  = DecryptUrl()
+  const empid  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
   const { intl, pristine } = props;
 
 

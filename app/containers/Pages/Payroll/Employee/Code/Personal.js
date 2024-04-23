@@ -46,7 +46,7 @@ function Personal(props) {
   const authState = useSelector((state) => state.authReducer);
 
   // get employee data from route state or url
-  const empid  = location.state ? location.state.empid : DecryptUrl()
+  const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state.empid : { id: 0, name: "" }
   const id = empid?.id ?? 0;
 
   let dropzoneRef;

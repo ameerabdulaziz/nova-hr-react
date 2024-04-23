@@ -14,6 +14,8 @@ import { Grid, TextField, Autocomplete } from "@mui/material";
 
 import { useHistory } from "react-router-dom";
 import DecryptUrl from "../../Component/DecryptUrl";
+import { useLocation } from "react-router-dom";
+
 const useStyles = makeStyles()(() => ({
   root: {
     flexGrow: 1,
@@ -22,8 +24,10 @@ const useStyles = makeStyles()(() => ({
 
 function EmployeeInsurance(props) {
 
+  const location = useLocation();
+
   // get employee data from url
-  const empid  = DecryptUrl()
+    const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
   const { intl } = props;
   const history = useHistory();
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });

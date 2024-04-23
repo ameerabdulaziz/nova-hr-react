@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
 import PropTypes from "prop-types";
-import { Helmet } from "react-helmet";
 import brand from "enl-api/dummy/brand";
 import { PapperBlock } from "enl-components";
 import { injectIntl } from "react-intl";
@@ -15,6 +14,8 @@ import GeneralListApis from "../../api/GeneralListApis";
 import { Grid, TextField, Autocomplete } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import DecryptUrl from "../../Component/DecryptUrl";
+import { useLocation } from "react-router-dom";
+
 const useStyles = makeStyles()(() => ({
   root: {
     flexGrow: 1,
@@ -23,8 +24,10 @@ const useStyles = makeStyles()(() => ({
 
 function EmployeeExperince(props) {
 
+  const location = useLocation();
+
   // get employee data from url
-  const empid  = DecryptUrl()
+  const empid  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
 
   const { intl } = props;
   const history = useHistory();

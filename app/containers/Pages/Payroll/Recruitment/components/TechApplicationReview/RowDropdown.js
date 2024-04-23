@@ -32,7 +32,7 @@ function RowDropdown(props) {
 
     window.open(`${encodeURI(`/app/Pages/Recruitment/JobApplicationPreview/${btoa(JSON.stringify(
       {
-        empid : { id: row.id }
+          id: row.id
       }
     ))}`)}`, '_blank')?.focus()
   };

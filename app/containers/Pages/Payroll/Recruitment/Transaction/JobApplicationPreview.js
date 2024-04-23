@@ -31,7 +31,7 @@ function JobApplicationPreview(props) {
 
 // get employee data from url
 const  empid   = DecryptUrl()
-const id  = empid.id
+const id  = empid?.id
 
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);

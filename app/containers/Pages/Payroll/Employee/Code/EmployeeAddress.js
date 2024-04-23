@@ -25,6 +25,7 @@ import api from '../api/EmployeeAddressData';
 import EditTableRowPopup from '../component/EmployeeAddress/EditTableRowPopup';
 import messages from '../messages';
 import DecryptUrl from "../../Component/DecryptUrl";
+import { useLocation } from "react-router-dom";
 
 function EmployeeAddress(props) {
   const [tableData, setTableData] = useState([]);
@@ -33,9 +34,10 @@ function EmployeeAddress(props) {
   const [deletedId, setDeletedId] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const location = useLocation();
 
   // get employee data from url
-  const empid  = DecryptUrl()
+  const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
 
   const { intl } = props;
   const title = localStorage.getItem('MenuName');
@@ -72,11 +74,21 @@ function EmployeeAddress(props) {
 
       const cities = await GeneralListApis(locale).GetCityList();
       setCityList(cities);
+
+      if(empid.id !== 0)
+    {
+      onEmployeeChange(empid)
+    }
+
+
     } catch (err) {
       //
     } finally {
       setIsLoading(false);
-      fetchTableData();
+      if(empid.id === 0)
+      {
+        fetchTableData();
+      }
     }
   };
 

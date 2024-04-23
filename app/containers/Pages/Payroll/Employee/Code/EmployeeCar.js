@@ -18,11 +18,14 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import PayRollLoader from "../../Component/PayRollLoader";
 import style from '../../../../../styles/styles.scss'
 import DecryptUrl from "../../Component/DecryptUrl";
+import { useLocation } from "react-router-dom";
 
 function EmployeeCar(props) {
 
+  const location = useLocation();
+
   // get employee data from url
-  const empid  = DecryptUrl()
+  const empid  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
   const { intl, pristine } = props;
 
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });

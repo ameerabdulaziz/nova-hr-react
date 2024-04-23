@@ -19,12 +19,15 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { PapperBlock } from "enl-components";
 import style from '../../../../../styles/styles.scss'
 import DecryptUrl from "../../Component/DecryptUrl";
+import { useLocation } from "react-router-dom";
 
 
 function EmployeeSalary(props) {
 
+  const location = useLocation();
+
   // get employee data from url
-  const empid  = DecryptUrl()
+  const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
   const { intl, pristine } = props;
   const Title = localStorage.getItem("MenuName");
 

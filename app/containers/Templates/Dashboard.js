@@ -24,6 +24,7 @@ import {
 } from "../../redux/actions/authActions";
 import { Helmet } from "react-helmet";
 import brand from "enl-api/dummy/brand";
+import DecryptUrl from "../Pages/Payroll/Component/DecryptUrl";
 
 function Dashboard(props) {
   const { classes, cx } = useStyles();
@@ -49,6 +50,7 @@ function Dashboard(props) {
   const Dispatcher = useDispatch();
   const Auth = useSelector((state) => state.authReducer.loggedIn);
   const description = brand.desc;
+  const urlData  = DecryptUrl()
 
   const titleException = [
     "/app",
@@ -99,7 +101,8 @@ function Dashboard(props) {
     pathname != "/app" &&
     pathname != "/app/EmployeeDashboard" &&
     pathname != "/app/ManagementDashboard" &&
-    dataMenu
+    dataMenu &&
+    urlData === null
   ) {
 
 

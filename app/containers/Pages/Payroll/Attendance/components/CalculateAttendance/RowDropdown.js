@@ -37,12 +37,10 @@ function RowDropdown(props) {
     {
       window.open(`${encodeURI(`${url}/${btoa(JSON.stringify(
         {
-          empid: {
             id: tableMeta.rowData[0],
-            shiftDate: tableMeta.rowData[4],
-            timeIn: tableMeta.rowData[6],
-            timeOut: tableMeta.rowData[7],
-          },
+            shiftDate: tableMeta.rowData[5],
+            timeIn: tableMeta.rowData[7],
+            timeOut: tableMeta.rowData[8],
         }
       ))}`)}`, '_blank')?.focus()
     }

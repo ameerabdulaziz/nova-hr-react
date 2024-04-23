@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "tss-react/mui";
 import PropTypes from "prop-types";
-import { Helmet } from "react-helmet";
 import brand from "enl-api/dummy/brand";
 import { PapperBlock } from "enl-components";
 import { injectIntl } from "react-intl";

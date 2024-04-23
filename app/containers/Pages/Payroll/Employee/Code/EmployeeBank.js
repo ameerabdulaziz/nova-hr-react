@@ -49,6 +49,7 @@ import messages from '../messages';
 import { uuid } from '../../helpers';
 import DecryptUrl from "../../Component/DecryptUrl";
 import { PapperBlock } from 'enl-components';
+import { useLocation } from 'react-router-dom';
 
 const INIT_FORM_INFO = {
   id: 0,
@@ -64,9 +65,10 @@ const INIT_FORM_INFO = {
 };
 
 function EmployeeBank(props) {
+  const location = useLocation();
 
   // get employee data from url
-  const empid  = DecryptUrl()
+  const empid  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
   const { intl } = props;
 
 
