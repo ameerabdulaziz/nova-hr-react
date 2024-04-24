@@ -71,7 +71,7 @@ function ShiftManPowerReport(props) {
           });
 
           const dataApi = await ApiData(locale).ShiftManPowerReportApi(formData);
-        //   setdata(dataApi);
+          setdata(dataApi);
         } catch (err) {
         } finally {
           setIsLoading(false);
