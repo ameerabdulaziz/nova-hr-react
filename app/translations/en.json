@@ -1835,6 +1835,9 @@
   "boilerplate.containers.Payroll.Attendance.missionErrorMes": "The mission has been registered before",
   "boilerplate.containers.Payroll.Attendance.permissionErrorMes": "The permission has been registered before",
   "boilerplate.containers.Payroll.Attendance.workHours": "Work Hours",
+
+  "boilerplate.containers.Payroll.Attendance.attend": "Attend (T/F)",
+  "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "You must to choose Date and shift",
  
   
   "boilerplate.containers.Payroll.Payroll.monthName": "Month",
