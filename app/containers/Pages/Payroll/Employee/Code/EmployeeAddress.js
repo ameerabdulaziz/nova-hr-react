@@ -1,6 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CallMadeIcon from '@mui/icons-material/CallMade';
 import {
   Autocomplete,
   Button,
@@ -16,16 +17,17 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import tableMessage from '../../../../../components/Tables/messages';
 import AlertPopup from '../../Component/AlertPopup';
+import DecryptUrl from '../../Component/DecryptUrl';
+import EmployeeNavigation from '../../Component/EmployeeNavigation';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeAddressData';
 import EditTableRowPopup from '../component/EmployeeAddress/EditTableRowPopup';
 import messages from '../messages';
-import DecryptUrl from "../../Component/DecryptUrl";
-import { useLocation } from "react-router-dom";
 
 function EmployeeAddress(props) {
   const [tableData, setTableData] = useState([]);
@@ -248,6 +250,21 @@ function EmployeeAddress(props) {
       />
 
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
+        <Grid container justifyContent='end' mt={0}>
+          <Grid item>
+            <EmployeeNavigation
+              employeeId={employee.id}
+              employeeName={employee.name}
+              openInNewTap
+              anchor={
+                <Button variant='contained' endIcon={<CallMadeIcon />}>
+                  {intl.formatMessage(payrollMessages.goTo)}
+                </Button>
+              }
+            />
+          </Grid>
+        </Grid>
+
         <Grid container spacing={2} mt={0}>
           <Grid item md={6}>
             <Autocomplete

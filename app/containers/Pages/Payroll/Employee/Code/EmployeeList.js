@@ -7,8 +7,8 @@ import { useHistory } from 'react-router-dom';
 import PayrollTable from '../../Component/PayrollTable';
 import { formateDate, getCheckboxIcon } from '../../helpers';
 import ApiData from '../api/PersonalData';
-import RowDropdown from '../component/EmployeeList/RowDropdown';
 import messages from '../messages';
+import EmployeeNavigation from '../../Component/EmployeeNavigation';
 
 function EmployeeList(props) {
   const { intl } = props;
@@ -115,19 +115,6 @@ function EmployeeList(props) {
         customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
-
-    {
-      name: '',
-      label: '',
-      options: {
-        filter: false,
-        print: false,
-
-        customBodyRender: (_, tableMeta) => (
-          <RowDropdown tableMeta={tableMeta} />
-        ),
-      },
-    },
   ];
 
   const actions = {
@@ -137,6 +124,13 @@ function EmployeeList(props) {
     delete: {
       api: deleteRow,
     },
+    extraActions: (row) => (
+      <EmployeeNavigation
+        employeeId={row[0]}
+        employeeName={row[2]}
+        openInNewTap
+      />
+    ),
   };
 
   return (

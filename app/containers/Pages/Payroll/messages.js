@@ -642,4 +642,8 @@ employeeId: {
     id: `${scope}.more`,
     defaultMessage: 'more',
   },
+  goTo: {
+    id: `${scope}.goTo`,
+    defaultMessage: 'goTo',
+  },
 });

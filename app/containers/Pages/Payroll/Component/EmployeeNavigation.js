@@ -3,10 +3,9 @@ import { Menu, MenuItem } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
 import React, { memo, useState } from 'react';
-import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router';
 
-const optionsOpt = [
+const OPTIONS = [
   { name: 'Personal', url: 'Personal' },
   { name: 'Qualification', url: 'EmployeeQualification' },
   { name: 'Contact Info', url: 'EmployeeContactInfo' },
@@ -20,35 +19,48 @@ const optionsOpt = [
   { name: 'Salary', url: 'EmployeeSalary' },
 ];
 
-function RowDropdown(props) {
-  const { tableMeta} = props;
+function EmployeeNavigation(props) {
+  const {
+    employeeId, employeeName, anchor, openInNewTap
+  } = props;
 
   const history = useHistory();
 
-  const [openedDropdown, setOpenedDropdown] = useState({});
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const closeDropdown = (rowIndex) => setOpenedDropdown((prev) => ({
-    ...prev,
-    [rowIndex]: null,
-  }));
+  const closeDropdown = () => setAnchorEl(null);
+
+  const getPageURL = (url) => {
+    if (!employeeId || !employeeName) {
+      return encodeURI(`/app/Pages/Employee/${url}`);
+    }
+
+    const payload = JSON.stringify({
+      id: employeeId,
+      name: employeeName,
+    });
+
+    return encodeURI(`/app/Pages/Employee/${url}/${btoa(payload)}`);
+  };
+
+  const onMenuItemClick = (option) => {
+    closeDropdown();
+
+    if (openInNewTap) {
+      window.open(getPageURL(option.url), '_blank')?.focus();
+    } else {
+      history.push(getPageURL(option.url));
+    }
+  };
 
   return (
     <>
-      <IconButton
-        onClick={(evt) => {
-          setOpenedDropdown((prev) => ({
-            ...prev,
-            [tableMeta.rowIndex]: evt.currentTarget,
-          }));
-        }}
-      >
-        <MoreVertIcon />
-      </IconButton>
+      <div onClick={(evt) => setAnchorEl(evt.currentTarget)}>{anchor}</div>
 
       <Menu
-        anchorEl={openedDropdown[tableMeta.rowIndex]}
-        open={Boolean(openedDropdown[tableMeta.rowIndex])}
-        onClose={() => closeDropdown(tableMeta.rowIndex)}
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={closeDropdown}
         slotProps={{
           paper: {
             elevation: 0,
@@ -63,21 +75,8 @@ function RowDropdown(props) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {optionsOpt.map((option) => (
-          <MenuItem
-            key={option.name}
-            onClick={() => {
-              closeDropdown(tableMeta.rowIndex);
-              
-              window.open(`${encodeURI(`/app/Pages/Employee/${option.url}/${btoa(JSON.stringify(
-                {
-                    id: tableMeta.rowData[0],
-                    name: tableMeta.rowData[2],
-                }
-              ))}`)}`, '_blank')?.focus()
-
-            }}
-          >
+        {OPTIONS.map((option) => (
+          <MenuItem key={option.name} onClick={() => onMenuItemClick(option)}>
             {option.name}
           </MenuItem>
         ))}
@@ -86,9 +85,20 @@ function RowDropdown(props) {
   );
 }
 
-RowDropdown.propTypes = {
-  intl: PropTypes.object.isRequired,
-  tableMeta: PropTypes.object.isRequired,
+EmployeeNavigation.propTypes = {
+  employeeId: PropTypes.number.isRequired,
+  employeeName: PropTypes.string.isRequired,
+  anchor: PropTypes.node,
+  openInNewTap: PropTypes.bool,
 };
 
-export default memo(injectIntl(RowDropdown));
+EmployeeNavigation.defaultProps = {
+  anchor: (
+    <IconButton>
+      <MoreVertIcon />
+    </IconButton>
+  ),
+  openInNewTap: false,
+};
+
+export default memo(EmployeeNavigation);

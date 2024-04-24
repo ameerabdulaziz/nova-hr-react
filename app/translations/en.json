@@ -931,6 +931,7 @@
   "boilerplate.containers.Payroll.directedTo": "Directed to",
   "boilerplate.containers.Payroll.hrLetterDate": "Letter Date",
   "boilerplate.containers.Payroll.meetingReq": "Meeting Request",
+  "boilerplate.containers.Payroll.goTo": "Go To",
   "boilerplate.containers.Payroll.add": "Add",
   "boilerplate.containers.Payroll.yes": "Yes",
   "boilerplate.containers.Payroll.no": "No",
