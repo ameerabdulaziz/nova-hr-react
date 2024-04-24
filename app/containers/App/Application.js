@@ -437,7 +437,8 @@ import {
   KPI_LOB_Report,
   KPI_SupervisorReport,
   PeerAppraisalList,
-  EmployeePeerAppraisal
+  EmployeePeerAppraisal,
+  ShiftManPowerReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -1257,6 +1258,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Att/RegisterLocationEdit'
           component={RegisterLocationEdit}
+        />
+
+        <Route
+          path='/app/Pages/Att/ShiftManPower'
+          component={ShiftManPowerReport}
         />
 
         {/* Payroll */}

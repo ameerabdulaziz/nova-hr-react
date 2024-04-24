@@ -1882,6 +1882,9 @@
 
     "boilerplate.containers.Payroll.Attendance.method": "طريفة السحب",
 
+    "boilerplate.containers.Payroll.Attendance.attend": "حضور",
+    "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "يجب ان تختار التاريخ والوردية",
+
     
   "boilerplate.containers.Payroll.Payroll.monthName": "الشهر",
   "boilerplate.containers.Payroll.Payroll.yearName": "السنة",

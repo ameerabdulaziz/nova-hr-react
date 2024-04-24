@@ -104,15 +104,29 @@ function Search(props) {
     setIsLoading(false);
 
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
+      if(!notShowEmployeeName)
+      {
+        const employees = await GeneralListApis(locale).GetEmployeeList();
+        setEmployeeList(employees);
+      }
 
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
+      if(!notShowOrganization)
+      {
+        const organizations = await GeneralListApis(locale).GetDepartmentList();
+        setOrganizationList(organizations);
+      }
+
+      if(!notShowStatus)
+      {
+        const status = await GeneralListApis(locale).GetEmpStatusList();
+        setStatusList(status);
+      }
+
+      if(!notShowCompany)
+      {
+        const company = await GeneralListApis(locale).GetBranchList();
+        setCompanyList(company);
+      }
     } catch (err) {
     } finally {
       setIsLoading(false);

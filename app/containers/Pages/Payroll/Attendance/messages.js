@@ -2031,5 +2031,14 @@ devicePass: {
     id: `${scope}.noOrganizationSelect`,
     defaultMessage: 'noOrganizationSelect',
   },
+  // ShiftManPowerReport
+  attend: {
+    id: `${scope}.attend`,
+    defaultMessage: 'Attend (T/F)',
+  },
+  dateAndShiftErrMes: {
+    id: `${scope}.dateAndShiftErrMes`,
+    defaultMessage: 'You must to choose Date and shift',
+  },
 });
 

@@ -1431,6 +1431,13 @@ export const RegisterLocation = loadable(
   }
 );
 
+export const ShiftManPowerReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/ShiftManPowerReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Payroll /////////////////////////////////////////////////////////////////////////////////
 export const LoanSetting = loadable(
   () => import('./Pages/Payroll/Payroll/Code/LoanSetting'),
