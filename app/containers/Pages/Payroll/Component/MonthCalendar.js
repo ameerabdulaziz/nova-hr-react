@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardContent,
   Chip,
@@ -29,6 +30,7 @@ function MonthCalendar(props) {
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(false);
   const [groupedDocuments, setGroupedDocuments] = useState({});
+  const [anchorExtraEl, setAnchorExtraEl] = useState(null);
 
   const dayNames = [
     intl.formatMessage(payrollMessages.sunday),
@@ -88,6 +90,44 @@ function MonthCalendar(props) {
 
   const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
 
+  const getCurrentDayLabel = (day) => {
+    if (currentDate.getDate() === day) {
+      return (
+        <Chip
+          size='small'
+          label={day}
+          variant='outlined'
+          sx={{
+            height: 'auto',
+            '& .MuiChip-label': {
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+              maxWidth: '50px',
+              fontSize: '10px',
+            },
+          }}
+        />
+      );
+    }
+
+    return <div> {day}</div>;
+  };
+
+  const getDividerByDay = (day) => {
+    if (!groupedDocuments[day]) {
+      return null;
+    }
+
+    const slicedDocuments = groupedDocuments[day].length > 10
+      ? groupedDocuments[day].slice(0, 10)
+      : groupedDocuments[day];
+
+    return slicedDocuments.map((item, index) => (
+      <HRDivider action={item} key={index} />
+    ));
+  };
+
   const generateCalendar = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
@@ -123,9 +163,11 @@ function MonthCalendar(props) {
 
     // Add current month's days
     for (let i = 0; i < daysInMonth; i++) {
+      const day = i + 1;
+
       days.push(
         <TableCell
-          key={`current-${i}`}
+          key={`current-${day}`}
           sx={{
             height: '50px',
             width: '50px',
@@ -133,31 +175,59 @@ function MonthCalendar(props) {
             verticalAlign: 'unset',
           }}
         >
-          {currentDate.getDate() === i + 1 ? (
-            <Chip
-              size='small'
-              label={i + 1}
-              variant='outlined'
-              sx={{
-                height: 'auto',
-                '& .MuiChip-label': {
-                  whiteSpace: 'nowrap',
-                  textOverflow: 'ellipsis',
-                  overflow: 'hidden',
-                  maxWidth: '50px',
-                  fontSize: '10px',
-                },
-              }}
-            />
-          ) : (
-            <div> {i + 1}</div>
-          )}
-          {groupedDocuments[i + 1] && (
-            <Stack direction='column' spacing='3px'>
-              {groupedDocuments[i + 1].map((item, index) => (
-                <HRDivider action={item} key={index} />
-              ))}
-            </Stack>
+          {getCurrentDayLabel(day)}
+
+          {groupedDocuments[day] && (
+            <>
+              <Stack spacing='3px' direction='row'>
+                {getDividerByDay(day)}
+              </Stack>
+
+              {groupedDocuments[day].length > 10 && (
+                <>
+                  <div
+                    style={{
+                      fontSize: '11px',
+                      cursor: 'pointer',
+                      userSelect: 'none',
+                    }}
+                    onClick={(evt) => {
+                      setAnchorExtraEl(evt.currentTarget);
+                    }}
+                  >
+                    +{groupedDocuments[day].length - 10}{' '}
+                    {intl.formatMessage(payrollMessages.more)}
+                  </div>
+
+                  <Popover
+                    anchorEl={anchorExtraEl}
+                    open={Boolean(anchorExtraEl)}
+                    onClose={() => setAnchorExtraEl(null)}
+                    disableRestoreFocus
+                  >
+                    <Stack
+                      sx={{
+                        padding: '10px',
+                        width: '200px',
+                        maxHeight: '400px',
+                        overflowY: 'auto',
+                      }}
+                      direction='column'
+                      spacing={1}
+                    >
+                      {groupedDocuments[day].map((item, index) => (
+                        <Box key={index}>
+                          <Typography>{item.title}</Typography>
+                          <Typography variant='body1' color='gray'>
+                            {item.details}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Stack>
+                  </Popover>
+                </>
+              )}
+            </>
           )}
         </TableCell>
       );
@@ -202,14 +272,6 @@ function MonthCalendar(props) {
     return weeks;
   };
 
-  // const onPrevClick = ()=>{
-  //   setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)));
-  // }
-
-  // const onNextClick = ()=>{
-  //   setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)));
-  // }
-
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock
@@ -221,9 +283,6 @@ function MonthCalendar(props) {
         noMargin
         desc=''
       >
-        {/* <button onClick={onPrevClick} >prev</button>
-      <button onClick={onNextClick}>next</button> */}
-
         <TableContainer>
           <Table size='small'>
             <TableHead>
@@ -250,32 +309,31 @@ const HRDivider = (props) => {
   return (
     <>
       <Popover
-        sx={{
-          pointerEvents: 'none',
-        }}
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(null)}
-        disableRestoreFocus
       >
         <Card sx={{ p: '8px !important' }}>
           <CardContent>
             <Typography>{action.title}</Typography>
-            <Typography>{action.details}</Typography>
+            <Typography variant='body1' color='gray'>
+              {action.details}
+            </Typography>
           </CardContent>
         </Card>
       </Popover>
 
       <Divider
-        onMouseEnter={(evt) => {
+        orientation='vertical'
+        flexItem
+        onClick={(evt) => {
           setAnchorEl(evt.currentTarget);
-        }}
-        onMouseLeave={() => {
-          setAnchorEl(null);
         }}
         sx={{
           borderColor: 'error.main', // TODO: create function for get color by docType
+          height: '10px',
           borderWidth: '2px',
+          cursor: 'pointer',
         }}
       />
     </>

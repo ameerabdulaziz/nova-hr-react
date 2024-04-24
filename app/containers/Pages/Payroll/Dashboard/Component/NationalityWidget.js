@@ -70,7 +70,6 @@ function NationalityWidget(props) {
 
   const getNationalty = async () => {
     try {
-      debugger;
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
 

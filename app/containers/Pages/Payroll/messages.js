@@ -638,4 +638,8 @@ employeeId: {
     id: `${scope}.attachment`,
     defaultMessage: 'attachment',
   },
+  more: {
+    id: `${scope}.more`,
+    defaultMessage: 'more',
+  },
 });

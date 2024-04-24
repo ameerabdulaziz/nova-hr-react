@@ -1072,6 +1072,7 @@
   "boilerplate.containers.Payroll.yearName": "السنة",
   "boilerplate.containers.Payroll.totalvalue": "اجمالى القسط",
   "boilerplate.containers.Payroll.paysNo": "عدد الاقساط",
+  "boilerplate.containers.Payroll.more": "اكثر",
   "boilerplate.containers.Payroll.copy": "نسخ",
   "boilerplate.containers.Payroll.review": "استعراض",
   
