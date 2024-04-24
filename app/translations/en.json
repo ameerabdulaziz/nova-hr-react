@@ -2497,6 +2497,8 @@
   "boilerplate.containers.Payroll.vac.oldBalance": "Old Balance",
   "boilerplate.containers.Payroll.vac.address": "Address",
   "boilerplate.containers.Payroll.vac.status": "Status",
+  "boilerplate.containers.Payroll.vac.maxRequestNo": "Max Request Number",
+  "boilerplate.containers.Payroll.vac.allowedAfterMonthNo": "Allowed After Month Number",
   "boilerplate.containers.Payroll.vac.leaveReason": "Leave Reason",
   "boilerplate.containers.Payroll.vac.exemptEntryRec": "Exempt Entry Rec.",
   "boilerplate.containers.Payroll.vac.exemptLeaveRec": "Exempt Leave Rec.",

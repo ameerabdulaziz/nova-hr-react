@@ -33,6 +33,8 @@ function CreateVacationType(props) {
   const [EnName, setEnName] = useState('');
   const [dayValue, setDayValue] = useState('');
   const [Shortcut, setShortcut] = useState('');
+  const [maxRequestNo, setMaxRequestNo] = useState(0);
+  const [allowedAfterMonthNo, setAllowedAfterMonthNo] = useState(0);
   const [Maximum, setMaximum] = useState("");
   const [SalaryDeduction ,setSalaryDeduction] = useState(false)
   const [AnnualVacationDeduction ,setAnnualVacationDeduction] = useState(false)
@@ -140,6 +142,8 @@ function CreateVacationType(props) {
       isOfficialVacation,
       webInvisible,
       branchIds: branchIds.map(item => item.id).join(','),
+      maxRequestNo,
+      allowedAfterMonthNo,
     };
 
 
@@ -243,6 +247,8 @@ const getEditdata =  async () => {
       setHaveReplacementDay(data.haveReplacementDay);
       setIsOfficialVacation(data.isOfficialVacation);
       setAllowLessOneDay(data.allowLessOneDay);
+      setMaxRequestNo(data.maxRequestNo ?? 0);
+      setAllowedAfterMonthNo(data.allowedAfterMonthNo ?? 0);
   } catch (error) {
     //
   } finally {
@@ -552,6 +558,52 @@ useEffect(() => {
                         type='number'
                         value={reqBeforeShiftInMinute}
                         onChange={(e) => setReqBeforeShiftInMinute(e.target.value)}
+                        autoComplete='off'
+                      />
+                    </Grid>
+
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} md={12} className={style.gridSty}>
+              <Card className={classes.card}>
+                <CardContent className={style.CardContentSty}>
+                  <Grid item xs={12} md={12}
+                    container
+                    spacing={3}
+                    alignItems="flex-start"
+                    direction="row">
+
+                    <Grid item xs={12} md={3}>
+                      <TextField
+                        name="maxRequestNo"
+                        label={intl.formatMessage(messages.maxRequestNo)}
+                        className={`${classes.field} ${style.fieldsSty}`}
+                        variant="outlined"
+                        inputProps={{
+                          min: 0,
+                        }}
+                        type='number'
+                        value={maxRequestNo}
+                        onChange={(e) => setMaxRequestNo(e.target.value)}
+                        autoComplete='off'
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={3}>
+                      <TextField
+                        name="allowedAfterMonthNo"
+                        label={intl.formatMessage(messages.allowedAfterMonthNo)}
+                        className={`${classes.field} ${style.fieldsSty}`}
+                        variant="outlined"
+                        inputProps={{
+                          min: 0,
+                        }}
+                        type='number'
+                        value={allowedAfterMonthNo}
+                        onChange={(e) => setAllowedAfterMonthNo(e.target.value)}
                         autoComplete='off'
                       />
                     </Grid>

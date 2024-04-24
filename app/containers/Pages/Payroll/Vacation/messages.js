@@ -644,4 +644,12 @@ company: {
     id: `${scope}.Transaction.daysCountShouldBeBetween0And1`,
     defaultMessage: 'daysCountShouldBeBetween0And1',
   },
+  maxRequestNo: {
+    id: `${scope}.maxRequestNo`,
+    defaultMessage: 'maxRequestNo',
+  },
+  allowedAfterMonthNo: {
+    id: `${scope}.allowedAfterMonthNo`,
+    defaultMessage: 'allowedAfterMonthNo',
+  },
 });

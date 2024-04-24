@@ -2512,6 +2512,8 @@
   "boilerplate.containers.Payroll.vac.notes": "ملاحظات",
   "boilerplate.containers.Payroll.vac.vacType": "نوع الاجازة",
   "boilerplate.containers.Payroll.vac.returndate": "تاريخ العودة",
+  "boilerplate.containers.Payroll.vac.maxRequestNo": "الحد الأقصى للطلب",
+  "boilerplate.containers.Payroll.vac.allowedAfterMonthNo": "مسموح به بعد عدد شهور",
 
   "boilerplate.containers.Payroll.vac.code.date": "التاريخ",
   "boilerplate.containers.Payroll.vac.attachmentIsRequire": "المرفق مطلوب",
