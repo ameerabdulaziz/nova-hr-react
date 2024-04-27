@@ -296,7 +296,7 @@ function RequestsList(props) {
     selectableRows: 'multiple',
     customToolbarSelect: (selectedRows) => (
       <div>
-        {Document != 8 && Document != 9 && Document != 10 ? (
+        {Document != 11 && Document != 9 && Document != 10 ? (
           <Grid container spacing={1} alignItems="flex-start" direction="row">
             {ActionsTypeList &&
               ActionsTypeList.length > 0 &&
