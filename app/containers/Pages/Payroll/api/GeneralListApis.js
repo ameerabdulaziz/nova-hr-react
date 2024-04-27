@@ -501,7 +501,7 @@ const GeneralListApis = (locale) => {
     const result = await axiosInstance.get(
       `GeneralList/GetActionByDocList/${locale}?DocId=${DocId}`
     );
-
+debugger;
     return result.data;
   };
 

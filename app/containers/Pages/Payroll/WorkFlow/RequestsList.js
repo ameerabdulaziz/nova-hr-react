@@ -1,280 +1,338 @@
-import React, { useEffect, useState } from "react";
-import ApiData from "./api/WorkFlowData";
-import { useSelector } from "react-redux";
-import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
-import CloseIcon from "@mui/icons-material/Close";
-import Details from "@mui/icons-material/List";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import Payrollmessages from "../messages";
-import missionmessages from "../Attendance/messages";
-import hrmessages from "../HumanResources/messages";
-import paymessages from "../Payroll/messages";
-import vacmessages from "../Vacation/messages";
-import Icon from "@mui/material/Icon";
-import messages from "./messages";
-import style from "../../../../../app/styles/styles.scss";
-import IconButton from "@mui/material/IconButton";
-import notif from "enl-api/ui/notifMessage";
-import { toast } from "react-hot-toast";
-import useStyles from "../Style";
-import { PapperBlock } from "enl-components";
-import { Button, Grid, TextField, Autocomplete } from "@mui/material";
-import { injectIntl, FormattedMessage } from "react-intl";
-import PropTypes from "prop-types";
-import GeneralListApis from "../api/GeneralListApis";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { format } from "date-fns";
-import PayRollLoader from "../Component/PayRollLoader";
-import PayrollTable from "../Component/PayrollTable";
-import NotePopup from "./NotePopup";
-import WFExecutionList from "./WFExecutionList";
-import { useLocation } from "react-router-dom";
-import Tooltip from "@mui/material/Tooltip";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
-import { ServerURL } from "../api/ServerConfig";
+import React, { useEffect, useState } from 'react'
+import ApiData from './api/WorkFlowData'
+import { useSelector } from 'react-redux'
+import DoneOutlineRoundedIcon from '@mui/icons-material/DoneOutlineRounded'
+import CloseIcon from '@mui/icons-material/Close'
+import Details from '@mui/icons-material/List'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import Payrollmessages from '../messages'
+import missionmessages from '../Attendance/messages'
+import hrmessages from '../HumanResources/messages'
+import paymessages from '../Payroll/messages'
+import vacmessages from '../Vacation/messages'
+import Icon from '@mui/material/Icon'
+import messages from './messages'
+import style from '../../../../../app/styles/styles.scss'
+import IconButton from '@mui/material/IconButton'
+import notif from 'enl-api/ui/notifMessage'
+import { toast } from 'react-hot-toast'
+import useStyles from '../Style'
+import { PapperBlock } from 'enl-components'
+import { Button, Grid, TextField, Autocomplete } from '@mui/material'
+import { injectIntl, FormattedMessage } from 'react-intl'
+import PropTypes from 'prop-types'
+import GeneralListApis from '../api/GeneralListApis'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { format } from 'date-fns'
+import PayRollLoader from '../Component/PayRollLoader'
+import PayrollTable from '../Component/PayrollTable'
+import NotePopup from './NotePopup'
+import WFExecutionList from './WFExecutionList'
+import { useLocation } from 'react-router-dom'
+import Tooltip from '@mui/material/Tooltip'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import dayjs from 'dayjs'
+import { ServerURL } from '../api/ServerConfig'
 
 function RequestsList(props) {
-  const { intl } = props;
-  const { classes } = useStyles();
-  const location = useLocation();
-  const locale = useSelector((state) => state.language.locale);
-  const [data, setdata] = useState([]);
-  const Title = localStorage.getItem("MenuName");
-  const [cols, setCols] = useState([]);
+  const { intl } = props
+  const { classes } = useStyles()
+  const location = useLocation()
+  const locale = useSelector((state) => state.language.locale)
+  const [data, setdata] = useState([])
+  const Title = localStorage.getItem('MenuName')
+  const [cols, setCols] = useState([])
 
   const [Document, setDocument] = useState(
-    location.pathname == "/app/Pages/Att/PermissionApproval"
+    location.pathname == '/app/Pages/Att/PermissionApproval'
       ? 1
-      : location.pathname == "/app/Pages/Att/MissionApproval"
+      : location.pathname == '/app/Pages/Att/MissionApproval'
       ? 2
-      : location.pathname == "/app/Pages/vac/VacApproval"
+      : location.pathname == '/app/Pages/vac/VacApproval'
       ? 3
-      : location.pathname == "/app/Pages/HR/PenaltyApproval"
+      : location.pathname == '/app/Pages/HR/PenaltyApproval'
       ? 4
-      : location.pathname == "/app/Pages/HR/RewardsApproval"
+      : location.pathname == '/app/Pages/HR/RewardsApproval'
       ? 5
-      : location.pathname == "/app/Pages/Payroll/LoanApproval"
+      : location.pathname == '/app/Pages/Payroll/LoanApproval'
       ? 6
-      : location.pathname == "/app/Pages/Att/OvertimeApproval"  
+      : location.pathname == '/app/Pages/Att/OvertimeApproval'
       ? 7
-      : location.pathname == "/app/Pages/HR/UniformApproval"
+      : location.pathname == '/app/Pages/HR/UniformApproval'
       ? 8
-      : location.pathname == "/app/Pages/HR/ResignApproval"
+      : location.pathname == '/app/Pages/HR/ResignApproval'
       ? 9
-      : location.pathname == "/app/Pages/HR/CustodyApproval"
+      : location.pathname == '/app/Pages/HR/CustodyApproval'
       ? 9
-      : location.pathname == "/app/Pages/HR/DocumentApproval"
+      : location.pathname == '/app/Pages/HR/DocumentApproval'
       ? 10
-      : location.pathname == "/app/Pages/Att/ShiftSwapApproval"
+      : location.pathname == '/app/Pages/Att/ShiftSwapApproval'
       ? 11
-      : 0
-  );
-  const [fromdate, setfromate] = useState(null);
-  const [todate, settodate] = useState(null);
-  const [employee, setemployee] = useState(null);
-  const [EmployeeList, setEmployeeList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [openNotePopup, setopenNotePopup] = useState(false);
-  const [openExecutionPoup, setExecutionPoup] = useState(false);
-  const [ExecutionId, setExecutionId] = useState("");
+      : 0,
+  )
+  const [fromdate, setfromate] = useState(null)
+  const [todate, settodate] = useState(null)
+  const [employee, setemployee] = useState(null)
+  const [EmployeeList, setEmployeeList] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [openNotePopup, setopenNotePopup] = useState(false)
+  const [openExecutionPoup, setExecutionPoup] = useState(false)
+  const [ExecutionId, setExecutionId] = useState('')
+  const [ActionsTypeList, setActionsTypeList] = useState([])
   const [postDate, setPostDate] = useState({
     executionId: [],
     actionTypeId: 0,
-    note: "",
+    note: '',
     docId: Document,
     itemsCount: 0,
-    itemSerial: "",
+    itemSerial: '',
     executionDate: null,
-  });
-  const [DateError, setDateError] = useState({});
+  })
+  const [DateError, setDateError] = useState({})
 
   // used to reformat date before send it to api
   const dateFormatFun = (date) => {
-    return date ? format(new Date(date), "yyyy-MM-dd") : "";
-  };
+    return date ? format(new Date(date), 'yyyy-MM-dd') : ''
+  }
 
   const handleExecutionPoup = (Id) => {
-    setExecutionId(Id);
-    setExecutionPoup(true);
-  };
+    setExecutionId(Id)
+    setExecutionPoup(true)
+  }
   const handleOpenNotePoup = (id, Action, executionDate) => {
     setPostDate({
-      executionId: [id],
+      executionId: id,
       actionTypeId: Action,
-      note: "",
+      note: '',
       docId: Document,
       itemsCount: 0,
-      itemSerial: "",
+      itemSerial: '',
       executionDate: executionDate,
-    });
-    setopenNotePopup(true);
-  };
+    })
+    setopenNotePopup(true)
+  }
 
   const handleCloseNotePoup = () => {
-    setopenNotePopup(false);
-  };
+    setopenNotePopup(false)
+  }
   const handleCloseExecutionPoup = () => {
-    setExecutionPoup(false);
-  };
+    setExecutionPoup(false)
+  }
+  async function handleAction(selectedRows, ActionId) {
+    try {
+      debugger;
+      const Ids = []
+      for (let i = 0; i < selectedRows.data.length; i++) {
+        Ids.push(data[selectedRows.data[i].dataIndex].executionId)
+      }
+
+      if (Ids.length > 0) {
+        handleOpenNotePoup(Ids, ActionId, null)
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const handleSearch = async (e) => {
     // used to stop call api if user select wrong date
     if (Object.values(DateError).includes(true)) {
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-      return;
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid))
+      return
     }
 
     try {
-      setIsLoading(true);
-      let Fromdate = dateFormatFun(fromdate);
-      let Todate = dateFormatFun(todate);
+      setIsLoading(true)
+      let Fromdate = dateFormatFun(fromdate)
+      let Todate = dateFormatFun(todate)
       const dataApi = await ApiData(locale).Getrequests(
         Document,
         employee,
         Fromdate,
         Todate,
-        location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false
-      );
-      setdata(dataApi);
+        location.pathname == '/app/Pages/HR/CustodyApproval' ? true : false,
+      )
+      setdata(dataApi)
       if (dataApi && dataApi.length > 0) {
-        var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
+        var data = Object.keys(dataApi[0]).filter((item) => item != 'actions')
         // used to remove executionId from table
-        if(Document === 3)
-        {
-          const index = data.indexOf("executionId");
-          data.splice(index, 1);
+        if (Document === 3) {
+          const index = data.indexOf('executionId')
+          data.splice(index, 1)
         }
 
-        setCols(data);
-      } else setCols([]);
-      fetchData();
+        setCols(data)
+      } else setCols([])
+      fetchData()
     } catch (err) {
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
   async function RequestAction() {
     try {
-      setIsLoading(true);
-      let response = await ApiData(locale).ExecuteWorkFlow(postDate);
+      debugger
+      setIsLoading(true)
+      let response = await ApiData(locale).ExecuteWorkFlow(postDate)
       if (response.status == 200) {
-        toast.success(notif.saved);
-        handleSearch();
+        toast.success(notif.saved)
+        handleSearch()
       }
     } catch (err) {
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
   async function fetchData() {
     // used to stop call api if user select wrong date
     if (Object.values(DateError).includes(true)) {
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-      return;
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid))
+      return
     }
 
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-      var documentId = 0;
-      if (location.pathname == "/app/Pages/Att/PermissionApproval")
-        documentId = 1;
-      else if (location.pathname == "/app/Pages/Att/MissionApproval")
-        documentId = 2;
-      else if (location.pathname == "/app/Pages/vac/VacApproval")
-        documentId = 3;
-      else if (location.pathname == "/app/Pages/HR/PenaltyApproval")
-        documentId = 4;
-      else if (location.pathname == "/app/Pages/HR/RewardsApproval")
-        documentId = 5;
-      else if (location.pathname == "/app/Pages/Att/OvertimeApproval")
-        documentId = 6;
-      else if (location.pathname == "/app/Pages/Payroll/LoanApproval")
-        documentId = 7;
-      else if (location.pathname == "/app/Pages/HR/UniformApproval")
-        documentId = 8;
-      else if (location.pathname == "/app/Pages/HR/ResignApproval")
-        documentId = 9;
-      else if (location.pathname == "/app/Pages/HR/CustodyApproval")
-        documentId = 9;
-      else if (location.pathname == "/app/Pages/HR/DocumentApproval")
-        documentId = 10;
-        else if (location.pathname == "/app/Pages/Att/ShiftSwapApproval")
-        documentId = 11;
-      else documentId = 0;
+      const employees = await GeneralListApis(locale).GetEmployeeList()
+      setEmployeeList(employees)
+      var documentId = 0
+      if (location.pathname == '/app/Pages/Att/PermissionApproval')
+        documentId = 1
+      else if (location.pathname == '/app/Pages/Att/MissionApproval')
+        documentId = 2
+      else if (location.pathname == '/app/Pages/vac/VacApproval') documentId = 3
+      else if (location.pathname == '/app/Pages/HR/PenaltyApproval')
+        documentId = 4
+      else if (location.pathname == '/app/Pages/HR/RewardsApproval')
+        documentId = 5
+      else if (location.pathname == '/app/Pages/Att/OvertimeApproval')
+        documentId = 6
+      else if (location.pathname == '/app/Pages/Payroll/LoanApproval')
+        documentId = 7
+      else if (location.pathname == '/app/Pages/HR/UniformApproval')
+        documentId = 8
+      else if (location.pathname == '/app/Pages/HR/ResignApproval')
+        documentId = 9
+      else if (location.pathname == '/app/Pages/HR/CustodyApproval')
+        documentId = 9
+      else if (location.pathname == '/app/Pages/HR/DocumentApproval')
+        documentId = 10
+      else if (location.pathname == '/app/Pages/Att/ShiftSwapApproval')
+        documentId = 11
+      else documentId = 0
 
-      let Fromdate = dateFormatFun(fromdate);
-      let Todate = dateFormatFun(todate);
+      let Fromdate = dateFormatFun(fromdate)
+      let Todate = dateFormatFun(todate)
 
       const dataApi = await ApiData(locale).Getrequests(
         documentId,
         employee,
         Fromdate,
         Todate,
-        location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false
-      );
-      setdata(dataApi);
-      setDocument(documentId);
+        location.pathname == '/app/Pages/HR/CustodyApproval' ? true : false,
+      )
+      setdata(dataApi)
+      setDocument(documentId)
       if (dataApi && dataApi.length > 0) {
-        var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
-       /*  // used to remove executionId from table
+        const result = await GeneralListApis(locale).GetActionByDocList(documentId)
+        setActionsTypeList(result)
+        var data = Object.keys(dataApi[0]).filter((item) => item != 'actions')
+        /*  // used to remove executionId from table
         if(documentId === 3)
         {
           const index = data.indexOf("executionId");
           data.splice(index, 1);
         } */
-        setCols(data);
-      } else setCols([]);
+        setCols(data)
+      } else setCols([])
     } catch (err) {
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
   useEffect(() => {
-    fetchData();
-  }, [Title]);
-  debugger;
+    fetchData()
+  }, [Title])
+  debugger
   const columns =
     cols.length !== 0
-      ? cols.filter(item => item !== 'vacDocPath').map((item) => ({
-          name: item,
-          label:
-            Document == 1 || Document == 2 || Document == 6 || Document ==11 ? (
-              <FormattedMessage {...missionmessages[item]} />
-            ) : Document == 4 ||
-              Document == 5 ||
-              Document == 8 ||
-              Document == 9 ||
-              Document == 10 ? (
-              <FormattedMessage {...hrmessages[item]} />
-            ) : Document == 7 ? (
-              <FormattedMessage {...paymessages[item]} />
-            ) : Document == 3 ? (
-              <FormattedMessage {...vacmessages[item]} />
-            ) : (
-              <FormattedMessage {...Payrollmessages[item]} />
-            ),
-          options: {
-            filter: true,
-            display:  item.includes("Id")||item.includes("id")?false:true,
-          },
-        }))
-      :
-       [];
+      ? cols
+          .filter((item) => item !== 'vacDocPath')
+          .map((item) => ({
+            name: item,
+            label:
+              Document == 1 ||
+              Document == 2 ||
+              Document == 6 ||
+              Document == 11 ? (
+                <FormattedMessage {...missionmessages[item]} />
+              ) : Document == 4 ||
+                Document == 5 ||
+                Document == 8 ||
+                Document == 9 ||
+                Document == 10 ? (
+                <FormattedMessage {...hrmessages[item]} />
+              ) : Document == 7 ? (
+                <FormattedMessage {...paymessages[item]} />
+              ) : Document == 3 ? (
+                <FormattedMessage {...vacmessages[item]} />
+              ) : (
+                <FormattedMessage {...Payrollmessages[item]} />
+              ),
+            options: {
+              filter: true,
+              display:
+                item.includes('Id') || item.includes('id') ? false : true,
+            },
+          }))
+      : []
+
+  const options = {
+    download: false,
+    print: false,
+    viewColumns: false,
+    filter: false,
+    search: false,
+    selectableRows: 'multiple',
+    customToolbarSelect: (selectedRows) => (
+      <div>
+        {Document != 8 && Document != 9 && Document != 10 ? (
+          <Grid container spacing={1} alignItems="flex-start" direction="row">
+            {ActionsTypeList &&
+              ActionsTypeList.length > 0 &&
+              ActionsTypeList.map((row) => {
+                return (
+                  <Grid item xs={12} md={6}>
+                    <Tooltip title={row.name} cursor="pointer" className="mr-6">
+                      <IconButton
+                        color="success"
+                        aria-label={row.name}
+                        size="large"
+                        onClick={() => handleAction(selectedRows, row.id)}
+                      >
+                        <Icon>{row.icon}</Icon>
+                      </IconButton>
+                    </Tooltip>
+                  </Grid>
+                )
+              })}
+          </Grid>
+        ) : (
+          ''
+        )}
+      </div>
+    ),
+  }
 
   const action = {
-    name: "Actions",
+    name: 'Actions',
     options: {
       filter: false,
 
       customBodyRender: (value, tableMeta) => {
-        let filterdrow = null;
+        let filterdrow = null
         if (tableMeta && data && data.length > 0)
-          filterdrow = data.filter(
-            (i) => i.executionId == tableMeta.rowData[0]
-          );
+          filterdrow = data.filter((i) => i.executionId == tableMeta.rowData[0])
         return (
           <div className={style.actionsSty}>
             <Tooltip
@@ -304,22 +362,22 @@ function RequestsList(props) {
                       size="large"
                       onClick={() =>
                         handleOpenNotePoup(
-                          tableMeta.rowData[0],
+                          [tableMeta.rowData[0]],
                           row.id,
-                          Document == 10 ? tableMeta.rowData[3] : null
+                          Document == 10 ? tableMeta.rowData[3] : null,
                         )
                       }
                     >
                       <Icon>{row.icon}</Icon>
                     </IconButton>
                   </Tooltip>
-                );
+                )
               })}
           </div>
-        );
+        )
       },
     },
-  };
+  }
 
   if (Document === 3 && columns.length > 0) {
     columns.push({
@@ -331,17 +389,17 @@ function RequestsList(props) {
         download: false,
         customBodyRender: (value) => {
           if (!value) {
-            return '';
+            return ''
           }
 
           return (
             <a
               href={`${ServerURL}Doc/VacDoc/${value}`}
-              target='_blank'
-              rel='noreferrer'
+              target="_blank"
+              rel="noreferrer"
             >
               <Tooltip
-                placement='bottom'
+                placement="bottom"
                 title={intl.formatMessage(Payrollmessages.preview)}
               >
                 <span>
@@ -351,20 +409,19 @@ function RequestsList(props) {
                 </span>
               </Tooltip>
             </a>
-          );
+          )
         },
       },
-    },);
+    })
   }
 
-  if (columns.length > 0) columns.push(action);
+  if (columns.length > 0) columns.push(action)
 
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div>
           <Grid container spacing={3}>
-
             <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -372,19 +429,19 @@ function RequestsList(props) {
                   value={fromdate ? dayjs(fromdate) : null}
                   className={classes.field}
                   onChange={(date) => {
-                    setfromate(date);
+                    setfromate(date)
                   }}
                   onError={(error, value) => {
                     if (error !== null) {
                       setDateError((prevState) => ({
                         ...prevState,
                         [`fromdate`]: true,
-                      }));
+                      }))
                     } else {
                       setDateError((prevState) => ({
                         ...prevState,
                         [`fromdate`]: false,
-                      }));
+                      }))
                     }
                   }}
                 />
@@ -398,19 +455,19 @@ function RequestsList(props) {
                   value={todate ? dayjs(todate) : null}
                   className={classes.field}
                   onChange={(date) => {
-                    settodate(date);
+                    settodate(date)
                   }}
                   onError={(error, value) => {
                     if (error !== null) {
                       setDateError((prevState) => ({
                         ...prevState,
                         [`todate`]: true,
-                      }));
+                      }))
                     } else {
                       setDateError((prevState) => ({
                         ...prevState,
                         [`todate`]: false,
-                      }));
+                      }))
                     }
                   }}
                 />
@@ -422,11 +479,11 @@ function RequestsList(props) {
                 id="employeeId"
                 options={EmployeeList}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === "" || option.id === value.id
+                  value.id === 0 || value.id === '' || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
+                getOptionLabel={(option) => (option.name ? option.name : '')}
                 onChange={(event, value) => {
-                  setemployee(value == null ? null : value.id);
+                  setemployee(value == null ? null : value.id)
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -460,7 +517,7 @@ function RequestsList(props) {
             postDate={postDate}
             setPostDate={setPostDate}
             isCustody={
-              location.pathname == "/app/Pages/HR/CustodyApproval"
+              location.pathname == '/app/Pages/HR/CustodyApproval'
                 ? true
                 : false
             }
@@ -473,11 +530,11 @@ function RequestsList(props) {
         </div>
       </PapperBlock>
 
-      <PayrollTable title="" data={data} columns={columns} />
+      <PayrollTable title="" data={data} columns={columns} options={options} />
     </PayRollLoader>
-  );
+  )
 }
 
-RequestsList.propTypes = { intl: PropTypes.object.isRequired };
+RequestsList.propTypes = { intl: PropTypes.object.isRequired }
 
-export default injectIntl(RequestsList);
+export default injectIntl(RequestsList)
