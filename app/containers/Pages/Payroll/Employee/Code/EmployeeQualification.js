@@ -31,6 +31,7 @@ import {
 } from "@mui/material";
 import GeneralListApis from "../../api/GeneralListApis";
 import DecryptUrl from "../../Component/DecryptUrl";
+import EmployeeData from '../../Component/EmployeeData';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -47,23 +48,12 @@ const empid  = DecryptUrl()
 
   const { intl } = props;
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
-  const [employeeList, setEmployeeList] = useState([]);
   const title = localStorage.getItem("MenuName");
   const description = brand.desc;
   console.log(description + "*" + title);
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
 
-  const GetUserMenuLookup = useCallback(async () => {
-    try {
-      const employeedata = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employeedata || []);
-    } catch (err) {}
-  }, []);
-
-  useEffect(() => {
-    GetUserMenuLookup();
-  }, []);
 
   const anchorTable = [
     {
@@ -159,6 +149,21 @@ const empid  = DecryptUrl()
     },
   ];
 
+
+  const handleEmpChange = (id, name, empName) => {
+    if (name == "employeeId")
+    {
+      if (id && empName) {
+        setEmployee({ id: id, name: empName })
+      }
+    }
+    // used to disable add button when clear employee name compobox
+    if(id === "")
+    {
+      setEmployee({ id: 0, name: "" })
+    }
+  };
+
   return (
     <div>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
@@ -169,33 +174,9 @@ const empid  = DecryptUrl()
           direction="row"
           //justifyContent="center"
         >
-          <Grid item xs={1} sm={6}>
-            <Autocomplete
-              id="ddlEmp"
-              options={employeeList}
-              value={{ id: employee.id, name: employee.name }}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setEmployee({
-                  id: value !== null ? value.id : 0,
-                  name: value !== null ? value.name : "",
-                });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employee"
-                  //  value={employee.id}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                  margin="normal"
-                />
-              )}
-            />
-          </Grid>
+          <Grid item xs={12} md={12}>
+            <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>
+        </Grid>
         </Grid>
       </PapperBlock>
       <EditTable

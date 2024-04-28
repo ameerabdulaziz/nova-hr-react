@@ -22,40 +22,27 @@ import { useLocation } from "react-router-dom";
 import Payrollmessages from "../../messages";
 import PayrollTable from "../../Component/PayrollTable";
 import { formateDate, getCheckboxIcon } from "../../helpers";
+import EmployeeData from '../../Component/EmployeeData';
 
 function EmployeeDocuments({ intl }) {
   const Title = localStorage.getItem("MenuName");
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [dataTable, setDataTable] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [employee, setEmployee] = useState("");
-  const [employeeList, setEmployeeList] = useState([]);
   const { state } = useLocation();
   const employeeID = state?.employeeId;
 
-  const getdata = async () => {
-    try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
 
-      setEmployeeList(employees);
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
-    getdata();
-  }, []);
+    if (employeeID) {
 
-  useEffect(() => {
-    if (employeeList.length !== 0 && employeeID) {
-      setEmployee(employeeID);
 
       employeeChangeFun(employeeID);
     }
-  }, [employeeID, employeeList]);
+  }, [employeeID]);
 
   const columns = [
     {
@@ -151,7 +138,7 @@ function EmployeeDocuments({ intl }) {
   };
 
   const employeeChangeFun = async (id) => {
-    if (id) {
+    // if (id) {
       try {
         setIsLoading(true);
         const data = await EmployeeDocumentsData().GetList(id, locale);
@@ -180,6 +167,23 @@ function EmployeeDocuments({ intl }) {
       } finally {
         setIsLoading(false);
       }
+    // }
+  };
+
+  const handleEmpChange = (id, name) => {
+    if (name == "employeeId")
+    {
+      setEmployee(id)
+
+      if (id) {
+        employeeChangeFun(id)
+      }
+
+      // used to disable add button when clear employee name compobox
+    if(id === "")
+    {
+      employeeChangeFun(0)
+    }
     }
   };
 
@@ -187,44 +191,11 @@ function EmployeeDocuments({ intl }) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         
-        <Grid container spacing={1} alignItems="flex-start" direction="row">
-          <Grid item xs={1} sm={6}>
-            <Autocomplete
-              id="ddlEmp"
-              options={employeeList}
-              value={
-                employee
-                  ? employeeList.find((item) => item.id === employee)
-                  : null
-              }
-              getOptionLabel={(option) => (option ? option.name : "")}
-              renderOption={(props, option) => {
-                return (
-                  <li {...props} key={option.id}>
-                    {option.name}
-                  </li>
-                );
-              }}
-              onChange={(event, value) => {
-                if (value !== null) {
-                  setEmployee(value.id);
-                } else {
-                  setEmployee(0);
-                }
-                employeeChangeFun(value !== null ? value.id : null);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employee"
-                  value={employee}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                  margin="normal"
-                />
-              )}
-            />
-          </Grid>
+        <Grid item xs={12} md={12}>
+          <EmployeeData 
+          handleEmpChange={handleEmpChange}  
+          id={employeeID ? employeeID : null} 
+          ></EmployeeData>
         </Grid>
       </PapperBlock>
 
