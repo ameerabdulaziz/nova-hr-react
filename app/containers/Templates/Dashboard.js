@@ -88,7 +88,7 @@ function Dashboard(props) {
       : place.endsWith("Edit")
       ? pathname.replace("Edit", "")
       : urlData !== null
-      ? pathname.split('/').slice(0, -1).join('/')
+      ? pathname.split('/').slice(0, -1).join('/') // used with open new tab pages
       : pathname
   );
   if (result) {
