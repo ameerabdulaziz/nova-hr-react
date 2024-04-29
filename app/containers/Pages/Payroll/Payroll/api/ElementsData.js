@@ -5,6 +5,20 @@ const ElementsData = (locale) => {
   const Apis = {};
 
 
+  Apis.IsArabicNameExist = async (id,name) => {
+    
+    const data = await axiosInstance.get(`PayrollElement/IsArabicNameExist?Id=${id}&Name=${name}`);
+    const result = data.data;    
+    return result;
+  };
+
+  Apis.IsEnglishNameExist = async (id,name) => {
+    
+    const data = await axiosInstance.get(`PayrollElement/IsEnglishNameExist?Id=${id}&Name=${name}`);
+    const result = data.data;    
+    return result;
+  };
+
   Apis.GetList = async () => {
     
     const data = await axiosInstance.get(`PayrollElement/GetList`);

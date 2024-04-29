@@ -139,27 +139,42 @@ function ElementsCreate(props) {
     setOpenPopup(true);
   };
   const handledeleteRef = () => {
-    
     setdata((prevFilters) => ({
       ...prevFilters,
-      payrollRefElements:[],
-    }))
+      payrollRefElements: [],
+    }));
   };
 
   const handledeleteRef2 = () => {
-    
     setdata((prevFilters) => ({
       ...prevFilters,
-      payrollRefElements2:[],
-    }))
+      payrollRefElements2: [],
+    }));
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-
+debugger;
+      let response = await ApiData(locale).IsArabicNameExist(
+        data.id,
+        data.arName
+      );
+      if (response == true) {
+        toast.error("Arabic Name Already Exist");
+        return;
+      }
+      else{
+        let response = await ApiData(locale).IsEnglishNameExist(
+          data.id,
+          data.enName
+        );
+        if (response == true) {
+          toast.error("English Name Already Exist");
+          return;
+        }
+      }
       var payrollRefElements = data.payrollRefElements.filter(
         (x) => x.isSelected == true
       );
@@ -169,7 +184,7 @@ function ElementsCreate(props) {
       data.payrollRefElements = payrollRefElements;
       data.payrollRefElements2 = payrollRefElements2;
 
-      let response = await ApiData(locale).Save(data);
+      response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -264,7 +279,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(Payrollmessages.arName)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
@@ -281,7 +296,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(Payrollmessages.enName)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -300,7 +315,7 @@ function ElementsCreate(props) {
                           )}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -317,7 +332,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.minDailyWorkHours)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
 
@@ -386,7 +401,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.maxRepeat)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                     </Grid>
@@ -604,7 +619,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.defaultValue)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                     </Grid>
@@ -653,7 +668,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.min)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -671,7 +686,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.max)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -689,7 +704,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.calcValMin)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -707,7 +722,7 @@ function ElementsCreate(props) {
                           label={intl.formatMessage(messages.calcValMax)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                     </Grid>
@@ -748,13 +763,11 @@ function ElementsCreate(props) {
                           </Button>
                         </Grid>
                         <Grid item xs={12} md={12}>
-                          
-                            <ElementTable
-                              dataList={data.payrollRefElements}
-                              setdataList={setdata}
-                              Type={6}
-                            />
-                            
+                          <ElementTable
+                            dataList={data.payrollRefElements}
+                            setdataList={setdata}
+                            Type={6}
+                          />
                         </Grid>
                       </Grid>
                     </CardContent>
@@ -780,7 +793,7 @@ function ElementsCreate(props) {
                           <Button
                             variant="contained"
                             size="medium"
-                            color="secondary"                            
+                            color="secondary"
                             onClick={() => handledeleteRef2()}
                           >
                             <FormattedMessage {...Payrollmessages.delete} />
