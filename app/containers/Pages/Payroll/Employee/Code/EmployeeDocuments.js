@@ -23,6 +23,10 @@ import Payrollmessages from "../../messages";
 import PayrollTable from "../../Component/PayrollTable";
 import { formateDate, getCheckboxIcon } from "../../helpers";
 import EmployeeData from '../../Component/EmployeeData';
+import EmployeeNavigation from '../../Component/EmployeeNavigation';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import payrollMessages from '../../messages';
+import { Button } from '@mui/material';
 
 function EmployeeDocuments({ intl }) {
   const Title = localStorage.getItem("MenuName");
@@ -30,10 +34,9 @@ function EmployeeDocuments({ intl }) {
   const locale = useSelector((state) => state.language.locale);
   const [dataTable, setDataTable] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [employee, setEmployee] = useState("");
+  const [employee, setEmployee] = useState({ id: 0, name: '' });
   const { state } = useLocation();
   const employeeID = state?.employeeId;
-
 
 
   useEffect(() => {
@@ -106,8 +109,8 @@ function EmployeeDocuments({ intl }) {
       <span>
         <AddButton
           url={"/app/Pages/Employee/EmployeeDocumentsCreate"}
-          param={{ employeeId: employee }}
-          disabled={employee ? false : true}
+          param={{ employeeId: employee.id }}
+          disabled={employee.id !== 0 ? false : true}
         ></AddButton>
       </span>
     ),
@@ -119,7 +122,7 @@ function EmployeeDocuments({ intl }) {
       await EmployeeDocumentsData().Delete(id);
 
       toast.success(notif.saved);
-      employeeChangeFun(employee);
+      employeeChangeFun(employee.id);
       setIsLoading(false);
     } catch (err) {
       //
@@ -170,33 +173,45 @@ function EmployeeDocuments({ intl }) {
     // }
   };
 
-  const handleEmpChange = (id, name) => {
+  const handleEmpChange = (id, name, empName) => {
     if (name == "employeeId")
     {
-      setEmployee(id)
+      // setEmployee(id)
 
       if (id) {
+        setEmployee({ id: id, name: empName })
         employeeChangeFun(id)
       }
 
       // used to disable add button when clear employee name compobox
     if(id === "")
     {
+      setEmployee({ id: 0, name: '' })
       employeeChangeFun(0)
     }
     }
   };
 
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        
-        <Grid item xs={12} md={12}>
-          <EmployeeData 
-          handleEmpChange={handleEmpChange}  
-          id={employeeID ? employeeID : null} 
-          ></EmployeeData>
-        </Grid>
+        <Grid container justifyContent='end' mt={0}>
+            <Grid item>
+              <EmployeeNavigation
+                employeeId={employee.id}
+                employeeName={employee.name}
+                openInNewTap
+                anchor={
+                  <Button variant='contained' endIcon={<CallMadeIcon />}>
+                    {intl.formatMessage(payrollMessages.goTo)}
+                  </Button>
+                }
+              />
+            </Grid>
+          </Grid>
+
+          <EmployeeData  handleEmpChange={handleEmpChange}   id={employeeID ? employeeID : null} ></EmployeeData>
       </PapperBlock>
 
       <PayrollTable

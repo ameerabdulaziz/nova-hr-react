@@ -12,10 +12,13 @@ import { toast } from 'react-hot-toast';
 import EmployeeCourseData from '../api/EmployeeCourseData';
 import GeneralListApis from '../../api/GeneralListApis';
 import { CrudTable, Notification } from 'enl-components';
-import { Grid, TextField, Autocomplete } from '@mui/material';
+import { Grid, Button, TextField, Autocomplete } from '@mui/material';
 import DecryptUrl from "../../Component/DecryptUrl";
 import { useLocation } from 'react-router';
 import EmployeeData from '../../Component/EmployeeData';
+import EmployeeNavigation from '../../Component/EmployeeNavigation';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import payrollMessages from '../../messages';
 
 // const useStyles = makeStyles()(() => ({
 //   root: {
@@ -135,10 +138,23 @@ function EmployeeCourse(props) {
             direction="row"
             //justifyContent="center"
           >
+            <Grid container justifyContent='end' mt={0}>
+              <Grid item>
+                <EmployeeNavigation
+                  employeeId={employee.id}
+                  employeeName={employee.name}
+                  openInNewTap
+                  anchor={
+                    <Button variant='contained' endIcon={<CallMadeIcon />}>
+                      {intl.formatMessage(payrollMessages.goTo)}
+                    </Button>
+                  }
+                />
+            </Grid>
+          </Grid>
             <Grid item xs={12} md={12}>
               <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>
             </Grid>
-
           </Grid>
           </PapperBlock>
           <EditTable

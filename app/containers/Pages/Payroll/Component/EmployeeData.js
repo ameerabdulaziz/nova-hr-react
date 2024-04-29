@@ -112,7 +112,7 @@ function EmployeeData(props) {
         hiringDate: empdata.hiringDate === null ? "" : empdata.hiringDate,
         HasAlternativeEmp: empdata.hasAlternativeEmp,
       }));
-      handleEmpChange(id, "employeeId",name);
+      handleEmpChange(id, "employeeId",empdata.name);
       handleEmpChange(empdata.hasAlternativeEmp, "HasAlternativeEmp");
       if (GetEmployeePenalties) {
         const result = await GeneralListApis(locale).GetEmployeePenalties(id);

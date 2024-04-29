@@ -128,7 +128,6 @@ function EmployeeAddress(props) {
   };
 
 
-
   const columns = [
     {
       name: 'id',
@@ -215,9 +214,7 @@ function EmployeeAddress(props) {
 
   const handleEmpChange = (id, name, empName) => {
     if (name == "employeeId")
-    {
-      // setEmployee(id)
-      
+    { 
       if (id) {
         setEmployee({ id: id, name: empName })
         fetchTableData(id);
