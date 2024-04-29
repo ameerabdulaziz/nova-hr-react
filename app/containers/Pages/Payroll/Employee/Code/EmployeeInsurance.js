@@ -10,11 +10,15 @@ import { EditTable } from "../../../../Tables/demos";
 import { toast } from "react-hot-toast";
 import EmployeeInsuranceData from "../api/EmployeeInsuranceData";
 import GeneralListApis from "../../api/GeneralListApis";
-import { Grid, TextField, Autocomplete } from "@mui/material";
+import { Grid, Button, TextField, Autocomplete } from "@mui/material";
 
 import { useHistory } from "react-router-dom";
 import DecryptUrl from "../../Component/DecryptUrl";
 import { useLocation } from "react-router-dom";
+import EmployeeData from '../../Component/EmployeeData';
+import EmployeeNavigation from '../../Component/EmployeeNavigation';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import payrollMessages from '../../messages';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -27,25 +31,14 @@ function EmployeeInsurance(props) {
   const location = useLocation();
 
   // get employee data from url
-    const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
+    const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state : null
   const { intl } = props;
   const history = useHistory();
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: "" });
-  const [employeeList, setEmployeeList] = useState([]);
-  const title = "Employee Insurance"; //localStorage.getItem('MenuName');
+  const title = localStorage.getItem('MenuName');
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
 
-  const GetEmpLookup = useCallback(async () => {
-    try {
-      const data = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(data || []);
-    } catch (err) {}
-  }, []);
-
-  useEffect(() => {
-    GetEmpLookup();
-  }, []);
 
   const anchorTable = [
     {
@@ -138,6 +131,20 @@ function EmployeeInsurance(props) {
     },
   ];
 
+  const handleEmpChange = (id, name,empName) => {
+    if (name == "employeeId")
+    {
+      if (id && empName) {
+        setEmployee({ id: id, name: empName })
+      }
+    }
+    // used to disable add button when clear employee name compobox
+    if(id === "")
+    {
+      setEmployee({ id: 0, name: "" })
+    }
+  };
+
   return (
     <div>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
@@ -148,33 +155,23 @@ function EmployeeInsurance(props) {
           direction="row"
           //justifyContent="center"
         >
-          <Grid item xs={1} sm={6}>
-            <Autocomplete
-              id="ddlEmp"
-              options={employeeList}
-              value={{ id: employee.id, name: employee.name }}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setEmployee({
-                  id: value !== null ? value.id : 0,
-                  name: value !== null ? value.name : "",
-                });
-              }}
-              renderInput={(params) => (
-                <TextField
-                  variant="outlined"
-                  {...params}
-                  name="employee"
-                  //  value={employee.id}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                  margin="normal"
-                />
-              )}
-            />
+          <Grid container justifyContent='end' mt={0}>
+            <Grid item>
+              <EmployeeNavigation
+                employeeId={employee.id}
+                employeeName={employee.name}
+                openInNewTap
+                anchor={
+                  <Button variant='contained' endIcon={<CallMadeIcon />}>
+                    {intl.formatMessage(payrollMessages.goTo)}
+                  </Button>
+                }
+              />
+            </Grid>
           </Grid>
+          <Grid item xs={12} md={12}>
+            <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>
+        </Grid>
         </Grid>
       </PapperBlock>
       <EditTable

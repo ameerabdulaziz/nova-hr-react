@@ -54,7 +54,7 @@ function EmployeeData(props) {
           superHiringDate: "",
         }));
       } else {
-        handleEmpChange("", "employeeId");
+        handleEmpChange("", "employeeId",name);
         setdata((prevFilters) => ({
           ...prevFilters,
           employeeId: id,
@@ -112,7 +112,7 @@ function EmployeeData(props) {
         hiringDate: empdata.hiringDate === null ? "" : empdata.hiringDate,
         HasAlternativeEmp: empdata.hasAlternativeEmp,
       }));
-      handleEmpChange(id, "employeeId");
+      handleEmpChange(id, "employeeId",empdata.name);
       handleEmpChange(empdata.hasAlternativeEmp, "HasAlternativeEmp");
       if (GetEmployeePenalties) {
         const result = await GeneralListApis(locale).GetEmployeePenalties(id);

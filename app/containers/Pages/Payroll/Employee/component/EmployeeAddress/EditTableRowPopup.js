@@ -24,6 +24,7 @@ function EditTableRowPopup(props) {
     governmentList,
     cityList,
     onSave,
+    setSelectedRow
   } = props;
 
   const [formInfo, setFormInfo] = useState({
@@ -63,6 +64,7 @@ function EditTableRowPopup(props) {
 
   const onPopupClose = () => {
     setIsOpen(false);
+    setSelectedRow(null)
   };
 
   const onFormSubmit = (evt) => {
@@ -199,6 +201,7 @@ EditTableRowPopup.propTypes = {
   cityList: PropTypes.array.isRequired,
   selectedRow: PropTypes.object,
   onSave: PropTypes.func.isRequired,
+  setSelectedRow: PropTypes.func.isRequired,
 };
 
 export default injectIntl(EditTableRowPopup);

@@ -87,6 +87,8 @@ function Dashboard(props) {
       ? pathname.replace("Create", "")
       : place.endsWith("Edit")
       ? pathname.replace("Edit", "")
+      : urlData !== null
+      ? pathname.split('/').slice(0, -1).join('/') // used with open new tab pages
       : pathname
   );
   if (result) {
@@ -234,7 +236,7 @@ function Dashboard(props) {
   };
 
   useEffect(() => {
-    console.log("history.location.pathname =", history.location.pathname);
+
     if (Auth === null || Auth === false) {
       history.push(`/login?redirectTo=${history.location.pathname}`);
     }

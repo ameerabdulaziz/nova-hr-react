@@ -28,6 +28,7 @@ import payrollMessages from '../../messages';
 import api from '../api/EmployeeAddressData';
 import EditTableRowPopup from '../component/EmployeeAddress/EditTableRowPopup';
 import messages from '../messages';
+import EmployeeData from '../../Component/EmployeeData';
 
 function EmployeeAddress(props) {
   const [tableData, setTableData] = useState([]);
@@ -39,7 +40,7 @@ function EmployeeAddress(props) {
   const location = useLocation();
 
   // get employee data from url
-  const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
+  const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state : null
 
   const { intl } = props;
   const title = localStorage.getItem('MenuName');
@@ -77,20 +78,12 @@ function EmployeeAddress(props) {
       const cities = await GeneralListApis(locale).GetCityList();
       setCityList(cities);
 
-      if(empid.id !== 0)
-    {
-      onEmployeeChange(empid)
-    }
 
 
     } catch (err) {
       //
     } finally {
       setIsLoading(false);
-      if(empid.id === 0)
-      {
-        fetchTableData();
-      }
     }
   };
 
@@ -134,16 +127,6 @@ function EmployeeAddress(props) {
     }
   };
 
-  const onEmployeeChange = (value) => {
-    setEmployee({
-      id: value !== null ? value.id : 0,
-      name: value !== null ? value.name : '',
-    });
-
-    if (value) {
-      fetchTableData(value.id);
-    }
-  };
 
   const columns = [
     {
@@ -216,7 +199,7 @@ function EmployeeAddress(props) {
   const options = {
     customToolbar: () => (
       <Button
-        disabled={employee.id === 0 || employee.id === ''}
+        disabled={ employee === 0 || employee === ''}
         variant='contained'
         onClick={() => {
           setIsPopupOpen(true);
@@ -228,6 +211,24 @@ function EmployeeAddress(props) {
       </Button>
     ),
   };
+
+  const handleEmpChange = (id, name, empName) => {
+    if (name == "employeeId")
+    { 
+      if (id) {
+        setEmployee({ id: id, name: empName })
+        fetchTableData(id);
+      }
+
+      // used to disable add button when clear employee name compobox
+    if(id === "")
+    {
+      setEmployee({ id: 0, name: '' })
+      fetchTableData(0)
+    }
+    }
+  };
+
 
   return (
     <>
@@ -247,6 +248,7 @@ function EmployeeAddress(props) {
         governmentList={governmentList}
         cityList={cityList}
         onSave={onSave}
+        setSelectedRow={setSelectedRow}
       />
 
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
@@ -265,30 +267,8 @@ function EmployeeAddress(props) {
           </Grid>
         </Grid>
 
-        <Grid container spacing={2} mt={0}>
-          <Grid item md={6}>
-            <Autocomplete
-              options={employeeList}
-              value={{ id: employee.id, name: employee.name }}
-              isOptionEqualToValue={(option, value) => value.id === 0 || value.id === '' || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : '')}
-              onChange={(event, value) => onEmployeeChange(value)}
-              renderOption={(propsOption, option) => (
-                <li {...propsOption} key={option.id + option.name}>
-                  {option.name}
-                </li>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  variant='outlined'
-                  {...params}
-                  label={intl.formatMessage(messages.chooseEmp)}
-                />
-              )}
-            />
-          </Grid>
-        </Grid>
+          <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>
+        
       </PapperBlock>
 
       <PayrollTable
