@@ -1698,7 +1698,10 @@
 
   "boilerplate.containers.Payroll.Attendance.fromMin": "fromMin",
   "boilerplate.containers.Payroll.Attendance.toMin": "toMin",
-  "boilerplate.containers.Payroll.Attendance.factor": "factor",
+  "boilerplate.containers.Payroll.Attendance.factor": "factor",  
+  "boilerplate.containers.Payroll.Attendance.minusMinutes": "Minutes", 
+  "boilerplate.containers.Payroll.Attendance.daily": "Daily",  
+  "boilerplate.containers.Payroll.Attendance.monthly": "Monthly",   
   "boilerplate.containers.Payroll.Attendance.discTime": "discTime",
   "boilerplate.containers.Payroll.Attendance.discValue": "discValue",
   "boilerplate.containers.Payroll.Attendance.discPer": "discPer",

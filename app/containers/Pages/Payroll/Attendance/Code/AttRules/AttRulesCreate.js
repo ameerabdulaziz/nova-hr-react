@@ -58,6 +58,7 @@ function AttRulesCreate(props) {
   }, []);
 
   const [controlParaLateList, setControlParaLateList] = useState([]);
+  const [controlParaLessTimeList, setControlParaLessTimeList] = useState([]);  
   const [controlParaOvertimeList, setcontrolParaOvertimeList] = useState([]);
   const [controlParaVacList, setcontrolParaVacList] = useState([]);
 
@@ -194,8 +195,9 @@ function AttRulesCreate(props) {
     salaryOnWorkD: false,
     hoursPerDay: "",
     monthDays: "",
-    UpdateInAfter: "",
+    updateInAfter: "",
     updateOutBefore: "",
+    lessTimeRule:""
   });
 
   const handleTabChange = (event, val) => {
@@ -221,11 +223,17 @@ function AttRulesCreate(props) {
         id: 0,
       }));
 
+      data.attControlParaLessTime = controlParaLessTimeList.map((obj, i) => ({
+        ...obj,
+        id: 0,
+      }));
+
       data.attControlParaOverTime = controlParaOvertimeList.map((obj, i) => ({
         ...obj,
         id: 0,
       }));
 
+      
       data.attControlParaVac = controlParaVacList;
       debugger;
 
@@ -270,8 +278,9 @@ function AttRulesCreate(props) {
 
       const dataApi = await ApiData(locale).Get(id ?? 0);
       setdata(dataApi);
-
+debugger;
       setControlParaLateList(dataApi.attControlParaLate);
+      setControlParaLessTimeList(dataApi.attControlParaLessTime);
       setcontrolParaOvertimeList(dataApi.attControlParaOverTime);
 
       const Vacdata = await ApiData(locale).GetControlParaVac(id ?? 0);
@@ -456,6 +465,8 @@ function AttRulesCreate(props) {
                 setdata={setdata}
                 ChoiceList={ChoiceList}
                 group1ElemList={group1ElemList}
+                controlParaLessTimeList={controlParaLessTimeList}
+                setControlParaLessTimeList={setControlParaLessTimeList}
               />
             </div>
           )}

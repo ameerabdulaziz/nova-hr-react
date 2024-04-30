@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo,useState } from "react";
 import messages from "../../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import {
@@ -13,11 +13,20 @@ import {
 import useStyles from "../../../../Style";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import ControlParaLessTime from"./ControlParaLessTime";
 
 function DelayRules(props) {
-  const { intl, data, setdata, ChoiceList ,group1ElemList} = props;
+  const {
+    intl,
+    data,
+    setdata,
+    ChoiceList,
+    group1ElemList,
+    controlParaLessTimeList,
+    setControlParaLessTimeList,
+  } = props;
   const { classes } = useStyles();
-
+  const [openPopup, setopenPopup] = useState(false)
 
   const handleChange = (event) => {
     if (event.target.name == "allowedPerCount")
@@ -70,26 +79,41 @@ function DelayRules(props) {
         ...prevFilters,
         delSecElDayTwo: event.target.value,
       }));
-      if (event.target.name == "delSecElDayThree")
+    if (event.target.name == "delSecElDayThree")
       setdata((prevFilters) => ({
         ...prevFilters,
         delSecElDayThree: event.target.value,
       }));
-      if (event.target.name == "delSecElDayFour")
+    if (event.target.name == "delSecElDayFour")
       setdata((prevFilters) => ({
         ...prevFilters,
         delSecElDayFour: event.target.value,
       }));
-      if (event.target.name == "delSecElDayFive")
+    if (event.target.name == "delSecElDayFive")
       setdata((prevFilters) => ({
         ...prevFilters,
         delSecElDayFive: event.target.value,
       }));
-      
   };
-  
+  const handleOpenPoup = (id, Action, executionDate) => {
+   
+    setopenPopup(true)
+  }
+
+  const handleClosePoup = () => {
+    setopenPopup(false)
+  }
+
   return (
     <Card className={classes.card}>
+      <ControlParaLessTime
+        handleClose={handleClosePoup}
+        open={openPopup}
+        data={data}
+        setdata={setdata}
+        dataList={controlParaLessTimeList}
+        setdataList={setControlParaLessTimeList}
+      />
       <CardContent>
         <Grid container spacing={3} alignItems="flex-start" direction="row">
           <Grid
@@ -114,9 +138,11 @@ function DelayRules(props) {
                 <Autocomplete
                   id="perDelayFirstElem"
                   options={group1ElemList}
-                  value={group1ElemList.find(
-                    (item) => item.id === data.perDelayFirstElem
-                  )||null}
+                  value={
+                    group1ElemList.find(
+                      (item) => item.id === data.perDelayFirstElem
+                    ) || null
+                  }
                   isOptionEqualToValue={(option, value) =>
                     value.id === 0 || value.id === "" || option.id === value.id
                   }
@@ -141,12 +167,12 @@ function DelayRules(props) {
                 <TextField
                   id="allowedPerCount"
                   name="allowedPerCount"
-                  value={data.allowedPerCount||null}
+                  value={data.allowedPerCount || null}
                   onChange={(e) => handleChange(e)}
                   label={intl.formatMessage(messages.allowedPerCount)}
                   className={classes.field}
                   variant="outlined"
-                  autoComplete='off'
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -172,10 +198,10 @@ function DelayRules(props) {
                             name="delFstElDayOne"
                             label={intl.formatMessage(messages.DayOne)}
                             onChange={(e) => handleChange(e)}
-                            value={data.delFstElDayOne||null}
+                            value={data.delFstElDayOne || null}
                             className={classes.field}
                             variant="outlined"
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -184,10 +210,10 @@ function DelayRules(props) {
                             name="delFstElDayTwo"
                             label={intl.formatMessage(messages.DayTwo)}
                             onChange={(e) => handleChange(e)}
-                            value={data.delFstElDayTwo||null}
+                            value={data.delFstElDayTwo || null}
                             className={classes.field}
                             variant="outlined"
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -196,10 +222,10 @@ function DelayRules(props) {
                             name="delFstElDayThree"
                             label={intl.formatMessage(messages.DayThree)}
                             onChange={(e) => handleChange(e)}
-                            value={data.delFstElDayThree||null}
+                            value={data.delFstElDayThree || null}
                             className={classes.field}
                             variant="outlined"
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -208,10 +234,10 @@ function DelayRules(props) {
                             name="delFstElDayFour"
                             label={intl.formatMessage(messages.DayFour)}
                             onChange={(e) => handleChange(e)}
-                            value={data.delFstElDayFour||null}
+                            value={data.delFstElDayFour || null}
                             className={classes.field}
                             variant="outlined"
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                         <Grid item md={4} xs={12}>
@@ -220,10 +246,10 @@ function DelayRules(props) {
                             name="delFstElDayFive"
                             label={intl.formatMessage(messages.DayFive)}
                             onChange={(e) => handleChange(e)}
-                            value={data.delFstElDayFive||null}
+                            value={data.delFstElDayFive || null}
                             className={classes.field}
                             variant="outlined"
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       </Grid>
@@ -242,14 +268,14 @@ function DelayRules(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.calcLate||null}
+                              checked={data.calcLate || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   calcLate: e.target.checked,
                                 }))
                               }
-                              value={data.calcLate||null}
+                              value={data.calcLate || null}
                               color="primary"
                             />
                           }
@@ -260,14 +286,14 @@ function DelayRules(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.calclateTimeWithCount||null}
+                              checked={data.calclateTimeWithCount || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   calclateTimeWithCount: e.target.checked,
                                 }))
                               }
-                              value={data.calclateTimeWithCount||null}
+                              value={data.calclateTimeWithCount || null}
                               color="primary"
                             />
                           }
@@ -280,14 +306,14 @@ function DelayRules(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.lateafterAllowed||null}
+                              checked={data.lateafterAllowed || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   lateafterAllowed: e.target.checked,
                                 }))
                               }
-                              value={data.lateafterAllowed||null}
+                              value={data.lateafterAllowed || null}
                               color="primary"
                             />
                           }
@@ -298,14 +324,14 @@ function DelayRules(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.calcLessTimeOnWeekEnd||null}
+                              checked={data.calcLessTimeOnWeekEnd || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   calcLessTimeOnWeekEnd: e.target.checked,
                                 }))
                               }
-                              value={data.calcLessTimeOnWeekEnd||null}
+                              value={data.calcLessTimeOnWeekEnd || null}
                               color="primary"
                             />
                           }
@@ -318,14 +344,14 @@ function DelayRules(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.calcLessTimeOnHoliday||null}
+                              checked={data.calcLessTimeOnHoliday || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   calcLessTimeOnHoliday: e.target.checked,
                                 }))
                               }
-                              value={data.calcLessTimeOnHoliday||null}
+                              value={data.calcLessTimeOnHoliday || null}
                               color="primary"
                             />
                           }
@@ -338,14 +364,14 @@ function DelayRules(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.lateinWeekEndMiss||null}
+                              checked={data.lateinWeekEndMiss || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   lateinWeekEndMiss: e.target.checked,
                                 }))
                               }
-                              value={data.lateinWeekEndMiss||null}
+                              value={data.lateinWeekEndMiss || null}
                               color="primary"
                             />
                           }
@@ -369,156 +395,66 @@ function DelayRules(props) {
               direction="row"
               spacing={1}
             >
-                <Grid item md={4} xs={12}>
-                  <Autocomplete
-                    id="perDelayFirstElem"
-                    options={group1ElemList}
-                    value={group1ElemList.find(
+              <Grid item md={4} xs={12}>
+                <Autocomplete
+                  id="perDelayFirstElem"
+                  options={group1ElemList}
+                  value={
+                    group1ElemList.find(
                       (item) => item.id === data.perDelaySecondElem
-                    )||null}
-                    isOptionEqualToValue={(option, value) =>
-                      value.id === 0 ||
-                      value.id === "" ||
-                      option.id === value.id
-                    }
-                    getOptionLabel={(option) =>
-                      option.name ? option.name : ""
-                    }
-                    onChange={(event, value) => {
-                      setdata((prevFilters) => ({
-                        ...prevFilters,
-                        perDelaySecondElem: value !== null ? value.id : null,
-                      }));
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="outlined"
-                        {...params}
-                        name="AbsenceFirstElem"
-                        label={intl.formatMessage(messages.perDelaySecondElem)}
-                      />
-                    )}
-                  />
-                </Grid>
-               
-                <Grid item md={3} xs={12}>
-                  <TextField
-                    id="lessTimestartFromMin"
-                    name="lessTimestartFromMin"
-                    value={data.lessTimestartFromMin||null}
-                    onChange={(e) => handleChange(e)}
-                    label={intl.formatMessage(messages.lessTimestartFromMin)}
-                    className={classes.field}
-                    variant="outlined"
-                    autoComplete='off'
-                  />
-                </Grid>
-                <Grid item md={3} xs={12}>
-                  <TextField
-                    id="minusMinuteFrom"
-                    name="minusMinuteFrom"
-                    value={data.minusMinuteFrom||null}
-                    onChange={(e) => handleChange(e)}
-                    label={intl.formatMessage(messages.minusMinuteFrom)}
-                    className={classes.field}
-                    variant="outlined"
-                    autoComplete='off'
-                  />
-                </Grid>
-                <Grid item  md={2} xs={12}>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    size="medium"
-                    color="secondary"
-                  >
-                    <FormattedMessage {...messages.timesSetting} />
-                  </Button>
-                </Grid>
-             
-            </Grid>
-            <Grid item md={6} xs={12}>
-                <Card className={classes.card}>
-                  <CardContent>
-                    <Grid container alignItems="flex-start" direction="row">
-                      <Grid
-                        item
-                        md={12}
-                        xs={12}
-                        container
-                        direction="row"
-                        spacing={1}
-                      >
-                        <Grid item xs={12} md={12}>
-                          <FormLabel component="label">
-                            {intl.formatMessage(messages.MotamemElement)}
-                          </FormLabel>
-                        </Grid>
-                        <Grid item md={4} xs={12}>
-                          <TextField
-                            id="delSecElDayOne"
-                            name="delSecElDayOne"
-                            label={intl.formatMessage(messages.TimeOne)}
-                            onChange={(e) => handleChange(e)}
-                            value={data.delSecElDayOne||null}
-                            className={classes.field}
-                            variant="outlined"
-                            autoComplete='off'
-                          />
-                        </Grid>
-                        <Grid item md={4} xs={12}>
-                          <TextField
-                            id="delSecElDayTwo"
-                            name="delSecElDayTwo"
-                            label={intl.formatMessage(messages.TimeTwo)}
-                            onChange={(e) => handleChange(e)}
-                            value={data.delSecElDayTwo||null}
-                            className={classes.field}
-                            variant="outlined"
-                            autoComplete='off'
-                          />
-                        </Grid>
-                        <Grid item md={4} xs={12}>
-                          <TextField
-                            id="delSecElDayThree"
-                            name="delSecElDayThree"
-                            label={intl.formatMessage(messages.TimeThree)}
-                            onChange={(e) => handleChange(e)}
-                            value={data.delSecElDayThree||null}
-                            className={classes.field}
-                            variant="outlined"
-                            autoComplete='off'
-                          />
-                        </Grid>
-                        <Grid item md={4} xs={12}>
-                          <TextField
-                            id="delSecElDayFour"
-                            name="delSecElDayFour"
-                            label={intl.formatMessage(messages.TimeFour)}
-                            onChange={(e) => handleChange(e)}
-                            value={data.delSecElDayFour||null}
-                            className={classes.field}
-                            variant="outlined"
-                            autoComplete='off'
-                          />
-                        </Grid>
-                        <Grid item md={4} xs={12}>
-                          <TextField
-                            id="delSecElDayFive"
-                            name="delSecElDayFive"
-                            label={intl.formatMessage(messages.TimeFive)}
-                            onChange={(e) => handleChange(e)}
-                            value={data.delSecElDayFive||null}
-                            className={classes.field}
-                            variant="outlined"
-                            autoComplete='off'
-                          />
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
+                    ) || null
+                  }
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
+                  onChange={(event, value) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      perDelaySecondElem: value !== null ? value.id : null,
+                    }));
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="outlined"
+                      {...params}
+                      name="AbsenceFirstElem"
+                      label={intl.formatMessage(messages.perDelaySecondElem)}
+                    />
+                  )}
+                />
               </Grid>
+
+              <Grid item md={3} xs={12}>
+                <TextField
+                  id="lessTimestartFromMin"
+                  name="lessTimestartFromMin"
+                  value={data.lessTimestartFromMin || null}
+                  onChange={(e) => handleChange(e)}
+                  label={intl.formatMessage(messages.lessTimestartFromMin)}
+                  className={classes.field}
+                  variant="outlined"
+                  autoComplete="off"
+                />
+              </Grid>
+              <Grid item md={3} xs={12}>
+                <TextField
+                  id="minusMinuteFrom"
+                  name="minusMinuteFrom"
+                  value={data.minusMinuteFrom || null}
+                  onChange={(e) => handleChange(e)}
+                  label={intl.formatMessage(messages.minusMinuteFrom)}
+                  className={classes.field}
+                  variant="outlined"
+                  autoComplete="off"
+                />
+              </Grid>
+              <Grid item md={2} xs={12}>
+                <Button variant="contained" size="medium" color="secondary" onClick={() => handleOpenPoup()}>
+                  <FormattedMessage {...messages.timesSetting} />
+                </Button>
+              </Grid>
+            </Grid>
             <Grid item md={6} xs={12}>
               <Card className={classes.card}>
                 <CardContent>
@@ -528,52 +464,139 @@ function DelayRules(props) {
                       md={12}
                       xs={12}
                       container
-                      direction="row"spacing={1}
+                      direction="row"
+                      spacing={1}
                     >
-                        <Grid item xs={12} md={12}>
-                          <FormLabel component="label">
-                            {intl.formatMessage(messages.MotamemCalcScenario)}
-                          </FormLabel>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                          <Autocomplete
-                            id="delChoiceOne"
-                            options={ChoiceList}
-                            value={ChoiceList.find(
+                      <Grid item xs={12} md={12}>
+                        <FormLabel component="label">
+                          {intl.formatMessage(messages.MotamemElement)}
+                        </FormLabel>
+                      </Grid>
+                      <Grid item md={4} xs={12}>
+                        <TextField
+                          id="delSecElDayOne"
+                          name="delSecElDayOne"
+                          label={intl.formatMessage(messages.TimeOne)}
+                          onChange={(e) => handleChange(e)}
+                          value={data.delSecElDayOne || null}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item md={4} xs={12}>
+                        <TextField
+                          id="delSecElDayTwo"
+                          name="delSecElDayTwo"
+                          label={intl.formatMessage(messages.TimeTwo)}
+                          onChange={(e) => handleChange(e)}
+                          value={data.delSecElDayTwo || null}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item md={4} xs={12}>
+                        <TextField
+                          id="delSecElDayThree"
+                          name="delSecElDayThree"
+                          label={intl.formatMessage(messages.TimeThree)}
+                          onChange={(e) => handleChange(e)}
+                          value={data.delSecElDayThree || null}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item md={4} xs={12}>
+                        <TextField
+                          id="delSecElDayFour"
+                          name="delSecElDayFour"
+                          label={intl.formatMessage(messages.TimeFour)}
+                          onChange={(e) => handleChange(e)}
+                          value={data.delSecElDayFour || null}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item md={4} xs={12}>
+                        <TextField
+                          id="delSecElDayFive"
+                          name="delSecElDayFive"
+                          label={intl.formatMessage(messages.TimeFive)}
+                          onChange={(e) => handleChange(e)}
+                          value={data.delSecElDayFive || null}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container alignItems="flex-start" direction="row">
+                    <Grid
+                      item
+                      md={12}
+                      xs={12}
+                      container
+                      direction="row"
+                      spacing={1}
+                    >
+                      <Grid item xs={12} md={12}>
+                        <FormLabel component="label">
+                          {intl.formatMessage(messages.MotamemCalcScenario)}
+                        </FormLabel>
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <Autocomplete
+                          id="delChoiceOne"
+                          options={ChoiceList}
+                          value={
+                            ChoiceList.find(
                               (item) => item.id === data.delChoiceOne
-                            )||null}
-                            isOptionEqualToValue={(option, value) =>
-                              value.id === 0 ||
-                              value.id === "" ||
-                              option.id === value.id
-                            }
-                            getOptionLabel={(option) =>
-                              option.name ? option.name : ""
-                            }
-                            onChange={(event, value) => {
-                              setdata((prevFilters) => ({
-                                ...prevFilters,
-                                delChoiceOne: value !== null ? value.id : null,
-                              }));
-                            }}
-                            renderInput={(params) => (
-                              <TextField
-                                variant="outlined"
-                                {...params}
-                                name="delChoiceOne"
-                                label={intl.formatMessage(messages.ChoiceOne)}
-                              />
-                            )}
-                          />
-                        </Grid>
-                     
+                            ) || null
+                          }
+                          isOptionEqualToValue={(option, value) =>
+                            value.id === 0 ||
+                            value.id === "" ||
+                            option.id === value.id
+                          }
+                          getOptionLabel={(option) =>
+                            option.name ? option.name : ""
+                          }
+                          onChange={(event, value) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              delChoiceOne: value !== null ? value.id : null,
+                            }));
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              variant="outlined"
+                              {...params}
+                              name="delChoiceOne"
+                              label={intl.formatMessage(messages.ChoiceOne)}
+                            />
+                          )}
+                        />
+                      </Grid>
+
                       <Grid item xs={12} md={6}>
                         <Autocomplete
                           id="delChoiceTwo"
                           options={ChoiceList}
-                          value={ChoiceList.find(
-                            (item) => item.id === data.delChoiceTwo
-                          )||null}
+                          value={
+                            ChoiceList.find(
+                              (item) => item.id === data.delChoiceTwo
+                            ) || null
+                          }
                           isOptionEqualToValue={(option, value) =>
                             value.id === 0 ||
                             value.id === "" ||
@@ -603,9 +626,11 @@ function DelayRules(props) {
                         <Autocomplete
                           id="delChoiceThree"
                           options={ChoiceList}
-                          value={ChoiceList.find(
-                            (item) => item.id === data.delChoiceThree
-                          )||null}
+                          value={
+                            ChoiceList.find(
+                              (item) => item.id === data.delChoiceThree
+                            ) || null
+                          }
                           isOptionEqualToValue={(option, value) =>
                             value.id === 0 ||
                             value.id === "" ||
@@ -635,9 +660,11 @@ function DelayRules(props) {
                         <Autocomplete
                           id="delChoiceFour"
                           options={ChoiceList}
-                          value={ChoiceList.find(
-                            (item) => item.id === data.delChoiceFour
-                          )||null}
+                          value={
+                            ChoiceList.find(
+                              (item) => item.id === data.delChoiceFour
+                            ) || null
+                          }
                           isOptionEqualToValue={(option, value) =>
                             value.id === 0 ||
                             value.id === "" ||
