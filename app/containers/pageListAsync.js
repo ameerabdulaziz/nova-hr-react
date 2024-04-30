@@ -545,6 +545,13 @@ export const SettingMailSmsFormCreate = loadable(
   }
 );
 
+export const CertificateSetting = loadable(
+  () => import('./Pages/Payroll/Setting/CertificateSetting'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const PrintForm = loadable(
   () => import('./Pages/Payroll/Setting/PrintForm'),
   {

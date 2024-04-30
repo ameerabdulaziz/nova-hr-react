@@ -248,4 +248,36 @@ export default defineMessages({
     id: `${scope}.resign`,
     defaultMessage: 'resign',
   },
+  textColor: {
+    id: `${scope}.textColor`,
+    defaultMessage: 'textColor',
+  },
+  fontSize: {
+    id: `${scope}.fontSize`,
+    defaultMessage: 'fontSize',
+  },
+  xDirection: {
+    id: `${scope}.xDirection`,
+    defaultMessage: 'xDirection',
+  },
+  yDirection: {
+    id: `${scope}.yDirection`,
+    defaultMessage: 'yDirection',
+  },
+  isCenter: {
+    id: `${scope}.isCenter`,
+    defaultMessage: 'isCenter',
+  },
+  employeeName: {
+    id: `${scope}.employeeName`,
+    defaultMessage: 'employeeName',
+  },
+  courseName: {
+    id: `${scope}.courseName`,
+    defaultMessage: 'courseName',
+  },
+  accomplishDate: {
+    id: `${scope}.accomplishDate`,
+    defaultMessage: 'accomplishDate',
+  },
 });
