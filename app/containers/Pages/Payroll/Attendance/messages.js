@@ -526,6 +526,11 @@ factor: {
   id: `${scope}.factor`,
   defaultMessage: 'factor',
 },
+minusMinutes: {
+  id: `${scope}.minusMinutes`,
+  defaultMessage: 'minusMinutes',
+},
+
 discTime: {
   id: `${scope}.discTime`,
   defaultMessage: 'discTime',
@@ -1501,6 +1506,14 @@ devicePass: {
   day: {
     id: `${scope}.day`,
     defaultMessage: 'Day',
+  },
+  daily: {
+    id: `${scope}.daily`,
+    defaultMessage: 'daily',
+  },
+  monthly: {
+    id: `${scope}.monthly`,
+    defaultMessage: 'monthly',
   },
   insuranceNumber: {
     id: `${scope}.insuranceNumber`,
