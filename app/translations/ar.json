@@ -3191,6 +3191,8 @@
   "boilerplate.containers.Payroll.assessment.Appraisal": "التقييم",
   "boilerplate.containers.Payroll.assessment.textareaErrMes": "الحقل النصي مطلوب",
 
+  "boilerplate.containers.Payroll.assessment.evaluatorEmployee": "الموظف الذى يقوم بالتقييم",
+
   "boilerplate.containers.Payroll.SmartObjective.objective": "الهدف",
   "boilerplate.containers.Payroll.SmartObjective.measurementTool": "أداة القياس",
   "boilerplate.containers.Payroll.SmartObjective.dueDate": "تاريخ الاستحقاق",

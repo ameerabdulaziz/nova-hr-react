@@ -3144,6 +3144,8 @@
   "boilerplate.containers.Payroll.assessment.Appraisal": "Appraisal",
   "boilerplate.containers.Payroll.assessment.textareaErrMes": "Text field is required",
 
+  "boilerplate.containers.Payroll.assessment.evaluatorEmployee": "Evaluator Employee",
+
 
   "boilerplate.containers.Payroll.SmartObjective.objective": "Objective",
   "boilerplate.containers.Payroll.SmartObjective.measurementTool": "Measurement Tool",

@@ -440,6 +440,7 @@ import {
   PeerAppraisalList,
   EmployeePeerAppraisal,
   ShiftManPowerReport,
+  PeerAppraisalReport,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2089,6 +2090,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Assessment/EmployeePeerAppraisal'
           component={EmployeePeerAppraisal}
+        />
+
+        <Route
+          path='/app/Pages/Assessment/PeerAppraisalReport'
+          component={PeerAppraisalReport}
         />
 
         {/* SmartObjective */}

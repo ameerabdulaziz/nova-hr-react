@@ -588,4 +588,9 @@ export default defineMessages({
     id: `${scope}.textareaErrMes`,
     defaultMessage: 'Text field is required',
   },
+  // PeerAppraisalReport
+  evaluatorEmployee: {
+    id: `${scope}.evaluatorEmployee`,
+    defaultMessage: 'Evaluator Employee',
+  },
 });
