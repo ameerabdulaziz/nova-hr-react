@@ -12,7 +12,6 @@ import emailFullstack from 'enl-containers/SampleFullstackApps/Email/reducers/em
 import todo from 'enl-containers/SampleApps/Todo/reducers/todoReducer';
 import todoFullstack from 'enl-containers/SampleFullstackApps/Todo/reducers/todoReducer';
 import crudTable from 'enl-containers/Tables/reducers/crudTbReducer';
-import socmed from 'enl-containers/Pages/Timeline/reducers/timelineReducer';
 import treeTable from 'enl-containers/Tables/reducers/treeTbReducers';
 import history from '../utils/history';
 
@@ -51,7 +50,6 @@ export default function createReducer(injectedReducers = {}) {
     emailFullstack,
     todo,
     todoFullstack,
-    socmed,
     crudTableDemo: branchReducer(crudTable, 'crudTableDemo'),
     treeTableArrow: branchReducer(treeTable, 'treeTableArrow'),
     treeTablePM: branchReducer(treeTable, 'treeTablePM'),

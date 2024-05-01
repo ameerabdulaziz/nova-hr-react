@@ -226,9 +226,6 @@ export const LockScreen = loadable(() => import('./Pages/Users/LockScreen'), {
 export const Profile = loadable(() => import('./Pages/Payroll/Profile/Profile'), {
   fallback: <Loading />,
 });
-export const Timeline = loadable(() => import('./Pages/Timeline'), {
-  fallback: <Loading />,
-});
 
 // Sample Pre Build Apps
 export const Todo = loadable(() => import('./SampleApps/Todo'), {
@@ -1795,12 +1792,6 @@ export const LocationLog = loadable(
 export const Parent = loadable(() => import('./Parent'), {
   fallback: <Loading />,
 });
-export const TermsConditions = loadable(
-  () => import('./Pages/TermsConditions'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 /// Vac ///////////////////////
 
