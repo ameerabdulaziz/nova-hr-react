@@ -871,4 +871,8 @@ export default defineMessages({
     id: `${scope}.ExpiryCardErrMes`,
     defaultMessage: 'Card Expired',
   },
+  contractDateMustNotPrecedeTheAppointmentDate: {
+    id: `${scope}.contractDateMustNotPrecedeTheAppointmentDate`,
+    defaultMessage: 'contractDateMustNotPrecedeTheAppointmentDate',
+  },
 });

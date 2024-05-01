@@ -2364,6 +2364,7 @@
   "boilerplate.containers.Payroll.Employee.identityNumberAlreadyExist": "رقم الهوية موجود بالفعل",
   "boilerplate.containers.Payroll.Employee.emailAlreadyExist": "البريد الالكتروني موجود مسبقا",
   "boilerplate.containers.Payroll.Employee.email": "الابميل",
+  "boilerplate.containers.Payroll.Employee.contractDateMustNotPrecedeTheAppointmentDate": "تاريخ التعاقد لا يجب ان يسبق تاريخ التعيين",
   "boilerplate.containers.Payroll.Employee.relativePhoneNumber": "رقم الهاتف للقرابة",
   "boilerplate.containers.Payroll.Employee.mobile": "الهاتف",
   "boilerplate.containers.Payroll.Employee.employeeNameShouldNotBeOneWord": "يجب أن يكون اسم الموظف أكثر من كلمة واحدة",
