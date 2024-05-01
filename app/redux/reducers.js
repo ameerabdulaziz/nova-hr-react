@@ -14,7 +14,6 @@ import todoFullstack from 'enl-containers/SampleFullstackApps/Todo/reducers/todo
 import crudTable from 'enl-containers/Tables/reducers/crudTbReducer';
 import socmed from 'enl-containers/Pages/Timeline/reducers/timelineReducer';
 import chat from 'enl-containers/Pages/Chat/reducers/chatReducers';
-import ecommerce from 'enl-containers/Pages/Ecommerce/reducers/ecommerceReducers';
 import treeTable from 'enl-containers/Tables/reducers/treeTbReducers';
 import history from '../utils/history';
 
@@ -54,7 +53,6 @@ export default function createReducer(injectedReducers = {}) {
     todo,
     todoFullstack,
     socmed,
-    ecommerce,
     chat,
     crudTableDemo: branchReducer(crudTable, 'crudTableDemo'),
     treeTableArrow: branchReducer(treeTable, 'treeTableArrow'),

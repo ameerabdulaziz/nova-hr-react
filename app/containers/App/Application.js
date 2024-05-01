@@ -96,12 +96,8 @@ import {
   Timeline,
   Profile,
   Chat,
-  Ecommerce,
   CompanyDocument,
   CompanyDocumentCreate,
-  ProductPage,
-  CheckoutPage,
-  InvoicePage,
   BlankPage,
   AuthenticatedPage,
   Photos,
@@ -515,15 +511,6 @@ function Application(props) {
         <Route path='/app/ui/slider-carousel' component={SliderCarousel} />
         <Route path='/app/ui/tags' component={Tags} />
         <Route path='/app/ui/tree-view' component={TreeView} />
-        {/* Chart */}
-        <Route exact path='/app/charts' component={Parent} />
-        <Route path='/app/charts/line-charts' component={LineCharts} />
-        <Route path='/app/charts/bar-charts' component={BarCharts} />
-        <Route path='/app/charts/area-charts' component={AreaCharts} />
-        <Route path='/app/charts/pie-charts' component={PieCharts} />
-        <Route path='/app/charts/radar-charts' component={RadarCharts} />
-        <Route path='/app/charts/scatter-charts' component={ScatterCharts} />
-        <Route path='/app/charts/compossed-chart' component={CompossedCharts} />
         {/* Sample Apps */}
         <Route path='/app/pages/contact' component={Contact} />
         <Route path='/app/pages/email' component={Email} />
@@ -533,10 +520,6 @@ function Application(props) {
         <Route path='/app/pages/email-firebase' component={EmailFirebase} />
         {/* Pages */}
         <Route exact path='/app/pages' component={Parent} />
-        <Route path='/app/pages/ecommerce' component={Ecommerce} />
-        <Route path='/app/pages/product-detail' component={ProductPage} />
-        <Route path='/app/pages/checkout' component={CheckoutPage} />
-        <Route path='/app/pages/invoice' component={InvoicePage} />
         <Route path='/app/pages/user-profile' component={Profile} />
         <Route path='/app/pages/timeline' component={Timeline} />
         <Route path='/app/pages/chat' component={Chat} />

@@ -182,32 +182,6 @@ export const Tags = loadable(() => import('./UiElements/Tags'), {
 export const TreeView = loadable(() => import('./UiElements/TreeView'), {
   fallback: <Loading />,
 });
-// Chart
-export const LineCharts = loadable(() => import('./Charts/LineCharts'), {
-  fallback: <Loading />,
-});
-export const BarCharts = loadable(() => import('./Charts/BarCharts'), {
-  fallback: <Loading />,
-});
-export const AreaCharts = loadable(() => import('./Charts/AreaCharts'), {
-  fallback: <Loading />,
-});
-export const PieCharts = loadable(() => import('./Charts/PieCharts'), {
-  fallback: <Loading />,
-});
-export const RadarCharts = loadable(() => import('./Charts/RadarCharts'), {
-  fallback: <Loading />,
-});
-export const ScatterCharts = loadable(() => import('./Charts/ScatterCharts'), {
-  fallback: <Loading />,
-});
-export const CompossedCharts = loadable(
-  () => import('./Charts/CompossedCharts'),
-  {
-    fallback: <Loading />,
-  }
-);
-
 // Pages
 export const LoginFullstack = loadable(
   () => import('./Pages/UsersFullstack/Login'),
@@ -252,27 +226,6 @@ export const LockScreen = loadable(() => import('./Pages/Users/LockScreen'), {
 export const ComingSoon = loadable(() => import('./Pages/ComingSoon'), {
   fallback: <Loading />,
 });
-export const Ecommerce = loadable(() => import('./Pages/Ecommerce'), {
-  fallback: <Loading />,
-});
-export const ProductPage = loadable(
-  () => import('./Pages/Ecommerce/ProductPage'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const CheckoutPage = loadable(
-  () => import('./Pages/Ecommerce/CheckoutPage'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const InvoicePage = loadable(
-  () => import('./Pages/Ecommerce/InvoicePage'),
-  {
-    fallback: <Loading />,
-  }
-);
 export const Profile = loadable(() => import('./Pages/Payroll/Profile/Profile'), {
   fallback: <Loading />,
 });
@@ -1854,9 +1807,6 @@ export const LocationLog = loadable(
 );
 
 /// ///////////////////////////////////////////////////////////////////////////////////////
-export const Maintenance = loadable(() => import('./Pages/Maintenance'), {
-  fallback: <Loading />,
-});
 export const Parent = loadable(() => import('./Parent'), {
   fallback: <Loading />,
 });
