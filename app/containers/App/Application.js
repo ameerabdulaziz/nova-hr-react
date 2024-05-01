@@ -93,13 +93,9 @@ import {
   TodoFirebase,
   ContactFirebase,
   EmailFirebase,
-  Timeline,
   Profile,
-  Chat,
   CompanyDocument,
   CompanyDocumentCreate,
-  BlankPage,
-  AuthenticatedPage,
   Photos,
   Error,
   MapMarker,
@@ -521,13 +517,6 @@ function Application(props) {
         {/* Pages */}
         <Route exact path='/app/pages' component={Parent} />
         <Route path='/app/pages/user-profile' component={Profile} />
-        <Route path='/app/pages/timeline' component={Timeline} />
-        <Route path='/app/pages/chat' component={Chat} />
-        <Route
-          path='/app/pages/authenticated-page'
-          component={AuthenticatedPage}
-        />
-        <Route path='/app/pages/blank-page' component={BlankPage} />
         <Route path='/app/pages/photo-gallery' component={Photos} />
         <Route path='/app/pages/not-found' component={NotFound} />
         <Route path='/app/pages/error' component={Error} />
