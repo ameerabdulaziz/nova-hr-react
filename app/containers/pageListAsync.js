@@ -223,27 +223,12 @@ export const ForgotPassword = loadable(
 export const LockScreen = loadable(() => import('./Pages/Users/LockScreen'), {
   fallback: <Loading />,
 });
-export const ComingSoon = loadable(() => import('./Pages/ComingSoon'), {
-  fallback: <Loading />,
-});
 export const Profile = loadable(() => import('./Pages/Payroll/Profile/Profile'), {
   fallback: <Loading />,
 });
 export const Timeline = loadable(() => import('./Pages/Timeline'), {
   fallback: <Loading />,
 });
-export const Chat = loadable(() => import('./Pages/Chat'), {
-  fallback: <Loading />,
-});
-export const BlankPage = loadable(() => import('./Pages/BlankPage'), {
-  fallback: <Loading />,
-});
-export const AuthenticatedPage = loadable(
-  () => import('./Pages/AuthenticatedPage'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 // Sample Pre Build Apps
 export const Todo = loadable(() => import('./SampleApps/Todo'), {

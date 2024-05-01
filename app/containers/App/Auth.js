@@ -6,7 +6,7 @@ import {
   Login,Register,
   LoginFullstack, RegisterFullstack,
   ResetPassword, ResetPasswordFullstack,
-  LockScreen, ComingSoon,
+  LockScreen,
   TermsConditions,ForgotPassword
 } from '../pageListAsync';
 
@@ -23,7 +23,6 @@ function Auth() {
         <Route path="/register-firebase" component={RegisterFullstack} />
         <Route path="/reset-firebase" component={ResetPasswordFullstack} />
         <Route path="/lock-screen" component={LockScreen} />
-        <Route path="/coming-soon" component={ComingSoon} />
         <Route path="/terms-conditions" component={TermsConditions} />
         <Route component={NotFound} />
       </Switch>
