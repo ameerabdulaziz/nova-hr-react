@@ -203,7 +203,7 @@ export default defineMessages({
       },
       webInvisible: {
         id: `${scope}.code.webInvisible`,
-        defaultMessage: 'Used for Hr',
+        defaultMessage: 'Used by Hr only',
       },
       // Government Sick Leave Setting
       GovernmentSickLeaveSetting: {

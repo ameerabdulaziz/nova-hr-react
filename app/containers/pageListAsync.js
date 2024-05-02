@@ -46,16 +46,6 @@ export const Status = loadable(() => import('./Widgets/Status'), {
   fallback: <Loading />,
 });
 
-// Layouts
-export const AppLayout = loadable(() => import('./Layouts/AppLayout'), {
-  fallback: <Loading />,
-});
-export const Responsive = loadable(() => import('./Layouts/Responsive'), {
-  fallback: <Loading />,
-});
-export const Grid = loadable(() => import('./Layouts/Grid'), {
-  fallback: <Loading />,
-});
 
 // Tables
 export const SimpleTable = loadable(() => import('./Tables/BasicTable'), {
@@ -223,27 +213,9 @@ export const ForgotPassword = loadable(
 export const LockScreen = loadable(() => import('./Pages/Users/LockScreen'), {
   fallback: <Loading />,
 });
-export const ComingSoon = loadable(() => import('./Pages/ComingSoon'), {
-  fallback: <Loading />,
-});
 export const Profile = loadable(() => import('./Pages/Payroll/Profile/Profile'), {
   fallback: <Loading />,
 });
-export const Timeline = loadable(() => import('./Pages/Timeline'), {
-  fallback: <Loading />,
-});
-export const Chat = loadable(() => import('./Pages/Chat'), {
-  fallback: <Loading />,
-});
-export const BlankPage = loadable(() => import('./Pages/BlankPage'), {
-  fallback: <Loading />,
-});
-export const AuthenticatedPage = loadable(
-  () => import('./Pages/AuthenticatedPage'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 // Sample Pre Build Apps
 export const Todo = loadable(() => import('./SampleApps/Todo'), {
@@ -274,30 +246,6 @@ export const EmailFirebase = loadable(
   }
 );
 
-export const Photos = loadable(() => import('./Pages/Photos'), {
-  fallback: <Loading />,
-});
-
-// Maps
-export const MapMarker = loadable(() => import('./Maps/MapMarker'), {
-  fallback: <Loading />,
-});
-export const MapDirection = loadable(() => import('./Maps/MapDirection'), {
-  fallback: <Loading />,
-});
-export const SearchMap = loadable(() => import('./Maps/SearchMap'), {
-  fallback: <Loading />,
-});
-export const TrafficIndicator = loadable(
-  () => import('./Maps/TrafficIndicator'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const StreetViewMap = loadable(() => import('./Maps/StreetViewMap'), {
-  fallback: <Loading />,
-});
-
 // Other
 export const NotFound = loadable(() => import('./NotFound/NotFound'), {
   fallback: <Loading />,
@@ -306,12 +254,6 @@ export const Error = loadable(() => import('./Pages/Error'), {
   fallback: <Loading />,
 });
 // MainData /////////////////////////////////////////////////////////////////////////////////
-export const Department = loadable(
-  () => import('./Pages/Payroll/Department/DepartmentList'),
-  {
-    fallback: <Loading />,
-  }
-);
 export const Section = loadable(
   () => import('./Pages/Payroll/Section/SectionList'),
   {
@@ -1810,12 +1752,6 @@ export const LocationLog = loadable(
 export const Parent = loadable(() => import('./Parent'), {
   fallback: <Loading />,
 });
-export const TermsConditions = loadable(
-  () => import('./Pages/TermsConditions'),
-  {
-    fallback: <Loading />,
-  }
-);
 
 /// Vac ///////////////////////
 

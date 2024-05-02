@@ -10,11 +10,11 @@ const AssessmentReportData = (locale) => {
     return data.data;
   };
 
-//   Apis.Save = async (data) => {
+  Apis.PeerAppraisalReportApi = async (yearId,monthId,employeeId,orgId,StatusId) => {
+    const data = await axiosInstance.get(`AssessmentReport/GetPeerAppraisalReport/en?YearId=${yearId}&MonthId=${monthId}&EmployeeId=${employeeId}&OrganizationId=${orgId}&StatusId=${StatusId}`);
 
-//       const result = await axiosInstance.post("Assessment/Save", data);
-//       return result;
-//   };
+    return data.data;
+  };
 
   
   return Apis;

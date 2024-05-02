@@ -25,25 +25,28 @@ function AssessmentReport(props) {
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
+  const [EmployeeList, setEmployeeList] = useState([]);
+  const [Employee, setEmployee] = useState("");
   const [DepartmentList, setDepartmentList] = useState([]);
-  const [Department, setDepartment] = useState(null);
-  const [status, setStatus] = useState(null);
+  const [Department, setDepartment] = useState("");
+  const [MonthList, setMonthList] = useState([]);
+  const [Month, setMonth] = useState("");
+  const [YearList, setYearList] = useState([]);
+  const [Year, setYear] = useState("");
+  const [status, setStatus] = useState("");
   const [statusList, setStatusList] = useState([
-    {id: 0 , name: "All"},
-    {id: 1 , name: "Done"},
-    {id: 2 , name: "Not Done"}
+    {id: 1 , name: intl.formatMessage(messages.Done)},
+    {id: 2 , name: intl.formatMessage(messages.notDone)}
   ]);
-
-
 
 
   const handleSearch = async (e) => {
         try {
         setIsLoading(true);
 
-        // const dataApi = await ApiData(locale).GetDataById(Year.id,Department,EmployeeIds,Month);
+        const dataApi = await ApiData(locale).PeerAppraisalReportApi(Year,Month,Employee,Department,status);
 
-        // setdata(dataApi);
+        setdata(dataApi);
         } catch (err) {
         } finally {
         setIsLoading(false);
@@ -54,9 +57,15 @@ function AssessmentReport(props) {
     setIsLoading(true);
     
     try {
+      const empolyees = await GeneralListApis(locale).GetEmployeeList();
       const departments = await GeneralListApis(locale).GetDepartmentList();
+      const months = await GeneralListApis(locale).GetMonths();
+      const years = await GeneralListApis(locale).GetYears();
 
+      setEmployeeList(empolyees)
       setDepartmentList(departments)
+      setMonthList(months)
+      setYearList(years)
 
     } catch (error) {
       //
@@ -80,11 +89,11 @@ function AssessmentReport(props) {
       },
     },
     {
-      name: 'peerAppraisalSettingId',
+      name: 'evaluatorEmployeeName',
       label: intl.formatMessage(messages.evaluatorEmployee),
     },
     {
-      name: 'peerAppraisalSettingId2',
+      name: 'employeeName',
       label: intl.formatMessage(messages.evaluatedEmployee),
     },
     {
@@ -103,16 +112,74 @@ function AssessmentReport(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
-
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        
         <Grid container spacing={2}>
-            <Grid item xs={12} md={3}>
-                    <Autocomplete
+          <Grid item xs={12} md={3}>
+                <Autocomplete
+                   options={EmployeeList.length != 0 ? EmployeeList: []}
+                  isOptionEqualToValue={(option, value) => option.id === value.id
+                  }
+                  getOptionLabel={(option) => (option ? option.name : '')}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  onChange={(event, value) => {
+                    if (value !== null) {
+                        setEmployee(value.id);
+                    } else {
+                        setEmployee("");
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={intl.formatMessage(messages.employeeName)}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12} md={3}>
+                      <Autocomplete
+                      id="ddlMenu"   
+                      isOptionEqualToValue={(option, value) => option.id === value.id}                      
+                      options={DepartmentList.length != 0 ? DepartmentList: []}
+                      getOptionLabel={(option) =>(
+                          option  ? option.name : ""
+                      )
+                      }
+                      renderOption={(props, option) => {
+                          return (
+                          <li {...props} key={option.id}>
+                              {option.name}
+                          </li>
+                          );
+                      }}
+                      onChange={(event, value) => {
+                          if (value !== null) {
+                              setDepartment(value.id);
+                          } else {
+                              setDepartment("");
+                          }
+                      }}
+                      renderInput={(params) => (
+                      <TextField
+                          {...params}
+                          name="VacationType"
+                          label={intl.formatMessage(messages.department)}
+                          margin="normal" 
+                          className={style.fieldsSty}
+                          
+                          />
+                  )}
+                  />
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <Autocomplete
                     id="ddlMenu"   
                     isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                    options={DepartmentList.length != 0 ? DepartmentList: []}
+                    options={MonthList.length != 0 ? MonthList: []}
                     getOptionLabel={(option) =>(
                         option  ? option.name : ""
                     )
@@ -126,61 +193,92 @@ function AssessmentReport(props) {
                     }}
                     onChange={(event, value) => {
                         if (value !== null) {
-                            setDepartment(value.id);
+                            setMonth(value.id);
                         } else {
-                            setDepartment(null);
+                            setMonth("");
                         }
                     }}
                     renderInput={(params) => (
                     <TextField
                         {...params}
                         name="VacationType"
-                        label={intl.formatMessage(messages.department)}
+                        label={intl.formatMessage(messages.months)}
                         margin="normal" 
                         className={style.fieldsSty}
-                        
                         />
+                    )}
+                    /> 
+              </Grid>
+              <Grid item xs={12} md={2}>
+                  <Autocomplete
+                  id="ddlMenu"   
+                  isOptionEqualToValue={(option, value) => option.id === value.id}                      
+                  options={YearList.length != 0 ? YearList: []}
+                  getOptionLabel={(option) =>(
+                      option  ? option.name : ""
+                  )
+                  }
+                  renderOption={(props, option) => {
+                      return (
+                      <li {...props} key={option.id}>
+                          {option.name}
+                      </li>
+                      );
+                  }}
+                  onChange={(event, value) => {
+                      if (value !== null) {
+                          setYear(value !== null ? value.id : null);
+                      } else {
+                          setYear("");
+                      }
+                  }}
+                  renderInput={(params) => (
+                  <TextField
+                      {...params}
+                      name="VacationType"
+                      label={intl.formatMessage(messages.year)}
+                      margin="normal" 
+                      className={style.fieldsSty}
+                      />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} md={2}>
+                <Autocomplete
+                id="Status"
+                options={statusList}
+                isOptionEqualToValue={(option, value) => {
+                    return (
+                    option.id === value.id || value.id === 0 || value.id === ""
+                    );
+                }}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                    setStatus(value !== null ? value.id : "")
+                }}
+                renderInput={(params) => (
+                    <TextField
+                    variant="outlined"
+                    {...params}
+                    name="Status"
+                    label={intl.formatMessage(messages.status)}
+                    />
                 )}
                 />
             </Grid>
-
             <Grid item xs={12} md={2}>
-                    <Autocomplete
-                    id="Status"
-                    options={statusList}
-                    isOptionEqualToValue={(option, value) => {
-                        return (
-                        option.id === value.id || value.id === 0 || value.id === ""
-                        );
-                    }}
-                    getOptionLabel={(option) => (option.name ? option.name : "")}
-                    onChange={(event, value) => {
-                        setStatus(value !== null ? value.id : null)
-                    }}
-                    renderInput={(params) => (
-                        <TextField
-                        variant="outlined"
-                        {...params}
-                        name="Status"
-                        label={intl.formatMessage(messages.status)}
-                        />
-                    )}
-                    />
-                </Grid>
-
-                <Grid item xs={12} md={2}>
-                    <Button
-                    variant="contained"
-                    size="medium"
-                    color="primary"
-                    onClick={handleSearch}
-                    >
-                    <FormattedMessage {...Payrollmessages.search} />
-                    </Button>
-                </Grid>
-                <Grid item xs={12} md={12}></Grid>
+                <Button
+                variant="contained"
+                size="medium"
+                color="primary"
+                onClick={handleSearch}
+                >
+                <FormattedMessage {...Payrollmessages.search} />
+                </Button>
+            </Grid>
+            <Grid item xs={12} md={12}></Grid>
         </Grid>
-    </PapperBlock>
+      </PapperBlock>
 
       <PayrollTable
         title=""

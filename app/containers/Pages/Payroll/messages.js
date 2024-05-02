@@ -646,4 +646,48 @@ employeeId: {
     id: `${scope}.goTo`,
     defaultMessage: 'goTo',
   },
+  personal: {
+    id: `${scope}.personal`,
+    defaultMessage: 'personal',
+  },
+  qualification: {
+    id: `${scope}.qualification`,
+    defaultMessage: 'qualification',
+  },
+  contactInfo: {
+    id: `${scope}.contactInfo`,
+    defaultMessage: 'contactInfo',
+  },
+  address: {
+    id: `${scope}.address`,
+    defaultMessage: 'address',
+  },
+  car: {
+    id: `${scope}.car`,
+    defaultMessage: 'car',
+  },
+  course: {
+    id: `${scope}.course`,
+    defaultMessage: 'course',
+  },
+  contract: {
+    id: `${scope}.contract`,
+    defaultMessage: 'contract',
+  },
+  experience: {
+    id: `${scope}.experience`,
+    defaultMessage: 'experience',
+  },
+  insurance: {
+    id: `${scope}.insurance`,
+    defaultMessage: 'insurance',
+  },
+  bank: {
+    id: `${scope}.bank`,
+    defaultMessage: 'bank',
+  },
+  salary: {
+    id: `${scope}.salary`,
+    defaultMessage: 'salary',
+  },
 });
