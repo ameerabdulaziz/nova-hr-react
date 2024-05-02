@@ -3169,6 +3169,8 @@
   "boilerplate.containers.Payroll.assessment.textareaErrMes": "الحقل النصي مطلوب",
 
   "boilerplate.containers.Payroll.assessment.evaluatorEmployee": "الموظف الذى يقوم بالتقييم",
+  "boilerplate.containers.Payroll.assessment.Done": "تم",
+  "boilerplate.containers.Payroll.assessment.notDone": "لم يتم",
 
   "boilerplate.containers.Payroll.SmartObjective.objective": "الهدف",
   "boilerplate.containers.Payroll.SmartObjective.measurementTool": "أداة القياس",

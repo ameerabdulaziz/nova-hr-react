@@ -593,4 +593,12 @@ export default defineMessages({
     id: `${scope}.evaluatorEmployee`,
     defaultMessage: 'Evaluator Employee',
   },
+  Done: {
+    id: `${scope}.Done`,
+    defaultMessage: 'Done',
+  },
+  notDone: {
+    id: `${scope}.notDone`,
+    defaultMessage: 'Not Done',
+  },
 });

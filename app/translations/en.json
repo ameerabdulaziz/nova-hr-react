@@ -3122,6 +3122,8 @@
   "boilerplate.containers.Payroll.assessment.textareaErrMes": "Text field is required",
 
   "boilerplate.containers.Payroll.assessment.evaluatorEmployee": "Evaluator Employee",
+  "boilerplate.containers.Payroll.assessment.Done": "Done",
+  "boilerplate.containers.Payroll.assessment.notDone": "Not Done",
 
 
   "boilerplate.containers.Payroll.SmartObjective.objective": "Objective",
