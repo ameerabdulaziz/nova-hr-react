@@ -478,37 +478,6 @@ function CreateAndEditEmployeeDocuments(props) {
                   <Grid item xs={12} md={4}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
-                        label={intl.formatMessage(messages.inDate)}
-                        value={inDate ? dayjs(inDate) : inDate}
-                        className={classes.field}
-                        onChange={(date) => {
-                          setInDate(date)
-                        }}
-                        onError={(error,value)=>{
-                          if (error !== null) {
-                            setDateError((prevState) => ({
-                              ...prevState,
-                              [`inDate`]: true
-                            }));
-                          } else  {
-                            setDateError((prevState) => ({
-                              ...prevState,
-                              [`inDate`]: false
-                            }));
-                          }
-                        }}
-                        slotProps={{
-                          textField: {
-                            required: true,
-                          },
-                        }}
-                      />
-                    </LocalizationProvider>
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker
                         label={intl.formatMessage(messages.outDate)}
                         value={outDate ? dayjs(outDate) : outDate}
                         className={classes.field}
@@ -525,6 +494,38 @@ function CreateAndEditEmployeeDocuments(props) {
                             setDateError((prevState) => ({
                               ...prevState,
                               [`outDate`]: false
+                            }));
+                          }
+                        }}
+                        slotProps={{
+                          textField: {
+                            required: true,
+                          },
+                        }}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label={intl.formatMessage(messages.inDate)}
+                        value={inDate ? dayjs(inDate) : inDate}
+                        className={classes.field}
+                        minDate={outDate ? dayjs(outDate) : undefined}
+                        onChange={(date) => {
+                          setInDate(date)
+                        }}
+                        onError={(error,value)=>{
+                          if (error !== null) {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              [`inDate`]: true
+                            }));
+                          } else  {
+                            setDateError((prevState) => ({
+                              ...prevState,
+                              [`inDate`]: false
                             }));
                           }
                         }}
