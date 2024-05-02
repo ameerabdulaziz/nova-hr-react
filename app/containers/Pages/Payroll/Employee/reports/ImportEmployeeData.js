@@ -41,7 +41,7 @@ const ALL_INFO_XLSX_COLUMNS = [
   { label: 'City', isRequired: false, type: 'number' }, // 10
   { label: 'Social Status', isRequired: false, type: 'number' }, // 11
   { label: 'Military Status', isRequired: false, type: 'number' }, // 12
-  { label: 'Work Email', isRequired: true, type: 'string' }, // 13
+  { label: 'Work Email', isRequired: false, type: 'string' }, // 13
   { label: 'Hiring Date', isRequired: true, type: 'date' }, // 14
   { label: 'Organization', isRequired: true, type: 'number' }, // 15
   { label: 'Report To', isRequired: false, type: 'number' }, // 16
@@ -95,7 +95,7 @@ function ImportEmployeeData(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
-
+debugger;
     if (!formInfo.file) {
       toast.error(intl.formatMessage(messages.selectFileFirst));
       return;
@@ -245,6 +245,7 @@ function ImportEmployeeData(props) {
   };
 
   const onFileExcelLoaded = (result) => {
+    debugger ;
     const workbook = XLSX.read(result);
     const sheets = workbook.SheetNames;
 

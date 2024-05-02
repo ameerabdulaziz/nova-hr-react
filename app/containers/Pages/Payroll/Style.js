@@ -1,6 +1,5 @@
 import { makeStyles } from 'tss-react/mui';
 import { lighten, darken, alpha } from '@mui/material/styles';
-import { auto } from '@popperjs/core';
 const useMainStyles = makeStyles()((theme,_params,classes) => ({
   
   CustomMUIDataTable: {
@@ -218,7 +217,7 @@ rootTable: {
     position: 'relative',
     width: '100%',
     overflow: 'hidden',
-    height: auto,
+    height: 'auto',
     backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.primary.dark, 0.8) : theme.palette.primary.dark,
     display: 'flex',
     justifyContent: 'center',
@@ -236,7 +235,7 @@ rootTable: {
     position: 'relative',
     width: '100%',
     overflow: 'hidden',
-    height: auto,
+    height: 'auto',
     
     display: 'flex',
     justifyContent: 'center',

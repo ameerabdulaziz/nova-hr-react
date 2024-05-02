@@ -16,10 +16,10 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from './messages';
 import useStyles from './widget-jss';
 import PapperBlock from '../PapperBlock/PapperBlock';
-import {
+/* import {
   MaritalStatusWidget,OrganizationWidget
 } from "enl-components";
-
+ */
 function FilesWidget(props) {
   const { intl } = props;
   const { classes } = useStyles();
@@ -27,13 +27,13 @@ function FilesWidget(props) {
   return (
     <Grid container spacing={3}>
       <Grid item md={4} sm={12} xs={12}>
-        <MaritalStatusWidget />
+        {/* <MaritalStatusWidget /> */}
       </Grid>
       <Grid item md={4} sm={12} xs={12}>
-        <OrganizationWidget />
+        {/* <OrganizationWidget /> */}
       </Grid>
       <Grid item md={4} sm={12} xs={12}>
-      <MaritalStatusWidget />
+      {/* <MaritalStatusWidget /> */}
       </Grid>
     </Grid>
   );

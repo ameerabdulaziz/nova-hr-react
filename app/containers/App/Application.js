@@ -31,9 +31,7 @@ import {
 } from './GeneralCodePages';
 import {
   // shymaa
-  AnalyticDashboard,
-  MarketingDashboard,
-  CryptoDashboard,
+  
   Infographics,
   MiniApps,
   Analytics,
@@ -450,8 +448,6 @@ function Application(props) {
         <Route exact path='/app' component={AdminDashboard} />
         <Route path='/app/ManagementDashboard' component={ManagementDashboard} />
         <Route path='/app/EmployeeDashboard' component={EmployeeDashboard} />
-        <Route path='/app/dashboard/marketing' component={MarketingDashboard} />
-        <Route path='/app/dashboard/crypto' component={CryptoDashboard} />
         {/* Widgets */}
         <Route exact path='/app/widgets' component={Parent} />
         <Route path='/app/widgets/infographics' component={Infographics} />
