@@ -3,26 +3,28 @@ import { Menu, MenuItem } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
 import React, { memo, useState } from 'react';
+import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router';
-
-const OPTIONS = [
-  { name: 'Personal', url: 'Personal' },
-  { name: 'Qualification', url: 'EmployeeQualification' },
-  { name: 'Contact Info', url: 'EmployeeContactInfo' },
-  { name: 'Address', url: 'EmployeeAddress' },
-  { name: 'Car', url: 'EmployeeCar' },
-  { name: 'Course', url: 'EmployeeCourse' },
-  { name: 'Contract', url: 'EmployeeContract' },
-  { name: 'Experince', url: 'EmployeeExperince' },
-  { name: 'Insurance', url: 'EmployeeInsurance' },
-  { name: 'Bank', url: 'EmployeeBank' },
-  { name: 'Salary', url: 'EmployeeSalary' },
-];
+import payrollMessages from '../messages';
 
 function EmployeeNavigation(props) {
   const {
-    employeeId, employeeName, anchor, openInNewTap
+    intl, employeeId, employeeName, anchor, openInNewTap
   } = props;
+
+  const OPTIONS = [
+    { name: intl.formatMessage(payrollMessages.personal), url: 'Personal' },
+    { name: intl.formatMessage(payrollMessages.qualification), url: 'EmployeeQualification' },
+    { name: intl.formatMessage(payrollMessages.contactInfo), url: 'EmployeeContactInfo' },
+    { name: intl.formatMessage(payrollMessages.address), url: 'EmployeeAddress' },
+    { name: intl.formatMessage(payrollMessages.car), url: 'EmployeeCar' },
+    { name: intl.formatMessage(payrollMessages.course), url: 'EmployeeCourse' },
+    { name: intl.formatMessage(payrollMessages.contract), url: 'EmployeeContract' },
+    { name: intl.formatMessage(payrollMessages.experience), url: 'EmployeeExperince' },
+    { name: intl.formatMessage(payrollMessages.insurance), url: 'EmployeeInsurance' },
+    { name: intl.formatMessage(payrollMessages.bank), url: 'EmployeeBank' },
+    { name: intl.formatMessage(payrollMessages.salary), url: 'EmployeeSalary' },
+  ];
 
   const history = useHistory();
 
@@ -90,6 +92,7 @@ EmployeeNavigation.propTypes = {
   employeeName: PropTypes.string.isRequired,
   anchor: PropTypes.node,
   openInNewTap: PropTypes.bool,
+  intl: PropTypes.object.isRequired
 };
 
 EmployeeNavigation.defaultProps = {
@@ -101,4 +104,4 @@ EmployeeNavigation.defaultProps = {
   openInNewTap: false,
 };
 
-export default memo(EmployeeNavigation);
+export default memo(injectIntl(EmployeeNavigation));
