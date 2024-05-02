@@ -94,11 +94,6 @@ import {
   CompanyDocument,
   CompanyDocumentCreate,
   Error,
-  MapMarker,
-  MapDirection,
-  SearchMap,
-  TrafficIndicator,
-  StreetViewMap,
   NotFound,
   Section,
   Gender,
@@ -1399,11 +1394,6 @@ function Application(props) {
 
         {/* Map */}
         <Route exact path='/app/maps' component={Parent} />
-        <Route path='/app/maps/map-marker' component={MapMarker} />
-        <Route path='/app/maps/map-direction' component={MapDirection} />
-        <Route path='/app/maps/map-searchbox' component={SearchMap} />
-        <Route path='/app/maps/map-traffic' component={TrafficIndicator} />
-        <Route path='/app/maps/street-view' component={StreetViewMap} />
 
        
         {/* Vacations */}

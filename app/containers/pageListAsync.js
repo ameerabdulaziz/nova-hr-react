@@ -246,26 +246,6 @@ export const EmailFirebase = loadable(
   }
 );
 
-// Maps
-export const MapMarker = loadable(() => import('./Maps/MapMarker'), {
-  fallback: <Loading />,
-});
-export const MapDirection = loadable(() => import('./Maps/MapDirection'), {
-  fallback: <Loading />,
-});
-export const SearchMap = loadable(() => import('./Maps/SearchMap'), {
-  fallback: <Loading />,
-});
-export const TrafficIndicator = loadable(
-  () => import('./Maps/TrafficIndicator'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const StreetViewMap = loadable(() => import('./Maps/StreetViewMap'), {
-  fallback: <Loading />,
-});
-
 // Other
 export const NotFound = loadable(() => import('./NotFound/NotFound'), {
   fallback: <Loading />,
