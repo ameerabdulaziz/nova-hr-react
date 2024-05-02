@@ -40,9 +40,6 @@ import {
   Gallery,
   Status,
   Parent,
-  AppLayout,
-  Responsive,
-  Grid,
   SimpleTable,
   AdvancedTable,
   TablePlayground,
@@ -96,7 +93,6 @@ import {
   Profile,
   CompanyDocument,
   CompanyDocumentCreate,
-  Photos,
   Error,
   MapMarker,
   MapDirection,
@@ -104,7 +100,6 @@ import {
   TrafficIndicator,
   StreetViewMap,
   NotFound,
-  Department,
   Section,
   Gender,
   Bank,
@@ -457,9 +452,6 @@ function Application(props) {
         <Route path='/app/widgets/status' component={Status} />
         {/* Layout */}
         <Route exact path='/app/layouts' component={Parent} />
-        <Route path='/app/layouts/grid' component={Grid} />
-        <Route path='/app/layouts/app-layout' component={AppLayout} />
-        <Route path='/app/layouts/responsive' component={Responsive} />
         {/* Table */}
         <Route exact path='/app/tables' component={Parent} />
         <Route path='/app/tables/basic-table' component={SimpleTable} />
@@ -517,11 +509,9 @@ function Application(props) {
         {/* Pages */}
         <Route exact path='/app/pages' component={Parent} />
         <Route path='/app/pages/user-profile' component={Profile} />
-        <Route path='/app/pages/photo-gallery' component={Photos} />
         <Route path='/app/pages/not-found' component={NotFound} />
         <Route path='/app/pages/error' component={Error} />
         {/* MainData */}
-        <Route path='/app/Pages/Payroll/Department' component={Department} />
         <Route path='/app/Pages/Payroll/Section' component={Section} />
         <Route path='/app/Pages/MainData/Government' component={Government} />
         <Route path='/app/Pages/MainData/City' component={City} />

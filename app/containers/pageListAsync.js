@@ -46,16 +46,6 @@ export const Status = loadable(() => import('./Widgets/Status'), {
   fallback: <Loading />,
 });
 
-// Layouts
-export const AppLayout = loadable(() => import('./Layouts/AppLayout'), {
-  fallback: <Loading />,
-});
-export const Responsive = loadable(() => import('./Layouts/Responsive'), {
-  fallback: <Loading />,
-});
-export const Grid = loadable(() => import('./Layouts/Grid'), {
-  fallback: <Loading />,
-});
 
 // Tables
 export const SimpleTable = loadable(() => import('./Tables/BasicTable'), {
@@ -256,10 +246,6 @@ export const EmailFirebase = loadable(
   }
 );
 
-export const Photos = loadable(() => import('./Pages/Photos'), {
-  fallback: <Loading />,
-});
-
 // Maps
 export const MapMarker = loadable(() => import('./Maps/MapMarker'), {
   fallback: <Loading />,
@@ -288,12 +274,6 @@ export const Error = loadable(() => import('./Pages/Error'), {
   fallback: <Loading />,
 });
 // MainData /////////////////////////////////////////////////////////////////////////////////
-export const Department = loadable(
-  () => import('./Pages/Payroll/Department/DepartmentList'),
-  {
-    fallback: <Loading />,
-  }
-);
 export const Section = loadable(
   () => import('./Pages/Payroll/Section/SectionList'),
   {
