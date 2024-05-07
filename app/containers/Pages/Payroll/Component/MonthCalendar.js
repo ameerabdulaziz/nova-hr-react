@@ -1,11 +1,5 @@
 import {
-  Box,
-  Card,
-  CardContent,
-  Chip,
-  Popover,
-  Stack,
-  Typography,
+  Box, Chip, Popover, Stack, Typography
 } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Table from '@mui/material/Table';
@@ -14,6 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
@@ -23,6 +18,19 @@ import api from '../Dashboard/api';
 import payrollMessages from '../messages';
 import PayRollLoader from './PayRollLoader';
 
+const getEventColor = (docType) => {
+  switch (docType) {
+    case 1:
+      return 'rgb(156, 39, 176)';
+    case 2:
+      return 'rgb(63, 81, 181)';
+    case 3:
+      return 'rgb(33, 150, 243)';
+    default:
+      return 'gray';
+  }
+};
+
 function MonthCalendar(props) {
   const { intl } = props;
 
@@ -30,7 +38,7 @@ function MonthCalendar(props) {
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(false);
   const [groupedDocuments, setGroupedDocuments] = useState({});
-  const [anchorExtraEl, setAnchorExtraEl] = useState(null);
+  const [anchorExtraEl, setAnchorExtraEl] = useState({});
 
   const dayNames = [
     intl.formatMessage(payrollMessages.sunday),
@@ -57,24 +65,62 @@ function MonthCalendar(props) {
     intl.formatMessage(payrollMessages.december),
   ];
 
+  const EVENTS_TYPE = [
+    {
+      docType: 3,
+      label: intl.formatMessage(payrollMessages.leave),
+      color: getEventColor(3),
+    },
+    {
+      docType: 2,
+      label: intl.formatMessage(payrollMessages.mission),
+      color: getEventColor(2),
+    },
+    {
+      docType: 1,
+      label: intl.formatMessage(payrollMessages.permission),
+      color: getEventColor(1),
+    },
+  ];
+
+  function groupEventsByDate(events) {
+    const groupedEvents = {};
+
+    events.forEach((event) => {
+      const fromDate = new Date(event.fromDate);
+      const toDate = new Date(event.toDate);
+
+      // Loop through dates between fromDate and toDate
+      const dates = [];
+      const today = new Date(fromDate);
+      while (today <= toDate) {
+        dates.push(new Date(today));
+        today.setDate(today.getDate() + 1);
+      }
+
+      dates.forEach((date) => {
+        const dateString = date.getDate();
+        if (!groupedEvents[dateString]) {
+          groupedEvents[dateString] = [];
+        }
+        // Check if an event with the same docType exists for this date
+        // const sameDocTypeEventExists = groupedEvents[dateString].some(existingEvent => existingEvent.docType === event.docType);
+        // if (!sameDocTypeEventExists) {
+        groupedEvents[dateString].push(event);
+        // }
+      });
+    });
+
+    return groupedEvents;
+  }
+
   const fetchNeededData = async () => {
     try {
       setIsLoading(true);
 
       const documents = await api(locale).GetCalendarData();
 
-      const groupedByDayNumber = {};
-
-      documents.forEach((doc) => {
-        const key = new Date(doc.date).getDate();
-
-        if (!groupedByDayNumber[key]) {
-          groupedByDayNumber[key] = [];
-        }
-        groupedByDayNumber[key].push(doc);
-      });
-
-      setGroupedDocuments(groupedByDayNumber);
+      setGroupedDocuments(groupEventsByDate(documents));
     } catch (error) {
       //
     } finally {
@@ -119,11 +165,9 @@ function MonthCalendar(props) {
       return null;
     }
 
-    const slicedDocuments = groupedDocuments[day].length > 10
-      ? groupedDocuments[day].slice(0, 10)
-      : groupedDocuments[day];
+    const uniqEvents = _.uniqBy(groupedDocuments[day], 'docType');
 
-    return slicedDocuments.map((item, index) => (
+    return uniqEvents.map((item, index) => (
       <HRDivider action={item} key={index} />
     ));
   };
@@ -175,60 +219,65 @@ function MonthCalendar(props) {
             verticalAlign: 'unset',
           }}
         >
-          {getCurrentDayLabel(day)}
+          <Box
+            onClick={(evt) => {
+              setAnchorExtraEl((prev) => ({
+                ...prev,
+                [day]: evt.currentTarget,
+              }));
+            }}
+          >
+            {getCurrentDayLabel(day)}
 
-          {groupedDocuments[day] && (
-            <>
-              <Stack spacing='3px' direction='row'>
-                {getDividerByDay(day)}
-              </Stack>
+            {groupedDocuments[day] && (
+              <>
+                <Stack spacing='3px' direction='row'>
+                  {getDividerByDay(day)}
+                </Stack>
 
-              {groupedDocuments[day].length > 10 && (
-                <>
-                  <div
-                    style={{
-                      fontSize: '11px',
-                      cursor: 'pointer',
-                      userSelect: 'none',
+                <Popover
+                  anchorEl={anchorExtraEl[day]}
+                  open={Boolean(anchorExtraEl[day])}
+                  onClose={() => setAnchorExtraEl((prev) => ({ ...prev, [day]: null }))
+                  }
+                >
+                  <Stack
+                    sx={{
+                      padding: '10px',
+                      maxHeight: '500px',
+                      overflowY: 'auto',
                     }}
-                    onClick={(evt) => {
-                      setAnchorExtraEl(evt.currentTarget);
-                    }}
+                    direction='column'
+                    spacing='5px'
                   >
-                    +{groupedDocuments[day].length - 10}{' '}
-                    {intl.formatMessage(payrollMessages.more)}
-                  </div>
+                    {groupedDocuments[day].map((item, index) => (
+                      <Stack
+                        direction='row'
+                        alignItems='center'
+                        spacing={1}
+                        key={index}
+                      >
+                        <Divider
+                          orientation='vertical'
+                          sx={{
+                            borderColor: getEventColor(item.docType),
+                            height: '8px',
+                            borderWidth: '4px',
+                          }}
+                        />
 
-                  <Popover
-                    anchorEl={anchorExtraEl}
-                    open={Boolean(anchorExtraEl)}
-                    onClose={() => setAnchorExtraEl(null)}
-                    disableRestoreFocus
-                  >
-                    <Stack
-                      sx={{
-                        padding: '10px',
-                        width: '200px',
-                        maxHeight: '400px',
-                        overflowY: 'auto',
-                      }}
-                      direction='column'
-                      spacing={1}
-                    >
-                      {groupedDocuments[day].map((item, index) => (
-                        <Box key={index}>
-                          <Typography>{item.title}</Typography>
-                          <Typography variant='body1' color='gray'>
-                            {item.details}
-                          </Typography>
-                        </Box>
-                      ))}
-                    </Stack>
-                  </Popover>
-                </>
-              )}
-            </>
-          )}
+                        <Typography variant='body1'>{item.title}</Typography>
+
+                        <Typography variant='body2' color='gray'>
+                          {item.details}
+                        </Typography>
+                      </Stack>
+                    ))}
+                  </Stack>
+                </Popover>
+              </>
+            )}
+          </Box>
         </TableCell>
       );
     }
@@ -283,8 +332,30 @@ function MonthCalendar(props) {
         noMargin
         desc=''
       >
+        <Stack direction='row' spacing={2}>
+          {EVENTS_TYPE.map((item) => (
+            <Stack
+              direction='row'
+              alignItems='center'
+              spacing={1}
+              key={item.docType}
+            >
+              <Divider
+                orientation='vertical'
+                sx={{
+                  borderColor: item.color,
+                  height: '15px',
+                  borderWidth: '7px',
+                  cursor: 'pointer',
+                }}
+              />
+
+              <Typography>{item.label}</Typography>
+            </Stack>
+          ))}
+        </Stack>
         <TableContainer>
-          <Table size='small'>
+          <Table size='small' sx={{ mb: '0!important', mt: '18px!important' }}>
             <TableHead>
               <TableRow>
                 {dayNames.map((day, dayIndex) => (
@@ -304,39 +375,17 @@ function MonthCalendar(props) {
 const HRDivider = (props) => {
   const { action } = props;
 
-  const [anchorEl, setAnchorEl] = useState(null);
-
   return (
-    <>
-      <Popover
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={() => setAnchorEl(null)}
-      >
-        <Card sx={{ p: '8px !important' }}>
-          <CardContent>
-            <Typography>{action.title}</Typography>
-            <Typography variant='body1' color='gray'>
-              {action.details}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Popover>
-
-      <Divider
-        orientation='vertical'
-        flexItem
-        onClick={(evt) => {
-          setAnchorEl(evt.currentTarget);
-        }}
-        sx={{
-          borderColor: 'error.main', // TODO: create function for get color by docType
-          height: '19px',
-          borderWidth: '2px',
-          cursor: 'pointer',
-        }}
-      />
-    </>
+    <Divider
+      orientation='vertical'
+      flexItem
+      sx={{
+        borderColor: getEventColor(action.docType),
+        height: '19px',
+        borderWidth: '2px',
+        cursor: 'pointer',
+      }}
+    />
   );
 };
 

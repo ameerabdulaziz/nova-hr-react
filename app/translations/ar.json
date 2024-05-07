@@ -914,6 +914,9 @@
   "boilerplate.containers.Payroll.Upload": "رفع",
   "boilerplate.containers.Payroll.Print": "طباعة",
   "boilerplate.containers.Payroll.company": "الشركة",
+  "boilerplate.containers.Payroll.leave": "إجازة",
+  "boilerplate.containers.Payroll.mission": "مأمورية",
+  "boilerplate.containers.Payroll.permission": "اذن",
   "boilerplate.containers.Payroll.preview": "عرض",
 
   "boilerplate.containers.Payroll.executionId": "Id",
