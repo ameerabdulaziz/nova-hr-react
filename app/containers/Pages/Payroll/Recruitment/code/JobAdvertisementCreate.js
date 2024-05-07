@@ -49,7 +49,7 @@ function JobAdvertisementCreate(props) {
     id,
 
     jobId: '',
-    expireDate: new Date(),
+    expireDate: null,
     jobAdvertisementCode: '',
     jobDescription: '',
     experiance: '',
