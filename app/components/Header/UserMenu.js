@@ -24,16 +24,23 @@ import link from 'enl-api/ui/link';
 import NotificationsActiveOutlined from '@mui/icons-material/NotificationsActiveOutlined';
 import messages from './messages';
 import useStyles from './header-jss';
+import { useHistory } from 'react-router';
+import { formateDate } from '../../containers/Pages/Payroll/helpers';
+import { Icon } from '@mui/material';
 
 function UserMenu(props) {
   const { classes, cx } = useStyles();
   const {
     dark,
     signOut,
-    avatar
+    avatar,
+    notifications
   } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(null);
+
+  const history = useHistory();
+
   const handleMenu = menu => (event) => {
     setOpenMenu(openMenu === menu ? null : menu);
     setAnchorEl(event.currentTarget);
@@ -44,6 +51,13 @@ function UserMenu(props) {
     setOpenMenu(null);
   };
 
+  const onOpenBtnClick = (url) => {
+    if (url) {
+      handleClose();
+      history.push(url);
+    }
+  };
+
   return (
     <div>
       <IconButton
@@ -52,7 +66,7 @@ function UserMenu(props) {
         color="inherit"
         className={cx(classes.notifIcon, dark ? classes.dark : classes.light)}
         size="large">
-        <Badge className={classes.badge} badgeContent={4} color="secondary">
+        <Badge className={classes.badge} badgeContent={notifications.length} color="secondary">
           <NotificationsActiveOutlined />
         </Badge>
       </IconButton>
@@ -76,58 +90,25 @@ function UserMenu(props) {
         open={openMenu === 'notification'}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
-          <div className={messageStyles.messageInfo}>
-            <ListItemAvatar>
-              <Avatar alt="User Name" src={avatarApi[0]} />
-            </ListItemAvatar>
-            <ListItemText primary={dummy.text.subtitle} secondary={dummy.text.date} />
-          </div>
-        </MenuItem>
-        <Divider variant="inset" />
-        <MenuItem onClick={handleClose}>
-          <div className={messageStyles.messageInfo}>
-            <ListItemAvatar>
-              <Avatar className={messageStyles.icon}>
-                <Info />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={dummy.text.sentences} className={classes.textNotif} secondary={dummy.text.date} />
-          </div>
-        </MenuItem>
-        <Divider variant="inset" />
-        <MenuItem onClick={handleClose}>
-          <div className={messageStyles.messageSuccess}>
-            <ListItemAvatar>
-              <Avatar className={messageStyles.icon}>
-                <Check />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={dummy.text.subtitle} className={classes.textNotif} secondary={dummy.text.date} />
-          </div>
-        </MenuItem>
-        <Divider variant="inset" />
-        <MenuItem onClick={handleClose}>
-          <div className={messageStyles.messageWarning}>
-            <ListItemAvatar>
-              <Avatar className={messageStyles.icon}>
-                <Warning />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={dummy.text.subtitle} className={classes.textNotif} secondary={dummy.text.date} />
-          </div>
-        </MenuItem>
-        <Divider variant="inset" />
-        <MenuItem onClick={handleClose}>
-          <div className={messageStyles.messageError}>
-            <ListItemAvatar>
-              <Avatar className={messageStyles.icon}>
-                <Error />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Suspendisse pharetra pulvinar sollicitudin. Aenean ut orci eu odio cursus lobortis eget tempus velit. " className={classes.textNotif} secondary="Jan 9, 2016" />
-          </div>
-        </MenuItem>
+
+        {
+          notifications.map((item, index) => (
+            <MenuItem
+              divider={index < notifications.length - 1}
+              onClick={() => onOpenBtnClick(item.url)}
+              key={index}
+            >
+              <div className={messageStyles.messageInfo}>
+                <ListItemAvatar>
+                  <Avatar alt="User Name" className={messageStyles.icon}>
+                    <Icon>{item.iconClass}</Icon>
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={item.description} className={classes.textNotif} secondary={formateDate(item.date, 'dd MMM yyyy')} />
+              </div>
+            </MenuItem>
+          ))
+        }
       </Menu>
       <Button onClick={handleMenu('user-setting')}>
         <Avatar
@@ -180,6 +161,7 @@ UserMenu.propTypes = {
   signOut: PropTypes.func.isRequired,
   avatar: PropTypes.string.isRequired,
   dark: PropTypes.bool,
+  notifications: PropTypes.array.isRequired
 };
 
 UserMenu.defaultProps = {
