@@ -27,7 +27,6 @@ import messages from './messages';
 import useStyles from './header-jss';
 import { useSelector } from 'react-redux';
 import api from '../../containers/Pages/Payroll/Dashboard/api';
-import PayRollLoader from '../../containers/Pages/Payroll/Component/PayRollLoader';
 
 const elem = document.documentElement;
 
@@ -80,8 +79,8 @@ function Header(props) {
     setIsLoading(true);
 
     try {
-      const notifications = await api(locale).getNotifications();
-      setNotifications(notifications);
+      const notificationsResponse = await api(locale).getNotifications();
+      setNotifications(notificationsResponse);
     } catch (error) {
       //
     } finally {
@@ -138,108 +137,106 @@ function Header(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
-      <AppBar
-        className={cx(
-          classes.appBar,
-          classes.floatingBar,
-          margin && classes.appBarShift,
-          turnDarker && classes.darker,
-        )}
-      >
-        <Toolbar disableGutters={!open}>
-          <div className={cx(classes.brandWrap, dense && classes.dense)}>
-            <span>
-              <IconButton
-                className={classes.menuButton}
-                aria-label="Menu"
-                onClick={toggleDrawerOpen}
-                size="large">
-                <MenuIcon />
-              </IconButton>
-            </span>
-            <Hidden smDown>
-              <NavLink to="/app" className={cx(classes.brand, classes.brandBar)}>
-                <img src={logo} alt={brand.name} style={{ width:120,height:25  }} />
-                {/* {brand.name} */}
-              </NavLink>
-            </Hidden>
-          </div>
+    <AppBar
+      className={cx(
+        classes.appBar,
+        classes.floatingBar,
+        margin && classes.appBarShift,
+        turnDarker && classes.darker,
+      )}
+    >
+      <Toolbar disableGutters={!open}>
+        <div className={cx(classes.brandWrap, dense && classes.dense)}>
+          <span>
+            <IconButton
+              className={classes.menuButton}
+              aria-label="Menu"
+              onClick={toggleDrawerOpen}
+              size="large">
+              <MenuIcon />
+            </IconButton>
+          </span>
           <Hidden smDown>
-            <div className={classes.headerProperties}>
-              <div
-                className={cx(
-                  classes.headerAction,
-                  showTitle && classes.fadeOut,
-                )}
-              >
-                {fullScreen ? (
-                  <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
-                    <IconButton className={classes.button} onClick={closeFullScreen} size="small">
-                      <FullscreenExitOutlined />
-                    </IconButton>
-                  </Tooltip>
-                ) : (
-                  <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
-                    <IconButton className={classes.button} onClick={openFullScreen} size="small">
-                      <FullscreenOutlined />
-                    </IconButton>
-                  </Tooltip>
-                )}
-                <Tooltip title={intl.formatMessage(messages.lamp)} placement="bottom">
-                  <IconButton className={classes.button} onClick={() => turnMode(mode)} size="small">
-                    <InvertColors />
+            <NavLink to="/app" className={cx(classes.brand, classes.brandBar)}>
+              <img src={logo} alt={brand.name} style={{ width:120,height:25  }} />
+              {/* {brand.name} */}
+            </NavLink>
+          </Hidden>
+        </div>
+        <Hidden smDown>
+          <div className={classes.headerProperties}>
+            <div
+              className={cx(
+                classes.headerAction,
+                showTitle && classes.fadeOut,
+              )}
+            >
+              {fullScreen ? (
+                <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
+                  <IconButton className={classes.button} onClick={closeFullScreen} size="small">
+                    <FullscreenExitOutlined />
                   </IconButton>
                 </Tooltip>
-                {/* <Tooltip title={intl.formatMessage(messages.guide)} placement="bottom">
-                  <IconButton className={classes.button} onClick={openGuide} size="small">
-                    <HelpOutlineOutlined />
+              ) : (
+                <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
+                  <IconButton className={classes.button} onClick={openFullScreen} size="small">
+                    <FullscreenOutlined />
                   </IconButton>
-                </Tooltip> */}
-              </div>
-              <Typography
-                component="h2"
-                className={cx(
-                  classes.headerTitle,
-                  showTitle && classes.show,
-                )}
+                </Tooltip>
+              )}
+              <Tooltip title={intl.formatMessage(messages.lamp)} placement="bottom">
+                <IconButton className={classes.button} onClick={() => turnMode(mode)} size="small">
+                  <InvertColors />
+                </IconButton>
+              </Tooltip>
+              {/* <Tooltip title={intl.formatMessage(messages.guide)} placement="bottom">
+                <IconButton className={classes.button} onClick={openGuide} size="small">
+                  <HelpOutlineOutlined />
+                </IconButton>
+              </Tooltip> */}
+            </div>
+            <Typography
+              component="h2"
+              className={cx(
+                classes.headerTitle,
+                showTitle && classes.show,
+              )}
+            >
+              {menuMessages[title] !== undefined ? <FormattedMessage {...menuMessages[title]} /> :(title=="app"?"Hr Dashboard":title)}
+            </Typography>
+          </div>
+        </Hidden>
+        <div className={classes.searchWrapper}>
+          <div className={classes.wrapper}>
+            <div className={classes.search}>
+              <SearchIcon />
+            </div>
+            <SearchUi history={history} />
+          </div>
+        </div>
+        <Hidden smDown>
+          <span className={classes.separatorV} />
+        </Hidden>
+        <div className={classes.userToolbar}>
+          <SelectLanguage />
+          {isLogin
+            ? <UserMenu signOut={signOut} avatar={avatar} notifications={notifications} />
+            : (
+              <Button
+                color="primary"
+                className={classes.buttonTop}
+                component={Link}
+                to={link.login}
+                variant="contained"
               >
-                {menuMessages[title] !== undefined ? <FormattedMessage {...menuMessages[title]} /> :(title=="app"?"Hr Dashboard":title)}
-              </Typography>
-            </div>
-          </Hidden>
-          <div className={classes.searchWrapper}>
-            <div className={classes.wrapper}>
-              <div className={classes.search}>
-                <SearchIcon />
-              </div>
-              <SearchUi history={history} />
-            </div>
-          </div>
-          <Hidden smDown>
-            <span className={classes.separatorV} />
-          </Hidden>
-          <div className={classes.userToolbar}>
-            <SelectLanguage />
-            {isLogin
-              ? <UserMenu signOut={signOut} avatar={avatar} notifications={notifications} />
-              : (
-                <Button
-                  color="primary"
-                  className={classes.buttonTop}
-                  component={Link}
-                  to={link.login}
-                  variant="contained"
-                >
-                  <AccountCircle />
-                  <FormattedMessage {...messages.login} />
-                </Button>
-              )
-            }
-          </div>
-        </Toolbar>
-      </AppBar>
-    </PayRollLoader>
+                <AccountCircle />
+                <FormattedMessage {...messages.login} />
+              </Button>
+            )
+          }
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 }
 
