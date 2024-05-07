@@ -331,7 +331,7 @@ const HRDivider = (props) => {
         }}
         sx={{
           borderColor: 'error.main', // TODO: create function for get color by docType
-          height: '10px',
+          height: '19px',
           borderWidth: '2px',
           cursor: 'pointer',
         }}
