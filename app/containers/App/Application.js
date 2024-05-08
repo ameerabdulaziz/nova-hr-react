@@ -31,12 +31,6 @@ import {
 } from './GeneralCodePages';
 import {
   // shymaa
-  
-  Infographics,
-  MiniApps,
-  Analytics,
-  Gallery,
-  Status,
   Parent,
   SimpleTable,
   AdvancedTable,
@@ -436,11 +430,6 @@ function Application(props) {
         <Route path='/app/EmployeeDashboard' component={EmployeeDashboard} />
         {/* Widgets */}
         <Route exact path='/app/widgets' component={Parent} />
-        <Route path='/app/widgets/infographics' component={Infographics} />
-        <Route path='/app/widgets/mini-apps' component={MiniApps} />
-        <Route path='/app/widgets/analytics' component={Analytics} />
-        <Route path='/app/widgets/gallery-carousel' component={Gallery} />
-        <Route path='/app/widgets/status' component={Status} />
         {/* Layout */}
         <Route exact path='/app/layouts' component={Parent} />
         {/* Table */}

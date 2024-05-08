@@ -27,26 +27,6 @@ export const EmployeeDashboard = loadable(
   }
 );
 
-
-
-// Layouts
-export const Infographics = loadable(() => import('./Widgets/Infographics'), {
-  fallback: <Loading />,
-});
-export const MiniApps = loadable(() => import('./Widgets/MiniApps'), {
-  fallback: <Loading />,
-});
-export const Analytics = loadable(() => import('./Widgets/Analytics'), {
-  fallback: <Loading />,
-});
-export const Gallery = loadable(() => import('./Widgets/Gallery'), {
-  fallback: <Loading />,
-});
-export const Status = loadable(() => import('./Widgets/Status'), {
-  fallback: <Loading />,
-});
-
-
 // Tables
 export const SimpleTable = loadable(() => import('./Tables/BasicTable'), {
   fallback: <Loading />,
