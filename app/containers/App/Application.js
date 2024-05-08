@@ -31,12 +31,6 @@ import {
 } from './GeneralCodePages';
 import {
   // shymaa
-  
-  Infographics,
-  MiniApps,
-  Analytics,
-  Gallery,
-  Status,
   Parent,
   SimpleTable,
   AdvancedTable,
@@ -56,32 +50,6 @@ import {
   Autocomplete,
   Upload,
   TextEditor,
-  Avatars,
-  Accordion,
-  Badges,
-  List,
-  PopoverTooltip,
-  Snackbar,
-  Typography,
-  Tabs,
-  Cards,
-  ImageGrid,
-  Progress,
-  DialogModal,
-  Steppers,
-  DrawerMenu,
-  Breadcrumbs,
-  Icons,
-  SliderCarousel,
-  Tags,
-  TreeView,
-  LineCharts,
-  BarCharts,
-  AreaCharts,
-  PieCharts,
-  RadarCharts,
-  ScatterCharts,
-  CompossedCharts,
   Contact,
   Email,
   Todo,
@@ -436,11 +404,6 @@ function Application(props) {
         <Route path='/app/EmployeeDashboard' component={EmployeeDashboard} />
         {/* Widgets */}
         <Route exact path='/app/widgets' component={Parent} />
-        <Route path='/app/widgets/infographics' component={Infographics} />
-        <Route path='/app/widgets/mini-apps' component={MiniApps} />
-        <Route path='/app/widgets/analytics' component={Analytics} />
-        <Route path='/app/widgets/gallery-carousel' component={Gallery} />
-        <Route path='/app/widgets/status' component={Status} />
         {/* Layout */}
         <Route exact path='/app/layouts' component={Parent} />
         {/* Table */}
@@ -471,25 +434,6 @@ function Application(props) {
 
         {/* Ui Components */}
         <Route exact path='/app/ui' component={Parent} />
-        <Route path='/app/ui/avatars' component={Avatars} />
-        <Route path='/app/ui/accordion' component={Accordion} />
-        <Route path='/app/ui/badges' component={Badges} />
-        <Route path='/app/ui/list' component={List} />
-        <Route path='/app/ui/popover-tooltip' component={PopoverTooltip} />
-        <Route path='/app/ui/snackbar' component={Snackbar} />
-        <Route path='/app/ui/typography' component={Typography} />
-        <Route path='/app/ui/tabs' component={Tabs} />
-        <Route path='/app/ui/card-papper' component={Cards} />
-        <Route path='/app/ui/image-grid' component={ImageGrid} />
-        <Route path='/app/ui/progress' component={Progress} />
-        <Route path='/app/ui/dialog-modal' component={DialogModal} />
-        <Route path='/app/ui/steppers' component={Steppers} />
-        <Route path='/app/ui/drawer-menu' component={DrawerMenu} />
-        <Route path='/app/ui/breadcrumbs' component={Breadcrumbs} />
-        <Route path='/app/ui/icons' component={Icons} />
-        <Route path='/app/ui/slider-carousel' component={SliderCarousel} />
-        <Route path='/app/ui/tags' component={Tags} />
-        <Route path='/app/ui/tree-view' component={TreeView} />
         {/* Sample Apps */}
         <Route path='/app/pages/contact' component={Contact} />
         <Route path='/app/pages/email' component={Email} />

@@ -4,24 +4,12 @@ import { useSelector } from "react-redux";
 import { 
   Button, 
   Grid,
-  TableCell, 
-  TableRow, 
   Autocomplete, 
   TextField ,
-  FormGroup,
-  FormLabel,
-  FormControl,
-  ListItemText,
-  Checkbox,
-  FormControlLabel,
-  Select,
-  InputLabel,
-  MenuItem
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
-import { format } from "date-fns";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
@@ -29,7 +17,6 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import { toast } from 'react-hot-toast';
-import MUIDataTable, { ExpandButton } from "mui-datatables";
 import GeneralListApis from "../../api/GeneralListApis";
 
 function ManPowerReport(props) {
@@ -37,7 +24,6 @@ function ManPowerReport(props) {
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
-  const [newData, setNewData] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
   const [searchData, setsearchData] = useState({
@@ -48,6 +34,7 @@ function ManPowerReport(props) {
 
   const [JobsData, setJobsData] = useState([]);
   const [DateError, setDateError] = useState({});
+  const [totalActualManPoweArr, setTotalActualManPoweArr] = useState([]);
   const newDataArr = []
 
 
@@ -125,13 +112,7 @@ const columns = [
         filter: false,
         customBodyRender: (value, tableMeta) => {
           return (
-            <div
-              style={{
-                ...(newDataArr?.[tableMeta?.rowIndex]?.header && {
-                  visibility: "hidden",
-                }), 
-              }}
-            >
+            <div>
               <pre> {value} </pre>
             </div>
           );
@@ -145,13 +126,7 @@ const columns = [
         filter: false,
         customBodyRender: (value, tableMeta) => {
           return (
-            <div
-              style={{
-                ...(newDataArr?.[tableMeta?.rowIndex]?.header && {
-                  visibility: "hidden",
-                }), 
-              }}
-            >
+            <div>
                 <pre>{value}</pre>
             </div>
           );
@@ -165,13 +140,7 @@ const columns = [
         filter: false,
         customBodyRender: (value, tableMeta) => {
           return (
-            <div
-              style={{
-                ...(newDataArr?.[tableMeta?.rowIndex]?.header && {
-                  visibility: "hidden",
-                }), 
-              }}
-            >
+            <div>
               <pre>{value}</pre>
             </div>
           );
@@ -185,14 +154,8 @@ const columns = [
         filter: false,
         customBodyRender: (value, tableMeta) => {
           return (
-            <div
-              style={{
-                ...(newDataArr?.[tableMeta?.rowIndex]?.header && {
-                  visibility: "hidden",
-                }), 
-              }}
-            >
-              <pre>{value}</pre>
+            <div>
+              <pre>{value?.toFixed(2)}</pre>
             </div>
           );
         },
@@ -207,13 +170,7 @@ const columns = [
         noFormatOnPrint:true,
         customBodyRender: (value, tableMeta) => {
           return (
-            <div
-              style={{
-                ...(!newDataArr?.[tableMeta?.rowIndex]?.header && {
-                  display: 'none',
-                }),
-              }}
-            >
+            <div>
               {value}
             </div>
           );
@@ -228,21 +185,68 @@ const columns = [
     },
   ];
 
+    // used to calculate total ActualManPower for each rows group with same departmentName to show it in header 
+    useEffect(()=>{
 
-data.map((item)=>{
-    const Headers = newDataArr.find((header) => header.departmentName === item.departmentName);
-    if(!Headers)
-    {
-      newDataArr.push(
+      let departmentName = ""
+      let totalActualManPower = 0
+      let arr = []
+      
+      data.map((item, index)=>{
+      
+        if(departmentName !== item.departmentName)
+          {
+            if(departmentName !== "")
+              {
+                arr.push({
+                  departmentName: departmentName,
+                  totalActualManPower: totalActualManPower
+                })
+              }
+            departmentName = item.departmentName
+            totalActualManPower = 0
+          }
+
+        if(departmentName === item.departmentName)
+          {
+            totalActualManPower = totalActualManPower + item.actualManPower
+          }
+
+          if(index === data.length - 1)
+            {
+              arr.push({
+                departmentName: departmentName,
+                totalActualManPower: totalActualManPower
+            })
+            }
+          
+          setTotalActualManPoweArr(arr)
+      })
+
+    },[data])
+
+    // used to generate header for each rows group with same departmentName
+    useEffect(()=>{
+      let totalObj 
+      
+        data.map((item)=>{
+        const Headers = newDataArr.find((header) => header.departmentName === item.departmentName);
+        if(!Headers)
         {
-          departmentName: item.departmentName,
-          actualManPower: item.actualManPower,
-          header: true
+          totalObj = totalActualManPoweArr.find(objItem => objItem.departmentName === item.departmentName);
+
+          newDataArr.push(
+            {
+              departmentName: item.departmentName,
+              actualManPower: totalObj?.totalActualManPower,
+              header: true
+            }
+          )
         }
-      )
-    }
-      newDataArr.push(item)
-})
+          newDataArr.push(item)
+    })
+    },[totalActualManPoweArr])
+
 
 
   const options = {

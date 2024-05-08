@@ -275,7 +275,7 @@ function PayrollTable(props) {
 
   const onAddActionBtnClick = () => {
     // Check is employee has create permission
-    if (menu.isAdd) {
+    if (menu?.isAdd) {
       history.push(actions?.add?.url, {
         ...(actions?.add?.params || {}),
       });
@@ -284,7 +284,7 @@ function PayrollTable(props) {
 
   const onEditActionBtnClick = (id) => {
     // Check is employee has update permission
-    if (menu.isUpdate) {
+    if (menu?.isUpdate) {
       history.push(actions?.edit?.url, {
         id,
         ...(actions?.edit?.params || {}),
@@ -294,7 +294,7 @@ function PayrollTable(props) {
 
   const onDeleteActionBtnClick = (id) => {
     // Check is employee has delete permission
-    if (menu.isDelete) {
+    if (menu?.isDelete) {
       setDeletedId(id);
       setIsDeletePopupOpen(true);
 
@@ -346,7 +346,7 @@ function PayrollTable(props) {
 
   // Custom toolbar for table (contain: download, print, add button)
   const customToolbar = useCallback(() => {
-    let isAddBtnDisabled = !menu.isAdd;
+    let isAddBtnDisabled = !menu?.isAdd;
 
     if (typeof actions?.add?.disabled === 'boolean') {
       isAddBtnDisabled = actions?.add?.disabled;
@@ -536,7 +536,7 @@ function PayrollTable(props) {
           viewColumns: false,
           filter: false,
           customBodyRender: (_, tableMeta) => {
-            let isDeleteBtnDisabled = !menu.isDelete;
+            let isDeleteBtnDisabled = !menu?.isDelete;
 
             if (typeof actions?.delete?.disabled === 'boolean') {
               isDeleteBtnDisabled = actions?.delete?.disabled;
@@ -546,7 +546,7 @@ function PayrollTable(props) {
               );
             }
 
-            let isEditBtnDisabled = !menu.isUpdate;
+            let isEditBtnDisabled = !menu?.isUpdate;
 
             if (typeof actions?.edit?.disabled === 'boolean') {
               isEditBtnDisabled = actions?.edit?.disabled;

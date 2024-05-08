@@ -25,6 +25,8 @@ import SearchUi from '../Search/SearchUi';
 import SelectLanguage from '../SelectLanguage';
 import messages from './messages';
 import useStyles from './header-jss';
+import { useSelector } from 'react-redux';
+import api from '../../containers/Pages/Payroll/Dashboard/api';
 
 const elem = document.documentElement;
 
@@ -49,6 +51,11 @@ function Header(props) {
   const [turnDarker, setTurnDarker] = useState(false);
   const [showTitle, setShowTitle] = useState(false);
 
+  const locale = useSelector((state) => state.language.locale);
+
+  const [notifications, setNotifications] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   // Initial header style
   let flagDarker = false;
   let flagTitle = false;
@@ -67,6 +74,23 @@ function Header(props) {
       flagTitle = newFlagTitle;
     }
   };
+
+  const fetchNeededList = async () => {
+    setIsLoading(true);
+
+    try {
+      const notificationsResponse = await api(locale).getNotifications();
+      setNotifications(notificationsResponse);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNeededList();
+  }, []);
 
   const openFullScreen = () => {
     setFullScreen(true);
@@ -196,7 +220,7 @@ function Header(props) {
         <div className={classes.userToolbar}>
           <SelectLanguage />
           {isLogin
-            ? <UserMenu signOut={signOut} avatar={avatar} />
+            ? <UserMenu signOut={signOut} avatar={avatar} notifications={notifications} />
             : (
               <Button
                 color="primary"

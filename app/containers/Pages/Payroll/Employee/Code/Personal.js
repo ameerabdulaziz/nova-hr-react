@@ -1299,7 +1299,6 @@ function Personal(props) {
                 name="workEmail"
                 type="email"
                 value={workEmail}
-                required
                 onChange={(e) => {
                   setWorkEmail(e.target.value);
                 }}

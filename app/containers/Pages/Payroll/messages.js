@@ -690,4 +690,16 @@ employeeId: {
     id: `${scope}.salary`,
     defaultMessage: 'salary',
   },
+  leave: {
+    id: `${scope}.leave`,
+    defaultMessage: 'leave',
+  },
+  mission: {
+    id: `${scope}.mission`,
+    defaultMessage: 'mission',
+  },
+  permission: {
+    id: `${scope}.permission`,
+    defaultMessage: 'permission',
+  },
 });

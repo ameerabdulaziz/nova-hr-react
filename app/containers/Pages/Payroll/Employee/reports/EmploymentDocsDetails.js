@@ -25,6 +25,7 @@ import ApiData from "../api/EmployeeReportsApiData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import { formateDate } from "../../helpers";
+import { toast } from "react-hot-toast";
 
 function EmploymentDocsDetails(props) {
   const { intl } = props;
@@ -48,6 +49,10 @@ function EmploymentDocsDetails(props) {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   const handleSearch = async (e) => {
+    if (searchData.EmployeeId === '') {
+      toast.error(intl.formatMessage(messages.empErrMes));
+      return;
+    }
 
 
     let DocumentTypeData = []

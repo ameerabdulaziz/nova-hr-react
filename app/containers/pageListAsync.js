@@ -27,26 +27,6 @@ export const EmployeeDashboard = loadable(
   }
 );
 
-
-
-// Layouts
-export const Infographics = loadable(() => import('./Widgets/Infographics'), {
-  fallback: <Loading />,
-});
-export const MiniApps = loadable(() => import('./Widgets/MiniApps'), {
-  fallback: <Loading />,
-});
-export const Analytics = loadable(() => import('./Widgets/Analytics'), {
-  fallback: <Loading />,
-});
-export const Gallery = loadable(() => import('./Widgets/Gallery'), {
-  fallback: <Loading />,
-});
-export const Status = loadable(() => import('./Widgets/Status'), {
-  fallback: <Loading />,
-});
-
-
 // Tables
 export const SimpleTable = loadable(() => import('./Tables/BasicTable'), {
   fallback: <Loading />,
@@ -105,71 +85,6 @@ export const Upload = loadable(() => import('./Forms/Upload'), {
   fallback: <Loading />,
 });
 export const DialButton = loadable(() => import('./Forms/DialButton'), {
-  fallback: <Loading />,
-});
-
-// UI Components
-export const Badges = loadable(() => import('./UiElements/Badges'), {
-  fallback: <Loading />,
-});
-export const Avatars = loadable(() => import('./UiElements/Avatars'), {
-  fallback: <Loading />,
-});
-export const Accordion = loadable(() => import('./UiElements/Accordion'), {
-  fallback: <Loading />,
-});
-export const List = loadable(() => import('./UiElements/List'), {
-  fallback: <Loading />,
-});
-export const PopoverTooltip = loadable(
-  () => import('./UiElements/PopoverTooltip'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Snackbar = loadable(() => import('./UiElements/Snackbar'), {
-  fallback: <Loading />,
-});
-export const Typography = loadable(() => import('./UiElements/Typography'), {
-  fallback: <Loading />,
-});
-export const Tabs = loadable(() => import('./UiElements/Tabs'), {
-  fallback: <Loading />,
-});
-export const Cards = loadable(() => import('./UiElements/Cards'), {
-  fallback: <Loading />,
-});
-export const ImageGrid = loadable(() => import('./UiElements/ImageGrid'), {
-  fallback: <Loading />,
-});
-export const Progress = loadable(() => import('./UiElements/Progress'), {
-  fallback: <Loading />,
-});
-export const DialogModal = loadable(() => import('./UiElements/DialogModal'), {
-  fallback: <Loading />,
-});
-export const Steppers = loadable(() => import('./UiElements/Steppers'), {
-  fallback: <Loading />,
-});
-export const DrawerMenu = loadable(() => import('./UiElements/DrawerMenu'), {
-  fallback: <Loading />,
-});
-export const Breadcrumbs = loadable(() => import('./UiElements/Breadcrumbs'), {
-  fallback: <Loading />,
-});
-export const Icons = loadable(() => import('./UiElements/Icons'), {
-  fallback: <Loading />,
-});
-export const SliderCarousel = loadable(
-  () => import('./UiElements/SliderCarousel'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Tags = loadable(() => import('./UiElements/Tags'), {
-  fallback: <Loading />,
-});
-export const TreeView = loadable(() => import('./UiElements/TreeView'), {
   fallback: <Loading />,
 });
 // Pages
