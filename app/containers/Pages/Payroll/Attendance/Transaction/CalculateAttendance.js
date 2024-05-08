@@ -472,7 +472,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'LessTime',
+      name: 'lessTime',
       label: intl.formatMessage(messages.LessTime),
     },
 
