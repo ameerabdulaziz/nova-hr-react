@@ -50,12 +50,6 @@ import {
   Autocomplete,
   Upload,
   TextEditor,
-  Contact,
-  Email,
-  Todo,
-  TodoFirebase,
-  ContactFirebase,
-  EmailFirebase,
   Profile,
   CompanyDocument,
   CompanyDocumentCreate,
@@ -434,13 +428,6 @@ function Application(props) {
 
         {/* Ui Components */}
         <Route exact path='/app/ui' component={Parent} />
-        {/* Sample Apps */}
-        <Route path='/app/pages/contact' component={Contact} />
-        <Route path='/app/pages/email' component={Email} />
-        <Route path='/app/pages/todo' component={Todo} />
-        <Route path='/app/pages/todo-firebase' component={TodoFirebase} />
-        <Route path='/app/pages/contact-firebase' component={ContactFirebase} />
-        <Route path='/app/pages/email-firebase' component={EmailFirebase} />
         {/* Pages */}
         <Route exact path='/app/pages' component={Parent} />
         <Route path='/app/pages/user-profile' component={Profile} />

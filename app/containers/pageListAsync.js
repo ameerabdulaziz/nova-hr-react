@@ -132,35 +132,6 @@ export const Profile = loadable(() => import('./Pages/Payroll/Profile/Profile'),
   fallback: <Loading />,
 });
 
-// Sample Pre Build Apps
-export const Todo = loadable(() => import('./SampleApps/Todo'), {
-  fallback: <Loading />,
-});
-export const TodoFirebase = loadable(
-  () => import('./SampleFullstackApps/Todo'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Contact = loadable(() => import('./SampleApps/Contact'), {
-  fallback: <Loading />,
-});
-export const ContactFirebase = loadable(
-  () => import('./SampleFullstackApps/Contact'),
-  {
-    fallback: <Loading />,
-  }
-);
-export const Email = loadable(() => import('./SampleApps/Email'), {
-  fallback: <Loading />,
-});
-export const EmailFirebase = loadable(
-  () => import('./SampleFullstackApps/Email'),
-  {
-    fallback: <Loading />,
-  }
-);
-
 // Other
 export const NotFound = loadable(() => import('./NotFound/NotFound'), {
   fallback: <Loading />,

@@ -5,12 +5,6 @@ import { reducer as form } from 'redux-form';
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react18-router';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
-import contact from 'enl-containers/SampleApps/Contact/reducers/contactReducer';
-import contactFullstack from 'enl-containers/SampleFullstackApps/Contact/reducers/contactReducer';
-import email from 'enl-containers/SampleApps/Email/reducers/emailReducer';
-import emailFullstack from 'enl-containers/SampleFullstackApps/Email/reducers/emailReducer';
-import todo from 'enl-containers/SampleApps/Todo/reducers/todoReducer';
-import todoFullstack from 'enl-containers/SampleFullstackApps/Todo/reducers/todoReducer';
 import crudTable from 'enl-containers/Tables/reducers/crudTbReducer';
 import treeTable from 'enl-containers/Tables/reducers/treeTbReducers';
 import history from '../utils/history';
@@ -44,12 +38,6 @@ export default function createReducer(injectedReducers = {}) {
     ui: uiReducer,
     initval,
     authReducer,
-    contact,
-    contactFullstack,
-    email,
-    emailFullstack,
-    todo,
-    todoFullstack,
     crudTableDemo: branchReducer(crudTable, 'crudTableDemo'),
     treeTableArrow: branchReducer(treeTable, 'treeTableArrow'),
     treeTablePM: branchReducer(treeTable, 'treeTablePM'),
