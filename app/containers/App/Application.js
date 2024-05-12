@@ -3,7 +3,6 @@ import { PropTypes } from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import Dashboard from '../Templates/Dashboard';
 import { ThemeContext } from './ThemeWrapper';
-import withAuthorizationRouter from '../Session/withAuthorizationRouter';
 import {
   // shymaa
   JobTypes,
