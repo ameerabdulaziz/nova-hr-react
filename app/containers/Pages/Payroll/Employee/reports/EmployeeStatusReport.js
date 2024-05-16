@@ -4,19 +4,18 @@ import EmailIcon from '@mui/icons-material/Email';
 import FlagIcon from '@mui/icons-material/Flag';
 import LocalPhone from '@mui/icons-material/LocalPhone';
 import LocationOn from '@mui/icons-material/LocationOn';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
 import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
-import LogoutIcon from '@mui/icons-material/Logout';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import PersonOffIcon from '@mui/icons-material/PersonOff';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import useStyles from '../../../../../components/Widget/widget-jss';
@@ -27,14 +26,14 @@ import hrMessages from '../../HumanResources/messages';
 import vacationMessages from '../../Vacation/messages';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
-// import api from '../api/EmployeeStatusReportData';
+import api from '../api/EmployeeStatusReportData';
 import messages from '../messages';
 
 function EmployeeStatusReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
 
-  // const locale = useSelector((state) => state.language.locale);
+  const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
   const [isLoading, setIsLoading] = useState(true);
@@ -49,28 +48,38 @@ function EmployeeStatusReport(props) {
 
   const [employeeInfo, setEmployeeInfo] = useState({
     penalty: [],
-    leave: [],
-    vacation: [],
     rewords: [],
+    vacation: [],
     jobs: [],
     department: [],
     profile: {},
-    leaveInfo: {},
   });
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    if (!formInfo.EmployeeId) {
-      toast.error(intl.formatMessage(messages.youMustChooseAnEmployee));
-      return;
-    }
-
     setIsLoading(true);
-    console.log(formInfo);
+
+    const params = {
+      FromDate: formateDate(formInfo.FromDate),
+      ToDate: formateDate(formInfo.ToDate),
+    };
+
     try {
-      // const response = await api(locale).getEmployeeInfo(formInfo.EmployeeId);
-      // setEmployeeInfo(response);
+      const response = await api(locale).GetEmployeeStatus(
+        formInfo.EmployeeId,
+        params
+      );
+
+      setEmployeeInfo((prev) => ({
+        ...prev,
+        profile: response.empData,
+        vacation: response.leaveData,
+        jobs: response.jobData,
+        department: response.deptData,
+        rewords: response.rewardData,
+        penalty: response.penalityData,
+      }));
     } catch (error) {
       //
     } finally {
@@ -85,7 +94,7 @@ function EmployeeStatusReport(props) {
     },
 
     {
-      name: 'daysCount',
+      name: 'dayscount',
       label: intl.formatMessage(vacationMessages.daysCount),
     },
 
@@ -246,7 +255,7 @@ function EmployeeStatusReport(props) {
     },
 
     {
-      name: 'oldJob',
+      name: 'job',
       label: intl.formatMessage(hrMessages.oldJob),
     },
 
@@ -256,7 +265,7 @@ function EmployeeStatusReport(props) {
     },
 
     {
-      name: 'job',
+      name: 'newJob',
       label: intl.formatMessage(hrMessages.job),
     },
 
@@ -278,23 +287,13 @@ function EmployeeStatusReport(props) {
     },
 
     {
-      name: 'oldJob',
+      name: 'oldDepartment',
       label: intl.formatMessage(hrMessages.oldJob),
     },
 
     {
-      name: 'oldElemVal',
-      label: intl.formatMessage(hrMessages.oldElemVal),
-    },
-
-    {
-      name: 'department',
+      name: 'newDepartment',
       label: intl.formatMessage(messages.department),
-    },
-
-    {
-      name: 'elemVal',
-      label: intl.formatMessage(hrMessages.value),
     },
 
     {
@@ -337,7 +336,7 @@ function EmployeeStatusReport(props) {
     {
       title: intl.formatMessage(messages.reportingTo),
       icon: <FlagIcon />,
-      value: employeeInfo.profile?.reportToName,
+      value: employeeInfo.profile?.reportTo,
     },
   ];
 
@@ -345,13 +344,13 @@ function EmployeeStatusReport(props) {
     {
       title: intl.formatMessage(messages.vacation),
       icon: <LogoutIcon />,
-      value: employeeInfo.profile?.workEmail,
+      value: employeeInfo.profile?.leaveNo,
     },
 
     {
       title: intl.formatMessage(messages.absent),
       icon: <PersonOffIcon />,
-      value: employeeInfo.profile?.mobile,
+      value: employeeInfo.profile?.absent,
     },
   ];
 
@@ -362,6 +361,7 @@ function EmployeeStatusReport(props) {
           <Search
             setsearchData={setFormInfo}
             searchData={formInfo}
+            requireEmployee
             setIsLoading={setIsLoading}
           />
 
