@@ -86,7 +86,7 @@ const getdata =  async () => {
   setIsLoading(true);
 
   try {
-    const EmployeeList = await GeneralListApis(locale).GetEmployeeList(locale);    
+    const EmployeeList = await GeneralListApis(locale).GetEmployeeList();    
     const LeaveList = await GeneralListApis(locale).GetVacList(true);    
   
     setEmployeeData(EmployeeList)

@@ -122,7 +122,7 @@ const getdata =  async () => {
     setIsLoading(true);
 
     try {        
-        const EmployeeList = await GeneralListApis(locale).GetEmployeeList(locale);      
+        const EmployeeList = await GeneralListApis(locale).GetEmployeeList();      
         const TemplateList =  await await GeneralListApis(locale).GetPayTemplateList();  
         const YearList =  await await GeneralListApis(locale).GetYears();  
         const MonthList =  await await GeneralListApis(locale).GetMonths();  
