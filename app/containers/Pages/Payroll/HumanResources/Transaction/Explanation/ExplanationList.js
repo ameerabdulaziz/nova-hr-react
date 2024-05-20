@@ -75,7 +75,7 @@ function ExplanationList(props) {
     setIsLoading(true);
 
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList(locale);
+      const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
       const types = await GeneralListApis(locale).GetExplanationTypeList();
       setTypeList(types);

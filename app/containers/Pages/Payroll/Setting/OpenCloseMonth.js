@@ -52,14 +52,7 @@ function OpenCloseMonth(props) {
     closedMonth: false,
   });
 
-
   const [DateError, setDateError] = useState({});
-  
-  // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
-
 
   async function fetchNeededData() {
     setIsLoading(true);
@@ -147,7 +140,6 @@ function OpenCloseMonth(props) {
     };
 
     try {
-
       if (submitter === 'openMonth') {
         await api(locale).OpenMonth(body);
         toast.success(intl.formatMessage(messages.monthOpenedSuccessfully));
@@ -175,7 +167,6 @@ function OpenCloseMonth(props) {
   };
 
   const onDatePickerChange = (value, name) => {
-  
     setFormInfo((prev) => ({
       ...prev,
       [name]: value,
@@ -186,6 +177,18 @@ function OpenCloseMonth(props) {
     setFormInfo((prev) => ({
       ...prev,
       [name]: value !== null ? value.id : null,
+    }));
+  };
+
+  const onMonthAndYearAutoCompleteChange = (value, name) => {
+    onAutoCompleteChange(value, name);
+
+    setFormInfo((prev) => ({
+      ...prev,
+      fromDate: null,
+      todate: null,
+      todateAtt: null,
+      fromDateAtt: null,
     }));
   };
 
@@ -227,13 +230,14 @@ function OpenCloseMonth(props) {
                 value={getAutoCompleteValue(yearList, formInfo.yearId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id
                 }
+                disabled={!formInfo.closedMonth}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'yearId')
+                onChange={(_, value) => onMonthAndYearAutoCompleteChange(value, 'yearId')
                 }
                 renderInput={(params) => (
                   <TextField
@@ -248,6 +252,7 @@ function OpenCloseMonth(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={monthList}
+                disabled={!formInfo.closedMonth}
                 value={getAutoCompleteValue(monthList, formInfo.monthId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id
                 }
@@ -257,7 +262,7 @@ function OpenCloseMonth(props) {
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'monthId')
+                onChange={(_, value) => onMonthAndYearAutoCompleteChange(value, 'monthId')
                 }
                 renderInput={(params) => (
                   <TextField
