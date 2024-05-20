@@ -163,19 +163,7 @@ function CalculateAttendance(props) {
 
   const handleCalculate = async () => {
     try {
-      const isValidRange = isDateInRange(
-        formInfo.FromDate,
-        openMonth.fromDate,
-        openMonth.todate
-      )
-        && isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
-
-      if (!isValidRange) {
-        toast.error(
-          intl.formatMessage(messages.startAndEndDateNotInOpenMonthRange)
-        );
-        return;
-      }
+      debugger ;
 
       setIsLoading(true);
 
