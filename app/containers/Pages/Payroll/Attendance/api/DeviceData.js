@@ -16,7 +16,7 @@ const DeviceData = (locale) => {
     return data.data;
   };
   Apis.Save = async (data) => {
-    debugger;
+    
     if (data.id) {
       const result = await axiosInstance.put(`AttDevice/${data.id}`, data);
       return result;
@@ -32,23 +32,23 @@ const DeviceData = (locale) => {
   };
 
   Apis.testConnection = async (data) => {
-    debugger;
+    
     const result = await axiosInstance.get(`AttDevice/TestConnection/${data.ip}/${data.port}/${data.devicePass}`);
     return result;
   };
   Apis.ReadAllDevices = async (data) => {
-    debugger;
+    
     const result = await axiosInstance.post(`AttDevice/ReadAllDevices/`,data);
     return result;
   };
 
   Apis.ReadAttLog = async (deviceId) => {
-    debugger;
+    
     const result = await axiosInstance.get(`AttDevice/ReadAttLog/${deviceId}?isDate=true`);
     return result.data;
   };
   Apis.SaveAttLog = async (data,deviceid) => {
-    debugger;
+    
     const result = await axiosInstance.post(`AttDevice/SaveAttLog/${deviceid}`,data);
     return result;
   };

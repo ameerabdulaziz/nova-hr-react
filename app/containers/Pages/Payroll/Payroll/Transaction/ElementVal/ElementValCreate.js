@@ -106,8 +106,7 @@ function ElementValCreate(props) {
       }
       setIsLoading(true);
       const result = await GeneralListApis(locale).getOpenMonth(id, 0);
-      debugger;
-
+      
       setdata((prevFilters) => ({
         ...prevFilters,
         monthId: result.monthId,
@@ -145,7 +144,7 @@ function ElementValCreate(props) {
   }
   async function getElementData(id) {
     try {
-        debugger ;
+        
       if (!id) {
         setdata((prevFilters) => ({
           ...prevFilters,

@@ -130,7 +130,7 @@ function OtherWorkHoursWidget(props) {
     try {
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
-        debugger;
+        
         const data = await api(locale).getOtherWorkHours();
         setData2(data);
       }

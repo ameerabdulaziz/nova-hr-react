@@ -278,7 +278,7 @@ function DetailedPayrollReport(props) {
             }
         });
       }
-debugger ;
+
       setColumns(newColumns);
     } catch (error) {
       //

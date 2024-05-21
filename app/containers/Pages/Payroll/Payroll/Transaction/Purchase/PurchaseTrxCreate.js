@@ -170,7 +170,7 @@ function PurchaseTrxCreate(props) {
         return;
       }
       setIsLoading(true);
-      debugger;
+      
       var items = data.items.filter((x) => x.isSelected == true);
       data.items = items;
 
@@ -216,7 +216,7 @@ function PurchaseTrxCreate(props) {
     handleApply(data.paysNo, data.stYearName, value.id, data.totalvalue);
   }
   async function changeMonth(value) {
-    debugger;
+    
 
     setdata((prevFilters) => ({
       ...prevFilters,
@@ -235,7 +235,7 @@ function PurchaseTrxCreate(props) {
     if (paysNo && yearName && monthId && totalvalue) {
       var details = [];
       if (data.details) details = data.details.filter((x) => x.done == true);
-      debugger;
+      
       if (details.length > 0) {
         monthId = details[details.length - 1].monthId + 1;
         yearName = details[details.length - 1].yearName;
@@ -270,7 +270,7 @@ function PurchaseTrxCreate(props) {
 
   async function getOpenMonth(id) {
     try {
-      debugger;
+      
       if (!id) {
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -287,7 +287,7 @@ function PurchaseTrxCreate(props) {
       }
       setIsLoading(true);
       const result = await GeneralListApis(locale).getOpenMonth(0, id);
-      debugger;
+      
 
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -313,7 +313,7 @@ function PurchaseTrxCreate(props) {
   }
   async function fetchData() {
     try {
-      debugger;
+      
       const years = await GeneralListApis(locale).GetYears();
       setOrignalYearList(years);
       const months = await GeneralListApis(locale).GetMonths();

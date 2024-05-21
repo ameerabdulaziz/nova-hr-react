@@ -30,8 +30,7 @@ const AttRulesData = (locale) => {
 
   
   Apis.Save = async (data) => {
-    
-debugger ;
+
     const result = await axiosInstance.post("AttRules/Save",data);
     return result;
   };

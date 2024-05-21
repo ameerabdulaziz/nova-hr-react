@@ -72,7 +72,7 @@ function TaxInsWidget(props) {
     try {
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
-        debugger;
+        
         const data = await api(locale).getOtherPermession();
         setData(data);
       }

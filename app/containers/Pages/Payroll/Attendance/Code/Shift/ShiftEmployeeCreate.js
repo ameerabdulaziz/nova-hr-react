@@ -139,7 +139,7 @@ if (Object.values(DateError).includes(true)) {
   }, []);
 
   async function getShiftData(value) {
-    debugger ;
+    
     if (value == null) {
       setdata((prevFilters) => ({
         ...prevFilters,

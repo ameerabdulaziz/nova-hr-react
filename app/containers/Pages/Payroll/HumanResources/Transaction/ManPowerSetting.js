@@ -101,7 +101,7 @@ function ManPowerSetting(props) {
   };
 
   const handleEnableOne = (event, row) => {
-    debugger ;
+    
     setdataList(
       dataList.map((x) => {
         if (x.jobId == row.jobId) {

@@ -27,6 +27,19 @@ const CalculateAttendanceData = (locale) => {
     return result;
   };
 
+  Apis.PostToPayroll = async (body = {}, params = {}) => {
+
+
+    const result = await axiosInstance.get(
+      `AttendanceCalculation/PostToPayroll/${locale}/${body.companyId}`,
+      {
+        params,
+      }
+    );
+
+    return result;
+  };
+
   Apis.RollBackAttendance = async (body = {}, params = {}) => {
 
 

@@ -11,13 +11,12 @@ const LoanSetting = (locale) => {
   };
 
   Apis.Save = async (data) => {
-    debugger;
+    
    
       const result = await axiosInstance.post("PayrollLoanSetting/Save", data);
       return result;
   };
   Apis.CopyToAllBranches = async (id) => {
-    debugger;
     
       const result = await axiosInstance.post(`PayrollLoanSetting/CopyToAllBranches/${id}`);
       return result;

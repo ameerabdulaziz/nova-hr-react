@@ -662,7 +662,7 @@ function ElementValList(props) {
                       aria-label="Direction"
                       value={elementCalcMethodId || null}
                       onChange={(e) => {
-                        debugger;
+                        
                         setelementCalcMethodId(e.target.value);
                       }}
                     >
@@ -931,7 +931,7 @@ function ElementValList(props) {
                             : null
                         }
                         onChange={(event, value) => {
-                          debugger;
+                          
                           changeEmployee(value !== null ? value.id : 0);
                         }}
                         renderInput={(params) => (
@@ -994,7 +994,7 @@ function ElementValList(props) {
                                   : null
                               }
                               onChange={(event, value) => {
-                                // debugger;
+                                
                                 if (!BranchId) {
                                   setPayTemplateId(0);
                                   toast.error("choose branch first");
@@ -1160,7 +1160,7 @@ function ElementValList(props) {
                       className={classes.field}
                       variant="outlined"
                       onChange={(e) => {
-                        // debugger;
+                        
                         setNewValue(e.target.value);
                       }}
                       autoComplete='off'

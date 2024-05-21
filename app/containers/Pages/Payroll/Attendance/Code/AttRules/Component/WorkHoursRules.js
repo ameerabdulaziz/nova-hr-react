@@ -22,7 +22,6 @@ function WorkHoursRules(props) {
   const { classes } = useStyles();
 
   const handleChange = (event) => {
-    debugger ;
     if (event.target.name == "hoursPerDay")
       setdata((prevFilters) => ({
         ...prevFilters,

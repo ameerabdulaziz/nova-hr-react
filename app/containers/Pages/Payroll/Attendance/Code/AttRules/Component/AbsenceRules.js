@@ -97,7 +97,7 @@ function AbsenceRules(props) {
                   value.id === 0 || value.id === "" || option.id === value.id
                 }
                 getOptionLabel={(option) => (option.name ? option.name : "")}
-                onChange={(event, value) => { debugger;
+                onChange={(event, value) => { 
                   setdata((prevFilters) => ({
                     ...prevFilters,
                     absenceFirstElem: value !== null ? value.id : null,

@@ -79,7 +79,7 @@ function OthermessionWidget(props) {
     try {
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
-        debugger;
+        
         const data = await api(locale).getOtherMession();
         setData1(data);
       }

@@ -81,7 +81,7 @@ function LoanSetting(props) {
   }
 
   async function getPayElement(id) {
-    debugger;
+    
     if (id) {
       const list = await glApis(locale).GetElementListByTemplate(id,1,1);
       setPayElementList(list);
@@ -90,7 +90,7 @@ function LoanSetting(props) {
 
   async function getLoanSetting(id) {
     if (id) {
-        debugger ;
+        
       const list = await ApiData(locale).Get(id);
       getPayElement(list.payTemplateId);
       setdata(list);
@@ -109,7 +109,7 @@ function LoanSetting(props) {
 
   async function fetchData() {
     try {
-      debugger;
+      
       const list1 = await glApis(locale).GetBranchList(true);
       setBranchList(list1);
 

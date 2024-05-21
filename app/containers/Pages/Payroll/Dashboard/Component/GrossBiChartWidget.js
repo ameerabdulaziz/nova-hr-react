@@ -107,7 +107,7 @@ function GrossBiChartWidget(props) {
 
   const getdata = async () => {
     try {
-      debugger;
+      
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
         const data = await api(locale).getGrossSalary();

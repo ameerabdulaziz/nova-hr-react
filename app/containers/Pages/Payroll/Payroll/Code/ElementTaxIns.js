@@ -41,7 +41,7 @@ function ElementTaxIns(props) {
 
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
-      debugger;
+      
       setOpenPopup(false);
       try {
         setIsLoading(true);
@@ -97,7 +97,7 @@ function ElementTaxIns(props) {
   );
 
   const handleClickOpenNamePopup = (type) => {
-    debugger;
+    
     setType(type);
     setOpenPopup(true);
   };
@@ -127,7 +127,7 @@ function ElementTaxIns(props) {
 
   async function getData(id) {
     if (id) {
-      debugger;
+      
       const list = await ApiData(locale).GetElementTaxAndIns(id);
       var insElements = list.insElements.map((obj) => {
         return {
@@ -153,7 +153,7 @@ function ElementTaxIns(props) {
   }
   async function fetchData() {
     try {
-      debugger;
+      
       const list1 = await glApis(locale).GetBranchList(true);
       setBranchList(list1);
     } catch (err) {

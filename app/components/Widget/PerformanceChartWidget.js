@@ -93,7 +93,7 @@ const color = {
   third: colorfull[0],
   fourth: colorfull[1],
 };
-// debugger;
+
 function PerformanceChartWidget(props) {
   const { intl } = props;
   const { classes, cx } = useStyles();

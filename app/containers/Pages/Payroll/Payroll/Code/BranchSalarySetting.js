@@ -172,7 +172,7 @@ function BranchSalarySetting(props) {
   const departmentChangeFun = async (id) => {
     if (id) {
       const dataList = await BranchSalarySettingData().Get(id);
-debugger ;
+
       setdata({
         PersonalExemption: dataList.personalexemption
           ? dataList.personalexemption

@@ -30,7 +30,7 @@ const color = {
   third: colorfull[0],
   fourth: colorfull[1],
 };
-// debugger;
+
 function OtherVacationsWidget(props) {
   const { intl } = props;
   const { classes, cx } = useStyles();
@@ -77,7 +77,7 @@ function OtherVacationsWidget(props) {
     try {
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
-        debugger;
+        
         const data = await api(locale).getOtherVacations();
 
         setData2(data);

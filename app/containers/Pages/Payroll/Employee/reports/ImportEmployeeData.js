@@ -95,7 +95,7 @@ function ImportEmployeeData(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
-debugger;
+
     if (!formInfo.file) {
       toast.error(intl.formatMessage(messages.selectFileFirst));
       return;
@@ -245,7 +245,7 @@ debugger;
   };
 
   const onFileExcelLoaded = (result) => {
-    debugger ;
+    
     const workbook = XLSX.read(result);
     const sheets = workbook.SheetNames;
 

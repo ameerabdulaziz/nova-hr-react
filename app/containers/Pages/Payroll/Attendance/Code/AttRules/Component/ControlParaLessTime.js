@@ -52,7 +52,7 @@ const ControlParaLessTime = (props) => {
   };
 
   const handleRadioChange = (event) => {
-    debugger;
+    
     if (event.target.name == "lessTime")
       setdata((prevFilters) => ({
         ...prevFilters,

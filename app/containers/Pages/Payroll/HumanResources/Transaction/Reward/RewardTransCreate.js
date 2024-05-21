@@ -135,7 +135,7 @@ function RewardTransCreate(props) {
   }
   async function fetchData() {
     try {
-      debugger;
+      
       const years = await GeneralListApis(locale).GetYears(locale);
       setYearList(years);
 

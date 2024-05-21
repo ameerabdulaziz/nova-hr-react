@@ -159,7 +159,7 @@ function EmployeeLocation(props) {
         toast.error("Please Enter Location & dates");
         return;
       }
-      // debugger;
+      
       setIsLoading(true);
       var formData = {
         FromDate: dateFormatFun(FromDate),

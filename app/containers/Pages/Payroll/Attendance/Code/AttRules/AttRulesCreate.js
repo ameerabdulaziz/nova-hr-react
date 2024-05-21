@@ -201,7 +201,7 @@ function AttRulesCreate(props) {
   });
 
   const handleTabChange = (event, val) => {
-    debugger;
+    
     setValue(val);
   };
   async function oncancel() {
@@ -235,8 +235,7 @@ function AttRulesCreate(props) {
 
       
       data.attControlParaVac = controlParaVacList;
-      debugger;
-
+      
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -253,7 +252,6 @@ function AttRulesCreate(props) {
 
   async function fetchData() {
     try {
-      debugger;
       const group1data = await GeneralListApis(locale).GetElementListByTemplate(
         1,
         2,
@@ -278,7 +276,6 @@ function AttRulesCreate(props) {
 
       const dataApi = await ApiData(locale).Get(id ?? 0);
       setdata(dataApi);
-debugger;
       setControlParaLateList(dataApi.attControlParaLate);
       setControlParaLessTimeList(dataApi.attControlParaLessTime);
       setcontrolParaOvertimeList(dataApi.attControlParaOverTime);

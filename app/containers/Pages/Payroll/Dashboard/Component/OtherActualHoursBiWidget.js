@@ -35,7 +35,7 @@ function OtherActualHoursBiWidget(props) {
     try {
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
-        debugger;
+        
         const data = await api(locale).getOtherActualHoursBi();
 
         setData2(data);

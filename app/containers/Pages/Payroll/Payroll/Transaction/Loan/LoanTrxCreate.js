@@ -169,8 +169,7 @@ function LoanTrxCreate(props) {
     handleApply(data.paysNo, data.stYearName, value.id, data.totalvalue);
   }
   async function changeMonth(value) {
-    debugger;
-
+    
     setdata((prevFilters) => ({
       ...prevFilters,
       stMonthId: value !== null ? value.id : 0,
@@ -182,7 +181,7 @@ function LoanTrxCreate(props) {
     if (paysNo && yearName && monthId && totalvalue) {
       var details = [];
       if (data.details) details = data.details.filter((x) => x.done == true);
-debugger ;
+
       if (details.length > 0) {
         monthId = details[details.length - 1].monthId+1;
         yearName = details[details.length - 1].yearName;
@@ -217,7 +216,7 @@ debugger ;
 
   async function getOpenMonth(id) {
     try {
-      debugger;
+      
       if (!id) {
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -234,7 +233,7 @@ debugger ;
       }
       setIsLoading(true);
       const result = await GeneralListApis(locale).getOpenMonth(0, id);
-      debugger;
+      
 
       setdata((prevFilters) => ({
         ...prevFilters,

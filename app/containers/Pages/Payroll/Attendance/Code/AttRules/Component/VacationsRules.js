@@ -27,7 +27,6 @@ function VacationsRules(props) {
   const { classes } = useStyles();
 
   const handleChange = (event) => {
-    debugger;
     if (event.target.name == "vacPen")
       setdata((prevFilters) => ({
         ...prevFilters,

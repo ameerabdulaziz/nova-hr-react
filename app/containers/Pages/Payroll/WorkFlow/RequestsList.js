@@ -121,7 +121,7 @@ function RequestsList(props) {
   }
   async function handleAction(selectedRows, ActionId) {
     try {
-      debugger;
+      
       const Ids = []
       for (let i = 0; i < selectedRows.data.length; i++) {
         Ids.push(data[selectedRows.data[i].dataIndex].executionId)
@@ -173,7 +173,7 @@ function RequestsList(props) {
   }
   async function RequestAction() {
     try {
-      debugger
+      
       setIsLoading(true)
       let response = await ApiData(locale).ExecuteWorkFlow(postDate)
       if (response.status == 200) {
@@ -253,7 +253,7 @@ function RequestsList(props) {
   useEffect(() => {
     fetchData()
   }, [Title])
-  debugger
+  
   const columns =
     cols.length !== 0
       ? cols

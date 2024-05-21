@@ -87,7 +87,7 @@ function NamePopup(props) {
           })
         );
       } else if (Key == "Element") {
-        debugger;
+        
         var result = await GeneralListApis(locale).GetElementList(0,0,"",ElementType);
 
         if (ElementId) {

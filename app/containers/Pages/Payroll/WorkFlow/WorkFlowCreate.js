@@ -70,7 +70,7 @@ function WorkFlowCreate(props) {
     e.preventDefault();
     try {
       setIsLoading(true);
-      debugger;
+      
       var isValid = true;
       for (const item of Actions) {
         var result = ActionsTypeList.filter((row) => row.id == item.actionType);
@@ -106,7 +106,7 @@ function WorkFlowCreate(props) {
   }
   async function getDocType(DocumentId, fromchange) {
     try {
-      debugger;
+      
       if (DocumentId) {
         setIsLoading(true);
         let result = [];

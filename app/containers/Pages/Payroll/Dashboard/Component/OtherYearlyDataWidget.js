@@ -140,7 +140,7 @@ function OtherYearlyDataWidget(props) {
     try {
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
-        debugger;
+        
         const data = await api(locale).getOtherYearlyData();
 
         setDataCrypto(data);

@@ -114,7 +114,6 @@ function DeviceCreate(props) {
 
   const ontestConnection = async (e) => {
     try {
-      debugger;
       if (data.ip && data.port && data.devicePass) {
         setIsLoading(true);
         let response = await ApiData(locale).testConnection(data);

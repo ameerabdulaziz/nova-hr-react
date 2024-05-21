@@ -68,7 +68,7 @@ function ElementsCreate(props) {
 
   const handleCloseNamePopup = useCallback(
     async (Employeesdata) => {
-      debugger;
+      
       setOpenPopup(false);
       try {
         setIsLoading(true);
@@ -134,7 +134,7 @@ function ElementsCreate(props) {
   );
 
   const handleClickOpenNamePopup = (type) => {
-    debugger;
+    
     setType(type);
     setOpenPopup(true);
   };
@@ -156,7 +156,7 @@ function ElementsCreate(props) {
     e.preventDefault();
     try {
       setIsLoading(true);
-debugger;
+
       let response = await ApiData(locale).IsArabicNameExist(
         data.id,
         data.arName
@@ -577,7 +577,7 @@ debugger;
                                 aria-label="Direction"
                                 value={data.elementCalcMethodId || null}
                                 onChange={(e) => {
-                                  debugger;
+                                  
                                   setdata((prevFilters) => ({
                                     ...prevFilters,
                                     elementCalcMethodId: e.target.value,

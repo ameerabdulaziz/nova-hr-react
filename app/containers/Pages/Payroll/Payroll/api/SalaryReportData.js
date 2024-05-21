@@ -4,7 +4,7 @@ const SalaryReportData = (locale) => {
   const api = {};
 
   api.GetList = async (params = {}) => {
-    debugger;
+    
     const data = await axiosInstance.get(
       `PayrollReport/GetSalaryReport/${locale}`,
       {

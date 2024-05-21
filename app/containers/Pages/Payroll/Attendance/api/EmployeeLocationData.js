@@ -4,7 +4,7 @@ const EmployeeLocationData = (locale) => {
 
   
   Apis.GetList = async (params) => {
-    debugger;
+    
     const queryString = new URLSearchParams(params);
    const data = await axiosInstance.get(`AttLocationEmployee/GetList/${locale}?${queryString}`);
   
@@ -12,8 +12,6 @@ const EmployeeLocationData = (locale) => {
  };
   
  Apis.SaveList= async (data,Location) => {
-  debugger ;
-  
   var submitedData = data.filter((row) => row.isSelected==true);;
   
   var data = submitedData.map((obj) => {

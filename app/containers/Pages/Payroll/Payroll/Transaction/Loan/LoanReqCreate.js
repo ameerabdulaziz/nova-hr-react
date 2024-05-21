@@ -76,7 +76,7 @@ function LoanReqCreate(props) {
   };
 
   const handleEmpChange = useCallback((id, name) => {
-    debugger ;
+    
     if (name == "employeeId") {
       setdata((prevFilters) => ({
         ...prevFilters,

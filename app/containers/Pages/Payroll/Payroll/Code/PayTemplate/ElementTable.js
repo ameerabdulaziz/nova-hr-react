@@ -17,7 +17,7 @@ function ElementTable(props) {
   const { classes, cx } = useStyles();
 
   const handlepermcheckboxAll = (event) => {
-    debugger;
+    
     if (dataList.length > 0) {
       if (Type == 1)
         setdataList((prevFilters) => ({
@@ -79,7 +79,7 @@ function ElementTable(props) {
   };
 
   const handleEnableOne = (event, row) => {
-    debugger;
+    
     var newList = dataList.map((x) => {
       if (
         ((Type==6||Type==7) && x.refElementId == row.refElementId)||((Type==1||Type==2||Type==5) && x.elementId == row.elementId) ||

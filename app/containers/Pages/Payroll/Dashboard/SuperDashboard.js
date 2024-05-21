@@ -34,7 +34,7 @@ function SuperDashboard(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleTabChange = (event, val) => {
-    debugger;
+    
     setValue(val);
   };
 

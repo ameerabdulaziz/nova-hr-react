@@ -35,7 +35,7 @@ function StepsList(props) {
     setOpenPopup(false);
   }
   const handleOpenPopUp = (event, row) => {
-    debugger ;
+    
     setSelectedid(row.formId);
     var rowEmployeeList = dataList.find((x) => x.formId==row.formId).stepsEmployeeList ; 
     if(rowEmployeeList !=null && rowEmployeeList!==undefined)

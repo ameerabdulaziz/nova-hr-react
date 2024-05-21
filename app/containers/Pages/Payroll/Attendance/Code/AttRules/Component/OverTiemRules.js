@@ -26,7 +26,7 @@ function OverTiemRules(props) {
   const { classes } = useStyles();
 
   const handleChange = (event) => {
-    debugger;
+    
     if (event.target.name == "usualOverTimeH")
       setdata((prevFilters) => ({
         ...prevFilters,

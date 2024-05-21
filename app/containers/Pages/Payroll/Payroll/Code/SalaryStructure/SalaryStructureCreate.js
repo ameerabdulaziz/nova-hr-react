@@ -50,7 +50,7 @@ function SalaryStructureCreate(props) {
 
   const handleCloseNamePopup = useCallback(
     async (datalist) => {
-      debugger;
+      
       setOpenPopup(false);
       try {
         setIsLoading(true);
@@ -86,7 +86,7 @@ function SalaryStructureCreate(props) {
   );
 
   const handleClickOpenNamePopup = (type) => {
-    debugger;
+    
     setType(type);
     setOpenPopup(true);
   };
@@ -94,7 +94,7 @@ function SalaryStructureCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      debugger ;
+      
       setIsLoading(true);
       data.elements = data.elements.filter((x) => x.isSelected == true);
 

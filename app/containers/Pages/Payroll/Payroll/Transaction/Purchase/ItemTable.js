@@ -18,7 +18,7 @@ function ItemTable(props) {
   const { classes, cx } = useStyles();
 
   const handlepermcheckboxAll = (event) => {
-    debugger;
+    
     if (dataList.length > 0) {
       setdataList((prevFilters) => ({
         ...prevFilters,
@@ -31,7 +31,7 @@ function ItemTable(props) {
   };
 
   const handleEnableOne = (event, row) => {
-    debugger;
+    
     var newList = dataList.map((x) => {
       if (x.itemId == row.itemId) {
         if (event.target.name == "isselected") {

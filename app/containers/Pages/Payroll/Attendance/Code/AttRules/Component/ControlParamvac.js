@@ -22,7 +22,7 @@ function ControlParamvac(props) {
   const handleChange = (event, row) => {
     setdataList(
       dataList.map((x) => {
-        debugger;
+        
         if (x.vacationId == row.vacationId) {
           if (event.target.name == "afterFromDate") {
             x.afterFromDate = event.target.checked;

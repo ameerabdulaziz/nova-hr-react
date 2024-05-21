@@ -22,7 +22,7 @@ function TimeDelayRules(props) {
   const { classes } = useStyles();
 
   const handleChange = (event) => {
-    debugger;
+    
     if (event.target.name == "perRoll")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -112,7 +112,7 @@ function TimeDelayRules(props) {
                             option.name ? option.name : ""
                           }
                           onChange={(event, value) => {
-                            debugger ;
+                            
                             setdata((prevFilters) => ({
                               ...prevFilters,
                               lateTimeEle: value !== null ? value.id : null,

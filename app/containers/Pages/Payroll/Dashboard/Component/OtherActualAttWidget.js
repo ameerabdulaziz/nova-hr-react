@@ -35,7 +35,7 @@ function OtherActualAttWidget(props) {
     try {
       if (IsStaticDashboard == "false") {
         setIsLoading(true);
-        debugger;
+        
         const data = await api(locale).getOtherActualAtt();
 
         setData2(data);

@@ -163,8 +163,21 @@ function CalculateAttendance(props) {
 
   const handleCalculate = async () => {
     try {
-      debugger ;
-
+      if (Object.values(DateError).includes(true)) {
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+  
+      const isValidRange = isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate)
+        && isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+  
+      if (!isValidRange) {
+        toast.error(
+          intl.formatMessage(messages.startAndEndDateNotInOpenMonthRange)
+        );
+        return;
+      }
+  
       setIsLoading(true);
 
       const formData = {
@@ -194,6 +207,54 @@ function CalculateAttendance(props) {
       setIsLoading(false);
     }
   };
+  const handlePost = async () => {
+    try {
+      
+      if (Object.values(DateError).includes(true)) {
+        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        return;
+      }
+  
+      const isValidRange = isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate)
+        && isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+  
+      if (!isValidRange) {
+        toast.error(
+          intl.formatMessage(messages.startAndEndDateNotInOpenMonthRange)
+        );
+        return;
+      }
+  
+      setIsLoading(true);
+
+      const formData = {
+        FromDate: formateDate(formInfo.FromDate),
+        ToDate: formateDate(formInfo.ToDate),
+        OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
+          ','
+        ),
+        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(','),
+        OvernightAllowance: formInfo.overnightAllowance,
+      };
+
+      const body = {
+        companyId: formInfo.companyId,
+      };
+
+      const response = await api(locale).PostToPayroll(body, formData);
+      if (response.status == 200) {
+        toast.success(notif.success);
+
+        const result = await api(locale).GetList(body, formData);
+        setTableData(result);
+      }
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+ 
 
   const handleRollBackAttendance = async () => {
     try {
@@ -779,11 +840,11 @@ function CalculateAttendance(props) {
               </Button>
             </Grid>
 
-            {/* <Grid item>
-              <Button variant="contained">
+            <Grid item>
+              <Button variant="contained" onClick={handlePost}>
                 {intl.formatMessage(messages.postToPayroll)}
               </Button>
-            </Grid> */}
+            </Grid>
 
             <Grid item>
               <Button variant='contained' onClick={handleRollBackAttendance}>
