@@ -1,36 +1,36 @@
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import {
   Autocomplete,
   Button,
   Checkbox,
   FormControlLabel,
   Grid,
-  TextField
-} from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { format } from 'date-fns';
-import dayjs from 'dayjs';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import style from '../../../../../styles/styles.scss';
-import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
-import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate, getCheckboxIcon } from '../../helpers';
-import Payrollmessages from '../../messages';
-import api from '../api/CalculateAttendanceData';
-import RowDropdown from '../components/CalculateAttendance/RowDropdown';
-import messages from '../messages';
-import CalculateAttendancePopUp from '../../Component/CalculateAttendancePopUp';
+  TextField,
+} from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { format } from "date-fns";
+import dayjs from "dayjs";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import style from "../../../../../styles/styles.scss";
+import PayRollLoader from "../../Component/PayRollLoader";
+import PayrollTable from "../../Component/PayrollTable";
+import useStyles from "../../Style";
+import GeneralListApis from "../../api/GeneralListApis";
+import { formateDate, getCheckboxIcon } from "../../helpers";
+import Payrollmessages from "../../messages";
+import api from "../api/CalculateAttendanceData";
+import RowDropdown from "../components/CalculateAttendance/RowDropdown";
+import messages from "../messages";
+import CalculateAttendancePopUp from "../../Component/CalculateAttendancePopUp";
 
 function CalculateAttendance(props) {
   const { intl } = props;
@@ -39,7 +39,7 @@ function CalculateAttendance(props) {
 
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const locale = useSelector((state) => state.language.locale);
-  const title = localStorage.getItem('MenuName');
+  const title = localStorage.getItem("MenuName");
 
   const [employeeList, setEmployeeList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
@@ -126,8 +126,9 @@ function CalculateAttendance(props) {
       return;
     }
 
-    const isValidRange = isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate)
-      && isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+    const isValidRange =
+      isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate) &&
+      isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
 
     if (!isValidRange) {
       toast.error(
@@ -142,9 +143,9 @@ function CalculateAttendance(props) {
       FromDate: formateDate(formInfo.FromDate),
       ToDate: formateDate(formInfo.ToDate),
       OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
-        ','
+        ","
       ),
-      EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(','),
+      EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
     };
 
     const body = {
@@ -167,26 +168,31 @@ function CalculateAttendance(props) {
         toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
         return;
       }
-  
-      const isValidRange = isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate)
-        && isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
-  
+
+      const isValidRange =
+        isDateInRange(
+          formInfo.FromDate,
+          openMonth.fromDate,
+          openMonth.todate
+        ) &&
+        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+
       if (!isValidRange) {
         toast.error(
           intl.formatMessage(messages.startAndEndDateNotInOpenMonthRange)
         );
         return;
       }
-  
+
       setIsLoading(true);
 
       const formData = {
         FromDate: formateDate(formInfo.FromDate),
         ToDate: formateDate(formInfo.ToDate),
         OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
-          ','
+          ","
         ),
-        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(','),
+        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
         IsCalculateBreak: formInfo.calculateBreak,
       };
 
@@ -209,31 +215,35 @@ function CalculateAttendance(props) {
   };
   const handlePost = async () => {
     try {
-      
       if (Object.values(DateError).includes(true)) {
         toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
         return;
       }
-  
-      const isValidRange = isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate)
-        && isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
-  
+
+      const isValidRange =
+        isDateInRange(
+          formInfo.FromDate,
+          openMonth.fromDate,
+          openMonth.todate
+        ) &&
+        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+
       if (!isValidRange) {
         toast.error(
           intl.formatMessage(messages.startAndEndDateNotInOpenMonthRange)
         );
         return;
       }
-  
-      setIsLoading(true);
 
+      setIsLoading(true);
+      debugger;
       const formData = {
         FromDate: formateDate(formInfo.FromDate),
         ToDate: formateDate(formInfo.ToDate),
         OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
-          ','
+          ","
         ),
-        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(','),
+        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
         OvernightAllowance: formInfo.overnightAllowance,
       };
 
@@ -242,11 +252,13 @@ function CalculateAttendance(props) {
       };
 
       const response = await api(locale).PostToPayroll(body, formData);
-      if (response.status == 200) {
-        toast.success(notif.success);
 
-        const result = await api(locale).GetList(body, formData);
-        setTableData(result);
+      if (response.success) {
+        if (response.success.length == 0) toast.success(notif.success);
+        else toast.success(notif.success);
+      } else {
+        toast.error(Object.keys(response)[0]);
+        //setFileData([]);
       }
     } catch (err) {
       //
@@ -254,16 +266,16 @@ function CalculateAttendance(props) {
       setIsLoading(false);
     }
   };
- 
 
   const handleRollBackAttendance = async () => {
     try {
-      const isValidRange = isDateInRange(
-        formInfo.FromDate,
-        openMonth.fromDate,
-        openMonth.todate
-      )
-        && isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+      const isValidRange =
+        isDateInRange(
+          formInfo.FromDate,
+          openMonth.fromDate,
+          openMonth.todate
+        ) &&
+        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
 
       if (!isValidRange) {
         toast.error(
@@ -278,9 +290,9 @@ function CalculateAttendance(props) {
         FromDate: formateDate(formInfo.FromDate),
         ToDate: formateDate(formInfo.ToDate),
         OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
-          ','
+          ","
         ),
-        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(','),
+        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
       };
 
       const body = {
@@ -364,7 +376,7 @@ function CalculateAttendance(props) {
         null,
         null,
         null,
-        value.map((item) => item.id).join(',')
+        value.map((item) => item.id).join(",")
       );
       setEmployeeList(employee);
     } catch (error) {
@@ -386,152 +398,144 @@ function CalculateAttendance(props) {
     }));
   };
 
-
-
-
-
   const handleClose = () => {
     setOpenParentPopup(false);
-    setSelectedRowData()
+    setSelectedRowData();
   };
 
-
-  const handleClickOpen = (item,popUpTitle,disabledLock,shortcutType) => {
-
+  const handleClickOpen = (item, popUpTitle, disabledLock, shortcutType) => {
     setOpenParentPopup(true);
     setSelectedRowData(item);
-    setPopUpTitle(popUpTitle)
-    setDisabledLock(disabledLock)
-    setShortcutType(shortcutType)
-    setIsLoadingPopup(true)
+    setPopUpTitle(popUpTitle);
+    setDisabledLock(disabledLock);
+    setShortcutType(shortcutType);
+    setIsLoadingPopup(true);
   };
-
 
   const columns = [
     {
-      name: 'employeeId',
+      name: "employeeId",
       options: {
         filter: false,
         display: false,
         print: false,
-        download: false
+        download: false,
       },
     },
     {
-      name: 'employeeCode',
+      name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
     },
 
     {
-      name: 'weekDayName',
+      name: "weekDayName",
       label: intl.formatMessage(messages.day),
       options: {
         customBodyRender: (value) => <pre>{value}</pre>,
       },
     },
     {
-      name: 'shiftCode',
+      name: "shiftCode",
       label: intl.formatMessage(messages.shiftCode),
     },
     {
-      name: 'shiftName',
+      name: "shiftName",
       label: intl.formatMessage(messages.shiftName),
     },
     {
-      name: 'shiftDate',
+      name: "shiftDate",
       label: intl.formatMessage(messages.shiftDate),
       options: {
         customBodyRender: (value, tableMeta) => {
-
           return (
             <pre
               style={{
                 ...(tableData?.[tableMeta?.rowIndex]?.absence && {
-                  backgroundColor: '#f00',
+                  backgroundColor: "#f00",
                 }),
                 ...(tableData?.[tableMeta?.rowIndex]?.vac && {
-                  backgroundColor: '#fafa02',
+                  backgroundColor: "#fafa02",
                 }),
                 ...(tableData?.[tableMeta?.rowIndex]?.shiftVacancy && {
-                  backgroundColor: '#1bff00',
+                  backgroundColor: "#1bff00",
                 }),
-                ...((tableData?.[tableMeta?.rowIndex]?.absence
-                  || tableData?.[tableMeta?.rowIndex]?.vac
-                  || tableData?.[tableMeta?.rowIndex]?.shiftVacancy) && {
-                  padding: '7px',
-                  borderRadius: '10px',
-                  margin: '0',
-                  boxShadow: '0px 1px 3px 1px #c7c7c7',
+                ...((tableData?.[tableMeta?.rowIndex]?.absence ||
+                  tableData?.[tableMeta?.rowIndex]?.vac ||
+                  tableData?.[tableMeta?.rowIndex]?.shiftVacancy) && {
+                  padding: "7px",
+                  borderRadius: "10px",
+                  margin: "0",
+                  boxShadow: "0px 1px 3px 1px #c7c7c7",
                 }),
               }}
             >
-              {format(new Date(value), 'yyyy-MM-dd')}
+              {format(new Date(value), "yyyy-MM-dd")}
             </pre>
           );
         },
         setCellProps: (value, rowIndex) => ({
           style: {
-            paddingLeft: '0',
-            textAlign: 'center',
+            paddingLeft: "0",
+            textAlign: "center",
           },
         }),
       },
     },
 
     {
-      name: 'employeeName',
+      name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
     },
 
     {
-      name: 'timeIn',
+      name: "timeIn",
       label: intl.formatMessage(messages.signIn),
       options: {
         customBodyRender: (value) => (
           <pre>
-            {value ? format(new Date(value), 'yyyy-MM-dd hh:mm aa') : ''}
+            {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
           </pre>
         ),
       },
     },
 
     {
-      name: 'timeOut',
+      name: "timeOut",
       label: intl.formatMessage(messages.signOut),
       options: {
         customBodyRender: (value) => (
           <pre>
-            {value ? format(new Date(value), 'yyyy-MM-dd hh:mm aa') : ''}
+            {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
           </pre>
         ),
       },
     },
     {
-      name: 'workHours',
+      name: "workHours",
       label: intl.formatMessage(messages.workHours),
     },
     {
-      name: 'lateMin',
+      name: "lateMin",
       label: intl.formatMessage(messages.late),
     },
 
     {
-      name: 'extraTime',
+      name: "extraTime",
       label: intl.formatMessage(messages.extraTime),
     },
 
     {
-      name: 'lessTime',
+      name: "lessTime",
       label: intl.formatMessage(messages.LessTime),
     },
 
     {
-      name: 'ReplaceVac',
+      name: "ReplaceVac",
       label: intl.formatMessage(messages.AccuredLeave),
     },
 
     {
-      name: 'vac',
+      name: "vac",
       label: intl.formatMessage(messages.leave),
       options: {
         filter: false,
@@ -540,7 +544,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'mission',
+      name: "mission",
       label: intl.formatMessage(messages.mission),
       options: {
         filter: false,
@@ -549,7 +553,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'per',
+      name: "per",
       label: intl.formatMessage(messages.permission),
       options: {
         filter: false,
@@ -558,7 +562,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'absence',
+      name: "absence",
       label: intl.formatMessage(messages.absent),
       options: {
         filter: false,
@@ -567,7 +571,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'shiftVacancy',
+      name: "shiftVacancy",
       label: intl.formatMessage(messages.weekendLeave),
       options: {
         filter: false,
@@ -576,7 +580,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'manual',
+      name: "manual",
       label: intl.formatMessage(messages.manual),
       options: {
         filter: false,
@@ -585,7 +589,7 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: 'stopD',
+      name: "stopD",
       label: intl.formatMessage(messages.stop),
       options: {
         filter: false,
@@ -594,8 +598,8 @@ function CalculateAttendance(props) {
     },
 
     {
-      name: '',
-      label: '',
+      name: "",
+      label: "",
       options: {
         filter: false,
         print: false,
@@ -603,63 +607,65 @@ function CalculateAttendance(props) {
           const row = tableData[tableMeta.rowIndex];
 
           if (!row) {
-            return '';
+            return "";
           }
 
-          return <RowDropdown row={row} tableMeta={tableMeta} 
-          handleClickOpen={handleClickOpen} />;
+          return (
+            <RowDropdown
+              row={row}
+              tableMeta={tableMeta}
+              handleClickOpen={handleClickOpen}
+            />
+          );
         },
       },
     },
     {
-      name: 'startTime',
+      name: "startTime",
       options: {
         filter: false,
         display: false,
         print: false,
-        download: false
+        download: false,
       },
     },
     {
-      name: 'endTime',
+      name: "endTime",
       options: {
         filter: false,
         display: false,
         print: false,
-        download: false
+        download: false,
       },
     },
   ];
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
-
+  const getAutoCompleteValue = (list, key) =>
+    list.find((item) => item.id === key) ?? null;
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
-        <CalculateAttendancePopUp
-          handleClose={handleClose}
-          open={openParentPopup}
-          messageData={`${intl.formatMessage(
-            Payrollmessages.deleteMessage
-          )}`}
-          Data={selectedRowData}
-          popUpTitle={popUpTitle}
-          disabledLock={disabledLock}
-          shortcutType={shortcutType}
-          isLoadingPopup={isLoadingPopup}
-          setIsLoadingPopup={setIsLoadingPopup}
-        />
+      <CalculateAttendancePopUp
+        handleClose={handleClose}
+        open={openParentPopup}
+        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}`}
+        Data={selectedRowData}
+        popUpTitle={popUpTitle}
+        disabledLock={disabledLock}
+        shortcutType={shortcutType}
+        isLoadingPopup={isLoadingPopup}
+        setIsLoadingPopup={setIsLoadingPopup}
+      />
 
       <form onSubmit={onFormSubmit}>
-        <PapperBlock whiteBg icon='border_color' title={title} desc=''>
+        <PapperBlock whiteBg icon="border_color" title={title} desc="">
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.companyId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
@@ -685,7 +691,7 @@ function CalculateAttendance(props) {
                   minDate={dayjs(openMonth.fromDate)}
                   maxDate={dayjs(openMonth.todate)}
                   onChange={(date) => {
-                    onDatePickerChange(date, 'FromDate');
+                    onDatePickerChange(date, "FromDate");
                   }}
                   onError={(error, value) => {
                     if (error !== null) {
@@ -713,7 +719,7 @@ function CalculateAttendance(props) {
                   value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
                   className={classes.field}
                   onChange={(date) => {
-                    onDatePickerChange(date, 'ToDate');
+                    onDatePickerChange(date, "ToDate");
                   }}
                   onError={(error, value) => {
                     if (error !== null) {
@@ -738,23 +744,24 @@ function CalculateAttendance(props) {
                 multiple
                 disableCloseOnSelect
                 className={`${style.AutocompleteMulSty} ${
-                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                  locale === "ar" ? style.AutocompleteMulStyAR : null
                 }`}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 value={formInfo.OrganizationIds}
                 renderOption={(optionProps, option, { selected }) => (
                   <li {...optionProps} key={optionProps.id}>
                     <Checkbox
-                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                      checkedIcon={<CheckBoxIcon fontSize="small" />}
                       style={{ marginRight: 8 }}
                       checked={selected}
                     />
                     {option.name}
                   </li>
                 )}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onDepartmentMultiAutoCompleteChange(value)
+                getOptionLabel={(option) => (option ? option.name : "")}
+                onChange={(_, value) =>
+                  onDepartmentMultiAutoCompleteChange(value)
                 }
                 renderInput={(params) => (
                   <TextField
@@ -772,23 +779,24 @@ function CalculateAttendance(props) {
                 multiple
                 disableCloseOnSelect
                 className={`${style.AutocompleteMulSty} ${
-                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                  locale === "ar" ? style.AutocompleteMulStyAR : null
                 }`}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 value={formInfo.EmployeeIds}
                 renderOption={(optionProps, option, { selected }) => (
                   <li {...optionProps} key={optionProps.id}>
                     <Checkbox
-                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                      checkedIcon={<CheckBoxIcon fontSize="small" />}
                       style={{ marginRight: 8 }}
                       checked={selected}
                     />
                     {option.name}
                   </li>
                 )}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onEmployeeMultiAutoCompleteChange(value)
+                getOptionLabel={(option) => (option ? option.name : "")}
+                onChange={(_, value) =>
+                  onEmployeeMultiAutoCompleteChange(value)
                 }
                 renderInput={(params) => (
                   <TextField
@@ -806,7 +814,7 @@ function CalculateAttendance(props) {
                   <Checkbox
                     checked={formInfo.calculateBreak}
                     onChange={onCheckboxChange}
-                    name='calculateBreak'
+                    name="calculateBreak"
                   />
                 }
                 label={intl.formatMessage(messages.calculateBreak)}
@@ -819,7 +827,7 @@ function CalculateAttendance(props) {
                   <Checkbox
                     checked={formInfo.overnightAllowance}
                     onChange={onCheckboxChange}
-                    name='overnightAllowance'
+                    name="overnightAllowance"
                   />
                 }
                 label={intl.formatMessage(messages.overnightAllowance)}
@@ -829,13 +837,13 @@ function CalculateAttendance(props) {
 
           <Grid container spacing={2} mt={0}>
             <Grid item>
-              <Button type='submit' variant='contained'>
+              <Button type="submit" variant="contained">
                 {intl.formatMessage(messages.search)}
               </Button>
             </Grid>
 
             <Grid item>
-              <Button variant='contained' onClick={handleCalculate}>
+              <Button variant="contained" onClick={handleCalculate}>
                 {intl.formatMessage(messages.calculate)}
               </Button>
             </Grid>
@@ -847,7 +855,7 @@ function CalculateAttendance(props) {
             </Grid>
 
             <Grid item>
-              <Button variant='contained' onClick={handleRollBackAttendance}>
+              <Button variant="contained" onClick={handleRollBackAttendance}>
                 {intl.formatMessage(messages.rollbackAttendance)}
               </Button>
             </Grid>
@@ -873,7 +881,7 @@ function CalculateAttendance(props) {
         </PapperBlock>
       </form>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <PayrollTable title="" data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }

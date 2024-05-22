@@ -37,7 +37,7 @@ const CalculateAttendanceData = (locale) => {
       }
     );
 
-    return result;
+    return result.data;
   };
 
   Apis.RollBackAttendance = async (body = {}, params = {}) => {
