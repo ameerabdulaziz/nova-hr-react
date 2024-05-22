@@ -172,13 +172,13 @@ function Header(props) {
               )}
             >
               {fullScreen ? (
-                <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
+                <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
                   <IconButton className={classes.button} onClick={closeFullScreen} size="small">
                     <FullscreenExitOutlined />
                   </IconButton>
                 </Tooltip>
               ) : (
-                <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
+                <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
                   <IconButton className={classes.button} onClick={openFullScreen} size="small">
                     <FullscreenOutlined />
                   </IconButton>
