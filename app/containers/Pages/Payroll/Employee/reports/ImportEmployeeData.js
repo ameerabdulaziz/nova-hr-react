@@ -71,7 +71,7 @@ function ImportEmployeeData(props) {
     rows: [],
     modifyExistEmployee: false,
     fieldId: null,
-    importType: 'all',
+    updateType: 'all',
   });
 
   const [fieldsList, setFieldsList] = useState([]);
@@ -89,7 +89,7 @@ function ImportEmployeeData(props) {
       rows: [],
       modifyExistEmployee: false,
       fieldId: null,
-      importType: 'all',
+      updateType: 'all',
     });
   };
 
@@ -105,39 +105,47 @@ function ImportEmployeeData(props) {
 
     const body = {
       modifyExistEmployee: formInfo.modifyExistEmployee,
-      rows: formInfo.rows.map((row) => ({
-        id: 0,
-        employeeCode: row[0],
-        arName: row[1],
-        enName: row[2],
-        machineCode: row[3],
-        erpcode: row[4],
-        genderId: row[5],
-        religionId: row[6],
-        birthDate: row[7],
-        nationalityId: row[8],
-        birthGovId: row[9],
-        birthCityId: row[10],
-        socialStatusId: row[11],
-        militaryStatusId: row[12],
-        workEmail: row[13],
-        hiringDate: row[14],
-        organizationId: row[15],
-        reportTo: row[16],
-        jobId: row[17],
-        isInsured: row[18],
-        insuranceDate: row[19],
-        controlParameterId: row[20],
-        identityTypeId: row[21],
-        identityIssuingAuth: row[22],
-        identityNumber: row[23],
-        identityIssuingDate: row[24],
-        identityExpiry: row[25],
-      })),
+      rows: formInfo.rows,
+      fieldId: formInfo.fieldId,
     };
 
     try {
-      await api().save(body);
+      if (formInfo.updateType === 'field') {
+        console.log(body);
+      } else {
+        body.rows = formInfo.rows.map((row) => ({
+          id: 0,
+          employeeCode: row[0],
+          arName: row[1],
+          enName: row[2],
+          machineCode: row[3],
+          erpcode: row[4],
+          genderId: row[5],
+          religionId: row[6],
+          birthDate: row[7],
+          nationalityId: row[8],
+          birthGovId: row[9],
+          birthCityId: row[10],
+          socialStatusId: row[11],
+          militaryStatusId: row[12],
+          workEmail: row[13],
+          hiringDate: row[14],
+          organizationId: row[15],
+          reportTo: row[16],
+          jobId: row[17],
+          isInsured: row[18],
+          insuranceDate: row[19],
+          controlParameterId: row[20],
+          identityTypeId: row[21],
+          identityIssuingAuth: row[22],
+          identityNumber: row[23],
+          identityIssuingDate: row[24],
+          identityExpiry: row[25],
+        }));
+
+        await api().save(body);
+      }
+
       toast.success(notif.saved);
       resetFields();
     } catch (error) {
@@ -245,7 +253,6 @@ function ImportEmployeeData(props) {
   };
 
   const onFileExcelLoaded = (result) => {
-    
     const workbook = XLSX.read(result);
     const sheets = workbook.SheetNames;
 
@@ -256,15 +263,18 @@ function ImportEmployeeData(props) {
         defval: '',
       });
 
-      // Get data in JSON format for table display
-      const sheetAsJSON = XLSX.utils.sheet_to_json(workbook.Sheets[sheets[0]], {
-        raw: false,
-        header: 0,
-        defval: '',
-      });
-
       if (arraySheet.length > 0) {
-        if (formInfo.importType === 'all') {
+        if (formInfo.updateType === 'all') {
+          // Get data in JSON format for table display
+          const sheetAsJSON = XLSX.utils.sheet_to_json(
+            workbook.Sheets[sheets[0]],
+            {
+              raw: false,
+              header: 0,
+              defval: '',
+            }
+          );
+
           const { errors, rows } = checkAllRowsValidation(arraySheet);
           if (errors.length === 0) {
             setFormInfo((prev) => ({ ...prev, rows }));
@@ -283,6 +293,20 @@ function ImportEmployeeData(props) {
             setFileErrors(errors);
             setIsErrorPopupOpen(true);
           }
+        } else if (formInfo.updateType === 'field') {
+          const [header, ...rows] = arraySheet;
+          const filledRows = rows.map((row) => ({
+            employeeCode: row[0],
+            fieldValue: row[1],
+          }));
+
+          setColumns([
+            { name: 'employeeCode', label: header[0] },
+            { name: 'fieldValue', label: header[1] },
+          ]);
+
+          setFormInfo((prev) => ({ ...prev, rows: filledRows }));
+          setTableData(filledRows);
         }
 
         setIsLoading(false);
@@ -348,8 +372,14 @@ function ImportEmployeeData(props) {
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   const onRadioInputChange = (evt) => {
+    setTableData([]);
+    setColumns([]);
+    setFileTitle('');
+
     setFormInfo((prev) => ({
       ...prev,
+      file: null,
+      rows: [],
       [evt.target.name]: evt.target.value,
     }));
   };
@@ -370,9 +400,9 @@ function ImportEmployeeData(props) {
               <FormControl>
                 <RadioGroup
                   row
-                  value={formInfo.importType}
+                  value={formInfo.updateType}
                   onChange={onRadioInputChange}
-                  name='importType'
+                  name='updateType'
                 >
                   <FormControlLabel
                     value='all'
@@ -392,7 +422,7 @@ function ImportEmployeeData(props) {
               <Autocomplete
                 options={fieldsList}
                 value={getAutoCompleteValue(fieldsList, formInfo.fieldId)}
-                disabled={formInfo.importType !== 'field'}
+                disabled={formInfo.updateType !== 'field'}
                 onChange={(_, value) => onAutoCompleteChange(value, 'fieldId')}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderOption={(propsOption, option) => (
@@ -404,7 +434,8 @@ function ImportEmployeeData(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    disabled={formInfo.importType !== 'field'}
+                    disabled={formInfo.updateType !== 'field'}
+                    required
                     label={intl.formatMessage(messages.field)}
                   />
                 )}
@@ -413,10 +444,10 @@ function ImportEmployeeData(props) {
 
             <Grid item>
               <FormControlLabel
-                disabled={formInfo.importType !== 'all'}
+                disabled={formInfo.updateType !== 'all'}
                 control={
                   <Checkbox
-                    disabled={formInfo.importType !== 'all'}
+                    disabled={formInfo.updateType !== 'all'}
                     checked={formInfo.modifyExistEmployee}
                     onChange={onCheckboxChange}
                     name='modifyExistEmployee'
