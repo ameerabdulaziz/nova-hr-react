@@ -156,7 +156,7 @@
   "boilerplate.components.Forms.Login.or": "أو تواصل معنا",
   "boilerplate.components.Forms.Register.or": "أو سجل مع",
   "boilerplate.components.Forms.Login.field.email": "بريدك الإلكتروني",
-  "boilerplate.components.Forms.Login.field.password": "كلمة مرورك",
+  "boilerplate.components.Forms.Login.field.password": "كلمة المرور",
   "boilerplate.components.Forms.Login.field.forgot": "نسيت كلمة المرور",
   "boilerplate.components.Forms.Login.field.name": "اسم المستخدم",
   "boilerplate.components.Forms.Login.field.remember": "تذكر",

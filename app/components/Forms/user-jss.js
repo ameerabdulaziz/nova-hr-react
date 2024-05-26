@@ -486,7 +486,7 @@ const useStyles = makeStyles()((theme, _params, classes) => ({
   },
   optArea: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     padding: `0 ${theme.spacing(0.5)}`
   },
   lang: {

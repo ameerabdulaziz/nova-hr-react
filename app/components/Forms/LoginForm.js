@@ -129,11 +129,6 @@ function LoginForm(props) {
             </FormControl>
           </div>
           <div className={classes.optArea}>
-            <FormControlLabel
-              className={classes.label}
-              control={<Field name="checkbox" component={CheckboxRedux} />}
-              label={intl.formatMessage(messages.loginRemember)}
-            />
             <Button size="small" component={LinkBtn} to="/reset-password" className={classes.buttonLink}>
               <FormattedMessage {...messages.loginForgotPassword} />
             </Button>
