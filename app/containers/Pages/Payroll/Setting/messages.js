@@ -280,4 +280,8 @@ export default defineMessages({
     id: `${scope}.accomplishDate`,
     defaultMessage: 'accomplishDate',
   },
+  changeUsername: {
+    id: `${scope}.changeUsername`,
+    defaultMessage: 'changeUsername',
+  },
 });
