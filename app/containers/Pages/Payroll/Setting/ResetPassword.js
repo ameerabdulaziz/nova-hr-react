@@ -1,31 +1,39 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { Button, Grid, TextField, Autocomplete } from "@mui/material";
-import ResetPasswordData from "./api/ResetPasswordData";
+import {
+  Autocomplete,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+} from '@mui/material';
+import notif from 'enl-api/ui/notifMessage';
+import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
-import GeneralListApis from "../api/GeneralListApis";
-import { toast } from "react-hot-toast";
-import notif from "enl-api/ui/notifMessage";
-import messages from "./messages";
-import { injectIntl, FormattedMessage } from "react-intl";
-import useStyles from "../Style";
-import { useSelector } from "react-redux";
-import { PapperBlock } from "enl-components";
-import SaveButton from "../Component/SaveButton";
-import Payrollmessages from "../messages";
-import PayRollLoader from "../Component/PayRollLoader";
+import React, { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import GeneralListApis from '../api/GeneralListApis';
+import PayRollLoader from '../Component/PayRollLoader';
+import SaveButton from '../Component/SaveButton';
+import payrollMessages from '../messages';
+import useStyles from '../Style';
+import ResetPasswordData from './api/ResetPasswordData';
+import messages from './messages';
 
 function ResetPassword(props) {
   const { classes } = useStyles();
   const { intl } = props;
   const [departmentList, setDepartmentList] = useState([]);
   const [department, setDepartment] = useState();
-  const [employeeList, setemployeeList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
   const [employee, setEmployee] = useState(null);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const locale = useSelector((state) => state.language.locale);
-  const Title = localStorage.getItem("MenuName");
+  const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useState('');
+  const [isChangeUserName, setIsChangeUserName] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,10 +41,16 @@ function ResetPassword(props) {
     try {
       setIsLoading(true);
 
-      await ResetPasswordData().ResetUserPassword(
-        employee,
-        password
-      );
+      const body = {
+        EmployeeId: employee,
+        NewPassword: password,
+      };
+
+      if (isChangeUserName) {
+        body.newusername = userName;
+      }
+
+      await ResetPasswordData().ResetUserPassword(body);
 
       toast.success(notif.saved);
     } catch (error) {
@@ -67,7 +81,7 @@ function ResetPassword(props) {
       setDepartmentList(data || []);
 
       const employees = await GeneralListApis(locale).GetEmployeeList();
-      setemployeeList(employees || []);
+      setEmployeeList(employees || []);
     } catch (err) {
       //
     } finally {
@@ -85,7 +99,7 @@ function ResetPassword(props) {
         ? await GeneralListApis(locale).GetEmployeeListByDepartment(department)
         : await GeneralListApis(locale).GetEmployeeList();
 
-      setemployeeList(data || []);
+      setEmployeeList(data || []);
     } catch (err) {
       //
     } finally {
@@ -108,7 +122,9 @@ function ResetPassword(props) {
       setIsLoading(true);
 
       try {
-        const response = await ResetPasswordData().getEmployeeUsername(value.id);
+        const response = await ResetPasswordData().getEmployeeUsername(
+          value.id
+        );
         setUserName(response);
       } catch (err) {
         //
@@ -123,20 +139,18 @@ function ResetPassword(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc=''>
-        <Grid container>
-          <Grid item xs={12} md={6} >
-            <form onSubmit={handleSubmit}>
-              <Grid
-                container
-                spacing={3}
-                alignItems="flex-start"
-                direction="row"
-              >
-                <Grid item xs={12}>
+      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
                   <Autocomplete
-                    id="ddldepartment"
-                    value={departmentList.find(item => item.id === department) ?? null}
+                    id='ddldepartment'
+                    value={
+                      departmentList.find((item) => item.id === department)
+                      ?? null
+                    }
                     options={departmentList}
                     getOptionLabel={(option) => option.name}
                     onChange={(event, value) => {
@@ -144,83 +158,117 @@ function ResetPassword(props) {
                     }}
                     renderInput={(params) => (
                       <TextField
-                        variant="outlined"
+                        variant='outlined'
                         {...params}
-                        name="department"
+                        name='department'
                         label={intl.formatMessage(messages.chooseDept)}
                       />
                     )}
                   />
                 </Grid>
-                <Grid item xs={12}>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
                   <Autocomplete
-                    id="ddlEmp"
+                    id='ddlEmp'
                     options={employeeList}
-                    value={employeeList.find(item => item.id === employee) ?? null}
+                    value={
+                      employeeList.find((item) => item.id === employee) ?? null
+                    }
                     getOptionLabel={(option) => option.name}
-                    onChange={(event, value) => onEmployeeAutocompleteChange(value)}
+                    onChange={(event, value) => onEmployeeAutocompleteChange(value)
+                    }
                     renderInput={(params) => (
                       <TextField
-                        variant="outlined"
+                        variant='outlined'
                         {...params}
-                        name="employee"
+                        name='employee'
                         required
-                        label={intl.formatMessage(Payrollmessages.chooseEmp)}
+                        label={intl.formatMessage(payrollMessages.chooseEmp)}
                       />
                     )}
                   />
                 </Grid>
+              </Grid>
+            </Grid>
 
-                <Grid item xs={12}>
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
                   <TextField
-                    name="userName"
+                    name='userName'
                     value={userName}
                     label={intl.formatMessage(messages.userName)}
-                    disabled
+                    disabled={!isChangeUserName}
+                    onChange={(event) => setUserName(event.target.value)}
                     fullWidth
-                    variant="outlined"
+                    variant='outlined'
                     autoComplete='off'
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={isChangeUserName}
+                        onChange={(evt) => setIsChangeUserName(evt.target.checked)
+                        }
+                        name='exampleRequired'
+                      />
+                    }
+                    label={intl.formatMessage(messages.changeUsername)}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
                   <TextField
-                    id="password"
-                    name="password"
+                    id='password'
+                    name='password'
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     label={intl.formatMessage(messages.password)}
                     required
                     className={classes.field}
-                    variant="outlined"
-                    type="password"
+                    variant='outlined'
+                    type='password'
                     // autoComplete="new-password"
-                    helperText={intl.formatMessage(messages.letPasswordEmptyWillGenerateRandomPassword)}
+                    helperText={intl.formatMessage(
+                      messages.letPasswordEmptyWillGenerateRandomPassword
+                    )}
                     autoComplete='off'
                   />
                 </Grid>
-
               </Grid>
-              <div style={{ paddingTop: "20px" }}>
-                <Grid container spacing={3}>
-                  <Grid item>
-                    <SaveButton Id={1} />
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      variant="contained"
-                      size="medium"
-                      color="primary"
-                      onClick={resetAll}
-                    >
-                      <FormattedMessage {...messages.resetallpassword} />
-                    </Button>
-                  </Grid>
-                </Grid>
-              </div>
-            </form>
+            </Grid>
           </Grid>
-        </Grid>
+
+          <div style={{ paddingTop: '20px' }}>
+            <Grid container spacing={3}>
+              <Grid item>
+                <SaveButton Id={1} />
+              </Grid>
+
+              <Grid item>
+                <Button
+                  variant='contained'
+                  size='medium'
+                  color='primary'
+                  onClick={resetAll}
+                >
+                  <FormattedMessage {...messages.resetallpassword} />
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
+        </form>
       </PapperBlock>
     </PayRollLoader>
   );

@@ -14,7 +14,7 @@ import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -62,7 +62,7 @@ function ImportEmployeeData(props) {
   const locale = useSelector((state) => state.language.locale);
   const title = localStorage.getItem('MenuName');
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isErrorPopupOpen, setIsErrorPopupOpen] = useState(false);
   const [fileErrors, setFileErrors] = useState([]);
 
@@ -71,13 +71,30 @@ function ImportEmployeeData(props) {
     rows: [],
     modifyExistEmployee: false,
     fieldId: null,
-    importType: 'all',
+    updateType: 'all',
   });
 
   const [fieldsList, setFieldsList] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [fileTitle, setFileTitle] = useState('');
+
+  const fetchNeededData = async () => {
+    setIsLoading(true);
+
+    try {
+      const fields = await api(locale).GetExcelFieldList();
+      setFieldsList(fields);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
 
   const resetFields = () => {
     setTableData([]);
@@ -89,7 +106,7 @@ function ImportEmployeeData(props) {
       rows: [],
       modifyExistEmployee: false,
       fieldId: null,
-      importType: 'all',
+      updateType: 'all',
     });
   };
 
@@ -103,41 +120,48 @@ function ImportEmployeeData(props) {
 
     setIsLoading(true);
 
-    const body = {
-      modifyExistEmployee: formInfo.modifyExistEmployee,
-      rows: formInfo.rows.map((row) => ({
-        id: 0,
-        employeeCode: row[0],
-        arName: row[1],
-        enName: row[2],
-        machineCode: row[3],
-        erpcode: row[4],
-        genderId: row[5],
-        religionId: row[6],
-        birthDate: row[7],
-        nationalityId: row[8],
-        birthGovId: row[9],
-        birthCityId: row[10],
-        socialStatusId: row[11],
-        militaryStatusId: row[12],
-        workEmail: row[13],
-        hiringDate: row[14],
-        organizationId: row[15],
-        reportTo: row[16],
-        jobId: row[17],
-        isInsured: row[18],
-        insuranceDate: row[19],
-        controlParameterId: row[20],
-        identityTypeId: row[21],
-        identityIssuingAuth: row[22],
-        identityNumber: row[23],
-        identityIssuingDate: row[24],
-        identityExpiry: row[25],
-      })),
-    };
-
     try {
-      await api().save(body);
+      if (formInfo.updateType === 'field') {
+        await api(locale).UpdateField(formInfo.fieldId, formInfo.rows);
+      } else {
+        const rows = formInfo.rows.map((row) => ({
+          id: 0,
+          employeeCode: row[0],
+          arName: row[1],
+          enName: row[2],
+          machineCode: row[3],
+          erpcode: row[4],
+          genderId: row[5],
+          religionId: row[6],
+          birthDate: row[7],
+          nationalityId: row[8],
+          birthGovId: row[9],
+          birthCityId: row[10],
+          socialStatusId: row[11],
+          militaryStatusId: row[12],
+          workEmail: row[13],
+          hiringDate: row[14],
+          organizationId: row[15],
+          reportTo: row[16],
+          jobId: row[17],
+          isInsured: row[18],
+          insuranceDate: row[19],
+          controlParameterId: row[20],
+          identityTypeId: row[21],
+          identityIssuingAuth: row[22],
+          identityNumber: row[23],
+          identityIssuingDate: row[24],
+          identityExpiry: row[25],
+        }));
+
+        const body = {
+          modifyExistEmployee: formInfo.modifyExistEmployee,
+          rows,
+        };
+
+        await api(locale).save(body);
+      }
+
       toast.success(notif.saved);
       resetFields();
     } catch (error) {
@@ -167,13 +191,13 @@ function ImportEmployeeData(props) {
       header.forEach((columnName, columnIndex) => {
         if (
           ALL_INFO_XLSX_COLUMNS[columnIndex].isRequired
-          && !row[columnIndex]
+					&& !row[columnIndex]
         ) {
           errors.push(
             locale === 'en'
               ? `Row ${
                 rowIndex + 1
-              }, column (${columnName}) , value is required.`
+							  }, column (${columnName}) , value is required.`
               : `الصف ${rowIndex + 1} ، العمود (${columnName}) ، القيمة مطلوبة.`
           );
         }
@@ -186,12 +210,12 @@ function ImportEmployeeData(props) {
                   locale === 'en'
                     ? `Row ${rowIndex + 1}, column (${columnName}) , value (${
                       row[columnIndex]
-                    }) should be a number.`
+										  }) should be a number.`
                     : `الصف ${
                       rowIndex + 1
-                    } ، العمود (${columnName}) ، القيمة (${
+										  } ، العمود (${columnName}) ، القيمة (${
                       row[columnIndex]
-                    }) يجب أن تكون رقمًا.`
+										  }) يجب أن تكون رقمًا.`
                 );
               }
               break;
@@ -209,12 +233,12 @@ function ImportEmployeeData(props) {
                   locale === 'en'
                     ? `Row ${rowIndex + 1}, column (${columnName}) , value (${
                       row[columnIndex]
-                    }) should be a valid date on format 'YYYY-MM-DD'.`
+										  }) should be a valid date on format 'YYYY-MM-DD'.`
                     : `الصف ${
                       rowIndex + 1
-                    } ، العمود (${columnName}) ، القيمة (${
+										  } ، العمود (${columnName}) ، القيمة (${
                       row[columnIndex]
-                    }) يجب أن تكون تاريخ صحيح بتنسيق 'YYYY-MM-DD'.`
+										  }) يجب أن تكون تاريخ صحيح بتنسيق 'YYYY-MM-DD'.`
                 );
               }
               break;
@@ -226,10 +250,10 @@ function ImportEmployeeData(props) {
                   locale === 'en'
                     ? `Row ${rowIndex + 1}, column (${columnName}) , value (${
                       row[columnIndex]
-                    }) should be a boolean.`
+										  }) should be a boolean.`
                     : `الصف ${rowIndex + 1}، العمود (${columnName}) ، القيمة (${
                       row[columnIndex]
-                    })  يجب أن تكون قيمة منطقية (boolean).`
+										  })  يجب أن تكون قيمة منطقية (boolean).`
                 );
               }
               break;
@@ -245,7 +269,6 @@ function ImportEmployeeData(props) {
   };
 
   const onFileExcelLoaded = (result) => {
-    
     const workbook = XLSX.read(result);
     const sheets = workbook.SheetNames;
 
@@ -256,15 +279,18 @@ function ImportEmployeeData(props) {
         defval: '',
       });
 
-      // Get data in JSON format for table display
-      const sheetAsJSON = XLSX.utils.sheet_to_json(workbook.Sheets[sheets[0]], {
-        raw: false,
-        header: 0,
-        defval: '',
-      });
-
       if (arraySheet.length > 0) {
-        if (formInfo.importType === 'all') {
+        if (formInfo.updateType === 'all') {
+          // Get data in JSON format for table display
+          const sheetAsJSON = XLSX.utils.sheet_to_json(
+            workbook.Sheets[sheets[0]],
+            {
+              raw: false,
+              header: 0,
+              defval: '',
+            }
+          );
+
           const { errors, rows } = checkAllRowsValidation(arraySheet);
           if (errors.length === 0) {
             setFormInfo((prev) => ({ ...prev, rows }));
@@ -283,6 +309,20 @@ function ImportEmployeeData(props) {
             setFileErrors(errors);
             setIsErrorPopupOpen(true);
           }
+        } else if (formInfo.updateType === 'field') {
+          const [header, ...rows] = arraySheet;
+          const filledRows = rows.map((row) => ({
+            employeeCode: row[0],
+            updatedData: row[1],
+          }));
+
+          setColumns([
+            { name: 'employeeCode', label: header[0] },
+            { name: 'updatedData', label: header[1] },
+          ]);
+
+          setFormInfo((prev) => ({ ...prev, rows: filledRows }));
+          setTableData(filledRows);
         }
 
         setIsLoading(false);
@@ -310,8 +350,8 @@ function ImportEmployeeData(props) {
       if (file.size < 10000000) {
         if (
           file.type === 'application/vnd.ms-excel'
-          || file.type
-            === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+					|| file.type
+						=== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ) {
           setFormInfo((prev) => ({ ...prev, file }));
           const reader = new FileReader();
@@ -348,8 +388,14 @@ function ImportEmployeeData(props) {
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   const onRadioInputChange = (evt) => {
+    setTableData([]);
+    setColumns([]);
+    setFileTitle('');
+
     setFormInfo((prev) => ({
       ...prev,
+      file: null,
+      rows: [],
       [evt.target.name]: evt.target.value,
     }));
   };
@@ -370,9 +416,9 @@ function ImportEmployeeData(props) {
               <FormControl>
                 <RadioGroup
                   row
-                  value={formInfo.importType}
+                  value={formInfo.updateType}
                   onChange={onRadioInputChange}
-                  name='importType'
+                  name='updateType'
                 >
                   <FormControlLabel
                     value='all'
@@ -392,7 +438,7 @@ function ImportEmployeeData(props) {
               <Autocomplete
                 options={fieldsList}
                 value={getAutoCompleteValue(fieldsList, formInfo.fieldId)}
-                disabled={formInfo.importType !== 'field'}
+                disabled={formInfo.updateType !== 'field'}
                 onChange={(_, value) => onAutoCompleteChange(value, 'fieldId')}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderOption={(propsOption, option) => (
@@ -404,7 +450,8 @@ function ImportEmployeeData(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    disabled={formInfo.importType !== 'field'}
+                    disabled={formInfo.updateType !== 'field'}
+                    required
                     label={intl.formatMessage(messages.field)}
                   />
                 )}
@@ -413,10 +460,10 @@ function ImportEmployeeData(props) {
 
             <Grid item>
               <FormControlLabel
-                disabled={formInfo.importType !== 'all'}
+                disabled={formInfo.updateType !== 'all'}
                 control={
                   <Checkbox
-                    disabled={formInfo.importType !== 'all'}
+                    disabled={formInfo.updateType !== 'all'}
                     checked={formInfo.modifyExistEmployee}
                     onChange={onCheckboxChange}
                     name='modifyExistEmployee'
