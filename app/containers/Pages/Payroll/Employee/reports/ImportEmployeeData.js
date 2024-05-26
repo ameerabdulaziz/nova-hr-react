@@ -14,7 +14,7 @@ import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -62,7 +62,7 @@ function ImportEmployeeData(props) {
   const locale = useSelector((state) => state.language.locale);
   const title = localStorage.getItem('MenuName');
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isErrorPopupOpen, setIsErrorPopupOpen] = useState(false);
   const [fileErrors, setFileErrors] = useState([]);
 
@@ -78,6 +78,23 @@ function ImportEmployeeData(props) {
   const [tableData, setTableData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [fileTitle, setFileTitle] = useState('');
+
+  const fetchNeededData = async () => {
+    setIsLoading(true);
+
+    try {
+      const fields = await api(locale).GetExcelFieldList();
+      setFieldsList(fields);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
 
   const resetFields = () => {
     setTableData([]);
@@ -103,17 +120,11 @@ function ImportEmployeeData(props) {
 
     setIsLoading(true);
 
-    const body = {
-      modifyExistEmployee: formInfo.modifyExistEmployee,
-      rows: formInfo.rows,
-      fieldId: formInfo.fieldId,
-    };
-
     try {
       if (formInfo.updateType === 'field') {
-        console.log(body);
+        await api(locale).UpdateField(formInfo.fieldId, formInfo.rows);
       } else {
-        body.rows = formInfo.rows.map((row) => ({
+        const rows = formInfo.rows.map((row) => ({
           id: 0,
           employeeCode: row[0],
           arName: row[1],
@@ -143,7 +154,12 @@ function ImportEmployeeData(props) {
           identityExpiry: row[25],
         }));
 
-        await api().save(body);
+        const body = {
+          modifyExistEmployee: formInfo.modifyExistEmployee,
+          rows,
+        };
+
+        await api(locale).save(body);
       }
 
       toast.success(notif.saved);
@@ -175,13 +191,13 @@ function ImportEmployeeData(props) {
       header.forEach((columnName, columnIndex) => {
         if (
           ALL_INFO_XLSX_COLUMNS[columnIndex].isRequired
-          && !row[columnIndex]
+					&& !row[columnIndex]
         ) {
           errors.push(
             locale === 'en'
               ? `Row ${
                 rowIndex + 1
-              }, column (${columnName}) , value is required.`
+							  }, column (${columnName}) , value is required.`
               : `الصف ${rowIndex + 1} ، العمود (${columnName}) ، القيمة مطلوبة.`
           );
         }
@@ -194,12 +210,12 @@ function ImportEmployeeData(props) {
                   locale === 'en'
                     ? `Row ${rowIndex + 1}, column (${columnName}) , value (${
                       row[columnIndex]
-                    }) should be a number.`
+										  }) should be a number.`
                     : `الصف ${
                       rowIndex + 1
-                    } ، العمود (${columnName}) ، القيمة (${
+										  } ، العمود (${columnName}) ، القيمة (${
                       row[columnIndex]
-                    }) يجب أن تكون رقمًا.`
+										  }) يجب أن تكون رقمًا.`
                 );
               }
               break;
@@ -217,12 +233,12 @@ function ImportEmployeeData(props) {
                   locale === 'en'
                     ? `Row ${rowIndex + 1}, column (${columnName}) , value (${
                       row[columnIndex]
-                    }) should be a valid date on format 'YYYY-MM-DD'.`
+										  }) should be a valid date on format 'YYYY-MM-DD'.`
                     : `الصف ${
                       rowIndex + 1
-                    } ، العمود (${columnName}) ، القيمة (${
+										  } ، العمود (${columnName}) ، القيمة (${
                       row[columnIndex]
-                    }) يجب أن تكون تاريخ صحيح بتنسيق 'YYYY-MM-DD'.`
+										  }) يجب أن تكون تاريخ صحيح بتنسيق 'YYYY-MM-DD'.`
                 );
               }
               break;
@@ -234,10 +250,10 @@ function ImportEmployeeData(props) {
                   locale === 'en'
                     ? `Row ${rowIndex + 1}, column (${columnName}) , value (${
                       row[columnIndex]
-                    }) should be a boolean.`
+										  }) should be a boolean.`
                     : `الصف ${rowIndex + 1}، العمود (${columnName}) ، القيمة (${
                       row[columnIndex]
-                    })  يجب أن تكون قيمة منطقية (boolean).`
+										  })  يجب أن تكون قيمة منطقية (boolean).`
                 );
               }
               break;
@@ -297,12 +313,12 @@ function ImportEmployeeData(props) {
           const [header, ...rows] = arraySheet;
           const filledRows = rows.map((row) => ({
             employeeCode: row[0],
-            fieldValue: row[1],
+            updatedData: row[1],
           }));
 
           setColumns([
             { name: 'employeeCode', label: header[0] },
-            { name: 'fieldValue', label: header[1] },
+            { name: 'updatedData', label: header[1] },
           ]);
 
           setFormInfo((prev) => ({ ...prev, rows: filledRows }));
@@ -334,8 +350,8 @@ function ImportEmployeeData(props) {
       if (file.size < 10000000) {
         if (
           file.type === 'application/vnd.ms-excel'
-          || file.type
-            === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+					|| file.type
+						=== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ) {
           setFormInfo((prev) => ({ ...prev, file }));
           const reader = new FileReader();
