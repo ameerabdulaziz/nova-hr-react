@@ -312,6 +312,50 @@ function CalculateAttendance(props) {
       setIsLoading(false);
     }
   };
+
+  const handleRollBackPost = async () => {
+    try {
+      const isValidRange =
+        isDateInRange(
+          formInfo.FromDate,
+          openMonth.fromDate,
+          openMonth.todate
+        ) &&
+        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+
+      if (!isValidRange) {
+        toast.error(
+          intl.formatMessage(messages.startAndEndDateNotInOpenMonthRange)
+        );
+        return;
+      }
+
+      setIsLoading(true);
+
+      const formData = {
+        FromDate: formateDate(formInfo.FromDate),
+        ToDate: formateDate(formInfo.ToDate),
+        OrganizationIds: formInfo.OrganizationIds.map((item) => item.id).join(
+          ","
+        ),
+        EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
+      };
+
+      const body = {
+        companyId: formInfo.companyId,
+      };
+
+      const response = await api(locale).RollBackPost(body, formData);
+      if (response.status == 200) {
+        toast.success(notif.success);
+      }
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const onCheckboxChange = (evt) => {
     setFormInfo((prev) => ({
       ...prev,
@@ -847,7 +891,11 @@ function CalculateAttendance(props) {
                 {intl.formatMessage(messages.calculate)}
               </Button>
             </Grid>
-
+            <Grid item>
+              <Button variant="contained" onClick={handleRollBackAttendance}>
+                {intl.formatMessage(messages.rollbackAttendance)}
+              </Button>
+            </Grid>
             <Grid item>
               <Button variant="contained" onClick={handlePost}>
                 {intl.formatMessage(messages.postToPayroll)}
@@ -855,16 +903,14 @@ function CalculateAttendance(props) {
             </Grid>
 
             <Grid item>
-              <Button variant="contained" onClick={handleRollBackAttendance}>
-                {intl.formatMessage(messages.rollbackAttendance)}
-              </Button>
-            </Grid>
-            {/* TO DO */}
-            {/*  <Grid item>
-              <Button variant="contained">
+              <Button variant="contained" onClick={handleRollBackPost}>
                 {intl.formatMessage(messages.rollbackPost)}
               </Button>
             </Grid>
+
+            {/* TO DO */}
+            {/*  
+            
 
             <Grid item>
               <Button variant="contained">

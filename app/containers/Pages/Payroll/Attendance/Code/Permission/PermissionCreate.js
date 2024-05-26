@@ -4,8 +4,8 @@ import ApiData from "../../api/PermissionData";
 import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 import { useSelector } from "react-redux";
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
@@ -20,19 +20,19 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import PeopleIcon from '@mui/icons-material/People';
-import Business from '@mui/icons-material/Business';
+import PeopleIcon from "@mui/icons-material/People";
+import Business from "@mui/icons-material/Business";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { useLocation } from "react-router-dom";
-import style from '../../../../../../styles/styles.scss'
-import ResignReqTrxSty from '../../../../../../styles/pagesStyle/ResignReqTrxSty.scss';
+import style from "../../../../../../styles/styles.scss";
+import ResignReqTrxSty from "../../../../../../styles/pagesStyle/ResignReqTrxSty.scss";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import PayRollLoader from "../../../Component/PayRollLoader";
-import OrganizationTree from '../../../Component/OrganizationTree/Tree';
-import OrganizationTreePopup from '../../../Component/OrganizationTree/TreePopup';
+import OrganizationTree from "../../../Component/OrganizationTree/Tree";
+import OrganizationTreePopup from "../../../Component/OrganizationTree/TreePopup";
 import { Box } from "@mui/material";
 
 function PermissionCreate(props) {
@@ -44,37 +44,39 @@ function PermissionCreate(props) {
 
   const [organizationChartData, setOrganizationChartData] = useState(null);
   const [isTreePopupOpen, setIsTreePopupOpen] = useState(false);
-  const [organizationTree, setOrganizationTree] = useState(OrganizationTree.buildTreeFromArray(null));
+  const [organizationTree, setOrganizationTree] = useState(
+    OrganizationTree.buildTreeFromArray(null)
+  );
 
   const dayList = [
     {
       id: 1,
-      name: 'Saturday',
+      name: "Saturday",
     },
     {
       id: 2,
-      name: 'Sunday',
+      name: "Sunday",
     },
     {
       id: 3,
-      name: 'Monday',
+      name: "Monday",
     },
     {
       id: 4,
-      name: 'Tuesday',
+      name: "Tuesday",
     },
     {
       id: 5,
-      name: 'Wednesday',
+      name: "Wednesday",
     },
     {
       id: 6,
-      name: 'Thursday',
+      name: "Thursday",
     },
     {
       id: 7,
-      name: 'Friday',
-    }
+      name: "Friday",
+    },
   ];
 
   const [data, setdata] = useState({
@@ -89,16 +91,18 @@ function PermissionCreate(props) {
     maxRepeated: "",
     maxMinuteNo: "",
     isDeductAnnual: false,
+    isDeductReplacment:false,
     reqDayNotAllow: [],
-    reqBeforeShiftInMinute: '',
-    allowToTime: '',
-    allowFromTime: '',
+    reqBeforeShiftInMinute: "",
+    allowToTime: "",
+    allowFromTime: "",
     organizationIds: [],
+    isBetweenDay: false,
+    isConfilctWithVac: false,
   });
   const [ElementList, setElementList] = useState([]);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
-
 
   const handleChange = (event) => {
     if (event.target.name == "arName")
@@ -144,8 +148,8 @@ function PermissionCreate(props) {
       setIsLoading(true);
       const body = {
         ...data,
-        reqDayNotAllow: data.reqDayNotAllow.map(item => item.name).join(','),
-        organizationIds: data.organizationIds.map(item => item.id).join(','),
+        reqDayNotAllow: data.reqDayNotAllow.map((item) => item.name).join(","),
+        organizationIds: data.organizationIds.map((item) => item.id).join(","),
       };
 
       await ApiData(locale).Save(body);
@@ -162,9 +166,9 @@ function PermissionCreate(props) {
     history.push(`/app/Pages/Att/Permission`);
   }
   async function fetchData() {
-    try{
-    const elements = await GeneralListApis(locale).GetElementList();
-    setElementList(elements);
+    try {
+      const elements = await GeneralListApis(locale).GetElementList();
+      setElementList(elements);
 
       const chart = await GeneralListApis(locale).GetSimpleOrganizationChart();
 
@@ -172,38 +176,49 @@ function PermissionCreate(props) {
         setOrganizationChartData(chart[0]);
         setOrganizationTree(OrganizationTree.buildTreeFromArray(chart[0]));
       } else {
-        setOrganizationTree(OrganizationTree.buildTreeFromArray(organizationChartData));
+        setOrganizationTree(
+          OrganizationTree.buildTreeFromArray(organizationChartData)
+        );
       }
 
-    if (id) {
-      const dataApi = await ApiData(locale).Get(id ?? 0);
-        const clonedTree = OrganizationTree.buildTreeFromArray(chart?.[0] ?? organizationChartData);
+      if (id) {
+        const dataApi = await ApiData(locale).Get(id ?? 0);
+        const clonedTree = OrganizationTree.buildTreeFromArray(
+          chart?.[0] ?? organizationChartData
+        );
 
         if (dataApi.organizationIds) {
-          dataApi.organizationIds.split(',').forEach((item) => {
+          dataApi.organizationIds.split(",").forEach((item) => {
             clonedTree.addIsCheckProperty(String(item), true);
           });
           setOrganizationTree(clonedTree);
         }
 
-        const days = dataApi.reqDayNotAllow ? dataApi.reqDayNotAllow.split(',').map(dayName => {
-          const day = dayList.find((item) => item.name === dayName);
+        const days = dataApi.reqDayNotAllow
+          ? dataApi.reqDayNotAllow.split(",").map((dayName) => {
+              const day = dayList.find((item) => item.name === dayName);
 
-          if (day) {
-            return day;
-          }
+              if (day) {
+                return day;
+              }
 
-          return {
-            id: dayName,
-            name: dayName,
-          };
-        }) : [];
+              return {
+                id: dayName,
+                name: dayName,
+              };
+            })
+          : [];
 
-        setdata({ ...dataApi, reqDayNotAllow: days, organizationIds: clonedTree.getCheckedLeafNodes() });
+        setdata({
+          ...dataApi,
+          reqDayNotAllow: days,
+          organizationIds: clonedTree.getCheckedLeafNodes(),
+        });
+      }
+    } catch (e) {
+    } finally {
+      setIsLoading(false);
     }
-  }
-  catch (e) {}
-  finally {setIsLoading(false);}
   }
 
   useEffect(() => {
@@ -212,7 +227,10 @@ function PermissionCreate(props) {
 
   const onTreePopupSave = (changedTree) => {
     setOrganizationTree(changedTree.clone());
-    setdata(prev => ({ ...prev, organizationIds: changedTree.getCheckedLeafNodes() }));
+    setdata((prev) => ({
+      ...prev,
+      organizationIds: changedTree.getCheckedLeafNodes(),
+    }));
   };
 
   const onTimePickerChange = (evt) => {
@@ -224,15 +242,16 @@ function PermissionCreate(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      {organizationChartData && Object.keys(organizationChartData).length > 0 && (
-        <OrganizationTreePopup
-          isOpen={isTreePopupOpen}
-          tree={organizationTree.clone()}
-          chartData={organizationChartData}
-          setIsOpen={setIsTreePopupOpen}
-          onSave={onTreePopupSave}
-        />
-      )}
+      {organizationChartData &&
+        Object.keys(organizationChartData).length > 0 && (
+          <OrganizationTreePopup
+            isOpen={isTreePopupOpen}
+            tree={organizationTree.clone()}
+            chartData={organizationChartData}
+            setIsOpen={setIsTreePopupOpen}
+            onSave={onTreePopupSave}
+          />
+        )}
 
       <PapperBlock
         whiteBg
@@ -255,7 +274,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(Payrollmessages.arName)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -267,7 +286,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(Payrollmessages.enName)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -279,7 +298,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(messages.shortName)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -291,7 +310,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(messages.maxMinuteNo)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -303,7 +322,7 @@ function PermissionCreate(props) {
                 label={intl.formatMessage(messages.maxRepeated)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 
@@ -313,11 +332,16 @@ function PermissionCreate(props) {
                 id="ReqBeforeShiftInMinute"
                 label={intl.formatMessage(messages.reqBeforeShiftInMinute)}
                 variant="outlined"
-                type='number'
+                type="number"
                 fullWidth
                 value={data.reqBeforeShiftInMinute}
-                onChange={(e) => setdata(prev => ({ ...prev, reqBeforeShiftInMinute: e.target.value }))}
-                autoComplete='off'
+                onChange={(e) =>
+                  setdata((prev) => ({
+                    ...prev,
+                    reqBeforeShiftInMinute: e.target.value,
+                  }))
+                }
+                autoComplete="off"
               />
             </Grid>
 
@@ -325,8 +349,8 @@ function PermissionCreate(props) {
               <TextField
                 value={data.allowFromTime}
                 label={intl.formatMessage(messages.startTime)}
-                type='time'
-                name='allowFromTime'
+                type="time"
+                name="allowFromTime"
                 onChange={onTimePickerChange}
                 className={classes.field}
                 InputLabelProps={{
@@ -339,8 +363,8 @@ function PermissionCreate(props) {
               <TextField
                 value={data.allowToTime}
                 label={intl.formatMessage(messages.endTime)}
-                type='time'
-                name='allowToTime'
+                type="time"
+                name="allowToTime"
                 onChange={onTimePickerChange}
                 className={classes.field}
                 InputLabelProps={{
@@ -349,30 +373,31 @@ function PermissionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <Autocomplete
                 options={dayList}
                 multiple
                 disableCloseOnSelect
                 className={`${style.AutocompleteMulSty} ${
-                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                  locale === "ar" ? style.AutocompleteMulStyAR : null
                 }`}
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 value={data.reqDayNotAllow}
                 renderOption={(optionProps, option, { selected }) => (
                   <li {...optionProps} key={optionProps.id}>
                     <Checkbox
-                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                      checkedIcon={<CheckBoxIcon fontSize="small" />}
                       style={{ marginRight: 8 }}
                       checked={selected}
                     />
                     {option.name}
                   </li>
                 )}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => setdata(prev => ({ ...prev, reqDayNotAllow: value }))}
+                getOptionLabel={(option) => (option ? option.name : "")}
+                onChange={(_, value) =>
+                  setdata((prev) => ({ ...prev, reqDayNotAllow: value }))
+                }
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -380,61 +405,6 @@ function PermissionCreate(props) {
                   />
                 )}
               />
-            </Grid>
-
-            <Grid item xs={12}>
-
-              <Card>
-                <CardContent sx={{ p: '16px!important' }}>
-                  <Grid container justifyContent='space-between' alignItems='center' mb={3}>
-                    <Grid item>
-                      <Typography variant='h6'>
-                        {intl.formatMessage(messages.orgName)}
-                      </Typography>
-                    </Grid>
-
-                    <Grid item>
-                      <Button
-                        variant='contained'
-                        disabled={!(organizationChartData && Object.keys(organizationChartData).length > 0)}
-                        onClick={() => setIsTreePopupOpen(true)}
-                      >
-                        {intl.formatMessage(messages.addOrChangeOrganization)}
-                      </Button>
-                    </Grid>
-                  </Grid>
-
-                  {data.organizationIds && data.organizationIds.length > 0 ? (
-                    <div className={`${ResignReqTrxSty.cardContainer}`}>
-                      <Grid container spacing={3}>
-                        {data.organizationIds.map((item, index) => (
-                          <Grid item key={index}>
-                            <div className={ResignReqTrxSty.custodiesContainer}>
-                              <Business className={classes.textSty} />
-                              <span>{item.value}</span>
-                            </div>
-                          </Grid>
-                        ))}
-                      </Grid>
-                    </div>
-                  ) : (
-                    <Stack
-                      direction='row'
-                      sx={{ minHeight: 200 }}
-                      alignItems='center'
-                      justifyContent='center'
-                      textAlign='center'
-                    >
-                      <Box>
-                        <PeopleIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
-                        <Typography color='#a7acb2' variant='body1'>
-                          {intl.formatMessage(messages.noOrganizationSelect)}
-                        </Typography>
-                      </Box>
-                    </Stack>
-                  )}
-                </CardContent>
-              </Card>
             </Grid>
 
             <Grid item xs={12} md={12}>
@@ -451,19 +421,18 @@ function PermissionCreate(props) {
                         control={
                           <Checkbox
                             checked={data.isDeducted}
-                            onChange={(e) =>{
+                            onChange={(e) => {
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 isDeducted: e.target.checked,
-                              }))
-                              e.target.checked ?
-                              setdata((prevFilters) => ({
-                                ...prevFilters,
-                                isDeductAnnual: false
-                              }))
-                              : null
-                            }
-                            }
+                              }));
+                              e.target.checked
+                                ? setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    isDeductAnnual: false,
+                                  }))
+                                : null;
+                            }}
                             value={data.isDeducted}
                             color="primary"
                           />
@@ -515,31 +484,31 @@ function PermissionCreate(props) {
                         variant="outlined"
                         disabled={!data.isDeducted}
                         required={data.isDeducted}
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
-                    <Grid item xs={12} md={12}>
+                    <Grid item xs={12} md={3}>
                       <FormControlLabel
                         control={
                           <Checkbox
                             checked={data.isDeductAnnual}
-                            onChange={(e) =>{
+                            onChange={(e) => {
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 isDeductAnnual: e.target.checked,
+                                isDeductReplacment:false,
                                 deductedValue: "",
                                 elementId: null,
                                 elementName: "",
-                              }))
+                              }));
 
-                              e.target.checked ?
-                              setdata((prevFilters) => ({
-                                ...prevFilters,
-                                isDeducted: false,
-                              }))
-                              : null
-                            }
-                            }
+                              e.target.checked
+                                ? setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    isDeducted: false,
+                                  }))
+                                : null;
+                            }}
                             value={data.isDeductAnnual}
                             color="primary"
                           />
@@ -547,7 +516,125 @@ function PermissionCreate(props) {
                         label={intl.formatMessage(messages.isDeductAnnual)}
                       />
                     </Grid>
+                    <Grid item xs={12} md={3}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={data.isDeductReplacment}
+                            onChange={(e) => {
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                isDeductReplacment: e.target.checked,
+                                isDeductAnnual:false,
+                              }));
+                            }}
+                            value={data.isDeductReplacment}
+                            color="primary"
+                          />
+                        }
+                        label={intl.formatMessage(messages.isDeductReplacment)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={data.isConfilctWithVac}
+                            onChange={(e) => {
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                isConfilctWithVac: e.target.checked,
+                              }));
+                            }}
+                            value={data.isConfilctWithVac}
+                            color="primary"
+                          />
+                        }
+                        label={intl.formatMessage(messages.isConfilctWithVac)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={data.isBetweenDay}
+                            onChange={(e) => {
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                isBetweenDay: e.target.checked,
+                              }));
+                            }}
+                            value={data.isBetweenDay}
+                            color="primary"
+                          />
+                        }
+                        label={intl.formatMessage(messages.isBetweenDay)}
+                      />
+                    </Grid>
                   </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12}>
+              <Card>
+                <CardContent sx={{ p: "16px!important" }}>
+                  <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mb={3}
+                  >
+                    <Grid item>
+                      <Typography variant="h6">
+                        {intl.formatMessage(messages.orgName)}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        disabled={
+                          !(
+                            organizationChartData &&
+                            Object.keys(organizationChartData).length > 0
+                          )
+                        }
+                        onClick={() => setIsTreePopupOpen(true)}
+                      >
+                        {intl.formatMessage(messages.addOrChangeOrganization)}
+                      </Button>
+                    </Grid>
+                  </Grid>
+
+                  {data.organizationIds && data.organizationIds.length > 0 ? (
+                    <div className={`${ResignReqTrxSty.cardContainer}`}>
+                      <Grid container spacing={3}>
+                        {data.organizationIds.map((item, index) => (
+                          <Grid item key={index}>
+                            <div className={ResignReqTrxSty.custodiesContainer}>
+                              <Business className={classes.textSty} />
+                              <span>{item.value}</span>
+                            </div>
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </div>
+                  ) : (
+                    <Stack
+                      direction="row"
+                      sx={{ minHeight: 200 }}
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                    >
+                      <Box>
+                        <PeopleIcon sx={{ color: "#a7acb2", fontSize: 30 }} />
+                        <Typography color="#a7acb2" variant="body1">
+                          {intl.formatMessage(messages.noOrganizationSelect)}
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  )}
                 </CardContent>
               </Card>
             </Grid>
@@ -559,7 +646,6 @@ function PermissionCreate(props) {
                 size="medium"
                 color="secondary"
               >
-               
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>

@@ -188,7 +188,14 @@ function ElementValList(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        getShiftData(elementData.id);
+        const result = await ApiData(locale).GetList(
+          BranchId,
+          EmployeeId,
+          PayTemplateId,
+          elementData.id
+        );
+        setdataList(result || []);
+        
       } else {
         toast.error(response.statusText);
       }

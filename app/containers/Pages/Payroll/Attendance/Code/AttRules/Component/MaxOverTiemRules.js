@@ -1,6 +1,6 @@
-import React ,{memo} from "react";
+import React, { memo } from "react";
 import messages from "../../../messages";
-import { injectIntl} from "react-intl";
+import { injectIntl } from "react-intl";
 import { Grid, TextField, Card, CardContent, FormLabel } from "@mui/material";
 import useStyles from "../../../../Style";
 import Checkbox from "@mui/material/Checkbox";
@@ -53,14 +53,14 @@ function MaxOverTiemRules(props) {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={data.overTimeApprov||null}
+                    checked={data.overTimeApprov || null}
                     onChange={(e) =>
                       setdata((prevFilters) => ({
                         ...prevFilters,
                         overTimeApprov: e.target.checked,
                       }))
                     }
-                    value={data.overTimeApprov||null}
+                    value={data.overTimeApprov || null}
                     color="primary"
                   />
                 }
@@ -72,24 +72,24 @@ function MaxOverTiemRules(props) {
               <TextField
                 id="maxOvertimeHrsOrdinaryDay"
                 name="maxOvertimeHrsOrdinaryDay"
-                value={data.maxOvertimeHrsOrdinaryDay||null}
+                value={data.maxOvertimeHrsOrdinaryDay || null}
                 onChange={(e) => handleChange(e)}
                 label={intl.formatMessage(messages.maxOvertimeHrsOrdinaryDay)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
             <Grid item md={6} xs={12}>
               <TextField
                 id="maxOvertimeHrsPerMonth"
                 name="maxOvertimeHrsPerMonth"
-                value={data.maxOvertimeHrsPerMonth||null}
+                value={data.maxOvertimeHrsPerMonth || null}
                 onChange={(e) => handleChange(e)}
                 label={intl.formatMessage(messages.maxOvertimeHrsPerMonth)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
             <Grid item md={12} xs={12}>
@@ -105,28 +105,28 @@ function MaxOverTiemRules(props) {
                       <TextField
                         id="maxOvertimeHrsShiftVacDay"
                         name="maxOvertimeHrsShiftVacDay"
-                        value={data.maxOvertimeHrsShiftVacDay||null}
+                        value={data.maxOvertimeHrsShiftVacDay || null}
                         onChange={(e) => handleChange(e)}
                         label={intl.formatMessage(
                           messages.maxOvertimeHrsShiftVacDay
                         )}
                         className={classes.field}
                         variant="outlined"
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={data.calcShiftOverTasDay||null}
+                            checked={data.calcShiftOverTasDay || null}
                             onChange={(e) =>
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 calcShiftOverTAsDay: e.target.checked,
                               }))
                             }
-                            value={data.calcShiftOverTAsDay||null}
+                            value={data.calcShiftOverTAsDay || null}
                             color="primary"
                           />
                         }
@@ -137,28 +137,28 @@ function MaxOverTiemRules(props) {
                       <TextField
                         id="maxOvertimeHrsOfficialVacDay"
                         name="maxOvertimeHrsOfficialVacDay"
-                        value={data.maxOvertimeHrsOfficialVacDay||null}
+                        value={data.maxOvertimeHrsOfficialVacDay || null}
                         onChange={(e) => handleChange(e)}
                         label={intl.formatMessage(
                           messages.maxOvertimeHrsOfficialVacDay
                         )}
                         className={classes.field}
                         variant="outlined"
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={data.calcOfficialOverTasDay||null}
+                            checked={data.calcOfficialOverTasDay || null}
                             onChange={(e) =>
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 calcOfficialOverTasDay: e.target.checked,
                               }))
                             }
-                            value={data.calcOfficialOverTasDay||null}
+                            value={data.calcOfficialOverTasDay || null}
                             color="primary"
                           />
                         }
@@ -177,14 +177,14 @@ function MaxOverTiemRules(props) {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={data.overTimeApprDown||null}
+                    checked={data.overTimeApprDown || null}
                     onChange={(e) =>
                       setdata((prevFilters) => ({
                         ...prevFilters,
                         overTimeApprDown: e.target.checked,
                       }))
                     }
-                    value={data.overTimeApprDown||null}
+                    value={data.overTimeApprDown || null}
                     color="primary"
                   />
                 }
@@ -204,14 +204,14 @@ function MaxOverTiemRules(props) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={data.overTimeAppr||null}
+                            checked={data.overTimeAppr || null}
                             onChange={(e) =>
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 overTimeAppr: e.target.checked,
                               }))
                             }
-                            value={data.overTimeAppr||null}
+                            value={data.overTimeAppr || null}
                             color="primary"
                           />
                         }
@@ -219,8 +219,7 @@ function MaxOverTiemRules(props) {
                       />
                     </Grid>
                     <Grid item md={12} xs={12}>
-                      
-                      <FormLabel component="label" className={classes.redLabel} >
+                      <FormLabel component="label" className={classes.redLabel}>
                         {intl.formatMessage(messages.overTimeApprLabel)}
                       </FormLabel>
                     </Grid>
@@ -246,23 +245,20 @@ function MaxOverTiemRules(props) {
             <Grid item md={6} xs={12}>
               <Card className={classes.card}>
                 <CardContent>
-                  <Grid
-                    container
-                    alignItems="flex-start"
-                    direction="row"
-                  >
+                  <Grid container alignItems="flex-start" direction="row">
                     <Grid item md={12} xs={12}>
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={data.ovTiFromOut||null}
-                            onChange={(e) =>
+                            checked={data.ovTiFromOut || null}
+                            onChange={(e) => {
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 ovTiFromOut: e.target.checked,
-                              }))
-                            }
-                            value={data.ovTiFromOut||null}
+                                morOverTime: false,
+                              }));
+                            }}
+                            value={data.ovTiFromOut || null}
                             color="primary"
                           />
                         }
@@ -288,4 +284,3 @@ function MaxOverTiemRules(props) {
 const MemoedMaxOverTiemRules = memo(MaxOverTiemRules);
 
 export default injectIntl(MemoedMaxOverTiemRules);
-

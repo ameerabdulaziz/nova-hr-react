@@ -1077,6 +1077,10 @@
   "boilerplate.containers.Payroll.Attendance.maxRepeated": "Max Repeated",
   "boilerplate.containers.Payroll.Attendance.maxMinuteNo": "Max Minute No",
   "boilerplate.containers.Payroll.Attendance.isDeductAnnual": "Is Deduct Annual",
+  
+  "boilerplate.containers.Payroll.Attendance.isBetweenDay": "Is during Day",
+  "boilerplate.containers.Payroll.Attendance.isConfilctWithVac": "Is Confilct With Vacation",
+  "boilerplate.containers.Payroll.Attendance.isDeductReplacment": "Is Deduct Replacment",
   "boilerplate.containers.Payroll.Attendance.shortName": "Short Name",
 
   "boilerplate.containers.Payroll.Attendance.PermissionCreateTitle": "Add Permission Codes",

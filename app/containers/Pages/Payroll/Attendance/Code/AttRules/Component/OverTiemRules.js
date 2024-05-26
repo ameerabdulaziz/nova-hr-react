@@ -1,4 +1,4 @@
-import React,{memo} from "react";
+import React, { memo } from "react";
 import messages from "../../../messages";
 import { injectIntl } from "react-intl";
 import {
@@ -26,7 +26,6 @@ function OverTiemRules(props) {
   const { classes } = useStyles();
 
   const handleChange = (event) => {
-    
     if (event.target.name == "usualOverTimeH")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -62,7 +61,6 @@ function OverTiemRules(props) {
         ...prevFilters,
         overtimestartFromMin: event.target.value,
       }));
-
   };
 
   return (
@@ -94,9 +92,11 @@ function OverTiemRules(props) {
                         <Autocomplete
                           id="overTimeElem"
                           options={group5ElemList}
-                          value={group5ElemList.find(
-                            (item) => item.id === data.overTimeElem
-                          )||null}
+                          value={
+                            group5ElemList.find(
+                              (item) => item.id === data.overTimeElem
+                            ) || null
+                          }
                           isOptionEqualToValue={(option, value) =>
                             value.id === 0 ||
                             value.id === "" ||
@@ -125,24 +125,26 @@ function OverTiemRules(props) {
                         <TextField
                           id="usualOverTimeH"
                           name="usualOverTimeH"
-                          value={data.usualOverTimeH||null}
+                          value={data.usualOverTimeH || null}
                           onChange={(e) => handleChange(e)}
                           label={intl.formatMessage(messages.usualOverTimeH)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item md={3} xs={12}>
                         <TextField
                           id="usualOverTimeHNight"
                           name="usualOverTimeHNight"
-                          value={data.usualOverTimeHNight||null}
+                          value={data.usualOverTimeHNight || null}
                           onChange={(e) => handleChange(e)}
-                          label={intl.formatMessage(messages.usualOverTimeHNight)}
+                          label={intl.formatMessage(
+                            messages.usualOverTimeHNight
+                          )}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
 
@@ -150,9 +152,11 @@ function OverTiemRules(props) {
                         <Autocomplete
                           id="shiftvacOverTimeEl"
                           options={group5ElemList}
-                          value={group5ElemList.find(
-                            (item) => item.id === data.shiftvacOverTimeEl
-                          )||null}
+                          value={
+                            group5ElemList.find(
+                              (item) => item.id === data.shiftvacOverTimeEl
+                            ) || null
+                          }
                           isOptionEqualToValue={(option, value) =>
                             value.id === 0 ||
                             value.id === "" ||
@@ -164,7 +168,8 @@ function OverTiemRules(props) {
                           onChange={(event, value) => {
                             setdata((prevFilters) => ({
                               ...prevFilters,
-                              shiftvacOverTimeEl: value !== null ? value.id : null,
+                              shiftvacOverTimeEl:
+                                value !== null ? value.id : null,
                             }));
                           }}
                           renderInput={(params) => (
@@ -172,7 +177,9 @@ function OverTiemRules(props) {
                               variant="outlined"
                               {...params}
                               name="shiftvacOverTimeEl"
-                              label={intl.formatMessage(messages.shiftvacOverTimeEl)}
+                              label={intl.formatMessage(
+                                messages.shiftvacOverTimeEl
+                              )}
                             />
                           )}
                         />
@@ -182,12 +189,12 @@ function OverTiemRules(props) {
                         <TextField
                           id="shiftVacOverTimeH"
                           name="shiftVacOverTimeH"
-                          value={data.shiftVacOverTimeH||null}
+                          value={data.shiftVacOverTimeH || null}
                           onChange={(e) => handleChange(e)}
                           label={intl.formatMessage(messages.shiftVacOverTimeH)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
 
@@ -195,9 +202,11 @@ function OverTiemRules(props) {
                         <Autocomplete
                           id="vacOverTimeEl"
                           options={group5ElemList}
-                          value={group5ElemList.find(
-                            (item) => item.id === data.vacOverTimeEl
-                          )||null}
+                          value={
+                            group5ElemList.find(
+                              (item) => item.id === data.vacOverTimeEl
+                            ) || null
+                          }
                           isOptionEqualToValue={(option, value) =>
                             value.id === 0 ||
                             value.id === "" ||
@@ -227,12 +236,12 @@ function OverTiemRules(props) {
                         <TextField
                           id="vacOverTimeH"
                           name="vacOverTimeH"
-                          value={data.vacOverTimeH||null}
+                          value={data.vacOverTimeH || null}
                           onChange={(e) => handleChange(e)}
                           label={intl.formatMessage(messages.vacOverTimeH)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
 
@@ -240,9 +249,11 @@ function OverTiemRules(props) {
                         <Autocomplete
                           id="worKnighElem"
                           options={group5ElemList}
-                          value={group5ElemList.find(
-                            (item) => item.id === data.worKnighElem
-                          )||null}
+                          value={
+                            group5ElemList.find(
+                              (item) => item.id === data.worKnighElem
+                            ) || null
+                          }
                           isOptionEqualToValue={(option, value) =>
                             value.id === 0 ||
                             value.id === "" ||
@@ -272,12 +283,12 @@ function OverTiemRules(props) {
                         <TextField
                           id="worKnighDayVal"
                           name="worKnighDayVal"
-                          value={data.worKnighDayVal||null}
+                          value={data.worKnighDayVal || null}
                           onChange={(e) => handleChange(e)}
                           label={intl.formatMessage(messages.worKNighDayVal)}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
 
@@ -285,12 +296,14 @@ function OverTiemRules(props) {
                         <TextField
                           id="overtimestartFromMin"
                           name="overtimestartFromMin"
-                          value={data.overtimestartFromMin||null}
+                          value={data.overtimestartFromMin || null}
                           onChange={(e) => handleChange(e)}
-                          label={intl.formatMessage(messages.overtimestartFromMin)}
+                          label={intl.formatMessage(
+                            messages.overtimestartFromMin
+                          )}
                           className={classes.field}
                           variant="outlined"
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                     </Grid>
@@ -303,20 +316,27 @@ function OverTiemRules(props) {
               <Card className={classes.card}>
                 <CardContent>
                   <Grid container alignItems="flex-start" direction="row">
-                    <Grid item md={12} xs={12} container direction="row" spacing={3.5}>
-                      
+                    <Grid
+                      item
+                      md={12}
+                      xs={12}
+                      container
+                      direction="row"
+                      spacing={3.5}
+                    >
                       <Grid item xs={12} md={12}>
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.morOverTime||null}
-                              onChange={(e) =>
+                              checked={data.morOverTime || null}
+                              onChange={(e) => {
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   morOverTime: e.target.checked,
-                                }))
-                              }
-                              value={data.morOverTime||null}
+                                  ovTiFromOut: false,
+                                }));
+                              }}
+                              value={data.morOverTime || null}
                               color="primary"
                             />
                           }
@@ -327,34 +347,32 @@ function OverTiemRules(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.shift24||null}
+                              checked={data.shift24 || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   shift24: e.target.checked,
                                 }))
                               }
-                              value={data.shift24||null}
+                              value={data.shift24 || null}
                               color="primary"
                             />
                           }
-                          label={intl.formatMessage(
-                            messages.shift24
-                          )}
+                          label={intl.formatMessage(messages.shift24)}
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.initRepVacBalanceEveryMonth||null}
+                              checked={data.initRepVacBalanceEveryMonth || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   initRepVacBalanceEveryMonth: e.target.checked,
                                 }))
                               }
-                              value={data.initRepVacBalanceEveryMonth||null}
+                              value={data.initRepVacBalanceEveryMonth || null}
                               color="primary"
                             />
                           }
@@ -367,14 +385,14 @@ function OverTiemRules(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={data.overTimeOnShift||null}
+                              checked={data.overTimeOnShift || null}
                               onChange={(e) =>
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   overTimeOnShift: e.target.checked,
                                 }))
                               }
-                              value={data.overTimeOnShift||null}
+                              value={data.overTimeOnShift || null}
                               color="primary"
                             />
                           }
@@ -388,7 +406,6 @@ function OverTiemRules(props) {
             </Grid>
 
             <hr className={classes.hr} />
-
           </Grid>
           <Grid item xs={12} md={12}>
             <Card className={classes.card}>
@@ -405,7 +422,6 @@ function OverTiemRules(props) {
     </Card>
   );
 }
-
 
 const MemoedOverTiemRules = memo(OverTiemRules);
 

@@ -10,7 +10,7 @@ const CalculateAttendanceData = (locale) => {
         params,
       }
     );
-
+debugger;
     return result.data;
   };
 
@@ -52,6 +52,21 @@ const CalculateAttendanceData = (locale) => {
 
     return result;
   };
+
+  Apis.RollBackPost = async (body = {}, params = {}) => {
+
+
+    const result = await axiosInstance.get(
+      `AttendanceCalculation/RollBackPost/${body.companyId}`,
+      {
+        params,
+      }
+    );
+
+    return result;
+  };
+
+  
 
   Apis.Save = async (data) => {
     

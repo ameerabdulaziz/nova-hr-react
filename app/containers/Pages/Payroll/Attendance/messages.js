@@ -112,6 +112,18 @@ isDeductAnnual: {
   id: `${scope}.isDeductAnnual`,
   defaultMessage: 'isDeductAnnual',
 },
+isBetweenDay: {
+  id: `${scope}.isBetweenDay`,
+  defaultMessage: 'isBetweenDay',
+},
+isConfilctWithVac: {
+  id: `${scope}.isConfilctWithVac`,
+  defaultMessage: 'isConfilctWithVac',
+},
+isDeductReplacment: {
+  id: `${scope}.isDeductReplacment`,
+  defaultMessage: 'isDeductReplacment',
+},
 shortName: {
   id: `${scope}.shortName`,
   defaultMessage: 'shortName',

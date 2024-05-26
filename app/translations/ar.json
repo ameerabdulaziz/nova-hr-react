@@ -1102,6 +1102,10 @@
   "boilerplate.containers.Payroll.Attendance.maxRepeated": "الحد الاقصى للتكرار",
   "boilerplate.containers.Payroll.Attendance.maxMinuteNo": "عدد دقائق الاذن",
   "boilerplate.containers.Payroll.Attendance.isDeductAnnual": "خصم من السنوى",
+  "boilerplate.containers.Payroll.Attendance.isBetweenDay": "اذن خلال اليوم",
+  "boilerplate.containers.Payroll.Attendance.isConfilctWithVac": "تتعارض مع اجازة نصف يوم",
+  "boilerplate.containers.Payroll.Attendance.isDeductReplacment": "خصم من بدل الراحة",
+  
   "boilerplate.containers.Payroll.Attendance.shortName": "الاسم المختصر",
   "boilerplate.containers.Payroll.Attendance.PermissionCreateTitle": "اضافة اكواد الاذون",
   "boilerplate.containers.Payroll.Attendance.PermissionUpdateTitle": "تعديل اكواد الاذون",

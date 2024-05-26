@@ -359,6 +359,7 @@ function DetailedAttendanceReport(props) {
   useEffect(()=>{
     if(printData.length !== 0)
     {
+      debugger;
       printJS();
     }
   },[printData])
