@@ -534,25 +534,25 @@ function CalculateAttendance(props) {
     {
       name: "timeIn",
       label: intl.formatMessage(messages.signIn),
-      options: {
+      /* options: {
         customBodyRender: (value) => (
           <pre>
             {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
           </pre>
         ),
-      },
+      }, */
     },
 
     {
       name: "timeOut",
       label: intl.formatMessage(messages.signOut),
-      options: {
+     /*  options: {
         customBodyRender: (value) => (
           <pre>
             {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
           </pre>
         ),
-      },
+      }, */
     },
     {
       name: "workHours",
