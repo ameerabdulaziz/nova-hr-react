@@ -1966,7 +1966,7 @@
   "boilerplate.containers.Payroll.Employee.personal.isResident": "Is Resident",
   "boilerplate.containers.Payroll.Employee.personal.isSpecialNeeds": "Is SpecialNeeds",
   "boilerplate.containers.Payroll.Employee.personal.upload": "upload",
-  "boilerplate.containers.Payroll.Employee.personal.controlParameter": "Roles Template",
+  "boilerplate.containers.Payroll.Employee.personal.controlParameter": "Rules Template",
 
   "boilerplate.containers.Payroll.Employee.salary.chooseEmp": "Select Employee",
   "boilerplate.containers.Payroll.Employee.salary.salaryStructure": "Salary Structure",
