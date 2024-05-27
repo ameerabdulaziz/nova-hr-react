@@ -11,6 +11,9 @@ const MissionTypeData = () => {
       name: obj.arName,
       EnName: obj.enName,
       transportaion: obj.transportaion,
+      reqInSameDay: obj.reqInSameDay ?? false,
+      reqBeforeDays: obj.reqBeforeDays,
+      reqAfterDays: obj.reqAfterDays,
       edited: false,
     }));
 
@@ -24,6 +27,9 @@ const MissionTypeData = () => {
       arName: Item.name,
       enName: Item.EnName,
       transportaion: Item.transportaion,
+      reqInSameDay: Item.reqInSameDay,
+      reqBeforeDays: Item.reqBeforeDays,
+      reqAfterDays: Item.reqAfterDays,
     };
 
     const result =

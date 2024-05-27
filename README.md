@@ -61,7 +61,6 @@ npm run start:prod
 - [ ] Fix selection column in **editable** table (use id instead of name)
 - [ ] Implement "react-window" or similar package for the **payroll** table
 - [ ] **Recruitment** - add pdf download instead of open in new tab
-- [ ] Integrate **ImportEmployeeData** with api for some-data update
 
 # Docs 📖
 

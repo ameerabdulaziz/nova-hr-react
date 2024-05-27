@@ -632,6 +632,9 @@
   "boilerplate.components.tables.codes.generalCode": "الكود العام",
   "boilerplate.components.tables.codes.expirePeriod": "فترة انتهاء الصلاحية",
   "boilerplate.components.tables.codes.transportaion": "انتقالات",
+  "boilerplate.components.tables.codes.ReqInSameDay": "مطلوب في نفس اليوم",
+  "boilerplate.components.tables.codes.ReqBeforeDays": "مطلوب قبل عدد يوم",
+  "boilerplate.components.tables.codes.ReqAfterDays": "مطلوب بعد عدد يوم",
 
   "boilerplate.components.tables.codes.fromdate": "من تاريخ",
   "boilerplate.components.tables.codes.todate": "الى تاريخ",

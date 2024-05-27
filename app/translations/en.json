@@ -631,6 +631,9 @@
   "boilerplate.components.tables.codes.generalCode": "General Code",
   "boilerplate.components.tables.codes.expirePeriod": "Expire Period",
   "boilerplate.components.tables.codes.transportaion": "Transportaion",
+  "boilerplate.components.tables.codes.ReqInSameDay": "Request In Same Day",
+  "boilerplate.components.tables.codes.ReqBeforeDays": "Request Before Days",
+  "boilerplate.components.tables.codes.ReqAfterDays": "Request After Days",
 
   "boilerplate.components.tables.codes.DepreciationPeriod": "Depreciation Period",
 
