@@ -22,6 +22,15 @@ const API = (locale) => {
     return result;
   };
 
+  api.GetJobList = async () => {
+    const data = await axiosInstance.get(
+      `RecJobAdvertisement/GetJobList/${locale}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
   api.GetPositionTypeList = async () => {
     const data = await axiosInstance.get(
       `RecEmploymentRequest/GetPositionTypeList/${locale}`

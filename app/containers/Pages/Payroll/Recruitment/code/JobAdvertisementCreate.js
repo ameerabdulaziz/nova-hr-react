@@ -63,9 +63,11 @@ function JobAdvertisementCreate(props) {
   const save = async () => {
     setIsLoading(true);
 
-    const formData = { ...formInfo };
+    const formData = {
+      ...formInfo,
+      expireDate: formateDate(formInfo.expireDate),
+    };
 
-    formData.expireDate = formateDate(formData.expireDate);
     formData.recJobRequirement = dataTable.map((item) => ({
       description: item.description,
       jobAdvertisementId: id,
@@ -119,6 +121,7 @@ function JobAdvertisementCreate(props) {
 
       const jobs = await api(locale).GetJobList();
       setJobList(jobs);
+
       if (id !== 0) {
         const dataApi = await api(locale).GetById(id);
         setFormInfo((prev) => ({
@@ -167,6 +170,13 @@ function JobAdvertisementCreate(props) {
       jobId: value !== null ? value.id : null,
       jobAdvertisementCode: value !== null ? value.id : null,
     }));
+
+    if (id === 0 && value !== null) {
+      setFormInfo((prev) => ({
+        ...prev,
+        jobDescription: value?.jobDescription.join('\n'),
+      }));
+    }
   };
 
   const onNumericInputChange = (evt) => {

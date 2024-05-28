@@ -165,7 +165,7 @@ function EmploymentRequestCreate(props) {
       const levels = await api(locale).GetLanguageLevelList();
       setLevelList(levels);
 
-      const jobs = await GeneralListApis(locale).GetJobList();
+      const jobs = await api(locale).GetJobList();
       setJobsList(jobs);
 
       const employees = await GeneralListApis(locale).GetEmployeeList();
@@ -221,6 +221,22 @@ function EmploymentRequestCreate(props) {
       ...prev,
       [name]: value !== null ? value.id : null,
     }));
+  };
+
+  const onJobAutoCompleteChange = (value) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      jobId: value !== null ? value.id : null,
+    }));
+
+    if (value !== null && id === 0) {
+      setWorkDescription(
+        value.jobDescription.map((item) => ({
+          description: item,
+          id: uuid(),
+        }))
+      );
+    }
   };
 
   const onCancelBtnClick = () => {
@@ -418,7 +434,7 @@ function EmploymentRequestCreate(props) {
                       options={jobsList}
                       value={
                         jobsList.find((item) => item.id === formInfo.jobId)
-												?? null
+                        ?? null
                       }
                       isOptionEqualToValue={(option, value) => option.id === value.id
                       }
@@ -428,8 +444,7 @@ function EmploymentRequestCreate(props) {
                           {option.name}
                         </li>
                       )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'jobId')
-                      }
+                      onChange={(_, value) => onJobAutoCompleteChange(value)}
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -469,11 +484,14 @@ function EmploymentRequestCreate(props) {
                   </Grid>
 
                   <Grid item xs={12} md={4}>
-
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(messages.startDate)}
-                        value={formInfo.startingDate ? dayjs(formInfo.startingDate) : null}
+                        value={
+                          formInfo.startingDate
+                            ? dayjs(formInfo.startingDate)
+                            : null
+                        }
                         className={classes.field}
                         onChange={(date) => onDatePickerChange(date, 'startingDate')
                         }
@@ -481,12 +499,12 @@ function EmploymentRequestCreate(props) {
                           if (error !== null) {
                             setDateError((prevState) => ({
                               ...prevState,
-                              startingDate: true
+                              startingDate: true,
                             }));
                           } else {
                             setDateError((prevState) => ({
                               ...prevState,
-                              startingDate: false
+                              startingDate: false,
                             }));
                           }
                         }}
