@@ -47,5 +47,9 @@ export default defineMessages({
   login: {
     id: `${scope}.user.login`,
     defaultMessage: 'Log In',
-  }
+  },
+  noNotification: {
+    id: `${scope}.noNotification`,
+    defaultMessage: 'noNotification',
+  },
 });

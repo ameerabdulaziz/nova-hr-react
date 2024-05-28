@@ -113,7 +113,7 @@ const dashboardData = (locale) => {
   };
   
   api.getAttData = async () => {
-    const data = await axiosInstance.get(`Dashboard/GetAttData`);
+    const data = await axiosInstance.get(`Dashboard/GetAttData/${locale}`);
     return data.data;
   };
 

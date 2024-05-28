@@ -311,6 +311,7 @@
   "boilerplate.components.Header.search": "بحث Ui",
   "boilerplate.components.Header.user.profile": "ملفي الشخصي",
   "boilerplate.components.Header.user.task": "مهمتي",
+  "boilerplate.components.Header.noNotification": "لا يوجد تنبيهات",
   "boilerplate.components.Header.user.email": "صندوق البريد الخاص بي",
   "boilerplate.components.Header.user.logout": "تسجيل الخروج",
   "boilerplate.components.Header.user.login": "تسجيل الدخول",
@@ -850,59 +851,39 @@
   "boilerplate.components.Widgets.PerformanceChartWidget.rewards": "المكافئات",
   "boilerplate.components.Widgets.PerformanceChartWidget.penalty": "الجزاءات",
   "boilerplate.components.Widgets.PerformanceChartWidget.notification1": "التنبيهات",
-  "boilerplate.components.Widgets.PerformanceChartWidget.orgchar": "Organization Level Demographics",
-  "boilerplate.components.Widgets.PerformanceChartWidget.marital": "Marital Status Demographics",
-  "boilerplate.components.Widgets.PerformanceChartWidget.ageChart": "Age Demographics",
-  "boilerplate.components.Widgets.PerformanceChartWidget.empwithbestAtt": "Employees with best attendance",
-  "boilerplate.components.Widgets.PerformanceChartWidget.gendercahrt": "Gender Ratio",
-  "boilerplate.components.Widgets.PerformanceChartWidget.ServicePeriodcahrt": "Service Period Demographics",
-  "boilerplate.components.Widgets.PerformanceChartWidget.Nationalitycahrt": "Nationality Demographics",
-  "boilerplate.components.Widgets.PerformanceChartWidget.AbscencebichartWidget": "Employee With Highest Abscence",
-  "boilerplate.components.Widgets.PerformanceChartWidget.empwithhighestOver": "Employee With Highest Overtime",
-  "boilerplate.components.Widgets.PerformanceChartWidget.grossSal": "Gross & NetSalary chart",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.yearlySal": "Yearly Salary chart",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.GenderSalaryBiChartWidget": "Salary for male vs female",
-  "boilerplate.components.Widgets.PerformanceChartWidget.GrossBiChartWidget": "Last Months Gross Payroll",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeWidget": "Months Overtime chart",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.AbscenceWidget": "Monthly Abscence chart",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.VacWidget": "Monthly Vacations chart",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.TaxInsWidget": "Monthly Tax - Social Ins chart",
-  "boilerplate.components.Widgets.PerformanceChartWidget.LatePerMinWidget": "Late Per Minutes Chart",
-  "boilerplate.components.Widgets.PerformanceChartWidget.WorkingHoursWidget": "Working Hours Chart",
-  "boilerplate.components.Widgets.PerformanceChartWidget.MonthlyAppraisalWidget": "Monthly Appraisal Chart",
-  
-
-  "boilerplate.components.Widgets.PerformanceChartWidget.AttAbscenceWidget": "Attendance VS Abscence Chart",  
-  "boilerplate.components.Widgets.PerformanceChartWidget.RewardsPenaltyWidget": "Rewards VS Penalty Chart",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeLateWidget": "Overtime VS Late Arrival vs Early Departial",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.OtherOvertimevsLateWidget": "Current Month Overtime VS Late Arrival",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.OtherYearlyDataWidget": "Current Year Performance",
-  "boilerplate.components.Widgets.PerformanceChartWidget.empwithWorstAtt": "Employee with Worst Attendance",
-  "boilerplate.components.Widgets.PerformanceChartWidget.OtherWorkHoursWidget": "Current Month Workhours",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.OtherVacationsWidget": "Current Month Vacations",
-  "boilerplate.components.Widgets.PerformanceChartWidget.OtherPermessionWidget": "Current Month Permessions",
-  "boilerplate.components.Widgets.PerformanceChartWidget.OthermessionWidget": "Current Month Messions",
-  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualHoursBiWidget": "Actual Workhours vs Assumed",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualAttWidget": "Actual Attendance vs Assumed",
-  
-  "boilerplate.components.Widgets.PerformanceChartWidget.OtherAttbichartWidget": "Employee With Best Attendance",
-  
-  
-  
-  
-  
-  
+  "boilerplate.components.Widgets.PerformanceChartWidget.orgchar": "الهيكل التنظيمى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.marital": "الحالة الاجتماعية",
+  "boilerplate.components.Widgets.PerformanceChartWidget.ageChart": "العمر",
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithbestAtt": "اعلى نسبة حضور",
+  "boilerplate.components.Widgets.PerformanceChartWidget.gendercahrt": "نسبة التكافؤ بين الذكور والإناث",
+  "boilerplate.components.Widgets.PerformanceChartWidget.ServicePeriodcahrt": "مدة الخدمة",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Nationalitycahrt": "جنسيات الموظفين",
+  "boilerplate.components.Widgets.PerformanceChartWidget.AbscencebichartWidget": "اعلى نسبة غياب",
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithhighestOver": "اعلى نسبة وقت اضافى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.grossSal": "مقارنة الراتب الشامل و الصافى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.yearlySal": "الراتب السنوى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.GenderSalaryBiChartWidget": "مقارنة بين راتب الذكور والاناث",
+  "boilerplate.components.Widgets.PerformanceChartWidget.GrossBiChartWidget": "الراتب الشامل للشهور الماضية",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeWidget": "الاضافى الشهرى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.AbscenceWidget": "الغياب الشهرى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.VacWidget": "الاجازت الشهرية",
+  "boilerplate.components.Widgets.PerformanceChartWidget.TaxInsWidget": "ضريبة كسب العمل و التامينات الشهرية",
+  "boilerplate.components.Widgets.PerformanceChartWidget.LatePerMinWidget": "التأخير بالدقائق",
+  "boilerplate.components.Widgets.PerformanceChartWidget.WorkingHoursWidget": "ساعات العمل",
+  "boilerplate.components.Widgets.PerformanceChartWidget.MonthlyAppraisalWidget": "التقييم الشهرى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.AttAbscenceWidget": "الحضور والغياب",
+  "boilerplate.components.Widgets.PerformanceChartWidget.RewardsPenaltyWidget": "المكافأت والجزاءات",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OvertimeLateWidget": "مقارنة الاضافى بالتاخير و الانصراف المبكر",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherOvertimevsLateWidget": "مقارنه الاضافى بالتأخير خلال الشهر الحالى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherYearlyDataWidget": "تقييم السنه الحاليه",
+  "boilerplate.components.Widgets.PerformanceChartWidget.empwithWorstAtt": "أقل نسبة حضور",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherWorkHoursWidget": "ساعات عمل الشهر الحالى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherVacationsWidget": "إجازات الشهر الحالى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherPermessionWidget": "أذون الشهر الحالى",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OthermessionWidget": "مأموريات الشهر الحالى ",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualHoursBiWidget": "ساعات العمل مقارنة بالوردية",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherActualAttWidget": "الحضور الفعلى مقارنة بالوردية",
+  "boilerplate.components.Widgets.PerformanceChartWidget.OtherAttbichartWidget": "اعلى نسبة حضور",
 
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
   "boilerplate.containers.Payroll.Setting.menuName": "اسم القائمة",
@@ -927,6 +908,9 @@
   "boilerplate.containers.Payroll.Setting.penalty": "عقوبة",
   "boilerplate.containers.Payroll.Setting.overTime": "وقت إضافي",
   "boilerplate.containers.Payroll.Setting.reward": "مكافأة",
+  "boilerplate.containers.Payroll.Setting.delay": "التأخير",
+  "boilerplate.containers.Payroll.Setting.abscence": "غياب",
+  "boilerplate.containers.Payroll.Setting.late": "التأخير",
   "boilerplate.containers.Payroll.Setting.organization": "المنظمة",
   "boilerplate.containers.Payroll.Setting.update": "تعديل",
   "boilerplate.containers.Payroll.Setting.addDecorator": "إضافة ديكوريتور",
