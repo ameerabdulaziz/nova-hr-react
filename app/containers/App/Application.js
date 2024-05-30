@@ -26,6 +26,7 @@ import {
   RecJobGrade,
   AsCategory,
   MdDocumentCategory,
+  CourseType,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -553,6 +554,18 @@ function Application(props) {
             />
           )}
         />
+
+        <Route
+          path='/app/Pages/HR/CourseType'
+          component={(props1) => (
+            <CourseType
+              text='HrCourseType'
+              table='HrCourseType'
+              {...props1}
+            />
+          )}
+        />
+
         <Route path='/app/Pages/HR/CourseList' component={Courses} />
         <Route path='/app/Pages/HR/CourseListCreate' component={CoursesCreate} />
         <Route path='/app/Pages/HR/CourseListEdit' component={CoursesCreate} />

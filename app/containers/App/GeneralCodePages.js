@@ -128,3 +128,11 @@ export const MdDocumentCategory = (props) => (
     {...props}
   />
 );
+
+export const CourseType = (props) => (
+  <MainDataGeneralCode
+    text='Course Type'
+    table='HrCourseType'
+    {...props}
+  />
+);
