@@ -60,26 +60,16 @@ function TrainingCenter(props) {
     },
 
     {
-      name: 'address',
-      label: intl.formatMessage(attendanceMessages.Address),
-      options: {
-        noWrap: true,
-      },
-    },
-
-    {
       name: 'phone',
       label: intl.formatMessage(messages.phone),
     },
 
     {
-      name: 'locLat',
-      label: intl.formatMessage(attendanceMessages.Latitude),
-    },
-
-    {
-      name: 'locLong',
-      label: intl.formatMessage(attendanceMessages.longitude),
+      name: 'address',
+      label: intl.formatMessage(attendanceMessages.Address),
+      options: {
+        noWrap: true,
+      },
     },
   ];
 

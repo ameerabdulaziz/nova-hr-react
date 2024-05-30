@@ -965,6 +965,7 @@
   "boilerplate.containers.Payroll.HumanResources.courseDays": "عدد ايام الكورس",
   "boilerplate.containers.Payroll.HumanResources.courseHours": "عدد ساعات الكورس",
   "boilerplate.containers.Payroll.HumanResources.expirationPeriod": "فترة انتهاء الكورس",
+  "boilerplate.containers.Payroll.HumanResources.expirationPeriodInMonths": "فترة انتهاء الكورس ب الشهور",
   "boilerplate.containers.Payroll.HumanResources.executionId": "الكود",
   "boilerplate.containers.Payroll.HumanResources.transactionDate": "تاريخ العودة",
   "boilerplate.containers.Payroll.HumanResources.employeeId": "كود الموظف",

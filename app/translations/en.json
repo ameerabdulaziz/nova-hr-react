@@ -959,6 +959,7 @@
   "boilerplate.containers.Payroll.HumanResources.courseDays": "Course Days",
   "boilerplate.containers.Payroll.HumanResources.courseHours": "Course Hours",
   "boilerplate.containers.Payroll.HumanResources.expirationPeriod": "Expiration Period",
+  "boilerplate.containers.Payroll.HumanResources.expirationPeriodInMonths": "Expiration Period In Months",
   "boilerplate.containers.Payroll.HumanResources.id": "Id",
   "boilerplate.containers.Payroll.HumanResources.returnDate": "Return Date",
   "boilerplate.containers.Payroll.HumanResources.resignationDate": "Resignation Date",

@@ -452,6 +452,10 @@ actualManPower: {
     id: `${scope}.expirationPeriod`,
     defaultMessage: 'expirationPeriod',
   },
+  expirationPeriodInMonths: {
+    id: `${scope}.expirationPeriodInMonths`,
+    defaultMessage: 'expirationPeriodInMonths',
+  },
   topics: {
     id: `${scope}.topics`,
     defaultMessage: 'topics',

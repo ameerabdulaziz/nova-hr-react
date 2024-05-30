@@ -206,7 +206,7 @@ function CoursesCreate(props) {
                 name='expiratioPeriod'
                 value={formInfo.expiratioPeriod}
                 onChange={onNumericInputChange}
-                label={intl.formatMessage(messages.expirationPeriod)}
+                label={intl.formatMessage(messages.expirationPeriodInMonths)}
                 fullWidth
                 variant='outlined'
                 autoComplete='off'
