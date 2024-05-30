@@ -1,91 +1,127 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useCallback } from 'react';
-import { makeStyles } from 'tss-react/mui';
-import { PapperBlock } from 'enl-components';
+import notif from 'enl-api/ui/notifMessage';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
-import { EditTable } from '../../../../Tables/demos';
-import TrainingCenterData from '../api/TrainingCenterData';
+import attendanceMessages from '../../Attendance/messages';
+import PayrollTable from '../../Component/PayrollTable';
+import payrollMessages from '../../messages';
+import messages from '../messages';
+import api from '../api/TrainingCenterData';
+import { useSelector } from 'react-redux';
 
-const useStyles = makeStyles()(() => ({
-  root: {
-    flexGrow: 1,
-  },
-}));
+function TrainingCenter(props) {
+  const { intl } = props;
 
-function TrainingCenter() {
-  const title = localStorage.getItem("MenuName");
-  const { classes } = useStyles();
+  const locale = useSelector((state) => state.language.locale);
 
-  const anchorTable = [
+  const pageTitle = localStorage.getItem('MenuName');
+
+  const [dataTable, setDataTable] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchNeededData = async () => {
+    setIsLoading(true);
+
+    try {
+      const data = await api(locale).getList();
+
+      setDataTable(data);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
+
+  const columns = [
     {
       name: 'id',
-      label: 'code',
-      type: 'static',
-      initialValue: '',
-      hidden: true,
+      label: intl.formatMessage(payrollMessages.id),
+      options: {
+        display: false,
+      },
     },
 
     {
-      name: 'name',
-      label: 'name',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      name: 'arName',
+      label: intl.formatMessage(payrollMessages.arName),
     },
+
     {
-      name: 'EnName',
-      label: 'enname',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      name: 'enName',
+      label: intl.formatMessage(payrollMessages.enName),
     },
+
     {
       name: 'address',
-      label: 'address',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      label: intl.formatMessage(attendanceMessages.Address),
+      options: {
+        noWrap: true,
+      },
     },
+
     {
       name: 'phone',
-      label: 'phone',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
-    },    
-    {
-      name: 'edited',
-      label: '',
-      type: 'static',
-      initialValue: '',
-      hidden: true,
+      label: intl.formatMessage(messages.phone),
     },
+
     {
-      name: 'action',
-      label: 'action',
-      type: 'static',
-      initialValue: '',
-      hidden: false,
+      name: 'locLat',
+      label: intl.formatMessage(attendanceMessages.Latitude),
+    },
+
+    {
+      name: 'locLong',
+      label: intl.formatMessage(attendanceMessages.longitude),
     },
   ];
 
+  const deleteRow = async (id) => {
+    setIsLoading(true);
+
+    try {
+      await api(locale).delete(id);
+
+      toast.success(notif.saved);
+      fetchNeededData();
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const actions = {
+    add: {
+      url: '/app/Pages/HR/TrainingCenterListCreate',
+    },
+    edit: {
+      url: '/app/Pages/HR/TrainingCenterListEdit',
+    },
+    delete: {
+      api: deleteRow,
+    },
+  };
+
   return (
-    <div>
-      <PapperBlock whiteBg icon="border_color" title={title} desc="">
-        <div className={classes.root}>
-          <EditTable
-            anchorTable={anchorTable}
-            title={'TrainingCenter Data'}
-            API={TrainingCenterData()}
-          />
-        </div>
-      </PapperBlock>
-    </div>
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={pageTitle}
+      data={dataTable}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
+
+TrainingCenter.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
 
 export default injectIntl(TrainingCenter);

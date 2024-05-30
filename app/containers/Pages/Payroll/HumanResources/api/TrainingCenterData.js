@@ -1,48 +1,41 @@
+import axios from 'axios';
 import axiosInstance from '../../api/axios';
-const TrainingCenterData = () => {
-  const TrainingCentersApis = {};
 
-  TrainingCentersApis.GetList = async () => {
-    // 
-    const data = await axiosInstance.get('HrTrainingCenter');
-    const result = data.data;
-    const finaldata = result.map((obj) => ({
-      id: obj.id,
-      name: obj.arName,
-      EnName: obj.enName,
-      address: obj.address,
-      phone: obj.phone,      
-      edited: false,
-    }));
+const TrainingCenterData = (locale) => {
+  const api = {};
 
-    return finaldata;
+  api.getList = async () => {
+    const data = await axiosInstance.get(`HrTrainingCenter/GetList/${locale}`);
+
+    return data.data;
   };
 
-  TrainingCentersApis.Save = async (Item) => {
-    // 
-    const data = {
-      id: Item.id,
-      arName: Item.name,
-      enName: Item.EnName,
-      address: Item.address,
-      phone: Item.phone,
-    };
+  api.getById = async (id) => {
+    const data = await axiosInstance.get(`HrTrainingCenter/Get/${id}/${locale}`);
 
-    const result =
-      Item.id === 0
-        ? await axiosInstance.post('HrTrainingCenter', data)
-        : await axiosInstance.put(`HrTrainingCenter/${Item.id}`, data);
+    return data.data;
+  };
+
+  api.save = async (body) => {
+    const result = await axiosInstance.post('HrTrainingCenter/Save', body);
+
     return result;
   };
 
-  TrainingCentersApis.Delete = async (Item) => {
-    // 
+  api.delete = async (id) => {
+    const data = await axiosInstance.delete(`HrTrainingCenter/Delete/${id}`);
 
-    const data = await axiosInstance.delete(`HrTrainingCenter/${Item.id}`);
     return data;
   };
 
-  return TrainingCentersApis;
+  api.GoogleMapsGetData = async (lat, lng) => {
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyBsMd6G6Ou5EV9Nbm_J2XD-vekjpPggyyc`;
+
+    const data = await axios.get(url);
+    return data.data;
+  };
+
+  return api;
 };
 
 export default TrainingCenterData;

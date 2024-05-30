@@ -99,6 +99,7 @@ import {
   NewEmployeeReport,
   CreateEmployeeDocuments,
   EditEmployeeDocuments,
+  TrainingCenterCreate,
   TrainingCenter,
   Rewards,
   Penalty,
@@ -558,6 +559,8 @@ function Application(props) {
           )}
         />
         <Route path='/app/Pages/HR/TrainingCenter' component={TrainingCenter} />
+        <Route path='/app/Pages/HR/TrainingCenterCreate' component={TrainingCenterCreate} />
+        <Route path='/app/Pages/HR/TrainingCenterEdit' component={TrainingCenterCreate} />
         <Route path='/app/Pages/HR/Rewards' component={Rewards} />
         <Route path='/app/Pages/HR/Penalty' component={Penalty} />
         <Route path='/app/Pages/HR/PenaltyCreate' component={PenaltyCreate} />

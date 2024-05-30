@@ -363,6 +363,13 @@ export const TrainingCenter = loadable(
   }
 );
 
+export const TrainingCenterCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Code/TrainingCenterCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const Rewards = loadable(
   () => import('./Pages/Payroll/HumanResources/Code/Rewards'),
   {
