@@ -69,10 +69,6 @@ export const ResignReason = (props) => (
   <MainDataGeneralCode text='ResignReason' table='HrResignReason' {...props} />
 );
 
-export const Courses = (props) => (
-  <MainDataGeneralCode text='Courses' table='HrCourses' {...props} />
-);
-
 export const JobTypes = (props) => (
   <MainDataGeneralCode text='Job Types' table='MdJobsTypes' {...props} />
 );

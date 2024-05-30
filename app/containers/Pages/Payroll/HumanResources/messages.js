@@ -424,4 +424,36 @@ actualManPower: {
   defaultMessage: 'Actual ManPower',
 },
 
+  attendanceNotes: {
+    id: `${scope}.attendanceNotes`,
+    defaultMessage: 'attendanceNotes',
+  },
+  seatNumber: {
+    id: `${scope}.seatNumber`,
+    defaultMessage: 'seatNumber',
+  },
+  phone: {
+    id: `${scope}.phone`,
+    defaultMessage: 'phone',
+  },
+  courseType: {
+    id: `${scope}.courseType`,
+    defaultMessage: 'courseType',
+  },
+  courseDays: {
+    id: `${scope}.courseDays`,
+    defaultMessage: 'courseDays',
+  },
+  courseHours: {
+    id: `${scope}.courseHours`,
+    defaultMessage: 'courseHours',
+  },
+  expirationPeriod: {
+    id: `${scope}.expirationPeriod`,
+    defaultMessage: 'expirationPeriod',
+  },
+  topics: {
+    id: `${scope}.topics`,
+    defaultMessage: 'topics',
+  },
 });

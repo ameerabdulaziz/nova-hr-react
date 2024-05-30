@@ -356,6 +356,20 @@ export const OpenCloseMonth = loadable(
 
 // HR////////////////////////////////////////////////////////////////////////////////////////
 
+export const Courses = loadable(
+  () => import('./Pages/Payroll/HumanResources/Code/Courses'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CoursesCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Code/CoursesCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const TrainingCenter = loadable(
   () => import('./Pages/Payroll/HumanResources/Code/TrainingCenter'),
   {

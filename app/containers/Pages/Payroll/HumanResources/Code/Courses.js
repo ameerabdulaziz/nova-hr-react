@@ -4,18 +4,17 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import attendanceMessages from '../../Attendance/messages';
 import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
-import api from '../api/TrainingCenterData';
+import api from '../api/CoursesData';
 import messages from '../messages';
 
-function TrainingCenter(props) {
+function Courses(props) {
   const { intl } = props;
 
-  const locale = useSelector((state) => state.language.locale);
-
   const pageTitle = localStorage.getItem('MenuName');
+
+  const locale = useSelector((state) => state.language.locale);
 
   const [dataTable, setDataTable] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,26 +57,23 @@ function TrainingCenter(props) {
     },
 
     {
-      name: 'address',
-      label: intl.formatMessage(attendanceMessages.Address),
-      options: {
-        noWrap: true,
-      },
+      name: 'courseTypeName',
+      label: intl.formatMessage(messages.courseType),
     },
 
     {
-      name: 'phone',
-      label: intl.formatMessage(messages.phone),
+      name: 'courseDays',
+      label: intl.formatMessage(messages.courseDays),
     },
 
     {
-      name: 'locLat',
-      label: intl.formatMessage(attendanceMessages.Latitude),
+      name: 'courseHours',
+      label: intl.formatMessage(messages.courseHours),
     },
 
     {
-      name: 'locLong',
-      label: intl.formatMessage(attendanceMessages.longitude),
+      name: 'expiratioPeriod',
+      label: intl.formatMessage(messages.expirationPeriod),
     },
   ];
 
@@ -98,10 +94,10 @@ function TrainingCenter(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/TrainingCenterListCreate',
+      url: '/app/Pages/HR/CourseListCreate',
     },
     edit: {
-      url: '/app/Pages/HR/TrainingCenterListEdit',
+      url: '/app/Pages/HR/CourseListEdit',
     },
     delete: {
       api: deleteRow,
@@ -120,8 +116,8 @@ function TrainingCenter(props) {
   );
 }
 
-TrainingCenter.propTypes = {
+Courses.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(TrainingCenter);
+export default injectIntl(Courses);

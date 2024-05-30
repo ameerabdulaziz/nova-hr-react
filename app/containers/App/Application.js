@@ -19,7 +19,6 @@ import {
   Grade,
   JobLevel,
   JobNatures,
-  Courses,
   ResignReason,
   InsuranceRegion,
   MinsuranceItem,
@@ -383,6 +382,8 @@ import {
   EmployeePeerAppraisal,
   ShiftManPowerReport,
   PeerAppraisalReport,
+  Courses,
+  CoursesCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -543,12 +544,6 @@ function Application(props) {
         />
         {/* HR */}
         <Route
-          path='/app/Pages/HR/Course'
-          component={(props1) => (
-            <Courses text='Courses' table='HrCourses' {...props1} />
-          )}
-        />
-        <Route
           path='/app/Pages/HR/ResignReason'
           component={(props1) => (
             <ResignReason
@@ -558,9 +553,14 @@ function Application(props) {
             />
           )}
         />
-        <Route path='/app/Pages/HR/TrainingCenter' component={TrainingCenter} />
-        <Route path='/app/Pages/HR/TrainingCenterCreate' component={TrainingCenterCreate} />
-        <Route path='/app/Pages/HR/TrainingCenterEdit' component={TrainingCenterCreate} />
+        <Route path='/app/Pages/HR/CourseList' component={Courses} />
+        <Route path='/app/Pages/HR/CourseListCreate' component={CoursesCreate} />
+        <Route path='/app/Pages/HR/CourseListEdit' component={CoursesCreate} />
+
+        <Route path='/app/Pages/HR/TrainingCenterList' component={TrainingCenter} />
+        <Route path='/app/Pages/HR/TrainingCenterListCreate' component={TrainingCenterCreate} />
+        <Route path='/app/Pages/HR/TrainingCenterListEdit' component={TrainingCenterCreate} />
+
         <Route path='/app/Pages/HR/Rewards' component={Rewards} />
         <Route path='/app/Pages/HR/Penalty' component={Penalty} />
         <Route path='/app/Pages/HR/PenaltyCreate' component={PenaltyCreate} />

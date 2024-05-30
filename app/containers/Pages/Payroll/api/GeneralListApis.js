@@ -317,6 +317,13 @@ const GeneralListApis = (locale) => {
 
     return result.data;
   };
+
+  Apis.GetCourseTypeList = async () => {
+    const result = await axiosInstance.get(`GeneralList/GetCourseTypeList/${locale}`);
+
+    return result.data;
+  };
+
   Apis.GetTrainingCenterList = async () => {
     
     const result = await axiosInstance.get(
