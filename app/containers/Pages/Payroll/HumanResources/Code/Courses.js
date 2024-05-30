@@ -43,6 +43,8 @@ function Courses(props) {
       label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
+        print: false,
+        download: false,
       },
     },
 
