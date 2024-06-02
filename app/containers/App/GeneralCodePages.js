@@ -136,3 +136,12 @@ export const CourseType = (props) => (
     {...props}
   />
 );
+
+// Survey
+export const SurveyQuestionGroup = (props) => (
+  <MainDataGeneralCode
+    text='Survey Question Group'
+    table='SurveyQuestionGroup'
+    {...props}
+  />
+);

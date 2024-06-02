@@ -27,6 +27,7 @@ import {
   AsCategory,
   MdDocumentCategory,
   CourseType,
+  SurveyQuestionGroup,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -2025,6 +2026,11 @@ function Application(props) {
         />
 
         {/* Survey */}
+        <Route
+          path='/app/Pages/Survey/SurveyQuestionGroup'
+          component={SurveyQuestionGroup}
+        />
+
         <Route
           path='/app/Pages/Survey/SurveyChoiceGroup'
           component={SurveyChoiceGroup}
