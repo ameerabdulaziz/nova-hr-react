@@ -8,7 +8,7 @@ const PaymentSlipData = (locale) => {
       `PayrollReport/GetPaymentSlipReport/${locale}`,
       body
     );
-
+debugger;
     return data.data;
   };
 

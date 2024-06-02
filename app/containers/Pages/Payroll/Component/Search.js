@@ -124,7 +124,7 @@ function Search(props) {
 
       if(!notShowCompany)
       {
-        const company = await GeneralListApis(locale).GetBranchList(true);
+        const company = await GeneralListApis(locale).GetBranchList();
         setCompanyList(company);
       }
     } catch (err) {
