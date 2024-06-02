@@ -1,47 +1,39 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import Info from '@mui/icons-material/Info';
-import Warning from '@mui/icons-material/Warning';
-import Check from '@mui/icons-material/CheckCircle';
-import Error from '@mui/icons-material/RemoveCircle';
 import ExitToApp from '@mui/icons-material/ExitToApp';
+import Info from '@mui/icons-material/Info';
+import NotificationsActiveOutlined from '@mui/icons-material/NotificationsActiveOutlined';
+import { Icon } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import dummy from 'enl-api/dummy/dummyContents';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import messageStyles from 'enl-styles/Messages.scss';
-import avatarApi from 'enl-api/images/avatars';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import link from 'enl-api/ui/link';
-import NotificationsActiveOutlined from '@mui/icons-material/NotificationsActiveOutlined';
-import messages from './messages';
-import useStyles from './header-jss';
+import messageStyles from 'enl-styles/Messages.scss';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import { formateDate } from '../../containers/Pages/Payroll/helpers';
-import { Icon } from '@mui/material';
+import useStyles from './header-jss';
+import messages from './messages';
 
 function UserMenu(props) {
   const { classes, cx } = useStyles();
   const {
-    dark,
-    signOut,
-    avatar,
-    notifications
+    dark, signOut, avatar, notifications
   } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(null);
 
   const history = useHistory();
 
-  const handleMenu = menu => (event) => {
+  const handleMenu = (menu) => (event) => {
     setOpenMenu(openMenu === menu ? null : menu);
     setAnchorEl(event.currentTarget);
   };
@@ -61,17 +53,22 @@ function UserMenu(props) {
   return (
     <div>
       <IconButton
-        aria-haspopup="true"
+        aria-haspopup='true'
         onClick={handleMenu('notification')}
-        color="inherit"
+        color='inherit'
         className={cx(classes.notifIcon, dark ? classes.dark : classes.light)}
-        size="large">
-        <Badge className={classes.badge} badgeContent={notifications.length} color="secondary">
+        size='large'
+      >
+        <Badge
+          className={classes.badge}
+          badgeContent={notifications.length}
+          color='secondary'
+        >
           <NotificationsActiveOutlined />
         </Badge>
       </IconButton>
       <Menu
-        id="menu-notification"
+        id='menu-notification'
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'top',
@@ -90,8 +87,7 @@ function UserMenu(props) {
         open={openMenu === 'notification'}
         onClose={handleClose}
       >
-
-        {
+        {notifications.length > 0 ? (
           notifications.map((item, index) => (
             <MenuItem
               divider={index < notifications.length - 1}
@@ -100,24 +96,42 @@ function UserMenu(props) {
             >
               <div className={messageStyles.messageInfo}>
                 <ListItemAvatar>
-                  <Avatar alt="User Name" className={messageStyles.icon}>
+                  <Avatar alt='User Name' className={messageStyles.icon}>
                     <Icon>{item.iconClass}</Icon>
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={item.description} className={classes.textNotif} secondary={formateDate(item.date, 'dd MMM yyyy')} />
+                <ListItemText
+                  primary={item.description}
+                  className={classes.textNotif}
+                  secondary={formateDate(item.date, 'dd MMM yyyy')}
+                />
               </div>
             </MenuItem>
           ))
-        }
+        ) : (
+          <MenuItem>
+            <div className={messageStyles.messageInfo}>
+              <ListItemAvatar>
+                <Avatar alt='User Name' className={messageStyles.icon}>
+                  <Icon>
+                    <Info />
+                  </Icon>
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                sx={{ alignSelf: 'center' }}
+                primary={<FormattedMessage {...messages.noNotification} />}
+                className={classes.textNotif}
+              />
+            </div>
+          </MenuItem>
+        )}
       </Menu>
       <Button onClick={handleMenu('user-setting')}>
-        <Avatar
-          alt="avatar"
-          src={avatar}
-        />
+        <Avatar alt='avatar' src={avatar} />
       </Button>
       <Menu
-        id="menu-appbar"
+        id='menu-appbar'
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'top',
@@ -139,14 +153,22 @@ function UserMenu(props) {
         <MenuItem onClick={handleClose} component={Link} to={link.email}>
           <FormattedMessage {...messages.email} />
           <ListItemIcon>
-            <Badge className={cx(classes.badge, classes.badgeMenu)} badgeContent={2} color="secondary">&nbsp;</Badge>
+            <Badge
+              className={cx(classes.badge, classes.badgeMenu)}
+              badgeContent={2}
+              color='secondary'
+            >
+							&nbsp;
+            </Badge>
           </ListItemIcon>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={()=>{
-          signOut()
-          localStorage.removeItem("Token");
-          }}>
+        <MenuItem
+          onClick={() => {
+            signOut();
+            localStorage.removeItem('Token');
+          }}
+        >
           <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>
@@ -161,11 +183,11 @@ UserMenu.propTypes = {
   signOut: PropTypes.func.isRequired,
   avatar: PropTypes.string.isRequired,
   dark: PropTypes.bool,
-  notifications: PropTypes.array.isRequired
+  notifications: PropTypes.array.isRequired,
 };
 
 UserMenu.defaultProps = {
-  dark: false
+  dark: false,
 };
 
 export default injectIntl(UserMenu);

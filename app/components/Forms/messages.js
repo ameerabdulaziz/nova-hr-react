@@ -76,6 +76,18 @@ export default defineMessages({
     id: `${scope}.Register.terms`,
     defaultMessage: 'Terms & Condition',
   },
+  linkedin: {
+    id: `${scope}.button.linkedin`,
+    defaultMessage: 'linkedin',
+  },
+  twitter: {
+    id: `${scope}.button.twitter`,
+    defaultMessage: 'twitter',
+  },
+  facebook: {
+    id: `${scope}.button.facebook`,
+    defaultMessage: 'facebook',
+  },
   resetTitle: {
     id: `${scope}.Reset.title`,
     defaultMessage: 'Reset Password',

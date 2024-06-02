@@ -156,7 +156,7 @@ function LoginForm(props) {
           onClick={handleLinkedinClick}
         >
           <i className="ion-logo-linkedin" />
-          Linkedin
+          <FormattedMessage {...messages.linkedin} />
         </Button>
         <Button
           variant="contained"
@@ -166,7 +166,7 @@ function LoginForm(props) {
           onClick={handleTwitterClick}
         >
           <i className="ion-logo-twitter" />
-          Twitter
+          <FormattedMessage {...messages.twitter} />
         </Button>
         <Button
           variant="contained"
@@ -176,7 +176,7 @@ function LoginForm(props) {
           onClick={handleFacebookClick}
         >
           <i className="ion-logo-facebook" />
-          Facebook
+          <FormattedMessage {...messages.facebook} />
         </Button>
       </section>
     </Paper>

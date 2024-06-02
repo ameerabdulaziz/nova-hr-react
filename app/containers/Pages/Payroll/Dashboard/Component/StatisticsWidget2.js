@@ -22,8 +22,11 @@ import HikingSharpIcon from "@mui/icons-material/HikingSharp";
 import PayRollLoader from "../../Component/PayRollLoader";
 import api from "../api";
 import { useSelector } from "react-redux";
+import settingMessages from '../../Setting/messages';
 
 function StatisticsWidget2(props) {
+  const { intl } = props;
+
   const { classes } = useStyles();
 
   const [data1, setData1] = useState([
@@ -66,7 +69,7 @@ function StatisticsWidget2(props) {
 
   const [data2, setData2] = useState([
     {
-      title: "Overtime",
+      title: intl.formatMessage(settingMessages.overTime),
       value: 100000,
       lowest: 5000,
       highest: 25000,
@@ -74,7 +77,7 @@ function StatisticsWidget2(props) {
       position: "up",
     },
     {
-      title: "Delay",
+      title: intl.formatMessage(settingMessages.delay),
       value: 15000,
       lowest: 1000,
       highest: 3000,
@@ -82,7 +85,7 @@ function StatisticsWidget2(props) {
       position: "down",
     },
     {
-      title: "Vacations",
+      title: intl.formatMessage(settingMessages.vacation),
       value: 20000,
       lowest: 200,
       highest: 1000,
@@ -90,7 +93,7 @@ function StatisticsWidget2(props) {
       position: "up",
     },
     {
-      title: "Missions",
+      title: intl.formatMessage(settingMessages.mission),
       value: 30000,
       lowest: 350,
       highest: 500,

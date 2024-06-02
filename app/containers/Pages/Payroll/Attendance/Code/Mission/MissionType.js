@@ -54,6 +54,33 @@ function MissionType() {
     },
 
     {
+      name: 'reqAfterDays',
+      label: 'ReqAfterDays',
+      type: 'number',
+      initialValue: 0,
+      width: 'auto',
+      hidden: false,
+    },
+
+    {
+      name: 'reqBeforeDays',
+      label: 'ReqBeforeDays',
+      type: 'number',
+      initialValue: 0,
+      width: 'auto',
+      hidden: false,
+    },
+
+    {
+      name: 'reqInSameDay',
+      label: 'ReqInSameDay',
+      type: 'toggle',
+      initialValue: false,
+      width: 'auto',
+      hidden: false,
+    },
+
+    {
       name: 'edited',
       label: '',
       type: 'static',

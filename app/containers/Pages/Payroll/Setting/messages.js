@@ -284,4 +284,16 @@ export default defineMessages({
     id: `${scope}.changeUsername`,
     defaultMessage: 'changeUsername',
   },
+  delay: {
+    id: `${scope}.delay`,
+    defaultMessage: 'delay',
+  },
+  abscence: {
+    id: `${scope}.abscence`,
+    defaultMessage: 'abscence',
+  },
+  late: {
+    id: `${scope}.late`,
+    defaultMessage: 'late',
+  },
 });

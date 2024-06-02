@@ -422,4 +422,16 @@ export default defineMessages({
     id: `${scope}.codes.endInsurance`,
     defaultMessage: 'End Insurance',
   },
+  ReqInSameDay: {
+    id: `${scope}.codes.ReqInSameDay`,
+    defaultMessage: 'ReqInSameDay',
+  },
+  ReqBeforeDays: {
+    id: `${scope}.codes.ReqBeforeDays`,
+    defaultMessage: 'ReqBeforeDays',
+  },
+  ReqAfterDays: {
+    id: `${scope}.codes.ReqAfterDays`,
+    defaultMessage: 'ReqAfterDays',
+  },
 });

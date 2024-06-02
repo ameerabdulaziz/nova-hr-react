@@ -30,6 +30,7 @@ import { PapperBlock } from "enl-components";
 import PayRollLoader from "../../Component/PayRollLoader";
 import api from "../api";
 import { useSelector } from "react-redux";
+import settingMessages from '../../Setting/messages';
 
 const color = {
   main: colorfull[2],
@@ -258,7 +259,7 @@ function OtherYearlyDataWidget(props) {
                     tabIndex={-1}
                     disableRipple
                   />
-                  <ListItemText primary="OverTime" />
+                  <ListItemText primary={intl.formatMessage(settingMessages.overTime)} />
                 </ListItem>
                 <ListItem
                   role={undefined}
@@ -272,7 +273,7 @@ function OtherYearlyDataWidget(props) {
                     tabIndex={-1}
                     disableRipple
                   />
-                  <ListItemText primary="Late" />
+                  <ListItemText primary={intl.formatMessage(settingMessages.late)} />
                 </ListItem>
 
                 <ListItem
@@ -287,7 +288,7 @@ function OtherYearlyDataWidget(props) {
                     tabIndex={-1}
                     disableRipple
                   />
-                  <ListItemText primary="Vacations" />
+                  <ListItemText primary={intl.formatMessage(settingMessages.vacation)} />
                 </ListItem>
                 <ListItem
                   role={undefined}
@@ -301,7 +302,7 @@ function OtherYearlyDataWidget(props) {
                     tabIndex={-1}
                     disableRipple
                   />
-                  <ListItemText primary="Abscence" />
+                  <ListItemText primary={intl.formatMessage(settingMessages.abscence)} />
                 </ListItem>
               </List>
             </div>

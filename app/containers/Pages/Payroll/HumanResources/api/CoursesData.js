@@ -1,29 +1,29 @@
 import axios from 'axios';
 import axiosInstance from '../../api/axios';
 
-const TrainingCenterData = (locale) => {
+const CoursesData = (locale) => {
   const api = {};
 
   api.getList = async () => {
-    const data = await axiosInstance.get(`HrTrainingCenter/GetList/${locale}`);
+    const data = await axiosInstance.get(`HrCourses/GetList/${locale}`);
 
     return data.data;
   };
 
   api.getById = async (id) => {
-    const data = await axiosInstance.get(`HrTrainingCenter/Get/${id}/${locale}`);
+    const data = await axiosInstance.get(`HrCourses/Get/${id}/${locale}`);
 
     return data.data;
   };
 
   api.save = async (body) => {
-    const result = await axiosInstance.post('HrTrainingCenter/Save', body);
+    const result = await axiosInstance.post('HrCourses/Save', body);
 
     return result;
   };
 
   api.delete = async (id) => {
-    const data = await axiosInstance.delete(`HrTrainingCenter/Delete/${id}`);
+    const data = await axiosInstance.delete(`HrCourses/Delete/${id}`);
 
     return data;
   };
@@ -38,4 +38,4 @@ const TrainingCenterData = (locale) => {
   return api;
 };
 
-export default TrainingCenterData;
+export default CoursesData;
