@@ -2499,3 +2499,18 @@ export const KPI_SupervisorReport = loadable(
     fallback: <Loading />,
   }
 );
+
+// Survey
+export const SurveyChoiceGroup = loadable(
+  () => import('./Pages/Payroll/Survey/Code/SurveyChoiceGroup'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const SurveyChoiceGroupCreate = loadable(
+  () => import('./Pages/Payroll/Survey/Code/SurveyChoiceGroupCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
