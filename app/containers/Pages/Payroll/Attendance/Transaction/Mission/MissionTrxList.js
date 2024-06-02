@@ -123,6 +123,11 @@ function MissionTrxList(props) {
     },
 
     {
+      name: 'organization',
+      label: intl.formatMessage(messages.orgName),
+    },
+
+    {
       name: 'employeeName',
       label: intl.formatMessage(payrollMessages.employeeName),
     },
