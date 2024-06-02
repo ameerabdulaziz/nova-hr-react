@@ -105,7 +105,10 @@ function PermissionTrxList(props) {
       name: 'date',
       label: intl.formatMessage(payrollMessages.date),
     },
-
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(payrollMessages.code),
+    },
     {
       name: 'employeeName',
       label: intl.formatMessage(payrollMessages.employeeName),

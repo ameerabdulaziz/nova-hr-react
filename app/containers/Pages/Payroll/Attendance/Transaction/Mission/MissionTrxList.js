@@ -121,7 +121,10 @@ function MissionTrxList(props) {
       name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
     },
-
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(payrollMessages.code),
+    },    
     {
       name: 'employeeName',
       label: intl.formatMessage(payrollMessages.employeeName),
