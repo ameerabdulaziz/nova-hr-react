@@ -27,6 +27,7 @@ import {
   AsCategory,
   MdDocumentCategory,
   CourseType,
+  SurveyQuestionGroup,
 } from './GeneralCodePages';
 import {
   // shymaa
@@ -386,6 +387,10 @@ import {
   PeerAppraisalReport,
   Courses,
   CoursesCreate,
+
+  // Survey
+  SurveyChoiceGroup,
+  SurveyChoiceGroupCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2020,6 +2025,25 @@ function Application(props) {
         <Route
           path='/app/Pages/KPI/KPISupervisorReport'
           component={KPI_SupervisorReport}
+        />
+
+        {/* Survey */}
+        <Route
+          path='/app/Pages/Survey/SurveyQuestionGroup'
+          component={SurveyQuestionGroup}
+        />
+
+        <Route
+          path='/app/Pages/Survey/SurveyChoiceGroup'
+          component={SurveyChoiceGroup}
+        />
+        <Route
+          path='/app/Pages/Survey/SurveyChoiceGroupCreate'
+          component={SurveyChoiceGroupCreate}
+        />
+        <Route
+          path='/app/Pages/Survey/SurveyChoiceGroupEdit'
+          component={SurveyChoiceGroupCreate}
         />
 
         {/* Default */}

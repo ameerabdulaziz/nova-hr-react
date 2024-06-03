@@ -2977,5 +2977,11 @@
 
   "boilerplate.containers.Payroll.KPI.uploadErrorMess": "لم يتم حفظ هذه البيانات بسبب عدم اكتمالها",
 
-  "boilerplate.containers.Payroll.Employee.ExpiryCardErrMes": "انتهت صلاحية البطاقة"
+  "boilerplate.containers.Payroll.Employee.ExpiryCardErrMes": "انتهت صلاحية البطاقة",
+
+  "boilerplate.containers.Payroll.survey.noChoicesFound": "لم يتم العثور على اختيارات",
+  "boilerplate.containers.Payroll.survey.addOrChangeChoice": "إضافة أو تغيير الاختيار",
+  "boilerplate.containers.Payroll.survey.choicesInfo": "معلومات الاختيارات",
+  "boilerplate.containers.Payroll.survey.editChoice": "تعديل الاختيار",
+  "boilerplate.containers.Payroll.survey.addChoice": "إضافة اختيار"
 }
