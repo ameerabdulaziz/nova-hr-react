@@ -8,6 +8,38 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll.Employee';
 export const scope2 = 'boilerplate.components.tables';
 export default defineMessages({
+  EmployeeDataTitle: {
+    id: `${scope}.personal.EmployeeDataTitle`,
+    defaultMessage: 'EmployeeDataTitle',
+  },
+  creatResign: {
+    id: `${scope}.personal.creatResign`,
+    defaultMessage: 'creatResign',
+  },
+  loan: {
+    id: `${scope}.personal.loan`,
+    defaultMessage: 'loan',
+  },
+  companyName: {
+    id: `${scope}.personal.companyName`,
+    defaultMessage: 'companyName',
+  },
+  subDate: {
+    id: `${scope}.personal.subDate`,
+    defaultMessage: 'subDate',
+  },
+  subMonthlyFees: {
+    id: `${scope}.personal.subMonthlyFees`,
+    defaultMessage: 'subMonthlyFees',
+  },
+  cmpFees: {
+    id: `${scope}.personal.cmpFees`,
+    defaultMessage: 'cmpFees',
+  },
+  privlMedCareNumber: {
+    id: `${scope}.personal.privlMedCareNumber`,
+    defaultMessage: 'privlMedCareNumber',
+  },
   employeeCode: {
     id: `${scope}.personal.employeeCode`,
     defaultMessage: 'Code',

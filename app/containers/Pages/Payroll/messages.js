@@ -144,7 +144,7 @@ export default defineMessages({
     id: `${scope}.job`,
     defaultMessage: 'job',
   },
-
+  
   hiringDate: {
     id: `${scope}.hiringDate`,
     defaultMessage: 'hiringDate',

@@ -2065,5 +2065,10 @@ devicePass: {
     id: `${scope}.dateAndShiftErrMes`,
     defaultMessage: 'You must to choose Date and shift',
   },
+  calcAsrepVac: {
+    id: `${scope}.calcAsrepVac`,
+    defaultMessage: 'calcAsrepVac',
+  },
+  
 });
 

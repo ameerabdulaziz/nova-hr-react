@@ -1030,6 +1030,7 @@
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveCreateTitle": "اضافة استلام زى",
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveEditTitle": "تعديل استلام زى",
   "boilerplate.containers.Payroll.HumanResources.uniformName": "اسم الزى",
+  "boilerplate.containers.Payroll.HumanResources.resignReasonId": "كود الاستقالة",
   "boilerplate.containers.Payroll.HumanResources.resignReasonName": "سبب الاستقالة",
   "boilerplate.containers.Payroll.HumanResources.lworkingDay": "اخر يوم عمل",
   "boilerplate.containers.Payroll.HumanResources.settlementV": "مكتفئة نهاية الخدمة",
@@ -1649,6 +1650,7 @@
 
     "boilerplate.containers.Payroll.Attendance.attend": "حضور",
     "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "يجب ان تختار التاريخ والوردية",
+    "boilerplate.containers.Payroll.Attendance.calcAsrepVac": "احتساب بدل راحة",
 
     
   "boilerplate.containers.Payroll.Payroll.monthName": "الشهر",
@@ -1959,7 +1961,17 @@
   "boilerplate.containers.Payroll.Workflow.workFlowUpdateTitle": "تعديل دورة عمل",
   "boilerplate.containers.Payroll.Workflow.noteConfirmation": "للحفظ يمكن ادخال الملاحظه وضغط نعم . للتراجع اضغط لا",
 
-
+  
+  "boilerplate.containers.Payroll.Employee.personal.EmployeeDataTitle": "بيانات الموظف",
+  "boilerplate.containers.Payroll.Employee.personal.creatResign": "انشاء استقالة",
+  "boilerplate.containers.Payroll.Employee.personal.loan": "السلف",
+  "boilerplate.containers.Payroll.Employee.personal.companyName": "شركة التأمين",
+  "boilerplate.containers.Payroll.Employee.personal.subDate": "تاريخ الاشتراك",
+  "boilerplate.containers.Payroll.Employee.personal.subMonthlyFees": "القيمة الموظف",
+  "boilerplate.containers.Payroll.Employee.personal.cmpFees": "قيمة الشركة",
+  "boilerplate.containers.Payroll.Employee.personal.privlMedCareNumber": "الرقم التأمينى",
+  
+  
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "كود الموظف",
   "boilerplate.containers.Payroll.Employee.personal.employeeCodeAlreadyExistReplacedWithNewCode": "رمز الموظف موجود بالفعل، وتم استبداله برمز جديد",
   "boilerplate.containers.Payroll.Employee.personal.employeename": "اسم الموظف",

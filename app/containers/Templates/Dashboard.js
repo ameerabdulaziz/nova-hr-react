@@ -103,6 +103,7 @@ function Dashboard(props) {
     pathname != "/app" &&
     pathname != "/app/EmployeeDashboard" &&
     pathname != "/app/ManagementDashboard" &&
+    pathname != "/app/Pages/Employee/EmployeeData" &&
     dataMenu &&
     urlData === null
   ) {

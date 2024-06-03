@@ -1507,6 +1507,13 @@ export const EmployeeList = loadable(
     fallback: <Loading />,
   }
 );
+
+export const EmployeeData = loadable(
+  () => import('./Pages/Payroll/Employee/component/EmployeeData'),
+  {
+    fallback: <Loading />,
+  }
+);
 export const Personal = loadable(
   () => import('./Pages/Payroll/Employee/Code/Personal'),
   {

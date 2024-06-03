@@ -84,6 +84,7 @@ import {
   CreateOrganization,
   EditOrganization,
   Personal,
+  EmployeeData,
   EmployeeAddress,
   EmployeeCourse,
   EmployeeList,
@@ -1233,6 +1234,7 @@ function Application(props) {
           path='/app/Pages/Employee/EmployeeList'
           component={EmployeeList}
         />
+        <Route path='/app/Pages/Employee/EmployeeData' component={EmployeeData} />
         <Route path='/app/Pages/Employee/Personal' component={Personal} />
         <Route
           path='/app/Pages/Employee/EmployeeAddress'

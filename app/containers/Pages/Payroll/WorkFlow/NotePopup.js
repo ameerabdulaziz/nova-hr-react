@@ -6,6 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import Payrollmessages from "../messages";
 import hrmessages from "../HumanResources/messages";
+import missionmessages from "../Attendance/messages";
 import messages from "./messages";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { injectIntl, FormattedMessage } from "react-intl";
@@ -16,6 +17,8 @@ import useStyles from "../Style";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 const NotePopup = (props) => {
   const locale = useSelector((state) => state.language.locale);
@@ -70,12 +73,53 @@ const NotePopup = (props) => {
             ) : (
               ""
             )}
+            {postDate.docId == 6 && postDate.isUpdateOverTime==true ? (
+              <Grid item xs={12} md={6}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={postDate.calcAsrepVac || false}
+                      onChange={(e) =>{debugger;
+                        setPostDate((prevFilters) => ({
+                          ...prevFilters,
+                          calcAsrepVac: e.target.checked,
+                        }))}
+                      }
+                      value={postDate.calcAsrepVac || false}
+                      color="primary"
+                    />
+                  }
+                  label={intl.formatMessage(missionmessages.calcAsrepVac)}
+                />
+              </Grid>
+            ) : (
+              ""
+            )}
+            {postDate.docId == 6 && postDate.isUpdateOverTime==true ? (
+              <Grid item xs={12} md={6}>
+                <TextField
+                  id="factor"
+                  style={{ width: "100%" }}
+                  name="factor"
+                  label={intl.formatMessage(missionmessages.factor)}
+                  value={postDate.factor}
+                  onChange={(e) =>
+                    setPostDate((prevFilters) => ({
+                      ...prevFilters,
+                      factor: e.target.value,
+                    }))
+                  }
+                />
+              </Grid>
+            ) : (
+              ""
+            )}
             {isCustody ? (
               <Grid item xs={12} md={6}>
                 <TextField
                   id="itemSerial"
                   style={{ width: "100%" }}
-                  name="note"
+                  name="itemSerial"
                   label={intl.formatMessage(hrmessages.itemSerial)}
                   onChange={(e) =>
                     setPostDate((prevFilters) => ({
