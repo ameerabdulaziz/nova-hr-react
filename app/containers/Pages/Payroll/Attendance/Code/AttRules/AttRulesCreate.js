@@ -152,7 +152,7 @@ function AttRulesCreate(props) {
 
     overTimeElem: "",
     usualOverTimeH: "",
-    usualOverTimeHNight: "",
+    usualOverTimeHnight: "",
     shiftvacOverTimeEl: "",
     shiftVacOverTimeH: "",
     vacOverTimeEl: "",

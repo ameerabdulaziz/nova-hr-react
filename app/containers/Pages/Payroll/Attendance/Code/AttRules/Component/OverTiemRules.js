@@ -32,10 +32,10 @@ function OverTiemRules(props) {
         usualOverTimeH: event.target.value,
       }));
 
-    if (event.target.name == "usualOverTimeHNight")
+    if (event.target.name == "usualOverTimeHnight")
       setdata((prevFilters) => ({
         ...prevFilters,
-        usualOverTimeHNight: event.target.value,
+        usualOverTimeHnight: event.target.value,
       }));
 
     if (event.target.name == "shiftVacOverTimeH")
@@ -135,9 +135,9 @@ function OverTiemRules(props) {
                       </Grid>
                       <Grid item md={3} xs={12}>
                         <TextField
-                          id="usualOverTimeHNight"
-                          name="usualOverTimeHNight"
-                          value={data.usualOverTimeHNight || null}
+                          id="usualOverTimeHnight"
+                          name="usualOverTimeHnight"
+                          value={data.usualOverTimeHnight || null}
                           onChange={(e) => handleChange(e)}
                           label={intl.formatMessage(
                             messages.usualOverTimeHNight
