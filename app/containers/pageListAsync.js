@@ -2514,3 +2514,17 @@ export const SurveyChoiceGroupCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const SurveyTemplate = loadable(
+  () => import('./Pages/Payroll/Survey/Code/SurveyTemplate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const SurveyTemplateCreate = loadable(
+  () => import('./Pages/Payroll/Survey/Code/SurveyTemplateCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

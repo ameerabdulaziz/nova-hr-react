@@ -2946,5 +2946,18 @@
   "boilerplate.containers.Payroll.survey.addOrChangeChoice": "Add or change choice",
   "boilerplate.containers.Payroll.survey.choicesInfo": "Choices information",
   "boilerplate.containers.Payroll.survey.editChoice": "Edit choice",
-  "boilerplate.containers.Payroll.survey.addChoice": "Add choice"
+  "boilerplate.containers.Payroll.survey.addChoice": "Add choice",
+  "boilerplate.containers.Payroll.survey.editQuestion": "Edit question",
+  "boilerplate.containers.Payroll.survey.addQuestion": "Add question",
+  "boilerplate.containers.Payroll.survey.choices": "Choices",
+  "boilerplate.containers.Payroll.survey.questionInfo": "Question information",
+  "boilerplate.containers.Payroll.survey.addOrChangeQuestion": "Add or change question",
+  "boilerplate.containers.Payroll.survey.noQuestions": "No questions",
+  "boilerplate.containers.Payroll.survey.createQuestion": "Create question",
+  "boilerplate.containers.Payroll.survey.addQuestions": "Add questions",
+  "boilerplate.containers.Payroll.survey.surveyType": "Survey type",
+  "boilerplate.containers.Payroll.survey.questionType": "Question type",
+  "boilerplate.containers.Payroll.survey.question": "Question",
+  "boilerplate.containers.Payroll.survey.choiceGroup": "Choice group",
+  "boilerplate.containers.Payroll.survey.questionGroup": "Question group"
 }

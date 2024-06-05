@@ -2971,5 +2971,18 @@
   "boilerplate.containers.Payroll.survey.addOrChangeChoice": "إضافة أو تغيير الاختيار",
   "boilerplate.containers.Payroll.survey.choicesInfo": "معلومات الاختيارات",
   "boilerplate.containers.Payroll.survey.editChoice": "تعديل الاختيار",
-  "boilerplate.containers.Payroll.survey.addChoice": "إضافة اختيار"
+  "boilerplate.containers.Payroll.survey.addChoice": "إضافة اختيار",
+  "boilerplate.containers.Payroll.survey.editQuestion": "تعديل السؤال",
+  "boilerplate.containers.Payroll.survey.addQuestion": "إضافة سؤال",
+  "boilerplate.containers.Payroll.survey.choices": "الاختيارات",
+  "boilerplate.containers.Payroll.survey.questionInfo": "معلومات السؤال",
+  "boilerplate.containers.Payroll.survey.addOrChangeQuestion": "إضافة أو تغيير السؤال",
+  "boilerplate.containers.Payroll.survey.noQuestions": "لا توجد أسئلة",
+  "boilerplate.containers.Payroll.survey.createQuestion": "إنشاء سؤال",
+  "boilerplate.containers.Payroll.survey.question": "سؤال",
+  "boilerplate.containers.Payroll.survey.addQuestions": "إضافة أسئلة",
+  "boilerplate.containers.Payroll.survey.surveyType": "نوع الاستبيان",
+  "boilerplate.containers.Payroll.survey.questionType": "نوع السؤال",
+  "boilerplate.containers.Payroll.survey.choiceGroup": "مجموعة الاختيارات",
+  "boilerplate.containers.Payroll.survey.questionGroup": "مجموعة الأسئلة"
 }

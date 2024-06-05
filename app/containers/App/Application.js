@@ -390,6 +390,8 @@ import {
   // Survey
   SurveyChoiceGroup,
   SurveyChoiceGroupCreate,
+  SurveyTemplate,
+  SurveyTemplateCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2042,6 +2044,19 @@ function Application(props) {
         <Route
           path='/app/Pages/Survey/SurveyChoiceGroupEdit'
           component={SurveyChoiceGroupCreate}
+        />
+
+        <Route
+          path='/app/Pages/Survey/SurveyTemplate'
+          component={SurveyTemplate}
+        />
+        <Route
+          path='/app/Pages/Survey/SurveyTemplateCreate'
+          component={SurveyTemplateCreate}
+        />
+        <Route
+          path='/app/Pages/Survey/SurveyTemplateEdit'
+          component={SurveyTemplateCreate}
         />
 
         {/* Default */}

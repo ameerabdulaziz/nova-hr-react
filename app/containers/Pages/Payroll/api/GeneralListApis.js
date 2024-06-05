@@ -528,6 +528,23 @@ debugger;
     return data.data;
   };
 
+  // Survey
+  Apis.GetSurveyQuestionTypeList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetSurveyQuestionTypeList/${locale}`
+    );
+
+    return data.data;
+  };
+
+  Apis.GetSurveyTypeList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetSurveyTypeList/${locale}`
+    );
+
+    return data.data;
+  };
+
   return Apis;
 };
 
