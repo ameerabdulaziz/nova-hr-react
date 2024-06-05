@@ -62,23 +62,30 @@ function getFormData(fdObject = {}) {
     if (Array.isArray(value)) {
       // If the value is an array, iterate through its items
       value.forEach((item, index) => {
-        // Iterate through the key-value pairs of each array item
-        Object.entries(item).forEach(([subKey, subValue]) => {
-          if (subValue instanceof File) {
-            // If the array item value is a File, append it to FormData with the file name
-            formData.append(
-              `${key}[${index}].${subKey}`,
-              subValue,
-              subValue.name
-            );
-          } else {
-            // If not a File, append it to FormData
-            formData.append(
-              `${key}[${index}].${subKey}`,
-              subValue !== undefined ? subValue : null
-            );
-          }
-        });
+        // If the array item value is a File, append it to FormData with the file name
+        if (item instanceof File) {
+          formData.append(`${key}[${index}]`, item, item.name);
+        } else {
+          // If not a File, append it to FormData
+          formData.append(`${key}[${index}]`, item !== undefined ? item : null);
+          // Iterate through the key-value pairs of each array item
+          Object.entries(item).forEach(([subKey, subValue]) => {
+            if (subValue instanceof File) {
+              // If the array item value is a File, append it to FormData with the file name
+              formData.append(
+                `${key}[${index}].${subKey}`,
+                subValue,
+                subValue.name
+              );
+            } else {
+              // If not a File, append it to FormData
+              formData.append(
+                `${key}[${index}].${subKey}`,
+                subValue !== undefined ? subValue : null
+              );
+            }
+          });
+        }
       });
     } else if (value instanceof File) {
       // If the value is a File, append it to FormData with the file name
@@ -101,17 +108,17 @@ function uuid() {
   const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
   return (
     S4()
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + '-'
-    + S4()
-    + S4()
-    + S4()
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ '-'
+		+ S4()
+		+ S4()
+		+ S4()
   );
 }
 
@@ -146,7 +153,7 @@ function extractBirthDayFromIdentityNumber(identityNumber = '') {
       // set is between 16 & 80 year old
       if (
         dayjs().diff(date, 'year') >= 16
-        && dayjs().diff(date, 'year') <= 80
+				&& dayjs().diff(date, 'year') <= 80
       ) {
         return date;
       }
@@ -177,7 +184,8 @@ function validateEmail(email) {
 function getDefaultYearAndMonth(years = []) {
   const today = new Date();
   const monthId = today.getMonth() + 1;
-  const yearId = years.find((year) => year.name === today.getFullYear().toString())?.id ?? null;
+  const yearId =		years.find((year) => year.name === today.getFullYear().toString())?.id
+		?? null;
 
   return { yearId, monthId };
 }
@@ -186,8 +194,11 @@ export {
   extractBirthDayFromIdentityNumber,
   formateDate,
   formatNumber,
-  getCheckboxIcon, getDefaultYearAndMonth, getFormData,
+  getCheckboxIcon,
+  getDefaultYearAndMonth,
+  getFormData,
   toArabicDigits,
   uuid,
   validateEmail
 };
+

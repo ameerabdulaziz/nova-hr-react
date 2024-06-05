@@ -702,4 +702,20 @@ employeeId: {
     id: `${scope}.permission`,
     defaultMessage: 'permission',
   },
+  dragAndDropFilesOrClick: {
+    id: `${scope}.dragAndDropFilesOrClick`,
+    defaultMessage: 'dragAndDropFilesOrClick',
+  },
+  cantUploadMoreThan: {
+    id: `${scope}.cantUploadMoreThan`,
+    defaultMessage: 'cantUploadMoreThan',
+  },
+  items: {
+    id: `${scope}.items`,
+    defaultMessage: 'items',
+  },
+  fileIsTooBig: {
+    id: `${scope}.fileIsTooBig`,
+    defaultMessage: 'fileIsTooBig',
+  },
 });
