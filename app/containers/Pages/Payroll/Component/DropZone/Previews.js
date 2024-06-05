@@ -11,7 +11,7 @@ const isImage = (file) => {
 
   const suffix = fileName.substr(fileName.indexOf('.') + 1).toLowerCase();
 
-  const acceptedImages = ['jpg', 'jpeg', 'bmp', 'png'];
+  const acceptedImages = ['jpg', 'jpeg', 'png'];
 
   return acceptedImages.includes(suffix);
 };
@@ -43,19 +43,28 @@ function Previews(props) {
 
   const previews = useMemo(
     () => filesArray.map((file, index) => {
-      const base64Img = URL.createObjectURL(file);
-      const dummyIndex = uuid();
-
       const isRealImage = isImage(file);
+
+      let src = '';
+
+      if (file.src) {
+        src = file.src;
+      }
+
+      if (file instanceof File) {
+        src = URL.createObjectURL(file);
+      }
+
+      const dummyIndex = uuid();
 
       return (
         <Tooltip key={dummyIndex} title={file.name} placement='top'>
-          <div className='imageContainer col fileIconImg'>
+          <a className='imageContainer col fileIconImg' href={src} target='_blank' rel="noreferrer">
             {isRealImage ? (
               <figure className='imgWrap'>
                 <img
                   className='smallPreviewImg'
-                  src={base64Img}
+                  src={src}
                   alt='preview'
                 />
               </figure>
@@ -63,7 +72,7 @@ function Previews(props) {
               <FileIcon className='smallPreviewImg' />
             )}
             <DeleteBtn file={file} index={index} onRemove={onRemove} />
-          </div>
+          </a>
         </Tooltip>
       );
     }),

@@ -13,6 +13,7 @@ import DropZone from '../../Component/DropZone';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import GeneralListApis from '../../api/GeneralListApis';
+import { ServerURL } from '../../api/ServerConfig';
 import { getFormData } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/CoursesData';
@@ -46,6 +47,7 @@ function CoursesCreate(props) {
     courseHours: '',
     expiratioPeriod: '',
     courseTypeId: '',
+    docsUrl: [],
   });
 
   const fetchNeededData = async () => {
@@ -57,7 +59,14 @@ function CoursesCreate(props) {
 
       if (id !== 0) {
         const dataApi = await api(locale).getById(id);
+
+        const docsUrl = dataApi.docsUrl?.map((item) => ({
+          ...item,
+          src: `${ServerURL}Doc/CoursesDoc/${item.name}`,
+        })) || [];
+
         setFormInfo(dataApi);
+        setFilesList(docsUrl);
       }
     } catch (err) {
       //
@@ -73,9 +82,25 @@ function CoursesCreate(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
+    const reducedFiles = filesList.reduce(
+      (prev, current) => {
+        if (current instanceof File) {
+          prev.filesList.push(current);
+        } else {
+          prev.docsUrl.push({
+            name: current.name,
+            id: current.id,
+          });
+        }
+        return prev;
+      },
+      { filesList: [], docsUrl: [] }
+    );
+
     const body = getFormData({
       ...formInfo,
-      filesList,
+      filesList: reducedFiles.filesList,
+      docsUrl: reducedFiles.docsUrl,
     });
 
     setIsLoading(true);
