@@ -1034,6 +1034,7 @@
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveCreateTitle": "Create Uniform Receive",
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveEditTitle": "Update Uniform Receive",
   "boilerplate.containers.Payroll.HumanResources.uniformName": "Uniform Name",
+  "boilerplate.containers.Payroll.HumanResources.resignReasonId": "Resign Id",
   "boilerplate.containers.Payroll.HumanResources.resignReasonName": "Resign Reason",
   "boilerplate.containers.Payroll.HumanResources.lworkingDay": "Last Working Day",
   "boilerplate.containers.Payroll.HumanResources.settlementV": "Settlement Value",
@@ -1625,6 +1626,7 @@
 
   "boilerplate.containers.Payroll.Attendance.attend": "Attend (T/F)",
   "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "You must to choose Date and shift",
+  "boilerplate.containers.Payroll.Attendance.calcAsrepVac": "Is RepVacation",
  
   
   "boilerplate.containers.Payroll.Payroll.monthName": "Month",
@@ -1926,6 +1928,15 @@
   "boilerplate.containers.Payroll.Workflow.workFlowCreateTitle": "Add WorkFlow",
   "boilerplate.containers.Payroll.Workflow.workFlowUpdateTitle": "Upate WorkFlow",
   "boilerplate.containers.Payroll.Workflow.noteConfirmation": "if you want to Save Eneter Note then Press Yes, for cancel press No",
+  
+  "boilerplate.containers.Payroll.Employee.personal.EmployeeDataTitle": "Employee Data",
+  "boilerplate.containers.Payroll.Employee.personal.creatResign": "Create Resign",
+  "boilerplate.containers.Payroll.Employee.personal.loan": "السلف",
+  "boilerplate.containers.Payroll.Employee.personal.companyName": "Medical Company",
+  "boilerplate.containers.Payroll.Employee.personal.subDate": "Subscription Date",
+  "boilerplate.containers.Payroll.Employee.personal.subMonthlyFees": "Employee Fees",
+  "boilerplate.containers.Payroll.Employee.personal.cmpFees": "Company Fees",
+  "boilerplate.containers.Payroll.Employee.personal.privlMedCareNumber": "MedCare Number",
 
   "boilerplate.containers.Payroll.Employee.personal.employeeCode": "Employee Code",
   "boilerplate.containers.Payroll.Employee.personal.employeeCodeAlreadyExistReplacedWithNewCode": "Employee Code Already Exist, Replaced With New Code",

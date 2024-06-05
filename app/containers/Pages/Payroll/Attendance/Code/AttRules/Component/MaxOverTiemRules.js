@@ -123,10 +123,10 @@ function MaxOverTiemRules(props) {
                             onChange={(e) =>
                               setdata((prevFilters) => ({
                                 ...prevFilters,
-                                calcShiftOverTAsDay: e.target.checked,
+                                calcShiftOverTasDay: e.target.checked,
                               }))
                             }
-                            value={data.calcShiftOverTAsDay || null}
+                            value={data.calcShiftOverTasDay || null}
                             color="primary"
                           />
                         }

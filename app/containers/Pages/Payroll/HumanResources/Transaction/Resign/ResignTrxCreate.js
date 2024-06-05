@@ -25,18 +25,22 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 function ResignTrxCreate(props) {
+  debugger;
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const { id } = location.state ?? 0;
+  const { resignReasonId } = location.state ?? 0;
+  const { resignReasonName } = location.state ?? 0;  
+  const { lworkingDay } = location.state ?? 0;
+  const { employeeId } = location.state ?? 0;
   const { classes } = useStyles();
-
   const [data, setdata] = useState({
     id: 0,
     date: format(new Date(), "yyyy-MM-dd"),
-    employeeId: "",
-    resignReasonId: "",
-    resignReasonName: "",
+    employeeId: employeeId??"",
+    resignReasonId: resignReasonId??"",
+    resignReasonName:resignReasonName?? "",
     note: "",
     payTemplateId: "",
     payTemplateName: "",
@@ -46,7 +50,7 @@ function ResignTrxCreate(props) {
     vacElementIdName: "",
     settlementV: "",
     vacSettlValue: "",
-    lworkingDay: format(new Date(), "yyyy-MM-dd"),
+    lworkingDay: lworkingDay?lworkingDay:format(new Date(), "yyyy-MM-dd"),
     isStop: false,
   });
 

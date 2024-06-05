@@ -326,6 +326,10 @@ uniformName: {
   defaultMessage: 'uniformName',
 },
 //ResignTrx////////////////////////////////////////////////////////////////////////////////////////////////
+resignReasonId: {
+  id: `${scope}.resignReasonId`,
+  defaultMessage: 'resignReasonId',
+},
 resignReasonName: {
   id: `${scope}.resignReasonName`,
   defaultMessage: 'resignReasonName',
