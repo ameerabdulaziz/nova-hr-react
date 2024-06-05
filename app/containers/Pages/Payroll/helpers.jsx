@@ -51,51 +51,68 @@ function getCheckboxIcon(value) {
 }
 
 /**
- * The function `getFormData` takes an object as input and returns a FormData
- * object containing the form data from the input object.
- * @returns a FormData object containing the appended form data.
+ * Appends a key-value pair to the FormData object.
+ * @param {FormData} formData - The FormData object to append to.
+ * @param {string} key - The key under which the value is stored.
+ * @param {*} value - The value to append.
  */
-// TODO: Mohammed Taysser - refactor it & add nested levels support
-function getFormData(fdObject = {}) {
-  // Iterate through the key-value pairs of the input object
-  return Object.entries(fdObject).reduce((formData, [key, value]) => {
-    if (Array.isArray(value)) {
-      // If the value is an array, iterate through its items
-      value.forEach((item, index) => {
-        // If the array item value is a File, append it to FormData with the file name
-        if (item instanceof File) {
-          formData.append(`${key}[${index}]`, item, item.name);
-        } else {
-          // If not a File, append it to FormData
-          formData.append(`${key}[${index}]`, item !== undefined ? item : null);
-          // Iterate through the key-value pairs of each array item
-          Object.entries(item).forEach(([subKey, subValue]) => {
-            if (subValue instanceof File) {
-              // If the array item value is a File, append it to FormData with the file name
-              formData.append(
-                `${key}[${index}].${subKey}`,
-                subValue,
-                subValue.name
-              );
-            } else {
-              // If not a File, append it to FormData
-              formData.append(
-                `${key}[${index}].${subKey}`,
-                subValue !== undefined ? subValue : null
-              );
-            }
-          });
-        }
-      });
-    } else if (value instanceof File) {
-      // If the value is a File, append it to FormData with the file name
-      formData.append(key, value, value.name);
+const appendToFormData = (formData, key, value) => {
+  if (value instanceof File) {
+    formData.append(key, value, value.name);
+  } else {
+    formData.append(key, value !== undefined ? value : null);
+  }
+};
+
+/**
+ * Processes an object and appends its key-value pairs to the FormData object.
+ * @param {FormData} formData - The FormData object to append to.
+ * @param {string} parentKey - The key under which the object is stored.
+ * @param {Object} obj - The object to process.
+ */
+const appendObjectToFormData = (formData, parentKey, obj) => {
+  Object.entries(obj).forEach(([subKey, subValue]) => {
+    const fullKey = `${parentKey}.${subKey}`;
+    appendToFormData(formData, fullKey, subValue);
+  });
+};
+
+/**
+ * Processes an array and appends its items to the FormData object.
+ * @param {FormData} formData - The FormData object to append to.
+ * @param {string} key - The key under which the array is stored.
+ * @param {Array} array - The array to process.
+ */
+const appendArrayToFormData = (formData, key, array) => {
+  array.forEach((item, index) => {
+    const itemKey = `${key}[${index}]`;
+    if (item instanceof File) {
+      // For files, we need to append the file without index
+      appendToFormData(formData, key, item);
+    } else if (item instanceof Object) {
+      appendObjectToFormData(formData, itemKey, item);
     } else {
-      // If not a File, append it to FormData
-      formData.append(key, value !== undefined ? value : null);
+      appendToFormData(formData, itemKey, item);
     }
-    return formData;
-  }, new FormData());
+  });
+};
+
+/**
+ * Converts a given object into FormData.
+ * @param {Object} fdObject - The input object to convert.
+ * @returns {FormData} - The resulting FormData object.
+ */
+function getFormData(fdObject = {}) {
+  const formData = new FormData();
+
+  Object.entries(fdObject).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      appendArrayToFormData(formData, key, value);
+    } else {
+      appendToFormData(formData, key, value);
+    }
+  });
+  return formData;
 }
 
 /**
@@ -108,17 +125,17 @@ function uuid() {
   const S4 = () => ((1 + Math.random()) * 0x10000 || 0).toString(16).substring(1);
   return (
     S4()
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ '-'
-		+ S4()
-		+ S4()
-		+ S4()
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + '-'
+    + S4()
+    + S4()
+    + S4()
   );
 }
 
@@ -153,7 +170,7 @@ function extractBirthDayFromIdentityNumber(identityNumber = '') {
       // set is between 16 & 80 year old
       if (
         dayjs().diff(date, 'year') >= 16
-				&& dayjs().diff(date, 'year') <= 80
+        && dayjs().diff(date, 'year') <= 80
       ) {
         return date;
       }
@@ -184,8 +201,8 @@ function validateEmail(email) {
 function getDefaultYearAndMonth(years = []) {
   const today = new Date();
   const monthId = today.getMonth() + 1;
-  const yearId =		years.find((year) => year.name === today.getFullYear().toString())?.id
-		?? null;
+  const yearId = years.find((year) => year.name === today.getFullYear().toString())?.id
+    ?? null;
 
   return { yearId, monthId };
 }
@@ -201,4 +218,3 @@ export {
   uuid,
   validateEmail
 };
-
