@@ -728,6 +728,7 @@
   "boilerplate.containers.Payroll.items": "items",
   "boilerplate.containers.Payroll.fileIsTooBig": "File is too big",
   "boilerplate.containers.Payroll.mission": "Mission",
+  "boilerplate.containers.Payroll.chooseCourse": "Choose Course",
   "boilerplate.containers.Payroll.permission": "Permission",
   "boilerplate.containers.Payroll.addNew": "Add",
   "boilerplate.containers.Payroll.saturday": "Sat",
@@ -2974,5 +2975,9 @@
   "boilerplate.containers.Payroll.survey.questionType": "Question type",
   "boilerplate.containers.Payroll.survey.question": "Question",
   "boilerplate.containers.Payroll.survey.choiceGroup": "Choice group",
-  "boilerplate.containers.Payroll.survey.questionGroup": "Question group"
+  "boilerplate.containers.Payroll.survey.questionGroup": "Question group",
+
+  "boilerplate.containers.Payroll.training.coursesNumber": "Courses Number",
+  "boilerplate.containers.Payroll.training.coursesIsRequired": "Courses Is Required",
+  "boilerplate.containers.Payroll.training.employeesNumber": "Employees Number"
 }

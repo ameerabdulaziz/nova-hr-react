@@ -393,6 +393,10 @@ import {
   SurveyChoiceGroupCreate,
   SurveyTemplate,
   SurveyTemplateCreate,
+
+  // Training
+  TrFunctionsList,
+  TrFunctionsListCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2059,6 +2063,20 @@ function Application(props) {
         <Route
           path='/app/Pages/Survey/SurveyTemplateEdit'
           component={SurveyTemplateCreate}
+        />
+
+        {/* Training */}
+        <Route
+          path='/app/Pages/Training/TrFunctionsList'
+          component={TrFunctionsList}
+        />
+        <Route
+          path='/app/Pages/Training/TrFunctionsListCreate'
+          component={TrFunctionsListCreate}
+        />
+        <Route
+          path='/app/Pages/Training/TrFunctionsListEdit'
+          component={TrFunctionsListCreate}
         />
 
         {/* Default */}

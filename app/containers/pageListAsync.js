@@ -2535,3 +2535,18 @@ export const SurveyTemplateCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+// Training
+export const TrFunctionsList = loadable(
+  () => import('./Pages/Payroll/Training/Code/TrFunctionsList'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TrFunctionsListCreate = loadable(
+  () => import('./Pages/Payroll/Training/Code/TrFunctionsListCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

@@ -718,4 +718,8 @@ employeeId: {
     id: `${scope}.fileIsTooBig`,
     defaultMessage: 'fileIsTooBig',
   },
+  chooseCourse: {
+    id: `${scope}.chooseCourse`,
+    defaultMessage: 'chooseCourse',
+  },
 });
