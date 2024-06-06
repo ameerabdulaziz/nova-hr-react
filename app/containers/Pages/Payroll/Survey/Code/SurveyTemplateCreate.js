@@ -27,12 +27,12 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import GeneralListApis from '../../api/GeneralListApis';
 import templateMessages from '../../Assessment/messages';
+import NameList from '../../Component/NameList';
 import PayRollLoader from '../../Component/PayRollLoader';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SurveyTemplateData';
 import QuestionInfo from '../components/SurveyTemplate/QuestionInfo';
-import StuffInfo from '../components/SurveyTemplate/StuffInfo';
 import messages from '../messages';
 
 function SurveyTemplateCreate(props) {
@@ -47,12 +47,12 @@ function SurveyTemplateCreate(props) {
   const id = location.state?.id ?? 0;
 
   const [surveyTypeList, setSurveyTypeList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
   const [questionList, setQuestionList] = useState([]);
   const [questionTypesList, setQuestionTypesList] = useState([]);
   const [questionGroupsList, setQuestionGroupsList] = useState([]);
   const [choicesGroupsList, setChoicesGroupsList] = useState([]);
 
+  const [employees, setEmployees] = useState([]);
   const [dateError, setDateError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [formInfo, setFormInfo] = useState({
@@ -68,7 +68,6 @@ function SurveyTemplateCreate(props) {
     showStyle: '1',
 
     questionList: [],
-    employeeList: [],
   });
 
   const fetchNeededData = async () => {
@@ -78,10 +77,9 @@ function SurveyTemplateCreate(props) {
       const surveyTypes = await GeneralListApis(locale).GetSurveyTypeList();
       setSurveyTypeList(surveyTypes);
 
-      const employees = await GeneralListApis(locale).GetEmployeeListComponent();
-      setEmployeeList(employees);
-
-      const questionTypes = await GeneralListApis(locale).GetSurveyQuestionTypeList();
+      const questionTypes = await GeneralListApis(
+        locale
+      ).GetSurveyQuestionTypeList();
       setQuestionTypesList(questionTypes);
 
       const groups = await api(locale).getSurveyQuestionGroup();
@@ -95,19 +93,15 @@ function SurveyTemplateCreate(props) {
       if (id !== 0) {
         const dataApi = await api(locale).getById(id);
 
-        const mappedEmployees = dataApi.employeeList.map(item => ({
+        setFormInfo(dataApi);
+
+        const mappedEmployees = dataApi.employeeList.map((item) => ({
           id: item.employeeId,
           name: item.employeeName,
-          organizationName: item.organizationName,
-          jobName: item.jobName,
+          isSelected: true,
         }));
 
-        const info = {
-          ...dataApi,
-          employeeList: mappedEmployees
-        };
-
-        setFormInfo(info);
+        setEmployees(mappedEmployees);
       }
     } catch (err) {
       //
@@ -124,9 +118,11 @@ function SurveyTemplateCreate(props) {
       return;
     }
 
-    const employees = formInfo.employeeList.map((item) => item.id);
+    const mappedEmployees = employees
+      .filter((item) => item.isSelected)
+      .map((item) => item.id);
 
-    const questions = formInfo.questionList.map(item => ({
+    const questions = formInfo.questionList.map((item) => ({
       id: item.isNew ? 0 : item.questionId,
       questionGroupId: item.questionGroupId,
       questionTypeId: item.questionTypeId,
@@ -149,7 +145,7 @@ function SurveyTemplateCreate(props) {
       surveyTypeId: formInfo.surveyTypeId,
 
       questionList: questions,
-      employeeList: employees,
+      employeeList: mappedEmployees,
     };
 
     setIsLoading(true);
@@ -250,7 +246,8 @@ function SurveyTemplateCreate(props) {
                           (item) => item.id === formInfo.surveyTypeId
                         ) ?? null
                       }
-                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
                       getOptionLabel={(option) => (option ? option.name : '')}
                       renderOption={(propsOption, option) => (
                         <li {...propsOption} key={option.id}>
@@ -370,6 +367,14 @@ function SurveyTemplateCreate(props) {
                       </RadioGroup>
                     </FormControl>
                   </Grid>
+
+                  <Grid item xs={12}>
+                    <NameList
+                      dataList={employees}
+                      setdataList={setEmployees}
+                      Key='Employee'
+                    />
+                  </Grid>
                 </Grid>
               </CardContent>
             </Card>
@@ -391,14 +396,6 @@ function SurveyTemplateCreate(props) {
             questionTypesList={questionTypesList}
             questionGroupsList={questionGroupsList}
             choicesGroupsList={choicesGroupsList}
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <StuffInfo
-            formInfo={formInfo}
-            employeeList={employeeList}
-            setFormInfo={setFormInfo}
           />
         </Grid>
 
