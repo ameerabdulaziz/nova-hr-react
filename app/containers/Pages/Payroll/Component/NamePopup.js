@@ -113,6 +113,17 @@ function NamePopup(props) {
             };
           })
         );
+      } else if (Key == 'Courses') {
+        data = await GeneralListApis(locale).GetCourseList();
+
+        setEmployeeList(
+          data.map((obj) => {
+            return {
+              ...obj,
+              isSelected: false,
+            };
+          })
+        );
       }
     } catch (err) {
     } finally {

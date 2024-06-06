@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from "react";
+import React, { useState, useCallback, memo, useMemo } from "react";
 import css from "enl-styles/Table.scss";
 import {
   Button,
@@ -59,6 +59,17 @@ function NameList(props) {
     );
   };
 
+  const buttonLabel = useMemo(() => {
+    switch (Key) {
+      case 'Job':
+        return Payrollmessages.chooseJob;
+      case 'Courses':
+        return Payrollmessages.chooseCourse;
+      default:
+        return Payrollmessages.chooseEmp;
+    }
+  }, [Key]);
+
   return (
     <div>
       <NamePopup handleClose={handleClose} setOpenPopup={setOpenPopup} IsInsured={IsInsured} open={OpenPopup} Key={Key} withoutSalaryStructure={withoutSalaryStructure} />
@@ -71,11 +82,7 @@ function NameList(props) {
               color="secondary"
               onClick={handleClickOpen}
             >
-              <FormattedMessage
-                {...(Key === "Employee"
-                  ? Payrollmessages.chooseEmp
-                  : Payrollmessages.chooseJob)}
-              />
+              <FormattedMessage {...buttonLabel} />
             </Button>
           </Grid>
 
