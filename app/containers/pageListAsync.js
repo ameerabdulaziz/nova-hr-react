@@ -2550,3 +2550,10 @@ export const TrFunctionsListCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const EmployeeFunctions = loadable(
+  () => import('./Pages/Payroll/Training/Code/EmployeeFunctions'),
+  {
+    fallback: <Loading />,
+  }
+);

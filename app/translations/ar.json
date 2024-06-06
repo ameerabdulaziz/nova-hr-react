@@ -3005,5 +3005,7 @@
 
   "boilerplate.containers.Payroll.training.coursesNumber": "عدد الدورات",
   "boilerplate.containers.Payroll.training.coursesIsRequired": "الدورات مطلوبة",
+  "boilerplate.containers.Payroll.training.functions": "الوظائف",
+  "boilerplate.containers.Payroll.training.getEmployees": "عرض الموظفين",
   "boilerplate.containers.Payroll.training.employeesNumber": "عدد الموظفين"
 }

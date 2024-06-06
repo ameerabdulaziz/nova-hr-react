@@ -545,6 +545,14 @@ debugger;
     return data.data;
   };
 
+  Apis.TrFunctions = async () => {
+    const data = await axiosInstance.get(
+      `TrFunctions/GetListModel/${locale}`
+    );
+
+    return data.data;
+  };
+
   return Apis;
 };
 

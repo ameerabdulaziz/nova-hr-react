@@ -2979,5 +2979,7 @@
 
   "boilerplate.containers.Payroll.training.coursesNumber": "Courses Number",
   "boilerplate.containers.Payroll.training.coursesIsRequired": "Courses Is Required",
+  "boilerplate.containers.Payroll.training.functions": "Functions",
+  "boilerplate.containers.Payroll.training.getEmployees": "Get Employee",
   "boilerplate.containers.Payroll.training.employeesNumber": "Employees Number"
 }

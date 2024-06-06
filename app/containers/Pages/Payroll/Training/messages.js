@@ -15,4 +15,12 @@ export default defineMessages({
     id: `${scope}.coursesIsRequired`,
     defaultMessage: 'coursesIsRequired',
   },
+  functions: {
+    id: `${scope}.functions`,
+    defaultMessage: 'functions',
+  },
+  getEmployees: {
+    id: `${scope}.getEmployees`,
+    defaultMessage: 'getEmployees',
+  },
 });
