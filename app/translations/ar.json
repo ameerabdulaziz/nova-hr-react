@@ -3011,6 +3011,8 @@
   "boilerplate.containers.Payroll.training.functions": "الوظائف",
   "boilerplate.containers.Payroll.training.getEmployees": "عرض الموظفين",
   "boilerplate.containers.Payroll.training.function": "وظيفة",
+  "boilerplate.containers.Payroll.training.noFunctions": "لا يوجد وظائف",
+  "boilerplate.containers.Payroll.training.noEmployees": "لا يوجد موظفين",
   "boilerplate.containers.Payroll.training.requestDate": "تاريخ الطلب",
   "boilerplate.containers.Payroll.training.employeesNumber": "عدد الموظفين"
 }

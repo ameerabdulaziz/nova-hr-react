@@ -2984,6 +2984,8 @@
   "boilerplate.containers.Payroll.training.coursesIsRequired": "Courses Is Required",
   "boilerplate.containers.Payroll.training.function": "Function",
   "boilerplate.containers.Payroll.training.requestDate": "Request Date",
+  "boilerplate.containers.Payroll.training.noFunctions": "No Functions",
+  "boilerplate.containers.Payroll.training.noEmployees": "No Employees",
   "boilerplate.containers.Payroll.training.functions": "Functions",
   "boilerplate.containers.Payroll.training.getEmployees": "Get Employee",
   "boilerplate.containers.Payroll.training.employeesNumber": "Employees Number"

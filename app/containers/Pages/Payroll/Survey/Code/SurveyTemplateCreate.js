@@ -200,7 +200,7 @@ function SurveyTemplateCreate(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <Grid container spacing={3} mt={0} direction='row'>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <form onSubmit={onFormSubmit}>
             <Card>
@@ -209,7 +209,7 @@ function SurveyTemplateCreate(props) {
                   {intl.formatMessage(templateMessages.templateInfo)}
                 </Typography>
 
-                <Grid container spacing={3} mt={0} direction='row'>
+                <Grid container spacing={3} mt={0}>
                   <Grid item xs={12} md={4}>
                     <TextField
                       name='enName'

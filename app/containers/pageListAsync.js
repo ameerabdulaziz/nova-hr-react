@@ -2564,3 +2564,10 @@ export const FunctionsRequest = loadable(
     fallback: <Loading />,
   }
 );
+
+export const FunctionsData = loadable(
+  () => import('./Pages/Payroll/Training/Code/FunctionsData'),
+  {
+    fallback: <Loading />,
+  }
+);

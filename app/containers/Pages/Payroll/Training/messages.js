@@ -31,4 +31,12 @@ export default defineMessages({
     id: `${scope}.requestDate`,
     defaultMessage: 'requestDate',
   },
+  noFunctions: {
+    id: `${scope}.noFunctions`,
+    defaultMessage: 'noFunctions',
+  },
+  noEmployees: {
+    id: `${scope}.noEmployees`,
+    defaultMessage: 'noEmployees',
+  },
 });
