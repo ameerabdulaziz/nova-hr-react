@@ -807,6 +807,9 @@
   "boilerplate.containers.Payroll.viewColumns": "عرض الأعمدة",
   "boilerplate.containers.Payroll.filterTable": "تصفية الجدول",
   "boilerplate.containers.Payroll.all": "الكل",
+  "boilerplate.containers.Payroll.pending": "معلق",
+  "boilerplate.containers.Payroll.approved": "تمت الموافقة عليه",
+  "boilerplate.containers.Payroll.rejected": "مرفوض",
   "boilerplate.containers.Payroll.filters": "الفلاتر",
   "boilerplate.containers.Payroll.showColumns": "إظهار الأعمدة",
   "boilerplate.containers.Payroll.showHideTableColumns": "إظهار/إخفاء أعمدة الجدول",
@@ -3007,5 +3010,7 @@
   "boilerplate.containers.Payroll.training.coursesIsRequired": "الدورات مطلوبة",
   "boilerplate.containers.Payroll.training.functions": "الوظائف",
   "boilerplate.containers.Payroll.training.getEmployees": "عرض الموظفين",
+  "boilerplate.containers.Payroll.training.function": "وظيفة",
+  "boilerplate.containers.Payroll.training.requestDate": "تاريخ الطلب",
   "boilerplate.containers.Payroll.training.employeesNumber": "عدد الموظفين"
 }

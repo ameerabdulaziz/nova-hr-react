@@ -722,4 +722,16 @@ employeeId: {
     id: `${scope}.chooseCourse`,
     defaultMessage: 'chooseCourse',
   },
+  pending: {
+    id: `${scope}.pending`,
+    defaultMessage: 'pending',
+  },
+  approved: {
+    id: `${scope}.approved`,
+    defaultMessage: 'approved',
+  },
+  rejected: {
+    id: `${scope}.rejected`,
+    defaultMessage: 'rejected',
+  },
 });

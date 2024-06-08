@@ -23,4 +23,12 @@ export default defineMessages({
     id: `${scope}.getEmployees`,
     defaultMessage: 'getEmployees',
   },
+  function: {
+    id: `${scope}.function`,
+    defaultMessage: 'function',
+  },
+  requestDate: {
+    id: `${scope}.requestDate`,
+    defaultMessage: 'requestDate',
+  },
 });

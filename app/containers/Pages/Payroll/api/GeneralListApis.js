@@ -429,7 +429,6 @@ const GeneralListApis = (locale) => {
   };
 
   Apis.GetBranchList = async (IsMainBr) => {
-debugger;
     const data = await axiosInstance.get(
       `GeneralList/GetBranchList/${locale}?${IsMainBr ? `IsMainBr=${IsMainBr}` : ''}`
     );

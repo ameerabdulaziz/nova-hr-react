@@ -398,6 +398,7 @@ import {
   TrFunctionsList,
   TrFunctionsListCreate,
   EmployeeFunctions,
+  FunctionsRequest,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2083,6 +2084,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Training/EmployeeFunctions'
           component={EmployeeFunctions}
+        />
+
+        <Route
+          path='/app/Pages/Training/FunctionsRequest'
+          component={FunctionsRequest}
         />
 
         {/* Default */}
