@@ -39,4 +39,32 @@ export default defineMessages({
     id: `${scope}.noEmployees`,
     defaultMessage: 'noEmployees',
   },
+  employeeInfo: {
+    id: `${scope}.employeeInfo`,
+    defaultMessage: 'employeeInfo',
+  },
+  pleaseSelectEmployeeFirst: {
+    id: `${scope}.pleaseSelectEmployeeFirst`,
+    defaultMessage: 'pleaseSelectEmployeeFirst',
+  },
+  pleaseSelectFunctionFirst: {
+    id: `${scope}.pleaseSelectFunctionFirst`,
+    defaultMessage: 'pleaseSelectFunctionFirst',
+  },
+  youAlreadySelectedThisEmployee: {
+    id: `${scope}.youAlreadySelectedThisEmployee`,
+    defaultMessage: 'youAlreadySelectedThisEmployee',
+  },
+  employeeIsNotQualifiedMakeRequest: {
+    id: `${scope}.employeeIsNotQualifiedMakeRequest`,
+    defaultMessage: 'employeeIsNotQualifiedMakeRequest',
+  },
+  pleaseSelectOrganizationFirst: {
+    id: `${scope}.pleaseSelectOrganizationFirst`,
+    defaultMessage: 'pleaseSelectOrganizationFirst',
+  },
+  functionsRequestSentSuccessfully: {
+    id: `${scope}.functionsRequestSentSuccessfully`,
+    defaultMessage: 'functionsRequestSentSuccessfully',
+  },
 });

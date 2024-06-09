@@ -2988,5 +2988,12 @@
   "boilerplate.containers.Payroll.training.noEmployees": "No Employees",
   "boilerplate.containers.Payroll.training.functions": "Functions",
   "boilerplate.containers.Payroll.training.getEmployees": "Get Employee",
-  "boilerplate.containers.Payroll.training.employeesNumber": "Employees Number"
+  "boilerplate.containers.Payroll.training.employeesNumber": "Employees Number",
+  "boilerplate.containers.Payroll.training.employeeInfo": "Employee Info",
+  "boilerplate.containers.Payroll.training.pleaseSelectEmployeeFirst": "Please select employee first",
+  "boilerplate.containers.Payroll.training.pleaseSelectFunctionFirst": "Please select function first",
+  "boilerplate.containers.Payroll.training.youAlreadySelectedThisEmployee": "You already selected this employee",
+  "boilerplate.containers.Payroll.training.employeeIsNotQualifiedMakeRequest": "Employee is not qualified to make request",
+  "boilerplate.containers.Payroll.training.pleaseSelectOrganizationFirst": "Please select organization first",
+  "boilerplate.containers.Payroll.training.functionsRequestSentSuccessfully": "Functions request sent successfully"
 }

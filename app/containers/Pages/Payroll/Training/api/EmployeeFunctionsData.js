@@ -25,6 +25,23 @@ const API = (locale) => {
     return data;
   };
 
+  api.isQualifiedEmployee = async (params) => {
+    const data = await axiosInstance.get('TrFunctions/IsQualifiedEmployee', {
+      params,
+    });
+
+    return data.data;
+  };
+
+  api.saveEmployeeFunctionsRequest = async (body) => {
+    const data = await axiosInstance.post(
+      '/TrEmployeeFunctionsRequest/Save',
+      body
+    );
+
+    return data;
+  };
+
   return api;
 };
 
