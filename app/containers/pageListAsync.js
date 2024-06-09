@@ -2571,3 +2571,10 @@ export const FunctionsData = loadable(
     fallback: <Loading />,
   }
 );
+
+export const QualificationCheck = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/QualificationCheck'),
+  {
+    fallback: <Loading />,
+  }
+);

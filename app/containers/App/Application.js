@@ -400,6 +400,7 @@ import {
   EmployeeFunctions,
   FunctionsRequest,
   FunctionsData,
+  QualificationCheck,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2095,6 +2096,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Training/FunctionsData'
           component={FunctionsData}
+        />
+
+        <Route
+          path='/app/Pages/Training/QualificationCheck'
+          component={QualificationCheck}
         />
 
         {/* Default */}

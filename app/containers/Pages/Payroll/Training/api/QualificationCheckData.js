@@ -1,0 +1,19 @@
+import axiosInstance from '../../api/axios';
+const API = (locale) => {
+  const api = {};
+
+  api.getQualificationCheck = async (params) => {
+    const data = await axiosInstance.get(
+      `TrTrainingTrx/GetQualificationCheck/${locale}`,
+      {
+        params,
+      }
+    );
+
+    return data.data;
+  };
+
+  return api;
+};
+
+export default API;

@@ -67,4 +67,24 @@ export default defineMessages({
     id: `${scope}.functionsRequestSentSuccessfully`,
     defaultMessage: 'functionsRequestSentSuccessfully',
   },
+  courseName: {
+    id: `${scope}.courseName`,
+    defaultMessage: 'courseName',
+  },
+  expirationDate: {
+    id: `${scope}.expirationDate`,
+    defaultMessage: 'expirationDate',
+  },
+  courseExpiration: {
+    id: `${scope}.courseExpiration`,
+    defaultMessage: 'courseExpiration',
+  },
+  notQualified: {
+    id: `${scope}.notQualified`,
+    defaultMessage: 'notQualified',
+  },
+  expirationDays: {
+    id: `${scope}.expirationDays`,
+    defaultMessage: 'expirationDays',
+  },
 });
