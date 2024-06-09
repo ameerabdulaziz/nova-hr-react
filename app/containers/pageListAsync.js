@@ -2551,6 +2551,13 @@ export const TrFunctionsListCreate = loadable(
   }
 );
 
+export const FunctionsData = loadable(
+  () => import('./Pages/Payroll/Training/Code/FunctionsData'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const EmployeeFunctions = loadable(
   () => import('./Pages/Payroll/Training/Code/EmployeeFunctions'),
   {
@@ -2565,15 +2572,22 @@ export const FunctionsRequest = loadable(
   }
 );
 
-export const FunctionsData = loadable(
-  () => import('./Pages/Payroll/Training/Code/FunctionsData'),
+export const QualificationCheck = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/QualificationCheck'),
   {
     fallback: <Loading />,
   }
 );
 
-export const QualificationCheck = loadable(
-  () => import('./Pages/Payroll/Training/Transaction/QualificationCheck'),
+export const TrTrainingTrxList = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/TrTrainingTrxList'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TrTrainingTrxListCreate = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/TrTrainingTrxListCreate'),
   {
     fallback: <Loading />,
   }

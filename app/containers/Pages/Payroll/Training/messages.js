@@ -87,4 +87,12 @@ export default defineMessages({
     id: `${scope}.expirationDays`,
     defaultMessage: 'expirationDays',
   },
+  trainerName: {
+    id: `${scope}.trainerName`,
+    defaultMessage: 'trainerName',
+  },
+  location: {
+    id: `${scope}.location`,
+    defaultMessage: 'location',
+  },
 });

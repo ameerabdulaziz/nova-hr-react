@@ -2997,6 +2997,8 @@
   "boilerplate.containers.Payroll.training.pleaseSelectOrganizationFirst": "Please select organization first",
   "boilerplate.containers.Payroll.training.functionsRequestSentSuccessfully": "Functions request sent successfully",
   "boilerplate.containers.Payroll.training.courseName": "Course Name",
+  "boilerplate.containers.Payroll.training.trainerName": "Trainer Name",
+  "boilerplate.containers.Payroll.training.location": "Location",
   "boilerplate.containers.Payroll.training.expirationDate": "Expiration Date",
   "boilerplate.containers.Payroll.training.courseExpiration": "Course Expiration",
   "boilerplate.containers.Payroll.training.notQualified": "Not Qualified",

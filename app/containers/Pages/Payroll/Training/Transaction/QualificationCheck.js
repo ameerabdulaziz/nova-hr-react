@@ -1,11 +1,11 @@
 import {
   Autocomplete, Button, Grid, Stack, TextField
 } from '@mui/material';
+import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PapperBlock from '../../../../../components/PapperBlock/PapperBlock';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
