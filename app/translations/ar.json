@@ -3027,6 +3027,9 @@
   "boilerplate.containers.Payroll.training.courseExpiration": "انتهاء الكورس",
   "boilerplate.containers.Payroll.training.trainerName": "اسم المدرب",
   "boilerplate.containers.Payroll.training.location": "الموقع",
+  "boilerplate.containers.Payroll.training.trainingDate": "تاريخ التدريب",
+  "boilerplate.containers.Payroll.training.trainingName": "اسم التدريب",
+  "boilerplate.containers.Payroll.training.trainingId": "كود التدريب",
   "boilerplate.containers.Payroll.training.notQualified": "غير مؤهل",
   "boilerplate.containers.Payroll.training.expirationDays": "عدد أيام الانتهاء"
 }

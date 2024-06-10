@@ -2592,3 +2592,17 @@ export const TrTrainingTrxListCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const TrainingRequestList = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/TrainingRequestList'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TrainingRequestListCreate = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/TrainingRequestListCreate'),
+  {
+    fallback: <Loading />,
+  }
+);

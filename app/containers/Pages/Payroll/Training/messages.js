@@ -95,4 +95,16 @@ export default defineMessages({
     id: `${scope}.location`,
     defaultMessage: 'location',
   },
+  trainingDate: {
+    id: `${scope}.trainingDate`,
+    defaultMessage: 'trainingDate',
+  },
+  trainingName: {
+    id: `${scope}.trainingName`,
+    defaultMessage: 'trainingName',
+  },
+  trainingId: {
+    id: `${scope}.trainingId`,
+    defaultMessage: 'trainingId',
+  },
 });

@@ -403,6 +403,8 @@ import {
   QualificationCheck,
   TrTrainingTrxList,
   TrTrainingTrxListCreate,
+  TrainingRequestList,
+  TrainingRequestListCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2116,6 +2118,19 @@ function Application(props) {
         <Route
           path='/app/Pages/Training/TrTrainingTrxListEdit'
           component={TrTrainingTrxListCreate}
+        />
+
+        <Route
+          path='/app/Pages/Training/TrainingRequestList'
+          component={TrainingRequestList}
+        />
+        <Route
+          path='/app/Pages/Training/TrainingRequestListCreate'
+          component={TrainingRequestListCreate}
+        />
+        <Route
+          path='/app/Pages/Training/TrainingRequestListEdit'
+          component={TrainingRequestListCreate}
         />
 
         {/* Default */}

@@ -560,6 +560,14 @@ const GeneralListApis = (locale) => {
     return data.data;
   };
 
+  Apis.GetTrainingList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetTrainingList/${locale}`
+    );
+
+    return data.data;
+  };
+
   return Apis;
 };
 
