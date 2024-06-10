@@ -14,6 +14,12 @@ const API = (locale) => {
     return data.data;
   };
 
+  api.getByExecutionId = async (id) => {
+    const data = await axiosInstance.get(`TrTrainingTrx/GetByExecution/${id}/${locale}`);
+
+    return data.data;
+  };
+
   api.save = async (body) => {
     const result = await axiosInstance.post('TrTrainingTrx/Save', body);
 

@@ -1,40 +1,36 @@
-import {
-  Autocomplete,
-  Button,
-  Grid,
-  Stack,
-  TextField
-} from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-import GeneralListApis from '../../api/GeneralListApis';
-import NameList from '../../Component/NameList';
-import PayRollLoader from '../../Component/PayRollLoader';
-import { formateDate } from '../../helpers';
-import payrollMessages from '../../messages';
-import api from '../api/TrTrainingTrxListData';
-import messages from '../messages';
+import { Autocomplete, Button, Grid, Stack, TextField } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import GeneralListApis from "../../api/GeneralListApis";
+import NameList from "../../Component/NameList";
+import PayRollLoader from "../../Component/PayRollLoader";
+import { formateDate } from "../../helpers";
+import payrollMessages from "../../messages";
+import api from "../api/TrTrainingTrxListData";
+import WorkFlowApi from "../../WorkFlow/api/WorkFlowData";
+
+import messages from "../messages";
 
 function TrTrainingTrxListCreate(props) {
   const { intl } = props;
 
-  const pageTitle = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem("MenuName");
 
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const history = useHistory();
-
+debugger;
   const id = location.state?.id ?? 0;
-
+  const { postDate } = location.state?? 0;
   const [employees, setEmployees] = useState([]);
 
   const [employeeList, setEmployeeList] = useState([]);
@@ -46,8 +42,8 @@ function TrTrainingTrxListCreate(props) {
   const [formInfo, setFormInfo] = useState({
     id,
 
-    enName: '',
-    arName: '',
+    enName: "",
+    arName: "",
     fromDate: null,
     toDate: null,
     trainerId: null,
@@ -72,7 +68,18 @@ function TrTrainingTrxListCreate(props) {
         const response = await api(locale).getById(id);
         setFormInfo(response);
 
-        setEmployees(response.employees?.map(item => ({ ...item, isSelected: true })) ?? []);
+        setEmployees(
+          response.employees?.map((item) => ({ ...item, isSelected: true })) ??
+            []
+        );
+      } else if (postDate) {
+        const response = await api(locale).getByExecutionId(postDate.executionId);
+        setFormInfo(response);
+
+        setEmployees(
+          response.employees?.map((item) => ({ ...item, isSelected: true })) ??
+            []
+        );
       }
     } catch (error) {
       //
@@ -108,10 +115,13 @@ function TrTrainingTrxListCreate(props) {
     setIsLoading(true);
 
     try {
+      debugger;
       await api(locale).save(body);
-
+      if (postDate) {
+        let response = await WorkFlowApi(locale).ExecuteWorkFlow(postDate);
+      }
       toast.success(notif.saved);
-      history.push('/app/Pages/Training/TrTrainingTrxList');
+      history.push("/app/Pages/Training/TrTrainingTrxList");
     } catch (error) {
       //
     } finally {
@@ -124,7 +134,7 @@ function TrTrainingTrxListCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Training/TrTrainingTrxList');
+    history.push("/app/Pages/Training/TrTrainingTrxList");
   };
 
   const onDatePickerChange = (value, name) => {
@@ -138,39 +148,37 @@ function TrTrainingTrxListCreate(props) {
     }));
   };
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
+  const getAutoCompleteValue = (list, key) =>
+    list.find((item) => item.id === key) ?? null;
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
-
+      <PapperBlock whiteBg icon="border_color" title={pageTitle} desc="">
         <form onSubmit={onFormSubmit}>
-
-          <Grid container spacing={3} direction='row'>
-
+          <Grid container spacing={3} direction="row">
             <Grid item xs={12} md={3}>
               <TextField
-                name='enName'
+                name="enName"
                 value={formInfo.enName}
                 required
                 onChange={onInputChange}
                 label={intl.formatMessage(payrollMessages.enName)}
                 fullWidth
-                variant='outlined'
-                autoComplete='off'
+                variant="outlined"
+                autoComplete="off"
               />
             </Grid>
 
             <Grid item xs={12} md={3}>
               <TextField
-                name='arName'
+                name="arName"
                 value={formInfo.arName}
                 required
                 onChange={onInputChange}
                 label={intl.formatMessage(payrollMessages.arName)}
                 fullWidth
-                variant='outlined'
-                autoComplete='off'
+                variant="outlined"
+                autoComplete="off"
               />
             </Grid>
 
@@ -178,12 +186,9 @@ function TrTrainingTrxListCreate(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.fromdate)}
-                  value={
-                    formInfo.fromDate ? dayjs(formInfo.fromDate) : null
-                  }
-                  sx={{ width: '100%' }}
-                  onChange={(date) => onDatePickerChange(date, 'fromDate')
-                  }
+                  value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
+                  sx={{ width: "100%" }}
+                  onChange={(date) => onDatePickerChange(date, "fromDate")}
                   onError={(error) => {
                     setDateError((prevState) => ({
                       ...prevState,
@@ -204,8 +209,8 @@ function TrTrainingTrxListCreate(props) {
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.todate)}
                   value={formInfo.toDate ? dayjs(formInfo.toDate) : null}
-                  sx={{ width: '100%' }}
-                  onChange={(date) => onDatePickerChange(date, 'toDate')}
+                  sx={{ width: "100%" }}
+                  onChange={(date) => onDatePickerChange(date, "toDate")}
                   onError={(error) => {
                     setDateError((prevState) => ({
                       ...prevState,
@@ -224,19 +229,16 @@ function TrTrainingTrxListCreate(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={employeeList}
-                value={
-                  getAutoCompleteValue(employeeList, formInfo.trainerId)
-
-                }
-                isOptionEqualToValue={(option, value) => option.id === value.id
-                }
-                getOptionLabel={(option) => (option ? option.name : '')}
+                value={getAutoCompleteValue(employeeList, formInfo.trainerId)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'trainerId')
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "trainerId")
                 }
                 renderInput={(params) => (
                   <TextField
@@ -253,14 +255,13 @@ function TrTrainingTrxListCreate(props) {
                 options={courseList}
                 value={getAutoCompleteValue(courseList, formInfo.courseId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'courseId')
-                }
+                onChange={(_, value) => onAutoCompleteChange(value, "courseId")}
                 renderInput={(params) => (
                   <TextField
                     required
@@ -276,13 +277,14 @@ function TrTrainingTrxListCreate(props) {
                 options={locationList}
                 value={getAutoCompleteValue(locationList, formInfo.locationId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'locationId')
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "locationId")
                 }
                 renderInput={(params) => (
                   <TextField
@@ -298,19 +300,19 @@ function TrTrainingTrxListCreate(props) {
               <NameList
                 dataList={employees}
                 setdataList={setEmployees}
-                Key='Employee'
+                Key="Employee"
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Stack direction='row' gap={2}>
-                <Button variant='contained' color='secondary' type='submit'>
+              <Stack direction="row" gap={2}>
+                <Button variant="contained" color="secondary" type="submit">
                   {intl.formatMessage(payrollMessages.save)}
                 </Button>
 
                 <Button
-                  variant='contained'
-                  color='primary'
+                  variant="contained"
+                  color="primary"
                   onClick={onCancelBtnClick}
                 >
                   {intl.formatMessage(payrollMessages.cancel)}
@@ -318,7 +320,6 @@ function TrTrainingTrxListCreate(props) {
               </Stack>
             </Grid>
           </Grid>
-
         </form>
       </PapperBlock>
     </PayRollLoader>

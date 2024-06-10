@@ -10,6 +10,7 @@ import missionmessages from "../Attendance/messages";
 import hrmessages from "../HumanResources/messages";
 import paymessages from "../Payroll/messages";
 import vacmessages from "../Vacation/messages";
+import trainingmessages from "../Training/messages";
 import Icon from "@mui/material/Icon";
 import messages from "./messages";
 import style from "../../../../../app/styles/styles.scss";
@@ -36,6 +37,7 @@ import dayjs from "dayjs";
 import { ServerURL } from "../api/ServerConfig";
 import { useHistory } from "react-router-dom";
 import { getCheckboxIcon } from "../helpers";
+import { formateDate } from "../helpers";
 
 function RequestsList(props) {
   const { intl } = props;
@@ -72,6 +74,10 @@ function RequestsList(props) {
       ? 10
       : location.pathname == "/app/Pages/Att/ShiftSwapApproval"
       ? 11
+      : location.pathname == "/app/Pages/Training/FunctionApproval"
+      ? 12
+      : location.pathname == "/app/Pages/Training/TrainingApproval"
+      ? 13
       : 0
   );
   const [fromdate, setfromate] = useState(null);
@@ -98,6 +104,7 @@ function RequestsList(props) {
     resignReasonId: null,
     resignReasonName: null,
     lworkingDay: null,
+    trainingId: 0,
   });
   const [DateError, setDateError] = useState({});
 
@@ -120,7 +127,8 @@ function RequestsList(props) {
     employeeId,
     ResignReasonId,
     resignReasonName,
-    LworkingDay
+    LworkingDay,
+    trainingId
   ) => {
     debugger;
     setPostDate({
@@ -138,6 +146,7 @@ function RequestsList(props) {
       resignReasonId: ResignReasonId,
       resignReasonName: resignReasonName,
       lworkingDay: LworkingDay,
+      trainingId: trainingId,
     });
     setopenNotePopup(true);
   };
@@ -202,17 +211,24 @@ function RequestsList(props) {
   async function RequestAction() {
     try {
       setIsLoading(true);
-      let response = await ApiData(locale).ExecuteWorkFlow(postDate);
-      if (response.status == 200) {
-        toast.success(notif.saved);
-        if (postDate.docId == 9 && postDate.actionTypeId == 8)
-          history.push("/app/Pages/Employee/EmployeeData", {
-            id: postDate.employeeId,
-            resignReasonId: postDate.resignReasonId,
-            resignReasonName: postDate.resignReasonName,
-            lworkingDay: postDate.lworkingDay,
-          });
-        else handleSearch();
+      debugger;
+      if (postDate.docId == 13 && (postDate.trainingId == ""|| postDate.trainingId==null))
+        history.push("/app/Pages/Training/TrTrainingTrxListCreate", {
+          postDate: postDate,
+        });
+      else {
+        let response = await ApiData(locale).ExecuteWorkFlow(postDate);
+        if (response.status == 200) {
+          toast.success(notif.saved);
+          if (postDate.docId == 9 && postDate.actionTypeId == 8)
+            history.push("/app/Pages/Employee/EmployeeData", {
+              id: postDate.employeeId,
+              resignReasonId: postDate.resignReasonId,
+              resignReasonName: postDate.resignReasonName,
+              lworkingDay: postDate.lworkingDay,
+            });
+          else handleSearch();
+        }
       }
     } catch (err) {
     } finally {
@@ -254,6 +270,10 @@ function RequestsList(props) {
         documentId = 10;
       else if (location.pathname == "/app/Pages/Att/ShiftSwapApproval")
         documentId = 11;
+      else if (location.pathname == "/app/Pages/Training/FunctionApproval")
+        documentId = 12;
+      else if (location.pathname == "/app/Pages/Training/TrainingApproval")
+        documentId = 13;
       else documentId = 0;
 
       let Fromdate = dateFormatFun(fromdate);
@@ -266,6 +286,7 @@ function RequestsList(props) {
         Todate,
         location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false
       );
+      debugger;
       setdata(dataApi);
       setDocument(documentId);
       if (dataApi && dataApi.length > 0) {
@@ -313,14 +334,22 @@ function RequestsList(props) {
                 <FormattedMessage {...paymessages[item]} />
               ) : Document == 3 ? (
                 <FormattedMessage {...vacmessages[item]} />
+              ) : Document == 12 || Document == 13 ? (
+                <FormattedMessage {...trainingmessages[item]} />
               ) : (
                 <FormattedMessage {...Payrollmessages[item]} />
               ),
             options: {
               filter: true,
-              display:
-                item.includes("Id") || item.includes("id") ? false : true,
-              customBodyRender: (value) =>(value==true||value==false)&&value!=""? getCheckboxIcon(value):value,
+              display: item.toLowerCase()?.includes("id") ? false : true,
+              customBodyRender: (value) =>
+                (value == true || value == false) && value != "" ? (
+                  getCheckboxIcon(value)
+                ) : item?.toLowerCase()?.includes("date") ? (
+                  <pre>{formateDate(value)}</pre>
+                ) : (
+                  value
+                ),
             },
           }))
       : [];
@@ -411,7 +440,8 @@ function RequestsList(props) {
                           Document == 9 ? tableMeta.rowData[3] : null,
                           Document == 9 ? tableMeta.rowData[5] : null,
                           Document == 9 ? tableMeta.rowData[6] : null,
-                          Document == 9 ? tableMeta.rowData[7] : null
+                          Document == 9 ? tableMeta.rowData[7] : null,
+                          Document == 13 ? tableMeta.rowData[7] : null
                         )
                       }
                     >
