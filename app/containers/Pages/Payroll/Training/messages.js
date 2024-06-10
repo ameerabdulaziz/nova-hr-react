@@ -107,4 +107,20 @@ export default defineMessages({
     id: `${scope}.trainingId`,
     defaultMessage: 'trainingId',
   },
+  getAttendance: {
+    id: `${scope}.getAttendance`,
+    defaultMessage: 'getAttendance',
+  },
+  attendanceDate: {
+    id: `${scope}.attendanceDate`,
+    defaultMessage: 'attendanceDate',
+  },
+  noAttendanceFound: {
+    id: `${scope}.noAttendanceFound`,
+    defaultMessage: 'noAttendanceFound',
+  },
+  isAttend: {
+    id: `${scope}.isAttend`,
+    defaultMessage: 'isAttend',
+  },
 });

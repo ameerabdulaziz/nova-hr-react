@@ -405,6 +405,7 @@ import {
   TrTrainingTrxListCreate,
   TrainingRequestList,
   TrainingRequestListCreate,
+  TrainingEmployeeAttendance,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2131,6 +2132,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Training/TrainingRequestListEdit'
           component={TrainingRequestListCreate}
+        />
+
+        <Route
+          path='/app/Pages/Training/EmployeeAttendance'
+          component={TrainingEmployeeAttendance}
         />
 
         {/* Default */}

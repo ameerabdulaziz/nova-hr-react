@@ -2606,3 +2606,10 @@ export const TrainingRequestListCreate = loadable(
     fallback: <Loading />,
   }
 );
+
+export const TrainingEmployeeAttendance = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/EmployeeAttendance'),
+  {
+    fallback: <Loading />,
+  }
+);
