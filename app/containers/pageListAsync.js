@@ -2613,3 +2613,10 @@ export const TrainingEmployeeAttendance = loadable(
     fallback: <Loading />,
   }
 );
+
+export const TrainingCalender = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/TrainingCalender'),
+  {
+    fallback: <Loading />,
+  }
+);
