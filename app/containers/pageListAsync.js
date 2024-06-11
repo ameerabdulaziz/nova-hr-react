@@ -2536,6 +2536,13 @@ export const SurveyTemplateCreate = loadable(
   }
 );
 
+export const Survey = loadable(
+  () => import('./Pages/Payroll/Survey/Code/Survey'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Training
 export const TrFunctionsList = loadable(
   () => import('./Pages/Payroll/Training/Code/TrFunctionsList'),

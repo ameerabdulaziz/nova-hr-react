@@ -303,6 +303,10 @@ containerSty:{
   border: "1px solid",
   borderColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light
 },
+
+  surveyMainSty:{
+    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light,
+  },
   
 }));
 
