@@ -32,6 +32,14 @@ const API = (locale) => {
     return data;
   };
 
+  api.getTrainingByTrainerId = async () => {
+    const result = await axiosInstance.get(
+      `TrTrainingTrx/GetByTrainer/${locale}`
+    );
+
+    return result.data;
+  };
+
   return api;
 };
 

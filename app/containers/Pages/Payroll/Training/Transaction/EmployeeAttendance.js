@@ -1,28 +1,26 @@
-import {
-  Autocomplete, Button, Grid, TextField
-} from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
-import { formateDate } from '../../helpers';
-import payrollMessages from '../../messages';
-import api from '../api/EmployeeAttendanceData';
-import AttendanceList from '../components/EmployeeAttendance/AttendanceList';
-import messages from '../messages';
+import { Autocomplete, Button, Grid, TextField } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import TrainingApis from "../api/TrTrainingTrxListData";
+import PayRollLoader from "../../Component/PayRollLoader";
+import { formateDate } from "../../helpers";
+import payrollMessages from "../../messages";
+import api from "../api/EmployeeAttendanceData";
+import AttendanceList from "../components/EmployeeAttendance/AttendanceList";
+import messages from "../messages";
 
 function EmployeeAttendance(props) {
   const { intl } = props;
 
-  const pageTitle = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem("MenuName");
 
   const locale = useSelector((state) => state.language.locale);
 
@@ -37,12 +35,23 @@ function EmployeeAttendance(props) {
     trainingId: null,
     attendanceDate: null,
   });
+  const [training, setTraining] = useState({
+    id: 0,
+    arName: "",
+    courseId: 0,
+    courseName: "",
+    fromDate: null,
+    toDate: null,
+    locationId: 0,
+    locationName: "",
+  });
 
   const fetchNeededData = async () => {
     setIsLoading(true);
 
     try {
-      const training = await GeneralListApis(locale).GetTrainingList();
+      const training = await TrainingApis(locale).getTrainingByTrainerId();
+      debugger;
       setTrainingList(training);
     } catch (error) {
       //
@@ -69,7 +78,7 @@ function EmployeeAttendance(props) {
     const submitter = evt.nativeEvent.submitter.name;
 
     try {
-      if (submitter === 'save') {
+      if (submitter === "save") {
         const mappedAttendance = attendanceInfo.map((item) => ({
           ...item,
           trainingDate: formateDate(item.trainingDate),
@@ -77,14 +86,14 @@ function EmployeeAttendance(props) {
 
         await api(locale).save(mappedAttendance);
         toast.success(notif.saved);
-      } else if (submitter === 'get') {
+      } else if (submitter === "get") {
         setAttendanceInfo([]);
         const params = {
           ...formInfo,
           attendanceDate: formateDate(formInfo.attendanceDate),
         };
         const attendance = await api(locale).getAttendance(params);
-
+        debugger;
         if (attendance && attendance.length > 0) {
           setAttendanceInfo(attendance);
         } else {
@@ -103,37 +112,41 @@ function EmployeeAttendance(props) {
       ...prev,
       [name]: value !== null ? value.id : null,
     }));
+    debugger;
+    let selectedTraining = trainingList.find((item) => item.id === value.id);
+    setTraining(selectedTraining);
   };
 
   const onDatePickerChange = (value, name) => {
     setFormInfo((prev) => ({ ...prev, [name]: value }));
   };
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
+  const getAutoCompleteValue = (list, key) =>
+    list.find((item) => item.id === key) ?? null;
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
+      <PapperBlock whiteBg icon="border_color" desc="" title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={trainingList}
-                value={getAutoCompleteValue(trainingList, formInfo.trainingId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.arName : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
-                    {option.name}
+                    {option.arName}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'trainingId')
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "trainingId")
                 }
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     required
-                    label={intl.formatMessage(messages.trainerName)}
+                    label={intl.formatMessage(messages.trainingName)}
                   />
                 )}
               />
@@ -148,8 +161,9 @@ function EmployeeAttendance(props) {
                       ? dayjs(formInfo.attendanceDate)
                       : null
                   }
-                  sx={{ width: '100%' }}
-                  onChange={(date) => onDatePickerChange(date, 'attendanceDate')
+                  sx={{ width: "100%" }}
+                  onChange={(date) =>
+                    onDatePickerChange(date, "attendanceDate")
                   }
                   onError={(error) => {
                     setDateError((prevState) => ({
@@ -168,10 +182,10 @@ function EmployeeAttendance(props) {
 
             <Grid item>
               <Button
-                variant='contained'
-                color='primary'
-                type='submit'
-                name='get'
+                variant="contained"
+                color="primary"
+                type="submit"
+                name="get"
               >
                 {intl.formatMessage(messages.getAttendance)}
               </Button>
@@ -179,15 +193,69 @@ function EmployeeAttendance(props) {
 
             <Grid item>
               <Button
-                variant='contained'
-                color='secondary'
-                name='save'
-                type='submit'
+                variant="contained"
+                color="secondary"
+                name="save"
+                type="submit"
               >
                 {intl.formatMessage(payrollMessages.save)}
               </Button>
             </Grid>
+            <Grid item xs={12} md={3}></Grid>
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="arName"
+                value={training.courseName}
+                label={intl.formatMessage(messages.courseName)}
+                fullWidth
+                disabled={true}
+                variant="outlined"
+                autoComplete="off"
+              />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="locationName"
+                value={training.locationName}
+                label={intl.formatMessage(messages.location)}
+                fullWidth
+                disabled={true}
+                variant="outlined"
+                autoComplete="off"
+              />
+            </Grid>
 
+            <Grid item xs={12} md={3}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(payrollMessages.fromdate)}
+                  value={training.fromDate ? dayjs(training.fromDate) : null}
+                  sx={{ width: "100%" }}
+                  disabled={true}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(payrollMessages.todate)}
+                  value={training.toDate ? dayjs(training.toDate) : null}
+                  disabled={true}
+                  sx={{ width: "100%" }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
             <Grid item xs={12}>
               {attendanceInfo.length > 0 && (
                 <AttendanceList
