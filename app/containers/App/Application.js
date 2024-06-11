@@ -393,6 +393,7 @@ import {
   SurveyChoiceGroupCreate,
   SurveyTemplate,
   SurveyTemplateCreate,
+  Survey,
 
   // Training
   TrFunctionsList,
@@ -2075,6 +2076,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Survey/SurveyTemplateEdit'
           component={SurveyTemplateCreate}
+        />
+
+        <Route
+          path='/app/Pages/Survey/Survey'
+          component={Survey}
         />
 
         {/* Training */}

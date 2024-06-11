@@ -75,4 +75,44 @@ export default defineMessages({
     id: `${scope}.question`,
     defaultMessage: 'question',
   },
+  finish: {
+    id: `${scope}.finish`,
+    defaultMessage: 'finish',
+  },
+  start: {
+    id: `${scope}.start`,
+    defaultMessage: 'start',
+  },
+  thankYouForCompleteTheSurvey: {
+    id: `${scope}.thankYouForCompleteTheSurvey`,
+    defaultMessage: 'thankYouForCompleteTheSurvey',
+  },
+  completedQuestions: {
+    id: `${scope}.completedQuestions`,
+    defaultMessage: 'completedQuestions',
+  },
+  thereAreQuestionsThatYouDidNotAnswerWhichAre: {
+    id: `${scope}.thereAreQuestionsThatYouDidNotAnswerWhichAre`,
+    defaultMessage: 'thereAreQuestionsThatYouDidNotAnswerWhichAre',
+  },
+  backToSurvey: {
+    id: `${scope}.backToSurvey`,
+    defaultMessage: 'backToSurvey',
+  },
+  submit: {
+    id: `${scope}.submit`,
+    defaultMessage: 'submit',
+  },
+  previous: {
+    id: `${scope}.previous`,
+    defaultMessage: 'previous',
+  },
+  answer: {
+    id: `${scope}.answer`,
+    defaultMessage: 'answer',
+  },
+  next: {
+    id: `${scope}.next`,
+    defaultMessage: 'next',
+  },
 });
