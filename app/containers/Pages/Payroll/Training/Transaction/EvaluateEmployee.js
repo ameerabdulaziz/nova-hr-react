@@ -15,11 +15,14 @@ import payrollMessages from "../../messages";
 import api from "../api/TrTrainingTrxListData";
 import PayrollTable from "../../Component/PayrollTable";
 import messages from "../messages";
+import { useHistory } from "react-router";
 
 function EvaluateEmployee(props) {
   const { intl } = props;
 
   const pageTitle = localStorage.getItem("MenuName");
+
+  const history = useHistory();
 
   const locale = useSelector((state) => state.language.locale);
 
@@ -154,11 +157,16 @@ function EvaluateEmployee(props) {
     },
   ];
 
+  const onEvaluateBtnClick = (row) => {
+    const state = { typeId: 2, trainingId: row[2], evaluatedEmployeeId: row[0] };
+
+    history.push('/app/Pages/Survey/Survey', state);
+  };
+
   const actions = {
-    // row[0] === id
     extraActions: (row) => (
       <>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={() => onEvaluateBtnClick(row)} >
           {intl.formatMessage(messages.evaluate)}
         </Button>
         <Button variant="contained" color="primary">

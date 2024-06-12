@@ -2,10 +2,10 @@ import axiosInstance from '../../api/axios';
 const API = (locale) => {
   const api = {};
 
-  api.getByTypeId = async (typeId, evaluatedEmployeeId) => {
-    const data = await axiosInstance.get(
-      `Survey/Get/${locale}/${typeId}/${evaluatedEmployeeId}`
-    );
+  api.getByTypeId = async (typeId, params) => {
+    const data = await axiosInstance.get(`Survey/Get/${locale}/${typeId}`, {
+      params,
+    });
 
     return data.data;
   };

@@ -16,8 +16,8 @@ function Survey() {
 
   const location = useLocation();
 
-  const typeId = location.state?.typeId ?? 1;
-  const trainingId = location.state?.trainingId ?? 1;
+  const typeId = location.state?.typeId ?? 0;
+  const trainingId = location.state?.trainingId ?? 0;
   const evaluatedEmployeeId = location.state?.evaluatedEmployeeId ?? '';
 
   const [isLoading, setIsLoading] = useState(false);
@@ -38,10 +38,19 @@ function Survey() {
   });
 
   const fetchNeededData = async () => {
+    if (typeId === 0 && trainingId === 0) {
+      return;
+    }
+
     setIsLoading(true);
 
+    const params = {
+      trainingId,
+      evaluatedEmpid: evaluatedEmployeeId || 0,
+    };
+
     try {
-      const response = await api(locale).getByTypeId(typeId, evaluatedEmployeeId || 0);
+      const response = await api(locale).getByTypeId(typeId, params);
 
       if (response) {
         setSurveyInfo(prev => ({
