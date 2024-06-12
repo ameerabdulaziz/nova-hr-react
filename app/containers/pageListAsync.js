@@ -2621,6 +2621,20 @@ export const TrainingEmployeeAttendance = loadable(
   }
 );
 
+export const EvaluateEmployee = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/EvaluateEmployee'),
+  {
+    fallback: <Loading />,
+  }
+);
+export const EvaluateTraining = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/EvaluateTraining'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
 export const TrainingCalender = loadable(
   () => import('./Pages/Payroll/Training/Transaction/TrainingCalender'),
   {

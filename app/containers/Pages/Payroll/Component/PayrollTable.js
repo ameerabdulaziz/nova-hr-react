@@ -531,7 +531,7 @@ function PayrollTable(props) {
         label: intl.formatMessage(payrollMessages.Actions),
         options: {
           print: false,
-          display: Boolean(actions?.edit?.url || actions?.delete?.api),
+          display:Boolean(actions?.edit?.url || actions?.delete?.api ||  actions?.extraActions),
           download: false,
           viewColumns: false,
           filter: false,

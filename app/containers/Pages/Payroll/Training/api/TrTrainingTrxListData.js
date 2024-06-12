@@ -36,10 +36,30 @@ const API = (locale) => {
     const result = await axiosInstance.get(
       `TrTrainingTrx/GetByTrainer/${locale}`
     );
-
     return result.data;
   };
 
+  api.AddEmployeeToTraining = async (params) => {
+    debugger;
+    const result = await axiosInstance.post(`TrTrainingTrx/AddEmployeeToTraining?TrainingId=${params.trainingId}&EmployeeId=${params.employeeId}`);
+
+    return result;
+  };
+  api.GetTrainingEmployee = async (TrainingId) => {
+    const result = await axiosInstance.get(
+      `TrTrainingTrx/GetTrainingEmployee/${locale}/${TrainingId}`
+    );
+    return result.data;
+  };
+  
+  api.GetTrainingList = async () => {
+    const result = await axiosInstance.get(
+      `TrTrainingTrx/GetTrainingList/${locale}`
+    );
+    return result.data;
+  };
+  
+  
   return api;
 };
 

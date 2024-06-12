@@ -1,4 +1,4 @@
-import { Autocomplete, Button, Grid, TextField } from "@mui/material";
+import { Autocomplete, Button, Grid, TextField, Tooltip } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -9,15 +9,14 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import TrainingApis from "../api/TrTrainingTrxListData";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { formateDate } from "../../helpers";
+import { formateDate, getCheckboxIcon } from "../../helpers";
 import payrollMessages from "../../messages";
-import api from "../api/EmployeeAttendanceData";
-import AttendanceList from "../components/EmployeeAttendance/AttendanceList";
+import api from "../api/TrTrainingTrxListData";
+import PayrollTable from "../../Component/PayrollTable";
 import messages from "../messages";
 
-function EmployeeAttendance(props) {
+function EvaluateEmployee(props) {
   const { intl } = props;
 
   const pageTitle = localStorage.getItem("MenuName");
@@ -26,15 +25,8 @@ function EmployeeAttendance(props) {
 
   const [trainingList, setTrainingList] = useState([]);
 
-  const [attendanceInfo, setAttendanceInfo] = useState([]);
-
-  const [dateError, setDateError] = useState({});
-
   const [isLoading, setIsLoading] = useState(false);
-  const [formInfo, setFormInfo] = useState({
-    trainingId: null,
-    attendanceDate: null,
-  });
+  const [data, setData] = useState([]);
   const [training, setTraining] = useState({
     id: 0,
     arName: "",
@@ -50,7 +42,7 @@ function EmployeeAttendance(props) {
     setIsLoading(true);
 
     try {
-      const training = await TrainingApis(locale).getTrainingByTrainerId();
+      const training = await api(locale).getTrainingByTrainerId();
       setTrainingList(training);
     } catch (error) {
       //
@@ -66,39 +58,11 @@ function EmployeeAttendance(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    // used to stop call api if user select wrong date
-    if (Object.values(dateError).includes(true)) {
-      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
-      return;
-    }
-
     setIsLoading(true);
-
-    const submitter = evt.nativeEvent.submitter.name;
-
     try {
-      if (submitter === "save") {
-        const mappedAttendance = attendanceInfo.map((item) => ({
-          ...item,
-          trainingDate: formateDate(item.trainingDate),
-        }));
+      const data = await api(locale).GetTrainingEmployee(training.id);
 
-        await api(locale).save(mappedAttendance);
-        toast.success(notif.saved);
-      } else if (submitter === "get") {
-        setAttendanceInfo([]);
-        const params = {
-          ...formInfo,
-          attendanceDate: formateDate(formInfo.attendanceDate),
-        };
-        const attendance = await api(locale).getAttendance(params);
-        debugger;
-        if (attendance && attendance.length > 0) {
-          setAttendanceInfo(attendance);
-        } else {
-          toast.error(intl.formatMessage(messages.noAttendanceFound));
-        }
-      }
+      setData(data);
     } catch (error) {
       //
     } finally {
@@ -107,21 +71,105 @@ function EmployeeAttendance(props) {
   };
 
   const onAutoCompleteChange = (value, name) => {
-    setFormInfo((prev) => ({
-      ...prev,
-      [name]: value !== null ? value.id : null,
-    }));
-    
     let selectedTraining = trainingList.find((item) => item.id === value.id);
     setTraining(selectedTraining);
   };
 
-  const onDatePickerChange = (value, name) => {
-    setFormInfo((prev) => ({ ...prev, [name]: value }));
-  };
+  const columns = [
+    {
+      name: "employeeId",
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+      },
+    },
+    {
+      name: "courseId",
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+      },
+    },
+    {
+      name: "trainingId",
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+      },
+    },
+    {
+      name: "trainingEmpId",
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+      },
+    },
 
-  const getAutoCompleteValue = (list, key) =>
-    list.find((item) => item.id === key) ?? null;
+    {
+      name: "employeeName",
+      label: intl.formatMessage(payrollMessages.employeeName),
+    },
+    {
+      name: "courseName",
+      label: intl.formatMessage(messages.courseName),
+    },
+    {
+      name: "fromDate",
+      label: intl.formatMessage(payrollMessages.fromdate),
+      options: {
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
+      },
+    },
+    {
+      name: "toDate",
+      label: intl.formatMessage(payrollMessages.todate),
+      options: {
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
+      },
+    },
+    {
+      name: "surveyDone",
+      label: intl.formatMessage(messages.surveyDone),
+      options: {
+        customBodyRender: (value) => getCheckboxIcon(value),
+      },
+    },
+    {
+      name: "testIsReview",
+      label: intl.formatMessage(messages.testIsReview),
+      options: {
+        customBodyRender: (value) => getCheckboxIcon(value),
+      },
+    },
+    {
+      name: "testGrade",
+      label: intl.formatMessage(messages.testGrade),
+      options: {
+        customBodyRender: (value) => getCheckboxIcon(value),
+      },
+    },
+  ];
+
+  const actions = {
+    // row[0] === id
+    extraActions: (row) => (
+      <>
+        <Button variant="contained" color="primary">
+          {intl.formatMessage(messages.evaluate)}
+        </Button>
+        <Button variant="contained" color="primary">
+          {intl.formatMessage(messages.reviewTest)}
+        </Button>
+        <Button variant="contained" color="primary">
+          {intl.formatMessage(messages.repeatTest)}
+        </Button>
+      </>
+    ),
+  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -150,35 +198,6 @@ function EmployeeAttendance(props) {
                 )}
               />
             </Grid>
-
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label={intl.formatMessage(messages.attendanceDate)}
-                  value={
-                    formInfo.attendanceDate
-                      ? dayjs(formInfo.attendanceDate)
-                      : null
-                  }
-                  sx={{ width: "100%" }}
-                  onChange={(date) =>
-                    onDatePickerChange(date, "attendanceDate")
-                  }
-                  onError={(error) => {
-                    setDateError((prevState) => ({
-                      ...prevState,
-                      attendanceDate: error !== null,
-                    }));
-                  }}
-                  slotProps={{
-                    textField: {
-                      required: true,
-                    },
-                  }}
-                />
-              </LocalizationProvider>
-            </Grid>
-
             <Grid item>
               <Button
                 variant="contained"
@@ -186,21 +205,11 @@ function EmployeeAttendance(props) {
                 type="submit"
                 name="get"
               >
-                {intl.formatMessage(messages.getAttendance)}
+                {intl.formatMessage(payrollMessages.search)}
               </Button>
             </Grid>
+            <Grid item xs={12} md={6}></Grid>
 
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                name="save"
-                type="submit"
-              >
-                {intl.formatMessage(payrollMessages.save)}
-              </Button>
-            </Grid>
-            <Grid item xs={12} md={3}></Grid>
             <Grid item xs={12} md={3}>
               <TextField
                 name="arName"
@@ -224,7 +233,7 @@ function EmployeeAttendance(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.fromdate)}
@@ -240,7 +249,7 @@ function EmployeeAttendance(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.todate)}
@@ -255,23 +264,22 @@ function EmployeeAttendance(props) {
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={12}>
-              {attendanceInfo.length > 0 && (
-                <AttendanceList
-                  setAttendanceInfo={setAttendanceInfo}
-                  attendanceInfo={attendanceInfo}
-                />
-              )}
-            </Grid>
           </Grid>
         </form>
       </PapperBlock>
+      <PayrollTable
+        isLoading={isLoading}
+        title={pageTitle}
+        data={data}
+        columns={columns}
+        actions={actions}
+      />
     </PayRollLoader>
   );
 }
 
-EmployeeAttendance.propTypes = {
+EvaluateEmployee.propTypes = {
   intl: PropTypes.object.isRequired,
 };
 
-export default injectIntl(EmployeeAttendance);
+export default injectIntl(EvaluateEmployee);
