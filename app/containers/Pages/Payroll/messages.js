@@ -25,6 +25,10 @@ export default defineMessages({
     id: `${scope}.delete`,
     defaultMessage: 'Delete',
   },
+  addTraining: {
+    id: `${scope}.addTraining`,
+    defaultMessage: 'addTraining',
+  },
   close: {
     id: `${scope}.close`,
     defaultMessage: 'Close',

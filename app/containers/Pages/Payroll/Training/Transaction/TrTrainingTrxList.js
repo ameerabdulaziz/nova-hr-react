@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/TrTrainingTrxListData';
 import messages from '../messages';
+import {  Button } from "@mui/material";
 
 function TrTrainingTrxList(props) {
   const { intl } = props;
@@ -101,6 +102,14 @@ function TrTrainingTrxList(props) {
     delete: {
       api: deleteRow,
     },
+    extraActions: (row) => (
+      <>
+        <Button variant="contained" color="primary">
+          {intl.formatMessage(messages.createTest)}
+        </Button>
+       
+      </>
+    ),
   };
 
   return (

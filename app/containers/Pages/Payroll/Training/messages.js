@@ -3,6 +3,10 @@ import { defineMessages } from "react-intl";
 export const scope = "boilerplate.containers.Payroll.training";
 
 export default defineMessages({
+  addEmptoTraining: {
+    id: `${scope}.addEmptoTraining`,
+    defaultMessage: "addEmptoTraining",
+  },
   executionId: {
     id: `${scope}.executionId`,
     defaultMessage: "executionId",
@@ -118,6 +122,42 @@ export default defineMessages({
   courseName: {
     id: `${scope}.courseName`,
     defaultMessage: "courseName",
+  },
+  isAssigned: {
+    id: `${scope}.isAssigned`,
+    defaultMessage: "isAssigned",
+  },
+  surveyDone: {
+    id: `${scope}.surveyDone`,
+    defaultMessage: "surveyDone",
+  },
+  testIsReview: {
+    id: `${scope}.testIsReview`,
+    defaultMessage: "testIsReview",
+  },
+  testGrade: {
+    id: `${scope}.testGrade`,
+    defaultMessage: "testGrade",
+  },
+  evaluate: {
+    id: `${scope}.evaluate`,
+    defaultMessage: "evaluate",
+  },
+  test: {
+    id: `${scope}.test`,
+    defaultMessage: "test",
+  },
+  reviewTest: {
+    id: `${scope}.reviewTest`,
+    defaultMessage: "reviewTest",
+  },
+  repeatTest: {
+    id: `${scope}.repeatTest`,
+    defaultMessage: "repeatTest",
+  },
+  createTest: {
+    id: `${scope}.createTest`,
+    defaultMessage: "createTest",
   },
   expirationDate: {
     id: `${scope}.expirationDate`,

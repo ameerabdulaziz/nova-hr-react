@@ -1,25 +1,30 @@
-import {
-  Autocomplete, Button, Grid, Stack, TextField
-} from '@mui/material';
-import { PapperBlock } from 'enl-components';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
-import payrollMessages from '../../messages';
-import api from '../api/QualificationCheckData';
-import messages from '../messages';
+import { Autocomplete, Button, Grid, Stack, TextField ,IconButton, Tooltip} from "@mui/material";
+import { PapperBlock } from "enl-components";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import GeneralListApis from "../../api/GeneralListApis";
+import PayRollLoader from "../../Component/PayRollLoader";
+import PayrollTable from "../../Component/PayrollTable";
+import payrollMessages from "../../messages";
+import api from "../api/QualificationCheckData";
+import messages from "../messages";
+import TrainingEmp from "../components/TrainingEmp"
+import AddIcon  from '@mui/icons-material/Add';
+import { formateDate, getCheckboxIcon } from '../../helpers';
 
 function QualificationCheck(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  const pageTitle = localStorage.getItem('MenuName') ?? '';
+  const pageTitle = localStorage.getItem("MenuName") ?? "";
 
   const [organizationList, setOrganizationList] = useState([]);
   const [courseList, setCourseList] = useState([]);
+  const [employeeId, setEmployeeId] = useState([]);
+  const [courseId, setCourseId] = useState([]);
+  
+  const [employeeName, setEmployeeName] = useState([]);
   const [functionsList, setFunctionsList] = useState([]);
   const typeList = [
     { id: 0, name: intl.formatMessage(payrollMessages.all) },
@@ -28,16 +33,30 @@ function QualificationCheck(props) {
   ];
 
   const [isLoading, setIsLoading] = useState(true);
-
+  const [openPopup, setOpenPopup] = useState(false);
   const [tableData, setTableData] = useState([]);
 
   const [formInfo, setFormInfo] = useState({
     functionId: null,
     courseId: null,
     organizationId: null,
-    expirationDays: '',
+    expirationDays: "",
     type: 0,
   });
+  const handleOpenPoup = (id, name,CourseId) => {
+    debugger ;
+    setEmployeeId(id);
+
+    setCourseId(CourseId);
+    setEmployeeName(name);
+    
+    setOpenPopup(true);
+  };
+
+  const handleClosePoup = () => {
+    setOpenPopup(false);
+  };
+  
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -90,45 +109,77 @@ function QualificationCheck(props) {
 
   const columns = [
     {
-      name: 'id',
+      name: "employeeId",
       options: {
         filter: false,
         display: false,
         print: false,
       },
     },
-
     {
-      name: 'employeeName',
+      name: "courseId",
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+      },
+    },
+    {
+      name: "employeeName",
       label: intl.formatMessage(payrollMessages.employeeName),
     },
 
     {
-      name: 'organizationName',
+      name: "organizationName",
       label: intl.formatMessage(payrollMessages.organizationName),
     },
-
     {
-      name: 'courseName',
-      label: intl.formatMessage(messages.courseName),
-    },
-
-    {
-      name: 'type',
+      name: "type",
       label: intl.formatMessage(payrollMessages.type),
     },
-
     {
-      name: 'expirationDate',
-      label: intl.formatMessage(messages.expirationDate),
-    },
-
-    {
-      name: 'functionName',
+      name: "functionName",
       label: intl.formatMessage(messages.function),
     },
+    {
+      name: "courseName",
+      label: intl.formatMessage(messages.courseName),
+    },    
+    {
+      name: "expirationDate",
+      label: intl.formatMessage(messages.expirationDate),
+      options: {
+        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
+      },
+    },
+    {
+      name: "isAssigned",
+      label: intl.formatMessage(messages.isAssigned),
+      options: {
+        customBodyRender: (value) => getCheckboxIcon(value),
+      },
+    },
+    
   ];
+ 
+  const actions = {   
+    // row[0] === id
+    extraActions: (row) => (
+      <>
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(payrollMessages.addTraining)}
+        >
+          <span>
+            <IconButton onClick={() => handleOpenPoup(row[0],row[2],row[1])} disabled={row[8]}>
+              <AddIcon sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
 
+      </>
+    ),
+  };
   const onAutoCompleteChange = (value, name) => {
     setFormInfo((prev) => ({
       ...prev,
@@ -139,15 +190,16 @@ function QualificationCheck(props) {
   const onNumericInputChange = (evt) => {
     setFormInfo((prev) => ({
       ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
     }));
   };
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
+  const getAutoCompleteValue = (list, key) =>
+    list.find((item) => item.id === key) ?? null;
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
+      <PapperBlock whiteBg icon="border_color" title={pageTitle} desc="">
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={3}>
@@ -155,13 +207,14 @@ function QualificationCheck(props) {
                 options={functionsList}
                 value={getAutoCompleteValue(functionsList, formInfo.functionId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'functionId')
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "functionId")
                 }
                 renderInput={(params) => (
                   <TextField
@@ -175,15 +228,19 @@ function QualificationCheck(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={organizationList}
-                value={getAutoCompleteValue(organizationList, formInfo.organizationId)}
+                value={getAutoCompleteValue(
+                  organizationList,
+                  formInfo.organizationId
+                )}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'organizationId')
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "organizationId")
                 }
                 renderInput={(params) => (
                   <TextField
@@ -199,14 +256,13 @@ function QualificationCheck(props) {
                 options={courseList}
                 value={getAutoCompleteValue(courseList, formInfo.courseId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'courseId')
-                }
+                onChange={(_, value) => onAutoCompleteChange(value, "courseId")}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -221,13 +277,13 @@ function QualificationCheck(props) {
                 options={typeList}
                 value={getAutoCompleteValue(typeList, formInfo.type)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'type')}
+                onChange={(_, value) => onAutoCompleteChange(value, "type")}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -239,24 +295,31 @@ function QualificationCheck(props) {
 
             <Grid item xs={12} md={3}>
               <TextField
-                name='expirationDays'
+                name="expirationDays"
                 value={formInfo.expirationDays}
                 onChange={onNumericInputChange}
                 label={intl.formatMessage(messages.expirationDays)}
                 fullWidth
-                variant='outlined'
-                autoComplete='off'
+                variant="outlined"
+                autoComplete="off"
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Stack direction='row' gap={2}>
-                <Button variant='contained' color='secondary' type='submit'>
+              <Stack direction="row" gap={2}>
+                <Button variant="contained" color="secondary" type="submit">
                   {intl.formatMessage(payrollMessages.search)}
                 </Button>
               </Stack>
             </Grid>
           </Grid>
+          <TrainingEmp
+            handleClose={handleClosePoup}
+            open={openPopup}
+            employeeId={employeeId}
+            courseId={courseId}
+            employeeName={employeeName}
+          />
         </form>
       </PapperBlock>
 
@@ -265,6 +328,7 @@ function QualificationCheck(props) {
         title={pageTitle}
         data={tableData}
         columns={columns}
+        actions={actions}
       />
     </PayRollLoader>
   );
