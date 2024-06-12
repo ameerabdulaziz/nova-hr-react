@@ -2,7 +2,6 @@ import { Button, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
 import style from '../../../../../../styles/pagesStyle/Survey.scss';
 import examLogo from '../../../Assets/Employee-Assessment/exam-logo.png';
 import examLogo2 from '../../../Assets/Employee-Assessment/info_graphic_1.svg';
@@ -13,8 +12,6 @@ function WelcomeScreen(props) {
   const { surveyInfo, intl, setIsSurveyStart } = props;
 
   const { classes } = useStyles();
-
-  const locale = useSelector((state) => state.language.locale);
 
   const onStartSurveyBtnClick = () => {
     setIsSurveyStart(true);
@@ -35,14 +32,12 @@ function WelcomeScreen(props) {
           <div>
             <img src={examLogo} alt='examLogo' />
 
-            <p>
-              {locale === 'en'
-                ? surveyInfo.enDescription
-                : surveyInfo.arDescription}
-            </p>
+            <p>{surveyInfo.name}</p>
+
             <Button
               variant='contained'
               color='primary'
+              disabled={surveyInfo.templateId === null}
               onClick={onStartSurveyBtnClick}
             >
               {intl.formatMessage(messages.start)}
