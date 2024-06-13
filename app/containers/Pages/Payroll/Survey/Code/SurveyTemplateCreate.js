@@ -118,9 +118,11 @@ function SurveyTemplateCreate(props) {
       return;
     }
 
-    const mappedEmployees = employees
-      .filter((item) => item.isSelected)
-      .map((item) => item.id);
+    const mappedEmployees = formInfo.surveyTypeId === 1 || formInfo.surveyTypeId === 2
+      ? []
+      : employees
+        .filter((item) => item.isSelected)
+        .map((item) => item.id);
 
     const questions = formInfo.questionList.map((item) => ({
       id: item.isNew ? 0 : item.questionId,
@@ -368,13 +370,16 @@ function SurveyTemplateCreate(props) {
                     </FormControl>
                   </Grid>
 
-                  <Grid item xs={12}>
-                    <NameList
-                      dataList={employees}
-                      setdataList={setEmployees}
-                      Key='Employee'
-                    />
-                  </Grid>
+                  {!(formInfo.surveyTypeId === 1
+                    || formInfo.surveyTypeId === 2) && (
+                    <Grid item xs={12}>
+                      <NameList
+                        dataList={employees}
+                        setdataList={setEmployees}
+                        Key='Employee'
+                      />
+                    </Grid>
+                  )}
                 </Grid>
               </CardContent>
             </Card>
