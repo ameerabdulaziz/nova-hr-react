@@ -2981,7 +2981,7 @@
   "boilerplate.containers.Payroll.survey.choiceGroup": "Choice group",
   "boilerplate.containers.Payroll.survey.questionGroup": "Question group",
 
-  
+  "boilerplate.containers.Payroll.training.getNewEmp": "Get New Employees",
   "boilerplate.containers.Payroll.training.addEmptoTraining": "Add Employee to Training",
   "boilerplate.containers.Payroll.training.executionId": "executionId",
   "boilerplate.containers.Payroll.training.id": "Id",
@@ -2990,7 +2990,9 @@
   "boilerplate.containers.Payroll.training.employeeName": "Employee",
   "boilerplate.containers.Payroll.training.employeeId": "Id",
   "boilerplate.containers.Payroll.training.courseId": "Id",
-  "boilerplate.containers.Payroll.training.notes": "Notes",
+  "boilerplate.containers.Payroll.training.notes": "Notes",  
+  "boilerplate.containers.Payroll.training.reason": "Reason",
+  "boilerplate.containers.Payroll.training.noteRequest": "Why do you request this course for the employee?",
   "boilerplate.containers.Payroll.training.organizationName": "Organization",
   "boilerplate.containers.Payroll.training.status": "Status",
   "boilerplate.containers.Payroll.training.step": "Step",

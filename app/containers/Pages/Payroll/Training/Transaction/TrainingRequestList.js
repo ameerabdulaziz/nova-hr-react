@@ -84,6 +84,10 @@ function TrainingRequestList(props) {
       name: 'trainingName',
       label: intl.formatMessage(messages.trainingName),
     },
+    {
+      name: 'notes',
+      label: intl.formatMessage(messages.reason),
+    },
 
     {
       name: 'step',

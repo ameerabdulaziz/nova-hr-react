@@ -247,7 +247,7 @@ function TrainingRequestListCreate(props) {
                 name='notes'
                 value={formInfo.notes}
                 onChange={onInputChange}
-                label={intl.formatMessage(payrollMessages.notes)}
+                label={intl.formatMessage(messages.noteRequest)}
                 fullWidth
                 variant='outlined'
                 autoComplete='off'

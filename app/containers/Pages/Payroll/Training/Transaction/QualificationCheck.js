@@ -1,4 +1,12 @@
-import { Autocomplete, Button, Grid, Stack, TextField ,IconButton, Tooltip} from "@mui/material";
+import {
+  Autocomplete,
+  Button,
+  Grid,
+  Stack,
+  TextField,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -10,9 +18,9 @@ import PayrollTable from "../../Component/PayrollTable";
 import payrollMessages from "../../messages";
 import api from "../api/QualificationCheckData";
 import messages from "../messages";
-import TrainingEmp from "../components/TrainingEmp"
-import AddIcon  from '@mui/icons-material/Add';
-import { formateDate, getCheckboxIcon } from '../../helpers';
+import TrainingEmp from "../components/TrainingEmp";
+import AddIcon from "@mui/icons-material/Add";
+import { formateDate, getCheckboxIcon } from "../../helpers";
 
 function QualificationCheck(props) {
   const { intl } = props;
@@ -23,7 +31,7 @@ function QualificationCheck(props) {
   const [courseList, setCourseList] = useState([]);
   const [employeeId, setEmployeeId] = useState([]);
   const [courseId, setCourseId] = useState([]);
-  
+
   const [employeeName, setEmployeeName] = useState([]);
   const [functionsList, setFunctionsList] = useState([]);
   const typeList = [
@@ -43,20 +51,19 @@ function QualificationCheck(props) {
     expirationDays: "",
     type: 0,
   });
-  const handleOpenPoup = (id, name,CourseId) => {
-    debugger ;
+  const handleOpenPoup = (id, name, CourseId) => {
+    debugger;
     setEmployeeId(id);
 
     setCourseId(CourseId);
     setEmployeeName(name);
-    
+
     setOpenPopup(true);
   };
 
   const handleClosePoup = () => {
     setOpenPopup(false);
   };
-  
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -101,6 +108,18 @@ function QualificationCheck(props) {
     fetchNeededData();
   }, []);
 
+  const handleGetEmployees = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await api(locale).GetNewEmployee();
+      setTableData(response);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
@@ -144,7 +163,7 @@ function QualificationCheck(props) {
     {
       name: "courseName",
       label: intl.formatMessage(messages.courseName),
-    },    
+    },
     {
       name: "expirationDate",
       label: intl.formatMessage(messages.expirationDate),
@@ -159,24 +178,25 @@ function QualificationCheck(props) {
         customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
-    
   ];
- 
-  const actions = {   
+
+  const actions = {
     // row[0] === id
     extraActions: (row) => (
       <>
         <Tooltip
-          placement='bottom'
+          placement="bottom"
           title={intl.formatMessage(payrollMessages.addTraining)}
         >
           <span>
-            <IconButton onClick={() => handleOpenPoup(row[0],row[2],row[1])} disabled={row[8]}>
-              <AddIcon sx={{ fontSize: '1.2rem' }} />
+            <IconButton
+              onClick={() => handleOpenPoup(row[0], row[2], row[1])}
+              disabled={row[8]}
+            >
+              <AddIcon sx={{ fontSize: "1.2rem" }} />
             </IconButton>
           </span>
         </Tooltip>
-
       </>
     ),
   };
@@ -305,10 +325,21 @@ function QualificationCheck(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} md={2}>
               <Stack direction="row" gap={2}>
                 <Button variant="contained" color="secondary" type="submit">
                   {intl.formatMessage(payrollMessages.search)}
+                </Button>
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Stack direction="row" gap={2}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleGetEmployees()}
+                >
+                  {intl.formatMessage(messages.getNewEmp)}
                 </Button>
               </Stack>
             </Grid>
