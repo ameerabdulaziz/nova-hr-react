@@ -141,7 +141,7 @@ function CreateAndEditQuestionPopup(props) {
 
       <DialogContent>
         <Grid container mt={0} spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <TextField
               name='enName'
               value={questionInfo.enName}
@@ -154,7 +154,7 @@ function CreateAndEditQuestionPopup(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <TextField
               name='arName'
               value={questionInfo.arName}
