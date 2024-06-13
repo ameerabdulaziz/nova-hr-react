@@ -62,6 +62,14 @@ function EvaluateTraining(props) {
       },
     },
     {
+      name: "trainerId",
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+      },
+    },
+    {
       name: "trainingEmpId",
       options: {
         filter: false,
@@ -69,14 +77,17 @@ function EvaluateTraining(props) {
         print: false,
       },
     },
-
     {
       name: "trainingName",
-      label: intl.formatMessage(payrollMessages.employeeName),
+      label: intl.formatMessage(messages.trainingName),
     },
     {
       name: "courseName",
       label: intl.formatMessage(messages.courseName),
+    },
+    {
+      name: "trainerName",
+      label: intl.formatMessage(messages.trainerName),
     },
     {
       name: "fromDate",
@@ -116,7 +127,7 @@ function EvaluateTraining(props) {
   ];
 
   const onEvaluateBtnClick = (row) => {
-    const state = { typeId: 1, trainingId: row[1] };
+    const state = { typeId: 1, trainingId: row[1], evaluatedEmployeeId: row[2] };
 
     history.push('/app/Pages/Survey/Survey', state);
   };
@@ -124,7 +135,7 @@ function EvaluateTraining(props) {
   const actions = {
     extraActions: (row) => (
       <>
-        <Button variant="contained" color="primary"  onClick={() => onEvaluateBtnClick(row)}>
+        <Button variant="contained" color="primary" onClick={() => onEvaluateBtnClick(row)}>
           {intl.formatMessage(messages.evaluate)}
         </Button>
         <Button variant="contained" color="primary">
