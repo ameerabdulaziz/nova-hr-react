@@ -12,19 +12,20 @@ import {
 import PropTypes from 'prop-types';
 import React, { useMemo, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
 import style from '../../../../../../styles/pagesStyle/Survey.scss';
 import useStyles from '../../../Style';
 import messages from '../../messages';
 
 function QuestionStepper(props) {
   const {
-    intl, questionList, setQuestionsAnswers, questionsAnswers
+    intl,
+    questionList,
+    setQuestionsAnswers,
+    questionsAnswers,
+    onFinish,
   } = props;
 
   const { classes } = useStyles();
-
-  const locale = useSelector((state) => state.language.locale);
 
   const [questionNumber, setQuestionNumber] = useState(0);
 
@@ -33,7 +34,7 @@ function QuestionStepper(props) {
 
     if (questionList.length >= questionNumber + 1) {
       if (questionNumber + 1 === questionList.length) {
-        console.log(questionsAnswers);
+        onFinish();
       } else {
         setQuestionNumber(questionNumber + 1);
       }
@@ -94,6 +95,8 @@ function QuestionStepper(props) {
                   {questionNumber + 1}/{questionList.length}
                 </p>
 
+                <h1>{selectedQuestion.question}</h1>
+
                 {(selectedQuestion.questionTypeId === 2
                   || selectedQuestion.questionTypeId === 3) && (
                   <FormControl style={{ width: '100%' }}>
@@ -104,7 +107,7 @@ function QuestionStepper(props) {
                       {selectedQuestion.choice.map((choice) => (
                         <FormControlLabel
                           key={choice.id}
-                          required={selectedQuestion.questionTypeId === 2}
+                          required
                           value={choice.id}
                           control={
                             <Radio
@@ -190,6 +193,7 @@ QuestionStepper.propTypes = {
   questionList: PropTypes.array.isRequired,
   questionsAnswers: PropTypes.array.isRequired,
   setQuestionsAnswers: PropTypes.func.isRequired,
+  onFinish: PropTypes.func.isRequired,
 };
 
 export default injectIntl(QuestionStepper);

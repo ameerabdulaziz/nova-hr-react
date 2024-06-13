@@ -7,13 +7,18 @@ import examLogo2 from '../../../Assets/Employee-Assessment/info_graphic_1.svg';
 import useStyles from '../../../Style';
 import messages from '../../messages';
 import QuestionStepper from './QuestionStepper';
+import QuestionsPanel from './QuestionsPanel';
 
 function QuestionScreen(props) {
   const { classes } = useStyles();
 
   const {
-    intl, surveyInfo, onFinishSurveyBtnClick, questionsAnswers, setQuestionsAnswers, questionList
+    intl, surveyInfo, onFinish, questionsAnswers, setQuestionsAnswers, questionList
   } = props;
+
+  const onFinishSurveyBtnClick = () => {
+    onFinish();
+  };
 
   return (
     <Grid container>
@@ -40,13 +45,25 @@ function QuestionScreen(props) {
         </Box>
       </Grid>
 
-      {surveyInfo.surveyTypeId === 1 && (
+      {surveyInfo.showStyle === 1 && (
         <QuestionStepper
-        questionList={questionList}
+          questionList={questionList}
           questionsAnswers={questionsAnswers}
           setQuestionsAnswers={setQuestionsAnswers}
+          onFinish={onFinish}
         />
       )}
+
+      {
+        surveyInfo.showStyle === 2 && (
+          <QuestionsPanel
+            questionList={questionList}
+            questionsAnswers={questionsAnswers}
+            setQuestionsAnswers={setQuestionsAnswers}
+            onFinish={onFinish}
+          />
+        )
+      }
     </Grid>
   );
 }
@@ -54,7 +71,7 @@ function QuestionScreen(props) {
 QuestionScreen.propTypes = {
   intl: PropTypes.object.isRequired,
   surveyInfo: PropTypes.object.isRequired,
-  onFinishSurveyBtnClick: PropTypes.func.isRequired,
+  onFinish: PropTypes.func.isRequired,
   questionsAnswers: PropTypes.array.isRequired,
   setQuestionsAnswers: PropTypes.func.isRequired,
   questionList: PropTypes.array.isRequired,

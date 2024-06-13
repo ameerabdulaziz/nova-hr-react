@@ -3006,6 +3006,16 @@
   "boilerplate.containers.Payroll.survey.questionType": "نوع السؤال",
   "boilerplate.containers.Payroll.survey.choiceGroup": "مجموعة الاختيارات",
   "boilerplate.containers.Payroll.survey.questionGroup": "مجموعة الأسئلة",
+  "boilerplate.containers.Payroll.survey.finish": "إنهاء",
+  "boilerplate.containers.Payroll.survey.start": "بدء",
+  "boilerplate.containers.Payroll.survey.thankYouForCompleteTheSurvey": "شكراً لإكمال الاستبيان",
+  "boilerplate.containers.Payroll.survey.completedQuestions": "الأسئلة المكتملة",
+  "boilerplate.containers.Payroll.survey.thereAreQuestionsThatYouDidNotAnswerWhichAre": "هناك أسئلة لم تجب عليها وهي",
+  "boilerplate.containers.Payroll.survey.backToSurvey": "العودة إلى الاستبيان",
+  "boilerplate.containers.Payroll.survey.submit": "إرسال",
+  "boilerplate.containers.Payroll.survey.previous": "السابق",
+  "boilerplate.containers.Payroll.survey.answer": "الإجابة",
+  "boilerplate.containers.Payroll.survey.next": "التالي",
 
   
   "boilerplate.containers.Payroll.training.getNewEmp": "الموظفين الجدد",

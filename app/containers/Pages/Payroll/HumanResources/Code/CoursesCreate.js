@@ -189,24 +189,10 @@ function CoursesCreate(props) {
                 renderInput={(params) => (
                   <TextField
                     variant='outlined'
-                    required
                     {...params}
                     label={intl.formatMessage(messages.courseType)}
                   />
                 )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <TextField
-                name='topic'
-                value={formInfo.topic}
-                required
-                onChange={onInputChange}
-                label={intl.formatMessage(messages.topics)}
-                fullWidth
-                variant='outlined'
-                autoComplete='off'
               />
             </Grid>
 
@@ -246,6 +232,20 @@ function CoursesCreate(props) {
                 variant='outlined'
                 autoComplete='off'
                 required
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                name='topic'
+                value={formInfo.topic}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.topics)}
+                fullWidth
+                variant='outlined'
+                autoComplete='off'
+                multiline
+                rows={1}
               />
             </Grid>
 

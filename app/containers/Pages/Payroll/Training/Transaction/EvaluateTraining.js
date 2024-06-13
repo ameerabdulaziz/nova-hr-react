@@ -15,6 +15,7 @@ import payrollMessages from "../../messages";
 import api from "../api/TrTrainingTrxListData";
 import PayrollTable from "../../Component/PayrollTable";
 import messages from "../messages";
+import { useHistory } from "react-router";
 
 function EvaluateTraining(props) {
   const { intl } = props;
@@ -23,11 +24,12 @@ function EvaluateTraining(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
 
+  const history = useHistory();
+
   const fetchNeededData = async () => {
     setIsLoading(true);
 
     try {
-      debugger;
       const training = await api(locale).GetTrainingList();
       
       setData(training);
@@ -60,6 +62,14 @@ function EvaluateTraining(props) {
       },
     },
     {
+      name: "trainerId",
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+      },
+    },
+    {
       name: "trainingEmpId",
       options: {
         filter: false,
@@ -67,14 +77,17 @@ function EvaluateTraining(props) {
         print: false,
       },
     },
-
     {
       name: "trainingName",
-      label: intl.formatMessage(payrollMessages.employeeName),
+      label: intl.formatMessage(messages.trainingName),
     },
     {
       name: "courseName",
       label: intl.formatMessage(messages.courseName),
+    },
+    {
+      name: "trainerName",
+      label: intl.formatMessage(messages.trainerName),
     },
     {
       name: "fromDate",
@@ -113,11 +126,16 @@ function EvaluateTraining(props) {
     },
   ];
 
+  const onEvaluateBtnClick = (row) => {
+    const state = { typeId: 1, trainingId: row[1], evaluatedEmployeeId: row[2] };
+
+    history.push('/app/Pages/Survey/Survey', state);
+  };
+
   const actions = {
-    // row[0] === id
     extraActions: (row) => (
       <>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={() => onEvaluateBtnClick(row)}>
           {intl.formatMessage(messages.evaluate)}
         </Button>
         <Button variant="contained" color="primary">

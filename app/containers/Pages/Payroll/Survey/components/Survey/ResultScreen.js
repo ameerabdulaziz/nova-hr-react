@@ -12,27 +12,39 @@ import messages from '../../messages';
 
 function ResultScreen(props) {
   const {
-    isSaveLock,
     intl,
     onFormSubmit,
     onBackToSurveyBtnClick,
     questionsAnswers,
     questionList,
+    isSurveyDone,
   } = props;
 
   const { classes } = useStyles();
 
-  const uncompletedQuestionsList = useMemo(
-    () => questionsAnswers.filter((question) => !question.answer),
-    [questionsAnswers]
-  );
+  const uncompletedQuestionsList = useMemo(() => {
+    const filterAlgorithm = (question) => {
+      if (question.questionTypeId === 1) {
+        return question.textAnswer === '';
+      }
 
-  const answerPercent = useMemo(
-    () => (questionList.length === 0
-      ? 0
-      : (questionsAnswers.length * 100) / questionList.length),
-    [questionsAnswers, questionList]
-  );
+      return question.answerChoiceId === null;
+    };
+
+    return questionsAnswers
+      .map((item, index) => ({ ...item, index: index + 1 }))
+      .filter(filterAlgorithm);
+  }, [questionsAnswers]);
+
+  const answerPercent = useMemo(() => {
+    if (questionList.length === 0) {
+      return 0;
+    }
+
+    const uncompletedQuestionNumber = questionList.length - uncompletedQuestionsList.length;
+
+    return Math.round((uncompletedQuestionNumber * 100) / questionList.length);
+  }, [uncompletedQuestionsList, questionList]);
 
   return (
     <div className={`${style.resultContainerSty} ${classes.containerSty}`}>
@@ -61,35 +73,40 @@ function ResultScreen(props) {
         </Box>
 
         {uncompletedQuestionsList.length !== 0 && (
-          <p className={classes.textSty}>
-            {intl.formatMessage(
-              messages.thereAreQuestionsThatYouDidNotAnswerWhichAre
-            )}
-						( {uncompletedQuestionsList.toString()} ).
-          </p>
+          <>
+            <p className={classes.textSty}>
+              {intl.formatMessage(
+                messages.thereAreQuestionsThatYouDidNotAnswerWhichAre
+              )}
+            </p>
+
+            <p className={classes.textSty}>
+              ( {uncompletedQuestionsList.map((item) => item.index).toString()}{' '}
+              ).
+            </p>
+          </>
         )}
       </div>
 
-      <Grid container justifyContent='center' spacing={3}>
-        {uncompletedQuestionsList.length !== 0 && (
-          <Grid item>
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={onBackToSurveyBtnClick}
-            >
-              {intl.formatMessage(messages.backToSurvey)}
-            </Button>
-          </Grid>
-        )}
+      <Grid container justifyContent='center' spacing={2}>
+        <Grid item>
+          <Button
+            variant='outlined'
+            color='secondary'
+            disabled={isSurveyDone}
+            onClick={onBackToSurveyBtnClick}
+          >
+            {intl.formatMessage(messages.backToSurvey)}
+          </Button>
+        </Grid>
 
         <Grid item>
           <Button
             variant='contained'
             size='medium'
             color='primary'
+            disabled={isSurveyDone}
             onClick={() => onFormSubmit('save')}
-            disabled={isSaveLock}
           >
             {intl.formatMessage(payrollMessages.save)}
           </Button>
@@ -100,7 +117,7 @@ function ResultScreen(props) {
             variant='contained'
             color='primary'
             onClick={() => onFormSubmit('submit')}
-            disabled={uncompletedQuestionsList.length !== 0}
+            disabled={uncompletedQuestionsList.length !== 0 || isSurveyDone}
           >
             {intl.formatMessage(messages.submit)}
           </Button>
@@ -115,8 +132,8 @@ ResultScreen.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   questionsAnswers: PropTypes.array.isRequired,
   questionList: PropTypes.array.isRequired,
+  isSurveyDone: PropTypes.bool.isRequired,
   onBackToSurveyBtnClick: PropTypes.func.isRequired,
-  isSaveLock: PropTypes.bool.isRequired,
 };
 
 export default injectIntl(ResultScreen);
