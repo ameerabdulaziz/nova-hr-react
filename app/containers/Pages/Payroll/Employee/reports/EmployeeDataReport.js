@@ -61,6 +61,12 @@ function EmployeeDataReport({ intl }) {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
     },
+
+    {
+      name: 'nickName',
+      label: intl.formatMessage(messages.nickName),
+    },
+
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),

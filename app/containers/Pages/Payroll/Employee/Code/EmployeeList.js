@@ -85,6 +85,11 @@ function EmployeeList(props) {
     },
 
     {
+      name: 'nickName',
+      label: intl.formatMessage(messages.nickName),
+    },
+
+    {
       name: 'statusName',
       label: intl.formatMessage(messages.status),
     },
