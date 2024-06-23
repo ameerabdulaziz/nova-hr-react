@@ -75,8 +75,8 @@ const CalculateAttendancePopUp = ({
     {
       setData((prev) => ({
             ...prev,
-            AttendanceDate: Data.rowData[4],
-            employeeName: Data.rowData[5] ? Data.rowData[5] : "",
+            AttendanceDate: Data.rowData[5] ? Data.rowData[5] : "",
+            employeeName: Data.rowData[6] ? Data.rowData[6] : "",
             shiftCode: Data.rowData[3]  ? Data.rowData[3] : null,
             timeIn: shortcutType === "CancelLate" && Data.rowData[4] && Data.rowData[20] ? Data.rowData[4].split("T")[0] + "T" + Data.rowData[20]
                   : Data.rowData[4] && Data.rowData[6] ? Data.rowData[4].split("T")[0] + "T" + Data.rowData[6].split("T")[1] : "" ,
