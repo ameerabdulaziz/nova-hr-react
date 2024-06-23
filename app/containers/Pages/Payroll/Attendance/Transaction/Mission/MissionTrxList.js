@@ -108,7 +108,7 @@ function MissionTrxList(props) {
   const columns = [
     {
       name: 'id',
-      label: intl.formatMessage(payrollMessages.id),
+      label: intl.formatMessage(payrollMessages.trxId),
       options: {
         filter: false,
       },
@@ -123,18 +123,16 @@ function MissionTrxList(props) {
     },
     {
       name: 'employeeCode',
-      label: intl.formatMessage(payrollMessages.code),
-    },    
-    {
-      name: 'organization',
-      label: intl.formatMessage(messages.orgName),
-    },
-
+      label: intl.formatMessage(payrollMessages.employeeCode),
+    },  
     {
       name: 'employeeName',
       label: intl.formatMessage(payrollMessages.employeeName),
     },
-
+    {
+      name: 'organization',
+      label: intl.formatMessage(messages.orgName),
+    },
     {
       name: 'missionName',
       label: intl.formatMessage(messages.missionName),

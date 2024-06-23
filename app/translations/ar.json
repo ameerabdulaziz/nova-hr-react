@@ -686,6 +686,7 @@
   "boilerplate.containers.Payroll.minDate": "اقل تاريخ",
   "boilerplate.containers.Payroll.maxDate": "اعلي تاريخ",
   "boilerplate.containers.Payroll.id": "كود الموظف",
+  "boilerplate.containers.Payroll.trxId": "كود الحركة",  
   "boilerplate.containers.Payroll.code": "الكود",
   "boilerplate.containers.Payroll.addTraining": "اضافة تدريب",  
   "boilerplate.containers.Payroll.delete": "حذف",
