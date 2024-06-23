@@ -3069,5 +3069,10 @@
   "boilerplate.containers.Payroll.training.trainingName": "اسم التدريب",
   "boilerplate.containers.Payroll.training.trainingId": "كود التدريب",
   "boilerplate.containers.Payroll.training.notQualified": "غير مؤهل",
-  "boilerplate.containers.Payroll.training.expirationDays": "عدد أيام الانتهاء"
+  "boilerplate.containers.Payroll.training.expirationDays": "عدد أيام الانتهاء",
+  "boilerplate.containers.Payroll.training.open": "فتح",
+  "boilerplate.containers.Payroll.training.isClose": "مغلق",
+  "boilerplate.containers.Payroll.training.grade": "تقدير",
+  "boilerplate.containers.Payroll.training.correctChoice": "الخيار الصحيح",
+  "boilerplate.containers.Payroll.training.choice": "خيار"
 }

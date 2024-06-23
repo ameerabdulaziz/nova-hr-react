@@ -2634,6 +2634,19 @@ export const EvaluateTraining = loadable(
   }
 );
 
+export const TestTemplate = loadable(
+  () => import('./Pages/Payroll/Training/Code/TestTemplate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TestTemplateCreate = loadable(
+  () => import('./Pages/Payroll/Training/Code/TestTemplateCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
 
 export const TrainingCalender = loadable(
   () => import('./Pages/Payroll/Training/Transaction/TrainingCalender'),

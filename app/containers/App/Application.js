@@ -410,6 +410,8 @@ import {
   EvaluateEmployee,
   EvaluateTraining,
   TrainingCalender,
+  TestTemplate,
+  TestTemplateCreate,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2161,6 +2163,19 @@ function Application(props) {
         <Route
           path='/app/Pages/Training/EvaluateTraining'
           component={EvaluateTraining}
+        />
+
+        <Route
+          path='/app/Pages/Training/TestTemplate'
+          component={TestTemplate}
+        />
+        <Route
+          path='/app/Pages/Training/TestTemplateCreate'
+          component={TestTemplateCreate}
+        />
+        <Route
+          path='/app/Pages/Training/TestTemplateEdit'
+          component={TestTemplateCreate}
         />
 
         {/* Default */}
