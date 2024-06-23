@@ -13,6 +13,13 @@ const API = (locale) => {
     return data.data;
   };
 
+  api.GetNewEmployee = async () => {
+    const data = await axiosInstance.get(
+      `TrTrainingTrx/GetNewEmployee/${locale}`);
+
+    return data.data;
+  };
+
   return api;
 };
 

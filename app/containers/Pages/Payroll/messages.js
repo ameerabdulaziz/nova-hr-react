@@ -9,6 +9,10 @@ export const scope = 'boilerplate.containers.Payroll';
 
 export default defineMessages({
   // penaltyList----------------------------------------------------------------------------
+  trxId: {
+    id: `${scope}.trxId`,
+    defaultMessage: 'trxId',
+  },
   save: {
     id: `${scope}.save`,
     defaultMessage: 'Save',

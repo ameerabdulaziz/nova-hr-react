@@ -111,9 +111,9 @@ function LeaveTrxList(props) {
   const columns = [
     {
       name: 'id',
+      label: intl.formatMessage(payrollMessages.trxId),
       options: {
-        filter: false,
-        display: false,
+        filter: false,        
         print: false,
       },
     },
@@ -137,7 +137,10 @@ function LeaveTrxList(props) {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
     },
-
+    {
+      name: 'organizationName',
+      label: intl.formatMessage(messages.organization),
+    },
     {
       name: 'vacationName',
       label: intl.formatMessage(messages.LeaveType),

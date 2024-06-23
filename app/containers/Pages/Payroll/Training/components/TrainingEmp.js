@@ -70,7 +70,7 @@ const TrainingEmp = (props) => {
       try {
         const training = await TrainingRequestApis(
           locale
-        ).getTrainingByCourseId(courseId);
+        ).getTrainingByCourseId(courseId??0);
         debugger;
         setTrainingList(training);
       } catch (error) {

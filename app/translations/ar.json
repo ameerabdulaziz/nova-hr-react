@@ -686,6 +686,7 @@
   "boilerplate.containers.Payroll.minDate": "اقل تاريخ",
   "boilerplate.containers.Payroll.maxDate": "اعلي تاريخ",
   "boilerplate.containers.Payroll.id": "كود الموظف",
+  "boilerplate.containers.Payroll.trxId": "كود الحركة",  
   "boilerplate.containers.Payroll.code": "الكود",
   "boilerplate.containers.Payroll.addTraining": "اضافة تدريب",  
   "boilerplate.containers.Payroll.delete": "حذف",
@@ -3018,6 +3019,7 @@
   "boilerplate.containers.Payroll.survey.next": "التالي",
 
   
+  "boilerplate.containers.Payroll.training.getNewEmp": "الموظفين الجدد",
   "boilerplate.containers.Payroll.training.addEmptoTraining": "اضافة موظف لتدريب",
   "boilerplate.containers.Payroll.training.executionId": "الكود",
   "boilerplate.containers.Payroll.training.id": "الكود",
@@ -3027,6 +3029,8 @@
   "boilerplate.containers.Payroll.training.employeeId": "الكود",
   "boilerplate.containers.Payroll.training.courseId": "الكود",
   "boilerplate.containers.Payroll.training.notes": "الملاحظات",
+  "boilerplate.containers.Payroll.training.noteRequest": "لماذا تطلب هذا التدريب للموظف",
+  "boilerplate.containers.Payroll.training.reason": "السبب",
   "boilerplate.containers.Payroll.training.organizationName": "الادارة",
   "boilerplate.containers.Payroll.training.status": "الحالة",
   "boilerplate.containers.Payroll.training.step": "المرحلة",

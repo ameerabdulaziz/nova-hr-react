@@ -97,6 +97,7 @@ function PermissionTrxList(props) {
   const columns = [
     {
       name: 'id',
+      label: intl.formatMessage(payrollMessages.trxId),
       options: {
         filter: false,
       },
@@ -107,13 +108,16 @@ function PermissionTrxList(props) {
     },
     {
       name: 'employeeCode',
-      label: intl.formatMessage(payrollMessages.code),
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
     {
       name: 'employeeName',
       label: intl.formatMessage(payrollMessages.employeeName),
     },
-
+    {
+      name: 'organization',
+      label: intl.formatMessage(messages.orgName),
+    },
     {
       name: 'permissionName',
       label: intl.formatMessage(messages.permissionName),

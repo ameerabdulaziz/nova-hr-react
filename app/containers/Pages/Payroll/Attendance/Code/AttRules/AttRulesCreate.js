@@ -42,6 +42,15 @@ function AttRulesCreate(props) {
   const [group4ElemList, setgroup4ElemList] = useState([]);
   const [group5ElemList, setgroup5ElemList] = useState([]);
 
+  const FirstChoiceList = useMemo(() => {
+    return [
+      { id: -1, name: "غير معرف" },
+      { id: 2, name: "استهلاك بدل الراحات" },
+      { id: 3, name: "استهلاك رصيد الاجازه" },
+      { id: 4, name: "ترحيل على عنصر الخصم المحدد" },
+      { id: 5, name: "ترحيل على عنصر الخصم المحدد وخصم من السنوي" },
+    ];
+  }, []);
   const ChoiceList = useMemo(() => {
     return [
       { id: -1, name: "غير معرف" },
@@ -451,6 +460,7 @@ function AttRulesCreate(props) {
                 data={data}
                 setdata={setdata}
                 ChoiceList={ChoiceList}
+                FirstChoiceList={FirstChoiceList}
                 group1ElemList={group1ElemList}
               />
             </div>

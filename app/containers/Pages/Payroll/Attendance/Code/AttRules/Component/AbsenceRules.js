@@ -14,7 +14,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
 function AbsenceRules(props) {
-  const { intl,data, setdata,ChoiceList,group1ElemList} = props;
+  const { intl,data, setdata,ChoiceList,FirstChoiceList,group1ElemList} = props;
   const { classes } = useStyles();
   
   
@@ -441,8 +441,8 @@ function AbsenceRules(props) {
                         <Grid item xs={12} md={8}>
                           <Autocomplete
                             id="AbsChoiceOne"
-                            options={ChoiceList}
-                            value={ChoiceList.find(
+                            options={FirstChoiceList}
+                            value={FirstChoiceList.find(
                               (item) =>
                                 item.id === data.absChoiceOne
                             )||null}

@@ -3,6 +3,10 @@ import { defineMessages } from "react-intl";
 export const scope = "boilerplate.containers.Payroll.training";
 
 export default defineMessages({
+  getNewEmp: {
+    id: `${scope}.getNewEmp`,
+    defaultMessage: "getNewEmp",
+  },
   addEmptoTraining: {
     id: `${scope}.addEmptoTraining`,
     defaultMessage: "addEmptoTraining",
@@ -38,6 +42,14 @@ export default defineMessages({
   notes: {
     id: `${scope}.notes`,
     defaultMessage: "notes",
+  },
+  noteRequest: {
+    id: `${scope}.noteRequest`,
+    defaultMessage: "noteRequest",
+  },
+  reason: {
+    id: `${scope}.reason`,
+    defaultMessage: "reason",
   },
   organizationName: {
     id: `${scope}.organizationName`,
