@@ -3049,5 +3049,10 @@
   "boilerplate.containers.Payroll.training.expirationDate": "Expiration Date",
   "boilerplate.containers.Payroll.training.courseExpiration": "Course Expiration",
   "boilerplate.containers.Payroll.training.notQualified": "Not Qualified",
-  "boilerplate.containers.Payroll.training.expirationDays": "Expiration Days"
+  "boilerplate.containers.Payroll.training.expirationDays": "Expiration Days",
+  "boilerplate.containers.Payroll.training.open": "Open",
+  "boilerplate.containers.Payroll.training.isClose": "Is Close",
+  "boilerplate.containers.Payroll.training.grade": "Grade",
+  "boilerplate.containers.Payroll.training.correctChoice": "Correct Choice",
+  "boilerplate.containers.Payroll.training.choice": "Choice"
 }

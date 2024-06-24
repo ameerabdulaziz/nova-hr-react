@@ -217,16 +217,13 @@ function LeaveTrxList(props) {
     edit: {
       url: '/app/Pages/vac/LeaveTrxEdit',
       // disabled edit action is not HR and status is null
-      // row[10] === status
-      disabled: isHR ? false : (row) => row[10] !== null,
+      disabled: isHR ? false : (row) => row.status !== null,
     },
     delete: {
       api: deleteRow,
       // disabled delete action is not HR and status is null
-      // row[10] === status
-      disabled: isHR ? false : (row) => row[10] !== null,
+      disabled: isHR ? false : (row) => row.status !== null,
     },
-    // row[0] === id
     extraActions: (row) => (
       <>
         <Tooltip
@@ -234,7 +231,7 @@ function LeaveTrxList(props) {
           title={intl.formatMessage(payrollMessages.Print)}
         >
           <span>
-            <IconButton onClick={() => onPrintBtnClick(row[0])}>
+            <IconButton onClick={() => onPrintBtnClick(row.id)}>
               <Print sx={{ fontSize: '1.2rem' }} />
             </IconButton>
           </span>
@@ -245,7 +242,7 @@ function LeaveTrxList(props) {
           title={intl.formatMessage(payrollMessages.details)}
         >
           <span>
-            <IconButton onClick={() => onExecutionBtnClick(row[0])}>
+            <IconButton onClick={() => onExecutionBtnClick(row.id)}>
               <List sx={{ fontSize: '1.2rem' }} />
             </IconButton>
           </span>

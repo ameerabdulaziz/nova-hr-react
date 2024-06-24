@@ -223,4 +223,24 @@ export default defineMessages({
     id: `${scope}.isAttend`,
     defaultMessage: "isAttend",
   },
+  open: {
+    id: `${scope}.open`,
+    defaultMessage: 'open',
+  },
+  isClose: {
+    id: `${scope}.isClose`,
+    defaultMessage: 'isClose',
+  },
+  grade: {
+    id: `${scope}.grade`,
+    defaultMessage: 'grade',
+  },
+  correctChoice: {
+    id: `${scope}.correctChoice`,
+    defaultMessage: 'correctChoice',
+  },
+  choice: {
+    id: `${scope}.choice`,
+    defaultMessage: 'choice',
+  },
 });

@@ -127,7 +127,7 @@ function EvaluateTraining(props) {
   ];
 
   const onEvaluateBtnClick = (row) => {
-    const state = { typeId: 1, trainingId: row[1], evaluatedEmployeeId: row[2] };
+    const state = { typeId: 1, trainingId: row.trainingId, evaluatedEmployeeId: row.employeeId };
 
     history.push('/app/Pages/Survey/Survey', state);
   };
@@ -138,6 +138,7 @@ function EvaluateTraining(props) {
         <Button variant="contained" color="primary" onClick={() => onEvaluateBtnClick(row)}>
           {intl.formatMessage(messages.evaluate)}
         </Button>
+
         <Button variant="contained" color="primary">
           {intl.formatMessage(messages.test)}
         </Button>

@@ -158,7 +158,7 @@ function EvaluateEmployee(props) {
   ];
 
   const onEvaluateBtnClick = (row) => {
-    const state = { typeId: 2, trainingId: row[2], evaluatedEmployeeId: row[0] };
+    const state = { typeId: 2, trainingId: row.trainingId, evaluatedEmployeeId: row.employeeId };
 
     history.push('/app/Pages/Survey/Survey', state);
   };
@@ -166,13 +166,27 @@ function EvaluateEmployee(props) {
   const actions = {
     extraActions: (row) => (
       <>
-        <Button variant="contained" color="primary" onClick={() => onEvaluateBtnClick(row)} >
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={row.surveyDone}
+          onClick={() => onEvaluateBtnClick(row)}
+        >
           {intl.formatMessage(messages.evaluate)}
         </Button>
-        <Button variant="contained" color="primary">
+
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={row.testIsReview}
+        >
           {intl.formatMessage(messages.reviewTest)}
         </Button>
-        <Button variant="contained" color="primary">
+
+        <Button
+          variant="contained"
+          color="primary"
+        >
           {intl.formatMessage(messages.repeatTest)}
         </Button>
       </>
