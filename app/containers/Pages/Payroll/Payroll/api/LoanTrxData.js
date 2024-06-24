@@ -60,7 +60,12 @@ const LoanTrxData = (locale) => {
     const result = data.data;    
     return result;
   };
-
+  Apis.CashPaid = async (Id,LoanTraxId) => {
+    
+    const data = await axiosInstance.get(`PayrollLoanTrx/CashPaid/${locale}?Id=${Id}&LoanTraxId=${LoanTraxId}`);
+    const result = data.data;    
+    return result;
+  };
   
 
   return Apis;

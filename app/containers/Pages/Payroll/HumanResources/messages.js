@@ -347,6 +347,10 @@ vacSettlValue: {
   id: `${scope}.vacSettlValue`,
   defaultMessage: 'vacSettlValue',
 },
+otherDeductionValue: {
+  id: `${scope}.otherDeductionValue`,
+  defaultMessage: 'otherDeductionValue',
+},
 ResignTrxCreateTitle: {
   id: `${scope}.ResignTrxCreateTitle`,
   defaultMessage: 'ResignTrxCreateTitle',
@@ -418,6 +422,10 @@ planedManPower: {
 vacancies: {
   id: `${scope}.vacancies`,
   defaultMessage: 'Vacancies',
+},
+calculate: {
+  id: `${scope}.calculate`,
+  defaultMessage: 'calculate',
 },
 percent: {
   id: `${scope}.percent`,

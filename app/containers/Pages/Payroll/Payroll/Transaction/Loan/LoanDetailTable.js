@@ -42,7 +42,8 @@ function LoanDetailTable(props) {
 
   async function doProcess() {
     if (ProcessId == 1) handlePost(selectedrow);
-    else handleRecalculate(selectedrow);
+    else if(ProcessId == 2) handleRecalculate(selectedrow);
+    else handleCashPaid(selectedrow)
   }
   const handleEnableOne = (event, row) => {
     
@@ -101,6 +102,21 @@ function LoanDetailTable(props) {
         details: dataApi.data,
       }));
   };
+  const handleCashPaid = async (row) => {
+    
+    if (row.loanTraxId)
+      var dataApi = await ApiData(locale).CashPaid(
+        row.id,
+        row.loanTraxId
+      );
+   
+    if (dataApi.message) toast.error(dataApi.message);
+    else
+      setdataList((prevFilters) => ({
+        ...prevFilters,
+        details: dataApi.data,
+      }));
+  };
 
   return (
     <div>
@@ -133,6 +149,13 @@ function LoanDetailTable(props) {
               >
                 <FormattedMessage {...messages.isPaid} />
               </TableCell>
+              {isUpdate ? (
+                <TableCell
+                  style={{ width: "10%", padding: "0px", textAlign: "center" }}
+                ></TableCell>
+              ) : (
+                ""
+              )}
               {isUpdate ? (
                 <TableCell
                   style={{ width: "10%", padding: "0px", textAlign: "center" }}
@@ -259,6 +282,28 @@ function LoanDetailTable(props) {
                           disabled={row.done}
                         >
                           <FormattedMessage {...messages.recalculate} />
+                        </Button>
+                      </TableCell>
+                    ) : (
+                      ""
+                    )}
+                    {(row.id && row.loanTraxId) ? (
+                      <TableCell
+                        style={{
+                          width: "10%",
+                          padding: "0px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          size="small"
+                          color="secondary"
+                          style={{ width: "80%" }}
+                          onClick={() => handleClickOpen(3, row)}
+                          disabled={row.done}
+                        >
+                          <FormattedMessage {...messages.cashPaid} />
                         </Button>
                       </TableCell>
                     ) : (

@@ -322,6 +322,10 @@ export default defineMessages({
     id: `${scope}.recalculate`,
     defaultMessage: 'recalculate',
   },
+  cashPaid: {
+    id: `${scope}.cashPaid`,
+    defaultMessage: 'cashPaid',
+  },
   post: {
     id: `${scope}.post`,
     defaultMessage: 'post',

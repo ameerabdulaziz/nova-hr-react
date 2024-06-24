@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { PapperBlock } from "enl-components";
 import ApiData from "../../api/ResignTrxData";
 import messages from "../../messages";
@@ -20,9 +20,9 @@ import Checkbox from "@mui/material/Checkbox";
 import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function ResignTrxCreate(props) {
   debugger;
@@ -31,16 +31,16 @@ function ResignTrxCreate(props) {
   const location = useLocation();
   const { id } = location.state ?? 0;
   const { resignReasonId } = location.state ?? 0;
-  const { resignReasonName } = location.state ?? 0;  
+  const { resignReasonName } = location.state ?? 0;
   const { lworkingDay } = location.state ?? 0;
   const { employeeId } = location.state ?? 0;
   const { classes } = useStyles();
   const [data, setdata] = useState({
     id: 0,
     date: format(new Date(), "yyyy-MM-dd"),
-    employeeId: employeeId??"",
-    resignReasonId: resignReasonId??"",
-    resignReasonName:resignReasonName?? "",
+    employeeId: employeeId ?? "",
+    resignReasonId: resignReasonId ?? "",
+    resignReasonName: resignReasonName ?? "",
     note: "",
     payTemplateId: "",
     payTemplateName: "",
@@ -50,7 +50,8 @@ function ResignTrxCreate(props) {
     vacElementIdName: "",
     settlementV: "",
     vacSettlValue: "",
-    lworkingDay: lworkingDay?lworkingDay:format(new Date(), "yyyy-MM-dd"),
+    otherDeductionValue: "",
+    lworkingDay: lworkingDay ? lworkingDay : format(new Date(), "yyyy-MM-dd"),
     isStop: false,
   });
 
@@ -62,13 +63,11 @@ function ResignTrxCreate(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
-
-
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")
@@ -79,6 +78,11 @@ function ResignTrxCreate(props) {
   }, []);
 
   const handleChange = (event) => {
+    if (event.target.name == "otherDeductionValue")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        otherDeductionValue: event.target.value,
+      }));
     if (event.target.name == "note")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -96,21 +100,23 @@ function ResignTrxCreate(props) {
         vacSettlValue: event.target.value,
       }));
   };
+  const handleCalculate = () => {
+    toast.error("Setting for Calculation not completed");
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
-    
 
     try {
       setIsLoading(true);
-      
-      data.date = dateFormatFun(data.date)
-      data.lworkingDay = dateFormatFun(data.lworkingDay)
+
+      data.date = dateFormatFun(data.date);
+      data.lworkingDay = dateFormatFun(data.lworkingDay);
 
       let response = await ApiData(locale).Save(data);
 
@@ -191,72 +197,63 @@ function ResignTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-                  <Grid item xs={12} md={4}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(messages.date)}
-                          value={data.date ? dayjs(data.date) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              date: date,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
+            <Grid item xs={12} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.date)}
+                  value={data.date ? dayjs(data.date) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      date: date,
+                    }));
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
-                  <Grid item xs={12} md={4}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(messages.lworkingDay)}
-                          value={data.lworkingDay ? dayjs(data.lworkingDay) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              lworkingDay: date ,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`lworkingDay`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`lworkingDay`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+            <Grid item xs={12} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.lworkingDay)}
+                  value={data.lworkingDay ? dayjs(data.lworkingDay) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      lworkingDay: date,
+                    }));
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`lworkingDay`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`lworkingDay`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
             <Grid item xs={12} md={2}>
               <FormControlLabel
@@ -322,7 +319,7 @@ function ResignTrxCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 required
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 
@@ -336,10 +333,33 @@ function ResignTrxCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 required
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} md={2}>
+              <TextField
+                id="OtherDeductionValue"
+                name="otherDeductionValue"
+                value={data.otherDeductionValue}
+                onChange={(e) => handleChange(e)}
+                label={intl.formatMessage(messages.otherDeductionValue)}
+                className={classes.field}
+                variant="outlined"
+                required
+                autoComplete="off"
+              />
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <Button
+                variant="contained"
+                size="small"
+                color="secondary"
+                onClick={() => handleCalculate()}
+              >
+                <FormattedMessage {...messages.calculate} />
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={12}>
               <TextField
                 id="note"
                 name="note"
@@ -348,10 +368,10 @@ function ResignTrxCreate(props) {
                 label={intl.formatMessage(messages.note)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
-            <Grid item xs={12} md={4}></Grid>
+            
             <Grid item xs={12} md={4}>
               <Autocomplete
                 id="payTemplateId"

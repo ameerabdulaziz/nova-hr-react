@@ -1074,6 +1074,8 @@
   "boilerplate.containers.Payroll.HumanResources.planedManPower": "قوة العمالة المخططة",
   "boilerplate.containers.Payroll.HumanResources.vacancies": "الوظائف الشاغرة  + / -",
   "boilerplate.containers.Payroll.HumanResources.percent": "النسبة المئوية",
+  "boilerplate.containers.Payroll.HumanResources.calculate": "حساب التسوية",
+  "boilerplate.containers.Payroll.HumanResources.otherDeductionValue": "خصومات اخرى",
   "boilerplate.containers.Payroll.HumanResources.actualManPower": "عدد العاملين",
   
   "boilerplate.containers.Payroll.Attendance.missionId": "كود المأمورية",
@@ -1800,6 +1802,7 @@
     "boilerplate.containers.Payroll.Payroll.deductionYear": "سنة الخصم",
     "boilerplate.containers.Payroll.Payroll.post": "ترحيل",
     "boilerplate.containers.Payroll.Payroll.recalculate": "اعادة حساب",
+    "boilerplate.containers.Payroll.Payroll.cashPaid": "دفع كاش",
     "boilerplate.containers.Payroll.Payroll.LoanTrxCreateTitle": "اضافة سلف ",
     "boilerplate.containers.Payroll.Payroll.LoanTrxUpdateTitle": "تعديل سلف",
     
