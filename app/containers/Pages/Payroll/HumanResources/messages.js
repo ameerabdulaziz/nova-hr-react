@@ -472,4 +472,12 @@ actualManPower: {
     id: `${scope}.topics`,
     defaultMessage: 'topics',
   },
+  questionDate: {
+    id: `${scope}.questionDate`,
+    defaultMessage: 'questionDate',
+  },
+  update: {
+    id: `${scope}.update`,
+    defaultMessage: 'update',
+  },
 });

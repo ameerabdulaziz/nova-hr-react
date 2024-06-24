@@ -14,14 +14,17 @@ import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import { formateDate } from "../../../helpers";
 
 function ExplanationEdit(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
-  const { id } = location.state ?? 0;
+  const id = location.state?.id ?? 0;
   const { classes } = useStyles();
   const [isLoading, setIsLoading] = useState(true);
+
+  const [questionType, setQuestionType] = useState(location.state?.questionType ?? '');
 
   const [data, setdata] = useState({
     id: 0,
@@ -63,6 +66,11 @@ function ExplanationEdit(props) {
     try {
       const dataApi = await ApiData(locale).Get(id ?? 0);
 
+      dataApi.questionDate = formateDate(dataApi.questionDate);
+      dataApi.hrLetterDate = formateDate(dataApi.hrLetterDate);
+
+      setQuestionType(dataApi.expTypeName);
+
       setdata(dataApi);
     } catch (err) {
     } finally {
@@ -79,11 +87,11 @@ function ExplanationEdit(props) {
       <PapperBlock
         whiteBg
         icon="border_color"
-        title={intl.formatMessage(messages.AttentionUpdateTitle)}
+        title={intl.formatMessage(messages.update) + ` ${questionType}`}
         desc={""}
       >
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3} alignItems="flex-start" direction="row">
+          <Grid container spacing={3} mt={0}>
             <Grid item xs={12} md={4}>
               <TextField
                 id="employee"
@@ -92,6 +100,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(messages.employeeName)}
                 className={classes.field}
                 variant="outlined"
+                disabled
                 autoComplete='off'
               />
             </Grid>
@@ -99,6 +108,7 @@ function ExplanationEdit(props) {
               <TextField
                 id="job"
                 name="job"
+                disabled
                 value={data.job}
                 label={intl.formatMessage(messages.job)}
                 className={classes.field}
@@ -108,11 +118,12 @@ function ExplanationEdit(props) {
             </Grid>
             <Grid item xs={12} md={4}>
               <TextField
-                id="job"
-                name="job"
+                id="questionDate"
+                name="questionDate"
                 value={data.questionDate}
-                label={intl.formatMessage(messages.job)}
+                label={intl.formatMessage(messages.questionDate)}
                 className={classes.field}
+                disabled
                 variant="outlined"
                 autoComplete='off'
               />
@@ -125,6 +136,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(Payrollmessages.type)}
                 className={classes.field}
                 variant="outlined"
+                disabled
                 autoComplete='off'
               />
             </Grid>
@@ -136,6 +148,7 @@ function ExplanationEdit(props) {
                 label={intl.formatMessage(Payrollmessages.title)}
                 className={classes.field}
                 variant="outlined"
+                disabled
                 autoComplete='off'
               />
             </Grid>
@@ -148,6 +161,7 @@ function ExplanationEdit(props) {
                 rows={2}
                 label={intl.formatMessage(Payrollmessages.details)}
                 className={classes.field}
+                disabled
                 variant="outlined"
                 autoComplete='off'
               />
@@ -161,6 +175,7 @@ function ExplanationEdit(props) {
                   label={intl.formatMessage(Payrollmessages.hrLetterDate)}
                   className={classes.field}
                   variant="outlined"
+                  disabled
                   autoComplete='off'
                 />
               </Grid>
@@ -177,6 +192,7 @@ function ExplanationEdit(props) {
                   className={classes.field}
                   variant="outlined"
                   autoComplete='off'
+                  disabled
                 />
               </Grid>
             ) : (
@@ -191,6 +207,7 @@ function ExplanationEdit(props) {
                   label={intl.formatMessage(Payrollmessages.hrLetterLang)}
                   className={classes.field}
                   variant="outlined"
+                  disabled
                   autoComplete='off'
                 />
               </Grid>

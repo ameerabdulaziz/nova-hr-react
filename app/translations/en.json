@@ -960,6 +960,8 @@
 
   
   "boilerplate.containers.Payroll.HumanResources.quantity": "Quantity",
+  "boilerplate.containers.Payroll.HumanResources.update": "Update",
+  "boilerplate.containers.Payroll.HumanResources.questionDate": "Question Date",
   "boilerplate.containers.Payroll.HumanResources.uniformPrice": "Price",
   "boilerplate.containers.Payroll.HumanResources.phone": "Phone",
   "boilerplate.containers.Payroll.HumanResources.attendanceNotes": "Attendance Notes",

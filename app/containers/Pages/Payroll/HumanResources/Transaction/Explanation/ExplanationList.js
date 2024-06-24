@@ -160,7 +160,7 @@ function ExplanationList(props) {
           return (
             <div className={style.actionsSty}>
               <EditButton
-                param={{ id: tableMeta.rowData[0] }}
+                param={{ id: tableMeta.rowData[0], questionType: tableMeta.rowData[4] }}
                 url={"/app/Pages/HR/ExplanationEdit"}
               ></EditButton>
             </div>
