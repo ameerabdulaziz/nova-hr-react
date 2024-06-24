@@ -965,6 +965,8 @@
   "boilerplate.containers.Payroll.Setting.monthClosedSuccessfully": "تم إغلاق الشهر بنجاح",
 
   "boilerplate.containers.Payroll.HumanResources.quantity": "الكمية",
+  "boilerplate.containers.Payroll.HumanResources.update": "تحديث",
+  "boilerplate.containers.Payroll.HumanResources.questionDate": "تاريخ السؤال",
   "boilerplate.containers.Payroll.HumanResources.uniformPrice": "السعر",
   "boilerplate.containers.Payroll.HumanResources.id": "كود المستند",
   "boilerplate.containers.Payroll.HumanResources.phone": "رقم الهاتف",

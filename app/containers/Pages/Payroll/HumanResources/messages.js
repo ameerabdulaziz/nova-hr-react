@@ -472,10 +472,16 @@ actualManPower: {
     id: `${scope}.remainingUniformPrice`,
     defaultMessage: 'remainingUniformPrice',
   },
+  questionDate: {
+    id: `${scope}.questionDate`,
+    defaultMessage: 'questionDate',
+  },
+  update: {
+    id: `${scope}.update`,
+    defaultMessage: 'update',
+  },
   depreciationPeriod: {
     id: `${scope}.depreciationPeriod`,
     defaultMessage: 'depreciationPeriod',
   },
-  
-  
 });
