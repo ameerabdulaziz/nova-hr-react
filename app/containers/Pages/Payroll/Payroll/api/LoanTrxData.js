@@ -66,7 +66,7 @@ const LoanTrxData = (locale) => {
     const result = data.data;    
     return result;
   };
-  
+ 
 
   return Apis;
 };

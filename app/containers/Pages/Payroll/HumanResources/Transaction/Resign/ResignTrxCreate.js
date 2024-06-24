@@ -48,15 +48,21 @@ function ResignTrxCreate(props) {
     settlElementName: "",
     vacElementId: "",
     vacElementIdName: "",
+    otherDeductionElementId: "",
+    otherDeductionElementIdName: "",
     settlementV: "",
     vacSettlValue: "",
     otherDeductionValue: "",
     lworkingDay: lworkingDay ? lworkingDay : format(new Date(), "yyyy-MM-dd"),
     isStop: false,
+    workingYears: 0,
   });
 
   const [PayTemplateList, setPayTemplateList] = useState([]);
   const [VacElementList, setVacElementList] = useState([]);
+  const [OtherDeductionElementList, setOtherDeductionElementList] = useState(
+    []
+  );
   const [SettlElementList, setSettlElementList] = useState([]);
   const [ResignList, setResignList] = useState([]);
   const history = useHistory();
@@ -69,13 +75,20 @@ function ResignTrxCreate(props) {
     return date ? format(new Date(date), "yyyy-MM-dd") : "";
   };
 
-  const handleEmpChange = useCallback((id, name) => {
-    if (name == "employeeId")
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        employeeId: id,
-      }));
-  }, []);
+  const handleEmpChange = useCallback(
+    (id, name, empname, hiringDate, workingYears) => {
+      if (name == "employeeId")
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          employeeId: id,
+          workingYears: workingYears,
+        }));
+      if (!id) {
+        handleCalculate(id, workingYears);
+      }
+    },
+    []
+  );
 
   const handleChange = (event) => {
     if (event.target.name == "otherDeductionValue")
@@ -100,8 +113,27 @@ function ResignTrxCreate(props) {
         vacSettlValue: event.target.value,
       }));
   };
-  const handleCalculate = () => {
-    toast.error("Setting for Calculation not completed");
+  const handleCalculate = async (id, workingYears) => {
+    try {
+      if (!id && !data.employeeId) {
+        toast.error("choose Employee First");
+        return;
+      }
+      setIsLoading(true);
+      const dataApi = await ApiData(locale).CalculateSettlement(
+        id ? id : data.employeeId,
+        workingYears ? workingYears : data.workingYears
+      );
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        settlementV: dataApi.settlementV,
+        vacSettlValue: dataApi.vacSettlValue,
+        otherDeductionValue: dataApi.otherDeductionValue,
+      }));
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -163,12 +195,14 @@ function ResignTrxCreate(props) {
       if (!id) {
         setVacElementList([]);
         setSettlElementList([]);
+        setOtherDeductionElementList([]);
       } else {
         const Elements = await GeneralListApis(locale).GetElementListByTemplate(
           id
         );
         setVacElementList(Elements);
         setSettlElementList(Elements);
+        setOtherDeductionElementList(Elements);
       }
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -176,6 +210,8 @@ function ResignTrxCreate(props) {
         settlElementName: "",
         vacElementId: 0,
         vacElementIdName: "",
+        otherDeductionElementId: 0,
+        otherDeductionElementIdName: "",
       }));
     } catch (err) {
     } finally {
@@ -371,8 +407,8 @@ function ResignTrxCreate(props) {
                 autoComplete="off"
               />
             </Grid>
-            
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={12} md={3}>
               <Autocomplete
                 id="payTemplateId"
                 options={PayTemplateList}
@@ -400,7 +436,7 @@ function ResignTrxCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
               <Autocomplete
                 id="settlElementId"
                 options={SettlElementList}
@@ -427,7 +463,7 @@ function ResignTrxCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
               <Autocomplete
                 id="vacElementId"
                 options={VacElementList}
@@ -450,6 +486,37 @@ function ResignTrxCreate(props) {
                     name="vacElementId"
                     required
                     label={intl.formatMessage(messages.vacElement)}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                id="otherDeductionElementId"
+                options={OtherDeductionElementList}
+                value={{
+                  id: data.otherDeductionElementId,
+                  name: data.otherDeductionElementIdName,
+                }}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  setdata((prevFilters) => ({
+                    ...prevFilters,
+                    otherDeductionElementId: value !== null ? value.id : 0,
+                    otherDeductionElementIdName:
+                      value !== null ? value.name : "",
+                  }));
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="otherDeductionElementId"
+                    required
+                    label={intl.formatMessage(messages.otherDeductionElement)}
                   />
                 )}
               />

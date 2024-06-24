@@ -367,6 +367,10 @@ vacElement: {
   id: `${scope}.vacElement`,
   defaultMessage: 'vacElement',
 },
+otherDeductionElement: {
+  id: `${scope}.otherDeductionElement`,
+  defaultMessage: 'otherDeductionElement',
+},
 settElemnt: {
   id: `${scope}.settElemnt`,
   defaultMessage: 'settElemnt',

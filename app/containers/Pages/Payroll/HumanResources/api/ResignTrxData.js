@@ -57,6 +57,12 @@ const ResignTrxData = (locale) => {
     const result = await axiosInstance.post(`HrResignTrx/DeleteList`, list);
     return result;
   };
+   
+  Apis.CalculateSettlement = async (EmployeeId,WorkingYears) => {
+    
+    const data = await axiosInstance.get(`HrResignTrx/CalculateSettlement?EmployeeId=${EmployeeId}&WorkingYears=${WorkingYears}`);
+    return data.data;    
+  };
 
   return Apis;
 };

@@ -1052,6 +1052,8 @@
   "boilerplate.containers.Payroll.HumanResources.ResignTrxCreateTitle": "اضافة استقالة",
   "boilerplate.containers.Payroll.HumanResources.ResignTrxUpdateTitle": "تعديل استقالة",
   "boilerplate.containers.Payroll.HumanResources.vacElement": "عنصر تسوية الاجازات",
+  "boilerplate.containers.Payroll.HumanResources.otherDeductionElement": "عنصر تسوية الخصومات",
+  
   "boilerplate.containers.Payroll.HumanResources.settElemnt": "عنصر المكافئة",
   "boilerplate.containers.Payroll.HumanResources.workingYears": "سنين العمل",
   "boilerplate.containers.Payroll.HumanResources.source": "المصدر",

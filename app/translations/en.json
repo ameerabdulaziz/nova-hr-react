@@ -1056,6 +1056,7 @@
   "boilerplate.containers.Payroll.HumanResources.ResignTrxCreateTitle": "Add Resign",
   "boilerplate.containers.Payroll.HumanResources.ResignTrxUpdateTitle": "Update Resign",
   "boilerplate.containers.Payroll.HumanResources.vacElement": "Leave Elemnt",
+  "boilerplate.containers.Payroll.HumanResources.otherDeductionElement": "Deduction Element",
   "boilerplate.containers.Payroll.HumanResources.settElemnt": "Settlement Element",
   "boilerplate.containers.Payroll.HumanResources.workingYears": "Working Years",
   "boilerplate.containers.Payroll.HumanResources.source": "Source",
