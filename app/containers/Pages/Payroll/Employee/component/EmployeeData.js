@@ -33,12 +33,14 @@ function EmployeeData(props) {
     jobName: "",
     companyName: null,
     subDate: null,
-    subMonthlyFees: 0,
-    cmpFees: 0,
+    subMonthlyFees: "",
+    cmpFees: "",
+    remainingFees:"",
     privlMedCareNumber: null,
     loan: 0,
     courses: [],
     vacations: [],
+    uniforms: [],
   });
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -128,6 +130,35 @@ function EmployeeData(props) {
     },
   ];
 
+  const uniformsColumns= [
+    
+    {
+      name: "date",
+      label: intl.formatMessage(payrollMessages.date),
+    },
+    {
+      name: "uniformName",
+      label: intl.formatMessage(hrmessages.uniformName),
+    },
+
+    {
+      name: "uniformPrice",
+      label: intl.formatMessage(hrmessages.uniformPrice),
+    },
+    {
+      name: "quantity",
+      label: intl.formatMessage(hrmessages.quantity),
+    },
+    {
+      name: "depreciationPeriod",
+      label: intl.formatMessage(hrmessages.depreciationPeriod),
+    },
+    {
+      name: "remainingUniformPrice",
+      label: intl.formatMessage(hrmessages.remainingUniformPrice),
+    },
+  ];
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock
@@ -206,7 +237,7 @@ function EmployeeData(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={2}>
                       <TextField
                         id="companyName"
                         name="companyName"
@@ -262,6 +293,17 @@ function EmployeeData(props) {
                         autoComplete="off"
                       />
                     </Grid>
+                    <Grid item xs={12} md={2}>
+                      <TextField
+                        id="remainingFees"
+                        name="remainingFees"
+                        value={data.remainingFees??0}
+                        label={intl.formatMessage(messages.remainingFees)}
+                        className={classes.field}
+                        variant="outlined"
+                        autoComplete="off"
+                      />
+                    </Grid>
                   </Grid>
                 </CardContent>
               </Card>
@@ -284,10 +326,15 @@ function EmployeeData(props) {
                 columns={vacationsColumns}
               />
             </Grid>
-            {/* 
-            <Grid item xs={12} md={1}>
-              <SaveButton Id={id} />
-            </Grid> */}
+            <Grid item xs={12} md={12}>
+              <PayrollTable
+                isLoading={isLoading}
+                showLoader
+                title={intl.formatMessage(hrmessages.uniformName)}
+                data={data.uniforms}
+                columns={uniformsColumns}
+              />
+            </Grid>
             <Grid item xs={12} md={1}>
               <Button
                 variant="contained"

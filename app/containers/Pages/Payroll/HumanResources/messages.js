@@ -468,8 +468,14 @@ actualManPower: {
     id: `${scope}.expirationPeriodInMonths`,
     defaultMessage: 'expirationPeriodInMonths',
   },
-  topics: {
-    id: `${scope}.topics`,
-    defaultMessage: 'topics',
+  remainingUniformPrice: {
+    id: `${scope}.remainingUniformPrice`,
+    defaultMessage: 'remainingUniformPrice',
   },
+  depreciationPeriod: {
+    id: `${scope}.depreciationPeriod`,
+    defaultMessage: 'depreciationPeriod',
+  },
+  
+  
 });

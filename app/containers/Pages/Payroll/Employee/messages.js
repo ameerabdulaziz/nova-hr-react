@@ -36,6 +36,10 @@ export default defineMessages({
     id: `${scope}.personal.cmpFees`,
     defaultMessage: 'cmpFees',
   },
+  remainingFees: {
+    id: `${scope}.personal.remainingFees`,
+    defaultMessage: 'remainingFees',
+  },
   privlMedCareNumber: {
     id: `${scope}.personal.privlMedCareNumber`,
     defaultMessage: 'privlMedCareNumber',
