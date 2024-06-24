@@ -978,6 +978,8 @@
   "boilerplate.containers.Payroll.HumanResources.courseHours": "عدد ساعات الكورس",
   "boilerplate.containers.Payroll.HumanResources.expirationPeriod": "فترة انتهاء الكورس",
   "boilerplate.containers.Payroll.HumanResources.expirationPeriodInMonths": "فترة انتهاء الكورس ب الشهور",
+  "boilerplate.containers.Payroll.HumanResources.remainingUniformPrice": "المتبقى",
+  "boilerplate.containers.Payroll.HumanResources.depreciationPeriod": "مدة الاهلاك",
   "boilerplate.containers.Payroll.HumanResources.executionId": "الكود",
   "boilerplate.containers.Payroll.HumanResources.transactionDate": "تاريخ العودة",
   "boilerplate.containers.Payroll.HumanResources.employeeId": "كود الموظف",
@@ -1041,7 +1043,7 @@
   "boilerplate.containers.Payroll.HumanResources.UniformDeliveryEditTitle": "تعديل تسليم زى",
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveCreateTitle": "اضافة استلام زى",
   "boilerplate.containers.Payroll.HumanResources.UniformReceiveEditTitle": "تعديل استلام زى",
-  "boilerplate.containers.Payroll.HumanResources.uniformName": "اسم الزى",
+  "boilerplate.containers.Payroll.HumanResources.uniformName": " الزى",
   "boilerplate.containers.Payroll.HumanResources.resignReasonId": "كود الاستقالة",
   "boilerplate.containers.Payroll.HumanResources.resignReasonName": "سبب الاستقالة",
   "boilerplate.containers.Payroll.HumanResources.lworkingDay": "اخر يوم عمل",
@@ -1984,6 +1986,7 @@
   "boilerplate.containers.Payroll.Employee.personal.subDate": "تاريخ الاشتراك",
   "boilerplate.containers.Payroll.Employee.personal.subMonthlyFees": "القيمة الموظف",
   "boilerplate.containers.Payroll.Employee.personal.cmpFees": "قيمة الشركة",
+  "boilerplate.containers.Payroll.Employee.personal.remainingFees": "المتبقى",
   "boilerplate.containers.Payroll.Employee.personal.privlMedCareNumber": "الرقم التأمينى",
   
   
