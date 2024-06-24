@@ -402,7 +402,7 @@ function PayrollTable(props) {
   // Memoize default table options
   const tableOptions = useMemo(
     () => ({
-      filterType: "multiselect",
+      filterType: 'multiselect',
       responsive: 'vertical',
       print: false,
       rowsPerPage: 50,
@@ -531,19 +531,19 @@ function PayrollTable(props) {
         label: intl.formatMessage(payrollMessages.Actions),
         options: {
           print: false,
-          display:Boolean(actions?.edit?.url || actions?.delete?.api ||  actions?.extraActions),
+          display: Boolean(actions?.edit?.url || actions?.delete?.api || actions?.extraActions),
           download: false,
           viewColumns: false,
           filter: false,
           customBodyRender: (_, tableMeta) => {
+            const row = data[tableMeta.rowIndex];
+
             let isDeleteBtnDisabled = !menu?.isDelete;
 
             if (typeof actions?.delete?.disabled === 'boolean') {
               isDeleteBtnDisabled = actions?.delete?.disabled;
             } else if (typeof actions?.delete?.disabled === 'function') {
-              isDeleteBtnDisabled = actions?.delete?.disabled(
-                tableMeta.rowData
-              );
+              isDeleteBtnDisabled = actions?.delete?.disabled(row);
             }
 
             let isEditBtnDisabled = !menu?.isUpdate;
@@ -551,12 +551,12 @@ function PayrollTable(props) {
             if (typeof actions?.edit?.disabled === 'boolean') {
               isEditBtnDisabled = actions?.edit?.disabled;
             } else if (typeof actions?.edit?.disabled === 'function') {
-              isEditBtnDisabled = actions?.edit?.disabled(tableMeta.rowData);
+              isEditBtnDisabled = actions?.edit?.disabled(row);
             }
 
             return (
               <Stack direction='row' spacing={1}>
-                {actions?.extraActions && actions?.extraActions(tableMeta.rowData)}
+                {actions?.extraActions && actions?.extraActions(row)}
 
                 {actions?.edit && (
                   <Tooltip
@@ -567,7 +567,7 @@ function PayrollTable(props) {
                       <IconButton
                         color='primary'
                         disabled={isEditBtnDisabled}
-                        onClick={() => onEditActionBtnClick(tableMeta.rowData[0])
+                        onClick={() => onEditActionBtnClick(row.id)
                         }
                       >
                         <EditIcon />
@@ -585,7 +585,7 @@ function PayrollTable(props) {
                       <IconButton
                         color='error'
                         disabled={isDeleteBtnDisabled}
-                        onClick={() => onDeleteActionBtnClick(tableMeta.rowData[0])
+                        onClick={() => onDeleteActionBtnClick(row.id)
                         }
                       >
                         <DeleteIcon />

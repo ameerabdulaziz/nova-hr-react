@@ -105,14 +105,13 @@ function TestTemplate(props) {
     delete: {
       api: deleteRow,
     },
-    // row[0] === id
     extraActions: (row) => (
       <Button
         onClick={() => onCloseBtnClick(row)}
         size='small'
         variant='outlined'
       >
-        {intl.formatMessage(row[5] ? payrollMessages.close : messages.open)}
+        {intl.formatMessage(row.isClosed ? payrollMessages.close : messages.open)}
       </Button>
     ),
   };

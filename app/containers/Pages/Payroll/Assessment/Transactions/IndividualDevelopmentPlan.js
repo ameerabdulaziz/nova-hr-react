@@ -77,15 +77,6 @@ function IndividualDevelopmentPlan(props) {
       name: 'actionName',
       label: intl.formatMessage(messages.status),
     },
-
-    {
-      name: 'action',
-      options: {
-        print: false,
-        filter: false,
-        display: false,
-      },
-    },
   ];
 
   const actions = {
@@ -93,11 +84,11 @@ function IndividualDevelopmentPlan(props) {
       url: '/app/Pages/Assessment/IndividualDevelopmentPlanCreate',
     },
     edit: {
-      disabled: (row) => row[4] !== 0,
+      disabled: (row) => row.action !== 0,
       url: '/app/Pages/Assessment/IndividualDevelopmentPlanEdit',
     },
     delete: {
-      disabled: (row) => row[4] !== 0,
+      disabled: (row) => row.action !== 0,
       api: deleteRow,
     },
   };

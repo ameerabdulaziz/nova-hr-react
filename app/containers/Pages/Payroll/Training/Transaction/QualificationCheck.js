@@ -181,7 +181,6 @@ function QualificationCheck(props) {
   ];
 
   const actions = {
-    // row[0] === id
     extraActions: (row) => (
       <>
         <Tooltip
@@ -190,8 +189,8 @@ function QualificationCheck(props) {
         >
           <span>
             <IconButton
-              onClick={() => handleOpenPoup(row[0], row[2], row[1])}
-              disabled={row[8]}
+              onClick={() => handleOpenPoup(row.employeeId, row.employeeName, row.courseId)}
+              disabled={row.isAssigned}
             >
               <AddIcon sx={{ fontSize: "1.2rem" }} />
             </IconButton>

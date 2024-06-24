@@ -136,14 +136,12 @@ function OvertimeHoursRequest(props) {
     edit: {
       url: '/app/Pages/Att/OvertimeHoursRequestEdit',
       // disabled edit action is not HR and status is null
-      // row[8] === status
-      disabled: isHR ? false : (row) => row[8] !== null,
+      disabled: isHR ? false : (row) => row.status !== null,
     },
     delete: {
       api: deleteRow,
       // disabled delete action is not HR and status is null
-      // row[8] === status
-      disabled: isHR ? false : (row) => row[8] !== null,
+      disabled: isHR ? false : (row) => row.status !== null,
     },
     extraActions: (row) => (
       <Tooltip
@@ -151,7 +149,7 @@ function OvertimeHoursRequest(props) {
         title={intl.formatMessage(payrollMessages.details)}
       >
         <span>
-          <IconButton onClick={() => onExecutionBtnClick(row[0])}>
+          <IconButton onClick={() => onExecutionBtnClick(row.id)}>
             <List sx={{ fontSize: '1.2rem' }} />
           </IconButton>
         </span>

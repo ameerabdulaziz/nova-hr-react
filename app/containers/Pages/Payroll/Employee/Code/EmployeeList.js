@@ -131,8 +131,8 @@ function EmployeeList(props) {
     },
     extraActions: (row) => (
       <EmployeeNavigation
-        employeeId={row[0]}
-        employeeName={row[2]}
+        employeeId={row.id}
+        employeeName={row.enName}
         openInNewTap
       />
     ),
