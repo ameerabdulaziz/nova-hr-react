@@ -412,6 +412,7 @@ import {
   TrainingCalender,
   TestTemplate,
   TestTemplateCreate,
+  TrainingTest,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2176,6 +2177,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Training/TestTemplateEdit'
           component={TestTemplateCreate}
+        />
+
+        <Route
+          path='/app/Pages/Training/Test'
+          component={TrainingTest}
         />
 
         {/* Default */}

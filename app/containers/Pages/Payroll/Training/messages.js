@@ -243,4 +243,8 @@ export default defineMessages({
     id: `${scope}.choice`,
     defaultMessage: 'choice',
   },
+  backToTest: {
+    id: `${scope}.backToTest`,
+    defaultMessage: 'backToTest',
+  },
 });

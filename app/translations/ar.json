@@ -3085,6 +3085,7 @@
   "boilerplate.containers.Payroll.training.notQualified": "غير مؤهل",
   "boilerplate.containers.Payroll.training.expirationDays": "عدد أيام الانتهاء",
   "boilerplate.containers.Payroll.training.open": "فتح",
+  "boilerplate.containers.Payroll.training.backToTest": "العودة إلى الاختبار",
   "boilerplate.containers.Payroll.training.isClose": "مغلق",
   "boilerplate.containers.Payroll.training.grade": "تقدير",
   "boilerplate.containers.Payroll.training.correctChoice": "الخيار الصحيح",

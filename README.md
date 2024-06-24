@@ -435,7 +435,7 @@ const actions = {
       title={intl.formatMessage(payrollMessages.details)}
     >
       <span>
-        <IconButton onClick={() => onExecutionBtnClick(row[0])}>
+        <IconButton onClick={() => onExecutionBtnClick(row.id)}>
           <List sx={{ fontSize: "1.2rem" }} />
         </IconButton>
       </span>

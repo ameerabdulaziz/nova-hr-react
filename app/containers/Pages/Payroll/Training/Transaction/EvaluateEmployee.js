@@ -163,6 +163,20 @@ function EvaluateEmployee(props) {
     history.push('/app/Pages/Survey/Survey', state);
   };
 
+  const onRepeatBtnClick = async (row) => {
+    setIsLoading(true);
+
+    try {
+      await api(locale).repeatTest(row.trainingId, row.employeeId);
+
+      toast.success(notif.saved);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const actions = {
     extraActions: (row) => (
       <>
@@ -186,6 +200,7 @@ function EvaluateEmployee(props) {
         <Button
           variant="contained"
           color="primary"
+          onClick={() => onRepeatBtnClick(row)}
         >
           {intl.formatMessage(messages.repeatTest)}
         </Button>
