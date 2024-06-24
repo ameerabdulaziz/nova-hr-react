@@ -20,6 +20,12 @@ const API = (locale) => {
     return data.data;
   };
 
+  api.repeatTest = async (trainingId, employeeId) => {
+    const data = await axiosInstance.post(`TestTemplate/RepeateTest/${locale}/${trainingId}/${employeeId}`);
+
+    return data.data;
+  };
+
   api.save = async (body) => {
     const result = await axiosInstance.post('TrTrainingTrx/Save', body);
 
