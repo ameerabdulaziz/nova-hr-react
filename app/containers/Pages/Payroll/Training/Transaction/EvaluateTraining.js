@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { formateDate, getCheckboxIcon } from "../../helpers";
+import { formateDate, formatNumber, getCheckboxIcon } from "../../helpers";
 import payrollMessages from "../../messages";
 import api from "../api/TrTrainingTrxListData";
 import PayrollTable from "../../Component/PayrollTable";
@@ -121,7 +121,7 @@ function EvaluateTraining(props) {
       name: "testGrade",
       label: intl.formatMessage(messages.testGrade),
       options: {
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => formatNumber(value),
       },
     },
   ];
@@ -132,14 +132,30 @@ function EvaluateTraining(props) {
     history.push('/app/Pages/Survey/Survey', state);
   };
 
+  const onTestBtnClick = (row) => {
+    const state = { typeId: 1, trainingId: row.trainingId };
+
+    history.push('/app/Pages/Training/Test', state);
+  };
+
   const actions = {
     extraActions: (row) => (
       <>
-        <Button variant="contained" color="primary" onClick={() => onEvaluateBtnClick(row)}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={row.surveyDone}
+          onClick={() => onEvaluateBtnClick(row)}
+        >
           {intl.formatMessage(messages.evaluate)}
         </Button>
 
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={row.testIsReview}
+          onClick={() => onTestBtnClick(row)}
+        >
           {intl.formatMessage(messages.test)}
         </Button>
       </>

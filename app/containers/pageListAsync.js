@@ -2654,3 +2654,10 @@ export const TrainingCalender = loadable(
     fallback: <Loading />,
   }
 );
+
+export const TrainingTest = loadable(
+  () => import('./Pages/Payroll/Training/Code/Test'),
+  {
+    fallback: <Loading />,
+  }
+);
