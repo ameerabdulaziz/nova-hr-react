@@ -25,7 +25,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
 function ResignTrxCreate(props) {
-  debugger;
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
@@ -77,20 +76,23 @@ function ResignTrxCreate(props) {
 
   const handleEmpChange = useCallback(
     (id, name, empname, hiringDate, workingYears) => {
-      if (name == "employeeId")
+      if (name == "employeeId") {
         setdata((prevFilters) => ({
           ...prevFilters,
           employeeId: id,
           workingYears: workingYears,
         }));
-      if (!id) {
-        handleCalculate(id, workingYears);
+        /* debugger;
+        if (!data.id && id ) {
+          handleCalculate(id, workingYears);
+        } */
       }
     },
     []
   );
 
   const handleChange = (event) => {
+    
     if (event.target.name == "otherDeductionValue")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -149,7 +151,6 @@ function ResignTrxCreate(props) {
 
       data.date = dateFormatFun(data.date);
       data.lworkingDay = dateFormatFun(data.lworkingDay);
-
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -314,6 +315,7 @@ function ResignTrxCreate(props) {
                 handleEmpChange={handleEmpChange}
                 GetworkingYears={true}
                 id={data.employeeId}
+                isdisabled={data.id ? true : false}
               ></EmployeeData>
             </Grid>
 
@@ -374,7 +376,7 @@ function ResignTrxCreate(props) {
             </Grid>
             <Grid item xs={12} md={2}>
               <TextField
-                id="OtherDeductionValue"
+                id="otherDeductionValue"
                 name="otherDeductionValue"
                 value={data.otherDeductionValue}
                 onChange={(e) => handleChange(e)}
@@ -420,7 +422,7 @@ function ResignTrxCreate(props) {
                 onChange={(event, value) => {
                   setdata((prevFilters) => ({
                     ...prevFilters,
-                    payTemplateId: value !== null ? value.id : 0,
+                    payTemplateId: value !== null ? value.id : "",
                     payTemplateName: value !== null ? value.name : "",
                   }));
                   getElements(value.id);
@@ -430,7 +432,6 @@ function ResignTrxCreate(props) {
                     variant="outlined"
                     {...params}
                     name="payTemplateId"
-                    required
                     label={intl.formatMessage(messages.payTemplateName)}
                   />
                 )}
@@ -448,7 +449,7 @@ function ResignTrxCreate(props) {
                 onChange={(event, value) => {
                   setdata((prevFilters) => ({
                     ...prevFilters,
-                    settlElementId: value !== null ? value.id : 0,
+                    settlElementId: value !== null ? value.id : "",
                     settlElementName: value !== null ? value.name : "",
                   }));
                 }}
@@ -457,7 +458,6 @@ function ResignTrxCreate(props) {
                     variant="outlined"
                     {...params}
                     name="settlElementId"
-                    required
                     label={intl.formatMessage(messages.settElemnt)}
                   />
                 )}
@@ -475,7 +475,7 @@ function ResignTrxCreate(props) {
                 onChange={(event, value) => {
                   setdata((prevFilters) => ({
                     ...prevFilters,
-                    vacElementId: value !== null ? value.id : 0,
+                    vacElementId: value !== null ? value.id : "",
                     vacElementIdName: value !== null ? value.name : "",
                   }));
                 }}
@@ -484,7 +484,6 @@ function ResignTrxCreate(props) {
                     variant="outlined"
                     {...params}
                     name="vacElementId"
-                    required
                     label={intl.formatMessage(messages.vacElement)}
                   />
                 )}
@@ -505,7 +504,7 @@ function ResignTrxCreate(props) {
                 onChange={(event, value) => {
                   setdata((prevFilters) => ({
                     ...prevFilters,
-                    otherDeductionElementId: value !== null ? value.id : 0,
+                    otherDeductionElementId: value !== null ? value.id : "",
                     otherDeductionElementIdName:
                       value !== null ? value.name : "",
                   }));
@@ -515,7 +514,6 @@ function ResignTrxCreate(props) {
                     variant="outlined"
                     {...params}
                     name="otherDeductionElementId"
-                    required
                     label={intl.formatMessage(messages.otherDeductionElement)}
                   />
                 )}
