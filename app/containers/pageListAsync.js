@@ -2661,3 +2661,10 @@ export const TrainingTest = loadable(
     fallback: <Loading />,
   }
 );
+
+export const ReviewTest = loadable(
+  () => import('./Pages/Payroll/Training/Transaction/ReviewTest'),
+  {
+    fallback: <Loading />,
+  }
+);

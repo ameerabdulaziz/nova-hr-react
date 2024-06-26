@@ -6,21 +6,20 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import style from '../../../../../styles/pagesStyle/Survey.scss';
 import PayRollLoader from '../../Component/PayRollLoader';
-import api from '../api/TestData';
-import QuestionScreen from '../components/Test/QuestionScreen';
-import ResultScreen from '../components/Test/ResultScreen';
-import WelcomeScreen from '../components/Test/WelcomeScreen';
+import api from '../api/ReviewTestData';
+import QuestionScreen from '../components/ReviewTest/QuestionScreen';
+import WelcomeScreen from '../components/ReviewTest/WelcomeScreen';
 
-function Test() {
+function ReviewTest() {
   const locale = useSelector((state) => state.language.locale);
 
   const location = useLocation();
 
   const trainingId = location.state?.trainingId ?? 0;
+  const evaluatedEmployeeId = location.state?.evaluatedEmployeeId ?? null;
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isTestEnd, setIsTestEnd] = useState(false);
   const [isTestStart, setIsTestStart] = useState(false);
   const [isTestDone, setIsTestDone] = useState(false);
 
@@ -37,17 +36,20 @@ function Test() {
   });
 
   const fetchNeededData = async () => {
-    if (trainingId === 0) {
+    if (trainingId === 0 || !evaluatedEmployeeId) {
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const response = await api(locale).getByTrainingId(trainingId);
+      const response = await api(locale).getByTrainingId(
+        trainingId,
+        evaluatedEmployeeId
+      );
 
       if (response) {
-        setTestInfo(prev => ({
+        setTestInfo((prev) => ({
           ...prev,
           id: response.id,
           templateId: response.templateId,
@@ -57,11 +59,13 @@ function Test() {
           enDescription: response.enDescription,
         }));
 
-        const answers = response.question.map(item => ({
+        const answers = response.question.map((item) => ({
           textAnswer: item.textAnswer,
           answerChoiceId: item.answerChoiceId,
           questionTypeId: item.questionTypeId,
           questionId: item.questionId,
+          questionGrade: item.questionGrade,
+          answerGrade: item.answerGrade,
         }));
 
         setQuestionList(response.question);
@@ -79,29 +83,22 @@ function Test() {
     fetchNeededData();
   }, []);
 
-  const onFinishTestBtnClick = () => {
-    setIsTestEnd(true);
-  };
-
-  const onBackToTestBtnClick = () => {
-    setIsTestEnd(false);
-    setIsTestStart(true);
-  };
-
-  const onFormSubmit = async (type) => {
+  const onTestReviewFinish = async () => {
     setIsLoading(true);
 
     try {
-      const answers = questionsAnswers.map(item => ({
+      const answers = questionsAnswers.map((item) => ({
         questionId: item.questionId,
         testId: testInfo.id,
         textAnswer: item.textAnswer,
         choiceId: item.answerChoiceId,
+        questionGrade: item.questionGrade,
+        answerGrade: item.answerGrade,
       }));
 
       const body = {
         id: testInfo.id,
-        isDone: type === 'submit',
+        isDone: true,
         templateId: testInfo.templateId,
         trTestDetails: answers,
       };
@@ -122,31 +119,21 @@ function Test() {
     <PayRollLoader isLoading={isLoading}>
       <Card>
         <CardContent className={style.surveyCardContentSty}>
-          {!isTestStart && !isTestEnd && (
+          {!isTestStart && (
             <WelcomeScreen
               setIsTestStart={setIsTestStart}
               testInfo={testInfo}
             />
           )}
 
-          {isTestEnd && isTestStart && testInfo.templateId !== null && (
-            <ResultScreen
-              questionsAnswers={questionsAnswers}
-              questionList={questionList}
-              isTestDone={isTestDone}
-              onFormSubmit={onFormSubmit}
-              setQuestionsAnswers={setQuestionsAnswers}
-              onBackToSurveyBtnClick={onBackToTestBtnClick}
-            />
-          )}
-
-          {isTestStart && !isTestEnd && testInfo.templateId !== null && (
+          {isTestStart && testInfo.templateId !== null && (
             <QuestionScreen
               testInfo={testInfo}
               questionsAnswers={questionsAnswers}
-              questionList={questionList}
               setQuestionsAnswers={setQuestionsAnswers}
-              onFinish={onFinishTestBtnClick}
+              questionList={questionList}
+              isTestDone={isTestDone}
+              onTestReviewFinish={onTestReviewFinish}
             />
           )}
         </CardContent>
@@ -155,4 +142,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default ReviewTest;

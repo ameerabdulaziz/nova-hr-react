@@ -92,7 +92,6 @@ function EmployeeAttendance(props) {
           attendanceDate: formateDate(formInfo.attendanceDate),
         };
         const attendance = await api(locale).getAttendance(params);
-        debugger;
         if (attendance && attendance.length > 0) {
           setAttendanceInfo(attendance);
         } else {

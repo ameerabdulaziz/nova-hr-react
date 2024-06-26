@@ -247,4 +247,8 @@ export default defineMessages({
     id: `${scope}.backToTest`,
     defaultMessage: 'backToTest',
   },
+  totalGrade: {
+    id: `${scope}.totalGrade`,
+    defaultMessage: 'totalGrade',
+  },
 });

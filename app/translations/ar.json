@@ -3089,6 +3089,7 @@
   "boilerplate.containers.Payroll.training.backToTest": "العودة إلى الاختبار",
   "boilerplate.containers.Payroll.training.isClose": "مغلق",
   "boilerplate.containers.Payroll.training.grade": "تقدير",
+  "boilerplate.containers.Payroll.training.totalGrade": "مجموع الدرجات",
   "boilerplate.containers.Payroll.training.correctChoice": "الخيار الصحيح",
   "boilerplate.containers.Payroll.training.choice": "خيار"
 }

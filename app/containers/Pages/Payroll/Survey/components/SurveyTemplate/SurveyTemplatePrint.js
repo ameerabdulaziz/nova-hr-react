@@ -35,21 +35,18 @@ function SurveyTemplatePrint(props) {
       >
         <Grid item xs={3}>
           <Typography>
-            {' '}
-            {intl.formatMessage(payrollMessages.name)} : ---------{' '}
+            {intl.formatMessage(payrollMessages.name)} : ---------
           </Typography>
         </Grid>
 
         <Grid item xs={3}>
           <Typography>
-            {' '}
-            {intl.formatMessage(payrollMessages.job)} : ---------{' '}
+            {intl.formatMessage(payrollMessages.job)} : ---------
           </Typography>
         </Grid>
 
         <Grid item xs={3}>
           <Typography>
-            {' '}
             {intl.formatMessage(payrollMessages.date)} : --- / --- / ---
           </Typography>
         </Grid>

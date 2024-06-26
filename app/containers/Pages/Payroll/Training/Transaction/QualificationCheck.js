@@ -52,7 +52,6 @@ function QualificationCheck(props) {
     type: 0,
   });
   const handleOpenPoup = (id, name, CourseId) => {
-    debugger;
     setEmployeeId(id);
 
     setCourseId(CourseId);

@@ -163,6 +163,12 @@ function EvaluateEmployee(props) {
     history.push('/app/Pages/Survey/Survey', state);
   };
 
+  const onReviewBtnClick = (row) => {
+    const state = { trainingId: row.trainingId, evaluatedEmployeeId: row.employeeId };
+
+    history.push('/app/Pages/Training/ReviewTest', state);
+  };
+
   const onRepeatBtnClick = async (row) => {
     setIsLoading(true);
 
@@ -193,6 +199,7 @@ function EvaluateEmployee(props) {
           variant="contained"
           color="primary"
           disabled={row.testIsReview}
+          onClick={() => onReviewBtnClick(row)}
         >
           {intl.formatMessage(messages.reviewTest)}
         </Button>
