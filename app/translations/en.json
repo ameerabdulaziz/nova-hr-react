@@ -2999,6 +2999,7 @@
   "boilerplate.containers.Payroll.survey.submit": "Submit",
   "boilerplate.containers.Payroll.survey.previous": "Previous",
   "boilerplate.containers.Payroll.survey.answer": "Answer",
+  "boilerplate.containers.Payroll.survey.save": "save",
   "boilerplate.containers.Payroll.survey.next": "Next",
 
   "boilerplate.containers.Payroll.training.getNewEmp": "Get New Employees",

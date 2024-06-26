@@ -3027,6 +3027,7 @@
   "boilerplate.containers.Payroll.survey.previous": "السابق",
   "boilerplate.containers.Payroll.survey.answer": "الإجابة",
   "boilerplate.containers.Payroll.survey.next": "التالي",
+  "boilerplate.containers.Payroll.survey.save": "حفظ",
 
   
   "boilerplate.containers.Payroll.training.getNewEmp": "الموظفين الجدد",

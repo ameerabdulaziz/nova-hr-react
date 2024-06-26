@@ -115,4 +115,8 @@ export default defineMessages({
     id: `${scope}.next`,
     defaultMessage: 'next',
   },
+  save: {
+    id: `${scope}.save`,
+    defaultMessage: 'save',
+  },
 });
