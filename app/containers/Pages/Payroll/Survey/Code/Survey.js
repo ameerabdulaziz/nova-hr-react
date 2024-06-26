@@ -18,7 +18,7 @@ function Survey() {
 
   const typeId = location.state?.typeId ?? 0;
   const trainingId = location.state?.trainingId ?? 0;
-  const evaluatedEmployeeId = location.state?.evaluatedEmployeeId ?? '';
+  const evaluatedEmployeeId = location.state?.evaluatedEmployeeId ?? null;
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,6 +35,8 @@ function Survey() {
     name: '',
     surveyTypeId: null,
     showStyle: null,
+    arDescription: '',
+    enDescription: '',
   });
 
   const fetchNeededData = async () => {
@@ -46,7 +48,7 @@ function Survey() {
 
     const params = {
       trainingId,
-      evaluatedEmpid: evaluatedEmployeeId || 0,
+      evaluatedEmpid: evaluatedEmployeeId,
     };
 
     try {
@@ -60,6 +62,8 @@ function Survey() {
           name: response.name,
           surveyTypeId: response.surveyTypeId,
           showStyle: response.showStyle,
+          arDescription: response.arDescription,
+          enDescription: response.enDescription,
         }));
 
         const answers = response.question.map(item => ({

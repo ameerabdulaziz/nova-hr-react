@@ -29,7 +29,7 @@ function QuestionScreen(props) {
             <img src={examLogo2} alt='examLogo2' />
             {surveyInfo && (
               <div>
-                <p>{surveyInfo.surveyName}</p>
+                <p>{surveyInfo.name}</p>
               </div>
             )}
           </div>
