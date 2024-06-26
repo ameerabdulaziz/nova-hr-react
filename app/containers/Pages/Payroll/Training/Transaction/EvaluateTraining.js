@@ -127,7 +127,7 @@ function EvaluateTraining(props) {
   ];
 
   const onEvaluateBtnClick = (row) => {
-    const state = { typeId: 1, trainingId: row.trainingId, evaluatedEmployeeId: row.employeeId };
+    const state = { typeId: 1, trainingId: row.trainingId };
 
     history.push('/app/Pages/Survey/Survey', state);
   };
