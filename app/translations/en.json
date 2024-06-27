@@ -892,6 +892,8 @@
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
   "boilerplate.containers.Payroll.Setting.delete": "Delete",
+  "boilerplate.containers.Payroll.Setting.uploadCertificate": "Upload Certificate",
+  "boilerplate.containers.Payroll.Setting.noCertificateFoundPleaseUploadCertificate": "No Certificate Found Please Upload Certificate",
   "boilerplate.containers.Payroll.Setting.loan": "Loan",
   "boilerplate.containers.Payroll.Setting.textColor": "Text Color",
   "boilerplate.containers.Payroll.Setting.fontSize": "Font Size",
@@ -3064,5 +3066,10 @@
   "boilerplate.containers.Payroll.training.grade": "Grade",
   "boilerplate.containers.Payroll.training.totalGrade": "Total Grade",
   "boilerplate.containers.Payroll.training.correctChoice": "Correct Choice",
+  "boilerplate.containers.Payroll.training.previewCertificate": "Preview Certificate",
+  "boilerplate.containers.Payroll.training.createCertificate": "Create Certificate",
+  "boilerplate.containers.Payroll.training.selectUploadOption": "Select Upload Option",
+  "boilerplate.containers.Payroll.training.uploadFromDevice": "Upload From Device",
+  "boilerplate.containers.Payroll.training.uploadCreatedCertificate": "Upload Created Certificate",
   "boilerplate.containers.Payroll.training.choice": "Choice"
 }

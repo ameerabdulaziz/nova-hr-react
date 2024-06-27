@@ -18,6 +18,7 @@ function Survey() {
 
   const typeId = location.state?.typeId ?? 0;
   const trainingId = location.state?.trainingId ?? 0;
+  const trainingEmpId = location.state?.trainingEmpId ?? 0;
   const evaluatedEmployeeId = location.state?.evaluatedEmployeeId ?? null;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -118,7 +119,7 @@ function Survey() {
         surveyDetails: answers,
       };
 
-      await api(locale).save(body);
+      await api(locale).save(trainingEmpId, body);
 
       setIsSurveyDone(true);
 

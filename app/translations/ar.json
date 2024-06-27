@@ -898,6 +898,8 @@
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
   "boilerplate.containers.Payroll.Setting.menuName": "اسم القائمة",
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
+  "boilerplate.containers.Payroll.Setting.uploadCertificate": "تحميل الشهادة",
+  "boilerplate.containers.Payroll.Setting.noCertificateFoundPleaseUploadCertificate": "لم يتم العثور على شهادة يرجى تحميل الشهادة",
   "boilerplate.containers.Payroll.Setting.textColor": "لون النص",
   "boilerplate.containers.Payroll.Setting.fontSize": "حجم النص",
   "boilerplate.containers.Payroll.Setting.xDirection": "اتجاه X",
@@ -3093,5 +3095,10 @@
   "boilerplate.containers.Payroll.training.grade": "تقدير",
   "boilerplate.containers.Payroll.training.totalGrade": "مجموع الدرجات",
   "boilerplate.containers.Payroll.training.correctChoice": "الخيار الصحيح",
+  "boilerplate.containers.Payroll.training.previewCertificate": "معاينة الشهادة",
+  "boilerplate.containers.Payroll.training.createCertificate": "إنشاء شهادة",
+  "boilerplate.containers.Payroll.training.selectUploadOption": "اختر خيار التحميل",
+  "boilerplate.containers.Payroll.training.uploadFromDevice": "تحميل من الجهاز",
+  "boilerplate.containers.Payroll.training.uploadCreatedCertificate": "تحميل الشهادة التي تم إنشاؤها",
   "boilerplate.containers.Payroll.training.choice": "خيار"
 }

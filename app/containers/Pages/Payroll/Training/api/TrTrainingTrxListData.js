@@ -8,6 +8,12 @@ const API = (locale) => {
     return data.data;
   };
 
+  api.getCertificateInfo = async () => {
+    const data = await axiosInstance.get('SettingCertificate/Get');
+
+    return data.data;
+  };
+
   api.getById = async (id) => {
     const data = await axiosInstance.get(`TrTrainingTrx/Get/${id}/${locale}`);
 

@@ -16,6 +16,8 @@ import api from "../api/TrTrainingTrxListData";
 import PayrollTable from "../../Component/PayrollTable";
 import messages from "../messages";
 import { useHistory } from "react-router";
+import PreviewCertificatePopup from "../components/EvaluateEmployee/PreviewCertificatePopup";
+import { ServerURL } from "../../api/ServerConfig";
 
 function EvaluateEmployee(props) {
   const { intl } = props;
@@ -27,6 +29,9 @@ function EvaluateEmployee(props) {
   const locale = useSelector((state) => state.language.locale);
 
   const [trainingList, setTrainingList] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [isPrintPreviewOpen, setIsPrintPreviewOpen] = useState(false);
+  const [certificateInfo, setCertificateInfo] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -47,6 +52,9 @@ function EvaluateEmployee(props) {
     try {
       const training = await api(locale).getTrainingByTrainerId();
       setTrainingList(training);
+
+      const info = await api(locale).getCertificateInfo();
+      setCertificateInfo(info);
     } catch (error) {
       //
     } finally {
@@ -158,7 +166,12 @@ function EvaluateEmployee(props) {
   ];
 
   const onEvaluateBtnClick = (row) => {
-    const state = { typeId: 2, trainingId: row.trainingId, evaluatedEmployeeId: row.employeeId };
+    const state = {
+      typeId: 2,
+      trainingId: row.trainingId,
+      evaluatedEmployeeId: row.employeeId,
+      trainingEmpId: row.trainingEmpId
+    };
 
     history.push('/app/Pages/Survey/Survey', state);
   };
@@ -181,6 +194,11 @@ function EvaluateEmployee(props) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const onPrintCertificateBtnClick = async (row) => {
+    setSelectedEmployee(row);
+    setIsPrintPreviewOpen(true);
   };
 
   const actions = {
@@ -212,12 +230,48 @@ function EvaluateEmployee(props) {
         >
           {intl.formatMessage(messages.repeatTest)}
         </Button>
+
+        {
+          row.certificatePath
+            ? <Button
+              variant="outlined"
+              color="primary"
+              component='a'
+              disabled={!row.testIsReview}
+              target='_blank'
+              href={`${ServerURL}Doc/EmpCertificate/${row.certificatePath}`}
+            >
+              {intl.formatMessage(messages.previewCertificate)}
+            </Button>
+
+            : <Button
+              variant="contained"
+              disabled={!row.testIsReview}
+              color="primary"
+              onClick={() => onPrintCertificateBtnClick(row)}
+            >
+              {intl.formatMessage(messages.createCertificate)}
+            </Button>
+        }
       </>
     ),
   };
 
+  const onPrintPreviewClose = () => {
+    setIsPrintPreviewOpen(false);
+    setSelectedEmployee(null);
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
+
+      <PreviewCertificatePopup
+        isOpen={isPrintPreviewOpen}
+        onClose={onPrintPreviewClose}
+        selectedEmployee={selectedEmployee}
+        certificateInfo={certificateInfo}
+      />
+
       <PapperBlock whiteBg icon="border_color" desc="" title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>

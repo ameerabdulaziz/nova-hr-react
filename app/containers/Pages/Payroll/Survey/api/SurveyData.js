@@ -10,8 +10,12 @@ const API = (locale) => {
     return data.data;
   };
 
-  api.save = async (body) => {
-    const data = await axiosInstance.post('Survey/save', body);
+  api.save = async (trainingEmpId, body) => {
+    const data = await axiosInstance.post('Survey/save', body, {
+      params: {
+        trainingEmpId
+      }
+    });
 
     return data.data;
   };
