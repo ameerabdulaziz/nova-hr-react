@@ -35,6 +35,8 @@ function BranchSalarySetting(props) {
   const [brCode, setBrCode] = useState(null);
   const [group1ElemList, setgroup1ElemList] = useState([]);
   const [MedInsElemList, setMedInsElemList] = useState([]);
+  const [GrossElemList, setGrossElemList] = useState([]);
+  
   const [data, setdata] = useState({
     PersonalExemption: "",
     specialNeedsExemption: "",
@@ -60,6 +62,7 @@ function BranchSalarySetting(props) {
     CompanyShare: "",
     TheEmployeesShareOfSI: "",
     NewEmpDedEl: "",
+    GrossElementId:"",
     MedInsElement:"",
   });
 
@@ -94,6 +97,7 @@ function BranchSalarySetting(props) {
       fixedElementsCompRate: data.CompanyShare,
       fixedElementsEmpRate: data.TheEmployeesShareOfSI,
       newEmpDedEl: data.NewEmpDedEl,
+      grossElementId:data.GrossElementId,
       medInsElement:data.MedInsElement
     };
 
@@ -159,6 +163,13 @@ function BranchSalarySetting(props) {
         1
       );
       setMedInsElemList(meddata);
+
+      const grossdata = await GeneralListApis(locale).GetElementListByTemplate(
+        1,
+        1,
+        1
+      );
+      setGrossElemList(grossdata);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -233,6 +244,9 @@ function BranchSalarySetting(props) {
           : "",
           NewEmpDedEl: dataList.newEmpDedEl
           ? dataList.newEmpDedEl
+          : "",
+          GrossElementId: dataList.grossElementId
+          ? dataList.grossElementId
           : "",
           MedInsElement: dataList.medInsElement
           ? dataList.medInsElement
@@ -880,7 +894,7 @@ function BranchSalarySetting(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item md={3} xs={12}>
+                  <Grid item md={4} xs={12}>
                     <Autocomplete
                       id="ddlNewEmpDedEl"
                       options={group1ElemList}
@@ -914,6 +928,40 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
                   <Grid item md={3} xs={12}>
+                    <Autocomplete
+                      id="ddlGrossElementId"
+                      options={GrossElemList}
+                      value={
+                        GrossElemList.find(
+                          (item) => item.id === data.GrossElementId
+                        ) || null
+                      }
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === "" ||
+                        option.id === value.id
+                      }
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                      }
+                      onChange={(event, value) => {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          GrossElementId: value !== null ? value.id : null,
+                        }));
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="GrossElementId"
+                          label={intl.formatMessage(messages.GrossElement)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  
+                  <Grid item md={4} xs={12}>
                     <Autocomplete
                       id="ddlMedInsElement"
                       options={MedInsElemList}
