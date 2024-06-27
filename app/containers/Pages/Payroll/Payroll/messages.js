@@ -238,6 +238,10 @@ export default defineMessages({
     id: `${scope}.NewEmpDedEl`,
     defaultMessage: 'NewEmpDedEl',
   },
+  GrossElement: {
+    id: `${scope}.GrossElement`,
+    defaultMessage: 'GrossElement',
+  },
   MedInsElement: {
     id: `${scope}.MedInsElement`,
     defaultMessage: 'MedInsElement',
