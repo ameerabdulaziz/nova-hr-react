@@ -207,6 +207,7 @@ function EvaluateEmployee(props) {
         <Button
           variant="contained"
           color="primary"
+          disabled={!row.testIsReview}
           onClick={() => onRepeatBtnClick(row)}
         >
           {intl.formatMessage(messages.repeatTest)}
