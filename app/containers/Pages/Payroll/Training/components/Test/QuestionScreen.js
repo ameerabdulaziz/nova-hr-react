@@ -39,7 +39,7 @@ function QuestionScreen(props) {
               color='primary'
               onClick={onFinishSurveyBtnClick}
             >
-              {intl.formatMessage(surveyMessages.finish)}
+              {intl.formatMessage(surveyMessages.save)}
             </Button>
           </div>
         </Box>

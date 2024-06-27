@@ -32,6 +32,8 @@ function Test() {
     templateId: null,
     name: '',
     showStyle: null,
+    arDescription: '',
+    enDescription: '',
   });
 
   const fetchNeededData = async () => {
@@ -51,6 +53,8 @@ function Test() {
           templateId: response.templateId,
           name: response.name,
           showStyle: response.showStyle,
+          arDescription: response.arDescription,
+          enDescription: response.enDescription,
         }));
 
         const answers = response.question.map(item => ({
@@ -129,7 +133,7 @@ function Test() {
             <ResultScreen
               questionsAnswers={questionsAnswers}
               questionList={questionList}
-              isSurveyDone={isTestDone}
+              isTestDone={isTestDone}
               onFormSubmit={onFormSubmit}
               setQuestionsAnswers={setQuestionsAnswers}
               onBackToSurveyBtnClick={onBackToTestBtnClick}

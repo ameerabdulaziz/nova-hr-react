@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { formateDate, getCheckboxIcon } from "../../helpers";
+import { formateDate, formatNumber, getCheckboxIcon } from "../../helpers";
 import payrollMessages from "../../messages";
 import api from "../api/TrTrainingTrxListData";
 import PayrollTable from "../../Component/PayrollTable";
@@ -152,7 +152,7 @@ function EvaluateEmployee(props) {
       name: "testGrade",
       label: intl.formatMessage(messages.testGrade),
       options: {
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => formatNumber(value),
       },
     },
   ];
@@ -161,6 +161,12 @@ function EvaluateEmployee(props) {
     const state = { typeId: 2, trainingId: row.trainingId, evaluatedEmployeeId: row.employeeId };
 
     history.push('/app/Pages/Survey/Survey', state);
+  };
+
+  const onReviewBtnClick = (row) => {
+    const state = { trainingId: row.trainingId, evaluatedEmployeeId: row.employeeId };
+
+    history.push('/app/Pages/Training/ReviewTest', state);
   };
 
   const onRepeatBtnClick = async (row) => {
@@ -193,6 +199,7 @@ function EvaluateEmployee(props) {
           variant="contained"
           color="primary"
           disabled={row.testIsReview}
+          onClick={() => onReviewBtnClick(row)}
         >
           {intl.formatMessage(messages.reviewTest)}
         </Button>

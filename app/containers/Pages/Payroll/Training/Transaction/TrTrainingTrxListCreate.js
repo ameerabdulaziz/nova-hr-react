@@ -28,7 +28,7 @@ function TrTrainingTrxListCreate(props) {
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const history = useHistory();
-debugger;
+
   const id = location.state?.id ?? 0;
   const { postDate } = location.state?? 0;
   const [employees, setEmployees] = useState([]);
@@ -115,7 +115,6 @@ debugger;
     setIsLoading(true);
 
     try {
-      debugger;
       await api(locale).save(body);
       if (postDate) {
         let response = await WorkFlowApi(locale).ExecuteWorkFlow(postDate);

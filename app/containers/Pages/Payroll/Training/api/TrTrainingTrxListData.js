@@ -46,7 +46,6 @@ const API = (locale) => {
   };
 
   api.AddEmployeeToTraining = async (params) => {
-    debugger;
     const result = await axiosInstance.post(`TrTrainingTrx/AddEmployeeToTraining?TrainingId=${params.trainingId}&EmployeeId=${params.employeeId}`);
 
     return result;

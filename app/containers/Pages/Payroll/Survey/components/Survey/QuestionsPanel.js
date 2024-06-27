@@ -8,9 +8,10 @@ import {
   Radio,
   RadioGroup,
   TextareaAutosize,
+  Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { injectIntl } from 'react-intl';
 import style from '../../../../../../styles/pagesStyle/Survey.scss';
 import useStyles from '../../../Style';
@@ -26,6 +27,21 @@ function QuestionsPanel(props) {
   } = props;
 
   const { classes } = useStyles();
+
+  const groupQuestionsByGroup = (questions) => questions.reduce((grouped, question) => {
+    const group = question.questionGroup;
+    if (!grouped[group]) {
+      grouped[group] = [];
+    }
+
+    grouped[group].push(question);
+    return grouped;
+  }, {});
+
+  const groupedQuestions = useMemo(
+    () => groupQuestionsByGroup(questionList),
+    [questionList]
+  );
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
@@ -44,15 +60,21 @@ function QuestionsPanel(props) {
     setQuestionsAnswers(clonedAnswers);
   };
 
-  const onChoiceRadioChange = (evt, index) => {
+  const onChoiceRadioChange = (evt, questionId) => {
     const clonedAnswers = [...questionsAnswers];
 
-    clonedAnswers[index] = {
-      ...clonedAnswers[index],
-      answerChoiceId: evt.target.value,
-    };
+    const questionIndex = clonedAnswers.findIndex(
+      (item) => item.questionId === questionId
+    );
 
-    setQuestionsAnswers(clonedAnswers);
+    if (questionIndex !== -1) {
+      clonedAnswers[questionIndex] = {
+        ...clonedAnswers[questionIndex],
+        answerChoiceId: evt.target.value,
+      };
+
+      setQuestionsAnswers(clonedAnswers);
+    }
   };
 
   return (
@@ -62,71 +84,103 @@ function QuestionsPanel(props) {
           className={`${style.examContainer} ${style.examContainer2AllQue} `}
         >
           <Box sx={{ width: '100%!important' }}>
-            {questionList.map((question, index) => (
-              <React.Fragment key={question.questionId}>
-                <h1>{question.question}</h1>
+            {Object.entries(groupedQuestions).map(
+              ([group, questions], groupIndex) => (
+                <React.Fragment key={group}>
+                  <Typography variant='h6' sx={{ fontWeight: 600, mb: 2 }}>
+                    {group}
+                  </Typography>
 
-                {(question.questionTypeId === 2
-                  || question.questionTypeId === 3) && (
-                  <FormControl style={{ width: '100%' }}>
-                    <RadioGroup
-                      value={questionsAnswers[index].answerChoiceId}
-                      className={style.radioContainer}
-                    >
-                      <Grid container spacing={2}>
-                        {question.choice.map((choice) => (
-                          <Grid
-                            item
-                            md={6}
-                            key={choice.id}
-                            sx={{ m: '0!important' }}
-                          >
-                            <FormControlLabel
-                              required
-                              value={choice.id}
-                              control={
-                                <Radio
-                                  checkedIcon={
-                                    <Check
-                                      className={`${style.checkedIconeSty} ${classes.surveyMainSty}`}
-                                    />
-                                  }
-                                  icon={
-                                    <RadioButtonUnchecked
-                                      className={style.iconeSty}
-                                    />
-                                  }
-                                />
+                  {questions.map((question) => {
+                    const questionIndex = questionsAnswers.findIndex(
+                      (item) => item.questionId === question.questionId
+                    );
+
+                    const isChoiceQuestion = question.questionTypeId === 2
+                      || question.questionTypeId === 3;
+
+                    const isAnswerQuestion = question.questionTypeId === 1
+                      || question.questionTypeId === 3;
+
+                    return (
+                      <React.Fragment key={question.questionId}>
+                        <Typography
+                          variant='body1'
+                          sx={{ fontWeight: 400, fontSize: '1.1rem' }}
+                        >
+                          {question.question}
+                        </Typography>
+
+                        {isChoiceQuestion && (
+                          <FormControl style={{ width: '100%' }}>
+                            <RadioGroup
+                              value={
+                                questionsAnswers[questionIndex].answerChoiceId
                               }
-                              label={choice.name}
-                              onChange={(evt) => onChoiceRadioChange(evt, index)
+                              className={style.radioContainer}
+                            >
+                              <Grid container spacing={2}>
+                                {question.choice.map((choice) => (
+                                  <Grid
+                                    item
+                                    md={6}
+                                    key={choice.id}
+                                    sx={{ m: '0!important' }}
+                                  >
+                                    <FormControlLabel
+                                      required
+                                      value={choice.id}
+                                      control={
+                                        <Radio
+                                          checkedIcon={
+                                            <Check
+                                              className={`${style.checkedIconeSty} ${classes.surveyMainSty}`}
+                                            />
+                                          }
+                                          icon={
+                                            <RadioButtonUnchecked
+                                              className={style.iconeSty}
+                                            />
+                                          }
+                                        />
+                                      }
+                                      label={choice.name}
+                                      onChange={(evt) => onChoiceRadioChange(
+                                        evt,
+                                        question.questionId
+                                      )
+                                      }
+                                    />
+                                  </Grid>
+                                ))}
+                              </Grid>
+                            </RadioGroup>
+                          </FormControl>
+                        )}
+
+                        {isAnswerQuestion && (
+                          <Box sx={{ my: 2 }}>
+                            <TextareaAutosize
+                              color='neutral'
+                              minRows={3}
+                              placeholder={intl.formatMessage(messages.answer)}
+                              onChange={(evt) => onTextAnswerChange(evt, questionIndex)
                               }
+                              value={questionsAnswers[questionIndex].textAnswer}
+                              required={question.questionTypeId === 1}
                             />
-                          </Grid>
-                        ))}
-                      </Grid>
-                    </RadioGroup>
-                  </FormControl>
-                )}
-
-                {(question.questionTypeId === 1
-                  || question.questionTypeId === 3) && (
-                  <TextareaAutosize
-                    color='neutral'
-                    minRows={3}
-                    placeholder={intl.formatMessage(messages.answer)}
-                    onChange={(evt) => onTextAnswerChange(evt, index)}
-                    value={questionsAnswers[index].textAnswer}
-                    required={question.questionTypeId === 1}
+                          </Box>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                  <Box
+                    className={style.lineStye}
+                    sx={{ my: groupIndex === questionList.length - 1 ? 0 : 3 }}
                   />
-                )}
-
-                <Box
-                  className={style.lineStye}
-                  sx={{ my: index === questionList.length - 1 ? 0 : 3 }}
-                ></Box>
-              </React.Fragment>
-            ))}
+                </React.Fragment>
+              )
+            )}
 
             <Grid container spacing={2}>
               <Grid item>

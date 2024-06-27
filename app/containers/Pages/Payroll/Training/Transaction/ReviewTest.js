@@ -6,71 +6,66 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import style from '../../../../../styles/pagesStyle/Survey.scss';
 import PayRollLoader from '../../Component/PayRollLoader';
-import api from '../api/SurveyData';
-import QuestionScreen from '../components/Survey/QuestionScreen';
-import ResultScreen from '../components/Survey/ResultScreen';
-import WelcomeScreen from '../components/Survey/WelcomeScreen';
+import api from '../api/ReviewTestData';
+import QuestionScreen from '../components/ReviewTest/QuestionScreen';
+import WelcomeScreen from '../components/ReviewTest/WelcomeScreen';
 
-function Survey() {
+function ReviewTest() {
   const locale = useSelector((state) => state.language.locale);
 
   const location = useLocation();
 
-  const typeId = location.state?.typeId ?? 0;
   const trainingId = location.state?.trainingId ?? 0;
   const evaluatedEmployeeId = location.state?.evaluatedEmployeeId ?? null;
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isSurveyEnd, setIsSurveyEnd] = useState(false);
-  const [isSurveyStart, setIsSurveyStart] = useState(false);
-  const [isSurveyDone, setIsSurveyDone] = useState(false);
+  const [isTestStart, setIsTestStart] = useState(false);
+  const [isTestDone, setIsTestDone] = useState(false);
 
   const [questionList, setQuestionList] = useState([]);
   const [questionsAnswers, setQuestionsAnswers] = useState([]);
 
-  const [surveyInfo, setSurveyInfo] = useState({
+  const [testInfo, setTestInfo] = useState({
     id: 0,
     templateId: null,
     name: '',
-    surveyTypeId: null,
     showStyle: null,
     arDescription: '',
     enDescription: '',
   });
 
   const fetchNeededData = async () => {
-    if (typeId === 0 && trainingId === 0) {
+    if (trainingId === 0 || !evaluatedEmployeeId) {
       return;
     }
 
     setIsLoading(true);
 
-    const params = {
-      trainingId,
-      evaluatedEmpid: evaluatedEmployeeId,
-    };
-
     try {
-      const response = await api(locale).getByTypeId(typeId, params);
+      const response = await api(locale).getByTrainingId(
+        trainingId,
+        evaluatedEmployeeId
+      );
 
       if (response) {
-        setSurveyInfo(prev => ({
+        setTestInfo((prev) => ({
           ...prev,
           id: response.id,
           templateId: response.templateId,
           name: response.name,
-          surveyTypeId: response.surveyTypeId,
           showStyle: response.showStyle,
           arDescription: response.arDescription,
           enDescription: response.enDescription,
         }));
 
-        const answers = response.question.map(item => ({
+        const answers = response.question.map((item) => ({
           textAnswer: item.textAnswer,
           answerChoiceId: item.answerChoiceId,
           questionTypeId: item.questionTypeId,
           questionId: item.questionId,
+          questionGrade: item.questionGrade,
+          answerGrade: item.answerGrade,
         }));
 
         setQuestionList(response.question);
@@ -88,39 +83,29 @@ function Survey() {
     fetchNeededData();
   }, []);
 
-  const onFinishSurveyBtnClick = () => {
-    setIsSurveyEnd(true);
-  };
-
-  const onBackToSurveyBtnClick = () => {
-    setIsSurveyEnd(false);
-    setIsSurveyStart(true);
-  };
-
-  const onFormSubmit = async (type) => {
+  const onTestReviewFinish = async () => {
     setIsLoading(true);
 
     try {
-      const answers = questionsAnswers.map(item => ({
+      const answers = questionsAnswers.map((item) => ({
         questionId: item.questionId,
-        surveyHeaderId: surveyInfo.id,
-        comment: '',
+        testId: testInfo.id,
         textAnswer: item.textAnswer,
         choiceId: item.answerChoiceId,
+        questionGrade: item.questionGrade,
+        answerGrade: item.answerGrade,
       }));
 
       const body = {
-        id: surveyInfo.id,
-        isDone: type === 'submit',
-        templateId: surveyInfo.templateId,
-        trainingId,
-        evaluatedEmployeeId,
-        surveyDetails: answers,
+        id: testInfo.id,
+        isDone: true,
+        templateId: testInfo.templateId,
+        trTestDetails: answers,
       };
 
       await api(locale).save(body);
 
-      setIsSurveyDone(true);
+      setIsTestDone(true);
 
       toast.success(notif.saved);
     } catch (error) {
@@ -134,31 +119,21 @@ function Survey() {
     <PayRollLoader isLoading={isLoading}>
       <Card>
         <CardContent className={style.surveyCardContentSty}>
-          {!isSurveyStart && !isSurveyEnd && (
+          {!isTestStart && (
             <WelcomeScreen
-              setIsSurveyStart={setIsSurveyStart}
-              surveyInfo={surveyInfo}
+              setIsTestStart={setIsTestStart}
+              testInfo={testInfo}
             />
           )}
 
-          {isSurveyEnd && isSurveyStart && surveyInfo.templateId !== null && (
-            <ResultScreen
-              questionsAnswers={questionsAnswers}
-              questionList={questionList}
-              isSurveyDone={isSurveyDone}
-              onFormSubmit={onFormSubmit}
-              setQuestionsAnswers={setQuestionsAnswers}
-              onBackToSurveyBtnClick={onBackToSurveyBtnClick}
-            />
-          )}
-
-          {isSurveyStart && !isSurveyEnd && surveyInfo.templateId !== null && (
+          {isTestStart && testInfo.templateId !== null && (
             <QuestionScreen
-              surveyInfo={surveyInfo}
+              testInfo={testInfo}
               questionsAnswers={questionsAnswers}
-              questionList={questionList}
               setQuestionsAnswers={setQuestionsAnswers}
-              onFinish={onFinishSurveyBtnClick}
+              questionList={questionList}
+              isTestDone={isTestDone}
+              onTestReviewFinish={onTestReviewFinish}
             />
           )}
         </CardContent>
@@ -167,4 +142,4 @@ function Survey() {
   );
 }
 
-export default Survey;
+export default ReviewTest;

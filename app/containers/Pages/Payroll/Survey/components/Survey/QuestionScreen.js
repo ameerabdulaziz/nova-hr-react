@@ -29,7 +29,7 @@ function QuestionScreen(props) {
             <img src={examLogo2} alt='examLogo2' />
             {surveyInfo && (
               <div>
-                <p>{surveyInfo.surveyName}</p>
+                <p>{surveyInfo.name}</p>
               </div>
             )}
           </div>
@@ -39,7 +39,7 @@ function QuestionScreen(props) {
               color='primary'
               onClick={onFinishSurveyBtnClick}
             >
-              {intl.formatMessage(messages.finish)}
+              {intl.formatMessage(messages.save)}
             </Button>
           </div>
         </Box>

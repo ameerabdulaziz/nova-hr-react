@@ -32,6 +32,12 @@ const API = (locale) => {
     return data.data;
   };
 
+  api.print = async (templateId) => {
+    const data = await axiosInstance.get(`SurveyTemplate/PrintTemplate/${locale}/${templateId}`);
+
+    return data.data;
+  };
+
   api.save = async (body) => {
     const result = await axiosInstance.post('SurveyTemplate/save', body);
 

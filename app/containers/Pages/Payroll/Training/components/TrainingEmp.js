@@ -37,7 +37,6 @@ const TrainingEmp = (props) => {
   });
 
   const onFormSubmit = async (evt) => {
-    debugger;
     evt.preventDefault();
 
     setIsLoading(true);
@@ -64,14 +63,12 @@ const TrainingEmp = (props) => {
     setTraining(selectedTraining);
   };
   const fetchNeededData = async () => {
-    debugger;
     if (open) {
       setIsLoading(true);
       try {
         const training = await TrainingRequestApis(
           locale
         ).getTrainingByCourseId(courseId??0);
-        debugger;
         setTrainingList(training);
       } catch (error) {
         //

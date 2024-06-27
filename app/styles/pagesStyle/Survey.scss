@@ -199,12 +199,6 @@
       }
     }
 
-    & > p:nth-child(2) {
-      color: #999;
-      margin-bottom: 5px;
-      font-size: 18px;
-    }
-
     & > span:nth-child(8),
     .errorMes {
       font-size: 12px;
@@ -223,7 +217,7 @@
         & > div:nth-child(1),
         & > div:nth-child(2) {
           margin: 0 5px;
-          padding-left: 0;
+          // padding-left: 0;
         }
       }
     }

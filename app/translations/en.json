@@ -3000,6 +3000,7 @@
   "boilerplate.containers.Payroll.survey.submit": "Submit",
   "boilerplate.containers.Payroll.survey.previous": "Previous",
   "boilerplate.containers.Payroll.survey.answer": "Answer",
+  "boilerplate.containers.Payroll.survey.save": "save",
   "boilerplate.containers.Payroll.survey.next": "Next",
 
   "boilerplate.containers.Payroll.training.getNewEmp": "Get New Employees",
@@ -3061,6 +3062,7 @@
   "boilerplate.containers.Payroll.training.isClose": "Is Close",
   "boilerplate.containers.Payroll.training.backToTest": "Back To Test",
   "boilerplate.containers.Payroll.training.grade": "Grade",
+  "boilerplate.containers.Payroll.training.totalGrade": "Total Grade",
   "boilerplate.containers.Payroll.training.correctChoice": "Correct Choice",
   "boilerplate.containers.Payroll.training.choice": "Choice"
 }

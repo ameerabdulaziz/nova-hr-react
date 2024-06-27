@@ -18,7 +18,7 @@ function ResultScreen(props) {
     onBackToSurveyBtnClick,
     questionsAnswers,
     questionList,
-    isSurveyDone,
+    isTestDone,
   } = props;
 
   const { classes } = useStyles();
@@ -94,7 +94,7 @@ function ResultScreen(props) {
           <Button
             variant='outlined'
             color='secondary'
-            disabled={isSurveyDone}
+            disabled={isTestDone}
             onClick={onBackToSurveyBtnClick}
           >
             {intl.formatMessage(messages.backToTest)}
@@ -106,7 +106,7 @@ function ResultScreen(props) {
             variant='contained'
             size='medium'
             color='primary'
-            disabled={isSurveyDone}
+            disabled={isTestDone}
             onClick={() => onFormSubmit('save')}
           >
             {intl.formatMessage(payrollMessages.save)}
@@ -118,7 +118,7 @@ function ResultScreen(props) {
             variant='contained'
             color='primary'
             onClick={() => onFormSubmit('submit')}
-            disabled={uncompletedQuestionsList.length !== 0 || isSurveyDone}
+            disabled={uncompletedQuestionsList.length !== 0 || isTestDone}
           >
             {intl.formatMessage(surveyMessages.submit)}
           </Button>
@@ -133,7 +133,7 @@ ResultScreen.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   questionsAnswers: PropTypes.array.isRequired,
   questionList: PropTypes.array.isRequired,
-  isSurveyDone: PropTypes.bool.isRequired,
+  isTestDone: PropTypes.bool.isRequired,
   onBackToSurveyBtnClick: PropTypes.func.isRequired,
 };
 
