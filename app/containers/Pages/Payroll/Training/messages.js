@@ -251,4 +251,24 @@ export default defineMessages({
     id: `${scope}.totalGrade`,
     defaultMessage: 'totalGrade',
   },
+  previewCertificate: {
+    id: `${scope}.previewCertificate`,
+    defaultMessage: 'previewCertificate',
+  },
+  createCertificate: {
+    id: `${scope}.createCertificate`,
+    defaultMessage: 'createCertificate',
+  },
+  selectUploadOption: {
+    id: `${scope}.selectUploadOption`,
+    defaultMessage: 'selectUploadOption',
+  },
+  uploadFromDevice: {
+    id: `${scope}.uploadFromDevice`,
+    defaultMessage: 'uploadFromDevice',
+  },
+  uploadCreatedCertificate: {
+    id: `${scope}.uploadCreatedCertificate`,
+    defaultMessage: 'uploadCreatedCertificate',
+  },
 });
