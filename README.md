@@ -55,7 +55,6 @@ npm run start:prod
 - [ ] **Notification** still not work (on click **view** button the notification still appear)
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
 - [ ] Integrate the **LeavesBalance** page with the API
-- [ ] Integrate the **CertificateSetting** page with the API
 - [ ] Integrate a cancel button into the **editable** table component
 - [ ] Improve **React-to-print** package the need state before print
 - [ ] Fix selection column in **editable** table (use id instead of name)

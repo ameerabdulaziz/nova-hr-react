@@ -127,13 +127,13 @@ function EvaluateTraining(props) {
   ];
 
   const onEvaluateBtnClick = (row) => {
-    const state = { typeId: 1, trainingId: row.trainingId };
+    const state = { typeId: 1, trainingId: row.trainingId, trainingEmpId: row.trainingEmpId };
 
     history.push('/app/Pages/Survey/Survey', state);
   };
 
   const onTestBtnClick = (row) => {
-    const state = { typeId: 1, trainingId: row.trainingId };
+    const state = { typeId: 1, trainingId: row.trainingId, trainingEmpId: row.trainingEmpId };
 
     history.push('/app/Pages/Training/Test', state);
   };

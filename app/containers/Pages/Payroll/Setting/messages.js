@@ -296,4 +296,12 @@ export default defineMessages({
     id: `${scope}.late`,
     defaultMessage: 'late',
   },
+  uploadCertificate: {
+    id: `${scope}.uploadCertificate`,
+    defaultMessage: 'uploadCertificate',
+  },
+  noCertificateFoundPleaseUploadCertificate: {
+    id: `${scope}.noCertificateFoundPleaseUploadCertificate`,
+    defaultMessage: 'noCertificateFoundPleaseUploadCertificate',
+  },
 });

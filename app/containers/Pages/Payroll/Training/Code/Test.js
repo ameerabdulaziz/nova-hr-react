@@ -17,6 +17,7 @@ function Test() {
   const location = useLocation();
 
   const trainingId = location.state?.trainingId ?? 0;
+  const trainingEmpId = location.state?.trainingEmpId ?? 0;
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -106,7 +107,7 @@ function Test() {
         trTestDetails: answers,
       };
 
-      await api(locale).save(body);
+      await api(locale).save(trainingEmpId, body);
 
       setIsTestDone(true);
 

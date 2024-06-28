@@ -1,4 +1,5 @@
 import ColorizeIcon from '@mui/icons-material/Colorize';
+import PermMediaIcon from '@mui/icons-material/PermMedia';
 import {
   Box,
   Button,
@@ -9,97 +10,126 @@ import {
   IconButton,
   InputAdornment,
   Popover,
+  Stack,
   TextField,
   Typography,
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import { SketchPicker } from 'react-color';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import PayRollLoader from '../Component/PayRollLoader';
-import { formateDate } from '../helpers';
 import payrollMessages from '../messages';
+import vacationMessages from '../Vacation/messages';
+import API from './api/CertificateSettingData';
 import messages from './messages';
 
-const DUMMY_CERTIFICATE =	'https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_original/alabaster-and-whisper-blank-certificate-template-ozxhgp391b566b.webp';
+const certificateInfo = {
+  employeeName: 'Employee Name',
+  courseName: 'Course Name',
+  accomplishDate: 'Accomplish Date',
+};
 
 function CertificateSetting(props) {
   const { intl } = props;
 
   const canvasRef = useRef(null);
 
-  const today = formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
-
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const [image, setImage] = useState(() => {
-    const img = new Image();
-    img.src = DUMMY_CERTIFICATE;
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      drawCertificate();
-    };
+  const [certificateImage, setCertificateImage] = useState(new Image());
 
-    return img;
-  });
-
-  // const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [directions, setDirections] = useState({
-    x: {
-      employeeName: 120,
-      courseName: 75,
-      accomplishDate: 320,
-    },
-    y: {
-      employeeName: 200,
-      courseName: 290,
-      accomplishDate: 290,
-    },
+  const [formInfo, setFormInfo] = useState({
+    textColor: '#000',
+
+    nameFontSize: 10,
+    courseFontSize: 10,
+    dateFontSize: 10,
+
+    nameInCenter: false,
+    courseInCenter: false,
+    dateInCenter: false,
+
+    xdirectionName: 0,
+    xdirectionCourse: 0,
+    xdirectionDate: 0,
+
+    ydirectionName: 10,
+    ydirectionCourse: 20,
+    ydirectionDate: 30,
+
+    certificateImage: null,
   });
 
-  const [styles, setStyles] = useState({
-    fontSize: {
-      employeeName: 24,
-      courseName: 18,
-      accomplishDate: 14,
-    },
-    isCenter: {
-      employeeName: true,
-      courseName: false,
-      accomplishDate: false,
-    },
-    color: '#ddbb07',
-  });
+  const fetchNeededData = async () => {
+    setIsLoading(true);
 
-  const [certificateInfo, setCertificateInfo] = useState({
-    employeeName: 'محمد تيسير لطفي',
-    courseName: 'Wire-shark Basics',
-    accomplishDate: new Date(),
-  });
+    try {
+      const response = await API().getCertificateInfo();
+
+      setFormInfo({
+        textColor: response.textColor,
+
+        nameFontSize: response.nameFontSize,
+        courseFontSize: response.courseFontSize,
+        dateFontSize: response.dateFontSize,
+
+        nameInCenter: Boolean(response.nameInCenter),
+        courseInCenter: Boolean(response.courseInCenter),
+        dateInCenter: Boolean(response.dateInCenter),
+
+        xdirectionName: response.xdirectionName,
+        xdirectionCourse: response.xdirectionCourse,
+        xdirectionDate: response.xdirectionDate,
+
+        ydirectionName: response.ydirectionName,
+        ydirectionCourse: response.ydirectionCourse,
+        ydirectionDate: response.ydirectionDate,
+
+        certificateImage: response.certificateImage,
+      });
+
+      const image = new Image();
+      image.src = response.certificateImage;
+      image.crossOrigin = 'anonymous';
+      image.onload = async () => {
+        setCertificateImage(image);
+      };
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
+
+  const onInputChange = (evt) => {
+    setFormInfo((prev) => ({ ...prev, [evt.target.name]: evt.target.value }));
+  };
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    console.log({
-      directions,
-      styles,
-      certificateInfo,
-    });
-
     setIsLoading(true);
+
+    const body = {
+      ...formInfo,
+      image: formInfo.certificateImage,
+    };
+
     try {
-      // const response = await api(locale).getEmployeeInfo(formInfo.EmployeeId);
-      // setEmployeeInfo(response);
+      await API().save(body);
       toast.success(notif.saved);
     } catch (error) {
       //
@@ -108,51 +138,19 @@ function CertificateSetting(props) {
     }
   };
 
-  const onIsCenterCheckboxChange = (evt) => {
-    setStyles((prev) => ({
+  const onCheckboxChange = (evt) => {
+    setFormInfo((prev) => ({
       ...prev,
-      isCenter: {
-        ...prev.isCenter,
-        [evt.target.name]: evt.target.checked,
-      },
+
+      [evt.target.name]: evt.target.checked,
     }));
   };
 
-  const onFontSizeInputChange = (evt) => {
-    setStyles((prev) => ({
-      ...prev,
-      fontSize: {
-        ...prev.fontSize,
-        [evt.target.name]: evt.target.value,
-      },
-    }));
-  };
+  const onColorInputChange = (evt) => setFormInfo((prev) => ({ ...prev, textColor: evt.target.value }));
 
-  const onXDirectionInputChange = (evt) => {
-    setDirections((prev) => ({
-      ...prev,
-      x: {
-        ...prev.x,
-        [evt.target.name]: evt.target.value,
-      },
-    }));
-  };
+  const onColorPickerChange = (color) => setFormInfo((prev) => ({ ...prev, textColor: color.hex }));
 
-  const onYDirectionInputChange = (evt) => {
-    setDirections((prev) => ({
-      ...prev,
-      y: {
-        ...prev.y,
-        [evt.target.name]: evt.target.value,
-      },
-    }));
-  };
-
-  const onColorInputChange = (evt) => setStyles((prev) => ({ ...prev, color: evt.target.value }));
-
-  const onColorPickerChange = (color) => setStyles((prev) => ({ ...prev, color: color.hex }));
-
-  const drawCertificate = () => {
+  const drawCertificate = async () => {
     if (canvasRef?.current) {
       const ctx = canvasRef.current.getContext('2d');
 
@@ -164,16 +162,16 @@ function CertificateSetting(props) {
       const canvasHeight = canvasRef.current.height;
 
       // Draw image as background
-      ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+      ctx.drawImage(certificateImage, 0, 0, canvasWidth, canvasHeight);
 
       // Employee Name
       // set employee name style
-      ctx.font = `${styles.fontSize.employeeName}px Cairo`;
-      ctx.fillStyle = styles.color;
+      ctx.font = `${formInfo.nameFontSize}px Cairo`;
+      ctx.fillStyle = formInfo.textColor;
 
       // Calculate employee name width if isCenter not provide
-      let employeeNameWidth = directions.x.employeeName;
-      if (styles.isCenter.employeeName) {
+      let employeeNameWidth = formInfo.xdirectionName;
+      if (formInfo.nameInCenter) {
         const textWidth = ctx.measureText(certificateInfo.employeeName).width;
         employeeNameWidth = canvasWidth / 2 - textWidth / 2;
       }
@@ -182,79 +180,72 @@ function CertificateSetting(props) {
       ctx.fillText(
         certificateInfo.employeeName,
         employeeNameWidth,
-        directions.y.employeeName
+        formInfo.ydirectionName
       );
 
       // Course Name
       // set course name style
-      let courseNameWidth = directions.x.courseName;
-      ctx.font = `${styles.fontSize.courseName}px Cairo`;
+      let courseNameWidth = formInfo.xdirectionCourse;
+      ctx.font = `${formInfo.courseFontSize}px Cairo`;
 
       // Calculate course name width if isCenter not provide
-      if (styles.isCenter.courseName) {
+      if (formInfo.courseInCenter) {
         const textWidth = ctx.measureText(certificateInfo.courseName).width;
         courseNameWidth = canvasWidth / 2 - textWidth / 2;
       }
 
-      // Draw course name
+      // Draw Course name
       ctx.fillText(
         certificateInfo.courseName,
         courseNameWidth,
-        directions.y.courseName
+        formInfo.ydirectionCourse
       );
 
       // Course Date
       // set course date style
-      const accomplishDate = formateDate(certificateInfo.accomplishDate);
-      ctx.font = `${styles.fontSize.accomplishDate}px Cairo`;
+      ctx.font = `${formInfo.dateFontSize}px Cairo`;
 
       // Calculate course date width if isCenter not provide
-      let accomplishDateWidth = directions.x.accomplishDate;
-      if (styles.isCenter.accomplishDate) {
-        const textWidth = ctx.measureText(accomplishDate).width;
+      let accomplishDateWidth = formInfo.xdirectionDate;
+      if (formInfo.dateInCenter) {
+        const textWidth = ctx.measureText(certificateInfo.accomplishDate).width;
         accomplishDateWidth = canvasWidth / 2 - textWidth / 2;
       }
 
-      // Draw course date
+      // Draw Course date
       ctx.fillText(
-        accomplishDate,
+        certificateInfo.accomplishDate,
         accomplishDateWidth,
-        directions.y.accomplishDate
+        formInfo.ydirectionDate
       );
     }
   };
 
   useEffect(() => {
     drawCertificate();
-  }, [styles, directions, certificateInfo]);
+  }, [formInfo, certificateImage]);
 
-  const onCanvasClick = () => {
-    if (canvasRef?.current) {
-      let downloadURI = canvasRef.current.toDataURL('image/png');
-      const title = `${today} Certificate`;
+  const onCertificateInputChange = (evt) => {
+    // check if uploaded file is larger than 1MB
+    if (evt.target.files[0]) {
+      if (evt.target.files[0].size < 10000000) {
+        setFormInfo((prev) => ({
+          ...prev,
+          certificateImage: evt.target.files?.[0],
+        }));
 
-      html2canvas(canvasRef?.current).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        downloadURI = imgData;
-        const pdf = new jsPDF({
-          orientation: 'landscape',
-        });
+        const image = new Image();
+        image.src = URL.createObjectURL(evt.target.files[0]);
+        image.crossOrigin = 'anonymous';
+        image.onload = async () => {
+          setCertificateImage(image);
+        };
 
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-
-        pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
-        pdf.save(`${title}.pdf`);
-      });
-
-      // Create dummy "a" link to download the file
-      const link = document.createElement('a');
-      link.setAttribute('href', downloadURI);
-      link.setAttribute('download', `${title}.png`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(downloadURI);
+        // to trigger onChange on the same file select
+        evt.target.value = '';
+      } else {
+        toast.error(intl.formatMessage(vacationMessages.uploadFileErrorMes));
+      }
     }
   };
 
@@ -263,10 +254,6 @@ function CertificateSetting(props) {
       <PayRollLoader isLoading={isLoading}>
         <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
           <form onSubmit={onFormSubmit}>
-            {/* <button onClick={onCanvasClick} type='button'>
-              Download
-            </button> */}
-
             <Grid container spacing={2} mt={0}>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
@@ -276,7 +263,7 @@ function CertificateSetting(props) {
                       label={intl.formatMessage(messages.textColor)}
                       variant='outlined'
                       autoComplete='off'
-                      value={styles.color}
+                      value={formInfo.textColor}
                       onChange={onColorInputChange}
                       InputProps={{
                         endAdornment: (
@@ -299,10 +286,25 @@ function CertificateSetting(props) {
                       onClose={() => setAnchorEl(null)}
                     >
                       <SketchPicker
-                        color={styles.color}
+                        color={formInfo.textColor}
                         onChangeComplete={onColorPickerChange}
                       />
                     </Popover>
+                  </Grid>
+
+                  <Grid item>
+                    <input
+                      accept='image/*'
+                      id='attachment-button-file'
+                      type='file'
+                      style={{ display: 'none' }}
+                      onChange={onCertificateInputChange}
+                    />
+                    <label htmlFor='attachment-button-file'>
+                      <Button variant='contained' component='span'>
+                        {intl.formatMessage(messages.uploadCertificate)}
+                      </Button>
+                    </label>
                   </Grid>
                 </Grid>
               </Grid>
@@ -317,45 +319,45 @@ function CertificateSetting(props) {
                     <Grid container spacing={2} mt={0}>
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='employeeName'
+                          name='nameFontSize'
                           label={intl.formatMessage(messages.employeeName)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={styles.fontSize.employeeName}
-                          onChange={onFontSizeInputChange}
+                          value={formInfo.nameFontSize}
+                          onChange={onInputChange}
                           autoComplete='off'
                         />
                       </Grid>
 
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='courseName'
+                          name='courseFontSize'
                           label={intl.formatMessage(messages.courseName)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={styles.fontSize.courseName}
-                          onChange={onFontSizeInputChange}
+                          value={formInfo.courseFontSize}
+                          onChange={onInputChange}
                           autoComplete='off'
                         />
                       </Grid>
 
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='accomplishDate'
+                          name='dateFontSize'
                           label={intl.formatMessage(messages.accomplishDate)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={styles.fontSize.accomplishDate}
-                          onChange={onFontSizeInputChange}
+                          value={formInfo.dateFontSize}
+                          onChange={onInputChange}
                           autoComplete='off'
                         />
                       </Grid>
@@ -376,9 +378,9 @@ function CertificateSetting(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={styles.isCenter.employeeName}
-                              onChange={onIsCenterCheckboxChange}
-                              name='employeeName'
+                              checked={formInfo.nameInCenter}
+                              onChange={onCheckboxChange}
+                              name='nameInCenter'
                             />
                           }
                           label={intl.formatMessage(messages.employeeName)}
@@ -389,9 +391,9 @@ function CertificateSetting(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={styles.isCenter.courseName}
-                              onChange={onIsCenterCheckboxChange}
-                              name='courseName'
+                              checked={formInfo.courseInCenter}
+                              onChange={onCheckboxChange}
+                              name='courseInCenter'
                             />
                           }
                           label={intl.formatMessage(messages.courseName)}
@@ -402,9 +404,9 @@ function CertificateSetting(props) {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={styles.isCenter.accomplishDate}
-                              onChange={onIsCenterCheckboxChange}
-                              name='accomplishDate'
+                              checked={formInfo.dateInCenter}
+                              onChange={onCheckboxChange}
+                              name='dateInCenter'
                             />
                           }
                           label={intl.formatMessage(messages.accomplishDate)}
@@ -425,48 +427,48 @@ function CertificateSetting(props) {
                     <Grid container spacing={2} mt={0}>
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='employeeName'
+                          name='xdirectionName'
                           label={intl.formatMessage(messages.employeeName)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={directions.x.employeeName}
-                          onChange={onXDirectionInputChange}
-                          disabled={styles.isCenter.employeeName}
+                          value={formInfo.xdirectionName}
+                          onChange={onInputChange}
+                          disabled={formInfo.nameInCenter}
                           autoComplete='off'
                         />
                       </Grid>
 
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='courseName'
+                          name='xdirectionCourse'
                           label={intl.formatMessage(messages.courseName)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={directions.x.courseName}
-                          disabled={styles.isCenter.courseName}
-                          onChange={onXDirectionInputChange}
+                          value={formInfo.xdirectionCourse}
+                          disabled={formInfo.courseInCenter}
+                          onChange={onInputChange}
                           autoComplete='off'
                         />
                       </Grid>
 
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='accomplishDate'
+                          name='xdirectionDate'
                           label={intl.formatMessage(messages.accomplishDate)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={directions.x.accomplishDate}
-                          disabled={styles.isCenter.accomplishDate}
-                          onChange={onXDirectionInputChange}
+                          value={formInfo.xdirectionDate}
+                          disabled={formInfo.dateInCenter}
+                          onChange={onInputChange}
                           autoComplete='off'
                         />
                       </Grid>
@@ -485,45 +487,45 @@ function CertificateSetting(props) {
                     <Grid container spacing={2} mt={0}>
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='employeeName'
+                          name='ydirectionName'
                           label={intl.formatMessage(messages.employeeName)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={directions.y.employeeName}
-                          onChange={onYDirectionInputChange}
+                          value={formInfo.ydirectionName}
+                          onChange={onInputChange}
                           autoComplete='off'
                         />
                       </Grid>
 
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='courseName'
+                          name='ydirectionCourse'
                           label={intl.formatMessage(messages.courseName)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={directions.y.courseName}
-                          onChange={onYDirectionInputChange}
+                          value={formInfo.ydirectionCourse}
+                          onChange={onInputChange}
                           autoComplete='off'
                         />
                       </Grid>
 
                       <Grid item xs={6} md={4}>
                         <TextField
-                          name='accomplishDate'
+                          name='ydirectionDate'
                           label={intl.formatMessage(messages.accomplishDate)}
                           variant='outlined'
                           inputProps={{
                             min: 0,
                           }}
                           type='number'
-                          value={directions.y.accomplishDate}
-                          onChange={onYDirectionInputChange}
+                          value={formInfo.ydirectionDate}
+                          onChange={onInputChange}
                           autoComplete='off'
                         />
                       </Grid>
@@ -548,9 +550,30 @@ function CertificateSetting(props) {
         title={intl.formatMessage(payrollMessages.preview)}
         desc=''
       >
-        <Box sx={{ overflow: 'auto' }}>
-          <canvas ref={canvasRef} height='350px' width='500px'></canvas>
-        </Box>
+        {!formInfo.certificateImage && !certificateImage.src ? (
+          <Stack
+            direction='row'
+            sx={{ minHeight: 200 }}
+            alignItems='center'
+            justifyContent='center'
+            textAlign='center'
+          >
+            <Box>
+              <PermMediaIcon sx={{ color: '#a7acb2', fontSize: 30 }} />
+              <Typography color='#a7acb2' variant='body1'>
+                {intl.formatMessage(
+                  isLoading
+                    ? payrollMessages.loading
+                    : messages.noCertificateFoundPleaseUploadCertificate
+                )}
+              </Typography>
+            </Box>
+          </Stack>
+        ) : (
+          <Box sx={{ overflow: 'auto' }}>
+            <canvas ref={canvasRef} height='350px' width='500px'></canvas>
+          </Box>
+        )}
       </PapperBlock>
     </>
   );
