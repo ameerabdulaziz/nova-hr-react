@@ -31,6 +31,8 @@ function QualificationCheck(props) {
   const [courseList, setCourseList] = useState([]);
   const [employeeId, setEmployeeId] = useState([]);
   const [courseId, setCourseId] = useState([]);
+  const [courseName, setCourseName] = useState([]);
+  
 
   const [employeeName, setEmployeeName] = useState([]);
   const [functionsList, setFunctionsList] = useState([]);
@@ -51,10 +53,11 @@ function QualificationCheck(props) {
     expirationDays: "",
     type: 0,
   });
-  const handleOpenPoup = (id, name, CourseId) => {
+  const handleOpenPoup = (id, name, CourseId,CourseName) => {
     setEmployeeId(id);
 
     setCourseId(CourseId);
+    setCourseName(CourseName);
     setEmployeeName(name);
 
     setOpenPopup(true);
@@ -65,6 +68,7 @@ function QualificationCheck(props) {
   };
 
   const fetchTableData = async () => {
+    debugger;
     setIsLoading(true);
 
     const params = {
@@ -188,7 +192,7 @@ function QualificationCheck(props) {
         >
           <span>
             <IconButton
-              onClick={() => handleOpenPoup(row.employeeId, row.employeeName, row.courseId)}
+              onClick={() => handleOpenPoup(row.employeeId, row.employeeName, row.courseId,row.courseName)}
               disabled={row.isAssigned}
             >
               <AddIcon sx={{ fontSize: "1.2rem" }} />
@@ -347,6 +351,7 @@ function QualificationCheck(props) {
             open={openPopup}
             employeeId={employeeId}
             courseId={courseId}
+            courseName={courseName}
             employeeName={employeeName}
           />
         </form>

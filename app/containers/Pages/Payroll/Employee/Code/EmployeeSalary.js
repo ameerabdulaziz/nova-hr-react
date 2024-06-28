@@ -36,6 +36,7 @@ function EmployeeSalary(props) {
   const { classes } = useStyles();
   const [id, setid] = useState(0);
   const [taxable, settaxable] = useState(false);
+  const [isNet, setisNet] = useState(false);
   const [isConsultant, setisConsultant] = useState(false);
   const [isHours, setisHours] = useState(false);
   const [hourPrice, sethourPrice] = useState("");
@@ -69,6 +70,7 @@ function EmployeeSalary(props) {
         id: id,
         employeeId: employee.id,
         taxable: taxable,
+        isNet:isNet,
         isConsultant: isConsultant,
         isHours: isHours,
         hourPrice: hourPrice,
@@ -112,6 +114,7 @@ function EmployeeSalary(props) {
   const clear = (e) => {
     setid(0);
     settaxable(false);
+    setisNet(false);
     setisConsultant(false);
     setisHours(false);
     sethourPrice("");
@@ -149,6 +152,7 @@ function EmployeeSalary(props) {
       if (dataApi.length > 0) {
         setid(dataApi[0].id);
         settaxable(dataApi[0].taxable);
+        setisNet(dataApi[0].isNet);
         setisConsultant(dataApi[0].isConsultant);
         setisHours(dataApi[0].isHours);
         sethourPrice(dataApi[0].hourPrice ? dataApi[0].hourPrice : "");
@@ -259,6 +263,19 @@ function EmployeeSalary(props) {
                     />
                   }
                   label={intl.formatMessage(messages.taxable)}
+                />
+              </div>
+              <div>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isNet}
+                      disabled={employee.id === 0}
+                      onChange={() => setisNet(!isNet)}
+                      color="secondary"
+                    />
+                  }
+                  label={intl.formatMessage(messages.isNet)}
                 />
               </div>
               <div>

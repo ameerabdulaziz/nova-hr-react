@@ -187,64 +187,64 @@ function BranchSalarySetting(props) {
       setdata({
         PersonalExemption: dataList.personalexemption
           ? dataList.personalexemption
-          : "",
+          : "0",
         specialNeedsExemption: dataList.personalexemption2
           ? dataList.personalexemption2
-          : "",
+          : "0",
         FirstBracketLimit: dataList.firstbracketlimit
           ? dataList.firstbracketlimit
-          : "",
+          : "0",
         FirstBracketTax: dataList.firstbrackettax
           ? dataList.firstbrackettax
-          : "",
+          : "0",
         SecondBracketLimit: dataList.secondbracketlimit
           ? dataList.secondbracketlimit
-          : "",
+          : "0",
         SecondBracketTax: dataList.secondbrackettax
           ? dataList.secondbrackettax
-          : "",
+          : "0",
         ThirdBracketLimit: dataList.thirdbracketlimit
           ? dataList.thirdbracketlimit
-          : "",
+          : "0",
         ThirdBracketTax: dataList.thirdbrackettax
           ? dataList.thirdbrackettax
-          : "",
+          : "0",
         FourthBracketLimit: dataList.fourthbracketlimit
           ? dataList.fourthbracketlimit
-          : "",
+          : "0",
         FourthBracketTax: dataList.fourthbracketTax
           ? dataList.fourthbracketTax
-          : "",
+          : "0",
         FifthBracketLimit: dataList.fifthbracketlimit
           ? dataList.fifthbracketlimit
-          : "",
+          : "0",
         FifthBracketTax: dataList.fifthbracketTax
           ? dataList.fifthbracketTax
-          : "",
-        SixthBracketLimit: dataList.bracketlimit6 ? dataList.bracketlimit6 : "",
-        SixthBracketTax: dataList.bracketTax6 ? dataList.bracketTax6 : "",
+          : "0",
+        SixthBracketLimit: dataList.bracketlimit6 ? dataList.bracketlimit6 : "0",
+        SixthBracketTax: dataList.bracketTax6 ? dataList.bracketTax6 : "0",
         seventhBracketLimit: dataList.bracketlimit7
           ? dataList.bracketlimit7
-          : "",
-        seventhBracketTax: dataList.bracketTax7 ? dataList.bracketTax7 : "",
+          : "0",
+        seventhBracketTax: dataList.bracketTax7 ? dataList.bracketTax7 : "0",
         EighthBracketLimit: dataList.bracketlimit8
           ? dataList.bracketlimit8
-          : "",
-        EighthBracketTax: dataList.bracketTax8 ? dataList.bracketTax8 : "",
+          : "0",
+        EighthBracketTax: dataList.bracketTax8 ? dataList.bracketTax8 : "0",
         EpidemicsContribution: dataList.covidP ? dataList.covidP : "",
         DisplayName: dataList.covidLbl ? dataList.covidLbl : "",
         FixedElementsSILimit: dataList.fixedElementsSilimit
           ? dataList.fixedElementsSilimit
-          : "",
+          : "0",
         CompanyShare: dataList.fixedElementsCompRate
           ? dataList.fixedElementsCompRate
-          : "",
+          : "0",
         TheEmployeesShareOfSI: dataList.fixedElementsEmpRate
           ? dataList.fixedElementsEmpRate
-          : "",
+          : "0",
           NewEmpDedEl: dataList.newEmpDedEl
           ? dataList.newEmpDedEl
-          : "",
+          : "0",
           GrossElementId: dataList.grossElementId
           ? dataList.grossElementId
           : "",
@@ -927,7 +927,7 @@ function BranchSalarySetting(props) {
                       )}
                     />
                   </Grid>
-                  <Grid item md={3} xs={12}>
+                  <Grid item md={4} xs={12}>
                     <Autocomplete
                       id="ddlGrossElementId"
                       options={GrossElemList}

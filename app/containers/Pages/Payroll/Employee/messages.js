@@ -396,6 +396,10 @@ export default defineMessages({
     id: `${scope}.salary.taxable`,
     defaultMessage: 'taxable',
   },
+  isNet: {
+    id: `${scope}.salary.isNet`,
+    defaultMessage: 'isNet',
+  },
   consultant: {
     id: `${scope}.salary.consultant`,
     defaultMessage: 'consultant',

@@ -2029,6 +2029,8 @@
   "boilerplate.containers.Payroll.Employee.salary.salaryStructure": "نموذج تقسيم المرتب",
   "boilerplate.containers.Payroll.Employee.salary.isBnkTransfer": "تحويل المرتب للبنك",
   "boilerplate.containers.Payroll.Employee.salary.taxable": "خاضع للضريبة",
+  "boilerplate.containers.Payroll.Employee.salary.isNet": "يتعامل بصافى المرتب",
+  
   "boilerplate.containers.Payroll.Employee.salary.consultant": "استشاري",
   "boilerplate.containers.Payroll.Employee.salary.isHours": "المرتب يعتمد علي ساعات العمل",
   "boilerplate.containers.Payroll.Employee.salary.hourPrice": "قيمة الساعة",
@@ -3039,6 +3041,8 @@
   "boilerplate.containers.Payroll.training.date": "التاريخ",
   "boilerplate.containers.Payroll.training.functionName": "المهام",
   "boilerplate.containers.Payroll.training.employeeName": "الموظف",
+  "boilerplate.containers.Payroll.training.creatTraining": "انشاء تدريب",
+  
   "boilerplate.containers.Payroll.training.employeeId": "الكود",
   "boilerplate.containers.Payroll.training.courseId": "الكود",
   "boilerplate.containers.Payroll.training.notes": "الملاحظات",

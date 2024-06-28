@@ -111,7 +111,7 @@ function ElementTaxIns(props) {
       var taxElements = data.taxElements.filter((x) => x.isSelected == true);
       data.taxElements = taxElements;
       data.insElements = insElements;
-
+debugger;
       let response = await ApiData(locale).SaveElementTaxAndIns(data);
 
       if (response.status == 200) {

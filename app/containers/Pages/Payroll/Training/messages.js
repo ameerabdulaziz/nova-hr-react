@@ -39,6 +39,10 @@ export default defineMessages({
     id: `${scope}.employeeName`,
     defaultMessage: "employeeName",
   },
+  creatTraining: {
+    id: `${scope}.creatTraining`,
+    defaultMessage: "creatTraining",
+  },
   notes: {
     id: `${scope}.notes`,
     defaultMessage: "notes",
