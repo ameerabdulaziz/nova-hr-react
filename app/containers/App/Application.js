@@ -89,6 +89,7 @@ import {
   EmployeeAddress,
   EmployeeCourse,
   EmployeeList,
+  AdEmployeeImport,
   EmployeeExperince,
   EmployeeInsurance,
   EmployeeBank,
@@ -1263,6 +1264,10 @@ function Application(props) {
         <Route
           path='/app/Pages/Employee/EmployeeList'
           component={EmployeeList}
+        />
+        <Route
+          path='/app/Pages/Employee/AdEmployeeImport'
+          component={AdEmployeeImport}
         />
         <Route path='/app/Pages/Employee/EmployeeData' component={EmployeeData} />
         <Route path='/app/Pages/Employee/Personal' component={Personal} />

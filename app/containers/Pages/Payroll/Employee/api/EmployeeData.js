@@ -44,6 +44,11 @@ const EmployeeData = (locale) => {
     return result;
   };
 
+  Apis.SaveListFromImport = async (data) => {
+    const result = await axiosInstance.post("EmpEmployee/SaveListFromImport",data);
+    return result;
+  };
+  
   Apis.checkEmpCodeExist = async (code) => {
     const data = await axiosInstance.get(
       `EmpEmployee/checkEmpCodeExist?empcode=${code}`
