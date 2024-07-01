@@ -57,10 +57,13 @@ npm run start:prod
 - [ ] Integrate the **LeavesBalance** page with the API
 - [ ] Integrate a cancel button into the **editable** table component
 - [ ] Improve **React-to-print** package the need state before print
+  - [generate-printable-document](https://blog.logrocket.com/using-react-to-print-generate-printable-document/)
+  - [html2pdf](https://github.com/airarrazaval/html2pdf)
 - [ ] Fix selection column in **editable** table (use id instead of name)
 - [ ] Implement "react-window" or similar package for the **payroll** table
 - [ ] **Recruitment** - add pdf download instead of open in new tab
 - [ ] What is `apiKey` in **TrainingCenter** page
+- [ ] Employee Component: show search input with selected rows
 
 # Docs 📖
 

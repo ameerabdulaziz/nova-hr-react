@@ -1,4 +1,5 @@
 import axiosInstance from '../../api/axios';
+import { getFormData } from '../../helpers';
 const API = (locale) => {
   const api = {};
 
@@ -10,6 +11,14 @@ const API = (locale) => {
 
   api.getCertificateInfo = async () => {
     const data = await axiosInstance.get('SettingCertificate/Get');
+
+    return data.data;
+  };
+
+  api.saveCertificate = async (id, body) => {
+    const formData = getFormData(body);
+
+    const data = await axiosInstance.post(`TrTrainingTrx/SaveCertificate/${id}`, formData);
 
     return data.data;
   };

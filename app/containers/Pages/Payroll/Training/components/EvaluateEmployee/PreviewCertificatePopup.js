@@ -11,16 +11,20 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material';
+import notif from 'enl-api/ui/notifMessage';
 import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import { jsPDF as JsPDF } from 'jspdf';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayRollLoader from '../../../Component/PayRollLoader';
 import settingMessages from '../../../Setting/messages';
 import vacationMessages from '../../../Vacation/messages';
 import { formateDate } from '../../../helpers';
 import payrollMessages from '../../../messages';
+import api from '../../api/TrTrainingTrxListData';
 import messages from '../../messages';
 
 function PreviewCertificatePopup(props) {
@@ -30,134 +34,174 @@ function PreviewCertificatePopup(props) {
 
   const canvasRef = useRef(null);
 
-  const today = formateDate(new Date(), 'yyyy-MM-dd hh:mm:ss');
+  const locale = useSelector((state) => state.language.locale);
 
-  const [uploadOption, setUploadOption] = useState('uploadFromDevice');
-  const [uploadedImage, setUploadedImage] = useState(null);
+  const [uploadOption, setUploadOption] = useState('uploadCreated');
+  const [uploadedCertificate, setUploadedCertificate] = useState(null);
   const [createdCertificate, setCreatedCertificate] = useState(null);
 
-  const [previewImageURL, setPreviewImageURL] = useState('')
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [previewImageURL, setPreviewImageURL] = useState('');
+
+  // Function to load the image
+  const loadImage = (src) => {
+    const imagePromise = new Promise((resolve, reject) => {
+      const image = new Image();
+      image.src = src;
+      image.crossOrigin = 'anonymous';
+      image.onload = () => resolve(image);
+      image.onerror = (error) => reject(error);
+    });
+
+    return imagePromise;
+  };
+
+  // Function to draw the background image
+  const drawBackground = (ctx, options) => {
+    const { image, canvasWidth, canvasHeight } = options;
+
+    ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+  };
+
+  // Function to draw text on the canvas
+  const drawText = (ctx, options) => {
+    const {
+      text, fontSize, textColor, y, xDirection, canvasWidth, isCenter
+    } = options;
+
+    ctx.font = `${fontSize}px Cairo`;
+    ctx.fillStyle = textColor;
+
+    let x = xDirection;
+
+    if (isCenter) {
+      const textWidth = ctx.measureText(text).width;
+      x = canvasWidth / 2 - textWidth / 2;
+    }
+    ctx.fillText(text, x, y);
+  };
+
+  // Function to create a PDF from the canvas
+  const createPDF = async (canvas) => {
+    const canvasImage = await html2canvas(canvas);
+    const imgData = canvasImage.toDataURL('image/png');
+    const pdf = new JsPDF({
+      orientation: 'landscape',
+    });
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
+
+    const blob = pdf.output('blob');
+
+    const file = new File([blob], 'certificate.pdf', { type: 'application/pdf' });
+
+    return file;
+  };
 
   const drawCertificate = async () => {
-    console.log(canvasRef?.current);
-    if (canvasRef?.current) {
-      const image = new Image();
-      image.src = certificateInfo.certificateImage;
-      image.crossOrigin = 'anonymous';
+    // Start loading
+    setIsLoading(true);
 
-      image.onload = async () => {
-        const ctx = canvasRef.current.getContext('2d');
+    // Load the image
+    const image = await loadImage(certificateInfo.certificateImage);
 
-        // Set default alignment
-        ctx.textAlign = 'left';
+    const ctx = canvasRef.current.getContext('2d');
 
-        // Store both canvas width and height
-        const canvasWidth = canvasRef.current.width;
-        const canvasHeight = canvasRef.current.height;
+    const canvasWidth = canvasRef.current.width;
+    const canvasHeight = canvasRef.current.height;
 
-        // Draw image as background
-        ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+    // Draw the background image
+    drawBackground(ctx, {
+      image,
+      canvasWidth,
+      canvasHeight,
+    });
 
-        // Employee Name
-        // set employee name style
-        ctx.font = `${certificateInfo.nameFontSize}px Cairo`;
-        ctx.fillStyle = certificateInfo.textColor;
+    // Draw the employee name
+    drawText(ctx, {
+      text: selectedEmployee.employeeName,
+      fontSize: certificateInfo.nameFontSize,
+      textColor: certificateInfo.textColor,
+      y: certificateInfo.ydirectionName,
+      xDirection: certificateInfo.xdirectionName,
+      canvasWidth,
+      isCenter: certificateInfo.nameInCenter,
+    });
 
-        // Calculate employee name width if isCenter not provide
-        let employeeNameWidth = certificateInfo.xdirectionName;
-        if (certificateInfo.nameInCenter) {
-          const textWidth = ctx.measureText(
-            selectedEmployee.employeeName
-          ).width;
-          employeeNameWidth = canvasWidth / 2 - textWidth / 2;
-        }
+    // Draw the course name
+    drawText(ctx, {
+      text: selectedEmployee.courseName,
+      fontSize: certificateInfo.courseFontSize,
+      textColor: certificateInfo.textColor,
+      y: certificateInfo.ydirectionCourse,
+      xDirection: certificateInfo.xdirectionCourse,
+      canvasWidth,
+      isCenter: certificateInfo.courseInCenter,
+    });
 
-        // Draw employee name
-        ctx.fillText(
-          selectedEmployee.employeeName,
-          employeeNameWidth,
-          certificateInfo.ydirectionName
-        );
+    // Draw the course date
+    drawText(ctx, {
+      text: formateDate(selectedEmployee.toDate),
+      fontSize: certificateInfo.dateFontSize,
+      textColor: certificateInfo.textColor,
+      y: certificateInfo.ydirectionDate,
+      xDirection: certificateInfo.xdirectionDate,
+      canvasWidth,
+      isCenter: certificateInfo.dateInCenter,
+    });
 
-        // Course Name
-        // set course name style
-        let courseNameWidth = certificateInfo.xdirectionCourse;
-        ctx.font = `${certificateInfo.courseFontSize}px Cairo`;
+    // Create the certificate PDF
+    const file = await createPDF(canvasRef.current);
+    setCreatedCertificate(file);
 
-        // Calculate course name width if isCenter not provide
-        if (certificateInfo.courseInCenter) {
-          const textWidth = ctx.measureText(selectedEmployee.courseName).width;
-          courseNameWidth = canvasWidth / 2 - textWidth / 2;
-        }
-
-        // Draw Course name
-        ctx.fillText(
-          selectedEmployee.courseName,
-          courseNameWidth,
-          certificateInfo.ydirectionCourse
-        );
-
-        // Course Date
-        // set course date style
-        ctx.font = `${certificateInfo.dateFontSize}px Cairo`;
-
-        // Calculate course date width if isCenter not provide
-        let accomplishDateWidth = certificateInfo.xdirectionDate;
-        if (certificateInfo.dateInCenter) {
-          const textWidth = ctx.measureText(
-            selectedEmployee.accomplishDate
-          ).width;
-          accomplishDateWidth = canvasWidth / 2 - textWidth / 2;
-        }
-
-        // Draw Course date
-        ctx.fillText(
-          formateDate(selectedEmployee.toDate),
-          accomplishDateWidth,
-          certificateInfo.ydirectionDate
-        );
-
-        const canvas = await html2canvas(canvasRef?.current);
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
-          orientation: 'landscape',
-        });
-
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-
-        pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
-
-        const file = pdf.output('blob');
-
-        console.log(file);
-
-        setCreatedCertificate(file);
-      };
-    }
+    // Stop loading
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    if (isOpen && !createdCertificate) {
-      drawCertificate();
+    if (isOpen) {
+      // wait until canvas is rendered before drawing
+      setTimeout(() => {
+        if (canvasRef) {
+          drawCertificate();
+        }
+      }, 0);
     }
-  }, [isOpen, uploadOption]);
+  }, [isOpen]);
 
   const onCloseBtnClick = () => {
-    onClose(false);
+    onClose();
   };
 
   const onSaveBtnClick = async () => {
-    const title = `${selectedEmployee.employeeName} ${today}`;
+    setIsLoading(true);
 
-    console.log(uploadedImage, createdCertificate, title);
+    try {
+      const body = {
+        certificate: createdCertificate,
+      };
+
+      await api(locale).saveCertificate(selectedEmployee.trainingEmpId, body);
+
+      toast.success(notif.saved);
+
+      // true is to pre-fetch employee again
+      onClose(true);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const onCertificateInputChange = (evt) => {
     // check if uploaded file is larger than 1MB
     if (evt.target.files[0]) {
       if (evt.target.files[0].size < 10000000) {
-        setUploadedImage(evt.target.files?.[0]);
+        setUploadedCertificate(evt.target.files?.[0]);
 
         setPreviewImageURL(URL.createObjectURL(evt.target.files[0]));
 
@@ -176,68 +220,74 @@ function PreviewCertificatePopup(props) {
       </DialogTitle>
 
       <DialogContent>
-        <FormControl>
-          <FormLabel>
-            {intl.formatMessage(messages.selectUploadOption)}
-          </FormLabel>
-          <RadioGroup
-            row
-            value={uploadOption}
-            onChange={(evt) => setUploadOption(evt.target.value)}
-            name='uploadOption'
-          >
-            <FormControlLabel
-              value='uploadCreated'
-              control={<Radio />}
-              label={intl.formatMessage(messages.uploadCreatedCertificate)}
-            />
-
-            <FormControlLabel
-              value='uploadFromDevice'
-              control={<Radio />}
-              label={intl.formatMessage(messages.uploadFromDevice)}
-            />
-          </RadioGroup>
-        </FormControl>
-
-        <Box sx={{ overflow: 'auto', mt: 2 }}>
-          <canvas
-            ref={canvasRef}
-            height='350px'
-            width='500px'
-            style={{
-              display: uploadOption === 'uploadCreated' ? 'block' : 'none',
-            }}
-          ></canvas>
-
-          {uploadOption === 'uploadFromDevice' && (
-            <>
-              <input
-                accept='image/*'
-                id='attachment-button-file'
-                type='file'
-                style={{ display: 'none' }}
-                onChange={onCertificateInputChange}
+        <PayRollLoader isLoading={isLoading}>
+          <FormControl>
+            <FormLabel>
+              {intl.formatMessage(messages.selectUploadOption)}
+            </FormLabel>
+            <RadioGroup
+              row
+              value={uploadOption}
+              onChange={(evt) => setUploadOption(evt.target.value)}
+              name='uploadOption'
+            >
+              <FormControlLabel
+                value='uploadCreated'
+                control={<Radio />}
+                label={intl.formatMessage(messages.uploadCreatedCertificate)}
               />
 
-              <label htmlFor='attachment-button-file'>
-                <Button variant='contained' component='span'>
-                  {intl.formatMessage(settingMessages.uploadCertificate)}
-                </Button>
-              </label>
+              <FormControlLabel
+                value='uploadFromDevice'
+                control={<Radio />}
+                label={intl.formatMessage(messages.uploadFromDevice)}
+              />
+            </RadioGroup>
+          </FormControl>
 
-              <br />
+          <Box sx={{ overflow: 'auto', mt: 2 }}>
+            <canvas
+              ref={canvasRef}
+              height='350px'
+              width='500px'
+              style={{
+                display: uploadOption === 'uploadCreated' ? 'block' : 'none',
+              }}
+            />
 
-              {uploadedImage && (
-                <img
-                  src={previewImageURL}
-                  alt='certificate'
-                  style={{ width: '500px', height: '350px', marginTop: '10px' }}
+            {uploadOption === 'uploadFromDevice' && (
+              <>
+                <input
+                  accept='image/*'
+                  id='attachment-button-file'
+                  type='file'
+                  style={{ display: 'none' }}
+                  onChange={onCertificateInputChange}
                 />
-              )}
-            </>
-          )}
-        </Box>
+
+                <label htmlFor='attachment-button-file'>
+                  <Button variant='contained' component='span'>
+                    {intl.formatMessage(settingMessages.uploadCertificate)}
+                  </Button>
+                </label>
+
+                <br />
+
+                {uploadedCertificate && (
+                  <img
+                    src={previewImageURL}
+                    alt='certificate'
+                    style={{
+                      width: '500px',
+                      height: '350px',
+                      marginTop: '10px',
+                    }}
+                  />
+                )}
+              </>
+            )}
+          </Box>
+        </PayRollLoader>
       </DialogContent>
 
       <DialogActions>

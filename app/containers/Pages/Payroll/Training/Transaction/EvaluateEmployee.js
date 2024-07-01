@@ -66,9 +66,7 @@ function EvaluateEmployee(props) {
     fetchNeededData();
   }, []);
 
-  const onFormSubmit = async (evt) => {
-    evt.preventDefault();
-
+  const fetchEmployeeByTraining = async () => {
     setIsLoading(true);
     try {
       const data = await api(locale).GetTrainingEmployee(training.id);
@@ -79,6 +77,12 @@ function EvaluateEmployee(props) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const onFormSubmit = async (evt) => {
+    evt.preventDefault();
+
+    fetchEmployeeByTraining();
   };
 
   const onAutoCompleteChange = (value, name) => {
@@ -237,8 +241,8 @@ function EvaluateEmployee(props) {
               variant="outlined"
               color="primary"
               component='a'
-              disabled={!row.testIsReview}
               target='_blank'
+              sx={{ textWrap: 'nowrap' }}
               href={`${ServerURL}Doc/EmpCertificate/${row.certificatePath}`}
             >
               {intl.formatMessage(messages.previewCertificate)}
@@ -257,9 +261,13 @@ function EvaluateEmployee(props) {
     ),
   };
 
-  const onPrintPreviewClose = () => {
+  const onPrintPreviewClose = (fetchEmployee = false) => {
     setIsPrintPreviewOpen(false);
     setSelectedEmployee(null);
+
+    if (fetchEmployee) {
+      fetchEmployeeByTraining();
+    }
   };
 
   return (
