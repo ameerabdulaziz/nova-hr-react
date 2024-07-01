@@ -182,6 +182,7 @@ function NamePopup(props) {
 
   const options = {
     selectableRows: "multiple",
+    selectToolbarPlacement: 'above',
     customToolbarSelect: (selectedRows) => (
       <div>
         <Grid container spacing={1} alignItems="flex-start" direction="row">

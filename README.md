@@ -63,7 +63,7 @@ npm run start:prod
 - [ ] Implement "react-window" or similar package for the **payroll** table
 - [ ] **Recruitment** - add pdf download instead of open in new tab
 - [ ] What is `apiKey` in **TrainingCenter** page
-- [ ] Employee Component: show search input with selected rows
+- [ ] **Employee Component**: show search input with selected rows
 
 # Docs 📖
 

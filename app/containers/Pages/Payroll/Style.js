@@ -11,6 +11,16 @@ const useMainStyles = makeStyles()((theme,_params,classes) => ({
     '& .mui-style-ltr-bfklix-rootTable':{marginTop:'0px'},
     '& .tss-1cdcmys-MUIDataTable-responsiveBase':{position: 'inherit !important'},
     boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important",
+
+    // Table toolbar
+    '.MuiPaper-root > .MuiPaper-root + .MuiToolbar-root' :{
+      borderRadius: 0,
+    },
+    // Table selection toolbar
+    '.MuiPaper-root > .MuiPaper-root' :{
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0
+    },
   },
 
  
