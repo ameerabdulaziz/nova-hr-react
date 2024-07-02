@@ -484,6 +484,10 @@ actualManPower: {
     id: `${scope}.update`,
     defaultMessage: 'update',
   },
+  topics: {
+    id: `${scope}.topics`,
+    defaultMessage: 'topics',
+  },
   depreciationPeriod: {
     id: `${scope}.depreciationPeriod`,
     defaultMessage: 'depreciationPeriod',
