@@ -153,7 +153,7 @@ function EvaluateTraining(props) {
         <Button
           variant="contained"
           color="primary"
-          disabled={row.testIsReview}
+          disabled={row.testDone}
           onClick={() => onTestBtnClick(row)}
         >
           {intl.formatMessage(messages.test)}

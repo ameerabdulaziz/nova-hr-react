@@ -220,7 +220,7 @@ function EvaluateEmployee(props) {
         <Button
           variant="contained"
           color="primary"
-          disabled={row.testIsReview}
+          disabled={row.testIsReview || !row.testDone}
           onClick={() => onReviewBtnClick(row)}
         >
           {intl.formatMessage(messages.reviewTest)}
@@ -229,7 +229,7 @@ function EvaluateEmployee(props) {
         <Button
           variant="contained"
           color="primary"
-          disabled={!row.testIsReview}
+          disabled={!(row.surveyDone && row.certificatePath === null)}
           onClick={() => onRepeatBtnClick(row)}
         >
           {intl.formatMessage(messages.repeatTest)}
@@ -273,12 +273,12 @@ function EvaluateEmployee(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
 
-      <PreviewCertificatePopup
+      {certificateInfo && <PreviewCertificatePopup
         isOpen={isPrintPreviewOpen}
         onClose={onPrintPreviewClose}
         selectedEmployee={selectedEmployee}
         certificateInfo={certificateInfo}
-      />
+      />}
 
       <PapperBlock whiteBg icon="border_color" desc="" title={pageTitle}>
         <form onSubmit={onFormSubmit}>
