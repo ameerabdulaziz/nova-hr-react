@@ -3058,6 +3058,7 @@
   "boilerplate.containers.Payroll.training.reviewTest": "Review Test",
   "boilerplate.containers.Payroll.training.repeatTest": "Repeat Test",
   "boilerplate.containers.Payroll.training.createTest": "Create Test",
+  "boilerplate.containers.Payroll.training.editTest": "Edit Test",
   "boilerplate.containers.Payroll.training.expirationDate": "Expiration Date",
   "boilerplate.containers.Payroll.training.courseExpiration": "Course Expiration",
   "boilerplate.containers.Payroll.training.notQualified": "Not Qualified",

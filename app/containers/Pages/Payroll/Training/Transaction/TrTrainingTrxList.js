@@ -1,19 +1,22 @@
+import { Button } from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/TrTrainingTrxListData';
 import messages from '../messages';
-import {  Button } from "@mui/material";
 
 function TrTrainingTrxList(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const pageTitle = localStorage.getItem('MenuName');
+
+  const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
@@ -92,6 +95,18 @@ function TrTrainingTrxList(props) {
     },
   ];
 
+  const onCreateTestBtnClick = (row) => {
+    if (row.templateId) {
+      history.push('/app/Pages/Training/TestTemplateCreate', {
+        id: row.templateId,
+      });
+    } else {
+      history.push('/app/Pages/Training/TestTemplateEdit', {
+        trainingId: row.id,
+      });
+    }
+  };
+
   const actions = {
     add: {
       url: '/app/Pages/Training/TrTrainingTrxListCreate',
@@ -103,12 +118,15 @@ function TrTrainingTrxList(props) {
       api: deleteRow,
     },
     extraActions: (row) => (
-      <>
-        <Button variant="contained" color="primary">
-          {intl.formatMessage(messages.createTest)}
-        </Button>
-       
-      </>
+      <Button
+        variant={row.templateId ? 'outlined' : 'contained'}
+        color='primary'
+        onClick={() => onCreateTestBtnClick(row)}
+      >
+        {intl.formatMessage(
+          row.templateId ? messages.editTest : messages.createTest
+        )}
+      </Button>
     ),
   };
 
@@ -121,7 +139,6 @@ function TrTrainingTrxList(props) {
       columns={columns}
       actions={actions}
     />
-
   );
 }
 

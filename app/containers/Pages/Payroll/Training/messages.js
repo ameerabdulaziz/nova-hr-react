@@ -175,6 +175,10 @@ export default defineMessages({
     id: `${scope}.createTest`,
     defaultMessage: "createTest",
   },
+  editTest: {
+    id: `${scope}.editTest`,
+    defaultMessage: "editTest",
+  },
   expirationDate: {
     id: `${scope}.expirationDate`,
     defaultMessage: "expirationDate",
