@@ -70,11 +70,18 @@ function QuestionScreen(props) {
 
   const totalGrades = useMemo(() => {
     const reducedAnswers = questionsAnswers.reduce(
-      (prev, item) => ({
-        ...prev,
-        answerGrade: prev.answerGrade + parseInt(item.answerGrade, 10),
-        questionGrade: prev.questionGrade + parseInt(item.questionGrade, 10),
-      }),
+      (prev, item) => {
+        const answerGrade = prev.answerGrade
+          + (item.answerGrade ? parseInt(item.answerGrade, 10) : 0);
+
+        const questionGrade = prev.questionGrade + parseInt(item.questionGrade, 10);
+
+        return {
+          ...prev,
+          answerGrade,
+          questionGrade,
+        };
+      },
       { answerGrade: 0, questionGrade: 0 }
     );
 
@@ -165,7 +172,7 @@ function QuestionScreen(props) {
                         <Grid item xs={6} md={2}>
                           <TextField
                             name='enName'
-                            value={questionsAnswers[index].answerGrade}
+                            value={questionsAnswers[index].answerGrade ?? ''}
                             label={intl.formatMessage(messages.grade)}
                             fullWidth
                             disabled

@@ -13,7 +13,12 @@ function QuestionScreen(props) {
   const { classes } = useStyles();
 
   const {
-    intl, surveyInfo, onFinish, questionsAnswers, setQuestionsAnswers, questionList
+    intl,
+    surveyInfo,
+    onFinish,
+    questionsAnswers,
+    setQuestionsAnswers,
+    questionList,
   } = props;
 
   const onFinishSurveyBtnClick = () => {
@@ -45,7 +50,14 @@ function QuestionScreen(props) {
         </Box>
       </Grid>
 
-      {surveyInfo.showStyle === 1 && (
+      {surveyInfo.showStyle === 2 ? (
+        <QuestionsPanel
+          questionList={questionList}
+          questionsAnswers={questionsAnswers}
+          setQuestionsAnswers={setQuestionsAnswers}
+          onFinish={onFinish}
+        />
+      ) : (
         <QuestionStepper
           questionList={questionList}
           questionsAnswers={questionsAnswers}
@@ -53,17 +65,6 @@ function QuestionScreen(props) {
           onFinish={onFinish}
         />
       )}
-
-      {
-        surveyInfo.showStyle === 2 && (
-          <QuestionsPanel
-            questionList={questionList}
-            questionsAnswers={questionsAnswers}
-            setQuestionsAnswers={setQuestionsAnswers}
-            onFinish={onFinish}
-          />
-        )
-      }
     </Grid>
   );
 }
