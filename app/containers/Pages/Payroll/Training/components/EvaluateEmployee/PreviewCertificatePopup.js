@@ -181,7 +181,7 @@ function PreviewCertificatePopup(props) {
 
     try {
       const body = {
-        certificate: createdCertificate,
+        certificate: uploadOption === 'uploadCreated' ? createdCertificate : uploadedCertificate,
       };
 
       await api(locale).saveCertificate(selectedEmployee.trainingEmpId, body);
@@ -258,7 +258,7 @@ function PreviewCertificatePopup(props) {
             {uploadOption === 'uploadFromDevice' && (
               <>
                 <input
-                  accept='image/*'
+                  accept='image/*, application/pdf'
                   id='attachment-button-file'
                   type='file'
                   style={{ display: 'none' }}
