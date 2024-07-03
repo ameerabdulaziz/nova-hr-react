@@ -279,4 +279,20 @@ export default defineMessages({
     id: `${scope}.uploadCreatedCertificate`,
     defaultMessage: 'uploadCreatedCertificate',
   },
+  employeeSurvey: {
+    id: `${scope}.employeeSurvey`,
+    defaultMessage: 'employeeSurvey',
+  },
+  trainerSurvey: {
+    id: `${scope}.trainerSurvey`,
+    defaultMessage: 'trainerSurvey',
+  },
+  viewTest: {
+    id: `${scope}.viewTest`,
+    defaultMessage: 'viewTest',
+  },
+  testDone: {
+    id: `${scope}.testDone`,
+    defaultMessage: 'testDone',
+  },
 });
