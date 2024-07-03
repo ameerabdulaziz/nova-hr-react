@@ -1,7 +1,6 @@
 import {
   Box, Chip, Popover, Stack, Typography
 } from '@mui/material';
-import Divider from '@mui/material/Divider';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -106,34 +105,40 @@ function TrainingCalender(props) {
 
   const getCurrentDayLabel = (day) => {
     if (currentDate.getDate() === day) {
-      return (
-        <Chip
-          size='small'
-          label={day}
-        
-        />
-      );
+      return <Chip size='small' label={day} />;
     }
 
     return <div> {day}</div>;
   };
 
-  const getDividerByDay = (day) => {
+  const getTrainingByDay = (day) => {
     if (!groupedDocuments[day]) {
       return null;
     }
 
     return (
-      <Divider
-        orientation='vertical'
-        flexItem
-        sx={{
-          borderColor: 'rgb(156, 39, 176)',
-          height: '20px',
-          borderWidth: '2px',
-          cursor: 'pointer',
-        }}
-      />
+      <Stack spacing='3px'>
+        {groupedDocuments[day].slice(0, 3).map((training) => (
+          <Typography
+            key={training.id}
+            sx={{
+              color: '#424242',
+              fontSize: '10px',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+              width: '100px',
+            }}
+          >
+            {locale === 'en' ? training.arName : training.enName}
+          </Typography>
+        ))}
+        {groupedDocuments[day].length > 3 ? (
+          <Typography sx={{ color: '#424242', fontSize: '10px' }}>
+            ...
+          </Typography>
+        ) : null}
+      </Stack>
     );
   };
 
@@ -191,48 +196,46 @@ function TrainingCalender(props) {
                 [day]: evt.currentTarget,
               }));
             }}
-            sx={{cursor: 'pointer'}}
+            sx={{ cursor: 'pointer' }}
           >
             {getCurrentDayLabel(day)}
 
+            {getTrainingByDay(day)}
+
             {groupedDocuments[day] && (
-              <>
-                <Stack spacing='3px' direction='row'>
-                  {getDividerByDay(day)}
-                </Stack>
-
-                <Popover
-                  anchorEl={anchorExtraEl[day]}
-                  open={Boolean(anchorExtraEl[day])}
-                  onClose={() => setAnchorExtraEl((prev) => ({ ...prev, [day]: null }))
-                  }
+              <Popover
+                anchorEl={anchorExtraEl[day]}
+                open={Boolean(anchorExtraEl[day])}
+                onClose={() => setAnchorExtraEl((prev) => ({ ...prev, [day]: null }))
+                }
+              >
+                <Stack
+                  sx={{
+                    padding: '10px',
+                    maxHeight: '500px',
+                    overflowY: 'auto',
+                  }}
+                  direction='column'
+                  spacing='5px'
                 >
-                  <Stack
-                    sx={{
-                      padding: '10px',
-                      maxHeight: '500px',
-                      overflowY: 'auto',
-                    }}
-                    direction='column'
-                    spacing='5px'
-                  >
-                    {groupedDocuments[day].map((item, index) => (
-                      <Stack
-                        direction='row'
-                        alignItems='center'
-                        spacing={1}
-                        key={index}
-                      >
-                        <Typography variant='body1'>{locale === 'en' ? item.arName : item.enName}</Typography>
+                  {groupedDocuments[day].map((item, index) => (
+                    <Stack
+                      direction='row'
+                      alignItems='center'
+                      spacing={1}
+                      key={index}
+                    >
+                      <Typography variant='body1'>
+                        {locale === 'en' ? item.arName : item.enName}
+                      </Typography>
 
-                        <Typography variant='body2' color='gray'>
-                          {item.courseName}
-                        </Typography>
-                      </Stack>
-                    ))}
-                  </Stack>
-                </Popover>
-              </>
+                      <Typography variant='body2' color='gray'>
+                        {item.courseName}
+                      </Typography>
+                    </Stack>
+                  ))}
+                </Stack>
+              </Popover>
             )}
           </Box>
         </TableCell>
@@ -241,6 +244,7 @@ function TrainingCalender(props) {
 
     // Add next month's days
     const remainingDays = 7 - (days.length % 7);
+
     for (let i = 0; i < remainingDays; i++) {
       days.push(
         <TableCell
@@ -294,7 +298,10 @@ function TrainingCalender(props) {
             <TableHead>
               <TableRow>
                 {dayNames.map((day, dayIndex) => (
-                  <TableCell key={dayIndex} sx={{border: '1px solid #e0f2f1', padding: '5px 10px'}} >
+                  <TableCell
+                    key={dayIndex}
+                    sx={{ border: '1px solid #e0f2f1', padding: '5px 10px' }}
+                  >
                     {day}
                   </TableCell>
                 ))}
