@@ -2682,3 +2682,10 @@ export const EmployeeTrainingReport = loadable(
     fallback: <Loading />,
   }
 );
+
+export const TrainingAttendance = loadable(
+  () => import('./Pages/Payroll/Training/reports/TrainingAttendance'),
+  {
+    fallback: <Loading />,
+  }
+);

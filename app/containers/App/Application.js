@@ -416,6 +416,7 @@ import {
   TrainingTest,
   ReviewTest,
   EmployeeTrainingReport,
+  TrainingAttendance,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -2199,6 +2200,11 @@ function Application(props) {
         <Route
           path='/app/Pages/Training/EmployeeTrainingReport'
           component={EmployeeTrainingReport}
+        />
+
+        <Route
+          path='/app/Pages/Training/TrainingAttendance'
+          component={TrainingAttendance}
         />
 
         {/* Default */}
