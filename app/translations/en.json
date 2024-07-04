@@ -783,6 +783,7 @@
   "boilerplate.containers.Payroll.confirmationMess": "Confirmation Message",
 
   "boilerplate.containers.Payroll.DateNotValid": "Date Not Valid",
+  "boilerplate.containers.Payroll.fromDateAndToDateIsRequired": "From Date And To Date Is Required",
 
   "boilerplate.containers.Payroll.VacationName": "Leave",
   "boilerplate.containers.Payroll.Actions": "Actions",

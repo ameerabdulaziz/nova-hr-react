@@ -820,6 +820,7 @@
   "boilerplate.containers.Payroll.confirmationMess": "رسالة تأكيد",
 
   "boilerplate.containers.Payroll.DateNotValid": "التاريخ غير صحيح",
+  "boilerplate.containers.Payroll.fromDateAndToDateIsRequired": "من التاريخ و الي التاريخ مطلوب",
 
   "boilerplate.containers.Payroll.view": "عرض",
   "boilerplate.containers.Payroll.attachment": "المرفق",

@@ -2,18 +2,16 @@ import { Button, Grid } from '@mui/material';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
 import { formateDate } from '../../helpers';
+import payrollMessages from '../../messages';
 import API from '../api/LeaveReportData';
 import messages from '../messages';
-
-import { format } from "date-fns";
-import { toast } from "react-hot-toast";
-import Payrollmessages from "../../messages";
 
 function LeaveReport(props) {
   const { intl } = props;
@@ -31,15 +29,7 @@ function LeaveReport(props) {
     OrganizationId: '',
   });
 
-  const [DateError, setDateError] = useState({});
-
-
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
-
-
+  const [dateError, setDateError] = useState({});
 
   const [isLoading, setIsLoading] = useState(true);
   const [columns, setColumns] = useState([
@@ -57,7 +47,7 @@ function LeaveReport(props) {
     },
     {
       name: 'employeeId',
-      label: intl.formatMessage(Payrollmessages.employeeId),
+      label: intl.formatMessage(payrollMessages.employeeId),
       options: {
         filter: false,
         display: false,
@@ -68,7 +58,7 @@ function LeaveReport(props) {
 
     {
       name: 'employeeCode',
-      label: intl.formatMessage(Payrollmessages.employeeCode),
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
     {
       name: 'employeeName',
@@ -77,9 +67,6 @@ function LeaveReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'annCurrentBa',
@@ -96,20 +83,23 @@ function LeaveReport(props) {
   ]);
 
   const fetchTableData = async () => {
-
-     // used to stop call api if user select wrong date
-     if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+    // used to stop call api if user select wrong date
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
+    if (!formInfo.FromDate || !formInfo.ToDate) {
+      toast.error(
+        intl.formatMessage(payrollMessages.fromDateAndToDateIsRequired)
+      );
+      return;
+    }
 
     try {
       setIsLoading(true);
       const formData = {
         ...formInfo,
-        // FromDate: dateFormatFun(formInfo.FromDate),
-        // ToDate: dateFormatFun(formInfo.ToDate),
         FromDate: formateDate(formInfo.FromDate),
         ToDate: formateDate(formInfo.ToDate),
       };
@@ -163,8 +153,8 @@ function LeaveReport(props) {
               setsearchData={setFormInfo}
               searchData={formInfo}
               setIsLoading={setIsLoading}
-              DateError={DateError}
-               setDateError={setDateError}
+              DateError={dateError}
+              setDateError={setDateError}
             />
           </Grid>
 
