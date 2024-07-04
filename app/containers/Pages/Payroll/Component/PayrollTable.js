@@ -38,6 +38,7 @@ import payrollMessages from '../messages';
 import AlertPopup from './AlertPopup';
 import PayRollLoader from './PayRollLoader';
 import PrintableTable from './PayrollTable/PrintableTable';
+import PrintableFiltersTable from './PayrollTable/PrintableFiltersTable';
 
 // Determine if render loader of just table without loader
 function Loader(props) {
@@ -60,6 +61,7 @@ function PayrollTable(props) {
     showLoader,
     title,
     actions,
+    filterHighlights,
   } = props;
   const { classes } = useStyles();
   const history = useHistory();
@@ -664,7 +666,7 @@ function PayrollTable(props) {
           <img src={company?.logo} alt='' height={45} />
         </Stack>
 
-        {options.printHighlights}
+        <PrintableFiltersTable highlights={filterHighlights} />
 
         {/* Table pdf */}
         <PrintableTable
@@ -697,6 +699,12 @@ PayrollTable.propTypes = {
   showLoader: PropTypes.bool,
   title: PropTypes.string,
   actions: PropTypes.object,
+  filterHighlights: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 PayrollTable.defaultProps = {
@@ -707,6 +715,7 @@ PayrollTable.defaultProps = {
   actions: {},
   showLoader: false,
   title: '',
+  filterHighlights: [],
 };
 
 Loader.propTypes = {

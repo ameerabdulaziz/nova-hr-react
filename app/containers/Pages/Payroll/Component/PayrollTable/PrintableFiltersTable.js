@@ -6,8 +6,6 @@ import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 
-const COLUMNS_COUNT = 2;
-
 const StyledTableThCell = styled(TableCell)(({ theme }) => ({
   padding: '0 10px',
   border: '1px solid black',
@@ -25,15 +23,15 @@ const StyledTableCell = styled(TableCell)(() => ({
   height: '22px'
 }));
 
-function PrintHighlights(props) {
-  const { highlights } = props;
+function PrintableFiltersTable(props) {
+  const { highlights, columnsCount } = props;
 
   const pairs = useMemo(() => {
     const result = [];
 
-    // Split highlights into pairs of COLUMNS_COUNT cells
-    for (let i = 0; i < highlights.length; i += COLUMNS_COUNT) {
-      result.push(highlights.slice(i, i + COLUMNS_COUNT));
+    // Split highlights into pairs of columnsCount cells
+    for (let i = 0; i < highlights.length; i += columnsCount) {
+      result.push(highlights.slice(i, i + columnsCount));
     }
     return result;
   }, [highlights]);
@@ -69,13 +67,18 @@ function PrintHighlights(props) {
   );
 }
 
-PrintHighlights.propTypes = {
+PrintableFiltersTable.defaultProps = {
+  columnsCount: 2,
+};
+
+PrintableFiltersTable.propTypes = {
   highlights: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
     })
   ).isRequired,
+  columnsCount: PropTypes.number,
 };
 
-export default PrintHighlights;
+export default PrintableFiltersTable;

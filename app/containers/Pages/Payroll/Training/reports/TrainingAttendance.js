@@ -12,7 +12,6 @@ import PayrollTable from '../../Component/PayrollTable';
 import { getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/TrainingAttendanceData';
-import PrintHighlights from '../components/TrainingAttendance/PrintHighlights';
 import messages from '../messages';
 
 function TrainingAttendance(props) {
@@ -261,9 +260,7 @@ function TrainingAttendance(props) {
         title=''
         data={tableData}
         columns={columns}
-        options={{
-          printHighlights: <PrintHighlights highlights={highlights} />,
-        }}
+        filterHighlights={highlights}
       />
     </PayRollLoader>
   );
