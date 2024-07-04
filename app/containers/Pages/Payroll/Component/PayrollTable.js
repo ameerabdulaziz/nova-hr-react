@@ -71,6 +71,9 @@ function PayrollTable(props) {
   // Company info for employee
   const company = useSelector((state) => state.authReducer.companyInfo);
 
+  // Sign-in user
+  const user = useSelector((state) => state.authReducer.user);
+
   // Ref for print container
   const printContainerRef = useRef(null);
 
@@ -636,9 +639,19 @@ function PayrollTable(props) {
           },
         }}
       >
+        {/* Pdf Header with print date and sign-in user */}
+        <Stack mb={1}>
+          <Typography variant='subtitle2' sx={{ fontSize: '10px' }} color='gray'>
+            {today}
+          </Typography>
+
+          <Typography variant='subtitle2' sx={{ fontSize: '10px' }} color='gray'>
+            {user?.name}
+          </Typography>
+        </Stack>
+
         {/* Pdf Header with company logo */}
         <Stack
-          spacing={2}
           direction='row'
           justifyContent='space-between'
           alignItems='center'
