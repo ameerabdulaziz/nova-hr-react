@@ -466,6 +466,16 @@ The `columns` prop in the `PayrollTable` component is an array of objects, where
   - **print** (boolean, default: true): Enable or disable printing for this column.
   - **customBodyRender** (function, optional): A custom rendering function for the cell content. This function allows you to customize how the data in the column is displayed.
 
+### Options
+
+The `options` prop in the `PayrollTable` component is an object containing settings for configuring the table. It includes settings such as:
+
+- **viewColumns** (boolean, default: true): Enable or disable viewColumns for the table.
+- **print** (boolean, default: true): Enable or disable printing for the table.
+- **download** (boolean, default: true): Enable or disable downloading for the table.
+- **customToolbar** : A custom toolbar function for the table. This function allows you to add custom controls or buttons to the table.
+- **printHighlights**: A content that show on print before table data
+
 ### Data
 
 The `data` prop in the `PayrollTable` component represents the actual data that you want to display in the table. It expects an array of objects, where each object corresponds to a row in the table, and the properties of the object represent the values for each column.

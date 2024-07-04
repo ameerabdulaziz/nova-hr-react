@@ -12,6 +12,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/TrainingAttendanceData';
+import PrintHighlights from '../components/TrainingAttendance/PrintHighlights';
 import messages from '../messages';
 
 function TrainingAttendance(props) {
@@ -23,6 +24,7 @@ function TrainingAttendance(props) {
   const [employeeList, setEmployeeList] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
 
+  const [highlights, setHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
 
   const pageTitle = localStorage.getItem('MenuName');
@@ -52,6 +54,8 @@ function TrainingAttendance(props) {
 
   const [columns, setColumns] = useState([...INIT_COLUMN]);
 
+  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
+
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
@@ -62,6 +66,42 @@ function TrainingAttendance(props) {
       };
 
       const dataApi = await API(locale).getList(formInfo.trainingId, params);
+
+      const result = [];
+
+      const employee = getAutoCompleteValue(employeeList, formInfo.employeeId);
+      const training = getAutoCompleteValue(trainingList, formInfo.trainingId);
+      const organization = getAutoCompleteValue(
+        organizationList,
+        formInfo.organizationId
+      );
+
+      const employeeLabel = intl.formatMessage(messages.employeeName);
+      const trainingLabel = intl.formatMessage(messages.trainingName);
+      const organizationLabel = intl.formatMessage(messages.organizationName);
+
+      if (employee) {
+        result.push({
+          label: employeeLabel,
+          value: employee.name,
+        });
+      }
+
+      if (training) {
+        result.push({
+          label: trainingLabel,
+          value: training.name,
+        });
+      }
+
+      if (organization) {
+        result.push({
+          label: organizationLabel,
+          value: organization.name,
+        });
+      }
+
+      setHighlights(result);
 
       if (dataApi?.length > 0) {
         const clonedColumn = [...INIT_COLUMN];
@@ -124,8 +164,6 @@ function TrainingAttendance(props) {
 
     fetchTableData();
   };
-
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   const onAutoCompleteChange = (value, name) => {
     setFormInfo((prev) => ({
@@ -223,6 +261,9 @@ function TrainingAttendance(props) {
         title=''
         data={tableData}
         columns={columns}
+        options={{
+          printHighlights: <PrintHighlights highlights={highlights} />,
+        }}
       />
     </PayRollLoader>
   );

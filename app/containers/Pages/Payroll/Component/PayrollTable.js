@@ -222,8 +222,8 @@ function PayrollTable(props) {
     setRowsSelected([]);
   }, [data]);
 
-  const wrapValueInPre = (value, options) => {
-    if (options?.noWrap) {
+  const wrapValueInPre = (value, preOptions) => {
+    if (preOptions?.noWrap) {
       return value;
     }
 
@@ -650,6 +650,8 @@ function PayrollTable(props) {
 
           <img src={company?.logo} alt='' height={45} />
         </Stack>
+
+        {options.printHighlights}
 
         {/* Table pdf */}
         <PrintableTable
