@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
-import { getCheckboxIcon } from '../../helpers';
+import { getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/TrainingAttendanceData';
 import messages from '../messages';
@@ -23,7 +23,7 @@ function TrainingAttendance(props) {
   const [employeeList, setEmployeeList] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
 
-  const [highlights, setHighlights] = useState([]);
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
 
   const pageTitle = localStorage.getItem('MenuName');
@@ -53,8 +53,6 @@ function TrainingAttendance(props) {
 
   const [columns, setColumns] = useState([...INIT_COLUMN]);
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
-
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
@@ -66,7 +64,7 @@ function TrainingAttendance(props) {
 
       const dataApi = await API(locale).getList(formInfo.trainingId, params);
 
-      const result = [];
+      const highlights = [];
 
       const employee = getAutoCompleteValue(employeeList, formInfo.employeeId);
       const training = getAutoCompleteValue(trainingList, formInfo.trainingId);
@@ -75,32 +73,28 @@ function TrainingAttendance(props) {
         formInfo.organizationId
       );
 
-      const employeeLabel = intl.formatMessage(messages.employeeName);
-      const trainingLabel = intl.formatMessage(messages.trainingName);
-      const organizationLabel = intl.formatMessage(messages.organizationName);
-
       if (employee) {
-        result.push({
-          label: employeeLabel,
+        highlights.push({
+          label: intl.formatMessage(messages.employeeName),
           value: employee.name,
         });
       }
 
       if (training) {
-        result.push({
-          label: trainingLabel,
+        highlights.push({
+          label: intl.formatMessage(messages.trainingName),
           value: training.name,
         });
       }
 
       if (organization) {
-        result.push({
-          label: organizationLabel,
+        highlights.push({
+          label: intl.formatMessage(messages.organizationName),
           value: organization.name,
         });
       }
 
-      setHighlights(result);
+      setFilterHighlights(highlights);
 
       if (dataApi?.length > 0) {
         const clonedColumn = [...INIT_COLUMN];
@@ -260,7 +254,7 @@ function TrainingAttendance(props) {
         title=''
         data={tableData}
         columns={columns}
-        filterHighlights={highlights}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );

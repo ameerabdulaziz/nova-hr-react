@@ -207,6 +207,17 @@ function getDefaultYearAndMonth(years = []) {
   return { yearId, monthId };
 }
 
+/**
+ * Returns the item from the given list that matches the specified key, or null if no match is found.
+ *
+ * @param {Array} list - The array of items to search through.
+ * @param {String | Number | null} key - The key to search for in the items.
+ * @return {Object | null} The item from the list that matches the key, or null if no match is found.
+ */
+function getAutoCompleteValue(list, key) {
+  return list.find((item) => item.id === key) ?? null;
+}
+
 export {
   extractBirthDayFromIdentityNumber,
   formateDate,
@@ -216,5 +227,6 @@ export {
   getFormData,
   toArabicDigits,
   uuid,
-  validateEmail
+  validateEmail,
+  getAutoCompleteValue
 };

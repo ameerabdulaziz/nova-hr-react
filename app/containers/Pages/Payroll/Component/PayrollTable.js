@@ -74,6 +74,9 @@ function PayrollTable(props) {
   // Company info for employee
   const company = useSelector((state) => state.authReducer.companyInfo);
 
+  // Get app locale
+  const locale = useSelector((state) => state.language.locale);
+
   // Sign-in user
   const user = useSelector((state) => state.authReducer.user);
 
@@ -649,7 +652,7 @@ function PayrollTable(props) {
           </Typography>
 
           <Typography variant='subtitle2' sx={{ fontSize: '10px' }} color='gray'>
-            {user?.name}
+            {locale === 'en' ? user?.enName : user?.arName}
           </Typography>
         </Stack>
 

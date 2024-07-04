@@ -20,7 +20,7 @@ import { useReactToPrint } from 'react-to-print';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
-import { formateDate, formatNumber, getCheckboxIcon } from '../../helpers';
+import { formateDate, formatNumber, getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeTrainingReportData';
 import SurveyTemplatePrint from '../components/EmployeeTrainingReport/SurveyTemplatePrint';
@@ -41,6 +41,7 @@ function EmployeeTrainingReport(props) {
   const [trainingList, setTrainingList] = useState([]);
   const [courseList, setCourseList] = useState([]);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [dateError, setDateError] = useState({});
 
@@ -87,6 +88,41 @@ function EmployeeTrainingReport(props) {
 
       const response = await api(locale).getTrainingEmployee(params);
       setTableData(response);
+
+      const highlights = [];
+
+      const course = getAutoCompleteValue(courseList, formInfo.courseId);
+      const training = getAutoCompleteValue(trainingList, formInfo.trainingId);
+
+      if (course) {
+        highlights.push({
+          label: intl.formatMessage(messages.courseName),
+          value: course.name,
+        });
+      }
+
+      if (training) {
+        highlights.push({
+          label: intl.formatMessage(messages.trainingName),
+          value: training.name,
+        });
+      }
+
+      if (formInfo.fromDate) {
+        highlights.push({
+          label: intl.formatMessage(payrollMessages.fromdate),
+          value: formateDate(formInfo.fromDate),
+        });
+      }
+
+      if (formInfo.toDate) {
+        highlights.push({
+          label: intl.formatMessage(payrollMessages.todate),
+          value: formateDate(formInfo.toDate),
+        });
+      }
+
+      setFilterHighlights(highlights);
     } catch (error) {
       //
     } finally {
@@ -135,8 +171,6 @@ function EmployeeTrainingReport(props) {
       [name]: value !== null ? value.id : null,
     }));
   };
-
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   const columns = [
     {
@@ -541,6 +575,7 @@ function EmployeeTrainingReport(props) {
         data={tableData}
         columns={columns}
         actions={actions}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );

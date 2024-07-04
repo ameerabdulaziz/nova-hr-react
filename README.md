@@ -575,20 +575,19 @@ If you want to add filter as table header, you can include the options object wi
 
 ```jsx
 // Set filter highlights
-const [highlights, setHighlights] = useState([]);
+const [filterHighlights, setFilterHighlights] = useState([]);
 
 // Add filter highlights
 const result = [];
 const employee = getAutoCompleteValue(employeeList, formInfo.employeeId);
-const employeeLabel = intl.formatMessage(messages.employeeName);
 
 if (employee) {
   result.push({
-    label: employeeLabel,
+    label: intl.formatMessage(messages.employeeName),
     value: employee.name,
   });
 }
-setHighlights(result);
+setFilterHighlights(result);
 
 // Pass the highlights to the PayrollTable component
 <PayrollTable
@@ -596,6 +595,6 @@ setHighlights(result);
   title=''
   data={tableData}
   columns={columns}
-  filterHighlights={highlights}
+  filterHighlights={filterHighlights}
 />
 ```
