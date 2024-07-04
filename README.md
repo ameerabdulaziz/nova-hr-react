@@ -474,7 +474,6 @@ The `options` prop in the `PayrollTable` component is an object containing setti
 - **print** (boolean, default: true): Enable or disable printing for the table.
 - **download** (boolean, default: true): Enable or disable downloading for the table.
 - **customToolbar** : A custom toolbar function for the table. This function allows you to add custom controls or buttons to the table.
-- **printHighlights**: A content that show on print before table data
 
 ### Data
 
@@ -567,3 +566,36 @@ const columns = [
 In this example, the **options** object is added to the custom `column` configuration, and `print: false` is explicitly set to ensure that this column is excluded when printing the table.
 
 Adjust the name and label properties based on your specific requirements for this custom column. The `customBodyRender` function allows you to define the custom rendering logic for the content of this column.
+
+### Filter Highlights
+
+If you want to add filter as table header, you can include the options object within the column configuration.
+
+> Note: Table column count is 2 by default, you can change it using **filterHighlightsColumn** props.
+
+```jsx
+// Set filter highlights
+const [highlights, setHighlights] = useState([]);
+
+// Add filter highlights
+const result = [];
+const employee = getAutoCompleteValue(employeeList, formInfo.employeeId);
+const employeeLabel = intl.formatMessage(messages.employeeName);
+
+if (employee) {
+  result.push({
+    label: employeeLabel,
+    value: employee.name,
+  });
+}
+setHighlights(result);
+
+// Pass the highlights to the PayrollTable component
+<PayrollTable
+  isLoading={isLoading}
+  title=''
+  data={tableData}
+  columns={columns}
+  filterHighlights={highlights}
+/>
+```

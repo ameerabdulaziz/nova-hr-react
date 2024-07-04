@@ -62,6 +62,7 @@ function PayrollTable(props) {
     title,
     actions,
     filterHighlights,
+    filterHighlightsColumn,
   } = props;
   const { classes } = useStyles();
   const history = useHistory();
@@ -666,7 +667,7 @@ function PayrollTable(props) {
           <img src={company?.logo} alt='' height={45} />
         </Stack>
 
-        <PrintableFiltersTable highlights={filterHighlights} />
+        <PrintableFiltersTable highlights={filterHighlights} columnsCount={filterHighlightsColumn} />
 
         {/* Table pdf */}
         <PrintableTable
@@ -705,6 +706,7 @@ PayrollTable.propTypes = {
       value: PropTypes.string.isRequired,
     })
   ),
+  filterHighlightsColumn: PropTypes.number,
 };
 
 PayrollTable.defaultProps = {
@@ -716,6 +718,7 @@ PayrollTable.defaultProps = {
   showLoader: false,
   title: '',
   filterHighlights: [],
+  filterHighlightsColumn: 2,
 };
 
 Loader.propTypes = {
