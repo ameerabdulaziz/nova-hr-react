@@ -1,6 +1,8 @@
 import React, { Fragment,useState ,useEffect} from "react";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import { useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
@@ -42,6 +44,7 @@ import {
   cyan,
   teal,
 } from "@mui/material/colors";
+import { NotificationsActive } from "@mui/icons-material";
 
 const colors = [
   red[500],
@@ -259,7 +262,7 @@ function PerformanceChartWidget2(props) {
                   {vacations.length > 0 ? (
                     <List>
                       {vacations.map((item, index) => (
-                        <Fragment>
+                        <Fragment key={index.toString()} >
                           <ListItem>
                             <ListItemAvatar>
                               <Avatar
