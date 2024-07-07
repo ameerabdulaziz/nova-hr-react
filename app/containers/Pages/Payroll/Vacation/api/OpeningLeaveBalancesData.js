@@ -4,10 +4,10 @@ const vacationTrxData = (locale) => {
   const Apis = {};
 
   Apis.GetReport = async (params) => {
-    const queryString = new URLSearchParams(params);
-
     const data = await axiosInstance.get(
-      `VacReport/GetVacOpenBal/${locale}?${queryString.toString()}`
+      `VacReport/GetVacOpenBal/${locale}`, {
+        params
+      }
     );
 
     return data.data;

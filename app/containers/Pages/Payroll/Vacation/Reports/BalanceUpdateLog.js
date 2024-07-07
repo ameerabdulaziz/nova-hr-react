@@ -2,18 +2,17 @@ import { Button, Grid } from '@mui/material';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
-import { formateDate } from '../../helpers';
+import { formateDate, getAutoCompleteValue } from '../../helpers';
+import payrollMessages from '../../messages';
 import API from '../api/BalanceUpdateLogData';
 import messages from '../messages';
-
-import { format } from "date-fns";
-import { toast } from "react-hot-toast";
-import Payrollmessages from "../../messages";
 
 function BalanceUpdateLog(props) {
   const { intl } = props;
@@ -22,7 +21,12 @@ function BalanceUpdateLog(props) {
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
+
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
@@ -30,12 +34,67 @@ function BalanceUpdateLog(props) {
     EmployeeId: '',
     OrganizationId: '',
     EmpStatusId: 1,
+    BranchId: '',
   });
 
-  const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [dateError, setDateError] = useState({});
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
+    const organization = getAutoCompleteValue(
+      organizationList,
+      formInfo.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
 
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.Organization),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(messages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (formInfo.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(formInfo.FromDate),
+      });
+    }
+
+    if (formInfo.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(formInfo.ToDate),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const columns = [
     {
@@ -61,15 +120,18 @@ function BalanceUpdateLog(props) {
     {
       name: 'trxDate',
       label: intl.formatMessage(messages.fromDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'tRxDesc',
       label: intl.formatMessage(messages.description),
       options: {
-        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+        customBodyRender: (value) => (value ? (
+          <div style={{ maxWidth: '200px', width: 'max-content' }}>
+            {value}
+          </div>
+        ) : (
+          ''
+        )),
       },
     },
     {
@@ -84,20 +146,24 @@ function BalanceUpdateLog(props) {
       name: 'notes',
       label: intl.formatMessage(messages.modificationReason),
       options: {
-        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+        customBodyRender: (value) => (value ? (
+          <div style={{ maxWidth: '200px', width: 'max-content' }}>
+            {value}
+          </div>
+        ) : (
+          ''
+        )),
       },
     },
   ];
 
   const fetchTableData = async () => {
-
-     // used to stop call api if user select wrong date
-     if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+    // used to stop call api if user select wrong date
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
-    
     try {
       setIsLoading(true);
       const formData = {
@@ -106,13 +172,11 @@ function BalanceUpdateLog(props) {
         ToDate: formateDate(formInfo.ToDate),
       };
 
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
-      });
-
       const dataApi = await API(locale).GetReport(formData);
 
       setTableData(dataApi);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -120,8 +184,31 @@ function BalanceUpdateLog(props) {
     }
   };
 
+  async function fetchNeededData() {
+    try {
+      setIsLoading(true);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+      await fetchTableData();
+    } catch (error) {
+      setIsLoading(false);
+    } finally {
+      //
+    }
+  }
+
   useEffect(() => {
-    fetchTableData();
+    fetchNeededData();
   }, []);
 
   const onSearchBtnClick = () => {
@@ -130,26 +217,25 @@ function BalanceUpdateLog(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
               setIsLoading={setIsLoading}
-              DateError={DateError}
-               setDateError={setDateError}
+              DateError={dateError}
+              setDateError={setDateError}
             />
           </Grid>
 
           <Grid item md={2}>
             <Button
               variant='contained'
-              size='medium'
               color='primary'
               onClick={onSearchBtnClick}
             >
-              <FormattedMessage {...messages.search} />
+              {intl.formatMessage(messages.search)}
             </Button>
           </Grid>
         </Grid>
@@ -160,6 +246,7 @@ function BalanceUpdateLog(props) {
         showLoader
         title=''
         data={tableData}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
     </PayRollLoader>
