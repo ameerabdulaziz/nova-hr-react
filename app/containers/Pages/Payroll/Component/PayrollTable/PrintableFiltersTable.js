@@ -68,7 +68,7 @@ function PrintableFiltersTable(props) {
 }
 
 PrintableFiltersTable.defaultProps = {
-  columnsCount: 2,
+  columnsCount: 3,
 };
 
 PrintableFiltersTable.propTypes = {

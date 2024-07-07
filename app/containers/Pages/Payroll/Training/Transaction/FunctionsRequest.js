@@ -10,7 +10,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
-import { formateDate } from '../../helpers';
+import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/FunctionsRequestData';
 import messages from '../messages';
@@ -20,6 +20,7 @@ function FunctionsRequest(props) {
   const locale = useSelector((state) => state.language.locale);
   const pageTitle = localStorage.getItem('MenuName') ?? '';
 
+  const [employeeList, setEmployeeList] = useState([]);
   const [functionsList, setFunctionsList] = useState([]);
   const statusList = [
     { id: null, name: intl.formatMessage(payrollMessages.all) },
@@ -31,6 +32,7 @@ function FunctionsRequest(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [dateError, setDateError] = useState({});
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
 
   const [searchInfo, setSearchInfo] = useState({
@@ -51,6 +53,9 @@ function FunctionsRequest(props) {
     try {
       const functions = await GeneralListApis(locale).TrFunctions();
       setFunctionsList(functions);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
     } catch (error) {
       //
     } finally {
@@ -78,6 +83,55 @@ function FunctionsRequest(props) {
     try {
       const response = await api(locale).getList(params);
       setTableData(response);
+
+      const highlights = [];
+
+      const functionItem = getAutoCompleteValue(
+        functionsList,
+        formInfo.functionId
+      );
+      const status = getAutoCompleteValue(statusList, formInfo.statusId);
+      const employee = getAutoCompleteValue(
+        employeeList,
+        searchInfo.EmployeeId
+      );
+
+      if (functionItem) {
+        highlights.push({
+          label: intl.formatMessage(messages.functionName),
+          value: functionItem.name,
+        });
+      }
+
+      if (status) {
+        highlights.push({
+          label: intl.formatMessage(messages.status),
+          value: status.name,
+        });
+      }
+
+      if (employee) {
+        highlights.push({
+          label: intl.formatMessage(messages.employeeName),
+          value: employee.name,
+        });
+      }
+
+      if (searchInfo.FromDate) {
+        highlights.push({
+          label: intl.formatMessage(payrollMessages.fromdate),
+          value: formateDate(searchInfo.FromDate),
+        });
+      }
+
+      if (searchInfo.ToDate) {
+        highlights.push({
+          label: intl.formatMessage(payrollMessages.todate),
+          value: formateDate(searchInfo.ToDate),
+        });
+      }
+
+      setFilterHighlights(highlights);
     } catch (error) {
       //
     } finally {
@@ -145,8 +199,6 @@ function FunctionsRequest(props) {
       [name]: value !== null ? value.id : null,
     }));
   };
-
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -222,6 +274,7 @@ function FunctionsRequest(props) {
         title={pageTitle}
         data={tableData}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );
