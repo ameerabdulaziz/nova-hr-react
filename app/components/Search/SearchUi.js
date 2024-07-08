@@ -113,8 +113,8 @@ function SearchUi(props) {
       }
 
       return menu.filter(
-        (suggestion) => suggestion.name.toLowerCase().includes(inputValue)
-          || suggestion.arname.toLowerCase().includes(inputValue)
+        (suggestion) => (suggestion.name.toLowerCase().includes(inputValue)
+          || suggestion.arname.toLowerCase().includes(inputValue)) && !suggestion.isHidden
       );
     },
     [menu]

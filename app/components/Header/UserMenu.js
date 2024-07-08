@@ -162,6 +162,9 @@ function UserMenu(props) {
             </Badge>
           </ListItemIcon>
         </MenuItem>
+        <MenuItem onClick={handleClose} component={Link} to='/app/Pages/Setting/ChangePassword'>
+          <FormattedMessage {...messages.changePassword} />
+        </MenuItem>
         <Divider />
         <MenuItem
           onClick={() => {

@@ -52,4 +52,8 @@ export default defineMessages({
     id: `${scope}.noNotification`,
     defaultMessage: 'noNotification',
   },
+  changePassword: {
+    id: `${scope}.changePassword`,
+    defaultMessage: 'changePassword',
+  },
 });
