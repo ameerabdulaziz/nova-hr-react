@@ -167,6 +167,8 @@
   "boilerplate.containers.Users.Greeting.title": "Hello, nice to meet you",
   "boilerplate.containers.Users.Greeting.subtitle": "Just register to join with us",
   "boilerplate.components.Forms.Register.field.name": "Username",
+  "boilerplate.components.Forms.Register.field.hd": "HD Number",
+  "boilerplate.components.Forms.Register.field.key": "Key",
   "boilerplate.components.Forms.Register.field.retypePassword": "Re-type Password",
   "boilerplate.components.Forms.Register.create": "Already have account ?",
   "boilerplate.components.Forms.Register.signup": "Register",

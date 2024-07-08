@@ -167,6 +167,8 @@
   "boilerplate.containers.Users.Greeting.title": "مرحبًا ، سعدت بلقائك",
   "boilerplate.containers.Users.Greeting.subtitle": "سجل فقط للانضمام إلينا",
   "boilerplate.components.Forms.Register.field.name": "اسم المستخدم",
+  "boilerplate.components.Forms.Register.field.hd": "رقم الهارد ديسك",
+  "boilerplate.components.Forms.Register.field.key": "الرمز",
   "boilerplate.components.Forms.Register.field.retypePassword": "أعد كتابة كلمة المرور",
   "boilerplate.components.Forms.Register.create": "هل لديك حساب بالفعل؟",
   "boilerplate.components.Forms.Register.signup": "Register",
