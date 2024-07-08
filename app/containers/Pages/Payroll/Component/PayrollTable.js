@@ -721,7 +721,7 @@ PayrollTable.defaultProps = {
   showLoader: false,
   title: '',
   filterHighlights: [],
-  filterHighlightsColumn: 2,
+  filterHighlightsColumn: 3,
 };
 
 Loader.propTypes = {

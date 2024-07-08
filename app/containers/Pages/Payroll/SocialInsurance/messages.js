@@ -329,4 +329,16 @@ export default defineMessages({
     id: `${scope}.socialInsuranceNumberMustBeLessThan20Number`,
     defaultMessage: 'socialInsuranceNumberMustBeLessThan20Number',
   },
+  notDelete: {
+    id: `${scope}.notDelete`,
+    defaultMessage: 'notDelete',
+  },
+  joinSocialInsurance: {
+    id: `${scope}.joinSocialInsurance`,
+    defaultMessage: 'joinSocialInsurance',
+  },
+  existInsurance: {
+    id: `${scope}.existInsurance`,
+    defaultMessage: 'existInsurance',
+  },
 });

@@ -33,6 +33,7 @@ function EvaluateEmployee(props) {
   const [isPrintPreviewOpen, setIsPrintPreviewOpen] = useState(false);
   const [certificateInfo, setCertificateInfo] = useState(null);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [training, setTraining] = useState({
@@ -72,6 +73,17 @@ function EvaluateEmployee(props) {
       const data = await api(locale).GetTrainingEmployee(training.id);
 
       setData(data);
+
+      const highlights = [];
+
+      if (training.arName) {
+        highlights.push({
+          label: intl.formatMessage(messages.trainingName),
+          value: training.arName,
+        });
+      }
+
+      setFilterHighlights(highlights);
     } catch (error) {
       //
     } finally {
@@ -378,6 +390,7 @@ function EvaluateEmployee(props) {
         isLoading={isLoading}
         title={pageTitle}
         data={data}
+        filterHighlights={filterHighlights}
         columns={columns}
         actions={actions}
       />

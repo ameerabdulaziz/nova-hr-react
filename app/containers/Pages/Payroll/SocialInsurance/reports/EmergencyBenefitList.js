@@ -1,3 +1,5 @@
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import {
   Autocomplete,
   Button,
@@ -9,11 +11,13 @@ import {
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import style from '../../../../../styles/styles.scss';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
+import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmergencyBenefitListData';
 import messages from '../messages';
@@ -21,9 +25,11 @@ import messages from '../messages';
 function EmergencyBenefitList(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
 
   const [tableData, setTableData] = useState([]);
+  const [filterHighlights, setFilterHighlights] = useState([]);
+
   const [organizationList, setOrganizationList] = useState([]);
   const [officeList, setOfficeList] = useState([]);
   const [yearList, setYearList] = useState([]);
@@ -38,6 +44,51 @@ function EmergencyBenefitList(props) {
     IsInsured: false,
   });
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const office = getAutoCompleteValue(officeList, formInfo.InsOffice);
+    const year = getAutoCompleteValue(yearList, formInfo.YearId);
+    const month = getAutoCompleteValue(monthsList, formInfo.MonthId);
+
+    if (office) {
+      highlights.push({
+        label: intl.formatMessage(messages.insuranceOffice),
+        value: office.name,
+      });
+    }
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: year.name,
+      });
+    }
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: month.name,
+      });
+    }
+
+    highlights.push({
+      label: intl.formatMessage(messages.onlyInsured),
+      value: formInfo.IsInsured
+        ? intl.formatMessage(payrollMessages.yes)
+        : intl.formatMessage(payrollMessages.no),
+    });
+
+    if (formInfo.organizationId.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.organizationName),
+        value: formInfo.organizationId.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
@@ -46,12 +97,10 @@ function EmergencyBenefitList(props) {
 
       const organizations = formInfo.organizationId.map((item) => item.id);
 
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
-      });
-
       const response = await api(locale).GetList(organizations, formData);
       setTableData(response);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -133,24 +182,42 @@ function EmergencyBenefitList(props) {
     fetchTableData();
   };
 
+  const onMultiAutoCompleteChange = (value, name) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={5}>
               <Autocomplete
+                options={organizationList}
                 multiple
                 disableCloseOnSelect
-                options={organizationList}
+                className={`${style.AutocompleteMulSty} ${
+                  locale === 'ar' ? style.AutocompleteMulStyAR : null
+                }`}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 value={formInfo.organizationId}
+                renderOption={(optionProps, option, { selected }) => (
+                  <li {...optionProps} key={optionProps.id}>
+                    <Checkbox
+                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option.name}
+                  </li>
+                )}
                 getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    organizationId: value !== null ? value : null,
-                  }));
-                }}
+                onChange={(_, value) => onMultiAutoCompleteChange(value, 'organizationId')
+                }
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -163,10 +230,7 @@ function EmergencyBenefitList(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={officeList}
-                value={
-                  officeList.find((item) => item.id === formInfo.InsOffice)
-									?? null
-                }
+                value={getAutoCompleteValue(officeList, formInfo.InsOffice)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 onChange={(_, value) => {
@@ -187,9 +251,7 @@ function EmergencyBenefitList(props) {
             <Grid item xs={12} md={2}>
               <Autocomplete
                 options={yearList}
-                value={
-                  yearList.find((item) => item.id === formInfo.YearId) ?? null
-                }
+                value={getAutoCompleteValue(yearList, formInfo.YearId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 onChange={(_, value) => {
@@ -211,10 +273,7 @@ function EmergencyBenefitList(props) {
             <Grid item xs={12} md={2}>
               <Autocomplete
                 options={monthsList}
-                value={
-                  monthsList.find((item) => item.id === formInfo.MonthId)
-									?? null
-                }
+                value={getAutoCompleteValue(monthsList, formInfo.MonthId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 onChange={(_, value) => {
@@ -233,7 +292,7 @@ function EmergencyBenefitList(props) {
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -250,16 +309,21 @@ function EmergencyBenefitList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item>
               <Button variant='contained' color='primary' type='submit'>
-                <FormattedMessage {...payrollMessages.search} />
+                {intl.formatMessage(payrollMessages.search)}
               </Button>
             </Grid>
           </Grid>
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <PayrollTable
+        title=''
+        data={tableData}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoader>
   );
 }

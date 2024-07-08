@@ -4,9 +4,9 @@ const BalanceUpdateLogData = (locale) => {
   const Apis = {};
 
   Apis.GetReport = async (params) => {
-    const queryString = new URLSearchParams(params);
-
-    const data = await axiosInstance.get(`VacReport/GetVacBalLogReport/${locale}?${queryString.toString()}`);
+    const data = await axiosInstance.get(`VacReport/GetVacBalLogReport/${locale}`, {
+      params
+    });
 
     return data.data;
   };

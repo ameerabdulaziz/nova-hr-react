@@ -1,14 +1,15 @@
 import { Button, Grid } from '@mui/material';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
-import { formateDate } from '../../helpers';
+import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/LeaveReportData';
 import messages from '../messages';
@@ -21,18 +22,22 @@ function LeaveReport(props) {
 
   const Title = localStorage.getItem('MenuName');
 
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
     ToDate: null,
     EmployeeId: '',
     EmpStatusId: 1,
     OrganizationId: '',
+    BranchId: '',
   });
 
-  const [dateError, setDateError] = useState({});
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [columns, setColumns] = useState([
+  const INIT_COLUMN = [
     {
       name: 'id',
       options: {
@@ -80,7 +85,94 @@ function LeaveReport(props) {
       name: 'annOpen',
       label: intl.formatMessage(messages.annualOpen),
     },
-  ]);
+  ];
+
+  const [dateError, setDateError] = useState({});
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [columns, setColumns] = useState(INIT_COLUMN);
+
+  const fetchNeededData = async () => {
+    setIsLoading(true);
+
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+    } catch (error) {
+      //
+    } finally {
+      //
+    }
+  };
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    if (formInfo.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(formInfo.FromDate),
+      });
+    }
+
+    if (formInfo.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(formInfo.ToDate),
+      });
+    }
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      formInfo.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.Organization),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(messages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const fetchTableData = async () => {
     // used to stop call api if user select wrong date
@@ -107,7 +199,7 @@ function LeaveReport(props) {
       const dataApi = await API(locale).GetReport(formData);
 
       if (dataApi?.length > 0) {
-        const clonedColumn = [...columns];
+        const clonedColumn = [...INIT_COLUMN];
 
         const {
           employeeId,
@@ -133,6 +225,8 @@ function LeaveReport(props) {
       }
 
       setTableData(dataApi);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -175,6 +269,7 @@ function LeaveReport(props) {
         isLoading={isLoading}
         title=''
         data={tableData}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
     </PayRollLoader>

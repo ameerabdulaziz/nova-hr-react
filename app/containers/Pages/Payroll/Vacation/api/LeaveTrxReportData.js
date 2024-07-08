@@ -4,9 +4,13 @@ const vacationTrxData = (locale) => {
   const Apis = {};
 
   Apis.GetReport = async (params) => {
-    const queryString = new URLSearchParams(params);
-
-    const data = await axiosInstance.post(`VacReport/GetLeaveDetails/${locale}?${queryString.toString()}`, params.VacationId);
+    const data = await axiosInstance.post(
+      `VacReport/GetLeaveDetails/${locale}`,
+      params.VacationId,
+      {
+        params,
+      }
+    );
 
     return data.data;
   };

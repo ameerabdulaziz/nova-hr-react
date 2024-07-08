@@ -12,21 +12,18 @@ import {
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate } from '../../helpers';
+import { formateDate, getAutoCompleteValue } from '../../helpers';
+import payrollMessages from '../../messages';
 import API from '../api/LeaveTrxReportData';
 import messages from '../messages';
-import payrollMessages from '../../messages';
-
-import { format } from "date-fns";
-import { toast } from "react-hot-toast";
-import Payrollmessages from "../../messages";
 
 function LeaveTrxReport(props) {
   const { intl } = props;
@@ -36,8 +33,14 @@ function LeaveTrxReport(props) {
 
   const [vacationsList, setVacationsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [filterHighlights, setFilterHighlights] = useState([]);
 
-  const Title = localStorage.getItem('MenuName');
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const pageTitle = localStorage.getItem('MenuName');
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
@@ -47,15 +50,82 @@ function LeaveTrxReport(props) {
     OrganizationId: '',
     VacationId: [],
     InsertDate: false,
+    BranchId: '',
   });
 
-  const [DateError, setDateError] = useState({});
+  const [dateError, setDateError] = useState({});
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
+    const organization = getAutoCompleteValue(
+      organizationList,
+      formInfo.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
 
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.Organization),
+        value: organization.name,
+      });
+    }
 
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
 
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(messages.status),
+        value: status.name,
+      });
+    }
 
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (formInfo.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(formInfo.FromDate),
+      });
+    }
+
+    if (formInfo.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(formInfo.ToDate),
+      });
+    }
+
+    if (formInfo.InsertDate) {
+      highlights.push({
+        label: intl.formatMessage(messages.filterOnRegistrationHistory),
+        value: formInfo.InsertDate
+          ? intl.formatMessage(payrollMessages.yes)
+          : intl.formatMessage(payrollMessages.no),
+      });
+    }
+
+    if (formInfo.VacationId.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.vacationName),
+        value: formInfo.VacationId.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const columns = [
     {
@@ -82,7 +152,7 @@ function LeaveTrxReport(props) {
     },
 
     {
-      name: "employeeCode",
+      name: 'employeeCode',
       label: intl.formatMessage(payrollMessages.employeeCode),
     },
     {
@@ -92,9 +162,6 @@ function LeaveTrxReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'vacationName',
@@ -103,16 +170,10 @@ function LeaveTrxReport(props) {
     {
       name: 'fromDate',
       label: intl.formatMessage(messages.fromDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'toDate',
       label: intl.formatMessage(messages.toDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'daysCount',
@@ -125,47 +186,31 @@ function LeaveTrxReport(props) {
     {
       name: 'trxDate',
       label: intl.formatMessage(messages.registrationDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
   ];
 
-  async function fetchData() {
-    try {
-      const Vacations = await GeneralListApis(locale).GetVacList();
-      setVacationsList(Vacations);
-    } catch (error) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   const fetchTableData = async () => {
-
-      // used to stop call api if user select wrong date
-      if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-        return;
-      }
-
+    // used to stop call api if user select wrong date
+    if (Object.values(dateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
+    }
 
     try {
       setIsLoading(true);
-      const formData = { ...formInfo };
+      const formData = {
+        ...formInfo,
 
-      formData.VacationId = formData.VacationId.map((item) => item.id);
-      formData.FromDate = formateDate(formData.FromDate);
-      formData.ToDate = formateDate(formData.ToDate);
-
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
-      });
+        FromDate: formateDate(formInfo.FromDate),
+        ToDate: formateDate(formInfo.ToDate),
+        VacationId: formInfo.VacationId.map((item) => item.id),
+      };
 
       const dataApi = await API(locale).GetReport(formData);
 
       setTableData(dataApi);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -173,9 +218,33 @@ function LeaveTrxReport(props) {
     }
   };
 
+  async function fetchNeededData() {
+    try {
+      const Vacations = await GeneralListApis(locale).GetVacList();
+      setVacationsList(Vacations);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+
+      fetchTableData();
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
-    fetchData();
-    fetchTableData();
+    fetchNeededData();
   }, []);
 
   const onSearchBtnClick = () => {
@@ -184,15 +253,15 @@ function LeaveTrxReport(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
               setIsLoading={setIsLoading}
-              DateError={DateError}
-               setDateError={setDateError}
+              DateError={dateError}
+              setDateError={setDateError}
             />
           </Grid>
 
@@ -252,11 +321,10 @@ function LeaveTrxReport(props) {
 
               <Button
                 variant='contained'
-                size='medium'
                 color='primary'
                 onClick={onSearchBtnClick}
               >
-                <FormattedMessage {...messages.search} />
+                {intl.formatMessage(messages.search)}
               </Button>
             </Stack>
           </Grid>
@@ -267,6 +335,7 @@ function LeaveTrxReport(props) {
         isLoading={isLoading}
         title=''
         data={tableData}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
     </PayRollLoader>
