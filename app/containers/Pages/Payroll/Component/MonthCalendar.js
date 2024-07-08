@@ -25,7 +25,7 @@ const getEventColor = (docType) => {
     case 2:
       return 'rgb(63, 81, 181)';
     case 3:
-      return 'rgb(33, 150, 243)';
+      return 'green';
     default:
       return 'gray';
   }
@@ -382,7 +382,7 @@ const HRDivider = (props) => {
       sx={{
         borderColor: getEventColor(action.docType),
         height: '19px',
-        borderWidth: '2px',
+        borderWidth: '4px',
         cursor: 'pointer',
       }}
     />
