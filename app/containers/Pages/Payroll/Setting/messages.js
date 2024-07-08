@@ -304,4 +304,20 @@ export default defineMessages({
     id: `${scope}.noCertificateFoundPleaseUploadCertificate`,
     defaultMessage: 'noCertificateFoundPleaseUploadCertificate',
   },
+  oldPassword: {
+    id: `${scope}.oldPassword`,
+    defaultMessage: 'oldPassword',
+  },
+  newPassword: {
+    id: `${scope}.newPassword`,
+    defaultMessage: 'newPassword',
+  },
+  confirmPassword: {
+    id: `${scope}.confirmPassword`,
+    defaultMessage: 'confirmPassword',
+  },
+  passwordNotMatch: {
+    id: `${scope}.passwordNotMatch`,
+    defaultMessage: 'passwordNotMatch',
+  },
 });

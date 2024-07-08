@@ -74,6 +74,7 @@ import {
   UserMenu,
   MailSetting,
   SMSSetting,
+  ChangePassword,
   SettingResetPassword,
   SettingMailSmsForm,
   PrintForm,
@@ -561,6 +562,7 @@ function Application(props) {
         />
 
         {/* Setting */}
+        <Route path='/app/Pages/Setting/ChangePassword' component={ChangePassword} />
         <Route path='/app/Pages/Setting/UserMenu' component={UserMenu} />
         <Route path='/app/Pages/Setting/MailSetting' component={MailSetting} />
         <Route path='/app/Pages/Setting/SMSSetting' component={SMSSetting} />

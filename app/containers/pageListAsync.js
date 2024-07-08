@@ -312,6 +312,13 @@ export const SettingResetPassword = loadable(
   }
 );
 
+export const ChangePassword = loadable(
+  () => import('./Pages/Payroll/Setting/ChangePassword'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const SettingMailSmsForm = loadable(
   () => import('./Pages/Payroll/Setting/SettingMailSmsForm'),
   {

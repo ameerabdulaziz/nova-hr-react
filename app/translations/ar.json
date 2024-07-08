@@ -5,6 +5,7 @@
   "boilerplate.components.Footer.license.message": "هذا المشروع مرخص بموجب ترخيص MIT.",
   "boilerplate.components.Header.features": "المميزات",
   "boilerplate.components.Header.home": "الصفحة الرئيسية",
+  "boilerplate.components.Header.changePassword": "تغيير كلمة المرور",
   "boilerplate.containers.Tables.Basic.title": "الجدول الأساسي",
   "boilerplate.containers.Tables.Basic.stripped.title": "الجدول مخطط",
   "boilerplate.containers.Tables.Basic.stripped.desc": "إنهم (يزعم) يساعدون على سهولة الاستخدام في قراءة البيانات الجدولية من خلال تقديم للمستخدم وسيلة ملونة لفصل الصفوف وتمييزها عن بعضها البعض",
@@ -898,6 +899,10 @@
 
   "boilerplate.containers.Payroll.Setting.parentName": "القائمة الرئيسية",
   "boilerplate.containers.Payroll.Setting.menuName": "اسم القائمة",
+  "boilerplate.containers.Payroll.Setting.oldPassword": "كلمة المرور القديمة",
+  "boilerplate.containers.Payroll.Setting.newPassword": "كلمة المرور الجديدة",
+  "boilerplate.containers.Payroll.Setting.confirmPassword": "تأكيد كلمة المرور",
+  "boilerplate.containers.Payroll.Setting.passwordNotMatch": "كلمة المرور غير متطابقة",
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
   "boilerplate.containers.Payroll.Setting.uploadCertificate": "تحميل الشهادة",
   "boilerplate.containers.Payroll.Setting.noCertificateFoundPleaseUploadCertificate": "لم يتم العثور على شهادة يرجى تحميل الشهادة",

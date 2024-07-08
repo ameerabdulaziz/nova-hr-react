@@ -5,6 +5,7 @@
   "boilerplate.components.Footer.license.message": "This project is licensed under the MIT license.",
   "boilerplate.components.Header.features": "Features",
   "boilerplate.components.Header.home": "Home",
+  "boilerplate.components.Header.changePassword": "Change Password",
   "boilerplate.containers.Tables.Basic.title": "Basic Table",
   "boilerplate.containers.Tables.Basic.stripped.title": "Stripped Table",
   "boilerplate.containers.Tables.Basic.stripped.desc": "They (allegedly) aid usability in reading tabular data by offering the user a coloured means of separating and differentiating rows from one another",
@@ -834,7 +835,7 @@
   
   "boilerplate.components.Widgets.PerformanceChartWidget.Vacations": "Leaves",
   "boilerplate.components.Widgets.PerformanceChartWidget.Overtime": "Overtime",
-  "boilerplate.components.Widgets.PerformanceChartWidget.Mession": "Mession",
+  "boilerplate.components.Widgets.PerformanceChartWidget.Mession": "Mission",
   "boilerplate.components.Widgets.PerformanceChartWidget.Permission": "Permission",
   
   "boilerplate.components.Widgets.PerformanceChartWidget.rewards": "Rewards",
@@ -893,6 +894,10 @@
   "boilerplate.containers.Payroll.Setting.parentName": "Parent Menu",
   "boilerplate.containers.Payroll.Setting.menuName": "Menu Name",
   "boilerplate.containers.Payroll.Setting.delete": "Delete",
+  "boilerplate.containers.Payroll.Setting.oldPassword": "Old Password",
+  "boilerplate.containers.Payroll.Setting.newPassword": "New Password",
+  "boilerplate.containers.Payroll.Setting.confirmPassword": "Confirm Password",
+  "boilerplate.containers.Payroll.Setting.passwordNotMatch": "Password Not Match",
   "boilerplate.containers.Payroll.Setting.uploadCertificate": "Upload Certificate",
   "boilerplate.containers.Payroll.Setting.noCertificateFoundPleaseUploadCertificate": "No Certificate Found Please Upload Certificate",
   "boilerplate.containers.Payroll.Setting.loan": "Loan",
