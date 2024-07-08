@@ -189,29 +189,6 @@ function LeaveTrxReport(props) {
     },
   ];
 
-  async function fetchNeededData() {
-    try {
-      const Vacations = await GeneralListApis(locale).GetVacList();
-      setVacationsList(Vacations);
-
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
-    } catch (error) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   const fetchTableData = async () => {
     // used to stop call api if user select wrong date
     if (Object.values(dateError).includes(true)) {
@@ -241,9 +218,33 @@ function LeaveTrxReport(props) {
     }
   };
 
+  async function fetchNeededData() {
+    try {
+      const Vacations = await GeneralListApis(locale).GetVacList();
+      setVacationsList(Vacations);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+
+      fetchTableData();
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
     fetchNeededData();
-    fetchTableData();
   }, []);
 
   const onSearchBtnClick = () => {

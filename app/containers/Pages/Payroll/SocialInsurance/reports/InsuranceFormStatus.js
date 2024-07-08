@@ -2,30 +2,38 @@ import { Button, Grid } from '@mui/material';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
+import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/InsuranceFormStatusData';
-
-import PayrollTable from '../../Component/PayrollTable';
-import { formateDate } from '../../helpers';
 import messages from '../messages';
 
 function InsuranceFormStatus(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
+
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
 
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
     OrganizationId: null,
     EmpStatusId: 1,
+    BranchId: '',
   });
 
   const columns = [
@@ -44,10 +52,6 @@ function InsuranceFormStatus(props) {
     {
       name: 'c1inDate',
       label: intl.formatMessage(messages.c1DeliverDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'c6inNo',
@@ -56,28 +60,65 @@ function InsuranceFormStatus(props) {
     {
       name: 'c6inDate',
       label: intl.formatMessage(messages.c6DeliverDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
   ];
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      formInfo.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.Company),
+        value: company.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
+
       const formData = {
         ...formInfo,
         StatusId: formInfo.EmpStatusId,
       };
 
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
-      });
-
       const dataApi = await api(locale).GetReport(formData);
 
       setTableData(dataApi);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -85,8 +126,30 @@ function InsuranceFormStatus(props) {
     }
   };
 
+  async function fetchNeededData() {
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+
+      fetchTableData();
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
-    fetchTableData();
+    fetchNeededData();
   }, []);
 
   const onSearchBtnClick = () => {
@@ -95,7 +158,7 @@ function InsuranceFormStatus(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <Search
@@ -106,20 +169,24 @@ function InsuranceFormStatus(props) {
             />
           </Grid>
 
-          <Grid item md={2}>
+          <Grid item>
             <Button
               variant='contained'
-              size='medium'
               color='primary'
               onClick={onSearchBtnClick}
             >
-              <FormattedMessage {...payrollMessages.search} />
+              {intl.formatMessage(payrollMessages.search)}
             </Button>
           </Grid>
         </Grid>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <PayrollTable
+        title=''
+        data={tableData}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoader>
   );
 }

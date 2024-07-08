@@ -12,14 +12,14 @@ import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import InsuranceFormPopUp from '../../Component/InsuranceFormPopUp';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate } from '../../helpers';
+import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SocialInsuranceReportData';
 import messages from '../messages';
@@ -29,31 +29,37 @@ function SocialInsuranceReport(props) {
 
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const locale = useSelector((state) => state.language.locale);
+
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hrNotesRowId, setHrNotesRowId] = useState('');
   const [isHRNotesPopupOpen, setIsHRNotesPopupOpen] = useState(false);
 
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
   const [officeList, setOfficeList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [monthsList, setMonthsList] = useState([]);
   const ageList = [
     {
-      label: intl.formatMessage(messages.all),
-      value: null,
+      name: intl.formatMessage(messages.all),
+      id: null,
     },
     {
-      label: intl.formatMessage(messages.lessThan60),
-      value: 2,
+      name: intl.formatMessage(messages.lessThan60),
+      id: 2,
     },
     {
-      label: intl.formatMessage(messages['60AndUp']),
-      value: 1,
+      name: intl.formatMessage(messages['60AndUp']),
+      id: 1,
     },
   ];
 
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
     OrganizationId: null,
@@ -69,6 +75,94 @@ function SocialInsuranceReport(props) {
     ThreeMonths: false,
     IsInsured: false,
   });
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      formInfo.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    const office = getAutoCompleteValue(officeList, formInfo.InsOffice);
+    const age = getAutoCompleteValue(ageList, formInfo.age);
+    const year = getAutoCompleteValue(yearList, formInfo.YearId);
+    const month = getAutoCompleteValue(monthsList, formInfo.MonthId);
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: year.name,
+      });
+    }
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: month.name,
+      });
+    }
+
+    if (age) {
+      highlights.push({
+        label: intl.formatMessage(messages.age),
+        value: age.name,
+      });
+    }
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (office) {
+      highlights.push({
+        label: intl.formatMessage(messages.insuranceOffice),
+        value: office.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.Company),
+        value: company.name,
+      });
+    }
+
+    highlights.push({
+      label: intl.formatMessage(messages.hiredFromAtLeast3Months),
+      value: formInfo.ThreeMonths
+        ? intl.formatMessage(payrollMessages.yes)
+        : intl.formatMessage(payrollMessages.no),
+    });
+
+    highlights.push({
+      label: intl.formatMessage(messages.onlyInsured),
+      value: formInfo.IsInsured
+        ? intl.formatMessage(payrollMessages.yes)
+        : intl.formatMessage(payrollMessages.no),
+    });
+
+    setFilterHighlights(highlights);
+  };
 
   const onHRNotesClick = (rowId) => {
     setHrNotesRowId(rowId);
@@ -101,9 +195,6 @@ function SocialInsuranceReport(props) {
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'staffAge',
@@ -112,9 +203,6 @@ function SocialInsuranceReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'insuOffice',
@@ -127,9 +215,6 @@ function SocialInsuranceReport(props) {
     {
       name: 'insuranceDate',
       label: intl.formatMessage(messages.insuranceDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'insuJobName',
@@ -157,9 +242,6 @@ function SocialInsuranceReport(props) {
     {
       name: 'c1inDate',
       label: intl.formatMessage(messages.c1DeliverDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'c6inNo',
@@ -168,16 +250,10 @@ function SocialInsuranceReport(props) {
     {
       name: 'c6inDate',
       label: intl.formatMessage(messages.c6DeliverDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'ka3bDate',
       label: intl.formatMessage(messages.workLetterDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
       name: 'ka3bNo',
@@ -197,6 +273,18 @@ function SocialInsuranceReport(props) {
 
       const office = await api(locale).GetSInsuranceOffices();
       setOfficeList(office);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
 
       if (branchId) {
         const response = await GeneralListApis(locale).getOpenMonth(
@@ -226,17 +314,12 @@ function SocialInsuranceReport(props) {
   const fetchTableData = async () => {
     try {
       setIsLoading(true);
-      const formData = {
-        ...formInfo,
-      };
 
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
-      });
-
-      const dataApi = await api(locale).GetReport(formData);
+      const dataApi = await api(locale).GetReport(formInfo);
 
       setTableData(dataApi);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -270,6 +353,13 @@ function SocialInsuranceReport(props) {
     fetchTableData();
   };
 
+  const onAutoCompleteChange = (value, name) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [name]: value !== null ? value.id : null,
+    }));
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <InsuranceFormPopUp
@@ -278,7 +368,7 @@ function SocialInsuranceReport(props) {
         callFun={createHRNotes}
       />
 
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
@@ -293,18 +383,11 @@ function SocialInsuranceReport(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={officeList}
-                value={
-                  officeList.find((item) => item.id === formInfo.InsOffice)
-									?? null
-                }
+                value={getAutoCompleteValue(officeList, formInfo.InsOffice)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    InsOffice: value !== null ? value.id : null,
-                  }));
-                }}
+                onChange={(_, value) => onAutoCompleteChange(value, 'InsOffice')
+                }
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -317,9 +400,7 @@ function SocialInsuranceReport(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={yearList}
-                value={
-                  yearList.find((item) => item.id === formInfo.YearId) ?? null
-                }
+                value={getAutoCompleteValue(yearList, formInfo.YearId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
                 onChange={(_, value) => {
@@ -339,21 +420,13 @@ function SocialInsuranceReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={3}>
               <Autocomplete
                 options={monthsList}
-                value={
-                  monthsList.find((item) => item.id === formInfo.MonthId)
-									?? null
-                }
+                value={getAutoCompleteValue(monthsList, formInfo.MonthId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    MonthId: value !== null ? value.id : null,
-                  }));
-                }}
+                onChange={(_, value) => onAutoCompleteChange(value, 'MonthId')}
                 renderInput={(params) => (
                   <TextField
                     required
@@ -367,18 +440,10 @@ function SocialInsuranceReport(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={ageList}
-                value={
-                  ageList.find((item) => item.value === formInfo.age) ?? null
-                }
-                isOptionEqualToValue={(option, value) => option.value === value.value
-                }
-                getOptionLabel={(option) => (option ? option.label : '')}
-                onChange={(_, value) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    age: value?.value,
-                  }));
-                }}
+                value={getAutoCompleteValue(ageList, formInfo.age)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(_, value) => onAutoCompleteChange(value, 'age')}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -388,54 +453,55 @@ function SocialInsuranceReport(props) {
               />
             </Grid>
 
-            <Grid item md={12}>
-              <Grid container spacing={2}>
-                <Grid item md={3}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={formInfo.IsInsured}
-                        onChange={(evt) => {
-                          setFormInfo((prev) => ({
-                            ...prev,
-                            IsInsured: evt.target.checked,
-                          }));
-                        }}
-                      />
-                    }
-                    label={intl.formatMessage(messages.onlyInsured)}
+            <Grid item>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formInfo.IsInsured}
+                    onChange={(evt) => {
+                      setFormInfo((prev) => ({
+                        ...prev,
+                        IsInsured: evt.target.checked,
+                      }));
+                    }}
                   />
-                </Grid>
+                }
+                label={intl.formatMessage(messages.onlyInsured)}
+              />
+            </Grid>
 
-                <Grid item md={4}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={formInfo.ThreeMonths}
-                        onChange={(evt) => {
-                          setFormInfo((prev) => ({
-                            ...prev,
-                            ThreeMonths: evt.target.checked,
-                          }));
-                        }}
-                      />
-                    }
-                    label={intl.formatMessage(messages.hiredFromAtLeast3Months)}
+            <Grid item>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formInfo.ThreeMonths}
+                    onChange={(evt) => {
+                      setFormInfo((prev) => ({
+                        ...prev,
+                        ThreeMonths: evt.target.checked,
+                      }));
+                    }}
                   />
-                </Grid>
-              </Grid>
+                }
+                label={intl.formatMessage(messages.hiredFromAtLeast3Months)}
+              />
             </Grid>
 
             <Grid item md={12}>
               <Button variant='contained' type='submit'>
-                <FormattedMessage {...payrollMessages.search} />
+                {intl.formatMessage(payrollMessages.search)}
               </Button>
             </Grid>
           </Grid>
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <PayrollTable
+        title=''
+        data={tableData}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoader>
   );
 }

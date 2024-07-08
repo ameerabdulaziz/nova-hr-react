@@ -1,11 +1,12 @@
 import axiosInstance from '../../api/axios';
+
 const InsuranceReportApisData = (locale) => {
   const InsuranceReportsApi = {};
 
   InsuranceReportsApi.GetStopInsuranceReport = async (params) => {
-    const queryString = new URLSearchParams(params);
     const data = await axiosInstance.get(
-      `SInsuranceReport/GetInsuLogReport/${locale}?${queryString}`
+      `SInsuranceReport/GetInsuLogReport/${locale}`,
+      { params }
     );
     const result = data.data;
 
@@ -13,23 +14,23 @@ const InsuranceReportApisData = (locale) => {
   };
 
   InsuranceReportsApi.GetInsuranceFollowReport = async (params) => {
-    const queryString = new URLSearchParams(params);
     const data = await axiosInstance.get(
-      `SInsuranceReport/GetInsuFollowReport/${locale}?${queryString}`
+      `SInsuranceReport/GetInsuFollowReport/${locale}`,{
+        params,
+      }
     );
     const result = data.data;
 
     return result;
   };
 
-
-  InsuranceReportsApi.save = async (data,rowIndexVal) => {
-    const result = await axiosInstance.post(`SInsuranceReport/AddNotesInFollowReport/${rowIndexVal}?Notes=${data}`);
+  InsuranceReportsApi.save = async (data, rowIndexVal) => {
+    const result = await axiosInstance.post(
+      `SInsuranceReport/AddNotesInFollowReport/${rowIndexVal}?Notes=${data}`
+    );
 
     return result;
   };
-
- 
 
   return InsuranceReportsApi;
 };

@@ -1,73 +1,93 @@
-import React, { useEffect, useState, useCallback } from "react";
-import ApiData from "../api/InsuranceReportApisData";
-import { useSelector } from "react-redux";
 import {
-  Button,
-  Grid,
-  Backdrop,
-  CircularProgress,
-  Box,
-  Autocomplete,
-  TextField,
-  Tooltip
-} from "@mui/material";
-import messages from "../messages";
-import PayRollLoader from "../../Component/PayRollLoader";
-import Payrollmessages from "../../messages";
-import useStyles from "../../Style";
-import { format } from "date-fns";
-import GeneralListApis from "../../api/GeneralListApis";
-import { injectIntl, FormattedMessage } from "react-intl";
-import { PapperBlock } from "enl-components";
-import { toast } from "react-hot-toast";
-import PropTypes from "prop-types";
-import  InsuranceFormPopUp  from '../../Component/InsuranceFormPopUp';
+  Autocomplete, Button, Grid, TextField, Tooltip
+} from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
-import { formateDate } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
-
+import { PapperBlock } from 'enl-components';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import GeneralListApis from '../../api/GeneralListApis';
+import InsuranceFormPopUp from '../../Component/InsuranceFormPopUp';
+import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
+import { getAutoCompleteValue } from '../../helpers';
+import payrollMessages from '../../messages';
+import ApiData from '../api/InsuranceReportApisData';
+import messages from '../messages';
 
 function InsuranceNotifications(props) {
   const { intl } = props;
-  const { classes } = useStyles();
+
   const locale = useSelector((state) => state.language.locale);
-  const [InsuranceStatus, setInsuranceStatus] = useState("");
-  const [Company, setCompany] = useState("");
-  const [CompanyList, setCompanyList] = useState([]);
-  const [data, setdata] = useState([]);
-  const Title = localStorage.getItem("MenuName");
+
+  const pageTitle = localStorage.getItem('MenuName');
+
+  const [formInfo, setFormInfo] = useState({
+    BranchId: null,
+    InsStatusId: null,
+  });
+
+  const insuranceStatusList = [
+    { id: null, name: intl.formatMessage(messages.all) },
+    { id: 1, name: intl.formatMessage(messages.joinSocialInsurance) },
+    { id: 0, name: intl.formatMessage(messages.existInsurance) },
+  ];
+
+  const [companyList, setCompanyList] = useState([]);
+
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-
   const [hrNotes, setHrNotes] = useState(false);
-  const [rowIndexVal, setRowIndexVal] = useState("");
+  const [rowIndexVal, setRowIndexVal] = useState('');
 
-  const handleClickOpen = (key) => {
-    setHrNotes(true)
-   };
-   
-   const handleClose = (key) => {
-    setHrNotes(false)
-   };
+  const handleClickOpen = () => {
+    setHrNotes(true);
+  };
 
+  const handleClose = () => {
+    setHrNotes(false);
+  };
 
-  const handleSearch = async (e) => {
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    const status = getAutoCompleteValue(
+      insuranceStatusList,
+      formInfo.InsStatusId
+    );
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.Company),
+        value: company.name,
+      });
+    }
+
+    if (status !== null) {
+      highlights.push({
+        label: intl.formatMessage(messages.InsuranceStatus),
+        value: status.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
+  const handleSearch = async () => {
     try {
       setIsLoading(true);
-      let formData = {
-        InsStatusId: InsuranceStatus,
-        BranchId: Company,
-      };
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? "" : formData[key];
-      });
 
+      const dataApi = await ApiData(locale).GetInsuranceFollowReport(formInfo);
+      setData(dataApi);
 
-
-      const dataApi = await ApiData(locale).GetInsuranceFollowReport(formData);
-      setdata(dataApi);
+      getFilterHighlights();
     } catch (err) {
-
+      //
     } finally {
       setIsLoading(false);
     }
@@ -75,10 +95,10 @@ function InsuranceNotifications(props) {
 
   async function fetchData() {
     try {
-      const Branch = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(Branch);
+      const branch = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(branch);
     } catch (err) {
-
+      //
     } finally {
       setIsLoading(false);
     }
@@ -89,202 +109,158 @@ function InsuranceNotifications(props) {
 
   const columns = [
     {
-      name: "id",
+      name: 'id',
       options: {
         display: false,
         print: false,
       },
     },
     {
-      name: "employeeCode",
+      name: 'employeeCode',
       label: intl.formatMessage(messages.EmpCode),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "employeeName",
+      name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "hiringDate",
+      name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
-      name: "job",
+      name: 'job',
       label: intl.formatMessage(messages.job),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "birthDate",
+      name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
     },
     {
-      name: "notes",
+      name: 'notes',
       label: intl.formatMessage(messages.notes),
       options: {
-        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+        noWrap: true,
       },
     },
     {
-      name: "organizationName",
+      name: 'organizationName',
       label: intl.formatMessage(messages.BranchName),
-      options: {
-        filter: true,
-      },
     },
     {
-      name: "insNotes",
+      name: 'insNotes',
       label: intl.formatMessage(messages.HrNotes),
       options: {
         filter: true,
         print: false,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div >
-              <Tooltip title= "Edit">
-              <span 
-              onClick={()=>{
-                handleClickOpen()
-                setRowIndexVal(tableMeta.rowData[0])
-              }}
-                > 
-                {value} 
-                </span>
-              </Tooltip>
-              
-            </div>
-          );
-        }
+        customBodyRender: (value, tableMeta) => (
+          <div>
+            <Tooltip title='Edit'>
+              <span
+                onClick={() => {
+                  handleClickOpen();
+                  setRowIndexVal(tableMeta.rowData[0]);
+                }}
+              >
+                {value}
+              </span>
+            </Tooltip>
+          </div>
+        ),
       },
     },
-    
-    
   ];
 
-
   const createHrNotesFun = async (hrNoteVal) => {
-
     try {
-      let response = await ApiData(locale).save(hrNoteVal,rowIndexVal);
-      if (response.status==200) {
+      const response = await ApiData(locale).save(hrNoteVal, rowIndexVal);
+      if (response.status == 200) {
         toast.success(notif.saved);
-        setdata([]);
+        setData([]);
       }
     } catch (err) {
-
+      //
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
-
+  const onAutoCompleteChange = (value, name) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      [name]: value !== null ? value.id : null,
+    }));
+  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={2}>
-
-
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={3}>
             <Autocomplete
-              id="Company"
-              name="Company"
-              options={CompanyList.length != 0 ? CompanyList: []}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
-              }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setCompany(
-                  value == null ? "" : value.id == null ? "" : value.id
-                );
-              }}
+              options={companyList}
+              value={getAutoCompleteValue(companyList, formInfo.BranchId)}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              getOptionLabel={(option) => (option ? option.name : '')}
+              renderOption={(propsOption, option) => (
+                <li {...propsOption} key={option.id}>
+                  {option.name}
+                </li>
+              )}
+              onChange={(_, value) => onAutoCompleteChange(value, 'BranchId')}
               renderInput={(params) => (
                 <TextField
-                  variant="outlined"
                   {...params}
-                  name="Company"
                   label={intl.formatMessage(messages.Company)}
                 />
               )}
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={3}>
             <Autocomplete
-              id="InsuranceStatus"
-              name="InsuranceStatus"
-              options={[
-                { id: null, name: "All" },
-                { id: 1, name: "Join social Insuranc" },
-                { id: 0, name: "Exit Insurance" },
-              ]}
-              isOptionEqualToValue={(option, value) =>
-                value.id === 0 || value.id === "" || option.id === value.id
+              options={insuranceStatusList}
+              value={getAutoCompleteValue(
+                insuranceStatusList,
+                formInfo.InsStatusId
+              )}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              getOptionLabel={(option) => (option ? option.name : '')}
+              renderOption={(propsOption, option) => (
+                <li {...propsOption} key={option.id}>
+                  {option.name}
+                </li>
+              )}
+              onChange={(_, value) => onAutoCompleteChange(value, 'InsStatusId')
               }
-              getOptionLabel={(option) => (option.name ? option.name : "")}
-              onChange={(event, value) => {
-                setInsuranceStatus(
-                  value == null ? "" : value.id == null ? "" : value.id
-                );
-              }}
               renderInput={(params) => (
                 <TextField
-                  variant="outlined"
                   {...params}
-                  name="InsuranceStatus"
                   label={intl.formatMessage(messages.InsuranceStatus)}
                 />
               )}
             />
           </Grid>
 
-        
-    
-
-          <Grid item xs={12} md={2}>
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              onClick={handleSearch}
-            >
-              <FormattedMessage {...Payrollmessages.search} />
+          <Grid item>
+            <Button variant='contained' color='primary' onClick={handleSearch}>
+              {intl.formatMessage(payrollMessages.search)}
             </Button>
           </Grid>
-          <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
 
       <PayrollTable
-        title=""
+        title=''
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
-
-
-<InsuranceFormPopUp  
-        handleClose={()=>handleClose()}
+      <InsuranceFormPopUp
+        handleClose={handleClose}
         open={hrNotes}
         callFun={createHrNotesFun}
       />
-
     </PayRollLoader>
   );
 }
