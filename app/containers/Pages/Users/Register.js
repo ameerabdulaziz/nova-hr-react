@@ -15,16 +15,7 @@ function Register() {
   const { classes } = useStyles();
   const title = brand.name + ' - Register';
   const description = brand.desc;
-  const [valueForm, setValueForm] = useState(null);
-
-  const submitForm = (values) => setValueForm(values);
-
-  useEffect(() => {
-    if (valueForm) {
-      console.log(`You submitted:\n\n${valueForm.email}`); // eslint-disable-line
-      window.location.href = '/app';
-    }
-  }, [valueForm]);
+  
 
   return (
     <div className={classes.rootFull}>
@@ -65,7 +56,7 @@ function Register() {
           </div>
         </Hidden>
         <div className={classes.sideFormWrap}>
-          <RegisterForm onSubmit={(values) => submitForm(values)} />
+          <RegisterForm  />
         </div>
       </div>
     </div>

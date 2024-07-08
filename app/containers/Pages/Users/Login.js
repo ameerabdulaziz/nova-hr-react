@@ -17,7 +17,7 @@ import {
   loginFailure,
   syncUser,
 } from "../../../redux/actions/authActions";
-import {useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
 
 function Login() {
@@ -31,7 +31,6 @@ function Login() {
   const { redirectTo } = queryString.parse(location.search);
   const submitForm = (values) => setValueForm(values);
   const Auth = useSelector((state) => state.authReducer.loggedIn);
-
 
   // used to check if user login before and try to open login page redirect him to /app
   // useEffect(() => {
@@ -52,41 +51,56 @@ function Login() {
         };
 
         const res = await axiosInstance.post("Account/Login", data);
-        Dispatcher(loginSuccess());
+        debugger;
 
-        localStorage.setItem("Token", res.data.token);
-        localStorage.setItem("IsStaticDashboard", res.data.isStaticDashboard);
-        localStorage.setItem("IsHR", res.data.isHR);
-        localStorage.setItem("IsManagement", res.data.isManagement);
-        let user = {
-          id: res.data.id,
-          email: res.data.email,
-          name: res.data.userName,
-          token: res.data.token,
-          avatar: null, //'/images/avatars/pp_boy4.jpg',
-          title: "Administrator",
-          status: "online",
-          displayName: res.data.userName,
-          isHR: res.data.isHR,
-          isManagement: res.data.isManagement,
-          isSuper: res.data.isSuper,
-          arName: res.data.arName,
-          enName: res.data.enName,
-          photoURL: res.data.photo,
-          branchId: res.data.branchId,
-        };
-        Dispatcher(syncUser(user));
-        localStorage.setItem("MenuName", "Dashboard")
-        if (res.data.isHR)
-          history.push(redirectTo == null || redirectTo === "/login"  ? "/app" : redirectTo);
-        else if (res.data.isManagement)
-          history.push(
-            redirectTo == null || redirectTo === "/login"  ? "/app/ManagementDashboard" : redirectTo
-          );
-        else
-        history.push(
-          redirectTo == null || redirectTo === "/login"  ? "/app/EmployeeDashboard" : redirectTo
-        );
+        if (res.data.token) {
+          Dispatcher(loginSuccess());
+          localStorage.setItem("Token", res.data.token);
+          localStorage.setItem("IsStaticDashboard", res.data.isStaticDashboard);
+          localStorage.setItem("IsHR", res.data.isHR);
+          localStorage.setItem("IsManagement", res.data.isManagement);
+          let user = {
+            id: res.data.id,
+            email: res.data.email,
+            name: res.data.userName,
+            token: res.data.token,
+            avatar: null, //'/images/avatars/pp_boy4.jpg',
+            title: "Administrator",
+            status: "online",
+            displayName: res.data.userName,
+            isHR: res.data.isHR,
+            isManagement: res.data.isManagement,
+            isSuper: res.data.isSuper,
+            arName: res.data.arName,
+            enName: res.data.enName,
+            photoURL: res.data.photo,
+            branchId: res.data.branchId,
+          };
+          Dispatcher(syncUser(user));
+          localStorage.setItem("MenuName", "Dashboard");
+          if (res.data.isHR)
+            history.push(
+              redirectTo == null || redirectTo === "/login"
+                ? "/app"
+                : redirectTo
+            );
+          else if (res.data.isManagement)
+            history.push(
+              redirectTo == null || redirectTo === "/login"
+                ? "/app/ManagementDashboard"
+                : redirectTo
+            );
+          else
+            history.push(
+              redirectTo == null || redirectTo === "/login"
+                ? "/app/EmployeeDashboard"
+                : redirectTo
+            );
+        } else {
+          if (res.data == "you must register this device first")
+            Dispatcher(loginSuccess());
+            history.push("register");
+        }
 
         //history.push('/app');
         //window.location.href = '/app';
@@ -126,8 +140,12 @@ function Login() {
             <div className={classes.openingWrap}>
               <div className={classes.openingHead}>
                 <NavLink to="/" className={classes.brand}>
-                <img src={logo} alt={brand.name}  style={{ width:200,height:50  }} />
-            {/* {brand.name} */}
+                  <img
+                    src={logo}
+                    alt={brand.name}
+                    style={{ width: 200, height: 50 }}
+                  />
+                  {/* {brand.name} */}
                 </NavLink>
               </div>
               <Typography variant="h3" component="h1" gutterBottom>

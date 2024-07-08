@@ -28,6 +28,14 @@ export default defineMessages({
     id: `${scope}.Register.field.name`,
     defaultMessage: 'Username',
   },
+  hd: {
+    id: `${scope}.Register.field.hd`,
+    defaultMessage: 'hd',
+  },
+  key: {
+    id: `${scope}.Register.field.key`,
+    defaultMessage: 'key',
+  },
   loginFieldEmail: {
     id: `${scope}.Login.field.email`,
     defaultMessage: 'Your Email',
