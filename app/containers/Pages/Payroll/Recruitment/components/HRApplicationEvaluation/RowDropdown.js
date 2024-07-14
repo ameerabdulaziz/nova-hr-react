@@ -1,25 +1,20 @@
 import DownloadIcon from '@mui/icons-material/Download';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
+import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Menu, MenuItem } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
 import PropTypes from 'prop-types';
 import React, { memo, useState } from 'react';
 import { injectIntl } from 'react-intl';
-import { useHistory } from 'react-router';
 import { ServerURL } from '../../../api/ServerConfig';
 import messages from '../../messages';
 
 function RowDropdown(props) {
-  const {
-    tableMeta, intl, row
-  } = props;
-
-  const history = useHistory();
+  const { tableMeta, intl, row } = props;
 
   const [openedDropdown, setOpenedDropdown] = useState({});
 
@@ -31,11 +26,18 @@ function RowDropdown(props) {
   const onPreviewCVBtnClick = (rowIndex) => {
     closeDropdown(rowIndex);
 
-    window.open(`${encodeURI(`/app/Pages/Recruitment/JobApplicationPreview/${btoa(JSON.stringify(
-      {
-          id: row.id 
-      }
-    ))}`)}`, '_blank')?.focus()
+    window
+      .open(
+        `${encodeURI(
+          `/app/Pages/Recruitment/JobApplicationPreview/${btoa(
+            JSON.stringify({
+              id: row.id,
+            })
+          )}`
+        )}`,
+        '_blank'
+      )
+      ?.focus();
   };
 
   const onUpdateStatusBtnClick = (rowIndex) => {
@@ -96,9 +98,7 @@ function RowDropdown(props) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem
-          onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}
-        >
+        <MenuItem onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
             <SystemUpdateAltIcon fontSize='small' />
           </ListItemIcon>
@@ -108,9 +108,7 @@ function RowDropdown(props) {
           </ListItemText>
         </MenuItem>
 
-        <MenuItem
-          onClick={() => onPreviewCVBtnClick(tableMeta.rowIndex)}
-        >
+        <MenuItem onClick={() => onPreviewCVBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
             <VisibilityIcon fontSize='small' />
           </ListItemIcon>
@@ -130,18 +128,16 @@ function RowDropdown(props) {
           <ListItemIcon>
             <DownloadIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText>
-            {intl.formatMessage(messages.downloadCV)}
-          </ListItemText>
+          <ListItemText>{intl.formatMessage(messages.downloadCV)}</ListItemText>
         </MenuItem>
 
         <MenuItem
           onClick={() => onSendRejectMailBtnClick(tableMeta.rowIndex)}
           disabled={
             row.mailSend
-          || (row.appFirstStatus !== 2
-            && row.techStatus !== 2
-            && row.secStatus !== 2)
+            || (row.appFirstStatus !== 2
+              && row.techStatus !== 2
+              && row.secStatus !== 2)
           }
         >
           <ListItemIcon>
