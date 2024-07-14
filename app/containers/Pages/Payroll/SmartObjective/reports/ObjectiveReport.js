@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
+import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/ObjectiveReportData';
 import messages from '../messages';
@@ -27,6 +28,7 @@ function ObjectiveReport(props) {
   const [departmentList, setDepartmentList] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [formInfo, setFormInfo] = useState({
     employeeId: '',
     yearId: null,
@@ -34,12 +36,56 @@ function ObjectiveReport(props) {
     organizationId: null,
   });
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const employee = getAutoCompleteValue(employeeList, formInfo.employeeId);
+    const year = getAutoCompleteValue(yearList, formInfo.yearId);
+    const month = getAutoCompleteValue(monthsList, formInfo.monthId);
+    const department = getAutoCompleteValue(
+      departmentList,
+      formInfo.organizationId
+    );
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.year),
+        value: year.name,
+      });
+    }
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.month),
+        value: month.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (department) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: department.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const fetchTableData = async () => {
     setIsLoading(true);
 
     try {
       const response = await api(locale).getList(formInfo);
       setTableData(response);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -79,8 +125,6 @@ function ObjectiveReport(props) {
       [name]: value !== null ? value.id : null,
     }));
   };
-
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   const columns = [
     {
@@ -230,6 +274,7 @@ function ObjectiveReport(props) {
         isLoading={isLoading}
         title=''
         data={tableData}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
     </PayRollLoader>
