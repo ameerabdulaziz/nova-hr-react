@@ -7,7 +7,7 @@ import {
   Autocomplete
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
@@ -26,7 +26,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
-import { formateDate, getCheckboxIcon } from "../../helpers";
+import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 import { toast } from "react-hot-toast";
 
 
@@ -47,9 +47,64 @@ function EmploymentDocs(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: '',
   });
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (DocumentType && DocumentType.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.documentType),
+        value: DocumentType.map((item) => item.name).join(' , '),
+      });
+    }
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -83,6 +138,8 @@ function EmploymentDocs(props) {
           
           const dataApi = await ApiData(locale).GetEmploymentDocsReport(formData, DocumentTypeData);
           setdata(dataApi);
+
+          getFilterHighlights();
         } catch (err) {
         } finally {
           setIsLoading(false);
@@ -107,6 +164,18 @@ function EmploymentDocs(props) {
       const Documents = await GeneralListApis(locale).GetDocumentList();
 
       setDocumentTypesList(Documents)
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -314,7 +383,7 @@ if(data.length !== 0)
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -324,6 +393,7 @@ if(data.length !== 0)
       <PayrollTable
         title=""
         data={data}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
     </PayRollLoader>
