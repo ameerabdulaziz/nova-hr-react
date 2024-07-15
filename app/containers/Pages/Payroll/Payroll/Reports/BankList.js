@@ -15,7 +15,7 @@ import XLSX from 'xlsx-js-style';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formatNumber, formateDate } from '../../helpers';
+import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/BankListData';
 import messages from '../messages';
@@ -25,7 +25,7 @@ function BankList(props) {
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
 
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
 
   const [yearList, setYearList] = useState([]);
   const [monthList, setMonthList] = useState([]);
@@ -36,6 +36,7 @@ function BankList(props) {
   const [companyList, setCompanyList] = useState([]);
   const [currencyList, setCurrencyList] = useState([]);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
   const [formInfo, setFormInfo] = useState({
@@ -110,6 +111,69 @@ function BankList(props) {
     },
   ];
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    const year = getAutoCompleteValue(yearList, formInfo.YearId);
+    const month = getAutoCompleteValue(monthList, formInfo.MonthId);
+    const template = getAutoCompleteValue(payTemplateList, formInfo.PayTemplateId);
+    const department = getAutoCompleteValue(departmentList, formInfo.OrganizationId);
+    const bank = getAutoCompleteValue(bankList, formInfo.BankId);
+    const currency = getAutoCompleteValue(currencyList, formInfo.CurrencyId);
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: year.name,
+      });
+    }
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: month.name,
+      });
+    }
+
+    if (template) {
+      highlights.push({
+        label: intl.formatMessage(messages.template),
+        value: template.name,
+      });
+    }
+
+    if (department) {
+      highlights.push({
+        label: intl.formatMessage(messages.department),
+        value: department.name,
+      });
+    }
+
+    if (bank) {
+      highlights.push({
+        label: intl.formatMessage(messages.bank),
+        value: bank.name,
+      });
+    }
+
+    if (currency) {
+      highlights.push({
+        label: intl.formatMessage(messages.currency),
+        value: currency.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   async function fetchNeededData() {
     setIsLoading(true);
 
@@ -176,6 +240,8 @@ function BankList(props) {
     try {
       const response = await api(locale).GetList(body, params);
       setTableData(response);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -228,8 +294,6 @@ function BankList(props) {
     }));
   };
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
-
   // const onExcelFileInputChange = (evt) => {
   //   const file = evt.target.files[0];
 
@@ -274,7 +338,7 @@ function BankList(props) {
 
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
 
-    const fileName =			getAutoCompleteValue(exportList, exportInfo.template)?.name ?? 'Payroll';
+    const fileName = getAutoCompleteValue(exportList, exportInfo.template)?.name ?? 'Payroll';
 
     XLSX.writeFile(workbook, fileName + '.xlsx');
   };
@@ -504,7 +568,7 @@ function BankList(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
             <Grid item xs={12} md={3}>
@@ -803,7 +867,7 @@ function BankList(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <PayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
     </PayRollLoader>
   );
 }

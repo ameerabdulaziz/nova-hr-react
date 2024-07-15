@@ -10,7 +10,11 @@ import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formatNumber, formateDate, getCheckboxIcon } from '../../helpers';
+import {
+  formatNumber,
+  getAutoCompleteValue,
+  getCheckboxIcon,
+} from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/AnnualTaxReportData';
 import messages from '../messages';
@@ -19,11 +23,13 @@ function AnnualTaxReport(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
 
   const [companyList, setCompanyList] = useState([]);
   const [yearList, setYearList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
   const [formInfo, setFormInfo] = useState({
@@ -56,6 +62,9 @@ function AnnualTaxReport(props) {
 
       const years = await GeneralListApis(locale).GetYears();
       setYearList(years);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
 
       if (branchId) {
         const response = await GeneralListApis(locale).getOpenMonth(
@@ -113,10 +122,6 @@ function AnnualTaxReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
     },
 
     {
@@ -183,6 +188,45 @@ function AnnualTaxReport(props) {
     },
   ];
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    const isStopped = getAutoCompleteValue(isStoppedList, formInfo.IsStopped);
+    const year = getAutoCompleteValue(yearList, formInfo.YearId);
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: year.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (isStopped) {
+      highlights.push({
+        label: intl.formatMessage(messages.isStopped),
+        value: isStopped.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const fetchTableData = async () => {
     setIsLoading(true);
 
@@ -194,6 +238,8 @@ function AnnualTaxReport(props) {
     try {
       const response = await api(locale).GetList(formData);
       setTableData(response);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -223,15 +269,13 @@ function AnnualTaxReport(props) {
     }
   }, []);
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
-
   useEffect(() => {
     fetchNeededData();
   }, []);
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
             <Grid item xs={12} md={3}>
@@ -318,7 +362,12 @@ function AnnualTaxReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <PayrollTable
+        title=''
+        data={tableData}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoader>
   );
 }

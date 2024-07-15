@@ -15,13 +15,13 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formatNumber } from '../../helpers';
+import { formatNumber, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SummaryPayslipData';
 import messages from '../messages';
@@ -29,19 +29,23 @@ import messages from '../messages';
 function SummaryPayslip(props) {
   const { intl } = props;
 
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
 
   const [tableData, setTableData] = useState([]);
 
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
   const [templateList, setTemplateList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [monthsList, setMonthsList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
-
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [formInfo, setFormInfo] = useState({
     PayTemplateId: 1,
     EmployeeId: null,
@@ -58,12 +62,98 @@ function SummaryPayslip(props) {
     reportType: 'detail',
   });
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      formInfo.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    const year = getAutoCompleteValue(yearList, reportCriteria.year);
+    const month = getAutoCompleteValue(monthsList, reportCriteria.month);
+    const template = getAutoCompleteValue(templateList, formInfo.PayTemplateId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.organization),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: year.name,
+      });
+    }
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: month.name,
+      });
+    }
+
+    if (template) {
+      highlights.push({
+        label: intl.formatMessage(messages.template),
+        value: template.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (formInfo.cash) {
+      highlights.push({
+        label: intl.formatMessage(messages.cash),
+        value: formInfo.cash
+          ? intl.formatMessage(payrollMessages.yes)
+          : intl.formatMessage(payrollMessages.no),
+      });
+    }
+
+    if (formInfo.bankonly) {
+      highlights.push({
+        label: intl.formatMessage(messages.bankOnly),
+        value: formInfo.bankonly
+          ? intl.formatMessage(payrollMessages.yes)
+          : intl.formatMessage(payrollMessages.no),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const fetchTableData = async () => {
     setIsLoading(true);
 
     try {
       const response = await api(locale).GetList(formInfo, reportCriteria);
       setTableData(response);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -83,6 +173,18 @@ function SummaryPayslip(props) {
 
       const templates = await GeneralListApis(locale).GetPayTemplateList();
       setTemplateList(templates);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
 
       if (branchId) {
         const response = await GeneralListApis(locale).getOpenMonth(
@@ -111,33 +213,23 @@ function SummaryPayslip(props) {
     {
       name: 'organizationName',
       label: intl.formatMessage(messages.department),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'employeeName',
       label: intl.formatMessage(messages.employeeName),
-      options: {
-        filter: true,
-      },
     },
 
     {
       name: 'totDeser',
       label: intl.formatMessage(messages.allowances),
       options: {
-        filter: true,
-        customBodyRender:(value) => <pre> {formatNumber(value)} </pre>,
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
 
@@ -145,7 +237,6 @@ function SummaryPayslip(props) {
       name: 'totDed',
       label: intl.formatMessage(messages.deductions),
       options: {
-        filter: true,
         customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
@@ -154,7 +245,6 @@ function SummaryPayslip(props) {
       name: 'netSal',
       label: intl.formatMessage(messages.netSalary),
       options: {
-        filter: true,
         customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
@@ -194,16 +284,12 @@ function SummaryPayslip(props) {
     }));
   };
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
-
   return (
     <PayRollLoader isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
         <Card sx={{ mb: 3 }}>
           <CardContent sx={{ p: '16px!important' }}>
-            <Typography variant='h6'>
-              {Title}
-            </Typography>
+            <Typography variant='h6'>{pageTitle}</Typography>
 
             <Grid container mt={0} spacing={3}>
               <Grid item xs={12} md={3}>
@@ -338,7 +424,7 @@ function SummaryPayslip(props) {
 
               <Grid item xs={12}>
                 <Button variant='contained' color='primary' type='submit'>
-                  <FormattedMessage {...payrollMessages.search} />
+                  {intl.formatMessage(payrollMessages.search)}
                 </Button>
               </Grid>
             </Grid>
@@ -350,6 +436,7 @@ function SummaryPayslip(props) {
         title=''
         data={tableData}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );

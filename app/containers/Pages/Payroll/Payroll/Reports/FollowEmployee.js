@@ -19,6 +19,7 @@ import ApiData from "../api/PayrollReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
+import { getAutoCompleteValue } from "../../helpers";
 
 function FollowEmployee(props) {
   const { intl } = props;
@@ -34,11 +35,54 @@ function FollowEmployee(props) {
     BranchId: branchId
   });
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
   const [ElementsList, setElementsList] = useState([]);
   const [Element, setElement] = useState(null);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.organization),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (Element) {
+      highlights.push({
+        label: intl.formatMessage(messages.element),
+        value: Element.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -58,6 +102,8 @@ function FollowEmployee(props) {
       
       const dataApi = await ApiData(locale).FollowEmployeeReport(searchData.EmployeeId,Element,formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -75,6 +121,14 @@ function FollowEmployee(props) {
     
     setElementsList(elements)
 
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -189,6 +243,7 @@ function FollowEmployee(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );

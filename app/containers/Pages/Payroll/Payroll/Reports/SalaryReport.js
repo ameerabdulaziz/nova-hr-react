@@ -17,7 +17,7 @@ import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formatNumber, formateDate } from '../../helpers';
+import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SalaryReportData';
 import messages from '../messages';
@@ -31,7 +31,9 @@ function SalaryReport(props) {
   const [companyList, setCompanyList] = useState([]);
   const [payTemplateList, setPayTemplateList] = useState([]);
   const [yearList, setYearList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
   const [formInfo, setFormInfo] = useState({
@@ -45,6 +47,45 @@ function SalaryReport(props) {
     OrganizationId: '',
   });
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const template = getAutoCompleteValue(payTemplateList, formInfo.TemplateId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    const year = getAutoCompleteValue(yearList, formInfo.YearId);
+
+    if (template) {
+      highlights.push({
+        label: intl.formatMessage(messages.template),
+        value: template.name,
+      });
+    }
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: year.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   async function fetchNeededData() {
     setIsLoading(true);
 
@@ -57,6 +98,9 @@ function SalaryReport(props) {
 
       const years = await GeneralListApis(locale).GetYears();
       setYearList(years);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
 
       if (branchId) {
         const response = await GeneralListApis(locale).getOpenMonth(
@@ -114,9 +158,6 @@ function SalaryReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
     },
 
     {
@@ -222,6 +263,8 @@ function SalaryReport(props) {
       }
 
       setColumns([...staticColumns, ...newColumns]);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -257,8 +300,6 @@ function SalaryReport(props) {
       }));
     }
   }, []);
-
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   useEffect(() => {
     fetchNeededData();
@@ -379,7 +420,7 @@ function SalaryReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <PayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
     </PayRollLoader>
   );
 }

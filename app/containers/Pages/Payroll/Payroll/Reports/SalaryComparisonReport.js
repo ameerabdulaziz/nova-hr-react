@@ -23,6 +23,7 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import { format } from 'date-fns';
 import PayrollTable from "../../Component/PayrollTable";
+import { getAutoCompleteValue } from "../../helpers";
 
 function SalaryComparisonReport(props) {
   const { intl } = props;
@@ -53,7 +54,95 @@ function SalaryComparisonReport(props) {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.organization),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (Month1) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: Month1.name,
+      });
+    }
+
+    if (Month2) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: Month2.name,
+      });
+    }
+
+    if (Year1) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: Year1.name,
+      });
+    }
+
+    if (Year2) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: Year2.name,
+      });
+    }
+
+    if (constElement && constElement.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.constElement),
+        value: constElement.map((item) => item.name).join(' , '),
+      });
+    }
+
+    if (ValElement && ValElement.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.valElement),
+        value: ValElement.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -106,6 +195,8 @@ function SalaryComparisonReport(props) {
       
       const dataApi = await ApiData(locale).GetSalaryComparisonReport(Year1,Month1,Year2,Month2,formData);
         setdata(dataApi);
+
+        getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -123,6 +214,18 @@ function SalaryComparisonReport(props) {
       const valElements = await GeneralListApis(locale).GetElementList(2);
       const months = await GeneralListApis(locale).GetMonths();
       const years = await GeneralListApis(locale).GetYears();
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
 
       setConstElementsList(constElements)
       setValElementsList(valElements)
@@ -457,6 +560,7 @@ function SalaryComparisonReport(props) {
       <PayrollTable
         title=""
         data={data}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
     </PayRollLoader>
