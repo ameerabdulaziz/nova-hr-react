@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux';
 import PayRollLoader from '../Component/PayRollLoader';
 import PayrollTable from '../Component/PayrollTable';
 import Search from '../Component/Search';
-import { formateDate } from '../helpers';
+import { formateDate, getAutoCompleteValue } from '../helpers';
 import API from './api/KPI_API_Data';
 import messages from './messages';
 import classes2 from "../../../../styles/styles.scss";
 import { toast } from "react-hot-toast";
-import Payrollmessages from "../messages";
+import payrollMessages from "../messages";
 import GeneralListApis from '../api/GeneralListApis';
 
 function KpiData(props) {
@@ -29,6 +29,7 @@ function KpiData(props) {
     EmployeeId: '',
     EmpStatusId: 1,
     OrganizationId: '',
+    BranchId: '',
   });
 
   const [kpiTypeList, setkpiTypeList] = useState([])
@@ -36,6 +37,11 @@ function KpiData(props) {
   const [cols, setCols] = useState("");
   const [DateError, setDateError] = useState({});
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
   let mainColumns = [
@@ -210,11 +216,90 @@ function KpiData(props) {
     },
   ]
 
+  async function fetchNeededData() {
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      formInfo.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (formInfo.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(formInfo.FromDate),
+      });
+    }
+
+    if (formInfo.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(formInfo.ToDate),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const fetchTableData = async () => {
 
      // used to stop call api if user select wrong date
      if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
@@ -263,6 +348,8 @@ function KpiData(props) {
         };
         const dataApi = await API(locale).GetList(URL,formData);
         setTableData(dataApi);
+
+        getFilterHighlights();
       } catch (error) {
         //
       } finally {
@@ -403,7 +490,7 @@ function KpiData(props) {
               color='primary'
               onClick={onSearchBtnClick}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
         </Grid>
@@ -414,6 +501,7 @@ function KpiData(props) {
         title=''
         data={tableData}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );
