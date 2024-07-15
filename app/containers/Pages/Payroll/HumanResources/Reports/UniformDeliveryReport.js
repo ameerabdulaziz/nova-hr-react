@@ -8,16 +8,15 @@ import {
   Autocomplete
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
-import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
-import { formateDate } from "../../helpers";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
 import { toast } from 'react-hot-toast';
 
 function UniformDeliveryReport(props) {
@@ -35,15 +34,85 @@ function UniformDeliveryReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: '',
   });
 
   const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+    const selectedUniform = getAutoCompleteValue(UniformList, Uniform);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (searchData.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(searchData.FromDate),
+      });
+    }
+
+    if (searchData.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(searchData.ToDate),
+      });
+    }
+
+    if (selectedUniform) {
+      highlights.push({
+        label: intl.formatMessage(messages.uniformName),
+        value: selectedUniform.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
      // used to stop call api if user select wrong date
      if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
@@ -64,6 +133,8 @@ function UniformDeliveryReport(props) {
       });
       const dataApi = await ApiData(locale).GetReport(formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -74,6 +145,18 @@ function UniformDeliveryReport(props) {
     try {
       const uniforms = await GeneralListApis(locale).GetUniformList(locale);
       setUniformList(uniforms);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -86,7 +169,7 @@ function UniformDeliveryReport(props) {
   const columns = [
     {
       name: "id",
-      label: intl.formatMessage(Payrollmessages.id),
+      label: intl.formatMessage(payrollMessages.id),
       options: {
         filter: false,
         display: false,
@@ -95,7 +178,7 @@ function UniformDeliveryReport(props) {
     },
     {
       name: "date",
-      label: intl.formatMessage(Payrollmessages.date),
+      label: intl.formatMessage(payrollMessages.date),
     },
     {
       name: "employeeName",
@@ -108,18 +191,18 @@ function UniformDeliveryReport(props) {
     },
     {
       name: "notes",
-      label: intl.formatMessage(Payrollmessages.notes),
+      label: intl.formatMessage(payrollMessages.notes),
       options: {
         noWrap: true,
       },
     },
     {
       name: "quantity",
-      label: intl.formatMessage(Payrollmessages.count),
+      label: intl.formatMessage(payrollMessages.count),
     },
     {
       name: "uniformPrice",
-      label: intl.formatMessage(Payrollmessages.price),
+      label: intl.formatMessage(payrollMessages.price),
     },
   ];
 
@@ -167,7 +250,7 @@ function UniformDeliveryReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -177,6 +260,7 @@ function UniformDeliveryReport(props) {
       <PayrollTable
         title=""
         data={data}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
     </PayRollLoader>

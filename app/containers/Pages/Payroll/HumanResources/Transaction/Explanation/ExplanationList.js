@@ -14,7 +14,7 @@ import EditButton from "../../../Component/EditButton";
 import style from "../../../../../../../app/styles/styles.scss";
 import PayRollLoader from "../../../Component/PayRollLoader";
 import PayrollTable from "../../../Component/PayrollTable";
-import { formateDate } from "../../../helpers";
+import { formateDate, getAutoCompleteValue } from "../../../helpers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -34,15 +34,45 @@ function ExplanationList(props) {
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
 
-
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [DateError, setDateError] = useState({});
-  
-  // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
+    const selectedEmployee = getAutoCompleteValue(EmployeeList, employee);
+    const selectedType = getAutoCompleteValue(TypeList, type);
+
+    if (selectedEmployee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: selectedEmployee.name,
+      });
+    }
+
+    if (selectedType) {
+      highlights.push({
+        label: intl.formatMessage(messages.type),
+        value: selectedType.name,
+      });
+    }
+
+    if (fromdate) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.fromdate),
+        value: formateDate(fromdate),
+      });
+    }
+
+    if (todate) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.todate),
+        value: formateDate(todate),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -52,8 +82,8 @@ function ExplanationList(props) {
       return;
     }
 
-    let Fromdate = dateFormatFun(fromdate)
-    let Todate = dateFormatFun(todate)
+    let Fromdate = formateDate(fromdate)
+    let Todate = formateDate(todate)
     
     try {
       setIsLoading(true);
@@ -64,6 +94,8 @@ function ExplanationList(props) {
         Todate,
       });
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
       //
     } finally {
@@ -291,17 +323,17 @@ function ExplanationList(props) {
                 <FormattedMessage {...Payrollmessages.search} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={12}></Grid>
           </Grid>
+
+        </div>
+      </PapperBlock>
 
           <PayrollTable
             title=""
             data={data}
             columns={columns}
+            filterHighlights={filterHighlights}
           />
-
-        </div>
-      </PapperBlock>
     </PayRollLoader>
   );
 }

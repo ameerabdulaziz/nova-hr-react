@@ -8,7 +8,7 @@ import {
   TextField ,
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
@@ -18,6 +18,7 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import { toast } from 'react-hot-toast';
 import GeneralListApis from "../../api/GeneralListApis";
+import { getAutoCompleteValue } from "../../helpers";
 
 function ManPowerReport(props) {
   const { intl } = props;
@@ -32,17 +33,54 @@ function ManPowerReport(props) {
     jobId: ""
   });
 
+  const [organizationList, setOrganizationList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+  const [filterHighlights, setFilterHighlights] = useState([]);
+
   const [JobsData, setJobsData] = useState([]);
   const [DateError, setDateError] = useState({});
   const [totalActualManPoweArr, setTotalActualManPoweArr] = useState([]);
   const newDataArr = []
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+    const job = getAutoCompleteValue(JobsData, searchData.jobId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (job) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.job),
+        value: job.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault()
       // used to stop call api if user select wrong date
       if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
 
@@ -58,6 +96,8 @@ function ManPowerReport(props) {
       });
       const dataApi = await ApiData(locale).GetReport(searchData.BranchId,formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -68,6 +108,12 @@ function ManPowerReport(props) {
     const Jobs = await GeneralListApis(locale).GetJobsList();
 
     setJobsData(Jobs)
+
+    const company = await GeneralListApis(locale).GetBranchList();
+    setCompanyList(company);
+
+    const organizations = await GeneralListApis(locale).GetDepartmentList();
+    setOrganizationList(organizations);
   }
 
   useEffect(()=>{
@@ -303,7 +349,7 @@ const columns = [
               color="primary"
               type="submit"
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -316,6 +362,7 @@ const columns = [
         data={newDataArr}
         columns={columns}
         options={options}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );
