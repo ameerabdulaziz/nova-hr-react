@@ -10,7 +10,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
@@ -20,6 +20,7 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
+import { getAutoCompleteValue } from "../../helpers";
 
 function medicalInsuranceListReport(props) {
   const { intl } = props;
@@ -40,8 +41,73 @@ function medicalInsuranceListReport(props) {
     all: false,
     PrivMed: false,
     GovIns: false,
+    BranchId: '',
   });
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+    const insuranceCompany = getAutoCompleteValue(MinsuranceCompanyList, InsuranceCompany);
+    const medicalInsuranceCategory = getAutoCompleteValue(MinsuranceCategoryList, MedicalInsuranceCategory);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (insuranceCompany) {
+      highlights.push({
+        label: intl.formatMessage(messages.insuranceCompany),
+        value: insuranceCompany.name,
+      });
+    }
+
+    if (medicalInsuranceCategory) {
+      highlights.push({
+        label: intl.formatMessage(messages.medicalInsuranceCategory),
+        value: medicalInsuranceCategory.name,
+      });
+    }
+
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
     try {
@@ -62,6 +128,8 @@ function medicalInsuranceListReport(props) {
 
       const dataApi = await ApiData(locale).GetMedicalInsuranceListReport(formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -74,6 +142,19 @@ function medicalInsuranceListReport(props) {
       const MinsuranceCategory = await GeneralListApis(locale).GetMinsuranceCategoryList();
       setMinsuranceCompanyList(MinsuranceCompany);
       setMinsuranceCategoryList(MinsuranceCategory)
+
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -86,7 +167,7 @@ function medicalInsuranceListReport(props) {
   const columns = [
     {
       name: "id",
-        label: intl.formatMessage(Payrollmessages.id),
+        label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
         print: false,
@@ -266,7 +347,7 @@ function medicalInsuranceListReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -277,6 +358,7 @@ function medicalInsuranceListReport(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
     </PayRollLoader>
