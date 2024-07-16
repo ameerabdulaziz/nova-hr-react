@@ -8,7 +8,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
@@ -17,6 +17,7 @@ import PropTypes from "prop-types";
 import PayRollLoader from "../../Component/PayRollLoader";
 import style from "../../../../../styles/styles.scss";
 import PayrollTable from "../../Component/PayrollTable";
+import { getAutoCompleteValue } from "../../helpers";
 
 function AssessmentReport(props) {
   const { intl } = props;
@@ -39,6 +40,54 @@ function AssessmentReport(props) {
     {id: 2 , name: intl.formatMessage(messages.notDone)}
   ]);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(DepartmentList, Department);
+    const employee = getAutoCompleteValue(EmployeeList, Employee);
+    const selectedStatus = getAutoCompleteValue(statusList, status);
+    const year = getAutoCompleteValue(YearList, Year);
+    const month = getAutoCompleteValue(MonthList, Month);
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.month),
+        value: month.name,
+      });
+    }
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.year),
+        value: year.name,
+      });
+    }
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (selectedStatus) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: selectedStatus.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
         try {
@@ -47,6 +96,8 @@ function AssessmentReport(props) {
         const dataApi = await ApiData(locale).PeerAppraisalReportApi(Year,Month,Employee,Department,status);
 
         setdata(dataApi);
+
+        getFilterHighlights();
         } catch (err) {
         } finally {
         setIsLoading(false);
@@ -273,7 +324,7 @@ function AssessmentReport(props) {
                 color="primary"
                 onClick={handleSearch}
                 >
-                <FormattedMessage {...Payrollmessages.search} />
+                <FormattedMessage {...payrollMessages.search} />
                 </Button>
             </Grid>
             <Grid item xs={12} md={12}></Grid>
@@ -283,6 +334,7 @@ function AssessmentReport(props) {
       <PayrollTable
         title=""
         data={data}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
 

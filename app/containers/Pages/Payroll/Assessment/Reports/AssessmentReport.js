@@ -10,7 +10,7 @@ import {
   Checkbox
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
@@ -25,6 +25,7 @@ import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlin
 import PayrollTable from "../../Component/PayrollTable";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { getAutoCompleteValue } from "../../helpers";
 
 function AssessmentReport(props) {
   const { intl } = props;
@@ -44,7 +45,7 @@ function AssessmentReport(props) {
   const [Month, setMonth] = useState("");
   const [Year, setYear] = useState("");
 
-
+  const [filterHighlights, setFilterHighlights] = useState([]);
 
   const [examData, setExamData] = useState();
   const [allQuestionsAnswers, setAllQuestionsAnswers] = useState({})
@@ -56,7 +57,43 @@ function AssessmentReport(props) {
   const [AssessmentReviewLock, setAssessmentReviewLock] = useState(true);
   const [printData, setPrintData] = useState([]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
+    const department = getAutoCompleteValue(DepartmentList, Department);
+    const month = getAutoCompleteValue(MonthList, Month);
+    const year = getAutoCompleteValue(YearList, Year);
+
+    if (department) {
+      highlights.push({
+        label: intl.formatMessage(messages.department),
+        value: department.name,
+      });
+    }
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.month),
+        value: month.name,
+      });
+    }
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.year),
+        value: year.name,
+      });
+    }
+
+    if (Employee && Employee.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: Employee.map((item) => item.name).join(", "),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
     if(Year.length !== 0)
@@ -73,7 +110,10 @@ function AssessmentReport(props) {
         dataApi[0].ManagerEvaluation = dataApi[0].mgrEvalChoice ? [dataApi[0].mgrEvalChoice," (",dataApi[0].mgrEval,"%",")"] : null
 
         setdata(dataApi);
+
+        getFilterHighlights();
         } catch (err) {
+          console.log(err);
         } finally {
         setIsLoading(false);
         }
@@ -455,7 +495,7 @@ const printJS = useReactToPrint({
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -466,6 +506,7 @@ const printJS = useReactToPrint({
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
 
