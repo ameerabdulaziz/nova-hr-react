@@ -8,8 +8,7 @@ import {
   Autocomplete
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
-import { format } from "date-fns";
+import payrollMessages from "../../messages";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
@@ -18,6 +17,7 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
 
 function MissionTrxReport(props) {
   const { intl } = props;
@@ -35,23 +35,114 @@ function MissionTrxReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: '',
   });
 
+  const missionStatusList = [
+    { id: null, name: "All" },
+    { id: 1, name: "Pending" },
+    { id: 2, name: "Approved" },
+    { id: 3, name: "Rejected" },
+  ];
+
+  const deleteList = [
+    { id: null, name: "All" },
+    { id: true, name: "Deleted" },
+    { id: false, name: "Not Deleted" },
+  ];
 
   const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
-  
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+    const selectedMission = getAutoCompleteValue(MissionsList, Mission);
+    const deleted = getAutoCompleteValue(deleteList, Deleted);
+    const missionStatus = getAutoCompleteValue(missionStatusList, Status);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (searchData.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(searchData.FromDate),
+      });
+    }
+
+    if (searchData.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(searchData.ToDate),
+      });
+    }
+
+    if (selectedMission) {
+      highlights.push({
+        label: intl.formatMessage(messages.missionName),
+        value: selectedMission.name,
+      });
+    }
+
+    if (deleted) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.delete),
+        value: deleted.name,
+      });
+    }
+
+    if (missionStatus) {
+      highlights.push({
+        label: intl.formatMessage(messages.status),
+        value: missionStatus.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
      // used to stop call api if user select wrong date
      if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
@@ -59,8 +150,8 @@ function MissionTrxReport(props) {
     try {
       setIsLoading(true);
       var formData = {
-        FromDate: dateFormatFun(searchData.FromDate),
-        ToDate: dateFormatFun(searchData.ToDate),
+        FromDate: formateDate(searchData.FromDate),
+        ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         MissionId: Mission,
         StatusId: Status,
@@ -73,6 +164,8 @@ function MissionTrxReport(props) {
       });
       const dataApi = await ApiData(locale).GetReport(formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -84,6 +177,18 @@ function MissionTrxReport(props) {
       
       const Missions = await GeneralListApis(locale).GetMissionList();
       setMissionsList(Missions);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -104,16 +209,16 @@ function MissionTrxReport(props) {
     },
     {
       name: "fromDate",
-      label: intl.formatMessage(Payrollmessages.fromdate),
+      label: intl.formatMessage(payrollMessages.fromdate),
     },
     {
       name: "toDate",
-      label: intl.formatMessage(Payrollmessages.todate),
+      label: intl.formatMessage(payrollMessages.todate),
     },
 
     {
       name: "employeeName",
-      label: intl.formatMessage(Payrollmessages.employeeName),
+      label: intl.formatMessage(payrollMessages.employeeName),
     },
 
     {
@@ -135,22 +240,22 @@ function MissionTrxReport(props) {
     },
     {
       name: "notes",
-      label: intl.formatMessage(Payrollmessages.notes),
+      label: intl.formatMessage(payrollMessages.notes),
       options: {
         customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
     },
     {
       name: "step",
-      label: intl.formatMessage(Payrollmessages.step),
+      label: intl.formatMessage(payrollMessages.step),
     },
     {
       name: "status",
-      label: intl.formatMessage(Payrollmessages.status),
+      label: intl.formatMessage(payrollMessages.status),
     },
     {
       name: "approvedEmp",
-      label: intl.formatMessage(Payrollmessages.approvedEmp),
+      label: intl.formatMessage(payrollMessages.approvedEmp),
     },
   ];
 
@@ -193,12 +298,7 @@ function MissionTrxReport(props) {
           <Grid item xs={12} md={2}>
             <Autocomplete
               id="StatusList"
-              options={[
-                { id: null, name: "All" },
-                { id: 1, name: "Pending" },
-                { id: 2, name: "Approved" },
-                { id: 3, name: "Rejected" },
-              ]}
+              options={missionStatusList}
               isOptionEqualToValue={(option, value) =>
                 value.id === 0 || value.id === "" || option.id === value.id
               }
@@ -211,7 +311,7 @@ function MissionTrxReport(props) {
                   variant="outlined"
                   {...params}
                   name="StatusList"
-                  label={intl.formatMessage(Payrollmessages.status)}
+                  label={intl.formatMessage(payrollMessages.status)}
                 />
               )}
             />
@@ -219,11 +319,7 @@ function MissionTrxReport(props) {
           <Grid item xs={12} md={2}>
             <Autocomplete
               id="DeleteList"
-              options={[
-                { id: null, name: "All" },
-                { id: true, name: "Deleted" },
-                { id: false, name: "Not Deleted" },
-              ]}
+              options={deleteList}
               isOptionEqualToValue={(option, value) =>
                 value.id === 0 || value.id === "" || option.id === value.id
               }
@@ -238,7 +334,7 @@ function MissionTrxReport(props) {
                   variant="outlined"
                   {...params}
                   name="DeleteList"
-                  label={intl.formatMessage(Payrollmessages.delete)}
+                  label={intl.formatMessage(payrollMessages.delete)}
                 />
               )}
             />
@@ -251,7 +347,7 @@ function MissionTrxReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -262,6 +358,7 @@ function MissionTrxReport(props) {
           title=""
           data={data}
           columns={columns}
+          filterHighlights={filterHighlights}
         />
     </PayRollLoader>
   );

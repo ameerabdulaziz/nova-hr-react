@@ -20,7 +20,7 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
-import { getCheckboxIcon } from '../../helpers';
+import { formateDate, getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -41,13 +41,41 @@ function ShiftManPowerReport(props) {
   const [date, setDate] = useState(null);
 
   const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const selectedShift = getAutoCompleteValue(ShiftList, Shift);
 
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (selectedShift) {
+      highlights.push({
+        label: intl.formatMessage(messages.shift),
+        value: selectedShift.name,
+      });
+    }
+
+    if (date) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.date),
+        value: formateDate(date),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -64,7 +92,7 @@ function ShiftManPowerReport(props) {
           let formData = {
             OrganizationId: searchData.OrganizationId,
             ShiftId:  Shift,
-            Date: dateFormatFun(date)
+            Date: formateDate(date)
               };
           Object.keys(formData).forEach((key) => {
             formData[key] = formData[key] === null ? "" : formData[key];
@@ -72,6 +100,8 @@ function ShiftManPowerReport(props) {
 
           const dataApi = await ApiData(locale).ShiftManPowerReportApi(formData);
           setdata(dataApi);
+
+        getFilterHighlights();
         } catch (err) {
         } finally {
           setIsLoading(false);
@@ -90,6 +120,8 @@ function ShiftManPowerReport(props) {
 
       setShiftList(shift);
 
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -226,6 +258,7 @@ function ShiftManPowerReport(props) {
           title=""
           data={data}
           columns={columns}
+          filterHighlights={filterHighlights}
         />
     </PayRollLoader>
   );

@@ -24,7 +24,7 @@ import { useReactToPrint } from 'react-to-print';
 import DetailedAttendanceReportTemplate from "../../reports-templates/DetailedAttendanceReportTemplate"
 import { format } from "date-fns";
 import { toast } from "react-hot-toast";
-import { formateDate, getCheckboxIcon } from "../../helpers";
+import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
 
 function DetailedAttendanceReport(props) {
@@ -40,6 +40,7 @@ function DetailedAttendanceReport(props) {
     FromDate: null,
     ToDate: null,
     EmployeeId: "",
+    BranchId: '',
     OrganizationId: "",
     EmpStatusId: 1,
     withoutEmployeesWithoutAttendanceRules: false,
@@ -50,11 +51,78 @@ function DetailedAttendanceReport(props) {
     printPicture: false,
   });
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
   const [DateError, setDateError] = useState({});
 
       const [headerType, setHeaderType] = useState();
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.company),
+        value: company.name,
+      });
+    }
+
+    if (searchData.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.fromdate),
+        value: formateDate(searchData.FromDate),
+      });
+    }
+
+    if (searchData.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.todate),
+        value: formateDate(searchData.ToDate),
+      });
+    }
+
+    if (Shift && Shift.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.shift),
+        value: Shift.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -119,7 +187,7 @@ function DetailedAttendanceReport(props) {
       })
       
 
-      
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -132,6 +200,18 @@ function DetailedAttendanceReport(props) {
       const Shift = await GeneralListApis(locale).GetShiftList();
 
       setShiftList(Shift)
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -569,6 +649,7 @@ function DetailedAttendanceReport(props) {
           title=""
           data={data}
           columns={columns}
+          filterHighlights={filterHighlights}
         />
 
       <DetailedAttendanceReportTemplate 
