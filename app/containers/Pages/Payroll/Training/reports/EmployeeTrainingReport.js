@@ -297,11 +297,11 @@ function EmployeeTrainingReport(props) {
     return grouped;
   }, {});
 
-  const onViewSurveyBtnClick = async (row) => {
+  const onViewSurveyBtnClick = async (surveyId) => {
     setIsLoading(true);
 
     try {
-      const response = await api(locale).printSurvey(row.serveyId);
+      const response = await api(locale).printSurvey(surveyId);
       setSurveyInfo({
         id: response.id,
         templateId: response.templateId,
@@ -368,7 +368,7 @@ function EmployeeTrainingReport(props) {
           variant='contained'
           color='primary'
           disabled={!row.serveyId}
-          onClick={() => onViewSurveyBtnClick(row)}
+          onClick={() => onViewSurveyBtnClick(row.serveyId)}
         >
           {intl.formatMessage(messages.employeeSurvey)}
         </Button>
@@ -377,7 +377,7 @@ function EmployeeTrainingReport(props) {
           variant='contained'
           color='primary'
           disabled={!row.serveyId}
-          onClick={() => onViewSurveyBtnClick(row)}
+          onClick={() => onViewSurveyBtnClick(row.trainerSurveyId)}
         >
           {intl.formatMessage(messages.trainerSurvey)}
         </Button>
