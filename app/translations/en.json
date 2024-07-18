@@ -657,7 +657,7 @@
   "boilerplate.containers.Payroll.organizationTree": "Organization Tree",
   "boilerplate.containers.Payroll.close": "Close",
   "boilerplate.containers.Payroll.cancel": "Cancel",
-  "boilerplate.containers.Payroll.id": "Employee Id",
+  "boilerplate.containers.Payroll.id": "Id",
   "boilerplate.containers.Payroll.trxId": "Trx No",  
   "boilerplate.containers.Payroll.downloadExcel": "Download Excel",
   "boilerplate.containers.Payroll.minDate": "Min Date",

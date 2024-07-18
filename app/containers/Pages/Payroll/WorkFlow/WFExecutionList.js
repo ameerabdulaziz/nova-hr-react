@@ -41,6 +41,7 @@ function WFExecutionList(props) {
       var result = await GeneralListApis(locale).GetWFExecutionList(
         ExecutionId, RequestId, DocumentId
       );
+      debugger;
       setdata(result);
     } catch (err) {
     } finally {
@@ -58,6 +59,13 @@ function WFExecutionList(props) {
       label: intl.formatMessage(Payrollmessages.id),
       options: {
         filter: false,
+      },
+    },
+    {
+      name: "employeeCode",
+      label: intl.formatMessage(Payrollmessages.employeeCode),
+      options: {
+        filter: true,
       },
     },
     {
