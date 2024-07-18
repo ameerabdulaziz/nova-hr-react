@@ -10,7 +10,7 @@ import {
   TextField
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
@@ -26,6 +26,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import style from '../../../../../styles/styles.scss'
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
+import { getAutoCompleteValue } from "../../helpers";
 
 function SalarySigningListReport(props) {
   const { intl } = props;
@@ -57,10 +58,91 @@ function SalarySigningListReport(props) {
   const [Month, setMonth] = useState(null);
   const [Year, setYear] = useState(null);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.organization),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (Year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: Year.name,
+      });
+    }
+
+    if (Template) {
+      highlights.push({
+        label: intl.formatMessage(messages.template),
+        value: Template.name,
+      });
+    }
+
+    if (Currency) {
+      highlights.push({
+        label: intl.formatMessage(messages.currency),
+        value: Currency.name,
+      });
+    }
+
+    if (Month) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: Month.name,
+      });
+    }
+
+    if (Job && Job.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.job),
+        value: Job.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -103,6 +185,8 @@ function SalarySigningListReport(props) {
 
       const dataApi = await ApiData(locale).SalarySigningListReportApi(Year,Month,Template,formData);
       setdata(dataApi);
+
+        getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -118,7 +202,7 @@ function SalarySigningListReport(props) {
   const columns = [
     {
       name: "id",
-        label: intl.formatMessage(Payrollmessages.id),
+        label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
       },
@@ -166,7 +250,18 @@ function SalarySigningListReport(props) {
     setIsLoading(true);
 
     try {
-      
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+
       const jobs = await GeneralListApis(locale).GetJobsList();
       const template = await GeneralListApis(locale).GetPayTemplateList();
       const currency = await GeneralListApis(locale).MdCurrency();
@@ -533,7 +628,7 @@ function SalarySigningListReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -544,6 +639,7 @@ function SalarySigningListReport(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
     </PayRollLoader>

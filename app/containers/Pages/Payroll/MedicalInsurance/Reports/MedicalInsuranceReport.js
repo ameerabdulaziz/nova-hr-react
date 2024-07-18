@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApiData from "../api/MedicalInsuranceReportsData";
 import { useSelector } from "react-redux";
 import {
@@ -7,9 +7,8 @@ import {
   Tooltip,
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
-import { format } from "date-fns";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
@@ -19,11 +18,12 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import  InsuranceFormPopUp  from '../../Component/InsuranceFormPopUp';
 import notif from 'enl-api/ui/notifMessage';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { formateDate } from "../../helpers";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import GeneralListApis from "../../api/GeneralListApis";
 
 function MedicalInsuranceReport(props) {
   const { intl } = props;
@@ -39,16 +39,15 @@ function MedicalInsuranceReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: '',
   });
 
   const [DateError, setDateError] = useState({});
-
-
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
-
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
   const [hrNotes, setHrNotes] = useState(false);
   const [rowIndexVal, setRowIndexVal] = useState("");
@@ -61,12 +60,84 @@ function MedicalInsuranceReport(props) {
     setHrNotes(false)
    };
 
+  async function fetchNeededData() {
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(ToDate),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
      // used to stop call api if user select wrong date
      if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
@@ -74,7 +145,7 @@ function MedicalInsuranceReport(props) {
     try {
       setIsLoading(true);
       var formData = {
-        ToDate: dateFormatFun(ToDate),
+        ToDate: formateDate(ToDate),
         EmployeeId: searchData.EmployeeId,
         EmpStatusId: searchData.EmpStatusId,
         OrganizationId: searchData.OrganizationId,
@@ -85,6 +156,8 @@ function MedicalInsuranceReport(props) {
 
       const dataApi = await ApiData(locale).GetMedicalInsuranceReport(formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -95,7 +168,7 @@ function MedicalInsuranceReport(props) {
   const columns = [
     {
       name: "id",
-        label: intl.formatMessage(Payrollmessages.id),
+        label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
         print: false,
@@ -206,7 +279,7 @@ function MedicalInsuranceReport(props) {
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.todate)}
+                        label={intl.formatMessage(payrollMessages.todate)}
                           value={ToDate ? dayjs(ToDate) : ToDate}
                         className={classes.field}
                           onChange={(date) => {
@@ -249,7 +322,7 @@ function MedicalInsuranceReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -260,6 +333,7 @@ function MedicalInsuranceReport(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
       <InsuranceFormPopUp  

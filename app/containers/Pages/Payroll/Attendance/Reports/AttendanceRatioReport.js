@@ -8,9 +8,8 @@ import {
   Autocomplete,
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
-import { format } from "date-fns";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
@@ -23,6 +22,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import PayrollTable from "../../Component/PayrollTable";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
 
 function AttendanceRatioReport(props) {
   const { intl } = props;
@@ -38,25 +38,80 @@ function AttendanceRatioReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: '',
   });
 
 
   const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
-   // used to reformat date before send it to api
-   const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+    const selectedShift = getAutoCompleteValue(ShiftList, Shift);
 
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
 
+    if (selectedShift) {
+      highlights.push({
+        label: intl.formatMessage(messages.shift),
+        value: selectedShift.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (FromDate) {
+      highlights.push({
+        label: intl.formatMessage(messages.fromDate),
+        value: formateDate(FromDate),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
 
     	// used to stop call api if user select wrong date
       if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
 
@@ -66,7 +121,7 @@ function AttendanceRatioReport(props) {
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: dateFormatFun(FromDate),
+        FromDate: formateDate(FromDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -78,6 +133,8 @@ function AttendanceRatioReport(props) {
 
       const dataApi = await ApiData(locale).AttendanceRatioReport(formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -96,6 +153,17 @@ function AttendanceRatioReport(props) {
 
       setShiftList(shift);
 
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -109,7 +177,7 @@ function AttendanceRatioReport(props) {
   const columns = [
     {
       name: "id",
-        label: intl.formatMessage(Payrollmessages.id),
+        label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
         print: false,
@@ -145,7 +213,7 @@ function AttendanceRatioReport(props) {
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.fromdate)}
+                        label={intl.formatMessage(payrollMessages.fromdate)}
                         value={FromDate  ? dayjs(FromDate) : FromDate}
                         className={classes.field}
                           onChange={(date) => {
@@ -215,7 +283,7 @@ function AttendanceRatioReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -226,6 +294,7 @@ function AttendanceRatioReport(props) {
           title=""
           data={data}
           columns={columns}
+          filterHighlights={filterHighlights}
         />
 
     </PayRollLoader>

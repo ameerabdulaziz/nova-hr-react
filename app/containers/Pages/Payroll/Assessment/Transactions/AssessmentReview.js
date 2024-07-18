@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AssessmentReviewData from "../api/AssessmentReviewData";
 import messages from "../messages";
-import Payrollmessages from '../../messages';
+import payrollMessages from '../../messages';
 import useStyles from "../../Style";
 import { useSelector } from "react-redux";
 import style from "../../../../../styles/styles.scss";
@@ -35,12 +35,41 @@ function AssessmentReview({ intl }) {
   const [isLoading, setIsLoading] = useState(true);
   const Title = localStorage.getItem("MenuName");
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+
   const [EmployeeList, setEmployeeList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
   const [YearList, setYearList] = useState([]);
   const [Employee, setEmployee] = useState(null);
   const [Month, setMonth] = useState(null);
   const [Year, setYear] = useState(null);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    if (Employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: Employee.name,
+      });
+    }
+
+    if (Month) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.month),
+        value: Month.name,
+      });
+    }
+
+    if (Year) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.year),
+        value: Year.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const getdata = async () => {
     setIsLoading(true);
@@ -86,7 +115,7 @@ function AssessmentReview({ intl }) {
     },
     {
       name: "assessmentDate",
-      label: intl.formatMessage(Payrollmessages.date),
+      label: intl.formatMessage(payrollMessages.date),
       options: {
         filter: true,
         customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
@@ -115,9 +144,9 @@ function AssessmentReview({ intl }) {
         customBodyRender: (value, tableMeta) => {
           return (
             <div className={style.actionsSty}>
-                <Tooltip title={intl.formatMessage(Payrollmessages.review)} cursor="pointer" className="mr-6">     
+                <Tooltip title={intl.formatMessage(payrollMessages.review)} cursor="pointer" className="mr-6">     
                     <IconButton
-                        aria-label={intl.formatMessage(Payrollmessages.review)}
+                        aria-label={intl.formatMessage(payrollMessages.review)}
                         size="large"
                         color="secondary"
                         className={classes.button}
@@ -143,6 +172,8 @@ function AssessmentReview({ intl }) {
      
       const dataApi = await AssessmentReviewData(locale).Get(Employee,Month,Year);
       setDataTable(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -280,7 +311,7 @@ function AssessmentReview({ intl }) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -288,6 +319,7 @@ function AssessmentReview({ intl }) {
       </PapperBlock>
 
       <PayrollTable
+        filterHighlights={filterHighlights}
         title=""
         data={dataTable}
         columns={columns}

@@ -10,7 +10,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
@@ -19,6 +19,7 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { useLocation } from "react-router-dom";
 import PayrollTable from "../../Component/PayrollTable";
+import { getAutoCompleteValue } from "../../helpers";
 
 
 function EmployeeAttendanceTemplate(props) {
@@ -36,7 +37,64 @@ function EmployeeAttendanceTemplate(props) {
     EmpStatusId: 1,
     attendanceRulesNotApplied: false,
     noAttendanceRule: false,
+    BranchId: "",
   });
+
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+    const template = getAutoCompleteValue(TampleteList, Tamplete);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (template) {
+      highlights.push({
+        label: intl.formatMessage(messages.TampleteName),
+        value: template.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
     try {
@@ -55,6 +113,8 @@ function EmployeeAttendanceTemplate(props) {
       const dataApi = await ApiData(locale).EmployeeAttendanceTemplateReport(
         formData
       );
+
+      getFilterHighlights();
       setdata(dataApi);
     } catch (err) {
     } finally {
@@ -66,6 +126,18 @@ function EmployeeAttendanceTemplate(props) {
     try {
       const tamplete = await GeneralListApis(locale).GetControlParameterList();
       setTampleteList(tamplete);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -79,7 +151,7 @@ function EmployeeAttendanceTemplate(props) {
   const columns = [
     {
       name: "employeeId",
-      label: intl.formatMessage(Payrollmessages.id),
+      label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
         print: false,
@@ -188,7 +260,7 @@ function EmployeeAttendanceTemplate(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -198,6 +270,7 @@ function EmployeeAttendanceTemplate(props) {
         <PayrollTable
           title=""
           data={data}
+          filterHighlights={filterHighlights}
           columns={columns}
         />
     </PayRollLoader>

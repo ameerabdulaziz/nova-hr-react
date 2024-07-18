@@ -12,6 +12,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
+import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeObjectiveData';
 import messages from '../messages';
@@ -22,23 +23,80 @@ function EmployeeObjective(props) {
 
   const locale = useSelector((state) => state.language.locale);
   const authState = useSelector((state) => state.authReducer);
-  const company = useSelector((state) => state.authReducer.companyInfo);
+  const companyState = useSelector((state) => state.authReducer.companyInfo);
   const { isHR, isManagement } = authState.user;
 
   const isNormalEmployee = !isHR && !isManagement;
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [monthsList, setMonthsList] = useState([]);
+
   const [formInfo, setFormInfo] = useState({
     EmployeeId: '',
+    BranchId: '',
     OrganizationId: '',
-    EmpStatusId: 1,
+    EmpStatusId: null,
 
     yearId: null,
     monthId: null,
   });
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const year = getAutoCompleteValue(yearList, formInfo.yearId);
+    const month = getAutoCompleteValue(monthsList, formInfo.monthId);
+    const organization = getAutoCompleteValue(
+      organizationList,
+      formInfo.OrganizationId
+    );
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.year),
+        value: year.name,
+      });
+    }
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.month),
+        value: month.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -46,6 +104,8 @@ function EmployeeObjective(props) {
     try {
       const response = await api(locale).getList(formInfo);
       setTableData(response);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -62,6 +122,15 @@ function EmployeeObjective(props) {
 
       const months = await GeneralListApis(locale).GetMonths();
       setMonthsList(months);
+
+      const branches = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(branches);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
     } catch (err) {
       //
     } finally {
@@ -94,8 +163,6 @@ function EmployeeObjective(props) {
       [name]: value !== null ? value.id : null,
     }));
   };
-
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   const columns = [
     {
@@ -223,7 +290,7 @@ function EmployeeObjective(props) {
               />
             </Grid>
 
-            {company?.monthlySmartObjective && (
+            {companyState?.monthlySmartObjective && (
               <Grid item xs={12} md={3}>
                 <Autocomplete
                   options={monthsList}
@@ -264,6 +331,7 @@ function EmployeeObjective(props) {
       <PayrollTable
         isLoading={isLoading}
         title=''
+        filterHighlights={filterHighlights}
         data={tableData}
         columns={columns}
         actions={actions}

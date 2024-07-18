@@ -7,7 +7,7 @@ import {
   Autocomplete
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
@@ -19,7 +19,7 @@ import ApiData from "../api/PayrollReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import { format } from "date-fns";
-import { formateDate } from "../../helpers";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
 
 function SalaryYearReport(props) {
@@ -41,6 +41,60 @@ function SalaryYearReport(props) {
   const [YearList, setYearList] = useState([]);
   const [Year, setYear] = useState(null);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.organization),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (Year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: Year.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -63,6 +117,8 @@ function SalaryYearReport(props) {
       
       const dataApi = await ApiData(locale).SalaryYearReport(Year,formData);
       setdata(dataApi);
+
+        getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -76,6 +132,18 @@ function SalaryYearReport(props) {
 
   async function fetchData() {
     try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+
       const years = await GeneralListApis(locale).GetYears();
 
       setYearList(years)
@@ -226,7 +294,7 @@ function SalaryYearReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -237,6 +305,7 @@ function SalaryYearReport(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
     </PayRollLoader>

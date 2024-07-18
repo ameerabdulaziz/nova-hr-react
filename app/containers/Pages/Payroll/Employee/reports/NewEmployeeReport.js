@@ -18,9 +18,8 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
-import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate } from '../../helpers';
+import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/NewEmployeeReportData';
 import messages from '../messages';
@@ -28,8 +27,7 @@ import messages from '../messages';
 function NewEmployeeReport(props) {
   const { intl } = props;
 
-  const { classes } = useStyles();
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
   const [tableData, setTableData] = useState([]);
@@ -161,17 +159,6 @@ function NewEmployeeReport(props) {
     return [...beforeSalaryColumns, ...afterSalaryColumns];
   }, [formInfo.ShowSalary]);
 
-  async function fetchData() {
-    try {
-      const department = await GeneralListApis(locale).GetDepartmentList();
-      setDepartmentList(department);
-    } catch (error) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   const fetchTableData = async () => {
     // used to stop call api if user select wrong date
     if (Object.values(dateError).includes(true)) {
@@ -183,13 +170,9 @@ function NewEmployeeReport(props) {
       setIsLoading(true);
       const formData = {
         ...formInfo,
-        FormData: formateDate(formInfo.FromDate),
+        FromDate: formateDate(formInfo.FromDate),
         ToDate: formateDate(formInfo.ToDate),
       };
-
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? '' : formData[key];
-      });
 
       const dataApi = await API(locale).GetReport(formData);
 
@@ -201,30 +184,53 @@ function NewEmployeeReport(props) {
     }
   };
 
+  async function fetchData() {
+    try {
+      const department = await GeneralListApis(locale).GetDepartmentList();
+      setDepartmentList(department);
+
+      fetchTableData();
+    } catch (error) {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
     fetchData();
-    fetchTableData();
   }, []);
 
   const onSearchBtnClick = () => {
     fetchTableData();
   };
 
+  const onDatePickerChange = (value, name) => {
+    setFormInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
             <Autocomplete
-              id='departmentId'
               options={departmentList}
-              getOptionLabel={(option) => option.name}
               onChange={(_, value) => {
                 setFormInfo((prev) => ({
                   ...prev,
                   OrganizationId: value?.id ? value?.id : null,
                 }));
               }}
+              value={getAutoCompleteValue(
+                departmentList,
+                formInfo.OrganizationId
+              )}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              getOptionLabel={(option) => (option ? option.name : '')}
+              renderOption={(propsOption, option) => (
+                <li {...propsOption} key={option.id}>
+                  {option.name}
+                </li>
+              )}
               renderInput={(params) => (
                 <TextField
                   variant='outlined'
@@ -241,30 +247,14 @@ function NewEmployeeReport(props) {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={intl.formatMessage(messages.fromDate)}
-                value={
-                  formInfo.FromDate
-                    ? dayjs(formInfo.FromDate)
-                    : formInfo.FromDate
-                }
-                className={classes.field}
-                onChange={(date) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    FromDate: date,
+                value={formInfo.FromDate ? dayjs(formInfo.FromDate) : null}
+                sx={{ width: '100%' }}
+                onChange={(date) => onDatePickerChange(date, 'FromDate')}
+                onError={(error) => {
+                  setDateError((prevState) => ({
+                    ...prevState,
+                    FromDate: error !== null,
                   }));
-                }}
-                onError={(error, value) => {
-                  if (error !== null) {
-                    setDateError((prevState) => ({
-                      ...prevState,
-                      FromDate: true,
-                    }));
-                  } else {
-                    setDateError((prevState) => ({
-                      ...prevState,
-                      FromDate: false,
-                    }));
-                  }
                 }}
               />
             </LocalizationProvider>
@@ -274,28 +264,14 @@ function NewEmployeeReport(props) {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={intl.formatMessage(messages.toDate)}
-                value={
-                  formInfo.ToDate ? dayjs(formInfo.ToDate) : formInfo.ToDate
-                }
-                className={classes.field}
-                onChange={(date) => {
-                  setFormInfo((prev) => ({
-                    ...prev,
-                    ToDate: date,
+                value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
+                sx={{ width: '100%' }}
+                onChange={(date) => onDatePickerChange(date, 'ToDate')}
+                onError={(error) => {
+                  setDateError((prevState) => ({
+                    ...prevState,
+                    ToDate: error !== null,
                   }));
-                }}
-                onError={(error, value) => {
-                  if (error !== null) {
-                    setDateError((prevState) => ({
-                      ...prevState,
-                      ToDate: true,
-                    }));
-                  } else {
-                    setDateError((prevState) => ({
-                      ...prevState,
-                      ToDate: false,
-                    }));
-                  }
                 }}
               />
             </LocalizationProvider>
@@ -317,7 +293,6 @@ function NewEmployeeReport(props) {
           <Grid item md={3}>
             <Button
               variant='contained'
-              size='medium'
               color='primary'
               onClick={onSearchBtnClick}
             >

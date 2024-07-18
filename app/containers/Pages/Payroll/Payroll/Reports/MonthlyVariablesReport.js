@@ -21,7 +21,7 @@ import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formatNumber, formateDate } from '../../helpers';
+import { formatNumber, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/MonthlyVariablesReportData';
 import messages from '../messages';
@@ -30,14 +30,16 @@ function MonthlyVariablesReport(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
 
   const [companyList, setCompanyList] = useState([]);
   const [payTemplateList, setPayTemplateList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [monthList, setMonthList] = useState([]);
   const [elementsList, setElementsList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
   const [formInfo, setFormInfo] = useState({
@@ -65,12 +67,26 @@ function MonthlyVariablesReport(props) {
     },
   ];
 
+  const valueTypesList = [
+    {
+      id: 1,
+      name: intl.formatMessage(messages.enteredValues),
+    },
+    {
+      id: 2,
+      name: intl.formatMessage(messages.CalculatedValue),
+    },
+  ];
+
   async function fetchNeededData() {
     setIsLoading(true);
 
     try {
       const company = await GeneralListApis(locale).GetBranchList();
       setCompanyList(company);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
 
       const payTemplate = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(payTemplate);
@@ -113,6 +129,8 @@ function MonthlyVariablesReport(props) {
       options: {
         filter: false,
         display: false,
+        download: false,
+        print: false,
       },
     },
 
@@ -124,10 +142,6 @@ function MonthlyVariablesReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
     },
 
     {
@@ -158,11 +172,87 @@ function MonthlyVariablesReport(props) {
 
   const [columns, setColumns] = useState(staticColumns);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const year = getAutoCompleteValue(yearList, formInfo.YearId);
+    const month = getAutoCompleteValue(monthList, formInfo.MonthId);
+    const template = getAutoCompleteValue(payTemplateList, formInfo.TemplateId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    const salaryType = getAutoCompleteValue(
+      salaryTypesList,
+      formInfo.isBankTransfere
+    );
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    const valueType = getAutoCompleteValue(valueTypesList, formInfo.isVal);
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (salaryType) {
+      highlights.push({
+        label: intl.formatMessage(messages.salaryType),
+        value: salaryType.name,
+      });
+    }
+
+    if (year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: year.name,
+      });
+    }
+
+    if (month) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: month.name,
+      });
+    }
+
+    if (template) {
+      highlights.push({
+        label: intl.formatMessage(messages.template),
+        value: template.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (valueType) {
+      highlights.push({
+        label: intl.formatMessage(messages.CalculatedValue),
+        value: valueType.name,
+      });
+    }
+
+    if (formInfo.ElmentIds.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.element),
+        value: formInfo.ElmentIds.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const fetchTableData = async () => {
     setIsLoading(true);
 
     try {
       const ids = formInfo.ElmentIds.map((item) => item.id);
+      const isBankTransfere = formInfo.isBankTransfere === null
+        ? null
+        : Boolean(formInfo.isBankTransfere);
 
       const params = {
         EmployeeId: formInfo.EmployeeId,
@@ -170,10 +260,7 @@ function MonthlyVariablesReport(props) {
         TemplateId: formInfo.TemplateId,
         YearId: formInfo.YearId,
         MonthId: formInfo.MonthId,
-        isBankTransfere:
-					formInfo.isBankTransfere === null
-					  ? null
-					  : Boolean(formInfo.isBankTransfere),
+        isBankTransfere,
         isVal: formInfo.isVal,
       };
 
@@ -208,6 +295,8 @@ function MonthlyVariablesReport(props) {
       }
 
       setColumns([...staticColumns, ...newColumns]);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -251,15 +340,13 @@ function MonthlyVariablesReport(props) {
     }
   }, []);
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
-
   useEffect(() => {
     fetchNeededData();
   }, []);
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
             <Grid item xs={12} md={3}>
@@ -452,7 +539,12 @@ function MonthlyVariablesReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <PayrollTable
+        title=''
+        data={tableData}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoader>
   );
 }

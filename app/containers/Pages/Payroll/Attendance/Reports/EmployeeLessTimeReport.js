@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ApiData from '../api/AttendanceReportsData'
 import { useSelector } from 'react-redux'
 import { Button, Grid } from '@mui/material'
 import messages from '../messages'
-import Payrollmessages from '../../messages'
+import payrollMessages from '../../messages'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { PapperBlock } from 'enl-components'
 import PropTypes from 'prop-types'
 import Search from '../../Component/Search'
 import PayRollLoader from '../../Component/PayRollLoader'
-import { format } from 'date-fns'
 import { toast } from 'react-hot-toast'
 import PayrollTable from '../../Component/PayrollTable'
+import GeneralListApis from '../../api/GeneralListApis'
+import { formateDate, getAutoCompleteValue } from '../../helpers'
 
 function EmployeeLessTime(props) {
   const { intl } = props
@@ -25,27 +26,84 @@ function EmployeeLessTime(props) {
     EmployeeId: '',
     OrganizationId: '',
     EmpStatusId: 1,
+    BranchId: '',
   })
 
-  const [DateError, setDateError] = useState({})
+  const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-    return date ? format(new Date(date), 'yyyy-MM-dd') : ''
-  }
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (searchData.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(searchData.FromDate),
+      });
+    }
+
+    if (searchData.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(searchData.ToDate),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
     // used to stop call api if user select wrong date
     if (Object.values(DateError).includes(true)) {
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid))
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid))
       return
     }
 
     try {
       setIsLoading(true)
       let formData = {
-        FromDate: dateFormatFun(searchData.FromDate),
-        ToDate: dateFormatFun(searchData.ToDate),
+        FromDate: formateDate(searchData.FromDate),
+        ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -55,6 +113,8 @@ function EmployeeLessTime(props) {
       })
       const dataApi = await ApiData(locale).EmployeeLessTimeReport(formData)
       setdata(dataApi)
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false)
@@ -64,7 +124,7 @@ function EmployeeLessTime(props) {
   const columns = [
     {
       name: 'employeeId',
-      label: intl.formatMessage(Payrollmessages.id),
+      label: intl.formatMessage(payrollMessages.id),
       options: {
         filter: false,
       },
@@ -95,6 +155,30 @@ function EmployeeLessTime(props) {
     },
   ]
 
+  async function fetchData() {
+    try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -116,14 +200,14 @@ function EmployeeLessTime(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
 
-      <PayrollTable title="" data={data} columns={columns} />
+      <PayrollTable title="" data={data} columns={columns} filterHighlights={filterHighlights} />
     </PayRollLoader>
   )
 }

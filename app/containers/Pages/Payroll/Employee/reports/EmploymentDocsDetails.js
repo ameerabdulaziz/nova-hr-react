@@ -7,9 +7,8 @@ import {
   Autocomplete
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
-import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
@@ -24,7 +23,7 @@ import Switch from '@mui/material/Switch';
 import ApiData from "../api/EmployeeReportsApiData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
-import { formateDate } from "../../helpers";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
 import { toast } from "react-hot-toast";
 
 function EmploymentDocsDetails(props) {
@@ -44,9 +43,64 @@ function EmploymentDocsDetails(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: '',
   });
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (DocumentType && DocumentType.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.documentType),
+        value: DocumentType.map((item) => item.name).join(' , '),
+      });
+    }
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
     if (searchData.EmployeeId === '') {
@@ -83,6 +137,8 @@ function EmploymentDocsDetails(props) {
       
       const dataApi = await ApiData(locale).GetEmploymentDocsDetailsReport(formData, DocumentTypeData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -94,6 +150,18 @@ function EmploymentDocsDetails(props) {
       const Documents = await GeneralListApis(locale).GetDocumentList();
 
       setDocumentTypesList(Documents)
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -308,7 +376,7 @@ function EmploymentDocsDetails(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -319,6 +387,7 @@ function EmploymentDocsDetails(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );

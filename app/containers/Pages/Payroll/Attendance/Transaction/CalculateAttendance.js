@@ -25,8 +25,8 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
-import { formateDate, getCheckboxIcon } from "../../helpers";
-import Payrollmessages from "../../messages";
+import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
+import payrollMessages from "../../messages";
 import api from "../api/CalculateAttendanceData";
 import RowDropdown from "../components/CalculateAttendance/RowDropdown";
 import messages from "../messages";
@@ -53,6 +53,7 @@ function CalculateAttendance(props) {
   const [isLoadingPopup, setIsLoadingPopup] = useState(false);
   const [openParentPopup, setOpenParentPopup] = useState(false);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [openMonth, setOpenMonth] = useState({
     todate: null,
     fromDate: null,
@@ -117,12 +118,55 @@ function CalculateAttendance(props) {
     return checkDate >= start && checkDate <= end;
   };
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const company = getAutoCompleteValue(companyList, formInfo.companyId);
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (formInfo.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(formInfo.FromDate),
+      });
+    }
+
+    if (formInfo.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(formInfo.ToDate),
+      });
+    }
+
+    if (formInfo.EmployeeIds && formInfo.EmployeeIds.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: formInfo.EmployeeIds.map((item) => item.name).join(' , '),
+      });
+    }
+
+    if (formInfo.OrganizationIds && formInfo.OrganizationIds.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.department),
+        value: formInfo.OrganizationIds.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
     // used to stop call api if user select wrong date
     if (Object.values(DateError).includes(true)) {
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
@@ -155,6 +199,8 @@ function CalculateAttendance(props) {
     try {
       const response = await api(locale).GetList(body, formData);
       setTableData(response);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -165,7 +211,7 @@ function CalculateAttendance(props) {
   const handleCalculate = async () => {
     try {
       if (Object.values(DateError).includes(true)) {
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
 
@@ -216,7 +262,7 @@ function CalculateAttendance(props) {
   const handlePost = async () => {
     try {
       if (Object.values(DateError).includes(true)) {
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+        toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
 
@@ -684,15 +730,12 @@ function CalculateAttendance(props) {
     },
   ];
 
-  const getAutoCompleteValue = (list, key) =>
-    list.find((item) => item.id === key) ?? null;
-
   return (
     <PayRollLoader isLoading={isLoading}>
       <CalculateAttendancePopUp
         handleClose={handleClose}
         open={openParentPopup}
-        messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}`}
+        messageData={`${intl.formatMessage(payrollMessages.deleteMessage)}`}
         Data={selectedRowData}
         popUpTitle={popUpTitle}
         disabledLock={disabledLock}
@@ -927,7 +970,7 @@ function CalculateAttendance(props) {
         </PapperBlock>
       </form>
 
-      <PayrollTable title="" data={tableData} columns={columns} />
+      <PayrollTable title="" data={tableData} columns={columns} filterHighlights={filterHighlights} />
     </PayRollLoader>
   );
 }

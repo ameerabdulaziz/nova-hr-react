@@ -7,7 +7,7 @@ import {
   Autocomplete
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
@@ -22,6 +22,7 @@ import ApiData from "../api/PayrollReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
+import { getAutoCompleteValue } from "../../helpers";
 
 function ElementReview(props) {
   const { intl } = props;
@@ -30,6 +31,8 @@ function ElementReview(props) {
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName"); 
+
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchData, setsearchData] = useState({
     EmployeeId: "",
@@ -38,6 +41,10 @@ function ElementReview(props) {
     BranchId: branchId,
   });
 
+  const [statusList, setStatusList] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
   const [YearList, setYearList] = useState([]);
   const [Month, setMonth] = useState(null);
@@ -49,6 +56,76 @@ function ElementReview(props) {
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+
+    if (Template) {
+      highlights.push({
+        label: intl.formatMessage(messages.template),
+        value: Template.name,
+      });
+    }
+
+    if (Year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: Year.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (Element && Element.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.element),
+        value: Element.map((item) => item.name).join(' , '),
+      });
+    }
+
+    if (Month && Month.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.Month),
+        value: Month.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -103,6 +180,8 @@ function ElementReview(props) {
       
       const dataApi = await ApiData(locale).GetReport(Year,ElementsData,formData);
       setdata(dataApi);
+
+        getFilterHighlights();
     } catch (err) {
         console.log("err =", err);
     } finally {
@@ -123,6 +202,18 @@ function ElementReview(props) {
       const template = await GeneralListApis(locale).GetPayTemplateList();
       const months = await GeneralListApis(locale).GetMonths();
       const years = await GeneralListApis(locale).GetYears();
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
 
       setElementsList(elements)
       setTemplatesList(template)
@@ -395,7 +486,7 @@ function ElementReview(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -406,6 +497,7 @@ function ElementReview(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
     </PayRollLoader>

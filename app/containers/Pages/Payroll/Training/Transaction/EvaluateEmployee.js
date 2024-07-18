@@ -1,28 +1,31 @@
-import { Autocomplete, Button, Grid, TextField, Tooltip } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import notif from "enl-api/ui/notifMessage";
-import { PapperBlock } from "enl-components";
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { injectIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import PayRollLoader from "../../Component/PayRollLoader";
-import { formateDate, formatNumber, getCheckboxIcon } from "../../helpers";
-import payrollMessages from "../../messages";
-import api from "../api/TrTrainingTrxListData";
-import PayrollTable from "../../Component/PayrollTable";
-import messages from "../messages";
-import { useHistory } from "react-router";
-import PreviewCertificatePopup from "../components/EvaluateEmployee/PreviewCertificatePopup";
-import { ServerURL } from "../../api/ServerConfig";
+import {
+  Autocomplete, Button, Grid, TextField
+} from '@mui/material';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import notif from 'enl-api/ui/notifMessage';
+import { PapperBlock } from 'enl-components';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
+import { ServerURL } from '../../api/ServerConfig';
+import PayRollLoader from '../../Component/PayRollLoader';
+import PayrollTable from '../../Component/PayrollTable';
+import { formatNumber, getCheckboxIcon } from '../../helpers';
+import payrollMessages from '../../messages';
+import api from '../api/TrTrainingTrxListData';
+import PreviewCertificatePopup from '../components/EvaluateEmployee/PreviewCertificatePopup';
+import messages from '../messages';
 
 function EvaluateEmployee(props) {
   const { intl } = props;
 
-  const pageTitle = localStorage.getItem("MenuName");
+  const pageTitle = localStorage.getItem('MenuName');
 
   const history = useHistory();
 
@@ -33,18 +36,21 @@ function EvaluateEmployee(props) {
   const [isPrintPreviewOpen, setIsPrintPreviewOpen] = useState(false);
   const [certificateInfo, setCertificateInfo] = useState(null);
 
+  const [isAttachmentPopupOpen, setIsAttachmentPopupOpen] = useState(false);
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
+
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [training, setTraining] = useState({
     id: 0,
-    arName: "",
+    arName: '',
     courseId: 0,
-    courseName: "",
+    courseName: '',
     fromDate: null,
     toDate: null,
     locationId: 0,
-    locationName: "",
+    locationName: '',
   });
 
   const fetchNeededData = async () => {
@@ -98,13 +104,13 @@ function EvaluateEmployee(props) {
   };
 
   const onAutoCompleteChange = (value, name) => {
-    let selectedTraining = trainingList.find((item) => item.id === value.id);
+    const selectedTraining = trainingList.find((item) => item.id === value.id);
     setTraining(selectedTraining);
   };
 
   const columns = [
     {
-      name: "employeeId",
+      name: 'employeeId',
       options: {
         filter: false,
         display: false,
@@ -112,7 +118,7 @@ function EvaluateEmployee(props) {
       },
     },
     {
-      name: "courseId",
+      name: 'courseId',
       options: {
         filter: false,
         display: false,
@@ -120,7 +126,7 @@ function EvaluateEmployee(props) {
       },
     },
     {
-      name: "trainingId",
+      name: 'trainingId',
       options: {
         filter: false,
         display: false,
@@ -128,7 +134,7 @@ function EvaluateEmployee(props) {
       },
     },
     {
-      name: "trainingEmpId",
+      name: 'trainingEmpId',
       options: {
         filter: false,
         display: false,
@@ -137,43 +143,37 @@ function EvaluateEmployee(props) {
     },
 
     {
-      name: "employeeName",
+      name: 'employeeName',
       label: intl.formatMessage(payrollMessages.employeeName),
     },
     {
-      name: "courseName",
+      name: 'courseName',
       label: intl.formatMessage(messages.courseName),
     },
     {
-      name: "fromDate",
+      name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
     },
     {
-      name: "toDate",
+      name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
     },
     {
-      name: "surveyDone",
+      name: 'surveyDone',
       label: intl.formatMessage(messages.surveyDone),
       options: {
         customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
-      name: "testIsReview",
+      name: 'testIsReview',
       label: intl.formatMessage(messages.testIsReview),
       options: {
         customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
     {
-      name: "testGrade",
+      name: 'testGrade',
       label: intl.formatMessage(messages.testGrade),
       options: {
         customBodyRender: (value) => formatNumber(value),
@@ -186,14 +186,17 @@ function EvaluateEmployee(props) {
       typeId: 2,
       trainingId: row.trainingId,
       evaluatedEmployeeId: row.employeeId,
-      trainingEmpId: row.trainingEmpId
+      trainingEmpId: row.trainingEmpId,
     };
 
     history.push('/app/Pages/Survey/Survey', state);
   };
 
   const onReviewBtnClick = (row) => {
-    const state = { trainingId: row.trainingId, evaluatedEmployeeId: row.employeeId };
+    const state = {
+      trainingId: row.trainingId,
+      evaluatedEmployeeId: row.employeeId,
+    };
 
     history.push('/app/Pages/Training/ReviewTest', state);
   };
@@ -217,12 +220,21 @@ function EvaluateEmployee(props) {
     setIsPrintPreviewOpen(true);
   };
 
+  const onAttachmentPopupClose = () => {
+    setIsAttachmentPopupOpen(false);
+  };
+
+  const onAttachmentPopupBtnClick = (certificate) => {
+    setIsAttachmentPopupOpen(true);
+    setSelectedCertificate(`${ServerURL}Doc/EmpCertificate/${certificate}`);
+  };
+
   const actions = {
     extraActions: (row) => (
       <>
         <Button
-          variant="contained"
-          color="primary"
+          variant='contained'
+          color='primary'
           disabled={row.surveyDone}
           onClick={() => onEvaluateBtnClick(row)}
         >
@@ -230,8 +242,8 @@ function EvaluateEmployee(props) {
         </Button>
 
         <Button
-          variant="contained"
-          color="primary"
+          variant='contained'
+          color='primary'
           disabled={row.testIsReview || !row.testDone}
           onClick={() => onReviewBtnClick(row)}
         >
@@ -239,36 +251,34 @@ function EvaluateEmployee(props) {
         </Button>
 
         <Button
-          variant="contained"
-          color="primary"
-          disabled={!(row.surveyDone && row.certificatePath === null)}
+          variant='contained'
+          color='primary'
+          disabled={!(row.testIsReview && row.certificatePath === null)}
           onClick={() => onRepeatBtnClick(row)}
         >
           {intl.formatMessage(messages.repeatTest)}
         </Button>
 
-        {
-          row.certificatePath
-            ? <Button
-              variant="outlined"
-              color="primary"
-              component='a'
-              target='_blank'
-              sx={{ textWrap: 'nowrap' }}
-              href={`${ServerURL}Doc/EmpCertificate/${row.certificatePath}`}
-            >
-              {intl.formatMessage(messages.previewCertificate)}
-            </Button>
-
-            : <Button
-              variant="contained"
-              disabled={!row.testIsReview}
-              color="primary"
-              onClick={() => onPrintCertificateBtnClick(row)}
-            >
-              {intl.formatMessage(messages.createCertificate)}
-            </Button>
-        }
+        {row.certificatePath ? (
+          <Button
+            variant='outlined'
+            color='primary'
+            sx={{ textWrap: 'nowrap' }}
+            onClick={() => onAttachmentPopupBtnClick(row.certificatePath)}
+            // href={`${ServerURL}Doc/EmpCertificate/${row.certificatePath}`}
+          >
+            {intl.formatMessage(messages.previewCertificate)}
+          </Button>
+        ) : (
+          <Button
+            variant='contained'
+            disabled={!row.testIsReview}
+            color='primary'
+            onClick={() => onPrintCertificateBtnClick(row)}
+          >
+            {intl.formatMessage(messages.createCertificate)}
+          </Button>
+        )}
       </>
     ),
   };
@@ -284,29 +294,38 @@ function EvaluateEmployee(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
+      {certificateInfo && (
+        <PreviewCertificatePopup
+          isOpen={isPrintPreviewOpen}
+          onClose={onPrintPreviewClose}
+          selectedEmployee={selectedEmployee}
+          certificateInfo={certificateInfo}
+        />
+      )}
 
-      {certificateInfo && <PreviewCertificatePopup
-        isOpen={isPrintPreviewOpen}
-        onClose={onPrintPreviewClose}
-        selectedEmployee={selectedEmployee}
-        certificateInfo={certificateInfo}
-      />}
+      <FileViewerPopup
+        handleClose={onAttachmentPopupClose}
+        open={isAttachmentPopupOpen}
+        uploadedFileType='pdf'
+        uploadedFile={selectedCertificate}
+        validImageTypes={[]}
+        validPDFTypes={['application/pdf', '.pdf', 'pdf']}
+      />
 
-      <PapperBlock whiteBg icon="border_color" desc="" title={pageTitle}>
+      <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={trainingList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.arName : "")}
+                getOptionLabel={(option) => (option ? option.arName : '')}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.arName}
                   </li>
                 )}
-                onChange={(_, value) =>
-                  onAutoCompleteChange(value, "trainingId")
+                onChange={(_, value) => onAutoCompleteChange(value, 'trainingId')
                 }
                 renderInput={(params) => (
                   <TextField
@@ -319,10 +338,10 @@ function EvaluateEmployee(props) {
             </Grid>
             <Grid item>
               <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                name="get"
+                variant='contained'
+                color='primary'
+                type='submit'
+                name='get'
               >
                 {intl.formatMessage(payrollMessages.search)}
               </Button>
@@ -331,24 +350,24 @@ function EvaluateEmployee(props) {
 
             <Grid item xs={12} md={3}>
               <TextField
-                name="arName"
+                name='arName'
                 value={training.courseName}
                 label={intl.formatMessage(messages.courseName)}
                 fullWidth
                 disabled={true}
-                variant="outlined"
-                autoComplete="off"
+                variant='outlined'
+                autoComplete='off'
               />
             </Grid>
             <Grid item xs={12} md={3}>
               <TextField
-                name="locationName"
+                name='locationName'
                 value={training.locationName}
                 label={intl.formatMessage(messages.location)}
                 fullWidth
                 disabled={true}
-                variant="outlined"
-                autoComplete="off"
+                variant='outlined'
+                autoComplete='off'
               />
             </Grid>
 
@@ -357,7 +376,7 @@ function EvaluateEmployee(props) {
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.fromdate)}
                   value={training.fromDate ? dayjs(training.fromDate) : null}
-                  sx={{ width: "100%" }}
+                  sx={{ width: '100%' }}
                   disabled={true}
                   slotProps={{
                     textField: {
@@ -374,7 +393,7 @@ function EvaluateEmployee(props) {
                   label={intl.formatMessage(payrollMessages.todate)}
                   value={training.toDate ? dayjs(training.toDate) : null}
                   disabled={true}
-                  sx={{ width: "100%" }}
+                  sx={{ width: '100%' }}
                   slotProps={{
                     textField: {
                       required: true,
@@ -386,6 +405,7 @@ function EvaluateEmployee(props) {
           </Grid>
         </form>
       </PapperBlock>
+
       <PayrollTable
         isLoading={isLoading}
         title={pageTitle}

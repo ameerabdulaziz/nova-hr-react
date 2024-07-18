@@ -47,8 +47,44 @@ function TotalDeptSalaryReport(props) {
   const [fromOrganization, setFromOrganization] = useState(null);
   const [Organization, setOrganization] = useState(null);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    if (Month) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: Month.name,
+      });
+    }
+
+    if (Year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: Year.name,
+      });
+    }
+
+    if (Template) {
+      highlights.push({
+        label: intl.formatMessage(messages.template),
+        value: Template.name,
+      });
+    }
+
+    if (Organization && Organization.length) {
+      highlights.push({
+        label: intl.formatMessage(messages.template),
+        value: Organization.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -88,6 +124,8 @@ function TotalDeptSalaryReport(props) {
       
       const dataApi = await ApiData(locale).TotalDeptSalaryReport(Year,Month,Template,formData);
       setdata(dataApi);
+
+        getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -378,6 +416,7 @@ function TotalDeptSalaryReport(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
     </PayRollLoader>
   );

@@ -14,10 +14,13 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
 import payrollMessages from '../../messages';
+import useStyles from '../../Style';
 import api from '../api/TrainingCalenderData';
 
 function TrainingCalender(props) {
   const { intl } = props;
+
+  const { classes } = useStyles();
 
   const currentDate = new Date();
   const locale = useSelector((state) => state.language.locale);
@@ -105,10 +108,10 @@ function TrainingCalender(props) {
 
   const getCurrentDayLabel = (day) => {
     if (currentDate.getDate() === day) {
-      return <Chip size='small' label={day} />;
+      return <Chip size='small' label={day} className={classes['bg-theme']} />;
     }
 
-    return <div> {day}</div>;
+    return <Box sx={{ fontSize: '15px' }}> {day}</Box>;
   };
 
   const getTrainingByDay = (day) => {
@@ -122,8 +125,7 @@ function TrainingCalender(props) {
           <Typography
             key={training.id}
             sx={{
-              color: '#424242',
-              fontSize: '10px',
+              fontSize: '11px',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
               overflow: 'hidden',
@@ -134,7 +136,7 @@ function TrainingCalender(props) {
           </Typography>
         ))}
         {groupedDocuments[day].length > 3 ? (
-          <Typography sx={{ color: '#424242', fontSize: '10px' }}>
+          <Typography sx={{ fontSize: '11px' }}>
             ...
           </Typography>
         ) : null}
@@ -167,7 +169,7 @@ function TrainingCalender(props) {
             height: '80px',
             width: '80px',
             verticalAlign: 'unset',
-            border: '1px solid #e0f2f1',
+            border: '1px solid #d5d5d5',
           }}
         >
           {i + 1}
@@ -185,7 +187,7 @@ function TrainingCalender(props) {
           sx={{
             height: '80px',
             width: '80px',
-            border: '1px solid #e0f2f1',
+            border: '1px solid #d5d5d5',
             verticalAlign: 'unset',
           }}
         >
@@ -253,7 +255,7 @@ function TrainingCalender(props) {
             color: '#999',
             height: '80px',
             width: '80px',
-            border: '1px solid #e0f2f1',
+            border: '1px solid #d5d5d5',
             verticalAlign: 'unset',
           }}
         >
@@ -300,7 +302,8 @@ function TrainingCalender(props) {
                 {dayNames.map((day, dayIndex) => (
                   <TableCell
                     key={dayIndex}
-                    sx={{ border: '1px solid #e0f2f1', padding: '5px 10px' }}
+                    sx={{ border: '1px solid white', padding: '5px 10px', textAlign: 'center' }}
+                    className={classes['bg-theme']}
                   >
                     {day}
                   </TableCell>

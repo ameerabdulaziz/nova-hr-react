@@ -9,7 +9,7 @@ import {
   TextField
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
@@ -24,8 +24,8 @@ import style from '../../../../../styles/styles.scss'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { toast } from "react-hot-toast";
-import { format } from "date-fns";
 import PayrollTable from "../../Component/PayrollTable";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
 
 function LateAttendanceReport(props) {
   const { intl } = props;
@@ -40,6 +40,7 @@ function LateAttendanceReport(props) {
     ToDate: null,
     EmployeeId: "",
     OrganizationId: "",
+    BranchId: '',
     EmpStatusId: 1,
     IncludeLeavesAndShiftLeaves: false,
     type: 1
@@ -49,19 +50,80 @@ function LateAttendanceReport(props) {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
 
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (searchData.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(searchData.FromDate),
+      });
+    }
+
+    if (searchData.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(searchData.ToDate),
+      });
+    }
+
+    if (Shift && Shift.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(messages.shift),
+        value: Shift.map((item) => item.name).join(' , '),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
      // used to stop call api if user select wrong date
      if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
@@ -85,8 +147,8 @@ function LateAttendanceReport(props) {
     try {
       setIsLoading(true);
       let formData = {
-        FromDate: dateFormatFun(searchData.FromDate),
-        ToDate: dateFormatFun(searchData.ToDate),
+        FromDate: formateDate(searchData.FromDate),
+        ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
@@ -99,6 +161,8 @@ function LateAttendanceReport(props) {
 
       const dataApi = await ApiData(locale).LateAttendanceReportApi(formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -112,6 +176,18 @@ function LateAttendanceReport(props) {
       const Shift = await GeneralListApis(locale).GetShiftList();
 
       setShiftList(Shift)
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -216,28 +292,6 @@ function LateAttendanceReport(props) {
           },    
       ];
   }
-
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    print: true,
-    rowsPerPage: 50,
-    rowsPerPageOptions: [10, 50, 100],
-    page: 0,
-    selectableRows: "none",
-    searchOpen: false,
-    onSearchClose: () => {
-      //some logic
-    },
-    textLabels: {
-      body: {
-        noMatch: isLoading
-          ? intl.formatMessage(Payrollmessages.loading)
-          : intl.formatMessage(Payrollmessages.noMatchingRecord),
-      },
-    },
-  };
-
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -364,7 +418,7 @@ function LateAttendanceReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -375,7 +429,7 @@ function LateAttendanceReport(props) {
           title=""
           data={data}
           columns={columns}
-          options={options}
+          filterHighlights={filterHighlights}
         />
     </PayRollLoader>
   );

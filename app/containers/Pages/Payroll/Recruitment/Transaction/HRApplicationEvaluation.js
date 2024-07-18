@@ -40,7 +40,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate } from '../../helpers';
+import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/HRApplicationEvaluationData';
 import RowDropdown from '../components/HRApplicationEvaluation/RowDropdown';
@@ -52,7 +52,7 @@ function HRApplicationEvaluation(props) {
   const { classes: widgetClass } = useWidgetStyles();
 
   const locale = useSelector((state) => state.language.locale);
-  const Title = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem('MenuName');
   const workFromList = [
     {
       id: 1,
@@ -78,6 +78,7 @@ function HRApplicationEvaluation(props) {
   const [technicalEmployeeList, setTechnicalEmployeeList] = useState([]);
   const [managerialLevelList, setManagerialLevelList] = useState([]);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFetchExistEmployeeData, setIsFetchExistEmployeeData] =		useState(false);
   const [existEmployeeInfo, setExistEmployeeInfo] = useState(null);
@@ -116,6 +117,107 @@ function HRApplicationEvaluation(props) {
     databnkjob: null,
   });
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    const jobAdvertisement = getAutoCompleteValue(jobAdvList, formInfo.JobAdv);
+
+    const status = getAutoCompleteValue(statusList, formInfo.Status);
+    const gender = getAutoCompleteValue(genderList, formInfo.GenderId);
+    const job = getAutoCompleteValue(jobList, formInfo.JobId);
+    const graduationGrade = getAutoCompleteValue(
+      graduationGradList,
+      formInfo.Grauationst
+    );
+    const workFrom = getAutoCompleteValue(workFromList, formInfo.Workfrom);
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(messages.status),
+        value: status.name,
+      });
+    }
+
+    if (gender) {
+      highlights.push({
+        label: intl.formatMessage(messages.gender),
+        value: gender.name,
+      });
+    }
+
+    if (job) {
+      highlights.push({
+        label: intl.formatMessage(messages.job),
+        value: job.name,
+      });
+    }
+
+    if (graduationGrade) {
+      highlights.push({
+        label: intl.formatMessage(messages.graduationGrade),
+        value: graduationGrade.name,
+      });
+    }
+
+    if (workFrom) {
+      highlights.push({
+        label: intl.formatMessage(messages.workFrom),
+        value: workFrom.name,
+      });
+    }
+
+    if (jobAdvertisement) {
+      highlights.push({
+        label: intl.formatMessage(messages.JobAdv),
+        value: jobAdvertisement.name,
+      });
+    }
+
+    if (formInfo.Fromage) {
+      highlights.push({
+        label: intl.formatMessage(messages.fromAge),
+        value: formInfo.Fromage,
+      });
+    }
+
+    if (formInfo.Toage) {
+      highlights.push({
+        label: intl.formatMessage(messages.toAge),
+        value: formInfo.Toage,
+      });
+    }
+
+    if (formInfo.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(formInfo.FromDate),
+      });
+    }
+
+    if (formInfo.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(formInfo.ToDate),
+      });
+    }
+
+    if (formInfo.Appliname) {
+      highlights.push({
+        label: intl.formatMessage(messages.applicantName),
+        value: formInfo.Appliname,
+      });
+    }
+
+    if (formInfo.Idcardno) {
+      highlights.push({
+        label: intl.formatMessage(messages.idNumber),
+        value: formInfo.Idcardno,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const fetchTableData = async () => {
     setIsLoading(true);
 
@@ -127,8 +229,13 @@ function HRApplicationEvaluation(props) {
 
     try {
       const response = await api(locale).GetList(formData);
-      setTableData(response.dataList);
-      setExtraData(response.totals);
+
+      if (response) {
+        setTableData(response.dataList);
+        setExtraData(response.totals);
+
+        getFilterHighlights();
+      }
     } catch (error) {
       //
     } finally {
@@ -169,11 +276,10 @@ function HRApplicationEvaluation(props) {
 
       const jobAdv = await GeneralListApis(locale).GetJobAdvList();
       setJobAdvList(jobAdv);
-    } catch (error) {
-      //
-    } finally {
-      setIsLoading(false);
+
       await fetchTableData();
+    } catch (error) {
+      setIsLoading(false);
     }
   }
 
@@ -244,9 +350,6 @@ function HRApplicationEvaluation(props) {
     {
       name: 'appDate',
       label: intl.formatMessage(messages.applicationDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
     },
 
     {
@@ -510,11 +613,10 @@ function HRApplicationEvaluation(props) {
               <Grid item xs={12} md={6}>
                 <Autocomplete
                   options={statusPopupList}
-                  value={
-                    statusPopupList.find(
-                      (item) => item.id === popupState.appFirstStatus
-                    ) ?? null
-                  }
+                  value={getAutoCompleteValue(
+                    statusPopupList,
+                    popupState.appFirstStatus
+                  )}
                   isOptionEqualToValue={(option, value) => option.id === value.id
                   }
                   getOptionLabel={(option) => (option ? option.name : '')}
@@ -539,11 +641,7 @@ function HRApplicationEvaluation(props) {
                 <Grid item xs={12} md={6}>
                   <Autocomplete
                     options={jobList}
-                    value={
-                      jobList.find(
-                        (item) => item.id === popupState.databnkjob
-                      ) ?? null
-                    }
+                    value={getAutoCompleteValue(jobList, popupState.databnkjob)}
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
                     getOptionLabel={(option) => (option ? option.name : '')}
@@ -570,11 +668,10 @@ function HRApplicationEvaluation(props) {
                   <Grid item xs={12} md={6}>
                     <Autocomplete
                       options={managerialLevelList}
-                      value={
-                        managerialLevelList.find(
-                          (item) => item.id === popupState.secStaff
-                        ) ?? null
-                      }
+                      value={getAutoCompleteValue(
+                        managerialLevelList,
+                        popupState.secStaff
+                      )}
                       isOptionEqualToValue={(option, value) => option.id === value.id
                       }
                       getOptionLabel={(option) => (option ? option.name : '')}
@@ -672,16 +769,16 @@ function HRApplicationEvaluation(props) {
 
         <DialogActions>
           <Button onClick={onPopupClose}>
-            <FormattedMessage {...payrollMessages.cancel} />
+            {intl.formatMessage(payrollMessages.cancel)}
           </Button>
 
           <Button type='submit' variant='contained'>
-            <FormattedMessage {...messages.confirm} />
+            {intl.formatMessage(messages.confirm)}
           </Button>
         </DialogActions>
       </Dialog>
 
-      <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
+      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <div className={widgetClass.rootCounterFull}>
           <Grid container spacing={2} mb={2}>
             <Grid item sm={6} md={3}>
@@ -798,10 +895,7 @@ function HRApplicationEvaluation(props) {
                 <Grid item xs={12} md={3}>
                   <Autocomplete
                     options={jobAdvList}
-                    value={
-                      jobAdvList.find((item) => item.id === formInfo.JobAdv)
-                      ?? null
-                    }
+                    value={getAutoCompleteValue(jobAdvList, formInfo.JobAdv)}
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
                     getOptionLabel={(option) => (option ? option.name : '')}
@@ -848,10 +942,7 @@ function HRApplicationEvaluation(props) {
                 <Grid item xs={12} md={3}>
                   <Autocomplete
                     options={statusList}
-                    value={
-                      statusList.find((item) => item.id === formInfo.Status)
-                      ?? null
-                    }
+                    value={getAutoCompleteValue(statusList, formInfo.Status)}
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
                     getOptionLabel={(option) => (option ? option.name : '')}
@@ -910,9 +1001,7 @@ function HRApplicationEvaluation(props) {
                 <Grid item xs={12} md={3}>
                   <Autocomplete
                     options={jobList}
-                    value={
-                      jobList.find((item) => item.id === formInfo.JobId) ?? null
-                    }
+                    value={getAutoCompleteValue(jobList, formInfo.JobId)}
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
                     getOptionLabel={(option) => (option ? option.name : '')}
@@ -935,11 +1024,7 @@ function HRApplicationEvaluation(props) {
                 <Grid item xs={12} md={3}>
                   <Autocomplete
                     options={genderList}
-                    value={
-                      genderList.find(
-                        (item) => item.id === formInfo.GenderId
-                      ) ?? null
-                    }
+                    value={getAutoCompleteValue(genderList, formInfo.GenderId)}
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
                     getOptionLabel={(option) => (option ? option.name : '')}
@@ -962,11 +1047,10 @@ function HRApplicationEvaluation(props) {
                 <Grid item xs={12} md={3}>
                   <Autocomplete
                     options={workFromList}
-                    value={
-                      workFromList.find(
-                        (item) => item.id === formInfo.Workfrom
-                      ) ?? null
-                    }
+                    value={getAutoCompleteValue(
+                      workFromList,
+                      formInfo.Workfrom
+                    )}
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
                     getOptionLabel={(option) => (option ? option.name : '')}
@@ -989,11 +1073,10 @@ function HRApplicationEvaluation(props) {
                 <Grid item xs={12} md={3}>
                   <Autocomplete
                     options={graduationGradList}
-                    value={
-                      graduationGradList.find(
-                        (item) => item.id === formInfo.Grauationst
-                      ) ?? null
-                    }
+                    value={getAutoCompleteValue(
+                      graduationGradList,
+                      formInfo.Grauationst
+                    )}
                     isOptionEqualToValue={(option, value) => option.id === value.id
                     }
                     getOptionLabel={(option) => (option ? option.name : '')}
@@ -1039,7 +1122,7 @@ function HRApplicationEvaluation(props) {
 
                 <Grid item xs={12} md={12}>
                   <Button variant='contained' color='primary' type='submit'>
-                    <FormattedMessage {...payrollMessages.search} />
+                    {intl.formatMessage(payrollMessages.search)}
                   </Button>
                 </Grid>
               </Grid>
@@ -1052,6 +1135,7 @@ function HRApplicationEvaluation(props) {
         isLoading={isLoading}
         data={tableData}
         columns={columns}
+        filterHighlights={filterHighlights}
         options={options}
       />
     </PayRollLoader>

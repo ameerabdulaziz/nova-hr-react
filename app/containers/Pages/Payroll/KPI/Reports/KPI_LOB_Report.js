@@ -30,6 +30,7 @@ function KPI_LOB_Report(props) {
   });
 
   const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [columns, setColumns] = useState([
@@ -104,6 +105,26 @@ function KPI_LOB_Report(props) {
     },
   ]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    if (formInfo.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.fromdate),
+        value: formateDate(formInfo.FromDate),
+      });
+    }
+
+    if (formInfo.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.todate),
+        value: formateDate(formInfo.ToDate),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
+
   const fetchTableData = async () => {
 
      // used to stop call api if user select wrong date
@@ -125,6 +146,8 @@ function KPI_LOB_Report(props) {
         item.Total = item.qa + item.ahT1 + item.csat + item.utilization1
       })
       setTableData(dataApi);
+
+      getFilterHighlights();
     } catch (error) {
       //
     } finally {
@@ -171,6 +194,7 @@ function KPI_LOB_Report(props) {
         isLoading={isLoading}
         title=''
         data={tableData}
+        filterHighlights={filterHighlights}
         columns={columns}
       />
     </PayRollLoader>

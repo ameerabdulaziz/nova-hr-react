@@ -19,6 +19,7 @@ import ApiData from "../api/PayrollReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
+import { getAutoCompleteValue } from "../../helpers";
 
 function TaxReportReport(props) {
   const { intl } = props;
@@ -40,8 +41,67 @@ function TaxReportReport(props) {
   const [Month, setMonth] = useState(null);
   const [Year, setYear] = useState(null);
 
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(messages.organization),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(Payrollmessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
+
+    if (Month) {
+      highlights.push({
+        label: intl.formatMessage(messages.month),
+        value: Month.name,
+      });
+    }
+
+    if (Year) {
+      highlights.push({
+        label: intl.formatMessage(messages.year),
+        value: Year.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -63,6 +123,8 @@ function TaxReportReport(props) {
       
       const dataApi = await ApiData(locale).TaxReportReport(Year,Month,formData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -76,6 +138,17 @@ function TaxReportReport(props) {
 
   async function fetchData() {
     try {
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
 
     const months = await GeneralListApis(locale).GetMonths();
     const years = await GeneralListApis(locale).GetYears();
@@ -270,6 +343,7 @@ function TaxReportReport(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
     </PayRollLoader>

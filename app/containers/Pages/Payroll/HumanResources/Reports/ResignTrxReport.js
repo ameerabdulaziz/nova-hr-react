@@ -8,9 +8,8 @@ import {
   Autocomplete
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
-import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
@@ -21,7 +20,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import style from "../../../../../../app/styles/styles.scss";
 import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
-import { formateDate, getCheckboxIcon } from "../../helpers";
+import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 
 import { toast } from 'react-hot-toast';
 
@@ -40,22 +39,85 @@ function ResignTrxReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
+    BranchId: '',
   });
 
   const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [statusList, setStatusList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
 
+  const getFilterHighlights = () => {
+    const highlights = [];
 
-  // used to reformat date before send it to api
-  const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
+    const organization = getAutoCompleteValue(
+      organizationList,
+      searchData.OrganizationId
+    );
+    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
+    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
+    const selectedResign = getAutoCompleteValue(ResignList, Resign);
 
+    if (organization) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.organizationName),
+        value: organization.name,
+      });
+    }
+
+    if (employee) {
+      highlights.push({
+        label: intl.formatMessage(messages.employeeName),
+        value: employee.name,
+      });
+    }
+
+    if (status) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: status.name,
+      });
+    }
+
+    if (company) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: company.name,
+      });
+    }
+
+    if (searchData.FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(searchData.FromDate),
+      });
+    }
+
+    if (searchData.ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(searchData.ToDate),
+      });
+    }
+
+    if (selectedResign) {
+      highlights.push({
+        label: intl.formatMessage(messages.resignReasonName),
+        value: selectedResign.name,
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
      // used to stop call api if user select wrong date
      if (Object.values(DateError).includes(true)) {  
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
 
@@ -63,8 +125,8 @@ function ResignTrxReport(props) {
     try {
       setIsLoading(true);
       var formData = {
-        FromDate: dateFormatFun(searchData.FromDate),
-        ToDate: dateFormatFun(searchData.ToDate),
+        FromDate: formateDate(searchData.FromDate),
+        ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
         ResignReasonId: Resign,
         OrganizationId: searchData.OrganizationId,
@@ -76,6 +138,8 @@ function ResignTrxReport(props) {
       const dataApi = await ApiData(locale).GetReport(formData);
 
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -86,6 +150,18 @@ function ResignTrxReport(props) {
     try {
       const resigns = await GeneralListApis(locale).GetResignReasonList(locale);
       setResignList(resigns);
+
+      const employees = await GeneralListApis(locale).GetEmployeeList();
+      setEmployeeList(employees);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList();
+      setStatusList(status);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -98,7 +174,7 @@ function ResignTrxReport(props) {
   const columns = [
     {
       name: "id",
-      label: intl.formatMessage(Payrollmessages.id),
+      label: intl.formatMessage(payrollMessages.id),
       options: {
         filter: false,
         display: false,
@@ -161,7 +237,7 @@ function ResignTrxReport(props) {
     },
     {
       name: "isStop",
-      label: intl.formatMessage(Payrollmessages.isStop),
+      label: intl.formatMessage(payrollMessages.isStop),
       options: {
         filter: true,
         customBodyRender: (value) => getCheckboxIcon(value),
@@ -219,7 +295,7 @@ function ResignTrxReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
@@ -230,6 +306,7 @@ function ResignTrxReport(props) {
         title=""
         data={data}
         columns={columns}
+        filterHighlights={filterHighlights}
       />
 
     </PayRollLoader>

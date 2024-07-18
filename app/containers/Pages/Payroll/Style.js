@@ -318,6 +318,14 @@ containerSty:{
     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light,
   },
   
+
+  'bg-theme': {
+    color: 'white',
+    background:
+    theme.palette.mode === "dark"
+      ? theme.palette.secondary.dark
+      : theme.palette.secondary.light,
+  },
 }));
 
 export default useMainStyles;

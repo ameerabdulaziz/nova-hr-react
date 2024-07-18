@@ -8,7 +8,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import messages from "../messages";
-import Payrollmessages from "../../messages";
+import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
@@ -39,6 +39,34 @@ function AttendanceDeviceReport(props) {
   const [Shift, setShift] = useState(null);
   const [ShiftList, setShiftList] = useState([]);
   const [DateError, setDateError] = useState({});
+  const [filterHighlights, setFilterHighlights] = useState([]);
+
+  const getFilterHighlights = () => {
+    const highlights = [];
+
+    if (Shift && Shift.length > 0) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.status),
+        value: Shift.map((item) => item.name).join(' , '),
+      });
+    }
+
+    if (FromDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.fromdate),
+        value: formateDate(FromDate),
+      });
+    }
+
+    if (ToDate) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.todate),
+        value: formateDate(ToDate),
+      });
+    }
+
+    setFilterHighlights(highlights);
+  };
 
   const handleSearch = async (e) => {
 
@@ -53,7 +81,7 @@ function AttendanceDeviceReport(props) {
 
 	// used to stop call api if user select wrong date
   if (Object.values(DateError).includes(true)) {  
-    toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+    toast.error(intl.formatMessage(payrollMessages.DateNotValid));
     return;
   }
 
@@ -69,6 +97,8 @@ function AttendanceDeviceReport(props) {
 
       const dataApi = await ApiData(locale).AttendanceDeviceReportApi(formData, ShiftData);
       setdata(dataApi);
+
+      getFilterHighlights();
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -97,7 +127,7 @@ function AttendanceDeviceReport(props) {
   const columns = [
     {
       name: "id",
-        label: intl.formatMessage(Payrollmessages.id),
+        label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
       },
@@ -136,7 +166,7 @@ function AttendanceDeviceReport(props) {
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
-                       label={intl.formatMessage(Payrollmessages.fromdate)}
+                       label={intl.formatMessage(payrollMessages.fromdate)}
                         value={FromDate  ? dayjs(FromDate) : FromDate}
                         className={classes.field}
                           onChange={(date) => {
@@ -166,7 +196,7 @@ function AttendanceDeviceReport(props) {
                   
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
-                     label={intl.formatMessage(Payrollmessages.todate)}
+                     label={intl.formatMessage(payrollMessages.todate)}
                       value={ToDate  ? dayjs(ToDate) : ToDate}
                       className={classes.field}
                         onChange={(date) => {
@@ -241,7 +271,7 @@ function AttendanceDeviceReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
         </Grid>
@@ -251,6 +281,7 @@ function AttendanceDeviceReport(props) {
           title=""
           data={data}
           columns={columns}
+          filterHighlights={filterHighlights}
         />
 
 
