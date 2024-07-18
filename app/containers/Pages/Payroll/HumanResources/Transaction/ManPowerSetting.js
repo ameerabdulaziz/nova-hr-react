@@ -119,17 +119,19 @@ function ManPowerSetting(props) {
   };
 
   async function on_submit() {
+    debugger;
     var total = dataList.reduce((n, { idealManPower }) => parseInt(n) + parseInt(idealManPower), 0);
 
+    if (!organization) {
+      toast.error("Please Select organization");
+      return;
+    }
     if(total!==totalIdealManPower)
     {
       toast.error("Total IdealManPower for jobs  Must Equal "+totalIdealManPower);
       return;
     }
-    if (!organization) {
-      toast.error("Please Select organization");
-      return;
-    }
+    
     try {
       setIsLoading(true);
       let response = await ManPowerSettingData().Save({
@@ -352,7 +354,7 @@ function ManPowerSetting(props) {
                         />
                       </TableCell>
                       <TableCell style={{ width: "5px", padding: "0px" }}>
-                        <FormattedMessage {...Payrollmessages.id} />
+                        <FormattedMessage {...messages.id} />
                       </TableCell>
                       <TableCell style={{ width: "20px", padding: "0px" }}>
                         <FormattedMessage {...messages.job} />
