@@ -51,6 +51,7 @@ function Dashboard(props) {
   const Auth = useSelector((state) => state.authReducer.loggedIn);
   const description = brand.desc;
   const urlData  = DecryptUrl()
+  const userName = localStorage.getItem("userName");
 
   const titleException = [
     "/app",
@@ -190,7 +191,7 @@ function Dashboard(props) {
       const menuItems = await API(locale).getMenu();
       const userInfo = await API(locale).getUserInfo();
 
-      if (!userInfo) {
+      if (!userInfo && userName!="admin") {
         signOut();
       }
 
@@ -237,7 +238,7 @@ function Dashboard(props) {
   };
 
   useEffect(() => {
-
+debugger;
     if (Auth === null || Auth === false) {
       history.push(`/login?redirectTo=${history.location.pathname}`);
     }

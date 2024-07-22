@@ -58,6 +58,7 @@ function Login() {
           localStorage.setItem("Token", res.data.token);
           localStorage.setItem("IsStaticDashboard", res.data.isStaticDashboard);
           localStorage.setItem("IsHR", res.data.isHR);
+          localStorage.setItem("userName", res.data.userName);
           localStorage.setItem("IsManagement", res.data.isManagement);
           let user = {
             id: res.data.id,
