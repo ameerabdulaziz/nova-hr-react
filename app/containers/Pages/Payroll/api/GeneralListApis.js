@@ -151,6 +151,13 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
+  Apis.GetLanguageList = async () => {
+    const result = await axiosInstance.get(
+      `GeneralList/GetLanguageList/${locale}`
+    );
+    return result.data;
+  };
+
   Apis.GetBankListRpt = async () => {
     const result = await axiosInstance.get(
       `GeneralList/GetBankListRpt/${locale}`
