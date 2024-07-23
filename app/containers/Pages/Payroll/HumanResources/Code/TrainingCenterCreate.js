@@ -1,7 +1,7 @@
-import { Tooltip } from '@mui/material';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
+import { Tooltip } from "@mui/material";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 import {
   Autocomplete,
   DrawingManager,
@@ -9,40 +9,40 @@ import {
   LoadScript,
   Marker,
   Polygon,
-} from '@react-google-maps/api';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-import style from '../../../../../styles/styles.scss';
-import GeneralListApis from '../../api/GeneralListApis';
-import deleteIcon from '../../Assets/Attendance-imgs/remove.png';
-import attendanceMessages from '../../Attendance/messages';
-import PayRollLoader from '../../Component/PayRollLoader';
-import SaveButton from '../../Component/SaveButton';
-import payrollMessages from '../../messages';
-import useStyles from '../../Style';
-import api from '../api/TrainingCenterData';
-import messages from '../messages';
+} from "@react-google-maps/api";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import style from "../../../../../styles/styles.scss";
+import GeneralListApis from "../../api/GeneralListApis";
+import deleteIcon from "../../Assets/Attendance-imgs/remove.png";
+import attendanceMessages from "../../Attendance/messages";
+import PayRollLoader from "../../Component/PayRollLoader";
+import SaveButton from "../../Component/SaveButton";
+import payrollMessages from "../../messages";
+import useStyles from "../../Style";
+import api from "../api/TrainingCenterData";
+import messages from "../messages";
 
-const libraries = ['places', 'drawing'];
+const libraries = ["places", "drawing"];
 
 function TrainingCenterCreate(props) {
-  const pageTitle = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem("MenuName");
 
   const [id, setid] = useState(0);
-  const [ArName, setArName] = useState('');
-  const [EnName, setEnName] = useState('');
-  const [address, setAddress] = useState('');
-  const [attendanceNotes, setAttendanceNotes] = useState('');
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
-  const [seatNumber, setSeatNumber] = useState('');
-  const [phone, setPhone] = useState('');
+  const [ArName, setArName] = useState("");
+  const [EnName, setEnName] = useState("");
+  const [address, setAddress] = useState("");
+  const [attendanceNotes, setAttendanceNotes] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [seatNumber, setSeatNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const locale = useSelector((state) => state.language.locale);
 
@@ -73,44 +73,44 @@ function TrainingCenterCreate(props) {
   const [center, setCenter] = useState(defaultCenter);
 
   const containerStyle = {
-    width: '100%',
-    height: '400px',
+    width: "100%",
+    height: "400px",
   };
 
   const autocompleteStyle = {
-    boxSizing: 'border-box',
-    border: '1px solid transparent',
-    width: '240px',
-    height: '38px',
-    padding: '0 12px',
-    borderRadius: '3px',
-    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-    fontSize: '14px',
-    outline: 'none',
-    textOverflow: 'ellipses',
-    position: 'absolute',
-    right: '8%',
-    top: '11px',
-    marginLeft: '-120px',
+    boxSizing: "border-box",
+    border: "1px solid transparent",
+    width: "240px",
+    height: "38px",
+    padding: "0 12px",
+    borderRadius: "3px",
+    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
+    fontSize: "14px",
+    outline: "none",
+    textOverflow: "ellipses",
+    position: "absolute",
+    right: "8%",
+    top: "11px",
+    marginLeft: "-120px",
   };
 
   const deleteIconStyle = {
-    cursor: 'pointer',
+    cursor: "pointer",
     backgroundImage: `url(${deleteIcon})`,
-    height: '24px',
-    width: '24px',
-    marginTop: '5px',
-    backgroundColor: '#fff',
-    position: 'absolute',
-    top: '2px',
-    left: '52%',
+    height: "24px",
+    width: "24px",
+    marginTop: "5px",
+    backgroundColor: "#fff",
+    position: "absolute",
+    top: "2px",
+    left: "52%",
     zIndex: 99999,
   };
 
   const polygonOptions = {
-    fillColor: '#2196F3',
+    fillColor: "#2196F3",
     fillOpacity: 0.5,
-    strokeColor: '#2196F3',
+    strokeColor: "#2196F3",
     clickable: true,
     strokeWeight: 2,
     draggable: true,
@@ -188,9 +188,9 @@ function TrainingCenterCreate(props) {
 
       const checkPointInsidePolygon = location
         ? window?.google?.maps?.geometry?.poly?.containsLocation(
-          location,
-          polygonCoordinates
-        )
+            location,
+            polygonCoordinates
+          )
         : false;
       if (!checkPointInsidePolygon) {
         toast.error(
@@ -233,10 +233,11 @@ function TrainingCenterCreate(props) {
         paths: coordinates,
       });
 
-      const checkPointInsidePolygon = window?.google?.maps?.geometry?.poly?.containsLocation(
-        location,
-        polygonCoordinates
-      );
+      const checkPointInsidePolygon =
+        window?.google?.maps?.geometry?.poly?.containsLocation(
+          location,
+          polygonCoordinates
+        );
       if (!checkPointInsidePolygon) {
         toast.error(
           intl.formatMessage(
@@ -269,14 +270,14 @@ function TrainingCenterCreate(props) {
 
     const data = {
       id,
-      arName: ArName || '',
-      enName: EnName || '',
-      address: address || '',
-      locLat: lat || '',
-      locLong: lng || '',
-      phone: phone ?? '',
-      attendanceNotes: attendanceNotes ?? '',
-      seatNo: seatNumber ?? '',
+      arName: ArName || "",
+      enName: EnName || "",
+      address: address || "",
+      locLat: lat || "",
+      locLong: lng || "",
+      phone: phone ?? "",
+      attendanceNotes: attendanceNotes ?? "",
+      seatNo: seatNumber ?? "",
     };
 
     try {
@@ -284,7 +285,7 @@ function TrainingCenterCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push('/app/Pages/HR/TrainingCenterList');
+        history.push("/app/Pages/HR/TrainingCenterList");
       } else {
         toast.error(response.statusText);
       }
@@ -350,242 +351,246 @@ function TrainingCenterCreate(props) {
   }, [ID]);
 
   function oncancel() {
-    history.push('/app/Pages/HR/TrainingCenterList');
+    history.push("/app/Pages/HR/TrainingCenterList");
   }
 
   return (
-    <div>
+    
       <PayRollLoader isLoading={isLoading}>
-        <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
-          {
-            <div
-              className='map-container'
-              style={{ position: 'relative', marginBottom: '50px' }}
-            >
-              {drawingManagerRef.current && (
-                <Tooltip
-                  title={intl.formatMessage(
-                    attendanceMessages.selectShapeFiristToDeleteIt
-                  )}
-                >
-                  <div
-                    onClick={onDeleteDrawing}
-                    // title='Delete shape'
-                    style={deleteIconStyle}
-                    className={style.deleteIcon}
-                  ></div>
-                </Tooltip>
-              )}
-
-              <LoadScript
-                id='script-loader'
-                googleMapsApiKey={'AIzaSyBsMd6G6Ou5EV9Nbm_J2XD-vekjpPggyyc'}
-                language={locale}
-                region='EN'
-                version='weekly'
-                libraries={libraries}
-              >
-                <GoogleMap
-                  zoom={16}
-                  options={OPTIONS}
-                  center={center}
-                  onLoad={onLoadMap}
-                  mapContainerStyle={containerStyle}
-                  // onTilesLoaded={() => setCenter(null)}
-                  onClick={(e) => {
-                    // get lat and lng onclick on point
-                    setLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() });
-
-                    setPolygons([]);
-                    getLocationDataFun(e.latLng.lat(), e.latLng.lng());
-                  }}
-                >
-                  <DrawingManager
-                    onLoad={onLoadDrawingManager}
-                    onOverlayComplete={onOverlayComplete}
-                    options={drawingManagerOptions}
-                  />
-                  {polygons.map((iterator, index) => (
-                    <Polygon
-                      key={index}
-                      onLoad={(event) => onLoadPolygon(event, index)}
-                      onMouseDown={() => {
-                        onClickPolygon(index);
-                      }}
-                      onMouseUp={() => onEditPolygon(index)}
-                      // onDragEnd={() => onEditPolygon(index)}
-                      options={polygonOptions}
-                      paths={iterator}
-                      draggable
-                      editable
-                    />
-                  ))}
-                  <Autocomplete
-                    onLoad={onLoadAutocomplete}
-                    onPlaceChanged={onPlaceChanged}
-                  >
-                    <input
-                      type='text'
-                      placeholder={intl.formatMessage(
-                        attendanceMessages.SearchLocation
-                      )}
-                      style={autocompleteStyle}
-                      className={style.searchSty}
-                    />
-                  </Autocomplete>
-
-                  {location && <Marker position={location} />}
-                </GoogleMap>
-              </LoadScript>
-            </div>
-          }
-
+        <PapperBlock whiteBg icon="border_color" title={pageTitle} desc="">
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={3} alignItems='flex-start' direction='row'>
+            <Grid container spacing={3} alignItems="flex-start" direction="row">
               <Grid
                 item
                 xs={12}
                 md={12}
                 container
                 spacing={3}
-                alignItems='flex-start'
-                direction='row'
-                className={style.gridSty}
+                alignItems="flex-start"
+                direction="row"
+                
               >
                 <Grid item xs={12} md={4}>
                   <TextField
-                    name='arName'
-                    id='arName'
+                    name="arName"
+                    id="arName"
                     placeholder={intl.formatMessage(payrollMessages.arName)}
                     label={intl.formatMessage(payrollMessages.arName)}
                     className={`${classes.field} ${style.fieldsSty}`}
-                    margin='normal'
-                    variant='outlined'
+                    margin="normal"
+                    variant="outlined"
                     value={ArName}
                     required
                     onChange={(e) => setArName(e.target.value)}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                   <TextField
-                    name='enName'
-                    id='enName'
+                    name="enName"
+                    id="enName"
                     placeholder={intl.formatMessage(payrollMessages.enName)}
                     label={intl.formatMessage(payrollMessages.enName)}
                     className={`${classes.field} ${style.fieldsSty}`}
-                    margin='normal'
-                    variant='outlined'
+                    margin="normal"
+                    variant="outlined"
                     value={EnName}
                     required
                     onChange={(e) => setEnName(e.target.value)}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                   <TextField
-                    name='Address'
-                    id='Address'
+                    name="Address"
+                    id="Address"
                     placeholder={intl.formatMessage(attendanceMessages.Address)}
                     label={intl.formatMessage(attendanceMessages.Address)}
                     className={`${classes.field} ${style.fieldsSty}`}
-                    margin='normal'
-                    variant='outlined'
+                    margin="normal"
+                    variant="outlined"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     required
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                   <TextField
-                    name='Latitude'
-                    id='Latitude'
+                    name="Latitude"
+                    id="Latitude"
                     placeholder={intl.formatMessage(
                       attendanceMessages.Latitude
                     )}
                     label={intl.formatMessage(attendanceMessages.Latitude)}
                     className={`${classes.field} ${style.fieldsSty}`}
-                    margin='normal'
-                    variant='outlined'
+                    margin="normal"
+                    variant="outlined"
                     value={lat}
                     onChange={(e) => setLat(e.target.value)}
                     required
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                   <TextField
-                    name='Longitude'
-                    id='Longitude'
+                    name="Longitude"
+                    id="Longitude"
                     placeholder={intl.formatMessage(
                       attendanceMessages.longitude
                     )}
                     label={intl.formatMessage(attendanceMessages.longitude)}
                     className={`${classes.field} ${style.fieldsSty}`}
-                    margin='normal'
-                    variant='outlined'
+                    margin="normal"
+                    variant="outlined"
                     value={lng}
                     onChange={(e) => setLng(e.target.value)}
                     required
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                   <TextField
-                    name='phone'
-                    id='phone'
+                    name="phone"
+                    id="phone"
                     placeholder={intl.formatMessage(messages.phone)}
                     label={intl.formatMessage(messages.phone)}
                     className={`${classes.field} ${style.fieldsSty}`}
-                    margin='normal'
-                    variant='outlined'
-                    value={phone || ''}
+                    margin="normal"
+                    variant="outlined"
+                    value={phone || ""}
                     required
                     onChange={(e) => setPhone(e.target.value)}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={4}>
                   <TextField
-                    name='seatNo'
-                    id='seatNo'
+                    name="seatNo"
+                    id="seatNo"
                     placeholder={intl.formatMessage(messages.seatNumber)}
                     label={intl.formatMessage(messages.seatNumber)}
                     className={`${classes.field} ${style.fieldsSty}`}
-                    margin='normal'
-                    variant='outlined'
-                    value={seatNumber || ''}
+                    margin="normal"
+                    variant="outlined"
+                    value={seatNumber || ""}
                     required
                     onChange={(e) => setSeatNumber(e.target.value)}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12}>
                   <TextField
-                    name='attendanceNotes'
+                    name="attendanceNotes"
                     value={attendanceNotes}
                     onChange={(evt) => setAttendanceNotes(evt.target.value)}
                     label={intl.formatMessage(messages.attendanceNotes)}
                     fullWidth
-                    variant='outlined'
+                    variant="outlined"
                     required
                     multiline
                     rows={1}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
+                </Grid>
+
+                <Grid item xs={12} md={12}>
+                  <div
+                    className="map-container"
+                    style={{ position: "relative", marginBottom: "50px" }}
+                  >
+                    {drawingManagerRef.current && (
+                      <Tooltip
+                        title={intl.formatMessage(
+                          attendanceMessages.selectShapeFiristToDeleteIt
+                        )}
+                      >
+                        <div
+                          onClick={onDeleteDrawing}
+                          // title='Delete shape'
+                          style={deleteIconStyle}
+                          className={style.deleteIcon}
+                        ></div>
+                      </Tooltip>
+                    )}
+
+                    <LoadScript
+                      id="script-loader"
+                      googleMapsApiKey={
+                        "AIzaSyBsMd6G6Ou5EV9Nbm_J2XD-vekjpPggyyc"
+                      }
+                      language={locale}
+                      region="EN"
+                      version="weekly"
+                      libraries={libraries}
+                    >
+                      <GoogleMap
+                        zoom={16}
+                        options={OPTIONS}
+                        center={center}
+                        onLoad={onLoadMap}
+                        mapContainerStyle={containerStyle}
+                        // onTilesLoaded={() => setCenter(null)}
+                        onClick={(e) => {
+                          // get lat and lng onclick on point
+                          setLocation({
+                            lat: e.latLng.lat(),
+                            lng: e.latLng.lng(),
+                          });
+
+                          setPolygons([]);
+                          getLocationDataFun(e.latLng.lat(), e.latLng.lng());
+                        }}
+                      >
+                        <DrawingManager
+                          onLoad={onLoadDrawingManager}
+                          onOverlayComplete={onOverlayComplete}
+                          options={drawingManagerOptions}
+                        />
+                        {polygons.map((iterator, index) => (
+                          <Polygon
+                            key={index}
+                            onLoad={(event) => onLoadPolygon(event, index)}
+                            onMouseDown={() => {
+                              onClickPolygon(index);
+                            }}
+                            onMouseUp={() => onEditPolygon(index)}
+                            // onDragEnd={() => onEditPolygon(index)}
+                            options={polygonOptions}
+                            paths={iterator}
+                            draggable
+                            editable
+                          />
+                        ))}
+                        <Autocomplete
+                          onLoad={onLoadAutocomplete}
+                          onPlaceChanged={onPlaceChanged}
+                        >
+                          <input
+                            type="text"
+                            placeholder={intl.formatMessage(
+                              attendanceMessages.SearchLocation
+                            )}
+                            style={autocompleteStyle}
+                            className={style.searchSty}
+                          />
+                        </Autocomplete>
+
+                        {location && <Marker position={location} />}
+                      </GoogleMap>
+                    </LoadScript>
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
-
-            <Grid container spacing={3} alignItems='flex-start' direction='row'>
+            <Grid container spacing={3} alignItems="flex-start" direction="row">
               <Grid item xs={12} md={12}></Grid>
               <Grid
                 item
@@ -593,8 +598,8 @@ function TrainingCenterCreate(props) {
                 md={4}
                 container
                 spacing={3}
-                alignItems='flex-start'
-                direction='row'
+                alignItems="flex-start"
+                direction="row"
                 className={style.itemsStyle}
               >
                 <Grid item xs={3} md={5} lg={3}>
@@ -602,9 +607,9 @@ function TrainingCenterCreate(props) {
                 </Grid>
                 <Grid item xs={3} md={5} lg={3}>
                   <Button
-                    variant='contained'
-                    size='medium'
-                    color='primary'
+                    variant="contained"
+                    size="medium"
+                    color="primary"
                     onClick={oncancel}
                   >
                     <FormattedMessage {...payrollMessages.cancel} />
@@ -615,7 +620,7 @@ function TrainingCenterCreate(props) {
           </form>
         </PapperBlock>
       </PayRollLoader>
-    </div>
+      
   );
 }
 

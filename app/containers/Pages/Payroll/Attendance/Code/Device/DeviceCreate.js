@@ -217,7 +217,6 @@ function DeviceCreate(props) {
               <TextField
                 id="devicePass"
                 name="devicePass"
-                type="password"
                 value={data.devicePass}
                 onChange={(e) => handleChange(e)}
                 label={intl.formatMessage(messages.devicePass)}
