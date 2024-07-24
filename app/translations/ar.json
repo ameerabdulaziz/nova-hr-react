@@ -2992,7 +2992,7 @@
   "boilerplate.containers.Payroll.assessment.ManagerNote": "ملاحظات المدير",
   "boilerplate.containers.Payroll.assessment.Print": "طباعة",
   "boilerplate.containers.Payroll.assessment.ManagerChoose": "اختيار المدير",
-  "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "يجب عليك اختيار السنة",
+  "boilerplate.containers.Payroll.assessment.YouMustToChooseEmpMonYear": "يجب عليك اختيار اسم الموظف و الشهر والسنة",
   "boilerplate.containers.Payroll.assessment.AssessmentReport": "تقرير التقييم",
 
   "boilerplate.containers.Payroll.assessment.totalDegree": "الدرجة (%)",

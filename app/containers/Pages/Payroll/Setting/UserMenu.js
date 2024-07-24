@@ -234,7 +234,14 @@ async function on_submit() {
                 <Grid item xs={6} md={3}>
                     <Autocomplete
                         id="ddlEmp"                        
-                        options={employeeList}                        
+                        options={employeeList}
+                        renderOption={(props, option) => {
+                          return (
+                          <li {...props} key={option.id}>
+                              {option.id} -&nbsp; {option.name}
+                          </li>
+                          );
+                      }}                  
                         getOptionLabel={(option) =>option.name}
                         onChange={(event, value) => {
                           

@@ -2961,7 +2961,7 @@
   "boilerplate.containers.Payroll.assessment.ManagerNote": "Manager Note",
   "boilerplate.containers.Payroll.assessment.Print": "Print",
   "boilerplate.containers.Payroll.assessment.ManagerChoose": "Manager Choose",
-  "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "You must to choose year",
+  "boilerplate.containers.Payroll.assessment.YouMustToChooseEmpMonYear": "You must to choose employee name , month and year",
   "boilerplate.containers.Payroll.assessment.AssessmentReport": "Assessment Report",
 
   "boilerplate.containers.Payroll.assessment.totalDegree": "Grade (%)",

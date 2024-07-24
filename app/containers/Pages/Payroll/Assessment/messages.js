@@ -546,9 +546,9 @@ export default defineMessages({
     id: `${scope}.ManagerChoose`,
     defaultMessage: 'Manager Choose',
   },
-  YouMustToChooseYear: {
-    id: `${scope}.YouMustToChooseYear`,
-    defaultMessage: 'You must to choose year',
+  YouMustToChooseEmpMonYear: {
+    id: `${scope}.YouMustToChooseEmpMonYear`,
+    defaultMessage: 'You must to choose employee name , month and year',
   },
   AssessmentReport: {
     id: `${scope}.AssessmentReport`,

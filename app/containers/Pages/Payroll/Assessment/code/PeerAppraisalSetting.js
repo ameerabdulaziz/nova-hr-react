@@ -19,11 +19,13 @@ import ApiData from "../api/PeerAppraisalSettingData";
 import notif from 'enl-api/ui/notifMessage';
 
 import NameList from "../../Component/NameList";
+import api from '../api/MonthOpenCloseAssData';
 
 function PeerAppraisalSetting(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -58,7 +60,7 @@ function PeerAppraisalSetting(props) {
     }
     else
     {
-        toast.error(intl.formatMessage(messages.YouMustToChooseYear));
+        toast.error(intl.formatMessage(messages.YouMustToChooseEmpMonYear));
     }
   };
 
@@ -116,6 +118,17 @@ function PeerAppraisalSetting(props) {
       setMonthList(months)
       setYearList(years)
 
+
+      if (branchId) {
+        const response = await api(locale).GetOpenMonth(branchId);
+
+        setYear(response.yearId)
+        setMonth(response.monthId)
+
+        
+
+      }
+
     } catch (error) {
       //
     } finally {
@@ -152,6 +165,8 @@ function PeerAppraisalSetting(props) {
     setYear("")
     setdataList([])
   }
+
+  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -195,7 +210,8 @@ function PeerAppraisalSetting(props) {
           <Grid item xs={12} md={2}>
             <Autocomplete
                 id="ddlMenu"   
-                isOptionEqualToValue={(option, value) => option.id === value.id}                      
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                value={getAutoCompleteValue(MonthList, month)}
                 options={MonthList.length != 0 ? MonthList: []}
                 getOptionLabel={(option) =>(
                     option  ? option.name : ""
@@ -230,7 +246,8 @@ function PeerAppraisalSetting(props) {
           <Grid item xs={12} md={2}>
               <Autocomplete
                 id="ddlMenu"   
-                isOptionEqualToValue={(option, value) => option.id === value.id}                      
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                value={getAutoCompleteValue(YearList, year)}                
                 options={YearList.length != 0 ? YearList: []}
                 getOptionLabel={(option) =>(
                     option  ? option.name : ""

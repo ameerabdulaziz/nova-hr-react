@@ -57,27 +57,94 @@ function EmployeeList(props) {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
     },
-    {
-      name: 'enName',
-      label: intl.formatMessage(messages.employeename),
-      options: {
-        customBodyRender: (value, tableMeta) => (
-          <Box
-            sx={{ cursor: 'pointer' }}
-            onClick={() => {
-              history.push('/app/Pages/Employee/Personal', {
-                empid: {
-                  id: tableMeta.rowData[0],
-                  name: tableMeta.rowData[2],
-                }
-              });
-            }}
-          >
-            {value}
-          </Box>
-        ),
+    // used to appear en employee name then ar employee name in en version , in ar version appear ar employee name then en employee name
+    ...(locale === "en" ? [
+      {
+        name: 'enName',
+        label: intl.formatMessage(messages.enname),
+        options: {
+          customBodyRender: (value, tableMeta) => (
+            <Box
+              sx={{ cursor: 'pointer' }}
+              onClick={() => {
+                history.push('/app/Pages/Employee/Personal', {
+                  empid: {
+                    id: tableMeta.rowData[0],
+                    name: tableMeta.rowData[2],
+                  }
+                });
+              }}
+            >
+              {value}
+            </Box>
+          ),
+        },
       },
-    },
+      {
+        name: 'arName',
+        label: intl.formatMessage(messages.arname),
+        options: {
+          customBodyRender: (value, tableMeta) => (
+            <Box
+              sx={{ cursor: 'pointer' }}
+              onClick={() => {
+                history.push('/app/Pages/Employee/Personal', {
+                  empid: {
+                    id: tableMeta.rowData[0],
+                    name: tableMeta.rowData[2],
+                  }
+                });
+              }}
+            >
+              {value}
+            </Box>
+          ),
+        },
+      },
+    ] : [
+      {
+        name: 'arName',
+        label: intl.formatMessage(messages.arname),
+        options: {
+          customBodyRender: (value, tableMeta) => (
+            <Box
+              sx={{ cursor: 'pointer' }}
+              onClick={() => {
+                history.push('/app/Pages/Employee/Personal', {
+                  empid: {
+                    id: tableMeta.rowData[0],
+                    name: tableMeta.rowData[2],
+                  }
+                });
+              }}
+            >
+              {value}
+            </Box>
+          ),
+        },
+      },
+      {
+        name: 'enName',
+        label: intl.formatMessage(messages.enname),
+        options: {
+          customBodyRender: (value, tableMeta) => (
+            <Box
+              sx={{ cursor: 'pointer' }}
+              onClick={() => {
+                history.push('/app/Pages/Employee/Personal', {
+                  empid: {
+                    id: tableMeta.rowData[0],
+                    name: tableMeta.rowData[2],
+                  }
+                });
+              }}
+            >
+              {value}
+            </Box>
+          ),
+        },
+      },
+    ]),
 
     {
       name: 'userName',
