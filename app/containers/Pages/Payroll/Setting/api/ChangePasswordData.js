@@ -4,7 +4,7 @@ const ChangePasswordData = () => {
   const api = {};
 
   api.ChangeUserPassword = async (body) => {
-    const result = await axiosInstance.post('Account/ChangeUserPassword', body);
+    const result = await axiosInstance.post('UserManagement/ChangeUserPassword', body);
 
     return result;
   };

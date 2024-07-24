@@ -911,6 +911,7 @@
   "boilerplate.containers.Payroll.Setting.employeeName": "Employee Name",
   "boilerplate.containers.Payroll.Setting.courseName": "Course Name",
   "boilerplate.containers.Payroll.Setting.changeUsername": "Change Username",
+  "boilerplate.containers.Payroll.Setting.sendEmail": "Send Email",
   "boilerplate.containers.Payroll.Setting.accomplishDate": "Accomplish Date",
   "boilerplate.containers.Payroll.Setting.userName": "Username",
   "boilerplate.containers.Payroll.Setting.letPasswordEmptyWillGenerateRandomPassword": "To generate random password leave the text empty",

@@ -916,6 +916,8 @@
   "boilerplate.containers.Payroll.Setting.employeeName": "اسم الموظف",
   "boilerplate.containers.Payroll.Setting.courseName": "اسم الكورس",
   "boilerplate.containers.Payroll.Setting.changeUsername": "تغيير اسم المستخدم",
+  "boilerplate.containers.Payroll.Setting.sendEmail": "ارسال بريد",
+  
   "boilerplate.containers.Payroll.Setting.accomplishDate": "تاريخ الانتهاء",
   "boilerplate.containers.Payroll.Setting.letPasswordEmptyWillGenerateRandomPassword": "لإنشاء كلمة مرور عشوائية، اترك النص فارغًا",
   "boilerplate.containers.Payroll.Setting.userName": "اسم المستخدم",

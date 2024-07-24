@@ -8,16 +8,15 @@ const ResetPasswordData = () => {
     return result;
   };
 
-  Apis.ResetAllUsersPassword = async (password) => {
-    const result = await axiosInstance.post('Account/ResetAllUsersPassword', {
-      NewPassword: password,
-    });
+  Apis.ResetAllUsersPassword = async (password,isSendEmail) => {
+    debugger;
+    const result = await axiosInstance.post(`UserManagement/ResetAllUsersPassword?password=${password}&isSendEmail=${isSendEmail}`);
 
     return result;
   };
 
   Apis.getEmployeeUsername = async (employeeId) => {
-    const result = await axiosInstance.get(`Account/GetUserName/${employeeId}`);
+    const result = await axiosInstance.get(`UserManagement/GetUserName/${employeeId}`);
 
     return result.data;
   };
