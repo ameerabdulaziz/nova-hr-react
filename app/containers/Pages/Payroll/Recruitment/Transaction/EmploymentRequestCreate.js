@@ -2,6 +2,7 @@ import { BorderColor, Delete } from '@mui/icons-material';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
+import LanguageIcon from '@mui/icons-material/Language';
 import {
   Autocomplete,
   Box,
@@ -40,6 +41,7 @@ import api from '../api/EmploymentRequestData';
 import WorkDescriptionPopup from '../components/EmploymentRequest/WorkDescriptionPopup';
 import WorkKnowledgePopup from '../components/EmploymentRequest/WorkKnowledgePopup';
 import WorkSkillPopup from '../components/EmploymentRequest/WorkSkillPopup';
+import WorkLanguagePopup from '../components/EmploymentRequest/WorkLanguagePopup';
 import messages from '../messages';
 
 function EmploymentRequestCreate(props) {
@@ -66,8 +68,15 @@ function EmploymentRequestCreate(props) {
   const [selectedKnowledge, setSelectedKnowledge] = useState(null);
 
   const [isSkillPopupOpen, setIsSkillPopupOpen] = useState(false);
+
   const [workSkill, setWorkSkill] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState(null);
+
+  const [isLangPopupOpen, setIsLangPopupOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useState(null);
+  const [langList, setLangList] = useState([]);
+  const [workLang, setWorkLang] = useState([]);
+ 
 
   const [formInfo, setFormInfo] = useState({
     id,
@@ -84,13 +93,8 @@ function EmploymentRequestCreate(props) {
     jobLevel: null,
     jobType: null,
 
-    englishLanguageLevelId: null,
-    arabicLanguageLevelId: null,
-    otherLanguageLevelId: null,
-    otherLanguage: '',
     educationMajor: '',
 
-    age: '',
     employeeReplacement: '',
     yearsOfExperience: '',
     noOfSubordinates: '',
@@ -100,13 +104,11 @@ function EmploymentRequestCreate(props) {
     communicationList: [],
     knowledgeList: [],
     jobDescription: [],
+
+    fromAge: "",
+    toAge: "",
   });
 
-  const [languages, setLanguages] = useState({
-    arabic: false,
-    english: false,
-    other: false,
-  });
 
   const [DateError, setDateError] = useState({});
 
@@ -142,7 +144,15 @@ function EmploymentRequestCreate(props) {
         languageLevelID: '',
         type: 3,
       })),
+      Languages: workLang.map((item) => ({
+        description: "",
+        id: 0, 
+        LanguageId: item.LanguageId,
+        languageLevelID: item.languageLevelID,
+        type: 4,
+      })),
     };
+
 
     try {
       await api(locale).save(formData);
@@ -164,6 +174,9 @@ function EmploymentRequestCreate(props) {
 
       const levels = await api(locale).GetLanguageLevelList();
       setLevelList(levels);
+
+      const Languages = await GeneralListApis(locale).GetLanguageList();
+      setLangList(Languages);
 
       const jobs = await api(locale).GetJobList();
       setJobsList(jobs);
@@ -188,11 +201,14 @@ function EmploymentRequestCreate(props) {
           }))
         );
 
-        setLanguages({
-          other: dataApi.otherLanguageLevelId !== null,
-          english: dataApi.englishLanguageLevelId !== null,
-          arabic: dataApi.arabicLanguageLevelId !== null,
-        });
+        setWorkLang(
+          dataApi.languageList.map((item) => ({
+            ...item,
+            LanguageId: item.languageID,
+            languageLevelID: item.languageLevelID,
+          }))
+        );
+
       }
     } catch (error) {
       //
@@ -250,12 +266,6 @@ function EmploymentRequestCreate(props) {
     }));
   };
 
-  const setLanguageCheckbox = (evt) => {
-    setLanguages((prev) => ({
-      ...prev,
-      [evt.target.name]: evt.target.checked,
-    }));
-  };
 
   const onRadioInputChange = (evt) => {
     setFormInfo((prev) => ({
@@ -392,6 +402,50 @@ function EmploymentRequestCreate(props) {
     setIsSkillPopupOpen(true);
   };
 
+
+  const onLangSave = (lang) => {
+    
+    if (selectedLang) {
+      const clonedWorkLang = [...workLang];
+      const index = clonedWorkLang.findIndex((item) => item.id === lang.id);
+      if (index !== -1) {
+        clonedWorkLang[index] = lang;
+        setWorkLang(clonedWorkLang);
+      }
+      setSelectedLang(null);
+    } else {
+      setWorkLang((prev) => [...prev, { ...lang, id: uuid() }]);
+    }
+
+    setSelectedLang(false);
+  };
+
+
+  const onLangRemove = (id) => {
+    const clonedWorkLang = [...workLang];
+    const indexToRemove = clonedWorkLang.findIndex((item) => item.id === id);
+
+    if (indexToRemove !== -1) {
+      clonedWorkLang.splice(indexToRemove, 1);
+      setWorkLang(clonedWorkLang);
+    }
+  };
+
+  const onLangEdit = (lang) => {
+    setSelectedLang(lang);
+  };
+
+  const onLangPopupBtnClick = () => {
+    setIsLangPopupOpen(true);
+  };
+
+
+  useEffect(() => {
+    if (selectedLang) {
+      setIsLangPopupOpen(true);
+    }
+  }, [selectedLang]);
+  
   return (
     <PayRollLoader isLoading={isLoading}>
       <WorkDescriptionPopup
@@ -418,6 +472,19 @@ function EmploymentRequestCreate(props) {
         levelList={levelList}
         setSelectedSkill={setSelectedSkill}
       />
+
+      <WorkLanguagePopup
+        isOpen={isLangPopupOpen}
+        setIsOpen={setIsLangPopupOpen}
+        onSave={onLangSave}
+        selectedLang={selectedLang}
+        levelList={levelList}
+        setSelectedLang={setSelectedLang}
+        langList={langList}
+      />
+
+
+
 
       <form onSubmit={onFormSubmit}>
         <Grid container spacing={2} direction='row'>
@@ -538,7 +605,6 @@ function EmploymentRequestCreate(props) {
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          required
                           label={intl.formatMessage(messages.reportingTo)}
                         />
                       )}
@@ -680,6 +746,34 @@ function EmploymentRequestCreate(props) {
 
                 <Box sx={{ mt: 3 }}>
                   <FormControl>
+                    <FormLabel>{intl.formatMessage(messages.age)}</FormLabel>
+                  </FormControl>
+                  <Grid container spacing={1} mt={0} direction='row'>
+                    <Grid item xs={12} md={1}>
+                      <TextField
+                        value={formInfo.fromAge}
+                        label={intl.formatMessage(messages.fromAge)}
+                        name='fromAge'
+                        onChange={onNumericInputChange}
+                        className={classes.field}
+                        autoComplete='off'
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={1}>
+                      <TextField
+                        value={formInfo.toAge}
+                        label={intl.formatMessage(messages.toAge)}
+                        name='toAge'
+                        onChange={onNumericInputChange}
+                        className={classes.field}
+                        autoComplete='off'
+                      />
+                    </Grid>
+                  </Grid>
+                </Box>
+
+                <Box sx={{ mt: 3 }}>
+                  <FormControl>
                     <FormLabel>{intl.formatMessage(messages.gender)}</FormLabel>
                     <RadioGroup
                       row
@@ -701,44 +795,6 @@ function EmploymentRequestCreate(props) {
                         value='2'
                         control={<Radio />}
                         label={intl.formatMessage(messages.any)}
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Box>
-
-                <Box sx={{ mt: 3 }}>
-                  <FormControl>
-                    <FormLabel>{intl.formatMessage(messages.age)}</FormLabel>
-                    <RadioGroup
-                      row
-                      value={formInfo.age}
-                      onChange={onRadioInputChange}
-                      name='age'
-                    >
-                      <FormControlLabel
-                        value='0'
-                        control={<Radio />}
-                        label={`21 - 25 ${intl.formatMessage(messages.year)}`}
-                      />
-                      <FormControlLabel
-                        value='1'
-                        control={<Radio />}
-                        label={`26 - 28 ${intl.formatMessage(messages.year)}`}
-                      />
-                      <FormControlLabel
-                        value='2'
-                        control={<Radio />}
-                        label={`29 - 34 ${intl.formatMessage(messages.year)}`}
-                      />
-                      <FormControlLabel
-                        value='3'
-                        control={<Radio />}
-                        label={`35 - 40 ${intl.formatMessage(messages.year)}`}
-                      />
-                      <FormControlLabel
-                        value='4'
-                        control={<Radio />}
-                        label={`> 40 ${intl.formatMessage(messages.year)}`}
                       />
                     </RadioGroup>
                   </FormControl>
@@ -920,156 +976,102 @@ function EmploymentRequestCreate(props) {
           <Grid item xs={12}>
             <Card>
               <CardContent sx={{ p: '16px!important' }}>
-                <Typography variant='h6'>
-                  {intl.formatMessage(messages.languages)}
-                </Typography>
-
+                <Grid
+                  container
+                  justifyContent='space-between'
+                  alignItems='center'
+                >
+                  <Grid item>
+                    <Typography variant='h6'>
+                      {intl.formatMessage(messages.languages)}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant='contained'
+                      onClick={onLangPopupBtnClick}
+                      color='primary'
+                    >
+                      {intl.formatMessage(messages.addLang)}
+                    </Button>
+                  </Grid>
+                </Grid>
                 <Typography color='gray' mt={1} variant='body2'>
                   {intl.formatMessage(messages.languageInfo)}
                 </Typography>
 
-                <Grid container spacing={2} mt={1} direction='row'>
-                  <Grid item md={4} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={languages.arabic}
-                          name='arabic'
-                          onChange={(evt) => setLanguageCheckbox(evt)}
-                        />
-                      }
-                      label={intl.formatMessage(messages.arabic)}
-                    />
+                {workLang.length > 0 ? (
+                  <Grid container spacing={3} mt={0} alignItems='stretch'>
+                    {workLang.map((item) => (
+                      <Grid item xs={12} key={item.id} md={4}>
+                        <Card
+                          variant='outlined'
+                          sx={{
+                            position: 'relative',
+                            overflow: 'visible',
+                          }}
+                        >
+                          <IconButton
+                            size='small'
+                            sx={{
+                              right: '5px',
+                              position: 'absolute',
+                              top: '-12px',
+                              backgroundColor: '#eee',
+                            }}
+                            onClick={() => onLangEdit(item)}
+                          >
+                            <BorderColor sx={{ fontSize: '1rem' }} />
+                          </IconButton>
 
-                    <Autocomplete
-                      options={levelList}
-                      value={
-                        levelList.find(
-                          (item) => item.id === formInfo.arabicLanguageLevelId
-                        ) ?? null
-                      }
-                      isOptionEqualToValue={(option, value) => option.id === value.id
-                      }
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      disabled={!languages.arabic}
-                      renderOption={(propsOption, option) => (
-                        <li {...propsOption} key={option.id}>
-                          {option.name}
-                        </li>
-                      )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'arabicLanguageLevelId')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          required
-                          disabled={!languages.arabic}
-                          label={intl.formatMessage(messages.level)}
-                        />
-                      )}
-                    />
-                  </Grid>
+                          <IconButton
+                            size='small'
+                            color='error'
+                            sx={{
+                              right: '35px',
+                              position: 'absolute',
+                              top: '-12px',
+                              backgroundColor: '#eee',
+                            }}
+                            onClick={() => onLangRemove(item.id)}
+                          >
+                            <Delete sx={{ fontSize: '1rem' }} />
+                          </IconButton>
 
-                  <Grid item md={4} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={languages.english}
-                          name='english'
-                          onChange={(evt) => setLanguageCheckbox(evt)}
-                        />
-                      }
-                      label={intl.formatMessage(messages.english)}
-                    />
+                          <CardContent sx={{ p: '16px!important' }}>
+                            <Typography variant='body2' color='text.secondary'>
+                              {levelList.find(
+                                (level) => level.id === item.languageLevelID
+                              )?.name ?? ''}
+                            </Typography>
 
-                    <Autocomplete
-                      options={levelList}
-                      value={
-                        levelList.find(
-                          (item) => item.id === formInfo.englishLanguageLevelId
-                        ) ?? null
-                      }
-                      isOptionEqualToValue={(option, value) => option.id === value.id
-                      }
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      disabled={!languages.english}
-                      renderOption={(propsOption, option) => (
-                        <li {...propsOption} key={option.id}>
-                          {option.name}
-                        </li>
-                      )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'englishLanguageLevelId')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          required
-                          disabled={!languages.english}
-                          label={intl.formatMessage(messages.level)}
-                        />
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item md={8} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={languages.other}
-                          name='other'
-                          onChange={(evt) => setLanguageCheckbox(evt)}
-                        />
-                      }
-                      label={intl.formatMessage(messages.other)}
-                    />
-
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} md={6}>
-                        <TextField
-                          value={formInfo.otherLanguage}
-                          label={intl.formatMessage(messages.otherLanguage)}
-                          name='otherLanguage'
-                          required
-                          disabled={!languages.other}
-                          onChange={onInputChange}
-                          className={classes.field}
-                          autoComplete='off'
-                        />
+                            <Typography>
+                              {langList.find(
+                                (lang) => lang.id === item.LanguageId
+                              )?.name ?? ''}</Typography>
+                          </CardContent>
+                        </Card>
                       </Grid>
-
-                      <Grid item md={6} xs={12}>
-                        <Autocomplete
-                          options={levelList}
-                          value={
-                            levelList.find(
-                              (item) => item.id === formInfo.otherLanguageLevelId
-                            ) ?? null
-                          }
-                          isOptionEqualToValue={(option, value) => option.id === value.id
-                          }
-                          getOptionLabel={(option) => (option ? option.name : '')
-                          }
-                          disabled={!languages.other}
-                          renderOption={(propsOption, option) => (
-                            <li {...propsOption} key={option.id}>
-                              {option.name}
-                            </li>
-                          )}
-                          onChange={(_, value) => onAutoCompleteChange(value, 'otherLanguageLevelId')
-                          }
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              required
-                              disabled={!languages.other}
-                              label={intl.formatMessage(messages.level)}
-                            />
-                          )}
-                        />
-                      </Grid>
-                    </Grid>
+                    ))}
                   </Grid>
-                </Grid>
+                ) : (
+                  <Stack
+                    direction='row'
+                    sx={{ minHeight: 200 }}
+                    alignItems='center'
+                    justifyContent='center'
+                    textAlign='center'
+                  >
+                    <Box>
+                      <LanguageIcon
+                        sx={{ color: '#a7acb2', fontSize: 30 }}
+                      />
+                      <Typography color='#a7acb2' variant='body1'>
+                        {intl.formatMessage(messages.noLanguage)}
+                      </Typography>
+                    </Box>
+                  </Stack>
+                )}
               </CardContent>
             </Card>
           </Grid>

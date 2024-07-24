@@ -486,6 +486,18 @@ export default defineMessages({
     id: `${scope}.languageInfo`,
     defaultMessage: 'Please Tick The Language That Is Required And Specify The Required Level',
   },
+  addLang: {
+    id: `${scope}.addLang`,
+    defaultMessage: 'Add Language',
+  },
+  editLang: {
+    id: `${scope}.editLang`,
+    defaultMessage: 'Edit Language',
+  },
+  noLanguage: {
+    id: `${scope}.noLanguage`,
+    defaultMessage: 'No Language',
+  },
   jobSpecifications: {
     id: `${scope}.jobSpecifications`,
     defaultMessage: 'jobSpecifications',

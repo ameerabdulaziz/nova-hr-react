@@ -238,7 +238,7 @@ function Dashboard(props) {
   };
 
   useEffect(() => {
-debugger;
+
     if (Auth === null || Auth === false) {
       history.push(`/login?redirectTo=${history.location.pathname}`);
     }
