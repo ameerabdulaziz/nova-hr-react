@@ -2303,6 +2303,8 @@
   "boilerplate.containers.Payroll.MainData.codes.logoIsRequired": "الشعار مطلوب",
 
   "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "اخلاء طرف",
+  "boilerplate.containers.Payroll.MainData.codes.levelNo": "رقم المستوى",
+  
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "قائمة الأذونات",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "كود الموظف",

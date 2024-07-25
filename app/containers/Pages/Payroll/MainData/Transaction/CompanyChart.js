@@ -2,13 +2,15 @@ import React, { useRef, useState, useEffect } from "react";
 import OrganizationChart from "@dabeng/react-orgchart";
 import MyNode from "../../custom-node-chart/my-node";
 import CompanyChartData from "../api/CompanyChartData";
-import Snackbar from "@mui/material/Snackbar";
-import Button from "@mui/material/Button";
+import useStyles from "../../Style";
+import { Button, TextField } from "@mui/material";
+import messages from "../messages";
+import { injectIntl, intlShape, FormattedMessage } from "react-intl";
 import PayRollLoader from "../../Component/PayRollLoader";
-
 import { useSelector } from "react-redux";
 
-const CompanyChart = () => {
+/* const CompanyChart = (intl) => { */
+function CompanyChart(props) {
   const [data, setData] = useState({});
   /* const data = {
 
@@ -40,19 +42,23 @@ const CompanyChart = () => {
   };  */
 
   const [isLoading, setIsLoading] = useState(true);
+  const [levelNo, setLevelNo] = useState("");
   const orgchart = useRef();
-
+  const { classes } = useStyles();
+  const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+
   const getdata = async () => {
-    const result = await CompanyChartData(locale).GetOrganizationChart();
+    setIsLoading(true);
+    const result = await CompanyChartData(locale).GetOrganizationChart(levelNo);
     setData(result[0]);
     setIsLoading(false);
-    console.log(result[0]);
+    
   };
 
   useEffect(() => {
     getdata();
-  }, []);
+  }, [levelNo]);
 
   const exportTo = () => {
     orgchart.current.exportTo("organization_chart", fileextension);
@@ -104,6 +110,7 @@ const CompanyChart = () => {
           />
           <label htmlFor="rd-pdf">pdf</label>
 
+          
           <Button
             variant="contained"
             color="primary"
@@ -122,6 +129,17 @@ const CompanyChart = () => {
           >
             Save
           </Button>
+          <span style={{ marginLeft: "2rem" }}></span>
+          <TextField
+            id="levelNo"
+            name="levelNo"
+            value={levelNo}
+            onChange={(e) => setLevelNo(e.target.value)}
+            label={intl.formatMessage(messages.levelNo)}
+            variant="outlined"
+            autoComplete="off"
+          />
+
         </section>
         <OrganizationChart
           ref={orgchart}
@@ -134,6 +152,6 @@ const CompanyChart = () => {
       </div>
     </PayRollLoader>
   );
-};
+}
 
-export default CompanyChart;
+export default injectIntl(CompanyChart);

@@ -24,12 +24,15 @@ import GeneralListApis from "../../../api/GeneralListApis";
 import elementApi from "../../api/ElementsData";
 import EmployeeData from "../../../Component/EmployeeData";
 import { format } from "date-fns";
+import DecryptUrl from "../../../Component/DecryptUrl";
 
 function ElementValCreate(props) {
+  debugger;
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
-  const { id } = location.state ?? 0;
+  //const { id } = location.state ?? 0;
+  const id  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : 0;
   const { classes, cx } = useStyles();
   const [isLoading, setIsLoading] = useState(true);
   const [PayTemplateList, setPayTemplateList] = useState([]);
@@ -175,6 +178,7 @@ function ElementValCreate(props) {
   }
   async function GetLookup() {
     try {
+      debugger;
       const BrList = await GeneralListApis(locale).GetBranchList();
       setBranchList(BrList);
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
@@ -232,10 +236,10 @@ function ElementValCreate(props) {
                         <Autocomplete
                           id="branchId"
                           options={BranchList}
-                          isOptionEqualToValue={(option, value) =>
-                            value.id === 0 ||
+                          isOptionEqualToValue={(option, value) =>value&&
+                            (value.id === 0 ||
                             value.id === "" ||
-                            option.id === value.id
+                            option.id === value.id)
                           }
                           getOptionLabel={(option) =>
                             option.name ? option.name : ""
@@ -307,10 +311,10 @@ function ElementValCreate(props) {
                               <Autocomplete
                                 id="PayTemplateId"
                                 options={PayTemplateList}
-                                isOptionEqualToValue={(option, value) =>
-                                  value.id === 0 ||
+                                isOptionEqualToValue={(option, value) =>value&&
+                                  (value.id === 0 ||
                                   value.id === "" ||
-                                  option.id === value.id
+                                  option.id === value.id)
                                 }
                                 getOptionLabel={(option) =>
                                   option.name ? option.name : ""
@@ -346,10 +350,10 @@ function ElementValCreate(props) {
                               <Autocomplete
                                 id="elementId"
                                 options={elementList}
-                                isOptionEqualToValue={(option, value) =>
-                                  value.id === 0 ||
+                                isOptionEqualToValue={(option, value) =>value&&
+                                  (value.id === 0 ||
                                   value.id === "" ||
-                                  option.id === value.id
+                                  option.id === value.id)
                                 }
                                 getOptionLabel={(option) =>
                                   option.name ? option.name : ""

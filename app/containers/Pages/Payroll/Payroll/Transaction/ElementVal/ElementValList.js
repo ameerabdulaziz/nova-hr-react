@@ -611,8 +611,8 @@ function ElementValList(props) {
           return (
             <div className={style.actionsSty}>
               <EditButton
-                param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/Payroll/ElementValEdit"}
+                //param={{ id: tableMeta.rowData[0] }}
+                url={"/app/Pages/Payroll/ElementValEdit/"+btoa( tableMeta.rowData[0])}
               ></EditButton>
               <DeleteButton
                 clickfnc={() => handleClickOpen(tableMeta.rowData[0])}

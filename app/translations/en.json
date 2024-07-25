@@ -2266,6 +2266,7 @@
   "boilerplate.containers.Payroll.MainData.codes.logoIsRequired": "Logo is required",
 
   "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "Is Disclaimer",
+  "boilerplate.containers.Payroll.MainData.codes.levelNo": "Level No",
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "Permissions List",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "Employee Id",

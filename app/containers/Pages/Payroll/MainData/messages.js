@@ -288,4 +288,8 @@ OrganizationsList: {
     id: `${scope}.codes.IsDisclaimer`,
     defaultMessage: 'Is Disclaimer',
   },
+  levelNo: {
+    id: `${scope}.codes.levelNo`,
+    defaultMessage: 'Is levelNo',
+  },
 });
