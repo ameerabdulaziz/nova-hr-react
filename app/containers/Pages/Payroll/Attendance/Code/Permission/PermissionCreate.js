@@ -90,6 +90,7 @@ function PermissionCreate(props) {
     deductedValue: "",
     maxRepeated: "",
     maxMinuteNo: "",
+    minMinuteNo: "",
     isDeductAnnual: false,
     isDeductReplacment:false,
     reqDayNotAllow: [],
@@ -139,6 +140,12 @@ function PermissionCreate(props) {
       setdata((prevFilters) => ({
         ...prevFilters,
         maxMinuteNo: event.target.value,
+      }));
+    }
+    if (event.target.name == "minMinuteNo") {
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        minMinuteNo: event.target.value,
       }));
     }
   };
@@ -296,6 +303,18 @@ function PermissionCreate(props) {
                 value={data.shortName}
                 onChange={(e) => handleChange(e)}
                 label={intl.formatMessage(messages.shortName)}
+                className={classes.field}
+                variant="outlined"
+                autoComplete="off"
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField
+                id="minMinuteNo"
+                name="minMinuteNo"
+                value={data.minMinuteNo}
+                onChange={(e) => handleChange(e)}
+                label={intl.formatMessage(messages.minMinuteNo)}
                 className={classes.field}
                 variant="outlined"
                 autoComplete="off"

@@ -27,9 +27,9 @@ import NameList from "../../../Component/NameList";
 import { Backdrop, CircularProgress, Box } from "@mui/material";
 import AlertPopup from "../../../Component/AlertPopup";
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function PermissionTrxCreate(props) {
   const { intl } = props;
@@ -37,12 +37,10 @@ function PermissionTrxCreate(props) {
   const { classes } = useStyles();
   const Title = localStorage.getItem("MenuName");
 
-
- // used to reformat date before send it to api
- const dateFormatFun = (date) => {
-  return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-}
-
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
   const [data, setdata] = useState({
     date: dateFormatFun(new Date()),
@@ -63,6 +61,7 @@ function PermissionTrxCreate(props) {
     notes: "",
     maxRepeated: "",
     maxMinuteNo: "",
+    minMinuteNo: "",
     employeesId: [],
     isNotUpdate: false,
   });
@@ -73,17 +72,66 @@ function PermissionTrxCreate(props) {
 
   const [DateError, setDateError] = useState({});
 
-
-  
-
   const handleClickOpen = (item) => {
-
     setOpenParentPopup(true);
     setDeleteItem(item);
   };
 
   const handleClose = () => {
     setOpenParentPopup(false);
+  };
+
+  const calculateMinutesCount = (
+    endTime,
+    startTime,
+    targetname,
+    targetvalue
+  ) => {
+    debugger;
+    var diff = Math.round(
+      (new Date(0, 0, 0, endTime.split(":")[0], endTime.split(":")[1]) -
+        new Date(0, 0, 0, startTime.split(":")[0], startTime.split(":")[1])) /
+        60000
+    );
+    if (diff > 0) {
+      if (diff > data.maxMinuteNo && data.maxMinuteNo !== null) {
+        toast.error(
+          intl.formatMessage(messages.maxMinutesCountIs) + data.maxMinuteNo
+        );
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          [targetname]: "",
+          minutesCount: "",
+        }));
+        return;
+      }
+
+      if (diff < data.minMinuteNo && data.minMinuteNo !== null) {
+        toast.error(
+          intl.formatMessage(messages.minMinutesCountIs) + data.minMinuteNo
+        );
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          [targetname]: "",
+          minutesCount: "",
+        }));
+        return;
+      }
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        [targetname]: targetvalue,
+        minutesCount: diff,
+      }));
+    } else {
+      toast.error(
+        intl.formatMessage(messages.maxMinutesCountMustToBeGreaterThan)
+      );
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        [targetname]: "",
+        minutesCount: "",
+      }));
+    }
   };
 
   const handleChange = (event) => {
@@ -113,32 +161,12 @@ function PermissionTrxCreate(props) {
 
     if (event.target.name == "startTime") {
       if (data.endTime != "") {
-        var diff = Math.round(
-          (new Date(
-            0,
-            0,
-            0,
-            data.endTime.split(":")[0],
-            data.endTime.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              event.target.value.split(":")[0],
-              event.target.value.split(":")[1]
-            )) /
-            60000
+        calculateMinutesCount(
+          data.endTime,
+          event.target.value,
+          "startTime",
+          event.target.value
         );
-        if (diff <= maxMinuteNo)
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            startTime: event.target.value,
-            minutesCount: diff,
-          }));
-        else {
-          toast.error("max minutes count is" + data.maxMinuteNo);
-        }
       } else
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -148,33 +176,12 @@ function PermissionTrxCreate(props) {
 
     if (event.target.name == "endTime") {
       if (data.startTime != "") {
-        var diff = Math.round(
-          (new Date(
-            0,
-            0,
-            0,
-            event.target.value.split(":")[0],
-            event.target.value.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              data.startTime.split(":")[0],
-              data.startTime.split(":")[1]
-            )) /
-            60000
+        calculateMinutesCount(
+          event.target.value,
+          data.startTime,
+          "endTime",
+          event.target.value
         );
-
-        if (diff <= data.maxMinuteNo)
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            endTime: event.target.value,
-            minutesCount: diff,
-          }));
-        else {
-          toast.error("max minutes count is" + data.maxMinuteNo);
-        }
       } else
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -185,12 +192,11 @@ function PermissionTrxCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-// used to stop call api if user select wrong date
-if (Object.values(DateError).includes(true)) {  
-  toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-  return;
-}
-
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
     try {
       setIsLoading(true);
@@ -212,9 +218,8 @@ if (Object.values(DateError).includes(true)) {
     }
   };
   const handleDelete = async (e) => {
-
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -253,6 +258,7 @@ if (Object.values(DateError).includes(true)) {
       notes: "",
       maxRepeated: "",
       maxMinuteNo: "",
+      minMinuteNo: "",
       isNotUpdate: false,
     });
   };
@@ -273,15 +279,13 @@ if (Object.values(DateError).includes(true)) {
   }, []);
 
   async function getData() {
-
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
 
     try {
-      
       if (data.permissionId && data.startTime && data.endTime) {
         setIsLoading(true);
         const result = await ApiData(locale).getPermissions(data);
@@ -304,24 +308,25 @@ if (Object.values(DateError).includes(true)) {
     }
   }
 
-  return (<Box
-    sx={{
-      zIndex: 100,
-      position: "relative",
-    }}
-  >
-    <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-      <Backdrop
-        sx={{
-          color: "primary.main",
-          zIndex: 10,
-          position: "absolute",
-          backgroundColor: "rgba(255, 255, 255, 0.69)",
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+  return (
+    <Box
+      sx={{
+        zIndex: 100,
+        position: "relative",
+      }}
+    >
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+        <Backdrop
+          sx={{
+            color: "primary.main",
+            zIndex: 10,
+            position: "absolute",
+            backgroundColor: "rgba(255, 255, 255, 0.69)",
+          }}
+          open={isLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={6}>
@@ -353,39 +358,34 @@ if (Object.values(DateError).includes(true)) {
                       />
                     </Grid>
 
-                  <Grid item xs={12} md={6}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.date)}
+                    <Grid item xs={12} md={6}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(Payrollmessages.date)}
                           value={data.date ? dayjs(data.date) : data.date}
-                        className={classes.field}
+                          className={classes.field}
                           onChange={(date) => {
                             setdata((prevFilters) => ({
                               ...prevFilters,
-                              date: date ,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
+                              date: date,
+                            }));
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
                                 ...prevState,
-                                  [`date`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
+                                [`date`]: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
                                 ...prevState,
-                                  [`date`]: false
-                              }))
-                          }
-                        }}
+                                [`date`]: false,
+                              }));
+                            }
+                          }}
                         />
-                    </LocalizationProvider>
-                  </Grid>
-
+                      </LocalizationProvider>
+                    </Grid>
 
                     <Grid item xs={12} md={6}>
                       <Autocomplete
@@ -412,6 +412,8 @@ if (Object.values(DateError).includes(true)) {
                               value !== null ? value.maxRepeated : "",
                             maxMinuteNo:
                               value !== null ? value.maxMinuteNo : "",
+                            minMinuteNo:
+                              value !== null ? value.minMinuteNo : "",
                           }));
                         }}
                         renderInput={(params) => (
@@ -466,7 +468,7 @@ if (Object.values(DateError).includes(true)) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled={!data.calcLate}
-                                autoComplete='off'
+                                autoComplete="off"
                               />
                             </Grid>
                             <Grid item xs={12} md={8}>
@@ -501,7 +503,7 @@ if (Object.values(DateError).includes(true)) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled={!data.calcMinus}
-                                autoComplete='off'
+                                autoComplete="off"
                               />
                             </Grid>
                             <Grid item xs={12} md={8}>
@@ -536,7 +538,7 @@ if (Object.values(DateError).includes(true)) {
                                 className={classes.field}
                                 variant="outlined"
                                 disabled={!data.dedRased}
-                                autoComplete='off'
+                                autoComplete="off"
                               />
                             </Grid>
                           </Grid>
@@ -557,6 +559,7 @@ if (Object.values(DateError).includes(true)) {
                             value={data.startTime}
                             label={intl.formatMessage(messages.startTime)}
                             type="time"
+                            required
                             onChange={(e) => handleChange(e)}
                             className={classes.field}
                             InputLabelProps={{
@@ -571,6 +574,7 @@ if (Object.values(DateError).includes(true)) {
                             value={data.endTime}
                             label={intl.formatMessage(messages.endTime)}
                             type="time"
+                            required
                             onChange={(e) => handleChange(e)}
                             className={classes.field}
                             InputLabelProps={{
@@ -589,7 +593,7 @@ if (Object.values(DateError).includes(true)) {
                             className={classes.field}
                             variant="outlined"
                             disabled
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                         <Grid item xs={12} md={12}>
@@ -639,7 +643,7 @@ if (Object.values(DateError).includes(true)) {
                         label={intl.formatMessage(Payrollmessages.notes)}
                         className={classes.field}
                         variant="outlined"
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                   </Grid>
@@ -690,7 +694,6 @@ if (Object.values(DateError).includes(true)) {
                 style={{ width: 100 }}
                 color="secondary"
               >
-                
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
@@ -710,9 +713,7 @@ if (Object.values(DateError).includes(true)) {
         <AlertPopup
           handleClose={handleClose}
           open={openParentPopup}
-          messageData={`${intl.formatMessage(
-            Payrollmessages.deleteMessage
-          )}`}
+          messageData={`${intl.formatMessage(Payrollmessages.deleteMessage)}`}
           callFun={handleDelete}
         />
       </PapperBlock>

@@ -83,6 +83,10 @@ maxMinutesCountIs: {
   id: `${scope}.maxMinutesCountIs`,
   defaultMessage: 'Max minutes count is ',
 },
+minMinutesCountIs: {
+  id: `${scope}.minMinutesCountIs`,
+  defaultMessage: 'Min minutes count is ',
+},
 maxMinutesCountMustToBeGreaterThan: {
   id: `${scope}.maxMinutesCountMustToBeGreaterThan`,
   defaultMessage: 'Max minutes count must to be greater than 0 ',
@@ -107,6 +111,10 @@ maxRepeated: {
 maxMinuteNo: {
   id: `${scope}.maxMinuteNo`,
   defaultMessage: 'maxMinuteNo',
+},
+minMinuteNo: {
+  id: `${scope}.minMinuteNo`,
+  defaultMessage: 'minMinuteNo',
 },
 isDeductAnnual: {
   id: `${scope}.isDeductAnnual`,

@@ -11,9 +11,9 @@ const ShiftEmployeeData = (locale) => {
     return result;
   };
 
-  Apis.Get = async (id) => {
+  Apis.Get = async (id,employeeId) => {
     
-    const data = await axiosInstance.get(`AttShiftEmployee/Get/${id}/${locale}`);
+    const data = await axiosInstance.get(`AttShiftEmployee/Get/${id}/${locale}?EmployeeId=${employeeId}`);
     
     return data.data;
 

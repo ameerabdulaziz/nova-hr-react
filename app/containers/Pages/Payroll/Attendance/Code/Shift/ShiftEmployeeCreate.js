@@ -26,12 +26,9 @@ import { useLocation } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function ShiftEmployeeCreate(props) {
   const { intl } = props;
@@ -39,6 +36,8 @@ function ShiftEmployeeCreate(props) {
   const location = useLocation();
   const { id, employeeId, employeeName } = location.state ?? 0;
   const { classes } = useStyles();
+  const companyInfo = useSelector((state) => state.authReducer.companyInfo);
+  const user = useSelector((state) => state.authReducer.user);
 
   const [data, setdata] = useState({
     id: 0,
@@ -67,25 +66,22 @@ function ShiftEmployeeCreate(props) {
   const [processing, setprocessing] = useState(false);
   const [ShiftsList, setShifts] = useState([]);
 
-
   const dateFormatFun = (date) => {
-    return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
-
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-// used to stop call api if user select wrong date
-if (Object.values(DateError).includes(true)) {  
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
 
-
     const apiAata = {
       id: data.id,
-      employeeId: data.employeeId ,
+      employeeId: data.employeeId,
       employeeName: data.employeeName,
       shiftId: data.shiftId,
       shiftName: data.shiftName,
@@ -101,7 +97,7 @@ if (Object.values(DateError).includes(true)) {
       vwednesday: data.vwednesday,
       vthursday: data.vthursday,
       vfriday: data.vfriday,
-    }
+    };
 
     try {
       setprocessing(true);
@@ -128,10 +124,12 @@ if (Object.values(DateError).includes(true)) {
   async function fetchData() {
     const shifts = await GeneralListApis(locale).GetShiftList();
     setShifts(shifts);
-    if (id) {
-      const dataApi = await ApiData(locale).Get(id ?? 0);
-      setdata(dataApi);
-    }
+
+    const dataApi = await ApiData(locale).Get(
+      id ?? 0,
+      employeeId ? employeeId : ""
+    );
+    setdata(dataApi);
   }
 
   useEffect(() => {
@@ -139,7 +137,6 @@ if (Object.values(DateError).includes(true)) {
   }, []);
 
   async function getShiftData(value) {
-    
     if (value == null) {
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -148,7 +145,7 @@ if (Object.values(DateError).includes(true)) {
         startTime: "",
         endTime: "",
         workHours: "",
-        hoursFromEmp:false,
+        hoursFromEmp: false,
       }));
     } else {
       const result = await shiftApi(locale).Get(value.id);
@@ -207,7 +204,11 @@ if (Object.values(DateError).includes(true)) {
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) => (option.id && option.name ? `${option.id} - ${option.name} `: "")}
+                getOptionLabel={(option) =>
+                  option.id && option.name
+                    ? `${option.id} - ${option.name} `
+                    : ""
+                }
                 value={{ id: data.shiftId, name: data.shiftName }}
                 onChange={(event, value) => {
                   /* setdata((prevFilters) => ({
@@ -289,77 +290,67 @@ if (Object.values(DateError).includes(true)) {
             </Grid>
 
             <Grid item xs={12} md={2}></Grid>
-           
-                <Grid item xs={12} md={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                       label={intl.formatMessage(Payrollmessages.fromdate)}
-                       value={data.fromDate  ? dayjs(data.fromDate) : data.fromDate}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            fromDate: date ,
-                          }))
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                            ...prevState,
-                              [`fromDate`]: true
-                          }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                            ...prevState,
-                              [`fromDate`]: false
-                          }))
-                        }
-                      }}
-                      />
-                    </LocalizationProvider>
-                  </Grid>
 
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.fromdate)}
+                  value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      fromDate: date,
+                    }));
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`fromDate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`fromDate`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
-
-                <Grid item xs={12} md={2}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker 
-                      label={intl.formatMessage(Payrollmessages.todate)}
-                     value={data.toDate  ? dayjs(data.toDate) : data.toDate}
-                    className={classes.field}
-                      onChange={(date) => {
-                        setdata((prevFilters) => ({
-                          ...prevFilters,
-                          toDate: date ,
-                        }))
-                    }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
-                        setDateError((prevState) => ({
-                          ...prevState,
-                            [`toDate`]: true
-                        }))
-                      }
-                      else
-                      {
-                        setDateError((prevState) => ({
-                          ...prevState,
-                            [`toDate`]: false
-                        }))
-                      }
-                    }}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.todate)}
+                  value={data.toDate ? dayjs(data.toDate) : data.toDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      toDate: date,
+                    }));
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`toDate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`toDate`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
             <Grid item xs={12} md={8}></Grid>
+
             <Grid item xs={12} md={6}>
               <Card className={classes.card}>
                 <CardContent>
@@ -381,6 +372,11 @@ if (Object.values(DateError).includes(true)) {
                               }))
                             }
                             value={data.vsaturday}
+                            disabled={
+                              !companyInfo.isHideWeekend || user.isHR
+                                ? false
+                                : true
+                            }
                             color="primary"
                           />
                         }
@@ -399,6 +395,11 @@ if (Object.values(DateError).includes(true)) {
                               }))
                             }
                             value={data.vsunday}
+                            disabled={
+                              !companyInfo.isHideWeekend || user.isHR
+                                ? false
+                                : true
+                            }
                             color="primary"
                           />
                         }
@@ -417,6 +418,11 @@ if (Object.values(DateError).includes(true)) {
                               }))
                             }
                             value={data.vmonday}
+                            disabled={
+                              !companyInfo.isHideWeekend || user.isHR
+                                ? false
+                                : true
+                            }
                             color="primary"
                           />
                         }
@@ -435,6 +441,11 @@ if (Object.values(DateError).includes(true)) {
                               }))
                             }
                             value={data.vtuesday}
+                            disabled={
+                              !companyInfo.isHideWeekend || user.isHR
+                                ? false
+                                : true
+                            }
                             color="primary"
                           />
                         }
@@ -453,6 +464,11 @@ if (Object.values(DateError).includes(true)) {
                               }))
                             }
                             value={data.vwednesday}
+                            disabled={
+                              !companyInfo.isHideWeekend || user.isHR
+                                ? false
+                                : true
+                            }
                             color="primary"
                           />
                         }
@@ -471,6 +487,11 @@ if (Object.values(DateError).includes(true)) {
                               }))
                             }
                             value={data.vthursday}
+                            disabled={
+                              !companyInfo.isHideWeekend || user.isHR
+                                ? false
+                                : true
+                            }
                             color="primary"
                           />
                         }
@@ -489,6 +510,11 @@ if (Object.values(DateError).includes(true)) {
                               }))
                             }
                             value={data.vfriday}
+                            disabled={
+                              !companyInfo.isHideWeekend || user.isHR
+                                ? false
+                                : true
+                            }
                             color="primary"
                           />
                         }
@@ -499,6 +525,7 @@ if (Object.values(DateError).includes(true)) {
                 </CardContent>
               </Card>
             </Grid>
+
             <Grid item xs={12} md={6}></Grid>
 
             <Grid item xs={12} md={1}>

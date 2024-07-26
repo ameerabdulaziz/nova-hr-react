@@ -28,10 +28,9 @@ import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 import DecryptUrl from "../../../Component/DecryptUrl";
 
 function PermissionTrxCreate(props) {
@@ -60,11 +59,13 @@ function PermissionTrxCreate(props) {
     notes: "",
     maxRepeated: "",
     maxMinuteNo: "",
+    minMinuteNo: "",
     maxMinutesCountGreaterThan: false,
-    maxMinutesCountDiff: false
+    maxMinutesCountDiff: false,
+    minMinutesCountDiff: false,
   });
 
-  const empid  = DecryptUrl()
+  const empid = DecryptUrl();
 
   const [PermissionsList, setPermissionsList] = useState([]);
   const history = useHistory();
@@ -72,35 +73,32 @@ function PermissionTrxCreate(props) {
 
   const [DateError, setDateError] = useState({});
 
-   // used to reformat date before send it to api
-   const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
-   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
-   useEffect(()=>{
-    if(empid)
-    {
-      let startTime , endTime , total
+  // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
+  useEffect(() => {
+    if (empid) {
+      let startTime, endTime, total;
 
-          if(empid.timeIn && empid.timeOut)
-          {
-            startTime = new Date(empid.timeIn).getTime()
-            endTime = new Date(empid.timeOut).getTime()
-            total = Math.abs( Math.round( ((startTime - endTime) / 1000) / 60 ) )
-          }
+      if (empid.timeIn && empid.timeOut) {
+        startTime = new Date(empid.timeIn).getTime();
+        endTime = new Date(empid.timeOut).getTime();
+        total = Math.abs(Math.round((startTime - endTime) / 1000 / 60));
+      }
 
       setdata((prev) => ({
         ...prev,
         employeeId: empid.id,
         date: empid.shiftDate ?? new Date(),
-        startTime: empid.timeIn ? format(new Date(empid.timeIn), 'HH:mm') : "",
-        endTime: empid.timeOut ? format(new Date(empid.timeOut), 'HH:mm') : "",
-        minutesCount: empid.timeIn && empid.timeOut ? total : ""
+        startTime: empid.timeIn ? format(new Date(empid.timeIn), "HH:mm") : "",
+        endTime: empid.timeOut ? format(new Date(empid.timeOut), "HH:mm") : "",
+        minutesCount: empid.timeIn && empid.timeOut ? total : "",
       }));
     }
-
-  },[])
+  }, []);
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")
@@ -134,65 +132,10 @@ function PermissionTrxCreate(props) {
         ...prevFilters,
         prasedMin: event.target.value,
       }));
-
+    debugger;
     if (event.target.name == "startTime") {
       if (data.endTime != "") {
-        var diff = Math.round(
-          (new Date(
-            0,
-            0,
-            0,
-            data.endTime.split(":")[0],
-            data.endTime.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              event.target.value.split(":")[0],
-              event.target.value.split(":")[1]
-            )) /
-            60000
-        );
-
-        setdata((prevFilters) => ({
-          ...prevFilters,
-          startTime: event.target.value,
-          minutesCount: diff,
-        }));
-
-        if(diff > 0)
-        {
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            maxMinutesCountGreaterThan: false
-          }));
-
-          if (diff > data.maxMinuteNo && data.maxMinuteNo !== null && data.maxMinuteNo !== 0)
-          {
-            toast.error(intl.formatMessage(messages.maxMinutesCountIs) + data.maxMinuteNo);
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                maxMinutesCountDiff: true
-              }));
-          }
-          else
-          {
-            setdata((prevFilters) => ({
-              ...prevFilters,
-              maxMinutesCountDiff: false
-            }));
-          }
-        }
-        else
-        {
-          toast.error(intl.formatMessage(messages.maxMinutesCountMustToBeGreaterThan));
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                maxMinutesCountGreaterThan: true
-              }));
-        }
-
+        calculateMinutesCount(data.endTime, event.target.value, "startTime",event.target.value);
       } else
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -202,62 +145,7 @@ function PermissionTrxCreate(props) {
 
     if (event.target.name == "endTime") {
       if (data.startTime != "") {
-        var diff = Math.round(
-          (new Date(
-            0,
-            0,
-            0,
-            event.target.value.split(":")[0],
-            event.target.value.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              data.startTime.split(":")[0],
-              data.startTime.split(":")[1]
-            )) /
-            60000
-        );
-
-        setdata((prevFilters) => ({
-                ...prevFilters,
-                endTime: event.target.value,
-                minutesCount: diff,
-              }));
-
-        if(diff > 0)
-        {
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            maxMinutesCountGreaterThan: false
-          }));
-
-          if (diff > data.maxMinuteNo && data.maxMinuteNo !== null && data.maxMinuteNo !== 0)
-          {
-            toast.error(intl.formatMessage(messages.maxMinutesCountIs) + data.maxMinuteNo);
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                maxMinutesCountDiff: true
-              }));
-          }
-          else
-          {
-            setdata((prevFilters) => ({
-              ...prevFilters,
-              maxMinutesCountDiff: false
-            }));
-          }
-        }
-        else
-        {
-          toast.error(intl.formatMessage(messages.maxMinutesCountMustToBeGreaterThan));
-            setdata((prevFilters) => ({
-                ...prevFilters,
-                maxMinutesCountGreaterThan: true
-              }));
-        }
-
+        calculateMinutesCount(event.target.value, data.startTime, "endTime",event.target.value);
       } else
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -268,17 +156,13 @@ function PermissionTrxCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
-    
 
     try {
-
-
       const apiData = {
         id: data.id,
         date: dateFormatFun(data.date),
@@ -299,30 +183,18 @@ function PermissionTrxCreate(props) {
         notes: data.notes,
         maxRepeated: data.maxRepeated,
         maxMinuteNo: data.maxMinuteNo,
-        maxMinutesCountGreaterThan: data.maxMinutesCountGreaterThan,
-        maxMinutesCountDiff: data.maxMinutesCountDiff
-      }
+        minMinuteNo: data.minMinuteNo,
+      };
 
-      if(apiData.maxMinutesCountDiff)
-      {
-        toast.error(intl.formatMessage(messages.maxMinutesCountIs) + apiData.maxMinuteNo);
-      }
-      else if(apiData.maxMinutesCountGreaterThan)
-      {
-        toast.error(intl.formatMessage(messages.maxMinutesCountMustToBeGreaterThan));
-      }
-      else {
+      setIsLoading(true);
+      let response = await ApiData(locale).Save(apiData);
+      // let response = await ApiData(locale).Save(data);
 
-        setIsLoading(true);
-        let response = await ApiData(locale).Save(apiData);
-        // let response = await ApiData(locale).Save(data);
-
-        if (response.status == 200) {
-          toast.success(notif.saved);
-          history.push(`/app/Pages/Att/PermissionTrx`);
-        } else {
-          toast.error(response.statusText);
-        }
+      if (response.status == 200) {
+        toast.success(notif.saved);
+        history.push(`/app/Pages/Att/PermissionTrx`);
+      } else {
+        toast.error(response.statusText);
       }
     } catch (err) {
     } finally {
@@ -352,22 +224,58 @@ function PermissionTrxCreate(props) {
     fetchData();
   }, []);
 
-  const getRepeatedNo = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      if (data.permissionId && data.date && data.employeeId) {
-        const RepeatedNo = await ApiData(locale).getRepeatedNo(
-          data.permissionId,
-          data.date,
-          data.employeeId
+  const calculateMinutesCount = (
+    endTime,
+    startTime,
+    targetname,
+    targetvalue
+  ) => {
+    debugger;
+    var diff = Math.round(
+      (new Date(0, 0, 0, endTime.split(":")[0], endTime.split(":")[1]) -
+        new Date(0, 0, 0, startTime.split(":")[0], startTime.split(":")[1])) /
+        60000
+    );
+    if (diff > 0) {
+      if (diff > data.maxMinuteNo && data.maxMinuteNo !== null) {
+        toast.error(
+          intl.formatMessage(messages.maxMinutesCountIs) + data.maxMinuteNo
         );
-        return RepeatedNo;
-      } else return null;
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          [targetname]: "",
+          minutesCount: "",
+        }));
+        return;
+      }
+
+      if (diff < data.minMinuteNo && data.minMinuteNo !== null) {
+        toast.error(
+          intl.formatMessage(messages.minMinutesCountIs) + data.minMinuteNo
+        );
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          [targetname]: "",
+          minutesCount: "",
+        }));
+        return;
+      }
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        [targetname]: targetvalue,
+        minutesCount: diff,
+      }));
+    } else {
+      toast.error(
+        intl.formatMessage(messages.maxMinutesCountMustToBeGreaterThan)
+      );
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        [targetname]: "",
+        minutesCount: "",
+      }));
     }
-  });
+  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -383,41 +291,34 @@ function PermissionTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-          
-
-                  <Grid item xs={12} md={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.date)}
-                          value={data.date ? dayjs(data.date) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              date: date ,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.date)}
+                  value={data.date ? dayjs(data.date) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      date: date,
+                    }));
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
             <Grid item xs={12} md={4}>
               <Autocomplete
@@ -435,6 +336,7 @@ function PermissionTrxCreate(props) {
                     permissionName: value !== null ? value.name : "",
                     maxRepeated: value !== null ? value.maxRepeated : "",
                     maxMinuteNo: value !== null ? value.maxMinuteNo : "",
+                    minMinuteNo: value !== null ? value.minMinuteNo : "",
                   }));
                 }}
                 renderInput={(params) => (
@@ -449,7 +351,10 @@ function PermissionTrxCreate(props) {
               />
             </Grid>
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
+              <EmployeeData
+                handleEmpChange={handleEmpChange}
+                id={data.employeeId}
+              ></EmployeeData>
             </Grid>
 
             <Grid item xs={12} md={4}>
@@ -491,7 +396,7 @@ function PermissionTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         disabled={!data.calcLate}
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12} md={8}>
@@ -524,7 +429,7 @@ function PermissionTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         disabled={!data.calcMinus}
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12} md={8}>
@@ -557,7 +462,7 @@ function PermissionTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         disabled={!data.dedRased}
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                   </Grid>
@@ -578,6 +483,7 @@ function PermissionTrxCreate(props) {
                     value={data.startTime}
                     label={intl.formatMessage(messages.startTime)}
                     type="time"
+                    required
                     onChange={(e) => handleChange(e)}
                     className={classes.field}
                     InputLabelProps={{
@@ -592,6 +498,7 @@ function PermissionTrxCreate(props) {
                     value={data.endTime}
                     label={intl.formatMessage(messages.endTime)}
                     type="time"
+                    required
                     onChange={(e) => handleChange(e)}
                     className={classes.field}
                     InputLabelProps={{
@@ -610,7 +517,7 @@ function PermissionTrxCreate(props) {
                     className={classes.field}
                     variant="outlined"
                     disabled
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -660,7 +567,7 @@ function PermissionTrxCreate(props) {
                     variant="outlined"
                     multiline
                     rows={2}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
               </Grid>
