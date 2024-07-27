@@ -247,10 +247,18 @@ const AttendanceReportsData = (locale) => {
     return data.data;
   };
 
-  api.ShiftManPowerReportApi = async (params) => {
+  api.getAttByDate = async (params) => {
     const queryString = new URLSearchParams(params);
 
     const data = await axiosInstance.get(`AttReport/GetAttByDate/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
+  api.getShiftManPower = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttReport/GetShiftManPower/${locale}?${queryString}`);
 
     return data.data;
   };

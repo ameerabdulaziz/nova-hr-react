@@ -192,6 +192,7 @@ import {
   SwapShiftTrx,
   SwapShiftTrxCreate,
   ShiftList,
+  ShiftManPower,
   ShiftEmployeeList,
   ShiftEmployeeCreate,
   ShiftOrgnization,
@@ -909,6 +910,8 @@ function Application(props) {
         <Route path='/app/Pages/Att/MissionType' component={MissionType} />
 
         <Route path='/app/Pages/Att/Shift' component={ShiftList} />
+        <Route path='/app/Pages/Att/ShiftManPower' component={ShiftManPower} />
+        
         <Route path='/app/Pages/Att/ShiftCreate' component={ShiftCreate} />
         <Route path='/app/Pages/Att/ShiftEdit' component={ShiftCreate} />
 
@@ -1199,7 +1202,7 @@ function Application(props) {
         />
 
         <Route
-          path='/app/Pages/Att/ShiftManPower'
+          path='/app/Pages/Att/ShiftManPowerReport'
           component={ShiftManPowerReport}
         />
 

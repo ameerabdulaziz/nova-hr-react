@@ -138,6 +138,10 @@ export default defineMessages({
     id: `${scope}.chooseJob`,
     defaultMessage: 'chooseJob',
   },
+  chooseShift: {
+    id: `${scope}.chooseShift`,
+    defaultMessage: 'chooseShift',
+  },
   total: {
     id: `${scope}.total`,
     defaultMessage: 'total',

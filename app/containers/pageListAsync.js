@@ -834,6 +834,13 @@ export const ShiftList = loadable(
     fallback: <Loading />,
   }
 );
+export const ShiftManPower = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/Shift/ShiftManPower'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ShiftCreate = loadable(
   () => import('./Pages/Payroll/Attendance/Code/Shift/ShiftCreate'),
   {

@@ -716,6 +716,8 @@
   "boilerplate.containers.Payroll.count": "العدد",
   "boilerplate.containers.Payroll.isStop": "ايقاف التعامل المالى",
   "boilerplate.containers.Payroll.chooseJob": "اختر وظيفة",
+  "boilerplate.containers.Payroll.chooseShift": "اختر وردية",
+  
   "boilerplate.containers.Payroll.total": "الاجمالى",
   "boilerplate.containers.Payroll.employeeName": "اسم الموظف",
   "boilerplate.containers.Payroll.vacationType": "نوع الاجازة",
@@ -1096,6 +1098,8 @@
   "boilerplate.containers.Payroll.HumanResources.otherDeductionValue": "خصومات اخرى",
   "boilerplate.containers.Payroll.HumanResources.actualManPower": "عدد العاملين",
   
+  
+  "boilerplate.containers.Payroll.Attendance.idealManPower": "قوة العمالة المخططه",
   "boilerplate.containers.Payroll.Attendance.missionId": "كود المأمورية",
   "boilerplate.containers.Payroll.Attendance.executionId": "الكود",
   "boilerplate.containers.Payroll.Attendance.employeeId": "كود الموظف",
@@ -1204,6 +1208,8 @@
   "boilerplate.containers.Payroll.Attendance.endDate": "تاريخ النهاية",
   "boilerplate.containers.Payroll.Attendance.search": "بحث",
   "boilerplate.containers.Payroll.Attendance.calculateBreak": "حساب وقت الراحة",
+  "boilerplate.containers.Payroll.Attendance.detailsSearch": "بحث تفصيلى",
+  "boilerplate.containers.Payroll.Attendance.totalSearch": "بحث اجمالى",
   "boilerplate.containers.Payroll.Attendance.overnightAllowance": "حساب بدل السهر - مرتبات",
   "boilerplate.containers.Payroll.Attendance.startAndEndDateNotInOpenMonthRange": "تواريخ البداية والنهاية ليس ضمن نطاق الشهر المفتوح",
   "boilerplate.containers.Payroll.Attendance.postToPayroll": "ترحيل المرتبات",
@@ -1388,10 +1394,14 @@
   
   "boilerplate.containers.Payroll.Attendance.branchName":"اسم الفرع",
   "boilerplate.containers.Payroll.Attendance.orgName":"الادارة",
+  "boilerplate.containers.Payroll.Attendance.orgid":"كود الادارة",
+  
     "boilerplate.containers.Payroll.Attendance.job":"الوظيفة",
     "boilerplate.containers.Payroll.Attendance.EmpCode": "كود الموظف",
     "boilerplate.containers.Payroll.Attendance.employeeName":"اسم الموظف",
     "boilerplate.containers.Payroll.Attendance.missionDays":"ايام المأمورية",
+    "boilerplate.containers.Payroll.Attendance.planedAtt":"الحضور المخطط",
+    "boilerplate.containers.Payroll.Attendance.actualAtt":"الحضور الفعلى",
     "boilerplate.containers.Payroll.Attendance.weekend":"الاجازه الاسبوعية",
     "boilerplate.containers.Payroll.Attendance.absence":"الغياب",
     "boilerplate.containers.Payroll.Attendance.shift":"الوردية",
@@ -1681,7 +1691,7 @@
     "boilerplate.containers.Payroll.Attendance.method": "طريفة السحب",
 
     "boilerplate.containers.Payroll.Attendance.attend": "حضور",
-    "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "يجب ان تختار التاريخ والوردية",
+    "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "يجب ان تختار التاريخ",
     "boilerplate.containers.Payroll.Attendance.calcAsrepVac": "احتساب بدل راحة",
 
     

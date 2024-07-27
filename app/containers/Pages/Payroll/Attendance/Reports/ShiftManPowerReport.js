@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
-import {
-  Button,
-  Grid,
-  Autocomplete,
-  TextField,
-} from "@mui/material";
+import { Button, Grid, Autocomplete, TextField } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
@@ -20,95 +15,88 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
-import { formateDate, getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
+import {
+  formateDate,
+  getAutoCompleteValue,
+  getCheckboxIcon,
+} from "../../helpers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function ShiftManPowerReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [ShiftList, setShiftList] = useState([]);
+  const [organizationList, setOrganizationList] = useState([]);
   const [Shift, setShift] = useState("");
+  const [organization, setorganization] = useState("");
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
-  const [searchData, setsearchData] = useState({
-    OrganizationId: ""
-  });
   const [date, setDate] = useState(null);
-
   const [DateError, setDateError] = useState({});
-  const [filterHighlights, setFilterHighlights] = useState([]);
-  const [organizationList, setOrganizationList] = useState([]);
-
-  const getFilterHighlights = () => {
-    const highlights = [];
-
-    const organization = getAutoCompleteValue(
-      organizationList,
-      searchData.OrganizationId
-    );
-    const selectedShift = getAutoCompleteValue(ShiftList, Shift);
-
-    if (organization) {
-      highlights.push({
-        label: intl.formatMessage(Payrollmessages.organizationName),
-        value: organization.name,
-      });
-    }
-
-    if (selectedShift) {
-      highlights.push({
-        label: intl.formatMessage(messages.shift),
-        value: selectedShift.name,
-      });
-    }
-
-    if (date) {
-      highlights.push({
-        label: intl.formatMessage(Payrollmessages.date),
-        value: formateDate(date),
-      });
-    }
-
-    setFilterHighlights(highlights);
-  };
+  const [search, setSearch] = useState(1);
 
   const handleSearch = async (e) => {
-
-     // used to stop call api if user select wrong date
-     if (Object.values(DateError).includes(true)) {  
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
 
-      if(Shift.length !== 0 && date )
-      {
-        try {
-          setIsLoading(true);
-          let formData = {
-            OrganizationId: searchData.OrganizationId,
-            ShiftId:  Shift,
-            Date: formateDate(date)
-              };
-          Object.keys(formData).forEach((key) => {
-            formData[key] = formData[key] === null ? "" : formData[key];
-          });
+    if (date) {
+      try {
+        setIsLoading(true);
+        setSearch(1);
+        let formData = {
+          OrganizationId: organization,
+          ShiftId: Shift,
+          Date: formateDate(date),
+        };
+        Object.keys(formData).forEach((key) => {
+          formData[key] = formData[key] === null ? "" : formData[key];
+        });
 
-          const dataApi = await ApiData(locale).ShiftManPowerReportApi(formData);
-          setdata(dataApi);
-
-        getFilterHighlights();
-        } catch (err) {
-        } finally {
-          setIsLoading(false);
-        }
+        const dataApi = await ApiData(locale).getAttByDate(formData);
+        setdata(dataApi);
+      } catch (err) {
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      // toast.error("You must to choose Date and shift");
+      toast.error(intl.formatMessage(messages.dateAndShiftErrMes));
     }
-    else
-    {
+  };
+  const handleTotalSearch = async (e) => {
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
+    if (date) {
+      try {
+        setIsLoading(true);
+        setSearch(2);
+        let formData = {
+          OrganizationId: organization,
+          ShiftId: Shift,
+          Date: formateDate(date),
+        };
+        Object.keys(formData).forEach((key) => {
+          formData[key] = formData[key] === null ? "" : formData[key];
+        });
+
+        const dataApi = await ApiData(locale).getShiftManPower(formData);
+        setdata(dataApi);
+      } catch (err) {
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
       // toast.error("You must to choose Date and shift");
       toast.error(intl.formatMessage(messages.dateAndShiftErrMes));
     }
@@ -117,7 +105,6 @@ function ShiftManPowerReport(props) {
   async function fetchData() {
     try {
       const shift = await GeneralListApis(locale).GetShiftList();
-
       setShiftList(shift);
 
       const organizations = await GeneralListApis(locale).GetDepartmentList();
@@ -131,10 +118,36 @@ function ShiftManPowerReport(props) {
     fetchData();
   }, []);
 
+  const Totalcolumns = [
+    {
+      name: "shiftId",
+      label: intl.formatMessage(messages.shiftCode),
+    },
+    {
+      name: "shiftName",
+      label: intl.formatMessage(messages.shift),
+    },
+    {
+      name: "organizationId",
+      label: intl.formatMessage(messages.orgid),
+    },
+    {
+      name: "organizationName",
+      label: intl.formatMessage(messages.orgName),
+    },
+    {
+      name: "planedAtt",
+      label: intl.formatMessage(messages.planedAtt),
+    },
+    {
+      name: "actualAtt",
+      label: intl.formatMessage(messages.actualAtt),
+    },
+  ];
   const columns = [
     {
       name: "id",
-        label: intl.formatMessage(Payrollmessages.id),
+      label: intl.formatMessage(Payrollmessages.id),
       options: {
         display: false,
         print: false,
@@ -148,6 +161,14 @@ function ShiftManPowerReport(props) {
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
+    },
+    {
+      name: "shiftCode",
+      label: intl.formatMessage(messages.shiftCode),
+    },
+    {
+      name: "shiftName",
+      label: intl.formatMessage(messages.shift),
     },
     {
       name: "organizationName",
@@ -164,26 +185,40 @@ function ShiftManPowerReport(props) {
         filter: false,
         customBodyRender: (value) => getCheckboxIcon(value),
       },
-    },    
+    },
   ];
 
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
-            <Search
-               setsearchData={setsearchData}
-               searchData={searchData}
-               setIsLoading={setIsLoading}
-               DateError={DateError}
-              setDateError={setDateError}
-              notShowCompany={true}
-              notShowEmployeeName={true}
-              notShowStatus={true}
-              notShowDate={true}
-            ></Search>
+          <Grid item xs={12} md={3}>
+            <Autocomplete
+              id="organizationId"
+              options={organizationList}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === "" || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : "")}
+              onChange={(event, value) => {
+                setorganization(
+                  value == null ? "" : value.id == null ? "" : value.id
+                );
+              }}
+              renderOption={(propsOption, option) => (
+                <li {...propsOption} key={option.id}>
+                  {option.name}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  name="OrganizationId"
+                  label={intl.formatMessage(Payrollmessages.organizationName)}
+                />
+              )}
+            />
           </Grid>
 
           <Grid item xs={12} md={3}>
@@ -196,9 +231,7 @@ function ShiftManPowerReport(props) {
               }
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                setShift(
-                  value == null ? "" : value.id == null ? "" : value.id
-                );
+                setShift(value == null ? "" : value.id == null ? "" : value.id);
               }}
               renderInput={(params) => (
                 <TextField
@@ -212,32 +245,29 @@ function ShiftManPowerReport(props) {
           </Grid>
 
           <Grid item xs={12} md={2}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                 label={intl.formatMessage(Payrollmessages.date)}
-                  value={date  ? dayjs(date) : date}
-                  className={classes.field}
-                    onChange={(date) => {
-                      setDate(date)
-                  }}
-                  onError={(error,value)=>{
-                    if(error !== null)
-                    {
-                      setDateError((prevState) => ({
-                        ...prevState,
-                          [`date`]: true
-                      }))
-                    }
-                    else
-                    {
-                      setDateError((prevState) => ({
-                        ...prevState,
-                          [`date`]: false
-                      }))
-                    }
-                  }}
-                  />
-              </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label={intl.formatMessage(Payrollmessages.date)}
+                value={date ? dayjs(date) : date}
+                className={classes.field}
+                onChange={(date) => {
+                  setDate(date);
+                }}
+                onError={(error, value) => {
+                  if (error !== null) {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      [`date`]: true,
+                    }));
+                  } else {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      [`date`]: false,
+                    }));
+                  }
+                }}
+              />
+            </LocalizationProvider>
           </Grid>
 
           <Grid item xs={12} md={2}>
@@ -247,19 +277,28 @@ function ShiftManPowerReport(props) {
               color="primary"
               onClick={handleSearch}
             >
-              <FormattedMessage {...Payrollmessages.search} />
+              <FormattedMessage {...messages.detailsSearch} />
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={2}>
+            <Button
+              variant="contained"
+              size="medium"
+              color="primary"
+              onClick={handleTotalSearch}
+            >
+              <FormattedMessage {...messages.totalSearch} />
             </Button>
           </Grid>
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
-          title=""
-          data={data}
-          columns={columns}
-          filterHighlights={filterHighlights}
-        />
+      <PayrollTable
+        title=""
+        data={data}
+        columns={search == 1 ? columns : Totalcolumns}
+      />
     </PayRollLoader>
   );
 }

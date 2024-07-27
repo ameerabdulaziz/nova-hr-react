@@ -701,6 +701,7 @@
   "boilerplate.containers.Payroll.count": "Count",
   "boilerplate.containers.Payroll.isStop": "Is Stop",
   "boilerplate.containers.Payroll.chooseJob": "Select Job",
+  "boilerplate.containers.Payroll.chooseShift": "Select Shift",
   "boilerplate.containers.Payroll.total": "Total",
   "boilerplate.containers.Payroll.employeeName": "Employee Name",
   "boilerplate.containers.Payroll.hiringDate": "Hiring Date",
@@ -1089,6 +1090,7 @@
   "boilerplate.containers.Payroll.HumanResources.actualManPower": "Actual ManPower",
 
   
+  "boilerplate.containers.Payroll.Attendance.idealManPower": "ideal ManPower",
   "boilerplate.containers.Payroll.Attendance.missionId": "Mission Id",
   "boilerplate.containers.Payroll.Attendance.executionId": "Id",
   "boilerplate.containers.Payroll.Attendance.employeeId": "Employee",
@@ -1174,6 +1176,8 @@
   "boilerplate.containers.Payroll.Attendance.EmpCode": "Emp.Code",
   "boilerplate.containers.Payroll.Attendance.employeeName": "Employee Name",
   "boilerplate.containers.Payroll.Attendance.missionDays": "Mission Days",
+  "boilerplate.containers.Payroll.Attendance.planedAtt":"Planed",
+  "boilerplate.containers.Payroll.Attendance.actualAtt":"Actual Attend",
   "boilerplate.containers.Payroll.Attendance.weekend": "Weekend",
   "boilerplate.containers.Payroll.Attendance.reqDayNotAllow": "Request Not Allowed on This Day",
   "boilerplate.containers.Payroll.Attendance.reqBeforeShiftInMinute": "Request Not Allowed Before Shift Start by Minute",
@@ -1386,6 +1390,8 @@
   "boilerplate.containers.Payroll.Attendance.endDate": "End Date",
   "boilerplate.containers.Payroll.Attendance.search": "Search",
   "boilerplate.containers.Payroll.Attendance.calculateBreak": "Calculate Break",
+  "boilerplate.containers.Payroll.Attendance.detailsSearch": "Details Search",
+  "boilerplate.containers.Payroll.Attendance.totalSearch": "Total Search",
   "boilerplate.containers.Payroll.Attendance.overnightAllowance": "Overnight Allowance",
   "boilerplate.containers.Payroll.Attendance.startAndEndDateNotInOpenMonthRange": "Start and end dates are not within the open month range",
   "boilerplate.containers.Payroll.Attendance.postToPayroll": "Post to Payroll",
@@ -1655,7 +1661,7 @@
   "boilerplate.containers.Payroll.Attendance.workHours": "Work Hours",
 
   "boilerplate.containers.Payroll.Attendance.attend": "Attend (T/F)",
-  "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "You must to choose Date and shift",
+  "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "You must to choose Date ",
   "boilerplate.containers.Payroll.Attendance.calcAsrepVac": "Is RepVacation",
  
   
@@ -1890,6 +1896,7 @@
 
   "boilerplate.containers.Payroll.Payroll.YouMustToChooseYearAndAtLeastOneElement":"You must to choose year and at least one element",
   "boilerplate.containers.Payroll.Payroll.orgName":"Organization",
+  "boilerplate.containers.Payroll.Attendance.orgid":"Organization Id",
   "boilerplate.containers.Payroll.Payroll.EmpCode":"Emp.Code",
   "boilerplate.containers.Payroll.Payroll.employeeName":"Employee Name",
   "boilerplate.containers.Payroll.Payroll.payment":"Payment",

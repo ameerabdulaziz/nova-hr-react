@@ -86,7 +86,20 @@ function NamePopup(props) {
             };
           })
         );
-      } else if (Key == "Element") {
+      } else if (Key == "shift") {
+        data = await GeneralListApis(locale).GetShiftList();
+
+        setEmployeeList(
+          data.map((obj) => {
+            return {
+              id: obj.id,
+              name: obj.name,
+              isSelected: false,
+            };
+          })
+        );
+      }
+      else if (Key == "Element") {
         
         var result = await GeneralListApis(locale).GetElementList(0,0,"",ElementType);
 

@@ -10,6 +10,10 @@ export const scope = 'boilerplate.containers.Payroll.Attendance';
 export default defineMessages({
   //PermissionTrx----------------------------------------------------------------------------
   
+  idealManPower: {
+    id: `${scope}.idealManPower`,
+    defaultMessage: 'idealManPower',
+  },
   missionId: {
     id: `${scope}.missionId`,
     defaultMessage: 'missionId',
@@ -860,6 +864,10 @@ orgName: {
   id: `${scope}.orgName`,
   defaultMessage: 'Organization',
 },
+orgid: {
+  id: `${scope}.orgid`,
+  defaultMessage: 'orgid',
+},
 section: {
   id: `${scope}.section`,
   defaultMessage: 'section',
@@ -867,6 +875,14 @@ section: {
 job: {
   id: `${scope}.job`,
   defaultMessage: 'Job',
+},
+planedAtt: {
+  id: `${scope}.planedAtt`,
+  defaultMessage: 'planedAtt',
+},
+actualAtt: {
+  id: `${scope}.actualAtt`,
+  defaultMessage: 'actualAtt',
 },
 EmpCode: {
   id: `${scope}.EmpCode`,
@@ -1915,6 +1931,14 @@ devicePass: {
   search: {
     id: `${scope}.search`,
     defaultMessage: 'search',
+  },
+  detailsSearch: {
+    id: `${scope}.detailsSearch`,
+    defaultMessage: 'detailsSearch',
+  },
+  totalSearch: {
+    id: `${scope}.totalSearch`,
+    defaultMessage: 'totalSearch',
   },
   calculateBreak: {
     id: `${scope}.calculateBreak`,
