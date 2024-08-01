@@ -265,7 +265,6 @@ function EvaluateEmployee(props) {
             color='primary'
             sx={{ textWrap: 'nowrap' }}
             onClick={() => onAttachmentPopupBtnClick(row.certificatePath)}
-            // href={`${ServerURL}Doc/EmpCertificate/${row.certificatePath}`}
           >
             {intl.formatMessage(messages.previewCertificate)}
           </Button>

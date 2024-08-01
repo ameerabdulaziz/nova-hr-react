@@ -102,3 +102,12 @@
   width: 25px;
   margin: 5px;
   }
+
+html[dir="rtl"] .orgchart.myChart > ul > li > ul li::before {
+  left: auto;
+  right: 0;
+}
+
+html[dir="rtl"] .orgchart.myChart > ul > li > ul li:first-child::before {
+  right: calc(50% - 1px);
+}
