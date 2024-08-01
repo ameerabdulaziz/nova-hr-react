@@ -64,6 +64,7 @@ npm run start:prod
 - [ ] **Recruitment** - add pdf download instead of open in new tab
 - [ ] What is `apiKey` in **TrainingCenter** page
 - [ ] **Employee Component**: show search input with selected rows
+- [ ] Use preview pdf component instead of open in new tab
 
 # Docs 📖
 
