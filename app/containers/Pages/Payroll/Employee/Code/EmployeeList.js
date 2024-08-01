@@ -9,6 +9,7 @@ import { formateDate, getCheckboxIcon } from '../../helpers';
 import ApiData from '../api/PersonalData';
 import messages from '../messages';
 import EmployeeNavigation from '../../Component/EmployeeNavigation';
+import Payrollmessages from "../../messages";
 
 function EmployeeList(props) {
   const { intl } = props;
@@ -171,6 +172,10 @@ function EmployeeList(props) {
     {
       name: 'organizationName',
       label: intl.formatMessage(messages.organization),
+    },
+    {
+      name: 'branchName',
+      label: intl.formatMessage(Payrollmessages.branch),
     },
     {
       name: 'reportToName',

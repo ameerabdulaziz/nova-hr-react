@@ -20,7 +20,8 @@ import style from "../../../../styles/styles.scss";
 import PayrollTable from "./PayrollTable";
 
 function NamePopup(props) {
-  const { intl, IsInsured, withoutSalaryStructure, branchId, setOpenPopup } = props;
+  const { intl, IsInsured, withoutSalaryStructure, branchId, setOpenPopup } =
+    props;
   const [isLoading, setIsLoading] = useState(false);
   const { classes, cx } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -43,6 +44,8 @@ function NamePopup(props) {
             EmployeeList[allRowsSelected[i].dataIndex].fixedElementsSilimit,
           organizationName:
             EmployeeList[allRowsSelected[i].dataIndex].organizationName || "",
+          branchName:
+            EmployeeList[allRowsSelected[i].dataIndex].branchName || "",
           sellPrice: EmployeeList[allRowsSelected[i].dataIndex].sellPrice || "",
           isSelected: true,
         });
@@ -62,6 +65,7 @@ function NamePopup(props) {
           withoutSalaryStructure || false,
           branchId || false
         );
+        debugger;
         setEmployeeList(
           data.map((obj) => {
             return {
@@ -69,6 +73,7 @@ function NamePopup(props) {
               name: obj.name,
               fixedElementsSilimit: obj.fixedElementsSilimit,
               organizationName: obj.organizationName,
+              branchName: obj.branchName,
               jobName: obj.jobName,
               isSelected: false,
             };
@@ -98,10 +103,13 @@ function NamePopup(props) {
             };
           })
         );
-      }
-      else if (Key == "Element") {
-        
-        var result = await GeneralListApis(locale).GetElementList(0,0,"",ElementType);
+      } else if (Key == "Element") {
+        var result = await GeneralListApis(locale).GetElementList(
+          0,
+          0,
+          "",
+          ElementType
+        );
 
         if (ElementId) {
           data = result.filter((x) => x.id != ElementId);
@@ -126,7 +134,7 @@ function NamePopup(props) {
             };
           })
         );
-      } else if (Key == 'Courses') {
+      } else if (Key == "Courses") {
         data = await GeneralListApis(locale).GetCourseList();
 
         setEmployeeList(
@@ -180,6 +188,13 @@ function NamePopup(props) {
         options: {
           filter: true,
         },
+      },
+      {
+        name: "branchName",
+        label: intl.formatMessage(Payrollmessages.branch),
+        options: {
+          filter: true,
+        },
       }
     );
   }
@@ -195,7 +210,7 @@ function NamePopup(props) {
 
   const options = {
     selectableRows: "multiple",
-    selectToolbarPlacement: 'above',
+    selectToolbarPlacement: "above",
     customToolbarSelect: (selectedRows) => (
       <div>
         <Grid container spacing={1} alignItems="flex-start" direction="row">
@@ -234,26 +249,25 @@ function NamePopup(props) {
               <CircularProgress />
             </Stack>
           ) : (
-
             <PayrollTable
               title=""
               data={EmployeeList}
               columns={columns}
               options={options}
             />
-
           )}
         </DialogContent>
         <DialogActions>
           <Button className={style.deleteAlertBtnSty} onClick={CloseClick}>
             <FormattedMessage {...Payrollmessages.close} />
           </Button>
-          <Button 
-          className={style.deleteAlertBtnSty} 
-          onClick={()=> {
-            handleClose([])
-            setOpenPopup(false)
-            }}>
+          <Button
+            className={style.deleteAlertBtnSty}
+            onClick={() => {
+              handleClose([]);
+              setOpenPopup(false);
+            }}
+          >
             <FormattedMessage {...Payrollmessages.cancel} />
           </Button>
           {/* <Button

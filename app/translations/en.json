@@ -668,6 +668,7 @@
   "boilerplate.containers.Payroll.name": "Name",
   "boilerplate.containers.Payroll.more": "More",
   "boilerplate.containers.Payroll.organizationName": "Department",
+  "boilerplate.containers.Payroll.branchName": "Branch",
   "boilerplate.containers.Payroll.chooseEmp": "Select Employee",
   "boilerplate.containers.Payroll.search": "Search",
   "boilerplate.containers.Payroll.fromdate": "From Date",

@@ -695,6 +695,7 @@
   "boilerplate.containers.Payroll.delete": "حذف",
   "boilerplate.containers.Payroll.name": "الاسم",
   "boilerplate.containers.Payroll.organizationName": "القسم",
+  "boilerplate.containers.Payroll.branchName": "الفرع",
   "boilerplate.containers.Payroll.chooseEmp": "اختر الموظف",
   "boilerplate.containers.Payroll.search": "بحث",
   "boilerplate.containers.Payroll.fromdate": "من تاريخ",
