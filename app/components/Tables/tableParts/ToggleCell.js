@@ -33,7 +33,7 @@ function ToggleCell(props) {
             className={css.crudInput}
             checked={isChecked}
             onChange={handleChange}
-            value={cellData.value.toString()}
+            value={cellData.value?cellData.value.toString():"false"}
             disabled={cellData.disabled ? true : !edited}
           />
         )}

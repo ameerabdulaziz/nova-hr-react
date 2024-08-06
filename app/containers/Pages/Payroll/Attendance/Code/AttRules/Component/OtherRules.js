@@ -188,7 +188,7 @@ function OtherRules(props) {
                         <Grid item md={4} xs={12}>
                           <TextField
                             id="penaltyDayVal2"
-                            name="PenaltyDayVal2"
+                            name="penaltyDayVal2"
                             label={""}
                             onChange={(e) => handleChange(e)}
                             value={data.penaltyDayVal2||null}

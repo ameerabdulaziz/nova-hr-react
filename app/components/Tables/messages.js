@@ -383,6 +383,10 @@ export default defineMessages({
     id: `${scope}.codes.validLength`,
     defaultMessage: 'validLength',
   },
+  isCharcter: {
+    id: `${scope}.codes.isCharcter`,
+    defaultMessage: 'isCharcter',
+  },
   isPercentage: {
     id: `${scope}.codes.isPercentage`,
     defaultMessage: 'isPercentage',

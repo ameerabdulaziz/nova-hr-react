@@ -717,6 +717,7 @@
   "boilerplate.containers.Payroll.count": "العدد",
   "boilerplate.containers.Payroll.isStop": "ايقاف التعامل المالى",
   "boilerplate.containers.Payroll.chooseJob": "اختر وظيفة",
+  "boilerplate.containers.Payroll.chooseOrg": "اختر قسم",  
   "boilerplate.containers.Payroll.chooseShift": "اختر وردية",
   
   "boilerplate.containers.Payroll.total": "الاجمالى",

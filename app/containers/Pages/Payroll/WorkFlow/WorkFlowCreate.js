@@ -50,6 +50,7 @@ function WorkFlowCreate(props) {
   const [Steps, setSteps] = useState([]);
   const [Actions, setActions] = useState([]);
   const [jobList, setjobList] = useState([]);
+  const [departmentList, setDepartmentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
 
@@ -70,7 +71,7 @@ function WorkFlowCreate(props) {
     e.preventDefault();
     try {
       setIsLoading(true);
-      
+
       var isValid = true;
       for (const item of Actions) {
         var result = ActionsTypeList.filter((row) => row.id == item.actionType);
@@ -85,6 +86,7 @@ function WorkFlowCreate(props) {
           (row) => row.isSelected == true
         );
         data.jobList = jobList.filter((row) => row.isSelected == true);
+        data.departmentList = departmentList.filter((row) => row.isSelected == true);
         data.steps = Steps;
         data.actions = Actions;
         let response = await ApiData(locale).Save(data);
@@ -106,7 +108,6 @@ function WorkFlowCreate(props) {
   }
   async function getDocType(DocumentId, fromchange) {
     try {
-      
       if (DocumentId) {
         setIsLoading(true);
         let result = [];
@@ -156,6 +157,16 @@ function WorkFlowCreate(props) {
         setjobList(
           dataApi.jobList
             ? dataApi.jobList.map((obj) => {
+                return {
+                  ...obj,
+                  isSelected: true,
+                };
+              })
+            : []
+        );
+        setDepartmentList(
+          dataApi.departmentList
+            ? dataApi.departmentList.map((obj) => {
                 return {
                   ...obj,
                   isSelected: true,
@@ -299,7 +310,7 @@ function WorkFlowCreate(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                       <Card className={classes.card}>
                         <CardContent>
                           <NameList
@@ -310,13 +321,24 @@ function WorkFlowCreate(props) {
                         </CardContent>
                       </Card>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4}>
                       <Card className={classes.card}>
                         <CardContent>
                           <NameList
                             dataList={jobList}
                             setdataList={setjobList}
                             Key={"Job"}
+                          />
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card className={classes.card}>
+                        <CardContent>
+                          <NameList
+                            dataList={departmentList}
+                            setdataList={setDepartmentList}
+                            Key={"Organization"}
                           />
                         </CardContent>
                       </Card>

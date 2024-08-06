@@ -58,6 +58,14 @@ function IdentityType() {
       width: 'auto',
       hidden: false,
     },
+    {
+      name: 'isCharcter',
+      label: 'isCharcter',
+      type: 'toggle',
+      initialValue: false,
+      width: 'auto',
+      hidden: false,
+    },
 
     {
       name: 'edited',

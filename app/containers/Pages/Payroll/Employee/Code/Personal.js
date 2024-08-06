@@ -10,12 +10,7 @@ import { toast } from "react-hot-toast";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import { injectIntl, FormattedMessage } from "react-intl";
-import {
-  Button,
-  Grid,
-  TextField,
-  Autocomplete,
-} from "@mui/material";
+import { Button, Grid, TextField, Autocomplete } from "@mui/material";
 import useStyles from "../../Style";
 import Dropzone from "react-dropzone";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -32,12 +27,16 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import EmployeeExistFeedback from "../component/Personal/EmployeeExistFeedback";
 import EmployeeCreationFeedback from "../component/Personal/EmployeeCreationFeedback";
 import moment from "moment";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 import DecryptUrl from "../../Component/DecryptUrl";
-import { extractBirthDayFromIdentityNumber, formateDate, validateEmail } from "../../helpers";
-import style from '../../../../../styles/styles.scss';
+import {
+  extractBirthDayFromIdentityNumber,
+  formateDate,
+  validateEmail,
+} from "../../helpers";
+import style from "../../../../../styles/styles.scss";
 
 function Personal(props) {
   const history = useHistory();
@@ -47,7 +46,11 @@ function Personal(props) {
   const authState = useSelector((state) => state.authReducer);
 
   // get employee data from route state or url
-  const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state.empid : { id: 0, name: "" }
+  const empid = DecryptUrl()
+    ? DecryptUrl()
+    : location.state
+    ? location.state.empid
+    : { id: 0, name: "" };
   const id = empid?.id ?? 0;
 
   let dropzoneRef;
@@ -83,15 +86,15 @@ function Personal(props) {
   const [identityIssuingAuth, setidentityIssuingAuth] = useState("");
   const [genderId, setgenderId] = useState(null);
   const [genderList, setgenderList] = useState([]);
-  const [userName, setUserName] = useState('');
-  const [nickName, setNickName] = useState('');
+  const [userName, setUserName] = useState("");
+  const [nickName, setNickName] = useState("");
 
   const [nationalityId, setnationalityId] = useState(null);
   const [nationalityList, setnationalityList] = useState([]);
   const [religionId, setreligionId] = useState(null);
   const [religionList, setreligionList] = useState([]);
   const [birthDate, setbirthDate] = useState(null);
-  const [workEmail, setWorkEmail] = useState('');
+  const [workEmail, setWorkEmail] = useState("");
   const [isHR, setIsHR] = useState(false);
   // const [hrBranchList, setHrBranchList] = useState([])
 
@@ -102,7 +105,7 @@ function Personal(props) {
   const [birthCityList, setbirthCityList] = useState([]);
   const [socialStatusId, setsocialStatusId] = useState(null);
   const [socialStatusList, setsocialStatusList] = useState([]);
-  const [sonNo, setsonNo] = useState('');
+  const [sonNo, setsonNo] = useState("");
 
   const [militaryStatusId, setmilitaryStatusId] = useState(null);
   const [militaryStatusList, setmilitaryStatusList] = useState([]);
@@ -122,7 +125,8 @@ function Personal(props) {
   const [isEmployeeExistOpen, setIsEmployeeExistOpen] = useState(false);
   const [isIdentityNumberExist, setIsIdentityNumberExist] = useState(false);
 
-  const [checkEmployeeIdentityNumber, setCheckEmployeeIdentityNumber] = useState(true);
+  const [checkEmployeeIdentityNumber, setCheckEmployeeIdentityNumber] =
+    useState(true);
   const [checkEmployeeWorkEmail, setCheckEmployeeWorkEmail] = useState(true);
   const [isEmailExist, setIsEmailExist] = useState(false);
   const [checkEmployeeUsername, setCheckEmployeeUsername] = useState(true);
@@ -164,7 +168,11 @@ function Personal(props) {
       const isEqual = response === parseInt(code, 10);
 
       if (!isEqual) {
-        toast.success(intl.formatMessage(messages.employeeCodeAlreadyExistReplacedWithNewCode));
+        toast.success(
+          intl.formatMessage(
+            messages.employeeCodeAlreadyExistReplacedWithNewCode
+          )
+        );
         setemployeeCode(response);
         setCheckEmployeeCode(false);
       }
@@ -195,7 +203,10 @@ function Personal(props) {
     setIsLoading(true);
 
     try {
-      const response = await EmployeeData(locale).checkUserNameExist(id, username);
+      const response = await EmployeeData(locale).checkUserNameExist(
+        id,
+        username
+      );
 
       if (!response) {
         toast.error(intl.formatMessage(messages.usernameAlreadyExist));
@@ -228,7 +239,10 @@ function Personal(props) {
     setIsLoading(true);
 
     try {
-      const response = await EmployeeData(locale).checkEmpIdentityNumberExist(id, number);
+      const response = await EmployeeData(locale).checkEmpIdentityNumberExist(
+        id,
+        number
+      );
 
       if (response && response.statusId !== 1) {
         setIsEmployeeExistOpen(true);
@@ -253,17 +267,21 @@ function Personal(props) {
     // 3. check if id is 0 (means create new employee)
     // 4. check if valid length is 14 (14 is the length of a valid identity number)
     if (
-      identityNumber.length === 14
-      && !birthDate
-      && id === 0
-      && !!identityTypeId?.validLength
-      && parseInt(identityTypeId.validLength, 10) === 14
+      identityNumber.length === 14 &&
+      !birthDate &&
+      id === 0 &&
+      !!identityTypeId?.validLength &&
+      parseInt(identityTypeId.validLength, 10) === 14
     ) {
       setbirthDate(extractBirthDayFromIdentityNumber(identityNumber));
     }
 
     // Check if identity number is not exist
-    if (identityNumber && identityTypeId?.validLength !== 0 && identityNumber.length === identityTypeId?.validLength) {
+    if (
+      identityNumber &&
+      identityTypeId?.validLength !== 0 &&
+      identityNumber.length === identityTypeId?.validLength
+    ) {
       if (checkEmployeeIdentityNumber) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeIdentityNumber(identityNumber);
@@ -282,7 +300,10 @@ function Personal(props) {
     setIsLoading(true);
 
     try {
-      const response = await EmployeeData(locale).checkEmpWorkEmailExist(id, email);
+      const response = await EmployeeData(locale).checkEmpWorkEmailExist(
+        id,
+        email
+      );
 
       setIsEmailExist(!response);
 
@@ -302,8 +323,8 @@ function Personal(props) {
       if (checkEmployeeWorkEmail && validateEmail(workEmail)) {
         const timeoutId = setTimeout(() => {
           fetchEmployeeWorkEmail(workEmail);
-          if (id === 0 && userName === '') {
-            setUserName(workEmail.split('@')[0]);
+          if (id === 0 && userName === "") {
+            setUserName(workEmail.split("@")[0]);
           }
         }, 1000);
 
@@ -319,10 +340,28 @@ function Personal(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isValidIdentityNumber = identityNumber.length === (identityTypeId?.validLength ?? 0);
+    const isValidIdentityNumber =
+      identityNumber.length === (identityTypeId?.validLength ?? 0);
 
     if (!isValidIdentityNumber && identityTypeId?.validLength !== 0) {
-      toast.error(`${intl.formatMessage(messages.identitynumberShouldBe)} ${identityTypeId?.validLength} ${locale === 'en' ? 'Number' : 'رقم'}`);
+      toast.error(
+        `${intl.formatMessage(messages.identitynumberShouldBe)} ${
+          identityTypeId?.validLength
+        } ${locale === "en" ? "Number" : "رقم"}`
+      );
+      return;
+    }
+    debugger;
+    var regExp = /[a-zA-Z]/g;
+
+    if (identityTypeId?.isCharcter == false && regExp.test(identityNumber)) {
+      toast.error(
+        ` ${
+          locale === "en"
+            ? "Identity Number Should not contain charcters"
+            : "رقم الهوية يجب الا يحتوي على حروف"
+        }`
+      );
       return;
     }
 
@@ -331,12 +370,23 @@ function Personal(props) {
       return;
     }
 
+    if(userName.indexOf(' ') >= 0)
+    {
+      toast.error(
+        ` ${
+          locale === "en"
+            ? "username must not contain space"
+            : "اسم المستخدم يجب الا يحتوى على مسافة"
+        }`
+      );
+      return;
+    }
     if (isUsernameExist) {
       toast.error(intl.formatMessage(messages.usernameAlreadyExist));
       return;
     }
 
-    if (arName.split(' ').length === 1 || enName.split(' ').length === 1) {
+    if (arName.split(" ").length === 1 || enName.split(" ").length === 1) {
       toast.error(intl.formatMessage(messages.employeeNameShouldNotBeOneWord));
       return;
     }
@@ -347,11 +397,10 @@ function Personal(props) {
     }
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
-
 
     try {
       setIsLoading(true);
@@ -369,11 +418,11 @@ function Personal(props) {
         organizationId: organizationId?.id ?? "",
         jobId: jobId?.id ?? "",
         jobLevelId: jobLevelId?.id ?? "",
-        hiringDate: formateDate(hiringDate) ,
+        hiringDate: formateDate(hiringDate),
         controlParameterId: controlParameterId?.id ?? "",
         identityTypeId: identityTypeId?.id ?? "",
-        identityIssuingDate: formateDate(identityIssuingDate) ?? '',
-        identityExpiry: formateDate(identityExpiry) ?? '',
+        identityIssuingDate: formateDate(identityIssuingDate) ?? "",
+        identityExpiry: formateDate(identityExpiry) ?? "",
         identityNumber: identityNumber ?? "",
         identityIssuingAuth: identityIssuingAuth ?? "",
         genderId: genderId?.id ?? "",
@@ -399,7 +448,6 @@ function Personal(props) {
         // hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
-
       await EmployeeData(locale).Saveform(data);
 
       if (id === 0) {
@@ -415,22 +463,22 @@ function Personal(props) {
   };
 
   const resetFields = () => {
-    setarName('');
+    setarName("");
     setbirthCityId(null);
     setbirthDate(null);
     setbirthGovId(null);
     setCheckEmployeeCode(false);
     setcontrolParameterId(null);
-    setemployeeCode('');
-    setenName('');
-    seteRPCode('');
+    setemployeeCode("");
+    setenName("");
+    seteRPCode("");
     setgenderId(null);
     sethiringDate(null);
     // setHrBranchList([]);
     setidentityExpiry(null);
-    setidentityIssuingAuth('');
+    setidentityIssuingAuth("");
     setidentityIssuingDate(null);
-    setidentityNumber('');
+    setidentityNumber("");
     setidentityTypeId(null);
     setImg(avatarApi[9]);
     setIsHR(false);
@@ -439,20 +487,20 @@ function Personal(props) {
     setisSpecialNeeds(false);
     setjobId(null);
     setjobLevelId(null);
-    setmachineCode('');
+    setmachineCode("");
     setmilitaryStatusId(null);
-    setmotherName('');
+    setmotherName("");
     setnationalityId(null);
     setorganizationId(null);
     setreligionId(null);
     setreportTo(null);
     setsaluteId(null);
     setsocialStatusId(null);
-    setsonNo('');
+    setsonNo("");
     setstatusId(null);
-    setWorkEmail('');
-    setUserName('');
-    setNickName('');
+    setWorkEmail("");
+    setUserName("");
+    setNickName("");
   };
 
   const onEmployeeCreatedClose = () => {
@@ -461,7 +509,7 @@ function Personal(props) {
   };
 
   const onEmployeeCreatedConfirm = () => {
-    history.push('/app/Pages/Employee/EmployeeList');
+    history.push("/app/Pages/Employee/EmployeeList");
   };
 
   const onEmployeeExistClose = () => {
@@ -477,70 +525,119 @@ function Personal(props) {
     setCheckEmployeeWorkEmail(false);
     setCheckEmployeeUsername(false);
 
-    setWorkEmail(previousEmployeeInfo.workEmail ?? '');
+    setWorkEmail(previousEmployeeInfo.workEmail ?? "");
     setIsHR(previousEmployeeInfo.isHr);
-    setUserName(previousEmployeeInfo.userName ?? '');
-    setmotherName(previousEmployeeInfo.motherName ?? '');
-    setorganizationId(previousEmployeeInfo.organizationId ? {
-      id: previousEmployeeInfo.organizationId,
-      name: previousEmployeeInfo.organizationName,
-    } : null);
-    setjobId(previousEmployeeInfo.jobId ? {
-      id: previousEmployeeInfo.jobId,
-      name: previousEmployeeInfo.jobName,
-    } : null);
-    setjobLevelId(previousEmployeeInfo.jobLevelId ? {
-      id: previousEmployeeInfo.jobLevelId,
-      name: previousEmployeeInfo.jobLevelName,
-    } : null);
-    setcontrolParameterId(previousEmployeeInfo.controlParameterId ? {
-      id: previousEmployeeInfo.controlParameterId,
-      name: previousEmployeeInfo.controlParameterName,
-    } : null);
+    setUserName(previousEmployeeInfo.userName ?? "");
+    setmotherName(previousEmployeeInfo.motherName ?? "");
+    setorganizationId(
+      previousEmployeeInfo.organizationId
+        ? {
+            id: previousEmployeeInfo.organizationId,
+            name: previousEmployeeInfo.organizationName,
+          }
+        : null
+    );
+    setjobId(
+      previousEmployeeInfo.jobId
+        ? {
+            id: previousEmployeeInfo.jobId,
+            name: previousEmployeeInfo.jobName,
+          }
+        : null
+    );
+    setjobLevelId(
+      previousEmployeeInfo.jobLevelId
+        ? {
+            id: previousEmployeeInfo.jobLevelId,
+            name: previousEmployeeInfo.jobLevelName,
+          }
+        : null
+    );
+    setcontrolParameterId(
+      previousEmployeeInfo.controlParameterId
+        ? {
+            id: previousEmployeeInfo.controlParameterId,
+            name: previousEmployeeInfo.controlParameterName,
+          }
+        : null
+    );
     setidentityIssuingDate(previousEmployeeInfo.identityIssuingDate);
     setidentityExpiry(previousEmployeeInfo.identityExpiry);
-    setidentityIssuingAuth(previousEmployeeInfo.identityIssuingAuth ?? '');
-    setgenderId(previousEmployeeInfo.genderId ? {
-      id: previousEmployeeInfo.genderId,
-      name: previousEmployeeInfo.genderName,
-    } : null);
-    setnationalityId(previousEmployeeInfo.nationalityId ? {
-      id: previousEmployeeInfo.nationalityId,
-      name: previousEmployeeInfo.nationalityName,
-    } : null);
-    setreligionId(previousEmployeeInfo.religionId ? {
-      id: previousEmployeeInfo.religionId,
-      name: previousEmployeeInfo.religionName,
-    } : null);
+    setidentityIssuingAuth(previousEmployeeInfo.identityIssuingAuth ?? "");
+    setgenderId(
+      previousEmployeeInfo.genderId
+        ? {
+            id: previousEmployeeInfo.genderId,
+            name: previousEmployeeInfo.genderName,
+          }
+        : null
+    );
+    setnationalityId(
+      previousEmployeeInfo.nationalityId
+        ? {
+            id: previousEmployeeInfo.nationalityId,
+            name: previousEmployeeInfo.nationalityName,
+          }
+        : null
+    );
+    setreligionId(
+      previousEmployeeInfo.religionId
+        ? {
+            id: previousEmployeeInfo.religionId,
+            name: previousEmployeeInfo.religionName,
+          }
+        : null
+    );
     setbirthDate(previousEmployeeInfo.birthDate);
-    setbirthGovId(previousEmployeeInfo.birthGovId ? {
-      id: previousEmployeeInfo.birthGovId,
-      name: previousEmployeeInfo.birthGovName,
-    } : null);
-    setbirthCityId(previousEmployeeInfo.birthCityId ? {
-      id: previousEmployeeInfo.birthCityId,
-      name: previousEmployeeInfo.birthCityName,
-    } : null);
-    setsocialStatusId(previousEmployeeInfo.socialStatusId ? {
-      id: previousEmployeeInfo.socialStatusId,
-      name: previousEmployeeInfo.socialStatusName,
-    } : null);
-    setsonNo(previousEmployeeInfo.sonNo ?? '');
-    setmilitaryStatusId(previousEmployeeInfo.militaryStatusId ? {
-      id: previousEmployeeInfo.militaryStatusId,
-      name: previousEmployeeInfo.militaryStatusName,
-    } : null);
+    setbirthGovId(
+      previousEmployeeInfo.birthGovId
+        ? {
+            id: previousEmployeeInfo.birthGovId,
+            name: previousEmployeeInfo.birthGovName,
+          }
+        : null
+    );
+    setbirthCityId(
+      previousEmployeeInfo.birthCityId
+        ? {
+            id: previousEmployeeInfo.birthCityId,
+            name: previousEmployeeInfo.birthCityName,
+          }
+        : null
+    );
+    setsocialStatusId(
+      previousEmployeeInfo.socialStatusId
+        ? {
+            id: previousEmployeeInfo.socialStatusId,
+            name: previousEmployeeInfo.socialStatusName,
+          }
+        : null
+    );
+    setsonNo(previousEmployeeInfo.sonNo ?? "");
+    setmilitaryStatusId(
+      previousEmployeeInfo.militaryStatusId
+        ? {
+            id: previousEmployeeInfo.militaryStatusId,
+            name: previousEmployeeInfo.militaryStatusName,
+          }
+        : null
+    );
     setisInsured(previousEmployeeInfo.isInsured);
     setisSpecialNeeds(previousEmployeeInfo.isSpecialNeeds);
-    setsaluteId(previousEmployeeInfo.saluteId ? {
-      id: previousEmployeeInfo.saluteId,
-      name: previousEmployeeInfo.saluteName,
-    } : null);
+    setsaluteId(
+      previousEmployeeInfo.saluteId
+        ? {
+            id: previousEmployeeInfo.saluteId,
+            name: previousEmployeeInfo.saluteName,
+          }
+        : null
+    );
     setisResident(previousEmployeeInfo.isResident);
   };
 
   useEffect(() => {
     async function fetchData() {
+      debugger;
       try {
         const [
           employeedata,
@@ -612,84 +709,144 @@ function Personal(props) {
             setCheckEmployeeUsername(false);
 
             // setid(dataApi.id);
-            setUserName(dataApi.userName ?? '');
-            setNickName(dataApi.nickName ?? '');
-            setemployeeCode(dataApi.employeeCode ?? '');
-            setWorkEmail(dataApi.workEmail ?? '');
+            setUserName(dataApi.userName ?? "");
+            setNickName(dataApi.nickName ?? "");
+            setemployeeCode(dataApi.employeeCode ?? "");
+            setWorkEmail(dataApi.workEmail ?? "");
             // setHrBranchList(dataApi.hrBranchList ?? []);
             setIsHR(dataApi.isHr);
-            seteRPCode(dataApi.eRPCode ?? '');
-            setmachineCode(dataApi.machineCode ?? '');
-            setreportTo(dataApi.reportTo ? {
-              id: dataApi.reportTo,
-              name: dataApi.reportToName,
-            } : null);
-            setarName(dataApi.arName ?? '');
-            setenName(dataApi.enName ?? '');
-            setmotherName(dataApi.motherName ?? '');
-            setorganizationId(dataApi.organizationId ? {
-              id: dataApi.organizationId,
-              name: dataApi.organizationName,
-            } : null);
-            setjobId(dataApi.jobId ? {
-              id: dataApi.jobId,
-              name: dataApi.jobName,
-            } : null);
-            setjobLevelId(dataApi.jobLevelId ? {
-              id: dataApi.jobLevelId,
-              name: dataApi.jobLevelName,
-            } : null);
+            seteRPCode(dataApi.eRPCode ?? "");
+            setmachineCode(dataApi.machineCode ?? "");
+            setreportTo(
+              dataApi.reportTo
+                ? {
+                    id: dataApi.reportTo,
+                    name: dataApi.reportToName,
+                  }
+                : null
+            );
+            setarName(dataApi.arName ?? "");
+            setenName(dataApi.enName ?? "");
+            setmotherName(dataApi.motherName ?? "");
+            setorganizationId(
+              dataApi.organizationId
+                ? {
+                    id: dataApi.organizationId,
+                    name: dataApi.organizationName,
+                  }
+                : null
+            );
+            setjobId(
+              dataApi.jobId
+                ? {
+                    id: dataApi.jobId,
+                    name: dataApi.jobName,
+                  }
+                : null
+            );
+            setjobLevelId(
+              dataApi.jobLevelId
+                ? {
+                    id: dataApi.jobLevelId,
+                    name: dataApi.jobLevelName,
+                  }
+                : null
+            );
             sethiringDate(dataApi.hiringDate);
-            setcontrolParameterId(dataApi.controlParameterId ? {
-              id: dataApi.controlParameterId,
-              name: dataApi.controlParameterName,
-            } : null);
-            const identityType = identityTypedata.find(item => item.id === dataApi.identityTypeId);
-            setidentityTypeId(dataApi.identityTypeId && identityType ? identityType : null);
+            setcontrolParameterId(
+              dataApi.controlParameterId
+                ? {
+                    id: dataApi.controlParameterId,
+                    name: dataApi.controlParameterName,
+                  }
+                : null
+            );
+            const identityType = identityTypedata.find(
+              (item) => item.id === dataApi.identityTypeId
+            );
+            setidentityTypeId(
+              dataApi.identityTypeId && identityType ? identityType : null
+            );
             setidentityIssuingDate(dataApi.identityIssuingDate);
             setidentityExpiry(dataApi.identityExpiry);
-            setidentityNumber(dataApi.identityNumber ?? '');
-            setidentityIssuingAuth(dataApi.identityIssuingAuth ?? '');
-            setgenderId( dataApi.genderId ? {
-              id: dataApi.genderId,
-              name: dataApi.genderName,
-            } : null);
-            setnationalityId(dataApi.nationalityId ? {
-              id: dataApi.nationalityId,
-              name: dataApi.nationalityName,
-            } : null);
-            setreligionId(dataApi.religionId ? {
-              id: dataApi.religionId,
-              name: dataApi.religionName,
-            } : null);
+            setidentityNumber(dataApi.identityNumber ?? "");
+            setidentityIssuingAuth(dataApi.identityIssuingAuth ?? "");
+            setgenderId(
+              dataApi.genderId
+                ? {
+                    id: dataApi.genderId,
+                    name: dataApi.genderName,
+                  }
+                : null
+            );
+            setnationalityId(
+              dataApi.nationalityId
+                ? {
+                    id: dataApi.nationalityId,
+                    name: dataApi.nationalityName,
+                  }
+                : null
+            );
+            setreligionId(
+              dataApi.religionId
+                ? {
+                    id: dataApi.religionId,
+                    name: dataApi.religionName,
+                  }
+                : null
+            );
             setbirthDate(dataApi.birthDate);
-            setbirthGovId(dataApi.birthGovId ? {
-              id: dataApi.birthGovId,
-              name: dataApi.birthGovName,
-            } : null);
-            setbirthCityId(dataApi.birthCityId ?{
-              id: dataApi.birthCityId,
-              name: dataApi.birthCityName,
-            } : null);
-            setsocialStatusId(dataApi.socialStatusId ? {
-              id: dataApi.socialStatusId,
-              name: dataApi.socialStatusName,
-            } : null);
-            setsonNo(dataApi.sonNo ?? '');
-            setmilitaryStatusId(dataApi.militaryStatusId ? {
-              id: dataApi.militaryStatusId,
-              name: dataApi.militaryStatusName,
-            } : null);
+            setbirthGovId(
+              dataApi.birthGovId
+                ? {
+                    id: dataApi.birthGovId,
+                    name: dataApi.birthGovName,
+                  }
+                : null
+            );
+            setbirthCityId(
+              dataApi.birthCityId
+                ? {
+                    id: dataApi.birthCityId,
+                    name: dataApi.birthCityName,
+                  }
+                : null
+            );
+            setsocialStatusId(
+              dataApi.socialStatusId
+                ? {
+                    id: dataApi.socialStatusId,
+                    name: dataApi.socialStatusName,
+                  }
+                : null
+            );
+            setsonNo(dataApi.sonNo ?? "");
+            setmilitaryStatusId(
+              dataApi.militaryStatusId
+                ? {
+                    id: dataApi.militaryStatusId,
+                    name: dataApi.militaryStatusName,
+                  }
+                : null
+            );
             setisInsured(dataApi.isInsured);
             setisSpecialNeeds(dataApi.isSpecialNeeds);
-            setsaluteId(dataApi.saluteId ? {
-              id: dataApi.saluteId,
-              name: dataApi.saluteName,
-            } : null);
-            setstatusId(dataApi.statusId ? {
-              id: dataApi.statusId,
-              name: dataApi.statusName,
-            } : null);
+            setsaluteId(
+              dataApi.saluteId
+                ? {
+                    id: dataApi.saluteId,
+                    name: dataApi.saluteName,
+                  }
+                : null
+            );
+            setstatusId(
+              dataApi.statusId
+                ? {
+                    id: dataApi.statusId,
+                    name: dataApi.statusName,
+                  }
+                : null
+            );
             setisResident(dataApi.isResident);
             let empimg =
               dataApi.photo == null
@@ -708,27 +865,26 @@ function Personal(props) {
     fetchData();
   }, []);
 
-  const sanitizeEmployeeNameInput = (value) => value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, '');
-
+  const sanitizeEmployeeNameInput = (value) =>
+    value.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]+/g, "");
 
   const cardExpiryCheckFun = (date) => {
     // setIdentityExpiryErrMes
-    const dateCheck = Math.floor( (new Date(date).setHours(0, 0, 0) - new Date()) / 1000 / 60 / 60 / 24) + 1
+    const dateCheck =
+      Math.floor(
+        (new Date(date).setHours(0, 0, 0) - new Date()) / 1000 / 60 / 60 / 24
+      ) + 1;
     console.log("identityExpiry =", dateCheck);
     console.log("identityExpiry2 =", date);
-    if(dateCheck <= 0)
-    {
-      setIdentityExpiryErrMes(intl.formatMessage(messages.ExpiryCardErrMes))
+    if (dateCheck <= 0) {
+      setIdentityExpiryErrMes(intl.formatMessage(messages.ExpiryCardErrMes));
+    } else {
+      setIdentityExpiryErrMes("");
     }
-    else
-    {
-      setIdentityExpiryErrMes("")
-    }
-  }
+  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
       <EmployeeCreationFeedback
         isOpen={isEmployeeCreatedOpen}
         onClose={onEmployeeCreatedClose}
@@ -742,7 +898,6 @@ function Personal(props) {
       />
 
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item md={10} xs={12}>
@@ -753,11 +908,13 @@ function Personal(props) {
                     required
                     name="arname"
                     value={arName}
-                    onChange={(e) => setarName(sanitizeEmployeeNameInput(e.target.value))}
+                    onChange={(e) =>
+                      setarName(sanitizeEmployeeNameInput(e.target.value))
+                    }
                     label={intl.formatMessage(messages.arname)}
                     className={classes.field}
                     variant="outlined"
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
@@ -767,11 +924,13 @@ function Personal(props) {
                     name="enname"
                     required
                     value={enName}
-                    onChange={(e) => setenName(sanitizeEmployeeNameInput(e.target.value))}
+                    onChange={(e) =>
+                      setenName(sanitizeEmployeeNameInput(e.target.value))
+                    }
                     label={intl.formatMessage(messages.enname)}
                     className={classes.field}
                     variant="outlined"
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
@@ -784,7 +943,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.nickName)}
                     className={classes.field}
                     variant="outlined"
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
@@ -796,11 +955,15 @@ function Personal(props) {
                     value={employeeCode}
                     disabled={id !== 0}
                     required
-                    onChange={id !== 0 ? undefined :(e) => setemployeeCode(e.target.value)}
+                    onChange={
+                      id !== 0
+                        ? undefined
+                        : (e) => setemployeeCode(e.target.value)
+                    }
                     label={intl.formatMessage(messages.employeeCode)}
                     className={classes.field}
                     variant="outlined"
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
@@ -814,7 +977,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.machineCode)}
                     className={classes.field}
                     variant="outlined"
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
@@ -829,7 +992,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.eRPCode)}
                     className={classes.field}
                     variant="outlined"
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
@@ -837,7 +1000,7 @@ function Personal(props) {
                   <Autocomplete
                     disabled
                     id="ddlstatusId"
-                    options={statusList || []} 
+                    options={statusList || []}
                     value={statusId}
                     renderOption={(optionProps, option) => {
                       return (
@@ -872,58 +1035,57 @@ function Personal(props) {
                   />
                 </Grid>
 
-                  
-                  <Grid item xs={12} md={3}>
-                  
+                <Grid item xs={12} md={3}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                       name="hdate"
-                       label={intl.formatMessage(messages.hiringDate)}
-                       value={hiringDate  ? dayjs(hiringDate) : hiringDate}
+                    <DatePicker
+                      name="hdate"
+                      label={intl.formatMessage(messages.hiringDate)}
+                      value={hiringDate ? dayjs(hiringDate) : hiringDate}
                       className={classes.field}
-                        onChange={(date) => {
-                          sethiringDate(date)
+                      onChange={(date) => {
+                        sethiringDate(date);
                       }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
+                      onError={(error, value) => {
+                        if (error !== null) {
                           setDateError((prevState) => ({
                             ...prevState,
-                              [`hiringDate`]: true
-                          }))
-                        }
-                        else
-                        {
+                            [`hiringDate`]: true,
+                          }));
+                        } else {
                           setDateError((prevState) => ({
                             ...prevState,
-                              [`hiringDate`]: false
-                          }))
+                            [`hiringDate`]: false,
+                          }));
                         }
                       }}
-                       slotProps={{
-                          textField: {
-                              required: true,
-                            },
-                          }}
-                      />
+                      slotProps={{
+                        textField: {
+                          required: true,
+                        },
+                      }}
+                    />
                   </LocalizationProvider>
-                  </Grid>
+                </Grid>
 
                 <Grid item xs={12} md={3}>
                   <Autocomplete
                     options={reportToList}
                     value={reportTo}
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
-                    getOptionLabel={(option) => (option ? option.name : '')}
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(propsOption, option) => (
                       <li {...propsOption} key={option.id}>
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => setreportTo({
-                      id: value !== null ? value.id : 0,
-                      name: value !== null ? value.name : '',
-                    })}
+                    onChange={(_, value) =>
+                      setreportTo({
+                        id: value !== null ? value.id : 0,
+                        name: value !== null ? value.name : "",
+                      })
+                    }
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -932,9 +1094,8 @@ function Personal(props) {
                     )}
                   />
                 </Grid>
-
-                </Grid>
-</Grid>
+              </Grid>
+            </Grid>
             <Grid item xs={2}>
               <div sx={{ height: 128 }}>
                 <Typography className={Type.textCenter}>
@@ -1018,12 +1179,19 @@ function Personal(props) {
                         id: value !== null ? value.id : 0,
                         name: value !== null ? value.name : "",
                         validLength: value !== null ? value.validLength : 0,
-                        expiredPeriod : value !== null ? value.expiredPeriod : 0,
+                        expiredPeriod: value !== null ? value.expiredPeriod : 0,
+                        isCharcter: value !== null ? value.isCharcter : false,
                       });
-                      if (identityIssuingDate && value && value?.expiredPeriod !== 0) {
-                        const expireDate = moment(formateDate(identityIssuingDate)).add(value?.expiredPeriod ?? 0, 'y');
+                      if (
+                        identityIssuingDate &&
+                        value &&
+                        value?.expiredPeriod !== 0
+                      ) {
+                        const expireDate = moment(
+                          formateDate(identityIssuingDate)
+                        ).add(value?.expiredPeriod ?? 0, "y");
 
-                        setidentityExpiry(expireDate.format('YYYY-MM-DD'));
+                        setidentityExpiry(expireDate.format("YYYY-MM-DD"));
                       }
                     }}
                     renderInput={(params) => (
@@ -1047,7 +1215,7 @@ function Personal(props) {
                     label={intl.formatMessage(messages.identityIssuingAuth)}
                     className={classes.field}
                     variant="outlined"
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
@@ -1061,95 +1229,95 @@ function Personal(props) {
                     className={classes.field}
                     variant="outlined"
                     required
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
 
-                
+                <Grid item xs={12} md={3}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label={intl.formatMessage(messages.identityIssuingDate)}
+                      value={
+                        identityIssuingDate
+                          ? dayjs(identityIssuingDate)
+                          : identityIssuingDate
+                      }
+                      className={classes.field}
+                      onChange={(date) => {
+                        setidentityIssuingDate(date);
 
-                  <Grid item xs={12} md={3}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(messages.identityIssuingDate)}
-                        value={identityIssuingDate ? dayjs(identityIssuingDate) : identityIssuingDate}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setidentityIssuingDate(date)
-
-
-                            if (identityTypeId?.expiredPeriod && identityTypeId?.expiredPeriod !== 0) {
-                              if(date)
-                              {
-                                const expireDate = moment(formateDate(date)).add(identityTypeId?.expiredPeriod ?? 0, 'y');
-                                setidentityExpiry(expireDate.format('YYYY-MM-DD'));
-                              }
-                              else
-                              {
-                                setidentityExpiry(null);
-                              }
-                            }
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                              ...prevState,
-                                [`identityIssuingDate`]: true
-                            }))
+                        if (
+                          identityTypeId?.expiredPeriod &&
+                          identityTypeId?.expiredPeriod !== 0
+                        ) {
+                          if (date) {
+                            const expireDate = moment(formateDate(date)).add(
+                              identityTypeId?.expiredPeriod ?? 0,
+                              "y"
+                            );
+                            setidentityExpiry(expireDate.format("YYYY-MM-DD"));
+                          } else {
+                            setidentityExpiry(null);
                           }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                              ...prevState,
-                                [`identityIssuingDate`]: false
-                            }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
-
+                        }
+                      }}
+                      onError={(error, value) => {
+                        if (error !== null) {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                            [`identityIssuingDate`]: true,
+                          }));
+                        } else {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                            [`identityIssuingDate`]: false,
+                          }));
+                        }
+                      }}
+                    />
+                  </LocalizationProvider>
+                </Grid>
 
                 <Grid item xs={12} md={3}>
-                  
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
+                    <DatePicker
                       label={intl.formatMessage(messages.identityExpiry)}
-                      disabled={identityTypeId && identityTypeId?.expiredPeriod !== 0} 
-                      value={identityExpiry ? dayjs(identityExpiry) : identityExpiry}
+                      disabled={
+                        identityTypeId && identityTypeId?.expiredPeriod !== 0
+                      }
+                      value={
+                        identityExpiry ? dayjs(identityExpiry) : identityExpiry
+                      }
                       className={classes.field}
-                        onChange={(date) => {
-                          setidentityExpiry(date)
-                          cardExpiryCheckFun(date)
+                      onChange={(date) => {
+                        setidentityExpiry(date);
+                        cardExpiryCheckFun(date);
                       }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
+                      onError={(error, value) => {
+                        if (error !== null) {
                           setDateError((prevState) => ({
                             ...prevState,
-                              [`identityExpiry`]: true
-                          }))
-                        }
-                        else
-                        {
+                            [`identityExpiry`]: true,
+                          }));
+                        } else {
                           setDateError((prevState) => ({
                             ...prevState,
-                              [`identityExpiry`]: false
-                          }))
+                            [`identityExpiry`]: false,
+                          }));
                         }
                       }}
                       slotProps={{
                         textField: {
-                          helperText: <span className={style.CardExpiredSty}>{identityExpiryErrMes}</span>,
+                          helperText: (
+                            <span className={style.CardExpiredSty}>
+                              {identityExpiryErrMes}
+                            </span>
+                          ),
                         },
                       }}
-                      />
+                    />
                   </LocalizationProvider>
                 </Grid>
-
-
               </Grid>
             </Grid>
 
@@ -1257,42 +1425,36 @@ function Personal(props) {
               />
             </Grid>
 
-
-                <Grid item xs={12} md={3}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label={intl.formatMessage(messages.birthDate)}
-                      value={birthDate ? dayjs(birthDate) : birthDate}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setbirthDate(date)
-                      }}
-
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                              ...prevState,
-                                [`birthDate`]: true
-                            }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                              ...prevState,
-                                [`birthDate`]: false
-                            }))
-                          }
-                        }}
-                         slotProps={{
-                            textField: {
-                              required: true,
-                              },
-                            }}
-                      />
-                  </LocalizationProvider>
-                </Grid>
+            <Grid item xs={12} md={3}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.birthDate)}
+                  value={birthDate ? dayjs(birthDate) : birthDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setbirthDate(date);
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`birthDate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`birthDate`]: false,
+                      }));
+                    }
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
             <Grid item xs={12} md={3}>
               <TextField
@@ -1305,7 +1467,7 @@ function Personal(props) {
                 label={intl.formatMessage(messages.workEmail)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 
@@ -1317,9 +1479,9 @@ function Personal(props) {
                 onChange={(e) => setUserName(e.target.value)}
                 label={intl.formatMessage(messages.userName)}
                 fullWidth
-                disabled={ id && id !== 0 }
+                disabled={id && id !== 0}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 
@@ -1398,7 +1560,7 @@ function Personal(props) {
                 className={classes.field}
                 variant="outlined"
                 onChange={(e) => setmotherName(e.target.value)}
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 
@@ -1415,13 +1577,9 @@ function Personal(props) {
                   );
                 }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 ||
-                  value.id === "" ||
-                  option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) =>
-                  option.name ? option.name : ""
-                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
                   setsocialStatusId({
                     id: value !== null ? value.id : 0,
@@ -1449,7 +1607,7 @@ function Personal(props) {
                 className={classes.field}
                 variant="outlined"
                 onChange={(e) => setsonNo(e.target.value)}
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 
@@ -1466,13 +1624,9 @@ function Personal(props) {
                   );
                 }}
                 isOptionEqualToValue={(option, value) =>
-                  value.id === 0 ||
-                  value.id === "" ||
-                  option.id === value.id
+                  value.id === 0 || value.id === "" || option.id === value.id
                 }
-                getOptionLabel={(option) =>
-                  option.name ? option.name : ""
-                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
                   setmilitaryStatusId({
                     id: value !== null ? value.id : 0,
@@ -1673,18 +1827,20 @@ function Personal(props) {
                       />
                     </Grid> */}
 
-                    {authState.user.isHR && <Grid item xs={12} md={3}>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={isHR}
-                            name='isHR'
-                            onChange={(evt) => setIsHR(evt.target.checked)}
-                          />
-                        }
-                        label={intl.formatMessage(messages.isHR)}
-                      />
-                    </Grid>}
+                    {authState.user.isHR && (
+                      <Grid item xs={12} md={3}>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={isHR}
+                              name="isHR"
+                              onChange={(evt) => setIsHR(evt.target.checked)}
+                            />
+                          }
+                          label={intl.formatMessage(messages.isHR)}
+                        />
+                      </Grid>
+                    )}
 
                     <Grid item xs={12} md={3}>
                       <FormControlLabel
@@ -1754,7 +1910,6 @@ function Personal(props) {
                     />
                   </Grid>
                 </>} */}
-
               </Grid>
             </Grid>
             <Grid item xs={12} md={12}>

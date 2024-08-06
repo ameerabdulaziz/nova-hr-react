@@ -91,6 +91,18 @@ function NamePopup(props) {
             };
           })
         );
+      } else if (Key == "Organization") {
+        data = await GeneralListApis(locale).GetDepartmentList();
+
+        setEmployeeList(
+          data.map((obj) => {
+            return {
+              id: obj.id,
+              name: obj.name,
+              isSelected: false,
+            };
+          })
+        );
       } else if (Key == "shift") {
         data = await GeneralListApis(locale).GetShiftList();
 

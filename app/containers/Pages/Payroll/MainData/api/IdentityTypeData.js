@@ -11,6 +11,7 @@ const IdentityTypeData = () => {
       enName: obj.enName,
       expiredPeriod: obj.expiredPeriod,
       validLength: obj.validLength,
+      isCharcter: obj.isCharcter,
       edited: false,
     }));
 
@@ -23,6 +24,7 @@ const IdentityTypeData = () => {
       arName: Item.arName,
       enName: Item.enName,
       validLength: Item.validLength,
+      isCharcter:Item.isCharcter,
       expiredPeriod: Item.expiredPeriod,
     };
 

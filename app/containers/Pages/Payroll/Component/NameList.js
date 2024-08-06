@@ -17,7 +17,14 @@ import useStyles from "../Style";
 import NamePopup from "./NamePopup";
 
 function NameList(props) {
-  const { intl, dataList, setdataList, IsInsured, Key ,withoutSalaryStructure} = props;
+  const {
+    intl,
+    dataList,
+    setdataList,
+    IsInsured,
+    Key,
+    withoutSalaryStructure,
+  } = props;
   const { classes, cx } = useStyles();
   const [OpenPopup, setOpenPopup] = useState(false);
 
@@ -61,10 +68,12 @@ function NameList(props) {
 
   const buttonLabel = useMemo(() => {
     switch (Key) {
-      case 'Job':
+      case "Job":
         return Payrollmessages.chooseJob;
-      case 'Courses':
+      case "Courses":
         return Payrollmessages.chooseCourse;
+      case "Organization":
+        return Payrollmessages.chooseOrg;
       default:
         return Payrollmessages.chooseEmp;
     }
@@ -72,7 +81,14 @@ function NameList(props) {
 
   return (
     <div>
-      <NamePopup handleClose={handleClose} setOpenPopup={setOpenPopup} IsInsured={IsInsured} open={OpenPopup} Key={Key} withoutSalaryStructure={withoutSalaryStructure} />
+      <NamePopup
+        handleClose={handleClose}
+        setOpenPopup={setOpenPopup}
+        IsInsured={IsInsured}
+        open={OpenPopup}
+        Key={Key}
+        withoutSalaryStructure={withoutSalaryStructure}
+      />
       <div>
         <Grid container spacing={3}>
           <Grid item xs={6} md={2}>
@@ -88,73 +104,74 @@ function NameList(props) {
 
           <Grid item xs={6} md={12}>
             <div
-              
               className={cx(css.tableCrud, classes.stripped, classes.rootTable)}
             >
               <TableContainer style={{ maxHeight: 420 }}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell style={{ width: "25%", padding: "0px" }}>
-                      <Checkbox
-                        checked={
-                          dataList.length > 0 &&
-                          dataList.filter((crow) => crow.isSelected == true)
-                            .length === dataList.length
-                            ? true
-                            : false
-                        }
-                        color="primary"
-                        name="AllSelect"
-                        indeterminate={
-                          dataList.filter((crow) => crow.isSelected == true)
-                            .length > 0 &&
-                          dataList.filter((crow) => crow.isSelected == true)
-                            .length < dataList.length
-                            ? true
-                            : false
-                        }
-                        onChange={handlepermcheckboxAll}
-                      />
-                    </TableCell>
-                    {/* <TableCell style={{ width: "25%", padding: "0px" }}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ width: "25%", padding: "0px" }}>
+                        <Checkbox
+                          checked={
+                            dataList.length > 0 &&
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length === dataList.length
+                              ? true
+                              : false
+                          }
+                          color="primary"
+                          name="AllSelect"
+                          indeterminate={
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length > 0 &&
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length < dataList.length
+                              ? true
+                              : false
+                          }
+                          onChange={handlepermcheckboxAll}
+                        />
+                      </TableCell>
+                      {/* <TableCell style={{ width: "25%", padding: "0px" }}>
                       <FormattedMessage {...Payrollmessages.id} />
                     </TableCell> */}
-                    <TableCell style={{ width: "50%", padding: "0px" }}>
-                      <FormattedMessage {...Payrollmessages.name} />
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {dataList.length !== 0 &&
-                    dataList.map((row) => {
-                      return (
-                        <TableRow
-                          hover
-                          key={row.id}
-                          sx={{ height: 1 }}
-                          style={{ padding: "0px" }}
-                        >
-                          <TableCell style={{ width: "25%", padding: "0px" }}>
-                            <Checkbox
-                              checked={row.isSelected}
-                              color="primary"
-                              name="isselected"
-                              onChange={(event) => handleEnableOne(event, row)}
-                              value={row.isSelected}
-                            />
-                          </TableCell>
-                          {/* <TableCell style={{ width: "25%", padding: "0px" }}>
+                      <TableCell style={{ width: "50%", padding: "0px" }}>
+                        <FormattedMessage {...Payrollmessages.name} />
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {dataList.length !== 0 &&
+                      dataList.map((row) => {
+                        return (
+                          <TableRow
+                            hover
+                            key={row.id}
+                            sx={{ height: 1 }}
+                            style={{ padding: "0px" }}
+                          >
+                            <TableCell style={{ width: "25%", padding: "0px" }}>
+                              <Checkbox
+                                checked={row.isSelected}
+                                color="primary"
+                                name="isselected"
+                                onChange={(event) =>
+                                  handleEnableOne(event, row)
+                                }
+                                value={row.isSelected}
+                              />
+                            </TableCell>
+                            {/* <TableCell style={{ width: "25%", padding: "0px" }}>
                             {row.id}
                           </TableCell> */}
-                          <TableCell style={{ width: "50%", padding: "0px" }}>
-                            {row.name}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                </TableBody>
-              </Table>
+                            <TableCell style={{ width: "50%", padding: "0px" }}>
+                              {row.name}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
               </TableContainer>
             </div>
           </Grid>

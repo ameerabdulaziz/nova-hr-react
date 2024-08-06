@@ -702,6 +702,7 @@
   "boilerplate.containers.Payroll.count": "Count",
   "boilerplate.containers.Payroll.isStop": "Is Stop",
   "boilerplate.containers.Payroll.chooseJob": "Select Job",
+  "boilerplate.containers.Payroll.chooseOrg": "Select Department",
   "boilerplate.containers.Payroll.chooseShift": "Select Shift",
   "boilerplate.containers.Payroll.total": "Total",
   "boilerplate.containers.Payroll.employeeName": "Employee Name",

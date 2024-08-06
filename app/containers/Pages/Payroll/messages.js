@@ -742,6 +742,10 @@ employeeId: {
     id: `${scope}.chooseCourse`,
     defaultMessage: 'chooseCourse',
   },
+  chooseOrg: {
+    id: `${scope}.chooseOrg`,
+    defaultMessage: 'chooseOrg',
+  },
   pending: {
     id: `${scope}.pending`,
     defaultMessage: 'pending',
