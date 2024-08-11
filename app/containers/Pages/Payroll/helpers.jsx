@@ -218,6 +218,48 @@ function getAutoCompleteValue(list, key) {
   return list.find((item) => item.id === key) ?? null;
 }
 
+/**
+ * Calculates the difference in hours between two times, formatted as a decimal number.
+ * Handles cases where the end time is on the following day (crosses midnight).
+ *
+ * @param {string} startTime - The start time in "HH:MM" format (24-hour format).
+ * @param {string} endTime - The end time in "HH:MM" format (24-hour format).
+ * @returns {string} The time difference in hours, formatted as a decimal number with two decimal places.
+ *
+ * @example
+ * // Start time is 11:30 PM and end time is 1:15 AM next day
+ * const result = calculateTimeDifference("23:30", "01:15");
+ * console.log(result); // Output: "1.45"
+ */
+function calculateTimeDifference(startTime, endTime) {
+  // Parse start time
+  const [startHours, startMinutes] = startTime.split(':').map(Number);
+
+  // Parse end time
+  const [endHours, endMinutes] = endTime.split(':').map(Number);
+
+  // Create Date objects
+  const startDate = new Date(0, 0, 0, startHours, startMinutes);
+  const endDate = new Date(0, 0, 0, endHours, endMinutes);
+
+  // If end time is earlier than start time, assume end time is on the next day
+  if (endDate <= startDate) {
+    endDate.setDate(endDate.getDate() + 1);
+  }
+
+  // Calculate the difference in milliseconds and convert to hours
+  const diffInMs = endDate.getTime() - startDate.getTime();
+
+  // Convert milliseconds to total hours (including fractional hours)
+  const totalHours = diffInMs / 3600000; // Total hours as a decimal
+
+  // Convert total hours to hours and minutes
+  const hours = Math.floor(totalHours);
+  const minutes = Math.round((totalHours - hours) * 60);
+
+  return `${hours}.${minutes.toString().padStart(2, '0')}`;
+}
+
 export {
   extractBirthDayFromIdentityNumber,
   formateDate,
@@ -228,5 +270,6 @@ export {
   toArabicDigits,
   uuid,
   validateEmail,
-  getAutoCompleteValue
+  getAutoCompleteValue,
+  calculateTimeDifference,
 };

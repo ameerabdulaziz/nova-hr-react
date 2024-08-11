@@ -17,6 +17,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
 import Autocomplete from "@mui/material/Autocomplete";
+import { calculateTimeDifference } from "../../../helpers";
 
 function ShiftCreate(props) {
   const { intl } = props;
@@ -125,27 +126,10 @@ function ShiftCreate(props) {
     }
     if (event.target.name == "startTime") {
       if (data.endTime != "") {
-        var diff =
-          (new Date(
-            0,
-            0,
-            0,
-            data.endTime.split(":")[0],
-            data.endTime.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              event.target.value.split(":")[0],
-              event.target.value.split(":")[1]
-            )) /
-          3600000;
-
         setdata((prevFilters) => ({
           ...prevFilters,
           startTime: event.target.value,
-          hours: diff<0?(diff*-1):diff
+          hours: calculateTimeDifference(event.target.value, data.endTime),
         }));
       } else
         setdata((prevFilters) => ({
@@ -156,26 +140,10 @@ function ShiftCreate(props) {
 
     if (event.target.name == "endTime") {
       if (data.startTime != "") {
-        var diff =
-          (new Date(
-            0,
-            0,
-            0,
-            event.target.value.split(":")[0],
-            event.target.value.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              data.startTime.split(":")[0],
-              data.startTime.split(":")[1]
-            )) /
-          3600000;
         setdata((prevFilters) => ({
           ...prevFilters,
           endTime: event.target.value,
-          hours: diff<0?(diff*-1):diff
+          hours: calculateTimeDifference(data.startTime, event.target.value),
         }));
       } else
         setdata((prevFilters) => ({
@@ -207,26 +175,10 @@ function ShiftCreate(props) {
   async function fetchData() {
     if (id) {
       const dataApi = await ApiData(locale).Get(id ?? 0);
-      var diff =
-          (new Date(
-            0,
-            0,
-            0,
-            dataApi.endTime.split(":")[0],
-            dataApi.endTime.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              dataApi.startTime.split(":")[0],
-              dataApi.startTime.split(":")[1]
-            )) /
-          3600000;
       setdata(dataApi);
       setdata((prevFilters) => ({
         ...prevFilters,
-        hours: diff<0?(diff*-1):diff
+        hours: calculateTimeDifference(dataApi.startTime, dataApi.endTime),
       }));
     }
   }
