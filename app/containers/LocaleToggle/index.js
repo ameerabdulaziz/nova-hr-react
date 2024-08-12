@@ -20,7 +20,7 @@ function LocaleToggle(props) {
     onLocaleToggle(event);
 
     // Change Theme Direction
-    if (event.target.value === 'ar') {
+    if (event.target.value === 'arEgypt' || event.target.value === 'arKsa') {
       document.dir = 'rtl';
       changeDirection('rtl');
     } else {

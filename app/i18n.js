@@ -9,26 +9,15 @@
  */
 
 const enTranslationMessages = require('./translations/en.json');
-const deTranslationMessages = require('./translations/de.json');
-const esTranslationMessages = require('./translations/es.json');
-const idTranslationMessages = require('./translations/id.json');
-const zhTranslationMessages = require('./translations/zh.json');
-const arTranslationMessages = require('./translations/ar.json');
+const arEgyptTranslationMessages = require('./translations/ar-egypt.json');
+const arKSATranslationMessages = require('./translations/ar-ksa.json');
 
 const DEFAULT_LOCALE = 'en';
 
-// prettier-ignore
-/* const appLocales = [
-  'en',
-  'zh',
-  'ar',
-  'id',
-  'de',
-  'es',
-]; */
 const appLocales = [
-  'en',  
-  'ar'
+  'en',
+  'arEgypt',
+  'arKsa'
 ];
 
 const formatTranslationMessages = (locale, messages) => {
@@ -46,11 +35,8 @@ const formatTranslationMessages = (locale, messages) => {
 
 const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
-  de: formatTranslationMessages('de', deTranslationMessages),
-  es: formatTranslationMessages('es', esTranslationMessages),
-  id: formatTranslationMessages('id', idTranslationMessages),
-  zh: formatTranslationMessages('zh', zhTranslationMessages),
-  ar: formatTranslationMessages('ar', arTranslationMessages),
+  arEgypt: formatTranslationMessages('arEgypt', arEgyptTranslationMessages),
+  arKsa: formatTranslationMessages('arKsa', arKSATranslationMessages),
 };
 
 exports.appLocales = appLocales;
