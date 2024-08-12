@@ -49,8 +49,8 @@ function ShiftEmployeeCreate(props) {
     endTime: "",
     workHours: "",
     hoursFromEmp: false,
-    fromDate: format(new Date(), "yyyy-MM-dd"),
-    toDate: format(new Date(), "yyyy-MM-dd"),
+    fromDate: dayjs(),
+    toDate: dayjs(),
     vsaturday: false,
     vsunday: false,
     vmonday: false,
@@ -129,7 +129,14 @@ function ShiftEmployeeCreate(props) {
       id ?? 0,
       employeeId ? employeeId : ""
     );
-    setdata(dataApi);
+
+    const enhancedShiftData = {
+      ...dataApi,
+      fromDate: dayjs(),
+      toDate: dayjs(),
+    };
+
+    setdata(enhancedShiftData);
   }
 
   useEffect(() => {
@@ -373,7 +380,7 @@ function ShiftEmployeeCreate(props) {
                             }
                             value={data.vsaturday}
                             disabled={
-                              !companyInfo.isHideWeekend || user.isHR
+                              !companyInfo?.isHideWeekend || user.isHR
                                 ? false
                                 : true
                             }
@@ -396,7 +403,7 @@ function ShiftEmployeeCreate(props) {
                             }
                             value={data.vsunday}
                             disabled={
-                              !companyInfo.isHideWeekend || user.isHR
+                              !companyInfo?.isHideWeekend || user.isHR
                                 ? false
                                 : true
                             }
@@ -419,7 +426,7 @@ function ShiftEmployeeCreate(props) {
                             }
                             value={data.vmonday}
                             disabled={
-                              !companyInfo.isHideWeekend || user.isHR
+                              !companyInfo?.isHideWeekend || user.isHR
                                 ? false
                                 : true
                             }
@@ -442,7 +449,7 @@ function ShiftEmployeeCreate(props) {
                             }
                             value={data.vtuesday}
                             disabled={
-                              !companyInfo.isHideWeekend || user.isHR
+                              !companyInfo?.isHideWeekend || user.isHR
                                 ? false
                                 : true
                             }
@@ -465,7 +472,7 @@ function ShiftEmployeeCreate(props) {
                             }
                             value={data.vwednesday}
                             disabled={
-                              !companyInfo.isHideWeekend || user.isHR
+                              !companyInfo?.isHideWeekend || user.isHR
                                 ? false
                                 : true
                             }
@@ -488,7 +495,7 @@ function ShiftEmployeeCreate(props) {
                             }
                             value={data.vthursday}
                             disabled={
-                              !companyInfo.isHideWeekend || user.isHR
+                              !companyInfo?.isHideWeekend || user.isHR
                                 ? false
                                 : true
                             }
@@ -511,7 +518,7 @@ function ShiftEmployeeCreate(props) {
                             }
                             value={data.vfriday}
                             disabled={
-                              !companyInfo.isHideWeekend || user.isHR
+                              !companyInfo?.isHideWeekend || user.isHR
                                 ? false
                                 : true
                             }
