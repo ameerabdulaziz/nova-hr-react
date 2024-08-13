@@ -460,24 +460,7 @@ function DetailedAttendanceReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item md={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={searchData.withoutEmployeesWithoutAttendanceRules}
-                        onChange={(evt) => {
-                          setsearchData((prev) => ({
-                            ...prev,
-                            withoutEmployeesWithoutAttendanceRules: evt.target.checked,
-                          }));
-                        }}
-                      />
-                    }
-                    label={intl.formatMessage(messages.WithoutEmployeesWhoDoNotMeetTheAttendanceRules)}
-                  />
-            </Grid>
-
-            <Grid item xs={12}  md={4}> 
+          <Grid item xs={12}  md={4}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -516,9 +499,24 @@ function DetailedAttendanceReport(props) {
                         />
             </Grid>
 
-            <Grid item xs={12} md={12}></Grid>
+          <Grid item>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={searchData.withoutEmployeesWithoutAttendanceRules}
+                        onChange={(evt) => {
+                          setsearchData((prev) => ({
+                            ...prev,
+                            withoutEmployeesWithoutAttendanceRules: evt.target.checked,
+                          }));
+                        }}
+                      />
+                    }
+                    label={intl.formatMessage(messages.WithoutEmployeesWhoDoNotMeetTheAttendanceRules)}
+                  />
+            </Grid>
 
-            <Grid item md={6} lg={3}>
+            <Grid item>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -536,7 +534,7 @@ function DetailedAttendanceReport(props) {
             </Grid>
 
           
-            <Grid item md={6} lg={3}>
+            <Grid item>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -553,7 +551,7 @@ function DetailedAttendanceReport(props) {
                   />
             </Grid>
 
-            <Grid item md={6} lg={3}>
+            <Grid item>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -570,7 +568,7 @@ function DetailedAttendanceReport(props) {
                   />
             </Grid>
 
-            <Grid item md={6} lg={3}>
+            <Grid item>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -604,44 +602,45 @@ function DetailedAttendanceReport(props) {
                   />
             </Grid>
     
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  size="medium"
+                  color="primary"
+                  onClick={handleSearch}
+                >
+                  <FormattedMessage {...Payrollmessages.search} />
+                </Button>
+              </Grid>
 
-          <Grid item xs={12} md={2}>
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              onClick={handleSearch}
-            >
-              <FormattedMessage {...Payrollmessages.search} />
-            </Button>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  size="medium"
+                  color="primary"
+                  className={style.printBtnSty}
+                onClick={()=>onPrintClick("employee")}
+                >
+                  <FormattedMessage {...messages.PrintByEmployee} />
+                </Button>
+              </Grid>
+
+              <Grid item>
+                <Button
+                  variant="contained"
+                  size="medium"
+                  color="primary"
+                  className={style.printBtnSty}
+                onClick={()=>onPrintClick("date")}
+                >
+                  <FormattedMessage {...messages.PrintByDate} />
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
 
-          <Grid item xs={12} md={12}></Grid>
-
-          <Grid item xs={12} lg={2}>
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              className={style.printBtnSty}
-            onClick={()=>onPrintClick("employee")}
-            >
-              <FormattedMessage {...messages.PrintByEmployee} />
-            </Button>
-          </Grid>
-
-          <Grid item xs={12} lg={2}>
-            <Button
-              variant="contained"
-              size="medium"
-              color="primary"
-              className={style.printBtnSty}
-            onClick={()=>onPrintClick("date")}
-            >
-              <FormattedMessage {...messages.PrintByDate} />
-            </Button>
-          </Grid>
-          <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
 
