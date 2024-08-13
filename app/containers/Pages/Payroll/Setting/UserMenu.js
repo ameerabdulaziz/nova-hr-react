@@ -238,7 +238,7 @@ async function on_submit() {
                         renderOption={(props, option) => {
                           return (
                           <li {...props} key={option.id}>
-                              {option.id} -&nbsp; {option.name}
+                              {option.name}
                           </li>
                           );
                       }}                  

@@ -82,7 +82,11 @@ function CalculateAttendance(props) {
       );
       setDepartmentList(department);
 
-      const employee = await GeneralListApis(locale).GetEmployeeList();
+      const employee = await GeneralListApis(locale).GetEmployeeList(
+        null,
+        null,
+        company.length>0?company[0].id:null,
+        null);
       setEmployeeList(employee);
 
       if (branchId) {
