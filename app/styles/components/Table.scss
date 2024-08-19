@@ -41,11 +41,15 @@
       }
     }
   }
-  td{
+  
+  td
+  {
+    
+    vertical-align: middle;
+
     &.toggleCell{
       position: relative;
     }
-    vertical-align: middle;
     .coverReadonly{
       width: 100%;
       height: 100%;

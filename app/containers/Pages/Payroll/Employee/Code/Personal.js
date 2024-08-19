@@ -351,7 +351,7 @@ function Personal(props) {
       );
       return;
     }
-    debugger;
+
     var regExp = /[a-zA-Z]/g;
 
     if (identityTypeId?.isCharcter == false && regExp.test(identityNumber)) {
@@ -637,7 +637,7 @@ function Personal(props) {
 
   useEffect(() => {
     async function fetchData() {
-      debugger;
+
       try {
         const [
           employeedata,
@@ -715,7 +715,7 @@ function Personal(props) {
             setWorkEmail(dataApi.workEmail ?? "");
             // setHrBranchList(dataApi.hrBranchList ?? []);
             setIsHR(dataApi.isHr);
-            seteRPCode(dataApi.eRPCode ?? "");
+            seteRPCode(dataApi.erpcode ?? "");
             setmachineCode(dataApi.machineCode ?? "");
             setreportTo(
               dataApi.reportTo
