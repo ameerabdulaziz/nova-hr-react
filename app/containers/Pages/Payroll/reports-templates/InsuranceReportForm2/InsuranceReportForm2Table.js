@@ -80,10 +80,10 @@ function InsuranceReportForm2Table(props) {
                   {toArabicDigits(subscriptionDate.getFullYear())}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
-                  {toArabicDigits(row.insGrossSalary)}
+                  {toArabicDigits(row.mainSalary)}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
-                  {toArabicDigits(row.mainSalaryNew)}
+                  {toArabicDigits(row.insGrossSalary)}
                 </StyledTableCell>
               </TableRow>
             );
