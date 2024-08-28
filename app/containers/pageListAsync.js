@@ -1287,6 +1287,13 @@ export const ElementValList = loadable(
     fallback: <Loading />,
   }
 );
+export const ElementValHistory = loadable(
+  () => import('./Pages/Payroll/Payroll/Transaction/ElementVal/ElementValHistory'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ElementValCreate = loadable(
   () => import('./Pages/Payroll/Payroll/Transaction/ElementVal/ElementValCreate'),
   {

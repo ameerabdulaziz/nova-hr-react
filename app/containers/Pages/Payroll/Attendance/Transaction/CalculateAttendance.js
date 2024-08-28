@@ -25,7 +25,11 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
-import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
+import {
+  formateDate,
+  getAutoCompleteValue,
+  getCheckboxIcon,
+} from "../../helpers";
 import payrollMessages from "../../messages";
 import api from "../api/CalculateAttendanceData";
 import RowDropdown from "../components/CalculateAttendance/RowDropdown";
@@ -85,8 +89,9 @@ function CalculateAttendance(props) {
       const employee = await GeneralListApis(locale).GetEmployeeList(
         null,
         null,
-        company.length>0?company[0].id:null,
-        null);
+        company.length > 0 ? company[0].id : null,
+        null
+      );
       setEmployeeList(employee);
 
       if (branchId) {
@@ -151,14 +156,14 @@ function CalculateAttendance(props) {
     if (formInfo.EmployeeIds && formInfo.EmployeeIds.length > 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: formInfo.EmployeeIds.map((item) => item.name).join(' , '),
+        value: formInfo.EmployeeIds.map((item) => item.name).join(" , "),
       });
     }
 
     if (formInfo.OrganizationIds && formInfo.OrganizationIds.length > 0) {
       highlights.push({
         label: intl.formatMessage(messages.department),
-        value: formInfo.OrganizationIds.map((item) => item.name).join(' , '),
+        value: formInfo.OrganizationIds.map((item) => item.name).join(" , "),
       });
     }
 
@@ -252,10 +257,14 @@ function CalculateAttendance(props) {
 
       const response = await api(locale).CalculateAttendance(body, formData);
       if (response.status == 200) {
-        toast.success(notif.success);
+        debugger;
+        if (response.data.length>0) toast.error(response.data);
+        else {
+          toast.success(notif.success);
 
-        const result = await api(locale).GetList(body, formData);
-        setTableData(result);
+          const result = await api(locale).GetList(body, formData);
+          setTableData(result);
+        }
       }
     } catch (err) {
       //
@@ -596,7 +605,7 @@ function CalculateAttendance(props) {
     {
       name: "timeOut",
       label: intl.formatMessage(messages.signOut),
-     /*  options: {
+      /*  options: {
         customBodyRender: (value) => (
           <pre>
             {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
@@ -974,7 +983,12 @@ function CalculateAttendance(props) {
         </PapperBlock>
       </form>
 
-      <PayrollTable title="" data={tableData} columns={columns} filterHighlights={filterHighlights} />
+      <PayrollTable
+        title=""
+        data={tableData}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoader>
   );
 }

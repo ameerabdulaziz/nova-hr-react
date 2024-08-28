@@ -320,7 +320,7 @@ import {
   JobOfferCreate,
   BranchSalarySetting,
   JobOfferStatus,
-  ElementValList,ElementValCreate,ElementVlaImport,
+  ElementValList,ElementValHistory,ElementValCreate,ElementVlaImport,
   LoanTrxList,LoanTrxCreate,LoanReqList,LoanReqCreate,LoanPostpone,
   Employment,
   JobDataBank,
@@ -1221,6 +1221,7 @@ function Application(props) {
         <Route path='/app/Pages/Payroll/ElementsEdit' component={ElementsCreate} />
 
         <Route path='/app/Pages/Payroll/ElementVal' component={ElementValList} />
+        <Route path='/app/Pages/Payroll/ElementValHistory' component={ElementValHistory} />
         <Route path='/app/Pages/Payroll/ElementValCreate' component={ElementValCreate} />
         <Route path='/app/Pages/Payroll/ElementValEdit' component={ElementValCreate} />
         <Route path='/app/Pages/Payroll/ElementVlaImport' component={ElementVlaImport} />

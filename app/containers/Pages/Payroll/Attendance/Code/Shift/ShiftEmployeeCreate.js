@@ -129,11 +129,10 @@ function ShiftEmployeeCreate(props) {
       id ?? 0,
       employeeId ? employeeId : ""
     );
-
     const enhancedShiftData = {
       ...dataApi,
-      fromDate: dayjs(),
-      toDate: dayjs(),
+      fromDate: id?dayjs(dataApi.fromDate):dayjs(),
+      toDate: id?dayjs(dataApi.toDate):dayjs(),
     };
 
     setdata(enhancedShiftData);
@@ -302,7 +301,7 @@ function ShiftEmployeeCreate(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.fromdate)}
-                  value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
+                  value={data.fromDate}
                   className={classes.field}
                   onChange={(date) => {
                     setdata((prevFilters) => ({
@@ -331,7 +330,7 @@ function ShiftEmployeeCreate(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.todate)}
-                  value={data.toDate ? dayjs(data.toDate) : data.toDate}
+                  value={data.toDate}
                   className={classes.field}
                   onChange={(date) => {
                     setdata((prevFilters) => ({
