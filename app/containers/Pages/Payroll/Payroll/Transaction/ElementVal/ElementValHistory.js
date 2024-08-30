@@ -23,6 +23,10 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
@@ -32,8 +36,7 @@ import ApiData from "../../api/ElementValData";
 import style from "../../../../../../../app/styles/styles.scss";
 import DeleteButton from "../../../Component/DeleteButton";
 import EditButton from "../../../Component/EditButton";
-import NamePopup from "../../../Component/NamePopup";
-import AlertPopup from "../../../Component/AlertPopup";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
 function ElementValHistory(props) {
@@ -54,63 +57,28 @@ function ElementValHistory(props) {
     elementCalcMethodId: "",
     defaultVal: "",
   });
-  const [OpenPopup, setOpenPopup] = useState(false);
+  
   const [PayTemplateList, setPayTemplateList] = useState([]);
   const [PayTemplateId, setPayTemplateId] = useState(0);
   const [BranchList, setBranchList] = useState([]);
   const [BranchId, setBranchId] = useState(0);
-  const { state } = useLocation();
-  const BranchIdState = state?.branchId ?? branchId;
-  const EmployeeIdState = state?.employeeId;
-  const PayTemplateIdState = state?.payTemplateId ?? 1;
-  const ElementIdState = state?.elementId;
   const [EmployeeList, setEmployeeList] = useState([]);
   const [EmployeeId, setEmployeeId] = useState(0);
-  const [fromdate, setFromdate] = useState();
-  const [todate, setTodate] = useState();
+  const [fromdate, setFromdate] = useState(dayjs());
+  const [todate, setTodate] = useState(dayjs());
   const [elementList, setElementList] = useState([]);
   const [elementCalcMethodId, setelementCalcMethodId] = useState(1);
   const [newElemVal, setnewElemVal] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [yearList, setYearList] = useState([]);
-  const [monthList, setMonthList] = useState([]);
-  const [OrignalMonthList, setOrignalMonthList] = useState([]);
+  
 
   async function GetLookup() {
     try {
-      const years = await GeneralListApis(locale).GetYears();
-      setYearList(years);
-      const months = await GeneralListApis(locale).GetMonths();
-      setOrignalMonthList(months);
-
       const BrList = await GeneralListApis(locale).GetBranchList();
       setBranchList(BrList);
 
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(PayList);
-
-      if (BranchIdState) {
-        setBranchId(BranchIdState);
-        getOpenMonth(BranchIdState);
-      }
-      if (EmployeeIdState) {
-        setEmployeeId(EmployeeIdState);
-        changeEmployee(EmployeeIdState);
-      }
-      if (PayTemplateIdState) {
-        setPayTemplateId(PayTemplateIdState);
-        getElementList(PayTemplateIdState);
-      }
-      if (ElementIdState) {
-        getElementData(ElementIdState);
-      }
-      if (BranchIdState)
-        handleSearch(
-          BranchIdState,
-          EmployeeIdState,
-          PayTemplateIdState,
-          ElementIdState
-        );
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -195,51 +163,46 @@ function ElementValHistory(props) {
     }
   }
 
-  const handleSearch = async (brId, empId, payId, eleId) => {
+  const handleSearch = async () => {
     try {
       setIsLoading(true);
-      var result1 = [];
-      if (empId)
-        result1 = await ApiData(locale).GetElementHistory(
-          "",
-          "",
-          brId,
-          empId,
-          payId,
-          eleId
-        );
-      else
-        result1 = await ApiData(locale).GetElementHistory(
-          "",
-          "",
-          BranchId,
-          EmployeeId,
-          PayTemplateId,
-          elementData.id
-        );
+
+      var result1 = await ApiData(locale).GetElementHistory(
+        fromdate,
+        todate,
+        BranchId,
+        EmployeeId,
+        PayTemplateId,
+        elementData.id
+      );
       setdataList(result1 || []);
     } catch (err) {
     } finally {
       setIsLoading(false);
     }
   };
+  async function getEployees(id) {
+    try {
+      if (!id) {
+      
+        setdataList([]);
+        setEmployeeList([]);
+        return;
+      }
+      setIsLoading(true);
+      const EmpList = await GeneralListApis(locale).GetEmployeeList(
+        false,
+        false,
+        id
+      );
+      setEmployeeList(EmpList);
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const columns = [
-    {
-      name: "id",
-      options: {
-        filter: false,
-      },
-    },
-    {
-      name: "employeeId",
-      label: intl.formatMessage(Payrollmessages.employeeId),
-      options: {
-        filter: false,
-        display: false,
-        download: false,
-        print: false,
-      },
-    },
 
     {
       name: "employeeCode",
@@ -254,23 +217,15 @@ function ElementValHistory(props) {
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ""),
       },
     },
-    {
-      name: "transDate",
-      label: intl.formatMessage(Payrollmessages["date"]),
-      options: {
-        filter: true,
-        customBodyRender: (value) =>
-          value ? <pre>{format(new Date(value), "yyyy-MM-dd")}</pre> : "",
-      },
-    },
-    {
+    
+    /* {
       name: "payTemplateName",
       label: intl.formatMessage(messages["payTemplate"]),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ""),
       },
-    },
+    }, */
     {
       name: "elementName",
       label: intl.formatMessage(Payrollmessages["element"]),
@@ -296,7 +251,7 @@ function ElementValHistory(props) {
       },
     },
     {
-      name: "elemVal",
+      name: "elemValCalc",
       label: intl.formatMessage(messages["val"]),
       options: {
         filter: true,
@@ -304,255 +259,40 @@ function ElementValHistory(props) {
       },
     },
     {
-      name: "trxSorce",
-      label: intl.formatMessage(messages["source"]),
+      name: "month",
+      label: intl.formatMessage(Payrollmessages.month),
       options: {
         filter: true,
         customBodyRender: (value) => (value ? <pre>{value}</pre> : ""),
       },
     },
     {
-      name: "notes",
-      label: intl.formatMessage(Payrollmessages["notes"]),
+      name: "year",
+      label: intl.formatMessage(Payrollmessages.year),
       options: {
         filter: true,
-        customBodyRender: (value) =>
-          value ? (
-            <div style={{ maxWidth: "200px", width: "max-content" }}>
-              {value}
-            </div>
-          ) : (
-            ""
-          ),
-      },
-    },
-    {
-      name: "Actions",
-      label: intl.formatMessage(Payrollmessages["Actions"]),
-      options: {
-        filter: false,
-
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div className={style.actionsSty}>
-              <EditButton
-                //param={{ id: tableMeta.rowData[0] }}
-                url={
-                  "/app/Pages/Payroll/ElementValEdit/" +
-                  btoa(tableMeta.rowData[0])
-                }
-              ></EditButton>
-              <DeleteButton
-                clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
-              ></DeleteButton>
-            </div>
-          );
-        },
+        customBodyRender: (value) => (value ? <pre>{value}</pre> : ""),
       },
     },
   ];
 
   const options = {
-    download: false,
-    print: false,
-    viewColumns: false,
-    filter: false,
-    search: false,
+    download: true,
+    print: true,
+    viewColumns: true,
+    filter: true,
+    search: true,
     selection: true,
+    selectableRows: false,
     rowsPerPage: 50,
     rowsPerPageOptions: [10, 50, 100],
     page: 0,
     onSearchClose: () => {
       //some logic
     },
-    customToolbar: () => (
-      <AddButton url={"/app/Pages/Payroll/ElementValCreate"}></AddButton>
-    ),
+    customToolbar: () => <div></div>,
 
-    customToolbarSelect: (selectedRows) => (
-      <div style={{ width: "90%" }}>
-        <Grid container spacing={1} alignItems="flex-start" direction="row">
-          <Grid item md={7} xs={12}>
-            <Box
-              component="fieldset"
-              style={{
-                border: "1px solid #c4c4c4",
-                borderRadius: "10px",
-                padding: "10px",
-                width: "100%",
-              }}
-            >
-              <legend></legend>
-              <Grid
-                container
-                spacing={2}
-                alignItems="flex-start"
-                direction="row"
-              >
-                <Grid item md={5} xs={12}>
-                  <FormControl variant="standard" component="fieldset" required>
-                    <RadioGroup
-                      row
-                      name="elementCalcMethodId"
-                      aria-label="Direction"
-                      value={elementCalcMethodId || null}
-                      onChange={(e) => {
-                        setelementCalcMethodId(e.target.value);
-                      }}
-                    >
-                      <FormControlLabel
-                        value="1"
-                        control={<Radio />}
-                        label={intl.formatMessage(messages.Value)}
-                      />
-                      <FormControlLabel
-                        value="2"
-                        control={<Radio />}
-                        label={intl.formatMessage(messages.Percentage)}
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Grid>
-                <Grid item md={3} xs={12}>
-                  <TextField
-                    id="newElemVal"
-                    name="newElemVal"
-                    value={newElemVal}
-                    label={intl.formatMessage(messages.val)}
-                    className={classes.field}
-                    variant="outlined"
-                    onChange={(e) => {
-                      setnewElemVal(e.target.value);
-                    }}
-                    autoComplete="off"
-                  />
-                </Grid>
-                <Grid item md={2} xs={12}>
-                  <Button
-                    variant="contained"
-                    size="medium"
-                    color="primary"
-                    className="mr-6"
-                    onClick={() => handleUpdate(selectedRows)}
-                  >
-                    <FormattedMessage {...Payrollmessages.apply} />
-                  </Button>
-                </Grid>
-                <Grid item md={2} xs={12}>
-                  <Button
-                    variant="contained"
-                    size="medium"
-                    color="primary"
-                    className="mr-6"
-                    onClick={() => handlePost(selectedRows)}
-                  >
-                    <FormattedMessage {...messages.post} />
-                  </Button>
-                </Grid>
-              </Grid>
-            </Box>
-          </Grid>
-          <Grid item md={5} xs={12}>
-            <Box
-              component="fieldset"
-              style={{
-                border: "1px solid #c4c4c4",
-                borderRadius: "10px",
-                padding: "10px",
-                width: "100%",
-              }}
-            >
-              <legend></legend>
-              <Grid
-                container
-                spacing={2}
-                alignItems="flex-start"
-                direction="row"
-              >
-                <Grid item xs={12} md={4}>
-                  <Autocomplete
-                    id="stYearName"
-                    options={yearList}
-                    isOptionEqualToValue={(option, value) =>
-                      value.id === 0 ||
-                      value.id === "" ||
-                      option.id === value.id
-                    }
-                    getOptionLabel={(option) =>
-                      option.name ? option.name : ""
-                    }
-                    value={
-                      OpenMonth.stYearId
-                        ? yearList.find(
-                            (item) => item.id === OpenMonth.stYearId
-                          )
-                        : null
-                    }
-                    onChange={(event, value) => {
-                      changeYear(value);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="outlined"
-                        {...params}
-                        name="stYearName"
-                        required
-                        label={intl.formatMessage(Payrollmessages.Postyear)}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <Autocomplete
-                    id="stMonthName"
-                    options={monthList}
-                    isOptionEqualToValue={(option, value) =>
-                      value.id === 0 ||
-                      value.id === "" ||
-                      option.id === value.id
-                    }
-                    getOptionLabel={(option) =>
-                      option.name ? option.name : ""
-                    }
-                    value={
-                      OpenMonth.stMonthId
-                        ? monthList.find(
-                            (item) => item.id === OpenMonth.stMonthId
-                          )
-                        : null
-                    }
-                    onChange={(event, value) => {
-                      changeMonth(value);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="outlined"
-                        {...params}
-                        name="stMonthName"
-                        required
-                        label={intl.formatMessage(Payrollmessages.Postmonth)}
-                      />
-                    )}
-                  />
-                </Grid>
-                <Grid item md={1} xs={12}>
-                  <Button
-                    variant="contained"
-                    size="medium"
-                    color="primary"
-                    className="mr-6"
-                    onClick={() => CopytoSpecifiedMonth(selectedRows)}
-                  >
-                    <FormattedMessage {...Payrollmessages.copy} />
-                  </Button>
-                </Grid>
-              </Grid>
-            </Box>
-          </Grid>
-        </Grid>
-      </div>
-    ),
-
+    customToolbarSelect: () => <div></div>,
     textLabels: {
       body: {
         noMatch: isLoading
@@ -565,12 +305,6 @@ function ElementValHistory(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        <NamePopup
-          handleClose={handleCloseNamePopup}
-          open={OpenPopup}
-          Key={"Employee"}
-          branchId={BranchId}
-        />
         <Grid container spacing={2} alignItems="flex-start" direction="row">
           <Grid item container direction="row" xs={12} md={12}>
             <Card className={classes.card}>
@@ -609,7 +343,7 @@ function ElementValHistory(props) {
                         }
                         onChange={(event, value) => {
                           setBranchId(value !== null ? value.id : 0);
-                          getOpenMonth(value !== null ? value.id : 0);
+                          getEployees(value !== null ? value.id : 0)
                         }}
                         renderInput={(params) => (
                           <TextField
@@ -622,15 +356,11 @@ function ElementValHistory(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={3}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={
-                            searchData.FromDate
-                              ? dayjs(searchData.FromDate)
-                              : searchData.FromDate
-                          }
+                          value={fromdate}
                           className={classes.field}
                           onChange={(date) => {
                             handleChange("fromDate", date);
@@ -651,15 +381,11 @@ function ElementValHistory(props) {
                         />
                       </LocalizationProvider>
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={3}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(Payrollmessages.todate)}
-                          value={
-                            searchData.ToDate
-                              ? dayjs(searchData.ToDate)
-                              : searchData.ToDate
-                          }
+                          value={todate}
                           className={classes.field}
                           onChange={(date) => {
                             handleChange("toDate", date);
@@ -960,28 +686,6 @@ function ElementValHistory(props) {
                       label={intl.formatMessage(messages.isNotUpdate)}
                     />
                   </Grid>
-                  <Grid item xs={12} md={2}>
-                    <Button
-                      variant="contained"
-                      size="medium"
-                      color="secondary"
-                      onClick={handleClickOpenNamePopup}
-                      disabled={newValue ? false : true}
-                    >
-                      <FormattedMessage {...Payrollmessages.chooseEmp} />
-                    </Button>
-                  </Grid>
-                  <Grid item xs={12} md={1}>
-                    <Button
-                      variant="contained"
-                      size="medium"
-                      color="secondary"
-                      onClick={handleSave}
-                      disabled={newValue && EmployeeId ? false : true}
-                    >
-                      <FormattedMessage {...Payrollmessages.save} />
-                    </Button>
-                  </Grid>
                 </Grid>
               </Box>
             </Grid>
@@ -994,22 +698,14 @@ function ElementValHistory(props) {
               <MUIDataTable
                 title=""
                 data={dataList}
-                columns={columns}
-                options={options}
+                columns={columns}    
+                options={options}            
               />
               {/* </ThemeProvider> */}
             </div>
           </Grid>
         </Grid>
       </PapperBlock>
-      <AlertPopup
-        handleClose={handleClose}
-        open={openParentPopup}
-        messageData={`${intl.formatMessage(
-          Payrollmessages.deleteMessage
-        )}${deleteItem}`}
-        callFun={deleterow}
-      />
     </PayRollLoader>
   );
 }

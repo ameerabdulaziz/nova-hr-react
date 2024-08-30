@@ -75,12 +75,21 @@ function MissionTrxCreate(props) {
         if(empid)
         {
           let startTime , endTime , total
-
-          if(empid.timeIn && empid.timeOut)
-          {
-            startTime = new Date(empid.timeIn).getTime()
-            endTime = new Date(empid.timeOut).getTime()
-            total = Math.abs( Math.round( ((startTime - endTime) / 1000) / 60 ) )
+          let shiftDate = format(new Date(empid.shiftDate), "yyyy-MM-dd");
+          if (empid.timeIn && empid.timeOut) {
+            startTime = new Date(
+              new Date(empid.timeIn) !== "Invalid Date" &&
+              !isNaN(new Date(empid.timeIn))
+                ? empid.timeIn
+                : shiftDate + " " + empid.timeIn
+            ).getTime();
+            endTime = new Date(
+              new Date(empid.timeOut) !== "Invalid Date" &&
+              !isNaN(new Date(empid.timeOut))
+                ? empid.timeOut
+                : shiftDate + " " + empid.timeOut
+            ).getTime();
+            total = Math.abs(Math.round((startTime - endTime) / 1000 / 60));
           }
 
           setdata((prev) => ({
@@ -88,8 +97,28 @@ function MissionTrxCreate(props) {
             employeeId: empid.id,
             fromDate: empid.shiftDate ?? new Date(),
             toDate: empid.shiftDate ?? new Date(),
-            startTime: empid.timeIn ? format(new Date(empid.timeIn), 'HH:mm') : "",
-            endTime: empid.timeOut ? format(new Date(empid.timeOut), 'HH:mm'): "",
+            startTime: empid.timeIn
+            ? format(
+                new Date(
+                  new Date(empid.timeIn) !== "Invalid Date" &&
+                  !isNaN(new Date(empid.timeIn))
+                    ? empid.timeIn
+                    : shiftDate + " " + empid.timeIn
+                ),
+                "HH:mm"
+              )
+            : "",
+          endTime: empid.timeOut
+            ? format(
+                new Date(
+                  new Date(empid.timeOut) !== "Invalid Date" &&
+                  !isNaN(new Date(empid.timeOut))
+                    ? empid.timeOut
+                    : shiftDate + " " + empid.timeOut
+                ),
+                "HH:mm"
+              )
+            : "",
             minutesCount: empid.timeIn && empid.timeOut ? total : ""
           }));
 
