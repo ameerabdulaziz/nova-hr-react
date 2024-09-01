@@ -334,7 +334,7 @@ const GeneralListApis = (locale) => {
   Apis.GetTrainingCenterList = async () => {
     
     const result = await axiosInstance.get(
-      `HrTrainingCenter/GetListModel/${locale}`
+      `HrTrainingCenter/GetList/${locale}`
     );
 
     return result.data;
