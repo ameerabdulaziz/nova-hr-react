@@ -40,11 +40,8 @@ function CalculateAttendance(props) {
   const { intl } = props;
 
   const { classes } = useStyles();
-
-  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const locale = useSelector((state) => state.language.locale);
   const title = localStorage.getItem("MenuName");
-
   const [employeeList, setEmployeeList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
   const [companyList, setCompanyList] = useState([]);
@@ -64,7 +61,7 @@ function CalculateAttendance(props) {
   });
 
   const [formInfo, setFormInfo] = useState({
-    companyId: branchId,
+    companyId: 0,
     EmployeeIds: [],
     OrganizationIds: [],
     FromDate: null,
@@ -80,9 +77,13 @@ function CalculateAttendance(props) {
     try {
       const company = await GeneralListApis(locale).GetBranchList();
       setCompanyList(company);
-
+      if (company.length > 0)
+        setFormInfo((prev) => ({
+          ...prev,
+          companyId: company[0].id,
+        }));
       const department = await GeneralListApis(locale).GetDepartmentList(
-        branchId
+        company.length > 0 ? company[0].id : 0
       );
       setDepartmentList(department);
 
@@ -93,10 +94,10 @@ function CalculateAttendance(props) {
         null
       );
       setEmployeeList(employee);
-
-      if (branchId) {
+      debugger;
+      if (company.length > 0) {
         const response = await GeneralListApis(locale).getOpenMonth(
-          branchId,
+          company[0].id,
           0
         );
 
@@ -258,7 +259,7 @@ function CalculateAttendance(props) {
       const response = await api(locale).CalculateAttendance(body, formData);
       if (response.status == 200) {
         debugger;
-        if (response.data.length>0) toast.error(response.data);
+        if (response.data.length > 0) toast.error(response.data);
         else {
           toast.success(notif.success);
 
@@ -431,13 +432,13 @@ function CalculateAttendance(props) {
 
   const onCompanyAutoCompleteChange = async (value) => {
     setIsLoading(true);
-
+    debugger;
     setFormInfo((prev) => ({
       ...prev,
       EmployeeIds: [],
       OrganizationIds: [],
     }));
-
+    debugger;
     const companyId = value !== null ? value.id : null;
 
     try {
@@ -452,8 +453,29 @@ function CalculateAttendance(props) {
         companyId,
         null
       );
-
       setEmployeeList(employees);
+      if(companyId)
+      {
+      const response = await GeneralListApis(locale).getOpenMonth(companyId, 0);
+      setOpenMonth(response);
+      setFormInfo((prev) => ({
+        ...prev,
+        FromDate: response.fromDate,
+        ToDate: response.todate,
+      }));
+    }
+    else
+    {
+      setOpenMonth({
+        todate: null,
+        fromDate: null,
+      });
+      setFormInfo((prev) => ({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }));
+    }
     } catch (error) {
       //
     } finally {
