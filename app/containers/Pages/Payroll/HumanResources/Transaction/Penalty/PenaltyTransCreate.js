@@ -31,9 +31,9 @@ import { NavLink } from "react-router-dom";
 import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 import { getDefaultYearAndMonth } from "../../../helpers";
 
 function PenaltyTransCreate(props) {
@@ -79,25 +79,23 @@ function PenaltyTransCreate(props) {
   const history = useHistory();
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
-
-
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      employeeId: id,
-    }));
-  if (name == "superEmployeeId")
-    setdata((prevFilters) => ({
-      ...prevFilters,
-      superEmployeeId: id,
-    }));
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));
+    if (name == "superEmployeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        superEmployeeId: id,
+      }));
   }, []);
 
   const handleChange = (event) => {
@@ -117,7 +115,7 @@ function PenaltyTransCreate(props) {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -125,7 +123,7 @@ function PenaltyTransCreate(props) {
     try {
       setIsLoading(true);
 
-      data.date = dateFormatFun(data.date)
+      data.date = dateFormatFun(data.date);
 
       let response = await ApiData(locale).Save(data);
 
@@ -230,40 +228,34 @@ function PenaltyTransCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-
-                  <Grid item xs={12} md={4}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(messages.date)}
-                          value={data.date ? dayjs(data.date) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              date: date,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+            <Grid item xs={12} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.date)}
+                  value={data.date ? dayjs(data.date) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      date: date,
+                    }));
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
             <Grid item xs={12} md={2}>
               <Autocomplete
@@ -363,45 +355,19 @@ function PenaltyTransCreate(props) {
                 </NavLink>
               )}
             </Grid>
-
             <Grid item xs={12} md={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={12}>
-                      <EmployeeData
-                        handleEmpChange={handleEmpChange} id={data.employeeId}
-                        GetEmployeePenalties={true}
-                      ></EmployeeData>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
+              <EmployeeData
+                handleEmpChange={handleEmpChange}
+                id={data.employeeId}
+                GetEmployeePenalties={true}
+              ></EmployeeData>
             </Grid>
             <Grid item xs={12} md={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={12}>
-                      <EmployeeData
-                        handleEmpChange={handleEmpChange}
-                        isSuper={true}
-                        id={data.superEmployeeId}
-                      ></EmployeeData>
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
+              <EmployeeData
+                handleEmpChange={handleEmpChange}
+                isSuper={true}
+                id={data.superEmployeeId}
+              ></EmployeeData>
             </Grid>
 
             <Grid item xs={12} md={6}>
@@ -441,7 +407,7 @@ function PenaltyTransCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 disabled
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -490,7 +456,7 @@ function PenaltyTransCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 //disabled={data.value ? true : false}
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 
@@ -503,7 +469,7 @@ function PenaltyTransCreate(props) {
                 label={intl.formatMessage(messages.note)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 

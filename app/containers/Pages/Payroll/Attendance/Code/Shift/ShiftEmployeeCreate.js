@@ -38,7 +38,7 @@ function ShiftEmployeeCreate(props) {
   const { classes } = useStyles();
   const companyInfo = useSelector((state) => state.authReducer.companyInfo);
   const user = useSelector((state) => state.authReducer.user);
-
+debugger;
   const [data, setdata] = useState({
     id: 0,
     employeeId: employeeId ? employeeId : "",
@@ -81,7 +81,7 @@ function ShiftEmployeeCreate(props) {
 
     const apiAata = {
       id: data.id,
-      employeeId: data.employeeId,
+      employeeId: employeeId ? employeeId : 0,
       employeeName: data.employeeName,
       shiftId: data.shiftId,
       shiftName: data.shiftName,
@@ -90,13 +90,13 @@ function ShiftEmployeeCreate(props) {
       workHours: data.workHours,
       fromDate: dateFormatFun(data.fromDate),
       toDate: dateFormatFun(data.toDate),
-      vsaturday: data.vsaturday,
-      vsunday: data.vsunday,
-      vmonday: data.vmonday,
-      vtuesday: data.vtuesday,
-      vwednesday: data.vwednesday,
-      vthursday: data.vthursday,
-      vfriday: data.vfriday,
+      vsaturday: data.vsaturday??false,
+      vsunday: data.vsunday??false,
+      vmonday: data.vmonday??false,
+      vtuesday: data.vtuesday??false,
+      vwednesday: data.vwednesday??false,
+      vthursday: data.vthursday??false,
+      vfriday: data.vfriday??false,
     };
 
     try {
@@ -124,7 +124,7 @@ function ShiftEmployeeCreate(props) {
   async function fetchData() {
     const shifts = await GeneralListApis(locale).GetShiftList();
     setShifts(shifts);
-
+debugger;
     const dataApi = await ApiData(locale).Get(
       id ?? 0,
       employeeId ? employeeId : ""

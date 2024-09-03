@@ -177,6 +177,7 @@ function EmployeeAttendance(props) {
 
   async function handleUpdate(selectedRows) {
     try {
+      debugger;
       const params = [];
       for (let i = 0; i < selectedRows.data.length; i++) {
         params.push({

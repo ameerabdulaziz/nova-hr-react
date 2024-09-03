@@ -30,7 +30,7 @@ function NewIdea(props) {
     "questionType":"1",
     "questionTypeName":"Enquiry",
     "questionDetails":"",
-    "directedTo":"",
+    "expDirectedTo":"",
     "directedToName":"",
     "meetingReq":false,
   });
@@ -50,7 +50,7 @@ function NewIdea(props) {
             "questionType":"1",
             "questionTypeName":"Enquiry",
             "questionDetails":"",
-            "directedTo":"",
+            "expDirectedTo":"",
             "directedToName":"",
             "meetingReq":false,
           });
@@ -122,14 +122,14 @@ function NewIdea(props) {
                         <Autocomplete  
                             id="employeeId"                        
                             options={EmployeeList}
-                            value={{id:data.directedTo,name:data.directedToName}}    
+                            value={{id:data.expDirectedTo,name:data.directedToName}}    
                             isOptionEqualToValue={(option, value) =>
                                 value.id === 0 || value.id === "" ||option.id === value.id
                             }                 
                             getOptionLabel={(option) =>
                             option.name ? option.name : ""
                             }
-                            onChange={(event, value) =>{ setdata((prevFilters) => ({...prevFilters,directedTo: value.id,directedToName:value.name})) }}
+                            onChange={(event, value) =>{ setdata((prevFilters) => ({...prevFilters,expDirectedTo: value.id,directedToName:value.name})) }}
                             
                             renderInput={(params) => (
                             <TextField
