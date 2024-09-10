@@ -1271,7 +1271,7 @@
   "boilerplate.containers.Payroll.Attendance.lateTimeMinusEl": "عتصر وقت التأخير",
   "boilerplate.containers.Payroll.Attendance.lateTimeMinusElVal": "قيمة العنصر المقابلة",
   "boilerplate.containers.Payroll.Attendance.calcLateByTime": "احتساب التأخير بالوقت",
-  "boilerplate.containers.Payroll.Attendance.lessAsLate": "المتمم يعاكل مثل التأخير",
+  "boilerplate.containers.Payroll.Attendance.lessAsLate": "المتمم يعامل مثل التأخير",
   "boilerplate.containers.Payroll.Attendance.lateTimeOnMonth": "احتساب التأخير على اجمالى الشهر",
   "boilerplate.containers.Payroll.Attendance.perCompensated": "الاذن يلغى وقت التأخير والانصراف المبكر من كشف الحضور",
 

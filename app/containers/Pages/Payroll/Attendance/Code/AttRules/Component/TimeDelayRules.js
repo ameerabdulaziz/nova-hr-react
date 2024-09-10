@@ -252,7 +252,7 @@ function TimeDelayRules(props) {
                             />
                           }
                           label={intl.formatMessage(
-                            messages.calclateTimeWithCount
+                            messages.lessAsLate
                           )}
                         />
                       </Grid>
