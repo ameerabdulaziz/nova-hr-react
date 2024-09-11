@@ -17,7 +17,7 @@ const applicationTheme = (color, mode, direction) => ({
   },
   typography: {
     useNextVariants: true,
-    fontFamily: ["Cairo, 'sans-serif'"].join(','),
+    fontFamily: ["DINNextLTArabic, 'sans-serif'"].join(','),
     title: {
       fontWeight: 700,
     },

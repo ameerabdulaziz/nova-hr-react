@@ -492,4 +492,65 @@ actualManPower: {
     id: `${scope}.depreciationPeriod`,
     defaultMessage: 'depreciationPeriod',
   },
+  // Employee Investigation
+  serial: {
+    id: `${scope}.serial`,
+    defaultMessage: 'Serial',
+  },
+  incident: {
+    id: `${scope}.incident`,
+    defaultMessage: 'Incident',
+  },
+  incidentDate: {
+    id: `${scope}.incidentDate`,
+    defaultMessage: 'Incident Date',
+  },
+  investigatorName: {
+    id: `${scope}.investigatorName`,
+    defaultMessage: 'Investigator Name',
+  },
+  Questions: {
+    id: `${scope}.Questions`,
+    defaultMessage: 'Questions',
+  },
+  Question: {
+    id: `${scope}.Question`,
+    defaultMessage: 'Question',
+  },
+  Answer: {
+    id: `${scope}.Answer`,
+    defaultMessage: 'Answer',
+  },
+  q: {
+    id: `${scope}.q`,
+    defaultMessage: 'Q',
+  },
+  a: {
+    id: `${scope}.a`,
+    defaultMessage: 'A',
+  },
+  investigationResult: {
+    id: `${scope}.investigationResult`,
+    defaultMessage: 'Investigation Result',
+  },
+  Attachment: {
+    id: `${scope}.Attachment`,
+    defaultMessage: 'Attachment',
+  },
+  employeeInvestigation: {
+    id: `${scope}.employeeInvestigation`,
+    defaultMessage: 'Employee Investigation',
+  },
+  investigatorSignature: {
+    id: `${scope}.investigatorSignature`,
+    defaultMessage: 'Investigator Signature',
+  },
+  EmployeeSignature: {
+    id: `${scope}.EmployeeSignature`,
+    defaultMessage: 'Employee Signature',
+  },
+  EmpInvestigation: {
+    id: `${scope}.EmpInvestigation`,
+    defaultMessage: 'Employee Investigation',
+  },
 });

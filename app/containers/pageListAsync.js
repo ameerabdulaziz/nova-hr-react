@@ -286,6 +286,27 @@ export const UploadEmployeeData = loadable(
   }
 );
 
+export const Guarantor = loadable(
+  () => import('./Pages/Payroll/MainData/Code/Guarantor'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CreatGuarantor = loadable(
+  () => import('./Pages/Payroll/MainData/Code/GuarantorCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EditGuarantor = loadable(
+  () => import('./Pages/Payroll/MainData/Code/GuarantorCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Setting /////////////////////////////////////////////////////////////////////////////////
 export const UserMenu = loadable(
   () => import('./Pages/Payroll/Setting/UserMenu'),
@@ -356,6 +377,13 @@ export const HrPermission = loadable(
 
 export const OpenCloseMonth = loadable(
   () => import('./Pages/Payroll/Setting/OpenCloseMonth'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const LogReport = loadable(
+  () => import('./Pages/Payroll/Setting/LogReport'),
   {
     fallback: <Loading />,
   }
@@ -775,6 +803,28 @@ export const ManPowerReport = loadable(
   }
 );
 
+export const EmpInvestigation = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/EmployeeInvestigation/EmployeeInvestigation'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+export const EmpInvestigationCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/EmployeeInvestigation/EmployeeInvestigationCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmpInvestigationEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/EmployeeInvestigation/EmployeeInvestigationCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Attendance /////////////////////////////////////////////////////////////////////////////////
 
 export const PermissionTrxList = loadable(
@@ -823,6 +873,13 @@ export const CollectedPermission = loadable(
 );
 export const MissionType = loadable(
   () => import('./Pages/Payroll/Attendance/Code/Mission/MissionType'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const MissionTypeCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/Mission/MissionTypeCreate'),
   {
     fallback: <Loading />,
   }
@@ -1261,6 +1318,7 @@ export const ShiftManPowerReport = loadable(
   }
 );
 
+
 // Payroll /////////////////////////////////////////////////////////////////////////////////
 export const LoanSetting = loadable(
   () => import('./Pages/Payroll/Payroll/Code/LoanSetting'),
@@ -1608,6 +1666,13 @@ export const EmployeeSalary = loadable(
 );
 export const EmployeeContract = loadable(
   () => import('./Pages/Payroll/Employee/Code/EmployeeContract'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeContractKSA = loadable(
+  () => import('./Pages/Payroll/Employee/Code/EmployeeContractKSA'),
   {
     fallback: <Loading />,
   }

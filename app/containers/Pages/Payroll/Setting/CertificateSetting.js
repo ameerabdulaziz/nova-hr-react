@@ -166,7 +166,7 @@ function CertificateSetting(props) {
 
       // Employee Name
       // set employee name style
-      ctx.font = `${formInfo.nameFontSize}px Cairo`;
+      ctx.font = `${formInfo.nameFontSize}px DINNextLTArabic`;
       ctx.fillStyle = formInfo.textColor;
 
       // Calculate employee name width if isCenter not provide
@@ -186,7 +186,7 @@ function CertificateSetting(props) {
       // Course Name
       // set course name style
       let courseNameWidth = formInfo.xdirectionCourse;
-      ctx.font = `${formInfo.courseFontSize}px Cairo`;
+      ctx.font = `${formInfo.courseFontSize}px DINNextLTArabic`;
 
       // Calculate course name width if isCenter not provide
       if (formInfo.courseInCenter) {
@@ -203,7 +203,7 @@ function CertificateSetting(props) {
 
       // Course Date
       // set course date style
-      ctx.font = `${formInfo.dateFontSize}px Cairo`;
+      ctx.font = `${formInfo.dateFontSize}px DINNextLTArabic`;
 
       // Calculate course date width if isCenter not provide
       let accomplishDateWidth = formInfo.xdirectionDate;

@@ -324,4 +324,17 @@ export default defineMessages({
     id: `${scope}.passwordNotMatch`,
     defaultMessage: 'passwordNotMatch',
   },
+  // LogReport
+  userId: {
+    id: `${scope}.userId`,
+    defaultMessage: 'User ID',
+  },
+  filterMess: {
+    id: `${scope}.filterMess`,
+    defaultMessage: 'You must to select employee name or user name',
+  },
+  Action: {
+    id: `${scope}.Action`,
+    defaultMessage: 'Action',
+  },
 });

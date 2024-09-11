@@ -292,4 +292,13 @@ OrganizationsList: {
     id: `${scope}.codes.levelNo`,
     defaultMessage: 'Is levelNo',
   },
+  // Guarantor
+  bankAccount: {
+    id: `${scope}.codes.bankAccount`,
+    defaultMessage: 'Bank Account',
+  },
+  iban: {
+    id: `${scope}.codes.iban`,
+    defaultMessage: 'IBAN',
+  },
 });

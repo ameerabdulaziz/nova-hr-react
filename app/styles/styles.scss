@@ -652,3 +652,82 @@
 
 }
 // reaponsive style --end
+
+
+// Employee Investigation
+
+
+.investigationAnswer
+{
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: none;
+}
+
+.addIconSty
+{
+    font-size: 22px !important;
+    cursor: pointer;
+
+    &:hover
+    {
+        font-size: 24px !important;
+    }
+}
+
+
+
+.investigationPrintTitle
+{
+    text-align: center;
+}
+
+.investigationPrintDate
+{
+    text-align: center;
+    font-size: 18px;
+}
+
+.investigationPrintNames
+{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+
+    & > p
+    {
+        span:nth-child(1)
+        {
+            font-size: 17px;
+            font-weight: bolder;
+        }
+    }
+}
+
+.investigationPrintSection
+{
+    font-size: 20px;
+    border-bottom: 1px solid #a9a9a9;
+    padding-bottom: 5px;
+}
+
+.investigationPrintSignaturesSection
+{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-top: 50px;
+    page-break-inside: avoid;
+}
+
+.printContainers
+{
+    page-break-inside: avoid;
+}
+
+
+
+// Employee Investigation - end

@@ -70,7 +70,7 @@ function PreviewCertificatePopup(props) {
       text, fontSize, textColor, y, xDirection, canvasWidth, isCenter
     } = options;
 
-    ctx.font = `${fontSize}px Cairo`;
+    ctx.font = `${fontSize}px DINNextLTArabic`;
     ctx.fillStyle = textColor;
 
     let x = xDirection;
