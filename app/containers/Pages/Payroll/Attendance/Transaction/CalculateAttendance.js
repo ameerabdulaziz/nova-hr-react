@@ -101,12 +101,15 @@ function CalculateAttendance(props) {
           0
         );
 
-        setOpenMonth(response);
+        setOpenMonth({
+          todate: response.todateAtt,
+          fromDate: response.fromDateAtt,
+        });
 
         setFormInfo((prev) => ({
           ...prev,
-          FromDate: response.fromDate,
-          ToDate: response.todate,
+          FromDate: response.fromDateAtt,
+          ToDate: response.todateAtt,
         }));
       }
     } catch (error) {
@@ -129,6 +132,7 @@ function CalculateAttendance(props) {
   };
 
   const getFilterHighlights = () => {
+    debugger;
     const highlights = [];
 
     const company = getAutoCompleteValue(companyList, formInfo.companyId);
@@ -179,7 +183,7 @@ function CalculateAttendance(props) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
-
+    debugger;
     const isValidRange =
       isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate) &&
       isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
@@ -219,6 +223,7 @@ function CalculateAttendance(props) {
   };
 
   const handleCalculate = async () => {
+    debugger;
     try {
       if (Object.values(DateError).includes(true)) {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
@@ -454,28 +459,31 @@ function CalculateAttendance(props) {
         null
       );
       setEmployeeList(employees);
-      if(companyId)
-      {
-      const response = await GeneralListApis(locale).getOpenMonth(companyId, 0);
-      setOpenMonth(response);
-      setFormInfo((prev) => ({
-        ...prev,
-        FromDate: response.fromDate,
-        ToDate: response.todate,
-      }));
-    }
-    else
-    {
-      setOpenMonth({
-        todate: null,
-        fromDate: null,
-      });
-      setFormInfo((prev) => ({
-        ...prev,
-        FromDate: null,
-        ToDate: null,
-      }));
-    }
+      if (companyId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          companyId,
+          0
+        );
+        setOpenMonth({
+          todate:response.todateAtt ,
+          fromDate: response.fromDateAtt,
+        });
+        setFormInfo((prev) => ({
+          ...prev,
+          FromDate: response.fromDateAtt,
+          ToDate: response.todateAtt,
+        }));
+      } else {
+        setOpenMonth({
+          todate: null,
+          fromDate: null,
+        });
+        setFormInfo((prev) => ({
+          ...prev,
+          FromDate: null,
+          ToDate: null,
+        }));
+      }
     } catch (error) {
       //
     } finally {
