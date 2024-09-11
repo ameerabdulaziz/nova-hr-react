@@ -184,9 +184,9 @@ function CalculateAttendance(props) {
       return;
     }
     debugger;
+    let fromdate=new Date(openMonth.fromDate);
     const isValidRange =
-      isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate) &&
-      isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+      isDateInRange(formInfo.FromDate,fromdate.setDate(fromdate.getDate() - 1) , openMonth.todate)
 
     if (!isValidRange) {
       toast.error(
@@ -229,14 +229,13 @@ function CalculateAttendance(props) {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
-
+      let fromdate=new Date(openMonth.fromDate);
       const isValidRange =
         isDateInRange(
           formInfo.FromDate,
-          openMonth.fromDate,
+          fromdate.setDate(fromdate.getDate() - 1),
           openMonth.todate
-        ) &&
-        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+        ) 
 
       if (!isValidRange) {
         toast.error(
@@ -284,14 +283,13 @@ function CalculateAttendance(props) {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
-
+      let fromdate=new Date(openMonth.fromDate)
       const isValidRange =
         isDateInRange(
           formInfo.FromDate,
-          openMonth.fromDate,
+          fromdate.setDate(fromdate.getDate() - 1),
           openMonth.todate
-        ) &&
-        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+        ) 
 
       if (!isValidRange) {
         toast.error(
@@ -334,13 +332,14 @@ function CalculateAttendance(props) {
 
   const handleRollBackAttendance = async () => {
     try {
+      let fromdate=new Date(openMonth.fromDate);
       const isValidRange =
         isDateInRange(
           formInfo.FromDate,
-          openMonth.fromDate,
+          fromdate.setDate(fromdate.getDate() - 1),
           openMonth.todate
-        ) &&
-        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+        ) 
+        
 
       if (!isValidRange) {
         toast.error(
@@ -380,13 +379,14 @@ function CalculateAttendance(props) {
 
   const handleRollBackPost = async () => {
     try {
+      let fromdate=new Date(openMonth.fromDate);
       const isValidRange =
         isDateInRange(
           formInfo.FromDate,
-          openMonth.fromDate,
+          fromdate.setDate(fromdate.getDate() - 1),
           openMonth.todate
-        ) &&
-        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+        ) 
+        
 
       if (!isValidRange) {
         toast.error(
@@ -818,8 +818,8 @@ function CalculateAttendance(props) {
                   label={intl.formatMessage(messages.startDate)}
                   value={formInfo.FromDate ? dayjs(formInfo.FromDate) : null}
                   className={classes.field}
-                  minDate={dayjs(openMonth.fromDate)}
-                  maxDate={dayjs(openMonth.todate)}
+                  minDate={dayjs(openMonth.fromDate).subtract(1, 'day')}
+                  //maxDate={dayjs(openMonth.todate)}
                   onChange={(date) => {
                     onDatePickerChange(date, "FromDate");
                   }}
@@ -844,8 +844,8 @@ function CalculateAttendance(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.endDate)}
-                  minDate={dayjs(openMonth.fromDate)}
-                  maxDate={dayjs(openMonth.todate)}
+                  minDate={dayjs(openMonth.fromDate).subtract(1, 'day')}
+                  //maxDate={dayjs(openMonth.todate)}
                   value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
                   className={classes.field}
                   onChange={(date) => {
