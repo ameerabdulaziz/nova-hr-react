@@ -758,4 +758,8 @@ employeeId: {
     id: `${scope}.rejected`,
     defaultMessage: 'rejected',
   },
+  viewAttachment: {
+    id: `${scope}.viewAttachment`,
+    defaultMessage: 'View Attachment',
+  },
 });

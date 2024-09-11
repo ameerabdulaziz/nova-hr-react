@@ -819,6 +819,7 @@
   "boilerplate.containers.Payroll.pending": "معلق",
   "boilerplate.containers.Payroll.approved": "تمت الموافقة عليه",
   "boilerplate.containers.Payroll.rejected": "مرفوض",
+  "boilerplate.containers.Payroll.viewAttachment": "عرض الملف المرفق",
   "boilerplate.containers.Payroll.filters": "الفلاتر",
   "boilerplate.containers.Payroll.showColumns": "إظهار الأعمدة",
   "boilerplate.containers.Payroll.showHideTableColumns": "إظهار/إخفاء أعمدة الجدول",
@@ -909,6 +910,9 @@
   "boilerplate.containers.Payroll.Setting.newPassword": "كلمة المرور الجديدة",
   "boilerplate.containers.Payroll.Setting.confirmPassword": "تأكيد كلمة المرور",
   "boilerplate.containers.Payroll.Setting.passwordNotMatch": "كلمة المرور غير متطابقة",
+  "boilerplate.containers.Payroll.Setting.userId": "كود المستخدم",
+  "boilerplate.containers.Payroll.Setting.filterMess": "يجب عليك تحديد اسم الموظف أو اسم المستخدم",
+  "boilerplate.containers.Payroll.Setting.Action": "الاجراء",
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
   "boilerplate.containers.Payroll.Setting.uploadCertificate": "تحميل الشهادة",
   "boilerplate.containers.Payroll.Setting.noCertificateFoundPleaseUploadCertificate": "لم يتم العثور على شهادة يرجى تحميل الشهادة",
@@ -1099,6 +1103,22 @@
   "boilerplate.containers.Payroll.HumanResources.calculate": "حساب التسوية",
   "boilerplate.containers.Payroll.HumanResources.otherDeductionValue": "خصومات اخرى",
   "boilerplate.containers.Payroll.HumanResources.actualManPower": "عدد العاملين",
+
+  "boilerplate.containers.Payroll.HumanResources.serial": "مسلسل",
+  "boilerplate.containers.Payroll.HumanResources.incident": "الواقعة",
+  "boilerplate.containers.Payroll.HumanResources.incidentDate": "تاريخ الواقعة",
+  "boilerplate.containers.Payroll.HumanResources.investigatorName": "المحقق",
+  "boilerplate.containers.Payroll.HumanResources.Questions": "الاسئله",
+  "boilerplate.containers.Payroll.HumanResources.Question": "السؤال",
+  "boilerplate.containers.Payroll.HumanResources.Answer": "الإجابة",
+  "boilerplate.containers.Payroll.HumanResources.q": "س",
+  "boilerplate.containers.Payroll.HumanResources.a": "ج",
+  "boilerplate.containers.Payroll.HumanResources.investigationResult": "نتيجة التحقيق",
+  "boilerplate.containers.Payroll.HumanResources.Attachment": "ارفاق ملف",
+  "boilerplate.containers.Payroll.HumanResources.employeeInvestigation": "تحقيق مع موظف",
+  "boilerplate.containers.Payroll.HumanResources.investigatorSignature": "توقيع المحقق",
+  "boilerplate.containers.Payroll.HumanResources.EmployeeSignature": "توقيع الموظف",
+  "boilerplate.containers.Payroll.HumanResources.EmpInvestigation": "التحقيق مع الموظفين",
   
   
   "boilerplate.containers.Payroll.Attendance.idealManPower": "قوة العمالة المخططه",
@@ -2234,6 +2254,12 @@
 
   "boilerplate.containers.Payroll.Employee.empErrMes": "يجب ان تختار اسم الموظف",
 
+  "boilerplate.containers.Payroll.Employee.guarantor": "الكفيل",
+  "boilerplate.containers.Payroll.Employee.AccruedLeaveBalance": "رصيد الاجازات المستحق",
+  "boilerplate.containers.Payroll.Employee.StartDateOfWork": "تاريخ مباشرة العمل",
+  "boilerplate.containers.Payroll.Employee.BorderNumber": "رقم الحدود",
+  "boilerplate.containers.Payroll.Employee.ResidenceNumber": "رقم الاقامة",
+
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
   "boilerplate.containers.Payroll.MainData.codes.hrForm": "نموذج الموارد البشرية",
@@ -2318,6 +2344,9 @@
 
   "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "اخلاء طرف",
   "boilerplate.containers.Payroll.MainData.codes.levelNo": "رقم المستوى",
+
+  "boilerplate.containers.Payroll.MainData.codes.bankAccount": "الحساب البنكي",
+  "boilerplate.containers.Payroll.MainData.codes.iban": "رقم الحساب المصرفى الدولى",
   
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "قائمة الأذونات",

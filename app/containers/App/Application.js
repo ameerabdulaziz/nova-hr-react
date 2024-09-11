@@ -76,6 +76,7 @@ import {
   SMSSetting,
   ChangePassword,
   SettingResetPassword,
+  LogReport,
   SettingMailSmsForm,
   PrintForm,
   SettingMailSmsFormCreate,
@@ -99,6 +100,7 @@ import {
   EmployeeCar,
   EmployeeSalary,
   EmployeeContract,
+  EmployeeContractKSA,
   EmployeeDocuments,
   NewEmployeeReport,
   CreateEmployeeDocuments,
@@ -132,6 +134,9 @@ import {
   NewsEdit,
   UploadFileWithKPI,
   UploadEmployeeData,
+  Guarantor,
+  CreatGuarantor,
+  EditGuarantor,
   Custody,
   CustodyCategory,
   CustodyReceiveList,
@@ -168,6 +173,7 @@ import {
   PermissionTrxImport,
   CollectedPermission,
   MissionType,
+  MissionTypeCreate,
   MissionTrxList,
   MissionTrxCreate,
   MissionTrxReport,
@@ -381,6 +387,9 @@ import {
   EmployeeObjective,
   EmployeeObjectiveCreate,
   ManPowerReport,
+  EmpInvestigation,
+  EmpInvestigationCreate,
+  EmpInvestigationEdit,
   KpiData,
   KPI_LOB_Report,
   KPI_SupervisorReport,
@@ -561,6 +570,21 @@ function Application(props) {
           path='/app/Pages/MainData/UploadEmployeeData'
           component={UploadEmployeeData}
         />
+        
+        <Route
+          path='/app/Pages/MainData/Guarantor'
+          component={Guarantor}
+        />
+
+        <Route
+          path='/app/Pages/MainData/GuarantorCreate'
+          component={CreatGuarantor}
+        />
+
+        <Route
+          path='/app/Pages/MainData/GuarantorEdit'
+          component={EditGuarantor}
+        />
 
         {/* Setting */}
         <Route path='/app/Pages/Setting/ChangePassword' component={ChangePassword} />
@@ -574,10 +598,10 @@ function Application(props) {
         <Route path='/app/Pages/Setting/SettingMailSmsFormCreate' component={SettingMailSmsFormCreate} />
         <Route path='/app/Pages/Setting/SettingMailSmsFormEdit' component={SettingMailSmsFormCreate} />
         <Route path='/app/Pages/Setting/CertificateSetting' component={CertificateSetting} />
-        <Route
-          path='/app/Pages/Setting/ResetPassword'
-          component={SettingResetPassword}
-        />
+        <Route path='/app/Pages/Setting/ResetPassword' component={SettingResetPassword}  />
+        <Route path='/app/Pages/Setting/LogReport' component={LogReport}  />
+
+
         {/* HR */}
         <Route
           path='/app/Pages/HR/ResignReason'
@@ -835,10 +859,10 @@ function Application(props) {
           component={ResignReqTrxList}
         />
 
-        <Route
+        {/* <Route
           path='/app/Pages/HR/HrEmployeeDocumentTrxCreate'
           component={HrEmployeeDocumentTrxCreate}
-        />
+        /> */}
 
         <Route
           path='/app/Pages/HR/HrEmployeeDocumentTrxEdit'
@@ -854,6 +878,22 @@ function Application(props) {
           path='/app/Pages/HR/ManPowerReport'
           component={ManPowerReport}
         />
+
+        <Route
+          path='/app/Pages/HR/EmpInvestigation'
+          component={EmpInvestigation}
+        />
+
+      <Route
+          path='/app/Pages/HR/EmpInvestigationCreate'
+          component={EmpInvestigationCreate}
+        />
+
+        <Route
+          path='/app/Pages/HR/EmpInvestigationEdit'
+          component={EmpInvestigationEdit}
+        />
+
 
         {/* Attendance */}
         <Route
@@ -908,6 +948,8 @@ function Application(props) {
           component={CollectedPermission}
         />
         <Route path='/app/Pages/Att/MissionType' component={MissionType} />
+
+        <Route path='/app/Pages/Att/MissionTypeCreate' component={MissionTypeCreate} />
 
         <Route path='/app/Pages/Att/Shift' component={ShiftList} />
         <Route path='/app/Pages/Att/ShiftManPower' component={ShiftManPower} />
@@ -1323,6 +1365,14 @@ function Application(props) {
           path='/app/Pages/Employee/EmployeeContract'
           component={EmployeeContract}
         />
+
+
+        <Route
+          path='/app/Pages/Employee/EmployeeContractKSA'
+          component={EmployeeContractKSA}
+        />
+
+
 
         <Route
           path='/app/Pages/Employee/NewEmployeeReport'

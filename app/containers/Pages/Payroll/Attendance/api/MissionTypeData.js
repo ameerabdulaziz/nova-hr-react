@@ -6,18 +6,22 @@ const MissionTypeData = () => {
     
     const data = await axiosInstance.get('AttMissionType');
     const result = data.data;
-    const finaldata = result.map((obj) => ({
-      id: obj.id,
-      name: obj.arName,
-      EnName: obj.enName,
-      transportaion: obj.transportaion,
-      reqInSameDay: obj.reqInSameDay ?? false,
-      reqBeforeDays: obj.reqBeforeDays,
-      reqAfterDays: obj.reqAfterDays,
-      edited: false,
-    }));
 
-    return finaldata;
+    return result;
+
+
+    // const finaldata = result.map((obj) => ({
+    //   id: obj.id,
+    //   name: obj.arName,
+    //   EnName: obj.enName,
+    //   transportaion: obj.transportaion,
+    //   reqInSameDay: obj.reqInSameDay ?? false,
+    //   reqBeforeDays: obj.reqBeforeDays,
+    //   reqAfterDays: obj.reqAfterDays,
+    //   edited: false,
+    // }));
+
+    // return finaldata;
   };
 
   MissionTypeApis.Save = async (Item) => {

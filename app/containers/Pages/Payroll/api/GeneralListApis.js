@@ -575,6 +575,17 @@ const GeneralListApis = (locale) => {
     return data.data;
   };
 
+
+  Apis.GetGuarantorList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetGuarantorList/${locale}`
+    );
+
+    return data.data;
+  };
+
+
+
   return Apis;
 };
 

@@ -811,6 +811,7 @@
   "boilerplate.containers.Payroll.pending": "Pending",
   "boilerplate.containers.Payroll.approved": "Approved",
   "boilerplate.containers.Payroll.rejected": "Rejected",
+  "boilerplate.containers.Payroll.viewAttachment": "View Attachment",
   "boilerplate.containers.Payroll.filters": "Filters",
   "boilerplate.containers.Payroll.showColumns": "Show Columns",
   "boilerplate.containers.Payroll.showHideTableColumns": "Show/Hide Table Columns",
@@ -903,6 +904,9 @@
   "boilerplate.containers.Payroll.Setting.newPassword": "New Password",
   "boilerplate.containers.Payroll.Setting.confirmPassword": "Confirm Password",
   "boilerplate.containers.Payroll.Setting.passwordNotMatch": "Password Not Match",
+  "boilerplate.containers.Payroll.Setting.userId": "User ID",
+  "boilerplate.containers.Payroll.Setting.filterMess": "You must to select employee name or user name",
+  "boilerplate.containers.Payroll.Setting.Action": "Action",
   "boilerplate.containers.Payroll.Setting.uploadCertificate": "Upload Certificate",
   "boilerplate.containers.Payroll.Setting.noCertificateFoundPleaseUploadCertificate": "No Certificate Found Please Upload Certificate",
   "boilerplate.containers.Payroll.Setting.loan": "Loan",
@@ -1090,6 +1094,22 @@
   "boilerplate.containers.Payroll.HumanResources.calculate": "Calculate",
   "boilerplate.containers.Payroll.HumanResources.otherDeductionValue": "Other Deduction",
   "boilerplate.containers.Payroll.HumanResources.actualManPower": "Actual ManPower",
+
+  "boilerplate.containers.Payroll.HumanResources.serial": "Serial",
+  "boilerplate.containers.Payroll.HumanResources.incident": "Incident",
+  "boilerplate.containers.Payroll.HumanResources.incidentDate": "Incident Date",
+  "boilerplate.containers.Payroll.HumanResources.investigatorName": "Investigator",
+  "boilerplate.containers.Payroll.HumanResources.Questions": "Questions",
+  "boilerplate.containers.Payroll.HumanResources.Question": "Question",
+  "boilerplate.containers.Payroll.HumanResources.Answer": "Answer",
+  "boilerplate.containers.Payroll.HumanResources.q": "Q",
+  "boilerplate.containers.Payroll.HumanResources.a": "A",
+  "boilerplate.containers.Payroll.HumanResources.investigationResult": "Investigation Result",
+  "boilerplate.containers.Payroll.HumanResources.Attachment": "Attachment",
+  "boilerplate.containers.Payroll.HumanResources.employeeInvestigation": "Employee Investigation",
+  "boilerplate.containers.Payroll.HumanResources.investigatorSignature": "Investigator Signature",
+  "boilerplate.containers.Payroll.HumanResources.EmployeeSignature": "Employee Signature",
+  "boilerplate.containers.Payroll.HumanResources.EmpInvestigation": "Employee Investigation",
 
   
   "boilerplate.containers.Payroll.Attendance.idealManPower": "ideal ManPower",
@@ -2194,6 +2214,12 @@
 
   "boilerplate.containers.Payroll.Employee.empErrMes": "You must to choose employee name",
 
+  "boilerplate.containers.Payroll.Employee.guarantor": "guarantor",
+  "boilerplate.containers.Payroll.Employee.AccruedLeaveBalance": "Accrued Leave Balance",
+  "boilerplate.containers.Payroll.Employee.StartDateOfWork": "Start Date Of Work",
+  "boilerplate.containers.Payroll.Employee.BorderNumber": "Border Number",
+  "boilerplate.containers.Payroll.Employee.ResidenceNumber": "Residence Number",
+
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",
   "boilerplate.containers.Payroll.MainData.codes.monthlySmartObjective": "Monthly Smart Objective",
@@ -2278,6 +2304,10 @@
 
   "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "Is Disclaimer",
   "boilerplate.containers.Payroll.MainData.codes.levelNo": "Level No",
+
+
+  "boilerplate.containers.Payroll.MainData.codes.bankAccount": "Bank Account",
+  "boilerplate.containers.Payroll.MainData.codes.iban": "IBAN",
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "Permissions List",
   "boilerplate.containers.Payroll.Request.Transaction.employeeId": "Employee Id",

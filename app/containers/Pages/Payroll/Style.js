@@ -314,6 +314,23 @@ containerSty:{
   borderColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light
 },
 
+textareaSty:{
+  color:theme.palette.mode === 'dark' ? "#ffffff": "#000000",
+
+  '&:hover': {
+      border: "1px solid",
+      borderColor: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
+    },
+    '&:focus': {
+      border: "1px solid",
+      borderColor: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
+    },
+},
+
+colorSty:{
+      color: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
+},
+
   surveyMainSty:{
     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light,
   },
