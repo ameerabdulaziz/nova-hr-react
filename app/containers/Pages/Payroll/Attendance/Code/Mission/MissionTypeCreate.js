@@ -253,7 +253,7 @@ function MissionTypeCreate(props) {
                         renderInput={(params) => (
                           <TextField
                             {...params}
-                            label="notificationUsers"  
+                            label={intl.formatMessage(messages.notificationUsers)}
                             name="notificationUsers"
                           />
                         )}
@@ -281,7 +281,7 @@ function MissionTypeCreate(props) {
                       variant="outlined"
                       {...params}
                       name="transportationType"
-                      label="Transportation Type"                
+                      label={intl.formatMessage(messages.transportationType)}            
                       required               
                     />
                   )}

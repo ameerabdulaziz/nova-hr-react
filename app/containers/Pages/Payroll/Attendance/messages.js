@@ -2101,6 +2101,14 @@ devicePass: {
     id: `${scope}.calcAsrepVac`,
     defaultMessage: 'calcAsrepVac',
   },
-  
+  // missionType
+  notificationUsers: {
+    id: `${scope}.notificationUsers`,
+    defaultMessage: 'Notification Users',
+  },
+  transportationType: {
+    id: `${scope}.transportationType`,
+    defaultMessage: 'Transportation Type',
+  },
 });
 

@@ -1685,6 +1685,9 @@
   "boilerplate.containers.Payroll.Attendance.attend": "Attend (T/F)",
   "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "You must to choose Date ",
   "boilerplate.containers.Payroll.Attendance.calcAsrepVac": "Is RepVacation",
+
+  "boilerplate.containers.Payroll.Attendance.notificationUsers": "Notification Users",
+  "boilerplate.containers.Payroll.Attendance.transportationType": "Transportation Type",
  
   
   "boilerplate.containers.Payroll.Payroll.monthName": "Month",

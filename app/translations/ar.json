@@ -1716,6 +1716,9 @@
     "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "يجب ان تختار التاريخ",
     "boilerplate.containers.Payroll.Attendance.calcAsrepVac": "احتساب بدل راحة",
 
+    "boilerplate.containers.Payroll.Attendance.notificationUsers": "إشعار المستخدمين",
+    "boilerplate.containers.Payroll.Attendance.transportationType": "نوع النقل",
+
     
   "boilerplate.containers.Payroll.Payroll.monthName": "الشهر",
   "boilerplate.containers.Payroll.Payroll.yearName": "السنة",
