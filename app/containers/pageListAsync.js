@@ -885,6 +885,13 @@ export const MissionTypeCreate = loadable(
   }
 );
 
+export const MissionTypeEdit = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/Mission/MissionTypeCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const ShiftList = loadable(
   () => import('./Pages/Payroll/Attendance/Code/Shift/ShiftList'),
   {

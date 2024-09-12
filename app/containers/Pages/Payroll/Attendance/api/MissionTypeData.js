@@ -24,29 +24,37 @@ const MissionTypeData = () => {
     // return finaldata;
   };
 
-  MissionTypeApis.Save = async (Item) => {
+  MissionTypeApis.GetDataById = async (id) => {
     
-    const data = {
-      id: Item.id,
-      arName: Item.name,
-      enName: Item.EnName,
-      transportaion: Item.transportaion,
-      reqInSameDay: Item.reqInSameDay,
-      reqBeforeDays: Item.reqBeforeDays,
-      reqAfterDays: Item.reqAfterDays,
-    };
+    const data = await axiosInstance.get(`AttMissionType/${id}`);
+    const result = data.data;
 
-    const result =
-      Item.id === 0
-        ? await axiosInstance.post('AttMissionType', data)
-        : await axiosInstance.put(`AttMissionType/${Item.id}`, data);
     return result;
   };
 
-  MissionTypeApis.Delete = async (Item) => {
+  MissionTypeApis.Save = async (data) => {
+    
+    // const data = {
+    //   id: Item.id,
+    //   arName: Item.name,
+    //   enName: Item.EnName,
+    //   transportaion: Item.transportaion,
+    //   reqInSameDay: Item.reqInSameDay,
+    //   reqBeforeDays: Item.reqBeforeDays,
+    //   reqAfterDays: Item.reqAfterDays,
+    // };
+
+    const result =
+    data.id === 0
+        ? await axiosInstance.post('AttMissionType', data)
+        : await axiosInstance.put(`AttMissionType/${data.id}`, data);
+    return result;
+  };
+
+  MissionTypeApis.Delete = async (id) => {
     
 
-    const data = await axiosInstance.delete(`AttMissionType/${Item.id}`);
+    const data = await axiosInstance.delete(`AttMissionType/${id}`);
     return data;
   };
 

@@ -174,6 +174,7 @@ import {
   CollectedPermission,
   MissionType,
   MissionTypeCreate,
+  MissionTypeEdit,
   MissionTrxList,
   MissionTrxCreate,
   MissionTrxReport,
@@ -950,6 +951,8 @@ function Application(props) {
         <Route path='/app/Pages/Att/MissionType' component={MissionType} />
 
         <Route path='/app/Pages/Att/MissionTypeCreate' component={MissionTypeCreate} />
+
+        <Route path='/app/Pages/Att/MissionTypeEdit' component={MissionTypeEdit} />
 
         <Route path='/app/Pages/Att/Shift' component={ShiftList} />
         <Route path='/app/Pages/Att/ShiftManPower' component={ShiftManPower} />
