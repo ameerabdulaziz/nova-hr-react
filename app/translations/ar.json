@@ -1177,6 +1177,7 @@
   "boilerplate.containers.Payroll.Attendance.MissioTrxUpdateTitle": "تعديل مأموريات",
   "boilerplate.containers.Payroll.Attendance.missionDestination": "جهة المأمورية",
   "boilerplate.containers.Payroll.Attendance.transportationExpenses": "الانتقالات",
+  "boilerplate.containers.Payroll.Attendance.currency": "العملة",
   "boilerplate.containers.Payroll.Attendance.isNotUpdateMission": "فى حالة وجود مأمورية للموظف لا تقم بالتعديل",
   "boilerplate.containers.Payroll.Attendance.hours": "عدد الساعات",
   "boilerplate.containers.Payroll.Attendance.shft2d": "وردية ليل",

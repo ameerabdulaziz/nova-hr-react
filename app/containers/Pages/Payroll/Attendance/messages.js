@@ -180,6 +180,10 @@ transportationExpenses: {
   id: `${scope}.transportationExpenses`,
   defaultMessage: 'transportationExpenses',
 },
+currency: {
+  id: `${scope}.currency`,
+  defaultMessage: 'currency',
+},
 isNotUpdateMission: {
   id: `${scope}.isNotUpdateMission`,
   defaultMessage: 'isNotUpdateMission',

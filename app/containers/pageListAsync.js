@@ -846,6 +846,13 @@ export const PermissionTrxReport = loadable(
   }
 );
 
+export const MissionTransportaion = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/Mission/MissionTransportaion'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const PermissionList = loadable(
   () => import('./Pages/Payroll/Attendance/Code/Permission/PermissionList'),
   {

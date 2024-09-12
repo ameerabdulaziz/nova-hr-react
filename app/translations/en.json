@@ -1169,6 +1169,7 @@
   "boilerplate.containers.Payroll.Attendance.MissioTrxUpdateTitle": "Update Mission",
   "boilerplate.containers.Payroll.Attendance.missionDestination": "Mission Destination",
   "boilerplate.containers.Payroll.Attendance.transportationExpenses": "Transportation",
+  "boilerplate.containers.Payroll.Attendance.currency": "Currency",
   "boilerplate.containers.Payroll.Attendance.isNotUpdateMission": "Not Update Existing Mission",
 
   "boilerplate.containers.Payroll.Attendance.hours": "Hours No",
