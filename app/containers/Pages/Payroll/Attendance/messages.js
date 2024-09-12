@@ -2114,5 +2114,17 @@ devicePass: {
     id: `${scope}.transportationType`,
     defaultMessage: 'Transportation Type',
   },
+  AllDays: {
+    id: `${scope}.AllDays`,
+    defaultMessage: 'All Days',
+  },
+  OneDay: {
+    id: `${scope}.OneDay`,
+    defaultMessage: 'One Day',
+  },
+  transportaion: {
+    id: `${scope}.transportaion`,
+    defaultMessage: 'Transportaion',
+  },
 });
 

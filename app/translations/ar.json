@@ -1719,6 +1719,9 @@
 
     "boilerplate.containers.Payroll.Attendance.notificationUsers": "إشعار المستخدمين",
     "boilerplate.containers.Payroll.Attendance.transportationType": "نوع النقل",
+    "boilerplate.containers.Payroll.Attendance.AllDays": "كل الايام",
+    "boilerplate.containers.Payroll.Attendance.OneDay": "يوم واحد",
+    "boilerplate.containers.Payroll.Attendance.transportaion": "مواصلات",
 
     
   "boilerplate.containers.Payroll.Payroll.monthName": "الشهر",

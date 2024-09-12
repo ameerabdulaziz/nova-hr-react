@@ -1689,6 +1689,9 @@
 
   "boilerplate.containers.Payroll.Attendance.notificationUsers": "Notification Users",
   "boilerplate.containers.Payroll.Attendance.transportationType": "Transportation Type",
+  "boilerplate.containers.Payroll.Attendance.AllDays": "All Days",
+  "boilerplate.containers.Payroll.Attendance.OneDay": "One Day",
+  "boilerplate.containers.Payroll.Attendance.transportaion": "Transportaion",
  
   
   "boilerplate.containers.Payroll.Payroll.monthName": "Month",

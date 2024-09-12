@@ -31,12 +31,12 @@ function MissionTypeCreate(props) {
     enName: "",
     transportaion: "",
     notificationUsers: [],
-    transportationType: {id: 1 , name: "All Days"}
+    transportationType: {id: 1 , name: intl.formatMessage(messages.AllDays)}
   });
   const [EmployeeList, setEmployeeList] = useState([]);
   const [transportationTypeList, setTransportationTypeList] = useState([
-    {id: 1 , name: "All Days"},
-    {id: 2 , name: "One Day"},
+    {id: 1 , name: intl.formatMessage(messages.AllDays)},
+    {id: 2 , name: intl.formatMessage(messages.OneDay)},
   ]);
 
   const history = useHistory();
