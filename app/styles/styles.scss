@@ -555,6 +555,16 @@
 // personal page -- end
 
 
+// MissionTransportaion 
+
+    .tableContainer
+    {
+        overflow: auto;
+    }
+
+// MissionTransportaion -- end
+
+
 
 
 // reaponsive style
@@ -602,6 +612,22 @@
     // UploadFileWithKPI page -- end
 }
 
+
+@media only screen and (max-width: 1066px) 
+{
+    // MissionTransportaion 
+
+        .tableContainer
+        {
+            .tableSty
+            {
+                width: max-content;;
+            }
+        }
+        
+    // MissionTransportaion -- end
+}
+
 @media only screen and (max-width: 899px) 
 {
     .actionsSty
@@ -626,6 +652,7 @@
         left: 57% !important;
     }
 // RegisterLocation -- end
+
 }
 
 @media only screen and (max-width: 480px) 

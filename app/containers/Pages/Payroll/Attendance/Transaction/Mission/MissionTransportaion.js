@@ -26,6 +26,7 @@ import { format } from "date-fns";
 import useStyles from "../../../Style";
 import css from "enl-styles/Table.scss";
 import notif from "enl-api/ui/notifMessage";
+import style from '../../../../../../styles/styles.scss';
 
 function MissionTransportaion(props) {
   const { intl } = props;
@@ -155,36 +156,36 @@ function MissionTransportaion(props) {
       </PapperBlock>
 
       <Grid item xs={12} md={12}>
-        <div className={classes.rootTable}>
-          <Table className={cx(css.tableCrud, classes.table, classes.stripped)}>
+        <div className={`${classes.rootTable} ${style.tableContainer}`}>
+          <Table  className={style.tableSty}>
             <TableHead>
               <TableRow>
-                <TableCell style={{ width: "5px", padding: "5px" }}>
+                <TableCell >
                   <FormattedMessage {...messages.id} />
                 </TableCell>
-                <TableCell style={{ width: "7px", padding: "0px" }}>
+                <TableCell >
                   <FormattedMessage {...messages.EmpCode} />
                 </TableCell>
-                <TableCell style={{ width: "18px", padding: "0px" }}>
+                <TableCell >
                   <FormattedMessage {...messages.employeeName} />
                 </TableCell>
 
-                <TableCell style={{ width: "10px", padding: "0px" }}>
+                <TableCell >
                   <FormattedMessage {...messages.fromDate} />
                 </TableCell>
-                <TableCell style={{ width: "10px", padding: "0px" }}>
+                <TableCell >
                   <FormattedMessage {...messages.toDate} />
                 </TableCell>
-                <TableCell style={{ width: "10px", padding: "0px" }}>
+                <TableCell >
                   <FormattedMessage {...messages.missionName} />
                 </TableCell>
-                <TableCell style={{ width: "10px", padding: "0px" }}>
+                <TableCell >
                   <FormattedMessage {...messages.transportationExpenses} />
                 </TableCell>
-                <TableCell style={{ width: "20px", padding: "0px" }}>
+                <TableCell >
                   <FormattedMessage {...messages.currency} />
                 </TableCell>
-                <TableCell style={{ width: "10px", padding: "0px" }}></TableCell>
+                <TableCell ></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -197,26 +198,26 @@ function MissionTransportaion(props) {
                       sx={{ height: 1 }}
                       style={{ padding: "0px" }}
                     >
-                      <TableCell style={{ width: "5px", padding: "5px" }}>
+                      <TableCell >
                         {row.id}
                       </TableCell>
-                      <TableCell style={{ width: "7px", padding: "0px" }}>
+                      <TableCell >
                         {row.employeeCode}
                       </TableCell>
-                      <TableCell style={{ width: "18px", padding: "0px" }}>
+                      <TableCell >
                         {row.employeeName}
                       </TableCell>
 
-                      <TableCell style={{ width: "10px", padding: "0px" }}>
+                      <TableCell >
                         {format(new Date(row.fromDate), "yyyy-MM-dd")}
                       </TableCell>
-                      <TableCell style={{ width: "10px", padding: "0px" }}>
+                      <TableCell >
                         {format(new Date(row.toDate), "yyyy-MM-dd")}
                       </TableCell>
-                      <TableCell style={{ width: "10px", padding: "0px" }}>
+                      <TableCell >
                         {row.missionName}
                       </TableCell>
-                      <TableCell style={{ width: "10px", padding: "0px" }}>
+                      <TableCell >
                         <input
                           name="transportationExpenses"
                           type="text"
@@ -225,9 +226,9 @@ function MissionTransportaion(props) {
                           style={{ width: "100px", textAlign: "center" }}
                         ></input>
                       </TableCell>
-                      <TableCell style={{ width: "20px", padding: "0px" }}>
+                      <TableCell >
                         <Select
-                          style={{ width: "200px" }}
+                          style={{width:"100%"}}
                           id="currency"
                           name="currency"
                           variant="outlined"
@@ -244,7 +245,7 @@ function MissionTransportaion(props) {
                             })}
                         </Select>
                       </TableCell>
-                      <TableCell style={{ width: "10px", padding: "0px" }}>
+                      <TableCell >
                         <Button
                           variant="contained"
                           size="medium"
