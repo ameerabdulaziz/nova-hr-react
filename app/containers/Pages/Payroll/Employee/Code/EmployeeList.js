@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
@@ -57,6 +57,19 @@ function EmployeeList(props) {
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
+      options: {
+        customBodyRender: (value, tableMeta) => {
+          return <EmployeeNavigation
+                    employeeId={tableMeta?.rowData[1]}
+                    employeeName={locale === "en" ? tableMeta?.rowData[2] : tableMeta?.rowData[3]}
+                    openInNewTap
+                    // used to pass custom button to open menu
+                    anchor={
+                      <Button>{value}</Button>
+                    }
+                  />
+        }
+      }
     },
     // used to appear en employee name then ar employee name in en version , in ar version appear ar employee name then en employee name
     ...(locale === "en" ? [
