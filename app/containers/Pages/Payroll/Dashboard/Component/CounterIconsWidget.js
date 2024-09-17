@@ -20,11 +20,11 @@ function CounterIconWidget(props) {
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(false);
   const [mainBarData, setMainBarData] = useState({
-    employees: 0,
-    newHired: 0,
-    inPorpatiom: 0,
-    resignation: 0,
-    terminated: 0,
+    employees: 300,
+    newHired: 10,
+    inPorpatiom: 3,
+    resignation: 11,
+    terminated: 5,
   });
 
   const IsStaticDashboard = localStorage.getItem("IsStaticDashboard");

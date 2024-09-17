@@ -66,12 +66,12 @@ function PerformanceChartWidget(props) {
     },
   ]);
   const [barData, setBarData] = useState({
-    vacation: 0,
-    overTime: 0,
-    permissions: 0,
-    missions: 0,
-    penalty: 0,
-    rewards: 0,
+    vacation: 10,
+    overTime: 50,
+    permissions: 6,
+    missions: 15,
+    penalty: 3,
+    rewards: 8,
   });
   const [dataPerformance, setDataPerformance] = useState([
     {
