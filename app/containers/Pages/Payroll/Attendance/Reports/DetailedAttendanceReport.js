@@ -308,14 +308,14 @@ function DetailedAttendanceReport(props) {
         name: "timeIn", 
         label: intl.formatMessage(messages.signIn),
         options: {
-          customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
+          customBodyRender: (value) => (<pre>{value?format(new Date(value), "yyyy-MM-dd hh:mm aa"):""}</pre>),
         },
       },
       {
         name: "timeOut",
         label: intl.formatMessage(messages.signOut),
         options: {
-          customBodyRender: (value) => (<pre>{format(new Date(value), "yyyy-MM-dd hh:mm aa")}</pre>),
+          customBodyRender: (value) => (<pre>{value?format(new Date(value), "yyyy-MM-dd hh:mm aa"):""}</pre>),
         },
       },
       {

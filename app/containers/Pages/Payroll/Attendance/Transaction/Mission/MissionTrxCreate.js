@@ -28,9 +28,9 @@ import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 import DecryptUrl from "../../../Component/DecryptUrl";
 
 function MissionTrxCreate(props) {
@@ -55,6 +55,8 @@ function MissionTrxCreate(props) {
     isOverTime: false,
     isMustAttend: false,
     transportationExpenses: "",
+    currencyId: "",
+    currencyName: "",
     notes: "",
   });
   const [MissionsList, setMissionsList] = useState([]);
@@ -65,73 +67,70 @@ function MissionTrxCreate(props) {
 
   // used to reformat date before send it to api
   const dateFormatFun = (date) => {
-      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-   }
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
-  const empid  = DecryptUrl()
+  const empid = DecryptUrl();
 
-   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
-      useEffect(()=>{
-        if(empid)
-        {
-          let startTime , endTime , total
-          let shiftDate = format(new Date(empid.shiftDate), "yyyy-MM-dd");
-          if (empid.timeIn && empid.timeOut) {
-            startTime = new Date(
-              new Date(empid.timeIn) !== "Invalid Date" &&
-              !isNaN(new Date(empid.timeIn))
-                ? empid.timeIn
-                : shiftDate + " " + empid.timeIn
-            ).getTime();
-            endTime = new Date(
-              new Date(empid.timeOut) !== "Invalid Date" &&
-              !isNaN(new Date(empid.timeOut))
-                ? empid.timeOut
-                : shiftDate + " " + empid.timeOut
-            ).getTime();
-            total = Math.abs(Math.round((startTime - endTime) / 1000 / 60));
-          }
+  // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
+  useEffect(() => {
+    if (empid) {
+      let startTime, endTime, total;
+      let shiftDate = format(new Date(empid.shiftDate), "yyyy-MM-dd");
+      if (empid.timeIn && empid.timeOut) {
+        startTime = new Date(
+          new Date(empid.timeIn) !== "Invalid Date" &&
+          !isNaN(new Date(empid.timeIn))
+            ? empid.timeIn
+            : shiftDate + " " + empid.timeIn
+        ).getTime();
+        endTime = new Date(
+          new Date(empid.timeOut) !== "Invalid Date" &&
+          !isNaN(new Date(empid.timeOut))
+            ? empid.timeOut
+            : shiftDate + " " + empid.timeOut
+        ).getTime();
+        total = Math.abs(Math.round((startTime - endTime) / 1000 / 60));
+      }
 
-          setdata((prev) => ({
-            ...prev,
-            employeeId: empid.id,
-            fromDate: empid.shiftDate ?? new Date(),
-            toDate: empid.shiftDate ?? new Date(),
-            startTime: empid.timeIn
-            ? format(
-                new Date(
-                  new Date(empid.timeIn) !== "Invalid Date" &&
-                  !isNaN(new Date(empid.timeIn))
-                    ? empid.timeIn
-                    : shiftDate + " " + empid.timeIn
-                ),
-                "HH:mm"
-              )
-            : "",
-          endTime: empid.timeOut
-            ? format(
-                new Date(
-                  new Date(empid.timeOut) !== "Invalid Date" &&
-                  !isNaN(new Date(empid.timeOut))
-                    ? empid.timeOut
-                    : shiftDate + " " + empid.timeOut
-                ),
-                "HH:mm"
-              )
-            : "",
-            minutesCount: empid.timeIn && empid.timeOut ? total : ""
-          }));
-
-        }
-      },[])
-
+      setdata((prev) => ({
+        ...prev,
+        employeeId: empid.id,
+        fromDate: empid.shiftDate ?? new Date(),
+        toDate: empid.shiftDate ?? new Date(),
+        startTime: empid.timeIn
+          ? format(
+              new Date(
+                new Date(empid.timeIn) !== "Invalid Date" &&
+                !isNaN(new Date(empid.timeIn))
+                  ? empid.timeIn
+                  : shiftDate + " " + empid.timeIn
+              ),
+              "HH:mm"
+            )
+          : "",
+        endTime: empid.timeOut
+          ? format(
+              new Date(
+                new Date(empid.timeOut) !== "Invalid Date" &&
+                !isNaN(new Date(empid.timeOut))
+                  ? empid.timeOut
+                  : shiftDate + " " + empid.timeOut
+              ),
+              "HH:mm"
+            )
+          : "",
+        minutesCount: empid.timeIn && empid.timeOut ? total : "",
+      }));
+    }
+  }, []);
 
   const handleEmpChange = useCallback((id, name) => {
     if (name == "employeeId")
       setdata((prevFilters) => ({
         ...prevFilters,
         employeeId: id,
-      }));    
+      }));
   }, []);
 
   const handleChange = (event) => {
@@ -222,13 +221,12 @@ function MissionTrxCreate(props) {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
-    
-    try {
 
+    try {
       setIsLoading(true);
 
       const apiData = {
@@ -245,11 +243,11 @@ function MissionTrxCreate(props) {
         exemptLeaveRec: data.exemptLeaveRec,
         missionDestination: data.missionDestination,
         isOverTime: data.isOverTime,
+        currencyId: data.currencyId,
         isMustAttend: data.isMustAttend,
         transportationExpenses: data.transportationExpenses,
         notes: data.notes,
-      }
-
+      };
 
       let response = await ApiData(locale).Save(apiData);
       // let response = await ApiData(locale).Save(data);
@@ -275,10 +273,8 @@ function MissionTrxCreate(props) {
       const Missions = await GeneralListApis(locale).GetMissionList(locale);
       setMissionsList(Missions);
 
-      if (id) {
-        const dataApi = await ApiData(locale).Get(id);
-        setdata(dataApi);
-      }
+      const dataApi = await ApiData(locale).Get(id??0);
+      setdata(dataApi);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -288,8 +284,6 @@ function MissionTrxCreate(props) {
   useEffect(() => {
     fetchData();
   }, []);
-
-
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -305,77 +299,63 @@ function MissionTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-       
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.fromdate)}
+                  value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      fromDate: date,
+                    }));
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`fromDate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`fromDate`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
-                  <Grid item xs={12} md={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              fromDate: date,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`fromDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`fromDate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
-
-
-
-                <Grid item xs={12} md={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.todate)}
-                          value={data.toDate ? dayjs(data.toDate) : data.toDate}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              toDate: date ,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`toDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`toDate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+            <Grid item xs={12} md={2}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.todate)}
+                  value={data.toDate ? dayjs(data.toDate) : data.toDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      toDate: date,
+                    }));
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`toDate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`toDate`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
             <Grid item xs={12} md={2}>
               <TextField
@@ -416,12 +396,15 @@ function MissionTrxCreate(props) {
                 className={classes.field}
                 variant="outlined"
                 disabled
-                autoComplete='off'
+                autoComplete="off"
               />
             </Grid>
 
             <Grid item xs={12} md={12}>
-              <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
+              <EmployeeData
+                handleEmpChange={handleEmpChange}
+                id={data.employeeId}
+              ></EmployeeData>
             </Grid>
 
             <Grid item xs={12} md={4}>
@@ -559,7 +542,19 @@ function MissionTrxCreate(props) {
                     label={intl.formatMessage(messages.transportationExpenses)}
                     className={classes.field}
                     variant="outlined"
-                    autoComplete='off'
+                    autoComplete="off"
+                  />
+                </Grid>
+                <Grid item xs={12} md={3}>
+                  <TextField
+                    id="currencyName"
+                    name="currencyName"
+                    value={data.currencyName}
+                    label={intl.formatMessage(messages.currency)}
+                    className={classes.field}
+                    variant="outlined"
+                    autoComplete="off"
+                    disabled={true}
                   />
                 </Grid>
                 <Grid item xs={12} md={12}>
@@ -573,7 +568,7 @@ function MissionTrxCreate(props) {
                     variant="outlined"
                     multiline
                     rows={2}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
                 <Grid item xs={12} md={12}>
@@ -587,7 +582,7 @@ function MissionTrxCreate(props) {
                     variant="outlined"
                     multiline
                     rows={2}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
               </Grid>

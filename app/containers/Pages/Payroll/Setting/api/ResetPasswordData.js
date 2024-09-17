@@ -15,6 +15,12 @@ const ResetPasswordData = () => {
     return result;
   };
 
+  Apis.Logout = async (password,isSendEmail) => {
+    debugger;
+    const result = await axiosInstance.post(`UserManagement/Logout`);
+    return result;
+  };
+
   Apis.getEmployeeUsername = async (employeeId) => {
     const result = await axiosInstance.get(`UserManagement/GetUserName/${employeeId}`);
 
