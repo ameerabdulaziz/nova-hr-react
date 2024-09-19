@@ -954,6 +954,7 @@
   "boilerplate.containers.Payroll.Setting.portallink": "Port Link",
   "boilerplate.containers.Payroll.Setting.portno": "Port No",
   "boilerplate.containers.Payroll.Setting.resetallpassword": "Reset All",
+  "boilerplate.containers.Payroll.Setting.resetDeviceKey": "Reset DeviceKey",
   "boilerplate.containers.Payroll.Setting.resetpassword": "Reset Password",
   "boilerplate.containers.Payroll.Setting.department": "Department",
   "boilerplate.containers.Payroll.Setting.employee": "Employee",

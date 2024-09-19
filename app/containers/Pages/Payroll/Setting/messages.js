@@ -93,6 +93,10 @@ export default defineMessages({
     id: `${scope}.resetallpassword`,
     defaultMessage: 'Reset All',
   },
+  resetDeviceKey:{
+    id: `${scope}.resetDeviceKey`,
+    defaultMessage: 'resetDeviceKey',
+  },
   resetpassword:{
     id: `${scope}.resetpassword`,
     defaultMessage: 'Reset Password',

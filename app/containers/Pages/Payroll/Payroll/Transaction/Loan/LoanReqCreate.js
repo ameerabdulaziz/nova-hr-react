@@ -30,6 +30,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
+
 function LoanReqCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -405,7 +406,7 @@ function LoanReqCreate(props) {
                         />
                       </Grid>
 
-                      <Grid item xs={12} md={2}>
+                      <Grid item xs={12} md={2} style={{display: 'none' }}>
                         <TextField
                           id="nativeTotalValue"
                           name="nativeTotalValue"
@@ -436,6 +437,7 @@ function LoanReqCreate(props) {
                             setdata((prevFilters) => ({
                               ...prevFilters,
                               totalvalue: e.target.value,
+                              nativeTotalValue: e.target.value,
                               payvalue:
                                 data.paysNo && data.totalvalue
                                   ? e.target.value / data.paysNo

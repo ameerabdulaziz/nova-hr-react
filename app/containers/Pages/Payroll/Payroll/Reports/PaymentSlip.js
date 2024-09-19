@@ -128,6 +128,7 @@ function PaymentSlip(props) {
     setIsLoading(true);
 
     try {
+      debugger;
       const companies = await GeneralListApis(locale).GetBranchList();
       setCompanyList(companies);
 
@@ -281,7 +282,7 @@ function PaymentSlip(props) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      required
+                      //required
                       label={intl.formatMessage(messages.company)}
                     />
                   )}

@@ -961,6 +961,7 @@
   "boilerplate.containers.Payroll.Setting.sendername": "اسم الراسل",
   "boilerplate.containers.Payroll.Setting.chooseDept": "اختر الادارة",
   "boilerplate.containers.Payroll.Setting.resetallpassword": "استرجاع الكل",
+  "boilerplate.containers.Payroll.Setting.resetDeviceKey": "Reset DeviceKey",
   "boilerplate.containers.Payroll.Setting.resetpassword": "استرجاع كلمة المرور",
   "boilerplate.containers.Payroll.Setting.department": "القسم",
   "boilerplate.containers.Payroll.Setting.resign": "الاستقالة",
