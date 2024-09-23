@@ -18,9 +18,9 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetEmployeeList = async (IsInsured, medicalInsured,branchId, departmentId) => {
+  Apis.GetEmployeeList = async (IsInsured, medicalInsured,branchId, departmentId,IsSecuredData) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeList/${locale}?IsInsured=${IsInsured?true:false}&PrivMedCareInsured=${medicalInsured ? true : false}&branchId=${branchId ? branchId : ""}&departmentId=${departmentId ? departmentId : ""}`
+      `GeneralList/GetEmployeeList/${locale}?IsInsured=${IsInsured?true:false}&PrivMedCareInsured=${medicalInsured ? true : false}&branchId=${branchId ? branchId : ""}&departmentId=${departmentId ? departmentId : ""}&IsSecuredData=${IsSecuredData ? IsSecuredData : false}`
     );
 
     return result.data;

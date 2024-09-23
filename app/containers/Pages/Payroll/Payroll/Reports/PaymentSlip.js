@@ -522,6 +522,7 @@ function PaymentSlip(props) {
                   id={formInfo.employeeId}
                   branchId={formInfo.branchId}
                   required={false}
+                  IsSecuredData={true}
                 />
               </Grid>
 

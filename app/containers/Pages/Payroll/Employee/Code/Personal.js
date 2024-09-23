@@ -1082,7 +1082,7 @@ function Personal(props) {
                     )}
                     onChange={(_, value) =>
                       setreportTo({
-                        id: value !== null ? value.id : 0,
+                        id: value !== null ? value.id : "",
                         name: value !== null ? value.name : "",
                       })
                     }
