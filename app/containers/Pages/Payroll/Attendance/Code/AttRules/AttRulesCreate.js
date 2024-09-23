@@ -363,6 +363,7 @@ function AttRulesCreate(props) {
                           arName: event.target.value,
                         }))
                       }
+                      required
                       label={intl.formatMessage(Payrollmessages.arName)}
                       className={classes.field}
                       sx={style}
@@ -381,6 +382,7 @@ function AttRulesCreate(props) {
                           enName: event.target.value,
                         }))
                       }
+                      required
                       label={intl.formatMessage(Payrollmessages.enName)}
                       sx={style}
                       className={classes.field}
