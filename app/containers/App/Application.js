@@ -57,6 +57,7 @@ import {
   NotFound,
   Section,
   Gender,
+  BusinessUnit,
   Bank,
   ContractType,
   City,
@@ -526,6 +527,8 @@ function Application(props) {
         />
         <Route path="/app/Pages/MainData/Documents" component={Documents} />
         <Route path="/app/Pages/MainData/Gender" component={Gender} />
+        <Route path="/app/Pages/MainData/BusinessUnit" component={BusinessUnit} />
+        
         <Route path="/app/Pages/MainData/Grade" component={Grade} />
         <Route path="/app/Pages/MainData/Job-Level" component={JobLevel} />
         <Route path="/app/Pages/MainData/Job-Natures" component={JobNatures} />

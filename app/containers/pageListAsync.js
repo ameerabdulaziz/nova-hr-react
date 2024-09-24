@@ -152,6 +152,13 @@ export const Gender = loadable(
     fallback: <Loading />,
   }
 );
+export const BusinessUnit = loadable(
+  () => import('./Pages/Payroll/MainData/Code/BusinessUnit'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 export const Jobs = loadable(
   () => import('./Pages/Payroll/MainData/Code/Job'),
