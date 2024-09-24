@@ -299,7 +299,7 @@ function PerformanceChartWidget(props) {
                             <LinearProgress
                               variant="determinate"
                               className={cx(classes.blueProgress)}
-                              value={item.percentage}
+                              value={item.percentage <= 100 ?  item.percentage : 100}
                             />
                           </li>
                         </Fragment>

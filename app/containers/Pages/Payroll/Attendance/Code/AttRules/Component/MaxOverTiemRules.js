@@ -255,7 +255,6 @@ function MaxOverTiemRules(props) {
                               setdata((prevFilters) => ({
                                 ...prevFilters,
                                 ovTiFromOut: e.target.checked,
-                                morOverTime: false,
                               }));
                             }}
                             value={data.ovTiFromOut || null}

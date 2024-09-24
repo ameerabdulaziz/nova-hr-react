@@ -333,7 +333,6 @@ function OverTiemRules(props) {
                                 setdata((prevFilters) => ({
                                   ...prevFilters,
                                   morOverTime: e.target.checked,
-                                  ovTiFromOut: false,
                                 }));
                               }}
                               value={data.morOverTime || null}
