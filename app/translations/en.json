@@ -2227,6 +2227,7 @@
   "boilerplate.containers.Payroll.Employee.StartDateOfWork": "Start Date Of Work",
   "boilerplate.containers.Payroll.Employee.BorderNumber": "Border Number",
   "boilerplate.containers.Payroll.Employee.ResidenceNumber": "Residence Number",
+  "boilerplate.containers.Payroll.Employee.businessUnit": "Business Unit",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "Id",
   "boilerplate.containers.Payroll.MainData.codes.preview": "Preview",

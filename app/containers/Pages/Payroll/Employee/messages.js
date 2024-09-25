@@ -936,4 +936,9 @@ export default defineMessages({
     id: `${scope}.ResidenceNumber`,
     defaultMessage: 'Residence Number',
   },
+  // personal
+  businessUnit: {
+    id: `${scope}.businessUnit`,
+    defaultMessage: 'Business Unit',
+  },
 });

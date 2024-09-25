@@ -585,6 +585,15 @@ const GeneralListApis = (locale) => {
   };
 
 
+  Apis.GetBusinessUnitList = async () => {
+    const data = await axiosInstance.get(
+      `MDBusinessUnit/GetListModel/${locale}`
+    );
+
+    return data.data;
+  };
+
+
 
   return Apis;
 };

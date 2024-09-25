@@ -2267,6 +2267,7 @@
   "boilerplate.containers.Payroll.Employee.StartDateOfWork": "تاريخ مباشرة العمل",
   "boilerplate.containers.Payroll.Employee.BorderNumber": "رقم الحدود",
   "boilerplate.containers.Payroll.Employee.ResidenceNumber": "رقم الاقامة",
+  "boilerplate.containers.Payroll.Employee.businessUnit": "وحدات عمل",
 
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
