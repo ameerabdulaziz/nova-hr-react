@@ -448,7 +448,7 @@ function Personal(props) {
         workEmail,
         isHr: isHR,
         nickName,
-        BusinessUnitId: businessUnitId?.id ?? null,
+        BusinessUnitId: businessUnitId?.id ?? "",
         // hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
