@@ -1,47 +1,54 @@
-import DownloadIcon from '@mui/icons-material/Download';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Menu, MenuItem } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import PropTypes from 'prop-types';
-import React, { memo, useState } from 'react';
-import { injectIntl } from 'react-intl';
-import { useHistory } from 'react-router';
-import { ServerURL } from '../../../api/ServerConfig';
-import messages from '../../messages';
+import DownloadIcon from "@mui/icons-material/Download";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { Menu, MenuItem } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import PropTypes from "prop-types";
+import React, { memo, useState } from "react";
+import { injectIntl } from "react-intl";
+import { useHistory } from "react-router";
+import { ServerURL } from "../../../api/ServerConfig";
+import messages from "../../messages";
 
 function RowDropdown(props) {
-  const {
-    tableMeta, intl, row
-  } = props;
+  const { tableMeta, intl, row } = props;
 
   const history = useHistory();
 
   const [openedDropdown, setOpenedDropdown] = useState({});
 
-  const onDropdownClose = (rowIndex) => setOpenedDropdown((prev) => ({
-    ...prev,
-    [rowIndex]: null,
-  }));
+  const onDropdownClose = (rowIndex) =>
+    setOpenedDropdown((prev) => ({
+      ...prev,
+      [rowIndex]: null,
+    }));
 
   const onPreviewCVBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
 
-
-    window.open(`${encodeURI(`/app/Pages/Recruitment/JobApplicationPreview/${btoa(JSON.stringify(
-      {
-          id: row.id 
-      }
-    ))}`)}`, '_blank')?.focus()
+    window
+      .open(
+        `${encodeURI(
+          `/app/Pages/Recruitment/JobApplicationPreview/${btoa(
+            encodeURIComponent(
+              JSON.stringify({
+                id: row.id,
+              })
+            )
+          )}`
+        )}`,
+        "_blank"
+      )
+      ?.focus();
   };
 
   const onUpdateStatusBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
 
-    history.push('/app/Pages/Recruitment/ManagerInterviewEvaluationEdit', {
+    history.push("/app/Pages/Recruitment/ManagerInterviewEvaluationEdit", {
       id: row.id,
     });
   };
@@ -67,36 +74,36 @@ function RowDropdown(props) {
           paper: {
             elevation: 0,
             sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
               mt: 1.5,
-              '& .MuiAvatar-root': {
+              "& .MuiAvatar-root": {
                 width: 32,
                 height: 32,
                 ml: -0.5,
                 mr: 1,
               },
-              '&:before': {
+              "&:before": {
                 content: '""',
-                display: 'block',
-                position: 'absolute',
+                display: "block",
+                position: "absolute",
                 top: 0,
                 right: 14,
                 width: 10,
                 height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
                 zIndex: 0,
               },
             },
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
-            <SystemUpdateAltIcon fontSize='small' />
+            <SystemUpdateAltIcon fontSize="small" />
           </ListItemIcon>
 
           <ListItemText>
@@ -106,7 +113,7 @@ function RowDropdown(props) {
 
         <MenuItem onClick={() => onPreviewCVBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
-            <VisibilityIcon fontSize='small' />
+            <VisibilityIcon fontSize="small" />
           </ListItemIcon>
 
           <ListItemText>
@@ -115,14 +122,14 @@ function RowDropdown(props) {
         </MenuItem>
 
         <MenuItem
-          component='a'
-          target='_blank'
+          component="a"
+          target="_blank"
           disabled={!row.cVfile}
-          href={ServerURL + 'Doc/CVDoc/' + row.cVfile}
+          href={ServerURL + "Doc/CVDoc/" + row.cVfile}
           onClick={() => onDropdownClose(tableMeta.rowIndex)}
         >
           <ListItemIcon>
-            <DownloadIcon fontSize='small' />
+            <DownloadIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>{intl.formatMessage(messages.downloadCV)}</ListItemText>
         </MenuItem>

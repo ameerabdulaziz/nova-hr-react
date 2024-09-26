@@ -42,12 +42,13 @@ function EmployeeNavigation(props) {
       name: employeeName,
     });
 
-    return encodeURI(`/app/Pages/Employee/${url}/${btoa(payload)}`);
+    var url= encodeURI(`/app/Pages/Employee/${url}/${btoa(encodeURIComponent(payload))}`);
+    return url;
   };
 
   const onMenuItemClick = (option) => {
     closeDropdown();
-
+debugger;
     if (openInNewTap) {
       window.open(getPageURL(option.url), '_blank')?.focus();
     } else {

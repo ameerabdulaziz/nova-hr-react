@@ -15,7 +15,7 @@ const DecryptUrl = () => {
     
       const isValidEncode = str => {
         try {
-          atob(str)
+          decodeURIComponent(atob(str))
           return true;
         } catch (e) {
           return false;
@@ -23,7 +23,7 @@ const DecryptUrl = () => {
       };
     
        // get employee data from url
-      const empid  =  isValidEncode(url.split('/').at(-1)) && isValidJSON(atob(url.split('/').at(-1))) ?  JSON.parse(atob(url.split('/').at(-1))) :  null;
+      const empid  =  isValidEncode(url.split('/').at(-1)) && isValidJSON(decodeURIComponent(atob(url.split('/').at(-1)))) ?  JSON.parse(decodeURIComponent(atob(url.split('/').at(-1)))) :  null;
 
       return empid
 }

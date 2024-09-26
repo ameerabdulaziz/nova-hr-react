@@ -608,11 +608,12 @@ function ElementValList(props) {
         filter: false,
 
         customBodyRender: (value, tableMeta) => {
+          
           return (
             <div className={style.actionsSty}>
               <EditButton
                 //param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/Payroll/ElementValEdit/"+btoa( tableMeta.rowData[0])}
+                url={"/app/Pages/Payroll/ElementValEdit/"+btoa( encodeURIComponent(tableMeta.rowData[0]))}
               ></EditButton>
               <DeleteButton
                 clickfnc={() => handleClickOpen(tableMeta.rowData[0])}

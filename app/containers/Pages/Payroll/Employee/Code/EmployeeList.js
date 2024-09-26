@@ -60,7 +60,7 @@ function EmployeeList(props) {
       options: {
         customBodyRender: (value, tableMeta) => {
           return <EmployeeNavigation
-                    employeeId={tableMeta?.rowData[1]}
+                    employeeId={tableMeta?.rowData[0]}
                     employeeName={locale === "en" ? tableMeta?.rowData[2] : tableMeta?.rowData[3]}
                     openInNewTap
                     // used to pass custom button to open menu
