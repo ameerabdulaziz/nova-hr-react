@@ -77,11 +77,20 @@ function CreateAndEditOrg(props) {
 
   const getdata = async () => {
     try {
+      debugger;
       const employees = await GeneralListApis(locale).GetEmployeeList();
-      const Departmentlist = await GeneralListApis(locale).GetDepartmentList();
+      
+
+      const Departmentlist = await OrganizationData(locale).GetList();
+      const Departments =Departmentlist.map((obj) => ({
+        id: obj.id,
+        name: locale=="en"?obj.enName:obj.arName,        
+      }));
+
+      var result
 
       setEmployeesData(employees);
-      setParentData(Departmentlist);
+      setParentData(Departments);
     } catch (err) {
     } finally {
       setIsLoading(false);

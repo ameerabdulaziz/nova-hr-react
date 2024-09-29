@@ -54,6 +54,10 @@ export default defineMessages({
     id: `${scope}.organizationName`,
     defaultMessage: 'organizationName',
   },
+  businessUnitName: {
+    id: `${scope}.businessUnitName`,
+    defaultMessage: 'businessUnitName',
+  },
   branchName: {
     id: `${scope}.branchName`,
     defaultMessage: 'branchName',

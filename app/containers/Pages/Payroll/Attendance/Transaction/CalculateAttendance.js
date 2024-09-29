@@ -315,10 +315,15 @@ function CalculateAttendance(props) {
       };
 
       const response = await api(locale).PostToPayroll(body, formData);
-
+debugger;
       if (response.success) {
         if (response.success.length == 0) toast.success(notif.success);
-        else toast.success(notif.success);
+        else 
+        {
+          var errors="";
+          response.success.map((item, index) => errors+=item.staff_Id+":"+item.msg+" " );
+          toast.error(errors);
+        }
       } else {
         toast.error(Object.keys(response)[0]);
         //setFileData([]);
