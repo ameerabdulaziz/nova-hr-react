@@ -406,7 +406,7 @@ function BankList(props) {
       'Salary', // Narrative
       'egp', // Currency
       'CIBEEGCXXXX', // Creditor_BIC_Code
-      item.accNo ?? '0000', // Account_Number
+      item.bnkAcc ?? '0000', // Account_Number
       item.employeeName, // Account_Name
       '', // Debit_Amount
       {
@@ -431,7 +431,7 @@ function BankList(props) {
     ];
 
     const rows = tableData.map((item) => [
-      item.accNo, // Beneficiary Account No
+      item.bnkAcc, // Beneficiary Account No
       item.employeeName, // Beneficiary Name
       'EGP', // Transaction Currency
       formatNumber(item.netSal), // Payment Amount
