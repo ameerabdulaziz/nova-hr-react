@@ -15,6 +15,10 @@ import {
   Stack,
   TextField,
   Typography,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  Radio,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -26,7 +30,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useParams } from 'react-router-dom';
 import FileViewerPopup from '../../../../components/Popup/fileViewerPopup';
 import { ThemeContext } from '../../../App/ThemeWrapper';
@@ -95,6 +99,10 @@ function JobAdvertisementApplication(props) {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isCoursePopupOpen, setIsCoursePopupOpen] = useState(false);
 
+  const [JobAdvertisement, setJobAdvertisement] = useState([]);
+
+  
+
   const [formInfo, setFormInfo] = useState({
     id: 0,
     JobAdvertisementID: jobApplicarionId,
@@ -131,7 +139,25 @@ function JobAdvertisementApplication(props) {
     SocialInsuranceId: '',
     sourceLink: null,
     workingFrom: null,
+
+    RecQuestions: [],
   });
+
+
+  const location = useLocation();
+  const currentUrl = location.pathname;
+
+
+  const parts = currentUrl.split('/');
+const ID = parts[parts.length - 2];
+
+// const segments = currentUrl.split('/'); // Split the string by '/'
+// const ID = segments[2];
+
+console.log("ID =", ID);
+
+
+
 
   async function fetchNeededData() {
     setIsLoading(true);
@@ -172,6 +198,12 @@ function JobAdvertisementApplication(props) {
         cvSubTitle: configResponse.cvSubTitle ?? '',
         companyOverView: configResponse.companyOverView ?? '',
       });
+
+      const JobAdvertisement = await API(locale).JobAdvertisementList(ID);
+      setJobAdvertisement(JobAdvertisement);
+
+
+
     } catch (error) {
       //
     } finally {
@@ -396,6 +428,95 @@ function JobAdvertisementApplication(props) {
   const onBackToVacationBtnClick = () => {
     history.push('/public/JobAdvertisement');
   };
+
+  const handleRadioBtnChange = (event) => {
+    console.log("data =", JSON.parse( event.target.value ) );
+
+    let answersArr = []
+    let value = JSON.parse( event.target.value )
+
+
+    // const exists = Object.values(formInfo.RecQuestions).some(array =>
+    //   array.some(obj => obj.QuestionId === value.QuestionId)
+    // );
+
+    console.log("check = ",formInfo.RecQuestions.some(obj => obj.QuestionId === value.QuestionId));
+    console.log("check2 = ", formInfo.RecQuestions);
+    console.log("check3 = ", value.QuestionId);
+
+
+    setFormInfo(prevState => {
+      // Check if the object with the same id exists
+      const existingIndex = prevState.RecQuestions.findIndex(item => item.QuestionId === value.QuestionId);
+
+      if (existingIndex !== -1) {
+        // Replace the existing object
+        const updatedYrray = [...prevState.RecQuestions];
+        updatedYrray[existingIndex] = value; // Replace the object at the found index
+        return {
+          ...prevState,
+          RecQuestions: updatedYrray,
+        };
+      } else {
+        // Push the new object into the array
+        return {
+          ...prevState,
+          RecQuestions: [...prevState.RecQuestions, value],
+        };
+      }
+    });
+    
+
+    
+  // if(!formInfo.RecQuestions.some(obj => obj.QuestionId === value.QuestionId))
+  //   {
+      // answersArr.push(value)
+
+     
+
+      // setFormInfo(prevState => ({
+      //   ...prevState,
+      //   RecQuestions: [...prevState.RecQuestions, value] // Spread the previous RecQuestions and add the new question
+      // }));
+      /////////////////
+
+
+    // }
+    // else
+    // {
+    //   const newObject = [ ...formInfo.RecQuestions ]
+
+    //   newObject.map((item)=>{
+    //     console.log("item =", item);
+
+        
+
+        
+    //   })
+
+    //   console.log("obj =" ,newObject)
+      
+    // }
+
+
+  // setFormInfo((prevItems) =>
+  //   prevItems.map((item) => (item.id === id ? newItem : item))
+  // );
+
+  
+    
+
+    console.log("vals =", answersArr);
+    
+
+    
+    
+    // setSelectedValue(event.target.value);
+  };
+
+
+  console.log("formInfo =", formInfo);
+  
 
   return (
     <PayRollLoader isLoading={isSubmitting}>
@@ -695,7 +816,6 @@ function JobAdvertisementApplication(props) {
                           onChange={onInputChange}
                           label={intl.formatMessage(messages.issuePlace)}
                           fullWidth
-                          required
                           variant='outlined'
                           autoComplete='off'
                         />
@@ -728,7 +848,6 @@ function JobAdvertisementApplication(props) {
                             }}
                             slotProps={{
                               textField: {
-                                required: true,
                               },
                             }}
                           />
@@ -1141,6 +1260,51 @@ function JobAdvertisementApplication(props) {
                         />
                       </Grid>
                     </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <div className='cv-form-card'>
+                    <Grid
+                      container
+                      justifyContent='space-between'
+                      alignItems='center'
+                    >
+                      <Grid item>
+                        <div className='title'>
+                        
+                          {intl.formatMessage(messages.ExclusionaryQuestions)}
+                        </div>
+                      </Grid>
+                    </Grid>
+
+                      <Grid item xs={12}  md={4}> 
+
+                      <br/>
+                            {JobAdvertisement && JobAdvertisement.recQuestions && (
+                              JobAdvertisement.recQuestions.map((que,index)=>{
+
+                                return  <Grid item xs={12}  md={4} key={index}> 
+                                  <FormControl>
+                                    <Typography  variant='h6'>{que.enName}</Typography>
+                                    <RadioGroup
+                                      aria-labelledby="demo-radio-buttons-group-label"
+                                      name="radio-buttons-group"
+                                      onChange={handleRadioBtnChange}
+                                    >
+                                      
+                                      {que.recAdvAnswer.map((ans,index)=>{
+                                      return   <FormControlLabel key={index} value={JSON.stringify({QuestionId: que.id, AnswerId: ans.id})} control={<Radio />} label={ans.enName} />
+                                      })}
+                                    </RadioGroup>
+                                </FormControl>
+
+                                 <br/>
+                                 <br/> 
+                              </Grid>
+                            }))}
+
+                      </Grid>
                   </div>
                 </Grid>
 
