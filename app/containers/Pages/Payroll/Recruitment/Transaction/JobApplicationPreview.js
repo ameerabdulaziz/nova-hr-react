@@ -557,6 +557,8 @@ const { classes } = useStyles();
           </PapperBlock>
         </Grid>
 
+        {formInfo.recQuestions && formInfo.recQuestions.length !== 0 && (
+
         <Grid item xs={12}>
           <PapperBlock
             whiteBg
@@ -565,7 +567,7 @@ const { classes } = useStyles();
             desc=''
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12}>
                     {formInfo.recQuestions && (
                       formInfo.recQuestions.map((item)=>{
                         return <div>
@@ -577,6 +579,8 @@ const { classes } = useStyles();
             </Grid>
           </PapperBlock>
         </Grid>
+
+        ) }
 
         <Grid item xs={12}>
           <PapperBlock
