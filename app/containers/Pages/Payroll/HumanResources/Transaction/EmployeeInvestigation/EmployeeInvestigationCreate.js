@@ -4,7 +4,7 @@ import {
   import notif from 'enl-api/ui/notifMessage';
   import { PapperBlock } from 'enl-components';
   import PropTypes from 'prop-types';
-  import React, { useEffect, useMemo, useState, useRef } from 'react';
+  import React, { useEffect, useState, useRef } from 'react';
   import { toast } from 'react-hot-toast';
   import { FormattedMessage, injectIntl } from 'react-intl';
   import { useSelector } from 'react-redux';
@@ -33,7 +33,6 @@ import {
   import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
   import { DatePicker } from '@mui/x-date-pickers/DatePicker';
   import dayjs from 'dayjs';
-  import { format } from "date-fns";
   
   function EmployeeInvestigationCreate(props) {
     const { intl } = props;
@@ -94,10 +93,7 @@ import {
     });
 
     
-     // used to reformat date before send it to api
-    //  const dateFormatFun = (date) => {
-    //     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-    //  }
+
     
   
     const fetchNeededData = async () => {
@@ -590,13 +586,6 @@ import {
                             <TextField
                               name='Question'
                               value={queAndAns[que][Object.keys(queAndAns[que])[0]]}
-                              // value={queAndAns?.[`queAndAns${index + 1}`]?.[`que${index + 1}`]}
-                              // onChange={(e)=>{
-                              //   setQueAndAns((prev)=>({
-                              //     ...prev,
-                              //     [`que${index + 1}`] : e.target.value
-                              //   }))
-                              // }}
                               onChange={(e)=>{
                                 setQueAndAns((prev)=>({
                                   ...prev,
@@ -604,26 +593,12 @@ import {
                                       ...prev[`${que}`],
                                       [`${Object.keys(queAndAns[que])[0]}`]: e.target.value
                                     }
-                                  
-                                  // ...(!que.includes(index + 1) && { 
-                                  //   [`queAndAns${queCounterVals + 1}`] : {
-                                  //     ...prev[`queAndAns${queCounterVals + 1}`],
-                                  //     [`que${queCounterVals + 1}`]: e.target.value
-                                  //   }
-                                  // })
-                                  
-                                  // [`queAndAns${index + 1}`] : {
-                                  //   ...prev[`queAndAns${index + 1}`],
-                                  //   [`que${index + 1}`]: e.target.value
-                                  // }
                                 }))
                               }}
-                              // label="Question"
                               label={intl.formatMessage(messages.Question)}
                               fullWidth
                               variant='outlined'
                               autoComplete='off'
-                              // required
                             />
                           </Grid>
                           <Grid item xs={5} md={7}>
