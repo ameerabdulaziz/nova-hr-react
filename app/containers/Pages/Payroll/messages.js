@@ -25,6 +25,10 @@ export default defineMessages({
     id: `${scope}.cancel`,
     defaultMessage: 'cancel',
   },
+  send: {
+    id: `${scope}.send`,
+    defaultMessage: 'send',
+  },
   evaluate: {
     id: `${scope}.evaluate`,
     defaultMessage: 'evaluate',

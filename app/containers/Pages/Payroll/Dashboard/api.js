@@ -11,6 +11,15 @@ const dashboardData = (locale) => {
     return data.data;
   };
 
+  api.UseChatGPT = async (question) => {
+    const data = await axiosInstance.post(
+      `Chat/UseChatGPT`,question
+    );
+
+    return data.data;
+  };
+  
+
   api.getAgeDemographics = async () => {
     const data = await axiosInstance.get(`Dashboard/GetAgeDemographics`);
 

@@ -309,6 +309,8 @@
   "boilerplate.components.Header.action.fullscreen": "ملء الشاشة",
   "boilerplate.components.Header.action.fullScreen": "ملء الشاشة",
   "boilerplate.components.Header.action.exitFullScreen": "إنهاء ملء الشاشة",
+  "boilerplate.components.Header.action.askNova": "أسأل نوفا",
+  
   "boilerplate.components.Header.action.lamp": "بدوره الظلام / الضوء",
   "boilerplate.components.Header.action.guide": "دليل المعرض",
   "boilerplate.components.Header.search": "بحث Ui",
@@ -673,6 +675,8 @@
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",
+  "boilerplate.containers.Payroll.send": "ارسال",
+  
   "boilerplate.containers.Payroll.downloadExcel": "تنزيل Excel",
   "boilerplate.containers.Payroll.goTo": "اذهب إلى",
   "boilerplate.containers.Payroll.personal": "المعلومات الشخصية",
