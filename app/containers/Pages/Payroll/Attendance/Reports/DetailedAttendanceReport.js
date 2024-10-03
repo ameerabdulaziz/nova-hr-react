@@ -348,7 +348,7 @@ function DetailedAttendanceReport(props) {
           {
           return <div className={style.tableCellSty}>
             {getCheckboxIcon(value)}
-            <pre>{data[tableMeta?.rowIndex]?.jobName}</pre>
+            <pre>{data[tableMeta?.rowIndex]?.vacShortName}</pre>
           </div>
          }
          else
@@ -374,7 +374,7 @@ function DetailedAttendanceReport(props) {
             {
              return <div>
               {getCheckboxIcon(value)}
-              <pre>{data[tableMeta?.rowIndex]?.jobName}</pre>
+              <pre>{data[tableMeta?.rowIndex]?.perShortName}</pre>
             </div>
             }
             else
@@ -439,7 +439,7 @@ function DetailedAttendanceReport(props) {
   useEffect(()=>{
     if(printData.length !== 0)
     {
-      debugger;
+
       printJS();
     }
   },[printData])
