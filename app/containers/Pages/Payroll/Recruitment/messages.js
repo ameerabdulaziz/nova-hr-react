@@ -146,6 +146,10 @@ export default defineMessages({
     id: `${scope}.updateStatus`,
     defaultMessage: 'updateStatus',
   },
+  aiEvaluation: {
+    id: `${scope}.aiEvaluation`,
+    defaultMessage: 'aiEvaluation',
+  },
   viewApplicationForm: {
     id: `${scope}.viewApplicationForm`,
     defaultMessage: 'viewApplicationForm',

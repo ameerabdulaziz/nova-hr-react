@@ -1,6 +1,7 @@
 import DownloadIcon from "@mui/icons-material/Download";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
+import ChatIcon from "@mui/icons-material/Chat";
 import UnsubscribeIcon from "@mui/icons-material/Unsubscribe";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Menu, MenuItem } from "@mui/material";
@@ -47,7 +48,11 @@ function RowDropdown(props) {
     closeDropdown(rowIndex);
     props.onUpdateStatusBtnClick([row.id]);
   };
-
+  const onAiEvaluationBtnClick = (rowIndex) => {
+    closeDropdown(rowIndex);
+    props.onAiEvaluationBtnClick(row.id);
+  };
+  
   const onSendRejectMailBtnClick = (rowIndex) => {
     closeDropdown(rowIndex);
     props.onSendRejectMailBtnClick(row.id);
@@ -101,13 +106,22 @@ function RowDropdown(props) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}>
+         <MenuItem onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
             <SystemUpdateAltIcon fontSize="small" />
           </ListItemIcon>
 
           <ListItemText>
             {intl.formatMessage(messages.updateStatus)}
+          </ListItemText>
+        </MenuItem>
+        <MenuItem onClick={() => onAiEvaluationBtnClick(tableMeta.rowIndex)}>
+          <ListItemIcon>
+            <ChatIcon fontSize="small" />
+          </ListItemIcon>
+
+          <ListItemText>
+            {intl.formatMessage(messages.aiEvaluation)}
           </ListItemText>
         </MenuItem>
 
@@ -161,6 +175,7 @@ RowDropdown.propTypes = {
   tableMeta: PropTypes.object.isRequired,
   row: PropTypes.object.isRequired,
   onUpdateStatusBtnClick: PropTypes.func.isRequired,
+  onAiEvaluationBtnClick: PropTypes.func.isRequired,
   onSendRejectMailBtnClick: PropTypes.func.isRequired,
 };
 

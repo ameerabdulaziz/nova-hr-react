@@ -835,6 +835,9 @@
   "boilerplate.containers.Payroll.attachment": "المرفق",
 
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
+  "boilerplate.containers.Payroll.AiEvaluationResult": "تقييم الذكاء الاصطناعى",
+  "boilerplate.containers.Payroll.evaluate": "تقييم جديد",
+  
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
   "boilerplate.containers.Payroll.dateErrorMes": "يجب اختيار تاريخ البدا وتاريخ الانتهاء",
   "boilerplate.containers.Payroll.FileIsEmpty": "لايوجد بيانات",
@@ -2804,6 +2807,7 @@
   "boilerplate.containers.Payroll.recruitment.fromAge": "السن من",
   "boilerplate.containers.Payroll.recruitment.viewApplicationForm": "عرض نموذج الطلب",
   "boilerplate.containers.Payroll.recruitment.updateStatus": "تحديث الحالة",
+  "boilerplate.containers.Payroll.recruitment.aiEvaluation": "تقييم الذكاء الصطناعى",
   "boilerplate.containers.Payroll.recruitment.sendRejectMail": "إرسال بريد بالرفض",
   "boilerplate.containers.Payroll.recruitment.downloadCV": "تحميل السيرة الذاتية",
   "boilerplate.containers.Payroll.recruitment.toAge": "السن الي",

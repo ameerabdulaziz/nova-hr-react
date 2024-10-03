@@ -43,6 +43,27 @@ const API = (locale) => {
     return result;
   };
 
+  api.EvaluateJobApplication = async (id,isNewEvaluation) => {
+    const data = await axiosInstance.post(
+      `RecJobApplicationEvaluation/EvaluateJobApplication/${id}/${locale}?isNewEvaluation=${isNewEvaluation}`
+    );
+
+    const result = data.data;
+
+    return result;
+  };
+
+  api.SaveAiEvaluation = async (body) => {
+    const data = await axiosInstance.post(
+      `RecJobApplicationEvaluation/SaveAiEvaluation`,
+      body
+    );
+
+    const result = data.data;
+
+    return result;
+  };
+
   return api;
 };
 

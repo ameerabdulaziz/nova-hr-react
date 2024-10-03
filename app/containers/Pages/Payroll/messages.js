@@ -25,6 +25,10 @@ export default defineMessages({
     id: `${scope}.cancel`,
     defaultMessage: 'cancel',
   },
+  evaluate: {
+    id: `${scope}.evaluate`,
+    defaultMessage: 'evaluate',
+  },
   delete: {
     id: `${scope}.delete`,
     defaultMessage: 'Delete',
@@ -451,6 +455,10 @@ employeeId: {
   Actions: {
     id: `${scope}.Actions`,
     defaultMessage: 'Actions',
+  },
+  AiEvaluationResult: {
+    id: `${scope}.AiEvaluationResult`,
+    defaultMessage: 'AiEvaluationResult',
   },
   EditHrNotes: {
     id: `${scope}.EditHrNotes`,
