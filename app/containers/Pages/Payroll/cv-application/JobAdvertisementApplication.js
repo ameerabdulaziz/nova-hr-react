@@ -118,7 +118,7 @@ function JobAdvertisementApplication(props) {
     identityTypeId: null,
     idcardNumber: '',
     IdcardIssuingAuth: '',
-    idcardIssuingDate: null,
+    idcardIssuingDate: "",
 
     socialStatusId: null,
     childrenNo: '',
@@ -149,12 +149,9 @@ function JobAdvertisementApplication(props) {
 
 
   const parts = currentUrl.split('/');
-const ID = parts[parts.length - 2];
+  const ID = parts[parts.length - 2];
 
-// const segments = currentUrl.split('/'); // Split the string by '/'
-// const ID = segments[2];
 
-console.log("ID =", ID);
 
 
 
@@ -318,7 +315,7 @@ console.log("ID =", ID);
 
     const formData = { ...formInfo };
 
-    formData.idcardIssuingDate = formateDate(formInfo.idcardIssuingDate);
+    formData.idcardIssuingDate = formateDate(formInfo.idcardIssuingDate) !== null ? formateDate(formInfo.idcardIssuingDate) : "";
     formData.QualificationDate = formateDate(formInfo.QualificationDate);
     formData.birthDate = formateDate(formInfo.birthDate);
 
@@ -430,19 +427,8 @@ console.log("ID =", ID);
   };
 
   const handleRadioBtnChange = (event) => {
-    console.log("data =", JSON.parse( event.target.value ) );
 
-    let answersArr = []
     let value = JSON.parse( event.target.value )
-
-
-    // const exists = Object.values(formInfo.RecQuestions).some(array =>
-    //   array.some(obj => obj.QuestionId === value.QuestionId)
-    // );
-
-    console.log("check = ",formInfo.RecQuestions.some(obj => obj.QuestionId === value.QuestionId));
-    console.log("check2 = ", formInfo.RecQuestions);
-    console.log("check3 = ", value.QuestionId);
 
 
     setFormInfo(prevState => {
@@ -466,56 +452,8 @@ console.log("ID =", ID);
       }
     });
     
-
-    
-  // if(!formInfo.RecQuestions.some(obj => obj.QuestionId === value.QuestionId))
-  //   {
-      // answersArr.push(value)
-
-     
-
-      // setFormInfo(prevState => ({
-      //   ...prevState,
-      //   RecQuestions: [...prevState.RecQuestions, value] // Spread the previous RecQuestions and add the new question
-      // }));
-      /////////////////
-
-
-    // }
-    // else
-    // {
-    //   const newObject = [ ...formInfo.RecQuestions ]
-
-    //   newObject.map((item)=>{
-    //     console.log("item =", item);
-
-        
-
-        
-    //   })
-
-    //   console.log("obj =" ,newObject)
-      
-    // }
-
-
-  // setFormInfo((prevItems) =>
-  //   prevItems.map((item) => (item.id === id ? newItem : item))
-  // );
-
-  
-    
-
-    console.log("vals =", answersArr);
-    
-
-    
-    
-    // setSelectedValue(event.target.value);
   };
 
-
-  console.log("formInfo =", formInfo);
   
 
   return (
