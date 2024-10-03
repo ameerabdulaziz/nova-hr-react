@@ -572,6 +572,22 @@ function HRApplicationEvaluation(props) {
     }
   };
 
+
+   const clickCardsFun = (cardVal) => {
+       
+      let cardValObj = statusList.find((item) => item.name === cardVal)
+
+      setFormInfo((prev) => ({
+        ...prev,
+        Status : cardValObj ? cardValObj.id : 0,
+      }));
+   
+   }
+
+
+
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <Dialog
@@ -898,22 +914,27 @@ function HRApplicationEvaluation(props) {
       <PapperBlock whiteBg icon="border_color" title={pageTitle} desc="">
         <div className={widgetClass.rootCounterFull}>
           <Grid container spacing={2} mb={2}>
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} 
+              onClick={()=>{clickCardsFun("Pending")}}
+              className={style.cardSty}
+              >
               <CounterWidget
                 color="secondary-main"
                 start={0}
                 end={extraData.pending}
                 duration={3}
                 title={intl.formatMessage(messages.pending)}
+                
               >
                 <PendingActions
                   className={widgetClass.counterIcon}
-                  sx={{ fontSize: "60px !important" }}
+                  sx={{ fontSize: '60px !important' }}
+                  
                 />
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Accepted")}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -928,7 +949,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Waiting List")}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -943,7 +964,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Data Bank")}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -958,7 +979,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Job Offer")}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -973,7 +994,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Rejected")}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -988,7 +1009,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Black List")}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}

@@ -25,6 +25,8 @@ import cvMessages from '../../cv-application/messages';
 import api from '../api/JobApplicationPreviewData';
 import { formateDate } from '../../helpers';
 import DecryptUrl from "../../Component/DecryptUrl";
+import useStyles from "../../Style";
+import styles from "../../../../../styles/styles.scss";
 
 function JobApplicationPreview(props) {
 
@@ -32,6 +34,8 @@ function JobApplicationPreview(props) {
 // get employee data from url
 const  empid   = DecryptUrl()
 const id  = empid?.id
+
+const { classes } = useStyles();
 
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
@@ -127,6 +131,8 @@ const id  = empid?.id
 
         recJobApplicationExperience: response.recJobApplicationExperience,
         recJobApplicationCourse: response.recJobApplicationCourse,
+
+        recQuestions: response.recQuestions,
       });
     } catch (error) {
       //
@@ -546,6 +552,27 @@ const id  = empid?.id
                   variant='outlined'
                   autoComplete='off'
                 />
+              </Grid>
+            </Grid>
+          </PapperBlock>
+        </Grid>
+
+        <Grid item xs={12}>
+          <PapperBlock
+            whiteBg
+            icon='border_color'
+            title={intl.formatMessage(cvMessages.ExclusionaryQuestions)}
+            desc=''
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={4}>
+                    {formInfo.recQuestions && (
+                      formInfo.recQuestions.map((item)=>{
+                        return <div>
+                            <p className={`${classes.colorSty} ${styles.queSty}`}>{item.question} &nbsp; ?</p>
+                            <p className={styles.ansSty}>{item.answer}</p>
+                        </div>
+                    }))}
               </Grid>
             </Grid>
           </PapperBlock>

@@ -89,6 +89,15 @@ const API = (locale) => {
     return response.data;
   };
 
+
+  api.JobAdvertisementList = async (id) => {
+    const response = await axiosInstance.get(
+      `RecJobAdvertisement/Get/${id}/${locale}`
+    );
+
+    return response.data;
+  };
+
   return api;
 };
 
