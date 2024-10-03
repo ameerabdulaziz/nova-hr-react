@@ -2705,7 +2705,7 @@
   "boilerplate.containers.Payroll.recruitment.Question": "Question",
   "boilerplate.containers.Payroll.recruitment.Answer": "Answer",
   "boilerplate.containers.Payroll.recruitment.TrueAnswer": "True Answer",
-  "boilerplate.containers.Payroll.recruitment.questionsCardsTitle": "Questions Cards",
+  "boilerplate.containers.Payroll.recruitment.questionsCardsTitle": "Exclusionary Questions for Candidates",
   "boilerplate.containers.Payroll.recruitment.any": "Any",
   "boilerplate.containers.Payroll.recruitment.age": "Age",
   "boilerplate.containers.Payroll.recruitment.year": "Year",
