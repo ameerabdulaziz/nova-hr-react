@@ -78,18 +78,16 @@ function ImportVacations({ intl }) {
 
                   if (
                     index === 2 &&
-                    items[item].length !== 0 &&
-                    regex.test(items[item])
+                    items[item].length !== 0 
                   ) {
-                    obj.fromdate = items[item];
+                    obj.fromDate = items[item];
                   }
 
                   if (
                     index === 3 &&
-                    items[item].length !== 0 &&
-                    regex.test(items[item])
+                    items[item].length !== 0 
                   ) {
-                    obj.todate = items[item];
+                    obj.toDate = items[item];
                   }
 
                   if (index === 4 && items[item].length !== 0) {
@@ -106,7 +104,7 @@ function ImportVacations({ intl }) {
           } else {
             toast.error(intl.formatMessage(messages.FileIsEmpty));
           }
-
+debugger;
           setJsonFileData(jsonData);
           setFileData(rows);
 
@@ -152,6 +150,7 @@ function ImportVacations({ intl }) {
       try {
         setprocessing(true);
         setIsLoading(true);
+        debugger;
         let response = await ApiData(locale).SaveList(jsonFileData);
 
         if (response.status == 200) {

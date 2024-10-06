@@ -86,7 +86,6 @@ function LeaveTrxCreate(props) {
     toDate: dayjs(),
     replaceDate: null,
     daysCount: "",
-    dayDeducedBy: "",
     tel: "",
     doc: null,
     vacReson: "",
@@ -248,7 +247,6 @@ function LeaveTrxCreate(props) {
       replaceDate: formateDate(formInfo.replaceDate),
       toDate: formateDate(formInfo.toDate),
       daysCount: formInfo.daysCount,
-      dayDeducedBy: formInfo.dayDeducedBy,
       tel: formInfo.tel,
       doc: formInfo.doc ?? "",
       vacReson: formInfo.vacReson,
@@ -763,7 +761,7 @@ function LeaveTrxCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    {/* <Grid item xs={12} md={3}>
                       <TextField
                         name="dayDeducedBy"
                         value={formInfo.dayDeducedBy}
@@ -774,7 +772,7 @@ function LeaveTrxCreate(props) {
                         variant="outlined"
                         autoComplete="off"
                       />
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </CardContent>
               </Card>
