@@ -222,10 +222,12 @@ function Header(props) {
               <Grid item xs={12} md={12}>
                 <TextField
                   name="answer"
-                  value={answer}
+                  value={answer?.trimStart()}
                   fullWidth
                   variant="outlined"
-                  disabled
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   multiline
                   autoComplete="off"
                 />
