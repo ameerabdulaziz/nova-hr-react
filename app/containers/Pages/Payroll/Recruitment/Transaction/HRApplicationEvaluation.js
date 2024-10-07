@@ -598,10 +598,32 @@ function HRApplicationEvaluation(props) {
     onFormSubmit()
    },[formInfo.Status])
 
+  const replaceWordsWithMark = (text = '') => {
+    const wordsToReplace = [
+      'however',
+      'rate',
+      'evaluate',
+      'overall',
+      'therefore',
+      'score',
+      '\\d+ out of \\d+',
+    ];
 
+    // \\b is a word boundary in regular expressions. It matches the position between a word character (like letters and digits) and a non-word character (like spaces or punctuation). Using \\b ensures that we match whole words rather than substrings. For example, it will match "rate" but not "corporate".
+    const regex = new RegExp(`\\b(${wordsToReplace.join('|')})\\b`, 'gi');
 
+    // Split the text based on the regex
+    const parts = text.trimStart().split(regex);
 
+    // Create the result array by interleaving parts and matches
+    const result = parts.map((part, index) => {
+      // ensures that each part is checked against all the words/phrases, treating them as regular expressions.
+      const isExist = wordsToReplace.some(word => new RegExp(`\\b${word}\\b`, 'i').test(part));
+      return isExist ? <mark key={index}>{part}</mark> : <span>{part}</span>;
+    });
 
+    return result;
+  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -896,15 +918,16 @@ function HRApplicationEvaluation(props) {
           <PayRollLoader isLoading={isEvaluateLoader}>
             <Grid container mt={0} spacing={2}>
               <Grid item xs={12} md={12}>
-                <TextField
-                  name="EvalText"
-                  value={evaluation}
-                  fullWidth
-                  variant="outlined"
-                  disabled
-                  multiline
-                  autoComplete="off"
-                />
+                <Typography
+                  sx={{
+                    whiteSpace: 'pre-wrap',
+                    border: '1px solid #ddd',
+                    p: 2,
+                    borderRadius: '5px'
+                  }}
+                >
+                  {replaceWordsWithMark(evaluation)}
+                </Typography>
               </Grid>
             </Grid>
           </PayRollLoader>
