@@ -574,7 +574,7 @@ function HRApplicationEvaluation(props) {
 
 
    const clickCardsFun = (cardVal) => {
-       
+    
       let cardValObj = statusList.find((item) => item.name === cardVal)
 
       setFormInfo((prev) => ({
@@ -915,7 +915,7 @@ function HRApplicationEvaluation(props) {
         <div className={widgetClass.rootCounterFull}>
           <Grid container spacing={2} mb={2}>
             <Grid item sm={6} md={3} 
-              onClick={()=>{clickCardsFun("Pending")}}
+              onClick={()=>{clickCardsFun(intl.formatMessage(messages.pending))}}
               className={style.cardSty}
               >
               <CounterWidget
@@ -934,7 +934,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Accepted")}} className={style.cardSty}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(intl.formatMessage(messages.accepted))}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -949,7 +949,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Waiting List")}} className={style.cardSty}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(intl.formatMessage(messages.waitingList))}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -964,7 +964,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Data Bank")}} className={style.cardSty}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(intl.formatMessage(messages.dataBank))}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -979,7 +979,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Job Offer")}} className={style.cardSty}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(intl.formatMessage(messages.jobOffer))}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -994,7 +994,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Rejected")}} className={style.cardSty}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(intl.formatMessage(messages.rejected))}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
@@ -1009,7 +1009,7 @@ function HRApplicationEvaluation(props) {
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun("Black List")}} className={style.cardSty}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(intl.formatMessage(messages.blackList2))}} className={style.cardSty}>
               <CounterWidget
                 color="secondary-main"
                 start={0}
