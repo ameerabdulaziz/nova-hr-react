@@ -29,7 +29,7 @@ import dayjs from "dayjs";
 import notif from "enl-api/ui/notifMessage";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { toast } from "react-hot-toast";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
@@ -50,6 +50,7 @@ function HRApplicationEvaluation(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const { classes: widgetClass } = useWidgetStyles();
+  const isInitialRender = useRef(true);
 
   const locale = useSelector((state) => state.language.locale);
   const pageTitle = localStorage.getItem("MenuName");
@@ -447,7 +448,10 @@ function HRApplicationEvaluation(props) {
   };
 
   const onFormSubmit = (evt) => {
-    evt.preventDefault();
+    if(evt)
+    {
+      evt.preventDefault();
+    }
 
     if (Object.values(dateError).includes(true)) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
@@ -581,11 +585,21 @@ function HRApplicationEvaluation(props) {
         ...prev,
         Status : cardValObj ? cardValObj.id : 0,
       }));
-   
    }
 
+   useEffect(()=>{
 
-console.log("statusList =",statusList?.[6]?.name);
+    if (isInitialRender.current) {
+      // Skip this effect on the first render
+      isInitialRender.current = false;
+      return;
+    }
+    
+    onFormSubmit()
+   },[formInfo.Status])
+
+
+
 
 
 
