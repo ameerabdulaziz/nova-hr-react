@@ -1,7 +1,6 @@
 import DownloadIcon from "@mui/icons-material/Download";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
-import ChatIcon from "@mui/icons-material/Chat";
 import UnsubscribeIcon from "@mui/icons-material/Unsubscribe";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Menu, MenuItem } from "@mui/material";
@@ -117,7 +116,7 @@ function RowDropdown(props) {
         </MenuItem>
         <MenuItem onClick={() => onAiEvaluationBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
-            <ChatIcon fontSize="small" />
+            <img src='/images/robot.png' alt='robot' height={20} />
           </ListItemIcon>
 
           <ListItemText>
