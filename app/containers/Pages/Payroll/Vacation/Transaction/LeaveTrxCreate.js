@@ -222,7 +222,7 @@ function LeaveTrxCreate(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
-
+debugger;
     // used to stop call api if user select wrong date
     if (Object.values(dateError).includes(true)) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
@@ -751,7 +751,7 @@ function LeaveTrxCreate(props) {
                         }}
                         label={intl.formatMessage(messages.daysCount)}
                         type="number"
-                        inputProps={{ step: 0.1, min: 0, max: 1 }}
+                        //inputProps={{ step: 0.1, min: 0, max: 1 }}
                         InputLabelProps={{
                           shrink: true,
                         }}

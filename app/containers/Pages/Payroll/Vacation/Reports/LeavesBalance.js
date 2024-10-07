@@ -11,6 +11,7 @@ import Search from '../../Component/Search';
 import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import messages from '../messages';
+import API from '../api/LeavesBalanceData';
 
 function LeavesBalance(props) {
   const { intl } = props;
@@ -57,8 +58,16 @@ function LeavesBalance(props) {
       label: intl.formatMessage(messages.insuranceDate),
     },
     {
-      name: 'total',
-      label: intl.formatMessage(payrollMessages.total),
+      name: 'annOpen',
+      label: intl.formatMessage(messages.annualBalance),
+    },
+    {
+      name: 'postedBal',
+      label: intl.formatMessage(messages.postedBalance),
+    },
+    {
+      name: 'annCurrentBa',
+      label: intl.formatMessage(messages.CurrentBalance),
     },
   ];
 
@@ -108,11 +117,10 @@ function LeavesBalance(props) {
     try {
       setIsLoading(true);
 
-      console.log(formInfo);
+      
+       const dataApi = await API(locale).GetReport(formInfo);
 
-      // const dataApi = await API(locale).GetReport(formData);
-
-      // setTableData(dataApi);
+       setTableData(dataApi);
 
       getFilterHighlights();
     } catch (error) {
@@ -153,6 +161,26 @@ function LeavesBalance(props) {
     fetchTableData();
   };
 
+  // used to generate columns depend on api data
+  if(tableData.length !== 0)
+    {
+      debugger;
+        Object.keys(tableData[0]).map((key)=>{
+  
+          let keyCheck =  columns.some(function(col) {
+                return col.name === key;
+              })
+            if(!keyCheck)
+            {
+                columns.push({
+                    name: key,
+                    label: key,
+                })
+            }
+        }) 
+        
+    }
+  
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
