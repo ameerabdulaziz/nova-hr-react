@@ -106,10 +106,6 @@ export default defineMessages({
     id: `${scope}.blackList`,
     defaultMessage: 'blackList',
   },
-  blackList2: {
-    id: `${scope}.blackList2`,
-    defaultMessage: 'blackList',
-  },
   idNumber: {
     id: `${scope}.idNumber`,
     defaultMessage: 'idNumber',
