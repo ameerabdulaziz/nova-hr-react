@@ -454,6 +454,10 @@ function JobAdvertisementApplication(props) {
     
   };
 
+
+  console.log("shshsh");
+  
+
   return (
     <PayRollLoader isLoading={isSubmitting}>
       <Layout isLoading={isLoading} config={config} changeMode={changeMode}>
@@ -1211,7 +1215,7 @@ function JobAdvertisementApplication(props) {
                       <Grid item>
                         <div className='title'>
                         
-                          {intl.formatMessage(messages.ExclusionaryQuestions)}
+                          {intl.formatMessage(messages.pleaseAnswerTheFollowingQuestion)}
                         </div>
                       </Grid>
                     </Grid>

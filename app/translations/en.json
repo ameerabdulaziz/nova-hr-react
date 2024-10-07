@@ -2831,6 +2831,7 @@
   "boilerplate.containers.Payroll.cv.preview": "Preview",
   "boilerplate.containers.Payroll.cv.CVUnderReviewing": "Your CV under review",
   "boilerplate.containers.Payroll.cv.ExclusionaryQuestions": "Exclusionary Questions",
+  "boilerplate.containers.Payroll.cv.pleaseAnswerTheFollowingQuestion": "Please answer the following question",
   "boilerplate.containers.Payroll.cv.previewCV": "Preview CV",
   "boilerplate.containers.Payroll.cv.uploadImage": "Upload Image",
   "boilerplate.containers.Payroll.cv.personalIDInfo": "Personal ID Info",
