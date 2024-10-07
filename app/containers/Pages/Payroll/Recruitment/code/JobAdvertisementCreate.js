@@ -23,6 +23,9 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api, { tableData } from '../api/JobAdvertisementData';
 import messages from '../messages';
+import QuesAndAnsPopup from '../../Component/QuesAndAnsPopup';
+import JobAdvertisementCards from '../components/JobAdvertisementCards/JobAdvertisementCards';
+import Styles from '../../../../../styles/styles.scss';
 
 function JobAdvertisementCreate(props) {
   const { intl } = props;
@@ -40,6 +43,7 @@ function JobAdvertisementCreate(props) {
 
   const [dateError, setDateError] = useState({});
   const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [popupType, setPopupType] = useState("");
   const [jobList, setJobList] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,6 +64,12 @@ function JobAdvertisementCreate(props) {
     employmentId,
   });
 
+  const [quesPopupData, setQuesPopupData] = useState({});
+  const [quesPopupEditData, setQuesPopupEditData] = useState({});
+  const [quesPopupEditcardName, setQuesPopupEditcardName] = useState("");
+
+  const [open, setOpen] = useState(false);
+
   const save = async () => {
     setIsLoading(true);
 
@@ -73,6 +83,88 @@ function JobAdvertisementCreate(props) {
       jobAdvertisementId: id,
       id: item.index,
     }));
+
+let recQuestions = []
+let Question = {}
+let Answer = {}
+let recAdvAnswer = []
+let checkboxObject = []
+
+Object.keys(quesPopupData).map((item)=>{
+
+  Answer = {}
+
+  Question = {
+    enName: quesPopupData[item].formData.Question1,
+    arName: quesPopupData[item].formData.Question1,
+  }
+
+  Answer = {
+    enName: quesPopupData[item].formData.Answer1,
+    arName: quesPopupData[item].formData.Answer1,
+    isCorrect: quesPopupData[item].formData.Answer1Checkbox,
+  }
+
+  if(quesPopupData[item].answerIds)
+  {
+
+    Question.id = quesPopupData[item].formData.queId
+    Answer.id = quesPopupData[item].formData.ansId
+    
+  }
+
+
+  recAdvAnswer.push(Answer)
+  
+
+
+if(quesPopupData[item] && quesPopupData[item].quesAns)
+{
+  if(quesPopupData[item].quesAns.queAns1)
+  {
+
+    checkboxObject = Object.keys(quesPopupData[item].quesAns.que1AnswersCheckbox)
+    
+
+    
+
+    Object.keys(quesPopupData[item].quesAns.queAns1).map((ans,index)=>{
+
+      Answer = {}
+
+      Answer = {
+        enName: quesPopupData[item].quesAns.queAns1[ans],
+        arName: quesPopupData[item].quesAns.queAns1[ans],
+        isCorrect: quesPopupData[item].quesAns.que1AnswersCheckbox[checkboxObject[index]],
+      }
+
+
+      if(quesPopupData[item].answerIds)
+        {
+          Answer.id = quesPopupData[item].answerIds[`${ans}Id`]
+          
+        }
+
+      recAdvAnswer.push(Answer)
+      
+      
+    })
+   
+    
+  }
+
+}
+
+Question.recAdvAnswer = recAdvAnswer
+
+
+recQuestions.push(Question)
+recAdvAnswer = []
+
+  
+})
+
+formData.recQuestions = recQuestions
 
     try {
       await api(locale).save(formData);
@@ -115,6 +207,8 @@ function JobAdvertisementCreate(props) {
   async function fetchNeededData() {
     setIsLoading(true);
 
+    let cards = {}
+
     try {
       const organizations = await GeneralListApis(locale).GetDepartmentList();
       setOrganizationList(organizations);
@@ -134,6 +228,50 @@ function JobAdvertisementCreate(props) {
           recJobRequirement: dataApi.recJobRequirement,
           organizationId: dataApi.organizationId,
         }));
+
+        let answers = {}
+        let answersCheckboxs = {}
+        let answersIdsVals = {}
+
+        dataApi.recQuestions.map((item,index)=>{
+
+          item.recAdvAnswer.map((item2,index)=>{
+            
+            if(index !== 0)
+            {
+              answers[`ans${index + 1}`] =  item2.enName
+              
+
+              answersCheckboxs[`ans${index + 1}Checkbox`] = item2.isCorrect
+
+              answersIdsVals[`ans${index + 1}Id`] = item2.id
+              
+            }
+          })
+
+          cards[`cardData${index + 1}`] = {
+              formData: {
+                Answer1: item.recAdvAnswer[0].enName,
+                Answer1Checkbox: item.recAdvAnswer[0].isCorrect,
+                Question1: item.enName,
+                queId: item.id,
+                ansId: item.recAdvAnswer[0].id,
+              },
+              quesAns:{
+                queAns1: answers,
+                que1AnswersCheckbox: answersCheckboxs,
+              },
+              answerIds: answersIdsVals
+            }
+
+            answers = {}
+            answersCheckboxs = {}
+            answersIdsVals = {}
+          
+        })
+
+       setQuesPopupData(cards)
+       
       }
     } catch (error) {
       //
@@ -227,6 +365,17 @@ function JobAdvertisementCreate(props) {
   const handleClose = () => {
     setOpenParentPopup(false);
   };
+
+
+const openQuesPopup = () => {
+  setOpen(true);
+}
+
+const closeQuesPopup = () => {
+  setQuesPopupEditcardName("")
+  setOpen(false);
+}
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -351,12 +500,29 @@ function JobAdvertisementCreate(props) {
             </Grid>
 
             <Grid item xs={12}>
+              
+              {Object.keys(quesPopupData).length !== 0 ? (
+                <p className={Styles.cardsTitle}>{intl.formatMessage(messages.questionsCardsTitle)}</p>
+                
+              ): null}
+
+              <JobAdvertisementCards 
+                quesPopupData={quesPopupData}
+                setQuesPopupData={setQuesPopupData}
+                setQuesPopupEditData={setQuesPopupEditData}
+                setQuesPopupEditcardName={setQuesPopupEditcardName}
+                openQuesPopup={openQuesPopup}
+                setPopupType={setPopupType}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={1}>
+                <Grid item xs={12} md={2} lg={1}>
                   <SaveButton Id={id} processing={isLoading} />
                 </Grid>
 
-                <Grid item xs={12} md={1}>
+                <Grid item xs={12} md={2} lg={1}>
                   <Button
                     variant='contained'
                     size='medium'
@@ -366,6 +532,21 @@ function JobAdvertisementCreate(props) {
                     <FormattedMessage {...payrollMessages.cancel} />
                   </Button>
                 </Grid>
+
+                <Grid item xs={12} md={2} lg={1}>
+                  <Button
+                    variant='contained'
+                    size='medium'
+                    color='primary'
+                    onClick={()=>{
+                      setPopupType("create")
+                      openQuesPopup()
+                    }}
+                  >
+                    <FormattedMessage {...messages.createQuestion} />
+                  </Button>
+                </Grid>
+
               </Grid>
             </Grid>
           </Grid>
@@ -376,6 +557,20 @@ function JobAdvertisementCreate(props) {
           title={`${id}/${formInfo.jobId || 0}/${locale}`}
           API={tableData(`${id}/${formInfo.jobId || 0}/${locale}`)}
           IsNotSave={true}
+        />
+        
+
+
+        <QuesAndAnsPopup 
+          open={open}
+          handleClose={closeQuesPopup}
+          setQuesPopupData={setQuesPopupData}
+          quesPopupData={quesPopupData}
+          quesPopupEditData={quesPopupEditData}
+          quesPopupEditcardName={quesPopupEditcardName}
+          setQuesPopupEditcardName={setQuesPopupEditcardName}
+          setPopupType={setPopupType}
+          popupType={popupType}
         />
       </form>
     </PayRollLoader>

@@ -309,6 +309,8 @@
   "boilerplate.components.Header.action.fullscreen": "ملء الشاشة",
   "boilerplate.components.Header.action.fullScreen": "ملء الشاشة",
   "boilerplate.components.Header.action.exitFullScreen": "إنهاء ملء الشاشة",
+  "boilerplate.components.Header.action.askNova": "أسأل نوفا",
+  
   "boilerplate.components.Header.action.lamp": "بدوره الظلام / الضوء",
   "boilerplate.components.Header.action.guide": "دليل المعرض",
   "boilerplate.components.Header.search": "بحث Ui",
@@ -673,6 +675,8 @@
   "boilerplate.containers.Payroll.save": "حفظ",
   "boilerplate.containers.Payroll.close": "إغلاق",
   "boilerplate.containers.Payroll.cancel": "الغاء",
+  "boilerplate.containers.Payroll.send": "ارسال",
+  
   "boilerplate.containers.Payroll.downloadExcel": "تنزيل Excel",
   "boilerplate.containers.Payroll.goTo": "اذهب إلى",
   "boilerplate.containers.Payroll.personal": "المعلومات الشخصية",
@@ -695,6 +699,7 @@
   "boilerplate.containers.Payroll.delete": "حذف",
   "boilerplate.containers.Payroll.name": "الاسم",
   "boilerplate.containers.Payroll.organizationName": "القسم",
+  "boilerplate.containers.Payroll.businessUnit": "وحدات عمل",
   "boilerplate.containers.Payroll.branchName": "الفرع",
   "boilerplate.containers.Payroll.chooseEmp": "اختر الموظف",
   "boilerplate.containers.Payroll.search": "بحث",
@@ -819,6 +824,7 @@
   "boilerplate.containers.Payroll.pending": "معلق",
   "boilerplate.containers.Payroll.approved": "تمت الموافقة عليه",
   "boilerplate.containers.Payroll.rejected": "مرفوض",
+  "boilerplate.containers.Payroll.viewAttachment": "عرض الملف المرفق",
   "boilerplate.containers.Payroll.filters": "الفلاتر",
   "boilerplate.containers.Payroll.showColumns": "إظهار الأعمدة",
   "boilerplate.containers.Payroll.showHideTableColumns": "إظهار/إخفاء أعمدة الجدول",
@@ -833,6 +839,9 @@
   "boilerplate.containers.Payroll.attachment": "المرفق",
 
   "boilerplate.containers.Payroll.Actions": "الإجراءات",
+  "boilerplate.containers.Payroll.AiEvaluationResult": "تقييم نوفا",
+  "boilerplate.containers.Payroll.evaluate": "تقييم جديد",
+  
   "boilerplate.containers.Payroll.EditHrNotes": "تعديل ملاحظات الموارد البشرية",
   "boilerplate.containers.Payroll.dateErrorMes": "يجب اختيار تاريخ البدا وتاريخ الانتهاء",
   "boilerplate.containers.Payroll.FileIsEmpty": "لايوجد بيانات",
@@ -909,6 +918,9 @@
   "boilerplate.containers.Payroll.Setting.newPassword": "كلمة المرور الجديدة",
   "boilerplate.containers.Payroll.Setting.confirmPassword": "تأكيد كلمة المرور",
   "boilerplate.containers.Payroll.Setting.passwordNotMatch": "كلمة المرور غير متطابقة",
+  "boilerplate.containers.Payroll.Setting.userId": "كود المستخدم",
+  "boilerplate.containers.Payroll.Setting.filterMess": "يجب عليك تحديد اسم الموظف أو اسم المستخدم",
+  "boilerplate.containers.Payroll.Setting.Action": "الاجراء",
   "boilerplate.containers.Payroll.Setting.delete": "حذف",
   "boilerplate.containers.Payroll.Setting.uploadCertificate": "تحميل الشهادة",
   "boilerplate.containers.Payroll.Setting.noCertificateFoundPleaseUploadCertificate": "لم يتم العثور على شهادة يرجى تحميل الشهادة",
@@ -957,6 +969,7 @@
   "boilerplate.containers.Payroll.Setting.sendername": "اسم الراسل",
   "boilerplate.containers.Payroll.Setting.chooseDept": "اختر الادارة",
   "boilerplate.containers.Payroll.Setting.resetallpassword": "استرجاع الكل",
+  "boilerplate.containers.Payroll.Setting.resetDeviceKey": "Reset DeviceKey",
   "boilerplate.containers.Payroll.Setting.resetpassword": "استرجاع كلمة المرور",
   "boilerplate.containers.Payroll.Setting.department": "القسم",
   "boilerplate.containers.Payroll.Setting.resign": "الاستقالة",
@@ -1099,6 +1112,22 @@
   "boilerplate.containers.Payroll.HumanResources.calculate": "حساب التسوية",
   "boilerplate.containers.Payroll.HumanResources.otherDeductionValue": "خصومات اخرى",
   "boilerplate.containers.Payroll.HumanResources.actualManPower": "عدد العاملين",
+
+  "boilerplate.containers.Payroll.HumanResources.serial": "مسلسل",
+  "boilerplate.containers.Payroll.HumanResources.incident": "الواقعة",
+  "boilerplate.containers.Payroll.HumanResources.incidentDate": "تاريخ الواقعة",
+  "boilerplate.containers.Payroll.HumanResources.investigatorName": "المحقق",
+  "boilerplate.containers.Payroll.HumanResources.Questions": "الاسئله",
+  "boilerplate.containers.Payroll.HumanResources.Question": "السؤال",
+  "boilerplate.containers.Payroll.HumanResources.Answer": "الإجابة",
+  "boilerplate.containers.Payroll.HumanResources.q": "س",
+  "boilerplate.containers.Payroll.HumanResources.a": "ج",
+  "boilerplate.containers.Payroll.HumanResources.investigationResult": "نتيجة التحقيق",
+  "boilerplate.containers.Payroll.HumanResources.Attachment": "ارفاق ملف",
+  "boilerplate.containers.Payroll.HumanResources.employeeInvestigation": "تحقيق مع موظف",
+  "boilerplate.containers.Payroll.HumanResources.investigatorSignature": "توقيع المحقق",
+  "boilerplate.containers.Payroll.HumanResources.EmployeeSignature": "توقيع الموظف",
+  "boilerplate.containers.Payroll.HumanResources.EmpInvestigation": "التحقيق مع الموظفين",
   
   
   "boilerplate.containers.Payroll.Attendance.idealManPower": "قوة العمالة المخططه",
@@ -1157,6 +1186,7 @@
   "boilerplate.containers.Payroll.Attendance.MissioTrxUpdateTitle": "تعديل مأموريات",
   "boilerplate.containers.Payroll.Attendance.missionDestination": "جهة المأمورية",
   "boilerplate.containers.Payroll.Attendance.transportationExpenses": "الانتقالات",
+  "boilerplate.containers.Payroll.Attendance.currency": "العملة",
   "boilerplate.containers.Payroll.Attendance.isNotUpdateMission": "فى حالة وجود مأمورية للموظف لا تقم بالتعديل",
   "boilerplate.containers.Payroll.Attendance.hours": "عدد الساعات",
   "boilerplate.containers.Payroll.Attendance.shft2d": "وردية ليل",
@@ -1271,7 +1301,7 @@
   "boilerplate.containers.Payroll.Attendance.lateTimeMinusEl": "عتصر وقت التأخير",
   "boilerplate.containers.Payroll.Attendance.lateTimeMinusElVal": "قيمة العنصر المقابلة",
   "boilerplate.containers.Payroll.Attendance.calcLateByTime": "احتساب التأخير بالوقت",
-  "boilerplate.containers.Payroll.Attendance.lessAsLate": "المتمم يعاكل مثل التأخير",
+  "boilerplate.containers.Payroll.Attendance.lessAsLate": "المتمم يعامل مثل التأخير",
   "boilerplate.containers.Payroll.Attendance.lateTimeOnMonth": "احتساب التأخير على اجمالى الشهر",
   "boilerplate.containers.Payroll.Attendance.perCompensated": "الاذن يلغى وقت التأخير والانصراف المبكر من كشف الحضور",
 
@@ -1696,6 +1726,12 @@
     "boilerplate.containers.Payroll.Attendance.dateAndShiftErrMes": "يجب ان تختار التاريخ",
     "boilerplate.containers.Payroll.Attendance.calcAsrepVac": "احتساب بدل راحة",
 
+    "boilerplate.containers.Payroll.Attendance.notificationUsers": "إشعار المستخدمين",
+    "boilerplate.containers.Payroll.Attendance.transportationType": "نوع النقل",
+    "boilerplate.containers.Payroll.Attendance.AllDays": "كل الايام",
+    "boilerplate.containers.Payroll.Attendance.OneDay": "يوم واحد",
+    "boilerplate.containers.Payroll.Attendance.transportaion": "مواصلات",
+
     
   "boilerplate.containers.Payroll.Payroll.monthName": "الشهر",
   "boilerplate.containers.Payroll.Payroll.yearName": "السنة",
@@ -2061,8 +2097,8 @@
   "boilerplate.containers.Payroll.Employee.salary.isHours": "المرتب يعتمد علي ساعات العمل",
   "boilerplate.containers.Payroll.Employee.salary.hourPrice": "قيمة الساعة",
   "boilerplate.containers.Payroll.Employee.salary.isNotApplyAttRule": "لا يطبق عليه قواعد الحضور و الانصراف",
-  "boilerplate.containers.Payroll.Employee.salary.isMoneyOvertime": "حساب الوقت الاضافي برصيد اجازات",
-  "boilerplate.containers.Payroll.Employee.salary.isVacationOvertime": "حساب الوقت الاضافي بمقابل مادي",
+  "boilerplate.containers.Payroll.Employee.salary.isMoneyOvertime":"حساب الوقت الاضافي بمقابل مادي"       ,
+  "boilerplate.containers.Payroll.Employee.salary.isVacationOvertime": "حساب الوقت الاضافي برصيد اجازات",
   "boilerplate.containers.Payroll.Employee.salary.hasTransfereAllowance": "حساب بدل انتقال",
   "boilerplate.containers.Payroll.Employee.salary.hasMonthlyBouns": "حافز شهري",
   "boilerplate.containers.Payroll.Employee.salary.incentiveFrom": "حوافز من",
@@ -2234,6 +2270,13 @@
 
   "boilerplate.containers.Payroll.Employee.empErrMes": "يجب ان تختار اسم الموظف",
 
+  "boilerplate.containers.Payroll.Employee.guarantor": "الكفيل",
+  "boilerplate.containers.Payroll.Employee.AccruedLeaveBalance": "رصيد الاجازات المستحق",
+  "boilerplate.containers.Payroll.Employee.StartDateOfWork": "تاريخ مباشرة العمل",
+  "boilerplate.containers.Payroll.Employee.BorderNumber": "رقم الحدود",
+  "boilerplate.containers.Payroll.Employee.ResidenceNumber": "رقم الاقامة",
+  "boilerplate.containers.Payroll.Employee.businessUnit": "وحدات عمل",
+
   "boilerplate.containers.Payroll.MainData.codes.id": "كود",
   "boilerplate.containers.Payroll.MainData.codes.preview": "معاينة",
   "boilerplate.containers.Payroll.MainData.codes.hrForm": "نموذج الموارد البشرية",
@@ -2318,6 +2361,9 @@
 
   "boilerplate.containers.Payroll.MainData.codes.IsDisclaimer": "اخلاء طرف",
   "boilerplate.containers.Payroll.MainData.codes.levelNo": "رقم المستوى",
+
+  "boilerplate.containers.Payroll.MainData.codes.bankAccount": "الحساب البنكي",
+  "boilerplate.containers.Payroll.MainData.codes.iban": "رقم الحساب المصرفى الدولى",
   
 
   "boilerplate.containers.Payroll.Request.Transaction.PermissionsList": "قائمة الأذونات",
@@ -2434,7 +2480,7 @@
   "boilerplate.containers.Payroll.vac.GovernmentSickLeaveUpdateTitle": "تعديل إجازة مرضية حكومية",
   "boilerplate.containers.Payroll.vac.reducedFromAnnual": "خصم من السنوي",
   "boilerplate.containers.Payroll.vac.annualBalance": "الرصيد السنوي",
-  "boilerplate.containers.Payroll.vac.postedBalance": "الرصيد المعلن",
+  "boilerplate.containers.Payroll.vac.postedBalance": "الرصيد المرحل",
   "boilerplate.containers.Payroll.vac.annualOpen": "الافتتاح السنوي",
 
   "boilerplate.containers.Payroll.vac.code.GovernmentSickLeaveSetting": "اعدادات الاجازة المرضى الحكومى",
@@ -2692,6 +2738,11 @@
   "boilerplate.containers.Payroll.recruitment.positionType": "نوع الوظيفة",
   "boilerplate.containers.Payroll.recruitment.male": "ذكر",
   "boilerplate.containers.Payroll.recruitment.createJobAdvertisement": "إنشاء إعلان وظيفة",
+  "boilerplate.containers.Payroll.recruitment.createQuestion": "انشاء سؤال",
+  "boilerplate.containers.Payroll.recruitment.Question": "سؤال",
+  "boilerplate.containers.Payroll.recruitment.Answer": "اجابة",
+  "boilerplate.containers.Payroll.recruitment.TrueAnswer": "الإجابة الصحيحة",
+  "boilerplate.containers.Payroll.recruitment.questionsCardsTitle": "اسئلة اقصائية",
   "boilerplate.containers.Payroll.recruitment.createEmploymentRequest": "إنشاء طلب توظيف",
   "boilerplate.containers.Payroll.recruitment.viewEmploymentRequest": "عرض طلب التوظيف",
   "boilerplate.containers.Payroll.recruitment.female": "أنثى",
@@ -2765,6 +2816,7 @@
   "boilerplate.containers.Payroll.recruitment.fromAge": "السن من",
   "boilerplate.containers.Payroll.recruitment.viewApplicationForm": "عرض نموذج الطلب",
   "boilerplate.containers.Payroll.recruitment.updateStatus": "تحديث الحالة",
+  "boilerplate.containers.Payroll.recruitment.aiEvaluation": "تقييم نوفا",
   "boilerplate.containers.Payroll.recruitment.sendRejectMail": "إرسال بريد بالرفض",
   "boilerplate.containers.Payroll.recruitment.downloadCV": "تحميل السيرة الذاتية",
   "boilerplate.containers.Payroll.recruitment.toAge": "السن الي",
@@ -2816,6 +2868,8 @@
   "boilerplate.containers.Payroll.cv.gender": "النوع",
   "boilerplate.containers.Payroll.cv.uploadCV": "رفع السيرة الذاتية",
   "boilerplate.containers.Payroll.cv.CVUnderReviewing": "السيرة الذاتية قيد المراجعة",
+  "boilerplate.containers.Payroll.cv.ExclusionaryQuestions": "اسئلة اقصائية",
+  "boilerplate.containers.Payroll.cv.pleaseAnswerTheFollowingQuestion": "يرجى الإجابة على الاسئلة التالية",
   "boilerplate.containers.Payroll.cv.previewCV": "عرض السيرة الذاتية",
   "boilerplate.containers.Payroll.cv.preview": "معاينة",
   "boilerplate.containers.Payroll.cv.uploadImage": "رفع الصورة",

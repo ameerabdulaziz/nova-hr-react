@@ -16,6 +16,10 @@ export default defineMessages({
     id: `${scope}.action.exitFullScreen`,
     defaultMessage: 'Exit Full Screen',
   },
+  askNova: {
+    id: `${scope}.action.askNova`,
+    defaultMessage: 'Ask Nova',
+  },
   lamp: {
     id: `${scope}.action.lamp`,
     defaultMessage: 'Turn Dark/Light',

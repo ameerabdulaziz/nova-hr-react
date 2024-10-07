@@ -1,11 +1,11 @@
-import { Block, HourglassTop, PendingActions } from '@mui/icons-material';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import PersonOffIcon from '@mui/icons-material/PersonOff';
-import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
+import { Block, HourglassTop, PendingActions } from "@mui/icons-material";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import PersonOffIcon from "@mui/icons-material/PersonOff";
+import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
 import {
   Autocomplete,
   Button,
@@ -20,39 +20,40 @@ import {
   Grid,
   TextField,
   Typography,
-} from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import CounterWidget from '../../../../../components/Counter/CounterWidget';
-import useWidgetStyles from '../../../../../components/Widget/widget-jss';
-import style from '../../../../../styles/styles.scss';
-import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
-import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate, getAutoCompleteValue } from '../../helpers';
-import payrollMessages from '../../messages';
-import api from '../api/HRApplicationEvaluationData';
-import RowDropdown from '../components/HRApplicationEvaluation/RowDropdown';
-import messages from '../messages';
+} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import PropTypes from "prop-types";
+import React, { useEffect, useState, useRef } from "react";
+import { toast } from "react-hot-toast";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import CounterWidget from "../../../../../components/Counter/CounterWidget";
+import useWidgetStyles from "../../../../../components/Widget/widget-jss";
+import style from "../../../../../styles/styles.scss";
+import PayRollLoader from "../../Component/PayRollLoader";
+import PayrollTable from "../../Component/PayrollTable";
+import useStyles from "../../Style";
+import GeneralListApis from "../../api/GeneralListApis";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
+import payrollMessages from "../../messages";
+import api from "../api/HRApplicationEvaluationData";
+import RowDropdown from "../components/HRApplicationEvaluation/RowDropdown";
+import messages from "../messages";
 
 function HRApplicationEvaluation(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const { classes: widgetClass } = useWidgetStyles();
+  const isInitialRender = useRef(true);
 
   const locale = useSelector((state) => state.language.locale);
-  const pageTitle = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem("MenuName");
   const workFromList = [
     {
       id: 1,
@@ -67,6 +68,7 @@ function HRApplicationEvaluation(props) {
   const [dateError, setDateError] = useState({});
   const [tableData, setTableData] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isEvalPopupOpen, setIsEvalPopupOpen] = useState(false);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
 
   const [jobAdvList, setJobAdvList] = useState([]);
@@ -80,22 +82,24 @@ function HRApplicationEvaluation(props) {
 
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isFetchExistEmployeeData, setIsFetchExistEmployeeData] =		useState(false);
+  const [isFetchExistEmployeeData, setIsFetchExistEmployeeData] =
+    useState(false);
+  const [isEvaluateLoader, setIsEvaluateLoader] = useState(false);
   const [existEmployeeInfo, setExistEmployeeInfo] = useState(null);
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
     ToDate: null,
-    Appliname: '',
-    Idcardno: '',
+    Appliname: "",
+    Idcardno: "",
     JobId: null,
     JobAdv: null,
     Status: 0,
     GenderId: null,
     Grauationst: null,
     Workfrom: null,
-    Fromage: '',
-    Toage: '',
+    Fromage: "",
+    Toage: "",
   });
 
   const [extraData, setExtraData] = useState({
@@ -110,12 +114,14 @@ function HRApplicationEvaluation(props) {
 
   const [popupState, setPopupState] = useState({
     appFirstStatus: null,
-    reason: '',
+    reason: "",
     techEmpList: [],
     secStaff: null,
     notTechnicalReview: false,
     databnkjob: null,
   });
+  const [evaluation, setEvaluation] = useState("");
+  const [applicationId, setapplicationId] = useState("");
 
   const getFilterHighlights = () => {
     const highlights = [];
@@ -316,13 +322,36 @@ function HRApplicationEvaluation(props) {
       if (row) {
         setPopupState({
           appFirstStatus: row.appFirstStatus ?? null,
-          reason: row.reason ?? '',
+          reason: row.reason ?? "",
           techEmpList: row.techEmpList ?? [],
           secStaff: row.secStaff ?? null,
           notTechnicalReview: row.notTechnicalReview ?? false,
           databnkjob: row.databnkjob ?? null,
         });
       }
+    }
+  };
+
+  const onAiEvaluationBtnClick = async (id, isNewEvaluation) => {
+    if (isNewEvaluation) setIsEvaluateLoader(true);
+    else setIsLoading(true);
+
+    try {
+      const response = await api(locale).EvaluateJobApplication(
+        id,
+        isNewEvaluation ?? false
+      );
+      debugger;
+      if (response) {
+        setapplicationId(id);
+        setEvaluation(response);
+        setIsEvalPopupOpen(true);
+      }
+    } catch (error) {
+      //
+    } finally {
+      if (isNewEvaluation) setIsEvaluateLoader(false);
+      else setIsLoading(false);
     }
   };
 
@@ -343,38 +372,38 @@ function HRApplicationEvaluation(props) {
 
   const columns = [
     {
-      name: 'empName',
+      name: "empName",
       label: intl.formatMessage(messages.applicantName),
     },
 
     {
-      name: 'appDate',
+      name: "appDate",
       label: intl.formatMessage(messages.applicationDate),
     },
 
     {
-      name: 'jobName',
+      name: "jobName",
       label: intl.formatMessage(messages.jobName),
     },
 
     {
-      name: 'hrStatus',
+      name: "hrStatus",
       label: intl.formatMessage(messages.hrStatus),
     },
 
     {
-      name: 'techStatus',
+      name: "techStatus",
       label: intl.formatMessage(messages.technicalStatus),
     },
 
     {
-      name: 'secStatus',
+      name: "secStatus",
       label: intl.formatMessage(messages.managerialStatus),
     },
 
     {
-      name: '',
-      label: '',
+      name: "",
+      label: "",
       options: {
         print: false,
         filter: false,
@@ -382,7 +411,7 @@ function HRApplicationEvaluation(props) {
           const row = tableData[tableMeta.rowIndex];
 
           if (!row) {
-            return '';
+            return "";
           }
 
           return (
@@ -390,6 +419,7 @@ function HRApplicationEvaluation(props) {
               row={row}
               tableMeta={tableMeta}
               onUpdateStatusBtnClick={onUpdateStatusBtnClick}
+              onAiEvaluationBtnClick={onAiEvaluationBtnClick}
               onSendRejectMailBtnClick={onSendRejectMailBtnClick}
             />
           );
@@ -406,19 +436,22 @@ function HRApplicationEvaluation(props) {
   };
 
   const options = {
-    selectableRows: 'multiple',
+    selectableRows: "multiple",
     customToolbarSelect: (selectedRows) => (
       <IconButton
         sx={{ mx: 2 }}
         onClick={() => onToolBarIconClick(selectedRows.data)}
       >
-        <ManageAccountsIcon sx={{ fontSize: '25px' }} />
+        <ManageAccountsIcon sx={{ fontSize: "25px" }} />
       </IconButton>
     ),
   };
 
   const onFormSubmit = (evt) => {
-    evt.preventDefault();
+    if(evt)
+    {
+      evt.preventDefault();
+    }
 
     if (Object.values(dateError).includes(true)) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
@@ -457,7 +490,7 @@ function HRApplicationEvaluation(props) {
   const onNumericInputChange = (evt) => {
     setFormInfo((prev) => ({
       ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
     }));
   };
 
@@ -467,12 +500,15 @@ function HRApplicationEvaluation(props) {
 
     setPopupState({
       appFirstStatus: null,
-      reason: '',
+      reason: "",
       techEmpList: [],
       secStaff: null,
       notTechnicalReview: false,
       databnkjob: null,
     });
+  };
+  const onEvalPopupClose = () => {
+    setIsEvalPopupOpen(false);
   };
 
   const onPopupFormSubmit = async (evt) => {
@@ -483,7 +519,7 @@ function HRApplicationEvaluation(props) {
       ids: selectedRowsId,
       appFirstStatus: popupState.appFirstStatus,
       notTechnicalReview: popupState.notTechnicalReview,
-      reason: '',
+      reason: "",
     };
 
     if (popupState.appFirstStatus === 6) {
@@ -513,20 +549,95 @@ function HRApplicationEvaluation(props) {
       await fetchTableData();
     }
   };
+  const onEvalPopupFormSubmit = async (evt) => {
+    debugger;
+    evt.preventDefault();
+
+    setIsEvaluateLoader(true);
+    const body = {
+      id: 0,
+      applicationId: applicationId,
+      evaluation: evaluation,
+    };
+    try {
+      debugger;
+      const response = await api(locale).SaveAiEvaluation(body);
+
+      if (response) {
+        toast.error(response.statusText);
+      } else {
+        toast.success(notif.saved);
+        onEvalPopupClose();
+      }
+    } catch (error) {
+      //
+    } finally {
+      setIsEvaluateLoader(false);
+    }
+  };
+
+
+   const clickCardsFun = (cardVal) => {
+    
+      let cardValObj = statusList.find((item) => item.name === cardVal)
+
+      setFormInfo((prev) => ({
+        ...prev,
+        Status : cardValObj ? cardValObj.id : 0,
+      }));
+   }
+
+   useEffect(()=>{
+
+    if (isInitialRender.current) {
+      // Skip this effect on the first render
+      isInitialRender.current = false;
+      return;
+    }
+    
+    onFormSubmit()
+   },[formInfo.Status])
+
+  const replaceWordsWithMark = (text = '') => {
+    const wordsToReplace = [
+      'however',
+      'rate',
+      'evaluate',
+      'overall',
+      'therefore',
+      'score',
+      '\\d+ out of \\d+',
+    ];
+
+    // \\b is a word boundary in regular expressions. It matches the position between a word character (like letters and digits) and a non-word character (like spaces or punctuation). Using \\b ensures that we match whole words rather than substrings. For example, it will match "rate" but not "corporate".
+    const regex = new RegExp(`\\b(${wordsToReplace.join('|')})\\b`, 'gi');
+
+    // Split the text based on the regex
+    const parts = text.trimStart().split(regex);
+
+    // Create the result array by interleaving parts and matches
+    const result = parts.map((part, index) => {
+      // ensures that each part is checked against all the words/phrases, treating them as regular expressions.
+      const isExist = wordsToReplace.some(word => new RegExp(`\\b${word}\\b`, 'i').test(part));
+      return isExist ? <mark key={index}>{part}</mark> : <span>{part}</span>;
+    });
+
+    return result;
+  };
 
   return (
     <PayRollLoader isLoading={isLoading}>
       <Dialog
         open={isPopupOpen}
         onClose={onPopupClose}
-        component='form'
+        component="form"
         onSubmit={onPopupFormSubmit}
         PaperProps={{
           sx: (th) => ({
-            [th.breakpoints.down('md')]: {
-              width: '100%',
+            [th.breakpoints.down("md")]: {
+              width: "100%",
             },
-            width: '70vw',
+            width: "70vw",
           }),
         }}
       >
@@ -534,10 +645,10 @@ function HRApplicationEvaluation(props) {
           <FormattedMessage {...payrollMessages.Actions} />
         </DialogTitle>
 
-        <DialogContent sx={{ pt: '10px !important' }}>
+        <DialogContent sx={{ pt: "10px !important" }}>
           <PayRollLoader isLoading={isFetchExistEmployeeData}>
             {existEmployeeInfo && (
-              <Card className={classes.card} sx={{ mt: '0!important' }}>
+              <Card className={classes.card} sx={{ mt: "0!important" }}>
                 <CardContent>
                   <Typography>
                     {intl.formatMessage(
@@ -547,61 +658,61 @@ function HRApplicationEvaluation(props) {
                   <Grid container mt={0} spacing={2}>
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='employeeCode'
+                        name="employeeCode"
                         value={existEmployeeInfo.employeeCode}
                         label={intl.formatMessage(messages.employeeCode)}
                         fullWidth
-                        variant='outlined'
+                        variant="outlined"
                         disabled
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='employeeName'
+                        name="employeeName"
                         value={existEmployeeInfo.employeeName}
                         label={intl.formatMessage(messages.employeeName)}
                         fullWidth
-                        variant='outlined'
+                        variant="outlined"
                         disabled
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='jobName'
+                        name="jobName"
                         value={existEmployeeInfo.jobName}
                         label={intl.formatMessage(messages.jobName)}
                         fullWidth
-                        variant='outlined'
+                        variant="outlined"
                         disabled
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='department'
+                        name="department"
                         value={existEmployeeInfo.department}
                         label={intl.formatMessage(messages.department)}
                         fullWidth
-                        variant='outlined'
+                        variant="outlined"
                         disabled
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='status'
+                        name="status"
                         value={existEmployeeInfo.status}
                         label={intl.formatMessage(messages.status)}
                         fullWidth
-                        variant='outlined'
+                        variant="outlined"
                         disabled
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                   </Grid>
@@ -617,15 +728,17 @@ function HRApplicationEvaluation(props) {
                     statusPopupList,
                     popupState.appFirstStatus
                   )}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
                   }
-                  getOptionLabel={(option) => (option ? option.name : '')}
+                  getOptionLabel={(option) => (option ? option.name : "")}
                   renderOption={(propsOption, option) => (
                     <li {...propsOption} key={option.id}>
                       {option.name}
                     </li>
                   )}
-                  onChange={(_, value) => onAutoCompletePopupChange(value, 'appFirstStatus')
+                  onChange={(_, value) =>
+                    onAutoCompletePopupChange(value, "appFirstStatus")
                   }
                   renderInput={(params) => (
                     <TextField
@@ -642,15 +755,17 @@ function HRApplicationEvaluation(props) {
                   <Autocomplete
                     options={jobList}
                     value={getAutoCompleteValue(jobList, popupState.databnkjob)}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
                     }
-                    getOptionLabel={(option) => (option ? option.name : '')}
+                    getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(propsOption, option) => (
                       <li {...propsOption} key={option.id}>
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompletePopupChange(value, 'databnkjob')
+                    onChange={(_, value) =>
+                      onAutoCompletePopupChange(value, "databnkjob")
                     }
                     renderInput={(params) => (
                       <TextField
@@ -662,8 +777,8 @@ function HRApplicationEvaluation(props) {
                 </Grid>
               )}
 
-              {(popupState.appFirstStatus === 1
-                || popupState.appFirstStatus === 3) && (
+              {(popupState.appFirstStatus === 1 ||
+                popupState.appFirstStatus === 3) && (
                 <>
                   <Grid item xs={12} md={6}>
                     <Autocomplete
@@ -672,15 +787,17 @@ function HRApplicationEvaluation(props) {
                         managerialLevelList,
                         popupState.secStaff
                       )}
-                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      isOptionEqualToValue={(option, value) =>
+                        option.id === value.id
                       }
-                      getOptionLabel={(option) => (option ? option.name : '')}
+                      getOptionLabel={(option) => (option ? option.name : "")}
                       renderOption={(propsOption, option) => (
                         <li {...propsOption} key={option.id}>
                           {option.name}
                         </li>
                       )}
-                      onChange={(_, value) => onAutoCompletePopupChange(value, 'secStaff')
+                      onChange={(_, value) =>
+                        onAutoCompletePopupChange(value, "secStaff")
                       }
                       renderInput={(params) => (
                         <TextField
@@ -698,21 +815,21 @@ function HRApplicationEvaluation(props) {
                       disableCloseOnSelect
                       disabled={popupState.notTechnicalReview}
                       className={`${style.AutocompleteMulSty} ${
-                        locale === 'ar' ? style.AutocompleteMulStyAR : null
+                        locale === "ar" ? style.AutocompleteMulStyAR : null
                       }`}
                       value={popupState.techEmpList}
                       renderOption={(props, option, { selected }) => (
                         <li {...props}>
                           <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                            checkedIcon={<CheckBoxIcon fontSize='small' />}
+                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                            checkedIcon={<CheckBoxIcon fontSize="small" />}
                             style={{ marginRight: 8 }}
                             checked={selected}
                           />
                           {option.name}
                         </li>
                       )}
-                      getOptionLabel={(option) => (option ? option.name : '')}
+                      getOptionLabel={(option) => (option ? option.name : "")}
                       onChange={(_, value) => {
                         setPopupState((prev) => ({
                           ...prev,
@@ -736,10 +853,11 @@ function HRApplicationEvaluation(props) {
                   control={
                     <Checkbox
                       checked={popupState.notTechnicalReview}
-                      onChange={(evt) => setPopupState((prevFilters) => ({
-                        ...prevFilters,
-                        notTechnicalReview: evt.target.checked,
-                      }))
+                      onChange={(evt) =>
+                        setPopupState((prevFilters) => ({
+                          ...prevFilters,
+                          notTechnicalReview: evt.target.checked,
+                        }))
                       }
                     />
                   }
@@ -750,16 +868,16 @@ function HRApplicationEvaluation(props) {
               {popupState.appFirstStatus !== 1 && (
                 <Grid item xs={12} md={12}>
                   <TextField
-                    name='reason'
+                    name="reason"
                     onChange={onPopupInputChange}
                     value={popupState.reason}
                     label={intl.formatMessage(messages.reason)}
                     fullWidth
-                    variant='outlined'
+                    variant="outlined"
                     multiline
                     rows={1}
                     required
-                    autoComplete='off'
+                    autoComplete="off"
                   />
                 </Grid>
               )}
@@ -772,33 +890,91 @@ function HRApplicationEvaluation(props) {
             {intl.formatMessage(payrollMessages.cancel)}
           </Button>
 
-          <Button type='submit' variant='contained'>
+          <Button type="submit" variant="contained">
             {intl.formatMessage(messages.confirm)}
           </Button>
         </DialogActions>
       </Dialog>
 
-      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
+      <Dialog
+        open={isEvalPopupOpen}
+        onClose={onEvalPopupClose}
+        component="form"
+        onSubmit={onEvalPopupFormSubmit}
+        PaperProps={{
+          sx: (th) => ({
+            [th.breakpoints.down("md")]: {
+              width: "100%",
+            },
+            width: "70vw",
+          }),
+        }}
+      >
+        <DialogTitle>
+          <FormattedMessage {...payrollMessages.AiEvaluationResult} />
+        </DialogTitle>
+
+        <DialogContent sx={{ pt: "10px !important" }}>
+          <PayRollLoader isLoading={isEvaluateLoader}>
+            <Grid container mt={0} spacing={2}>
+              <Grid item xs={12} md={12}>
+                <Typography
+                  sx={{
+                    whiteSpace: 'pre-wrap',
+                    border: '1px solid #ddd',
+                    p: 2,
+                    borderRadius: '5px'
+                  }}
+                >
+                  {replaceWordsWithMark(evaluation)}
+                </Typography>
+              </Grid>
+            </Grid>
+          </PayRollLoader>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={() => onEvalPopupClose()}>
+            {intl.formatMessage(payrollMessages.cancel)}
+          </Button>
+          <Button
+            onClick={() => onAiEvaluationBtnClick(applicationId, true)}
+            variant="contained"
+          >
+            {intl.formatMessage(payrollMessages.evaluate)}
+          </Button>
+          <Button type="submit" variant="contained">
+            {intl.formatMessage(messages.save)}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <PapperBlock whiteBg icon="border_color" title={pageTitle} desc="">
         <div className={widgetClass.rootCounterFull}>
           <Grid container spacing={2} mb={2}>
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} 
+              onClick={()=>{clickCardsFun(statusList?.[6]?.name)}}
+              className={style.cardSty}
+              >
               <CounterWidget
-                color='secondary-main'
+                color="secondary-main"
                 start={0}
                 end={extraData.pending}
                 duration={3}
                 title={intl.formatMessage(messages.pending)}
+                
               >
                 <PendingActions
                   className={widgetClass.counterIcon}
                   sx={{ fontSize: '60px !important' }}
+                  
                 />
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(statusList?.[0]?.name)}} className={style.cardSty}>
               <CounterWidget
-                color='secondary-main'
+                color="secondary-main"
                 start={0}
                 end={extraData.accepted}
                 duration={3}
@@ -806,14 +982,14 @@ function HRApplicationEvaluation(props) {
               >
                 <HowToRegIcon
                   className={widgetClass.counterIcon}
-                  sx={{ fontSize: '60px !important' }}
+                  sx={{ fontSize: "60px !important" }}
                 />
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(statusList?.[2]?.name)}} className={style.cardSty}>
               <CounterWidget
-                color='secondary-main'
+                color="secondary-main"
                 start={0}
                 end={extraData.waiting}
                 duration={3}
@@ -821,14 +997,14 @@ function HRApplicationEvaluation(props) {
               >
                 <HourglassTop
                   className={widgetClass.counterIcon}
-                  sx={{ fontSize: '60px !important' }}
+                  sx={{ fontSize: "60px !important" }}
                 />
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(statusList?.[5]?.name)}} className={style.cardSty}>
               <CounterWidget
-                color='secondary-main'
+                color="secondary-main"
                 start={0}
                 end={extraData.dataBank}
                 duration={3}
@@ -836,14 +1012,14 @@ function HRApplicationEvaluation(props) {
               >
                 <DocumentScannerIcon
                   className={widgetClass.counterIcon}
-                  sx={{ fontSize: '60px !important' }}
+                  sx={{ fontSize: "60px !important" }}
                 />
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(statusList?.[3]?.name)}} className={style.cardSty}>
               <CounterWidget
-                color='secondary-main'
+                color="secondary-main"
                 start={0}
                 end={extraData.offer}
                 duration={3}
@@ -851,14 +1027,14 @@ function HRApplicationEvaluation(props) {
               >
                 <SensorOccupiedIcon
                   className={widgetClass.counterIcon}
-                  sx={{ fontSize: '60px !important' }}
+                  sx={{ fontSize: "60px !important" }}
                 />
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(statusList?.[1]?.name)}} className={style.cardSty}>
               <CounterWidget
-                color='secondary-main'
+                color="secondary-main"
                 start={0}
                 end={extraData.rejected}
                 duration={3}
@@ -866,14 +1042,14 @@ function HRApplicationEvaluation(props) {
               >
                 <PersonOffIcon
                   className={widgetClass.counterIcon}
-                  sx={{ fontSize: '60px !important' }}
+                  sx={{ fontSize: "60px !important" }}
                 />
               </CounterWidget>
             </Grid>
 
-            <Grid item sm={6} md={3}>
+            <Grid item sm={6} md={3} onClick={()=>{clickCardsFun(statusList?.[4]?.name)}} className={style.cardSty}>
               <CounterWidget
-                color='secondary-main'
+                color="secondary-main"
                 start={0}
                 end={extraData.bList}
                 duration={3}
@@ -881,7 +1057,7 @@ function HRApplicationEvaluation(props) {
               >
                 <Block
                   className={widgetClass.counterIcon}
-                  sx={{ fontSize: '60px !important' }}
+                  sx={{ fontSize: "60px !important" }}
                 />
               </CounterWidget>
             </Grid>
@@ -896,15 +1072,17 @@ function HRApplicationEvaluation(props) {
                   <Autocomplete
                     options={jobAdvList}
                     value={getAutoCompleteValue(jobAdvList, formInfo.JobAdv)}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
                     }
-                    getOptionLabel={(option) => (option ? option.name : '')}
+                    getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(propsOption, option) => (
                       <li {...propsOption} key={option.id}>
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'JobAdv')
+                    onChange={(_, value) =>
+                      onAutoCompleteChange(value, "JobAdv")
                     }
                     renderInput={(params) => (
                       <TextField
@@ -917,25 +1095,25 @@ function HRApplicationEvaluation(props) {
 
                 <Grid item xs={12} md={3}>
                   <TextField
-                    name='Appliname'
+                    name="Appliname"
                     onChange={onInputChange}
                     value={formInfo.Appliname}
                     label={intl.formatMessage(messages.applicantName)}
                     fullWidth
-                    variant='outlined'
-                    autoComplete='off'
+                    variant="outlined"
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={3}>
                   <TextField
-                    name='Idcardno'
+                    name="Idcardno"
                     onChange={onNumericInputChange}
                     value={formInfo.Idcardno}
                     label={intl.formatMessage(messages.idNumber)}
                     fullWidth
-                    variant='outlined'
-                    autoComplete='off'
+                    variant="outlined"
+                    autoComplete="off"
                   />
                 </Grid>
 
@@ -943,15 +1121,17 @@ function HRApplicationEvaluation(props) {
                   <Autocomplete
                     options={statusList}
                     value={getAutoCompleteValue(statusList, formInfo.Status)}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
                     }
-                    getOptionLabel={(option) => (option ? option.name : '')}
+                    getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(propsOption, option) => (
                       <li {...propsOption} key={option.id}>
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'Status')
+                    onChange={(_, value) =>
+                      onAutoCompleteChange(value, "Status")
                     }
                     renderInput={(params) => (
                       <TextField
@@ -969,8 +1149,8 @@ function HRApplicationEvaluation(props) {
                       value={
                         formInfo.FromDate ? dayjs(formInfo.FromDate) : null
                       }
-                      sx={{ width: '100%' }}
-                      onChange={(date) => onDatePickerChange(date, 'FromDate')}
+                      sx={{ width: "100%" }}
+                      onChange={(date) => onDatePickerChange(date, "FromDate")}
                       onError={(error) => {
                         setDateError((prevState) => ({
                           ...prevState,
@@ -986,8 +1166,8 @@ function HRApplicationEvaluation(props) {
                     <DatePicker
                       label={intl.formatMessage(payrollMessages.todate)}
                       value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
-                      sx={{ width: '100%' }}
-                      onChange={(date) => onDatePickerChange(date, 'ToDate')}
+                      sx={{ width: "100%" }}
+                      onChange={(date) => onDatePickerChange(date, "ToDate")}
                       onError={(error) => {
                         setDateError((prevState) => ({
                           ...prevState,
@@ -1002,15 +1182,17 @@ function HRApplicationEvaluation(props) {
                   <Autocomplete
                     options={jobList}
                     value={getAutoCompleteValue(jobList, formInfo.JobId)}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
                     }
-                    getOptionLabel={(option) => (option ? option.name : '')}
+                    getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(propsOption, option) => (
                       <li {...propsOption} key={option.id}>
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'JobId')
+                    onChange={(_, value) =>
+                      onAutoCompleteChange(value, "JobId")
                     }
                     renderInput={(params) => (
                       <TextField
@@ -1025,15 +1207,17 @@ function HRApplicationEvaluation(props) {
                   <Autocomplete
                     options={genderList}
                     value={getAutoCompleteValue(genderList, formInfo.GenderId)}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
                     }
-                    getOptionLabel={(option) => (option ? option.name : '')}
+                    getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(propsOption, option) => (
                       <li {...propsOption} key={option.id}>
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'GenderId')
+                    onChange={(_, value) =>
+                      onAutoCompleteChange(value, "GenderId")
                     }
                     renderInput={(params) => (
                       <TextField
@@ -1051,15 +1235,17 @@ function HRApplicationEvaluation(props) {
                       workFromList,
                       formInfo.Workfrom
                     )}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
                     }
-                    getOptionLabel={(option) => (option ? option.name : '')}
+                    getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(propsOption, option) => (
                       <li {...propsOption} key={option.id}>
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'Workfrom')
+                    onChange={(_, value) =>
+                      onAutoCompleteChange(value, "Workfrom")
                     }
                     renderInput={(params) => (
                       <TextField
@@ -1077,15 +1263,17 @@ function HRApplicationEvaluation(props) {
                       graduationGradList,
                       formInfo.Grauationst
                     )}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
                     }
-                    getOptionLabel={(option) => (option ? option.name : '')}
+                    getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(propsOption, option) => (
                       <li {...propsOption} key={option.id}>
                         {option.name}
                       </li>
                     )}
-                    onChange={(_, value) => onAutoCompleteChange(value, 'Grauationst')
+                    onChange={(_, value) =>
+                      onAutoCompleteChange(value, "Grauationst")
                     }
                     renderInput={(params) => (
                       <TextField
@@ -1098,30 +1286,30 @@ function HRApplicationEvaluation(props) {
 
                 <Grid item xs={12} md={3}>
                   <TextField
-                    name='Fromage'
+                    name="Fromage"
                     onChange={onNumericInputChange}
                     value={formInfo.Fromage}
                     label={intl.formatMessage(messages.fromAge)}
                     fullWidth
-                    variant='outlined'
-                    autoComplete='off'
+                    variant="outlined"
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={3}>
                   <TextField
-                    name='Toage'
+                    name="Toage"
                     onChange={onNumericInputChange}
                     value={formInfo.Toage}
                     label={intl.formatMessage(messages.toAge)}
                     fullWidth
-                    variant='outlined'
-                    autoComplete='off'
+                    variant="outlined"
+                    autoComplete="off"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={12}>
-                  <Button variant='contained' color='primary' type='submit'>
+                  <Button variant="contained" color="primary" type="submit">
                     {intl.formatMessage(payrollMessages.search)}
                   </Button>
                 </Grid>

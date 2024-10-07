@@ -147,9 +147,9 @@ function ServicePeriodWidget(props) {
         <Divider className={classes.divider} />
         <div className={classes.chartWrap}>
           <div className={classes.chartFluid}>
-            <ResponsiveContainer width={550} height="80%">
+            <ResponsiveContainer width="100%" height="80%">
               <BarChart
-                width={550}
+                width="100%"
                 height={398}
                 data={data2}
                 margin={{

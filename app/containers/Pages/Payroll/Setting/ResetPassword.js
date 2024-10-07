@@ -74,6 +74,26 @@ function ResetPassword(props) {
     }
   };
 
+  const resetDeviceKey = async () => {
+    try {
+      if(!employee)
+      {
+        toast.error("يجب اختيار موظف");
+        return;
+      }
+      setIsLoading(true);
+      await ResetPasswordData().ResetDeviceKey(employee);
+
+      toast.success(notif.saved);
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  
+
   const fetchNeededData = useCallback(async () => {
     setIsLoading(true);
 
@@ -283,6 +303,17 @@ function ResetPassword(props) {
                   onClick={resetAll}
                 >
                   <FormattedMessage {...messages.resetallpassword} />
+                </Button>
+              </Grid>
+
+              <Grid item>
+                <Button
+                  variant="contained"
+                  size="medium"
+                  color="primary"
+                  onClick={resetDeviceKey}
+                >
+                  <FormattedMessage {...messages.resetDeviceKey} />
                 </Button>
               </Grid>
             </Grid>

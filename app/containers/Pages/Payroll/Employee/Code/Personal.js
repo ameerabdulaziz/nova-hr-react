@@ -117,6 +117,9 @@ function Personal(props) {
   const [statusId, setstatusId] = useState(null);
   const [statusList, setstatusList] = useState([]);
 
+  const [businessUnitList, setBusinessUnitList] = useState([]);
+  const [businessUnitId, setBusinessUnitId] = useState(null);
+
   const locale = useSelector((state) => state.language.locale);
 
   const [isEmployeeCreatedOpen, setIsEmployeeCreatedOpen] = useState(false);
@@ -351,7 +354,7 @@ function Personal(props) {
       );
       return;
     }
-    debugger;
+
     var regExp = /[a-zA-Z]/g;
 
     if (identityTypeId?.isCharcter == false && regExp.test(identityNumber)) {
@@ -445,6 +448,7 @@ function Personal(props) {
         workEmail,
         isHr: isHR,
         nickName,
+        BusinessUnitId: businessUnitId?.id ?? "",
         // hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
@@ -637,7 +641,7 @@ function Personal(props) {
 
   useEffect(() => {
     async function fetchData() {
-      debugger;
+
       try {
         const [
           employeedata,
@@ -654,6 +658,7 @@ function Personal(props) {
           socialStatusdata,
           MilitaryStatusdata,
           Statusdata,
+          businessUnit 
         ] = await Promise.all([
           GeneralListApis(locale).GetEmployeeList(),
           GeneralListApis(locale).GetJobList(),
@@ -669,6 +674,7 @@ function Personal(props) {
           GeneralListApis(locale).GetSocialStatusList(),
           GeneralListApis(locale).GetMilitaryStatusList(),
           GeneralListApis(locale).GetEmpStatusList(),
+          GeneralListApis(locale).GetBusinessUnitList(),
         ]);
 
         setreportToList(employeedata || []);
@@ -699,6 +705,8 @@ function Personal(props) {
 
         setstatusList(Statusdata || []);
 
+        setBusinessUnitList(businessUnit || []);
+
         if (id > 0) {
           const dataApi = await EmployeeData(locale).GetList(id);
 
@@ -715,7 +723,7 @@ function Personal(props) {
             setWorkEmail(dataApi.workEmail ?? "");
             // setHrBranchList(dataApi.hrBranchList ?? []);
             setIsHR(dataApi.isHr);
-            seteRPCode(dataApi.eRPCode ?? "");
+            seteRPCode(dataApi.erpcode ?? "");
             setmachineCode(dataApi.machineCode ?? "");
             setreportTo(
               dataApi.reportTo
@@ -854,6 +862,15 @@ function Personal(props) {
                 : `data:image/jpeg;base64,${dataApi.photo}`;
             setImg(empimg);
           }
+
+          setBusinessUnitId( 
+            dataApi.businessUnitId
+            ? {
+                id: dataApi.businessUnitId,
+                name: dataApi.businessUnitName,
+              }
+            : null)
+
           //else clear();
         }
       } catch (err) {
@@ -1082,7 +1099,7 @@ function Personal(props) {
                     )}
                     onChange={(_, value) =>
                       setreportTo({
-                        id: value !== null ? value.id : 0,
+                        id: value !== null ? value.id : "",
                         name: value !== null ? value.name : "",
                       })
                     }
@@ -1655,79 +1672,127 @@ function Personal(props) {
                   <hr />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
-                  <Autocomplete
-                    id="ddlorganization"
-                    options={organizationList || []}
-                    value={organizationId}
-                    isOptionEqualToValue={(option, value) =>
-                      value.id === 0 ||
-                      value.id === "" ||
-                      option.id === value.id
-                    }
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={option.id}>
-                          {option.name}
-                        </li>
-                      );
-                    }}
-                    getOptionLabel={(option) =>
-                      option.name ? option.name : ""
-                    }
-                    onChange={(event, value) => {
-                      setorganizationId({
-                        id: value !== null ? value.id : 0,
-                        name: value !== null ? value.name : "",
-                      });
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="outlined"
-                        {...params}
-                        name="organizationId"
-                        required
-                        label={intl.formatMessage(messages.organization)}
-                      />
-                    )}
-                  />
-                </Grid>
+                <Grid item container spacing={2}>
 
-                <Grid item xs={12} md={3}>
-                  <Autocomplete
-                    id="ddlcontrolParameterId"
-                    options={controlParameterList || []}
-                    value={controlParameterId}
-                    isOptionEqualToValue={(option, value) =>
-                      value.id === 0 ||
-                      value.id === "" ||
-                      option.id === value.id
-                    }
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={option.id}>
-                          {option.name}
-                        </li>
-                      );
-                    }}
-                    getOptionLabel={(option) =>
-                      option.name ? option.name : ""
-                    }
-                    onChange={(event, value) => {
-                      setcontrolParameterId({
-                        id: value !== null ? value.id : 0,
-                        name: value !== null ? value.name : "",
-                      });
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        variant="outlined"
-                        {...params}
-                        name="controlParameterId"
-                        label={intl.formatMessage(messages.controlParameter)}
-                      />
-                    )}
-                  />
+                  <Grid item xs={12} md={3}>
+                    <Autocomplete
+                      id="ddlorganization"
+                      options={organizationList || []}
+                      value={organizationId}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === "" ||
+                        option.id === value.id
+                      }
+                      renderOption={(props, option) => {
+                        return (
+                          <li {...props} key={option.id}>
+                            {option.name}
+                          </li>
+                        );
+                      }}
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                      }
+                      onChange={(event, value) => {
+                        setorganizationId({
+                          id: value !== null ? value.id : 0,
+                          name: value !== null ? value.name : "",
+                        });
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="organizationId"
+                          required
+                          label={intl.formatMessage(messages.organization)}
+                        />
+                      )}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={3}>
+                    <Autocomplete
+                      id="ddlorganization"
+                      options={businessUnitList || []}
+                      value={businessUnitId}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === "" ||
+                        option.id === value.id
+                      }
+                      renderOption={(props, option) => {
+                        return (
+                          <li {...props} key={option.id}>
+                            {option.name}
+                          </li>
+                        );
+                      }}
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                      }
+                      onChange={(event, value) => {
+                        if(value)
+                        {
+                          setBusinessUnitId({
+                            id:  value.id ,
+                            name: value.name ,
+                          });
+                        }
+                        else
+                        {
+                          setBusinessUnitId(null)
+                        }
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="businessUnitId"
+                          label={intl.formatMessage(messages.businessUnit)}
+                        />
+                      )}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={3}>
+                    <Autocomplete
+                      id="ddlcontrolParameterId"
+                      options={controlParameterList || []}
+                      value={controlParameterId}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 ||
+                        value.id === "" ||
+                        option.id === value.id
+                      }
+                      renderOption={(props, option) => {
+                        return (
+                          <li {...props} key={option.id}>
+                            {option.name}
+                          </li>
+                        );
+                      }}
+                      getOptionLabel={(option) =>
+                        option.name ? option.name : ""
+                      }
+                      onChange={(event, value) => {
+                        setcontrolParameterId({
+                          id: value !== null ? value.id : 0,
+                          name: value !== null ? value.name : "",
+                        });
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="controlParameterId"
+                          label={intl.formatMessage(messages.controlParameter)}
+                        />
+                      )}
+                    />
+                  </Grid>
+
                 </Grid>
 
                 <Grid item xs={12} md={3}>
@@ -1810,7 +1875,7 @@ function Personal(props) {
                   <hr />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{paddingTop: 0}}>
                   <Grid container direction="row" spacing={1}>
                     {/* <Grid item xs={12} md={3}>
                       <FormControlLabel
@@ -1912,7 +1977,7 @@ function Personal(props) {
                 </>} */}
               </Grid>
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} style={{paddingTop: 0}}>
               <hr />
             </Grid>
 

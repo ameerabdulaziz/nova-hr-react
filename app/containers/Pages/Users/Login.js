@@ -106,7 +106,7 @@ function Login() {
         //history.push('/app');
         //window.location.href = '/app';
       } catch (error) {
-        if (!error.response) Dispatcher(loginFailure(error));
+        if (!error.response) Dispatcher(loginFailure(error.message));
         if (error.response.data.error)
           Dispatcher(loginFailure(error.response.data.error[0]));
         else Dispatcher(loginFailure(error.response.data["error"][0]));

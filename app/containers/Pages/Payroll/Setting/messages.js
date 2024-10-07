@@ -93,6 +93,10 @@ export default defineMessages({
     id: `${scope}.resetallpassword`,
     defaultMessage: 'Reset All',
   },
+  resetDeviceKey:{
+    id: `${scope}.resetDeviceKey`,
+    defaultMessage: 'resetDeviceKey',
+  },
   resetpassword:{
     id: `${scope}.resetpassword`,
     defaultMessage: 'Reset Password',
@@ -323,5 +327,18 @@ export default defineMessages({
   passwordNotMatch: {
     id: `${scope}.passwordNotMatch`,
     defaultMessage: 'passwordNotMatch',
+  },
+  // LogReport
+  userId: {
+    id: `${scope}.userId`,
+    defaultMessage: 'User ID',
+  },
+  filterMess: {
+    id: `${scope}.filterMess`,
+    defaultMessage: 'You must to select employee name or user name',
+  },
+  Action: {
+    id: `${scope}.Action`,
+    defaultMessage: 'Action',
   },
 });

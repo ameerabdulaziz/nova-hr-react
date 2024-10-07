@@ -1,32 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import Hidden from '@mui/material/Hidden';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import SearchIcon from '@mui/icons-material/Search';
-import FullscreenOutlined from '@mui/icons-material/FullscreenOutlined';
-import FullscreenExitOutlined from '@mui/icons-material/FullscreenExitOutlined';
-import InvertColors from '@mui/icons-material/InvertColorsOutlined';
-import HelpOutlineOutlined from '@mui/icons-material/HelpOutlineOutlined';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MenuIcon from '@mui/icons-material/Menu';
-import Button from '@mui/material/Button';
-import { NavLink, Link } from 'react-router-dom';
-import brand from 'enl-api/dummy/brand';
-import logo from 'enl-images/logo.png';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import menuMessages from 'enl-api/ui/menuMessages';
-import link from 'enl-api/ui/link';
-import UserMenu from './UserMenu';
-import SearchUi from '../Search/SearchUi';
-import SelectLanguage from '../SelectLanguage';
-import messages from './messages';
-import useStyles from './header-jss';
-import { useSelector } from 'react-redux';
-import api from '../../containers/Pages/Payroll/Dashboard/api';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  Box,
+  TextField,
+} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Hidden from "@mui/material/Hidden";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import SearchIcon from "@mui/icons-material/Search";
+import FullscreenOutlined from "@mui/icons-material/FullscreenOutlined";
+import FullscreenExitOutlined from "@mui/icons-material/FullscreenExitOutlined";
+import InvertColors from "@mui/icons-material/InvertColorsOutlined";
+import HelpOutlineOutlined from "@mui/icons-material/HelpOutlineOutlined";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MenuIcon from "@mui/icons-material/Menu";
+import Button from "@mui/material/Button";
+import { NavLink, Link } from "react-router-dom";
+import brand from "enl-api/dummy/brand";
+import logo from "enl-images/logo.png";
+import { injectIntl, FormattedMessage } from "react-intl";
+import menuMessages from "enl-api/ui/menuMessages";
+import link from "enl-api/ui/link";
+import UserMenu from "./UserMenu";
+import SearchUi from "../Search/SearchUi";
+import SelectLanguage from "../SelectLanguage";
+import messages from "./messages";
+import useStyles from "./header-jss";
+import { useSelector } from "react-redux";
+import api from "../../containers/Pages/Payroll/Dashboard/api";
+import payrollMessages from "../../containers/Pages/Payroll/messages";
+import PayRollLoader from "../../containers/Pages/Payroll/Component/PayRollLoader";
 
 const elem = document.documentElement;
 
@@ -44,17 +55,19 @@ function Header(props) {
     dense,
     isLogin,
     avatar,
-    intl
+    intl,
   } = props;
   const [open] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [turnDarker, setTurnDarker] = useState(false);
   const [showTitle, setShowTitle] = useState(false);
-
+  const [answer, setAnswer] = useState("");
+  const [question, setQuestion] = useState("");
   const locale = useSelector((state) => state.language.locale);
 
   const [notifications, setNotifications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // Initial header style
   let flagDarker = false;
@@ -63,8 +76,8 @@ function Header(props) {
   const handleScroll = () => {
     const doc = document.documentElement;
     const scroll = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-    const newFlagDarker = (scroll > 30);
-    const newFlagTitle = (scroll > 40);
+    const newFlagDarker = scroll > 30;
+    const newFlagTitle = scroll > 40;
     if (flagDarker !== newFlagDarker) {
       setTurnDarker(newFlagDarker);
       flagDarker = newFlagDarker;
@@ -121,20 +134,49 @@ function Header(props) {
     }
   };
 
-  const turnMode = newMode => {
-    if (newMode === 'light') {
-      changeMode('dark');
+  const turnMode = (newMode) => {
+    if (newMode === "light") {
+      changeMode("dark");
     } else {
-      changeMode('light');
+      changeMode("light");
     }
+  };
+  const handleChat = () => {
+    debugger;
+    setIsPopupOpen(true);
+    
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const onPopupClose = () => {
+    debugger;
+    setQuestion("");
+    setAnswer("");
+    setIsPopupOpen(false);
+    
+  };
+  const onPopupFormSubmit = async (evt) => {
+    debugger;
+    evt.preventDefault();
+    setIsLoading(true);
+
+    try {
+      debugger;
+      const response = await await api(locale).UseChatGPT(question);
+
+      setAnswer(response);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <AppBar
@@ -142,9 +184,68 @@ function Header(props) {
         classes.appBar,
         classes.floatingBar,
         margin && classes.appBarShift,
-        turnDarker && classes.darker,
+        turnDarker && classes.darker
       )}
     >
+      <Dialog
+        open={isPopupOpen}
+        onClose={onPopupClose}
+        component="form"
+        onSubmit={onPopupFormSubmit}
+        PaperProps={{
+          sx: (th) => ({
+            [th.breakpoints.down("md")]: {
+              width: "100%",
+            },
+            width: "70vw",
+          }),
+        }}
+      >
+        <DialogTitle>
+          <FormattedMessage {...messages.askNova} />
+        </DialogTitle>
+
+        <DialogContent sx={{ pt: "10px !important" }}>
+          <PayRollLoader isLoading={isLoading}>
+            <Grid container mt={0} spacing={2}>
+            <Grid item xs={12} md={12}>
+                <TextField
+                  name="question"
+                  value={question}
+                  fullWidth
+                  variant="outlined"                  
+                  multiline
+                  onChange={(e)=>setQuestion(e.target.value)}
+                  autoComplete="off"
+                />
+              </Grid>
+              <Grid item xs={12} md={12}>
+                <TextField
+                  name="answer"
+                  value={answer?.trimStart()}
+                  fullWidth
+                  variant="outlined"
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  multiline
+                  autoComplete="off"
+                />
+              </Grid>
+            </Grid>
+          </PayRollLoader>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={() => onPopupClose()}>
+            {intl.formatMessage(payrollMessages.cancel)}
+          </Button>
+
+          <Button type="submit" variant="contained">
+            {intl.formatMessage(payrollMessages.send)}
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Toolbar disableGutters={!open}>
         <div className={cx(classes.brandWrap, dense && classes.dense)}>
           <span>
@@ -152,13 +253,18 @@ function Header(props) {
               className={classes.menuButton}
               aria-label="Menu"
               onClick={toggleDrawerOpen}
-              size="large">
+              size="large"
+            >
               <MenuIcon />
             </IconButton>
           </span>
           <Hidden smDown>
             <NavLink to="/app" className={cx(classes.brand, classes.brandBar)}>
-              <img src={logo} alt={brand.name} style={{ width:120,height:25  }} />
+              <img
+                src={logo}
+                alt={brand.name}
+                style={{ width: 120, height: 25 }}
+              />
               {/* {brand.name} */}
             </NavLink>
           </Hidden>
@@ -166,26 +272,44 @@ function Header(props) {
         <Hidden smDown>
           <div className={classes.headerProperties}>
             <div
-              className={cx(
-                classes.headerAction,
-                showTitle && classes.fadeOut,
-              )}
+              className={cx(classes.headerAction, showTitle && classes.fadeOut)}
             >
               {fullScreen ? (
-                <Tooltip title={intl.formatMessage(messages.exitFullScreen)} placement="bottom">
-                  <IconButton className={classes.button} onClick={closeFullScreen} size="small">
+                <Tooltip
+                  title={intl.formatMessage(messages.exitFullScreen)}
+                  placement="bottom"
+                >
+                  <IconButton
+                    className={classes.button}
+                    onClick={closeFullScreen}
+                    size="small"
+                  >
                     <FullscreenExitOutlined />
                   </IconButton>
                 </Tooltip>
               ) : (
-                <Tooltip title={intl.formatMessage(messages.fullScreen)} placement="bottom">
-                  <IconButton className={classes.button} onClick={openFullScreen} size="small">
+                <Tooltip
+                  title={intl.formatMessage(messages.fullScreen)}
+                  placement="bottom"
+                >
+                  <IconButton
+                    className={classes.button}
+                    onClick={openFullScreen}
+                    size="small"
+                  >
                     <FullscreenOutlined />
                   </IconButton>
                 </Tooltip>
               )}
-              <Tooltip title={intl.formatMessage(messages.lamp)} placement="bottom">
-                <IconButton className={classes.button} onClick={() => turnMode(mode)} size="small">
+              <Tooltip
+                title={intl.formatMessage(messages.lamp)}
+                placement="bottom"
+              >
+                <IconButton
+                  className={classes.button}
+                  onClick={() => turnMode(mode)}
+                  size="small"
+                >
                   <InvertColors />
                 </IconButton>
               </Tooltip>
@@ -197,15 +321,26 @@ function Header(props) {
             </div>
             <Typography
               component="h2"
-              className={cx(
-                classes.headerTitle,
-                showTitle && classes.show,
-              )}
+              className={cx(classes.headerTitle, showTitle && classes.show)}
             >
-              {menuMessages[title] !== undefined ? <FormattedMessage {...menuMessages[title]} /> :(title=="app"?"Hr Dashboard":title)}
+              {menuMessages[title] !== undefined ? (
+                <FormattedMessage {...menuMessages[title]} />
+              ) : title == "app" ? (
+                "Hr Dashboard"
+              ) : (
+                title
+              )}
             </Typography>
           </div>
         </Hidden>
+        <Tooltip
+          title={intl.formatMessage(messages.askNova)}
+          placement="bottom"
+        >
+          <Box onClick={handleChat} sx={{ cursor: 'pointer' }}>
+            <img src='/images/chat.png' alt='chat' height={40} />
+          </Box>
+        </Tooltip>
         <div className={classes.searchWrapper}>
           <div className={classes.wrapper}>
             <div className={classes.search}>
@@ -217,23 +352,27 @@ function Header(props) {
         <Hidden smDown>
           <span className={classes.separatorV} />
         </Hidden>
+
         <div className={classes.userToolbar}>
           <SelectLanguage />
-          {isLogin
-            ? <UserMenu signOut={signOut} avatar={avatar} notifications={notifications} />
-            : (
-              <Button
-                color="primary"
-                className={classes.buttonTop}
-                component={Link}
-                to={link.login}
-                variant="contained"
-              >
-                <AccountCircle />
-                <FormattedMessage {...messages.login} />
-              </Button>
-            )
-          }
+          {isLogin ? (
+            <UserMenu
+              signOut={signOut}
+              avatar={avatar}
+              notifications={notifications}
+            />
+          ) : (
+            <Button
+              color="primary"
+              className={classes.buttonTop}
+              component={Link}
+              to={link.login}
+              variant="contained"
+            >
+              <AccountCircle />
+              <FormattedMessage {...messages.login} />
+            </Button>
+          )}
         </div>
       </Toolbar>
     </AppBar>
@@ -252,12 +391,12 @@ Header.propTypes = {
   openGuide: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  intl: PropTypes.object.isRequired
+  intl: PropTypes.object.isRequired,
 };
 
 Header.defaultProps = {
   dense: false,
-  isLogin: false
+  isLogin: false,
 };
 
 export default injectIntl(Header);

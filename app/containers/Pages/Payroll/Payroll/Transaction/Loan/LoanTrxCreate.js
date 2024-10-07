@@ -25,12 +25,10 @@ import LoanDetailTable from "./LoanDetailTable";
 import EmployeeData from "../../../Component/EmployeeData";
 import { format } from "date-fns";
 import GeneralListApis from "../../../api/GeneralListApis";
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-
-
+import LoanSettingApiData from "../../api/LoanSettingData";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function LoanTrxCreate(props) {
   const { intl } = props;
@@ -79,13 +77,11 @@ function LoanTrxCreate(props) {
   const history = useHistory();
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
-
-
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
   const handleEmpChange = useCallback(
     (id, name) => {
@@ -94,7 +90,8 @@ function LoanTrxCreate(props) {
           ...prevFilters,
           employeeId: id,
         }));
-        if (id) getOpenMonth(id);
+        getOpenMonth(id);
+        getLoanSetting(id);
       }
     },
     [OrignalMonthList, OrignalYearList]
@@ -104,14 +101,12 @@ function LoanTrxCreate(props) {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
 
-    
     try {
-
       var total = data.details.reduce(
         (n, { payVal }) => parseInt(n) + parseInt(payVal),
         0
@@ -126,8 +121,7 @@ function LoanTrxCreate(props) {
       if (data.transDate == null)
         data.transDate = format(new Date(), "yyyy-MM-dd");
 
-
-        data.transDate = dateFormatFun(data.transDate)
+      data.transDate = dateFormatFun(data.transDate);
 
       let response = await ApiData(locale).Save(data);
 
@@ -169,7 +163,6 @@ function LoanTrxCreate(props) {
     handleApply(data.paysNo, data.stYearName, value.id, data.totalvalue);
   }
   async function changeMonth(value) {
-    
     setdata((prevFilters) => ({
       ...prevFilters,
       stMonthId: value !== null ? value.id : 0,
@@ -183,7 +176,7 @@ function LoanTrxCreate(props) {
       if (data.details) details = data.details.filter((x) => x.done == true);
 
       if (details.length > 0) {
-        monthId = details[details.length - 1].monthId+1;
+        monthId = details[details.length - 1].monthId + 1;
         yearName = details[details.length - 1].yearName;
       }
       for (var i = 0; i < paysNo; i++) {
@@ -216,7 +209,6 @@ function LoanTrxCreate(props) {
 
   async function getOpenMonth(id) {
     try {
-      
       if (!id) {
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -233,7 +225,6 @@ function LoanTrxCreate(props) {
       }
       setIsLoading(true);
       const result = await GeneralListApis(locale).getOpenMonth(0, id);
-      
 
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -252,6 +243,38 @@ function LoanTrxCreate(props) {
         )
       );
       setMonthList(OrignalMonthList.filter((row) => row.id >= result.monthId));
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function getLoanSetting(id) {
+    try {
+      if (!id) {
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          payElementId: 0,
+          payElementName: "",
+          elementId: 0,
+          elementName: "",
+          payTempId: 0,
+          payTempName: "",
+        }));
+        return;
+      }
+      setIsLoading(true);
+      const result = await LoanSettingApiData(locale).GetByEmployeeId(id);
+
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        payElementId: result.payElementId,
+        payElementName: result.payElementName,
+        elementId: result.elementId,
+        elementName: result.elementName,
+        payTempId: result.payTempId,
+        payTempName: result.payTempName,
+      }));
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -303,40 +326,36 @@ function LoanTrxCreate(props) {
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-  
-                  <Grid item xs={12} md={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.date)}
-                          value={data.transDate ? dayjs(data.transDate) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              transDate: date,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`transDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`transDate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
-
+                      <Grid item xs={12} md={2}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            label={intl.formatMessage(Payrollmessages.date)}
+                            value={
+                              data.transDate ? dayjs(data.transDate) : null
+                            }
+                            className={classes.field}
+                            onChange={(date) => {
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                transDate: date,
+                              }));
+                            }}
+                            onError={(error, value) => {
+                              if (error !== null) {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  [`transDate`]: true,
+                                }));
+                              } else {
+                                setDateError((prevState) => ({
+                                  ...prevState,
+                                  [`transDate`]: false,
+                                }));
+                              }
+                            }}
+                          />
+                        </LocalizationProvider>
+                      </Grid>
 
                       <Grid item xs={12} md={1}>
                         <TextField
@@ -347,7 +366,7 @@ function LoanTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={1}>
@@ -359,7 +378,7 @@ function LoanTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={2.5}>
@@ -371,7 +390,7 @@ function LoanTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={2.5}>
@@ -385,7 +404,7 @@ function LoanTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={3}>
@@ -397,7 +416,7 @@ function LoanTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={12}>
@@ -409,7 +428,7 @@ function LoanTrxCreate(props) {
                           className={classes.field}
                           variant="outlined"
                           disabled
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                     </Grid>
@@ -510,7 +529,7 @@ function LoanTrxCreate(props) {
                               nativeTotalValue: e.target.value,
                             }));
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -539,7 +558,7 @@ function LoanTrxCreate(props) {
                               e.target.value
                             );
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -567,7 +586,7 @@ function LoanTrxCreate(props) {
                               data.totalvalue
                             );
                           }}
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
                       <Grid item xs={12} md={6}>
@@ -580,7 +599,7 @@ function LoanTrxCreate(props) {
                           variant="outlined"
                           disabled
                           required
-                          autoComplete='off'
+                          autoComplete="off"
                         />
                       </Grid>
 
@@ -594,7 +613,7 @@ function LoanTrxCreate(props) {
                             className={classes.field}
                             variant="outlined"
                             disabled
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       ) : (
@@ -612,7 +631,7 @@ function LoanTrxCreate(props) {
                             className={classes.field}
                             variant="outlined"
                             disabled
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       ) : (
@@ -639,7 +658,7 @@ function LoanTrxCreate(props) {
                                 e.target.value
                               );
                             }}
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       ) : (
@@ -666,7 +685,7 @@ function LoanTrxCreate(props) {
                                 data.newTotalvalue
                               );
                             }}
-                            autoComplete='off'
+                            autoComplete="off"
                           />
                         </Grid>
                       ) : (

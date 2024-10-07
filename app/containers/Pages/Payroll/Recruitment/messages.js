@@ -146,6 +146,10 @@ export default defineMessages({
     id: `${scope}.updateStatus`,
     defaultMessage: 'updateStatus',
   },
+  aiEvaluation: {
+    id: `${scope}.aiEvaluation`,
+    defaultMessage: 'aiEvaluation',
+  },
   viewApplicationForm: {
     id: `${scope}.viewApplicationForm`,
     defaultMessage: 'viewApplicationForm',
@@ -609,5 +613,25 @@ export default defineMessages({
   createJobAdvertisement: {
     id: `${scope}.createJobAdvertisement`,
     defaultMessage: 'createJobAdvertisement',
+  },
+  createQuestion: {
+    id: `${scope}.createQuestion`,
+    defaultMessage: 'create Question',
+  },
+  Question: {
+    id: `${scope}.Question`,
+    defaultMessage: 'Question',
+  },
+  Answer: {
+    id: `${scope}.Answer`,
+    defaultMessage: 'Answer',
+  },
+  TrueAnswer: {
+    id: `${scope}.TrueAnswer`,
+    defaultMessage: 'True Answer',
+  },
+  questionsCardsTitle: {
+    id: `${scope}.questionsCardsTitle`,
+    defaultMessage: 'Questions Cards',
   },
 });

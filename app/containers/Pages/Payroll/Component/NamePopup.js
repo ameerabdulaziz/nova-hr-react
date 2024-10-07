@@ -44,6 +44,8 @@ function NamePopup(props) {
             EmployeeList[allRowsSelected[i].dataIndex].fixedElementsSilimit,
           organizationName:
             EmployeeList[allRowsSelected[i].dataIndex].organizationName || "",
+          businessUnitName:
+            EmployeeList[allRowsSelected[i].dataIndex].businessUnitName || "",
           branchName:
             EmployeeList[allRowsSelected[i].dataIndex].branchName || "",
           sellPrice: EmployeeList[allRowsSelected[i].dataIndex].sellPrice || "",
@@ -73,6 +75,7 @@ function NamePopup(props) {
               name: obj.name,
               fixedElementsSilimit: obj.fixedElementsSilimit,
               organizationName: obj.organizationName,
+              businessUnitName: obj.businessUnitName,
               branchName: obj.branchName,
               jobName: obj.jobName,
               isSelected: false,
@@ -201,9 +204,17 @@ function NamePopup(props) {
           filter: true,
         },
       },
+      
       {
         name: "branchName",
         label: intl.formatMessage(Payrollmessages.branch),
+        options: {
+          filter: true,
+        },
+      },
+      {
+        name: "businessUnitName",
+        label: intl.formatMessage(Payrollmessages.businessUnitName),
         options: {
           filter: true,
         },

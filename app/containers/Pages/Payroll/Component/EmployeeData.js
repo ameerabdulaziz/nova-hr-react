@@ -22,7 +22,7 @@ function EmployeeData(props) {
     GetSalary,
     GetworkingYears,
     id,
-    branchId,isdisabled,
+    branchId,isdisabled,IsSecuredData,
     required = true
   } = props;
   const { classes, cx } = useStyles();
@@ -31,7 +31,7 @@ function EmployeeData(props) {
   const [data, setdata] = useState("");
 
   async function fetchData() {
-    const employees = await GeneralListApis(locale).GetEmployeeList(false,false,branchId);
+    const employees = await GeneralListApis(locale).GetEmployeeList(false,false,branchId,null,IsSecuredData);
 
     setEmployeeList(employees);
   }

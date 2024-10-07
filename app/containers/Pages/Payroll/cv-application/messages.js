@@ -251,4 +251,12 @@ export default defineMessages({
     id: `${scope}.CVUnderReviewing`,
     defaultMessage: 'CVUnderReviewing',
   },
+  ExclusionaryQuestions: {
+    id: `${scope}.ExclusionaryQuestions`,
+    defaultMessage: 'Exclusionary Questions',
+  },
+  pleaseAnswerTheFollowingQuestion: {
+    id: `${scope}.pleaseAnswerTheFollowingQuestion`,
+    defaultMessage: 'Please answer the following question',
+  },
 });

@@ -10,7 +10,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { format } from "date-fns";
   
-  function DetailedAttendanceTable({header,Data,headerType}) {
+  function DetailedAttendanceTable({header,Data,headerType}) {    
 
     return (
         <TableContainer className={style.tableContainerSty}>
@@ -38,10 +38,10 @@ import { format } from "date-fns";
                                             <pre>{format(new Date(data.shiftDate), "yyyy-MM-dd")}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            <pre>{format(new Date(data.timeIn), "HH:mm:ss")}</pre>
+                                            <pre>{data.timeIn ? format(new Date(data.timeIn), "HH:mm:ss") : ""}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
-                                            <pre>{format(new Date(data.timeOut), "HH:mm:ss")}</pre>
+                                            <pre>{data.timeOut ? format(new Date(data.timeOut), "HH:mm:ss") : ""}</pre>
                                         </TableCell>
                                         <TableCell align='center' >
                                             <pre>{data.worktime}</pre>
@@ -60,7 +60,7 @@ import { format } from "date-fns";
                                                     // <CheckIcon style={{ color: "#3f51b5" }} />
                                                 <div className={style.tableCellSty}>
                                                     {/* <CheckIcon style={{ color: "#3f51b5" }} /> */}
-                                                    <pre>{data.jobName}</pre>
+                                                    <pre>{data.vacShortName}</pre>
                                                 </div>
                                                 ) : (
                                                     <CloseIcon style={{ color: "#717171" }} />
@@ -78,7 +78,7 @@ import { format } from "date-fns";
                                                     // <CheckIcon style={{ color: "#3f51b5" }} />
                                                 <div className={style.tableCellSty}>
                                                     {/* <CheckIcon style={{ color: "#3f51b5" }} /> */}
-                                                    <pre>{data.jobName}</pre>
+                                                    <pre>{data.perShortName}</pre>
                                                 </div>
                                                 ) : (
                                                     <CloseIcon style={{ color: "#717171" }} />

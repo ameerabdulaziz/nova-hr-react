@@ -20,6 +20,14 @@ const ElementValData = (locale) => {
     return result;
   };
 
+  Apis.GetElementHistory = async (FromDate,ToDate,BranchId,EmployeeId,PayTemplateId,ElementId) => {
+    const data = await axiosInstance.get(`PayrollEmpElementVal/GetElementHistory/${locale}?FromDate=${FromDate?FromDate:""}&ToDate=${ToDate?ToDate:""}&BranchId=${BranchId?BranchId:""}&EmployeeId=${EmployeeId?EmployeeId:""}&PayTemplateId=${PayTemplateId?PayTemplateId:""}&ElementId=${ElementId?ElementId:""}`);
+    const result = data.data;
+
+    return result;
+  };
+
+
   Apis.Get = async (id) => {
     const data = await axiosInstance.get(
       `PayrollEmpElementVal/Get/${id}/${locale}`

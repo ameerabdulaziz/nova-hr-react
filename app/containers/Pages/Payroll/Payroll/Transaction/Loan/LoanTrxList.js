@@ -68,6 +68,12 @@ function LoanTrxList(props) {
       name: 'yearName',
       label: intl.formatMessage(Payrollmessages.year),
     },
+    
+    {
+      name: 'employeeCode',
+      label: intl.formatMessage(Payrollmessages.employeeCode),
+    },
+
     {
       name: 'employeeName',
       label: intl.formatMessage(Payrollmessages.employeeName),

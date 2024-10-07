@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from 'tss-react/mui';
-import PropTypes from 'prop-types';
-import { PapperBlock } from 'enl-components';
 import { injectIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
-import messages from '../../../../../Tables/messages';
-import { EditTable } from '../../../../../Tables/demos';
-import MissionTypeData from '../../api/MissionTypeData';
+import { useSelector } from 'react-redux';
+import messages from '../../../../../../components/Tables/messages';
+import payrollMessages from '../../../messages';
+import PayrollTable from '../../../Component/PayrollTable';
+import api from '../../api/MissionTypeData';
+import { toast } from "react-hot-toast";
+import notif from "enl-api/ui/notifMessage";
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -15,98 +16,102 @@ const useStyles = makeStyles()(() => ({
   },
 }));
 
-function MissionType() {
+function MissionType(props) {
   const title = localStorage.getItem('MenuName');
   const { classes } = useStyles();
+  const { intl } = props;
 
-  const anchorTable = [
+  const [dataTable, setDataTable] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const pageTitle = localStorage.getItem('MenuName');
+  const locale = useSelector((state) => state.language.locale);
+
+  
+  const columns = [
     {
       name: 'id',
-      label: 'id',
-      type: 'static',
-      initialValue: '',
-      hidden: false,
-    },
-
-    {
-      name: 'name',
-      label: 'name',
-      type: 'text',
-      width: 'auto',
-      initialValue: '',
-      hidden: false,
+      label: intl.formatMessage(payrollMessages.id),
+      options: {
+        display: false,
+        print: false,
+        download: false,
+      },
     },
     {
-      name: 'EnName',
-      label: 'enname',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      name: 'arName',
+      label: intl.formatMessage(payrollMessages.arName),
+    },
+    {
+      name: 'enName',
+      label: intl.formatMessage(payrollMessages.enName),
     },
     {
       name: 'transportaion',
-      label: 'transportaion',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
-    },
-
-    {
-      name: 'reqAfterDays',
-      label: 'ReqAfterDays',
-      type: 'number',
-      initialValue: 0,
-      width: 'auto',
-      hidden: false,
-    },
-
-    {
-      name: 'reqBeforeDays',
-      label: 'ReqBeforeDays',
-      type: 'number',
-      initialValue: 0,
-      width: 'auto',
-      hidden: false,
-    },
-
-    {
-      name: 'reqInSameDay',
-      label: 'ReqInSameDay',
-      type: 'toggle',
-      initialValue: false,
-      width: 'auto',
-      hidden: false,
-    },
-
-    {
-      name: 'edited',
-      label: '',
-      type: 'static',
-      initialValue: '',
-      hidden: true,
-    },
-    {
-      name: 'action',
-      label: 'action',
-      type: 'static',
-      initialValue: '',
-      hidden: false,
+      label: intl.formatMessage(messages.transportaion),
     },
   ];
 
+
+  const fetchNeededData = async () => {
+    setIsLoading(true);
+
+    try {
+      const data = await api(locale).GetList();
+
+      setDataTable(data);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchNeededData();
+  }, []);
+
+
+  const deleteRow = async (id) => {
+    setIsLoading(true);
+
+    try {
+      await api(locale).Delete(id);
+
+      toast.success(notif.saved);
+      fetchNeededData();
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+  const actions = {
+    add: {
+      url: '/app/Pages/Att/MissionTypeCreate',
+    },
+    edit: {
+      url: '/app/Pages/Att/MissionTypeEdit',
+    },
+    delete: {
+      api: deleteRow,
+    },
+  };
+
   return (
     <div>
-      <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <div className={classes.root}>
-          <EditTable
-            anchorTable={anchorTable}
-            title={title}
-            API={MissionTypeData()}
+          <PayrollTable
+            isLoading={isLoading}
+            showLoader
+            title={pageTitle}
+            data={dataTable}
+            columns={columns}
+            actions={actions}
           />
         </div>
-      </PapperBlock>
     </div>
   );
 }

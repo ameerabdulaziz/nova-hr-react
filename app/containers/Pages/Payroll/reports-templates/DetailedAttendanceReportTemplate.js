@@ -54,7 +54,7 @@ function DetailedAttendanceReportTemplate(props) {
       <Box
         ref={props.printDivRef}
         sx={{
-          display: 'none',
+          // display: 'none',
           '@media print': {
             display: 'block',
             direction: "ltr",

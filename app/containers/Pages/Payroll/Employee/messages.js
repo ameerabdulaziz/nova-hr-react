@@ -915,4 +915,30 @@ export default defineMessages({
     id: `${scope}.contractDateMustNotPrecedeTheAppointmentDate`,
     defaultMessage: 'contractDateMustNotPrecedeTheAppointmentDate',
   },
+  // EmployeeContractKSA
+  guarantor: {
+    id: `${scope}.guarantor`,
+    defaultMessage: 'Guarantor',
+  },
+  AccruedLeaveBalance: {
+    id: `${scope}.AccruedLeaveBalance`,
+    defaultMessage: 'Accrued Leave Balance',
+  },
+  StartDateOfWork: {
+    id: `${scope}.StartDateOfWork`,
+    defaultMessage: 'Start Date Of Work',
+  },
+  BorderNumber: {
+    id: `${scope}.BorderNumber`,
+    defaultMessage: 'Border Number',
+  },
+  ResidenceNumber: {
+    id: `${scope}.ResidenceNumber`,
+    defaultMessage: 'Residence Number',
+  },
+  // personal
+  businessUnit: {
+    id: `${scope}.businessUnit`,
+    defaultMessage: 'Business Unit',
+  },
 });

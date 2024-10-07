@@ -10,6 +10,12 @@ const LoanSetting = (locale) => {
     return data.data;
   };
 
+  
+  Apis.GetByEmployeeId = async (id) => {
+    const data = await axiosInstance.get(`PayrollLoanSetting/GetByEmployeeId/${locale}/${id}`);
+
+    return data.data;
+  };
   Apis.Save = async (data) => {
     
    

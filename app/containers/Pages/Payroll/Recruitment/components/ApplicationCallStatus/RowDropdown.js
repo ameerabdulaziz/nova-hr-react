@@ -32,11 +32,11 @@ function RowDropdown(props) {
     onDropdownClose(rowIndex);
 
 
-    window.open(`${encodeURI(`/app/Pages/Recruitment/JobApplicationPreview/${btoa(JSON.stringify(
+    window.open(`${encodeURI(`/app/Pages/Recruitment/JobApplicationPreview/${btoa(encodeURIComponent(JSON.stringify(
       {
           id: row.id
       }
-    ))}`)}`, '_blank')?.focus()
+    )))}`)}`, '_blank')?.focus()
   };
 
   const onUpdateStatusBtnClick = (rowIndex) => {

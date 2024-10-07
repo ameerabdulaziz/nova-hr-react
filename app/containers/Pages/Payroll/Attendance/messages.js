@@ -180,6 +180,10 @@ transportationExpenses: {
   id: `${scope}.transportationExpenses`,
   defaultMessage: 'transportationExpenses',
 },
+currency: {
+  id: `${scope}.currency`,
+  defaultMessage: 'currency',
+},
 isNotUpdateMission: {
   id: `${scope}.isNotUpdateMission`,
   defaultMessage: 'isNotUpdateMission',
@@ -2101,6 +2105,26 @@ devicePass: {
     id: `${scope}.calcAsrepVac`,
     defaultMessage: 'calcAsrepVac',
   },
-  
+  // missionType
+  notificationUsers: {
+    id: `${scope}.notificationUsers`,
+    defaultMessage: 'Notification Users',
+  },
+  transportationType: {
+    id: `${scope}.transportationType`,
+    defaultMessage: 'Transportation Type',
+  },
+  AllDays: {
+    id: `${scope}.AllDays`,
+    defaultMessage: 'All Days',
+  },
+  OneDay: {
+    id: `${scope}.OneDay`,
+    defaultMessage: 'One Day',
+  },
+  transportaion: {
+    id: `${scope}.transportaion`,
+    defaultMessage: 'Transportaion',
+  },
 });
 

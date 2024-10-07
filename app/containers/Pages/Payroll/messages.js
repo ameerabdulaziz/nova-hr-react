@@ -25,6 +25,14 @@ export default defineMessages({
     id: `${scope}.cancel`,
     defaultMessage: 'cancel',
   },
+  send: {
+    id: `${scope}.send`,
+    defaultMessage: 'send',
+  },
+  evaluate: {
+    id: `${scope}.evaluate`,
+    defaultMessage: 'evaluate',
+  },
   delete: {
     id: `${scope}.delete`,
     defaultMessage: 'Delete',
@@ -53,6 +61,10 @@ export default defineMessages({
   organizationName: {
     id: `${scope}.organizationName`,
     defaultMessage: 'organizationName',
+  },
+  businessUnitName: {
+    id: `${scope}.businessUnitName`,
+    defaultMessage: 'businessUnitName',
   },
   branchName: {
     id: `${scope}.branchName`,
@@ -448,6 +460,10 @@ employeeId: {
     id: `${scope}.Actions`,
     defaultMessage: 'Actions',
   },
+  AiEvaluationResult: {
+    id: `${scope}.AiEvaluationResult`,
+    defaultMessage: 'AiEvaluationResult',
+  },
   EditHrNotes: {
     id: `${scope}.EditHrNotes`,
     defaultMessage: 'Edit Hr Notes',
@@ -757,5 +773,9 @@ employeeId: {
   rejected: {
     id: `${scope}.rejected`,
     defaultMessage: 'rejected',
+  },
+  viewAttachment: {
+    id: `${scope}.viewAttachment`,
+    defaultMessage: 'View Attachment',
   },
 });

@@ -8,55 +8,53 @@ import {
   Grid,
   Stack,
   TextField,
-} from '@mui/material';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import dayjs from 'dayjs';
-import notif from 'enl-api/ui/notifMessage';
-import { PapperBlock } from 'enl-components';
-import PropTypes from 'prop-types';
-import React, {
-  useCallback, useEffect, useMemo, useState
-} from 'react';
-import { toast } from 'react-hot-toast';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
-import DecryptUrl from '../../Component/DecryptUrl';
-import EmployeeData from '../../Component/EmployeeData';
-import PayRollLoader from '../../Component/PayRollLoader';
-import SaveButton from '../../Component/SaveButton';
-import VacationBalancePopup from '../../Component/VacationBalance';
-import useStyles from '../../Style';
-import GeneralListApis from '../../api/GeneralListApis';
-import { ServerURL } from '../../api/ServerConfig';
-import { formateDate } from '../../helpers';
-import payrollMessages from '../../messages';
-import api from '../api/LeaveTrxData';
-import messages from '../messages';
+} from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs from "dayjs";
+import notif from "enl-api/ui/notifMessage";
+import { PapperBlock } from "enl-components";
+import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { toast } from "react-hot-toast";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import FileViewerPopup from "../../../../../components/Popup/fileViewerPopup";
+import DecryptUrl from "../../Component/DecryptUrl";
+import EmployeeData from "../../Component/EmployeeData";
+import PayRollLoader from "../../Component/PayRollLoader";
+import SaveButton from "../../Component/SaveButton";
+import VacationBalancePopup from "../../Component/VacationBalance";
+import useStyles from "../../Style";
+import GeneralListApis from "../../api/GeneralListApis";
+import { ServerURL } from "../../api/ServerConfig";
+import { formateDate } from "../../helpers";
+import payrollMessages from "../../messages";
+import api from "../api/LeaveTrxData";
+import messages from "../messages";
 
 function LeaveTrxCreate(props) {
   const { intl } = props;
-  const validPDFTypes = ['application/pdf', '.pdf', 'pdf'];
+  const validPDFTypes = ["application/pdf", ".pdf", "pdf"];
   const validImageTypes = [
-    'image/jpg',
-    'jpg',
-    'image/jpeg',
-    'jpeg',
-    'image/png',
-    'png',
-    'image/apng',
-    'apng',
-    'image/webp',
-    'webp',
-    'image/svg+xml',
-    'svg+xml',
+    "image/jpg",
+    "jpg",
+    "image/jpeg",
+    "jpeg",
+    "image/png",
+    "png",
+    "image/apng",
+    "apng",
+    "image/webp",
+    "webp",
+    "image/svg+xml",
+    "svg+xml",
   ];
 
   const empid = DecryptUrl();
-
+  debugger;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const id = location.state?.id ?? 0;
@@ -78,22 +76,21 @@ function LeaveTrxCreate(props) {
     employeeId: null,
     HasAlternativeEmp: false,
 
-    vacDayChange: '',
-    vacDocPath: '',
-    ReplaceDate: '',
+    vacDayChange: "",
+    vacDocPath: "",
+    ReplaceDate: "",
     alternativeTask: null,
 
     trxDate: dayjs(),
     fromDate: dayjs(),
     toDate: dayjs(),
     replaceDate: null,
-    daysCount: '',
-    dayDeducedBy: '',
-    tel: '',
+    daysCount: "",
+    tel: "",
     doc: null,
-    vacReson: '',
-    address: '',
-    notes: '',
+    vacReson: "",
+    address: "",
+    notes: "",
     exemptEntryRec: false,
     exemptLeaveRec: false,
     alternativeStaff: null,
@@ -121,14 +118,14 @@ function LeaveTrxCreate(props) {
   }, []);
 
   const handleChange = useCallback((id, name) => {
-    if (name == 'employeeId') {
+    if (name == "employeeId") {
       setFormInfo((prevFilters) => ({
         ...prevFilters,
         employeeId: id,
       }));
     }
 
-    if (name == 'HasAlternativeEmp') {
+    if (name == "HasAlternativeEmp") {
       setFormInfo((prevFilters) => ({
         ...prevFilters,
         HasAlternativeEmp: id,
@@ -180,7 +177,8 @@ function LeaveTrxCreate(props) {
   };
 
   const calculateDaysCount = () => {
-    const isValidDate = dayjs(formInfo.fromDate).isValid() && dayjs(formInfo.toDate).isValid();
+    const isValidDate =
+      dayjs(formInfo.fromDate).isValid() && dayjs(formInfo.toDate).isValid();
 
     if (formInfo.toDate && formInfo.fromDate && isValidDate) {
       const obj = {
@@ -189,16 +187,22 @@ function LeaveTrxCreate(props) {
         daysCount: formInfo.daysCount,
       };
 
-      if (formInfo.vacCode === 5 || selectedLeave?.haveReplacementDay) {
+      /* if (formInfo.vacCode === 5 || selectedLeave?.haveReplacementDay) {
         obj.toDate = formInfo.fromDate;
       } else {
         const dateDiffTo = formateDate(formInfo.toDate);
         const dateDiffFrom = formateDate(formInfo.fromDate);
 
-        const daysCount = dayjs(dateDiffTo).diff(dateDiffFrom, 'days');
+        const daysCount = dayjs(dateDiffTo).diff(dateDiffFrom, "days");
 
         obj.daysCount = daysCount >= 0 ? daysCount + 1 : 0;
-      }
+      } */
+        const dateDiffTo = formateDate(formInfo.toDate);
+        const dateDiffFrom = formateDate(formInfo.fromDate);
+
+        const daysCount = dayjs(dateDiffTo).diff(dateDiffFrom, "days");
+
+        obj.daysCount = daysCount >= 0 ? daysCount + 1 : 0;
 
       setFormInfo((prev) => ({ ...prev, ...obj }));
     }
@@ -218,7 +222,7 @@ function LeaveTrxCreate(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
-
+debugger;
     // used to stop call api if user select wrong date
     if (Object.values(dateError).includes(true)) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
@@ -233,33 +237,33 @@ function LeaveTrxCreate(props) {
       employeeId: formInfo.employeeId,
       HasAlternativeEmp: formInfo.HasAlternativeEmp,
 
-      VacDayChange: formInfo.vacDayChange ?? '',
+      VacDayChange: formInfo.vacDayChange ?? "",
       vacDocPath: formInfo.vacDocPath,
-      ReplaceDate: formInfo.ReplaceDate ?? '',
-      alternativeTask: formInfo.alternativeTask ?? '',
+      ReplaceDate: formInfo.ReplaceDate ?? "",
+      alternativeTask: formInfo.alternativeTask ?? "",
 
       trxDate: formateDate(formInfo.trxDate),
       fromDate: formateDate(formInfo.fromDate),
       replaceDate: formateDate(formInfo.replaceDate),
       toDate: formateDate(formInfo.toDate),
       daysCount: formInfo.daysCount,
-      dayDeducedBy: formInfo.dayDeducedBy,
       tel: formInfo.tel,
-      doc: formInfo.doc ?? '',
+      doc: formInfo.doc ?? "",
       vacReson: formInfo.vacReson,
       address: formInfo.address,
       notes: formInfo.notes,
       exemptEntryRec: Boolean(formInfo.exemptEntryRec),
       exemptLeaveRec: Boolean(formInfo.exemptLeaveRec),
-      alternativeStaff: formInfo.alternativeStaff ?? '',
-      vacCode: formInfo.vacCode ?? '',
+      alternativeStaff: formInfo.alternativeStaff ?? "",
+      vacCode: formInfo.vacCode ?? "",
     };
 
-    if (formInfo.vacCode !== 5) {
+    //if (formInfo.vacCode !== 5) {
       formData.toDate = formateDate(formInfo.toDate);
 
       if (formInfo.fromDate && formInfo.toDate) {
-        const isFromDateLessThanToDate = new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
+        const isFromDateLessThanToDate =
+          new Date(formInfo.fromDate) <= new Date(formInfo.toDate);
 
         if (isFromDateLessThanToDate) {
           const { date, ...reset } = errors;
@@ -269,7 +273,7 @@ function LeaveTrxCreate(props) {
           errors.date = intl.formatMessage(messages.fromDateLessThanToDate);
         }
       }
-    }
+    //}
 
     const currentVacation = vacationsList.find(
       (vac) => vac.id === formInfo.vacCode
@@ -287,7 +291,7 @@ function LeaveTrxCreate(props) {
       }
     }
 
-    if (formInfo.vacCode === 5) {
+    /* if (formInfo.vacCode === 5) {
       if (!(formInfo.daysCount > 0 && formInfo.daysCount < 1)) {
         const { daysCount, ...reset } = errors;
 
@@ -295,7 +299,7 @@ function LeaveTrxCreate(props) {
       } else {
         errors.daysCount = intl.formatMessage(messages.daysCountShouldBeBetween0And1);
       }
-    }
+    } */
 
     if (Object.keys(errors).length === 0) {
       setProcessing(true);
@@ -305,7 +309,7 @@ function LeaveTrxCreate(props) {
         await api(locale).save(formData);
 
         toast.success(notif.saved);
-        history.push('/app/Pages/vac/LeaveTrx');
+        history.push("/app/Pages/vac/LeaveTrx");
       } catch (error) {
         //
       } finally {
@@ -326,19 +330,24 @@ function LeaveTrxCreate(props) {
   const onNumericInputChange = (evt) => {
     setFormInfo((prev) => ({
       ...prev,
-      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ''),
+      [evt.target.name]: evt.target.value.replace(/[^\d]/g, ""),
     }));
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/vac/LeaveTrx');
+    history.push("/app/Pages/vac/LeaveTrx");
   };
 
   const onVacationChange = (_, value) => {
+    debugger;
     if (value) {
       const leave = vacationsList.find((vac) => vac.id === value.id) ?? null;
 
-      if (value.id === 5 || leave?.haveReplacementDay) {
+      setFormInfo((prev) => ({
+        ...prev,
+        vacCode: value.id,
+      }));
+      /* if (value.id === 5 || leave?.haveReplacementDay) {
         setFormInfo((prev) => ({
           ...prev,
           vacCode: value.id,
@@ -349,13 +358,13 @@ function LeaveTrxCreate(props) {
           ...prev,
           vacCode: value.id,
         }));
-      }
+      } */
     } else {
       setFormInfo((prev) => ({
         ...prev,
         vacCode: null,
         toDate: null,
-        daysCount: '',
+        daysCount: "",
       }));
     }
   };
@@ -370,15 +379,15 @@ function LeaveTrxCreate(props) {
 
   const getAttachmentType = () => {
     // documentUrl
-    if (uploadedFile && typeof uploadedFile === 'string') {
-      return uploadedFile?.split('.').pop().toLowerCase().trim();
+    if (uploadedFile && typeof uploadedFile === "string") {
+      return uploadedFile?.split(".").pop().toLowerCase().trim();
     }
 
     if (uploadedFile instanceof File) {
       return uploadedFile.type;
     }
 
-    return 'pdf';
+    return "pdf";
   };
 
   const onDocumentInputChange = (evt) => {
@@ -400,8 +409,8 @@ function LeaveTrxCreate(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock
         whiteBg
-        icon='border_color'
-        desc=''
+        icon="border_color"
+        desc=""
         title={
           id === 0
             ? intl.formatMessage(messages.leaveTrxCreateTitle)
@@ -409,7 +418,7 @@ function LeaveTrxCreate(props) {
         }
       >
         <form onSubmit={onFormSubmit}>
-          <Grid container spacing={3} direction='row'>
+          <Grid container spacing={3} direction="row">
             <Grid item xs={12} md={12}>
               <EmployeeData
                 handleEmpChange={handleChange}
@@ -423,8 +432,8 @@ function LeaveTrxCreate(props) {
                   <Grid
                     container
                     spacing={3}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12} md={4}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -464,9 +473,9 @@ function LeaveTrxCreate(props) {
 
                     <Grid item xs={12} md={4}>
                       <Stack
-                        direction='row'
-                        justifyContent='space-between'
-                        alignItems='center'
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
                         spacing={1}
                       >
                         <Autocomplete
@@ -476,19 +485,20 @@ function LeaveTrxCreate(props) {
                             ) ?? null
                           }
                           options={vacationsList}
-                          getOptionLabel={(option) => option.name ?? ''}
-                          isOptionEqualToValue={(option, value) => option.id === value.id
+                          getOptionLabel={(option) => option.name ?? ""}
+                          isOptionEqualToValue={(option, value) =>
+                            option.id === value.id
                           }
                           onChange={onVacationChange}
                           sx={{
-                            width: '100%',
+                            width: "100%",
                           }}
                           renderInput={(params) => (
                             <TextField
-                              variant='outlined'
+                              variant="outlined"
                               required
                               {...params}
-                              name='vacation'
+                              name="vacation"
                               label={intl.formatMessage(messages.vacationType)}
                             />
                           )}
@@ -508,9 +518,10 @@ function LeaveTrxCreate(props) {
                             (alt) => alt.id === formInfo.alternativeStaff
                           ) ?? null
                         }
-                        isOptionEqualToValue={(option, value) => option.id === value.id
+                        isOptionEqualToValue={(option, value) =>
+                          option.id === value.id
                         }
-                        getOptionLabel={(option) => (option ? option.name : '')}
+                        getOptionLabel={(option) => (option ? option.name : "")}
                         onChange={(_, value) => {
                           setFormInfo((prev) => ({
                             ...prev,
@@ -519,7 +530,7 @@ function LeaveTrxCreate(props) {
                         }}
                         renderInput={(params) => (
                           <TextField
-                            variant='outlined'
+                            variant="outlined"
                             required={formInfo.HasAlternativeEmp}
                             {...params}
                             label={intl.formatMessage(
@@ -571,17 +582,17 @@ function LeaveTrxCreate(props) {
                     )}
 
                     <Grid item>
-                      <Stack direction='row' alignItems='center' gap={3}>
+                      <Stack direction="row" alignItems="center" gap={3}>
                         <div>
                           <input
-                            accept='image/*, .pdf, .doc, .docx'
-                            id='attachment-button-file'
-                            type='file'
-                            style={{ display: 'none' }}
+                            accept="image/*, .pdf, .doc, .docx"
+                            id="attachment-button-file"
+                            type="file"
+                            style={{ display: "none" }}
                             onChange={onDocumentInputChange}
                           />
-                          <label htmlFor='attachment-button-file'>
-                            <Button variant='contained' component='span'>
+                          <label htmlFor="attachment-button-file">
+                            <Button variant="contained" component="span">
                               <FormattedMessage
                                 {...messages.uploadAttachment}
                               />
@@ -591,8 +602,8 @@ function LeaveTrxCreate(props) {
 
                         {uploadedFile && (
                           <Button
-                            variant='outlined'
-                            component='span'
+                            variant="outlined"
+                            component="span"
                             onClick={onAttachmentPopupBtnClick}
                           >
                             <FormattedMessage {...payrollMessages.preview} />
@@ -613,10 +624,11 @@ function LeaveTrxCreate(props) {
                     <Grid item>
                       <FormControlLabel
                         control={<Checkbox />}
-                        onChange={(evt) => setFormInfo((prev) => ({
-                          ...prev,
-                          exemptLeaveRec: evt.target.checked,
-                        }))
+                        onChange={(evt) =>
+                          setFormInfo((prev) => ({
+                            ...prev,
+                            exemptLeaveRec: evt.target.checked,
+                          }))
                         }
                         checked={formInfo.exemptLeaveRec}
                         label={intl.formatMessage(messages.exemptLeaveRec)}
@@ -626,10 +638,11 @@ function LeaveTrxCreate(props) {
                     <Grid item>
                       <FormControlLabel
                         control={<Checkbox />}
-                        onChange={(evt) => setFormInfo((prev) => ({
-                          ...prev,
-                          exemptEntryRec: evt.target.checked,
-                        }))
+                        onChange={(evt) =>
+                          setFormInfo((prev) => ({
+                            ...prev,
+                            exemptEntryRec: evt.target.checked,
+                          }))
                         }
                         checked={formInfo.exemptEntryRec}
                         label={intl.formatMessage(messages.exemptEntryRec)}
@@ -646,8 +659,8 @@ function LeaveTrxCreate(props) {
                   <Grid
                     container
                     spacing={3}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12} md={3}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -663,11 +676,6 @@ function LeaveTrxCreate(props) {
                               fromDate: date,
                             }));
                           }}
-                          maxDate={
-                            formInfo.vacCode !== 5
-                              ? dayjs(formInfo.toDate)
-                              : null
-                          }
                           onError={(error, value) => {
                             if (error !== null) {
                               setDateError((prevState) => ({
@@ -704,10 +712,10 @@ function LeaveTrxCreate(props) {
                               toDate: date,
                             }));
                           }}
-                          disabled={
-                            formInfo.vacCode === 5
-                            || selectedLeave?.haveReplacementDay
-                          }
+                          /* disabled={
+                            formInfo.vacCode === 5 ||
+                            selectedLeave?.haveReplacementDay
+                          } */
                           onError={(error, value) => {
                             if (error !== null) {
                               setDateError((prevState) => ({
@@ -732,9 +740,9 @@ function LeaveTrxCreate(props) {
 
                     <Grid item xs={12} md={3}>
                       <TextField
-                        name='daysCount'
+                        name="daysCount"
                         value={formInfo.daysCount}
-                        disabled={formInfo.vacCode !== 5}
+                        /* disabled={formInfo.vacCode !== 5} */
                         onChange={(evt) => {
                           setFormInfo((prev) => ({
                             ...prev,
@@ -742,29 +750,29 @@ function LeaveTrxCreate(props) {
                           }));
                         }}
                         label={intl.formatMessage(messages.daysCount)}
-                        type='number'
-                        inputProps={{ step: 0.1, min: 0, max: 1 }}
+                        type="number"
+                        //inputProps={{ step: 0.1, min: 0, max: 1 }}
                         InputLabelProps={{
                           shrink: true,
                         }}
                         className={classes.field}
-                        variant='outlined'
-                        autoComplete='off'
+                        variant="outlined"
+                        autoComplete="off"
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    {/* <Grid item xs={12} md={3}>
                       <TextField
-                        name='dayDeducedBy'
+                        name="dayDeducedBy"
                         value={formInfo.dayDeducedBy}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.dayDeducedBy)}
                         className={classes.field}
                         disabled
-                        variant='outlined'
-                        autoComplete='off'
+                        variant="outlined"
+                        autoComplete="off"
                       />
-                    </Grid>
+                    </Grid> */}
                   </Grid>
                 </CardContent>
               </Card>
@@ -776,59 +784,59 @@ function LeaveTrxCreate(props) {
                   <Grid
                     container
                     spacing={3}
-                    alignItems='flex-start'
-                    direction='row'
+                    alignItems="flex-start"
+                    direction="row"
                   >
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='tel'
+                        name="tel"
                         value={formInfo.tel}
                         onChange={onNumericInputChange}
                         label={intl.formatMessage(messages.telNumber)}
                         className={classes.field}
-                        variant='outlined'
-                        autoComplete='off'
+                        variant="outlined"
+                        autoComplete="off"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='address'
+                        name="address"
                         value={formInfo.address}
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.address)}
                         className={classes.field}
-                        variant='outlined'
-                        autoComplete='off'
+                        variant="outlined"
+                        autoComplete="off"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='vacReson'
+                        name="vacReson"
                         value={formInfo.vacReson}
                         onChange={onInputChange}
                         label={intl.formatMessage(messages.leaveReason)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                         multiline
                         rows={1}
                         required
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                       <TextField
-                        name='notes'
+                        name="notes"
                         value={formInfo.notes}
                         onChange={onInputChange}
                         label={intl.formatMessage(payrollMessages.notes)}
                         className={classes.field}
-                        variant='outlined'
+                        variant="outlined"
                         multiline
                         rows={1}
-                        autoComplete='off'
+                        autoComplete="off"
                       />
                     </Grid>
                   </Grid>
@@ -841,9 +849,9 @@ function LeaveTrxCreate(props) {
             </Grid>
             <Grid item xs={12} md={1}>
               <Button
-                variant='contained'
-                size='medium'
-                color='primary'
+                variant="contained"
+                size="medium"
+                color="primary"
                 onClick={onCancelBtnClick}
               >
                 <FormattedMessage {...payrollMessages.cancel} />

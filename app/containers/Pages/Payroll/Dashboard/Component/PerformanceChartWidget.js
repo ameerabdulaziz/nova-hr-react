@@ -66,12 +66,12 @@ function PerformanceChartWidget(props) {
     },
   ]);
   const [barData, setBarData] = useState({
-    vacation: 0,
-    overTime: 0,
-    permissions: 0,
-    missions: 0,
-    penalty: 0,
-    rewards: 0,
+    vacation: 10,
+    overTime: 50,
+    permissions: 6,
+    missions: 15,
+    penalty: 3,
+    rewards: 8,
   });
   const [dataPerformance, setDataPerformance] = useState([
     {
@@ -225,7 +225,7 @@ function PerformanceChartWidget(props) {
         <Grid item md={12} xs={12} style={{ paddingTop: "0px !important" }}>
           <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
             <Grid container spacing={2}>
-              <Grid item md={8} xs={12}>
+              <Grid item md={6} xs={12}>
                 <Typography className={classes.smallTitle} variant="button">
                   <StackedLineChartIcon className={classes.leftIcon} />
                   <FormattedMessage {...messages.ageChart} />
@@ -234,10 +234,10 @@ function PerformanceChartWidget(props) {
 
                 <div className={classes.chartWrap}>
                   <div className={classes.chartFluid}>
-                    <ResponsiveContainer width={780} height="100%">
+                    <ResponsiveContainer width="100%" height="100%">
                       <ComposedChart
                         data={dataPerformance}
-                        width={780}
+                        width="100%"
                         height={300}
                       >
                         <XAxis dataKey="name" tickLine={false} />
@@ -261,16 +261,16 @@ function PerformanceChartWidget(props) {
                   </div>
                 </div>
               </Grid>
-              <Grid item md={4} xs={12}>
+              <Grid item md={6} xs={12}>
                 <Typography className={classes.smallTitle} variant="button">
                   <Check className={classes.leftIcon} />
                   <FormattedMessage {...messages.empwithbestAtt} />
                 </Typography>
                 <Divider className={classes.divider} />
 
-                <div className={classes.divnotification}>
+                <div >
                   {attendance.length > 0 ? (
-                    <List>
+                    <List >
                       {attendance.map((item, index) => (
                         <Fragment>
                           <ListItem>
@@ -284,7 +284,7 @@ function PerformanceChartWidget(props) {
                                 <Check />
                               </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={item.name} />
+                            <ListItemText primary={item.name.slice(0, 25)} />
 
                             <ListItemText
                               primary={`${item.percentage}%`}
@@ -299,7 +299,7 @@ function PerformanceChartWidget(props) {
                             <LinearProgress
                               variant="determinate"
                               className={cx(classes.blueProgress)}
-                              value={item.percentage}
+                              value={item.percentage <= 100 ?  item.percentage : 100}
                             />
                           </li>
                         </Fragment>

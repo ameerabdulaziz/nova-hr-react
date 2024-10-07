@@ -80,12 +80,23 @@ function PermissionTrxCreate(props) {
 
   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
   useEffect(() => {
+    debugger;
     if (empid) {
       let startTime, endTime, total;
-
+      let shiftDate = format(new Date(empid.shiftDate), "yyyy-MM-dd");
       if (empid.timeIn && empid.timeOut) {
-        startTime = new Date(empid.timeIn).getTime();
-        endTime = new Date(empid.timeOut).getTime();
+        startTime = new Date(
+          new Date(empid.timeIn) !== "Invalid Date" &&
+          !isNaN(new Date(empid.timeIn))
+            ? empid.timeIn
+            : shiftDate + " " + empid.timeIn
+        ).getTime();
+        endTime = new Date(
+          new Date(empid.timeOut) !== "Invalid Date" &&
+          !isNaN(new Date(empid.timeOut))
+            ? empid.timeOut
+            : shiftDate + " " + empid.timeOut
+        ).getTime();
         total = Math.abs(Math.round((startTime - endTime) / 1000 / 60));
       }
 
@@ -93,8 +104,28 @@ function PermissionTrxCreate(props) {
         ...prev,
         employeeId: empid.id,
         date: empid.shiftDate ?? new Date(),
-        startTime: empid.timeIn ? format(new Date(empid.timeIn), "HH:mm") : "",
-        endTime: empid.timeOut ? format(new Date(empid.timeOut), "HH:mm") : "",
+        startTime: empid.timeIn
+          ? format(
+              new Date(
+                new Date(empid.timeIn) !== "Invalid Date" &&
+                !isNaN(new Date(empid.timeIn))
+                  ? empid.timeIn
+                  : shiftDate + " " + empid.timeIn
+              ),
+              "HH:mm"
+            )
+          : "",
+        endTime: empid.timeOut
+          ? format(
+              new Date(
+                new Date(empid.timeOut) !== "Invalid Date" &&
+                !isNaN(new Date(empid.timeOut))
+                  ? empid.timeOut
+                  : shiftDate + " " + empid.timeOut
+              ),
+              "HH:mm"
+            )
+          : "",
         minutesCount: empid.timeIn && empid.timeOut ? total : "",
       }));
     }
@@ -135,7 +166,12 @@ function PermissionTrxCreate(props) {
     debugger;
     if (event.target.name == "startTime") {
       if (data.endTime != "") {
-        calculateMinutesCount(data.endTime, event.target.value, "startTime",event.target.value);
+        calculateMinutesCount(
+          data.endTime,
+          event.target.value,
+          "startTime",
+          event.target.value
+        );
       } else
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -145,7 +181,12 @@ function PermissionTrxCreate(props) {
 
     if (event.target.name == "endTime") {
       if (data.startTime != "") {
-        calculateMinutesCount(event.target.value, data.startTime, "endTime",event.target.value);
+        calculateMinutesCount(
+          event.target.value,
+          data.startTime,
+          "endTime",
+          event.target.value
+        );
       } else
         setdata((prevFilters) => ({
           ...prevFilters,

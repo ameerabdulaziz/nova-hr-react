@@ -23,6 +23,15 @@ const MissionTrxData = (locale) => {
     return result;
   };
 
+  Apis.GetSubmitedMissions = async (params) => {
+    
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(`AttMissionTrx/GetSubmitedMissions/${locale}?${queryString}`);
+    const result = data.data;
+    
+    return result;
+  };
+
   Apis.print = async (id) => {
     
     const data = await axiosInstance.get(`AttMissionTrx/GetPrintForm/${id}`);
@@ -46,6 +55,12 @@ const MissionTrxData = (locale) => {
 
   };
   
+  Apis.UpdateTransportation = async (data) => {
+    
+
+    const result = await axiosInstance.post("AttMissionTrx/UpdateTransportation",data);
+    return result;
+  };
   Apis.Save = async (data) => {
     
 

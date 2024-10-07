@@ -9,9 +9,24 @@ const ResetPasswordData = () => {
   };
 
   Apis.ResetAllUsersPassword = async (password,isSendEmail) => {
-    debugger;
+    
     const result = await axiosInstance.post(`UserManagement/ResetAllUsersPassword?password=${password}&isSendEmail=${isSendEmail}`);
 
+    return result;
+  };
+
+  Apis.ResetDeviceKey = async (employee) => {
+    
+    const result = await axiosInstance.post(`UserManagement/ResetDeviceKey?employeeId=${employee}`);
+
+    return result;
+  };
+
+  
+
+  Apis.Logout = async (password,isSendEmail) => {
+    debugger;
+    const result = await axiosInstance.post(`UserManagement/Logout`);
     return result;
   };
 

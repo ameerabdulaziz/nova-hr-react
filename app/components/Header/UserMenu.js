@@ -1,33 +1,32 @@
-import ExitToApp from '@mui/icons-material/ExitToApp';
-import Info from '@mui/icons-material/Info';
-import NotificationsActiveOutlined from '@mui/icons-material/NotificationsActiveOutlined';
-import { Icon } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import Badge from '@mui/material/Badge';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import link from 'enl-api/ui/link';
-import messageStyles from 'enl-styles/Messages.scss';
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
-import { formateDate } from '../../containers/Pages/Payroll/helpers';
-import useStyles from './header-jss';
-import messages from './messages';
+import ExitToApp from "@mui/icons-material/ExitToApp";
+import Info from "@mui/icons-material/Info";
+import NotificationsActiveOutlined from "@mui/icons-material/NotificationsActiveOutlined";
+import { Icon } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import link from "enl-api/ui/link";
+import messageStyles from "enl-styles/Messages.scss";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { formateDate } from "../../containers/Pages/Payroll/helpers";
+import ResetPasswordData from "../../containers/Pages/Payroll/Setting/api/ResetPasswordData";
+import useStyles from "./header-jss";
+import messages from "./messages";
 
 function UserMenu(props) {
   const { classes, cx } = useStyles();
-  const {
-    dark, signOut, avatar, notifications
-  } = props;
+  const { dark, signOut, avatar, notifications } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(null);
 
@@ -53,30 +52,30 @@ function UserMenu(props) {
   return (
     <div>
       <IconButton
-        aria-haspopup='true'
-        onClick={handleMenu('notification')}
-        color='inherit'
+        aria-haspopup="true"
+        onClick={handleMenu("notification")}
+        color="inherit"
         className={cx(classes.notifIcon, dark ? classes.dark : classes.light)}
-        size='large'
+        size="large"
       >
         <Badge
           className={classes.badge}
           badgeContent={notifications.length}
-          color='secondary'
+          color="secondary"
         >
           <NotificationsActiveOutlined />
         </Badge>
       </IconButton>
       <Menu
-        id='menu-notification'
+        id="menu-notification"
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         className={classes.notifMenu}
         PaperProps={{
@@ -84,7 +83,7 @@ function UserMenu(props) {
             width: 350,
           },
         }}
-        open={openMenu === 'notification'}
+        open={openMenu === "notification"}
         onClose={handleClose}
       >
         {notifications.length > 0 ? (
@@ -96,14 +95,14 @@ function UserMenu(props) {
             >
               <div className={messageStyles.messageInfo}>
                 <ListItemAvatar>
-                  <Avatar alt='User Name' className={messageStyles.icon}>
+                  <Avatar alt="User Name" className={messageStyles.icon}>
                     <Icon>{item.iconClass}</Icon>
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
                   primary={item.description}
                   className={classes.textNotif}
-                  secondary={formateDate(item.date, 'dd MMM yyyy')}
+                  secondary={formateDate(item.date, "dd MMM yyyy")}
                 />
               </div>
             </MenuItem>
@@ -112,14 +111,14 @@ function UserMenu(props) {
           <MenuItem>
             <div className={messageStyles.messageInfo}>
               <ListItemAvatar>
-                <Avatar alt='User Name' className={messageStyles.icon}>
+                <Avatar alt="User Name" className={messageStyles.icon}>
                   <Icon>
                     <Info />
                   </Icon>
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                sx={{ alignSelf: 'center' }}
+                sx={{ alignSelf: "center" }}
                 primary={<FormattedMessage {...messages.noNotification} />}
                 className={classes.textNotif}
               />
@@ -127,21 +126,21 @@ function UserMenu(props) {
           </MenuItem>
         )}
       </Menu>
-      <Button onClick={handleMenu('user-setting')}>
-        <Avatar alt='avatar' src={avatar} />
+      <Button onClick={handleMenu("user-setting")}>
+        <Avatar alt="avatar" src={avatar} />
       </Button>
       <Menu
-        id='menu-appbar'
+        id="menu-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
-        open={openMenu === 'user-setting'}
+        open={openMenu === "user-setting"}
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} component={Link} to={link.profile}>
@@ -156,20 +155,26 @@ function UserMenu(props) {
             <Badge
               className={cx(classes.badge, classes.badgeMenu)}
               badgeContent={2}
-              color='secondary'
+              color="secondary"
             >
-							&nbsp;
+              &nbsp;
             </Badge>
           </ListItemIcon>
         </MenuItem>
-        <MenuItem onClick={handleClose} component={Link} to='/app/Pages/Setting/ChangePassword'>
+        <MenuItem
+          onClick={handleClose}
+          component={Link}
+          to="/app/Pages/Setting/ChangePassword"
+        >
           <FormattedMessage {...messages.changePassword} />
         </MenuItem>
         <Divider />
         <MenuItem
-          onClick={() => {
+          onClick={async () => {
             signOut();
-            localStorage.removeItem('Token');
+
+            await ResetPasswordData().Logout();
+            localStorage.removeItem("Token");
           }}
         >
           <ListItemIcon>

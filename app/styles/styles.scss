@@ -555,6 +555,166 @@
 // personal page -- end
 
 
+// MissionTransportaion 
+
+    .tableContainer
+    {
+        overflow: auto;
+    }
+
+// MissionTransportaion -- end
+
+
+
+
+.addbuttonlink
+{
+    color: white;
+    text-decoration:none;
+
+}
+// reaponsive style --end
+
+
+// Employee Investigation
+
+
+.investigationAnswer
+{
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: none;
+}
+
+.addIconSty
+{
+    font-size: 22px !important;
+    cursor: pointer;
+
+    &:hover
+    {
+        font-size: 24px !important;
+    }
+}
+
+
+
+.investigationPrintTitle
+{
+    text-align: center;
+}
+
+.investigationPrintDate
+{
+    text-align: center;
+    font-size: 18px;
+}
+
+.investigationPrintNames
+{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+
+    & > p
+    {
+        span:nth-child(1)
+        {
+            font-size: 17px;
+            font-weight: bolder;
+        }
+    }
+}
+
+.investigationPrintSection
+{
+    font-size: 20px;
+    border-bottom: 1px solid #a9a9a9;
+    padding-bottom: 5px;
+}
+
+.investigationPrintSignaturesSection
+{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-top: 50px;
+    page-break-inside: avoid;
+}
+
+.printContainers
+{
+    page-break-inside: avoid;
+}
+
+
+
+// Employee Investigation - end
+
+
+
+// Job Advertisement 
+
+.cardsTitle
+{
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.popupContainer
+{
+    & > div
+    {
+        & > div
+        {
+            max-width: none;
+            width: 60%;
+        }
+    }
+}
+
+
+// Job Advertisement  - end
+
+
+
+
+// HR Application Evaluation  
+
+.cardSty
+{
+    cursor: pointer;
+}
+
+// HR Application Evaluation - end
+
+
+// Job Application Preview
+
+.queSty
+{
+   font-size: 16px;
+   font-weight: bolder;
+}
+
+.ansSty
+{
+   font-size: 13px;
+   color: #838383;
+}
+
+// HR Application Evaluation - end
+
+
+
+
+
+
+
+
 
 
 // reaponsive style
@@ -602,6 +762,22 @@
     // UploadFileWithKPI page -- end
 }
 
+
+@media only screen and (max-width: 1066px) 
+{
+    // MissionTransportaion 
+
+        .tableContainer
+        {
+            .tableSty
+            {
+                width: max-content;;
+            }
+        }
+        
+    // MissionTransportaion -- end
+}
+
 @media only screen and (max-width: 899px) 
 {
     .actionsSty
@@ -626,6 +802,26 @@
         left: 57% !important;
     }
 // RegisterLocation -- end
+
+
+
+// Job Advertisement 
+
+.popupContainer
+{
+    & > div
+    {
+        & > div
+        {
+            max-width: none;
+            width: 100%;
+        }
+    }
+}
+
+
+// Job Advertisement  - end
+
 }
 
 @media only screen and (max-width: 480px) 
@@ -644,11 +840,3 @@
     }
 // RegisterLocation -- end
 }
-
-.addbuttonlink
-{
-    color: white;
-    text-decoration:none;
-
-}
-// reaponsive style --end

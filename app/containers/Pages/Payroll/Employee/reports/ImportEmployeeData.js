@@ -122,7 +122,9 @@ function ImportEmployeeData(props) {
 
     try {
       if (formInfo.updateType === 'field') {
-        await api(locale).UpdateField(formInfo.fieldId, formInfo.rows);
+        debugger;
+        const Data= formInfo.rows.filter(item => item.employeeCode !='');
+        await api(locale).UpdateField(formInfo.fieldId, Data);
       } else {
         const rows = formInfo.rows.map((row) => ({
           id: 0,
@@ -153,10 +155,10 @@ function ImportEmployeeData(props) {
           identityIssuingDate: row[24],
           identityExpiry: row[25],
         }));
-
+        const Data= rows.filter(item => item.employeeCode !='');
         const body = {
           modifyExistEmployee: formInfo.modifyExistEmployee,
-          rows,
+          Data,
         };
 
         await api(locale).save(body);
@@ -338,7 +340,7 @@ function ImportEmployeeData(props) {
 
   const onExcelFileInputChange = (evt) => {
     const file = evt.target.files[0];
-
+debugger;
     setFormInfo((prev) => ({ ...prev, rows: [] }));
     setFileTitle(file.name.split('.')[0]);
 

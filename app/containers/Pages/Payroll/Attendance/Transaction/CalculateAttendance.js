@@ -25,7 +25,11 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import PayrollTable from "../../Component/PayrollTable";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
-import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
+import {
+  formateDate,
+  getAutoCompleteValue,
+  getCheckboxIcon,
+} from "../../helpers";
 import payrollMessages from "../../messages";
 import api from "../api/CalculateAttendanceData";
 import RowDropdown from "../components/CalculateAttendance/RowDropdown";
@@ -36,11 +40,8 @@ function CalculateAttendance(props) {
   const { intl } = props;
 
   const { classes } = useStyles();
-
-  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const locale = useSelector((state) => state.language.locale);
   const title = localStorage.getItem("MenuName");
-
   const [employeeList, setEmployeeList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
   const [companyList, setCompanyList] = useState([]);
@@ -60,7 +61,7 @@ function CalculateAttendance(props) {
   });
 
   const [formInfo, setFormInfo] = useState({
-    companyId: branchId,
+    companyId: 0,
     EmployeeIds: [],
     OrganizationIds: [],
     FromDate: null,
@@ -76,27 +77,39 @@ function CalculateAttendance(props) {
     try {
       const company = await GeneralListApis(locale).GetBranchList();
       setCompanyList(company);
-
+      if (company.length > 0)
+        setFormInfo((prev) => ({
+          ...prev,
+          companyId: company[0].id,
+        }));
       const department = await GeneralListApis(locale).GetDepartmentList(
-        branchId
+        company.length > 0 ? company[0].id : 0
       );
       setDepartmentList(department);
 
-      const employee = await GeneralListApis(locale).GetEmployeeList();
+      const employee = await GeneralListApis(locale).GetEmployeeList(
+        null,
+        null,
+        company.length > 0 ? company[0].id : null,
+        null
+      );
       setEmployeeList(employee);
-
-      if (branchId) {
+      debugger;
+      if (company.length > 0) {
         const response = await GeneralListApis(locale).getOpenMonth(
-          branchId,
+          company[0].id,
           0
         );
 
-        setOpenMonth(response);
+        setOpenMonth({
+          todate: response.todateAtt,
+          fromDate: response.fromDateAtt,
+        });
 
         setFormInfo((prev) => ({
           ...prev,
-          FromDate: response.fromDate,
-          ToDate: response.todate,
+          FromDate: response.fromDateAtt,
+          ToDate: response.todateAtt,
         }));
       }
     } catch (error) {
@@ -119,6 +132,7 @@ function CalculateAttendance(props) {
   };
 
   const getFilterHighlights = () => {
+    debugger;
     const highlights = [];
 
     const company = getAutoCompleteValue(companyList, formInfo.companyId);
@@ -147,14 +161,14 @@ function CalculateAttendance(props) {
     if (formInfo.EmployeeIds && formInfo.EmployeeIds.length > 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: formInfo.EmployeeIds.map((item) => item.name).join(' , '),
+        value: formInfo.EmployeeIds.map((item) => item.name).join(" , "),
       });
     }
 
     if (formInfo.OrganizationIds && formInfo.OrganizationIds.length > 0) {
       highlights.push({
         label: intl.formatMessage(messages.department),
-        value: formInfo.OrganizationIds.map((item) => item.name).join(' , '),
+        value: formInfo.OrganizationIds.map((item) => item.name).join(" , "),
       });
     }
 
@@ -169,10 +183,10 @@ function CalculateAttendance(props) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
-
+    debugger;
+    let fromdate=new Date(openMonth.fromDate);
     const isValidRange =
-      isDateInRange(formInfo.FromDate, openMonth.fromDate, openMonth.todate) &&
-      isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+      isDateInRange(formInfo.FromDate,fromdate.setDate(fromdate.getDate() - 1) , openMonth.todate)
 
     if (!isValidRange) {
       toast.error(
@@ -209,19 +223,19 @@ function CalculateAttendance(props) {
   };
 
   const handleCalculate = async () => {
+    debugger;
     try {
       if (Object.values(DateError).includes(true)) {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
-
+      let fromdate=new Date(openMonth.fromDate);
       const isValidRange =
         isDateInRange(
           formInfo.FromDate,
-          openMonth.fromDate,
+          fromdate.setDate(fromdate.getDate() - 1),
           openMonth.todate
-        ) &&
-        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+        ) 
 
       if (!isValidRange) {
         toast.error(
@@ -248,10 +262,14 @@ function CalculateAttendance(props) {
 
       const response = await api(locale).CalculateAttendance(body, formData);
       if (response.status == 200) {
-        toast.success(notif.success);
+        debugger;
+        if (response.data.length > 0) toast.error(response.data);
+        else {
+          toast.success(notif.success);
 
-        const result = await api(locale).GetList(body, formData);
-        setTableData(result);
+          const result = await api(locale).GetList(body, formData);
+          setTableData(result);
+        }
       }
     } catch (err) {
       //
@@ -265,14 +283,13 @@ function CalculateAttendance(props) {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
-
+      let fromdate=new Date(openMonth.fromDate)
       const isValidRange =
         isDateInRange(
           formInfo.FromDate,
-          openMonth.fromDate,
+          fromdate.setDate(fromdate.getDate() - 1),
           openMonth.todate
-        ) &&
-        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+        ) 
 
       if (!isValidRange) {
         toast.error(
@@ -298,10 +315,15 @@ function CalculateAttendance(props) {
       };
 
       const response = await api(locale).PostToPayroll(body, formData);
-
+debugger;
       if (response.success) {
         if (response.success.length == 0) toast.success(notif.success);
-        else toast.success(notif.success);
+        else 
+        {
+          var errors="";
+          response.success.map((item, index) => errors+=item.staff_Id+":"+item.msg+" " );
+          toast.error(errors);
+        }
       } else {
         toast.error(Object.keys(response)[0]);
         //setFileData([]);
@@ -315,13 +337,14 @@ function CalculateAttendance(props) {
 
   const handleRollBackAttendance = async () => {
     try {
+      let fromdate=new Date(openMonth.fromDate);
       const isValidRange =
         isDateInRange(
           formInfo.FromDate,
-          openMonth.fromDate,
+          fromdate.setDate(fromdate.getDate() - 1),
           openMonth.todate
-        ) &&
-        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+        ) 
+        
 
       if (!isValidRange) {
         toast.error(
@@ -361,13 +384,14 @@ function CalculateAttendance(props) {
 
   const handleRollBackPost = async () => {
     try {
+      let fromdate=new Date(openMonth.fromDate);
       const isValidRange =
         isDateInRange(
           formInfo.FromDate,
-          openMonth.fromDate,
+          fromdate.setDate(fromdate.getDate() - 1),
           openMonth.todate
-        ) &&
-        isDateInRange(formInfo.ToDate, openMonth.fromDate, openMonth.todate);
+        ) 
+        
 
       if (!isValidRange) {
         toast.error(
@@ -418,13 +442,13 @@ function CalculateAttendance(props) {
 
   const onCompanyAutoCompleteChange = async (value) => {
     setIsLoading(true);
-
+    debugger;
     setFormInfo((prev) => ({
       ...prev,
       EmployeeIds: [],
       OrganizationIds: [],
     }));
-
+    debugger;
     const companyId = value !== null ? value.id : null;
 
     try {
@@ -439,8 +463,32 @@ function CalculateAttendance(props) {
         companyId,
         null
       );
-
       setEmployeeList(employees);
+      if (companyId) {
+        const response = await GeneralListApis(locale).getOpenMonth(
+          companyId,
+          0
+        );
+        setOpenMonth({
+          todate:response.todateAtt ,
+          fromDate: response.fromDateAtt,
+        });
+        setFormInfo((prev) => ({
+          ...prev,
+          FromDate: response.fromDateAtt,
+          ToDate: response.todateAtt,
+        }));
+      } else {
+        setOpenMonth({
+          todate: null,
+          fromDate: null,
+        });
+        setFormInfo((prev) => ({
+          ...prev,
+          FromDate: null,
+          ToDate: null,
+        }));
+      }
     } catch (error) {
       //
     } finally {
@@ -592,7 +640,7 @@ function CalculateAttendance(props) {
     {
       name: "timeOut",
       label: intl.formatMessage(messages.signOut),
-     /*  options: {
+      /*  options: {
         customBodyRender: (value) => (
           <pre>
             {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
@@ -775,8 +823,8 @@ function CalculateAttendance(props) {
                   label={intl.formatMessage(messages.startDate)}
                   value={formInfo.FromDate ? dayjs(formInfo.FromDate) : null}
                   className={classes.field}
-                  minDate={dayjs(openMonth.fromDate)}
-                  maxDate={dayjs(openMonth.todate)}
+                  minDate={dayjs(openMonth.fromDate).subtract(1, 'day')}
+                  //maxDate={dayjs(openMonth.todate)}
                   onChange={(date) => {
                     onDatePickerChange(date, "FromDate");
                   }}
@@ -801,8 +849,8 @@ function CalculateAttendance(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.endDate)}
-                  minDate={dayjs(openMonth.fromDate)}
-                  maxDate={dayjs(openMonth.todate)}
+                  minDate={dayjs(openMonth.fromDate).subtract(1, 'day')}
+                  //maxDate={dayjs(openMonth.todate)}
                   value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
                   className={classes.field}
                   onChange={(date) => {
@@ -970,7 +1018,12 @@ function CalculateAttendance(props) {
         </PapperBlock>
       </form>
 
-      <PayrollTable title="" data={tableData} columns={columns} filterHighlights={filterHighlights} />
+      <PayrollTable
+        title=""
+        data={tableData}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoader>
   );
 }

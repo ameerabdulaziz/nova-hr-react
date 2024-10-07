@@ -183,7 +183,8 @@ function LeaveTrxList(props) {
         print: false,
         download: false,
         customBodyRender: (value) => {
-          if (!value) {
+          
+          if (!value||value=="null") {
             return '';
           }
 
