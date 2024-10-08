@@ -12,24 +12,12 @@ export default defineMessages({
     id: `${scope}.en`,
     defaultMessage: 'English',
   },
-  de: {
-    id: `${scope}.de`,
-    defaultMessage: 'Deutsch',
+  arKsa: {
+    id: `${scope}.arKsa`,
+    defaultMessage: 'Arabic Ksa',
   },
-  id: {
-    id: `${scope}.id`,
-    defaultMessage: 'Bahasa Indonesia',
-  },
-  es: {
-    id: `${scope}.es`,
-    defaultMessage: 'Español',
-  },
-  zh: {
-    id: `${scope}.zh`,
-    defaultMessage: '简体中文',
-  },
-  ar: {
-    id: `${scope}.ar`,
-    defaultMessage: 'العربيّة',
+  arEgypt: {
+    id: `${scope}.arEgypt`,
+    defaultMessage: 'Arabic Egypt',
   },
 });
