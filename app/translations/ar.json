@@ -824,6 +824,7 @@
   "boilerplate.containers.Payroll.pending": "معلق",
   "boilerplate.containers.Payroll.approved": "تمت الموافقة عليه",
   "boilerplate.containers.Payroll.rejected": "مرفوض",
+  "boilerplate.containers.Payroll.numberOfMinutesMustBeGreaterThanZero": "عدد الدقائق يجب ان يكون اكبر من صفر",
   "boilerplate.containers.Payroll.viewAttachment": "عرض الملف المرفق",
   "boilerplate.containers.Payroll.filters": "الفلاتر",
   "boilerplate.containers.Payroll.showColumns": "إظهار الأعمدة",
