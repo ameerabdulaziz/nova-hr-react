@@ -454,6 +454,8 @@ function JobAdvertisementApplication(props) {
     
   };
 
+
+  console.log("shshsh");
   
 
   return (
@@ -1201,6 +1203,8 @@ function JobAdvertisementApplication(props) {
                   </div>
                 </Grid>
 
+                {JobAdvertisement && JobAdvertisement.recQuestions && JobAdvertisement.recQuestions.length !== 0 && (
+
                 <Grid item xs={12}>
                   <div className='cv-form-card'>
                     <Grid
@@ -1211,7 +1215,7 @@ function JobAdvertisementApplication(props) {
                       <Grid item>
                         <div className='title'>
                         
-                          {intl.formatMessage(messages.ExclusionaryQuestions)}
+                          {intl.formatMessage(messages.pleaseAnswerTheFollowingQuestion)}
                         </div>
                       </Grid>
                     </Grid>
@@ -1219,8 +1223,7 @@ function JobAdvertisementApplication(props) {
                       <Grid item xs={12}  md={4}> 
 
                       <br/>
-                            {JobAdvertisement && JobAdvertisement.recQuestions && (
-                              JobAdvertisement.recQuestions.map((que,index)=>{
+                            { JobAdvertisement.recQuestions.map((que,index)=>{
 
                                 return  <Grid item xs={12}  md={4} key={index}> 
                                   <FormControl>
@@ -1240,11 +1243,13 @@ function JobAdvertisementApplication(props) {
                                  <br/>
                                  <br/> 
                               </Grid>
-                            }))}
+                            })}
 
                       </Grid>
                   </div>
                 </Grid>
+
+                )}
 
                 <Grid item xs={12}>
                   <div className='cv-form-card'>

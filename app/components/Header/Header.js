@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
+  Box,
   TextField,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -15,7 +16,6 @@ import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from "@mui/icons-material/Search";
 import FullscreenOutlined from "@mui/icons-material/FullscreenOutlined";
 import FullscreenExitOutlined from "@mui/icons-material/FullscreenExitOutlined";
-import Chat from "@mui/icons-material/Chat";
 import InvertColors from "@mui/icons-material/InvertColorsOutlined";
 import HelpOutlineOutlined from "@mui/icons-material/HelpOutlineOutlined";
 import Tooltip from "@mui/material/Tooltip";
@@ -222,10 +222,12 @@ function Header(props) {
               <Grid item xs={12} md={12}>
                 <TextField
                   name="answer"
-                  value={answer}
+                  value={answer?.trimStart()}
                   fullWidth
                   variant="outlined"
-                  disabled
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   multiline
                   autoComplete="off"
                 />
@@ -335,13 +337,9 @@ function Header(props) {
           title={intl.formatMessage(messages.askNova)}
           placement="bottom"
         >
-          <IconButton
-            className={classes.button}
-            onClick={handleChat}
-            size="large"
-          >
-            <Chat />
-          </IconButton>
+          <Box onClick={handleChat} sx={{ cursor: 'pointer' }}>
+            <img src='/images/chat.png' alt='chat' height={40} />
+          </Box>
         </Tooltip>
         <div className={classes.searchWrapper}>
           <div className={classes.wrapper}>
