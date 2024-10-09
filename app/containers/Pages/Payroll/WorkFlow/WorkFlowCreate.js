@@ -31,6 +31,7 @@ function WorkFlowCreate(props) {
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const { id } = location.state ?? 0;
+  const { isCopy } = location.state ?? false;
   const { classes } = useStyles();
 
   const [data, setdata] = useState({
@@ -152,7 +153,7 @@ function WorkFlowCreate(props) {
       setDocumentList(Documents);
 
       if (id) {
-        const dataApi = await ApiData(locale).Get(id ?? 0);
+        const dataApi = await ApiData(locale).Get(id ?? 0,isCopy);
         setdata(dataApi);
         setjobList(
           dataApi.jobList

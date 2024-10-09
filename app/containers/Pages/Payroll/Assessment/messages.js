@@ -235,6 +235,22 @@ export default defineMessages({
     id: `${scope}.rating`,
     defaultMessage: 'rating',
   },
+  ratingfile: {
+    id: `${scope}.ratingfile`,
+    defaultMessage: 'ratingfile',
+  },
+  performancefile: {
+    id: `${scope}.performancefile`,
+    defaultMessage: 'performancefile',
+  },
+  competencyfile: {
+    id: `${scope}.competencyfile`,
+    defaultMessage: 'competencyfile',
+  },
+  competencyArfile: {
+    id: `${scope}.competencyArfile`,
+    defaultMessage: 'competencyArfile',
+  },
   invalidFileName: {
     id: `${scope}.invalidFileName`,
     defaultMessage: 'invalidFileName',
@@ -298,6 +314,10 @@ export default defineMessages({
   title: {
     id: `${scope}.title`,
     defaultMessage: 'title',
+  },
+  fileName: {
+    id: `${scope}.fileName`,
+    defaultMessage: 'fileName',
   },
   arTitle: {
     id: `${scope}.arTitle`,

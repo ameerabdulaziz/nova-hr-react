@@ -8,15 +8,27 @@ import PayrollTable from '../Component/PayrollTable';
 import Payrollmessages from '../messages';
 import ApiData from './api/WorkFlowData';
 import messages from './messages';
+import Copy from '@mui/icons-material/CopyAll';
+import {
+  Tooltip,
+  IconButton,
+} from '@mui/material';
+
+import { useHistory } from 'react-router-dom';
 
 function WorkFlowList(props) {
   const { intl } = props;
-
+  const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
 
+  const onCopyBtnClick = async (id) => {
+    history.push("/app/Pages/WF/WorkFlowEdit", {
+      id: id,
+      isCopy: true},);
+  };
   async function fetchData() {
     try {
       const dataApi = await ApiData(locale).GetList();
@@ -84,6 +96,20 @@ function WorkFlowList(props) {
     delete: {
       api: deleteRow,
     },
+    extraActions: (row) => (
+      <>
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(Payrollmessages.copy)}
+        >
+          <span>
+            <IconButton onClick={() => onCopyBtnClick(row.id)}>
+              <Copy sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </>
+    ),
   };
 
   return (

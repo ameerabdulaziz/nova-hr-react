@@ -2971,6 +2971,12 @@
   "boilerplate.containers.Payroll.assessment.arabicCompetenciesGuideline": "دليل الكفاءات بالعربية",
   "boilerplate.containers.Payroll.assessment.rating": "التقييم",
   "boilerplate.containers.Payroll.assessment.performanceAppraisalPurpose": "هدف تقييم الأداء",
+  "boilerplate.containers.Payroll.assessment.ratingfile": "Rating.pdf",
+  "boilerplate.containers.Payroll.assessment.performancefile": "Performance.pdf",
+  "boilerplate.containers.Payroll.assessment.competencyfile": "Competency.pdf",
+  "boilerplate.containers.Payroll.assessment.competencyArfile": "CompetencyAr.pdf",
+  "boilerplate.containers.Payroll.assessment.fileName": "اسم الملف",
+  
   "boilerplate.containers.Payroll.assessment.invalidFileName": "اسم ملف غير صالح",
   "boilerplate.containers.Payroll.assessment.fileExtensionShouldBePdf": "يجب أن يكون امتداد الملف PDF",
   "boilerplate.containers.Payroll.assessment.fileSizeShouldBeLessThan10MB": "يجب أن يكون حجم الملف أقل من 10 ميجابايت",
