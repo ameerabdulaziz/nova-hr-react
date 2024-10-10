@@ -32,6 +32,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import DecryptUrl from "../../../Component/DecryptUrl";
+import { calculateTimeDifference } from "../../../helpers";
 
 function MissionTrxCreate(props) {
   const { intl } = props;
@@ -226,6 +227,11 @@ function MissionTrxCreate(props) {
       return;
     }
 
+    if (data.minutesCount === 0) {
+      toast.error(intl.formatMessage(Payrollmessages.numberOfMinutesMustBeGreaterThanZero));
+      return;
+    }
+
     try {
       setIsLoading(true);
 
@@ -334,6 +340,7 @@ function MissionTrxCreate(props) {
                   label={intl.formatMessage(Payrollmessages.todate)}
                   value={data.toDate ? dayjs(data.toDate) : data.toDate}
                   className={classes.field}
+                  minDate={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
                   onChange={(date) => {
                     setdata((prevFilters) => ({
                       ...prevFilters,
@@ -364,6 +371,7 @@ function MissionTrxCreate(props) {
                 value={data.startTime}
                 label={intl.formatMessage(messages.startTime)}
                 type="time"
+                required
                 onChange={(e) => handleChange(e)}
                 className={classes.field}
                 InputLabelProps={{
@@ -375,6 +383,7 @@ function MissionTrxCreate(props) {
               <TextField
                 id="endTime"
                 name="endTime"
+                required
                 value={data.endTime}
                 label={intl.formatMessage(messages.endTime)}
                 type="time"

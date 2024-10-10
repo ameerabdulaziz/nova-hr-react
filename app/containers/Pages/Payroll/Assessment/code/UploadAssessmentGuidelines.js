@@ -158,9 +158,10 @@ function UploadAssessmentGuidelines(props) {
             <Table size='small' sx={{ minWidth: 700 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell>{intl.formatMessage(messages.title)}</TableCell>
+                  <TableCell sx={{ width: 300 }}>{intl.formatMessage(messages.title)}</TableCell>
+                  <TableCell>{intl.formatMessage(messages.fileName)}</TableCell>
 
-                  <TableCell sx={{ width: 150 }}>
+                  <TableCell sx={{ width: 250 }}>
                     {intl.formatMessage(messages.actions)}
                   </TableCell>
                 </TableRow>
@@ -175,7 +176,9 @@ function UploadAssessmentGuidelines(props) {
                   <TableCell>
                     {intl.formatMessage(messages.competenciesGuideline)}
                   </TableCell>
-
+                  <TableCell style={{color:"red"}}>
+                    {intl.formatMessage(messages.competencyfile)}
+                  </TableCell>
                   <TableCell>
                     <Stack direction='row' alignItems='center' spacing={2}>
                       <div>
@@ -220,6 +223,9 @@ function UploadAssessmentGuidelines(props) {
                   <TableCell>
                     {intl.formatMessage(messages.arabicCompetenciesGuideline)}
                   </TableCell>
+                  <TableCell style={{color:"red"}}>
+                    {intl.formatMessage(messages.competencyArfile)}
+                  </TableCell>
 
                   <TableCell>
                     <Stack direction='row' alignItems='center' spacing={2}>
@@ -263,7 +269,9 @@ function UploadAssessmentGuidelines(props) {
                   }}
                 >
                   <TableCell>{intl.formatMessage(messages.rating)}</TableCell>
-
+                  <TableCell style={{color:"red"}}>
+                    {intl.formatMessage(messages.ratingfile)}
+                  </TableCell>
                   <TableCell>
                     <Stack direction='row' alignItems='center' spacing={2}>
                       <div>
@@ -307,6 +315,9 @@ function UploadAssessmentGuidelines(props) {
                 >
                   <TableCell>
                     {intl.formatMessage(messages.performanceAppraisalPurpose)}
+                  </TableCell>
+                  <TableCell style={{color:"red"}}>
+                    {intl.formatMessage(messages.performancefile)}
                   </TableCell>
 
                   <TableCell>

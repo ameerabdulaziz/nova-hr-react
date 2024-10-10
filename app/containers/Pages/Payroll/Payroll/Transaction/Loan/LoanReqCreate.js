@@ -21,15 +21,13 @@ import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import PayRollLoader from "../../../Component/PayRollLoader";
-import LoanDetailTable from "./LoanDetailTable";
 import EmployeeData from "../../../Component/EmployeeData";
 import { format } from "date-fns";
 import GeneralListApis from "../../../api/GeneralListApis";
-
+import LoanSettingApiData from "../../api/LoanSettingData";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-
 
 function LoanReqCreate(props) {
   const { intl } = props;
@@ -40,6 +38,8 @@ function LoanReqCreate(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [yearList, setYearList] = useState([]);
   const [monthList, setMonthList] = useState([]);
+  const [OrignalMonthList, setOrignalMonthList] = useState([]);
+  const [OrignalYearList, setOrignalYearList] = useState([]);
   const [data, setdata] = useState({
     id: 0,
     elementId: 0,
@@ -76,16 +76,19 @@ function LoanReqCreate(props) {
     return date ? format(new Date(date), "yyyy-MM-dd") : "";
   };
 
-  const handleEmpChange = useCallback((id, name) => {
-    
-    if (name == "employeeId") {
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        employeeId: id,
-      }));
-      getOpenMonth(id);
-    }
-  }, []);
+  const handleEmpChange = useCallback(
+    (id, name) => {
+      if (name == "employeeId") {
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          employeeId: id,
+        }));
+        getOpenMonth(id);
+        getLoanSetting(id);
+      }
+    },
+    [OrignalMonthList, OrignalYearList]
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,39 +120,33 @@ function LoanReqCreate(props) {
   }
 
   async function changeYear(value) {
-    if (value != null && value.id < data.yearId) {
-      toast.error("year must be grater than or equal opne Year");
+    if (value !== null) {
       setdata((prevFilters) => ({
         ...prevFilters,
-        stYearId: data.yearId,
-        stYearName: data.yearName,
+        stYearId: value.id,
+        stYearName: value.name,
+        stMonthId: 0,
+        stmonthName: "",
       }));
-    } else {
+      if (value.id != data.yearId) setMonthList(OrignalMonthList);
+      else
+        setMonthList(OrignalMonthList.filter((row) => row.id >= data.monthId));
+    } else
       setdata((prevFilters) => ({
         ...prevFilters,
-        stYearId: value !== null ? value.id : 0,
-        stYearName: value !== null ? value.name : "",
+        stYearId: 0,
+        stYearName: "",
+        stMonthId: 0,
+        stMonthName: "",
       }));
-    }
+    handleApply(data.paysNo, data.stYearName, value.id, data.totalvalue);
   }
   async function changeMonth(value) {
-    if (
-      value != null &&
-      value.id < data.monthId &&
-      data.stYearId < data.yearId
-    ) {
-      toast.error("month must be grater than or equal opne Month");
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        stMonthId: data.monthId,
-      }));
-    } else {
-      setdata((prevFilters) => ({
-        ...prevFilters,
-        stMonthId: value !== null ? value.id : 0,
-        stMonthName: value !== null ? value.name : 0,
-      }));
-    }
+    setdata((prevFilters) => ({
+      ...prevFilters,
+      stMonthId: value !== null ? value.id : 0,
+      stMonthName: value !== null ? value.name : 0,
+    }));
   }
 
   async function getOpenMonth(id) {
@@ -182,22 +179,61 @@ function LoanReqCreate(props) {
         stMonthName: result.monthName,
         stYearName: result.yearName,
       }));
+      debugger;
+      setYearList(
+        OrignalYearList.filter(
+          (row) => parseInt(row.name) >= parseInt(result.yearName)
+        )
+      );
+      setMonthList(OrignalMonthList.filter((row) => row.id >= result.monthId));
     } catch (err) {
     } finally {
       setIsLoading(false);
     }
   }
+
+  async function getLoanSetting(id) {
+    try {
+      if (!id) {
+        setdata((prevFilters) => ({
+          ...prevFilters,
+          payElementId: 0,
+          payElementName: "",
+          elementId: 0,
+          elementName: "",
+          payTempId: 0,
+          payTempName: "",
+        }));
+        return;
+      }
+      setIsLoading(true);
+      const result = await LoanSettingApiData(locale).GetByEmployeeId(id);
+
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        payElementId: result.payElementId,
+        payElementName: result.payElementName,
+        elementId: result.elementId,
+        elementName: result.elementName,
+        payTempId: result.payTempId,
+        payTempName: result.payTempName,
+      }));
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   async function fetchData() {
     try {
+      debugger;
       const years = await GeneralListApis(locale).GetYears();
-      setYearList(years);
+      setOrignalYearList(years);
       const months = await GeneralListApis(locale).GetMonths();
-      setMonthList(months);
+      setOrignalMonthList(months);
 
-      
-        const dataApi = await ApiData(locale).Get(id??0);
-        setdata(dataApi);
-        
+      const dataApi = await ApiData(locale).Get(id ?? 0);
+      setdata(dataApi);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -234,7 +270,6 @@ function LoanReqCreate(props) {
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-
                       <Grid item xs={12} md={2}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
@@ -406,7 +441,7 @@ function LoanReqCreate(props) {
                         />
                       </Grid>
 
-                      <Grid item xs={12} md={2} style={{display: 'none' }}>
+                      <Grid item xs={12} md={2} style={{ display: "none" }}>
                         <TextField
                           id="nativeTotalValue"
                           name="nativeTotalValue"

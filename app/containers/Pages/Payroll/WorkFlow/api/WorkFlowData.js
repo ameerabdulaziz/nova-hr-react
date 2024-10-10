@@ -21,9 +21,9 @@ const WorkFlowData = (locale) => {
   };
 
 
-  Apis.Get = async (id) => {
+  Apis.Get = async (id,isCopy) => {
     
-    const data = await axiosInstance.get(`WorkFlow/Get/${id}/${locale}`);
+    const data = await axiosInstance.get(`WorkFlow/Get/${id}/${locale}?isCopy=${isCopy?isCopy:false}`);
     
     return data.data;
 
