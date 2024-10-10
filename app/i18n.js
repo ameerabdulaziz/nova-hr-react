@@ -9,8 +9,8 @@
  */
 
 const enTranslationMessages = require('./translations/en.json');
-const arEgyptTranslationMessages = require('./translations/ar-egypt.json');
-const arKSATranslationMessages = require('./translations/ar-ksa.json');
+const arEgyptTranslationMessages = require('./translations/arEgypt.json');
+const arKSATranslationMessages = require('./translations/arKsa.json');
 
 const DEFAULT_LOCALE = 'en';
 
