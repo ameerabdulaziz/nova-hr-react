@@ -813,6 +813,7 @@
   "boilerplate.containers.Payroll.all": "All",
   "boilerplate.containers.Payroll.pending": "Pending",
   "boilerplate.containers.Payroll.approved": "Approved",
+  "boilerplate.containers.Payroll.numberOfMinutesMustBeGreaterThanZero": "Number of minutes must be greater than zero.",
   "boilerplate.containers.Payroll.rejected": "Rejected",
   "boilerplate.containers.Payroll.viewAttachment": "View Attachment",
   "boilerplate.containers.Payroll.filters": "Filters",
