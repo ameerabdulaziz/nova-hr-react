@@ -599,3 +599,11 @@ setFilterHighlights(result);
   filterHighlights={filterHighlights}
 />
 ```
+
+# Reference
+
+- [GitHub Repository](https://github.com/dynamicTech123/PayrollWebApp)
+- [Enlite Theme](https://enlite-static.netlify.app/app)
+- [Live Demo](http://92.205.178.113:800/)
+- [Translation Sheet](https://docs.google.com/spreadsheets/d/1awXuzp98m95AK7r2OFL6sZUr7re9vSWQ4kcED7wk2bA/edit?gid=0#gid=0)
+- [Notes Sheet](https://docs.google.com/spreadsheets/d/1snOtgHJi_S-vnWDtJ3j3T7np_olPVu_KikgDqAZb1m4/edit#gid=0)

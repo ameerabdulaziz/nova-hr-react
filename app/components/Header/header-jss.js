@@ -13,23 +13,14 @@ const flagIcon = {
   top: 1,
   background: `url(${flag}) no-repeat transparent`,
   backgroundSize: '16px auto',
-  '&[class="ar"]': {
+  '&[class="arKsa"]': {
     backgroundPosition: '0 3px'
   },
-  '&[class="zh"]': {
-    backgroundPosition: '0 -12px'
+  '&[class="ar"]': {
+    backgroundPosition: '0 -95px'
   },
   '&[class="en"]': {
     backgroundPosition: '0 -28px'
-  },
-  '&[class="de"]': {
-    backgroundPosition: '0 -44px'
-  },
-  '&[class="id"]': {
-    backgroundPosition: '0 -62px'
-  },
-  '&[class="es"]': {
-    backgroundPosition: '0 -79px'
   },
 };
 

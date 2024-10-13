@@ -778,4 +778,8 @@ employeeId: {
     id: `${scope}.viewAttachment`,
     defaultMessage: 'View Attachment',
   },
+  numberOfMinutesMustBeGreaterThanZero: {
+    id: `${scope}.numberOfMinutesMustBeGreaterThanZero`,
+    defaultMessage: 'Number of minutes must be greater than zero.',
+  },
 });
