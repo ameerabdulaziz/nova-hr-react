@@ -16,8 +16,8 @@ export default defineMessages({
     id: `${scope}.arKsa`,
     defaultMessage: 'Arabic Ksa',
   },
-  arEgypt: {
-    id: `${scope}.arEgypt`,
+  ar: {
+    id: `${scope}.ar`,
     defaultMessage: 'Arabic Egypt',
   },
 });

@@ -9,14 +9,14 @@
  */
 
 const enTranslationMessages = require('./translations/en.json');
-const arEgyptTranslationMessages = require('./translations/arEgypt.json');
+const arTranslationMessages = require('./translations/ar.json');
 const arKSATranslationMessages = require('./translations/arKsa.json');
 
 const DEFAULT_LOCALE = 'en';
 
 const appLocales = [
   'en',
-  'arEgypt',
+  'ar',
   'arKsa'
 ];
 
@@ -35,7 +35,7 @@ const formatTranslationMessages = (locale, messages) => {
 
 const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
-  arEgypt: formatTranslationMessages('arEgypt', arEgyptTranslationMessages),
+  ar: formatTranslationMessages('ar', arTranslationMessages),
   arKsa: formatTranslationMessages('arKsa', arKSATranslationMessages),
 };
 

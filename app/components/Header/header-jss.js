@@ -16,7 +16,7 @@ const flagIcon = {
   '&[class="arKsa"]': {
     backgroundPosition: '0 3px'
   },
-  '&[class="arEgypt"]': {
+  '&[class="ar"]': {
     backgroundPosition: '0 -95px'
   },
   '&[class="en"]': {
