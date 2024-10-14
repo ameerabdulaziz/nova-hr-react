@@ -26,7 +26,6 @@ axiosInstance.interceptors.response.use(
     return response
   },
   async function (error) {
-    debugger;
     const originalRequest = error.config
     if (typeof error.response === 'undefined') {
       toast.error(
