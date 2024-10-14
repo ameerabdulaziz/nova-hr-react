@@ -190,9 +190,10 @@ function DataFromAllDevices(props) {
 
       setIsLoading(true);
       const dataApi = await ApiData(locale).ReadAttLog(Device);
+      debugger;
       if (dataApi.data) setFileData(dataApi.data);
       else {
-        toast.error(dataApi);
+        toast.error(Object.keys(dataApi)[0]);
         //setFileData([]);
       }
     } catch (err) {
