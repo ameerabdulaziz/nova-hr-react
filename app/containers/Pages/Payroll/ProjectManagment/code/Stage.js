@@ -1,0 +1,109 @@
+import notif from 'enl-api/ui/notifMessage';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { injectIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import PayrollTable from '../../Component/PayrollTable';
+import StageData from '../api/StageData';
+import messages from '../messages';
+import { getCheckboxIcon } from '../../helpers';
+
+function Stage({ intl }) {
+  const title = localStorage.getItem('MenuName');
+  const [dataTable, setDataTable] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const locale = useSelector((state) => state.language.locale);
+
+  const getdata = async () => {
+    setIsLoading(true);
+
+    try {
+      const data = await StageData(locale).GetList();
+
+      setDataTable(data);
+    } catch (er) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, []);
+
+  const columns = [
+    {
+      name: 'stageCode',
+      label: "Stage Code",
+    //   label: intl.formatMessage(messages.arName),
+    },
+    {
+        name: 'enName',
+        label: "Stage Name EN",
+      //   label: intl.formatMessage(messages.id),
+    },
+    {
+      name: 'arName',
+      label: "Stage Name AR",
+    //   label: intl.formatMessage(messages.enName),
+    },
+    // {
+    //   name: 'manPower',
+    //   label: "manPower",
+    // //   label: intl.formatMessage(messages.manPower),
+    // },
+    // {
+    //   name: 'isDisclaimer',
+    //   label: "IsDisclaimer",
+    // //   label: intl.formatMessage(messages.IsDisclaimer),
+    //   options: {
+    //     customBodyRender: (value) => getCheckboxIcon(value),
+    //   },
+    // },
+  ];
+
+  const deleteRow = async (id) => {
+    try {
+      setIsLoading(true);
+      await StageData().Delete(id);
+
+      toast.success(notif.saved);
+      getdata();
+    } catch (er) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const actions = {
+    add: {
+      url: '/app/Pages/ProjectManagment/StageCreate',
+    },
+    edit: {
+      url: '/app/Pages/ProjectManagment/StageEdit',
+    },
+    delete: {
+      api: deleteRow,
+    },
+  };
+
+  return (
+    <PayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={title}
+      data={dataTable}
+      columns={columns}
+      actions={actions}
+    />
+  );
+}
+
+Stage.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
+
+export default injectIntl(Stage);

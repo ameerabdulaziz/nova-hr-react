@@ -594,6 +594,33 @@ const GeneralListApis = (locale) => {
   };
 
 
+  Apis.GetStageList = async () => {
+    const data = await axiosInstance.get(
+      `/GeneralList/GetStageList/${locale}`
+    );
+
+    return data.data;
+  };
+
+
+  Apis.GetStageTaskList = async (Id) => {
+    const data = await axiosInstance.get(
+      `/GeneralList/GetStageTaskList/${Id}/${locale}`
+    );
+
+    return data.data;
+  };
+
+
+  Apis.GetCustomertList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetCustomerList/${locale}`
+    );
+
+    return data.data;
+  };
+
+
 
   return Apis;
 };

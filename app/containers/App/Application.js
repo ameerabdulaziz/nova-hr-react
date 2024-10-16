@@ -447,6 +447,20 @@ import {
   ReviewTest,
   EmployeeTrainingReport,
   TrainingAttendance,
+  Customer,
+  CustomerCreate,
+  Contract,
+  ContractCreate,
+  ContractEdit,
+  Stage,
+  StageCreate,
+  StageEdit,
+  TimeSheet,
+  TimeSheetCreate,
+  TimeSheetEdit,
+  Project,
+  ProjectCreate,
+  ProjectEdit,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -2401,6 +2415,96 @@ function Application(props) {
           path="/app/Pages/Training/TrainingAttendance"
           component={TrainingAttendance}
         />
+
+
+
+
+          {/* Project managment */}
+
+        {/* <Route
+          path="/app/Pages/ProjectManagment/Customer"
+          component={Customer}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/CustomerCreate"
+          component={CustomerCreate}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/CustomerEdit"
+          component={CustomerCreate}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/Contract"
+          component={Contract}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/ContractCreate"
+          component={ContractCreate}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/ContractEdit"
+          component={ContractEdit}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/Stage"
+          component={Stage}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/StageCreate"
+          component={StageCreate}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/StageEdit"
+          component={StageEdit}
+        />
+
+
+        <Route
+          path="/app/Pages/ProjectManagment/TimeSheet"
+          component={TimeSheet}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/TimeSheetCreate"
+          component={TimeSheetCreate}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/TimeSheetEdit"
+          component={TimeSheetEdit}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/Project"
+          component={Project}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/ProjectCreate"
+          component={ProjectCreate}
+        />
+
+        <Route
+          path="/app/Pages/ProjectManagment/ProjectEdit"
+          component={ProjectEdit}
+        /> */}
+
+
+
+
+
+
+
+
+
 
         {/* Default */}
         <Route component={NotFound} />

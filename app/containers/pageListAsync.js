@@ -2796,3 +2796,115 @@ export const TrainingAttendance = loadable(
     fallback: <Loading />,
   }
 );
+
+
+
+
+// Project managment  ///////////////////////////////////////
+
+
+export const Customer = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/Customer'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CustomerCreate = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/CustomerCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const CustomerEdit = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/CustomerCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const Contract = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/Contract'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ContractCreate = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/ContractCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ContractEdit = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/ContractCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const Stage = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/Stage'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const StageCreate = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/StageCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const StageEdit = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/StageCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+export const TimeSheet = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/TimeSheet'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TimeSheetCreate = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/TimeSheetCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TimeSheetEdit = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/TimeSheetCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const Project = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/Project'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ProjectCreate = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/ProjectCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ProjectEdit = loadable(
+  () => import('./Pages/Payroll/ProjectManagment/code/ProjectCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
