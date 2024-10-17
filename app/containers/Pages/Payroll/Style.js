@@ -331,6 +331,10 @@ colorSty:{
       color: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
 },
 
+backgroundColorSty:{
+  backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
+},
+
   surveyMainSty:{
     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light,
   },

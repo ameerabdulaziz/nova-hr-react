@@ -461,6 +461,7 @@ import {
   Project,
   ProjectCreate,
   ProjectEdit,
+  GPSAttendance,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -1315,6 +1316,11 @@ function Application(props) {
           path="/app/Pages/Att/RegisterLocationEdit"
           component={RegisterLocationEdit}
         />
+
+        {/* <Route
+          path="/app/Pages/Att/GPSAttendance"
+          component={GPSAttendance}
+        /> */}
 
         <Route
           path="/app/Pages/Att/ShiftManPowerReport"

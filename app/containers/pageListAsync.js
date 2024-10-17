@@ -1339,6 +1339,13 @@ export const ShiftManPowerReport = loadable(
   }
 );
 
+export const GPSAttendance = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/GPS-Attendance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 // Payroll /////////////////////////////////////////////////////////////////////////////////
 export const LoanSetting = loadable(

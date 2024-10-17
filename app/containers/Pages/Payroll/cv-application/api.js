@@ -92,7 +92,8 @@ const API = (locale) => {
 
   api.JobAdvertisementList = async (id) => {
     const response = await axiosInstance.get(
-      `RecJobAdvertisement/Get/${id}/${locale}`
+      // `RecJobAdvertisement/Get/${id}/${locale}`
+      `RecJobApplication/Get/${id}/${locale}`
     );
 
     return response.data;
