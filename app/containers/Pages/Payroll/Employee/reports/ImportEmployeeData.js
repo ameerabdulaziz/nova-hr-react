@@ -126,7 +126,7 @@ function ImportEmployeeData(props) {
         const Data= formInfo.rows.filter(item => item.employeeCode !='');
         await api(locale).UpdateField(formInfo.fieldId, Data);
       } else {
-        const rows = formInfo.rows.map((row) => ({
+        const Data = formInfo.rows.map((row) => ({
           id: 0,
           employeeCode: row[0],
           arName: row[1],
@@ -155,10 +155,10 @@ function ImportEmployeeData(props) {
           identityIssuingDate: row[24],
           identityExpiry: row[25],
         }));
-        const Data= rows.filter(item => item.employeeCode !='');
+        const rows= Data.filter(item => item.employeeCode !='');
         const body = {
           modifyExistEmployee: formInfo.modifyExistEmployee,
-          Data,
+          rows,
         };
 
         await api(locale).save(body);
