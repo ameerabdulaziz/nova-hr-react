@@ -1317,10 +1317,10 @@ function Application(props) {
           component={RegisterLocationEdit}
         />
 
-        {/* <Route
+        <Route
           path="/app/Pages/Att/GPSAttendance"
           component={GPSAttendance} 
-        /> */}
+        />
 
         <Route
           path="/app/Pages/Att/ShiftManPowerReport"

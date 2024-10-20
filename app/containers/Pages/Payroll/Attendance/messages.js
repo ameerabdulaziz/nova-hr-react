@@ -2126,5 +2126,22 @@ devicePass: {
     id: `${scope}.transportaion`,
     defaultMessage: 'Transportaion',
   },
+  // GPS Attendence
+  In: {
+    id: `${scope}.In`,
+    defaultMessage: 'In',
+  },
+  Out: {
+    id: `${scope}.Out`,
+    defaultMessage: 'Out',
+  },
+  outOfTheRangeMesss: {
+    id: `${scope}.outOfTheRangeMesss`,
+    defaultMessage: 'Out Of The Range',
+  },
+  GPSAttendance: {
+    id: `${scope}.GPSAttendance`,
+    defaultMessage: 'GPS Attendance',
+  },
 });
 
