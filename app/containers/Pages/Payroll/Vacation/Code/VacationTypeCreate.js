@@ -184,9 +184,9 @@ const getdata =  async () => {
 
 };
 
-debugger;
+
 const getEditdata =  async () => {
-debugger;
+
   setIsLoading(true);
 
   try {
@@ -265,9 +265,8 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if(ID)
+  if(ID && elementsData.length !== 0)
   {
-    debugger;;
     getEditdata()
   }
   }, [ID, elementsData, branchList]);

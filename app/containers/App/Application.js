@@ -1319,7 +1319,7 @@ function Application(props) {
 
         {/* <Route
           path="/app/Pages/Att/GPSAttendance"
-          component={GPSAttendance}
+          component={GPSAttendance} 
         /> */}
 
         <Route

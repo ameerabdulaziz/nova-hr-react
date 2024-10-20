@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import GPSAttendanceData from '../api/GPSAttendanceData';
+import RegisterLocationData from '../api/RegisterLocationData';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss'
 import {  useHistory, useLocation  } from 'react-router-dom';
@@ -57,13 +58,14 @@ function GPSAttendance(props) {
 
 
   const [attLocations, setAttLocations] = useState([]);
+  const [checkINCheckOutList, setCheckINCheckOutList] = useState([]);
 
 
   const [DateError, setDateError] = useState({});
 
 
   
-
+ 
 
   const [locatonDistance, setLocatonDistance] = useState();
   const [time, setTime] = useState(new Date());
@@ -166,8 +168,24 @@ const getdata =  async () => {
 // };
 
 
+const checkInCheckOutHistoryListFun = async () => {
+  setIsLoading(true);
+
+  try {
+    const history = await GPSAttendanceData(locale).GetHistoryList();    
+  
+    setCheckINCheckOutList(history)
+  } catch (error) {
+    //
+  } finally {
+    setIsLoading(false);
+  }
+}
+
+
 useEffect(() => {
   getdata();
+  checkInCheckOutHistoryListFun();
 }, []);
 
 // useEffect(() => {
@@ -184,22 +202,33 @@ useEffect(() => {
   }
 
 
-  const checkInCheckOutFun = async () => {
+  const checkInCheckOutFun = async (flag,locationData,currentLoc,distanceData) => {
 
-    console.log("tessssss");
+    console.log("flag =", flag);
+    console.log("locationData =",locationData);
+    console.log("currentLoc =",currentLoc);
     
-
-    const data = {
-      locationId: 1,
-      locLat: ".035555555",
-      locLong: "0.225588888",
-      locAddress: "maadi",
-      flag: 2,
-      distance: 0
-    }
-
     try
     {
+
+      const Addressdata = await RegisterLocationData().GoogleMapsGetData(currentLoc.latitude,currentLoc.longitude);  
+      // setAddress(Addressdata.results[0].formatted_address)
+
+      const data = {
+        locationId: locationData.locationId,
+        locLat: currentLoc.latitude,
+        locLong: currentLoc.longitude,
+        locAddress: Addressdata.results[0].formatted_address,
+        flag: flag,
+        distance: distanceData ? distanceData : 0 
+      }
+  
+  
+      console.log("data =", data);
+
+
+
+
       // const data =  await GPSAttendanceData().Save(data);
     }
     catch(err)
@@ -220,7 +249,7 @@ useEffect(() => {
   };
 
   useEffect(()=>{
-    loadGoogleMapsApi()
+    // loadGoogleMapsApi()
 
 
 
@@ -235,6 +264,59 @@ useEffect(() => {
 },[])
 
 
+
+function isPointInPolygon(point, polygon) {
+  // const { latitude: x, longitude: y } = point;
+  const x = point.latitude;
+  const y = point.longitude;
+  let inside = false;
+  
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const xi = polygon[i].lat, yi = polygon[i].lng;
+      const xj = polygon[j].lat, yj = polygon[j].lng;
+
+
+       // Log points being compared
+      //  console.log(`Checking edge (${xi}, ${yi}) -> (${xj}, ${yj})`);
+      
+      const intersect = ((yi > y) !== (yj > y)) &&
+          (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+
+      if (intersect)
+        {
+         inside = !inside;
+        //  console.log(`Intersection detected! Current inside status: ${inside}`);
+        }
+  }
+
+
+  // console.log(`Final inside status: ${inside}`);
+  
+  return inside;
+}
+
+
+
+function haversineDistance(lat1, lon1, lat2, lon2) {
+  // Convert latitude and longitude from degrees to radians
+  const toRadians = (degrees) => degrees * (Math.PI / 180);
+
+  const R = 6371000; // Radius of the Earth in meters
+  const dLat = toRadians(lat2 - lat1);
+  const dLon = toRadians(lon2 - lon1);
+
+  const a = 
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const distance = R * c; // Distance in meters
+  return distance;
+}
+
+
   function showPosition(position,checkKeyNum) {
     console.log("Latitude =", position.coords.latitude );
     console.log("Longitude =", position.coords.longitude );
@@ -242,6 +324,7 @@ useEffect(() => {
 
     let Latitude = position.coords.latitude
     let Longitude = position.coords.longitude
+    let currentLocation = {latitude: position.coords.latitude, longitude: position.coords.longitude}
 
 
 
@@ -267,83 +350,105 @@ for(let location = 0; location < locations.length; location++)
 
   loc = locations[location]
 
-  console.log("x =", loc);
-  
-    // locations.map((loc)=>{
-        // attLocations.map((loc)=>{
-        console.log("loc111 =", loc);
-
-        console.log("test1 =", { lat: loc.locLat, lng: loc.locLong });
-        console.log("test2 =", { lat: Latitude, lng: Longitude });
 
         
 
         if(loc.lcationPolygons && loc.lcationPolygons.length !== 0)
         {
 
+
+          const isInside = isPointInPolygon(currentLocation, loc.lcationPolygons);
+
+          console.log("isInside =",isInside);
+
+          // if(isInside)
+          //   {
+          //     checkInCheckOutFun(checkKeyNum,loc,currentLocation)
+          //     break;
+          //   }
+          
+
           
      
                // Create a LatLng object for the point
-            const pointLatLng = new window.google.maps.LatLng(Latitude, Longitude);
+            // const pointLatLng = new window.google.maps.LatLng(Latitude, Longitude);
       
-            // Create a polygon using the coordinates
-            const polygon = new window.google.maps.Polygon({
-              paths: loc.lcationPolygons,
-            });
+            // // Create a polygon using the coordinates
+            // const polygon = new window.google.maps.Polygon({
+            //   paths: loc.lcationPolygons,
+            // });
       
-            // Check if the point is inside the polygon
-            const isInside = window.google.maps.geometry.poly.containsLocation(pointLatLng, polygon);
+            // // Check if the point is inside the polygon
+            // const isInside = window.google.maps.geometry.poly.containsLocation(pointLatLng, polygon);
             
-            console.log("isInside =", isInside);
+            // console.log("isInside =", isInside);
 
         }
         else
-        if(loc.locLat && loc.locLong)
+        if(loc.distance !== 0)
+          // if(loc.locLat && loc.locLong)
         {
+          console.log("loc 888 =", loc);
+
+
+          const distance = haversineDistance(currentLocation.latitude, currentLocation.longitude, loc.locLat, loc.locLong);
+console.log(`Distance: ${distance} meters`);
+
+          if(distance <= loc.distance)
+          {
+            checkInCheckOutFun(checkKeyNum,loc,currentLocation, distance)
+            break;
+          }
           
 
-          if(shouldBreak)
-            // if(distance <= loc.distance)
-            {
-              console.log("distance =", distance);
-              console.log("loc.distance =", loc.distance);
+          // if(shouldBreak)
+          //   // if(distance <= loc.distance)
+          //   {
+          //     console.log("distance =", distance);
+          //     console.log("loc.distance =", loc.distance);
               
-              checkInCheckOutFun()
-              break;
-            }
+             
+          //     break;
+          //   }
 
-          const service = new window.google.maps.DistanceMatrixService();
+          // const service = new window.google.maps.DistanceMatrixService();
 
-          service.getDistanceMatrix(
-              {
-                origins: [{ lat: loc.locLat, lng: loc.locLong }],
-                destinations: [{ lat: Latitude, lng: Longitude }],
-                travelMode: 'WALKING',
-              },
-              (response, status) => {
-                if (status === 'OK') {
-                  const distanceInMeters = response.rows[0].elements[0].distance.value;
+          // service.getDistanceMatrix(
+          //     {
+          //       origins: [{ lat: loc.locLat, lng: loc.locLong }],
+          //       destinations: [{ lat: Latitude, lng: Longitude }],
+          //       travelMode: 'WALKING',
+          //     },
+          //     (response, status) => {
+          //       if (status === 'OK') {
+          //         const distanceInMeters = response.rows[0].elements[0].distance.value;
 
-                  console.log("distanceInMeters =", distanceInMeters);
-                  console.log("loc.distance =", loc);
-                  console.log("check 666");
+          //         console.log("distanceInMeters =", distanceInMeters);
+          //         console.log("loc222 =", loc);
+          //         console.log("loc.distance =", loc.distance);
+          //         console.log("check 666");
 
-                  if (distanceInMeters <= loc.distance) 
-                    {
-                      console.log("check true");
+          //         // if (distanceInMeters <= loc.distance) 
+          //         //   {
+          //         //     console.log("check true");
+          //         //     setLocatonDistance(distanceInMeters)
                       
-                      shouldBreak = true;
-                    }
+          //         //     shouldBreak = true;
+          //         //   }
                   
                   
-                  // setDistance(distanceInMeters);
-                } else {
-                  console.error('Error fetching distance:', status);
-                }
-              }
-            );
+          //         // setDistance(distanceInMeters);
+          //       } else {
+          //         console.error('Error fetching distance:', status);
+          //       }
+          //     }
+          //   );
 
             
+        }
+        else if(loc.distance === 0)
+        {
+          checkInCheckOutFun(checkKeyNum,loc,currentLocation)
         }
 
 
@@ -387,7 +492,20 @@ for(let location = 0; location < locations.length; location++)
     return () => clearInterval(timer);
   }, []);
 
+
+
+
+useEffect(()=>{
+  if(locatonDistance)
+  {
+    checkInCheckOutFun()
+  }
+},[locatonDistance])
+
+
+
   console.log("attLocations =",attLocations);
+  console.log("checkINCheckOutList =",checkINCheckOutList);
   
 
 
@@ -450,6 +568,7 @@ for(let location = 0; location < locations.length; location++)
                         </Button>
                     </Grid>
                     </Grid>
+                    
             </Grid>
 
 

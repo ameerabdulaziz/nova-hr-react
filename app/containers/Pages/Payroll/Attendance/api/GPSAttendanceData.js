@@ -12,6 +12,14 @@ const GPSAttendanceData = (locale) => {
     return result;
   };
 
+
+  Apis.GetHistoryList = async () => {
+    
+    const data = await axiosInstance.get(`AttEmployeeMobileAttendance/GetEmployeeMobileAttendance/${locale}?EmployeeId=&FromDate=&Todate=&type=1`);
+    const result = data.data;    
+    return result;
+  };
+
   // Apis.Get = async (id) => {
     
   //   const data = await axiosInstance.get(`AttRules/Get/${id}/${locale}`);
