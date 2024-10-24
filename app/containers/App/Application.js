@@ -935,10 +935,10 @@ function Application(props) {
 
         <Route path="/app/Pages/HR/ResignReqTrx" component={ResignReqTrxList} />
 
-        {/* <Route
+        <Route
           path='/app/Pages/HR/HrEmployeeDocumentTrxCreate'
           component={HrEmployeeDocumentTrxCreate}
-        /> */}
+        />
 
         <Route
           path="/app/Pages/HR/HrEmployeeDocumentTrxEdit"

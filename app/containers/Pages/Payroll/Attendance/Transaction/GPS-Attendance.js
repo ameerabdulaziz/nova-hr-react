@@ -293,7 +293,7 @@ for(let location = 0; location < locations.length; location++)
                       direction="row"
                       className={style.itemsStyle}
                       >  
-                        { checkINCheckOutList.length !== 0 && (
+                        { checkINCheckOutList && checkINCheckOutList.attendancelist && checkINCheckOutList.attendancelist.length !== 0 && (
                           checkINCheckOutList.attendancelist.map((item,index)=>{
 
                           return <Grid item xs={12} key={index}>
@@ -308,10 +308,10 @@ for(let location = 0; location < locations.length; location++)
                                           className={style.itemsStyle}
                                           style={{marginLeft:"0"}}
                                           >  
-                                          <Grid item xs={12} md={11} style={{paddingLeft:"0"}}>
+                                          <Grid item xs={11} md={11} style={{paddingLeft:"0"}}>
                                             <span className={classes.colorSty}>{item.attType}</span>
                                           </Grid>
-                                          <Grid item xs={12} md={1} style={{paddingLeft:"0"}}>
+                                          <Grid item xs={1} md={1} style={{paddingLeft:"0"}}>
                                             {
                                               item.flag === 1 ? 
                                               <LoginIcon style={{color:"#23ad00"}}/>
