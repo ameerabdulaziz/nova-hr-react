@@ -75,10 +75,10 @@ function EmployeeLocation(props) {
       
       setOpenPopup(false);
     },
-    [dataList]
+    [dataList,FromDate,ToDate]
   );
 
-  console.log("fff =", dataList);
+
 
   const handleClickOpen = () => {
     if(!Object.values(DateError).includes(true))
@@ -199,7 +199,7 @@ function EmployeeLocation(props) {
   }, []);
 
 
-  console.log("ToDate =", ToDate);
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -482,7 +482,7 @@ function EmployeeLocation(props) {
                             >
                               {format(
                                 new Date(row.fromDate),
-                                "yyyy-MM-dd HH:mm:ss"
+                                "yyyy-MM-dd"
                               )}
                             </TableCell>
                             <TableCell
@@ -494,7 +494,7 @@ function EmployeeLocation(props) {
                             >
                               {format(
                                 new Date(row.toDate),
-                                "yyyy-MM-dd HH:mm:ss"
+                                "yyyy-MM-dd"
                               )}
                             </TableCell>
                             <TableCell
