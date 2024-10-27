@@ -8,16 +8,16 @@ const ResetPasswordData = () => {
     return result;
   };
 
-  Apis.ResetAllUsersPassword = async (password,isSendEmail) => {
+  Apis.ResetAllUsersPassword = async (password,isSendEmail,employee,organization) => {
     
-    const result = await axiosInstance.post(`UserManagement/ResetAllUsersPassword?password=${password}&isSendEmail=${isSendEmail}`);
+    const result = await axiosInstance.post(`UserManagement/ResetAllUsersPassword?employeeId=${employee?employee:""}&OrganizationId=${organization?organization:""}&password=${password}&isSendEmail=${isSendEmail}`);
 
     return result;
   };
 
-  Apis.ResetDeviceKey = async (employee) => {
+  Apis.ResetDeviceKey = async (employee,organization) => {
     
-    const result = await axiosInstance.post(`UserManagement/ResetDeviceKey?employeeId=${employee}`);
+    const result = await axiosInstance.post(`UserManagement/ResetDeviceKey?employeeId=${employee?employee:""}&OrganizationId=${organization?organization:""}`);
 
     return result;
   };

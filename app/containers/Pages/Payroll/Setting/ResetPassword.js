@@ -64,7 +64,7 @@ function ResetPassword(props) {
   const resetAll = async () => {
     try {
       setIsLoading(true);
-      await ResetPasswordData().ResetAllUsersPassword(password, isSendEmail);
+      await ResetPasswordData().ResetAllUsersPassword(password, isSendEmail,employee,department);
 
       toast.success(notif.saved);
     } catch (err) {
@@ -76,13 +76,10 @@ function ResetPassword(props) {
 
   const resetDeviceKey = async () => {
     try {
-      if(!employee)
-      {
-        toast.error("يجب اختيار موظف");
-        return;
-      }
+      
+      
       setIsLoading(true);
-      await ResetPasswordData().ResetDeviceKey(employee);
+      await ResetPasswordData().ResetDeviceKey(employee,department);
 
       toast.success(notif.saved);
     } catch (err) {

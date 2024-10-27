@@ -120,9 +120,9 @@ function ImportEmployeeData(props) {
 
     setIsLoading(true);
 
-    try {
+    try {debugger;
       if (formInfo.updateType === 'field') {
-        debugger;
+        
         const Data= formInfo.rows.filter(item => item.employeeCode !='');
         await api(locale).UpdateField(formInfo.fieldId, Data);
       } else {
