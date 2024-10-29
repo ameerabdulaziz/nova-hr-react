@@ -36,59 +36,27 @@ function Customer({ intl }) {
   const columns = [
     {
       name: 'customerCode',
-      label: "customer Code",
-    //   label: intl.formatMessage(messages.id),
+      label: intl.formatMessage(messages.customerCode),
     },
     {
     ...(locale === "en" && {
-      // {
         name: 'enName',
-        label: "customer Name en",
-      //   label: intl.formatMessage(messages.arName),
-      // }
+        label: intl.formatMessage(messages.customerName),
     }),
 
     ...(locale === "ar" && {
-      // {
         name: 'arName',
-        label: "customer Name ar",
-      //   label: intl.formatMessage(messages.arName),
-      // }
+        label: intl.formatMessage(messages.customerName),
     })
   },
-    // {
-    //   name: 'enName',
-    //   label: "customer Name en",
-    // //   label: intl.formatMessage(messages.arName),
-    // },
-    // {
-    //   name: 'arName',
-    //   label: "customer Name ar",
-    // //   label: intl.formatMessage(messages.enName),
-    // },
     {
       name: 'accMgrName',
-      label: "Account manager Name",
-    //   label: intl.formatMessage(messages.parentNameOrg),
+      label: intl.formatMessage(messages.accountManagerName),
     },
     {
       name: 'accMgrTelepnone',
-      label: "Account manager mobile number",
-    //   label: intl.formatMessage(messages.empName),
+      label: intl.formatMessage(messages.accountManagerMobileNumber),
     },
-    // {
-    //   name: 'manPower',
-    //   label: "manPower",
-    // //   label: intl.formatMessage(messages.manPower),
-    // },
-    // {
-    //   name: 'isDisclaimer',
-    //   label: "IsDisclaimer",
-    // //   label: intl.formatMessage(messages.IsDisclaimer),
-    //   options: {
-    //     customBodyRender: (value) => getCheckboxIcon(value),
-    //   },
-    // },
   ];
 
   const deleteRow = async (id) => {

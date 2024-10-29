@@ -36,45 +36,28 @@ function Contract({ intl }) {
   const columns = [
     {
       name: 'customerName',
-      label: "Customer Name",
-    //   label: intl.formatMessage(messages.arName),
+      label: intl.formatMessage(messages.customerName),
     },
     {
         name: 'contractCode',
-        label: "Contract Code",
-      //   label: intl.formatMessage(messages.id),
+        label: intl.formatMessage(messages.contractCode),
     },
     {
       name: 'fromDate',
-      label: "Contract Start Date",
-    //   label: intl.formatMessage(messages.enName),
-    options: {
+      label: intl.formatMessage(messages.startDate),
+      options: {
+          filter: true,
+          customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
+        },
+    },
+    {
+      name: 'toDate',
+      label: intl.formatMessage(messages.endDate),
+      options: {
         filter: true,
         customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
       },
     },
-    {
-      name: 'toDate',
-      label: "Contract End Date",
-    //   label: intl.formatMessage(messages.parentNameOrg),
-    options: {
-      filter: true,
-      customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
-    },
-    },
-    // {
-    //   name: 'manPower',
-    //   label: "manPower",
-    // //   label: intl.formatMessage(messages.manPower),
-    // },
-    // {
-    //   name: 'isDisclaimer',
-    //   label: "IsDisclaimer",
-    // //   label: intl.formatMessage(messages.IsDisclaimer),
-    //   options: {
-    //     customBodyRender: (value) => getCheckboxIcon(value),
-    //   },
-    // },
   ];
 
   const deleteRow = async (id) => {

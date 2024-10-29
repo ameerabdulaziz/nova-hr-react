@@ -5,8 +5,9 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
-// import OrganizationData from '../api/OrganizationData';
+import ProjectData from '../api/ProjectData';
 import messages from '../messages';
+import Payrollmessages from "../../messages";
 import { getCheckboxIcon } from '../../helpers';
 
 function Project({ intl }) {
@@ -19,9 +20,9 @@ function Project({ intl }) {
     setIsLoading(true);
 
     try {
-    //   const data = await OrganizationData(locale).GetList();
+      const data = await ProjectData(locale).GetList();
 
-    //   setDataTable(data);
+      setDataTable(data);
     } catch (er) {
       //
     } finally {
@@ -35,44 +36,47 @@ function Project({ intl }) {
 
   const columns = [
     {
-      name: 'empName',
+      name: 'projectCode',
+      label: intl.formatMessage(messages.ProjectCode),
+    },
+    // used to appear en employee name when ar employee name in en version , in ar version appear ar employee name when en employee name
+    ...(locale === "en" ? [
+      {
+        name: 'enName',
+        label: intl.formatMessage(messages.ProjectName),
+      }
+    ] : [
+      {
+        name: 'arName',
+        label: intl.formatMessage(messages.ProjectName),
+      }
+    ]),
+    {
+      name: 'customerName',
       label: "Customer Name",
-    //   label: intl.formatMessage(messages.arName),
+      label: intl.formatMessage(messages.customerName),
     },
     {
-        name: 'empCode',
-        label: "Contract Code",
-      //   label: intl.formatMessage(messages.id),
+        name: 'expectedWorkHours',
+        label: "Exp Working Hours",
+        label: intl.formatMessage(messages.expectedWorkHours),
     },
     {
-      name: 'enName',
-      label: "Contract Start Date",
-    //   label: intl.formatMessage(messages.enName),
+      name: 'expectedStartDate',
+      label: "Exp Start Date",
+      label: intl.formatMessage(messages.expectedStartDate),
     },
     {
-      name: 'parentName',
-      label: "Contract End Date",
-    //   label: intl.formatMessage(messages.parentNameOrg),
+      name: 'expectedEndDate',
+      label: "Exp End Date",
+      label: intl.formatMessage(messages.expectedEndDate),
     },
-    // {
-    //   name: 'manPower',
-    //   label: "manPower",
-    // //   label: intl.formatMessage(messages.manPower),
-    // },
-    // {
-    //   name: 'isDisclaimer',
-    //   label: "IsDisclaimer",
-    // //   label: intl.formatMessage(messages.IsDisclaimer),
-    //   options: {
-    //     customBodyRender: (value) => getCheckboxIcon(value),
-    //   },
-    // },
   ];
 
   const deleteRow = async (id) => {
     try {
       setIsLoading(true);
-    //   await OrganizationData().Delete(id);
+      await ProjectData().Delete(id);
 
       toast.success(notif.saved);
       getdata();

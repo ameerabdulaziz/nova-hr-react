@@ -14,14 +14,10 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import PropTypes from "prop-types";
-import GeneralListApis from "../../api/GeneralListApis";
 import { PapperBlock } from "enl-components";
 import useStyles from "../../Style";
 import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { TextareaAutosize } from '@mui/material';
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from "date-fns";
@@ -30,34 +26,15 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 function ContractCreate(props) {
-  const [id, setid] = useState(0);
-  const [arName, setArName] = useState("");
-  const [enName, setEnName] = useState("");
-  const [note, setNote] = useState("");
-  const [manPower, setManPower] = useState(0);
-  const [worknatureAllowance, setWorknatureAllowance] = useState("");
-  const [Employee, setEmployee] = useState("");
-  const [parent, setParent] = useState("");
   const locale = useSelector((state) => state.language.locale);
   const { state } = useLocation();
   const ID = state?.id;
-  const [EmployeesData, setEmployeesData] = useState([]);
-  const [parentData, setParentData] = useState([]);
-  const [errorMesManPower, setErrorMesManPower] = useState(false);
-  const [errorMesWorknature, setErrorMesWorknature] = useState(false);
   const history = useHistory();
   const { intl } = props;
-
   const [isLoading, setIsLoading] = useState(true);
-  const [IsDisclaimer ,setIsDisclaimer] = useState(false)
-
   const { classes } = useStyles();
-
   const [DateError, setDateError] = useState({});
-
   const [customerList, setCustomerList] = useState([]);
-
-
   const [formData,setFormData] = useState({
     id: 0,
     contractCode:"",
@@ -93,9 +70,6 @@ function ContractCreate(props) {
 
       let response = await ContractData().save(data);
 
-      // toast.success(notif.saved);
-      // history.push(`/app/Pages/ProjectManagment/Contract`);
-
       if (response.status == 200) {
         toast.success(notif.saved);
         history.push(`/app/Pages/ProjectManagment/Contract`);
@@ -115,17 +89,6 @@ function ContractCreate(props) {
 
       setCustomerList(customers)
       
-
-      // const Departmentlist = await OrganizationData(locale).GetList();
-      // const Departments =Departmentlist.map((obj) => ({
-      //   id: obj.id,
-      //   name: locale=="en"?obj.enName:obj.arName,        
-      // }));
-
-      // var result
-
-      // setEmployeesData(employees);
-      // setParentData(Departments);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -136,12 +99,6 @@ function ContractCreate(props) {
     try {
       setIsLoading(true);
       const data = await ContractData(locale).GetById(ID);
-
-      console.log("customerList =", customerList);
-      
-      console.log("hhh =", customerList.find((item) => item.id === data?.customerId));
-      
-
 
       setFormData((prevState) => ({
         ...prevState,
@@ -174,21 +131,6 @@ function ContractCreate(props) {
     history.push(`/app/Pages/ProjectManagment/Contract`);
   }
 
-  const errorMesFun = (e, type) => {
-    let pattern = /^[0-9]+$/g;
-    let result = pattern.test(e.target.value);
-    if (type === "manPower") {
-      setErrorMesManPower(result);
-    } else {
-      setErrorMesWorknature(result);
-    }
-  };
-
-
-console.log("formData =", formData);
-
-
-  
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -197,10 +139,8 @@ console.log("formData =", formData);
         icon="border_color"
         title={
           ID
-          ? "edit Contract"
-            : "create Contract"
-            // ? intl.formatMessage(messages.editOrganization)
-            // : intl.formatMessage(messages.createOrganization)
+            ? intl.formatMessage(messages.editContract)
+            : intl.formatMessage(messages.createContract)
         }
         desc={""}
       >
@@ -219,10 +159,8 @@ console.log("formData =", formData);
                 <TextField
                   name="contractCode"
                   id="contractCode"
-                  placeholder="Contract Code"
-                  label="Contract Code"
-                  // placeholder={intl.formatMessage(messages.arName)}
-                  // label={intl.formatMessage(messages.arName)}
+                  placeholder={intl.formatMessage(messages.contractCode)}
+                  label={intl.formatMessage(messages.contractCode)}
                   required
                   type="number"
                   className={`${classes.field} ${style.fieldsSty}`}
@@ -245,14 +183,11 @@ console.log("formData =", formData);
                     isOptionEqualToValue={(option, value) => option.id === value.id}
                     value={ formData.Customer !== null ? formData.Customer : null}
                     options={customerList.length != 0 ? customerList : []}
-                    // options={[]}
                     getOptionLabel={(option) => (option ? locale === "en" ? option.enName : option.arName : "")}
-                    // getOptionLabel={(option) => (option ? option.name : "")}
                     renderOption={(props, option) => {
                       return (
                         <li {...props} key={option.id}>
                           {locale === "en" ? option.enName : option.arName}
-                          {/* {option.name} */}
                         </li>
                       );
                     }}
@@ -273,8 +208,7 @@ console.log("formData =", formData);
                       <TextField
                         {...params}
                         name="customer"
-                        label="Customer"
-                        // label={intl.formatMessage(messages.parentNameOrg)}
+                        label={intl.formatMessage(messages.customerName)}
                         margin="normal"
                         className={style.fieldsSty}
                       />
@@ -286,8 +220,7 @@ console.log("formData =", formData);
             <Grid item xs={12}  md={2}> 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
-                          label="Contract Start Date"
-                        // label={intl.formatMessage(Payrollmessages.date)}
+                        label={intl.formatMessage(messages.startDate)}
                           value={formData.ContractStartDate ? dayjs(formData.ContractStartDate) : null}
                         className={classes.field}
                           onChange={(date) => {
@@ -323,8 +256,7 @@ console.log("formData =", formData);
             <Grid item xs={12}  md={2}> 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
-                        label="Contract End Date"
-                        // label={intl.formatMessage(Payrollmessages.date)}
+                        label={intl.formatMessage(messages.endDate)}
                         value={formData.ContractEndDate ? dayjs(formData.ContractEndDate) : null}
                         className={classes.field}
                           onChange={(date) => {
@@ -358,34 +290,14 @@ console.log("formData =", formData);
                     </LocalizationProvider>
             </Grid>
 
-              
-              {/* <Grid item xs={12} md={4}>
-                <TextField
-                  name="customerNameAR"
-                  id="customerNameAR"
-                  placeholder="Customer name AR"
-                  label="Customer name AR"
-                  // placeholder={intl.formatMessage(messages.enName)}
-                  // label={intl.formatMessage(messages.enName)}
-                  required
-                  className={`${classes.field} ${style.fieldsSty}`}
-                  margin="normal"
-                  variant="outlined"
-                  value={enName}
-                  onChange={(e) => setEnName(e.target.value)}
-                  autoComplete='off'
-                />
-              </Grid> */}
             </Grid>
             <Grid container item spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={4}>
                 <TextField
                   name="contractValue"
                   id="contractValue"
-                  placeholder="Contract Value"
-                  label="Contract Value"
-                  // placeholder={intl.formatMessage(messages.enName)}
-                  // label={intl.formatMessage(messages.enName)}
+                  placeholder={intl.formatMessage(messages.contractValue)}
+                  label={intl.formatMessage(messages.contractValue)}
                 //   required
                   type="number"
                   className={`${classes.field} ${style.fieldsSty}`}
@@ -401,160 +313,7 @@ console.log("formData =", formData);
                   autoComplete='off'
                 />
               </Grid>
-              </Grid>
-            {/* <Grid item xs={4} >
-                  <TextareaAutosize
-                  name='Description'
-                  value={formData.Description}
-                   onChange={(e)=>{
-                    setFormData((prevState) => ({
-                      ...prevState,
-                      Description: e.target.value,
-                    }))
-                   }}
-                    maxRows={3}
-                    placeholder="Description"
-                    // placeholder={intl.formatMessage(messages.Answer)}
-                    className={`${style.investigationAnswer} ${classes.textareaSty}`}
-                    autoComplete='off'
-                  />
-              </Grid> */}
-
-{/*               
-              <Grid container item spacing={3} alignItems="flex-start" direction="row">
-                <Grid item xs={12} md={4}>
-                    <TextField
-                      name="customerPhone"
-                      id="customerPhone"
-                      placeholder="Customer mobile number"
-                      label="Customer mobile number"
-                      // placeholder={intl.formatMessage(messages.enName)}
-                      // label={intl.formatMessage(messages.enName)}
-                      // required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={enName}
-                      onChange={(e) => setEnName(e.target.value)}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <TextField
-                      name="customerEmail"
-                      id="customerEmail"
-                      placeholder="Customer Email"
-                      label="Customer Email"
-                      // placeholder={intl.formatMessage(messages.enName)}
-                      // label={intl.formatMessage(messages.enName)}
-                      // required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={enName}
-                      onChange={(e) => setEnName(e.target.value)}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <TextField
-                      name="website"
-                      id="website"
-                      placeholder="Customer web site"
-                      label="Customer web site"
-                      // placeholder={intl.formatMessage(messages.enName)}
-                      // label={intl.formatMessage(messages.enName)}
-                      // required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={enName}
-                      onChange={(e) => setEnName(e.target.value)}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-              </Grid> */}
-
-{/* 
-              <Grid container item spacing={3} alignItems="flex-start" direction="row">
-                <Grid item xs={12} md={4}>
-                    <TextField
-                      name="magName"
-                      id="magName"
-                      placeholder="Account manager name"
-                      label="Account manager name"
-                      // placeholder={intl.formatMessage(messages.enName)}
-                      // label={intl.formatMessage(messages.enName)}
-                      // required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={enName}
-                      onChange={(e) => setEnName(e.target.value)}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <TextField
-                      name="phone"
-                      id="phone"
-                      placeholder="Account manager phone"
-                      label="Account manager phone"
-                      // placeholder={intl.formatMessage(messages.enName)}
-                      // label={intl.formatMessage(messages.enName)}
-                      // required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={enName}
-                      onChange={(e) => setEnName(e.target.value)}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <TextField
-                      name="managerEmail"
-                      id="managerEmail"
-                      placeholder="Account manager Email"
-                      label="Account manager Email"
-                      // placeholder={intl.formatMessage(messages.enName)}
-                      // label={intl.formatMessage(messages.enName)}
-                      // required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={enName}
-                      onChange={(e) => setEnName(e.target.value)}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <TextField
-                      name="jobTitle"
-                      id="jobTitle"
-                      placeholder="Account manager job Title"
-                      label="Account manager job Title"
-                      // placeholder={intl.formatMessage(messages.enName)}
-                      // label={intl.formatMessage(messages.enName)}
-                      // required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={enName}
-                      onChange={(e) => setEnName(e.target.value)}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-              </Grid> */}
-            
-           
+              </Grid>           
           </Grid>
 
           <Grid container spacing={3} alignItems="flex-start" direction="row">

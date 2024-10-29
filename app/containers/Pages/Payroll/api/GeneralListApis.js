@@ -594,9 +594,9 @@ const GeneralListApis = (locale) => {
   };
 
 
-  Apis.GetStageList = async () => {
+  Apis.GetStageList = async (id) => {
     const data = await axiosInstance.get(
-      `/GeneralList/GetStageList/${locale}`
+      `/GeneralList/GetStageList/${locale}${id ? `?id=${id}`: ""}`
     );
 
     return data.data;
@@ -615,6 +615,40 @@ const GeneralListApis = (locale) => {
   Apis.GetCustomertList = async () => {
     const data = await axiosInstance.get(
       `GeneralList/GetCustomerList/${locale}`
+    );
+
+    return data.data;
+  };
+
+
+  Apis.GetProjectTypeList = async () => {
+    const data = await axiosInstance.get(
+      `PmProjectType/GetListModel/${locale}`
+    );
+
+    return data.data;
+  };
+
+
+  Apis.GetProjectList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetProjectList/${locale}`
+    );
+
+    return data.data;
+  };
+
+  Apis.GetActivityTypeList = async () => {
+    const data = await axiosInstance.get(
+      `PmActivityType/GetListModel/${locale}`
+    );
+
+    return data.data;
+  };
+
+  Apis.GetProjectTasksList = async (id) => {
+    const data = await axiosInstance.get(
+      `PmTimeSheet/GetProjectTasks/${locale}?ProjectStageid=${id}`
     );
 
     return data.data;

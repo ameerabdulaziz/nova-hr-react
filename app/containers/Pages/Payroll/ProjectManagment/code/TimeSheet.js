@@ -5,9 +5,9 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
-// import OrganizationData from '../api/OrganizationData';
+import TimeSheetData from '../api/TimeSheetData';
 import messages from '../messages';
-import { getCheckboxIcon } from '../../helpers';
+import payrollMessages from '../../messages';
 
 function TimeSheet({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -19,9 +19,9 @@ function TimeSheet({ intl }) {
     setIsLoading(true);
 
     try {
-    //   const data = await OrganizationData(locale).GetList();
+      const data = await TimeSheetData(locale).GetList();
 
-    //   setDataTable(data);
+      setDataTable(data);
     } catch (er) {
       //
     } finally {
@@ -35,44 +35,31 @@ function TimeSheet({ intl }) {
 
   const columns = [
     {
-      name: 'empName',
-      label: "Customer Name",
-    //   label: intl.formatMessage(messages.arName),
+      name: 'employeeId',
+      label: intl.formatMessage(payrollMessages.employeeCode),
     },
     {
-        name: 'empCode',
-        label: "Contract Code",
-      //   label: intl.formatMessage(messages.id),
+        name: 'employeeName',
+        label: intl.formatMessage(payrollMessages.employeeName),
     },
     {
-      name: 'enName',
-      label: "Contract Start Date",
-    //   label: intl.formatMessage(messages.enName),
+      name: 'projectName',
+      label: intl.formatMessage(messages.ProjectName),
     },
     {
-      name: 'parentName',
-      label: "Contract End Date",
-    //   label: intl.formatMessage(messages.parentNameOrg),
+      name: 'stageName',
+      label: intl.formatMessage(messages.stageName),
     },
-    // {
-    //   name: 'manPower',
-    //   label: "manPower",
-    // //   label: intl.formatMessage(messages.manPower),
-    // },
-    // {
-    //   name: 'isDisclaimer',
-    //   label: "IsDisclaimer",
-    // //   label: intl.formatMessage(messages.IsDisclaimer),
-    //   options: {
-    //     customBodyRender: (value) => getCheckboxIcon(value),
-    //   },
-    // },
+    {
+      name: 'taskName',
+      label: intl.formatMessage(messages.taskName),
+    },
   ];
 
   const deleteRow = async (id) => {
     try {
       setIsLoading(true);
-    //   await OrganizationData().Delete(id);
+      await TimeSheetData().Delete(id);
 
       toast.success(notif.saved);
       getdata();
