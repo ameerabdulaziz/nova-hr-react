@@ -1346,6 +1346,13 @@ export const GPSAttendance = loadable(
   }
 );
 
+export const LocationAttendanceReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/LocationAttendanceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 // Payroll /////////////////////////////////////////////////////////////////////////////////
 export const LoanSetting = loadable(

@@ -1361,6 +1361,7 @@
   "boilerplate.containers.Payroll.Attendance.workLeaveHours": "ساعات العمل والاجازات",
   "boilerplate.containers.Payroll.Attendance.worKNighDayVal": "قيمة العنصر المقابلة لليوم",
   "boilerplate.containers.Payroll.Attendance.worKNighElem": "عنصر السهر",
+   "boilerplate.containers.Payroll.Attendance.LocationList": "قائمة المواقع",
   "boilerplate.containers.Payroll.august": "أغسطس",
   "boilerplate.containers.Payroll.balance": "الرصيد",
   "boilerplate.containers.Payroll.bank": "بيانات البنك",

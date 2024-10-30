@@ -263,6 +263,23 @@ const AttendanceReportsData = (locale) => {
     return data.data;
   };
 
+  // api.getLocationAttendenceData = async (params) => {
+  //   const queryString = new URLSearchParams(params);
+
+  //   const data = await axiosInstance.post(`AttReport/GetLocationAttendanceReport/${locale}?${queryString}`);
+
+  //   return data.data;
+  // };
+
+
+  api.getLocationAttendenceData = async (params, bodyData) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.post(`AttReport/GetLocationAttendanceReport/${locale}?${queryString}`, bodyData);
+
+    return data.data;
+  };
+
 
   return api;
 };
