@@ -67,7 +67,7 @@ function AttRulesCreate(props) {
   }, []);
 
   const [controlParaLateList, setControlParaLateList] = useState([]);
-  const [controlParaLessTimeList, setControlParaLessTimeList] = useState([]);  
+  const [controlParaLessTimeList, setControlParaLessTimeList] = useState([]);
   const [controlParaOvertimeList, setcontrolParaOvertimeList] = useState([]);
   const [controlParaVacList, setcontrolParaVacList] = useState([]);
 
@@ -206,11 +206,10 @@ function AttRulesCreate(props) {
     monthDays: "",
     updateInAfter: "",
     updateOutBefore: "",
-    lessTimeRule:""
+    lessTimeRule: "",
   });
 
   const handleTabChange = (event, val) => {
-    
     setValue(val);
   };
   async function oncancel() {
@@ -221,7 +220,7 @@ function AttRulesCreate(props) {
       Tamplete: data.id,
     });
   }
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -242,9 +241,8 @@ function AttRulesCreate(props) {
         id: 0,
       }));
 
-      
       data.attControlParaVac = controlParaVacList;
-      
+
       let response = await ApiData(locale).Save(data);
 
       if (response.status == 200) {
@@ -264,23 +262,43 @@ function AttRulesCreate(props) {
       const group1data = await GeneralListApis(locale).GetElementListByTemplate(
         1,
         2,
-        2
+        0
       );
       setgroup1ElemList(group1data);
 
-      const group2data = await GeneralListApis(locale).GetElementList(0,1,"",2);
-       
+      const group2data = await GeneralListApis(locale).GetElementList(
+        0,
+        0,
+        "",
+        2
+      );
+
       setgroup2ElemList(group2data);
 
-      const group3data = await GeneralListApis(locale).GetElementList(0,0,"",2);
+      const group3data = await GeneralListApis(locale).GetElementList(
+        0,
+        0,
+        "",
+        2
+      );
       setgroup3ElemList(group3data);
 
-      const group4data = await GeneralListApis(locale).GetElementList(0,1,"",1);
-      
+      const group4data = await GeneralListApis(locale).GetElementList(
+        0,
+        0,
+        "",
+        1
+      );
+
       setgroup4ElemList(group4data);
 
-      const group5data = await GeneralListApis(locale).GetElementList(0,2,"",1);
-      
+      const group5data = await GeneralListApis(locale).GetElementList(
+        0,
+        0,
+        "",
+        1
+      );
+
       setgroup5ElemList(group5data);
 
       const dataApi = await ApiData(locale).Get(id ?? 0);
@@ -368,7 +386,7 @@ function AttRulesCreate(props) {
                       className={classes.field}
                       sx={style}
                       variant="outlined"
-                      autoComplete='off'
+                      autoComplete="off"
                     />
                   </Grid>
                   <Grid item xs={12} md={6}>
@@ -387,7 +405,7 @@ function AttRulesCreate(props) {
                       sx={style}
                       className={classes.field}
                       variant="outlined"
-                      autoComplete='off'
+                      autoComplete="off"
                     />
                   </Grid>
                   <Grid
@@ -425,7 +443,7 @@ function AttRulesCreate(props) {
                         variant="contained"
                         size="medium"
                         color="secondary"
-                        disabled={data.id?false:true}
+                        disabled={data.id ? false : true}
                         onClick={ViewEmployees}
                       >
                         <FormattedMessage {...Payrollmessages.employees} />
