@@ -2427,7 +2427,7 @@ function Application(props) {
 
           {/* Project managment */}
 
-        {/* <Route
+        <Route
           path="/app/Pages/ProjectManagment/Customer"
           component={Customer}
         />
@@ -2501,7 +2501,7 @@ function Application(props) {
         <Route
           path="/app/Pages/ProjectManagment/ProjectEdit"
           component={ProjectEdit}
-        /> */}
+        />
 
 
 

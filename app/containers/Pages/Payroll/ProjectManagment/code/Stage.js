@@ -36,32 +36,16 @@ function Stage({ intl }) {
   const columns = [
     {
       name: 'stageCode',
-      label: "Stage Code",
-    //   label: intl.formatMessage(messages.arName),
+      label: intl.formatMessage(messages.stageCode),
     },
     {
         name: 'enName',
-        label: "Stage Name EN",
-      //   label: intl.formatMessage(messages.id),
+        label: intl.formatMessage(messages.stageNameEN),
     },
     {
       name: 'arName',
-      label: "Stage Name AR",
-    //   label: intl.formatMessage(messages.enName),
+      label: intl.formatMessage(messages.stageNameAr),
     },
-    // {
-    //   name: 'manPower',
-    //   label: "manPower",
-    // //   label: intl.formatMessage(messages.manPower),
-    // },
-    // {
-    //   name: 'isDisclaimer',
-    //   label: "IsDisclaimer",
-    // //   label: intl.formatMessage(messages.IsDisclaimer),
-    //   options: {
-    //     customBodyRender: (value) => getCheckboxIcon(value),
-    //   },
-    // },
   ];
 
   const deleteRow = async (id) => {

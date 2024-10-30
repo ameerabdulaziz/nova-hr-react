@@ -57,18 +57,18 @@ function LeavesBalance(props) {
       name: 'insuranceDate',
       label: intl.formatMessage(messages.insuranceDate),
     },
-    {
-      name: 'annOpen',
-      label: intl.formatMessage(messages.annualBalance),
-    },
-    {
-      name: 'postedBal',
-      label: intl.formatMessage(messages.postedBalance),
-    },
-    {
-      name: 'annCurrentBa',
-      label: intl.formatMessage(messages.CurrentBalance),
-    },
+    // {
+    //   name: 'annOpen',
+    //   label: intl.formatMessage(messages.annualBalance),
+    // },
+    // {
+    //   name: 'postedBal',
+    //   label: intl.formatMessage(messages.postedBalance),
+    // },
+    // {
+    //   name: 'annCurrentBa',
+    //   label: intl.formatMessage(messages.CurrentBalance),
+    // },
   ];
 
   const getFilterHighlights = () => {
@@ -164,7 +164,6 @@ function LeavesBalance(props) {
   // used to generate columns depend on api data
   if(tableData.length !== 0)
     {
-      debugger;
         Object.keys(tableData[0]).map((key)=>{
   
           let keyCheck =  columns.some(function(col) {
