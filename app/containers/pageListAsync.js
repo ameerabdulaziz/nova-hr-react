@@ -1353,6 +1353,13 @@ export const LocationAttendanceReport = loadable(
   }
 );
 
+export const EmployeeLocationReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeeLocationReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 // Payroll /////////////////////////////////////////////////////////////////////////////////
 export const LoanSetting = loadable(

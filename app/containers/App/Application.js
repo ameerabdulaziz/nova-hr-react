@@ -463,6 +463,7 @@ import {
   ProjectEdit,
   GPSAttendance,
   LocationAttendanceReport,
+  EmployeeLocationReport,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -1326,6 +1327,11 @@ function Application(props) {
         <Route
           path="/app/Pages/Att/LocationAttendanceReport"
           component={LocationAttendanceReport} 
+        />
+
+        <Route
+          path="/app/Pages/Att/EmployeeLocationReport"
+          component={EmployeeLocationReport} 
         />
 
         <Route

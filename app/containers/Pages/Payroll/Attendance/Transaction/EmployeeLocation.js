@@ -26,7 +26,7 @@ import NamePopup from "../../Component/NamePopup";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { format, toDate } from "date-fns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
+import AlertPopup from '../../Component/AlertPopup';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -44,7 +44,7 @@ function EmployeeLocation(props) {
   const [OpenPopup, setOpenPopup] = useState(false);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
-
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [DateError, setDateError] = useState({});
 
 
@@ -170,7 +170,7 @@ function EmployeeLocation(props) {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
       const dataApi = await EmployeeLocationData(locale).GetList(formData);
-      debugger;
+
       setdataList(
         dataApi.map((obj) => {
           return {
@@ -200,6 +200,52 @@ function EmployeeLocation(props) {
   }, []);
 
 
+  const deletePopupFun = () => {
+    setIsDeletePopupOpen(true);
+  }
+
+
+  const deleteFun = async () => {
+
+    let bodyData = []
+
+    dataList.map((item)=>{
+
+      if(item.isSelected)
+      {
+        bodyData.push(item.id)
+      }
+      
+    })
+
+    try
+    {
+      setIsLoading(true);
+
+    const response = await EmployeeLocationData().Delete(bodyData);
+
+      if (response.status == 200) {
+        if(response.data.includes("Not Deleted because has Sign"))
+        {
+          toast.error(response.data);
+        }
+        else
+        {
+          toast.success(response.data);
+        }
+    
+      } else {
+        toast.error(response.statusText);
+      }
+
+      handleSearch()
+    }
+    catch(err)
+    {}
+    finally {
+      setIsLoading(false);
+    }
+  }
 
 
   return (
@@ -238,7 +284,6 @@ function EmployeeLocation(props) {
                         />
                     </LocalizationProvider>
                   </Grid>
-
 
                 <Grid item xs={12} md={3}>
                   
@@ -309,7 +354,7 @@ function EmployeeLocation(props) {
                 <FormattedMessage {...Payrollmessages.search} />
               </Button>
             </Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item xs={6} md={3} lg={2}>
               <Button
                 variant="contained"
                 size="medium"
@@ -319,7 +364,7 @@ function EmployeeLocation(props) {
                 <FormattedMessage {...Payrollmessages.chooseEmp} />
               </Button>
             </Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item xs={12} md={1.5} lg={1}>
               <Button
                 variant="contained"
                 size="medium"
@@ -327,6 +372,17 @@ function EmployeeLocation(props) {
                 onClick={on_submit}
               >
                 <FormattedMessage {...Payrollmessages.save} />
+              </Button>
+            </Grid>
+
+            <Grid item xs={12} md={1}>
+              <Button
+                variant="contained"
+                size="medium"
+                color="secondary"
+                onClick={deletePopupFun}
+              >
+                <FormattedMessage {...Payrollmessages.delete} />
               </Button>
             </Grid>
             <Grid item xs={12} md={12}>
@@ -426,7 +482,7 @@ function EmployeeLocation(props) {
                         return (
                           <TableRow
                             hover
-                            key={row.employeeId}
+                            key={row.id}
                             sx={{ height: 1 }}
                             style={{ padding: "0px" }}
                           >
@@ -524,6 +580,18 @@ function EmployeeLocation(props) {
             </Grid>
           </Grid>
         </div>
+
+
+        <AlertPopup
+        handleClose={() => {
+          setIsDeletePopupOpen(false);
+        }}
+        open={isDeletePopupOpen}
+        messageData={intl.formatMessage(Payrollmessages.deleteMessage)}
+        callFun={() => deleteFun()}
+      />
+
+
       </PapperBlock>
     </PayRollLoader>
   );
