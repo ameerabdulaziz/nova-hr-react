@@ -49,6 +49,28 @@
 // general Style -- end
 
 
+@media screen {
+
+    .detailedAttPrintSty
+    {
+        height: 0;
+        visibility: hidden;
+        background-color: #00f;
+    }
+    
+    }
+    
+    
+    @media print {
+        .detailedAttPrintSty
+        {
+            height: 100%;
+            visibility: visible;
+            color: #000000;
+        }
+    }
+
+
 .tableContainerSty
 {
     padding: 20px;
@@ -891,3 +913,9 @@
     }
 // RegisterLocation -- end
 }
+
+
+
+
+
+

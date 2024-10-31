@@ -8,6 +8,7 @@ import DetailedAttendanceTable from './DetailedAttendanceComponents/DetailedAtte
 import DetailedAttendanceFooter from './DetailedAttendanceComponents/DetailedAttendanceFooter'; 
 import messages from "../Attendance/messages";
 import { useSelector } from 'react-redux';
+import style from "../../../../styles/styles.scss";
 
 function DetailedAttendanceReportTemplate(props) {
 
@@ -53,13 +54,12 @@ function DetailedAttendanceReportTemplate(props) {
     <>
       <Box
         ref={props.printDivRef}
+        className={style.detailedAttPrintSty}
         sx={{
-          // display: 'none',
           '@media print': {
-            display: 'block',
             direction: "ltr",
             'p.MuiTypography-root, .MuiTableCell-root': {
-              color: '#000',
+              color: '#000000',
             },
           },
         }}
