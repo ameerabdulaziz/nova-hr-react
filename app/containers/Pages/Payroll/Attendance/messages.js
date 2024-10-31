@@ -2143,5 +2143,9 @@ devicePass: {
     id: `${scope}.GPSAttendance`,
     defaultMessage: 'GPS Attendance',
   },
+  LocationList: {
+    id: `${scope}.LocationList`,
+    defaultMessage: 'Location List',
+  },
 });
 
