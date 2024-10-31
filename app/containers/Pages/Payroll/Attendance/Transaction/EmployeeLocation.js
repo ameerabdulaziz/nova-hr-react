@@ -103,7 +103,7 @@ function EmployeeLocation(props) {
   const handleEnableOne = (event, row) => {
     setdataList(
       dataList.map((x) => {
-        if (x.employeeId == row.employeeId) {
+        if (x.id == row.id) {
           if (event.target.name == "isselected") {
             x.isSelected = event.target.checked;
           } else if (event.target.name == "notes") {
@@ -170,6 +170,7 @@ function EmployeeLocation(props) {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
       const dataApi = await EmployeeLocationData(locale).GetList(formData);
+      debugger;
       setdataList(
         dataApi.map((obj) => {
           return {
