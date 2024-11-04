@@ -379,6 +379,7 @@ import {
   ElementReviewReport,
   SalaryComparisonReport,
   PaymentSlip,
+  PaymentSlipReview,
   MonthlyVariablesReport,
   DetailedPayrollReport,
   AnnualTaxReport,
@@ -1458,6 +1459,7 @@ function Application(props) {
           path="/app/Pages/Payroll/SalaryComparisonReport"
           component={SalaryComparisonReport}
         />
+        <Route path="/app/Pages/Payroll/PaymentSlip/Review" component={PaymentSlipReview} />
         <Route path="/app/Pages/Payroll/PaymentSlip" component={PaymentSlip} />
         <Route
           path="/app/Pages/Payroll/MonthlyVariablesReport"
