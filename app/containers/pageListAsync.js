@@ -1280,6 +1280,13 @@ export const DetailedAttendanceReport = loadable(
   }
 );
 
+export const DetailedAttendanceReview = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/DetailedAttendanceReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 export const MonthlyAttendanceSummaryReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/MonthlyAttendanceSummaryReport'),

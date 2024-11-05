@@ -14,10 +14,6 @@ const PaymentSlipReview = () => {
     const empid = DecryptUrl();
     const company = useSelector((state) => state.authReducer.companyInfo);
 
-
-    console.log("jjj");
-    
-
     return (
             <Box
                 sx={{

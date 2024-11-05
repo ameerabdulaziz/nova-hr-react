@@ -296,6 +296,7 @@ import {
   RemoveEmployeeSign,
   EmployeeAttendance,
   DetailedAttendanceReport,
+  DetailedAttendanceReview,
   MonthlyAttendanceSummaryReport,
   MonthlyStatisticsReport,
   DeviceLogReport,
@@ -1281,6 +1282,11 @@ function Application(props) {
         <Route
           path="/app/Pages/Att/LateAttendanceReport"
           component={LateAttendanceReport}
+        />
+
+        <Route
+          path="/app/Pages/Att/TimeTableDetailsReport/Review"
+          component={DetailedAttendanceReview}
         />
 
         <Route
