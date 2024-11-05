@@ -11,6 +11,15 @@ const dashboardData = (locale) => {
     return data.data;
   };
 
+
+  api.SaveNotification = async (id) => {
+    const data = await axiosInstance.post(
+      `Notification/SaveNotification?Id=${id?id:0}`
+    );
+
+    return data.data;
+  };
+
   api.UseChatGPT = async (question) => {
     const data = await axiosInstance.post(
       `Chat/UseChatGPT`,question

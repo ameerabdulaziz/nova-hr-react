@@ -77,7 +77,7 @@ function NewIdea(props) {
     
     const types = await GeneralListApis(locale).GetExplanationTypeList(locale);
     setTypeList(types);
-    const employees = await GeneralListApis(locale).GetEmployeeList();
+    const employees = await GeneralListApis(locale).GetHrList();
     setEmployeeList(employees);
     
   }

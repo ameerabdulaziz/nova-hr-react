@@ -50,9 +50,17 @@ function NotificationWidget() {
     getNotifications();
   }, []);
 
-  const onOpenBtnClick = (url) => {
+  const onOpenBtnClick = async(url,id) => {
     if (url) {
-      history.push(url);
+      setIsLoading(true);
+      
+      try {
+        const notifications = await api(locale).SaveNotification(id);
+      } catch (error) {
+        //
+      } finally {
+        history.push(url);
+      }
     }
   };
 
@@ -92,7 +100,7 @@ function NotificationWidget() {
                     <Button
                       variant='outlined'
                       size='small'
-                      onClick={() => onOpenBtnClick(item.url)}
+                      onClick={() => onOpenBtnClick(item.url,item.id)}
                       color='primary'
                     >
                       <FormattedMessage {...messages.open} />
