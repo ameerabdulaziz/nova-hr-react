@@ -296,6 +296,7 @@ import {
   RemoveEmployeeSign,
   EmployeeAttendance,
   DetailedAttendanceReport,
+  DetailedAttendanceReview,
   MonthlyAttendanceSummaryReport,
   MonthlyStatisticsReport,
   DeviceLogReport,
@@ -379,6 +380,7 @@ import {
   ElementReviewReport,
   SalaryComparisonReport,
   PaymentSlip,
+  PaymentSlipReview,
   MonthlyVariablesReport,
   DetailedPayrollReport,
   AnnualTaxReport,
@@ -463,6 +465,7 @@ import {
   ProjectEdit,
   GPSAttendance,
   LocationAttendanceReport,
+  EmployeeLocationReport,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -1282,6 +1285,11 @@ function Application(props) {
         />
 
         <Route
+          path="/app/Pages/Att/TimeTableDetailsReport/Review"
+          component={DetailedAttendanceReview}
+        />
+
+        <Route
           path="/app/Pages/Att/TimeTableDetailsReport"
           component={DetailedAttendanceReport}
         />
@@ -1326,6 +1334,11 @@ function Application(props) {
         <Route
           path="/app/Pages/Att/LocationAttendanceReport"
           component={LocationAttendanceReport} 
+        />
+
+        <Route
+          path="/app/Pages/Att/EmployeeLocationReport"
+          component={EmployeeLocationReport} 
         />
 
         <Route
@@ -1452,6 +1465,7 @@ function Application(props) {
           path="/app/Pages/Payroll/SalaryComparisonReport"
           component={SalaryComparisonReport}
         />
+        <Route path="/app/Pages/Payroll/PaymentSlip/Review" component={PaymentSlipReview} />
         <Route path="/app/Pages/Payroll/PaymentSlip" component={PaymentSlip} />
         <Route
           path="/app/Pages/Payroll/MonthlyVariablesReport"

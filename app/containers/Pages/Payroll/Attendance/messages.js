@@ -1667,17 +1667,21 @@ devicePass: {
     id: `${scope}.printPicture`,
     defaultMessage: 'Print Picture',
   },
-  PrintByEmployee: {
-    id: `${scope}.PrintByEmployee`,
-    defaultMessage: 'Print By Employee',
+  ByEmployee: {
+    id: `${scope}.ByEmployee`,
+    defaultMessage: 'By Employee',
   },
-  PrintByDate: {
-    id: `${scope}.PrintByDate`,
-    defaultMessage: 'Print By Date',
+  ByDate: {
+    id: `${scope}.ByDate`,
+    defaultMessage: 'By Date',
   },
   DetailedAttendanceReport: {
     id: `${scope}.DetailedAttendanceReport`,
     defaultMessage: 'Detailed Attendance Report',
+  },
+  printAndReviewErrMess: {
+    id: `${scope}.printAndReviewErrMess`,
+    defaultMessage: 'You must to choose print and review type first',
   },
   // MonthlyAttendanceSummaryReport
   lateHoursNotAuth: {

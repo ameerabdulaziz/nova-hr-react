@@ -49,6 +49,27 @@
 // general Style -- end
 
 
+@media screen {
+
+    .detailedAttPrintSty
+    {
+        height: 0;
+        visibility: hidden;
+    }
+    
+    }
+    
+    
+    @media print {
+        .detailedAttPrintSty
+        {
+            height: 100%;
+            visibility: visible;
+            color: #000000;
+        }
+    }
+
+
 .tableContainerSty
 {
     padding: 20px;
@@ -740,13 +761,6 @@
 
 .historyCardSty
 {
-    // backgroundColor:"#d3e4fc", 
-    //                               width:"50%", 
-    //                               margin:"0 auto",
-    //                               display:"flex",
-    //                               padding:"15px",
-    //                               borderRadius:"5px",
-
     background-color: #d3e4fc;
     width: 50%;
     margin: 0 auto;
@@ -760,6 +774,18 @@
 
 
 
+// PaymentSlipReview
+
+.PaymentSlipReviewContainer
+{
+    background-color: #ffffff;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    box-shadow: 0px 1px 3px 0px #9d9d9d;
+}
+
+
+// PaymentSlipReview --end
 
 
 
@@ -891,3 +917,9 @@
     }
 // RegisterLocation -- end
 }
+
+
+
+
+
+

@@ -20,19 +20,16 @@ import GeneralListApis from "../../api/GeneralListApis";
 import PayrollTable from "../../Component/PayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import style from '../../../../../styles/styles.scss'
-import Checkbox from '@mui/material/Checkbox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { format } from "date-fns";
 
-function LocationAttendanceReport(props) {
+function EmployeeLocationReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState("");
   const [LocationList, setLocationList] = useState([]);
   const [searchData, setsearchData] = useState({
     EmployeeId: "",
@@ -91,33 +88,24 @@ function LocationAttendanceReport(props) {
         return;
       }
 
-      let locationData = []
-    if(location !== null)
-    {
-    // used to reformat elements data ( combobox ) before send it to api
-    location.map((ele, index)=>{
-        locationData.push(ele.id)
-        })
-    }
-
-
     try {
       setIsLoading(true);
       let formData = {
         FromDate: formateDate(searchData.FromDate),
         ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
+        LocationId: location.id ? location.id : "",
       };
 
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
 
-      const dataApi = await ApiData(locale).getLocationAttendenceData(formData,locationData);
+      const dataApi = await ApiData(locale).EmployeeLocationReportData(formData);
       setdata(dataApi);
 
       getFilterHighlights();
-    } catch (err) {
+    } catch (err) {        
     } finally {
       setIsLoading(false);
     }
@@ -148,38 +136,32 @@ function LocationAttendanceReport(props) {
       name: "id",
         label: intl.formatMessage(payrollMessages.id),
       options: {
-        display: false,
+        // display: false,
         print: false,
         download: false,
       },
     },
     {
-      name: "organizationName",
-      label: intl.formatMessage(messages.orgName),
+      name: "employeeName",
+      label: intl.formatMessage(messages.employeeName),
     },
     {
-        name: "employeeCode",
-        label: intl.formatMessage(messages.EmpCode),
-      },
-      {
-        name: "employeeName",
-        label: intl.formatMessage(messages.employeeName),
-      },
-    {
-      name: "transactionDate",
-      label: intl.formatMessage(payrollMessages.date),
+      name: "fromDate",
+      label: intl.formatMessage(payrollMessages.fromdate),
       options: {
         customBodyRender: (value) => (<pre>{value?format(new Date(value), "yyyy-MM-dd hh:mm aa"):""}</pre>),
       },
     },
-
     {
-        name: "locAddress",
-        label: intl.formatMessage(messages.Address),
+        name: "toDate",
+        label: intl.formatMessage(payrollMessages.todate),
+        options: {
+            customBodyRender: (value) => (<pre>{value?format(new Date(value), "yyyy-MM-dd hh:mm aa"):""}</pre>),
+          },
       },
       {
-        name: "distance",
-        label: intl.formatMessage(messages.Distance),
+        name: "notes",
+        label: intl.formatMessage(payrollMessages.notes),
       },
 
   ];
@@ -203,45 +185,40 @@ function LocationAttendanceReport(props) {
           </Grid>
 
           <Grid item xs={12} md={4}>
-                <Autocomplete
-                      multiple  
-                      className={`${style.AutocompleteMulSty} ${locale !== "en" ?  style.AutocompleteMulStyAR : null}`}
-                      id="checkboxes-tags-demo"
-                      isOptionEqualToValue={(option, value) => option.id === value.id}
-                      options={LocationList.length != 0 ? LocationList: []}
-                      disableCloseOnSelect
-                      getOptionLabel={(option) =>(
-                        option  ? option.name : ""
-                    )
-                    }
-                    onChange={(event, value) => {
-                      if (value !== null) {
+            <Autocomplete
+                id="ddlMenu"   
+                isOptionEqualToValue={(option, value) => option.id === value.id}                   
+                options={LocationList.length != 0 ? LocationList: []}
+                getOptionLabel={(option) =>(
+                    option  ? option.name : ""
+                )
+                }
+                renderOption={(props, option) => {
+                    return (
+                    <li {...props} key={option.id}>
+                        {option.name}
+                    </li>
+                    );
+                }}
+                onChange={(event, value) => {
+                    if (value !== null) {
                         setLocation(value);
-                      } else {
-                        setLocation(null);
-                      }
-                  }}
-                      renderOption={(props, option, { selected }) => (
-                        <li {...props} key={option.id}>
-                          <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                            checkedIcon={<CheckBoxIcon fontSize="small" />}
-                            style={{ marginRight: 8 }}
-                            checked={selected}
-                          />
-                          {option.name}
-                        </li>
-                      )}
-                      style={{ width: 500 }}
-                      renderInput={(params) => (
-                        <TextField {...params} 
-                        label={intl.formatMessage(messages.LocationList)}
-                        />
-                      )}
+                    } else {
+                        setLocation("");
+                    }
+                }}
+                renderInput={(params) => (
+                <TextField
+                    {...params}
+                    name="LocationList"
+                    label={intl.formatMessage(messages.LocationList)}
+                    margin="normal" 
+                    className={style.fieldsSty}
                     />
+                )}
+            /> 
           </Grid>
 
-          
           <Grid item xs={12} md={2}>
             <Button
               variant="contained"
@@ -267,6 +244,6 @@ function LocationAttendanceReport(props) {
   );
 }
 
-LocationAttendanceReport.propTypes = { intl: PropTypes.object.isRequired };
+EmployeeLocationReport.propTypes = { intl: PropTypes.object.isRequired };
 
-export default injectIntl(LocationAttendanceReport);
+export default injectIntl(EmployeeLocationReport);

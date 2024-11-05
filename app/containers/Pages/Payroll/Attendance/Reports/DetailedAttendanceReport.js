@@ -8,6 +8,8 @@ import {
   FormControlLabel,
   TextField,
   Autocomplete,
+  Radio,
+  RadioGroup,
 } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
@@ -36,6 +38,7 @@ function DetailedAttendanceReport(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [ShiftList, setShiftList] = useState([]);
   const [Shift, setShift] = useState(null);
+  const [printAndReviewType, setPrintAndReviewType] = useState(null);
   const [searchData, setsearchData] = useState({
     FromDate: null,
     ToDate: null,
@@ -59,7 +62,7 @@ function DetailedAttendanceReport(props) {
 
   const [DateError, setDateError] = useState({});
 
-      const [headerType, setHeaderType] = useState();
+  const [headerType, setHeaderType] = useState();
 
   const getFilterHighlights = () => {
     const highlights = [];
@@ -128,7 +131,7 @@ function DetailedAttendanceReport(props) {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
-  const handleSearch = async (printType) => {
+  const handleSearch = async (printType,reviewVal) => {
 
       // used to stop call api if user select wrong date
       if (Object.values(DateError).includes(true)) {  
@@ -137,19 +140,18 @@ function DetailedAttendanceReport(props) {
       }
 
 
-
-    let ShiftData = ""
-    if(Shift !== null)
-    {
-    // used to reformat elements data ( combobox ) before send it to api
-    Shift.map((ele, index)=>{
-        ShiftData+= `${ele.id}`
-        if(index + 1 !== Shift.length)
-        {
-            ShiftData+= ","
-        }
-      })
-    }
+      let ShiftData = ""
+      if(Shift !== null)
+      {
+      // used to reformat elements data ( combobox ) before send it to api
+      Shift.map((ele, index)=>{
+          ShiftData+= `${ele.id}`
+          if(index + 1 !== Shift.length)
+          {
+              ShiftData+= ","
+          }
+        })
+      }
 
 
     try {
@@ -174,17 +176,46 @@ function DetailedAttendanceReport(props) {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
 
-      const dataApi = await ApiData(locale).DetailedAttendanceReportApi(formData)
-      .then(res =>{         
-      if(printType === "employee" || printType === "date" )
-      {
-        setPrintData(res)
-      }
-      else
-      {
-        setdata(res);
-      }
-      })
+
+      if( reviewVal === "review")
+        {  
+          window.open(
+            `${encodeURI(
+              `/app/Pages/Att/TimeTableDetailsReport/Review/${btoa(
+                encodeURIComponent(
+                  JSON.stringify({
+                  formData,
+                  headerType: printType,
+                  searchData: searchData,
+                  })
+                )
+              )}`
+            )}`,
+            "_blank"
+          )
+          ?.focus();
+  
+  
+        }
+        else
+        {
+
+          const dataApi = await ApiData(locale).DetailedAttendanceReportApi(formData)
+          .then(res =>{        
+            
+            // with print
+            if((printType === "employee" || printType === "date") && reviewVal !== "review")
+            {              
+              setPrintData(res)
+            }
+
+              // with search
+            if(printType !== "employee" && printType !== "date" && reviewVal !== "review")
+            {
+              setdata(res);
+            }
+          })
+    }
       
 
       getFilterHighlights();
@@ -446,6 +477,11 @@ function DetailedAttendanceReport(props) {
 
 
 
+  const reviewDetailsFun =  (type) => {
+    handleSearch(printAndReviewType,"review")
+  }
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -615,15 +651,44 @@ function DetailedAttendanceReport(props) {
                 </Button>
               </Grid>
 
+            </Grid>
+          </Grid>
+
+            <Grid item container spacing={2}>
+              <Grid item>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                  onChange={(e)=>{
+                    setPrintAndReviewType(e.target.value)
+                  }}
+                >
+                  <FormControlLabel value="employee" control={<Radio />} label={intl.formatMessage(messages.ByEmployee)} />
+                  <FormControlLabel value="date" control={<Radio />} label={intl.formatMessage(messages.ByDate)} />
+                  
+                </RadioGroup>
+              </Grid>
+
               <Grid item>
                 <Button
                   variant="contained"
                   size="medium"
                   color="primary"
                   className={style.printBtnSty}
-                onClick={()=>onPrintClick("employee")}
+                onClick={()=>{
+                  if(printAndReviewType)
+                  {
+                    onPrintClick(printAndReviewType)
+                  }
+                  else
+                  {
+                    toast.error(intl.formatMessage(messages.printAndReviewErrMess));
+                  }
+                }}
                 >
-                  <FormattedMessage {...messages.PrintByEmployee} />
+                  
+                  <FormattedMessage {...Payrollmessages.Print} />
                 </Button>
               </Grid>
 
@@ -633,13 +698,22 @@ function DetailedAttendanceReport(props) {
                   size="medium"
                   color="primary"
                   className={style.printBtnSty}
-                onClick={()=>onPrintClick("date")}
+                onClick={()=>{
+                  if(printAndReviewType)
+                    {
+                      reviewDetailsFun(printAndReviewType)
+                    }
+                    else
+                    {
+                      toast.error(intl.formatMessage(messages.printAndReviewErrMess));
+                    }
+                }}
                 >
-                  <FormattedMessage {...messages.PrintByDate} />
+                  
+                  <FormattedMessage {...Payrollmessages.review} />
                 </Button>
               </Grid>
             </Grid>
-          </Grid>
 
         </Grid>
       </PapperBlock>

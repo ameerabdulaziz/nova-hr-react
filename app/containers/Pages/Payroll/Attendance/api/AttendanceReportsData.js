@@ -280,6 +280,14 @@ const AttendanceReportsData = (locale) => {
     return data.data;
   };
 
+  api.EmployeeLocationReportData = async (params) => {
+    const queryString = new URLSearchParams(params);
+
+    const data = await axiosInstance.get(`AttLocationEmployee/GetReport/${locale}?${queryString}`);
+
+    return data.data;
+  };
+
 
   return api;
 };

@@ -1280,6 +1280,13 @@ export const DetailedAttendanceReport = loadable(
   }
 );
 
+export const DetailedAttendanceReview = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/DetailedAttendanceReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 export const MonthlyAttendanceSummaryReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/MonthlyAttendanceSummaryReport'),
@@ -1348,6 +1355,13 @@ export const GPSAttendance = loadable(
 
 export const LocationAttendanceReport = loadable(
   () => import('./Pages/Payroll/Attendance/Reports/LocationAttendanceReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const EmployeeLocationReport = loadable(
+  () => import('./Pages/Payroll/Attendance/Reports/EmployeeLocationReport'),
   {
     fallback: <Loading />,
   }
@@ -1441,6 +1455,13 @@ export const BranchSalarySetting = loadable(
 
 export const PaymentSlip = loadable(
   () => import('./Pages/Payroll/Payroll/Reports/PaymentSlip'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const PaymentSlipReview = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/PaymentSlipReview'),
   {
     fallback: <Loading />,
   }

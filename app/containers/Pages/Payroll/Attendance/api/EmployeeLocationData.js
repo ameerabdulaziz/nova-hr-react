@@ -26,6 +26,13 @@ const EmployeeLocationData = (locale) => {
   };
 
 
+  Apis.Delete = async (data) => {
+
+    const result = await axiosInstance.post("AttLocationEmployee/DeleteList",data);
+    return result;
+  };
+
+
   return Apis;
 };
 

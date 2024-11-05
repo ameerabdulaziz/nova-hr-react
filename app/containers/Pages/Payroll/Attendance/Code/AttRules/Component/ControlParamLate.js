@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import css from "enl-styles/Table.scss";
 import {
   Button,
@@ -10,6 +10,7 @@ import {
   TableHead,
   TableRow,
   TableContainer,
+  Pagination,
 } from "@mui/material";
 import Payrollmessages from "../../../../messages";
 import messages from "../../../messages";
@@ -18,9 +19,13 @@ import useStyles from "../../../../Style";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+const itemsPerPage = 10; // Set the number of items per page
+
 function ControlParamLate(props) {
   const { intl, dataList, setdataList } = props;
   const { classes, cx } = useStyles();
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handledelete = (event, row) => {
     setdataList(dataList.filter((x) => x.id != row.id));
@@ -94,6 +99,17 @@ function ControlParamLate(props) {
         return x;
       })
     );
+  };
+
+  const paginatedData = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    return dataList.slice(startIndex, endIndex);
+  }, [currentPage, dataList]);
+
+  const onPaginationChange = (event, value) => {
+    setCurrentPage(value);
   };
 
   return (
@@ -246,7 +262,7 @@ function ControlParamLate(props) {
               </TableHead>
               <TableBody>
                 {dataList.length !== 0 &&
-                  dataList.map((row) => {
+                  paginatedData.map((row) => {
                     return (
                       <TableRow
                         hover
@@ -491,6 +507,15 @@ function ControlParamLate(props) {
             </Table>
           </TableContainer>
         </div>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Pagination
+          count={Math.ceil(dataList.length / itemsPerPage)}
+          page={currentPage}
+          onChange={onPaginationChange}
+          color="primary"
+        />
       </Grid>
     </Grid>
   );
