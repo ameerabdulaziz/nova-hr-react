@@ -2093,6 +2093,7 @@
   "boilerplate.containers.Payroll.numberOfMinutesMustBeGreaterThanZero": "Number of minutes must be greater than zero.",
   "boilerplate.containers.Payroll.october": "October",
   "boilerplate.containers.Payroll.of": "Of",
+  "boilerplate.containers.Payroll.pageUnderConstruction": "Page Under Construction",
   "boilerplate.containers.Payroll.oldElemVal": "Prev Value",
   "boilerplate.containers.Payroll.organizationName": "Department",
   "boilerplate.containers.Payroll.organizationTree": "Organization Tree",
