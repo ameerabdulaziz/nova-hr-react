@@ -545,7 +545,10 @@ function PayrollTable(props) {
           viewColumns: false,
           filter: false,
           customBodyRender: (_, tableMeta) => {
-            const row = data[tableMeta.rowIndex];
+            // Get row index depend on new table data, that can be change by any operation
+            // like search, filter, sort
+            const currentRowMetaData = tableMeta.currentTableData[tableMeta.rowIndex];
+            const row = data[currentRowMetaData.index];
 
             let isDeleteBtnDisabled = !menu?.isDelete;
 
