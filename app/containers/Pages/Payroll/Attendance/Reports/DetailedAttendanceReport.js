@@ -179,15 +179,18 @@ function DetailedAttendanceReport(props) {
 
       if( reviewVal === "review")
         {  
+          sessionStorage.setItem('Review',JSON.stringify( {
+            formData,
+                  headerType: printType,
+                  searchData: searchData,
+          }));
+
+
           window.open(
             `${encodeURI(
               `/app/Pages/Att/TimeTableDetailsReport/Review/${btoa(
                 encodeURIComponent(
-                  JSON.stringify({
-                  formData,
-                  headerType: printType,
-                  searchData: searchData,
-                  })
+                JSON.stringify({})
                 )
               )}`
             )}`,

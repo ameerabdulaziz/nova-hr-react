@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
     Box,
   } from '@mui/material';
-  import DecryptUrl from "../../Component/DecryptUrl";
   import { useSelector } from 'react-redux';
   import style from '../../../../../styles/pagesStyle/DetailedAttendanceReportTemplateSty.scss'
   import ApiData from "../api/AttendanceReportsData";
@@ -17,8 +16,8 @@ import messages from "../messages";
 
 const PaymentSlipReview = (props) => {
 
-    const empid = DecryptUrl();
     const [data, setData] = useState([]);
+    const [sessionData, setSessionData] = useState([]);
     const locale = useSelector((state) => state.language.locale);
     const { intl } = props;
     
@@ -63,7 +62,7 @@ const PaymentSlipReview = (props) => {
 
         try {
        
-          await ApiData(locale).DetailedAttendanceReportApi(empid.formData)
+          await ApiData(locale).DetailedAttendanceReportApi(sessionData.formData)
           .then(res =>{         
             setData(res)
           })
@@ -74,25 +73,43 @@ const PaymentSlipReview = (props) => {
 
 
       useEffect(()=>{
-        reviewDataFun()
-      },[])
+        if(sessionData.length !== 0)
+        {
+          reviewDataFun()
+        }
+      },[sessionData])
 
 
+      useEffect(()=>{
+
+        if(sessionData.length === 0)
+        {
+          setSessionData(JSON.parse(sessionStorage.getItem("Review")))
+        }
+
+
+      },[JSON.parse(sessionStorage.getItem("Review"))])
+
+
+      
     return (
         <>
-        
-        <Box>
-            {data.map((empData,index)=>(
-                <div className={style.reviewContainerSty} key={index} >
-                  {  empid.headerType === "employee" && (  <DetailedAttendanceHeaderEmp Data={empData} date={empid.searchData} /> ) }
-                  {  empid.headerType === "date" && (  <DetailedAttendanceHeaderDate Data={empData} date={empid.searchData} /> ) }
-                  
-                  <DetailedAttendanceTable header={empid.headerType === "date" ? dateHeaders   : employeeHeaders } Data={empData.details} headerType={empid.headerType} />
-                  {empid.headerType === "employee" && ( <DetailedAttendanceFooter  Data={empData} /> )}
-              </div>
-            ))}
-        
-      </Box>
+        {sessionData.length !== 0 && (
+          <Box>
+              {data.map((empData,index)=>(
+                
+                  <div className={style.reviewContainerSty} key={index} >
+                    {  sessionData.headerType === "employee" && (  <DetailedAttendanceHeaderEmp Data={empData} date={sessionData.searchData} /> ) }
+                    {  sessionData.headerType === "date" && (  <DetailedAttendanceHeaderDate Data={empData} date={sessionData.searchData} /> ) }
+                    
+                    <DetailedAttendanceTable header={sessionData.headerType === "date" ? dateHeaders   : employeeHeaders } Data={empData.details} headerType={sessionData.headerType} />
+                    {sessionData.headerType === "employee" && ( <DetailedAttendanceFooter  Data={empData} /> )}
+                </div>
+              ))}
+      
+           </Box>
+        )}
+
       </>
     )
 }

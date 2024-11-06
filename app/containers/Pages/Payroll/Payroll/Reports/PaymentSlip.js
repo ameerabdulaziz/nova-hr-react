@@ -276,14 +276,17 @@ useEffect(()=>{
   useEffect(()=>{
     if(paymentSlipReport.length !== 0 && btnType === "review")
     {
+      sessionStorage.setItem('Review',JSON.stringify( {
+        paymentSlipReport: paymentSlipReport,
+        itemFormInfo: itemFormInfo,
+      }));
+
+
       window.open(
         `${encodeURI(
           `/app/Pages/Payroll/PaymentSlip/Review/${btoa(
             encodeURIComponent(
-              JSON.stringify({
-              paymentSlipReport: paymentSlipReport,
-              itemFormInfo: itemFormInfo,
-              })
+             JSON.stringify({})
             )
           )}`
         )}`,
