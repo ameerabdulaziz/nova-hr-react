@@ -2595,6 +2595,8 @@
   "boilerplate.containers.Payroll.Setting.pleaseSelectEmployee": "الرجاء تحديد الموظف",
   "boilerplate.containers.Payroll.Setting.portallink": "URL",
   "boilerplate.containers.Payroll.Setting.portno": "رقم البورت",
+  "boilerplate.containers.Payroll.Setting.Test": "اختبار",
+  "boilerplate.containers.Payroll.Setting.mailTest": "اختبار البريد الإلكتروني",
   "boilerplate.containers.Payroll.Setting.print": "طباعة",
   "boilerplate.containers.Payroll.Setting.printForm": "نموذج الطباعة",
   "boilerplate.containers.Payroll.Setting.resetallpassword": "استرجاع الكل",

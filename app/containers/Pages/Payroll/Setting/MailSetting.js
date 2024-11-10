@@ -28,6 +28,8 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email'
     : undefined;
 
+    const [mailTest, setMailTest] = useState("")
+
   const [data, setdata] = useState(
     {
     "id": 0,
@@ -145,6 +147,35 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
       [evt.target.name]: evt.target.checked,
     }));
   };
+
+
+
+  const mailTestChangeFun = (e) =>{
+    setMailTest(e.target.value)
+  }
+
+
+
+  const mailTestFun = async (e) =>{
+    e.preventDefault();  
+
+    try
+    {
+      setprocessing(true); 
+      const response = await MailSMSSettingData().testMail(mailTest);
+
+      toast(response);
+      
+    }
+    catch(err)
+    {
+
+    }
+    finally {
+      setprocessing(false);
+    }
+  }
+
 
   return (
     <PayRollLoader isLoading={processing}>
@@ -276,6 +307,52 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
           </PapperBlock>
         </Grid>
       </Grid>
+
+
+      <Grid
+        container
+        spacing={3}
+        alignItems="flex-start"
+        direction="row"
+        justifyContent="center"
+      >
+        <Grid item xs={12}>
+          <PapperBlock whiteBg icon="border_color" title={intl.formatMessage(messages.mailTest)} desc="">
+            <form onSubmit={mailTestFun}>
+              <Grid
+              container
+              spacing={3}
+              alignItems="flex-start"
+              direction="row"
+              >
+                <Grid item xs={12} md={4}>
+                  <TextField                    
+                    type="email"                  
+                    error={email === 'Invalid email'}
+                    name="bscMail"
+                    id="bscMail"
+                    label={intl.formatMessage(messages.email)}
+                    required
+                    className={classes.field}
+                    variant="outlined"
+                    value={mailTest}
+                    onChange={(e) => mailTestChangeFun(e)}
+                    autoComplete='off'
+                  />
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Button type='submit' variant="contained"  size="medium" color="primary" >
+                    <FormattedMessage {...messages.Test} />
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </PapperBlock>
+        </Grid>
+      </Grid>
+
+
+
     </PayRollLoader>
   );
 }
