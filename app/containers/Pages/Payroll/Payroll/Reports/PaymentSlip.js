@@ -282,17 +282,8 @@ useEffect(()=>{
       }));
 
 
-      window.open(
-        `${encodeURI(
-          `/app/Pages/Payroll/PaymentSlip/Review/${btoa(
-            encodeURIComponent(
-             JSON.stringify({})
-            )
-          )}`
-        )}`,
-        "_blank"
-      )
-      ?.focus();
+      window.open(`/app/Pages/Payroll/PaymentSlip/Review`, "_blank")?.focus();
+
     }
   },[paymentSlipReport])
 

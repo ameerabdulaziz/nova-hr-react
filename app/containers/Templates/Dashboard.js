@@ -60,6 +60,7 @@ function Dashboard(props) {
   ];
   const parts = history.location.pathname.split("/");
   let place = parts[parts.length - 1].replace("-", " ");
+  let lastPart = parts.filter(Boolean).pop();
   const pathname = history.location.pathname;
   const dataMenu = useSelector((state) => state.authReducer.usermenu);
   const locale = useSelector((state) => state.language.locale);
@@ -106,6 +107,7 @@ function Dashboard(props) {
     pathname != "/app/ManagementDashboard" &&
     pathname != "/app/Pages/Employee/EmployeeData" &&
     dataMenu &&
+    lastPart !== "Review" &&
     urlData === null
   ) {
 

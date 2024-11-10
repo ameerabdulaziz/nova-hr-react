@@ -189,6 +189,7 @@ function UserMenu(props) {
 
             await ResetPasswordData().Logout();
             localStorage.removeItem("Token");
+            sessionStorage.removeItem("Review");
           }}
         >
           <ListItemIcon>

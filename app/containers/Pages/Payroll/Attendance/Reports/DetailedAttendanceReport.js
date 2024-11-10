@@ -186,18 +186,7 @@ function DetailedAttendanceReport(props) {
           }));
 
 
-          window.open(
-            `${encodeURI(
-              `/app/Pages/Att/TimeTableDetailsReport/Review/${btoa(
-                encodeURIComponent(
-                JSON.stringify({})
-                )
-              )}`
-            )}`,
-            "_blank"
-          )
-          ?.focus();
-  
+          window.open(`/app/Pages/Att/TimeTableDetailsReport/Review`, "_blank")?.focus();
   
         }
         else
