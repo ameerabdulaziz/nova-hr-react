@@ -782,4 +782,8 @@ employeeId: {
     id: `${scope}.numberOfMinutesMustBeGreaterThanZero`,
     defaultMessage: 'Number of minutes must be greater than zero.',
   },
+  pageUnderConstruction: {
+    id: `${scope}.pageUnderConstruction`,
+    defaultMessage: 'Page Under Construction',
+  },
 });

@@ -276,20 +276,14 @@ useEffect(()=>{
   useEffect(()=>{
     if(paymentSlipReport.length !== 0 && btnType === "review")
     {
-      window.open(
-        `${encodeURI(
-          `/app/Pages/Payroll/PaymentSlip/Review/${btoa(
-            encodeURIComponent(
-              JSON.stringify({
-              paymentSlipReport: paymentSlipReport,
-              itemFormInfo: itemFormInfo,
-              })
-            )
-          )}`
-        )}`,
-        "_blank"
-      )
-      ?.focus();
+      sessionStorage.setItem('Review',JSON.stringify( {
+        paymentSlipReport: paymentSlipReport,
+        itemFormInfo: itemFormInfo,
+      }));
+
+
+      window.open(`/app/Pages/Payroll/PaymentSlip/Review`, "_blank")?.focus();
+
     }
   },[paymentSlipReport])
 

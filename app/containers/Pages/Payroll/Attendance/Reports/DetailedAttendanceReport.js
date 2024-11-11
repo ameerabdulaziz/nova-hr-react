@@ -179,22 +179,14 @@ function DetailedAttendanceReport(props) {
 
       if( reviewVal === "review")
         {  
-          window.open(
-            `${encodeURI(
-              `/app/Pages/Att/TimeTableDetailsReport/Review/${btoa(
-                encodeURIComponent(
-                  JSON.stringify({
-                  formData,
+          sessionStorage.setItem('Review',JSON.stringify( {
+            formData,
                   headerType: printType,
                   searchData: searchData,
-                  })
-                )
-              )}`
-            )}`,
-            "_blank"
-          )
-          ?.focus();
-  
+          }));
+
+
+          window.open(`/app/Pages/Att/TimeTableDetailsReport/Review`, "_blank")?.focus();
   
         }
         else

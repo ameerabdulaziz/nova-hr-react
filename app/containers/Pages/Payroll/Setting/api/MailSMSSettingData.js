@@ -17,6 +17,15 @@ const MailSMSSettingData = () => {
   };
 
 
+
+  Apis.testMail = async (mail) => {
+     
+    const data = await axiosInstance.get(`SettingMailSMS/TestSetting/${mail}`);
+   
+    return data.data;
+  };
+
+
   return  Apis;
 };
 

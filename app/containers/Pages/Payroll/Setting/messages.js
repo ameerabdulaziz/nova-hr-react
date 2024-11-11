@@ -78,6 +78,14 @@ export default defineMessages({
     id: `${scope}.portno`,
     defaultMessage: 'Port No',
   },
+  Test: {
+    id: `${scope}.Test`,
+    defaultMessage: 'Test',
+  },
+  mailTest: {
+    id: `${scope}.mailTest`,
+    defaultMessage: 'Mail Test',
+  },
   //SMSSetting---------------------------------------------------------------------
  
   sendername: {

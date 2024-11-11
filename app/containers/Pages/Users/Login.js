@@ -118,10 +118,11 @@ function Login() {
     fetchData();
   }, [valueForm]);
 
-  // clear (Menu , MenuName ) from localStorage
+  // clear (Menu , MenuName ) from localStorage with delete ( Review ) session
   useEffect(() => {
     localStorage.removeItem("Menu");
     localStorage.removeItem("MenuName");
+    sessionStorage.removeItem("Review");
   }, []);
 
   return (

@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
     Box,
     Stack
   } from '@mui/material';
-  import DecryptUrl from "../../Component/DecryptUrl";
   import { useSelector } from 'react-redux';
   import PaymentReportItem from '../components/PaymentSlip/PaymentReportItem';
   import style from '../../../../../styles/styles.scss'
@@ -11,8 +10,19 @@ import {
 
 const PaymentSlipReview = () => {
 
-    const empid = DecryptUrl();
+    const [sessionData, setSessionData] = useState([]);
     const company = useSelector((state) => state.authReducer.companyInfo);
+
+
+    useEffect(()=>{
+
+        if(sessionData.length === 0)
+        {
+          setSessionData(JSON.parse(sessionStorage.getItem("Review")))
+        }
+
+
+      },[JSON.parse(sessionStorage.getItem("Review"))])
 
     return (
             <Box
@@ -26,23 +36,28 @@ const PaymentSlipReview = () => {
                 }}
                 className={style.PaymentSlipReviewContainer}
             >
-                
-                <Stack spacing={2} mb={2}>
-                <div>
-                    <img src={company?.logo} alt='' height={45} />
-                </div>
-                </Stack>
 
-                {empid?.paymentSlipReport.map((item, index) => (
-                <Box
-                    key={index}
-                    sx={{
-                    pageBreakInside: 'avoid',
-                    }}
-                >
-                    <PaymentReportItem item={item} formInfo={empid?.itemFormInfo} />
-                </Box>
-                ))}
+            {sessionData.length !== 0 && (
+
+                    <Stack spacing={2} mb={2}>
+                    <div>
+                        <img src={company?.logo} alt='' height={45} />
+                    </div>
+                    </Stack>,
+
+
+                sessionData?.paymentSlipReport.map((item, index) => (
+                    <Box
+                        key={index}
+                        sx={{
+                        pageBreakInside: 'avoid',
+                        }}
+                    >
+                        <PaymentReportItem item={item} formInfo={sessionData?.itemFormInfo} />
+                    </Box>
+                    ))
+                )}
+            
             </Box>
     )
 }

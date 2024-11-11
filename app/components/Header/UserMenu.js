@@ -23,12 +23,15 @@ import { formateDate } from "../../containers/Pages/Payroll/helpers";
 import ResetPasswordData from "../../containers/Pages/Payroll/Setting/api/ResetPasswordData";
 import useStyles from "./header-jss";
 import messages from "./messages";
+import UnderContractionPopup from "../../containers/Pages/Payroll/Component/UnderContractionPopup";
 
 function UserMenu(props) {
   const { classes, cx } = useStyles();
   const { dark, signOut, avatar, notifications } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(null);
+
+  const [isUnderContractionPopupOpen, setIsUnderContractionPopupOpen] = useState(false)
 
   const history = useHistory();
 
@@ -49,8 +52,19 @@ function UserMenu(props) {
     }
   };
 
+  const openUnderContractionPopup = () => {
+    setIsUnderContractionPopupOpen(true);
+    handleClose();
+  };
+
   return (
     <div>
+
+      <UnderContractionPopup
+        isOpen={isUnderContractionPopupOpen}
+        setIsOpen={setIsUnderContractionPopupOpen}
+      />
+
       <IconButton
         aria-haspopup="true"
         onClick={handleMenu("notification")}
@@ -146,10 +160,10 @@ function UserMenu(props) {
         <MenuItem onClick={handleClose} component={Link} to={link.profile}>
           <FormattedMessage {...messages.profile} />
         </MenuItem>
-        <MenuItem onClick={handleClose} component={Link} to={link.task}>
+        <MenuItem onClick={openUnderContractionPopup} >
           <FormattedMessage {...messages.task} />
         </MenuItem>
-        <MenuItem onClick={handleClose} component={Link} to={link.email}>
+        <MenuItem onClick={openUnderContractionPopup} >
           <FormattedMessage {...messages.email} />
           <ListItemIcon>
             <Badge
@@ -175,6 +189,7 @@ function UserMenu(props) {
 
             await ResetPasswordData().Logout();
             localStorage.removeItem("Token");
+            sessionStorage.removeItem("Review");
           }}
         >
           <ListItemIcon>
