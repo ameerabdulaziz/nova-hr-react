@@ -941,4 +941,8 @@ export default defineMessages({
     id: `${scope}.businessUnit`,
     defaultMessage: 'Business Unit',
   },
+  birthDateValidationErrMess: {
+    id: `${scope}.birthDateValidationErrMess`,
+    defaultMessage: 'Age must to not be less than 16 years',
+  },
 });

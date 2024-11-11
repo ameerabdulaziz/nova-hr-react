@@ -109,7 +109,7 @@ const getEditdata = async () => {
       setMedicalInsuranceStartDay(data[0].medicalInsuranceStartDay ?? "");
       setIsLeadershipPosition(data[0].isLeadershipPosition ?? "");
       setJobType(
-        data[0].jobTypeI
+        data[0].jobTypeId
           ? { id: data[0].jobTypeId, name: data[0].jobTypeName }
           : null
       );
