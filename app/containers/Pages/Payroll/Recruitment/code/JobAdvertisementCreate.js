@@ -35,6 +35,7 @@ function JobAdvertisementCreate(props) {
   const locale = useSelector((state) => state.language.locale);
   const dataTable = useSelector((state) => state.crudTableDemo.dataTable);
   const id = location.state?.id ?? 0;
+  const { isCopy } = location.state ?? false;
 
   const employmentComments = location.state?.employmentComments ?? '';
   const employmentId = location.state?.employmentId ?? 0;
@@ -165,6 +166,12 @@ recAdvAnswer = []
 })
 
 formData.recQuestions = recQuestions
+
+    if(isCopy)
+    {
+      formData.id = 0
+    }
+
 
     try {
       await api(locale).save(formData);
@@ -522,7 +529,7 @@ const closeQuesPopup = () => {
                   <SaveButton Id={id} processing={isLoading} />
                 </Grid>
 
-                <Grid item xs={12} md={2} lg={1}>
+                <Grid item xs={12} md={2} lg={1.3}>
                   <Button
                     variant='contained'
                     size='medium'
@@ -533,7 +540,7 @@ const closeQuesPopup = () => {
                   </Button>
                 </Grid>
 
-                <Grid item xs={12} md={2} lg={1}>
+                <Grid item xs={12} md={2} lg={1.3}>
                   <Button
                     variant='contained'
                     size='medium'

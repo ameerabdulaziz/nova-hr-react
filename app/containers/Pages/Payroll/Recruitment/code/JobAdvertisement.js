@@ -6,11 +6,19 @@ import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/JobAdvertisementData';
 import messages from '../messages';
+import Copy from '@mui/icons-material/CopyAll';
+import {
+  Tooltip,
+  IconButton,
+} from '@mui/material';
+import Payrollmessages from '../../messages';
+import { useHistory } from 'react-router-dom';
 
 function JobAdvertisement(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
+  const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
@@ -85,6 +93,24 @@ function JobAdvertisement(props) {
     delete: {
       api: deleteRow,
     },
+    extraActions: (row) => (
+      <>
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(Payrollmessages.copy)}
+        >
+          <span>
+            <IconButton onClick={() => {
+              history.push("/app/Pages/Recruitment/JobAdvertisementCreate", {
+                id: row.id,
+                isCopy: true});
+              }}>
+              <Copy sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </>
+    ),
   };
 
   return (

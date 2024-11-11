@@ -46,7 +46,7 @@ function CounterIconWidget(props) {
             start={0}
             end={300}
             duration={3}
-            title={intl.formatMessage(messages.inPropation)}
+            title={intl.formatMessage(messages.inProbation)}
           >
             <Diversity3SharpIcon className={classes.counterIcon} />
             

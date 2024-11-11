@@ -77,7 +77,7 @@ function CounterIconWidget(props) {
               start={0}
               end={mainBarData.inPorpatiom}
               duration={3}
-              title={intl.formatMessage(messages.inPropation)}
+              title={intl.formatMessage(messages.inProbation)}
             >
               <Diversity3SharpIcon className={classes.counterIcon} />
             </CounterWidget>

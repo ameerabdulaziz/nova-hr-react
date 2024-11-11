@@ -1220,12 +1220,12 @@ function JobAdvertisementApplication(props) {
                       </Grid>
                     </Grid>
 
-                      <Grid item xs={12}  md={4}> 
+                      <Grid item xs={12}> 
 
                       <br/>
                             { JobAdvertisement.recQuestions.map((que,index)=>{
 
-                                return  <Grid item xs={12}  md={4} key={index}> 
+                                return  <Grid item xs={12}   key={index}> 
                                   <FormControl>
                                     <Typography  variant='h6'>{que.enName}</Typography>
                                     <RadioGroup

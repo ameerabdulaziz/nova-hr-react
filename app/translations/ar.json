@@ -451,7 +451,7 @@
   "boilerplate.components.Widgets.CounterChartWidget.weekly_sales": "المبيعات الأسبوعية",
   "boilerplate.components.Widgets.CounterIconWidget.Employee": "الموطفون",
   "boilerplate.components.Widgets.CounterIconWidget.followers": "المتابعين",
-  "boilerplate.components.Widgets.CounterIconWidget.inPropation": "فترة اعداد",
+  "boilerplate.components.Widgets.CounterIconWidget.inProbation": "فترة اعداد",
   "boilerplate.components.Widgets.CounterIconWidget.newHired": "الموظفون الجدد",
   "boilerplate.components.Widgets.CounterIconWidget.resignation": "استقالة",
   "boilerplate.components.Widgets.CounterIconWidget.subscribers": "المشتركون",
