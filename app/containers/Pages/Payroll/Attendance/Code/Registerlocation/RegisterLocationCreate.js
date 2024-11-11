@@ -17,9 +17,9 @@ import { PapperBlock } from 'enl-components';
 import useStyles from '../../../Style';
 import SaveButton from '../../../Component/SaveButton';
 import PayRollLoader from '../../../Component/PayRollLoader';
-import { Tooltip} from "@mui/material";
+import { Tooltip, Autocomplete } from "@mui/material";
 
-import { Autocomplete, DrawingManager, GoogleMap, Polygon,  Marker, LoadScript  } from '@react-google-maps/api';
+import { Autocomplete as GoogleAutocomplete, DrawingManager, GoogleMap, Polygon,  Marker, LoadScript  } from '@react-google-maps/api';
 import deleteIcon from '../../../Assets/Attendance-imgs/remove.png';
 
 const libraries = ['places', 'drawing'];
@@ -41,9 +41,11 @@ function RegisterLocationCreate(props) {
   const history=useHistory(); 
   const { intl } = props;
   const { classes } = useStyles();
+  const [polygons, setPolygons] = useState([]);
 
   const [location, setLocation] = useState()
-  const [polygons, setPolygons] = useState([]);
+  const [devicesData, setDevicesData] = useState([]);
+  const [device, setDevice] = useState("");
   
   const mapRef = useRef();
   const polygonRefs = useRef([]);
@@ -248,7 +250,8 @@ const getLocationDataFun = async (lan,lng) => {
       locLat: lat ? lat : "",
       locLong: lng ? lng : "",
       distance: distance ? Number(distance) : "",
-      polygons: polygons.length === 0? [] : polygons[0]
+      polygons: polygons.length === 0? [] : polygons[0],
+      deviceId: device.length !== 0 ? device.id : ""
     };
 
     try {
@@ -277,9 +280,9 @@ const getdata =  async () => {
   setIsLoading(true);
 
   try {
-    const elements = await GeneralListApis(locale).GetControlParameterList(locale);    
+    const Devices = await GeneralListApis(locale).GetDeviceList(locale);    
   
-    setElementsData(elements)
+    setDevicesData(Devices)
   } catch (error) {
     //
   } finally {
@@ -308,6 +311,7 @@ const getEditdata =  async () => {
     setCenter({lat: Number(data.locLat), lng: Number(data.locLong)})
     setLocation({lat: Number(data.locLat), lng: Number(data.locLong)})
     setPolygons([data.polygons])
+    setDevice(data.deviceId ? devicesData.find((item)=> item.id === data.deviceId) : "")
 
   } catch (error) {
     //
@@ -322,11 +326,11 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if(ID)
+  if(ID && devicesData.length !== 0)
   {
     getEditdata()
   }
-  }, [ID]);
+  }, [ID,devicesData]);
 
 
 
@@ -409,7 +413,7 @@ useEffect(() => {
                               />
                           ))
                       }
-                      <Autocomplete
+                      <GoogleAutocomplete
                           onLoad={onLoadAutocomplete}
                           onPlaceChanged={onPlaceChanged}
                           
@@ -420,7 +424,7 @@ useEffect(() => {
                               style={autocompleteStyle}
                               className={style.searchSty}
                           />
-                      </Autocomplete>
+                      </GoogleAutocomplete>
 
                         {location  && (
                                 <Marker
@@ -459,6 +463,7 @@ useEffect(() => {
                             value={ArName}
                             onChange={(e) => setArName(e.target.value)}
                             autoComplete='off'
+                            required
                         />
                       </Grid>
 
@@ -474,6 +479,7 @@ useEffect(() => {
                             value={EnName}
                             onChange={(e) => setEnName(e.target.value)}
                             autoComplete='off'
+                            required
                         />
                       </Grid>
 
@@ -540,6 +546,28 @@ useEffect(() => {
                             autoComplete='off'
                         />
                       </Grid>
+                      <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          id='employeeId'
+                          options={devicesData}
+                          value={device}
+                          isOptionEqualToValue={(option, value) => value.id === 0 || value.id === '' || option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option.name ? option.name : '')}
+                          onChange={(event, value) => {
+                            setDevice(value == null ? '' : value);
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              variant='outlined'
+                              {...params}
+                              name='deviceList'
+                              required
+                              label={intl.formatMessage(messages.device)}
+                            />
+                          )}
+                        />
+                    </Grid>
                       
                     </Grid>
 
