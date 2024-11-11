@@ -2931,6 +2931,7 @@
   "boilerplate.containers.Payroll.weekDayName": "Day",
   "boilerplate.containers.Payroll.Workflow.actionType": "Action",
   "boilerplate.containers.Payroll.Workflow.approval": "Approval",
+  "boilerplate.containers.Payroll.Workflow.level": "Level", 
   "boilerplate.containers.Payroll.Workflow.documentName": "Document Name",
   "boilerplate.containers.Payroll.Workflow.documentType": "Document Type",
   "boilerplate.containers.Payroll.Workflow.nextStep": "Next Step",

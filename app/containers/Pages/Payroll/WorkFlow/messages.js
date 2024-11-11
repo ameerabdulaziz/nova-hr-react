@@ -25,6 +25,10 @@ export default defineMessages({
     id: `${scope}.approval`,
     defaultMessage: 'approval',
   },
+  level: {
+    id: `${scope}.level`,
+    defaultMessage: 'level',
+  },
   step  : {
     id: `${scope}.step`,
     defaultMessage: 'step',

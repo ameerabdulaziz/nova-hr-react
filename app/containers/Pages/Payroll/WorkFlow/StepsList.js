@@ -85,7 +85,7 @@ const handledelete = (event, row) => {
 
 const handleAdd = () => {
   var formId=dataList.length>0?(dataList[dataList.length-1].formId)+1:1 ;
-  setdataList((prev) => [...prev, {formId:formId,id:0,arName:"",approvalType:1}]);
+  setdataList((prev) => [...prev, {formId:formId,id:0,arName:"",approvalType:1,levelId:""}]);
 }
 
 
@@ -101,6 +101,9 @@ const handleChange = (event, row) => {
           } 
           if (event.target.name == "approvalType") {
             x.approvalType = event.target.value;
+          } 
+          if (event.target.name == "levelId") {
+            x.levelId = event.target.value??"";
           } 
         }
         return x;
@@ -137,6 +140,7 @@ const handleChange = (event, row) => {
                         
                         <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}><FormattedMessage {...Payrollmessages.id}/></TableCell>
                         <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}><FormattedMessage {...Payrollmessages.name} /></TableCell>
+                        <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}><FormattedMessage {...messages.level} /></TableCell>
                         <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}><FormattedMessage {...messages.approval} /></TableCell>
                         <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}></TableCell>
                         <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}></TableCell>
@@ -151,7 +155,7 @@ const handleChange = (event, row) => {
                               <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>{row.formId}</TableCell>
                               <TableCell style={{width: '5px',padding:'0px',textAlign:'center'}}>
                                 <TextField
-                                  style={{width:'400px'}}
+                                  style={{width:'200px'}}
                                   id="arName"
                                   name="arName"
                                   value={row.arName}
@@ -161,7 +165,21 @@ const handleChange = (event, row) => {
                                   autoComplete='off'
                                   />
                               </TableCell>                                                         
-                              
+                              <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}>
+                                <Select
+                                  style={{width:'150px'}}
+                                  id="levelId"
+                                  name="levelId"
+                                  variant="outlined"
+                                  value={row.levelId}
+                                  onChange={(e) => handleChange(e,row)}    
+                                 >                   
+                                 <MenuItem value={0}><em></em></MenuItem> 
+                                  <MenuItem value={1}>Supervisor</MenuItem>
+                                  <MenuItem value={2}>Manager</MenuItem>
+                                  <MenuItem value={3}>HR</MenuItem>
+                                </Select>
+                              </TableCell>  
                               <TableCell style={{width: '20px',padding:'0px',textAlign:'center'}}>
                                 <Select
                                   style={{width:'150px'}}

@@ -87,7 +87,9 @@ function WorkFlowCreate(props) {
           (row) => row.isSelected == true
         );
         data.jobList = jobList.filter((row) => row.isSelected == true);
-        data.departmentList = departmentList.filter((row) => row.isSelected == true);
+        data.departmentList = departmentList.filter(
+          (row) => row.isSelected == true
+        );
         data.steps = Steps;
         data.actions = Actions;
         let response = await ApiData(locale).Save(data);
@@ -109,38 +111,29 @@ function WorkFlowCreate(props) {
   }
   async function getDocType(DocumentId, fromchange) {
     try {
-      if (DocumentId) {
-        setIsLoading(true);
-        let result = [];
-        if (DocumentId == 1)
-          result = await GeneralListApis(locale).GetPermissionList();
-        else if (DocumentId == 2)
-          result = await GeneralListApis(locale).GetMissionList();
-        else if (DocumentId == 3)
-          result = await Vacapi(locale).GetVacationType();
-        else if (DocumentId == 4)
-          result = await GeneralListApis(locale).GetPenaltyList();
-        else if (DocumentId == 5)
-          result = await GeneralListApis(locale).GetRewards();
+      setIsLoading(true);
+      let result = [];
+      if (DocumentId == 1)
+        result = await GeneralListApis(locale).GetPermissionList();
+      else if (DocumentId == 2)
+        result = await GeneralListApis(locale).GetMissionList();
+      else if (DocumentId == 3) result = await Vacapi(locale).GetVacationType();
+      else if (DocumentId == 4)
+        result = await GeneralListApis(locale).GetPenaltyList();
+      else if (DocumentId == 5)
+        result = await GeneralListApis(locale).GetRewards();
 
-        setDocTypeList(result);
-        result = await GeneralListApis(locale).GetActionByDocList(DocumentId);
-        setActionsTypeList(result);
-        if (fromchange)
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            docTypeId: "",
-            docTypeName: "",
-          }));
-      } else {
-        setDocTypeList([]);
-        setActionsTypeList([]);
+      setDocTypeList(result);
+      result = await GeneralListApis(locale).GetActionByDocList(
+        DocumentId == 0 || DocumentId == null ? 1 : DocumentId
+      );
+      setActionsTypeList(result);
+      if (fromchange)
         setdata((prevFilters) => ({
           ...prevFilters,
           docTypeId: "",
           docTypeName: "",
         }));
-      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -153,7 +146,7 @@ function WorkFlowCreate(props) {
       setDocumentList(Documents);
 
       if (id) {
-        const dataApi = await ApiData(locale).Get(id ?? 0,isCopy);
+        const dataApi = await ApiData(locale).Get(id ?? 0, isCopy);
         setdata(dataApi);
         setjobList(
           dataApi.jobList
@@ -252,11 +245,18 @@ function WorkFlowCreate(props) {
                       <Autocomplete
                         id="documentId"
                         options={DocumentList}
-                        value={{ id: data.documentId, name: data.documentName }}
+                        value={
+                          DocumentList.length > 0
+                            ? DocumentList.find(
+                                (item) => item.id === data.documentId
+                              )
+                            : null
+                        }
                         isOptionEqualToValue={(option, value) =>
-                          value.id === 0 ||
-                          value.id === "" ||
-                          option.id === value.id
+                          value &&
+                          (value.id === 0 ||
+                            value.id === "" ||
+                            option.id === value.id)
                         }
                         getOptionLabel={(option) =>
                           option.name ? option.name : ""
@@ -274,7 +274,6 @@ function WorkFlowCreate(props) {
                             variant="outlined"
                             {...params}
                             name="documentId"
-                            required
                             label={intl.formatMessage(messages.documentName)}
                           />
                         )}
