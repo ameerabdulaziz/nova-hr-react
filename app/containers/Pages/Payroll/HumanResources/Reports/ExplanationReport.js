@@ -162,6 +162,9 @@ function ExplanationReport(props) {
 
       const organizations = await GeneralListApis(locale).GetDepartmentList();
       setOrganizationList(organizations);
+
+      await handleSearch();
+
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -209,6 +212,9 @@ function ExplanationReport(props) {
     {
       name: "questionDetails",
       label: intl.formatMessage(payrollMessages.details),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
     {
       name: "response",
