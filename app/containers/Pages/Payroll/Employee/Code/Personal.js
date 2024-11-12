@@ -355,6 +355,15 @@ function Personal(props) {
       return;
     }
 
+
+
+    if(!birthDateValidationFun(birthDate))
+      {
+        toast.error(intl.formatMessage(messages.birthDateValidationErrMess));
+
+        return;
+      }
+
     var regExp = /[a-zA-Z]/g;
 
     if (identityTypeId?.isCharcter == false && regExp.test(identityNumber)) {
@@ -891,14 +900,26 @@ function Personal(props) {
       Math.floor(
         (new Date(date).setHours(0, 0, 0) - new Date()) / 1000 / 60 / 60 / 24
       ) + 1;
-    console.log("identityExpiry =", dateCheck);
-    console.log("identityExpiry2 =", date);
+
     if (dateCheck <= 0) {
       setIdentityExpiryErrMes(intl.formatMessage(messages.ExpiryCardErrMes));
     } else {
       setIdentityExpiryErrMes("");
     }
   };
+
+
+  const birthDateValidationFun = (date) => {
+
+    const now = new Date();
+    const sixteenYearsAgo = new Date();
+    sixteenYearsAgo.setFullYear(now.getFullYear() - 16);
+
+    const checkBirthDate = new Date(date) <= new Date(sixteenYearsAgo)
+
+    return checkBirthDate;    
+  } 
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -1449,7 +1470,13 @@ function Personal(props) {
                   value={birthDate ? dayjs(birthDate) : birthDate}
                   className={classes.field}
                   onChange={(date) => {
-                    setbirthDate(date);
+
+                    setbirthDate(date)
+                    
+                    if(!birthDateValidationFun(date))
+                      {
+                        toast.error(intl.formatMessage(messages.birthDateValidationErrMess));
+                      }
                   }}
                   onError={(error, value) => {
                     if (error !== null) {

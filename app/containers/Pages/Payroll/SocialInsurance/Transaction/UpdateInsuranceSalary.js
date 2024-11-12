@@ -64,12 +64,20 @@ function UpdateInsuranceSalary(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
 
-    const isLimitBiggerThanSalary = dataList.filter((row) => row?.isSelected).every(item => parseFloat(formInfo.NewMainSal) > item?.fixedElementsSilimit);
 
-    if (isLimitBiggerThanSalary) {
+    if(updateBy === "value")
+    {
+        const isLimitBiggerThanSalary = dataList.filter((row) => row?.isSelected).every(item => parseFloat(formInfo.NewMainSal) > item?.fixedElementsSilimit);
+
+        if (isLimitBiggerThanSalary) {
+          saveInsurance();
+        } else {
+          setOpenParentPopup(true);
+        }
+    }
+    else
+    {
       saveInsurance();
-    } else {
-      setOpenParentPopup(true);
     }
   };
 

@@ -16,9 +16,9 @@ export default defineMessages({
     id: `${scope}.CounterIconWidget.newHired`,
     defaultMessage: 'newHired',
   },
-  inPropation: {
-    id: `${scope}.CounterIconWidget.inPropation`,
-    defaultMessage: 'inPropation',
+  inProbation: {
+    id: `${scope}.CounterIconWidget.inProbation`,
+    defaultMessage: 'inProbation',
   },
   resignation: {
     id: `${scope}.CounterIconWidget.resignation`,

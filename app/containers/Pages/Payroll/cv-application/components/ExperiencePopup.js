@@ -102,7 +102,7 @@ function ExperiencePopup(props) {
           [th.breakpoints.down('md')]: {
             width: '100%',
           },
-          width: '500px',
+          width: '80%',
         }),
       }}
     >
@@ -115,7 +115,7 @@ function ExperiencePopup(props) {
       </DialogTitle>
       <DialogContent>
         <Grid container mt={1} spacing={2}>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12}>
             <TextField
               name='jobName'
               value={formInfo.jobName}
@@ -147,19 +147,6 @@ function ExperiencePopup(props) {
               value={formInfo.companyName}
               onChange={onInputChange}
               label={intl.formatMessage(messages.workPlace)}
-              fullWidth
-              required
-              variant='outlined'
-              autoComplete='off'
-            />
-          </Grid>
-
-          <Grid item xs={12} lg={6}>
-            <TextField
-              name='leaveReason'
-              value={formInfo.leaveReason}
-              onChange={onInputChange}
-              label={intl.formatMessage(messages.leaveReason)}
               fullWidth
               required
               variant='outlined'
@@ -210,6 +197,21 @@ function ExperiencePopup(props) {
               />
             </LocalizationProvider>
           </Grid>
+
+          <Grid item xs={12} >
+            <TextField
+              name='leaveReason'
+              value={formInfo.leaveReason}
+              onChange={onInputChange}
+              label={intl.formatMessage(messages.leaveReason)}
+              fullWidth
+              required
+              variant='outlined'
+              autoComplete='off'
+            />
+          </Grid>
+
+
         </Grid>
       </DialogContent>
 
