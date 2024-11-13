@@ -90,7 +90,7 @@ import { Grid } from '@mui/material';
                 
                           <Grid item xs={12} >
                             <div style={{display:"flex", justifyContent:"space-between",paddingTop:0,paddingBottom:5}}>
-                              <span><FormattedMessage {...messages.weekend} /></span>
+                              <span><FormattedMessage {...messages.detailedAttendanceWeekendFooter} /></span>
                               <span>{Data.totalShiftVacancy}</span>
                               <span>( <FormattedMessage {...messages.Day} /> )</span>
                             </div>

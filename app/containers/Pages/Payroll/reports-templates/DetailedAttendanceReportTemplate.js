@@ -23,12 +23,12 @@ function DetailedAttendanceReportTemplate(props) {
     intl.formatMessage(messages.signOut) , 
     intl.formatMessage(messages.workingHours) , 
     intl.formatMessage(messages.lateness),
-    intl.formatMessage(messages.OverTime), 
+    intl.formatMessage(messages.detailedAttendanceOverTime), 
     intl.formatMessage(messages.lessTime), 
     intl.formatMessage(messages.leave), 
     intl.formatMessage(messages.mission), 
     intl.formatMessage(messages.permission), 
-    intl.formatMessage(messages.weekend) ,
+    intl.formatMessage(messages.detailedAttendanceWeekend) ,
     intl.formatMessage(messages.absence), 
     intl.formatMessage(messages.Manual)
   ])
@@ -40,12 +40,12 @@ function DetailedAttendanceReportTemplate(props) {
       intl.formatMessage(messages.signOut), 
       intl.formatMessage(messages.workingHours), 
       intl.formatMessage(messages.lateness),
-      intl.formatMessage(messages.OverTime), 
+      intl.formatMessage(messages.detailedAttendanceOverTime), 
       intl.formatMessage(messages.lessTime), 
       intl.formatMessage(messages.leave), 
       intl.formatMessage(messages.mission), 
       intl.formatMessage(messages.permission), 
-      intl.formatMessage(messages.weekend) ,
+      intl.formatMessage(messages.detailedAttendanceWeekend) ,
       intl.formatMessage(messages.absence)
     ])
 

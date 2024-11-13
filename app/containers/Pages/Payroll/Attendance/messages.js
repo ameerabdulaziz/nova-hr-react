@@ -917,6 +917,14 @@ includingEmployeesWithoutAttendanceRule: {
   id: `${scope}.includingEmployeesWithoutAttendanceRule`,
   defaultMessage: 'includingEmployeesWithoutAttendanceRule',
 },
+detailedAttendanceWeekend: {
+  id: `${scope}.detailedAttendanceWeekend`,
+  defaultMessage: 'Weekend',
+},
+detailedAttendanceWeekendFooter: {
+  id: `${scope}.detailedAttendanceWeekendFooter`,
+  defaultMessage: 'Weekend',
+},
 // OverTimeDetailsReport
 attendanceDate: {
   id: `${scope}.AttendanceDate`,
@@ -1563,6 +1571,10 @@ devicePass: {
     id: `${scope}.OverTime`,
     defaultMessage: 'OverTime',
   },
+  detailedAttendanceOverTime: {
+    id: `${scope}.detailedAttendanceOverTime`,
+    defaultMessage: 'OverTime',
+  },
   AccruedLeave: {
     id: `${scope}.AccruedLeave`,
     defaultMessage: 'Accrued Leave',
@@ -1681,7 +1693,19 @@ devicePass: {
   },
   printAndReviewErrMess: {
     id: `${scope}.printAndReviewErrMess`,
-    defaultMessage: 'You must to choose print and review type first',
+    defaultMessage: 'You must to choose by employee or by date first before print or review',
+  },
+  missionDetails: {
+    id: `${scope}.missionDetails`,
+    defaultMessage: 'Mission Details',
+  },
+  StartAddress: {
+    id: `${scope}.StartAddress`,
+    defaultMessage: 'Start Address',
+  },
+  EndAddress: {
+    id: `${scope}.EndAddress`,
+    defaultMessage: 'End Address',
   },
   // MonthlyAttendanceSummaryReport
   lateHoursNotAuth: {
