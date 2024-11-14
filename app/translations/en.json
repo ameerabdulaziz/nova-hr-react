@@ -1572,6 +1572,7 @@
   "boilerplate.containers.Payroll.Employee.personal.gender": "Gender",
   "boilerplate.containers.Payroll.Employee.personal.gov": "Governorate",
   "boilerplate.containers.Payroll.Employee.personal.grossSalary": "Gross Salary",
+  "boilerplate.containers.Payroll.Employee.personal.DateErrMess": "You must to choose To Date with From Date",
   "boilerplate.containers.Payroll.Employee.personal.idCardNumber": "Id Card Number",
   "boilerplate.containers.Payroll.Employee.personal.identityExpiry": "ID Card Expiry",
   "boilerplate.containers.Payroll.Employee.personal.identityIssuingAuth": "ID Card Issuing Auth",

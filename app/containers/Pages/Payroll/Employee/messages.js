@@ -116,6 +116,10 @@ export default defineMessages({
     id: `${scope}.personal.grossSalary`,
     defaultMessage: 'grossSalary',
   },
+  DateErrMess: {
+    id: `${scope}.personal.DateErrMess`,
+    defaultMessage: 'You must to choose To Date with From Date',
+  },
   qualificationDate: {
     id: `${scope}.personal.qualificationDate`,
     defaultMessage: 'qualificationDate',

@@ -1572,6 +1572,7 @@
   "boilerplate.containers.Payroll.Employee.personal.gender": "النوع",
   "boilerplate.containers.Payroll.Employee.personal.gov": "المحافطة",
   "boilerplate.containers.Payroll.Employee.personal.grossSalary": "الراتب الكلى",
+  "boilerplate.containers.Payroll.Employee.personal.DateErrMess": "'يجب عليك اختيار 'إلى التاريخ' مع 'من التاريخ",
   "boilerplate.containers.Payroll.Employee.personal.idCardNumber": "رقم بطاقة الهوية",
   "boilerplate.containers.Payroll.Employee.personal.identityExpiry": "تاريح الانتهاء",
   "boilerplate.containers.Payroll.Employee.personal.identityIssuingAuth": "تابع لسجل مدنى",
