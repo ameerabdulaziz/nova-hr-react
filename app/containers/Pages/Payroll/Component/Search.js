@@ -26,7 +26,8 @@ function Search(props) {
     notShowEmployeeName,
     BranchIdRequired,
     notShowOrganization,
-    notShowCompany
+    notShowCompany,
+    company,
   } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -112,7 +113,7 @@ function Search(props) {
 
       if(!notShowOrganization)
       {
-        const organizations = await GeneralListApis(locale).GetDepartmentList();
+        const organizations = await GeneralListApis(locale).GetDepartmentList(company ? company : null);
         setOrganizationList(organizations);
       }
 

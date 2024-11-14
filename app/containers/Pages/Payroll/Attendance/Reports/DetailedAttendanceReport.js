@@ -528,6 +528,14 @@ function DetailedAttendanceReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
 
+
+  console.log("searchData =", searchData);
+  console.log("filterHighlights =", filterHighlights);
+  
+  
+
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -539,6 +547,7 @@ function DetailedAttendanceReport(props) {
                setIsLoading={setIsLoading}
                DateError={DateError}
                setDateError={setDateError}
+               company={searchData.BranchId}
             ></Search>
           </Grid>
 
