@@ -75,13 +75,13 @@ const CalculateAttendancePopUp = ({
     {
       setData((prev) => ({
             ...prev,
-            AttendanceDate: Data.rowData[5] ? Data.rowData[5] : "",
-            employeeName: Data.rowData[6] ? Data.rowData[6] : "",
-            shiftCode: Data.rowData[3]  ? Data.rowData[3] : null,
-            timeIn: shortcutType === "CancelLate" && Data.rowData[4] && Data.rowData[20] ? Data.rowData[4].split("T")[0] + "T" + Data.rowData[20]
-                  : Data.rowData[4] && Data.rowData[6] ? Data.rowData[4].split("T")[0] + "T" + Data.rowData[6].split("T")[1] : "" ,
-            timeOut: shortcutType === "EarlyLeave" && Data.rowData[4] && Data.rowData[21] ? Data.rowData[4].split("T")[0] + "T" + Data.rowData[21]
-                  : Data.rowData[4] && Data.rowData[7] ? Data.rowData[4].split("T")[0] + "T" + Data.rowData[7].split("T")[1] : "" ,
+            AttendanceDate: Data.shiftDate ? Data.shiftDate : "",
+            employeeName: Data.employeeName ? Data.employeeName : "",
+            shiftCode: Data.shiftCode  ? Data.shiftCode : null,
+            timeIn: shortcutType === "CancelLate" && Data.shiftDate && Data.startTime ? Data.shiftDate.split("T")[0] + "T" + Data.startTime
+            : Data.shiftDate && Data.timeIn ? Data.shiftDate.split("T")[0] + "T" + Data.timeIn: "" ,
+            timeOut: shortcutType === "EarlyLeave" && Data.shiftDate && Data.endTime ? Data.shiftDate.split("T")[0] + "T" + Data.endTime
+            : Data.shiftDate && Data.timeOut ? Data.shiftDate.split("T")[0] + "T" + Data.timeOut: "" ,
           }));
     }
   }, [Data]);

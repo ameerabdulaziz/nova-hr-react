@@ -23,7 +23,8 @@ function EmployeeData(props) {
     GetworkingYears,
     id,
     branchId,isdisabled,IsSecuredData,
-    required = true
+    required = true,
+    empid
   } = props;
   const { classes, cx } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -166,6 +167,7 @@ function EmployeeData(props) {
                     value !== null ? value.name : ""
                   );
                 }}
+                disabled={empid ? true : false}
                 renderInput={(params) => (
                   <TextField
                     variant="outlined"

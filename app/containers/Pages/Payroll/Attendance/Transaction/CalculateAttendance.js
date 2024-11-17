@@ -94,7 +94,7 @@ function CalculateAttendance(props) {
         null
       );
       setEmployeeList(employee);
-      debugger;
+
       if (company.length > 0) {
         const response = await GeneralListApis(locale).getOpenMonth(
           company[0].id,
@@ -132,7 +132,7 @@ function CalculateAttendance(props) {
   };
 
   const getFilterHighlights = () => {
-    debugger;
+
     const highlights = [];
 
     const company = getAutoCompleteValue(companyList, formInfo.companyId);
@@ -183,7 +183,7 @@ function CalculateAttendance(props) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
-    debugger;
+
     let fromdate=new Date(openMonth.fromDate);
     const isValidRange =
       isDateInRange(formInfo.FromDate,fromdate.setDate(fromdate.getDate() - 1) , openMonth.todate)
@@ -223,7 +223,7 @@ function CalculateAttendance(props) {
   };
 
   const handleCalculate = async () => {
-    debugger;
+
     try {
       if (Object.values(DateError).includes(true)) {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
@@ -262,7 +262,7 @@ function CalculateAttendance(props) {
 
       const response = await api(locale).CalculateAttendance(body, formData);
       if (response.status == 200) {
-        debugger;
+
         if (response.data.length > 0) toast.error(response.data);
         else {
           toast.success(notif.success);
@@ -299,7 +299,7 @@ function CalculateAttendance(props) {
       }
 
       setIsLoading(true);
-      debugger;
+
       const formData = {
         FromDate: formateDate(formInfo.FromDate),
         ToDate: formateDate(formInfo.ToDate),
@@ -315,7 +315,7 @@ function CalculateAttendance(props) {
       };
 
       const response = await api(locale).PostToPayroll(body, formData);
-debugger;
+
       if (response.success) {
         if (response.success.length == 0) toast.success(notif.success);
         else 
@@ -442,13 +442,13 @@ debugger;
 
   const onCompanyAutoCompleteChange = async (value) => {
     setIsLoading(true);
-    debugger;
+
     setFormInfo((prev) => ({
       ...prev,
       EmployeeIds: [],
       OrganizationIds: [],
     }));
-    debugger;
+
     const companyId = value !== null ? value.id : null;
 
     try {
@@ -542,8 +542,9 @@ debugger;
   };
 
   const handleClickOpen = (item, popUpTitle, disabledLock, shortcutType) => {
+    
     setOpenParentPopup(true);
-    setSelectedRowData(item);
+    setSelectedRowData(tableData.find(itemData => itemData.id === item.rowData[0]));
     setPopUpTitle(popUpTitle);
     setDisabledLock(disabledLock);
     setShortcutType(shortcutType);
@@ -552,7 +553,7 @@ debugger;
 
   const columns = [
     {
-      name: "employeeId",
+      name: "id",
       options: {
         filter: false,
         display: false,

@@ -80,7 +80,7 @@ function PermissionTrxCreate(props) {
 
   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
   useEffect(() => {
-    debugger;
+
     if (empid) {
       let startTime, endTime, total;
       let shiftDate = format(new Date(empid.shiftDate), "yyyy-MM-dd");
@@ -357,6 +357,7 @@ function PermissionTrxCreate(props) {
                       }));
                     }
                   }}
+                  disabled={empid ? true : false}
                 />
               </LocalizationProvider>
             </Grid>
@@ -395,6 +396,7 @@ function PermissionTrxCreate(props) {
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
+                empid={empid}
               ></EmployeeData>
             </Grid>
 
