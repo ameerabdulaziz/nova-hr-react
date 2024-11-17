@@ -477,8 +477,6 @@ function DetailedAttendanceReport(props) {
 
   const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
 
-  
-
     let OpenMonthData 
 
     try
@@ -506,7 +504,7 @@ function DetailedAttendanceReport(props) {
 
 
   useEffect(()=>{
-    if(searchData.BranchId)
+    if(searchData.BranchId !== "" && searchData.EmployeeId === "")
     {      
       openMonthDateWithCompanyChangeFun(searchData.BranchId)
     }
@@ -526,13 +524,6 @@ function DetailedAttendanceReport(props) {
     }
 
   },[searchData.BranchId, searchData.EmployeeId])
-
-
-
-  console.log("searchData =", searchData);
-  console.log("filterHighlights =", filterHighlights);
-  
-  
 
 
 

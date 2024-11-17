@@ -30,6 +30,7 @@ import { formateDate, getAutoCompleteValue } from "../../helpers";
 function LateAttendanceReport(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +41,7 @@ function LateAttendanceReport(props) {
     ToDate: null,
     EmployeeId: "",
     OrganizationId: "",
-    BranchId: '',
+    BranchId: branchId,
     EmpStatusId: 1,
     IncludeLeavesAndShiftLeaves: false,
     type: 1
@@ -293,6 +294,59 @@ function LateAttendanceReport(props) {
       ];
   }
 
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(!EmployeeId)
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+      }
+      else
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      }
+
+      
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if(searchData.BranchId !== "" && searchData.EmployeeId === "")
+    {      
+      openMonthDateWithCompanyChangeFun(searchData.BranchId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId !== "")
+    {
+      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId === "")
+    {
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId])
+
+  
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -305,6 +359,7 @@ function LateAttendanceReport(props) {
                setIsLoading={setIsLoading}
                DateError={DateError}
               setDateError={setDateError}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
 
