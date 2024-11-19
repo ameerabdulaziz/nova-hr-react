@@ -148,14 +148,7 @@ function SalaryYearReport(props) {
 
       setYearList(years)
 
-      if (branchId) {
-        const response = await GeneralListApis(locale).getOpenMonth(
-          branchId,
-          0
-        );
 
-        setYear(years.find((item) => item.id === response.yearId) ?? null);
-      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -230,8 +223,58 @@ function SalaryYearReport(props) {
         filter: true,
       },
     },
-    
   ];
+
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+    let selectedYear
+
+    try
+    {
+      if(YearList.length !== 0)
+      {
+        if(!EmployeeId)
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        }
+        else
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        }
+
+
+
+        selectedYear = YearList.find(item => item.id == OpenMonthData.yearId)
+        
+          setYear(selectedYear ? selectedYear : null)
+
+      }
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if((searchData.BranchId || searchData.BranchId !== "") && (!searchData.EmployeeId ||searchData.EmployeeId === ""))
+    {      
+      openMonthDateWithCompanyChangeFun(searchData.BranchId)
+    }
+
+    if((!searchData.BranchId || searchData.BranchId === "") && (searchData.EmployeeId  || searchData.EmployeeId !== ""))
+    {
+      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+    }
+
+    if((!searchData.BranchId || searchData.BranchId === "") && (!searchData.EmployeeId || searchData.EmployeeId === ""))
+    {
+      setYear(null)
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId,YearList])
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -244,6 +287,7 @@ function SalaryYearReport(props) {
               searchData={searchData}
               setIsLoading={setIsLoading}
               notShowDate={true}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
 

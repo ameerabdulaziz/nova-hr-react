@@ -27,6 +27,7 @@ function TotalDeptSalaryReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName"); 
   const [isLoading, setIsLoading] = useState(true);
@@ -46,6 +47,8 @@ function TotalDeptSalaryReport(props) {
   const [OrganizationList, setOrganizationList] = useState([]);
   const [fromOrganization, setFromOrganization] = useState(null);
   const [Organization, setOrganization] = useState(null);
+  const [BranchList, setBranchList] = useState([]);
+  const [BranchId, setBranchId] = useState(branchId);
 
   const [filterHighlights, setFilterHighlights] = useState([]);
 
@@ -54,6 +57,13 @@ function TotalDeptSalaryReport(props) {
 
   const getFilterHighlights = () => {
     const highlights = [];
+
+    if (BranchId) {
+      highlights.push({
+        label: intl.formatMessage(messages.company),
+        value: company.name,
+      });
+    }
 
     if (Month) {
       highlights.push({
@@ -145,8 +155,10 @@ function TotalDeptSalaryReport(props) {
       const template = await GeneralListApis(locale).GetPayTemplateList();
       const months = await GeneralListApis(locale).GetMonths();
       const years = await GeneralListApis(locale).GetYears();
+      const BrList = await GeneralListApis(locale).GetBranchList();
       
-
+      
+      setBranchList(BrList);
       setOrganizationList(organizations);
       setTemplatesList(template)
 
@@ -198,166 +210,229 @@ function TotalDeptSalaryReport(props) {
     },  
   ];
 
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId) => {
+
+    let OpenMonthData 
+    let selectedYear
+    let selectedMonth
+
+    try
+    {
+      if(YearList.length !== 0 && MonthList.length !== 0 && BranchId !== 0)
+      {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+
+          selectedYear = YearList.find(item => item.id == OpenMonthData.yearId)
+          selectedMonth = MonthList.find(item => item.id == OpenMonthData.monthId)
+        
+          setYear(selectedYear ? selectedYear : null)
+          setMonth(selectedMonth ? selectedMonth : null)
+      }
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if( BranchId !== 0)
+    {      
+      openMonthDateWithCompanyChangeFun(BranchId)
+    }
+
+    if(BranchId === 0)
+    {
+      setYear(null)
+      setMonth(null)
+      
+    }
+
+  },[BranchId,YearList,MonthList])
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
-        <Grid container spacing={2}>
-
-                  <Grid item xs={12}  md={4}> 
-                    <Autocomplete
-                          multiple  
-                          className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
-                          id="checkboxes-tags-demo"
-                          isOptionEqualToValue={(option, value) => option.id === value.id}
-                          options={OrganizationList.length != 0 ? OrganizationList: []}
-                          disableCloseOnSelect
-                          getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
+          <Grid container spacing={2}>
+              <Grid item xs={12} md={3}>
+                      <Autocomplete
+                        id="branchId"
+                        options={BranchList}
+                        isOptionEqualToValue={(option, value) =>
+                          value.id === 0 ||
+                          value.id === "" ||
+                          option.id === value.id
+                        }
+                        getOptionLabel={(option) =>
+                          option.name ? option.name : ""
+                        }
+                        value={ BranchList.find((item) => item.id === BranchId)
+                            ?? null
                         }
                         onChange={(event, value) => {
-                          if (value !== null) {
-                            setOrganization(value);
-                          } else {
-                            setOrganization(null);
-                          }
-                      }}
-                          renderOption={(props, option, { selected }) => (
-                            <li {...props}>
-                              <Checkbox
-                                icon={icon}
-                                checkedIcon={checkedIcon}
-                                style={{ marginRight: 8 }}
-                                checked={selected}
-                              />
-                              {option.name}
-                            </li>
-                          )}
-                          style={{ width: 500 }}
-                          renderInput={(params) => (
-                            <TextField {...params} 
-                            label={intl.formatMessage(messages.orgName)}
-                            />
-                          )}
-                        />
-              
-                  </Grid>
-
-
-          <Grid item xs={12} md={3}>
-           
-                    <Autocomplete
-                        id="ddlMenu"   
-                        isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                        options={TemplatesList.length != 0 ? TemplatesList: []}
-                        value={Template}
-                        getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        renderOption={(props, option) => {
-                            return (
-                            <li {...props} key={option.id}>
-                                {option.name}
-                            </li>
-                            );
+                          setBranchId(value !== null ? value.id : 0);
                         }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setTemplate(value);
-                            } else {
-                                setTemplate(null);
-                            }
-                        }}
+
                         renderInput={(params) => (
-                        <TextField
+                          <TextField
+                            variant="outlined"
                             {...params}
-                            name="Template"
-                               label={intl.formatMessage(messages.Template)}
-                            margin="normal" 
-                            className={style.fieldsSty}
-                            
-                            />
-
+                            name="branchId"
+                            label={intl.formatMessage(Payrollmessages.branch)}
+                          />
                         )}
-                        /> 
+                      />
                     </Grid>
 
-                  <Grid item xs={12} md={2}>
-            
-                    <Autocomplete
-                        id="ddlMenu"   
-                        isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                        options={MonthList.length != 0 ? MonthList: []}
-                        getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
+              <Grid item xs={12} md={3}>
+                <Autocomplete
+                    id="ddlMenu"   
+                    isOptionEqualToValue={(option, value) => option.id === value.id}                      
+                    options={TemplatesList.length != 0 ? TemplatesList: []}
+                    value={Template}
+                    getOptionLabel={(option) =>(
+                        option  ? option.name : ""
+                    )
+                    }
+                    renderOption={(props, option) => {
+                        return (
+                        <li {...props} key={option.id}>
+                            {option.name}
+                        </li>
+                        );
+                    }}
+                    onChange={(event, value) => {
+                        if (value !== null) {
+                            setTemplate(value);
+                        } else {
+                            setTemplate(null);
                         }
-                        renderOption={(props, option) => {
-                            return (
-                            <li {...props} key={option.id}>
-                                {option.name}
-                            </li>
-                            );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                              setMonth(value);
-                            } else {
-                              setMonth(null);
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            name="Month"
-                            label={intl.formatMessage(messages.Month)}
-                            margin="normal" 
-                            className={style.fieldsSty}
-                            
-                            />
-                        )}
-                    />
-                </Grid>
-
-                  <Grid item xs={12} md={2}>
-            
-                        <Autocomplete
-                            id="ddlMenu"   
-                            isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                            options={YearList.length != 0 ? YearList: []}
-                            getOptionLabel={(option) =>(
-                                option  ? option.name : ""
-                            )
-                            }
-                            renderOption={(props, option) => {
-                                return (
-                                <li {...props} key={option.id}>
-                                    {option.name}
-                                </li>
-                                );
-                            }}
-                            onChange={(event, value) => {
-                                if (value !== null) {
-                                    setYear(value);
-                                } else {
-                                    setYear(null);
-                                }
-                            }}
-                            renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                name="VacationType"
-                                label={intl.formatMessage(messages.year)}
-                                margin="normal" 
-                                className={style.fieldsSty}
-                                
-                                />
-                            )}
+                    }}
+                    renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        name="Template"
+                           label={intl.formatMessage(messages.Template)}
+                        margin="normal" 
+                        className={style.fieldsSty}
                         />
+                    )}
+                    /> 
                 </Grid>
 
+                <Grid item xs={12} md={2}>
+                  <Autocomplete
+                      id="ddlMenu"   
+                      isOptionEqualToValue={(option, value) => option.id === value.id}                      
+                      options={YearList.length != 0 ? YearList: []}
+                      value={Year}
+                      getOptionLabel={(option) =>(
+                          option  ? option.name : ""
+                      )
+                      }
+                      renderOption={(props, option) => {
+                          return (
+                          <li {...props} key={option.id}>
+                              {option.name}
+                          </li>
+                          );
+                      }}
+                      onChange={(event, value) => {
+                          if (value !== null) {
+                              setYear(value);
+                          } else {
+                              setYear(null);
+                          }
+                      }}
+                      renderInput={(params) => (
+                      <TextField
+                          {...params}
+                          name="VacationType"
+                          label={intl.formatMessage(messages.year)}
+                          margin="normal" 
+                          className={style.fieldsSty}
+                          />
+                      )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={2}>
+                  <Autocomplete
+                      id="ddlMenu"   
+                      isOptionEqualToValue={(option, value) => option.id === value.id}                      
+                      options={MonthList.length != 0 ? MonthList: []}
+                      value={Month}
+                      getOptionLabel={(option) =>(
+                          option  ? option.name : ""
+                      )
+                      }
+                      renderOption={(props, option) => {
+                          return (
+                          <li {...props} key={option.id}>
+                              {option.name}
+                          </li>
+                          );
+                      }}
+                      onChange={(event, value) => {
+                          if (value !== null) {
+                            setMonth(value);
+                          } else {
+                            setMonth(null);
+                          }
+                      }}
+                      renderInput={(params) => (
+                      <TextField
+                          {...params}
+                          name="Month"
+                          label={intl.formatMessage(messages.Month)}
+                          margin="normal" 
+                          className={style.fieldsSty}
+                          />
+                      )}
+                  />
+                </Grid>
+
+                <Grid item xs={12}  md={4}> 
+              <Autocomplete
+                    multiple  
+                    className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
+                    id="checkboxes-tags-demo"
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    options={OrganizationList.length != 0 ? OrganizationList: []}
+                    disableCloseOnSelect
+                    getOptionLabel={(option) =>(
+                      option  ? option.name : ""
+                  )
+                  }
+                  onChange={(event, value) => {
+                    if (value !== null) {
+                      setOrganization(value);
+                    } else {
+                      setOrganization(null);
+                    }
+                }}
+                    renderOption={(props, option, { selected }) => (
+                      <li {...props}>
+                        <Checkbox
+                          icon={icon}
+                          checkedIcon={checkedIcon}
+                          style={{ marginRight: 8 }}
+                          checked={selected}
+                        />
+                        {option.name}
+                      </li>
+                    )}
+                    style={{ width: 500 }}
+                    renderInput={(params) => (
+                      <TextField {...params} 
+                      label={intl.formatMessage(messages.orgName)}
+                      />
+                    )}
+                  />
+              </Grid>
 
                 <Grid item md={1.5} >
                   <FormControlLabel
@@ -375,28 +450,25 @@ function TotalDeptSalaryReport(props) {
                     }
                     label={intl.formatMessage(messages.cash)}
                   />
-            </Grid>
+                </Grid>
 
-          
-            <Grid item md={2}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={searchData.bankonly}
-                        onChange={(evt) => {
-                          setsearchData((prev) => ({
-                            ...prev,
-                            cash: false,
-                            bankonly: evt.target.checked,
-                          }));
-                        }}
+                <Grid item md={2}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={searchData.bankonly}
+                            onChange={(evt) => {
+                              setsearchData((prev) => ({
+                                ...prev,
+                                cash: false,
+                                bankonly: evt.target.checked,
+                              }));
+                            }}
+                          />
+                        }
+                        label={intl.formatMessage(messages.bankOnly)}
                       />
-                    }
-                    label={intl.formatMessage(messages.bankOnly)}
-                  />
-            </Grid>
-
-                  
+                </Grid>
 
           <Grid item xs={12} md={2}>
             <Button

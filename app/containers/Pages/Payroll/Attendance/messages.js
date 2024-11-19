@@ -2056,6 +2056,10 @@ devicePass: {
     id: `${scope}.method`,
     defaultMessage: 'Method',
   },
+  AreaCode: {
+    id: `${scope}.AreaCode`,
+    defaultMessage: 'Area Code',
+  },
   ShiftType: {
     id: `${scope}.ShiftType`,
     defaultMessage: 'ShiftType',

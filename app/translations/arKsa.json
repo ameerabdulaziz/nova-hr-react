@@ -1125,6 +1125,7 @@
   "boilerplate.containers.Payroll.Attendance.maxRepeated": "الحد الاقصى للتكرار",
   "boilerplate.containers.Payroll.Attendance.maxRepeatedPermissionIs": "الحد الأقصى للإذن المتكرر هو",
   "boilerplate.containers.Payroll.Attendance.method": "طريفة السحب",
+  "boilerplate.containers.Payroll.Attendance.AreaCode": "كود المنطقة",
   "boilerplate.containers.Payroll.Attendance.MinDate": "اول تاريخ",
   "boilerplate.containers.Payroll.Attendance.minMinuteNo": "الحد الادنى للدقائق",
   "boilerplate.containers.Payroll.Attendance.minMinutesCountIs": "الحد الادنى لعدد الدقائق هو",

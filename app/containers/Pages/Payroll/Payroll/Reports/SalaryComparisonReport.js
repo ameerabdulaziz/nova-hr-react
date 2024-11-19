@@ -233,16 +233,6 @@ function SalaryComparisonReport(props) {
       setMonthList(months)
       setYearList(years)
 
-      if (branchId) {
-        const response = await GeneralListApis(locale).getOpenMonth(
-          branchId,
-          0
-        );
-
-        setMonth1(months.find((item) => item.id === response.monthId) ?? null  );
-        setYear1(years.find((item) => item.id === response.yearId) ?? null);
-
-      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -297,6 +287,96 @@ function SalaryComparisonReport(props) {
     },    
   ];
 
+
+
+  function getPreviousMonth(monthAbbrev, year) {
+
+    const date = new Date(`1 ${monthAbbrev} ${year}`);
+    
+    date.setMonth(date.getMonth() - 1);
+    
+    const previousMonth = date.toLocaleString("en-US", { month: "short" });
+    const previousYear = date.getFullYear();
+    
+    return { month: previousMonth, year: previousYear };
+  }
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+    let selectedYear
+    let selectedMonth
+    let prevYear
+    let prevMonth
+
+    try
+    {
+      if(YearList.length !== 0 && MonthList.length !== 0)
+      {
+        if(!EmployeeId)
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        }
+        else
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        }
+
+        selectedYear = YearList.find(item => item.id == OpenMonthData.yearId)
+        selectedMonth = MonthList.find(item => item.id == OpenMonthData.monthId)
+
+       
+       if(selectedYear && selectedMonth) 
+       {
+         const { month: previousMonth, year: previousYear } = getPreviousMonth(selectedMonth.name, selectedYear.name);
+       
+         prevYear = YearList.find(item => item.name == previousYear)
+         prevMonth = MonthList.find(item => item.name == previousMonth)
+
+         setYear2(prevYear ? prevYear : null)
+         setMonth2(prevMonth ? prevMonth : null)
+       }
+       else
+       {
+        setYear2(null)
+        setMonth2(null)
+       }
+        
+        setYear1(selectedYear ? selectedYear : null)
+        setMonth1(selectedMonth ? selectedMonth : null)
+
+      }
+    }
+    catch(err)
+    {
+
+    }
+
+  }
+
+
+  useEffect(()=>{
+    if((searchData.BranchId || searchData.BranchId !== "") && (!searchData.EmployeeId ||searchData.EmployeeId === ""))
+    {      
+      openMonthDateWithCompanyChangeFun(searchData.BranchId)
+    }
+
+    if((!searchData.BranchId || searchData.BranchId === "") && (searchData.EmployeeId  || searchData.EmployeeId !== ""))
+    {
+      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+    }
+
+    if((!searchData.BranchId || searchData.BranchId === "") && (!searchData.EmployeeId || searchData.EmployeeId === ""))
+    {
+      setYear1(null)
+      setMonth1(null)
+      setYear2(null)
+      setMonth2(null)
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId,YearList,MonthList])
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -308,6 +388,7 @@ function SalaryComparisonReport(props) {
               searchData={searchData}
               setIsLoading={setIsLoading}
               notShowDate={true}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
 
@@ -393,6 +474,7 @@ function SalaryComparisonReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={MonthList.length != 0 ? MonthList: []}
+                            value={Month2}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )
@@ -430,6 +512,7 @@ function SalaryComparisonReport(props) {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
                             options={YearList.length != 0 ? YearList: []}
+                            value={Year2}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )

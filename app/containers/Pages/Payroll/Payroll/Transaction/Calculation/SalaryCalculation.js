@@ -112,7 +112,7 @@ function SalaryCalculation(props) {
       setOpenMonth({
         monthId: result.monthId,
         yearId: result.yearId,
-        monthName: result.monthName,
+        monthName: locale === "en" ? result.monthNameEn :  result.monthNameAr,
         yearName: result.yearName,
         fromdate: result.fromDate,
         todate: result.todate,
@@ -531,7 +531,7 @@ function SalaryCalculation(props) {
             </Grid>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5}>
             <Card className={classes.card} sx={{ mt: '0!important' }} >
               <CardContent>
                 <Grid
@@ -548,8 +548,10 @@ function SalaryCalculation(props) {
                     spacing={2}
                     xs={12}
                     md={12}
+                    alignItems="center"
+                    justifyContent="space-between"
                   >
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={7}>
                       <Autocomplete
                         id="branchId"
                         options={BranchList}
@@ -578,27 +580,14 @@ function SalaryCalculation(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="YearId"
-                        name="YearId"
-                        value={OpenMonth.yearName}
-                        label={intl.formatMessage(Payrollmessages.year)}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete='off'
-                      />
+                    <Grid item xs={12} md={2}>
+                      {OpenMonth.yearName ? OpenMonth.yearName : intl.formatMessage(messages.year)}
                     </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="MonthId"
-                        name="MonthId"
-                        value={OpenMonth.monthName}
-                        label={intl.formatMessage(Payrollmessages.month)}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete='off'
-                      />
+                    <Grid item xs={0.5}>
+                      /
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                      {OpenMonth.monthName ? OpenMonth.monthName : intl.formatMessage(messages.month)}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -606,7 +595,7 @@ function SalaryCalculation(props) {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={7}>
             <Card className={classes.card} sx={{ mt: '0!important' }} >
               <CardContent>
                 <Grid
@@ -692,7 +681,7 @@ function SalaryCalculation(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={5}>
                       <FormControlLabel
                         control={
                           <Checkbox

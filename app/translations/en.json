@@ -1125,6 +1125,7 @@
   "boilerplate.containers.Payroll.Attendance.maxRepeated": "Max Repeated",
   "boilerplate.containers.Payroll.Attendance.maxRepeatedPermissionIs": "Max repeated Permission is",
   "boilerplate.containers.Payroll.Attendance.method": "Method type",
+  "boilerplate.containers.Payroll.Attendance.AreaCode": "Area Code",
   "boilerplate.containers.Payroll.Attendance.MinDate": "Min Date",
   "boilerplate.containers.Payroll.Attendance.minMinuteNo": "Minimum Minute No",
   "boilerplate.containers.Payroll.Attendance.minMinutesCountIs": "Min minutes count is",
