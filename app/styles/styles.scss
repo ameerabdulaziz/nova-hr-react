@@ -1,5 +1,21 @@
 
 // general Style
+
+.popUpContainerStyGen
+{
+    width: 90%;
+    margin: 0 auto;
+
+    div:nth-child(3)
+    {
+        & > div:nth-child(1)
+        {
+            max-width: 100% !important;
+        }
+    }
+}
+
+
 .gridSty
 {
     padding-top: 10px !important;
@@ -788,6 +804,49 @@
 // PaymentSlipReview --end
 
 
+// Mission List 
+.VisitDurationCardSty
+{
+    color: #ffffff;
+    margin: 0px auto;
+    padding: 10px;
+    width: 40%;
+    border-radius: 5px;
+    box-shadow: rgb(129, 129, 129) 0px 2px 4px 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    // flex-direction: column;
+
+    & > span:nth-child(1)
+    {
+        font-size: 13px;
+        font-weight: bolder;
+    }
+
+    & > span:nth-child(2)
+    {
+        font-size: 25px;
+        text-align: center;
+        margin: 0px;
+        font-weight: bolder;
+    }
+}
+
+
+
+// Mission List  --end
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -898,6 +957,13 @@
     width: 100%;
 }
 
+
+// Mission List 
+.VisitDurationCardSty
+{
+    flex-direction: column;
+}
+// Mission List  --end
 
 }
 

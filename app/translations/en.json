@@ -988,6 +988,8 @@
   "boilerplate.containers.Payroll.Attendance.missionDetails": "Mission Details",
   "boilerplate.containers.Payroll.Attendance.StartAddress": "Start Address",
   "boilerplate.containers.Payroll.Attendance.EndAddress": "End Address",
+  "boilerplate.containers.Payroll.Attendance.VisitDuration": "Visit Duration",
+  "boilerplate.containers.Payroll.Attendance.mins": "Mins",
   "boilerplate.containers.Payroll.Attendance.details": "Details",
   "boilerplate.containers.Payroll.Attendance.detailsSearch": "Details Search",
   "boilerplate.containers.Payroll.Attendance.device": "Device",

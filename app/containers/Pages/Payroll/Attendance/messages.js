@@ -1707,6 +1707,14 @@ devicePass: {
     id: `${scope}.EndAddress`,
     defaultMessage: 'End Address',
   },
+  VisitDuration: {
+    id: `${scope}.VisitDuration`,
+    defaultMessage: 'Visit Duration',
+  },
+  mins: {
+    id: `${scope}.mins`,
+    defaultMessage: 'Mins',
+  },
   // MonthlyAttendanceSummaryReport
   lateHoursNotAuth: {
     id: `${scope}.lateHoursNotAuth`,

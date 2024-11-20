@@ -988,6 +988,8 @@
   "boilerplate.containers.Payroll.Attendance.missionDetails": "تفاصيل المأمورية",
   "boilerplate.containers.Payroll.Attendance.StartAddress": "عنوان البدء",
   "boilerplate.containers.Payroll.Attendance.EndAddress": "عنوان الانتهاء",
+  "boilerplate.containers.Payroll.Attendance.VisitDuration": "مده الزيارة",
+  "boilerplate.containers.Payroll.Attendance.mins": "دقيقة",
   "boilerplate.containers.Payroll.Attendance.details": "تفصيلي",
   "boilerplate.containers.Payroll.Attendance.detailsSearch": "بحث تفصيلى",
   "boilerplate.containers.Payroll.Attendance.device": "اسم الجهاز",
