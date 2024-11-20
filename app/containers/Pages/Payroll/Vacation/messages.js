@@ -516,7 +516,7 @@ export default defineMessages({
   },
   postedBalance: {
     id: `${scope}.postedBalance`,
-    defaultMessage: 'postedBalance',
+    defaultMessage: 'posted Balance',
   },
   annualOpen: {
     id: `${scope}.annualOpen`,

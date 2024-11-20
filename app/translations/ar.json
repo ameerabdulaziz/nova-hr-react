@@ -2780,6 +2780,7 @@
   "boilerplate.containers.Payroll.vac.alternativeEmployeeName": "الموظف البديل",
   "boilerplate.containers.Payroll.vac.alternativeTask": "المهمه البديلة",
   "boilerplate.containers.Payroll.vac.annualBalance": "الرصيد السنوي",
+  "boilerplate.containers.Payroll.vac.postedBalance": " الرصيد المرحل",
   "boilerplate.containers.Payroll.vac.annualOpen": "الافتتاح السنوي",
   "boilerplate.containers.Payroll.vac.appointmentDate": "تاريخ التعيين",
   "boilerplate.containers.Payroll.vac.approvedEmp": "صاحب القرار",

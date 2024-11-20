@@ -18,6 +18,7 @@ function BalanceUpdateLog(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,7 +35,7 @@ function BalanceUpdateLog(props) {
     EmployeeId: '',
     OrganizationId: '',
     EmpStatusId: 1,
-    BranchId: '',
+    BranchId: branchId,
   });
 
   const [filterHighlights, setFilterHighlights] = useState([]);
@@ -215,6 +216,59 @@ function BalanceUpdateLog(props) {
     fetchTableData();
   };
 
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(!EmployeeId)
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+      }
+      else
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      }
+
+      
+      setFormInfo((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if(formInfo.BranchId !== "" && formInfo.EmployeeId === "")
+    {      
+      openMonthDateWithCompanyChangeFun(formInfo.BranchId)
+    }
+
+    if(formInfo.BranchId === "" && formInfo.EmployeeId !== "")
+    {
+      openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
+    }
+
+    if(formInfo.BranchId === "" && formInfo.EmployeeId === "")
+    {
+      setFormInfo((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+    }
+
+  },[formInfo.BranchId, formInfo.EmployeeId])
+
+  
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
@@ -226,6 +280,7 @@ function BalanceUpdateLog(props) {
               setIsLoading={setIsLoading}
               DateError={dateError}
               setDateError={setDateError}
+              company={formInfo.BranchId}
             />
           </Grid>
 

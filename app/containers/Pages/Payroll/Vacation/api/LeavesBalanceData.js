@@ -4,7 +4,7 @@ const LeavesBalanceData = (locale) => {
   const Apis = {};
 
   Apis.GetReport = async (params) => {
-    debugger;
+
     const data = await axiosInstance.get(
       `VacReport/GetVacBalReport/${locale}`, {
         params
