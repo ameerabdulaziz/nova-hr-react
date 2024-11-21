@@ -1912,7 +1912,7 @@
   "boilerplate.containers.Payroll.insurance.onlyInsured": "Only The Insured",
   "boilerplate.containers.Payroll.insurance.orderBy": "Order By",
   "boilerplate.containers.Payroll.insurance.organizationId": "organization Id",
-  "boilerplate.containers.Payroll.insurance.organizationName": "organization Name",
+  "boilerplate.containers.Payroll.insurance.organizationName": "Organization name",
   "boilerplate.containers.Payroll.insurance.orgName": "orgName",
   "boilerplate.containers.Payroll.insurance.ownerLegalDescription": "Owner Legal Description",
   "boilerplate.containers.Payroll.insurance.ownerName": "Owner Name",

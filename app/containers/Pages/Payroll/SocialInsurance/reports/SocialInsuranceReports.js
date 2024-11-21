@@ -61,7 +61,7 @@ function SocialInsuranceReport(props) {
 
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [formInfo, setFormInfo] = useState({
-    EmployeeId: null,
+    EmployeeId: "",
     OrganizationId: null,
     BranchId: branchId,
     EmpStatusId: 1,
@@ -360,6 +360,66 @@ function SocialInsuranceReport(props) {
     }));
   };
 
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(yearList.length !== 0 &&  monthsList.length !== 0)
+      {
+        if(!EmployeeId)
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        }
+        else
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        }
+        
+          setFormInfo((prev) => ({
+            ...prev,
+            YearId: OpenMonthData ? OpenMonthData.yearId : null,
+            YearName: OpenMonthData ? OpenMonthData.yearName : null,
+            MonthId: OpenMonthData ? OpenMonthData.monthId : null,
+          }));
+
+      }
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    
+    if((formInfo.BranchId || formInfo.BranchId !== "") && (!formInfo.EmployeeId ||formInfo.EmployeeId === ""))
+    {      
+      openMonthDateWithCompanyChangeFun(formInfo.BranchId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (formInfo.EmployeeId  || formInfo.EmployeeId !== ""))
+    {
+      openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (!formInfo.EmployeeId || formInfo.EmployeeId === ""))
+    {
+
+      setFormInfo((prev) => ({
+        ...prev,
+        YearId: null,
+        YearName: null,
+        MonthId: null
+      }));
+    }
+
+},[formInfo.BranchId, formInfo.EmployeeId,yearList,monthsList])
+
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <InsuranceFormPopUp
@@ -377,6 +437,7 @@ function SocialInsuranceReport(props) {
                 searchData={formInfo}
                 notShowDate={true}
                 setIsLoading={setIsLoading}
+                company={formInfo.BranchId}
               />
             </Grid>
 
