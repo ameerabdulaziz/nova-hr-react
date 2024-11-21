@@ -30,6 +30,7 @@ function EmploymentDocsDetails(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [DocumentTypesList, setDocumentTypesList] = useState([]);
   const [DocumentType, setDocumentType] = useState(null);
   const [data, setdata] = useState([]);
@@ -43,7 +44,7 @@ function EmploymentDocsDetails(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
-    BranchId: '',
+    BranchId: branchId,
   });
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -269,6 +270,7 @@ function EmploymentDocsDetails(props) {
               searchData={searchData}
               notShowDate={true}
               setIsLoading={setIsLoading}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
 
