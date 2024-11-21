@@ -1,10 +1,3 @@
-import EditIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  IconButton,
-  Stack,
-  Tooltip
-} from '@mui/material';
 import MUIDataTable from 'mui-datatables';
 import PropTypes from 'prop-types';
 import React, {
@@ -16,13 +9,13 @@ import React, {
   useState,
 } from 'react';
 import { injectIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 import useStyles from '../Style';
 import { formateDate } from '../helpers';
 import payrollMessages from '../messages';
 import AlertPopup from './AlertPopup';
 import CustomToolbar from './PayrollTable/CustomToolbar';
+import PayrollTableActions from './PayrollTable/PayrollTableActions';
 import PayrollTableContext from './PayrollTable/PayrollTableContext';
 import PayrollTableLoader from './PayrollTable/PayrollTableLoader';
 import PdfContainer from './PayrollTable/pdf/PDFContainer';
@@ -47,7 +40,6 @@ function PayrollTable(props) {
     filterHighlightsColumn,
   } = props;
   const { classes } = useStyles();
-  const history = useHistory();
 
   const stringMenu = localStorage.getItem('Menu');
   const menu = stringMenu ? JSON.parse(stringMenu) : null;
@@ -98,12 +90,12 @@ function PayrollTable(props) {
     }
   }, [pdfData]);
 
-  const onPrintClick = () => {
+  const onPrintClick = useCallback(() => {
     if (filterData.length > 0) {
       setIsPrintLoading(true);
     }
     setPdfData(filterData);
-  };
+  }, [filterData]);
 
   // useEffect to update filtered data when data prop changes
   useEffect(() => {
@@ -135,7 +127,11 @@ function PayrollTable(props) {
         customFilterListOptions: {
           render: (value) => `${item.label} - ${String(value)}`,
         },
+
+        // Change date filter fields
         ...getDateColumnOptions(item, intl, payrollMessages),
+
+        // Reset default options
         ...item?.options,
       },
       isColumnVisible: true,
@@ -144,25 +140,6 @@ function PayrollTable(props) {
     setFilterColumns(mappedColumns);
     setColumnsVisibility(mappedColumns);
   }, [columns]);
-
-  const onAddActionBtnClick = () => {
-    // Check is employee has create permission
-    if (menu?.isAdd) {
-      history.push(actions?.add?.url, {
-        ...(actions?.add?.params || {}),
-      });
-    }
-  };
-
-  const onEditActionBtnClick = (id) => {
-    // Check is employee has update permission
-    if (menu?.isUpdate) {
-      history.push(actions?.edit?.url, {
-        id,
-        ...(actions?.edit?.params || {}),
-      });
-    }
-  };
 
   const onDeleteActionBtnClick = (id) => {
     // Check is employee has delete permission
@@ -269,11 +246,21 @@ function PayrollTable(props) {
           isPrintLoading={isPrintLoading}
           onExcelExportClick={onExcelExportClick}
           onPrintClick={onPrintClick}
-          onAddActionBtnClick={onAddActionBtnClick}
         />
       ),
     }),
-    [options, actions, isPrintLoading, columns, isLoading]
+    [
+      intl,
+      payrollMessages,
+      options,
+      filterData,
+      actions,
+      isPrintLoading,
+      columns,
+      isLoading,
+      documentTitle,
+      columnsVisibility,
+    ]
   );
 
   // Memoize table columns and actions (add, edit, delete) based on actions props
@@ -291,72 +278,18 @@ function PayrollTable(props) {
           download: false,
           viewColumns: false,
           filter: false,
-          customBodyRender: (_, tableMeta) => {
-            // Get row index depend on new table data, that can be change by any operation
-            // like search, filter, sort
-            const currentRowMetaData =							tableMeta.currentTableData[tableMeta.rowIndex];
-            const row = data[currentRowMetaData.index];
-
-            let isDeleteBtnDisabled = !menu?.isDelete;
-
-            if (typeof actions?.delete?.disabled === 'boolean') {
-              isDeleteBtnDisabled = actions?.delete?.disabled;
-            } else if (typeof actions?.delete?.disabled === 'function') {
-              isDeleteBtnDisabled = actions?.delete?.disabled(row);
-            }
-
-            let isEditBtnDisabled = !menu?.isUpdate;
-
-            if (typeof actions?.edit?.disabled === 'boolean') {
-              isEditBtnDisabled = actions?.edit?.disabled;
-            } else if (typeof actions?.edit?.disabled === 'function') {
-              isEditBtnDisabled = actions?.edit?.disabled(row);
-            }
-
-            return (
-              <Stack direction='row' spacing={1}>
-                {actions?.extraActions && actions?.extraActions(row)}
-
-                {actions?.edit && (
-                  <Tooltip
-                    placement='bottom'
-                    title={intl.formatMessage(payrollMessages.edit)}
-                  >
-                    <span>
-                      <IconButton
-                        color='primary'
-                        disabled={isEditBtnDisabled}
-                        onClick={() => onEditActionBtnClick(row.id)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </span>
-                  </Tooltip>
-                )}
-
-                {actions?.delete && (
-                  <Tooltip
-                    placement='bottom'
-                    title={intl.formatMessage(payrollMessages.delete)}
-                  >
-                    <span>
-                      <IconButton
-                        color='error'
-                        disabled={isDeleteBtnDisabled}
-                        onClick={() => onDeleteActionBtnClick(row.id)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </span>
-                  </Tooltip>
-                )}
-              </Stack>
-            );
-          },
+          customBodyRender: (_, tableMeta) => (
+            <PayrollTableActions
+              data={data}
+              actions={actions}
+              tableMeta={tableMeta}
+              onDeleteActionBtnClick={onDeleteActionBtnClick}
+            />
+          ),
         },
       },
     ],
-    [filterColumns, actions]
+    [filterColumns, actions, data]
   );
 
   const contextValue = useMemo(() => {

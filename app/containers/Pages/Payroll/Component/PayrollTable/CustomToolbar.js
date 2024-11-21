@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import { injectIntl } from 'react-intl';
+import { useHistory } from 'react-router';
 import payrollMessages from '../../messages';
 
 function CustomToolbar(props) {
@@ -17,11 +18,12 @@ function CustomToolbar(props) {
     onPrintClick,
     actions,
     isPrintLoading,
-    onAddActionBtnClick,
   } = props;
 
   const stringMenu = localStorage.getItem('Menu');
   const menu = stringMenu ? JSON.parse(stringMenu) : null;
+
+  const history = useHistory();
 
   let isAddBtnDisabled = !menu?.isAdd;
 
@@ -30,6 +32,15 @@ function CustomToolbar(props) {
   } else if (typeof actions?.add?.disabled === 'function') {
     isAddBtnDisabled = actions?.add?.disabled();
   }
+
+  const onAddActionBtnClick = () => {
+    // Check is employee has create permission
+    if (menu?.isAdd) {
+      history.push(actions?.add?.url, {
+        ...(actions?.add?.params || {}),
+      });
+    }
+  };
 
   return (
     <>
@@ -89,9 +100,10 @@ CustomToolbar.propTypes = {
   actions: PropTypes.shape({
     add: PropTypes.shape({
       disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+      url: PropTypes.string,
+      params: PropTypes.object,
     }),
   }).isRequired,
-  onAddActionBtnClick: PropTypes.func.isRequired,
 };
 
 export default injectIntl(CustomToolbar);
