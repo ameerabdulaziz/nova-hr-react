@@ -13,13 +13,14 @@ import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/ObjectiveReportData';
 import messages from '../messages';
+import Search from '../../Component/Search';
 
 function ObjectiveReport(props) {
   const { intl } = props;
   const title = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
-
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,7 +31,8 @@ function ObjectiveReport(props) {
 
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [formInfo, setFormInfo] = useState({
-    employeeId: '',
+    BranchId: branchId,
+    EmployeeId: '',
     yearId: null,
     monthId: null,
     organizationId: null,
@@ -39,7 +41,7 @@ function ObjectiveReport(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const employee = getAutoCompleteValue(employeeList, formInfo.employeeId);
+    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
     const year = getAutoCompleteValue(yearList, formInfo.yearId);
     const month = getAutoCompleteValue(monthsList, formInfo.monthId);
     const department = getAutoCompleteValue(
@@ -82,7 +84,19 @@ function ObjectiveReport(props) {
     setIsLoading(true);
 
     try {
-      const response = await api(locale).getList(formInfo);
+
+      const formData = {
+        EmployeeId: formInfo.EmployeeId,
+        yearId: formInfo.yearId,
+        monthId: formInfo.monthId,
+        organizationId: formInfo.organizationId,
+      }
+
+      Object.keys(formData).forEach((key) => {
+        formData[key] = formData[key] === null ? "" : formData[key];
+      });
+
+      const response = await api(locale).getList(formData);
       setTableData(response);
 
       getFilterHighlights();
@@ -163,55 +177,71 @@ function ObjectiveReport(props) {
     fetchTableData();
   };
 
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(yearList.length !== 0 && monthsList.length !== 0)
+      {
+        if(!EmployeeId)
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        }
+        else
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        }
+
+          setFormInfo((prev) => ({
+            ...prev,
+            yearId : OpenMonthData ? OpenMonthData.yearId : null,
+            monthId: OpenMonthData ? OpenMonthData.monthId : null
+          }));
+      }
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if((formInfo.BranchId || formInfo.BranchId !== "") && (!formInfo.EmployeeId ||formInfo.EmployeeId === ""))
+    {      
+      openMonthDateWithCompanyChangeFun(formInfo.BranchId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (formInfo.EmployeeId  || formInfo.EmployeeId !== ""))
+    {
+      openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (!formInfo.EmployeeId || formInfo.EmployeeId === ""))
+    {
+      setFormInfo((prev) => ({
+        ...prev,
+        yearId : null,
+        monthId: null
+      }));
+    }
+
+  },[formInfo.BranchId, formInfo.EmployeeId,yearList,monthsList])
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' title={title} desc=''>
           <Grid container spacing={2} mt={0}>
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={employeeList}
-                value={getAutoCompleteValue(employeeList, formInfo.employeeId)}
-                onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')
-                }
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id + option.name}>
-                    {option.name}
-                  </li>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(payrollMessages.employeeName)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={departmentList}
-                value={getAutoCompleteValue(
-                  departmentList,
-                  formInfo.organizationId
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'organizationId')
-                }
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id + option.name}>
-                    {option.name}
-                  </li>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(messages.department)}
-                  />
-                )}
+            <Grid item xs={12}>
+              <Search
+                setsearchData={setFormInfo}
+                searchData={formInfo}
+                setIsLoading={setIsLoading}
+                notShowDate
+                notShowStatus
+                company={formInfo.BranchId}
               />
             </Grid>
 

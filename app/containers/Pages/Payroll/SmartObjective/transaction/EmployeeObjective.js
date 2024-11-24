@@ -24,7 +24,7 @@ function EmployeeObjective(props) {
   const locale = useSelector((state) => state.language.locale);
   const authState = useSelector((state) => state.authReducer);
   const companyState = useSelector((state) => state.authReducer.companyInfo);
-  const { isHR, isManagement } = authState.user;
+  const { isHR, isManagement, branchId } = authState.user;
 
   const isNormalEmployee = !isHR && !isManagement;
 
@@ -40,7 +40,7 @@ function EmployeeObjective(props) {
 
   const [formInfo, setFormInfo] = useState({
     EmployeeId: '',
-    BranchId: '',
+    BranchId: branchId,
     OrganizationId: '',
     EmpStatusId: null,
 
@@ -252,6 +252,59 @@ function EmployeeObjective(props) {
     fetchTableData();
   };
 
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(yearList.length !== 0 && monthsList.length !== 0)
+      {
+        if(!EmployeeId)
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        }
+        else
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        }
+
+          setFormInfo((prev) => ({
+            ...prev,
+            yearId : OpenMonthData ? OpenMonthData.yearId : null,
+            monthId: OpenMonthData ? OpenMonthData.monthId : null
+          }));
+      }
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if((formInfo.BranchId || formInfo.BranchId !== "") && (!formInfo.EmployeeId ||formInfo.EmployeeId === ""))
+    {      
+      openMonthDateWithCompanyChangeFun(formInfo.BranchId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (formInfo.EmployeeId  || formInfo.EmployeeId !== ""))
+    {
+      openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (!formInfo.EmployeeId || formInfo.EmployeeId === ""))
+    {
+      setFormInfo((prev) => ({
+        ...prev,
+        yearId : null,
+        monthId: null
+      }));
+    }
+
+  },[formInfo.BranchId, formInfo.EmployeeId,yearList,monthsList])
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
@@ -265,6 +318,7 @@ function EmployeeObjective(props) {
                 notShowDate
                 requireEmployee
                 notShowStatus
+                company={formInfo.BranchId}
               />
             </Grid>
 
