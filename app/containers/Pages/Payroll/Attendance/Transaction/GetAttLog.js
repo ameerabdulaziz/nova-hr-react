@@ -48,11 +48,11 @@ function DataFromAllDevices(props) {
   const [DeviceList, setDeviceList] = useState([]);
   const [EmployeeList, setEmployeeList] = useState([]);
   const [Employee, setEmployee] = useState([]);
-  const [FromDate, setFromDate] = useState(null);
+  const [FromDate, setFromDate] = useState(new Date());
   const [Type, setType] = useState(1);
   const [FormType, setFormType] = useState(1);
   const [password, setPassword] = useState("");
-  const [ToDate, setToDate] = useState();
+  const [ToDate, setToDate] = useState(new Date());
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
 
