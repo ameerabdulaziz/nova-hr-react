@@ -88,8 +88,8 @@ function HRApplicationEvaluation(props) {
   const [existEmployeeInfo, setExistEmployeeInfo] = useState(null);
 
   const [formInfo, setFormInfo] = useState({
-    FromDate: null,
-    ToDate: null,
+    FromDate: new Date(),
+    ToDate: new Date(),
     Appliname: "",
     Idcardno: "",
     JobId: null,
