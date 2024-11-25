@@ -13,25 +13,27 @@ import { getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/TrainingAttendanceData';
 import messages from '../messages';
+import Search from "../../Component/Search";
 
 function TrainingAttendance(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
-
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [trainingList, setTrainingList] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
 
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
-
+  const [DateError, setDateError] = useState({});
   const pageTitle = localStorage.getItem('MenuName');
 
   const [formInfo, setFormInfo] = useState({
-    employeeId: null,
+    BranchId: branchId,
+    EmployeeId: "",
     trainingId: null,
-    organizationId: null,
+    OrganizationId: "",
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -58,19 +60,19 @@ function TrainingAttendance(props) {
       setIsLoading(true);
 
       const params = {
-        organizationId: formInfo.organizationId,
-        employeeId: formInfo.employeeId,
+        organizationId: formInfo.OrganizationId,
+        employeeId: formInfo.EmployeeId,
       };
 
       const dataApi = await API(locale).getList(formInfo.trainingId, params);
 
       const highlights = [];
 
-      const employee = getAutoCompleteValue(employeeList, formInfo.employeeId);
+      const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
       const training = getAutoCompleteValue(trainingList, formInfo.trainingId);
       const organization = getAutoCompleteValue(
         organizationList,
-        formInfo.organizationId
+        formInfo.OrganizationId
       );
 
       if (employee) {
@@ -170,6 +172,19 @@ function TrainingAttendance(props) {
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} alignItems='center'>
+            <Grid item xs={12} md={12}>
+              <Search
+                setsearchData={setFormInfo}
+                searchData={formInfo}
+                setIsLoading={setIsLoading}
+                DateError={DateError}
+                setDateError={setDateError}
+                company={formInfo.BranchId}
+                notShowStatus={true}
+                notShowDate={true}
+              ></Search>
+            </Grid>
+
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={trainingList}
@@ -188,53 +203,6 @@ function TrainingAttendance(props) {
                     {...params}
                     required
                     label={intl.formatMessage(messages.trainingName)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={organizationList}
-                value={getAutoCompleteValue(
-                  organizationList,
-                  formInfo.organizationId
-                )}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'organizationId')
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(messages.organizationName)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={employeeList}
-                value={getAutoCompleteValue(employeeList, formInfo.employeeId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'employeeId')
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(messages.employeeName)}
                   />
                 )}
               />
