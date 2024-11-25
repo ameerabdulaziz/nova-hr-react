@@ -784,6 +784,7 @@
   "boilerplate.containers.Payroll.assessment.nextQuarter": "الربع القادم",
   "boilerplate.containers.Payroll.assessment.noCompetencyFound": "لم يتم العثور على كفاءة",
   "boilerplate.containers.Payroll.assessment.noDevelopmentPlan": "لا توجد خطة التطوير",
+  "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "يجب عليك اختيار السنة",
   "boilerplate.containers.Payroll.assessment.noEmployees": "لا يوجد موظفين",
   "boilerplate.containers.Payroll.assessment.noFilesUploaded": "لم يتم تحميل أي ملفات",
   "boilerplate.containers.Payroll.assessment.noStuffFound": "لم يتم العثور على موظفين",

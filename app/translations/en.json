@@ -784,6 +784,7 @@
   "boilerplate.containers.Payroll.assessment.nextQuarter": "Next Quarter",
   "boilerplate.containers.Payroll.assessment.noCompetencyFound": "No Competency Found",
   "boilerplate.containers.Payroll.assessment.noDevelopmentPlan": "No Development Plan",
+  "boilerplate.containers.Payroll.assessment.YouMustToChooseYear": "You must to choose year",
   "boilerplate.containers.Payroll.assessment.noEmployees": "No Employees",
   "boilerplate.containers.Payroll.assessment.noFilesUploaded": "No Files Uploaded",
   "boilerplate.containers.Payroll.assessment.noStuffFound": "No Employee Found",

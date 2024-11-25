@@ -590,6 +590,10 @@ export default defineMessages({
     id: `${scope}.noDevelopmentPlan`,
     defaultMessage: 'noDevelopmentPlan',
   },
+  YouMustToChooseYear: {
+    id: `${scope}.YouMustToChooseYear`,
+    defaultMessage: 'You must to choose year',
+  },
   // PeerAppraisalList
   totalDegree: {
     id: `${scope}.totalDegree`,
