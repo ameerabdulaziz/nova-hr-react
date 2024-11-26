@@ -36,8 +36,8 @@ function FunctionsRequest(props) {
   const [tableData, setTableData] = useState([]);
 
   const [searchInfo, setSearchInfo] = useState({
-    FromDate: null,
-    ToDate: null,
+    FromDate: new Date(),
+    ToDate: new Date(),
     EmployeeId: '',
     OrganizationId: '',
     EmpStatusId: 1,

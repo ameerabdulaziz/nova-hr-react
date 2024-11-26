@@ -199,7 +199,7 @@ function EmployeeAttendance(props) {
                 {intl.formatMessage(payrollMessages.save)}
               </Button>
             </Grid>
-            <Grid item xs={12} md={3}></Grid>
+            {/* <Grid item xs={12} md={3}></Grid> */}
             <Grid item xs={12} md={3}>
               <TextField
                 name="arName"
