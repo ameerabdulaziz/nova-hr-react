@@ -157,7 +157,7 @@ export default defineMessages({
   },
   department: {
     id: `${scope}.department`,
-    defaultMessage: 'department',
+    defaultMessage: 'Section',
   },
   reportingTo: {
     id: `${scope}.reportingTo`,

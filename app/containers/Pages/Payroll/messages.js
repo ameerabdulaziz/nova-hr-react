@@ -60,7 +60,7 @@ export default defineMessages({
   },
   organizationName: {
     id: `${scope}.organizationName`,
-    defaultMessage: 'organizationName',
+    defaultMessage: 'Section',
   },
   businessUnitName: {
     id: `${scope}.businessUnitName`,

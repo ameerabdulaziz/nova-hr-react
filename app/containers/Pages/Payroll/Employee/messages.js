@@ -86,7 +86,7 @@ export default defineMessages({
   },
   department: {
     id: `${scope}.personal.department`,
-    defaultMessage: 'department',
+    defaultMessage: 'Section',
   },
   showSalary: {
     id: `${scope}.personal.showSalary`,

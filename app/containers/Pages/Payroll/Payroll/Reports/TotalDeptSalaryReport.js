@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import {
   Button,
@@ -46,7 +46,7 @@ function TotalDeptSalaryReport(props) {
   const [Element, setElement] = useState(null);
   const [OrganizationList, setOrganizationList] = useState([]);
   const [fromOrganization, setFromOrganization] = useState(null);
-  const [Organization, setOrganization] = useState(null);
+  const [Organization, setOrganization] = useState([]);
   const [BranchList, setBranchList] = useState([]);
   const [BranchId, setBranchId] = useState(branchId);
 
@@ -151,7 +151,7 @@ function TotalDeptSalaryReport(props) {
     setIsLoading(true);
 
     try {
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      const organizations = await GeneralListApis(locale).GetDepartmentList(branchId);
       const template = await GeneralListApis(locale).GetPayTemplateList();
       const months = await GeneralListApis(locale).GetMonths();
       const years = await GeneralListApis(locale).GetYears();
@@ -252,6 +252,20 @@ function TotalDeptSalaryReport(props) {
   },[BranchId,YearList,MonthList])
 
 
+  const handleChange = useCallback(async (name, value) => {
+    
+    if (name === 'BranchId') {
+      setIsLoading(true);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList(value);
+      setOrganizationList(organizations);
+      setBranchId(value !== null ? value : 0)
+      setOrganization([])
+      setIsLoading(false);
+    }
+  }, []); 
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -273,9 +287,8 @@ function TotalDeptSalaryReport(props) {
                             ?? null
                         }
                         onChange={(event, value) => {
-                          setBranchId(value !== null ? value.id : 0);
+                          handleChange("BranchId", value  ? value.id : "");
                         }}
-
                         renderInput={(params) => (
                           <TextField
                             variant="outlined"
@@ -398,6 +411,7 @@ function TotalDeptSalaryReport(props) {
                 <Grid item xs={12}  md={4}> 
               <Autocomplete
                     multiple  
+                    value={Organization ?  Organization  : null}   
                     className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
                     id="checkboxes-tags-demo"
                     isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -415,7 +429,7 @@ function TotalDeptSalaryReport(props) {
                     }
                 }}
                     renderOption={(props, option, { selected }) => (
-                      <li {...props}>
+                      <li {...props} key={props.id}>
                         <Checkbox
                           icon={icon}
                           checkedIcon={checkedIcon}
@@ -428,7 +442,7 @@ function TotalDeptSalaryReport(props) {
                     style={{ width: 500 }}
                     renderInput={(params) => (
                       <TextField {...params} 
-                      label={intl.formatMessage(messages.orgName)}
+                      label={intl.formatMessage(Payrollmessages.organizationName)}
                       />
                     )}
                   />
