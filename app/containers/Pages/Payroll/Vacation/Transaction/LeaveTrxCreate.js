@@ -54,7 +54,7 @@ function LeaveTrxCreate(props) {
   ];
 
   const empid = DecryptUrl();
-  debugger;
+
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
   const id = location.state?.id ?? 0;
@@ -106,13 +106,12 @@ function LeaveTrxCreate(props) {
   }, [formInfo.vacCode]);
 
   useEffect(() => {
-    if (empid) {
+    if (empid) {      
       setFormInfo((prev) => ({
         ...prev,
         employeeId: empid.id ?? null,
-        trxDate: empid.shiftDate ?? new Date(),
         fromDate: empid.shiftDate ?? new Date(),
-        toDate: empid.shiftDate ?? new Date(),
+        toDate: empid.shiftDate ?? new Date() ,
       }));
     }
   }, []);
@@ -182,8 +181,8 @@ function LeaveTrxCreate(props) {
 
     if (formInfo.toDate && formInfo.fromDate && isValidDate) {
       const obj = {
-        toDate: formInfo.toDate,
-        fromDate: formInfo.fromDate,
+        // toDate: formInfo.toDate,
+        // fromDate: formInfo.fromDate,
         daysCount: formInfo.daysCount,
       };
 
@@ -222,7 +221,7 @@ function LeaveTrxCreate(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
-debugger;
+
     // used to stop call api if user select wrong date
     if (Object.values(dateError).includes(true)) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
@@ -339,7 +338,7 @@ debugger;
   };
 
   const onVacationChange = (_, value) => {
-    debugger;
+
     if (value) {
       const leave = vacationsList.find((vac) => vac.id === value.id) ?? null;
 
@@ -694,6 +693,7 @@ debugger;
                               required: true,
                             },
                           }}
+                          disabled={empid ? true : false}
                         />
                       </LocalizationProvider>
                     </Grid>

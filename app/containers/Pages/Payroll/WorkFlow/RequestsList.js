@@ -80,8 +80,8 @@ function RequestsList(props) {
       ? 13
       : 0
   );
-  const [fromdate, setfromate] = useState(null);
-  const [todate, settodate] = useState(null);
+  const [fromdate, setfromate] = useState(new Date());
+  const [todate, settodate] = useState(new Date());
   const [employee, setemployee] = useState(null);
   const [EmployeeList, setEmployeeList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

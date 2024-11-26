@@ -24,6 +24,7 @@ import { formateDate, getAutoCompleteValue } from "../../helpers";
 function MonthlyAttendanceReport(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [ShiftList, setShiftList] = useState([]);
   const [Shift, setShift] = useState("");
   const [data, setdata] = useState([]);
@@ -60,7 +61,7 @@ function MonthlyAttendanceReport(props) {
     OrganizationId: "",
     EmpStatusId: 1,
     vacnamechk: false,
-    BranchId: '',
+    BranchId: branchId,
   });
 
 
@@ -246,6 +247,58 @@ function MonthlyAttendanceReport(props) {
     fetchData();
   }, []);
 
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(!EmployeeId)
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+      }
+      else
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      }
+
+      
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if(searchData.BranchId !== "" && searchData.EmployeeId === "")
+    {      
+      openMonthDateWithCompanyChangeFun(searchData.BranchId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId !== "")
+    {
+      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId === "")
+    {
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId])
+  
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -258,6 +311,7 @@ function MonthlyAttendanceReport(props) {
                setIsLoading={setIsLoading}
                DateError={DateError}
               setDateError={setDateError}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
 

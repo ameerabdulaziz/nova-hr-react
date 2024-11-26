@@ -280,15 +280,6 @@ function SalarySigningListReport(props) {
         setTemplate(defaultTemplate);
       }
 
-      if (branchId) {
-        const response = await GeneralListApis(locale).getOpenMonth(
-          branchId,
-          0
-        );
-
-        setYear(years.find((item) => item.id === response.yearId) ?? null);
-        setMonth(months.find((item) => item.id === response.monthId) ?? null);
-      }
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -297,6 +288,62 @@ function SalarySigningListReport(props) {
   useEffect(() => {
     fetchData();
   }, []);
+
+
+
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+    let selectedYear
+    let selectedMonth
+
+    try
+    {
+      if(YearList.length !== 0 && MonthList.length !== 0)
+      {
+        if(!EmployeeId)
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        }
+        else
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        }
+
+
+
+        selectedYear = YearList.find(item => item.id == OpenMonthData.yearId)
+        selectedMonth = MonthList.find(item => item.id == OpenMonthData.monthId)
+        
+          setYear(selectedYear ? selectedYear : null)
+          setMonth(selectedMonth ? selectedMonth : null)
+      }
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if((searchData.BranchId || searchData.BranchId !== "") && (!searchData.EmployeeId ||searchData.EmployeeId === ""))
+    {      
+      openMonthDateWithCompanyChangeFun(searchData.BranchId)
+    }
+
+    if((!searchData.BranchId || searchData.BranchId === "") && (searchData.EmployeeId  || searchData.EmployeeId !== ""))
+    {
+      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+    }
+
+    if((!searchData.BranchId || searchData.BranchId === "") && (!searchData.EmployeeId || searchData.EmployeeId === ""))
+    {
+      setYear(null)
+      setMonth(null)
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId,YearList,MonthList])
 
 
 
@@ -312,6 +359,7 @@ function SalarySigningListReport(props) {
                searchData={searchData}
                setIsLoading={setIsLoading}
                notShowDate={true}
+               company={searchData.BranchId}
             ></Search>
           </Grid>
 

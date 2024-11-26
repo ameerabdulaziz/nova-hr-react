@@ -273,6 +273,34 @@ function AnnualTaxReport(props) {
     fetchNeededData();
   }, []);
 
+
+  async function onCompanyAutocompleteChange(value) {
+    setIsLoading(true);
+
+    setFormInfo((prev) => ({
+      ...prev,
+      BranchId: value !== null ? value.id : null,
+    }));
+
+    try {
+      const response = await GeneralListApis(locale).getOpenMonth(
+        value !== null ? value.id : 0,
+        0
+      );
+
+      setFormInfo((prev) => ({
+        ...prev,
+        YearId: response.yearId,
+      }));
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
@@ -289,7 +317,7 @@ function AnnualTaxReport(props) {
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'BranchId')}
+                onChange={(_, value) => onCompanyAutocompleteChange(value)}
                 renderInput={(params) => (
                   <TextField
                     {...params}

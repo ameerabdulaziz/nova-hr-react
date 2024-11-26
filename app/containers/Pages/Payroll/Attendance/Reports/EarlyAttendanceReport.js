@@ -26,6 +26,7 @@ import { formateDate, getAutoCompleteValue } from "../../helpers";
 function EarlyAttendanceReport(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [ShiftList, setShiftList] = useState([]);
   const [Shift, setShift] = useState(null);
   const [data, setdata] = useState([]);
@@ -37,7 +38,7 @@ function EarlyAttendanceReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
-    BranchId: '',
+    BranchId: branchId,
   });
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -209,6 +210,59 @@ function EarlyAttendanceReport(props) {
     },
     
   ];
+
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(!EmployeeId)
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+      }
+      else
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      }
+
+      
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if(searchData.BranchId !== "" && searchData.EmployeeId === "")
+    {      
+      openMonthDateWithCompanyChangeFun(searchData.BranchId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId !== "")
+    {
+      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId === "")
+    {
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId])
+
+  
   
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -221,7 +275,8 @@ function EarlyAttendanceReport(props) {
               searchData={searchData}
               setIsLoading={setIsLoading}
               DateError={DateError}
-               setDateError={setDateError}
+              setDateError={setDateError}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
 

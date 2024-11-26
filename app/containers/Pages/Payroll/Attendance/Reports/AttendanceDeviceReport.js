@@ -25,17 +25,21 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import PayrollTable from "../../Component/PayrollTable";
-import { formateDate } from "../../helpers";
+import { formateDate, getAutoCompleteValue } from "../../helpers";
+
 
 function AttendanceDeviceReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
   const [FromDate, setFromDate] = useState(null);
   const [ToDate, setToDate] = useState(null);
+  const [companyList, setCompanyList] = useState([]);
+  const [company, setCompany] = useState(branchId);
   const [Shift, setShift] = useState(null);
   const [ShiftList, setShiftList] = useState([]);
   const [DateError, setDateError] = useState({});
@@ -43,6 +47,8 @@ function AttendanceDeviceReport(props) {
 
   const getFilterHighlights = () => {
     const highlights = [];
+
+    const companyData = getAutoCompleteValue(companyList, company);
 
     if (Shift && Shift.length > 0) {
       highlights.push({
@@ -62,6 +68,13 @@ function AttendanceDeviceReport(props) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.todate),
         value: formateDate(ToDate),
+      });
+    }
+
+    if (companyData) {
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.company),
+        value: companyData.name,
       });
     }
 
@@ -100,6 +113,8 @@ function AttendanceDeviceReport(props) {
 
       getFilterHighlights();
     } catch (err) {
+      console.log("err =", err);
+      
     } finally {
       setIsLoading(false);
     }
@@ -111,6 +126,9 @@ function AttendanceDeviceReport(props) {
       const shift = await GeneralListApis(locale).GetDeviceList();
 
       setShiftList(shift);
+
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
 
     } catch (err) {
       //
@@ -156,14 +174,93 @@ function AttendanceDeviceReport(props) {
   ];
 
 
+
+  const onCompanyAutoCompleteChange = async (value) => {
+    
+    let branchId
+    let  OpenMonthData
+
+    try
+    {
+      if(value)
+      {
+
+        branchId = value
+        OpenMonthData = await GeneralListApis(locale).getOpenMonth(value,0);
+      }
+      else
+      {
+        branchId = null
+      }
+
+      setFromDate(OpenMonthData ? OpenMonthData.fromDateAtt : null)
+      setToDate(OpenMonthData ? OpenMonthData.todateAtt : null)
+
+    }
+    catch(err)
+    {}
+  }
+
+
+
+  useEffect( ()=>{
+    if(company)
+    {            
+      onCompanyAutoCompleteChange(company)
+    }
+
+    if(!company)
+    {
+      setFromDate(null)
+      setToDate(null)
+    }
+
+  },[company])
+
+
+  console.log("filterHighlights =",filterHighlights);
+  
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
+              <Grid item xs={12} md={4}>
+                    <Autocomplete
+                      options={companyList}
+                      value={getAutoCompleteValue(companyList, company)}
+                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      getOptionLabel={(option) => (option ? option.name : "")}
+                      renderOption={(propsOption, option) => (
+                        <li {...propsOption} key={option.id}>
+                          {option.name}
+                        </li>
+                      )}
+                    onChange={(e,value)=>{
+                      if(value)
+                      {
+                        setCompany(value.id);
+                      }
+                      else
+                      {
+                        setCompany(null);
+                        setFromDate(null)
+                        setToDate(null)
+                      }
+                    }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={intl.formatMessage(payrollMessages.company)}
+                        />
+                      )}
+                    />
+                  </Grid>
+            
 
                   <Grid item xs={12} md={2}>
-                  
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                        label={intl.formatMessage(payrollMessages.fromdate)}

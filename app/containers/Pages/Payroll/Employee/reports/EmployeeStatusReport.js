@@ -15,7 +15,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import useStyles from '../../../../../components/Widget/widget-jss';
@@ -28,18 +28,20 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeStatusReportData';
 import messages from '../messages';
+import GeneralListApis from "../../api/GeneralListApis";
 
 function EmployeeStatusReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
 
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const Title = localStorage.getItem('MenuName');
 
   const [isLoading, setIsLoading] = useState(true);
   const [formInfo, setFormInfo] = useState({
-    EmployeeId: null,
-    BranchId: null,
+    EmployeeId: "",
+    BranchId: branchId,
     EmpStatusId: 1,
     OrganizationId: null,
     FromDate: null,
@@ -354,6 +356,57 @@ function EmployeeStatusReport(props) {
     },
   ];
 
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(!EmployeeId)
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+      }
+      else
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      }
+
+      
+      setFormInfo((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if(formInfo.BranchId !== "" && formInfo.EmployeeId === "")
+    {      
+      openMonthDateWithCompanyChangeFun(formInfo.BranchId)
+    }
+
+    if(formInfo.BranchId === "" && formInfo.EmployeeId !== "")
+    {
+      openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
+    }
+
+    if(formInfo.BranchId === "" && formInfo.EmployeeId === "")
+    {
+      setFormInfo((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+    }
+
+  },[formInfo.BranchId, formInfo.EmployeeId])
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
@@ -363,6 +416,7 @@ function EmployeeStatusReport(props) {
             searchData={formInfo}
             requireEmployee
             setIsLoading={setIsLoading}
+            company={formInfo.BranchId}
           />
 
           <Button

@@ -37,8 +37,8 @@ function MissionTransportaion(props) {
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
   const [searchData, setsearchData] = useState({
-    FromDate: null,
-    ToDate: null,
+    FromDate: new Date(),
+    ToDate: new Date(),
     EmployeeId: "",
   });
 

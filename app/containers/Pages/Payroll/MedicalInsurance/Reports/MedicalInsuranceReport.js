@@ -29,17 +29,16 @@ function MedicalInsuranceReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
   const [ToDate, setToDate] = useState(null);
   const [searchData, setsearchData] = useState({
-    // FromDate: null,
-    // ToDate: null,
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
-    BranchId: '',
+    BranchId: branchId,
   });
 
   const [DateError, setDateError] = useState({});
@@ -269,6 +268,49 @@ function MedicalInsuranceReport(props) {
   }
 
 
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(!EmployeeId)
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+      }
+      else
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      }
+
+      setToDate(OpenMonthData ? OpenMonthData.todateAtt : null)
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if(searchData.BranchId !== "" && searchData.EmployeeId === "")
+    {      
+      openMonthDateWithCompanyChangeFun(searchData.BranchId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId !== "")
+    {
+      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId === "")
+    {
+      setToDate(null)
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId])
+
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -311,6 +353,7 @@ function MedicalInsuranceReport(props) {
                searchData={searchData}
                setIsLoading={setIsLoading}
                notShowDate={true}
+               company={searchData.BranchId}
             ></Search>
           </Grid>
 

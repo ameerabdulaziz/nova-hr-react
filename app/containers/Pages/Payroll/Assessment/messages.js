@@ -157,7 +157,7 @@ export default defineMessages({
   },
   department: {
     id: `${scope}.department`,
-    defaultMessage: 'department',
+    defaultMessage: 'Section',
   },
   reportingTo: {
     id: `${scope}.reportingTo`,
@@ -589,6 +589,10 @@ export default defineMessages({
   noDevelopmentPlan: {
     id: `${scope}.noDevelopmentPlan`,
     defaultMessage: 'noDevelopmentPlan',
+  },
+  YouMustToChooseYear: {
+    id: `${scope}.YouMustToChooseYear`,
+    defaultMessage: 'You must to choose year',
   },
   // PeerAppraisalList
   totalDegree: {

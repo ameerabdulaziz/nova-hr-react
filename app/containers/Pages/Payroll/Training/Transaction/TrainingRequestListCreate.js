@@ -42,7 +42,7 @@ function TrainingRequestListCreate(props) {
     id,
 
     notes: '',
-    trainingDate: null,
+    trainingDate: dayjs().add(1, 'day'),
     courseId: null,
     trainingId: null,
     employeeId: null,

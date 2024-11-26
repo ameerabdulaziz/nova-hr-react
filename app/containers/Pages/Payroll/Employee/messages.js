@@ -86,7 +86,7 @@ export default defineMessages({
   },
   department: {
     id: `${scope}.personal.department`,
-    defaultMessage: 'department',
+    defaultMessage: 'Section',
   },
   showSalary: {
     id: `${scope}.personal.showSalary`,
@@ -115,6 +115,10 @@ export default defineMessages({
   grossSalary: {
     id: `${scope}.personal.grossSalary`,
     defaultMessage: 'grossSalary',
+  },
+  DateErrMess: {
+    id: `${scope}.personal.DateErrMess`,
+    defaultMessage: 'You must to choose To Date with From Date',
   },
   qualificationDate: {
     id: `${scope}.personal.qualificationDate`,

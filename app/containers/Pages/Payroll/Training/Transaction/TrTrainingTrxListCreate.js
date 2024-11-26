@@ -44,8 +44,8 @@ function TrTrainingTrxListCreate(props) {
 
     enName: "",
     arName: "",
-    fromDate: null,
-    toDate: null,
+    fromDate: new Date(),
+    toDate: new Date(),
     trainerId: null,
     courseId: null,
     locationId: null,

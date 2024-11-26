@@ -26,6 +26,7 @@ function medicalInsuranceListReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [MinsuranceCompanyList, setMinsuranceCompanyList] = useState([]);
   const [MinsuranceCategoryList, setMinsuranceCategoryList] = useState([]);
   const [Deleted, setDeleted] = useState("");
@@ -41,7 +42,7 @@ function medicalInsuranceListReport(props) {
     all: false,
     PrivMed: false,
     GovIns: false,
-    BranchId: '',
+    BranchId: branchId,
   });
 
   const [filterHighlights, setFilterHighlights] = useState([]);
@@ -229,6 +230,7 @@ function medicalInsuranceListReport(props) {
                searchData={searchData}
                setIsLoading={setIsLoading}
                notShowDate={true}
+               company={searchData.BranchId}
             ></Search>
           </Grid>
 

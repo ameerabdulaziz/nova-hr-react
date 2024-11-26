@@ -16,17 +16,20 @@ import payrollMessages from '../../../messages';
 import WFExecutionList from '../../../WorkFlow/WFExecutionList';
 import ApiData from '../../api/MissionTrxData';
 import messages from '../../messages';
+import MissionDetails from '../../../Component/MissionDetails';
+import ImageIcon from '@mui/icons-material/Image';
 
 function MissionTrxList(props) {
   const { intl } = props;
   const company = useSelector((state) => state.authReducer.companyInfo);
   const locale = useSelector((state) => state.language.locale);
   const authState = useSelector((state) => state.authReducer);
-  const { isHR } = authState.user;
   const [data, setData] = useState([]);
+  const [rowData, setRowData] = useState([]);
   const Title = localStorage.getItem('MenuName');
   const [isLoading, setIsLoading] = useState(true);
   const [printContent, setPrintContent] = useState('');
+  const [PopupOpen, setPopupOpen] = useState(false);
 
   const [requestId, setRequestId] = useState(null);
 
@@ -170,15 +173,32 @@ function MissionTrxList(props) {
     edit: {
       url: '/app/Pages/Att/MissionTrxEdit',
       // disabled edit action is not HR and status is null
-      disabled: isHR ? false : (row) => row.status !== null,
+      disabled: authState.user.isHR ? false : (row) => row.status !== null,
     },
     delete: {
       api: deleteRow,
       // disabled delete action is not HR and status is null
-      disabled: isHR ? false : (row) => row.status !== null,
+      disabled: authState.user.isHR ? false : (row) => row.status !== null,
     },
     extraActions: (row) => (
       <>
+      {(authState.user.isSuper === true || authState.user.isManagement === true || authState.user.isHR === true) && (
+     
+     <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(messages.missionDetails)}
+        >
+          <span>
+            <IconButton onClick={() => {
+                  openPopup()
+                  setRowData(row)
+              }}>
+              <ImageIcon sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+        ) }
+        
         <Tooltip
           placement='bottom'
           title={intl.formatMessage(payrollMessages.Print)}
@@ -203,6 +223,16 @@ function MissionTrxList(props) {
       </>
     ),
   };
+
+
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
 
   return (
     <>
@@ -243,6 +273,15 @@ function MissionTrxList(props) {
         columns={columns}
         actions={actions}
       />
+
+        <MissionDetails 
+           handleClose={closePopup}
+           open={PopupOpen}
+           data={rowData}
+           messageData={intl.formatMessage(messages.missionDetails)}
+          />
+
+
     </>
   );
 }

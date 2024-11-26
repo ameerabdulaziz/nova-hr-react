@@ -186,18 +186,6 @@ function SummaryPayslip(props) {
       const organizations = await GeneralListApis(locale).GetDepartmentList();
       setOrganizationList(organizations);
 
-      if (branchId) {
-        const response = await GeneralListApis(locale).getOpenMonth(
-          branchId,
-          0
-        );
-
-        setReportCriteria((prev) => ({
-          ...prev,
-          month: response.monthId,
-          year: response.yearId,
-        }));
-      }
     } catch (error) {
       //
     } finally {
@@ -283,6 +271,60 @@ function SummaryPayslip(props) {
       [name]: value !== null ? value.id : null,
     }));
   };
+
+
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(yearList.length !== 0 && monthsList.length !== 0)
+      {
+        if(!EmployeeId)
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        }
+        else
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        }
+
+          setReportCriteria((prev) => ({
+            ...prev,
+            year : OpenMonthData ? OpenMonthData.yearId : null,
+            month: OpenMonthData ? OpenMonthData.monthId : null
+          }));
+      }
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if((formInfo.BranchId || formInfo.BranchId !== "") && (!formInfo.EmployeeId ||formInfo.EmployeeId === ""))
+    {      
+      openMonthDateWithCompanyChangeFun(formInfo.BranchId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (formInfo.EmployeeId  || formInfo.EmployeeId !== ""))
+    {
+      openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (!formInfo.EmployeeId || formInfo.EmployeeId === ""))
+    {
+      setReportCriteria((prev) => ({
+        ...prev,
+        year : null,
+        month: null
+      }));
+    }
+
+  },[formInfo.BranchId, formInfo.EmployeeId,yearList,monthsList])
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -397,6 +439,7 @@ function SummaryPayslip(props) {
                   setsearchData={setFormInfo}
                   searchData={formInfo}
                   setIsLoading={setIsLoading}
+                  company={formInfo.BranchId}
                 />
               </Grid>
 

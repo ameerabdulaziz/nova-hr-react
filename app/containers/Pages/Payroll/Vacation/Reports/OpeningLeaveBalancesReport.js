@@ -18,14 +18,13 @@ function OpeningLeaveBalancesReport(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [tableData, setTableData] = useState([]);
-
   const [yearsList, setYearsList] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
   const [statusList, setStatusList] = useState([]);
   const [companyList, setCompanyList] = useState([]);
-
   const [isLoading, setIsLoading] = useState(true);
 
   const Title = localStorage.getItem('MenuName');
@@ -36,7 +35,7 @@ function OpeningLeaveBalancesReport(props) {
     OrganizationId: '',
     yearId: null,
     EmpStatusId: '',
-    BranchId: '',
+    BranchId: branchId,
   });
 
   const columns = [
@@ -175,6 +174,62 @@ function OpeningLeaveBalancesReport(props) {
     fetchTableData();
   };
 
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+    let selectedYear
+
+    try
+    {
+      if(yearsList.length !== 0)
+      {
+        if(!EmployeeId)
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        }
+        else
+        {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        }
+
+        selectedYear = yearsList.find(item => item.id == OpenMonthData.yearId)
+        
+          setFormInfo((prev) => ({
+            ...prev,
+            yearId: selectedYear ? selectedYear.id : null,
+          }));
+
+      }
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if((formInfo.BranchId || formInfo.BranchId !== "") && (!formInfo.EmployeeId ||formInfo.EmployeeId === ""))
+    {      
+      openMonthDateWithCompanyChangeFun(formInfo.BranchId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (formInfo.EmployeeId  || formInfo.EmployeeId !== ""))
+    {
+      openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
+    }
+
+    if((!formInfo.BranchId || formInfo.BranchId === "") && (!formInfo.EmployeeId || formInfo.EmployeeId === ""))
+    {
+
+      setFormInfo((prev) => ({
+        ...prev,
+        yearId: null,
+      }));
+    }
+
+  },[formInfo.BranchId, formInfo.EmployeeId,yearsList])
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
@@ -185,6 +240,7 @@ function OpeningLeaveBalancesReport(props) {
               searchData={formInfo}
               setIsLoading={setIsLoading}
               notShowDate={true}
+              company={formInfo.BranchId}
             />
           </Grid>
 

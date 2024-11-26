@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState,useRef, useCallback } from "react";
 import ApiData from "../api/AssessmentReportData";
 import AssessmentReviewData from "../api/AssessmentReviewData";
 import { useSelector } from "react-redux";
@@ -31,6 +31,7 @@ function AssessmentReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
@@ -42,11 +43,12 @@ function AssessmentReport(props) {
   const [YearList, setYearList] = useState([]);
   const [Employee, setEmployee] = useState([]);
   const [Department, setDepartment] = useState("");
+  const [Company, setCompany] = useState(branchId);
   const [Month, setMonth] = useState("");
   const [Year, setYear] = useState("");
 
   const [filterHighlights, setFilterHighlights] = useState([]);
-
+  const [companyList, setCompanyList] = useState([]);
   const [examData, setExamData] = useState();
   const [allQuestionsAnswers, setAllQuestionsAnswers] = useState({})
   const [textareaEmpTrainingVal, setTextareaEmpTrainingVal] = useState("");
@@ -82,7 +84,7 @@ function AssessmentReport(props) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.year),
         value: year.name,
-      });
+      });Z
     }
 
     if (Employee && Employee.length > 0) {
@@ -105,11 +107,17 @@ function AssessmentReport(props) {
 
         
         const dataApi = await ApiData(locale).GetDataById(Year.id,Department,EmployeeIds,Month);
+          if(dataApi.length !== 0)
+          {
+            dataApi[0].SalfEvaluation = dataApi[0].employeeEvalChoice ? [dataApi[0].employeeEvalChoice," (",dataApi[0].employeeEval,"%",")"] : null
+            dataApi[0].ManagerEvaluation = dataApi[0].mgrEvalChoice ? [dataApi[0].mgrEvalChoice," (",dataApi[0].mgrEval,"%",")"] : null
 
-        dataApi[0].SalfEvaluation = dataApi[0].employeeEvalChoice ? [dataApi[0].employeeEvalChoice," (",dataApi[0].employeeEval,"%",")"] : null
-        dataApi[0].ManagerEvaluation = dataApi[0].mgrEvalChoice ? [dataApi[0].mgrEvalChoice," (",dataApi[0].mgrEval,"%",")"] : null
-
-        setdata(dataApi);
+            setdata(dataApi);
+          }
+          else
+          {
+            setdata([])
+          }
 
         getFilterHighlights();
         } catch (err) {
@@ -129,10 +137,12 @@ function AssessmentReport(props) {
     
     try {
       const empolyees = await GeneralListApis(locale).GetEmployeeList();
-      const departments = await GeneralListApis(locale).GetDepartmentList();
+      const departments = await GeneralListApis(locale).GetDepartmentList(branchId);
       const months = await GeneralListApis(locale).GetMonths();
       const years = await GeneralListApis(locale).GetYears();
-
+      const branches = await GeneralListApis(locale).GetBranchList();
+     
+      setCompanyList(branches);
       setEmployeeList(empolyees)
       setDepartmentList(departments)
       setMonthList(months)
@@ -321,172 +331,215 @@ const printJS = useReactToPrint({
   },[printData])
 
 
+  const handleChange = useCallback(async (name, value) => {
+    
+    if (name == "employeeId")
+    {
+      setEmployee(value);
+    }
 
+    if (name == "organizationId") {
+      setIsLoading(true);
+      const employees = await GeneralListApis(locale).GetEmployeeList(null, null, Company, value);
+
+      setEmployeeList(employees);
+      setDepartment(value)
+      setEmployee([]);
+      setIsLoading(false);
+    }
+
+
+    if (name === 'BranchId') {
+      setIsLoading(true);
+      const employees = await GeneralListApis(locale).GetEmployeeList(null, null, value, Department);
+
+      setEmployeeList(employees);
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList(value);
+      setDepartmentList(organizations);
+      setCompany(value)
+      setDepartment("")
+      setEmployee([]);
+      setIsLoading(false);
+    }
+  }, []);  
 
 
   return (
     <PayRollLoader isLoading={isLoading}>
-
-
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         
         <Grid container spacing={2}>
+          <Grid item container spacing={2}>
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                options={companyList}
+                value={Company ? companyList.find(item => item.id === Company) ?? null : null}
+                isOptionEqualToValue={(option, value) => option.id === value.id
+                }
+                getOptionLabel={(option) => (option ? option.name : '')}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
 
-      <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={EmployeeList.length != 0 ? EmployeeList: []}
-                  multiple
-                  disableCloseOnSelect
-                  className={`${style.AutocompleteMulSty} ${
-                    locale === 'ar' ? style.AutocompleteMulStyAR : null
-                  }`}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
+                onChange={(event, value) => {
+                  handleChange("BranchId", value  ? value.id : "");
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(payrollMessages.company)}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+                  <Autocomplete
+                  id="ddlMenu"   
+                  isOptionEqualToValue={(option, value) => option.id === value.id}  
+                  value={Department ? DepartmentList.find(item => item.id === Department) ?? null : null}                    
+                  options={DepartmentList.length != 0 ? DepartmentList: []}
+                  getOptionLabel={(option) =>(
+                      option  ? option.name : ""
+                  )
                   }
-                  // value={reqDayNotAllow}
-                  renderOption={(optionProps, option, { selected }) => (
-                    <li {...optionProps} key={optionProps.id}>
-                      <Checkbox
-                        icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
-                        checkedIcon={<CheckBoxIcon fontSize='small' />}
-                        style={{ marginRight: 8 }}
-                        checked={selected}
-                      />
-                      {option.name}
-                    </li>
-                  )}
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  // onChange={(_, value) => setReqDayNotAllow(value)}
+                  renderOption={(props, option) => {
+                      return (
+                      <li {...props} key={option.id}>
+                          {option.name}
+                      </li>
+                      );
+                  }}
                   onChange={(event, value) => {
-                    console.log("value =",value);
-                    if (value !== null) {
-                        setEmployee(value);
-                    } else {
-                        setEmployee("");
-                    }
+                    handleChange("organizationId", value  ? value.id : "");
                   }}
                   renderInput={(params) => (
-                    <TextField
+                  <TextField
                       {...params}
-                      // label={intl.formatMessage(messages.reqDayNotAllow)}
-                      label={intl.formatMessage(messages.employeeName)}
+                      name="VacationType"
+                      label={intl.formatMessage(messages.department)}
+                      margin="normal" 
+                      className={style.fieldsSty}
+                      
+                      />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={2}>
+                <Autocomplete
+                    id="ddlMenu"   
+                    isOptionEqualToValue={(option, value) => option.id === value.id} 
+                    value={Month ? MonthList.find(item => item.id === Month) ?? null : null}                         
+                    options={MonthList.length != 0 ? MonthList: []}
+                    getOptionLabel={(option) =>(
+                        option  ? option.name : ""
+                    )
+                    }
+                    renderOption={(props, option) => {
+                        return (
+                        <li {...props} key={option.id}>
+                            {option.name}
+                        </li>
+                        );
+                    }}
+                    onChange={(event, value) => {
+                        if (value !== null) {
+                            setMonth(value.id);
+                        } else {
+                            setMonth("");
+                        }
+                    }}
+                    renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        name="VacationType"
+                        label={intl.formatMessage(messages.months)}
+                        margin="normal" 
+                        className={style.fieldsSty}
+                        
+                        />
+
+                    )}
+                    /> 
+              </Grid>
+          
+              <Grid item xs={12} md={2}>
+                <Autocomplete
+                id="ddlMenu"   
+                isOptionEqualToValue={(option, value) => option.id === value.id}  
+                value={Year ? YearList.find(item => item.id === Year.id) ?? null : null}                         
+                options={YearList.length != 0 ? YearList: []}
+                getOptionLabel={(option) =>(
+                    option  ? option.name : ""
+                )
+                }
+                renderOption={(props, option) => {
+                    return (
+                    <li {...props} key={option.id}>
+                        {option.name}
+                    </li>
+                    );
+                }}
+                onChange={(event, value) => {
+                    if (value !== null) {
+                        setYear(value);
+                    } else {
+                        setYear("");
+                    }
+                }}
+                renderInput={(params) => (
+                <TextField
+                    {...params}
+                    name="VacationType"
+                    label={intl.formatMessage(messages.year)}
+                    margin="normal" 
+                    className={style.fieldsSty}
                     />
                   )}
                 />
               </Grid>
+          </Grid>
 
-      {/* ////// */}
-
-      <Grid item xs={12} md={3}>
-            
-            <Autocomplete
-            id="ddlMenu"   
-            isOptionEqualToValue={(option, value) => option.id === value.id}                      
-            options={DepartmentList.length != 0 ? DepartmentList: []}
-            getOptionLabel={(option) =>(
-                option  ? option.name : ""
-            )
-            }
-            renderOption={(props, option) => {
-                return (
-                <li {...props} key={option.id}>
-                    {option.name}
-                </li>
-                );
-            }}
-            onChange={(event, value) => {
-                if (value !== null) {
-                    setDepartment(value.id);
-                } else {
-                    setDepartment("");
+          <Grid item container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <Autocomplete
+                options={EmployeeList.length != 0 ? EmployeeList: []}
+                multiple
+                value={Employee ?  Employee  : null}   
+                disableCloseOnSelect
+                className={`${style.AutocompleteMulSty} ${
+                  locale !== 'en' ? style.AutocompleteMulStyAR : null
+                }`}
+                isOptionEqualToValue={(option, value) => option.id === value.id
                 }
-            }}
-            renderInput={(params) => (
-            <TextField
-                {...params}
-                name="VacationType"
-                label={intl.formatMessage(messages.department)}
-                margin="normal" 
-                className={style.fieldsSty}
-                
-                />
-          )}
-        />
-      </Grid>
-
-      <Grid item xs={12} md={2}>
-           
-           <Autocomplete
-               id="ddlMenu"   
-               isOptionEqualToValue={(option, value) => option.id === value.id}                      
-               options={MonthList.length != 0 ? MonthList: []}
-               getOptionLabel={(option) =>(
-                   option  ? option.name : ""
-               )
-               }
-               renderOption={(props, option) => {
-                   return (
-                   <li {...props} key={option.id}>
-                       {option.name}
-                   </li>
-                   );
-               }}
-               onChange={(event, value) => {
-                   if (value !== null) {
-                       setMonth(value.id);
-                   } else {
-                       setMonth("");
-                   }
-               }}
-               renderInput={(params) => (
-               <TextField
-                   {...params}
-                   name="VacationType"
-                   label={intl.formatMessage(messages.months)}
-                   margin="normal" 
-                   className={style.fieldsSty}
-                   
-                   />
-
-               )}
-               /> 
-         </Grid>
-          
-         <Grid item xs={12} md={2}>
-            
-            <Autocomplete
-           id="ddlMenu"   
-           isOptionEqualToValue={(option, value) => option.id === value.id}                      
-           options={YearList.length != 0 ? YearList: []}
-           getOptionLabel={(option) =>(
-               option  ? option.name : ""
-           )
-           }
-           renderOption={(props, option) => {
-               return (
-               <li {...props} key={option.id}>
-                   {option.name}
-               </li>
-               );
-           }}
-           onChange={(event, value) => {
-               if (value !== null) {
-                   setYear(value);
-               } else {
-                   setYear("");
-               }
-           }}
-           renderInput={(params) => (
-           <TextField
-               {...params}
-               name="VacationType"
-               label={intl.formatMessage(messages.year)}
-               margin="normal" 
-               className={style.fieldsSty}
-               
-               />
-         )}
-       />
-     </Grid>
+                renderOption={(optionProps, option, { selected }) => (
+                  <li {...optionProps} key={optionProps.id}>
+                    <Checkbox
+                      icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
+                      checkedIcon={<CheckBoxIcon fontSize='small' />}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option.name}
+                  </li>
+                )}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                onChange={(event, value) => {
+                  handleChange("employeeId", value  ? value : "");
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(messages.employeeName)}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
 
           <Grid item xs={12} md={2}>
             <Button

@@ -16,9 +16,12 @@
     min-width: 0px !important;
   }
     
-  .mui-style-ltr-lgyxef-MuiPaper-root-MuiDialog-paper{
+  .mui-style-ltr-lgyxef-MuiPaper-root-MuiDialog-paper,
+  .mui-style-rtl-lgyxef-MuiPaper-root-MuiDialog-paper
+  {
     max-width: 1000px !important;
   }
+  
   .mui-style-ltr-46bh2p-MuiCardContent-root {
     padding: 8px !important;
     padding-bottom: 0px !important;

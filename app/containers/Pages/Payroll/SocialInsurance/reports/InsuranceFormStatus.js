@@ -17,7 +17,7 @@ function InsuranceFormStatus(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
-
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [organizationList, setOrganizationList] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
   const [statusList, setStatusList] = useState([]);
@@ -33,7 +33,7 @@ function InsuranceFormStatus(props) {
     EmployeeId: null,
     OrganizationId: null,
     EmpStatusId: 1,
-    BranchId: '',
+    BranchId: branchId,
   });
 
   const columns = [
@@ -166,6 +166,7 @@ function InsuranceFormStatus(props) {
               searchData={formInfo}
               notShowDate={true}
               setIsLoading={setIsLoading}
+              company={formInfo.BranchId}
             />
           </Grid>
 

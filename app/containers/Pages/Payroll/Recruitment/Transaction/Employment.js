@@ -39,7 +39,7 @@ function Employment(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const [popupState, setPopupState] = useState({
-    date: null,
+    date: new Date(),
   });
 
   const fetchTableData = async () => {

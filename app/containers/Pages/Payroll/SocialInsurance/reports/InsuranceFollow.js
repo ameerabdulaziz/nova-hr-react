@@ -21,11 +21,11 @@ function InsuranceNotifications(props) {
   const { intl } = props;
 
   const locale = useSelector((state) => state.language.locale);
-
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const pageTitle = localStorage.getItem('MenuName');
 
   const [formInfo, setFormInfo] = useState({
-    BranchId: null,
+    BranchId: branchId,
     InsStatusId: null,
   });
 

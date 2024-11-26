@@ -9,7 +9,7 @@ export default defineMessages({
   },
   organizationName: {
     id: `${scope}.organizationName`,
-    defaultMessage: 'organizationName',
+    defaultMessage: 'Organization name',
   },
   insuranceNumber: {
     id: `${scope}.insuranceNumber`,

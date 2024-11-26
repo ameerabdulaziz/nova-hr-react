@@ -30,16 +30,18 @@ function NewEmployeeReport(props) {
   const pageTitle = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [tableData, setTableData] = useState([]);
-
+  const [companyList, setCompanyList] = useState([]);
   const [departmentList, setDepartmentList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [dateError, setDateError] = useState({});
 
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
     ToDate: null,
     OrganizationId: '',
+    BranchId: branchId,
     ShowSalary: false,
   });
 
@@ -166,17 +168,24 @@ function NewEmployeeReport(props) {
       return;
     }
 
+
+    if(formInfo.FromDate && !formInfo.ToDate)
+    {
+      toast.error(intl.formatMessage(messages.DateErrMess));
+      return;
+    }
+
     try {
-      setIsLoading(true);
-      const formData = {
-        ...formInfo,
-        FromDate: formateDate(formInfo.FromDate),
-        ToDate: formateDate(formInfo.ToDate),
-      };
+        setIsLoading(true);
+        const formData = {
+          ...formInfo,
+          FromDate: formateDate(formInfo.FromDate),
+          ToDate: formateDate(formInfo.ToDate),
+        };
 
-      const dataApi = await API(locale).GetReport(formData);
+        const dataApi = await API(locale).GetReport(formData);
 
-      setTableData(dataApi);
+        setTableData(dataApi);
     } catch (error) {
       //
     } finally {
@@ -186,10 +195,9 @@ function NewEmployeeReport(props) {
 
   async function fetchData() {
     try {
-      const department = await GeneralListApis(locale).GetDepartmentList();
-      setDepartmentList(department);
+      const company = await GeneralListApis(locale).GetBranchList();
+      setCompanyList(company);
 
-      fetchTableData();
     } catch (error) {
       setIsLoading(false);
     }
@@ -207,10 +215,110 @@ function NewEmployeeReport(props) {
     setFormInfo((prev) => ({ ...prev, [name]: value }));
   };
 
+
+
+
+  const onCompanyAutoCompleteChange = async (value) => {
+    
+    let branchId
+    let  OpenMonthData
+
+    try
+    {
+      if(value)
+      {
+
+        branchId = value
+        OpenMonthData = await GeneralListApis(locale).getOpenMonth( value,0);
+      }
+      else
+      {
+        branchId = null
+      }
+
+     
+      const department = await GeneralListApis(locale).GetDepartmentList(
+        branchId
+      );
+      setDepartmentList(department);
+
+
+      setFormInfo((prev) => ({ 
+        ...prev, 
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }));
+
+
+    }
+    catch(err)
+    {}
+  }
+
+
+
+  useEffect( ()=>{
+    if(formInfo.BranchId)
+    {            
+      onCompanyAutoCompleteChange(formInfo.BranchId)
+    }
+
+
+
+    if(formInfo.BranchId === "" )
+    {
+      setFormInfo((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+    }
+
+  },[formInfo.BranchId])
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
+        <Grid item xs={12} md={4}>
+              <Autocomplete
+                options={companyList}
+                value={getAutoCompleteValue(companyList, formInfo.BranchId)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : "")}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+               onChange={(e,value)=>{
+                if(value)
+                {
+                  setFormInfo((prev) => ({ 
+                    ...prev, 
+                    BranchId: value?.id ? value?.id : null ,
+                  }));
+                }
+                else
+                {
+                  onCompanyAutoCompleteChange(value)
+                  setFormInfo((prev) => ({ 
+                    ...prev, 
+                    BranchId:  null ,
+                    FromDate: null,
+                    ToDate: null,
+                  }));
+                }
+               }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(payrollMessages.company)}
+                  />
+                )}
+              />
+            </Grid>
           <Grid item xs={12} md={3}>
             <Autocomplete
               options={departmentList}

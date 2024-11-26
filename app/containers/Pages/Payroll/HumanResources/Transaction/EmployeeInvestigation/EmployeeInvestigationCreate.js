@@ -81,7 +81,7 @@ import {
     const [openParentPopup, setOpenParentPopup] = useState(false);
     const [formInfo, setFormInfo] = useState({
       id,
-      date: "",
+      date: new Date(),
       investigator: "",
       employee: "",
       incidentDate: "",

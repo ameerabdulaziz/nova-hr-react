@@ -305,6 +305,20 @@ function DeviceCreate(props) {
                 )}
               />
             </Grid>
+            {/* <Grid item xs={12} md={6}>
+              <TextField
+                id="AreaCode"
+                name="AreaCode"
+                type="number"
+                value={data.devicePass}
+                onChange={(e) => handleChange(e)}
+                label={intl.formatMessage(messages.AreaCode)}
+                className={classes.field}
+                variant="outlined"
+                autoComplete='off'
+              />
+            </Grid> */}
+            
             <Grid item xs={12} md={1}>
               <Button
                 variant="contained"

@@ -183,6 +183,7 @@ function FollowEmployee(props) {
               setIsLoading={setIsLoading}
               notShowDate={true}
               notShowStatus={true}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
 

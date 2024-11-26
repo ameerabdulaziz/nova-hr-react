@@ -187,7 +187,7 @@ function BankList(props) {
       const months = await GeneralListApis(locale).GetMonths();
       setMonthList(months);
 
-      const department = await GeneralListApis(locale).GetDepartmentList();
+      const department = await GeneralListApis(locale).GetDepartmentList(branchId);
       setDepartmentList(department);
 
       const bank = await GeneralListApis(locale).GetBankList();
@@ -566,6 +566,39 @@ function BankList(props) {
     }
   };
 
+
+
+  async function onCompanyAutocompleteChange(value) {
+    setIsLoading(true);
+
+    setFormInfo((prev) => ({
+      ...prev,
+      BranchId: value !== null ? value.id : null,
+      OrganizationId: null,
+    }));
+
+    try {
+      const response = await GeneralListApis(locale).getOpenMonth(
+        value !== null ? value.id : 0,
+        0
+      );
+
+
+      const organizations = await GeneralListApis(locale).GetDepartmentList(value ? value.id : null);
+      setDepartmentList(organizations)
+
+      setFormInfo((prev) => ({
+        ...prev,
+        MonthId: response.monthId,
+        YearId: response.yearId,
+      }));
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
@@ -673,7 +706,7 @@ function BankList(props) {
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'BranchId')}
+                onChange={(_, value) => onCompanyAutocompleteChange(value)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -702,7 +735,7 @@ function BankList(props) {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label={intl.formatMessage(messages.organization)}
+                    label={intl.formatMessage(payrollMessages.organizationName)}
                   />
                 )}
               />

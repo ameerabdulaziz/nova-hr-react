@@ -24,6 +24,7 @@ function staffMedicalInsuranceReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [MedicalInsuranceCentersList, setMedicalInsuranceCentersList] = useState([]);
   const [MedicalTypesList, setMedicalTypesList] = useState([]);
   const [Deleted, setDeleted] = useState("");
@@ -32,13 +33,13 @@ function staffMedicalInsuranceReport(props) {
   const [data, setdata] = useState([]);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
-  const [searchData, setsearchData] = useState({
+  const [searchData, setSearchData] = useState({
     FromDate: null,
     ToDate: null,
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
-    BranchId: '',
+    BranchId: branchId,
   });
 
   const [DateError, setDateError] = useState({});
@@ -270,10 +271,59 @@ function staffMedicalInsuranceReport(props) {
         customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
       },
     },
-
-    
-    
   ];
+
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(!EmployeeId)
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+      }
+      else
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      }
+
+      
+      setSearchData((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    if(searchData.BranchId !== "" && searchData.EmployeeId === "")
+    {      
+      openMonthDateWithCompanyChangeFun(searchData.BranchId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId !== "")
+    {
+      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+    }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId === "")
+    {
+      setSearchData((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId])
+  
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -282,11 +332,12 @@ function staffMedicalInsuranceReport(props) {
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
             <Search
-               setsearchData={setsearchData}
+               setsearchData={setSearchData}
                searchData={searchData}
                setIsLoading={setIsLoading}
                DateError={DateError}
                setDateError={setDateError}
+               company={searchData.BranchId}
             ></Search>
           </Grid>
 

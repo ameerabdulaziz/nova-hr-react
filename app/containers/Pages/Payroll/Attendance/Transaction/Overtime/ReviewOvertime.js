@@ -42,8 +42,8 @@ function ReviewOvertime(props) {
     shiftCode: null,
     OffVacCheck: false,
 
-    FromDate: null,
-    ToDate: null,
+    FromDate: new Date(),
+    ToDate: new Date(),
     EmployeeId: '',
     EmpStatusId: 1,
     OrganizationId: '',

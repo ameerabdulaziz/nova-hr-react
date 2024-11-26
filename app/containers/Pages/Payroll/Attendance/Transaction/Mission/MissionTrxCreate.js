@@ -279,8 +279,12 @@ function MissionTrxCreate(props) {
       const Missions = await GeneralListApis(locale).GetMissionList(locale);
       setMissionsList(Missions);
 
-      const dataApi = await ApiData(locale).Get(id??0);
-      setdata(dataApi);
+      if(!empid)
+      {
+        const dataApi = await ApiData(locale).Get(id??0);
+        setdata(dataApi);
+      }
+
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -413,6 +417,7 @@ function MissionTrxCreate(props) {
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
+                empid={empid}
               ></EmployeeData>
             </Grid>
 
