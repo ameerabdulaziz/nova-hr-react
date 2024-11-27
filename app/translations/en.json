@@ -1373,6 +1373,8 @@
   "boilerplate.containers.Payroll.Attendance.worKNighDayVal": "Day Element value",
   "boilerplate.containers.Payroll.Attendance.worKNighElem": "Night Element",
   "boilerplate.containers.Payroll.Attendance.LocationList": "Location List",
+  "boilerplate.containers.Payroll.Attendance.signDateTime": "Sign Time",
+  "boilerplate.containers.Payroll.Attendance.type": "SignType",
   "boilerplate.containers.Payroll.august": "August",
   "boilerplate.containers.Payroll.balance": "Balance",
   "boilerplate.containers.Payroll.bank": "Bank",

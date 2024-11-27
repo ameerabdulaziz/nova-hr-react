@@ -2187,5 +2187,13 @@ devicePass: {
     id: `${scope}.LocationList`,
     defaultMessage: 'Location List',
   },
+  signDateTime: {
+    id: `${scope}.signDateTime`,
+    defaultMessage: 'signDateTime',
+  },
+  type: {
+    id: `${scope}.type`,
+    defaultMessage: 'type',
+  },
 });
 

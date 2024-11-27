@@ -78,6 +78,8 @@ function RequestsList(props) {
       ? 12
       : location.pathname == "/app/Pages/Training/TrainingApproval"
       ? 13
+      : location.pathname == "/app/Pages/Att/ForgotFingerprintApproval"
+      ? 14
       : 0
   );
   const [fromdate, setfromate] = useState(new Date());
@@ -195,11 +197,11 @@ function RequestsList(props) {
       if (dataApi && dataApi.length > 0) {
         var data = Object.keys(dataApi[0]).filter((item) => item != "actions");
         // used to remove executionId from table
-        if (Document === 3) {
+        /* if (Document === 3) {
           const index = data.indexOf("executionId");
           data.splice(index, 1);
         }
-
+ */
         setCols(data);
       } else setCols([]);
       fetchData();
@@ -274,6 +276,8 @@ function RequestsList(props) {
         documentId = 12;
       else if (location.pathname == "/app/Pages/Training/TrainingApproval")
         documentId = 13;
+      else if (location.pathname == "/app/Pages/Att/ForgotFingerprintApproval")
+        documentId = 14;
       else documentId = 0;
 
       let Fromdate = dateFormatFun(fromdate);
@@ -322,7 +326,7 @@ function RequestsList(props) {
               Document == 1 ||
               Document == 2 ||
               Document == 6 ||
-              Document == 11 ? (
+              Document == 11 || Document == 14 ? (
                 <FormattedMessage {...missionmessages[item]} />
               ) : Document == 4 ||
                 Document == 5 ||
