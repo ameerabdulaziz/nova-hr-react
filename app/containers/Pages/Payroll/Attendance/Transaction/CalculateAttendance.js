@@ -195,6 +195,12 @@ function CalculateAttendance(props) {
       return;
     }
 
+
+    if (formInfo.EmployeeIds.length === 0) {
+      toast.error(intl.formatMessage(messages.employeeErrMess));
+      return;
+    }
+
     setIsLoading(true);
 
     const formData = {

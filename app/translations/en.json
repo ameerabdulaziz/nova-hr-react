@@ -1167,6 +1167,7 @@
   "boilerplate.containers.Payroll.Attendance.nightPermissionT": "Night Permission T",
   "boilerplate.containers.Payroll.Attendance.noAttendanceRule": "No Attendance Rule",
   "boilerplate.containers.Payroll.Attendance.noOrganizationSelect": "No Organization Select",
+  "boilerplate.containers.Payroll.Attendance.employeeErrMess": "You must to choose employee",
   "boilerplate.containers.Payroll.Attendance.Normal": "Normal",
   "boilerplate.containers.Payroll.Attendance.NotAttendanceForTheDay": "Not Attendance For The Day",
   "boilerplate.containers.Payroll.Attendance.notes": "Notes",

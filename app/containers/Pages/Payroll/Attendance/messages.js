@@ -2132,6 +2132,10 @@ devicePass: {
     id: `${scope}.noOrganizationSelect`,
     defaultMessage: 'noOrganizationSelect',
   },
+  employeeErrMess: {
+    id: `${scope}.employeeErrMess`,
+    defaultMessage: 'You must to choose employee',
+  },
   // ShiftManPowerReport
   attend: {
     id: `${scope}.attend`,
