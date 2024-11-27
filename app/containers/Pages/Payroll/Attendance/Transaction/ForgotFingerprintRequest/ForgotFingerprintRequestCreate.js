@@ -169,10 +169,9 @@ function ForgotFingerprintRequestCreate(props) {
         whiteBg
         icon="border_color"
         title={
-            "Add Forgot Fingerprint Request"
-        //   data.id == 0
-        //     ? intl.formatMessage(messages.MissionTrxCreateTitle)
-        //     : intl.formatMessage(messages.MissioTrxUpdateTitle)
+          data.id == 0
+            ? intl.formatMessage(messages.ForgotFingerprintRequestCreateTitle)
+            : intl.formatMessage(messages.ForgotFingerprintRequestUpdateTitle)
         }
         desc={""}
       >
@@ -181,8 +180,7 @@ function ForgotFingerprintRequestCreate(props) {
             <Grid item xs={12} md={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label="Date"
-                //   label={intl.formatMessage(Payrollmessages.fromdate)}
+                  label={intl.formatMessage(Payrollmessages.date)}
                   value={data.Date ? dayjs(data.Date) : data.Date}
                   className={classes.field}
                   onChange={(date) => {
@@ -204,6 +202,7 @@ function ForgotFingerprintRequestCreate(props) {
                       }));
                     }
                   }}
+                  disabled
                 />
               </LocalizationProvider>
             </Grid>
@@ -218,7 +217,7 @@ function ForgotFingerprintRequestCreate(props) {
 
             <Grid item xs={4} >
                 <TextField
-                 label="Fingerprint Time"
+                 label={intl.formatMessage(messages.signDateTime)}
                  type="datetime-local"
                  value={data.FingerprintTime ? data.FingerprintTime : ""}
                  onChange={(event, value) => {
@@ -251,8 +250,7 @@ function ForgotFingerprintRequestCreate(props) {
                     variant="outlined"
                     {...params}
                     name="fingerprintType"
-                    label="fingerprint type"
-                    //   label={intl.formatMessage(Payrollmessages.Empstatus)}
+                      label={intl.formatMessage(messages.type)}
                     />
                 )}
                 />

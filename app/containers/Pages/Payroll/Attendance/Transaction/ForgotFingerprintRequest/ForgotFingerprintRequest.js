@@ -76,8 +76,7 @@ function ForgotFingerprintRequest(props) {
     },
     {
       name: 'signDateTime',
-      label: "signDateTime",
-    //   label: intl.formatMessage(messages.missionName),
+      label: intl.formatMessage(messages.signDateTime),
     },
 
     {
