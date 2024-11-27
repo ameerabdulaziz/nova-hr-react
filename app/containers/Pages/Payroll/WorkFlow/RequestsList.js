@@ -349,7 +349,7 @@ function RequestsList(props) {
               customBodyRender: (value) =>
                 (value == true || value == false) && value != "" ? (
                   getCheckboxIcon(value)
-                ) : item?.toLowerCase()?.includes("date") ? (
+                ) : (item?.toLowerCase()?.includes("date") && !item?.toLowerCase()?.includes("time")) ? (
                   <pre>{formateDate(value)}</pre>
                 ) : (
                   value
