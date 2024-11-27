@@ -1167,6 +1167,7 @@
   "boilerplate.containers.Payroll.Attendance.nightPermissionT": "اجمالى وقت الاذون المسائية",
   "boilerplate.containers.Payroll.Attendance.noAttendanceRule": "بدون نموذج",
   "boilerplate.containers.Payroll.Attendance.noOrganizationSelect": "لم يتم تحديد ادارة",
+  "boilerplate.containers.Payroll.Attendance.employeeErrMess": "يجب عليك اختيار الموظف",
   "boilerplate.containers.Payroll.Attendance.Normal": "عادى",
   "boilerplate.containers.Payroll.Attendance.NotAttendanceForTheDay": "لا يوجد اي توقيع",
   "boilerplate.containers.Payroll.Attendance.notes": "ملاحظات",

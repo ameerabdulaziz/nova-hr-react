@@ -64,7 +64,7 @@ function Header(props) {
   const [answer, setAnswer] = useState("");
   const [question, setQuestion] = useState("");
   const locale = useSelector((state) => state.language.locale);
-
+  const { isHR, isManagement, isSuper } = useSelector((state) => state.authReducer.user);
   const [notifications, setNotifications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -333,6 +333,8 @@ function Header(props) {
             </Typography>
           </div>
         </Hidden>
+        
+      {isHR || isManagement || isSuper ? (
         <Tooltip
           title={intl.formatMessage(messages.askNova)}
           placement="bottom"
@@ -341,6 +343,8 @@ function Header(props) {
             <img src='/images/chat.png' alt='chat' height={40} />
           </Box>
         </Tooltip>
+        )
+      : null}
         <div className={classes.searchWrapper}>
           <div className={classes.wrapper}>
             <div className={classes.search}>
