@@ -1602,6 +1602,7 @@
   "boilerplate.containers.Payroll.Employee.personal.nationality": "الجنسية",
   "boilerplate.containers.Payroll.Employee.personal.netSalary": "الراتب الصافي",
   "boilerplate.containers.Payroll.Employee.personal.organization": "القسم",
+  "boilerplate.containers.Payroll.Employee.personal.parentOrgName": "الادارة",
   "boilerplate.containers.Payroll.Employee.personal.postOverTime": "احتساب الوقت الاضافى بمقابل نقدي",
   "boilerplate.containers.Payroll.Employee.personal.privlMedCareNumber": "الرقم التأمينى",
   "boilerplate.containers.Payroll.Employee.personal.qualification": "المؤهل",

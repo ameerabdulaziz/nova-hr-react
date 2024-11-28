@@ -36,7 +36,7 @@ function EmployeeList(props) {
         BranchId: searchData.BranchId
       };
       Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? "" : formData[key];
+        formData[key] = formData[key] === null ? "" : (formData[key]==0?"":formData[key]);
       });
 
       const dataApi = await ApiData(locale).GetList(formData);
@@ -228,6 +228,11 @@ function EmployeeList(props) {
       name: 'organizationName',
       label: intl.formatMessage(messages.organization),
     },
+    {
+      name: 'parentOrgName',
+      label: intl.formatMessage(messages.parentOrgName),
+    },
+    
     {
       name: 'branchName',
       label: intl.formatMessage(Payrollmessages.branch),

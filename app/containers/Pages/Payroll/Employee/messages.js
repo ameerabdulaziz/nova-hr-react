@@ -156,6 +156,11 @@ export default defineMessages({
     id: `${scope}.personal.organization`,
     defaultMessage: 'Organization',
   },
+  parentOrgName: {
+    id: `${scope}.personal.parentOrgName`,
+    defaultMessage: 'parentOrgName',
+  },
+  
   reportto: {
     id: `${scope}.personal.reportto`,
     defaultMessage: 'Report To',

@@ -1602,6 +1602,7 @@
   "boilerplate.containers.Payroll.Employee.personal.nationality": "Nationality",
   "boilerplate.containers.Payroll.Employee.personal.netSalary": "Net Salary",
   "boilerplate.containers.Payroll.Employee.personal.organization": "Organization",
+  "boilerplate.containers.Payroll.Employee.personal.parentOrgName": "Department",
   "boilerplate.containers.Payroll.Employee.personal.postOverTime": "Post Over Time",
   "boilerplate.containers.Payroll.Employee.personal.privlMedCareNumber": "MedCare Number",
   "boilerplate.containers.Payroll.Employee.personal.qualification": "Qualification",
