@@ -466,6 +466,9 @@ import {
   GPSAttendance,
   LocationAttendanceReport,
   EmployeeLocationReport,
+  ForgotFingerprintRequest,
+  ForgotFingerprintRequestCreate,
+  ForgotFingerprintRequestEdit,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -1348,6 +1351,21 @@ function Application(props) {
         <Route
           path="/app/Pages/Att/ShiftManPowerReport"
           component={ShiftManPowerReport}
+        />
+
+        <Route
+          path="/app/Pages/Att/ForgotFingerprintRequest"
+          component={ForgotFingerprintRequest}
+        />
+
+        <Route
+          path="/app/Pages/Att/ForgotFingerprintRequestCreate"
+          component={ForgotFingerprintRequestCreate}
+        />
+
+        <Route
+          path="/app/Pages/Att/ForgotFingerprintRequestEdit"
+          component={ForgotFingerprintRequestEdit}
         />
 
         {/* Payroll */}

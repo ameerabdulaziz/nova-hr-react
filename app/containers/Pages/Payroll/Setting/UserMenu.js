@@ -86,7 +86,7 @@ setLimit(parseInt(event.target.value, 10));
 };
 
 const applyFilters = (data, query, menu) =>{
-  debugger;
+
   let datafiltered=data;
   if(menu)
     datafiltered = data.filter((item) =>item.parentID==menu) ;
@@ -98,7 +98,7 @@ const applyFilters = (data, query, menu) =>{
 }
 
 const applyPagination = (dataList, page, limit) => {
-  debugger;
+
   let result = [];
   if (dataList && dataList.length !== 0) {
     // console.log(dataList);

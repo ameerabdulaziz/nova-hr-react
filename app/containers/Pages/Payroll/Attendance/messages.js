@@ -2199,5 +2199,14 @@ devicePass: {
     id: `${scope}.type`,
     defaultMessage: 'type',
   },
+  // ForgotFingerprintRequest
+  ForgotFingerprintRequestCreateTitle: {
+    id: `${scope}.ForgotFingerprintRequestCreateTitle`,
+    defaultMessage: 'Add Forgot Fingerprint Request',
+  },
+  ForgotFingerprintRequestUpdateTitle: {
+    id: `${scope}.ForgotFingerprintRequestUpdateTitle`,
+    defaultMessage: 'Update Forgot Fingerprint Request',
+  },
 });
 

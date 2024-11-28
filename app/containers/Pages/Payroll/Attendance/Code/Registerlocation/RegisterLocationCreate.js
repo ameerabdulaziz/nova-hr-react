@@ -19,7 +19,15 @@ import SaveButton from '../../../Component/SaveButton';
 import PayRollLoader from '../../../Component/PayRollLoader';
 import { Tooltip, Autocomplete } from "@mui/material";
 
-import { Autocomplete as GoogleAutocomplete, DrawingManager, GoogleMap, Polygon,  Marker, LoadScript  } from '@react-google-maps/api';
+import { 
+  Autocomplete as GoogleAutocomplete, 
+  DrawingManager, 
+  GoogleMap, 
+  Polygon,  
+  Marker, 
+  LoadScript,
+  Circle  
+} from '@react-google-maps/api';
 import deleteIcon from '../../../Assets/Attendance-imgs/remove.png';
 
 const libraries = ['places', 'drawing'];
@@ -338,6 +346,18 @@ useEffect(() => {
     history.push(`/app/Pages/Att/RegisterLocation`);
   }
 
+
+  useEffect(() => {
+    if(distance !== "" && lat !== "" && lng !== "" && polygons.length === 0)
+    {
+      setCenter({
+        lat: lat,
+        lng: lng,
+      })
+    }
+  },[distance,lat,lng,polygons])
+
+
   return (
     <div>
       <PayRollLoader isLoading={isLoading}>
@@ -430,6 +450,21 @@ useEffect(() => {
                                 <Marker
                                   position={location}
                                 />
+                        )}
+
+                        {polygons.length === 0 && (
+
+                            <Circle
+                              center={center}
+                              radius={distance === "" ? null : parseFloat(distance)}
+                              options={{
+                                strokeColor: "#FF0000",
+                                strokeOpacity: 0.8,
+                                strokeWeight: 2,
+                                fillColor: "#FF0000",
+                                fillOpacity: 0.35,
+                              }}
+                            />
                         )}
 
                   </GoogleMap>

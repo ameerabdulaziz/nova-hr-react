@@ -1367,6 +1367,27 @@ export const EmployeeLocationReport = loadable(
   }
 );
 
+export const ForgotFingerprintRequest = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/ForgotFingerprintRequest/ForgotFingerprintRequest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ForgotFingerprintRequestCreate = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/ForgotFingerprintRequest/ForgotFingerprintRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const ForgotFingerprintRequestEdit = loadable(
+  () => import('./Pages/Payroll/Attendance/Transaction/ForgotFingerprintRequest/ForgotFingerprintRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 // Payroll /////////////////////////////////////////////////////////////////////////////////
 export const LoanSetting = loadable(
