@@ -171,7 +171,7 @@ function LoanPostpone(props) {
     async (id, name) => {
       if (name == "employeeId") {
         setEmployeeId(id);
-        if (OpenMonth.yearId && OpenMonth.monthId) {
+        if (OpenMonth.yearId && OpenMonth.monthId && EmployeeId !== "" ) {
           const result1 = await ApiData(locale).GetDetailList(
             OpenMonth.yearId,
             OpenMonth.monthId,
@@ -334,7 +334,7 @@ function LoanPostpone(props) {
                         }
                         onChange={(event, value) => {
                           setBranchId(value !== null ? value.id : 0);
-                          getOpenMonth(value !== null ? value.id : 0);
+                          setEmployeeId("")
                         }}
                         renderInput={(params) => (
                           <TextField
@@ -351,7 +351,7 @@ function LoanPostpone(props) {
                       <TextField
                         id="YearId"
                         name="YearId"
-                        value={OpenMonth.yearName}
+                        value={OpenMonth.yearName ? OpenMonth.yearName : ""}
                         label={intl.formatMessage(Payrollmessages.year)}
                         className={classes.field}
                         variant="outlined"
@@ -362,7 +362,7 @@ function LoanPostpone(props) {
                       <TextField
                         id="MonthId"
                         name="MonthId"
-                        value={OpenMonth.monthName}
+                        value={OpenMonth.monthName ? OpenMonth.monthName : ""}
                         label={intl.formatMessage(Payrollmessages.month)}
                         className={classes.field}
                         variant="outlined"

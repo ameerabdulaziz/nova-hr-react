@@ -310,7 +310,7 @@ function ElementVlaImport({ intl }) {
                         <TextField
                           id="YearId"
                           name="YearId"
-                          value={data.yearName}
+                          value={data.yearName ? data.yearName : ""}
                           label={intl.formatMessage(Payrollmessages.year)}
                           className={classes.field}
                           variant="outlined"
@@ -321,7 +321,7 @@ function ElementVlaImport({ intl }) {
                         <TextField
                           id="MonthId"
                           name="MonthId"
-                          value={data.monthName}
+                          value={data.monthName ? data.monthName : ""}
                           label={intl.formatMessage(Payrollmessages.month)}
                           className={classes.field}
                           variant="outlined"
