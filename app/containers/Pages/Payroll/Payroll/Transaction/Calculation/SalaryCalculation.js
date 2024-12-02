@@ -112,7 +112,7 @@ function SalaryCalculation(props) {
       setOpenMonth({
         monthId: result.monthId,
         yearId: result.yearId,
-        monthName: locale === "en" ? result.monthNameEn :  result.monthNameAr,
+        monthName: result.monthName,
         yearName: result.yearName,
         fromdate: result.fromDate,
         todate: result.todate,

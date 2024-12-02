@@ -30,7 +30,7 @@ const PaymentSlipReview = () => {
                 px: 4,
                 pt: 4,
                 'p.MuiTypography-root, .MuiTableCell-root': {
-                    fontSize: '7px',
+                    fontSize: '12px',
                     color: '#000',
                 },
                 }}

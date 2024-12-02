@@ -900,7 +900,7 @@ function ElementValList(props) {
                       <TextField
                         id="YearId"
                         name="YearId"
-                        value={OpenMonth.yearName}
+                        value={OpenMonth.yearName ? OpenMonth.yearName : ""}
                         label={intl.formatMessage(Payrollmessages.year)}
                         className={classes.field}
                         variant="outlined"
@@ -911,7 +911,7 @@ function ElementValList(props) {
                       <TextField
                         id="MonthId"
                         name="MonthId"
-                        value={OpenMonth.monthName}
+                        value={OpenMonth.monthName ? OpenMonth.monthName : ""}
                         label={intl.formatMessage(Payrollmessages.month)}
                         className={classes.field}
                         variant="outlined"
