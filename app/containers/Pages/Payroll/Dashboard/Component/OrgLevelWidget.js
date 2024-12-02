@@ -78,7 +78,7 @@ function OrgLevelWidget(props) {
                     paddingAngle={5}
                     label
                   >
-                    {data2.map((entry, index) => (
+                    {data2.length>0 && data2.map((entry, index) => (
                       <Cell
                         key={index.toString()}
                         fill={colorsPie[index % colorsPie.length]}

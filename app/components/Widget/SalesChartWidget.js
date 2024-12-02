@@ -135,7 +135,7 @@ function SalesChartWidget(props) {
                 label
               >
                 {
-                  data2.map((entry, index) => <Cell key={index.toString()} fill={colorsPie[index % colorsPie.length]} />)
+                  data2.length>0 && data2.map((entry, index) => <Cell key={index.toString()} fill={colorsPie[index % colorsPie.length]} />)
                 }
               </Pie>
               <Legend iconType="circle" verticalALign="bottom" iconSize={10} />

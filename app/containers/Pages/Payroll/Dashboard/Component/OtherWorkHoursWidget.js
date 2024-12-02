@@ -183,7 +183,7 @@ function OtherWorkHoursWidget(props) {
                     shape={TriangleBar}
                     label={{ position: "top" }}
                   >
-                    {data2.map((entry, index) => (
+                    {data2.length>0 && data2.map((entry, index) => (
                       <Cell
                         key={`cell-${index.toString()}`}
                         fill={colors[index % colors.length]}
