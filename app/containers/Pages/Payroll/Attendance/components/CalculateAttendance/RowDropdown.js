@@ -43,16 +43,17 @@ function RowDropdown(props) {
   ) => {
     closeDropdown(tableMeta.rowIndex);
     if (!tableMeta.rowData[validationIndex]) {
+      debugger;
       window
         .open(
           `${encodeURI(
             `${url}/${btoa(
               encodeURIComponent(
                 JSON.stringify({
-                  id: tableMeta.rowData[0],
-                  shiftDate: tableMeta.rowData[5],
-                  timeIn: tableMeta.rowData[7],
-                  timeOut: tableMeta.rowData[8],
+                  id: tableMeta.rowData[1],
+                  shiftDate: tableMeta.rowData[6],
+                  timeIn: tableMeta.rowData[8],
+                  timeOut: tableMeta.rowData[9],
                 })
               )
             )}`

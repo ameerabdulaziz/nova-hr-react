@@ -99,13 +99,14 @@ const CalculateAttendancePopUp = ({
     
     try {
 
+      debugger;
       setIsLoadingPopup(true);
 
       const apiData = {
         id: 0,
         shiftDate: data.AttendanceDate,
         shiftCode: data.shiftCode,
-        employeeId: Data.rowData[0],
+        employeeId: Data.employeeId,
         timeIn: data.timeIn,
         timeOut: data.timeOut,
         notes: data.notes ? data.notes : "",

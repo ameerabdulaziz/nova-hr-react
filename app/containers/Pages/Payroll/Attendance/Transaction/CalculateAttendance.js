@@ -177,7 +177,11 @@ function CalculateAttendance(props) {
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
+    handleSearch();
+    
+  };
 
+  const handleSearch = async () => {
     // used to stop call api if user select wrong date
     if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
@@ -226,8 +230,7 @@ function CalculateAttendance(props) {
     } finally {
       setIsLoading(false);
     }
-  };
-
+  }
   const handleCalculate = async () => {
 
     try {
@@ -545,6 +548,7 @@ function CalculateAttendance(props) {
   const handleClose = () => {
     setOpenParentPopup(false);
     setSelectedRowData();
+    handleSearch();
   };
 
   const handleClickOpen = (item, popUpTitle, disabledLock, shortcutType) => {
@@ -560,6 +564,15 @@ function CalculateAttendance(props) {
   const columns = [
     {
       name: "id",
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false,
+      },
+    },
+    {
+      name: "employeeId",
       options: {
         filter: false,
         display: false,
