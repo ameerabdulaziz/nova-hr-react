@@ -292,6 +292,14 @@ lessTime: {
   id: `${scope}.lessTime`,
   defaultMessage: 'lessTime',
 },
+LateTime: {
+  id: `${scope}.LateTime`,
+  defaultMessage: 'Late Time',
+},
+lateTimeMinus: {
+  id: `${scope}.lateTimeMinus`,
+  defaultMessage: 'Late Time Minus',
+},
 breakTime: {
   id: `${scope}.breakTime`,
   defaultMessage: 'breakTime',
@@ -2207,6 +2215,11 @@ devicePass: {
   ForgotFingerprintRequestUpdateTitle: {
     id: `${scope}.ForgotFingerprintRequestUpdateTitle`,
     defaultMessage: 'Update Forgot Fingerprint Request',
+  },
+  // EmployeeSchedule
+  changeShift: {
+    id: `${scope}.changeShift`,
+    defaultMessage: 'Change Shift',
   },
 });
 

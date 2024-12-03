@@ -62,11 +62,14 @@ function MainTable(props) {
   
   const getData = () => {
     if (search.length !== 0)
-      return items.filter((item) =>
-        Object.keys(item).some((key) =>
-          item[key].toString().toLowerCase().includes(search.toLowerCase())
-        )
-      );
+    {
+      return items.filter((item) =>{
+        Object.keys(item).some((key) => {
+          const value = item[key];
+          return value != null && value.toString().toLowerCase().includes(search.toLowerCase());
+        })
+      })
+    }
     else return items;
   };
   const getHead = (dataArray) =>
