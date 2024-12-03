@@ -1388,6 +1388,13 @@ export const ForgotFingerprintRequestEdit = loadable(
   }
 );
 
+export const EmployeeSchedule = loadable(
+  () => import('./Pages/Payroll/Attendance/Code/EmployeeSchedule/EmployeeSchedule'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 // Payroll /////////////////////////////////////////////////////////////////////////////////
 export const LoanSetting = loadable(

@@ -68,7 +68,8 @@ import { format } from "date-fns";
                                         </TableCell>
                                         <TableCell align='center' >
                                             {data.mission ? (
-                                                    <CheckIcon style={{ color: "#3f51b5" }} />
+                                                    // <CheckIcon style={{ color: "#3f51b5" }} />
+                                                        <pre>{data.missionName}</pre>
                                                 ) : (
                                                     <CloseIcon style={{ color: "#717171" }} />
                                                 )}

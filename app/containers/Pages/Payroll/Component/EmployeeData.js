@@ -114,7 +114,7 @@ function EmployeeData(props) {
         HasAlternativeEmp: empdata.hasAlternativeEmp,
       }));
       handleEmpChange(id, "employeeId",empdata.name, empdata.hiringDate,empdata.workingYears);
-      handleEmpChange(empdata.hasAlternativeEmp, "HasAlternativeEmp");
+      // handleEmpChange(empdata.hasAlternativeEmp, "HasAlternativeEmp");
       if (GetEmployeePenalties) {
         const result = await GeneralListApis(locale).GetEmployeePenalties(id);
         setdata((prevFilters) => ({

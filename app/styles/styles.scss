@@ -11,6 +11,7 @@
         & > div:nth-child(1)
         {
             max-width: 100% !important;
+            width: 100%;
         }
     }
 }
@@ -838,7 +839,23 @@
 // Mission List  --end
 
 
+// Employee Schedule
+.EmployeeSchedulePopUpContainerSty
+{
+    width: 70%;
+    margin: 0 auto;
 
+    div:nth-child(3)
+    {
+        & > div:nth-child(1)
+        {
+            max-width: 100% !important;
+            width: 100%;
+        }
+    }
+}
+
+// Employee Schedule --end
 
 
 
