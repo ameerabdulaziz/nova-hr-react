@@ -14,6 +14,16 @@ const PersonalData = (locale) => {
     const result = data.data;
     return result;
   };
+
+
+  Apis.ResetDeviceKey = async (employee,organization) => {
+    
+    const result = await axiosInstance.post(`UserManagement/ResetDeviceKey?employeeId=${employee?employee:""}&OrganizationId=${organization?organization:""}`);
+
+    return result;
+  };
+
+
   return Apis;
 };
 

@@ -786,4 +786,8 @@ employeeId: {
     id: `${scope}.pageUnderConstruction`,
     defaultMessage: 'Page Under Construction',
   },
+  resetDeviceKey: {
+    id: `${scope}.resetDeviceKey`,
+    defaultMessage: 'Reset Device Key',
+  },
 });
