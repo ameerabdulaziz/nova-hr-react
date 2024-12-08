@@ -197,7 +197,6 @@ function ElementReview(props) {
     setIsLoading(true);
 
     try {
-      const elements = await GeneralListApis(locale).GetElementList();
       const template = await GeneralListApis(locale).GetPayTemplateList();
       const months = await GeneralListApis(locale).GetMonths();
       const years = await GeneralListApis(locale).GetYears();
@@ -214,7 +213,6 @@ function ElementReview(props) {
       const organizations = await GeneralListApis(locale).GetDepartmentList();
       setOrganizationList(organizations);
 
-      setElementsList(elements)
       setTemplatesList(template)
 
       const defaultTemplate = template.find((item) => item.id === 1);
@@ -350,6 +348,23 @@ function ElementReview(props) {
     }
 
   },[searchData.BranchId, searchData.EmployeeId,YearList])
+
+
+  const getElementsByTempletFun = async () => {
+    try
+    {
+      const elements = await GeneralListApis(locale).GetElementListByTemplate(Template && Template.id ? Template.id : 0);
+      setElementsList(elements)
+    }
+    catch(err)
+    {}
+  }
+
+
+
+  useEffect(()=>{
+    getElementsByTempletFun()
+  },[Template])
 
 
   return (

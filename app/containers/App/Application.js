@@ -470,6 +470,9 @@ import {
   ForgotFingerprintRequestCreate,
   ForgotFingerprintRequestEdit,
   EmployeeSchedule,
+  TransferRequest,
+  TransferRequestCreate,
+  TransferRequestEdit,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -973,6 +976,21 @@ function Application(props) {
         <Route
           path="/app/Pages/HR/EmpInvestigationEdit"
           component={EmpInvestigationEdit}
+        />
+
+        <Route
+          path="/app/Pages/HR/TransferRequest"
+          component={TransferRequest}
+        />
+
+        <Route
+          path="/app/Pages/HR/TransferRequestCreate"
+          component={TransferRequestCreate}
+        />
+
+        <Route
+          path="/app/Pages/HR/TransferRequestEdit"
+          component={TransferRequestEdit}
         />
 
         {/* Attendance */}
