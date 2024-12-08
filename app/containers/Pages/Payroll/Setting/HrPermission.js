@@ -288,10 +288,10 @@ function HrPermission(props) {
               options={employeeList}
               value={getAutoCompleteValue(employeeList, employee)}
               isOptionEqualToValue={(option, value) => option.id === value.id}
-              getOptionLabel={(option) => (option ? option.name : '')}
+              getOptionLabel={(option) => (option ? `${option.id}-  ${option.name}` : '')}
               renderOption={(propsOption, option) => (
                 <li {...propsOption} key={option.id}>
-                  {option.name}
+                  {option.id}- &nbsp; {option.name}
                 </li>
               )}
               onChange={(_, value) => {

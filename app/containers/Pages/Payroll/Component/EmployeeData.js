@@ -196,6 +196,11 @@ function EmployeeData(props) {
                 InputLabelProps={{ shrink: data.superJob || data.job  ? true:false}}
                 // InputLabelProps={{ shrink: isSuper ? data.superJob : data.job }}
                 autoComplete='off'
+                sx={{
+                  "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                    WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                  },
+                }}
               />
             </Grid>
             <Grid item xs={12} md={3}>
@@ -213,6 +218,11 @@ function EmployeeData(props) {
                   // shrink: isSuper ? data.superOrganization : data.organization,
                 }}
                 autoComplete='off'
+                sx={{
+                  "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                    WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                  },
+                }}
               />
             </Grid>
             <Grid item xs={12} md={2}>
@@ -253,6 +263,11 @@ function EmployeeData(props) {
                 //     : data.hiringDate,
                 // }}
                 autoComplete='off'
+                sx={{
+                  "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                    WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                  },
+                }}
               />
             </Grid>
             {GetSalary ? (
@@ -274,6 +289,11 @@ function EmployeeData(props) {
                   InputLabelProps={{ shrink: data.length !== 0 && data.oldElemVal ? true : false }}
                   // InputLabelProps={{ shrink: data.oldElemVal }}
                   autoComplete='off'
+                  sx={{
+                    "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                    },
+                  }}
                 />
               </Grid>
             ) : GetworkingYears ? (
@@ -292,6 +312,11 @@ function EmployeeData(props) {
                     // shrink: data.workingYears === null ? "" : data.workingYears,
                   }}
                   autoComplete='off'
+                  sx={{
+                    "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                    },
+                  }}
                 />
               </Grid>
             ) : (
@@ -311,6 +336,11 @@ function EmployeeData(props) {
                   InputLabelProps={{ shrink: data.month !== 0 && data.month  ?true:false}}
                   // InputLabelProps={{ shrink: data.month==0||""?true:false}}
                   autoComplete='off'
+                  sx={{
+                    "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                    },
+                  }}
                 />
               </Grid>
             ) : (
@@ -329,6 +359,11 @@ function EmployeeData(props) {
                   InputLabelProps={{ shrink: data.sixMonth !== 0 && data.sixMonth ?true:false }}
                   // InputLabelProps={{ shrink: data.sixMonth==0||""?true:false }}
                   autoComplete='off'
+                  sx={{
+                    "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                    },
+                  }}
                 />
               </Grid>
             ) : (
@@ -347,6 +382,11 @@ function EmployeeData(props) {
                   InputLabelProps={{ shrink: data.year !== 0 && data.year ?true:false }}
                   // InputLabelProps={{ shrink: data.year==0||""?true:false }}
                   autoComplete='off'
+                  sx={{
+                    "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                    },
+                  }}
                 />
               </Grid>
             ) : (
@@ -365,6 +405,11 @@ function EmployeeData(props) {
                   InputLabelProps={{ shrink: data.hiringDateNo !== 0 && data.hiringDateNo  ?true:false }}
                   // InputLabelProps={{ shrink: data.hiringDateNo==0||""?true:false }}
                   autoComplete='off'
+                  sx={{
+                    "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                    },
+                  }}
                 />
               </Grid>
             ) : (
@@ -383,6 +428,11 @@ function EmployeeData(props) {
                   InputLabelProps={{ shrink: data.lastDate !== 0 && data.lastDate ?true:false }}
                   // InputLabelProps={{ shrink: data.lastDate==0||""?true:false }}
                   autoComplete='off'
+                  sx={{
+                    "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                      WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                    },
+                  }}
                 />
               </Grid>
             ) : (

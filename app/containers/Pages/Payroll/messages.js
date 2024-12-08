@@ -790,4 +790,8 @@ employeeId: {
     id: `${scope}.resetDeviceKey`,
     defaultMessage: 'Reset Device Key',
   },
+  InvalidIdNumber: {
+    id: `${scope}.InvalidIdNumber`,
+    defaultMessage: 'Invalid ID Number',
+  },
 });

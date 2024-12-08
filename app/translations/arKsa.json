@@ -2119,6 +2119,7 @@
   "boilerplate.containers.Payroll.of": "من",
   "boilerplate.containers.Payroll.pageUnderConstruction": "الصفحة تحت الانشاء",
   "boilerplate.containers.Payroll.resetDeviceKey": "إعادة ضبط مفتاح الجهاز",
+  "boilerplate.containers.Payroll.InvalidIdNumber": "رقم الهوية غير صحيح",
   "boilerplate.containers.Payroll.oldElemVal": "القيمة السابقة",
   "boilerplate.containers.Payroll.organizationName": "القسم",
   "boilerplate.containers.Payroll.organizationTree": "الهيكل التنظيمي للمنظمة",

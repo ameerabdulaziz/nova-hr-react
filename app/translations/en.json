@@ -2118,6 +2118,7 @@
   "boilerplate.containers.Payroll.of": "Of",
   "boilerplate.containers.Payroll.pageUnderConstruction": "Page Under Construction",
   "boilerplate.containers.Payroll.resetDeviceKey": "Reset Device Key",
+  "boilerplate.containers.Payroll.InvalidIdNumber": "Invalid ID Number",
   "boilerplate.containers.Payroll.oldElemVal": "Prev Value",
   "boilerplate.containers.Payroll.organizationName": "Section",
   "boilerplate.containers.Payroll.organizationTree": "Organization Tree",
