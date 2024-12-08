@@ -161,6 +161,7 @@ function PaymentSlipTotal(props) {
 
     try {
       const response = await api(locale).GetPaymentSlipTotalReport(formInfo);
+      debugger;
       setPaymentSlipTotalReport(response);
 
       setTimeout(() => {

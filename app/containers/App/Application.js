@@ -1015,6 +1015,11 @@ function Application(props) {
           path="/app/Pages/Att/ForgotFingerprintApproval"
           component={RequestsList}
         />
+        <Route
+          path="/app/Pages/HR/TransferRequestApproval"
+          component={RequestsList}
+        />
+
 
         <Route
           path="/app/Pages/Att/PermissionTrxCreate"

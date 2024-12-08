@@ -80,6 +80,8 @@ function RequestsList(props) {
       ? 13
       : location.pathname == "/app/Pages/Att/ForgotFingerprintApproval"
       ? 14
+      : location.pathname == "/app/Pages/HR/TransferRequestApproval"
+      ? 15
       : 0
   );
   const [fromdate, setfromate] = useState(new Date());
@@ -278,6 +280,8 @@ function RequestsList(props) {
         documentId = 13;
       else if (location.pathname == "/app/Pages/Att/ForgotFingerprintApproval")
         documentId = 14;
+      else if (location.pathname == "/app/Pages/HR/TransferRequestApproval")
+        documentId = 15;      
       else documentId = 0;
 
       let Fromdate = dateFormatFun(fromdate);
@@ -332,7 +336,7 @@ function RequestsList(props) {
                 Document == 5 ||
                 Document == 8 ||
                 Document == 9 ||
-                Document == 10 ? (
+                Document == 10 || Document == 15 ? (
                 <FormattedMessage {...hrmessages[item]} />
               ) : Document == 7 ? (
                 <FormattedMessage {...paymessages[item]} />

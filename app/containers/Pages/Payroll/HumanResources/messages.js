@@ -186,7 +186,18 @@ hiringDate: {
   id: `${scope}.hiringDate`,
   defaultMessage: 'Hiring Date',
 },
-
+transfereDate: {
+  id: `${scope}.TransfereDate`,
+  defaultMessage: 'TransfereDate',
+},
+issueDate: {
+  id: `${scope}.IssueDate`,
+  defaultMessage: 'IssueDate',
+},
+notes: {
+  id: `${scope}.Notes`,
+  defaultMessage: 'Notes',
+},
 month: {
   id: `${scope}.month`,
   defaultMessage: 'month',

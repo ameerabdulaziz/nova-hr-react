@@ -28,7 +28,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 function PaymentReportItem(props) {
   const { intl, item, formInfo } = props;
-
+debugger;
   if (!item) {
     return null;
   }
