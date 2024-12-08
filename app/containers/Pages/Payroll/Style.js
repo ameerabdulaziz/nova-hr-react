@@ -335,6 +335,10 @@ backgroundColorSty:{
   backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.main,
 },
 
+sectionBackgroundColorSty:{
+  backgroundColor: theme.palette.mode === 'dark' ? 'transparent' : '#ffffff',
+},
+
   surveyMainSty:{
     backgroundColor: theme.palette.mode === 'dark' ? theme.palette.secondary.dark : theme.palette.secondary.light,
   },

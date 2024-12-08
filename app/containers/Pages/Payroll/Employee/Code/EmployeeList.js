@@ -15,6 +15,8 @@ import { PapperBlock } from "enl-components";
 import PayRollLoader from "../../Component/PayRollLoader";
 import GeneralListApis from "../../api/GeneralListApis";
 import { getAutoCompleteValue } from '../../helpers';
+import { toast } from "react-hot-toast";
+import notif from "enl-api/ui/notifMessage";
 
 function EmployeeList(props) {
   const { intl } = props;
@@ -265,12 +267,32 @@ function EmployeeList(props) {
       <EmployeeNavigation
         employeeId={row.id}
         employeeName={row.enName}
+        ResetDeviceKeyFun={ResetDeviceKeyFun}
+        rowData={row}
         openInNewTap
       />
     ),
   };
 
 
+ const ResetDeviceKeyFun = async (employeeId,organizationId) => {
+
+  try
+  {
+    setIsLoading(true);
+    await ApiData().ResetDeviceKey(employeeId,organizationId);
+
+    toast.success(notif.saved);
+  }
+  catch(err)
+  {
+    
+  }
+  finally {
+    setIsLoading(false);
+  }
+  
+ }
 
   const handleSearch = async (e) => {
 

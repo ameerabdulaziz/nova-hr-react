@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import useStyles from '../../../../../components/Widget/widget-jss';
+import useStyles from '../../Style';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
@@ -29,6 +29,7 @@ import payrollMessages from '../../messages';
 import api from '../api/EmployeeStatusReportData';
 import messages from '../messages';
 import GeneralListApis from "../../api/GeneralListApis";
+import styles from '../../../../../styles/styles.scss';
 
 function EmployeeStatusReport(props) {
   const { intl } = props;
@@ -430,49 +431,48 @@ function EmployeeStatusReport(props) {
         </form>
       </PapperBlock>
 
-      <Grid container direction='row' mb={3} spacing={3}>
-        <Grid item md={6} xs={12}>
-          <PapperBlock
-            title={intl.formatMessage(messages.employeeInfo)}
-            icon='contacts'
-            whiteBg
-            noMargin
-            desc=''
-          >
-            <List dense className={classes.profileList}>
-              {employeeInfoList.map((item, index) => (
-                <ListItem key={index}>
-                  <ListItemAvatar>
-                    <Avatar>{item.icon}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={item.title} secondary={item.value} />
-                </ListItem>
-              ))}
-            </List>
-          </PapperBlock>
-        </Grid>
+      <Grid container item direction='row'  spacing={3} style={{marginBottom:"20px"}}>
+        <Grid item  xs={12}>
+          <div className={`${styles.employeeStatusContainerSty} ${classes.sectionBackgroundColorSty} `} >
+            <Grid item  xs={12}>
+              <h3>{intl.formatMessage(messages.employeeInfo)}</h3>
+              </Grid>
 
-        <Grid item md={6} xs={12}>
-          <PapperBlock
-            title={intl.formatMessage(messages.statusInfo)}
-            icon='contacts'
-            whiteBg
-            noMargin
-            desc=''
-          >
-            <List dense className={classes.profileList}>
-              {employeeStatusList.map((item, index) => (
-                <ListItem key={index}>
-                  <ListItemAvatar>
-                    <Avatar>{item.icon}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={item.title} secondary={item.value} />
-                </ListItem>
-              ))}
-            </List>
-          </PapperBlock>
+                <Grid item container direction='row'  spacing={3} style={{marginTop:"10px"}}>
+                  {employeeInfoList.map((item, index) => (
+                    <Grid item md={4} xs={12} style={{paddingTop:"0px"}} key={index} >
+                      <div className={styles.cardContainer}>
+                          <Avatar className={classes.colorSty} >{item.icon}</Avatar> 
+                        <div>
+                          <span>{item.title}</span>
+                          <p>{item.value}</p>
+                        </div>
+                      </div>
+                      </Grid>
+                    ))}
+                </Grid>
+
+                <Grid item  xs={12}>
+                  <h3>{intl.formatMessage(messages.statusInfo)}</h3>
+                </Grid>
+
+                <Grid item container direction='row'  spacing={3} style={{marginTop:"10px"}}>
+                  {employeeStatusList.map((item, index) => (
+                    <Grid item md={4} xs={12} style={{paddingTop:"0px"}} key={index} >
+                      <div className={styles.cardContainer}>
+                          <Avatar className={classes.colorSty} >{item.icon}</Avatar> 
+                        <div>
+                          <span>{item.title}</span>
+                          <p>{item.value}</p>
+                        </div>
+                      </div>
+                      </Grid>
+                    ))}
+                </Grid>
+          </div>
         </Grid>
       </Grid>
+      
 
       <PayrollTable
         isLoading={isLoading}

@@ -2221,5 +2221,14 @@ devicePass: {
     id: `${scope}.changeShift`,
     defaultMessage: 'Change Shift',
   },
+  // MissionTrxReport
+  visitStartTime: {
+    id: `${scope}.visitStartTime`,
+    defaultMessage: 'Visit Start Time',
+  },
+  visitEndTime: {
+    id: `${scope}.visitEndTime`,
+    defaultMessage: 'Visit End Time',
+  },
 });
 

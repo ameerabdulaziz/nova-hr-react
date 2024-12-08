@@ -9,7 +9,7 @@ import payrollMessages from '../messages';
 
 function EmployeeNavigation(props) {
   const {
-    intl, employeeId, employeeName, anchor, openInNewTap
+    intl, employeeId, employeeName, anchor, openInNewTap, ResetDeviceKeyFun,rowData
   } = props;
 
   const OPTIONS = [
@@ -24,6 +24,7 @@ function EmployeeNavigation(props) {
     { name: intl.formatMessage(payrollMessages.insurance), url: 'EmployeeInsurance' },
     { name: intl.formatMessage(payrollMessages.bank), url: 'EmployeeBank' },
     { name: intl.formatMessage(payrollMessages.salary), url: 'EmployeeSalary' },
+    { name: intl.formatMessage(payrollMessages.resetDeviceKey) },
   ];
 
   const history = useHistory();
@@ -48,11 +49,17 @@ function EmployeeNavigation(props) {
 
   const onMenuItemClick = (option) => {
     closeDropdown();
-debugger;
-    if (openInNewTap) {
-      window.open(getPageURL(option.url), '_blank')?.focus();
-    } else {
-      history.push(getPageURL(option.url));
+    if(option.url)
+    {
+        if (openInNewTap) {
+          window.open(getPageURL(option.url), '_blank')?.focus();
+        } else {
+          history.push(getPageURL(option.url));
+        }
+    }
+    else if(ResetDeviceKeyFun)
+    {      
+      ResetDeviceKeyFun(rowData.id,rowData.organizationId) 
     }
   };
 

@@ -368,10 +368,17 @@ function JobAdvertisementApplication(props) {
 
     // extract birthday from identity number
     if (evt.target.value.length === 14 && !formInfo.birthDate) {
-      setFormInfo((prev) => ({
-        ...prev,
-        birthDate: extractBirthDayFromIdentityNumber(evt.target.value),
-      }));
+      if(extractBirthDayFromIdentityNumber(evt.target.value))
+      {
+        setFormInfo((prev) => ({
+          ...prev,
+          birthDate: extractBirthDayFromIdentityNumber(evt.target.value),
+        }));
+      }
+      else
+      {
+        toast.error(intl.formatMessage(payrollMessages.InvalidIdNumber));
+      }
     }
   };
 

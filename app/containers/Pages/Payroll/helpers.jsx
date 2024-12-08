@@ -161,10 +161,10 @@ function toArabicDigits(str = '') {
 function extractBirthDayFromIdentityNumber(identityNumber = '') {
   if (identityNumber.length === 14) {
     // _DDMMYY___....
-    const day = identityNumber.slice(1, 3);
+    const day = identityNumber.slice(5, 7);
     const month = identityNumber.slice(3, 5);
-    const year = identityNumber.slice(5, 7);
-    const date = dayjs(`${day}-${month}-${year}`);
+    const year = identityNumber.slice(1, 3);
+    const date = dayjs(`${month}-${day}-${year}`);
 
     if (date.isValid()) {
       // set is between 16 & 80 year old
@@ -175,6 +175,11 @@ function extractBirthDayFromIdentityNumber(identityNumber = '') {
         return date;
       }
     }
+    else
+    {
+      return false
+    }
+    
   }
 
   return null;

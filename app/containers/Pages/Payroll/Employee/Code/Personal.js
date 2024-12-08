@@ -276,7 +276,14 @@ function Personal(props) {
       !!identityTypeId?.validLength &&
       parseInt(identityTypeId.validLength, 10) === 14
     ) {
-      setbirthDate(extractBirthDayFromIdentityNumber(identityNumber));
+      if(extractBirthDayFromIdentityNumber(identityNumber))
+      {
+        setbirthDate(extractBirthDayFromIdentityNumber(identityNumber));
+      }
+      else
+      {
+        toast.error(intl.formatMessage(Payrollmessages.InvalidIdNumber));
+      }
     }
 
     // Check if identity number is not exist

@@ -226,7 +226,6 @@ function MissionTrxReport(props) {
       name: "missionName",
       label: intl.formatMessage(messages.missionName),
     },
-
     {
       name: "startTime",
       label: intl.formatMessage(messages.startTime),
@@ -238,6 +237,25 @@ function MissionTrxReport(props) {
     {
       name: "minutesCount",
       label: intl.formatMessage(messages.minutesCount),
+    },
+    {
+      name: "startVisitTime",
+      label: intl.formatMessage(messages.visitStartTime),
+    },
+    {
+      name: "endVisitTime",
+      label: intl.formatMessage(messages.visitEndTime),
+    },
+    {
+      name:"vMinutesCount",
+      label: intl.formatMessage(messages.VisitDuration),
+    },
+    {
+      name: "startAddress",
+      label: intl.formatMessage(messages.Address),
+      options: {
+        customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
+      },
     },
     {
       name: "notes",

@@ -386,7 +386,19 @@ function DetailedAttendanceReport(props) {
       name: "mission",
       label: intl.formatMessage(messages.mission),
       options: {
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value, tableMeta) => {
+          if(value)
+          {
+          return <div className={style.tableCellSty}>
+            {getCheckboxIcon(value)}
+            <pre>{data[tableMeta?.rowIndex]?.missionName}</pre>
+          </div>
+         }
+         else
+         {
+          return getCheckboxIcon(value)
+         }
+      },
       },
     },
     {
