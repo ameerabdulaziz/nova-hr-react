@@ -1778,6 +1778,8 @@
   "boilerplate.containers.Payroll.HumanResources.actualTransferDate": "تاريخ النقل الفعلي",
   "boilerplate.containers.Payroll.HumanResources.createTransferRequesTitle": "اضافة طلب نقل",
   "boilerplate.containers.Payroll.HumanResources.editTransferRequesTitle": "تعديل طلب نقل",
+  "boilerplate.containers.Payroll.HumanResources.oldOrganization": "المنظمة القديمة",
+  "boilerplate.containers.Payroll.HumanResources.newOrganization": "الادارة الجديدة",
   "boilerplate.containers.Payroll.HumanResources.employeeId": "كود الموظف",
   "boilerplate.containers.Payroll.HumanResources.employeeInvestigation": "تحقيق مع موظف",
   "boilerplate.containers.Payroll.HumanResources.employeeName": "الموظف",

@@ -76,7 +76,11 @@ function AttentionList(props) {
     },
     {
       name: 'organization',
-      label: intl.formatMessage(Payrollmessages.organizationName),
+      label: intl.formatMessage(messages.oldOrganization),
+    },
+    {
+      name: 'organizationName',
+      label: intl.formatMessage(messages.newOrganization),
     },
     {
       name: 'issueDate',

@@ -1777,6 +1777,8 @@
   "boilerplate.containers.Payroll.HumanResources.actualTransferDate": "Actual Transfer Date",
   "boilerplate.containers.Payroll.HumanResources.createTransferRequesTitle": "Create Transfer Request",
   "boilerplate.containers.Payroll.HumanResources.editTransferRequesTitle": "Edit Transfer Request",
+  "boilerplate.containers.Payroll.HumanResources.oldOrganization": "Old Organization",
+  "boilerplate.containers.Payroll.HumanResources.newOrganization": "New Organization",
   "boilerplate.containers.Payroll.HumanResources.employeeId": "Employee",
   "boilerplate.containers.Payroll.HumanResources.employeeInvestigation": "Employee Investigation",
   "boilerplate.containers.Payroll.HumanResources.employeeName": "Employee",

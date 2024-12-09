@@ -386,6 +386,7 @@ import {
   AnnualTaxReport,
   BankList,
   PaymentSlipTotal,
+  PaymentSlipTotalReview,
   SalaryReport,
   FollowEmployeeReport,
   TaxReportReport,
@@ -1531,10 +1532,17 @@ function Application(props) {
           path="/app/Pages/Payroll/AnnualTaxReport"
           component={AnnualTaxReport}
         />
+        
+         <Route
+          path="/app/Pages/Payroll/PaymentSlipTotal/Review"
+          component={PaymentSlipTotalReview}
+        />
+
         <Route
           path="/app/Pages/Payroll/PaymentSlipTotal"
           component={PaymentSlipTotal}
         />
+       
         <Route
           path="/app/Pages/Payroll/SalaryReport"
           component={SalaryReport}

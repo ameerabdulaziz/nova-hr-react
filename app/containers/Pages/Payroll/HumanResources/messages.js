@@ -589,4 +589,12 @@ actualManPower: {
     id: `${scope}.editTransferRequesTitle`,
     defaultMessage: 'Edit Transfer Request',
   },
+  oldOrganization: {
+    id: `${scope}.oldOrganization`,
+    defaultMessage: 'Old Organization',
+  },
+  newOrganization: {
+    id: `${scope}.newOrganization`,
+    defaultMessage: 'New Organization',
+  },
 });

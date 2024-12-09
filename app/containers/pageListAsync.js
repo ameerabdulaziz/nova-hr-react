@@ -1523,6 +1523,13 @@ export const PaymentSlipTotal = loadable(
   }
 );
 
+export const PaymentSlipTotalReview = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/PaymentSlipTotalReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const SalaryReport = loadable(
   () => import('./Pages/Payroll/Payroll/Reports/SalaryReport'),
   {

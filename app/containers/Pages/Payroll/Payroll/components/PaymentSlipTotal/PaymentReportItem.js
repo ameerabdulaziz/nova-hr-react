@@ -28,7 +28,7 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 function PaymentReportItem(props) {
   const { intl, item, formInfo } = props;
-debugger;
+
   if (!item) {
     return null;
   }
@@ -44,7 +44,7 @@ debugger;
 
   return (
     <>
-      <Grid
+      {/* <Grid
         container
         alignItems='center'
         sx={{ borderBottom: '2px solid #333', pb: 1 }}
@@ -60,7 +60,7 @@ debugger;
             {formInfo.monthName} &nbsp; / &nbsp; {formInfo.yearName}
           </Typography>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       <Grid mt={2} container alignItems='center'>
         <Grid item xs={4}>
