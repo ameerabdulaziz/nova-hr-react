@@ -29,6 +29,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import { calculateTimeDifference } from "../../../helpers";
 
 function ShiftEmployeeCreate(props) {
   const { intl } = props;
@@ -124,7 +125,7 @@ debugger;
   async function fetchData() {
     const shifts = await GeneralListApis(locale).GetShiftList();
     setShifts(shifts);
-debugger;
+
     const dataApi = await ApiData(locale).Get(
       id ?? 0,
       employeeId ? employeeId : ""
@@ -156,29 +157,13 @@ debugger;
     } else {
       const result = await shiftApi(locale).Get(value.id);
 
-      var diff =
-        (new Date(
-          0,
-          0,
-          0,
-          result.endTime.split(":")[0],
-          result.endTime.split(":")[1]
-        ) -
-          new Date(
-            0,
-            0,
-            0,
-            result.startTime.split(":")[0],
-            result.startTime.split(":")[1]
-          )) /
-        3600000;
       setdata((prevFilters) => ({
         ...prevFilters,
         shiftId: result.id,
         shiftName: value !== null ? value.name : "",
         startTime: result.startTime,
         endTime: result.endTime,
-        workHours: diff < 0 ? diff * -1 : diff,
+        workHours: calculateTimeDifference(result.startTime, result.endTime),
         hoursFromEmp: result.hoursFromEmp,
       }));
     }
