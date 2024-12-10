@@ -794,4 +794,8 @@ employeeId: {
     id: `${scope}.InvalidIdNumber`,
     defaultMessage: 'Invalid ID Number',
   },
+  uploadFileErrorMes: {
+    id: `${scope}.uploadFileErrorMes`,
+    defaultMessage: 'The File Is too Large',
+  },
 });

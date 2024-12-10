@@ -61,7 +61,7 @@ function ElementValHistory(props) {
   const [PayTemplateList, setPayTemplateList] = useState([]);
   const [PayTemplateId, setPayTemplateId] = useState(0);
   const [BranchList, setBranchList] = useState([]);
-  const [BranchId, setBranchId] = useState(0);
+  const [BranchId, setBranchId] = useState(branchId);
   const [EmployeeList, setEmployeeList] = useState([]);
   const [EmployeeId, setEmployeeId] = useState(0);
   const [fromdate, setFromdate] = useState(dayjs());
@@ -302,6 +302,15 @@ function ElementValHistory(props) {
     },
   };
 
+
+  useEffect(()=>{
+    if(PayTemplateList.length !== 0)
+    {      
+      setPayTemplateId(PayTemplateList[0].id)
+      getElementList(PayTemplateList[0].id);
+    }
+  },[PayTemplateList])
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -337,7 +346,7 @@ function ElementValHistory(props) {
                           option.name ? option.name : ""
                         }
                         value={
-                          BranchId
+                          BranchId && BranchList.length !== 0
                             ? BranchList.find((item) => item.id === BranchId)
                             : null
                         }
