@@ -104,18 +104,20 @@ function EmploymentDocsDetails(props) {
   };
 
   const handleSearch = async (e) => {
-    if (searchData.EmployeeId === '') {
-      toast.error(intl.formatMessage(messages.empErrMes));
-      return;
-    }
-
 
     let DocumentTypeData = []
-    if(DocumentType !== null)
+    if(DocumentType !== null && DocumentType.length !== 0)
     {
-    // used to reformat elements data ( combobox ) before send it to api
-    DocumentType.map((ele, index)=>{
-            DocumentTypeData.push(ele.id)
+      // used to reformat elements data ( combobox ) before send it to api
+      DocumentType.map((ele, index)=>{
+              DocumentTypeData.push(ele.id)
+          })
+    }
+    else
+    {
+        // used to reformat elements data ( combobox ) before send it to api
+        DocumentTypesList.map((ele, index)=>{
+          DocumentTypeData.push(ele.id)
         })
     }
     
@@ -148,7 +150,7 @@ function EmploymentDocsDetails(props) {
 
   async function fetchData() {
     try {
-      const Documents = await GeneralListApis(locale).GetDocumentList();
+      const Documents = await GeneralListApis(locale).GetDocumentTypeList();
 
       setDocumentTypesList(Documents)
 
