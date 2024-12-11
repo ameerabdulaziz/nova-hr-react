@@ -2193,6 +2193,7 @@
   "boilerplate.containers.Payroll.Payroll.elementTaxFreeLimit": "element Tax FreeLimit",
   "boilerplate.containers.Payroll.Payroll.elementType": "Element type",
   "boilerplate.containers.Payroll.Payroll.elementValColNum": "Value Column Number",
+  "boilerplate.containers.Payroll.Payroll.exportSectionAndCode": "Export section and code",
   "boilerplate.containers.Payroll.Payroll.ElementValCreateTitle": "Add Employee Element",
   "boilerplate.containers.Payroll.Payroll.ElementValUpdateTitle": "update Employee Element",
   "boilerplate.containers.Payroll.Payroll.elemMaxMin": "Element has Max/Min value",
