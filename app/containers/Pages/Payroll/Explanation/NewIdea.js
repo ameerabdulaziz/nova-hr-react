@@ -27,8 +27,8 @@ function NewIdea(props) {
   const [data, setdata] = useState({
     "id": 0,    
     "questionTitle":"",
-    "questionType":"1",
-    "questionTypeName":"Enquiry",
+    "questionType":"",
+    "questionTypeName":"",
     "questionDetails":"",
     "expDirectedTo":"",
     "directedToName":"",
@@ -65,8 +65,8 @@ function NewIdea(props) {
     setdata({
         "id": 0,    
     "questionTitle":"",
-    "questionType":"1",
-    "questionTypeName":"Enquiry",
+    "questionType":  TypeList && TypeList.length !== 0 ? TypeList[0].id : "",
+    "questionTypeName": TypeList && TypeList.length !== 0 ? TypeList[0].name : "",
     "questionDetails":"",
     "directedTo":"",
     "directedToName":"",
@@ -76,8 +76,15 @@ function NewIdea(props) {
   async function fetchData() {
     
     const types = await GeneralListApis(locale).GetExplanationTypeList(locale);
-    setTypeList(types);
     const employees = await GeneralListApis(locale).GetHrList();
+
+    setdata((prev) => ({
+      ...prev,
+      questionType: types && types.length !== 0 ? types[0].id : "",
+      questionTypeName: types && types.length !== 0 ? types[0].name : "",
+    }));
+
+    setTypeList(types);
     setEmployeeList(employees);
     
   }
