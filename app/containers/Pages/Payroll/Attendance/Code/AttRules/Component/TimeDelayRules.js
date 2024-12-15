@@ -23,6 +23,13 @@ function TimeDelayRules(props) {
 
   const handleChange = (event) => {
     
+    
+    if (event.target.name == "breakFactor")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        breakFactor: event.target.value,
+      }));
+      
     if (event.target.name == "perRoll")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -161,7 +168,7 @@ function TimeDelayRules(props) {
                           )}
                         />
                       </Grid>
-                      <Grid item md={6} xs={12}>
+                      <Grid item md={4} xs={12}>
                         <TextField
                           id="lateTimeMinusElVal"
                           name="lateTimeMinusElVal"
@@ -169,6 +176,53 @@ function TimeDelayRules(props) {
                           onChange={(e) => handleChange(e)}
                           label={intl.formatMessage(
                             messages.lateTimeMinusElVal
+                          )||null}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete='off'
+                        />
+                      </Grid>
+                      <Grid item md={4} xs={12}>
+                        <Autocomplete
+                          id="breakElement"
+                          options={group1ElemList}
+                          value={group1ElemList.find(
+                            (item) => item.id === data.breakElement
+                          )||null}
+                          isOptionEqualToValue={(option, value) =>
+                            value.id === 0 ||
+                            value.id === "" ||
+                            option.id === value.id
+                          }
+                          getOptionLabel={(option) =>
+                            option.name ? option.name : ""
+                          }
+                          onChange={(event, value) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              breakElement: value !== null ? value.id : null,
+                            }));
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              variant="outlined"
+                              {...params}
+                              name="breakElement"
+                              label={intl.formatMessage(
+                                messages.breakElement
+                              )}
+                            />
+                          )}
+                        />
+                      </Grid>
+                      <Grid item md={4} xs={12}>
+                        <TextField
+                          id="breakFactor"
+                          name="breakFactor"
+                          value={data.breakFactor||null}
+                          onChange={(e) => handleChange(e)}
+                          label={intl.formatMessage(
+                            messages.breakFactor
                           )||null}
                           className={classes.field}
                           variant="outlined"

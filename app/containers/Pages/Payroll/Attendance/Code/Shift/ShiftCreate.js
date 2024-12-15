@@ -36,6 +36,7 @@ function ShiftCreate(props) {
     enName: "",
     startTime: "",
     hours: "",
+    breakMinutes:"",
     endTime: "",
     allowedLate: "",
     allowedEarlyEx: "",
@@ -58,6 +59,12 @@ function ShiftCreate(props) {
   const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
+    
+    if (event.target.name == "breakMinutes")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        breakMinutes: event.target.value,
+      }));
     if (event.target.name == "arName")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -226,7 +233,7 @@ function ShiftCreate(props) {
                   autoComplete="off"
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={2}>
                 <TextField
                   id="startTime"
                   name="startTime"
@@ -241,7 +248,7 @@ function ShiftCreate(props) {
                   autoComplete="off"
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={2}>
                 <TextField
                   id="endTime"
                   name="endTime"
@@ -256,7 +263,7 @@ function ShiftCreate(props) {
                   autoComplete="off"
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={2}>
                 <TextField
                   id="hours"
                   name="hours"
@@ -267,6 +274,19 @@ function ShiftCreate(props) {
                   className={classes.field}
                   variant="outlined"
                   disabled
+                  autoComplete="off"
+                />
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <TextField
+                  id="breakMinutes"
+                  name="breakMinutes"
+                  value={data.breakMinutes}
+                  onChange={(e) => handleChange(e)}
+                  label={intl.formatMessage(messages.breakMinutes)}
+                  required
+                  className={classes.field}
+                  variant="outlined"                  
                   autoComplete="off"
                 />
               </Grid>

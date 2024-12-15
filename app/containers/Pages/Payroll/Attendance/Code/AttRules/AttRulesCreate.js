@@ -207,6 +207,8 @@ function AttRulesCreate(props) {
     updateInAfter: "",
     updateOutBefore: "",
     lessTimeRule: "",
+    breakElement:"",
+    breakFactor:""
   });
 
   const handleTabChange = (event, val) => {

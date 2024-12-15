@@ -509,6 +509,18 @@ lateTimeMinusEl: {
   id: `${scope}.lateTimeMinusEl`,
   defaultMessage: 'lateTimeMinusEl',
 },
+breakMinutes: {
+  id: `${scope}.breakMinutes`,
+  defaultMessage: 'breakMinutes',
+},
+breakElement: {
+  id: `${scope}.breakElement`,
+  defaultMessage: 'breakElement',
+},
+breakFactor: {
+  id: `${scope}.breakFactor`,
+  defaultMessage: 'breakFactor',
+},
 lateTimeMinusElVal: {
   id: `${scope}.lateTimeMinusElVal`,
   defaultMessage: 'lateTimeMinusElVal',
