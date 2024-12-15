@@ -703,6 +703,45 @@ function BankList(props) {
     return [title1, title2, title3,"",headers, ...rows,footer];
   };
 
+
+
+  const getCIBSmsTemplate = () => {
+
+    const bank = getAutoCompleteValue(bankList, formInfo.BankId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId)
+    const totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
+
+    const headers = [
+      'ACCOUNT NAME',
+      'COMPANY NAME',
+      'ACCOUNT NO',
+      'SALARY 1',
+    ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push('Employee Code')
+        headers.push('Section') 
+      }
+
+    const rows = tableData.map((item) => [
+      bank?.name ?? '', // ACCOUNT NAME
+      company?.name ?? '', // COMPANY NAME
+      item.bnkAcc , // ACCOUNT NO
+      item.netSal , // SALARY 1
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+    ]);
+
+    const footer = [
+      '',
+      '',
+      'Total',
+      totalAmount,
+    ]
+
+    return [headers, ...rows, '', footer];
+  };
+
   
 
   const onExportBtnClick = () => {
@@ -726,6 +765,10 @@ function BankList(props) {
 
       case 16:
         exportJsonToXLSX(getCridetAgricoleTemplate(), 'Bank_sheet');
+        break;
+
+        case 17:
+        exportJsonToXLSX(getCIBSmsTemplate(), 'Bank_sheet');
         break;
 
       case 0:
