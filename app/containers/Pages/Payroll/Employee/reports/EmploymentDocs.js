@@ -111,16 +111,21 @@ function EmploymentDocs(props) {
 
 
     let DocumentTypeData = []
-    if(DocumentType !== null)
+    if(DocumentType !== null && DocumentType.length !== 0)
     {
     // used to reformat elements data ( combobox ) before send it to api
     DocumentType.map((ele, index)=>{
             DocumentTypeData.push(ele.id)
         })
     }
+    else
+    {
+       // used to reformat elements data ( combobox ) before send it to api
+        DocumentTypesList.map((ele, index)=>{
+          DocumentTypeData.push(ele.id)
+      })
+    }
 
-      if(searchData.EmployeeId !== "" )
-      {
         try {
           setIsLoading(true);
 
@@ -136,19 +141,20 @@ function EmploymentDocs(props) {
           Object.keys(formData).forEach((key) => {
             formData[key] = formData[key] === null ? "" : formData[key];
           });
-          
           const dataApi = await ApiData(locale).GetEmploymentDocsReport(formData, DocumentTypeData);
-          setdata(dataApi);
+          if(dataApi)
+          {
+            setdata(dataApi);
+          }
+          else
+          {
+            setdata([]);
+          }
 
           getFilterHighlights();
         } catch (err) {
         } finally {
           setIsLoading(false);
-        }
-    }
-    else
-    {
-      toast.error(intl.formatMessage(messages.empErrMes));
     }
   };
 
@@ -162,7 +168,7 @@ function EmploymentDocs(props) {
 
   async function fetchData() {
     try {
-      const Documents = await GeneralListApis(locale).GetDocumentList();
+      const Documents = await GeneralListApis(locale).GetDocumentTypeList();
 
       setDocumentTypesList(Documents)
 

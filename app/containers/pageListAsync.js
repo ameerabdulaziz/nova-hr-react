@@ -832,6 +832,27 @@ export const EmpInvestigationEdit = loadable(
   }
 );
 
+export const TransferRequest = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/TransferRequest/TransferRequest'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TransferRequestCreate = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/TransferRequest/TransferRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const TransferRequestEdit = loadable(
+  () => import('./Pages/Payroll/HumanResources/Transaction/TransferRequest/TransferRequestCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Attendance /////////////////////////////////////////////////////////////////////////////////
 
 export const PermissionTrxList = loadable(
@@ -1497,6 +1518,13 @@ export const PaymentSlipReview = loadable(
 
 export const PaymentSlipTotal = loadable(
   () => import('./Pages/Payroll/Payroll/Reports/PaymentSlipTotal'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+export const PaymentSlipTotalReview = loadable(
+  () => import('./Pages/Payroll/Payroll/Reports/PaymentSlipTotalReview'),
   {
     fallback: <Loading />,
   }

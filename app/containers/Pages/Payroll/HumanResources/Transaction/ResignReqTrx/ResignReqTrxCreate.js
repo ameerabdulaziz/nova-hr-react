@@ -17,17 +17,19 @@ import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
+import {FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import style from '../../../../../../styles/pagesStyle/ResignReqTrxSty.scss';
+import styles from "../../../../../../styles/styles.scss";
 import PayRollLoader from '../../../Component/PayRollLoader';
 import useStyles from '../../../Style';
 import GeneralListApis from '../../../api/GeneralListApis';
-import { formateDate } from '../../../helpers';
+import { formateDate, getFormData } from '../../../helpers';
 import payrollMessages from '../../../messages';
 import api from '../../api/ResignReqTrxData';
 import messages from '../../messages';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 function ResignReqTrxCreate(props) {
   const { intl } = props;
@@ -40,7 +42,8 @@ function ResignReqTrxCreate(props) {
   const locale = useSelector((state) => state.language.locale);
 
   const { classes } = useStyles();
-
+  const [uploadedFileType, setUploadedFileType] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [userInfo, setUserInfo] = useState({
     id: '',
     employeeCode: '',
@@ -72,6 +75,22 @@ function ResignReqTrxCreate(props) {
     employeeCustodyList: [],
   });
 
+  const validPDFTypes = ['application/pdf', '.pdf', 'pdf'];
+  const validImageTypes = [
+    'image/jpg',
+    'jpg',
+    'image/jpeg',
+    'jpeg',
+    'image/png',
+    'png',
+    'image/apng',
+    'apng',
+    'image/webp',
+    'webp',
+    'image/svg+xml',
+    'svg+xml',
+  ];
+
   const [resignReasonsList, setResignReasonsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dateError, setDateError] = useState({});
@@ -94,9 +113,10 @@ function ResignReqTrxCreate(props) {
         lworkingDay: formateDate(formInfo.lworkingDay),
         employeeCustodyList: null,
         employeeId: userInfo.id,
+        uploadedFile: uploadedFile,
       };
 
-      await api(locale).save(formData);
+      await api(locale).save(getFormData(formData));
 
       toast.success(notif.saved);
       history.push('/app/Pages/HR/ResignReqTrx');
@@ -162,6 +182,26 @@ function ResignReqTrxCreate(props) {
 
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
+
+
+  const uploadFileFun = (e) => {
+    // check if uploaded file is larger than 1MB
+    if (e.target.files[0]) {
+      if (e.target.files[0].size < 10000000) {
+        if (validImageTypes.includes(e.target.files[0].type)) {
+          setUploadedFileType(e.target.files[0].type);
+        } else if (validPDFTypes.includes(e.target.files[0].type)) {
+          setUploadedFileType(e.target.files[0].type);
+        }
+
+        setUploadedFile(e.target.files[0]);
+      } else {        
+        toast.error(intl.formatMessage(payrollMessages.uploadFileErrorMes));
+      }
+    }
+  };
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
@@ -175,6 +215,11 @@ function ResignReqTrxCreate(props) {
                 variant='outlined'
                 autoComplete='off'
                 disabled
+                sx={{
+                  "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                    WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                  },
+                }}
               />
             </Grid>
 
@@ -186,6 +231,11 @@ function ResignReqTrxCreate(props) {
                 variant='outlined'
                 autoComplete='off'
                 disabled
+                sx={{
+                  "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                    WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                  },
+                }}
               />
             </Grid>
 
@@ -197,6 +247,11 @@ function ResignReqTrxCreate(props) {
                 variant='outlined'
                 autoComplete='off'
                 disabled
+                sx={{
+                  "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                    WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                  },
+                }}
               />
             </Grid>
 
@@ -208,6 +263,11 @@ function ResignReqTrxCreate(props) {
                 variant='outlined'
                 autoComplete='off'
                 disabled
+                sx={{
+                  "& .mui-style-ltr-d5rqto-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled": {
+                    WebkitTextFillColor: "#000000", // Label color when focused in shrink mode
+                  },
+                }}
               />
             </Grid>
 
@@ -412,6 +472,27 @@ function ResignReqTrxCreate(props) {
                     {intl.formatMessage(payrollMessages.cancel)}
                   </Button>
                 </Grid>
+
+                <Grid item >
+              <Button
+                variant="contained"
+                color="secondary"
+                component="label"
+                startIcon={<AttachFileIcon/>}
+              >
+                <FormattedMessage {...payrollMessages.Upload} />
+                <input
+                  type="file"
+                  name="file"
+                  className={`custom-file-input ${styles.uploadBtnSty}`}
+                  id="inputGroupFile"
+                  onChange={(e) => {
+                    uploadFileFun(e);
+                  }}
+                  accept="image/png, image/jpeg, image/jpg, image/apng, image/webp, image/svg+xml, application/pdf, .pdf"
+                />
+              </Button>
+            </Grid>
               </Grid>
             </Grid>
           </Grid>

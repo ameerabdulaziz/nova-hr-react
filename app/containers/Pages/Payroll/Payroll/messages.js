@@ -1035,4 +1035,9 @@ export default defineMessages({
     id: `${scope}.elementValColNum`,
     defaultMessage: "element Val Col Num",
   }, 
+  // BankList
+  exportSectionAndCode: {
+    id: `${scope}.exportSectionAndCode`,
+    defaultMessage: "Export section and code",
+  }, 
 });

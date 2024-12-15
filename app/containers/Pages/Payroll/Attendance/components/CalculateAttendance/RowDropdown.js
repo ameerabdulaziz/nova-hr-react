@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import messages from "../../messages";
 
 function RowDropdown(props) {
-  const { tableMeta, intl, row, handleClickOpen } = props;
+  const { tableMeta, intl, row, handleClickOpen, DataOfSelectedRow } = props;  
 
   const [openedDropdown, setOpenedDropdown] = useState({});
 
@@ -40,20 +40,20 @@ function RowDropdown(props) {
     validationIndex,
     url,
     shoetcutName
-  ) => {
+  ) => {    
     closeDropdown(tableMeta.rowIndex);
     if (!tableMeta.rowData[validationIndex]) {
-      debugger;
+
       window
         .open(
           `${encodeURI(
             `${url}/${btoa(
               encodeURIComponent(
                 JSON.stringify({
-                  id: tableMeta.rowData[1],
-                  shiftDate: tableMeta.rowData[6],
-                  timeIn: tableMeta.rowData[8],
-                  timeOut: tableMeta.rowData[9],
+                  id: DataOfSelectedRow.employeeCode,
+                  shiftDate: DataOfSelectedRow.shiftDate,
+                  timeIn: DataOfSelectedRow.timeIn,
+                  timeOut: DataOfSelectedRow.timeOut,
                 })
               )
             )}`

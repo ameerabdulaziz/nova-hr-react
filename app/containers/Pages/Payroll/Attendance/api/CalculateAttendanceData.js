@@ -10,7 +10,7 @@ const CalculateAttendanceData = (locale) => {
         params,
       }
     );
-debugger;
+
     return result.data;
   };
 

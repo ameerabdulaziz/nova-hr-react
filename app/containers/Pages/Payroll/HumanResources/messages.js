@@ -564,4 +564,37 @@ actualManPower: {
     id: `${scope}.EmpInvestigation`,
     defaultMessage: 'Employee Investigation',
   },
+  // TransferRequest
+  TransactionDate: {
+    id: `${scope}.TransactionDate`,
+    defaultMessage: 'Transaction Date',
+  },
+  decisionDate: {
+    id: `${scope}.decisionDate`,
+    defaultMessage: 'Decision Date',
+  },
+  Status: {
+    id: `${scope}.Status`,
+    defaultMessage: 'Status',
+  },
+  actualTransferDate: {
+    id: `${scope}.actualTransferDate`,
+    defaultMessage: 'Actual Transfer Date',
+  },
+  createTransferRequesTitle: {
+    id: `${scope}.createTransferRequesTitle`,
+    defaultMessage: 'Create Transfer Request',
+  },
+  editTransferRequesTitle: {
+    id: `${scope}.editTransferRequesTitle`,
+    defaultMessage: 'Edit Transfer Request',
+  },
+  oldOrganization: {
+    id: `${scope}.oldOrganization`,
+    defaultMessage: 'Old Organization',
+  },
+  newOrganization: {
+    id: `${scope}.newOrganization`,
+    defaultMessage: 'New Organization',
+  },
 });

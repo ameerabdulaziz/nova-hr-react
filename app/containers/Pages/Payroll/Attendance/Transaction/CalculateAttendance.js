@@ -35,6 +35,7 @@ import api from "../api/CalculateAttendanceData";
 import RowDropdown from "../components/CalculateAttendance/RowDropdown";
 import messages from "../messages";
 import CalculateAttendancePopUp from "../../Component/CalculateAttendancePopUp";
+import MenuIcon from '@mui/icons-material/Menu';
 
 function CalculateAttendance(props) {
   const { intl } = props;
@@ -581,6 +582,35 @@ function CalculateAttendance(props) {
       },
     },
     {
+      name: "",
+      label: "",
+      options: {
+        filter: false,
+        print: false,
+        customBodyRender: (_, tableMeta) => {
+          const row = tableData[tableMeta.rowIndex];
+
+          if (!row) {
+            return "";
+          }
+
+          return (
+            <RowDropdown
+              row={row}
+              tableMeta={tableMeta}
+              handleClickOpen={handleClickOpen}
+              DataOfSelectedRow={tableData.find(itemData => itemData.id === tableMeta.rowData[0])}
+            />
+          );
+        },
+        customHeadRender: (columnMeta) => (          
+          <th key={columnMeta.index}>
+              <MenuIcon />
+          </th>
+        ),
+      },
+    },
+    {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
     },
@@ -754,7 +784,6 @@ function CalculateAttendance(props) {
         customBodyRender: (value) => getCheckboxIcon(value),
       },
     },
-
     {
       name: "",
       label: "",
@@ -773,6 +802,7 @@ function CalculateAttendance(props) {
               row={row}
               tableMeta={tableMeta}
               handleClickOpen={handleClickOpen}
+              DataOfSelectedRow={tableData.find(itemData => itemData.id === tableMeta.rowData[0])}
             />
           );
         },

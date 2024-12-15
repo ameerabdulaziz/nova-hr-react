@@ -5,6 +5,9 @@ import {
   Grid,
   Stack,
   TextField,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -47,6 +50,7 @@ function BankList(props) {
     PayTemplateId: 1,
     CurrencyId: null,
     BranchId: branchId,
+    exportSectionAndCode: false
   });
 
   const [exportInfo, setExportInfo] = useState({
@@ -331,10 +335,35 @@ function BankList(props) {
   //   }
   // };
 
-  const exportJsonToXLSX = (rows = [], sheetName = 'Payroll') => {
+  const exportJsonToXLSX = (rows = [], sheetName = 'Payroll', sheetSty) => {
     const worksheet = XLSX.utils.aoa_to_sheet(rows);
 
     const workbook = XLSX.utils.book_new();
+    const startRowNumSty = sheetSty === "QNBArabicSty" ? 4 : 0
+
+     // Calculate column widths dynamically
+     const colWidths = rows[startRowNumSty].map((_, colIndex) => {
+      const colContent = rows.map(row => (row[colIndex]?.v || row[colIndex] || "").toString());
+      const maxLength = Math.max(...colContent.map(str => str.length), 10); // Minimum width of 10
+      return { wch: maxLength };
+    });
+    
+    if(sheetSty === "QNBArabicSty")
+    { 
+      // Set row height for a specific row (e.g., Row 5)
+      worksheet["!rows"] = [
+        undefined,         // Row 1: No height adjustment
+        undefined,         // Row 2: No height adjustment
+        undefined,         // Row 3: No height adjustment
+        undefined,         // Row 4: No height adjustment
+        { hpt: 25 },       // Row 5: Height in points
+      ];
+    }
+    
+
+    // Assign calculated widths to the worksheet
+        worksheet["!cols"] = colWidths;
+
 
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
 
@@ -363,6 +392,12 @@ function BankList(props) {
       { v: 'Debit_Amount', s: styles },
       { v: 'Credit_Amount', s: styles },
     ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push({ v: 'Employee Code', s: styles })
+        headers.push({ v: 'Section', s: styles }) 
+      }
 
     const today = new Date();
 
@@ -416,6 +451,7 @@ function BankList(props) {
           fill: { fgColor: { rgb: 'ffffcc' } },
         },
       }, // Credit_Amount
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
 
     return [headers, firstRow, ...bodyRows, lastRow];
@@ -430,12 +466,19 @@ function BankList(props) {
       'Employee ID',
     ];
 
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push('Employee Code')
+        headers.push('Section') 
+      }
+
     const rows = tableData.map((item) => [
       item.bnkAcc, // Beneficiary Account No
       item.employeeName, // Beneficiary Name
       'EGP', // Transaction Currency
       formatNumber(item.netSal), // Payment Amount
       item.employeeCode, // Employee ID
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
 
     return [headers, ...rows];
@@ -447,6 +490,7 @@ function BankList(props) {
       item.employeeName,
       'salary',
       formatNumber(item.netSal),
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
 
     return rows;
@@ -499,6 +543,12 @@ function BankList(props) {
       { v: 'SWIFT BIC / LCC Code Indicator', s: styles },
     ];
 
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push({ v: 'Employee Code', s: styles })
+        headers.push({ v: 'Section', s: styles }) 
+      }
+
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
 
     const rows = tableData.map((item) => [
@@ -540,12 +590,162 @@ function BankList(props) {
       '', // Charges Code
       'SALA', // Purpose of Payment
       '', // SWIFT BIC / LCC Code Indicator
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
 
     return [headers, ...rows];
   };
 
+  const getQNBTemplate = () => {
+    const headers = [
+      'Branch code',
+      'Customer ID ',
+      'Account Number',
+      'Employee Name',
+      'Code',
+      'Reason',
+      'Amount',
+    ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push('Employee Code')
+        headers.push('Section') 
+      }
+
+    const rows = tableData.map((item) => [
+      item.bnkBrcode, // Branch code
+      '', // Customer ID
+      item.bnkAcc, // Account Number
+      item.employeeName, // Employee Name
+      '', // Code
+      '', // Reason
+      item.netSal, // Amount
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+    ]);
+
+    return [headers, ...rows];
+  };
+
+  const getQNBArabicTemplate = () => {
+
+    const totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
+
+    const styles = {
+      font: { bold: true, color: { rgb: '000000' } },
+      fill: { fgColor: { rgb: 'e7e7e7' } },
+      border: {
+        top: { style: 'thin', color: { rgb: '000000' } },    // Thin black border on top
+        bottom: { style: 'thin', color: { rgb: '000000' } }, // Thin black border on bottom
+        left: { style: 'thin', color: { rgb: '000000' } },  // Thin black border on left
+        right: { style: 'thin', color: { rgb: '000000' } }  // Thin black border on right
+      },
+    };
+
+
+    const styles2 = {
+      border: {
+        top: { style: 'thin', color: { rgb: '000000' } },    // Thin black border on top
+        bottom: { style: 'thin', color: { rgb: '000000' } }, // Thin black border on bottom
+        left: { style: 'thin', color: { rgb: '000000' } },  // Thin black border on left
+        right: { style: 'thin', color: { rgb: '000000' } }  // Thin black border on right
+      },
+    }
+    
+
+      const title1 = [
+        'السادة بنك قطر الوطنى',
+      ]
+
+      const title2 = [
+        'يرجى التكرم بخصم',
+        totalAmount,
+      ]
+
+      const title3 = [
+        'من حسابكم رقم',
+        tableData[0]?.accNo,
+        'وأضافة الى الحسابات ادناه حسب الجدول التالى:',
+      ]
+
+    const headers = [
+      { v: 'BRANCH CODE', s: styles},
+      { v: 'ID', s: styles },
+      { v: 'ACCOUNT Number', s: styles },
+      { v: 'Name', s: styles },
+      { v: 'Code SN', s: styles },
+      { v: 'Reason', s: styles },
+      { v: 'Amount', s: styles },
+    ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push({ v: 'Employee Code', s: styles })
+        headers.push({ v: 'Section', s: styles }) 
+      }
+
+    const rows = tableData.map((item) => [
+      { v: item.bnkBrcode , s: styles2}, // Branch code
+      { v: '' , s: styles2},  // ID
+      { v: item.bnkAcc , s: styles2}, // Account Number
+      { v: item.employeeName , s: styles2}, // Employee Name
+      { v: '' , s: styles2}, // Code
+      { v: '', s: styles2}, // Reason
+      { v: item.netSal , s: styles2},  // Amount
+      ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
+    ]);
+
+    const footer = [
+      'الاجمالى',
+      totalAmount
+    ]
+    
+    return [title1, title2, title3,"",headers, ...rows,footer];
+  };
+
+
+
+  const getCIBSmsTemplate = () => {
+
+    const bank = getAutoCompleteValue(bankList, formInfo.BankId);
+    const company = getAutoCompleteValue(companyList, formInfo.BranchId)
+    const totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
+
+    const headers = [
+      'ACCOUNT NAME',
+      'COMPANY NAME',
+      'ACCOUNT NO',
+      'SALARY 1',
+    ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push('Employee Code')
+        headers.push('Section') 
+      }
+
+    const rows = tableData.map((item) => [
+      bank?.name ?? '', // ACCOUNT NAME
+      company?.name ?? '', // COMPANY NAME
+      item.bnkAcc , // ACCOUNT NO
+      item.netSal , // SALARY 1
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+    ]);
+
+    const footer = [
+      '',
+      '',
+      'Total',
+      totalAmount,
+    ]
+
+    return [headers, ...rows, '', footer];
+  };
+
+  
+
   const onExportBtnClick = () => {
+    
     switch (exportInfo.template) {
       case 12:
         exportJsonToXLSX(getCIBTemplate());
@@ -555,8 +755,20 @@ function BankList(props) {
         exportJsonToXLSX(getHSBCTemplate(), 'HSBCnet File Upload');
         break;
 
+        case 4:
+        exportJsonToXLSX(getQNBTemplate(), 'QNB File Upload');
+        break;
+
+        case 5:
+        exportJsonToXLSX(getQNBArabicTemplate(), 'QNB Arabic File Upload', 'QNBArabicSty');
+        break;
+
       case 16:
         exportJsonToXLSX(getCridetAgricoleTemplate(), 'Bank_sheet');
+        break;
+
+        case 17:
+        exportJsonToXLSX(getCIBSmsTemplate(), 'Bank_sheet');
         break;
 
       case 0:
@@ -807,6 +1019,24 @@ function BankList(props) {
                   />
                 )}
               />
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <FormGroup>
+                <FormControlLabel 
+                  control={
+                    <Checkbox  
+                      onChange={(e) =>{
+                        setFormInfo((prev) => ({
+                          ...prev,
+                          exportSectionAndCode: e.target.checked,
+                        }))
+                      }}
+                    />
+                } 
+                  label={intl.formatMessage(messages.exportSectionAndCode)} />
+                  {/* label="Export section and code" /> */}
+              </FormGroup>
             </Grid>
 
             {/* <Grid item xs={12} md={2}>

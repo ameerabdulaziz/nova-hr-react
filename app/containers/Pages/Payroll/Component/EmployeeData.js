@@ -301,8 +301,7 @@ function EmployeeData(props) {
                 <TextField
                   id="workingYears"
                   name="workingYears"
-                  value={data.length !== 0 && data.workingYears !== null? data.workingYears : "" }
-                  // value={data.workingYears === null ? "" : data.workingYears}
+                  value={data.length !== 0 && data.workingYears !== null && data.workingYears ?  parseFloat(data.workingYears).toFixed(2)  : "" }
                   label={intl.formatMessage(Payrollmessages.workingYears)}
                   className={classes.field}
                   variant="outlined"

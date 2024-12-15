@@ -13,7 +13,7 @@ import Payrollmessages from '../../containers/Pages/Payroll/messages';
 import { FormattedMessage , injectIntl } from 'react-intl';
 
 
-const AlertPopup = ({
+const fileViewerPopup = ({
     handleClose,
     open,
     uploadedFileType,
@@ -63,4 +63,4 @@ const AlertPopup = ({
 }
 
 
-export default AlertPopup;
+export default fileViewerPopup;

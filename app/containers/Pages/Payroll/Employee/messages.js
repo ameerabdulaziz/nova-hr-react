@@ -266,7 +266,7 @@ export default defineMessages({
 
   controlParameter: {
     id: `${scope}.personal.controlParameter`,
-    defaultMessage: 'rules Template',
+    defaultMessage: 'Attendance Rule',
   },
   bank: {
     id: `${scope2}.codes.bank`,

@@ -105,6 +105,12 @@ function ShiftReview(props) {
       return;
     }
 
+    if(fromdate && todate === null)
+    {
+      toast.error(intl.formatMessage(Payrollmessages.toDateErrMess));
+      return;
+    }
+
     try {
       setIsLoading(true);
       const dataApi = await ApiData(locale).GetEmpAttendance(

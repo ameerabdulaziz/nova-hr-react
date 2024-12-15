@@ -39,7 +39,7 @@ function PaymentSlipTotal(props) {
   const company = useSelector((state) => state.authReducer.companyInfo);
 
   const [isLoading, setIsLoading] = useState(true);
-
+  const [btnType, setBtnType] = useState();
   const printDivRef = useRef(null);
 
   const onBeforeGetContent = () => {
@@ -156,17 +156,14 @@ function PaymentSlipTotal(props) {
     }
   }
 
-  async function fetchReportInfo() {
+  async function fetchReportInfo(btnType) {
     setIsLoading(true);
-
+    setBtnType(btnType)
     try {
       const response = await api(locale).GetPaymentSlipTotalReport(formInfo);
-      debugger;
+
       setPaymentSlipTotalReport(response);
 
-      setTimeout(() => {
-        printJS();
-      }, 10);
     } catch (error) {
       //
     } finally {
@@ -178,10 +175,10 @@ function PaymentSlipTotal(props) {
     fetchNeededData();
   }, []);
 
-  const onFormSubmit = (evt) => {
+  const onFormSubmit = (evt,btnType) => {
     evt.preventDefault();
 
-    fetchReportInfo();
+    fetchReportInfo(btnType);
   };
 
   async function onCompanyAutocompleteChange(value) {
@@ -245,9 +242,39 @@ function PaymentSlipTotal(props) {
     [formInfo, companyList]
   );
 
+
+
+  useEffect(()=>{
+    if(paymentSlipTotalReport.length !== 0 && btnType === "print")
+    {      
+      printJS();
+    }
+  },[paymentSlipTotalReport])
+
+
+  const reviewDetailsFun =  () => {
+    fetchReportInfo("review");
+  }
+
+
+
+  useEffect(()=>{
+    if(paymentSlipTotalReport.length !== 0 && btnType === "review")
+    {
+      sessionStorage.setItem('Review',JSON.stringify( {
+        paymentSlipTotalReport: paymentSlipTotalReport,
+        itemFormInfo: itemFormInfo,
+      }));
+
+
+      window.open(`/app/Pages/Payroll/PaymentSlipTotal/Review`, "_blank")?.focus();
+
+    }
+  },[paymentSlipTotalReport])
+
   return (
     <PayRollLoader isLoading={isLoading}>
-      <form onSubmit={onFormSubmit}>
+      <form onSubmit={(e)=>onFormSubmit(e,"print")}>
         <Card sx={{ mb: 3 }}>
           <CardContent sx={{ p: '16px!important' }}>
             <Typography variant='h6'>{title}</Typography>
@@ -517,9 +544,18 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} md={2} lg={1}>
                 <Button variant='contained' color='primary' type='submit'>
                   <FormattedMessage {...payrollMessages.Print} />
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={2} lg={1}>
+                <Button variant='contained' color='primary' 
+                  onClick={()=>{
+                    reviewDetailsFun()
+                  }}
+                >
+                  <FormattedMessage {...payrollMessages.review} />
                 </Button>
               </Grid>
             </Grid>
@@ -530,15 +566,17 @@ function PaymentSlipTotal(props) {
       <Box
         ref={printDivRef}
         sx={{
-          display: 'none',
+          height:"0px",
+          visibility:"hidden",
           px: 4,
           pt: 4,
           '@media print': {
-            display: 'block',
+            height:"100%",
+            visibility:"visible",
             direction: 'ltr',
           },
           'p.MuiTypography-root, .MuiTableCell-root': {
-            fontSize: '10px',
+            fontSize: '12px',
             color: '#000',
           },
         }}
@@ -548,6 +586,24 @@ function PaymentSlipTotal(props) {
             <img src={company?.logo} alt='' height={45} />
           </div>
         </Stack>
+
+        <Grid
+        container
+        alignItems='center'
+        sx={{ borderBottom: '2px solid #333', pb: 1 }}
+      >
+        <Grid item xs={5}>
+          <Typography fontWeight='bold' variant='subtitle1'>
+            {intl.formatMessage(messages.paymentSlip)}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={5}>
+          <Typography fontWeight='bold'>
+            {itemFormInfo?.monthName} &nbsp; / &nbsp; {itemFormInfo?.yearName}
+          </Typography>
+        </Grid>
+      </Grid>
 
         {paymentSlipTotalReport.map((item, index) => (
           <Box

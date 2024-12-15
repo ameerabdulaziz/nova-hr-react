@@ -386,6 +386,7 @@ import {
   AnnualTaxReport,
   BankList,
   PaymentSlipTotal,
+  PaymentSlipTotalReview,
   SalaryReport,
   FollowEmployeeReport,
   TaxReportReport,
@@ -470,6 +471,9 @@ import {
   ForgotFingerprintRequestCreate,
   ForgotFingerprintRequestEdit,
   EmployeeSchedule,
+  TransferRequest,
+  TransferRequestCreate,
+  TransferRequestEdit,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -973,6 +977,21 @@ function Application(props) {
         <Route
           path="/app/Pages/HR/EmpInvestigationEdit"
           component={EmpInvestigationEdit}
+        />
+
+        <Route
+          path="/app/Pages/HR/TransferRequest"
+          component={TransferRequest}
+        />
+
+        <Route
+          path="/app/Pages/HR/TransferRequestCreate"
+          component={TransferRequestCreate}
+        />
+
+        <Route
+          path="/app/Pages/HR/TransferRequestEdit"
+          component={TransferRequestEdit}
         />
 
         {/* Attendance */}
@@ -1513,10 +1532,17 @@ function Application(props) {
           path="/app/Pages/Payroll/AnnualTaxReport"
           component={AnnualTaxReport}
         />
+        
+         <Route
+          path="/app/Pages/Payroll/PaymentSlipTotal/Review"
+          component={PaymentSlipTotalReview}
+        />
+
         <Route
           path="/app/Pages/Payroll/PaymentSlipTotal"
           component={PaymentSlipTotal}
         />
+       
         <Route
           path="/app/Pages/Payroll/SalaryReport"
           component={SalaryReport}

@@ -8,15 +8,46 @@ import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
 import api from '../../api/ResignReqTrxData';
 import messages from '../../messages';
+import payrollMessages from '../../../messages';
+import {
+  Tooltip,
+  IconButton,
+} from '@mui/material';
+import FileViewerPopup from "../../../../../../components/Popup/fileViewerPopup";
+import { ServerURL } from "../../../api/ServerConfig";
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 function ResignReqTrx(props) {
   const { intl } = props;
   const title = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
-
+  const [openParentPopup, setOpenParentPopup] = useState(false);
+  const [uploadedFileType, setUploadedFileType] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [validImageTypes, setValidImageTypes] = useState([
+    "image/jpg",
+    "jpg",
+    "image/jpeg",
+    "jpeg",
+    "image/png",
+    "png",
+    "image/apng",
+    "apng",
+    "image/webp",
+    "webp",
+    "image/svg+xml",
+    "svg+xml",
+  ]);
+  const [validPDFTypes, setValidPDFTypes] = useState([
+    "application/pdf",
+    ".pdf",
+    "pdf",
+  ]);
+
+
 
   async function fetchData() {
     try {
@@ -96,17 +127,68 @@ function ResignReqTrx(props) {
     delete: {
       api: deleteRow,
     },
+    extraActions: (row) => (
+      <>     
+        <Tooltip
+          placement='bottom'
+          title={intl.formatMessage(payrollMessages.viewAttachment)}
+        >
+
+          <span>
+            <IconButton onClick={() => {
+                  handleClickOpen(row)
+              }}>
+              <AttachFileIcon sx={{ fontSize: '1.2rem' }} />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </>
+    ),
   };
 
+
+  const handleClickOpen = (item) => {    
+    setOpenParentPopup(true);
+    setUploadedFile(
+      item && item.docName ? ` ${ServerURL}${item.docName} ` : ""
+    );
+
+    setUploadedFileType(
+      item && item.docName
+        ? ` ${ServerURL}${item.docName} `
+            .split(/[#?]/)[0]
+            .split(".")
+            .pop()
+            .trim()
+        : null
+    );
+  };
+
+  const handleClose = () => {
+    setOpenParentPopup(false);
+  };
+
+
   return (
-    <PayrollTable
-      isLoading={isLoading}
-      showLoader
-      title={title}
-      data={data}
-      columns={columns}
-      actions={actions}
-    />
+    <>
+        <PayrollTable
+          isLoading={isLoading}
+          showLoader
+          title={title}
+          data={data}
+          columns={columns}
+          actions={actions}
+        />
+
+        <FileViewerPopup
+        handleClose={handleClose}
+        open={openParentPopup}
+        uploadedFileType={uploadedFileType}
+        uploadedFile={uploadedFile}
+        validImageTypes={validImageTypes}
+        validPDFTypes={validPDFTypes}
+      />
+  </>
   );
 }
 

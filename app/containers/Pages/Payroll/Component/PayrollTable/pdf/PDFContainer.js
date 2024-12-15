@@ -9,11 +9,13 @@ const PdfContainer = forwardRef((_props, containerRef) => (
   <Box
     ref={containerRef}
     sx={{
-      display: 'none',
+      height:"0px",
+      visibility:"hidden",
       pageBreakBefore: 'always',
       direction: 'ltr',
       '@media print': {
-        display: 'block',
+        height:"100%",
+        visibility:"visible",
       },
       'p.MuiTypography-root, .MuiTableCell-root': {
         fontSize: '7px',

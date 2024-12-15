@@ -794,4 +794,12 @@ employeeId: {
     id: `${scope}.InvalidIdNumber`,
     defaultMessage: 'Invalid ID Number',
   },
+  uploadFileErrorMes: {
+    id: `${scope}.uploadFileErrorMes`,
+    defaultMessage: 'The File Is too Large',
+  },
+  toDateErrMess: {
+    id: `${scope}.toDateErrMess`,
+    defaultMessage: 'You must to choose to date',
+  },
 });

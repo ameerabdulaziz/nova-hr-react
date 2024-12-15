@@ -196,6 +196,14 @@ function PayrollTable(props) {
       // Add remanding options
       ...options,
 
+      onTableChange: (action, tableState) => {
+        if (action === "sort") {
+          // tableState.displayData contains the sorted data in display order
+          const sortedData = tableState.displayData.map((item) => data[item.dataIndex]);;
+          setFilterData(sortedData);
+        }
+      },
+
       // Save filtered rows for export & print
       onFilterChange: (
         changedColumn,
