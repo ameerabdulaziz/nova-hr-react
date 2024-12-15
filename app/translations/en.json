@@ -2131,6 +2131,7 @@
   "boilerplate.containers.Payroll.resetDeviceKey": "Reset Device Key",
   "boilerplate.containers.Payroll.InvalidIdNumber": "Invalid ID Number",
   "boilerplate.containers.Payroll.uploadFileErrorMes": "The File Is too Large",
+  "boilerplate.containers.Payroll.toDateErrMess": "You must to choose to date",
   "boilerplate.containers.Payroll.oldElemVal": "Prev Value",
   "boilerplate.containers.Payroll.organizationName": "Section",
   "boilerplate.containers.Payroll.organizationTree": "Organization Tree",
