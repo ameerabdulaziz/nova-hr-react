@@ -335,7 +335,7 @@ function BankList(props) {
   //   }
   // };
 
-  const exportJsonToXLSX = (rows = [], sheetName = 'Payroll', sheetSty) => {
+  const exportJsonToXLSX = (rows = [], sheetName = 'Payroll', sheetSty, fileType) => {
     const worksheet = XLSX.utils.aoa_to_sheet(rows);
 
     const workbook = XLSX.utils.book_new();
@@ -369,7 +369,15 @@ function BankList(props) {
 
     const fileName = getAutoCompleteValue(exportList, exportInfo.template)?.name ?? 'Payroll';
 
-    XLSX.writeFile(workbook, fileName + '.xlsx');
+    if(fileType !== "csv")
+      {
+         XLSX.writeFile(workbook, fileName + '.xlsx');
+      }
+      else
+      {
+        XLSX.writeFile(workbook, fileName + '.CSV');
+      }
+      
   };
 
   // TODO: Mohammed Taysser
@@ -441,7 +449,7 @@ function BankList(props) {
       'Salary', // Narrative
       'egp', // Currency
       'CIBEEGCXXXX', // Creditor_BIC_Code
-      item.bnkAcc ?? '0000', // Account_Number
+      item.bnkAcc.toString() ?? '0000', // Account_Number
       item.employeeName, // Account_Name
       '', // Debit_Amount
       {
@@ -473,7 +481,7 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      item.bnkAcc, // Beneficiary Account No
+      item.bnkAcc.toString(), // Beneficiary Account No
       item.employeeName, // Beneficiary Name
       'EGP', // Transaction Currency
       formatNumber(item.netSal), // Payment Amount
@@ -616,7 +624,7 @@ function BankList(props) {
     const rows = tableData.map((item) => [
       item.bnkBrcode, // Branch code
       '', // Customer ID
-      item.bnkAcc, // Account Number
+      item.bnkAcc.toString(), // Account Number
       item.employeeName, // Employee Name
       '', // Code
       '', // Reason
@@ -687,7 +695,7 @@ function BankList(props) {
     const rows = tableData.map((item) => [
       { v: item.bnkBrcode , s: styles2}, // Branch code
       { v: '' , s: styles2},  // ID
-      { v: item.bnkAcc , s: styles2}, // Account Number
+      { v: item.bnkAcc.toString() , s: styles2}, // Account Number
       { v: item.employeeName , s: styles2}, // Employee Name
       { v: '' , s: styles2}, // Code
       { v: '', s: styles2}, // Reason
@@ -727,7 +735,7 @@ function BankList(props) {
     const rows = tableData.map((item) => [
       bank?.name ?? '', // ACCOUNT NAME
       company?.name ?? '', // COMPANY NAME
-      item.bnkAcc , // ACCOUNT NO
+      item.bnkAcc.toString() , // ACCOUNT NO
       item.netSal , // SALARY 1
       ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
@@ -742,6 +750,99 @@ function BankList(props) {
     return [headers, ...rows, '', footer];
   };
 
+
+  const getAAIBTemplate = () => {
+
+    const headers = [
+      'Org_Cus_Num',
+      'Emp_Ref_Num',
+      'Emp_Name',
+      'NID',
+      'Emp_Acc_Num',
+      'Curr',
+      '', // Amount
+      'Hiring Date',
+      'Emp_Position',
+      'SDU',
+    ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push('Employee Code')
+        headers.push('Section') 
+      }
+
+    const rows = tableData.map((item,index) => [
+      item.accNo , // Org_Cus_Num
+      index + 1 , // Emp_Ref_Num
+      item.employeeName , // Emp_Name
+      '' , // NID
+      item.bnkAcc.toString() , // Emp_Acc_Num
+      'EGP' , // Curr
+      formatNumber(item.netSal) , // Amount
+      '' , // Hiring Date
+      '' , // Emp_Position
+      '' , // SDU
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+    ]);
+
+    return [headers, ...rows];
+  };
+
+  const getABSmsTemplate = () => {
+
+    const headers = [
+      'Employee Name',
+      'Account',
+      'Amount',
+    ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push('Employee Code')
+        headers.push('Section') 
+      }
+
+    const rows = tableData.map((item,index) => [
+      item.employeeName , // Employee Name
+      item.accNo , // Account
+      formatNumber(item.netSal) , // Amount
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+    ]);
+
+    return [headers, ...rows];
+  };
+
+  const getCSVFileTemplate = () => {
+
+    const headers = [
+      'مسلسل',
+      'رقم الحساب',
+      'الاسم',
+      'جيروكود ',
+      'المبلغ',
+    ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push('Employee Code')
+        headers.push('Section') 
+      }
+
+    const rows = tableData.map((item,index) => [
+      index + 1, // مسلسل
+      item.accNo , // رقم الحساب
+      item.employeeName , // الاسم
+      '' , // جيروكود
+      formatNumber(item.netSal) , // Amount
+      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+    ]);
+
+    return [headers, ...rows];
+  };
+
+
+
   
 
   const onExportBtnClick = () => {
@@ -755,11 +856,11 @@ function BankList(props) {
         exportJsonToXLSX(getHSBCTemplate(), 'HSBCnet File Upload');
         break;
 
-        case 4:
+      case 4:
         exportJsonToXLSX(getQNBTemplate(), 'QNB File Upload');
         break;
 
-        case 5:
+      case 5:
         exportJsonToXLSX(getQNBArabicTemplate(), 'QNB Arabic File Upload', 'QNBArabicSty');
         break;
 
@@ -767,12 +868,24 @@ function BankList(props) {
         exportJsonToXLSX(getCridetAgricoleTemplate(), 'Bank_sheet');
         break;
 
-        case 17:
-        exportJsonToXLSX(getCIBSmsTemplate(), 'Bank_sheet');
+      case 17:
+        exportJsonToXLSX(getCIBSmsTemplate(), 'CIB Sms File Upload');
+        break;
+
+      case 18:
+        exportJsonToXLSX(getAAIBTemplate(), 'AAIB File Upload');
+        break;
+
+      case 19:
+        exportJsonToXLSX(getABSmsTemplate(), 'AB SMS File Upload');
+        break;
+
+      case 30:
+        exportJsonToXLSX(getCSVFileTemplate(), 'CSV File Upload', null , "csv");
         break;
 
       case 0:
-      default:
+        default:
         exportJsonToXLSX(getDefaultTemplate(), 'Bank File Upload');
         break;
     }
