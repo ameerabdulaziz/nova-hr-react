@@ -22,7 +22,7 @@ function NewIdea(props) {
   const { classes } = useStyles();
   const Title = localStorage.getItem("MenuName");  
   const [isLoading, setIsLoading] = useState(false);  
-  const [EmployeeList, setEmployeeList] = useState([]);
+  const [directedToList, setDirectedToList] = useState([]);
   const [TypeList, setTypeList] = useState([]);
   const [data, setdata] = useState({
     "id": 0,    
@@ -75,8 +75,8 @@ function NewIdea(props) {
   }
   async function fetchData() {
     
-    const types = await GeneralListApis(locale).GetExplanationTypeList(locale);
-    const employees = await GeneralListApis(locale).GetHrList();
+    const types = await GeneralListApis(locale).GetExplanationTypeList();
+    const DirectedToData = await GeneralListApis(locale).GetDirectedToList();
 
     setdata((prev) => ({
       ...prev,
@@ -85,7 +85,7 @@ function NewIdea(props) {
     }));
 
     setTypeList(types);
-    setEmployeeList(employees);
+    setDirectedToList(DirectedToData);
     
   }
   useEffect(() => {    
@@ -127,8 +127,8 @@ function NewIdea(props) {
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Autocomplete  
-                            id="employeeId"                        
-                            options={EmployeeList}
+                            id="directedTo"                        
+                            options={directedToList}
                             value={{id:data.expDirectedTo,name:data.directedToName}}    
                             isOptionEqualToValue={(option, value) =>
                                 value.id === 0 || value.id === "" ||option.id === value.id
@@ -142,7 +142,7 @@ function NewIdea(props) {
                             <TextField
                                 variant="outlined"                            
                                 {...params}
-                                name="employeeId"
+                                name="directedTo"
                                 required                              
                                 label={intl.formatMessage(Payrollmessages.directedTo)}
                                 />

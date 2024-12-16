@@ -10,7 +10,10 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { format } from "date-fns";
   
-  function DetailedAttendanceTable({header,Data,headerType}) {    
+  function DetailedAttendanceTable({header,Data,headerType,review}) {    
+
+    console.log("Data =", Data);
+    
 
     return (
         <TableContainer className={style.tableContainerSty}>
@@ -34,9 +37,29 @@ import { format } from "date-fns";
                                         <TableCell align='center' >
                                             <pre>{data.dayName}</pre>
                                         </TableCell>
-                                        <TableCell align='center' >
-                                            <pre>{format(new Date(data.shiftDate), "yyyy-MM-dd")}</pre>
-                                        </TableCell>
+                                        {review ? (
+                                             <TableCell 
+                                                align='center' 
+                                                style={{
+                                                    ...(data?.absence && {
+                                                        backgroundColor: "#f00",
+                                                      }),
+                                                      ...(data?.vac && {
+                                                        backgroundColor: "#fafa02",
+                                                      }),
+                                                      ...(data?.shiftVacancy && {
+                                                        backgroundColor: "#1bff00",
+                                                      }),
+                                                }}
+                                                >
+                                                <pre >{format(new Date(data.shiftDate), "yyyy-MM-dd")}</pre>
+                                            </TableCell>
+                                        ) : 
+                                        (
+                                            <TableCell align='center'>
+                                                <pre >{format(new Date(data.shiftDate), "yyyy-MM-dd")}</pre>
+                                            </TableCell>
+                                        ) }
                                         <TableCell align='center' >
                                             <pre>{data.timeIn ? format(new Date(data.timeIn), "HH:mm:ss") : ""}</pre>
                                         </TableCell>
