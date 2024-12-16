@@ -124,6 +124,7 @@ function WorkFlowCreate(props) {
         result = await GeneralListApis(locale).GetRewards();
 
       setDocTypeList(result);
+      debugger;
       result = await GeneralListApis(locale).GetActionByDocList(
         DocumentId == 0 || DocumentId == null ? 1 : DocumentId
       );
@@ -181,7 +182,7 @@ function WorkFlowCreate(props) {
         setSteps(dataApi.steps || []);
         setActions(dataApi.actions || []);
         getDocType(dataApi.documentId);
-      }
+      } else getDocType(0);
     } catch (err) {
     } finally {
       setIsLoading(false);
