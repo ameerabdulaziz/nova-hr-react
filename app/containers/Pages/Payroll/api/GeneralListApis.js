@@ -127,9 +127,9 @@ const GeneralListApis = (locale) => {
     return result.data;
   };
 
-  Apis.GetExplanationTypeList = async () => {
+  Apis.GetExplanationTypeList = async (all) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetExplanationTypeList/${locale}`
+      `GeneralList/GetExplanationTypeList/${locale}${all ? '?all=true': ""}`
     );
     return result.data;
   };
@@ -657,6 +657,14 @@ const GeneralListApis = (locale) => {
   Apis.GetProjectTasksList = async (id) => {
     const data = await axiosInstance.get(
       `PmTimeSheet/GetProjectTasks/${locale}?ProjectStageid=${id}`
+    );
+
+    return data.data;
+  };
+
+  Apis.GetDirectedToList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetDirectedToList/${locale}`
     );
 
     return data.data;

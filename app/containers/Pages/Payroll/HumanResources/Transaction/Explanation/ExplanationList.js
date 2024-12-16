@@ -106,10 +106,12 @@ function ExplanationList(props) {
   async function fetchData() {
     setIsLoading(true);
 
+    const all = true
+
     try {
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
-      const types = await GeneralListApis(locale).GetExplanationTypeList();
+      const types = await GeneralListApis(locale).GetExplanationTypeList(all);
       setTypeList(types);
       const dataApi = await ApiData(locale).GetReport({
         employeeId: employee,

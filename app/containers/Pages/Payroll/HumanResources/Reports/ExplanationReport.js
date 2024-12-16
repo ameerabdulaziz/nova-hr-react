@@ -146,10 +146,11 @@ function ExplanationReport(props) {
   };
 
   async function fetchData() {
+
+    const all = true
+
     try {
-      const types = await GeneralListApis(locale).GetExplanationTypeList(
-        locale
-      );
+      const types = await GeneralListApis(locale).GetExplanationTypeList(all);
       setTypeList(types);
 
       const employees = await GeneralListApis(locale).GetEmployeeList();
