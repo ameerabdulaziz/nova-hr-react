@@ -102,7 +102,12 @@ const PaymentSlipReview = (props) => {
                     {  sessionData.headerType === "employee" && (  <DetailedAttendanceHeaderEmp Data={empData} date={sessionData.searchData} /> ) }
                     {  sessionData.headerType === "date" && (  <DetailedAttendanceHeaderDate Data={empData} date={sessionData.searchData} /> ) }
                     
-                    <DetailedAttendanceTable header={sessionData.headerType === "date" ? dateHeaders   : employeeHeaders } Data={empData.details} headerType={sessionData.headerType} />
+                    <DetailedAttendanceTable 
+                      header={sessionData.headerType === "date" ? dateHeaders   : employeeHeaders } 
+                      Data={empData.details} 
+                      headerType={sessionData.headerType} 
+                      review={true}
+                      />
                     {sessionData.headerType === "employee" && ( <DetailedAttendanceFooter  Data={empData} /> )}
                 </div>
               ))}
