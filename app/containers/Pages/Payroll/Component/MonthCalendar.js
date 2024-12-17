@@ -26,6 +26,8 @@ const getEventColor = (docType) => {
       return 'rgb(63, 81, 181)';
     case 3:
       return 'green';
+    case 4:
+      return '#ff8100';
     default:
       return 'gray';
   }
@@ -66,6 +68,11 @@ function MonthCalendar(props) {
   ];
 
   const EVENTS_TYPE = [
+    { 
+      docType: 4,
+      label: intl.formatMessage(payrollMessages.type),
+      color: getEventColor(4),
+    },
     {
       docType: 3,
       label: intl.formatMessage(payrollMessages.leave),
