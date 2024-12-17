@@ -339,7 +339,7 @@ function BankList(props) {
     const worksheet = XLSX.utils.aoa_to_sheet(rows);
 
     const workbook = XLSX.utils.book_new();
-    const startRowNumSty = sheetSty === "QNBArabicSty" ? 4 : 0
+    const startRowNumSty = sheetSty === "headerSty" ? 4 : 0
 
      // Calculate column widths dynamically
      const colWidths = rows[startRowNumSty].map((_, colIndex) => {
@@ -348,7 +348,7 @@ function BankList(props) {
       return { wch: maxLength };
     });
     
-    if(sheetSty === "QNBArabicSty")
+    if(sheetSty === "headerSty")
     { 
       // Set row height for a specific row (e.g., Row 5)
       worksheet["!rows"] = [
@@ -388,6 +388,9 @@ function BankList(props) {
       font: { bold: true, color: { rgb: '000000' } },
       fill: { fgColor: { rgb: '008000' } },
     };
+
+    // make cell type text
+    const textSty = { numFmt: '@' }
 
     const headers = [
       { v: 'File_Date', s: styles },
@@ -449,7 +452,7 @@ function BankList(props) {
       'Salary', // Narrative
       'egp', // Currency
       'CIBEEGCXXXX', // Creditor_BIC_Code
-      item.bnkAcc.toString() ?? '0000', // Account_Number
+      item.bnkAcc ? { v: item.bnkAcc , s: textSty} : '0000', // Account_Number
       item.employeeName, // Account_Name
       '', // Debit_Amount
       {
@@ -466,6 +469,9 @@ function BankList(props) {
   };
 
   const getDefaultTemplate = () => {
+
+    // make cell type text
+    const textSty = { numFmt: '@' }
     const headers = [
       'Beneficiary Account No',
       'Beneficiary Name',
@@ -481,7 +487,7 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      item.bnkAcc.toString(), // Beneficiary Account No
+      { v: item.bnkAcc , s: textSty}, // Beneficiary Account No
       item.employeeName, // Beneficiary Name
       'EGP', // Transaction Currency
       formatNumber(item.netSal), // Payment Amount
@@ -605,6 +611,9 @@ function BankList(props) {
   };
 
   const getQNBTemplate = () => {
+
+    // make cell type text
+    const textSty = { numFmt: '@' }
     const headers = [
       'Branch code',
       'Customer ID ',
@@ -624,7 +633,7 @@ function BankList(props) {
     const rows = tableData.map((item) => [
       item.bnkBrcode, // Branch code
       '', // Customer ID
-      item.bnkAcc.toString(), // Account Number
+      { v: item.bnkAcc , s: textSty}, // Account Number
       item.employeeName, // Employee Name
       '', // Code
       '', // Reason
@@ -659,8 +668,10 @@ function BankList(props) {
         right: { style: 'thin', color: { rgb: '000000' } }  // Thin black border on right
       },
     }
-    
 
+    // make cell type text
+     const textSty = { numFmt: '@' }
+    
       const title1 = [
         'السادة بنك قطر الوطنى',
       ]
@@ -695,7 +706,7 @@ function BankList(props) {
     const rows = tableData.map((item) => [
       { v: item.bnkBrcode , s: styles2}, // Branch code
       { v: '' , s: styles2},  // ID
-      { v: item.bnkAcc.toString() , s: styles2}, // Account Number
+      { v: item.bnkAcc , s: {...styles2, ...textSty}}, // Account Number
       { v: item.employeeName , s: styles2}, // Employee Name
       { v: '' , s: styles2}, // Code
       { v: '', s: styles2}, // Reason
@@ -715,6 +726,8 @@ function BankList(props) {
 
   const getCIBSmsTemplate = () => {
 
+    // make cell type text
+    const textSty = { numFmt: '@' }
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
     const company = getAutoCompleteValue(companyList, formInfo.BranchId)
     const totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
@@ -735,8 +748,8 @@ function BankList(props) {
     const rows = tableData.map((item) => [
       bank?.name ?? '', // ACCOUNT NAME
       company?.name ?? '', // COMPANY NAME
-      item.bnkAcc.toString() , // ACCOUNT NO
-      item.netSal , // SALARY 1
+      { v: item.bnkAcc , s: textSty}, // ACCOUNT NO
+      formatNumber(item.netSal) , // SALARY 1
       ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
 
@@ -752,6 +765,9 @@ function BankList(props) {
 
 
   const getAAIBTemplate = () => {
+
+    // make cell type text
+    const textSty = { numFmt: '@' }
 
     const headers = [
       'Org_Cus_Num',
@@ -777,7 +793,7 @@ function BankList(props) {
       index + 1 , // Emp_Ref_Num
       item.employeeName , // Emp_Name
       '' , // NID
-      item.bnkAcc.toString() , // Emp_Acc_Num
+      { v: item.bnkAcc , s: textSty} , // Emp_Acc_Num
       'EGP' , // Curr
       formatNumber(item.netSal) , // Amount
       '' , // Hiring Date
@@ -815,6 +831,9 @@ function BankList(props) {
 
   const getCSVFileTemplate = () => {
 
+    // make cell type text
+    const textSty = { numFmt: '@' }
+
     const headers = [
       'مسلسل',
       'رقم الحساب',
@@ -831,7 +850,7 @@ function BankList(props) {
 
     const rows = tableData.map((item,index) => [
       index + 1, // مسلسل
-      item.accNo , // رقم الحساب
+      { v: item.bnkAcc , s: textSty} , // رقم الحساب
       item.employeeName , // الاسم
       '' , // جيروكود
       formatNumber(item.netSal) , // Amount
@@ -839,6 +858,81 @@ function BankList(props) {
     ]);
 
     return [headers, ...rows];
+  };
+
+
+
+  const getNBETemplate = () => {
+
+    let totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
+
+    const styles = {
+      font: { bold: true, color: { rgb: '000000' } },
+      fill: { fgColor: { rgb: 'e7e7e7' } },
+      border: {
+        top: { style: 'thin', color: { rgb: '000000' } },    // Thin black border on top
+        bottom: { style: 'thin', color: { rgb: '000000' } }, // Thin black border on bottom
+        left: { style: 'thin', color: { rgb: '000000' } },  // Thin black border on left
+        right: { style: 'thin', color: { rgb: '000000' } }  // Thin black border on right
+      },
+    };
+
+    const styles2 = {
+      border: {
+        top: { style: 'thin', color: { rgb: '000000' } },    // Thin black border on top
+        bottom: { style: 'thin', color: { rgb: '000000' } }, // Thin black border on bottom
+        left: { style: 'thin', color: { rgb: '000000' } },  // Thin black border on left
+        right: { style: 'thin', color: { rgb: '000000' } }  // Thin black border on right
+      },
+    }
+
+    // make cell type text
+    const textSty = { numFmt: '@' }
+    
+      const title1 = [
+        'السادة / بنك الاتحاد الوطنى',
+      ]
+
+      const title2 = [
+        'يرجى التكرم بخصم',
+        { v: totalAmount,  s: textSty}
+      ]
+
+      const title3 = [
+        'من حسابنا لديكم رقم',
+        tableData[0]?.accNo,
+        'وأضافة الى الحسابات ادناه حسب الجدول التالى:',
+      ]
+
+    const headers = [
+      { v: 'SN', s: styles },
+      { v: 'ACCOUNT Number', s: styles },
+      { v: 'Currency', s: styles },
+      { v: 'Staff name', s: styles },
+      { v: 'Net salary', s: styles},
+    ];
+
+    if(formInfo.exportSectionAndCode)
+      {        
+        headers.push({ v: 'Employee Code', s: styles })
+        headers.push({ v: 'Section', s: styles }) 
+      }
+
+    const rows = tableData.map((item, index) => [
+      { v: index + 1, s: styles2}, // SN
+      { v: item.bnkAcc , s: {...styles2, ...textSty}}, // ACCOUNT Number
+      { v: "EGP" , s: styles2}, // Currency
+      { v: item.employeeName , s: styles2},  // Staff name
+      { v: item.netSal,  s: {...styles2, ...textSty}}, // Net salary
+      ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
+    ]);
+
+    const footer = [
+      'الاجمالى',
+      { v: totalAmount,  s: textSty}
+    ]
+    
+    return [title1, title2, title3,"",headers, ...rows,footer];
   };
 
 
@@ -856,12 +950,16 @@ function BankList(props) {
         exportJsonToXLSX(getHSBCTemplate(), 'HSBCnet File Upload');
         break;
 
+      case 3:
+        exportJsonToXLSX(getNBETemplate(), 'NBE File Upload', 'headerSty');
+        break;
+
       case 4:
         exportJsonToXLSX(getQNBTemplate(), 'QNB File Upload');
         break;
 
       case 5:
-        exportJsonToXLSX(getQNBArabicTemplate(), 'QNB Arabic File Upload', 'QNBArabicSty');
+        exportJsonToXLSX(getQNBArabicTemplate(), 'QNB Arabic File Upload', 'headerSty');
         break;
 
       case 16:
