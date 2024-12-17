@@ -1847,6 +1847,7 @@
   "boilerplate.containers.Payroll.HumanResources.ResignTrxCreateTitle": "Add Resign",
   "boilerplate.containers.Payroll.HumanResources.ResignTrxUpdateTitle": "Update Resign",
   "boilerplate.containers.Payroll.HumanResources.response": "Response",
+  "boilerplate.containers.Payroll.HumanResources.meetingDate": "Meeting Date",
   "boilerplate.containers.Payroll.HumanResources.returnDate": "Return Date",
   "boilerplate.containers.Payroll.HumanResources.rewardsName": "Rewards",
   "boilerplate.containers.Payroll.HumanResources.seatNumber": "Seat Number",

@@ -186,7 +186,6 @@ function ExplanationReport(props) {
         print: false,
       },
     },
-    
     {
       name: "questionDate",
       label: intl.formatMessage(payrollMessages.date),
@@ -224,6 +223,22 @@ function ExplanationReport(props) {
       options: {
         customBodyRender: (value) => (value ? <div style={{ maxWidth: '200px', width: 'max-content' }}>{value}</div> : '')
       },
+    },
+    {
+      name: "meetingDate",
+      label: intl.formatMessage(messages.meetingDate),
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
+      },
+    },
+    {
+      name: "fromTime",
+      label: intl.formatMessage(payrollMessages.startTime),
+    },
+    {
+      name: "toTime",
+      label: intl.formatMessage(payrollMessages.endTime),
     },
   ];
 

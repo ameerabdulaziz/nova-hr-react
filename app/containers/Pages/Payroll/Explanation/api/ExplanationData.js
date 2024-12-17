@@ -34,11 +34,7 @@ const ExplanationData = (locale) => {
   };
   Apis.SaveResponse = async (data) => {
     
-  var requestData={    
-    "id":data.id,    
-    "response":data.response,
-    }    
-    const result = await axiosInstance.post("Explanation/SaveResponse",requestData);
+    const result = await axiosInstance.post("Explanation/SaveResponse",data);
     return result;
   };
 

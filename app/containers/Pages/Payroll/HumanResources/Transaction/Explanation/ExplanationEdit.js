@@ -8,13 +8,18 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, FormattedMessage } from "react-intl";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, FormControlLabel, Checkbox } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
 import { formateDate } from "../../../helpers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { format } from "date-fns";
 
 function ExplanationEdit(props) {
   const { intl } = props;
@@ -38,14 +43,34 @@ function ExplanationEdit(props) {
     hrLetterDate: "",
     directedTo: "",
     hrLetterLang: "",
+    meetingReq: false,
+    MeetingDate: null,
+    fromTime: "",
+    toTime: "",
   });
   const history = useHistory();
+
+
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      let response = await ApiData(locale).SaveResponse(data);
+
+      const bodyData = {
+        id: data.id,    
+        response: data.response,
+        MeetingDate: dateFormatFun(data.MeetingDate),
+        fromTime: data.fromTime,
+        toTime: data.toTime,
+      }
+
+
+      let response = await ApiData(locale).SaveResponse(bodyData);
 
       if (response.status == 200) {
         toast.success(notif.saved);
@@ -53,7 +78,7 @@ function ExplanationEdit(props) {
       } else {
         toast.error(response.statusText);
       }
-    } catch (err) {
+    } catch (err) { 
     } finally {
       setIsLoading(false);
     }
@@ -71,7 +96,10 @@ function ExplanationEdit(props) {
 
       setQuestionType(dataApi.expTypeName);
 
-      setdata(dataApi);
+      setdata((prev) => ({
+          ...prev,
+          ...dataApi
+        }));
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -152,6 +180,19 @@ function ExplanationEdit(props) {
                 autoComplete='off'
               />
             </Grid>
+            <Grid item xs={12}  md={4}>
+                <FormControlLabel
+                    control={(
+                    <Checkbox
+                        checked={data.meetingReq} 
+                        value={data.meetingReq}
+                        color="primary"
+                        disabled
+                    />
+                    )}
+                    label={intl.formatMessage(Payrollmessages.meetingReq)}
+                />
+            </Grid> 
             <Grid item xs={12} md={12}>
               <TextField
                 id="QuestionDetails"
@@ -213,6 +254,77 @@ function ExplanationEdit(props) {
               </Grid>
             ) : (
               ""
+            )}
+
+            {data.meetingReq && (
+              <>
+                <Grid item xs={12} md={4}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label={intl.formatMessage(messages.meetingDate)}
+                      value={data.MeetingDate ? dayjs(data.MeetingDate) : data.MeetingDate}
+                      className={classes.field}
+                      onChange={(date) => {
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          MeetingDate: date,
+                        }));
+                      }}
+                      onError={(error, value) => {
+                        if (error !== null) {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                            [`MeetingDate`]: true,
+                          }));
+                        } else {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                            [`MeetingDate`]: false,
+                          }));
+                        }
+                      }}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={12} md={2}>
+                    <TextField
+                      id="fromTime"
+                      name="fromTime"
+                      label={intl.formatMessage(Payrollmessages.startTime)}
+                      type="time"
+                      onChange={(e) =>
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          fromTime: e.target.value,
+                        }))
+                      }
+                      className={classes.field}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      autoComplete="off"
+                    />
+                </Grid>
+                <Grid item xs={12} md={2}>
+                    <TextField
+                      id="toTime"
+                      name="toTime"
+                      label={intl.formatMessage(Payrollmessages.endTime)}
+                      type="time"
+                      onChange={(e) =>
+                        setdata((prevFilters) => ({
+                          ...prevFilters,
+                          toTime: e.target.value,
+                        }))
+                      }
+                      className={classes.field}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      autoComplete="off"
+                    />
+                </Grid>
+              </>
             )}
             <Grid item xs={12} md={12}>
               <TextField

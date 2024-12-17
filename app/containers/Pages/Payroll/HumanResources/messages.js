@@ -280,6 +280,10 @@ response: {
   id: `${scope}.response`,
   defaultMessage: 'response',
 },
+meetingDate: {
+  id: `${scope}.meetingDate`,
+  defaultMessage: 'Meeting Date',
+},
 //News////////////////////////////////////////////////////////////////////////////////////////////////
 
 NewsCreateTitle: {

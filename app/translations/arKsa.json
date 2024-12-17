@@ -1848,6 +1848,7 @@
   "boilerplate.containers.Payroll.HumanResources.ResignTrxCreateTitle": "اضافة استقالة",
   "boilerplate.containers.Payroll.HumanResources.ResignTrxUpdateTitle": "تعديل استقالة",
   "boilerplate.containers.Payroll.HumanResources.response": "الرد",
+  "boilerplate.containers.Payroll.HumanResources.meetingDate": "تاريخ الاجتماع",
   "boilerplate.containers.Payroll.HumanResources.returnDate": "تاريخ العودة",
   "boilerplate.containers.Payroll.HumanResources.rewardsName": "المكافئة",
   "boilerplate.containers.Payroll.HumanResources.seatNumber": "رقم المقعد",
