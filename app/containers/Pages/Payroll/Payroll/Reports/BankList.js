@@ -389,9 +389,7 @@ function BankList(props) {
       fill: { fgColor: { rgb: '008000' } },
     };
 
-    // make cell type text
-    const textSty = { numFmt: '@' }
-
+    const textSty = { numFmt: '@' }  // make cell type text
     const headers = [
       { v: 'File_Date', s: styles },
       { v: 'Value_Date', s: styles },
@@ -470,8 +468,7 @@ function BankList(props) {
 
   const getDefaultTemplate = () => {
 
-    // make cell type text
-    const textSty = { numFmt: '@' }
+    const textSty = { numFmt: '@' } // make cell type text
     const headers = [
       'Beneficiary Account No',
       'Beneficiary Name',
@@ -612,8 +609,7 @@ function BankList(props) {
 
   const getQNBTemplate = () => {
 
-    // make cell type text
-    const textSty = { numFmt: '@' }
+    const textSty = { numFmt: '@' } // make cell type text
     const headers = [
       'Branch code',
       'Customer ID ',
@@ -637,7 +633,7 @@ function BankList(props) {
       item.employeeName, // Employee Name
       '', // Code
       '', // Reason
-      item.netSal, // Amount
+      { v: item.netSal , s: textSty}, // Amount
       ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
 
@@ -669,8 +665,7 @@ function BankList(props) {
       },
     }
 
-    // make cell type text
-     const textSty = { numFmt: '@' }
+     const textSty = { numFmt: '@' } // make cell type text
     
       const title1 = [
         'السادة بنك قطر الوطنى',
@@ -706,11 +701,11 @@ function BankList(props) {
     const rows = tableData.map((item) => [
       { v: item.bnkBrcode , s: styles2}, // Branch code
       { v: '' , s: styles2},  // ID
-      { v: item.bnkAcc , s: {...styles2, ...textSty}}, // Account Number
+      { v: item.bnkAcc , s: styles2}, // Account Number
       { v: item.employeeName , s: styles2}, // Employee Name
       { v: '' , s: styles2}, // Code
       { v: '', s: styles2}, // Reason
-      { v: item.netSal , s: styles2},  // Amount
+      { v: item.netSal , s: {...styles2, ...textSty}},  // Amount
       ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
     ]);
 
@@ -726,8 +721,8 @@ function BankList(props) {
 
   const getCIBSmsTemplate = () => {
 
-    // make cell type text
-    const textSty = { numFmt: '@' }
+    const textSty = { numFmt: '@' } // make cell type text
+    const customSty = { numFmt: '##' }  // make cell custom format ( show number in cell without fractions and Rounding a decimal number )
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
     const company = getAutoCompleteValue(companyList, formInfo.BranchId)
     const totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
@@ -749,7 +744,7 @@ function BankList(props) {
       bank?.name ?? '', // ACCOUNT NAME
       company?.name ?? '', // COMPANY NAME
       { v: item.bnkAcc , s: textSty}, // ACCOUNT NO
-      formatNumber(item.netSal) , // SALARY 1
+      { v: item.netSal , s: customSty} , // SALARY 1
       ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
 
@@ -757,7 +752,7 @@ function BankList(props) {
       '',
       '',
       'Total',
-      totalAmount,
+      { v: totalAmount, s: textSty},
     ]
 
     return [headers, ...rows, '', footer];
@@ -766,9 +761,8 @@ function BankList(props) {
 
   const getAAIBTemplate = () => {
 
-    // make cell type text
-    const textSty = { numFmt: '@' }
-
+    const textSty = { numFmt: '@' } // make cell type text
+    const customSty = { numFmt: '##' } // make cell custom format ( show number in cell without fractions and Rounding a decimal number )
     const headers = [
       'Org_Cus_Num',
       'Emp_Ref_Num',
@@ -795,7 +789,7 @@ function BankList(props) {
       '' , // NID
       { v: item.bnkAcc , s: textSty} , // Emp_Acc_Num
       'EGP' , // Curr
-      formatNumber(item.netSal) , // Amount
+      { v: item.netSal , s: customSty} , // Amount
       '' , // Hiring Date
       '' , // Emp_Position
       '' , // SDU
@@ -807,6 +801,8 @@ function BankList(props) {
 
   const getABSmsTemplate = () => {
 
+    const textSty = { numFmt: '@' }  // make cell type text
+    const customSty = { numFmt: '##' } // make cell custom format ( show number in cell without fractions and Rounding a decimal number )
     const headers = [
       'Employee Name',
       'Account',
@@ -821,8 +817,8 @@ function BankList(props) {
 
     const rows = tableData.map((item,index) => [
       item.employeeName , // Employee Name
-      item.accNo , // Account
-      formatNumber(item.netSal) , // Amount
+      { v: item.accNo , s: textSty} , // Account
+      { v: item.netSal , s: customSty}, // Amount
       ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
     ]);
 
@@ -831,9 +827,7 @@ function BankList(props) {
 
   const getCSVFileTemplate = () => {
 
-    // make cell type text
-    const textSty = { numFmt: '@' }
-
+    const textSty = { numFmt: '@' } // make cell type text
     const headers = [
       'مسلسل',
       'رقم الحساب',
@@ -886,8 +880,7 @@ function BankList(props) {
       },
     }
 
-    // make cell type text
-    const textSty = { numFmt: '@' }
+    const textSty = { numFmt: '@' }  // make cell type text
     
       const title1 = [
         'السادة / بنك الاتحاد الوطنى',
@@ -895,7 +888,7 @@ function BankList(props) {
 
       const title2 = [
         'يرجى التكرم بخصم',
-        { v: totalAmount,  s: textSty}
+        totalAmount
       ]
 
       const title3 = [
@@ -920,7 +913,7 @@ function BankList(props) {
 
     const rows = tableData.map((item, index) => [
       { v: index + 1, s: styles2}, // SN
-      { v: item.bnkAcc , s: {...styles2, ...textSty}}, // ACCOUNT Number
+      { v: item.bnkAcc , s: styles2}, // ACCOUNT Number
       { v: "EGP" , s: styles2}, // Currency
       { v: item.employeeName , s: styles2},  // Staff name
       { v: item.netSal,  s: {...styles2, ...textSty}}, // Net salary
@@ -929,7 +922,7 @@ function BankList(props) {
 
     const footer = [
       'الاجمالى',
-      { v: totalAmount,  s: textSty}
+      totalAmount
     ]
     
     return [title1, title2, title3,"",headers, ...rows,footer];
