@@ -423,6 +423,8 @@
   "boilerplate.components.tables.codes.viewManager": "اظهار للمدير",
   "boilerplate.components.tables.codes.worknature": "طبيعة العمل",
   "boilerplate.components.tables.codes.year": "السنة",
+  "boilerplate.components.tables.codes.expDate": "تاريخ الانتهاء",
+  "boilerplate.components.tables.codes.branchName": "الفرع",
   "boilerplate.components.Todo.filter.active": "نشيط",
   "boilerplate.components.Todo.filter.completed": "󠁥󠁮󠁧󠁿منجز",
   "boilerplate.components.Todo.filter.view_all": "عرض الكل",

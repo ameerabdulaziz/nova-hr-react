@@ -423,6 +423,8 @@
   "boilerplate.components.tables.codes.viewManager": "View Manager",
   "boilerplate.components.tables.codes.worknature": "Work Nature Allowance",
   "boilerplate.components.tables.codes.year": "Year",
+  "boilerplate.components.tables.codes.expDate": "expDate",
+  "boilerplate.components.tables.codes.branchName": "Branch Name",
   "boilerplate.components.Todo.filter.active": "󠁥󠁮󠁧󠁿Active",
   "boilerplate.components.Todo.filter.completed": "󠁥󠁮󠁧󠁿Completed",
   "boilerplate.components.Todo.filter.view_all": "󠁥󠁮󠁧󠁿View All",
