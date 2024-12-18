@@ -84,11 +84,11 @@ function RequestsList(props) {
       ? 15
       : 0
   );
-  const [fromdate, setfromate] = useState(new Date());
-  const [todate, settodate] = useState(new Date());
+  const [fromdate, setfromate] = useState();
+  const [todate, settodate] = useState();
   const [employee, setemployee] = useState(null);
   const [EmployeeList, setEmployeeList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [openNotePopup, setopenNotePopup] = useState(false);
   const [openExecutionPoup, setExecutionPoup] = useState(false);
   const [ExecutionId, setExecutionId] = useState("");
@@ -134,7 +134,7 @@ function RequestsList(props) {
     LworkingDay,
     trainingId
   ) => {
-    debugger;
+
     setPostDate({
       executionId: id,
       actionTypeId: Action,
@@ -215,7 +215,7 @@ function RequestsList(props) {
   async function RequestAction() {
     try {
       setIsLoading(true);
-      debugger;
+
       if (postDate.docId == 13 && (postDate.trainingId == ""|| postDate.trainingId==null))
         history.push("/app/Pages/Training/TrTrainingTrxListCreate", {
           postDate: postDate,
@@ -294,7 +294,7 @@ function RequestsList(props) {
         Todate,
         location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false
       );
-      debugger;
+
       setdata(dataApi);
       setDocument(documentId);
       if (dataApi && dataApi.length > 0) {
@@ -316,9 +316,22 @@ function RequestsList(props) {
       setIsLoading(false);
     }
   }
+
+
+  // clear filter on first load
+  useEffect(() => {    
+    setfromate()
+    settodate()
+    setemployee(null)
+    },[Title]);
+
+    // call api on first load
   useEffect(() => {
-    fetchData();
-  }, [Title]);
+    if(!fromdate && !todate && !employee)
+    {      
+      fetchData();    
+    }
+  }, [fromdate,todate,employee,Title]);
 
   const columns =
     cols.length !== 0
