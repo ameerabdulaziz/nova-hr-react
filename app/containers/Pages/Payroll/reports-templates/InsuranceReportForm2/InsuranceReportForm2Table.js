@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { toArabicDigits } from '../../helpers';
+import { toArabicDigits, formatNumber } from '../../helpers';
 
 const StyledTableThRow = styled(TableRow)(({ theme }) => ({
   backgroundColor: theme.palette.action.selected,
@@ -80,10 +80,10 @@ function InsuranceReportForm2Table(props) {
                   {toArabicDigits(subscriptionDate.getFullYear())}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
-                  {toArabicDigits(row.mainSalary)}
+                  {toArabicDigits( formatNumber(row.mainSalary)  )}
                 </StyledTableCell>
                 <StyledTableCell align='center'>
-                  {toArabicDigits(row.insGrossSalary)}
+                  {toArabicDigits( formatNumber(row.insGrossSalary) )}
                 </StyledTableCell>
               </TableRow>
             );

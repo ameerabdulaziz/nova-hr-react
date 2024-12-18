@@ -9,22 +9,25 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Box,Tooltip,IconButton,CircularProgress,
   Typography,
 } from '@mui/material';
+import { Print } from '@mui/icons-material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { PapperBlock } from 'enl-components';
+import { useReactToPrint } from 'react-to-print';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import useStyles from '../../Style';
-import { formateDate } from '../../helpers';
+import { formateDate, formatNumber } from '../../helpers';
 import payrollMessages from '../../messages';
 import InsuranceReportForm2 from '../../reports-templates/InsuranceReportForm2';
 import api from '../api/Form2InsuranceData';
@@ -55,6 +58,10 @@ function Form2Insurance(props) {
     OrderInsNo: 'false',
     HiringDate: 'false',
   });
+
+  const printDivRef = useRef(null);
+
+  const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
 
   const fetchTableData = async () => {
     try {
@@ -147,31 +154,62 @@ function Form2Insurance(props) {
     {
       name: 'mainSalary',
       label: intl.formatMessage(messages.insuranceSalary),
+      options: {
+        customBodyRender: (value) => (value ? <pre>{formatNumber(value)}</pre> : ''),
+      },
     },
 
     {
       name: 'insGrossSalary',
       label: intl.formatMessage(messages.grossSalary),
+      options: {
+        customBodyRender: (value) => (value ? <pre>{formatNumber(value)}</pre> : ''),
+      },
     },
 
     {
       name: 'mainSalaryNew',
       label: intl.formatMessage(messages.basicSalary),
+      options: {
+        customBodyRender: (value) => (value ? <pre>{formatNumber(value)}</pre> : ''),
+      },
     },
   ];
+
+
+    const printJS = useReactToPrint({
+      documentTitle: DOCUMENT_TITLE,
+      content: () => printDivRef?.current,
+      onBeforeGetContent: () => {
+        setIsLoading(true);
+      },
+      onAfterPrint: () => {
+        setIsLoading(false);
+      },
+      onPrintError: () => {
+        setIsLoading(false);
+      },
+    });
+  
+    const onPrintClick = async () => {
+      printJS();
+    };
 
   const options = {
     print: false,
     customToolbar: () => (
-      <InsuranceReportForm2
-        rows={tableData}
-        organizationId={formInfo.InsuranceOrg || 0}
-        totalSalary={extraData.total ?? 0}
-        organizationName={
-          organizationList.find((item) => item.id === formInfo.InsuranceOrg)
-            ?.name ?? ''
-        }
-      />
+      <Tooltip
+        placement='top'
+        title={intl.formatMessage(payrollMessages.Print)}
+      >
+        <IconButton onClick={onPrintClick}>
+          {isLoading ? (
+            <CircularProgress size={15} />
+          ) : (
+            <Print sx={{ fontSize: '1.2rem' }} />
+          )}
+        </IconButton>
+      </Tooltip>
     ),
   };
 
@@ -200,6 +238,28 @@ function Form2Insurance(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
+      <Box
+        ref={printDivRef}
+        sx={{
+          height:"0px",
+          visibility:"hidden",
+          direction: 'ltr',
+          ...(locale === 'en' ? { textAlign: 'right', direction: 'rtl', } : {}),
+          '@media print': {
+            height:"100%",
+            visibility:"visible",
+          },
+          'p.MuiTypography-root, .MuiTableCell-root': {
+            fontSize: '10px',
+          },
+        }}
+      >
+        <InsuranceReportForm2 rows={tableData}
+          organizationName={  organizationList.find((item) => item.id === formInfo.InsuranceOrg)  ?.name ?? ''  }
+          totalSalary={extraData.total ?? 0} organizationId={formInfo.InsuranceOrg || 0}  
+          />
+      </Box>
+
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} mb={5} spacing={2}>
@@ -345,7 +405,7 @@ function Form2Insurance(props) {
             <CardContent>
               <Grid container justifyContent='space-around' spacing={2}>
                 <Grid item xs={4} textAlign='center'>
-                  <Typography>{extraData.total ?? 0}</Typography>
+                  <Typography>{ formatNumber(extraData.total) ?? 0}</Typography>
                   <Typography variant='subtitle1'>
                     <FormattedMessage {...messages.totalFixed} />
                   </Typography>
@@ -359,7 +419,7 @@ function Form2Insurance(props) {
                 </Grid> */}
 
                 <Grid item xs={4} textAlign='center'>
-                  <Typography>{extraData.total ?? 0}</Typography>
+                  <Typography>{ formatNumber(extraData.total) ?? 0}</Typography>
                   <Typography variant='subtitle1'>
                     <FormattedMessage {...payrollMessages.total} />
                   </Typography>

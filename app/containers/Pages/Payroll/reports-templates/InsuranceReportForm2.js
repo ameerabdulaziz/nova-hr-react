@@ -1,76 +1,22 @@
-import { Print } from '@mui/icons-material';
 import {
-  Box, CircularProgress, IconButton, Tooltip
+  Box, 
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { injectIntl } from 'react-intl';
-import { useReactToPrint } from 'react-to-print';
 import { formateDate, toArabicDigits } from '../helpers';
 import payrollMessages from '../messages';
 import InsuranceReportForm2Footer from './InsuranceReportForm2/InsuranceReportForm2Footer';
 import InsuranceReportForm2Header from './InsuranceReportForm2/InsuranceReportForm2Header';
 import InsuranceReportForm2Table from './InsuranceReportForm2/InsuranceReportForm2Table';
-import { useSelector } from 'react-redux';
+
 
 const ROWS_PER_PAGE = 10;
-const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
 
 function InsuranceReportForm2(props) {
-  const { intl } = props;
-  const [isLoading, setIsLoading] = useState(false);
-  const locale = useSelector((state) => state.language.locale);
-
-  const printDivRef = useRef(null);
-
-  const printJS = useReactToPrint({
-    documentTitle: DOCUMENT_TITLE,
-    content: () => printDivRef?.current,
-    onBeforeGetContent: () => {
-      setIsLoading(true);
-    },
-    onAfterPrint: () => {
-      setIsLoading(false);
-    },
-    onPrintError: () => {
-      setIsLoading(false);
-    },
-  });
-
-  const onPrintClick = async () => {
-    printJS();
-  };
 
   return (
-    <>
-      <Tooltip
-        placement='top'
-        title={intl.formatMessage(payrollMessages.Print)}
-      >
-        <IconButton onClick={onPrintClick}>
-          {isLoading ? (
-            <CircularProgress size={15} />
-          ) : (
-            <Print sx={{ fontSize: '1.2rem' }} />
-          )}
-        </IconButton>
-      </Tooltip>
-
-      <Box
-        ref={printDivRef}
-        sx={{
-          display: 'none',
-          direction: 'ltr',
-          ...(locale === 'en' ? { textAlign: 'right', direction: 'rtl', } : {}),
-          '@media print': {
-            display: 'block',
-          },
-          'p.MuiTypography-root, .MuiTableCell-root': {
-            fontSize: '10px',
-          },
-        }}
-      >
-        {Array.from({
+    Array.from({
           length: Math.ceil(props.rows.length / ROWS_PER_PAGE) || 1,
         }).map((_, index) => (
           <Box
@@ -97,9 +43,7 @@ function InsuranceReportForm2(props) {
               totalEmployee={toArabicDigits(props.rows.length)}
             />
           </Box>
-        ))}
-      </Box>
-    </>
+    ))
   );
 }
 
