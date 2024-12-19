@@ -113,6 +113,7 @@ function Personal(props) {
   const [isSpecialNeeds, setisSpecialNeeds] = useState(false);
   const [isResident, setisResident] = useState(false);
 
+  const [saluteList, setSaluteList] = useState([]);
   const [saluteId, setsaluteId] = useState(null);
   const [statusId, setstatusId] = useState(null);
   const [statusList, setstatusList] = useState([]);
@@ -674,7 +675,8 @@ function Personal(props) {
           socialStatusdata,
           MilitaryStatusdata,
           Statusdata,
-          businessUnit 
+          businessUnit,
+          SaluteData
         ] = await Promise.all([
           GeneralListApis(locale).GetEmployeeList(),
           GeneralListApis(locale).GetJobList(),
@@ -691,6 +693,7 @@ function Personal(props) {
           GeneralListApis(locale).GetMilitaryStatusList(),
           GeneralListApis(locale).GetEmpStatusList(),
           GeneralListApis(locale).GetBusinessUnitList(),
+          GeneralListApis(locale).GetSaluteList(),
         ]);
 
         setreportToList(employeedata || []);
@@ -722,6 +725,8 @@ function Personal(props) {
         setstatusList(Statusdata || []);
 
         setBusinessUnitList(businessUnit || []);
+
+        setSaluteList(SaluteData || [])
 
         if (id > 0) {
           const dataApi = await EmployeeData(locale).GetList(id);
@@ -979,7 +984,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={3}>
                   <TextField
                     id="nickName"
                     name="nickName"
@@ -989,6 +994,34 @@ function Personal(props) {
                     className={classes.field}
                     variant="outlined"
                     autoComplete="off"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <Autocomplete
+                    options={saluteList}
+                    value={saluteId}
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : "")}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) =>
+                      setsaluteId({
+                        id: value !== null ? value.id : "",
+                        name: value !== null ? value.name : "",
+                      })
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={intl.formatMessage(messages.salute)}
+                      />
+                    )}
                   />
                 </Grid>
 

@@ -27,7 +27,7 @@ import UnderContractionPopup from "../../containers/Pages/Payroll/Component/Unde
 
 function UserMenu(props) {
   const { classes, cx } = useStyles();
-  const { dark, signOut, avatar, notifications } = props;
+  const { dark, signOut, avatar, notifications, notificationsCallFun } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(null);
 
@@ -45,9 +45,10 @@ function UserMenu(props) {
     setOpenMenu(null);
   };
 
-  const onOpenBtnClick = (url) => {
+  const onOpenBtnClick = (url,id) => {
     if (url) {
       handleClose();
+      notificationsCallFun(id)
       history.push(url);
     }
   };
@@ -104,7 +105,7 @@ function UserMenu(props) {
           notifications.map((item, index) => (
             <MenuItem
               divider={index < notifications.length - 1}
-              onClick={() => onOpenBtnClick(item.url)}
+              onClick={() => onOpenBtnClick(item.url,item.id)}
               key={index}
             >
               <div className={messageStyles.messageInfo}>

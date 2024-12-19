@@ -142,7 +142,7 @@ function Header(props) {
     }
   };
   const handleChat = () => {
-    debugger;
+
     setIsPopupOpen(true);
     
   };
@@ -155,19 +155,19 @@ function Header(props) {
   }, []);
 
   const onPopupClose = () => {
-    debugger;
+
     setQuestion("");
     setAnswer("");
     setIsPopupOpen(false);
     
   };
   const onPopupFormSubmit = async (evt) => {
-    debugger;
+
     evt.preventDefault();
     setIsLoading(true);
 
     try {
-      debugger;
+
       const response = await await api(locale).UseChatGPT(question);
 
       setAnswer(response);
@@ -177,6 +177,25 @@ function Header(props) {
       setIsLoading(false);
     }
   };
+
+
+  const refreshNotifFun = async (id) => {    
+    setIsLoading(true);
+
+    try {
+
+        await api(locale).SaveNotification(id);
+
+        const notificationsResponse = await api(locale).getNotifications();
+        setNotifications(notificationsResponse);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
 
   return (
     <AppBar
@@ -364,6 +383,7 @@ function Header(props) {
               signOut={signOut}
               avatar={avatar}
               notifications={notifications}
+              notificationsCallFun={refreshNotifFun}
             />
           ) : (
             <Button

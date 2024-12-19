@@ -954,4 +954,8 @@ export default defineMessages({
     id: `${scope}.birthDateValidationErrMess`,
     defaultMessage: 'Age must to not be less than 16 years',
   },
+  salute: {
+    id: `${scope}.salute`,
+    defaultMessage: 'Salute',
+  },
 });
