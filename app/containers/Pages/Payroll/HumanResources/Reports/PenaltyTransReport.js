@@ -18,11 +18,13 @@ import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
-
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 function PenaltyTransReport(props) {
   const { intl } = props;
+  const location = useLocation();
+  const { StatusId , IsSubmitted, IsDeleted, todayDateKey } = location.state ?? 0;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
@@ -163,6 +165,15 @@ function PenaltyTransReport(props) {
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
       };
+
+      // used if i redirect from dashboard page
+      if(StatusId && IsSubmitted && IsDeleted === false)
+        {
+          formData.StatusId = StatusId
+          formData.IsSubmitted = IsSubmitted
+          formData.IsDeleted = IsDeleted
+        }
+
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
@@ -329,15 +340,27 @@ function PenaltyTransReport(props) {
 
 
   useEffect(()=>{
-    if(searchData.BranchId !== "" && searchData.EmployeeId === "")
-    {      
-      openMonthDateWithCompanyChangeFun(searchData.BranchId)
-    }
-
-    if(searchData.BranchId === "" && searchData.EmployeeId !== "")
-    {
-      openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
-    }
+     // used if i redirect from dashboard page
+     if(todayDateKey)
+     {
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: new Date(),
+        ToDate: new Date(),
+      }))
+     }
+     else
+     {
+       if(searchData.BranchId !== "" && searchData.EmployeeId === "")
+       {      
+         openMonthDateWithCompanyChangeFun(searchData.BranchId)
+       }
+   
+       if(searchData.BranchId === "" && searchData.EmployeeId !== "")
+       {
+         openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+       }
+     }
 
     if(searchData.BranchId === "" && searchData.EmployeeId === "")
     {
@@ -348,7 +371,7 @@ function PenaltyTransReport(props) {
       }))
     }
 
-  },[searchData.BranchId, searchData.EmployeeId])
+  },[searchData.BranchId, searchData.EmployeeId,todayDateKey])
 
   
 

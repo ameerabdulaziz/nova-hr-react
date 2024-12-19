@@ -39,9 +39,12 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import api from "../api";
 import Stack from "@mui/material/Stack";
 import NotificationsActive from "@mui/icons-material/NotificationsActive";
+import { useHistory } from "react-router-dom";
+import style from "../../../../../styles/styles.scss";
 
 function PerformanceChartWidget(props) {
   const { intl } = props;
+    const history = useHistory();
   const { classes, cx } = useStyles();
   const [attendance, setaAttendance] = useState([
     {
@@ -144,13 +147,39 @@ function PerformanceChartWidget(props) {
   useEffect(() => {
     getdata();
   }, []);
+
+
+  const cardsRedirectFuc = (cardName) => {
+    if(cardName === "Leaves")
+    {
+      history.push(`app/Pages/vac/VacationTrxReport`, { todayDateKey: true });
+    }
+    else if(cardName === "Mission")
+      {
+        history.push(`app/Pages/Att/MissionTrxReport`, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
+      }
+    else if(cardName === "Permission")
+      {
+        history.push(`app/Pages/Att/PermissionTrxReport`, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
+      }
+    else if(cardName === "Rewards")
+      {
+        history.push(`app/Pages/HR/RewardTransReport`, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
+      }
+    else if(cardName === "Penalty")
+      {
+        history.push(`app/Pages/HR/PenaltyTransReport`, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
+      }
+  } 
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <Grid container spacing={2}>
         <Grid item md={12} xs={12} style={{ paddingTop: "0px !important" }}>
           <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
             <ul className={classes.bigResume}>
-              <li>
+              <li onClick={()=>{cardsRedirectFuc("Leaves")}} className={style.dashCardSty}>
                 <Avatar className={cx(classes.avatar, classes.orangeAvatar)}>
                   <HomeSharpIcon />
                 </Avatar>
@@ -172,7 +201,7 @@ function PerformanceChartWidget(props) {
                   </Typography>
                 </Typography>
               </li>
-              <li>
+              <li onClick={()=>{cardsRedirectFuc("Mission")}} className={style.dashCardSty}>
                 <Avatar className={cx(classes.avatar, classes.blueAvatar)}>
                   <HikingSharpIcon />
                 </Avatar>
@@ -183,7 +212,7 @@ function PerformanceChartWidget(props) {
                   </Typography>
                 </Typography>
               </li>
-              <li>
+              <li onClick={()=>{cardsRedirectFuc("Permission")}} className={style.dashCardSty}>
                 <Avatar className={cx(classes.avatar, classes.purpleAvatar)}>
                   <HistoryToggleOffSharpIcon />
                 </Avatar>
@@ -196,7 +225,7 @@ function PerformanceChartWidget(props) {
                   </Typography>
                 </Typography>
               </li>
-              <li>
+              <li onClick={()=>{cardsRedirectFuc("Rewards")}} className={style.dashCardSty}>
                 <Avatar className={cx(classes.avatar, classes.tealAvatar)}>
                   <AddCard />
                 </Avatar>
@@ -207,7 +236,7 @@ function PerformanceChartWidget(props) {
                   </Typography>
                 </Typography>
               </li>
-              <li>
+              <li onClick={()=>{cardsRedirectFuc("Penalty")}} className={style.dashCardSty}>
                 <Avatar className={cx(classes.avatar, classes.pinkAvatar)}>
                   <CreditCardOffIcon />
                 </Avatar>

@@ -18,10 +18,14 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
+import { useLocation } from 'react-router-dom';
 
 function PermissionTrxReport(props) {
   const { intl } = props;
+  const location = useLocation();
+  const { StatusId , IsSubmitted, IsDeleted, todayDateKey } = location.state ?? 0;
   const locale = useSelector((state) => state.language.locale);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [Permission, setPermission] = useState("");
   const [PermissionsList, setPermissionsList] = useState([]);
   const [Status, setStatus] = useState("");
@@ -35,7 +39,7 @@ function PermissionTrxReport(props) {
     EmployeeId: "",
     OrganizationId: "",
     EmpStatusId: 1,
-    BranchId: '',
+    BranchId: branchId,
   });
 
   const deleteList = [
@@ -160,6 +164,15 @@ function PermissionTrxReport(props) {
         OrganizationId: searchData.OrganizationId,
         EmployeeStatusId: searchData.EmpStatusId,
       };
+
+      // used if i redirect from dashboard page
+      if(StatusId && IsSubmitted && IsDeleted === false)
+        {
+          formData.StatusId = StatusId
+          formData.IsSubmitted = IsSubmitted
+          formData.IsDeleted = IsDeleted
+        }
+
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
@@ -258,6 +271,70 @@ function PermissionTrxReport(props) {
     },
   ];
 
+
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
+
+    let OpenMonthData 
+
+    try
+    {
+      if(!EmployeeId)
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+      }
+      else
+      {
+         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      }
+
+      
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+    }
+    catch(err)
+    {}
+
+  }
+
+
+  useEffect(()=>{
+    // used if i redirect from dashboard page
+    if(todayDateKey)
+      {
+       setsearchData((prev)=>({
+         ...prev,
+         FromDate: new Date(),
+         ToDate: new Date(),
+       }))
+      }
+      else
+      {
+        if(searchData.BranchId !== "" && searchData.EmployeeId === "")
+        {      
+          openMonthDateWithCompanyChangeFun(searchData.BranchId)
+        }
+
+        if(searchData.BranchId === "" && searchData.EmployeeId !== "")
+        {
+          openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
+        }
+      }
+
+    if(searchData.BranchId === "" && searchData.EmployeeId === "")
+    {
+      setsearchData((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+    }
+
+  },[searchData.BranchId, searchData.EmployeeId,todayDateKey])
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -270,6 +347,7 @@ function PermissionTrxReport(props) {
               setIsLoading={setIsLoading}
               DateError={DateError}
               setDateError={setDateError}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
           <Grid item xs={12} md={4}>

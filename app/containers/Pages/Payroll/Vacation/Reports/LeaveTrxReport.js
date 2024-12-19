@@ -24,10 +24,12 @@ import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/LeaveTrxReportData';
 import messages from '../messages';
+import { useLocation } from 'react-router-dom';
 
 function LeaveTrxReport(props) {
   const { intl } = props;
-
+  const location = useLocation();
+  const { todayDateKey } = location.state ?? 0;
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [tableData, setTableData] = useState([]);
@@ -196,6 +198,12 @@ function LeaveTrxReport(props) {
       return;
     }
 
+    if(!formInfo.FromDate || !formInfo.ToDate)
+    {
+      toast.error(intl.formatMessage(payrollMessages.dateErrorMes));
+      return;
+    }
+
     try {
       setIsLoading(true);
       const formData = {
@@ -235,7 +243,6 @@ function LeaveTrxReport(props) {
       const organizations = await GeneralListApis(locale).GetDepartmentList();
       setOrganizationList(organizations);
 
-      fetchTableData();
     } catch (error) {
       //
     } finally {
@@ -281,15 +288,27 @@ function LeaveTrxReport(props) {
 
 
   useEffect(()=>{
-    if(formInfo.BranchId !== "" && formInfo.EmployeeId === "")
-    {      
-      openMonthDateWithCompanyChangeFun(formInfo.BranchId)
-    }
+    // used if i redirect from dashboard page
+    if(todayDateKey)
+      {
+        setFormInfo((prev)=>({
+         ...prev,
+         FromDate: new Date(),
+         ToDate: new Date(),
+       }))
+      }
+      else
+      {
+        if(formInfo.BranchId !== "" && formInfo.EmployeeId === "")
+        {      
+          openMonthDateWithCompanyChangeFun(formInfo.BranchId)
+        }
 
-    if(formInfo.BranchId === "" && formInfo.EmployeeId !== "")
-    {
-      openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
-    }
+        if(formInfo.BranchId === "" && formInfo.EmployeeId !== "")
+        {
+          openMonthDateWithCompanyChangeFun(0, formInfo.EmployeeId)
+        }
+      }
 
     if(formInfo.BranchId === "" && formInfo.EmployeeId === "")
     {
@@ -300,7 +319,7 @@ function LeaveTrxReport(props) {
       }))
     }
 
-  },[formInfo.BranchId, formInfo.EmployeeId])
+  },[formInfo.BranchId, formInfo.EmployeeId,todayDateKey])   
 
   return (
     <PayRollLoader isLoading={isLoading}>

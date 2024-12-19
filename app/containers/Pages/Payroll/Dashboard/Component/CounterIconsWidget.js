@@ -13,9 +13,12 @@ import FeedSharpIcon from "@mui/icons-material/FeedSharp";
 import PayRollLoader from "../../Component/PayRollLoader";
 import api from "../api";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import style from "../../../../../styles/styles.scss";
 
 function CounterIconWidget(props) {
   const { intl } = props;
+  const history = useHistory();
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,67 +48,103 @@ function CounterIconWidget(props) {
   useEffect(() => {
     getdata();
   }, []);
+
+
+  const cardsRedirectFuc = (cardName) => {
+    if(cardName === "Employee")
+    {
+      history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: null });
+    }
+    else if(cardName === "NewHired")
+      {
+        history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: "NewHired" });
+      }
+    else if(cardName === "InPorpatiom")
+      {
+        history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: "InPorpatiom" });
+      }
+    else if(cardName === "Resignation")
+      {
+        history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: "Resignation" });
+      }
+    else if(cardName === "Terminated")
+      {
+        history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: "Terminated" });
+      }
+  }
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <div className={classes.rootCounterFull}>
         <Grid container spacing={2}>
           <Grid item xs={6} md={2.4}>
-            <CounterWidget
-              color="firstCard"
-              start={0}
-              end={mainBarData.employees}
-              duration={3}
-              title={intl.formatMessage(messages.Employee)}
-            >
-              <SupervisorAccount className={classes.counterIcon} />
-            </CounterWidget>
+            <div onClick={()=>{cardsRedirectFuc("Employee")}} className={style.dashCardSty}>
+              <CounterWidget
+                color="firstCard"
+                start={0}
+                end={mainBarData.employees}
+                duration={3}
+                title={intl.formatMessage(messages.Employee)}
+              >
+                <SupervisorAccount className={classes.counterIcon} />
+              </CounterWidget>
+            </div>
           </Grid>
           <Grid item xs={6} md={2.4}>
-            <CounterWidget
-              color="secondCard"
-              start={0}
-              end={mainBarData.newHired}
-              duration={3}
-              title={intl.formatMessage(messages.newHired)}
-            >
-              <CoPresentSharpIcon className={classes.counterIcon} />
-            </CounterWidget>
+            <div onClick={()=>{cardsRedirectFuc("NewHired")}} className={style.dashCardSty}>
+              <CounterWidget
+                color="secondCard"
+                start={0}
+                end={mainBarData.newHired}
+                duration={3}
+                title={intl.formatMessage(messages.newHired)}
+              >
+                <CoPresentSharpIcon className={classes.counterIcon} />
+              </CounterWidget>
+            </div>
           </Grid>
           <Grid item xs={6} md={2.4}>
-            <CounterWidget
-              color="thirdCard"
-              start={0}
-              end={mainBarData.inPorpatiom}
-              duration={3}
-              title={intl.formatMessage(messages.inProbation)}
-            >
-              <Diversity3SharpIcon className={classes.counterIcon} />
-            </CounterWidget>
+            <div onClick={()=>{cardsRedirectFuc("InPorpatiom")}} className={style.dashCardSty}>
+              <CounterWidget
+                color="thirdCard"
+                start={0}
+                end={mainBarData.inPorpatiom}
+                duration={3}
+                title={intl.formatMessage(messages.inProbation)}
+              >
+                <Diversity3SharpIcon className={classes.counterIcon} />
+              </CounterWidget>
+            </div>
           </Grid>
           <Grid item xs={6} md={2.4}>
-            <CounterWidget
-              color="forthCard"
-              start={0}
-              end={mainBarData.resignation}
-              duration={3}
-              title={intl.formatMessage(messages.resignation)}
-            >
-              <FeedSharpIcon className={classes.counterIcon} />
-            </CounterWidget>
+            <div onClick={()=>{cardsRedirectFuc("Resignation")}} className={style.dashCardSty}>
+              <CounterWidget
+                color="forthCard"
+                start={0}
+                end={mainBarData.resignation}
+                duration={3}
+                title={intl.formatMessage(messages.resignation)}
+              >
+                <FeedSharpIcon className={classes.counterIcon} />
+              </CounterWidget>
+            </div>
           </Grid>
           <Grid item xs={6} md={2.4}>
-            <CounterWidget
-              color="fifthCard"
-              start={0}
-              end={mainBarData.terminated}
-              duration={3}
-              title={intl.formatMessage(messages.terminated)}
-            >
-              {/* <CollectionsBookmark className={classes.counterIcon} /> */}
-              <DirectionsWalkSharpIcon
-                className={classes.counterIcon}
-              ></DirectionsWalkSharpIcon>
-            </CounterWidget>
+            <div onClick={()=>{cardsRedirectFuc("Terminated")}} className={style.dashCardSty}>
+              <CounterWidget
+                color="fifthCard"
+                start={0}
+                end={mainBarData.terminated}
+                duration={3}
+                title={intl.formatMessage(messages.terminated)}
+              >
+                {/* <CollectionsBookmark className={classes.counterIcon} /> */}
+                <DirectionsWalkSharpIcon
+                  className={classes.counterIcon}
+                ></DirectionsWalkSharpIcon>
+              </CounterWidget>
+            </div>
           </Grid>
         </Grid>
       </div>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import PayrollTable from '../../Component/PayrollTable';
 import { formateDate, getCheckboxIcon } from '../../helpers';
 import ApiData from '../api/PersonalData';
@@ -21,8 +21,10 @@ import notif from "enl-api/ui/notifMessage";
 function EmployeeList(props) {
   const { intl } = props;
   const history = useHistory();
+  const location = useLocation();
+  const { dashboardCardKey } = location.state ?? 0;
   const locale = useSelector((state) => state.language.locale);
-    const { branchId = null } = useSelector((state) => state.authReducer.user);
+  const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const Title = localStorage.getItem('MenuName');
@@ -37,6 +39,29 @@ function EmployeeList(props) {
       let formData = {
         BranchId: searchData.BranchId
       };
+
+      // used if i redirect from dashboard page
+      if(dashboardCardKey === "NewHired")
+      {
+        formData.NewHired = true
+      }
+      else if(dashboardCardKey === "InPorpatiom")
+        {
+          formData.InPorpatiom = true
+        }
+      else if(dashboardCardKey === "InPorpatiom")
+        {
+          formData.InPorpatiom = true
+        }
+      else if(dashboardCardKey === "Resignation")
+        {
+          formData.Resignation = true
+        }
+      else if(dashboardCardKey === "Terminated")
+        {
+          formData.Terminated = true
+        }
+
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : (formData[key]==0?"":formData[key]);
       });
