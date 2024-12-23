@@ -14,6 +14,15 @@ export const AdminDashboard = loadable(
     fallback: <Loading />,
   }
 );
+
+export const NewsDetails = loadable(
+  () => import('./Pages/Payroll/News/NewsDetails'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
 export const ManagementDashboard = loadable(
   () => import('./Pages/Payroll/Dashboard/ManagementDashboard'),
   {
