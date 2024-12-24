@@ -37,6 +37,7 @@ import { calculateTimeDifference } from "../../../helpers";
 function MissionTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const { isHR, isManagement, isSuper } = useSelector((state) => state.authReducer.user);
   const location = useLocation();
   const { id } = location.state ?? 0;
   const { classes } = useStyles();
@@ -443,6 +444,7 @@ function MissionTrxCreate(props) {
                             }
                             value={data.calcLate}
                             color="primary"
+                            disabled={ !isHR && !isManagement && !isSuper ? true : false }
                           />
                         }
                         label={intl.formatMessage(messages.isOverTime)}
@@ -462,6 +464,7 @@ function MissionTrxCreate(props) {
                             }
                             value={data.isMustAttend}
                             color="primary"
+                            disabled={ !isHR && !isManagement && !isSuper ? true : false }
                           />
                         }
                         label={intl.formatMessage(messages.isMustAttend)}
