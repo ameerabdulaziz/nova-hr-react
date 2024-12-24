@@ -368,8 +368,10 @@ function RequestsList(props) {
                   getCheckboxIcon(value)
                 ) : (item?.toLowerCase()?.includes("date") && !item?.toLowerCase()?.includes("time")) ? (
                   <pre>{formateDate(value)}</pre>
-                ) : (
-                  value
+                ) 
+                : item === "notes" ? <div style={{minWidth:"250px", lineHeight:"25px"}}>{value}</div>
+                : (
+                 <pre> {value} </pre>
                 ),
             },
           }))
