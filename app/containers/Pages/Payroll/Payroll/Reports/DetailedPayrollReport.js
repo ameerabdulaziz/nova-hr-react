@@ -34,7 +34,7 @@ function DetailedPayrollReport(props) {
   const [monthList, setMonthList] = useState([]);
   const [currencyList, setCurrencyList] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
-
+  const [jobLevelList, setJobLevelList] = useState([]);
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
@@ -48,7 +48,7 @@ function DetailedPayrollReport(props) {
     isInsured: null,
     isVal: 1,
     CurrencyId: null,
-
+    JobLevelId: null,
     EmpStatusId: 1,
     OrganizationId: '',
   });
@@ -170,6 +170,9 @@ function DetailedPayrollReport(props) {
 
       const currency = await GeneralListApis(locale).MdCurrency();
       setCurrencyList(currency);
+
+      const Jobleveldata = await GeneralListApis(locale).GetJobLevelList();
+      setJobLevelList(Jobleveldata || []);
 
       if (branchId) {
         const response = await GeneralListApis(locale).getOpenMonth(
@@ -302,6 +305,7 @@ function DetailedPayrollReport(props) {
         isBankTransfere,
         //isVal: formInfo.isVal,
         CurrencyId: formInfo.CurrencyId,
+        JobLevelId: formInfo.JobLevelId,
       };
 
       const response = await api(locale).GetList(params);
@@ -581,6 +585,39 @@ function DetailedPayrollReport(props) {
                 )}
               />
             </Grid>
+
+            <Grid item xs={12} md={3}>
+                <Autocomplete
+                  id="ddljobLevelId"
+                  options={jobLevelList || []}
+                  // value={jobLevelId}
+                  value={getAutoCompleteValue(jobLevelList, formInfo.JobLevelId)}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 ||
+                    value.id === "" ||
+                    option.id === value.id
+                  }
+                  renderOption={(props, option) => {
+                    return (
+                      <li {...props} key={option.id}>
+                        {option.name}
+                      </li>
+                    );
+                  }}
+                  getOptionLabel={(option) =>
+                    option.name ? option.name : ""
+                  }
+                  onChange={(_, value) => onAutoCompleteChange(value, 'JobLevelId')}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="outlined"
+                      {...params}
+                      name="jobLevelId"
+                      label={intl.formatMessage(messages.joblevel)}
+                    />
+                  )}
+                />
+              </Grid>
 
             {/* <Grid item md={3} xs={12}>
               <FormControl>
