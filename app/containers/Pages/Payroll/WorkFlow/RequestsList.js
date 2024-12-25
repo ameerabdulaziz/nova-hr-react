@@ -134,7 +134,6 @@ function RequestsList(props) {
     LworkingDay,
     trainingId
   ) => {
-
     setPostDate({
       executionId: id,
       actionTypeId: Action,
@@ -216,7 +215,10 @@ function RequestsList(props) {
     try {
       setIsLoading(true);
 
-      if (postDate.docId == 13 && (postDate.trainingId == ""|| postDate.trainingId==null))
+      if (
+        postDate.docId == 13 &&
+        (postDate.trainingId == "" || postDate.trainingId == null)
+      )
         history.push("/app/Pages/Training/TrTrainingTrxListCreate", {
           postDate: postDate,
         });
@@ -281,7 +283,7 @@ function RequestsList(props) {
       else if (location.pathname == "/app/Pages/Att/ForgotFingerprintApproval")
         documentId = 14;
       else if (location.pathname == "/app/Pages/HR/TransferRequestApproval")
-        documentId = 15;      
+        documentId = 15;
       else documentId = 0;
 
       let Fromdate = dateFormatFun(fromdate);
@@ -317,21 +319,19 @@ function RequestsList(props) {
     }
   }
 
-
   // clear filter on first load
-  useEffect(() => {    
-    setfromate()
-    settodate()
-    setemployee(null)
-    },[Title]);
-
-    // call api on first load
   useEffect(() => {
-    if(!fromdate && !todate && !employee)
-    {      
-      fetchData();    
+    setfromate();
+    settodate();
+    setemployee(null);
+  }, [Title]);
+
+  // call api on first load
+  useEffect(() => {
+    if (!fromdate && !todate && !employee) {
+      fetchData();
     }
-  }, [fromdate,todate,employee,Title]);
+  }, [fromdate, todate, employee, Title]);
 
   const columns =
     cols.length !== 0
@@ -343,13 +343,15 @@ function RequestsList(props) {
               Document == 1 ||
               Document == 2 ||
               Document == 6 ||
-              Document == 11 || Document == 14 ? (
+              Document == 11 ||
+              Document == 14 ? (
                 <FormattedMessage {...missionmessages[item]} />
               ) : Document == 4 ||
                 Document == 5 ||
                 Document == 8 ||
                 Document == 9 ||
-                Document == 10 || Document == 15 ? (
+                Document == 10 ||
+                Document == 15 ? (
                 <FormattedMessage {...hrmessages[item]} />
               ) : Document == 7 ? (
                 <FormattedMessage {...paymessages[item]} />
@@ -361,12 +363,23 @@ function RequestsList(props) {
                 <FormattedMessage {...Payrollmessages[item]} />
               ),
             options: {
+              ...(item.toLowerCase()?.includes("notes") && {
+                setCellHeaderProps: () => ({
+                  style: {
+                    minWidth: "300px", maxWidth: "300px"
+                  },
+                }),
+              }),
+              // setCellProps: () => ({
+              //   style: { minWidth: "800px", maxWidth: "800px" },
+              // }),
               filter: true,
               display: item.toLowerCase()?.includes("id") ? false : true,
               customBodyRender: (value) =>
                 (value == true || value == false) && value != "" ? (
                   getCheckboxIcon(value)
-                ) : (item?.toLowerCase()?.includes("date") && !item?.toLowerCase()?.includes("time")) ? (
+                ) : item?.toLowerCase()?.includes("date") &&
+                  !item?.toLowerCase()?.includes("time") ? (
                   <pre>{formateDate(value)}</pre>
                 ) : (
                   value

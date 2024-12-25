@@ -3,6 +3,10 @@ import { defineMessages } from "react-intl";
 export const scope = "boilerplate.containers.Payroll.training";
 
 export default defineMessages({
+insDate: {
+      id: `${scope}.insDate`,
+      defaultMessage: 'insDate',
+    },
   getNewEmp: {
     id: `${scope}.getNewEmp`,
     defaultMessage: "getNewEmp",

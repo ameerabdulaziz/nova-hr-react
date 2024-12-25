@@ -9,6 +9,10 @@ export const scope = 'boilerplate.containers.Payroll.vac';
 
 export default defineMessages({
 
+  insDate: {
+      id: `${scope}.insDate`,
+      defaultMessage: 'insDate',
+    },
   executionId: {
     id: `${scope}.executionId`,
     defaultMessage: 'executionId',

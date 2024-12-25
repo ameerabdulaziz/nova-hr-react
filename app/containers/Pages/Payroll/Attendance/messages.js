@@ -10,6 +10,10 @@ export const scope = 'boilerplate.containers.Payroll.Attendance';
 export default defineMessages({
   //PermissionTrx----------------------------------------------------------------------------
   
+  insDate: {
+    id: `${scope}.insDate`,
+    defaultMessage: 'insDate',
+  },
   idealManPower: {
     id: `${scope}.idealManPower`,
     defaultMessage: 'idealManPower',

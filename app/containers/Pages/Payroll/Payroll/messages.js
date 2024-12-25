@@ -9,7 +9,10 @@ export const scope = 'boilerplate.containers.Payroll.Payroll';
 
 export default defineMessages({
 
-  
+  insDate: {
+    id: `${scope}.insDate`,
+    defaultMessage: 'insDate',
+  },
   monthName: {
     id: `${scope}.monthName`,
     defaultMessage: 'monthName',
