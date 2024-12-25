@@ -28,6 +28,8 @@ function Search(props) {
     notShowOrganization,
     notShowCompany,
     company,
+    minDate,
+    minDateData
   } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -306,6 +308,7 @@ function Search(props) {
                             }))
                         }
                       }}
+                      minDate={minDate && minDateData ? dayjs(minDateData.FromDate) : ""}
                       />
                   </LocalizationProvider>
             </Grid>
@@ -338,6 +341,7 @@ function Search(props) {
                             }))
                         }
                       }}
+                      minDate={minDate && minDateData ? dayjs(minDateData.FromDate) : ""}
                       />
                   </LocalizationProvider>
             </Grid>
