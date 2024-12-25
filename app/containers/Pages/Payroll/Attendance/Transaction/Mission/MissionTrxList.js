@@ -117,6 +117,10 @@ function MissionTrxList(props) {
       },
     },
     {
+      name: 'insDate',
+      label: intl.formatMessage(payrollMessages.transactionDate),
+    },
+    {
       name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
     },

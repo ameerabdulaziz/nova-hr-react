@@ -103,6 +103,10 @@ function PermissionTrxList(props) {
       },
     },
     {
+      name: 'insDate',
+      label: intl.formatMessage(payrollMessages.transactionDate),
+    },
+    {
       name: 'date',
       label: intl.formatMessage(payrollMessages.date),
     },
