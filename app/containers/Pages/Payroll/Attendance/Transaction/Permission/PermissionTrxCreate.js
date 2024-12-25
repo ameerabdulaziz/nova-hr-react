@@ -611,6 +611,7 @@ function PermissionTrxCreate(props) {
                     multiline
                     rows={2}
                     autoComplete="off"
+                    required
                   />
                 </Grid>
               </Grid>

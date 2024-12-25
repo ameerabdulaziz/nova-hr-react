@@ -806,4 +806,8 @@ employeeId: {
     id: `${scope}.News`,
     defaultMessage: 'News',
   },
+  transactionDate: {
+    id: `${scope}.transactionDate`,
+    defaultMessage: 'Transaction Date',
+  },
 });

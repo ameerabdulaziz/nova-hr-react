@@ -1040,4 +1040,9 @@ export default defineMessages({
     id: `${scope}.exportSectionAndCode`,
     defaultMessage: "Export section and code",
   }, 
+  // DetailedPayrollReport
+  joblevel: {
+    id: `${scope}.joblevel`,
+    defaultMessage: "Job Level",
+  }, 
 });

@@ -644,6 +644,7 @@ function PermissionTrxCreate(props) {
                         className={classes.field}
                         variant="outlined"
                         autoComplete="off"
+                        required
                       />
                     </Grid>
                   </Grid>

@@ -559,6 +559,7 @@ function MissionTrxCreate(props) {
                     label={intl.formatMessage(messages.transportationExpenses)}
                     className={classes.field}
                     variant="outlined"
+                    disabled={!isHR ? true : false}
                     autoComplete="off"
                   />
                 </Grid>
@@ -586,6 +587,7 @@ function MissionTrxCreate(props) {
                     multiline
                     rows={2}
                     autoComplete="off"
+                    required
                   />
                 </Grid>
                 <Grid item xs={12} md={12}>
@@ -600,6 +602,7 @@ function MissionTrxCreate(props) {
                     multiline
                     rows={2}
                     autoComplete="off"
+                    required
                   />
                 </Grid>
               </Grid>
