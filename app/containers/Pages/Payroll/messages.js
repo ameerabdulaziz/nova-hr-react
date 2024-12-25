@@ -806,4 +806,12 @@ employeeId: {
     id: `${scope}.toDateErrMess`,
     defaultMessage: 'You must to choose to date',
   },
+  News: {
+    id: `${scope}.News`,
+    defaultMessage: 'News',
+  },
+  transactionDate: {
+    id: `${scope}.transactionDate`,
+    defaultMessage: 'Transaction Date',
+  },
 });

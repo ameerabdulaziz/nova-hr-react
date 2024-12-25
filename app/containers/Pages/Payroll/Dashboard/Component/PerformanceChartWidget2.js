@@ -198,6 +198,16 @@ function PerformanceChartWidget2(props) {
     getdata();
   }, []);
 
+
+  function calculatePercentage(part, total) {
+    if (total === 0) {
+        return 0;
+    }
+    return (part / total) * 100;
+}
+
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <Grid container spacing={2}>
@@ -261,7 +271,7 @@ function PerformanceChartWidget2(props) {
                 <div className={classes.divnotification}>
                   {vacations.length > 0 ? (
                     <List>
-                      {vacations.map((item, index) => (
+                      {vacations.map((item, index) => (                        
                         <Fragment key={index.toString()} >
                           <ListItem>
                             <ListItemAvatar>
@@ -277,7 +287,7 @@ function PerformanceChartWidget2(props) {
                             <ListItemText primary={item.name} />
 
                             <ListItemText
-                              primary={`${item.percentage}`}
+                              primary={`${item.openBalance}`}
                               className={
                                 locale == "en"
                                   ? cx(classes.textRight)
@@ -286,11 +296,32 @@ function PerformanceChartWidget2(props) {
                             />
                           </ListItem>
                           <li className={cx(classes.paddingProgress)}>
-                            <LinearProgress
-                              variant="determinate"
-                              className={cx(classes.blueProgress)}
-                              value={100}
-                            />
+                            <Box sx={{ position: "relative", display: "inline-flex", width: "100%" }}>
+                              <LinearProgress 
+                                variant="determinate" 
+                                value={calculatePercentage(item.currentBalance,item.openBalance)} 
+                                sx={{ 
+                                  width: "100%",
+                                  height:"15px"
+                                }} 
+                                />
+                              <Box
+                                sx={{
+                                  position: "absolute",
+                                  top: 0,
+                                  left: 0,
+                                  bottom: 0,
+                                  right: 0,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <Typography variant="body2" color="text.secondary" style={calculatePercentage(item.currentBalance,item.openBalance) !== 0 ? {color:"#ffffff"}:{color:"#000000"}}>
+                                  {item.currentBalance}
+                                </Typography>
+                              </Box>
+                            </Box>
                           </li>
                         </Fragment>
                       ))}

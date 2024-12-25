@@ -146,6 +146,10 @@ function LeaveTrxList(props) {
       label: intl.formatMessage(messages.LeaveType),
     },
     {
+      name: 'insDate',
+      label: intl.formatMessage(payrollMessages.transactionDate),
+    },
+    {
       name: 'daysCount',
       label: intl.formatMessage(messages.daysCount),
     },

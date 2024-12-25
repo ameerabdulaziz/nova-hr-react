@@ -17,22 +17,29 @@ import messageStyles from "enl-styles/Messages.scss";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { formateDate } from "../../containers/Pages/Payroll/helpers";
 import ResetPasswordData from "../../containers/Pages/Payroll/Setting/api/ResetPasswordData";
 import useStyles from "./header-jss";
 import messages from "./messages";
 import UnderContractionPopup from "../../containers/Pages/Payroll/Component/UnderContractionPopup";
+import speakerImg from "../../../public/images/news2.png";
+import style from "../../styles/styles.scss";
+import CampaignIcon from '@mui/icons-material/Campaign';
+import WorkIcon from '@mui/icons-material/Work';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import ApiData from "../../containers/Pages/Payroll/Dashboard/api";
+import { useSelector } from "react-redux";
 
 function UserMenu(props) {
   const { classes, cx } = useStyles();
-  const { dark, signOut, avatar, notifications, notificationsCallFun } = props;
+  const { dark, signOut, avatar, notifications, notificationsCallFun, newsData, lastNewsFun } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(null);
 
   const [isUnderContractionPopupOpen, setIsUnderContractionPopupOpen] = useState(false)
-
+  const locale = useSelector((state) => state.language.locale);
   const history = useHistory();
 
   const handleMenu = (menu) => (event) => {
@@ -58,6 +65,33 @@ function UserMenu(props) {
     handleClose();
   };
 
+
+
+  const onOpenNews = async (url,dataKey,Id) => {
+
+    try
+    {
+      if (url) {
+        handleClose();
+        if(dataKey === "all")
+        {
+          history.push(url, { dataKey: "all" });
+        }
+
+        if(dataKey === "oneNews")
+          {
+            
+            const  response = await ApiData(locale).getNewsById(Id);
+                              await lastNewsFun()
+            history.push(url, { dataKey: "oneNews", id: Id, newsData: response });
+          }
+      }
+    }
+    catch(err)
+    {}
+  };
+
+
   return (
     <div>
 
@@ -66,6 +100,112 @@ function UserMenu(props) {
         setIsOpen={setIsUnderContractionPopupOpen}
       />
 
+    {/* {newsData.length !== 0 && ( */}
+      <IconButton
+        aria-haspopup="true"
+        onClick={handleMenu("news")}
+        color="inherit"
+        className={cx(classes.notifIcon, dark ? classes.dark : classes.light)}
+        size="large"
+      >
+        <Badge
+          className={classes.badge}
+          badgeContent={0}
+          color="secondary"
+        >
+          <img 
+            src={speakerImg} 
+            alt="speaker" 
+            className={style.speakerSty}
+            />
+        </Badge>
+      </IconButton>
+      {/* )} */}
+
+      <Menu
+        id="menu-news"
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        className={classes.notifMenu}
+        PaperProps={{
+          style: {
+            width: 350,
+          },
+        }}
+        open={openMenu === "news"}
+        onClose={handleClose}
+      >
+        <div 
+        style={{color:"#838383",textAlign:"right", padding:"0px 10px",fontSize:"13px", cursor:"pointer"}}
+        onClick={() => onOpenNews("/app/NewsDetails", "all")}
+        >
+          <FormattedMessage {...messages.seeAll} />
+        </div>
+
+        {newsData.length > 0 ? (
+          newsData.map((item, index) => (
+            <MenuItem
+              divider={index < newsData.length - 1}
+              onClick={() => onOpenNews("/app/NewsDetails","oneNews",item.id)}
+              key={index}
+            >
+              <div className={messageStyles.messageInfo}>
+                <ListItemAvatar>
+                  <Avatar alt="User Name" className={messageStyles.icon}>
+                    {item.newsTypeId === 1 && (
+                      <CampaignIcon />
+                    )}
+
+                    {item.newsTypeId === 2 && (
+                      <WorkIcon />
+                    )}
+
+                    {item.newsTypeId === 3 && (
+                      <NotificationsIcon />
+                    )}
+
+                    {item.newsTypeId === 4 && (
+                      <BeachAccessIcon />
+                    )}
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={item.details}
+                  className={classes.textNotif}
+                  secondary={`${formateDate(item.fromDate, "dd MMM yyyy")} - ${formateDate(item.toDate, "dd MMM yyyy")}` }
+                />
+              </div>
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem>
+            <div className={messageStyles.messageInfo}>
+              <ListItemAvatar>
+                <Avatar alt="User Name" className={messageStyles.icon}>
+                  <Icon>
+                    <Info />
+                  </Icon>
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                sx={{ alignSelf: "center" }}
+                primary={<FormattedMessage {...messages.noNews} />}
+                className={classes.textNotif}
+              />
+            </div>
+          </MenuItem>
+        )}
+      </Menu>
+
+
+{/* /////////////// */}
       <IconButton
         aria-haspopup="true"
         onClick={handleMenu("notification")}

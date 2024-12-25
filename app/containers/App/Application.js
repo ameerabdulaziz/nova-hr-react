@@ -474,6 +474,7 @@ import {
   TransferRequest,
   TransferRequestCreate,
   TransferRequestEdit,
+  NewsDetails,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -485,6 +486,7 @@ function Application(props) {
       <Switch>
         {/* Home */}
         <Route exact path="/app" component={AdminDashboard} />
+        <Route exact path="/app/NewsDetails" component={NewsDetails} />
         <Route
           path="/app/ManagementDashboard"
           component={ManagementDashboard}

@@ -905,6 +905,124 @@
 // Dashboard --end
 
 
+// NavBar  
+.speakerSty
+{
+    margin: 0;
+    // width: 200px;
+    height: auto;
+    // animation: shake 1s infinite;
+    // animation: shake-up-down 1s infinite;
+    animation: rotate-small-angle 0.5s infinite;
+    // animation: scale-up-down 0.5s infinite;
+    animation-play-state: running; 
+}
+
+// @keyframes scale-up-down {
+//     0% { transform: scale(1); }      /* Normal size */
+//     25% { transform: scale(1.1); }  /* Slightly larger */
+//     50% { transform: scale(1); }    /* Back to normal size */
+//     75% { transform: scale(0.9); }  /* Slightly smaller */
+//     100% { transform: scale(1); }   /* Back to normal size */
+//   }
+
+@keyframes rotate-small-angle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-7deg); }
+    50% { transform: rotate(7deg); }
+    75% { transform: rotate(-7deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+// @keyframes shake-up-down {
+//     0% { transform: translateY(0); }
+//     25% { transform: translateY(-5px); }
+//     50% { transform: translateY(5px); }
+//     75% { transform: translateY(-5px); }
+//     100% { transform: translateY(0); }
+//   }
+
+// @keyframes shake {
+//     0% { transform: translateX(0); }
+//     25% { transform: translateX(-5px); }
+//     50% { transform: translateX(5px); }
+//     75% { transform: translateX(-5px); }
+//     100% { transform: translateX(0); }
+//   }
+
+// NavBar --end
+
+
+// NewsDetails
+.NewsDetailsContainer
+{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background-size: 100% 100%;
+
+    & > div:nth-child(1)
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & > div
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 50%;
+            height: 70%;
+            text-align: center;
+            color: #ffffff;
+
+            & > p:nth-child(1)
+            {
+                font-size: 18px;
+            }
+
+            & > p:nth-child(2)
+            {
+                font-size: 40px;
+                font-weight: bolder;
+                color: #f88e33;
+                margin-bottom: 10px;
+            }
+
+            & > p:nth-child(3)
+            {
+                font-size: 13px;
+            }
+
+            & > p:nth-child(4)
+            {
+                font-size: 15px;
+            }
+
+            & > p:nth-child(1)
+            & > p:nth-child(3)
+            & > p:nth-child(4)
+            {
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    & > div:nth-child(2)
+    {
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0.7;
+    }
+}
+
+// NewsDetails --end
 
 
 

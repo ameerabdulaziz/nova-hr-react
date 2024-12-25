@@ -34,6 +34,7 @@ import dayjs from 'dayjs';
 function MissionTrxCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
+  const { isHR, isManagement, isSuper } = useSelector((state) => state.authReducer.user);
   const { classes } = useStyles();
   const Title = localStorage.getItem("MenuName");
   const [data, setdata] = useState({
@@ -351,6 +352,7 @@ const apiData = {
       setIsLoading(false);
     }
   }
+  
   return (
     
     <PayRollLoader isLoading={isLoading}>
@@ -540,6 +542,7 @@ const apiData = {
                         )}
                         className={classes.field}
                         variant="outlined"
+                        disabled={!isHR ? true : false}
                         autoComplete='off'
                       />
                     </Grid>
@@ -638,20 +641,6 @@ const apiData = {
 
                     <Grid item xs={12} md={12}>
                       <TextField
-                        id="notes"
-                        name="notes"
-                        value={data.notes}
-                        onChange={(e) => handleChange(e)}
-                        label={intl.formatMessage(Payrollmessages.notes)}
-                        className={classes.field}
-                        variant="outlined"
-                        multiline
-                        rows={1}
-                        autoComplete='off'
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                      <TextField
                         id="missionDestination"
                         name="missionDestination"
                         value={data.missionDestination}
@@ -662,6 +651,23 @@ const apiData = {
                         multiline
                         rows={1}
                         autoComplete='off'
+                        required
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                      <TextField
+                        id="notes"
+                        name="notes"
+                        value={data.notes}
+                        onChange={(e) => handleChange(e)}
+                        label={intl.formatMessage(Payrollmessages.notes)}
+                        className={classes.field}
+                        variant="outlined"
+                        multiline
+                        rows={1}
+                        autoComplete='off'
+                        required
                       />
                     </Grid>
                   </Grid>

@@ -20,6 +20,38 @@ const dashboardData = (locale) => {
     return data.data;
   };
 
+  api.getAllNews = async () => {
+    const data = await axiosInstance.get(
+      `HrNews/GetEmployeeNewsList/en`
+    );
+
+    return data.data;
+  }
+
+ api.getLastNews = async () => {
+   const data = await axiosInstance.get(
+     `HrNews/GetEmployeeNewsList/en?latest=true`
+   );
+
+    return data.data;
+  };
+
+  api.getNewsById = async (id) => {
+    const data = await axiosInstance.get(
+      `HrNews/GetEmployeeNewsList/en?latest=true&id=${id}`
+    );
+
+    return data.data;
+  };
+
+  api.RemoveSelectedNewsById = async (id) => {
+    const data = await axiosInstance.get(
+      `HrNews/GetEmployeeNewsList/en?id=${id}`
+    );
+
+    return data.data;
+  };
+
   api.UseChatGPT = async (question) => {
     const data = await axiosInstance.post(
       `Chat/UseChatGPT`,question

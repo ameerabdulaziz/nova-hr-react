@@ -60,4 +60,12 @@ export default defineMessages({
     id: `${scope}.changePassword`,
     defaultMessage: 'changePassword',
   },
+  noNews: {
+    id: `${scope}.noNews`,
+    defaultMessage: 'No News',
+  },
+  seeAll: {
+    id: `${scope}.seeAll`,
+    defaultMessage: 'See All',
+  },
 });

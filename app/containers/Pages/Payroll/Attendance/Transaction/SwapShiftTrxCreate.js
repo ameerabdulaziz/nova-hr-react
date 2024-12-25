@@ -40,6 +40,8 @@ function SwapShiftTrxCreate(props) {
     swapStartTime: '',
     swapEndTime: '',
     workHours: '',
+    swapShiftStartTime: '',
+    swapShiftEndTime: '',
   });
 
   const extractTime = (time) => {
@@ -50,19 +52,6 @@ function SwapShiftTrxCreate(props) {
     return date.getTime();
   };
 
-  useEffect(() => {
-    if (formInfo.swapEndTime && formInfo.swapStartTime) {
-      const timeDifference = extractTime(formInfo.swapEndTime) - extractTime(formInfo.swapStartTime);
-      const diffToMinutes = timeDifference / (60 * 60 * 1000);
-      const workHours = diffToMinutes < 0 ? diffToMinutes * -1 : diffToMinutes;
-      const formattedHours = workHours % 1 === 0 ? `${workHours}` : `${workHours.toFixed(3)}`;
-
-      setFormInfo((prevFilters) => ({
-        ...prevFilters,
-        workHours: formattedHours,
-      }));
-    }
-  }, [formInfo.swapStartTime, formInfo.swapEndTime]);
 
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
@@ -129,7 +118,6 @@ function SwapShiftTrxCreate(props) {
         shiftId: null,
         swapStartTime: '',
         swapEndTime: '',
-        workHours: '',
       }));
     } finally {
       setIsLoading(false);
@@ -139,6 +127,15 @@ function SwapShiftTrxCreate(props) {
   useEffect(() => {
     if (formInfo.attendanceDate) {
       fetchAttendanceDateInfo();
+    }
+    else
+    {
+      setFormInfo((prev) => ({
+        ...prev,
+        shiftId: null,
+        swapStartTime: '',
+        swapEndTime: '',
+      }));
     }
   }, [formInfo.attendanceDate]);
 
@@ -155,48 +152,85 @@ function SwapShiftTrxCreate(props) {
 
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
+
+
+  const swapShiftChangeFun = () => {
+
+    const swapShiftData = getAutoCompleteValue(shiftList, formInfo.swapShiftId)
+
+    if(swapShiftData)
+    {
+      setFormInfo((prev) => ({
+        ...prev,
+        swapShiftStartTime: swapShiftData.startTime,
+        swapShiftEndTime: swapShiftData.endTime,
+      }));
+    }
+    else
+    {
+      setFormInfo((prev) => ({
+        ...prev,
+        swapShiftStartTime: "",
+        swapShiftEndTime: "",
+      }));
+    }
+  }
+
+
+  
+  useEffect(() => {
+    if (shiftList.length !== 0) {
+      swapShiftChangeFun();
+    }
+  }, [formInfo.swapShiftId,shiftList]);
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <form onSubmit={onFormSubmit}>
-          <Grid container spacing={3} mt={0}>
-            <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label={intl.formatMessage(messages.attendanceDate)}
-                  minDate={dayjs()}
-                  value={
-                    formInfo.attendanceDate
-                      ? dayjs(formInfo.attendanceDate)
-                      : null
-                  }
-                  className={classes.field}
-                  onChange={(date) => {
-                    setFormInfo((prevFilters) => ({
-                      ...prevFilters,
-                      attendanceDate: date,
-                    }));
-                  }}
-                  onError={(error) => {
-                    if (error !== null) {
-                      setDateError((prevState) => ({
-                        ...prevState,
-                        attendanceDate: true,
-                      }));
-                    } else {
-                      setDateError((prevState) => ({
-                        ...prevState,
-                        attendanceDate: false,
-                      }));
-                    }
-                  }}
-                  slotProps={{
-                    textField: {
-                      required: true,
-                    },
-                  }}
-                />
-              </LocalizationProvider>
+          <Grid item container spacing={3} mt={0}>
+            <Grid item xs={12} >
+              <Grid container spacing={3} >
+                <Grid item xs={12} md={4}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label={intl.formatMessage(messages.attendanceDate)}
+                      minDate={dayjs()}
+                      value={
+                        formInfo.attendanceDate
+                          ? dayjs(formInfo.attendanceDate)
+                          : null
+                      }
+                      className={classes.field}
+                      onChange={(date) => {
+                        setFormInfo((prevFilters) => ({
+                          ...prevFilters,
+                          attendanceDate: date,
+                        }));
+                      }}
+                      onError={(error) => {
+                        if (error !== null) {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                            attendanceDate: true,
+                          }));
+                        } else {
+                          setDateError((prevState) => ({
+                            ...prevState,
+                            attendanceDate: false,
+                          }));
+                        }
+                      }}
+                      slotProps={{
+                        textField: {
+                          required: true,
+                        },
+                      }}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+              </Grid>
             </Grid>
 
             <Grid item xs={12} md={4}>
@@ -212,25 +246,6 @@ function SwapShiftTrxCreate(props) {
                     {...params}
                     disabled
                     label={intl.formatMessage(messages.shiftName)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <Autocomplete
-                options={shiftList}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option.name ? option.name : '')}
-                onChange={(_, value) => onAutoCompleteChange(value, 'swapShiftId')
-                }
-                value={getAutoCompleteValue(shiftList, formInfo.swapShiftId)}
-                renderInput={(params) => (
-                  <TextField
-                    variant='outlined'
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.swapShift)}
                   />
                 )}
               />
@@ -265,13 +280,54 @@ function SwapShiftTrxCreate(props) {
             </Grid>
 
             <Grid item xs={12} md={4}>
+              <Autocomplete
+                options={shiftList}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option.name ? option.name : '')}
+                onChange={(_, value) => onAutoCompleteChange(value, 'swapShiftId')
+                }
+                value={getAutoCompleteValue(shiftList, formInfo.swapShiftId)}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    variant='outlined'
+                    {...params}
+                    required
+                    label={intl.formatMessage(messages.swapShift)}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={4}>
               <TextField
-                name='workHours'
-                value={formInfo.workHours}
-                disabled
-                label={intl.formatMessage(messages.hours)}
+                name='swapShiftStartTime'
+                value={formInfo.swapShiftStartTime}
+                label={intl.formatMessage(messages.startTime)}
+                type='time'
                 fullWidth
-                autoComplete='off'
+                disabled
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <TextField
+                name='swapEndTime'
+                value={formInfo.swapShiftEndTime}
+                label={intl.formatMessage(messages.endTime)}
+                type='time'
+                fullWidth
+                disabled
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
             </Grid>
 

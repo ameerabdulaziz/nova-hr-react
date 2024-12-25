@@ -108,6 +108,7 @@ function Dashboard(props) {
     pathname != "/app/Pages/Employee/EmployeeData" &&
     dataMenu &&
     lastPart !== "Review" &&
+    lastPart !== "NewsDetails" &&
     urlData === null
   ) {
 

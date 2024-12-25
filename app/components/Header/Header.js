@@ -66,6 +66,7 @@ function Header(props) {
   const locale = useSelector((state) => state.language.locale);
   const { isHR, isManagement, isSuper } = useSelector((state) => state.authReducer.user);
   const [notifications, setNotifications] = useState([]);
+  const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -88,11 +89,27 @@ function Header(props) {
     }
   };
 
+  const lastNewsFun = async () => {
+    try {
+
+      const newsResponse = await api(locale).getLastNews();
+
+      setNews(newsResponse)
+
+    } catch (error) {
+      //      
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const fetchNeededList = async () => {
     setIsLoading(true);
 
     try {
       const notificationsResponse = await api(locale).getNotifications();
+
+      lastNewsFun()
       setNotifications(notificationsResponse);
     } catch (error) {
       //
@@ -384,6 +401,8 @@ function Header(props) {
               avatar={avatar}
               notifications={notifications}
               notificationsCallFun={refreshNotifFun}
+              newsData={news}
+              lastNewsFun={lastNewsFun}
             />
           ) : (
             <Button

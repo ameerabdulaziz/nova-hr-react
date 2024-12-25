@@ -305,7 +305,7 @@ function DeviceCreate(props) {
                 )}
               />
             </Grid>
-            {/* <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <TextField
                 id="AreaCode"
                 name="AreaCode"
@@ -317,7 +317,7 @@ function DeviceCreate(props) {
                 variant="outlined"
                 autoComplete='off'
               />
-            </Grid> */}
+            </Grid>
             
             <Grid item xs={12} md={1}>
               <Button
