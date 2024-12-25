@@ -2998,6 +2998,7 @@
   "boilerplate.containers.Payroll.yearName": "Year",
   "boilerplate.containers.Payroll.yes": "Yes",
   "boilerplate.containers.Payroll.News": "News",
+  "boilerplate.containers.Payroll.transactionDate": "Transaction Date",
   "boilerplate.containers.Tables.Basic.bordered.desc": "Old is gold, here is old fashion bordered table, we tweaked it a bit so that the headings looks more prominent.",
   "boilerplate.containers.Tables.Basic.bordered.title": "Bordered Table",
   "boilerplate.containers.Tables.Basic.coloured.desc": "Description",

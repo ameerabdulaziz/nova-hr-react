@@ -2999,6 +2999,7 @@
   "boilerplate.containers.Payroll.yearName": "السنة",
   "boilerplate.containers.Payroll.yes": "نعم",
   "boilerplate.containers.Payroll.News": "الأخبار",
+  "boilerplate.containers.Payroll.transactionDate": "تاريخ التسجيل",
   "boilerplate.containers.Tables.Basic.bordered.desc": "القديم ذهب ، وهنا طاولة قديمة تحدها الموضة ، قمنا بتبديلها قليلاً حتى تبدو العناوين أكثر وضوحًا.",
   "boilerplate.containers.Tables.Basic.bordered.title": "جدول يحده",
   "boilerplate.containers.Tables.Basic.coloured.desc": "Description",
