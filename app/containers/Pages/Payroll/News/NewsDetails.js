@@ -94,15 +94,16 @@ function NewsDetails(props) {
                               <div></div>
                           </div>
                           </Grid>
-              
+                        {item.video && (
                           <Grid item xs={12}>
                               <div>
                                   <video width="100%" height="500" controls>
-                                      <source src={`${ServerURL}${item.vedio}`} type="video/mp4" />
+                                      <source src={`${ServerURL}${item.video}`} type="video/mp4" />
                                       Your browser does not support the video tag.
                                   </video>
                               </div>
                           </Grid>
+                        )}
                       </Grid>
                   <br/>
                   <br/>

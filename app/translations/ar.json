@@ -1820,6 +1820,8 @@
   "boilerplate.containers.Payroll.HumanResources.monthName": "الشهر",
   "boilerplate.containers.Payroll.HumanResources.NewsCreateTitle": "اضافة اخبار واعلانات",
   "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle": "تعديل اخبار واعلانات",
+  "boilerplate.containers.Payroll.HumanResources.uploadFileSizeErrorMes": "حجم الفيديو الخاص بك كبير جدًا، الحجم الأقصى هو 500 ميجا بايت",
+  "boilerplate.containers.Payroll.HumanResources.videoTypeErrorMes": "امتدات الملف غير صالح",
   "boilerplate.containers.Payroll.HumanResources.note": "ملاجظات",
   "boilerplate.containers.Payroll.HumanResources.oldElemVal": "القيمة السابقة",
   "boilerplate.containers.Payroll.HumanResources.oldJob": "الوظيفة السابقة",

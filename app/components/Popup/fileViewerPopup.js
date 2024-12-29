@@ -11,6 +11,7 @@ import style from '../../styles/styles.scss';
 import messages from '../../containers/Pages/Payroll/Employee/messages';
 import Payrollmessages from '../../containers/Pages/Payroll/messages';
 import { FormattedMessage , injectIntl } from 'react-intl';
+import { ServerURL } from "../../containers/Pages/Payroll/api/ServerConfig";
 
 
 const fileViewerPopup = ({
@@ -20,11 +21,9 @@ const fileViewerPopup = ({
     uploadedFile,
     validImageTypes,
     validPDFTypes,
-
+    validVideoTypes,
 }) => {
 
-    const locale = useSelector((state) => state.language.locale);
-    
  
     return(
         <div>
@@ -34,19 +33,24 @@ const fileViewerPopup = ({
                 </DialogTitle>
                 <DialogContent>
                 <DialogContentText className={style.fileContainer}>
-                {validImageTypes.includes( uploadedFileType ) ? 
-                        <img  src={uploadedFile && uploadedFile instanceof File ?   URL.createObjectURL(uploadedFile) : uploadedFile } /> 
-                    : validPDFTypes.includes( uploadedFileType ) ? 
-                      <object
-                      data={uploadedFile !== null && uploadedFile instanceof File ? URL.createObjectURL(uploadedFile) : uploadedFile}
-                      type="application/pdf"
-                      width="100%"
-                    >
-              
-                      </object>
-                      : null
-                    }
-
+                    {validImageTypes.includes( uploadedFileType ) ? 
+                            <img  src={uploadedFile && uploadedFile instanceof File ?   URL.createObjectURL(uploadedFile) : uploadedFile } /> 
+                        : validPDFTypes.includes( uploadedFileType ) ? 
+                            <object
+                                data={uploadedFile !== null && uploadedFile instanceof File ? URL.createObjectURL(uploadedFile) : uploadedFile}
+                                type="application/pdf"
+                                width="100%"
+                                >
+                            </object>
+                        : validVideoTypes && uploadedFile ? 
+                                validVideoTypes.includes( uploadedFileType ) ?                             
+                                    <video width="100%" height="500" controls>
+                                        <source src={uploadedFile && uploadedFile instanceof File ?  URL.createObjectURL(uploadedFile) : `${ServerURL}${uploadedFile}`} type={uploadedFile && uploadedFile instanceof File ? uploadedFileType : `video/${uploadedFileType}`} />
+                                            Your browser does not support the video tag.
+                                    </video>
+                                : null
+                        : null
+                        }
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>

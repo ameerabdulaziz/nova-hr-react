@@ -1819,6 +1819,8 @@
   "boilerplate.containers.Payroll.HumanResources.monthName": "Month",
   "boilerplate.containers.Payroll.HumanResources.NewsCreateTitle": "Create News",
   "boilerplate.containers.Payroll.HumanResources.NewsUpdateTitle": "Update News",
+  "boilerplate.containers.Payroll.HumanResources.uploadFileSizeErrorMes": "Your video is too large , the max size is 500Mb",
+  "boilerplate.containers.Payroll.HumanResources.videoTypeErrorMes": "extension not valid",
   "boilerplate.containers.Payroll.HumanResources.note": "Note",
   "boilerplate.containers.Payroll.HumanResources.oldElemVal": "Prev Value",
   "boilerplate.containers.Payroll.HumanResources.oldJob": "Prev Job",

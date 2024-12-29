@@ -475,6 +475,7 @@ import {
   TransferRequestCreate,
   TransferRequestEdit,
   NewsDetails,
+  Form1Insurance,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -1913,6 +1914,11 @@ function Application(props) {
           path="/app/Pages/insurance/Form2Insurance"
           component={Form2Insurance}
         />
+
+        {/* <Route
+          path="/app/Pages/insurance/Form1Insurance"
+          component={Form1Insurance}
+        /> */}
 
         {/*Medical Insurance */}
 

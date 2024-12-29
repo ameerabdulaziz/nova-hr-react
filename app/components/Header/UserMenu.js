@@ -100,7 +100,7 @@ function UserMenu(props) {
         setIsOpen={setIsUnderContractionPopupOpen}
       />
 
-    {/* {newsData.length !== 0 && ( */}
+    {newsData.length !== 0 && (
       <IconButton
         aria-haspopup="true"
         onClick={handleMenu("news")}
@@ -120,7 +120,7 @@ function UserMenu(props) {
             />
         </Badge>
       </IconButton>
-      {/* )} */}
+      )} 
 
       <Menu
         id="menu-news"
