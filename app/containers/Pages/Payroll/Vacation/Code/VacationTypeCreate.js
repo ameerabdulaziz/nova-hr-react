@@ -51,7 +51,7 @@ function CreateVacationType(props) {
   const [elements, setElements] = useState("");
   const [processing ,setProcessing] = useState(false) 
   const locale = useSelector(state => state.language.locale);
-  const [elementsData, setElementsData] = useState([]);
+  const [elementsData, setElementsData] = useState(null);
   const { state } = useLocation()
   const  ID  = state?.id
   const history=useHistory(); 
@@ -265,7 +265,7 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if(ID && elementsData.length !== 0)
+  if(ID && elementsData)
   {
     getEditdata()
   }
@@ -449,7 +449,7 @@ useEffect(() => {
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}
                             value={elements.length != 0 && elements !== null ? elements : null}                       
-                            options={elementsData.length != 0 ? elementsData: []}
+                            options={elementsData ? elementsData: []}
                             getOptionLabel={(option) =>(
                                 option  ? option.name : ""
                             )
