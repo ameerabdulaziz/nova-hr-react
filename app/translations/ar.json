@@ -2601,6 +2601,8 @@
   "boilerplate.containers.Payroll.Setting.Action": "الاجراء",
   "boilerplate.containers.Payroll.Setting.add": "اضافة",
   "boilerplate.containers.Payroll.Setting.addDecorator": "إضافة ديكوريتور",
+  "boilerplate.containers.Payroll.Setting.emailNotification": "اشعارات البريد",
+  "boilerplate.containers.Payroll.Setting.mobileNotification": "اشعارات الهاتف",
   "boilerplate.containers.Payroll.Setting.attendancePeriodFromDate": "من تاريخ فترة الحضور",
   "boilerplate.containers.Payroll.Setting.attendancePeriodToDate": "إلى تاريخ فترة الحضور",
   "boilerplate.containers.Payroll.Setting.changeUsername": "تغيير اسم المستخدم",

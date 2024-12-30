@@ -124,6 +124,14 @@ export default defineMessages({
     id: `${scope}.addDecorator`,
     defaultMessage: 'addDecorator',
   },
+  emailNotification: {
+    id: `${scope}.emailNotification`,
+    defaultMessage: 'Email Notification',
+  },
+  mobileNotification: {
+    id: `${scope}.mobileNotification`,
+    defaultMessage: 'Mobile Notification',
+  },
   vacation: {
     id: `${scope}.vacation`,
     defaultMessage: 'vacation',

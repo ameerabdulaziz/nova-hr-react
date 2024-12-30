@@ -2600,6 +2600,8 @@
   "boilerplate.containers.Payroll.Setting.Action": "Action",
   "boilerplate.containers.Payroll.Setting.add": "Add",
   "boilerplate.containers.Payroll.Setting.addDecorator": "Add Decorator",
+  "boilerplate.containers.Payroll.Setting.emailNotification": "Email Notification",
+  "boilerplate.containers.Payroll.Setting.mobileNotification": "Mobile Notification",
   "boilerplate.containers.Payroll.Setting.attendancePeriodFromDate": "Attendance Period From Date",
   "boilerplate.containers.Payroll.Setting.attendancePeriodToDate": "Attendance Period To Date",
   "boilerplate.containers.Payroll.Setting.changeUsername": "Change Username",

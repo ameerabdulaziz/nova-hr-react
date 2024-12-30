@@ -909,22 +909,10 @@
 .speakerSty
 {
     margin: 0;
-    // width: 200px;
     height: auto;
-    // animation: shake 1s infinite;
-    // animation: shake-up-down 1s infinite;
     animation: rotate-small-angle 0.5s infinite;
-    // animation: scale-up-down 0.5s infinite;
     animation-play-state: running; 
 }
-
-// @keyframes scale-up-down {
-//     0% { transform: scale(1); }      /* Normal size */
-//     25% { transform: scale(1.1); }  /* Slightly larger */
-//     50% { transform: scale(1); }    /* Back to normal size */
-//     75% { transform: scale(0.9); }  /* Slightly smaller */
-//     100% { transform: scale(1); }   /* Back to normal size */
-//   }
 
 @keyframes rotate-small-angle {
     0% { transform: rotate(0deg); }
@@ -933,22 +921,6 @@
     75% { transform: rotate(-7deg); }
     100% { transform: rotate(0deg); }
   }
-
-// @keyframes shake-up-down {
-//     0% { transform: translateY(0); }
-//     25% { transform: translateY(-5px); }
-//     50% { transform: translateY(5px); }
-//     75% { transform: translateY(-5px); }
-//     100% { transform: translateY(0); }
-//   }
-
-// @keyframes shake {
-//     0% { transform: translateX(0); }
-//     25% { transform: translateX(-5px); }
-//     50% { transform: translateX(5px); }
-//     75% { transform: translateX(-5px); }
-//     100% { transform: translateX(0); }
-//   }
 
 // NavBar --end
 
@@ -1023,6 +995,19 @@
 }
 
 // NewsDetails --end
+
+
+// SettingMailSmsFormCreate
+
+.textEditorSty
+{
+    & > div:nth-child(2)
+    {
+        min-height: 200px;
+    } 
+}
+
+// SettingMailSmsFormCreate --end
 
 
 
