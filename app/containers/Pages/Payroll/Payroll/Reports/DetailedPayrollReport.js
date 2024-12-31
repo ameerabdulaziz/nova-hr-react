@@ -6,27 +6,31 @@ import {
   Grid,
   // Radio,
   // RadioGroup,
-  TextField
-} from '@mui/material';
-import { PapperBlock } from 'enl-components';
-import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
-import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
-import EmployeeData from '../../Component/EmployeeData';
-import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
-import GeneralListApis from '../../api/GeneralListApis';
-import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
-import payrollMessages from '../../messages';
-import api from '../api/DetailedPayrollReportData';
-import messages from '../messages';
+  TextField,
+} from "@mui/material";
+import { PapperBlock } from "enl-components";
+import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useState } from "react";
+import { injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import EmployeeData from "../../Component/EmployeeData";
+import PayRollLoader from "../../Component/PayRollLoader";
+import PayrollTable from "../../Component/PayrollTable";
+import GeneralListApis from "../../api/GeneralListApis";
+import { formatNumber, formateDate, getAutoCompleteValue } from "../../helpers";
+import payrollMessages from "../../messages";
+import api from "../api/DetailedPayrollReportData";
+import messages from "../messages";
+import style from "../../../../../styles/styles.scss";
+import Checkbox from "@mui/material/Checkbox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 function DetailedPayrollReport(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
-  const pageTitle = localStorage.getItem('MenuName');
+  const pageTitle = localStorage.getItem("MenuName");
 
   const [companyList, setCompanyList] = useState([]);
   const [payTemplateList, setPayTemplateList] = useState([]);
@@ -41,7 +45,7 @@ function DetailedPayrollReport(props) {
   const [formInfo, setFormInfo] = useState({
     EmployeeId: null,
     BranchId: branchId,
-    TemplateId: 1,
+    TemplateId: [1],
     YearId: null,
     MonthId: null,
     isBankTransfere: null,
@@ -50,7 +54,7 @@ function DetailedPayrollReport(props) {
     CurrencyId: null,
     JobLevelId: null,
     EmpStatusId: 1,
-    OrganizationId: '',
+    OrganizationId: "",
   });
 
   const salaryTypesList = [
@@ -161,6 +165,8 @@ function DetailedPayrollReport(props) {
 
       const payTemplate = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(payTemplate);
+      debugger;
+      setFormInfo((prev) => ({ ...prev, TemplateId: [payTemplate[0]] }))
 
       const years = await GeneralListApis(locale).GetYears();
       setYearList(years);
@@ -195,7 +201,7 @@ function DetailedPayrollReport(props) {
 
   const staticColumns = [
     {
-      name: 'id',
+      name: "id",
       options: {
         display: false,
         print: false,
@@ -203,42 +209,42 @@ function DetailedPayrollReport(props) {
     },
 
     {
-      name: 'branchName',
+      name: "branchName",
       label: intl.formatMessage(messages.company),
     },
 
     {
-      name: 'organizationName',
+      name: "organizationName",
       label: intl.formatMessage(messages.department),
     },
 
     {
-      name: 'employeeCode',
+      name: "employeeCode",
       label: intl.formatMessage(messages.employeeCode),
     },
 
     {
-      name: 'employeeName',
+      name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
     },
 
     {
-      name: 'jobName',
+      name: "jobName",
       label: intl.formatMessage(messages.job),
     },
 
     {
-      name: 'hiringDate',
+      name: "hiringDate",
       label: intl.formatMessage(messages.hiringDate),
     },
 
     {
-      name: 'monthYear',
+      name: "monthYear",
       label: intl.formatMessage(messages.monthYear),
     },
 
     {
-      name: 'netSal',
+      name: "netSal",
       label: intl.formatMessage(messages.netSalary),
       options: {
         customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
@@ -246,7 +252,7 @@ function DetailedPayrollReport(props) {
     },
 
     {
-      name: 'insuCompValFixed',
+      name: "insuCompValFixed",
       label: intl.formatMessage(messages.insuranceCompanyFixed),
       options: {
         customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
@@ -254,7 +260,7 @@ function DetailedPayrollReport(props) {
     },
 
     {
-      name: 'insuEmpValFixed',
+      name: "insuEmpValFixed",
       label: intl.formatMessage(messages.insuranceEmployeeFixed),
       options: {
         customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
@@ -262,7 +268,7 @@ function DetailedPayrollReport(props) {
     },
 
     {
-      name: 'taxVal',
+      name: "taxVal",
       label: intl.formatMessage(messages.taxes),
       options: {
         customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
@@ -270,7 +276,7 @@ function DetailedPayrollReport(props) {
     },
 
     {
-      name: 'totAllowances',
+      name: "totAllowances",
       label: intl.formatMessage(messages.totalAllownace),
       options: {
         customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
@@ -278,10 +284,10 @@ function DetailedPayrollReport(props) {
     },
 
     {
-      name: 'totDed',
+      name: "totDed",
       label: intl.formatMessage(messages.totalDeduction),
       options: {
-        customBodyRender: (value) =><pre> {formatNumber(value)} </pre>,
+        customBodyRender: (value) => <pre> {formatNumber(value)} </pre>,
       },
     },
   ];
@@ -290,41 +296,45 @@ function DetailedPayrollReport(props) {
 
   const fetchTableData = async () => {
     setIsLoading(true);
-    const isBankTransfere = formInfo.isBankTransfere === null
-      ? null
-      : Boolean(formInfo.isBankTransfere);
+    const isBankTransfere =
+      formInfo.isBankTransfere === null
+        ? null
+        : Boolean(formInfo.isBankTransfere);
 
     try {
+      debugger;
       const params = {
         EmployeeId: formInfo.EmployeeId,
         BranchId: formInfo.BranchId,
-        TemplateId: formInfo.TemplateId,
+        TemplateId: formInfo.TemplateId.map((item) => item.id),
         YearId: formInfo.YearId,
         MonthId: formInfo.MonthId,
-        isInsured: formInfo.isInsured === null ? null : Boolean(formInfo.isInsured),
-        isBankTransfere,
+        isInsured:
+          formInfo.isInsured === null ? "" : Boolean(formInfo.isInsured),
+        isBankTransfere:formInfo.isBankTransfere === null ? "" : Boolean(formInfo.isBankTransfere),
         //isVal: formInfo.isVal,
-        CurrencyId: formInfo.CurrencyId,
-        JobLevelId: formInfo.JobLevelId,
+        CurrencyId: formInfo.CurrencyId === null ? "" : formInfo.CurrencyId,
+        JobLevelId: formInfo.JobLevelId === null ? "" : formInfo.JobLevelId,
       };
 
+      debugger;
       const response = await api(locale).GetList(params);
       setTableData(response);
 
       const excludedProperties = [
-        'branchName',
-        'organizationName',
-        'employeeCode',
-        'employeeName',
-        'hiringDate',
-        'jobName',
-        'monthYear',
-        'insuCompValFixed',
-        'insuEmpValFixed',
-        'taxVal',
-        'totAllowances',
-        'totDed',
-        'netSal',
+        "branchName",
+        "organizationName",
+        "employeeCode",
+        "employeeName",
+        "hiringDate",
+        "jobName",
+        "monthYear",
+        "insuCompValFixed",
+        "insuEmpValFixed",
+        "taxVal",
+        "totAllowances",
+        "totDed",
+        "netSal",
       ];
 
       const newColumns = [];
@@ -339,14 +349,10 @@ function DetailedPayrollReport(props) {
                 customBodyRender: (value) => formatNumber(value),
               },
             });
+          } else {
+            var filterdobj = staticColumns.filter((i) => i.name == key);
+            newColumns.push(filterdobj[0]);
           }
-          else
-            {
-              var filterdobj = staticColumns.filter(
-                (i) => i.name == key
-              );
-              newColumns.push(filterdobj[0]);
-            }
         });
       }
 
@@ -381,7 +387,7 @@ function DetailedPayrollReport(props) {
   };
 
   const handleEmpChange = useCallback(async (id, name) => {
-    if (name === 'employeeId') {
+    if (name === "employeeId") {
       setFormInfo((prev) => ({
         ...prev,
         EmployeeId: id,
@@ -392,7 +398,6 @@ function DetailedPayrollReport(props) {
   useEffect(() => {
     fetchNeededData();
   }, []);
-
 
   async function onCompanyAutocompleteChange(value) {
     setIsLoading(true);
@@ -422,7 +427,7 @@ function DetailedPayrollReport(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
+      <PapperBlock whiteBg icon="border_color" title={pageTitle} desc="">
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
             <Grid item xs={12} md={3}>
@@ -430,7 +435,7 @@ function DetailedPayrollReport(props) {
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.BranchId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
@@ -450,23 +455,35 @@ function DetailedPayrollReport(props) {
             <Grid item xs={12} md={3}>
               <Autocomplete
                 options={payTemplateList}
-                value={getAutoCompleteValue(
-                  payTemplateList,
-                  formInfo.TemplateId
-                )}
+                multiple
+                disableCloseOnSelect
+                className={`${style.AutocompleteMulSty} ${
+                  locale === "ar" ? style.AutocompleteMulStyAR : null
+                }`}
+                value={formInfo.TemplateId}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
+                getOptionLabel={(option) => (option ? option.name : "")}
+                renderOption={(optionProps, option, { selected }) => (
+                  <li {...optionProps} key={optionProps.id}>
+                    <Checkbox
+                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                      checkedIcon={<CheckBoxIcon fontSize="small" />}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'TemplateId')
+                // onChange={(_, value) =>
+                //   onAutoCompleteChange(value, "TemplateId")
+                // }
+                onChange={(_, value) =>
+                  setFormInfo((prev) => ({ ...prev, TemplateId: value }))
                 }
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    required
+                    
                     label={intl.formatMessage(messages.template)}
                   />
                 )}
@@ -478,13 +495,13 @@ function DetailedPayrollReport(props) {
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.YearId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'YearId')}
+                onChange={(_, value) => onAutoCompleteChange(value, "YearId")}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -500,13 +517,13 @@ function DetailedPayrollReport(props) {
                 options={monthList}
                 value={getAutoCompleteValue(monthList, formInfo.MonthId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'MonthId')}
+                onChange={(_, value) => onAutoCompleteChange(value, "MonthId")}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -525,13 +542,14 @@ function DetailedPayrollReport(props) {
                   formInfo.isBankTransfere
                 )}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'isBankTransfere')
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "isBankTransfere")
                 }
                 renderInput={(params) => (
                   <TextField
@@ -547,13 +565,14 @@ function DetailedPayrollReport(props) {
                 options={insuranceList}
                 value={getAutoCompleteValue(insuranceList, formInfo.isInsured)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'isInsured')
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "isInsured")
                 }
                 renderInput={(params) => (
                   <TextField
@@ -569,13 +588,14 @@ function DetailedPayrollReport(props) {
                 options={currencyList}
                 value={getAutoCompleteValue(currencyList, formInfo.CurrencyId)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
+                getOptionLabel={(option) => (option ? option.name : "")}
                 renderOption={(propsOption, option) => (
                   <li {...propsOption} key={option.id}>
                     {option.name}
                   </li>
                 )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'CurrencyId')
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "CurrencyId")
                 }
                 renderInput={(params) => (
                   <TextField
@@ -587,37 +607,35 @@ function DetailedPayrollReport(props) {
             </Grid>
 
             <Grid item xs={12} md={3}>
-                <Autocomplete
-                  id="ddljobLevelId"
-                  options={jobLevelList || []}
-                  // value={jobLevelId}
-                  value={getAutoCompleteValue(jobLevelList, formInfo.JobLevelId)}
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 ||
-                    value.id === "" ||
-                    option.id === value.id
-                  }
-                  renderOption={(props, option) => {
-                    return (
-                      <li {...props} key={option.id}>
-                        {option.name}
-                      </li>
-                    );
-                  }}
-                  getOptionLabel={(option) =>
-                    option.name ? option.name : ""
-                  }
-                  onChange={(_, value) => onAutoCompleteChange(value, 'JobLevelId')}
-                  renderInput={(params) => (
-                    <TextField
-                      variant="outlined"
-                      {...params}
-                      name="jobLevelId"
-                      label={intl.formatMessage(messages.joblevel)}
-                    />
-                  )}
-                />
-              </Grid>
+              <Autocomplete
+                id="ddljobLevelId"
+                options={jobLevelList || []}
+                // value={jobLevelId}
+                value={getAutoCompleteValue(jobLevelList, formInfo.JobLevelId)}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
+                }}
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(_, value) =>
+                  onAutoCompleteChange(value, "JobLevelId")
+                }
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="jobLevelId"
+                    label={intl.formatMessage(messages.joblevel)}
+                  />
+                )}
+              />
+            </Grid>
 
             {/* <Grid item md={3} xs={12}>
               <FormControl>
@@ -651,7 +669,7 @@ function DetailedPayrollReport(props) {
             </Grid>
 
             <Grid item xs={12}>
-              <Button variant='contained' color='primary' type='submit'>
+              <Button variant="contained" color="primary" type="submit">
                 {intl.formatMessage(payrollMessages.search)}
               </Button>
             </Grid>
@@ -659,7 +677,12 @@ function DetailedPayrollReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
+      <PayrollTable
+        title=""
+        data={tableData}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoader>
   );
 }
