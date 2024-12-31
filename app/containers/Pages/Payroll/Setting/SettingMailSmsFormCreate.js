@@ -5,6 +5,7 @@ import {
   Menu,
   MenuItem,
   TextField,
+  TextareaAutosize
 } from '@mui/material';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
@@ -21,7 +22,8 @@ import PayRollLoader from '../Component/PayRollLoader';
 import payrollMessages from '../messages';
 import api from './api/SettingMailSmsFormData';
 import messages from './messages';
-
+import useStyles from "../Style";
+import style from "../../../../styles/styles.scss";
 import 'react-quill/dist/quill.snow.css';
 
 function SettingMailSmsFormCreate(props) {
@@ -31,7 +33,8 @@ function SettingMailSmsFormCreate(props) {
   const locale = useSelector((state) => state.language.locale);
   const id = location.state?.id ?? 0;
   const reactQuillRef = useRef(null);
-
+  const reactQuillMobileRef = useRef(null);
+  const { classes } = useStyles();
   const title = localStorage.getItem('MenuName');
 
   const [formTypesList, setFormTypesList] = useState([]);
@@ -46,6 +49,7 @@ function SettingMailSmsFormCreate(props) {
     formTypeId: null,
     subject: '',
     body: '',
+    mobileBody: '',
   });
 
   useEffect(() => {
@@ -108,6 +112,13 @@ function SettingMailSmsFormCreate(props) {
     }));
   };
 
+  const onEditorMobileChange = (value) => {
+    setFormInfo((prev) => ({
+      ...prev,
+      mobileBody: value,
+    }));
+  };
+
   const onAutoCompleteChange = (value, name) => {
     setFormInfo((prev) => ({
       ...prev,
@@ -120,19 +131,26 @@ function SettingMailSmsFormCreate(props) {
   };
 
   const onAddDecoratorBtnClick = (event) => {
-    setDecoratorMenuAnchorEl(event.currentTarget);
+    setDecoratorMenuAnchorEl(event.currentTarget);    
   };
   const closeDecoratorDropdown = () => {
     setDecoratorMenuAnchorEl(null);
   };
 
   const onDecoratorItemClick = async (key) => {
-    if (reactQuillRef.current) {
+    if (reactQuillRef.current || reactQuillMobileRef.current) {
       const cursorPosition = reactQuillRef.current.getSelection()?.index;
 
       if (cursorPosition) {
         reactQuillRef.current.insertText(cursorPosition, key);
         reactQuillRef.current.setSelection(cursorPosition + 1);
+      }
+
+      if (reactQuillMobileRef.current && !cursorPosition) {
+        setFormInfo((prev) => ({
+          ...prev,
+          mobileBody: prev.mobileBody + key,
+        }));
       }
     }
 
@@ -195,6 +213,26 @@ function SettingMailSmsFormCreate(props) {
                   {intl.formatMessage(messages.addDecorator)}
                 </Button>
               )}
+            </Grid>
+
+            <Grid item xs={12}>
+                <TextareaAutosize
+                   name='customerAddress'
+                   value={formInfo.mobileBody}
+                   onChange={(e) => {
+                     onEditorMobileChange(e.target.value)
+                   }}
+                   ref={reactQuillMobileRef}
+                   maxLength={100}
+                   placeholder={intl.formatMessage(messages.mobileNotification)}
+                   className={`${style.investigationAnswer} ${classes.textareaSty}`}
+                   autoComplete='off'
+                 />
+            </Grid>
+
+            <Grid item xs={12}>
+
+              <p style={{fontWeight:"bolder"}}>{intl.formatMessage(messages.emailNotification)}</p>
 
               <Menu
                 anchorEl={decoratorMenuAnchorEl}
@@ -249,6 +287,7 @@ function SettingMailSmsFormCreate(props) {
                 style={{
                   direction: 'ltr',
                 }}
+                className={style.textEditorSty}
                 modules={{
                   toolbar: {
                     container: [
@@ -272,6 +311,21 @@ function SettingMailSmsFormCreate(props) {
                   reactQuillRef.current = ref?.getEditor();
                 }}
               />
+            </Grid>
+
+            <Grid item xs={12}>
+            {formInfo.body && (
+                  <PapperBlock
+                    whiteBg
+                    icon='border_color'
+                    desc=''
+                    title={intl.formatMessage(payrollMessages.preview)}
+                  >
+                    <div className='ql-snow'>
+                      <div className='ql-editor'>{parse(formInfo.body)}</div>
+                    </div>
+                  </PapperBlock>
+                )}
             </Grid>
 
             <Grid item xs={12}>
@@ -303,18 +357,6 @@ function SettingMailSmsFormCreate(props) {
         </form>
       </PapperBlock>
 
-      {formInfo.body && (
-        <PapperBlock
-          whiteBg
-          icon='border_color'
-          desc=''
-          title={intl.formatMessage(payrollMessages.preview)}
-        >
-          <div className='ql-snow'>
-            <div className='ql-editor'>{parse(formInfo.body)}</div>
-          </div>
-        </PapperBlock>
-      )}
     </PayRollLoader>
   );
 }

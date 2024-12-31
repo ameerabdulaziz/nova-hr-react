@@ -294,6 +294,14 @@ NewsUpdateTitle: {
   id: `${scope}.NewsUpdateTitle`,
   defaultMessage: 'NewsUpdateTitle',
 },
+uploadFileSizeErrorMes: {
+  id: `${scope}.uploadFileSizeErrorMes`,
+  defaultMessage: 'Your video is too large , the max size is 500Mb',
+},
+videoTypeErrorMes: {
+  id: `${scope}.videoTypeErrorMes`,
+  defaultMessage: 'extension not valid',
+},
 //Custody//////////////// //////////////////////////////////////////////////////////////////  ////////
 
 custodyName: {

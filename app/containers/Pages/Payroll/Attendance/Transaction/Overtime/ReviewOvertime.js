@@ -40,7 +40,7 @@ function ReviewOvertime(props) {
   const [DateError, setDateError] = useState({});
   const [formInfo, setFormInfo] = useState({
     shiftCode: null,
-    OffVacCheck: false,
+    VacCheck: false,
 
     FromDate: new Date(),
     ToDate: new Date(),
@@ -117,10 +117,10 @@ function ReviewOvertime(props) {
       });
     }
 
-    if (formInfo.OffVacCheck) {
+    if (formInfo.VacCheck) {
       highlights.push({
         label: intl.formatMessage(messages.showWeekendOnly),
-        value: formInfo.OffVacCheck
+        value: formInfo.VacCheck
           ? intl.formatMessage(payrollMessages.yes)
           : intl.formatMessage(payrollMessages.no),
       });
@@ -360,7 +360,7 @@ function ReviewOvertime(props) {
       calcAsrepVac: item.calcASRepVac,
       repVacVal: item.repVacVal,
       reqSerial: item.reqSerial,
-      offVacCheck: formInfo.OffVacCheck,
+      VacCheck: formInfo.VacCheck,
     }));
 
     try {
@@ -417,10 +417,10 @@ function ReviewOvertime(props) {
                 control={<Checkbox />}
                 onChange={(evt) => setFormInfo((prev) => ({
                   ...prev,
-                  OffVacCheck: evt.target.checked,
+                  VacCheck: evt.target.checked,
                 }))
                 }
-                checked={formInfo.OffVacCheck}
+                checked={formInfo.VacCheck}
                 label={intl.formatMessage(messages.showWeekendOnly)}
               />
             </Grid>
