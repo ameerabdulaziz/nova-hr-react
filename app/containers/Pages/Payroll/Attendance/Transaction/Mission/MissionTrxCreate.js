@@ -35,6 +35,7 @@ import DecryptUrl from "../../../Component/DecryptUrl";
 import { calculateTimeDifference } from "../../../helpers";
 
 function MissionTrxCreate(props) {
+  
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { isHR, isManagement, isSuper } = useSelector((state) => state.authReducer.user);
@@ -76,6 +77,7 @@ function MissionTrxCreate(props) {
 
   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
   useEffect(() => {
+    debugger;
     if (empid) {
       let startTime, endTime, total;
       let shiftDate = format(new Date(empid.shiftDate), "yyyy-MM-dd");
