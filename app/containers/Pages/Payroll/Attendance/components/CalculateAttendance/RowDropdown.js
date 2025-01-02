@@ -50,7 +50,7 @@ function RowDropdown(props) {
             `${url}/${btoa(
               encodeURIComponent(
                 JSON.stringify({
-                  id: DataOfSelectedRow.employeeCode,
+                  id: DataOfSelectedRow.employeeId,
                   shiftDate: DataOfSelectedRow.shiftDate,
                   timeIn: DataOfSelectedRow.timeIn,
                   timeOut: DataOfSelectedRow.timeOut,
