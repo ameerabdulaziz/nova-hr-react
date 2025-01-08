@@ -410,7 +410,7 @@ function BankList(props) {
 
     const today = new Date();
 
-    const debitAmount = tableData.reduce((acc, item) => acc + item.netSal, 0);
+    const debitAmount = tableData.reduce((acc, item) => acc + (item.netSal !== null && item.netSal !== undefined && item.netSal.length !== 0 ? item.netSal : 0), 0);
 
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
 
@@ -420,7 +420,7 @@ function BankList(props) {
       'Salary', // Narrative
       'egp', // Currency
       'CIBEEGCXXXX', // Creditor_BIC_Code
-      bank?.accNo ?? '', // Account_Number
+      bank?.bnkAcc ?? '', // Account_Number
       bank?.name ?? '', // Account_Name
       formatNumber(debitAmount), // Debit_Amount
       '', // Credit_Amount
@@ -445,23 +445,33 @@ function BankList(props) {
     ];
 
     const bodyRows = tableData.map((item) => [
-      formateDate(today, 'dd/MM/yyyy'), // File_Date
-      formateDate(today, 'dd/MM/yyyy'), // Value_Date
-      'Salary', // Narrative
-      'egp', // Currency
-      'CIBEEGCXXXX', // Creditor_BIC_Code
-      item.bnkAcc ? { v: item.bnkAcc , s: textSty} : '0000', // Account_Number
-      item.employeeName, // Account_Name
-      '', // Debit_Amount
-      {
-        v: formatNumber(item.netSal),
-        s: {
-          font: { bold: true, color: { rgb: '000000' } },
-          fill: { fgColor: { rgb: 'ffffcc' } },
-        },
-      }, // Credit_Amount
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      
+        ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      
+          formateDate(today, 'dd/MM/yyyy'), // File_Date
+          formateDate(today, 'dd/MM/yyyy'), // Value_Date
+          'Salary', // Narrative
+          'egp', // Currency
+          'CIBEEGCXXXX', // Creditor_BIC_Code
+          item.bnkAcc ? { v: item.bnkAcc , s: textSty} : '0000', // Account_Number
+          item.employeeName, // Account_Name
+          '', // Debit_Amount
+          {
+            v: formatNumber(item.netSal),
+            s: {
+              font: { bold: true, color: { rgb: '000000' } },
+              fill: { fgColor: { rgb: 'ffffcc' } },
+            },
+          }, // Credit_Amount
+          ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        
+      ] : [])
+    ]).filter(
+    (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+  );
+
+
+  
 
     return [headers, firstRow, ...bodyRows, lastRow];
   };
@@ -484,25 +494,33 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      { v: item.bnkAcc , s: textSty}, // Beneficiary Account No
-      item.employeeName, // Beneficiary Name
-      'EGP', // Transaction Currency
-      formatNumber(item.netSal), // Payment Amount
-      item.employeeCode, // Employee ID
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        { v: item.bnkAcc , s: textSty}, // Beneficiary Account No
+        item.employeeName, // Beneficiary Name
+        'EGP', // Transaction Currency
+        formatNumber(item.netSal), // Payment Amount
+        item.employeeCode, // Employee ID
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     return [headers, ...rows];
   };
 
   const getCridetAgricoleTemplate = () => {
     const rows = tableData.map((item) => [
-      item.accNo,
-      item.employeeName,
-      'salary',
-      formatNumber(item.netSal),
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        item.bnkAcc,
+        item.employeeName,
+        'salary',
+        formatNumber(item.netSal),
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     return rows;
   };
@@ -563,46 +581,50 @@ function BankList(props) {
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
 
     const rows = tableData.map((item) => [
-      'ACH', // Payment type
-      bank?.accNo ?? '', // Debit Account Number
-      'EG', // Debit Account Country
-      'EGP', // Debit Account Currency
-      'EGP', // Transaction currency
-      formatNumber(item.netSal), // Transaction Amount
-      formateDate(today, 'yyyyMMdd'), // Value Date
-      `${formateDate(today, 'MMMM')} Salary yyy`, // First Party Reference
-      '', // Payment Set Code
-      item.employeeName, // Bene Name
-      '', // Address 1
-      '', // Address 2
-      '', // Address 3
-      item.accNo, // Bene Account No
-      'EG', // Bene Country Code
-      '', // Second Party Reference
-      '', // Second Party ID
-      '11111111', // LCC code/CBID code
-      '', // ADVICE-TEXT
-      '', // E-mail ID-1
-      '', // Name of EM recepient 1
-      '', // E-mail ID-2
-      '', // Name of EM recepient 2
-      '', // E-mail ID-3
-      '', // Name of EM recepient 3
-      '', // E-mail ID-4
-      '', // Name of EM recepient 4
-      '', // E-mail ID-5
-      '', // Name of EM recepient 5
-      '', // E-mail ID-6
-      '', // Name of EM recepient 6
-      '', // Remittance Information 1
-      '', // Remittance Information 2
-      '', // Remittance Information 3
-      '', // Remittance Information 4
-      '', // Charges Code
-      'SALA', // Purpose of Payment
-      '', // SWIFT BIC / LCC Code Indicator
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        'ACH', // Payment type
+        bank?.bnkAcc ?? '', // Debit Account Number
+        'EG', // Debit Account Country
+        'EGP', // Debit Account Currency
+        'EGP', // Transaction currency
+        formatNumber(item.netSal), // Transaction Amount
+        formateDate(today, 'yyyyMMdd'), // Value Date
+        `${formateDate(today, 'MMMM')} Salary yyy`, // First Party Reference
+        '', // Payment Set Code
+        item.employeeName, // Bene Name
+        '', // Address 1
+        '', // Address 2
+        '', // Address 3
+        item.accNo, // Bene Account No
+        'EG', // Bene Country Code
+        '', // Second Party Reference
+        '', // Second Party ID
+        '11111111', // LCC code/CBID code
+        '', // ADVICE-TEXT
+        '', // E-mail ID-1
+        '', // Name of EM recepient 1
+        '', // E-mail ID-2
+        '', // Name of EM recepient 2
+        '', // E-mail ID-3
+        '', // Name of EM recepient 3
+        '', // E-mail ID-4
+        '', // Name of EM recepient 4
+        '', // E-mail ID-5
+        '', // Name of EM recepient 5
+        '', // E-mail ID-6
+        '', // Name of EM recepient 6
+        '', // Remittance Information 1
+        '', // Remittance Information 2
+        '', // Remittance Information 3
+        '', // Remittance Information 4
+        '', // Charges Code
+        'SALA', // Purpose of Payment
+        '', // SWIFT BIC / LCC Code Indicator
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     return [headers, ...rows];
   };
@@ -627,22 +649,26 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      item.bnkBrcode, // Branch code
-      '', // Customer ID
-      { v: item.bnkAcc , s: textSty}, // Account Number
-      item.employeeName, // Employee Name
-      '', // Code
-      '', // Reason
-      { v: item.netSal , s: textSty}, // Amount
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        item.bnkBrcode, // Branch code
+        '', // Customer ID
+        { v: item.bnkAcc , s: textSty}, // Account Number
+        item.employeeName, // Employee Name
+        item.bnkBrcode, // Code
+        '', // Reason
+        { v: Math.round(item.netSal) , s: textSty}, // Amount
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     return [headers, ...rows];
   };
 
   const getQNBArabicTemplate = () => {
 
-    const totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
+    const totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? item.netSal : 0), 0)
 
     const styles = {
       font: { bold: true, color: { rgb: '000000' } },
@@ -699,15 +725,19 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      { v: item.bnkBrcode , s: styles2}, // Branch code
-      { v: '' , s: styles2},  // ID
-      { v: item.bnkAcc , s: styles2}, // Account Number
-      { v: item.employeeName , s: styles2}, // Employee Name
-      { v: '' , s: styles2}, // Code
-      { v: '', s: styles2}, // Reason
-      { v: item.netSal , s: {...styles2, ...textSty}},  // Amount
-      ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        { v: item.bnkBrcode , s: styles2}, // Branch code
+        { v: '' , s: styles2},  // ID
+        { v: item.bnkAcc , s: styles2}, // Account Number
+        { v: item.employeeName , s: styles2}, // Employee Name
+        { v: item.bnkBrcode , s: styles2}, // Code
+        { v: '', s: styles2}, // Reason
+        { v: item.netSal , s: {...styles2, ...textSty}},  // Amount
+        ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     const footer = [
       'الاجمالى',
@@ -725,7 +755,7 @@ function BankList(props) {
     const customSty = { numFmt: '##' }  // make cell custom format ( show number in cell without fractions and Rounding a decimal number )
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
     const company = getAutoCompleteValue(companyList, formInfo.BranchId)
-    const totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
+    const totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? item.netSal : 0), 0)
 
     const headers = [
       'ACCOUNT NAME',
@@ -741,12 +771,16 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      bank?.name ?? '', // ACCOUNT NAME
-      company?.name ?? '', // COMPANY NAME
-      { v: item.bnkAcc , s: textSty}, // ACCOUNT NO
-      { v: item.netSal , s: customSty} , // SALARY 1
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        bank?.name ?? '', // ACCOUNT NAME
+        company?.name ?? '', // COMPANY NAME
+        { v: item.bnkAcc , s: textSty}, // ACCOUNT NO
+        { v: item.netSal , s: customSty} , // SALARY 1
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     const footer = [
       '',
@@ -783,18 +817,22 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item,index) => [
-      item.accNo , // Org_Cus_Num
-      index + 1 , // Emp_Ref_Num
-      item.employeeName , // Emp_Name
-      '' , // NID
-      { v: item.bnkAcc , s: textSty} , // Emp_Acc_Num
-      'EGP' , // Curr
-      { v: item.netSal , s: customSty} , // Amount
-      '' , // Hiring Date
-      '' , // Emp_Position
-      '' , // SDU
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        item.accNo , // Org_Cus_Num
+        index + 1 , // Emp_Ref_Num
+        item.employeeName , // Emp_Name
+        '' , // NID
+        { v: item.bnkAcc , s: textSty} , // Emp_Acc_Num
+        'EGP' , // Curr
+        { v: item.netSal , s: customSty} , // Amount
+        '' , // Hiring Date
+        '' , // Emp_Position
+        '' , // SDU
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     return [headers, ...rows];
   };
@@ -816,11 +854,15 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item,index) => [
-      item.employeeName , // Employee Name
-      { v: item.accNo , s: textSty} , // Account
-      { v: item.netSal , s: customSty}, // Amount
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        item.employeeName , // Employee Name
+        { v: item.bnkAcc , s: textSty} , // Account
+        { v: item.netSal , s: customSty}, // Amount
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     return [headers, ...rows];
   };
@@ -843,13 +885,17 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item,index) => [
-      index + 1, // مسلسل
-      { v: item.bnkAcc , s: textSty} , // رقم الحساب
-      item.employeeName , // الاسم
-      '' , // جيروكود
-      formatNumber(item.netSal) , // Amount
-      ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        index + 1, // مسلسل
+        { v: item.bnkAcc , s: textSty} , // رقم الحساب
+        item.employeeName , // الاسم
+        '' , // جيروكود
+        formatNumber(item.netSal) , // Amount
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+      ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     return [headers, ...rows];
   };
@@ -858,7 +904,7 @@ function BankList(props) {
 
   const getNBETemplate = () => {
 
-    let totalAmount = tableData.reduce((summation, item) => summation + item.netSal, 0)
+    let totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? item.netSal : 0), 0)
 
     const styles = {
       font: { bold: true, color: { rgb: '000000' } },
@@ -912,13 +958,17 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item, index) => [
-      { v: index + 1, s: styles2}, // SN
-      { v: item.bnkAcc , s: styles2}, // ACCOUNT Number
-      { v: "EGP" , s: styles2}, // Currency
-      { v: item.employeeName , s: styles2},  // Staff name
-      { v: item.netSal,  s: {...styles2, ...textSty}}, // Net salary
-      ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
-    ]);
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        { v: index + 1, s: styles2}, // SN
+        { v: item.bnkAcc , s: styles2}, // ACCOUNT Number
+        { v: "EGP" , s: styles2}, // Currency
+        { v: item.employeeName , s: styles2},  // Staff name
+        { v: item.netSal,  s: {...styles2, ...textSty}}, // Net salary
+        ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
+     ] : [])
+    ]).filter(
+      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+    );
 
     const footer = [
       'الاجمالى',
