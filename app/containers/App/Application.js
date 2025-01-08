@@ -256,6 +256,7 @@ import {
   medicalInsuranceListReport,
   MissionReport,
   Form2Insurance,
+  Form6Insurance,
   EmployeeShiftReport,
   DetailedReportAbsences,
   EmployeeMedicalBenefits,
@@ -1913,6 +1914,11 @@ function Application(props) {
         <Route
           path="/app/Pages/insurance/Form2Insurance"
           component={Form2Insurance}
+        />
+
+        <Route
+          path="/app/Pages/insurance/Form6Insurance"
+          component={Form6Insurance}
         />
 
         {/* <Route
