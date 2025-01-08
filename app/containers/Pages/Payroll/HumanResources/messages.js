@@ -9,6 +9,11 @@ export const scope = 'boilerplate.containers.Payroll.HumanResources';
 
 export default defineMessages({
   //penaltyList----------------------------------------------------------------------------
+   
+  insDate: {
+    id: `${scope}.insDate`,
+    defaultMessage: 'insDate',
+  },
   quantity: {
     id: `${scope}.quantity`,
     defaultMessage: 'quantity',
