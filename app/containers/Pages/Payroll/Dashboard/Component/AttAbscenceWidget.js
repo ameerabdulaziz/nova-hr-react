@@ -143,7 +143,7 @@ function AttAbscenceWidget(props) {
                   innerRadius={50}
                   outerRadius={100}
                 >
-                  {data6.map((entry, index) => (
+                  {data6.length>0&&data6.map((entry, index) => (
                     <Cell
                       key={index.toString()}
                       fill={colors[index % colors.length]}

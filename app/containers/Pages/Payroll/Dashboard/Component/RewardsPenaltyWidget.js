@@ -154,7 +154,7 @@ function RewardsPenaltyWidget(props) {
                     fill="#8884d8"
                     legendType="circle"
                   >
-                    {data6.map((entry, index) => (
+                    {data6.length>0&&data6.map((entry, index) => (
                       <Cell
                         key={index.toString()}
                         fill={colors[index % colors.length]}
