@@ -7,57 +7,48 @@ import {
   import { formateDate, toArabicDigits } from '../../helpers';
   import payrollMessages from '../../messages';
 //   import InsuranceReportForm2Footer from '../InsuranceReportForm2/InsuranceReportForm2Footer';
-  import InsuranceReportForm1Header from '../InsuranceReportForm1/InsuranceReportForm1Header';
+  import InsuranceReportForm1Template from './InsuranceReportForm1Template';
 //   import InsuranceReportForm2Table from '../InsuranceReportForm2/InsuranceReportForm2Table';
+import { useSelector } from 'react-redux';
   
+  // const ROWS_PER_PAGE = 10;
   
-  const ROWS_PER_PAGE = 10;
+  function InsuranceReportForm1({data}) {
   
-  function InsuranceReportForm1(props) {
-  
+        const locale = useSelector((state) => state.language.locale);
     return (
-      Array.from({
-            length: Math.ceil(props.rows.length / ROWS_PER_PAGE) || 1,
-          }).map((_, index) => (
-            <Box
-              key={index}
-              sx={{
-                pageBreakBefore: 'always',
-                p: 4,
-              }}
-            >
-              <InsuranceReportForm1Header
-                organizationId={toArabicDigits(props.organizationId)}
-                organizationName={toArabicDigits(props.organizationName)}
-              />
-  
-              {/* <InsuranceReportForm2Table
-                rows={props.rows.slice(
-                  index * ROWS_PER_PAGE,
-                  index * ROWS_PER_PAGE + ROWS_PER_PAGE
-                )}
-              />
-  
-              <InsuranceReportForm2Footer
-                totalSalary={toArabicDigits(props.totalSalary)}
-                totalEmployee={toArabicDigits(props.rows.length)}
-              /> */}
-            </Box>
-      ))
+      <>
+        {data.map((item,index)=>{
+          // console.log("item =", item);
+          
+           return <Box
+                  key={index}
+
+                  sx={{
+                    fontSize:"14px",
+                    // pageBreakBefore: 'always',
+                    // height:"0px",
+                    // visibility:"hidden",
+                    direction: 'ltr',
+                    ...(locale === 'en' ? { textAlign: 'right', direction: 'rtl', } : {}),
+                    '@media print': {
+                    //   height:"100%",
+                    //   visibility:"visible",
+                    },
+                    'p.MuiTypography-root, .MuiTableCell-root': {
+                      fontSize: '10px',
+                    },
+                  }}
+                >
+                    <InsuranceReportForm1Template
+                      data={item}
+                    />
+                </Box>
+            })}
+      </>
     );
   }
   
-//   InsuranceReportForm1.propTypes = {
-//     intl: PropTypes.object.isRequired,
-//     rows: PropTypes.array.isRequired,
-//     organizationName: PropTypes.string.isRequired,
-//     totalSalary: PropTypes.number.isRequired,
-//     organizationId: PropTypes.number.isRequired,
-//   };
-  
-//   InsuranceReportForm1.defaultProps = {
-//     rows: [],
-//   };
   
   export default injectIntl(InsuranceReportForm1);
   

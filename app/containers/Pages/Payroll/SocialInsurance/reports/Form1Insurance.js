@@ -38,7 +38,7 @@ import {
     const { classes } = useStyles();
     const locale = useSelector((state) => state.language.locale);
     const Title = localStorage.getItem('MenuName');
-  
+   const [printAndReviewType, setPrintAndReviewType] = useState(null);
     const [tableData, setTableData] = useState([]);
     const [organizationList, setOrganizationList] = useState([]);
     const [dateError, setDateError] = useState({});
@@ -48,7 +48,7 @@ import {
       totalMainSalary: 0,
       totalVarSalary: 0,
     });
-  
+    const [printData, setPrintData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [formInfo, setFormInfo] = useState({
       InsuranceOrg: '',
@@ -63,7 +63,7 @@ import {
   
     const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
   
-    const fetchTableData = async () => {
+    const fetchTableData = async (print) => {
       try {
         setIsLoading(true);
   
@@ -82,6 +82,12 @@ import {
         });
   
         const { list, ...response } = await api(locale).GetList(formData);
+
+        if(print)
+        {
+          setPrintData(list)
+        }
+
         setTableData(list);
         setExtraData(response);
       } catch (error) {
@@ -177,23 +183,23 @@ import {
     ];
   
   
-      const printJS = useReactToPrint({
-        documentTitle: DOCUMENT_TITLE,
-        content: () => printDivRef?.current,
-        onBeforeGetContent: () => {
-          setIsLoading(true);
-        },
-        onAfterPrint: () => {
-          setIsLoading(false);
-        },
-        onPrintError: () => {
-          setIsLoading(false);
-        },
-      });
+      // const printJS = useReactToPrint({
+      //   documentTitle: DOCUMENT_TITLE,
+      //   content: () => printDivRef?.current,
+      //   onBeforeGetContent: () => {
+      //     setIsLoading(true);
+      //   },
+      //   onAfterPrint: () => {
+      //     setIsLoading(false);
+      //   },
+      //   onPrintError: () => {
+      //     setIsLoading(false);
+      //   },
+      // });
     
-      const onPrintClick = async () => {
-        printJS();
-      };
+      // const onPrintClick = async () => {
+      //   printJS();
+      // };
   
     const options = {
       print: false,
@@ -213,7 +219,7 @@ import {
       ),
     };
   
-    const onFormSubmit = (evt) => {
+    const onFormSubmit = (evt,print) => {
       evt.preventDefault();
   
       // used to stop call api if user select wrong date
@@ -222,7 +228,7 @@ import {
         return;
       }
   
-      fetchTableData();
+      fetchTableData(print);
     };
   
     const onDatePickerChange = (value, name) => {
@@ -237,30 +243,71 @@ import {
     };
 
 
-    console.log("vvvd");
+
+
+     const onBeforeGetContent = () => {
+        setIsLoading(true);
+        // setHeaderType()
+      };
+    
+      const onAfterPrint = () => {
+        setIsLoading(false);
+        // setHeaderType()
+        // setPrintData([])
+      };
+    
+      const onPrintError = () => {
+        setIsLoading(false);
+      };
+    
+     
+    
+      const printJS = useReactToPrint({
+        content: () => printDivRef?.current,
+        onBeforeGetContent,
+        onAfterPrint,
+        onPrintError,
+        documentTitle: "form 1",
+        // documentTitle: intl.formatMessage(messages.DetailedAttendanceReport),
+      });
+    
+      const onPrintClick = async (e,print) => {
+        // setHeaderType(type)
+        onFormSubmit(e,print)
+        // handleSearch(type)
+      };
+    
+    
+      useEffect(()=>{
+        if(printData.length !== 0)
+        {
+    
+          printJS();
+        }
+      },[printData])
     
   
     return (
       <PayRollLoader isLoading={isLoading}>
         <Box
           ref={printDivRef}
-          sx={{
-            // height:"0px",
-            // visibility:"hidden",
-            direction: 'ltr',
-            ...(locale === 'en' ? { textAlign: 'right', direction: 'rtl', } : {}),
-            '@media print': {
-            //   height:"100%",
-            //   visibility:"visible",
-            },
-            'p.MuiTypography-root, .MuiTableCell-root': {
-              fontSize: '10px',
-            },
-          }}
+          // sx={{
+          //   // height:"0px",
+          //   // visibility:"hidden",
+          //   direction: 'ltr',
+          //   ...(locale === 'en' ? { textAlign: 'right', direction: 'rtl', } : {}),
+          //   '@media print': {
+          //   //   height:"100%",
+          //   //   visibility:"visible",
+          //   },
+          //   'p.MuiTypography-root, .MuiTableCell-root': {
+          //     fontSize: '10px',
+          //   },
+          // }}
         >
-          <InsuranceReportForm1 rows={tableData}
-            organizationName={  organizationList.find((item) => item.id === formInfo.InsuranceOrg)  ?.name ?? ''  }
-            totalSalary={extraData.total ?? 0} organizationId={formInfo.InsuranceOrg || 0}  
+          <InsuranceReportForm1 data={printData}
+            // organizationName={  organizationList.find((item) => item.id === formInfo.InsuranceOrg)  ?.name ?? ''  }
+            // totalSalary={extraData.total ?? 0} organizationId={formInfo.InsuranceOrg || 0}  
             />
         </Box>
   
@@ -398,11 +445,35 @@ import {
                 </FormControl>
               </Grid>
   
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={2}>
                 <Button variant='contained' color='primary' type='submit'>
                   <FormattedMessage {...payrollMessages.search} />
                 </Button>
               </Grid>
+
+              <Grid item  xs={12} md={2}>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    // className={style.printBtnSty}
+                  onClick={(e)=>{
+                    // if(printAndReviewType)
+                    // {
+                      onPrintClick(e,true)
+                      // onPrintClick(printAndReviewType)
+                    // }
+                    // else
+                    // {
+                    //   toast.error("printAndReviewErrMess");
+                    //   // toast.error(intl.formatMessage(messages.printAndReviewErrMess));
+                    // }
+                  }}
+                  >
+                                Print
+                    {/* <FormattedMessage {...payrollmessages.Print} /> */}
+                  </Button>
+                </Grid>
             </Grid>
   
             <Card className={classes.card}>

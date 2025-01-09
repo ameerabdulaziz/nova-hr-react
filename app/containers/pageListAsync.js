@@ -2144,6 +2144,13 @@ export const Form2Insurance = loadable(
   }
 );
 
+export const Form6Insurance = loadable(
+  () => import('./Pages/Payroll/SocialInsurance/reports/Form6Insurance'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 
 export const Form1Insurance = loadable(
   () => import('./Pages/Payroll/SocialInsurance/reports/Form1Insurance'),
