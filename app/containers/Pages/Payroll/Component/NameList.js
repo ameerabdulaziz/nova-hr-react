@@ -74,6 +74,8 @@ function NameList(props) {
         return Payrollmessages.chooseCourse;
       case "Organization":
         return Payrollmessages.chooseOrg;
+      case "payrollEmployee":
+        return Payrollmessages.selectPayrollEmployee;
       default:
         return Payrollmessages.chooseEmp;
     }

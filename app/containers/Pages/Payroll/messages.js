@@ -814,4 +814,8 @@ employeeId: {
     id: `${scope}.transactionDate`,
     defaultMessage: 'Transaction Date',
   },
+  selectPayrollEmployee: {
+    id: `${scope}.selectPayrollEmployee`,
+    defaultMessage: 'Select Payroll Employee',
+  },
 });
