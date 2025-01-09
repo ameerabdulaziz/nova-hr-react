@@ -357,4 +357,9 @@ export default defineMessages({
     id: `${scope}.Action`,
     defaultMessage: 'Action',
   },
+  // Hr Permission
+  notAllowedEmployees: {
+    id: `${scope}.notAllowedEmployees`,
+    defaultMessage: 'Not Allowed Employees',
+  },
 });

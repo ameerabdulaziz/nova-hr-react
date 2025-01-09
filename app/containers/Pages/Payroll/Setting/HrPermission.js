@@ -31,6 +31,7 @@ import GeneralListApis from '../api/GeneralListApis';
 import payrollMessages from '../messages';
 import api from './api/HrPermissionData';
 import messages from './messages';
+import NameList from "../Component/NameList";
 
 function HrPermission(props) {
   const { intl } = props;
@@ -41,6 +42,9 @@ function HrPermission(props) {
   const [limit, setLimit] = useState(10);
   const [employee, setEmployee] = useState(null);
   const [employeeList, setEmployeeList] = useState([]);
+  const [NotAllowedEmps, setNotAllowedEmployeesData] = useState([]);
+  const [notAllowedEmployeesList, setNotAllowedEmployeesList] = useState([]);
+  const [notAllowedPayrollEmployeesList, setNotAllowedPayrollEmployeesList] = useState([]);
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(true);
   const [isTreePopupOpen, setIsTreePopupOpen] = useState(false);
@@ -189,6 +193,14 @@ function HrPermission(props) {
 
     try {
       setIsLoading(true);
+
+      const NotAllowedEmps = await api(locale).GetNotAllowedEmpsList(employee);
+
+      setNotAllowedEmployeesData(NotAllowedEmps)
+      setNotAllowedEmployeesList(NotAllowedEmps.notAllowedEmployeeList)
+      setNotAllowedPayrollEmployeesList(NotAllowedEmps.notAllowedPayrollEmployeeList)
+
+
       const data = await api(locale).getList(employee);
       setDataList(data || []);
 
@@ -269,7 +281,38 @@ function HrPermission(props) {
 
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
+
+
+
+  const notAllowedEmpsFun = async () => {
+    if (!employee) {
+      toast.error(intl.formatMessage(messages.pleaseSelectEmployee));
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      const bodyData = {
+        id: NotAllowedEmps.id,
+        employeeId: employee,
+        NotAllowedEmployeeList: notAllowedEmployeesList,
+        NotAllowedPayrollEmployeeList: notAllowedPayrollEmployeesList
+      }
+
+      await api(locale).saveNotAllowedEmps(bodyData)
+
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+
+
   return (
+    <>
     <PayRollLoader isLoading={isLoading}>
       {chartData && Object.keys(chartData).length > 0 && (
         <OrganizationTreePopup
@@ -822,6 +865,39 @@ function HrPermission(props) {
         </div>
       </PapperBlock>
     </PayRollLoader>
+
+
+    <PayRollLoader isLoading={isLoading}>
+      <PapperBlock whiteBg icon='border_color' title={intl.formatMessage(messages.notAllowedEmployees)} desc=''>
+        <Grid container mb={5} spacing={3}>
+          <Grid item xs={6} md={6}>
+            <NameList
+                dataList={notAllowedPayrollEmployeesList}
+                setdataList={setNotAllowedPayrollEmployeesList}
+                Key={"Employee"}
+              />
+          </Grid>
+          <Grid item xs={6} md={6}>
+            <NameList
+                dataList={notAllowedEmployeesList}
+                setdataList={setNotAllowedEmployeesList}
+                Key={"payrollEmployee"}
+              />
+          </Grid>
+          <Grid item>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={notAllowedEmpsFun}
+            >
+              <FormattedMessage {...payrollMessages.save} />
+            </Button>
+          </Grid>
+        </Grid>
+      </PapperBlock>
+    </PayRollLoader>
+
+    </>
   );
 }
 

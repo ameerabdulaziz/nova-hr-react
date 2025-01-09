@@ -27,6 +27,23 @@ const UserMenuData = (lang) => {
     return result;
   };
 
+  api.GetNotAllowedEmpsList = async (id) => {
+    const data = await axiosInstance.get(
+      `EmpHrPermission/Get/${id}/${lang}`
+    );
+
+    return data.data;
+  };
+
+  api.saveNotAllowedEmps = async (body) => {
+    const result = await axiosInstance.post(
+      `EmpHrPermission/Save`,
+      body
+    );
+
+    return result;
+  };
+
   return api;
 };
 
