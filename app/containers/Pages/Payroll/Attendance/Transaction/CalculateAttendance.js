@@ -35,7 +35,7 @@ import api from "../api/CalculateAttendanceData";
 import RowDropdown from "../components/CalculateAttendance/RowDropdown";
 import messages from "../messages";
 import CalculateAttendancePopUp from "../../Component/CalculateAttendancePopUp";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 
 function CalculateAttendance(props) {
   const { intl } = props;
@@ -133,7 +133,6 @@ function CalculateAttendance(props) {
   };
 
   const getFilterHighlights = () => {
-
     const highlights = [];
 
     const company = getAutoCompleteValue(companyList, formInfo.companyId);
@@ -179,7 +178,6 @@ function CalculateAttendance(props) {
   const onFormSubmit = async (evt) => {
     evt.preventDefault();
     handleSearch();
-    
   };
 
   const handleSearch = async () => {
@@ -189,9 +187,12 @@ function CalculateAttendance(props) {
       return;
     }
 
-    let fromdate=new Date(openMonth.fromDate);
-    const isValidRange =
-      isDateInRange(formInfo.FromDate,fromdate.setDate(fromdate.getDate() - 1) , openMonth.todate)
+    let fromdate = new Date(openMonth.fromDate);
+    const isValidRange = isDateInRange(
+      formInfo.FromDate,
+      fromdate.setDate(fromdate.getDate() - 1),
+      openMonth.todate
+    );
 
     if (!isValidRange) {
       toast.error(
@@ -199,7 +200,6 @@ function CalculateAttendance(props) {
       );
       return;
     }
-
 
     if (formInfo.EmployeeIds.length === 0) {
       toast.error(intl.formatMessage(messages.employeeErrMess));
@@ -231,21 +231,19 @@ function CalculateAttendance(props) {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
   const handleCalculate = async () => {
-
     try {
       if (Object.values(DateError).includes(true)) {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
-      let fromdate=new Date(openMonth.fromDate);
-      const isValidRange =
-        isDateInRange(
-          formInfo.FromDate,
-          fromdate.setDate(fromdate.getDate() - 1),
-          openMonth.todate
-        ) 
+      let fromdate = new Date(openMonth.fromDate);
+      const isValidRange = isDateInRange(
+        formInfo.FromDate,
+        fromdate.setDate(fromdate.getDate() - 1),
+        openMonth.todate
+      );
 
       if (!isValidRange) {
         toast.error(
@@ -272,14 +270,12 @@ function CalculateAttendance(props) {
 
       const response = await api(locale).CalculateAttendance(body, formData);
       if (response.status == 200) {
-
         if (response.data.length > 0) toast.error(response.data);
         else {
           toast.success(notif.success);
-
-          const result = await api(locale).GetList(body, formData);
-          setTableData(result);
         }
+        const result = await api(locale).GetList(body, formData);
+        setTableData(result);
       }
     } catch (err) {
       //
@@ -293,13 +289,12 @@ function CalculateAttendance(props) {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
-      let fromdate=new Date(openMonth.fromDate)
-      const isValidRange =
-        isDateInRange(
-          formInfo.FromDate,
-          fromdate.setDate(fromdate.getDate() - 1),
-          openMonth.todate
-        ) 
+      let fromdate = new Date(openMonth.fromDate);
+      const isValidRange = isDateInRange(
+        formInfo.FromDate,
+        fromdate.setDate(fromdate.getDate() - 1),
+        openMonth.todate
+      );
 
       if (!isValidRange) {
         toast.error(
@@ -328,10 +323,11 @@ function CalculateAttendance(props) {
 
       if (response.success) {
         if (response.success.length == 0) toast.success(notif.success);
-        else 
-        {
-          var errors="";
-          response.success.map((item, index) => errors+=item.staff_Id+":"+item.msg+" " );
+        else {
+          var errors = "";
+          response.success.map(
+            (item, index) => (errors += item.staff_Id + ":" + item.msg + " ")
+          );
           toast.error(errors);
         }
       } else {
@@ -347,14 +343,12 @@ function CalculateAttendance(props) {
 
   const handleRollBackAttendance = async () => {
     try {
-      let fromdate=new Date(openMonth.fromDate);
-      const isValidRange =
-        isDateInRange(
-          formInfo.FromDate,
-          fromdate.setDate(fromdate.getDate() - 1),
-          openMonth.todate
-        ) 
-        
+      let fromdate = new Date(openMonth.fromDate);
+      const isValidRange = isDateInRange(
+        formInfo.FromDate,
+        fromdate.setDate(fromdate.getDate() - 1),
+        openMonth.todate
+      );
 
       if (!isValidRange) {
         toast.error(
@@ -394,14 +388,12 @@ function CalculateAttendance(props) {
 
   const handleRollBackPost = async () => {
     try {
-      let fromdate=new Date(openMonth.fromDate);
-      const isValidRange =
-        isDateInRange(
-          formInfo.FromDate,
-          fromdate.setDate(fromdate.getDate() - 1),
-          openMonth.todate
-        ) 
-        
+      let fromdate = new Date(openMonth.fromDate);
+      const isValidRange = isDateInRange(
+        formInfo.FromDate,
+        fromdate.setDate(fromdate.getDate() - 1),
+        openMonth.todate
+      );
 
       if (!isValidRange) {
         toast.error(
@@ -480,7 +472,7 @@ function CalculateAttendance(props) {
           0
         );
         setOpenMonth({
-          todate:response.todateAtt ,
+          todate: response.todateAtt,
           fromDate: response.fromDateAtt,
         });
         setFormInfo((prev) => ({
@@ -553,9 +545,10 @@ function CalculateAttendance(props) {
   };
 
   const handleClickOpen = (item, popUpTitle, disabledLock, shortcutType) => {
-    
     setOpenParentPopup(true);
-    setSelectedRowData(tableData.find(itemData => itemData.id === item.rowData[0]));
+    setSelectedRowData(
+      tableData.find((itemData) => itemData.id === item.rowData[0])
+    );
     setPopUpTitle(popUpTitle);
     setDisabledLock(disabledLock);
     setShortcutType(shortcutType);
@@ -599,13 +592,15 @@ function CalculateAttendance(props) {
               row={row}
               tableMeta={tableMeta}
               handleClickOpen={handleClickOpen}
-              DataOfSelectedRow={tableData.find(itemData => itemData.id === tableMeta.rowData[0])}
+              DataOfSelectedRow={tableData.find(
+                (itemData) => itemData.id === tableMeta.rowData[0]
+              )}
             />
           );
         },
-        customHeadRender: (columnMeta) => (          
+        customHeadRender: (columnMeta) => (
           <th key={columnMeta.index}>
-              <MenuIcon />
+            <MenuIcon />
           </th>
         ),
       },
@@ -802,7 +797,9 @@ function CalculateAttendance(props) {
               row={row}
               tableMeta={tableMeta}
               handleClickOpen={handleClickOpen}
-              DataOfSelectedRow={tableData.find(itemData => itemData.id === tableMeta.rowData[0])}
+              DataOfSelectedRow={tableData.find(
+                (itemData) => itemData.id === tableMeta.rowData[0]
+              )}
             />
           );
         },
@@ -873,7 +870,7 @@ function CalculateAttendance(props) {
                   label={intl.formatMessage(messages.startDate)}
                   value={formInfo.FromDate ? dayjs(formInfo.FromDate) : null}
                   className={classes.field}
-                  minDate={dayjs(openMonth.fromDate).subtract(1, 'day')}
+                  minDate={dayjs(openMonth.fromDate).subtract(1, "day")}
                   //maxDate={dayjs(openMonth.todate)}
                   onChange={(date) => {
                     onDatePickerChange(date, "FromDate");
@@ -899,7 +896,7 @@ function CalculateAttendance(props) {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.endDate)}
-                  minDate={dayjs(openMonth.fromDate).subtract(1, 'day')}
+                  minDate={dayjs(openMonth.fromDate).subtract(1, "day")}
                   //maxDate={dayjs(openMonth.todate)}
                   value={formInfo.ToDate ? dayjs(formInfo.ToDate) : null}
                   className={classes.field}
