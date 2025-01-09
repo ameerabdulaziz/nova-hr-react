@@ -341,4 +341,12 @@ export default defineMessages({
     id: `${scope}.existInsurance`,
     defaultMessage: 'existInsurance',
   },
+  orgnizationErrMess: {
+    id: `${scope}.orgnizationErrMess`,
+    defaultMessage: 'You should to choose organization',
+  },
+  form1Insurance: {
+    id: `${scope}.form1Insurance`,
+    defaultMessage: 'Insurance Report Form 1',
+  },
 });

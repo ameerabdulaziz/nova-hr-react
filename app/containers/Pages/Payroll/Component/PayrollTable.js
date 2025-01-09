@@ -97,6 +97,13 @@ function PayrollTable(props) {
     setPdfData(filterData);
   }, [filterData]);
 
+  useEffect(() => {
+    if(options.rowsSelected){
+
+      setSelectedRows(options.rowsSelected);
+    }
+  }, [options.rowsSelected]);
+
   // useEffect to update filtered data when data prop changes
   useEffect(() => {
     setFilterData(data);
@@ -169,13 +176,6 @@ function PayrollTable(props) {
     () => ({
       ...getDefaultOptions(documentTitle),
 
-      // Initial selected rows
-      rowsSelected: selectedRows,
-      onRowSelectionChange: (rows, allRows) => {
-        // Set selected rows
-        setSelectedRows(allRows.map((row) => row.dataIndex));
-      },
-
       // Translation for table
       textLabels: getTranslation(intl, payrollMessages, isLoading),
 
@@ -195,6 +195,16 @@ function PayrollTable(props) {
 
       // Add remanding options
       ...options,
+
+      // Initial selected rows
+      rowsSelected: selectedRows,
+      onRowSelectionChange: (rows, allRows, rowsSelectedIndexes) => {
+        // Set selected rows
+        if(options.onRowSelectionChange){
+          options.onRowSelectionChange(rowsSelectedIndexes)
+        }
+        setSelectedRows(rowsSelectedIndexes);
+      },
 
       onTableChange: (action, tableState) => {
         if (action === "sort") {
