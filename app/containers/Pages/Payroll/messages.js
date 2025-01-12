@@ -818,4 +818,8 @@ employeeId: {
     id: `${scope}.selectPayrollEmployee`,
     defaultMessage: 'Select Payroll Employee',
   },
+  invalidUser: {
+    id: `${scope}.invalidUser`,
+    defaultMessage: 'Invalid User',
+  },
 });
