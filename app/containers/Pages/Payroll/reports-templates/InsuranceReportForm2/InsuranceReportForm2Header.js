@@ -6,7 +6,7 @@ import React from 'react';
 import nationalInsuranceLogo from '../assets/national-social-insurance-logo.png';
 
 function InsuranceReportForm2Header(props) {
-  const { organizationId, organizationName } = props;
+  const { organizationId, organizationName, rows } = props;  
 
   return (
     <>
@@ -23,8 +23,8 @@ function InsuranceReportForm2Header(props) {
           <Typography fontWeight='bold' mb={1}>
             الهيئة القومية للتأمين الاجتماعي
           </Typography>
-          <Typography>منطقة /</Typography>
-          <Typography>مكتب /</Typography>
+          <Typography>منطقة / {rows[0]?.governorateName}</Typography>
+          <Typography>مكتب / {rows[0]?.insuOffice}</Typography>
         </Grid>
 
         <Grid item xs={3}>
@@ -50,7 +50,7 @@ function InsuranceReportForm2Header(props) {
                 minHeight: 20
               }}
             >
-              {organizationId}
+              {rows[0]?.orgnizationInsuranceNumber}
             </Typography>
           </Stack>
         </Grid>
@@ -75,16 +75,34 @@ function InsuranceReportForm2Header(props) {
         </Grid>
 
         <Grid item xs={4}>
-          <Typography> المالك / المدير المسئول : ---------</Typography>
+          <Typography> المالك / المدير المسئول : &nbsp;
+            {rows.length !== 0 && rows[0].insuranceOrgnizationOwner ? 
+              rows[0].insuranceOrgnizationOwner 
+              : 
+                "---------"
+              }
+          </Typography>
         </Grid>
 
         <Grid item xs={4}>
-          <Typography> الشكل القانوني للمنشأة : ---------</Typography>
+          <Typography> الشكل القانوني للمنشأة : &nbsp;
+            {rows.length !== 0 && rows[0].companyLegalForm ? 
+                rows[0].companyLegalForm 
+                : 
+                  "---------"
+                }
+            </Typography>
         </Grid>
       </Grid>
       <Grid container mt={1}>
         <Grid item xs={3}>
-          <Typography> عنوان المنشأة : ---------</Typography>
+          <Typography> عنوان المنشأة : &nbsp;
+            {rows.length !== 0 && rows[0].insuranceOrgnizationAddress ? 
+                rows[0].insuranceOrgnizationAddress 
+                : 
+                  "---------"
+                }
+          </Typography>
         </Grid>
 
         <Grid item xs={3}>

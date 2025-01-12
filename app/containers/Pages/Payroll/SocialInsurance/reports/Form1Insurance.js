@@ -39,7 +39,6 @@ import {
     const { classes } = useStyles();
     const locale = useSelector((state) => state.language.locale);
     const Title = localStorage.getItem('MenuName');
-   const [printAndReviewType, setPrintAndReviewType] = useState(null);
     const [tableData, setTableData] = useState([]);
     const [organizationList, setOrganizationList] = useState([]);
     const [dateError, setDateError] = useState({});
@@ -291,7 +290,7 @@ import {
       },[printData])
 
 
-
+      // used open the Review page in new tab by send filter data in session to call api at there
       const reviewDetailsFun = ()=>{
 
         if(!formInfo.InsuranceOrg || formInfo.InsuranceOrg.length === 0)
@@ -471,6 +470,7 @@ import {
                   </Button>
                 </Grid>
 
+                {/* used to check if the screen size less than 900 (mobile) hide the button */}
                 {!isScreenSmall && (
                   <Grid item xs={12} md={2}>
                       <Button

@@ -3,17 +3,29 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 function InsuranceReportForm2Footer(props) {
-  const { totalSalary, totalEmployee } = props;
+  const { totalSalary, totalEmployee, rows } = props;
 
   return (
     <>
       <Grid container mt={1}>
         <Grid item xs={3}>
-          <Typography> أقر أنا : ------------------ </Typography>
+          <Typography> أقر أنا : &nbsp;
+            {rows.length !== 0 && rows[0].insuranceOrgnizationOwner ? 
+                rows[0].insuranceOrgnizationOwner 
+                : 
+                  "------------------" 
+                }
+          </Typography>
         </Grid>
 
         <Grid item xs={3}>
-          <Typography>بصفتي : ------------------ </Typography>
+          <Typography>بصفتي : &nbsp;
+            {rows.length !== 0 && rows[0].legalStatus ? 
+                rows[0].legalStatus 
+                : 
+                  "------------------" 
+                }
+          </Typography>
         </Grid>
 
         <Grid item xs={3}>
@@ -26,17 +38,12 @@ function InsuranceReportForm2Footer(props) {
       </Grid>
 
       <Grid container mt={1}>
-        <Grid item xs={3}>
-          <Stack direction='row' alignItems='center' gap={1}>
-            <Typography>و أن اجور الشهر الحالي الاساسية : </Typography>
-            <Typography fontWeight='bold'>{(totalSalary)}</Typography>
-          </Stack>
-        </Grid>
-
-        <Grid item xs={9}>
+        <Grid item xs={12}>
           <Typography>
-            و ان جميع البيانات الواردة بهذه الاستمارة و ملحقاتها صحيحة &nbsp;
-            &nbsp;(الاجر الشامل لحساب أشتراكات التأمين الشامل)
+              و أن اجور الشهر الحالي الاساسية : 
+              &nbsp; <strong> {(totalSalary)} </strong> &nbsp;
+                و ان جميع البيانات الواردة بهذه الاستمارة و ملحقاتها صحيحة &nbsp;
+                &nbsp;(الاجر الشامل لحساب أشتراكات التأمين الشامل)
           </Typography>
         </Grid>
 
@@ -51,7 +58,12 @@ function InsuranceReportForm2Footer(props) {
 
         <Grid item xs={6}>
           <Typography>
-            صاحب العمل أو المدير المسئول : ------------------------------------
+            صاحب العمل أو المدير المسئول : &nbsp;
+              {rows.length !== 0 && rows[0].insuranceOrgnizationOwner ? 
+                rows[0].insuranceOrgnizationOwner 
+                : 
+                   "------------------------------------"
+                }
           </Typography>
         </Grid>
 
