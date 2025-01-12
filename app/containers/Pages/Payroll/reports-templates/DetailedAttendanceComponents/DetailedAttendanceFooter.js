@@ -70,9 +70,9 @@ import { Grid } from '@mui/material';
                           <Grid item xs={12} >
                             <div style={{display:"flex", justifyContent:"space-between",paddingTop:0,paddingBottom:5}}>
                               <span><FormattedMessage {...messages.Normal} /></span>
-                              <span>{parseFloat(Data.totalExtraTime.toFixed(2))}</span>
+                              <span>{parseFloat(Data.totalExtraTime).toFixed(2)}</span>
                               <span style={{borderRight: "1px solid #000"}}></span>
-                              <span>{Data.totalExtraTimeval}</span>
+                              <span>{Data.totalExtraTimeval.toFixed(2)}</span>
                               <span>( <FormattedMessage {...messages.Minute} /> )</span>
                             </div>
                           </Grid>
@@ -80,9 +80,9 @@ import { Grid } from '@mui/material';
                           <Grid item xs={12} >
                             <div style={{display:"flex", justifyContent:"space-between",paddingTop:0,paddingBottom:5}}>
                               <span><FormattedMessage {...messages.Leaves} /></span>
-                              <span>{Data.totalVacTime}</span>
+                              <span>{Data.totalVacTime.toFixed(2)}</span>
                               <span style={{borderRight: "1px solid #000"}}></span>
-                              <span>{Data.totalVacTimeval}</span>
+                              <span>{Data.totalVacTimeval.toFixed(2)}</span>
                               <span>( <FormattedMessage {...messages.Minute} /> )</span>
                             </div>
                           </Grid>
