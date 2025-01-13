@@ -30,6 +30,7 @@ import payrollMessages from '../../../messages';
 import api from '../../api/ResignReqTrxData';
 import messages from '../../messages';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function ResignReqTrxCreate(props) {
   const { intl } = props;
@@ -119,7 +120,7 @@ function ResignReqTrxCreate(props) {
       await api(locale).save(getFormData(formData));
 
       toast.success(notif.saved);
-      history.push('/app/Pages/HR/ResignReqTrx');
+      history.push(SITEMAP.humanResources.ResignReqTrx.route);
     } catch (err) {
       //
     } finally {
@@ -127,7 +128,7 @@ function ResignReqTrxCreate(props) {
     }
   };
   function oncancel() {
-    history.push('/app/Pages/HR/ResignReqTrx');
+    history.push(SITEMAP.humanResources.ResignReqTrx.route);
   }
 
   async function fetchData() {

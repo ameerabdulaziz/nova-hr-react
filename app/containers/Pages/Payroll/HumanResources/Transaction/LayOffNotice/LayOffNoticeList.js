@@ -9,6 +9,7 @@ import messages from '../../messages';
 
 import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function LayOffNoticeList(props) {
   const { intl } = props;
@@ -84,10 +85,10 @@ function LayOffNoticeList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/LayOffNoticeCreate',
+      url: SITEMAP.humanResources.LayOffNoticeCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/LayOffNoticeEdit',
+      url: SITEMAP.humanResources.LayOffNoticeEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -21,6 +21,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function UniformReceiveCreate(props) {
   const { intl } = props;
@@ -93,7 +94,7 @@ function UniformReceiveCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/UniformReceive`);
+        history.push(SITEMAP.humanResources.UniformReceive.route);
       } else {
       }
     } catch (err) {
@@ -102,7 +103,7 @@ function UniformReceiveCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/HR/UniformReceive`);
+    history.push(SITEMAP.humanResources.UniformReceive.route);
   }
   async function fetchData() {
     try {

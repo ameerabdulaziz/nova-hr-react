@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import { useLocation } from "react-router-dom";
 import SaveButton from '../../../Component/SaveButton';
 import { Backdrop, CircularProgress, Box } from "@mui/material";
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function PenaltyCreate(props) {
   const { intl } = props;
@@ -121,7 +122,7 @@ function PenaltyCreate(props) {
   };
 
   async function oncancel(){
-    history.push(`/app/Pages/HR/Penalty`);
+    history.push(SITEMAP.humanResources.Penalty.route);
   }
   const handleSubmit = async (e) => {
     
@@ -137,7 +138,7 @@ function PenaltyCreate(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/Penalty`);
+        history.push(SITEMAP.humanResources.Penalty.route);
       } else {
           toast.error(response.statusText);
       }

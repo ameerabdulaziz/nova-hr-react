@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/NewsData';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function NewsList(props) {
   const { intl } = props;
@@ -83,10 +84,10 @@ function NewsList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/NewsCreate',
+      url: SITEMAP.humanResources.NewsCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/NewsEdit',
+      url: SITEMAP.humanResources.NewsEdit.route,
     },
     delete: {
       api: deleteRow,

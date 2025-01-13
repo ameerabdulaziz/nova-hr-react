@@ -6,7 +6,6 @@ import { ThemeContext } from '../ThemeWrapper';
 import GeneralCodePages from './GeneralCodePages';
 import PAGES from './pageListAsync';
 import SITEMAP from './sitemap';
-import Outer from '../../Templates/Outer';
 
 function Application(props) {
   const { history } = props;

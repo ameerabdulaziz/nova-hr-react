@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
 import ApiData from '../../api/PromotionsData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function PromotionsList(props) {
   const { intl } = props;
@@ -95,10 +96,10 @@ function PromotionsList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/PromotionsCreate',
+      url: SITEMAP.humanResources.PromotionsCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/PromotionsEdit',
+      url: SITEMAP.humanResources.PromotionsEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -10,6 +10,7 @@ import messages from '../../messages';
 import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function UniformDeliveryList(props) {
   const { intl } = props;
@@ -93,10 +94,10 @@ function UniformDeliveryList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/UniformDeliveryCreate',
+      url: SITEMAP.humanResources.UniformDeliveryCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/UniformDeliveryEdit',
+      url: SITEMAP.humanResources.UniformDeliveryEdit.route,
     },
     delete: {
       api: deleteRow,

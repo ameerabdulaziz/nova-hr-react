@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
 import ApiData from '../../api/PenaltyData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function PenaltyList(props) {
   const { intl } = props;
@@ -71,10 +72,10 @@ function PenaltyList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/PenaltyCreate',
+      url: SITEMAP.humanResources.PenaltyCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/PenaltyEdit',
+      url: SITEMAP.humanResources.PenaltyEdit.route,
     },
     delete: {
       api: deleteRow,

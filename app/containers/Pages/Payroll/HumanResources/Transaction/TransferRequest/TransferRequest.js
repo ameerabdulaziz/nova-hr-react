@@ -9,6 +9,7 @@ import { formateDate } from '../../../helpers';
 import ApiData from '../../api/TransferRequestData';
 import messages from '../../messages';
 import Payrollmessages from "../../../messages";
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function AttentionList(props) {
   const { intl } = props;
@@ -97,10 +98,10 @@ function AttentionList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/TransferRequestCreate',
+      url: SITEMAP.humanResources.TransferRequestCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/TransferRequestEdit',
+      url: SITEMAP.humanResources.TransferRequestEdit.route,
     },
     delete: {
       api: deleteRow,

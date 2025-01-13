@@ -18,6 +18,7 @@ import { getFormData } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/CoursesData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function CoursesCreate(props) {
   const { intl } = props;
@@ -109,7 +110,7 @@ function CoursesCreate(props) {
       await api(locale).save(body);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/HR/CourseList');
+      history.push(SITEMAP.humanResources.CourseList.route);
     } catch (error) {
       //
     } finally {
@@ -122,7 +123,7 @@ function CoursesCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/HR/CourseList');
+    history.push(SITEMAP.humanResources.CourseList.route);
   };
 
   const onNumericInputChange = (evt) => {

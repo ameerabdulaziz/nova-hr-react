@@ -9,6 +9,7 @@ import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/CustodyTrxData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function CustodyDeliveryList(props) {
   const { intl } = props;
@@ -95,10 +96,10 @@ function CustodyDeliveryList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/CustodyDeliveryCreate',
+      url: SITEMAP.humanResources.CustodyDeliveryCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/CustodyDeliveryEdit',
+      url: SITEMAP.humanResources.CustodyDeliveryEdit.route,
     },
     delete: {
       api: deleteRow,

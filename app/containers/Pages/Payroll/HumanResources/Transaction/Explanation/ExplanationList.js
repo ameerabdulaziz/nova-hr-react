@@ -19,6 +19,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { toast } from "react-hot-toast";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function ExplanationList(props) {
   const { intl } = props;
@@ -195,7 +196,7 @@ function ExplanationList(props) {
             <div className={style.actionsSty}>
               <EditButton
                 param={{ id: tableMeta.rowData[0], questionType: tableMeta.rowData[4] }}
-                url={"/app/Pages/HR/ExplanationEdit"}
+                url={SITEMAP.humanResources.ExplanationEdit.route}
               ></EditButton>
             </div>
           );

@@ -21,6 +21,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import GeneralListApis from "../../../api/GeneralListApis";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function AttentionCreate(props) {
   const { intl } = props;
@@ -85,7 +86,7 @@ function AttentionCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/TransferRequest`);
+        history.push(SITEMAP.humanResources.TransferRequest.route);
       } else {
         toast.error(response.statusText);
       }
@@ -95,7 +96,7 @@ function AttentionCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/HR/TransferRequest`);
+    history.push(SITEMAP.humanResources.TransferRequest.route);
   }
 
   async function fetchData() {

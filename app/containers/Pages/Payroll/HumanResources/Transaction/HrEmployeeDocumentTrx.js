@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import api from '../api/HrEmployeeDocumentTrxData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function HrEmployeeDocumentTrx(props) {
   const { intl } = props;
@@ -89,10 +90,10 @@ function HrEmployeeDocumentTrx(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/HrEmployeeDocumentTrxCreate',
+      url: SITEMAP.humanResources.HrEmployeeDocumentTrxCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/HrEmployeeDocumentTrxEdit',
+      url: SITEMAP.humanResources.HrEmployeeDocumentTrxEdit.route,
     },
     delete: {
       api: deleteRow,

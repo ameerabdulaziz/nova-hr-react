@@ -20,6 +20,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function ExplanationEdit(props) {
   const { intl } = props;
@@ -74,7 +75,7 @@ function ExplanationEdit(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/Explanation`);
+        history.push(SITEMAP.humanResources.Explanation.route);
       } else {
         toast.error(response.statusText);
       }
@@ -84,7 +85,7 @@ function ExplanationEdit(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/HR/Explanation`);
+    history.push(SITEMAP.humanResources.Explanation.route);
   }
 
   async function fetchData() {

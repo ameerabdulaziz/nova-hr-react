@@ -28,6 +28,7 @@ import payrollMessages from "../../messages";
 import useStyles from "../../Style";
 import api from "../api/TrainingCenterData";
 import messages from "../messages";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 const libraries = ["places", "drawing"];
 
@@ -285,7 +286,7 @@ function TrainingCenterCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push("/app/Pages/HR/TrainingCenterList");
+        history.push(SITEMAP.humanResources.TrainingCenterList.route);
       } else {
         toast.error(response.statusText);
       }
@@ -351,7 +352,7 @@ function TrainingCenterCreate(props) {
   }, [ID]);
 
   function oncancel() {
-    history.push("/app/Pages/HR/TrainingCenterList");
+    history.push(SITEMAP.humanResources.TrainingCenterList.route);
   }
 
   return (

@@ -8,6 +8,7 @@ import Payrollmessages from '../../../messages';
 import ApiData from '../../api/UniformTrxData';
 import messages from '../../messages';
 import PayrollTable from '../../../Component/PayrollTable';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function UniformReceiveList(props) {
   const { intl } = props;
@@ -88,10 +89,10 @@ function UniformReceiveList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/UniformReceiveCreate',
+      url: SITEMAP.humanResources.UniformReceiveCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/UniformReceiveEdit',
+      url: SITEMAP.humanResources.UniformReceiveEdit.route,
     },
     delete: {
       api: deleteRow,
