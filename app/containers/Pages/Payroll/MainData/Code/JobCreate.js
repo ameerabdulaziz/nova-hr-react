@@ -22,6 +22,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import SaveButton from '../../Component/SaveButton';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 
 
@@ -70,7 +71,7 @@ function CreateAndEditJob(props) {
     try {
       await JobData().Save(data);
 
-      history.push(`/app/Pages/MainData/Job`);
+      history.push(SITEMAP.mainData.Job.route);
     } catch (err) {
       //
     } finally {
@@ -198,7 +199,7 @@ const createJobDetailsFun = async (arVal,enVal, jobDetailsType) => {
 
 
 function oncancel(){
-  history.push(`/app/Pages/MainData/Job`);
+  history.push(SITEMAP.mainData.Job.route);
 }
 
 

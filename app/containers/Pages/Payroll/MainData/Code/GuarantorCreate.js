@@ -15,6 +15,7 @@ import {
   import payrollMessages from '../../messages';
   import api from '../api/GuaranterData';
   import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
   
   function GuarantorCreate(props) {
     const { intl } = props;
@@ -114,7 +115,7 @@ import {
         await api(locale).Save(data);
   
         toast.success(notif.saved);
-        history.push('/app/Pages/MainData/Guarantor');
+        history.push(SITEMAP.mainData.Guarantor.route);
       } catch (error) {
         //
       } finally {
@@ -127,7 +128,7 @@ import {
     };
   
     const onCancelBtnClick = () => {
-      history.push('/app/Pages/MainData/Guarantor');
+      history.push(SITEMAP.mainData.Guarantor.route);
     };
   
     return (

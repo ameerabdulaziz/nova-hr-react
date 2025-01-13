@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/GuaranterData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function Guarantor(props) {
   const { intl } = props;
@@ -82,10 +83,10 @@ function Guarantor(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/MainData/GuarantorCreate',
+      url: SITEMAP.mainData.GuarantorCreate.route,
     },
     edit: {
-      url: '/app/Pages/MainData/GuarantorEdit',
+      url: SITEMAP.mainData.GuarantorEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import OrganizationData from '../api/OrganizationData';
 import messages from '../messages';
 import { getCheckboxIcon } from '../../helpers';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function Organization({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -83,10 +84,10 @@ function Organization({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/MainData/OrganizationCreate',
+      url: SITEMAP.mainData.OrganizationCreate.route,
     },
     edit: {
-      url: '/app/Pages/MainData/OrganizationEdit',
+      url: SITEMAP.mainData.OrganizationEdit.route,
     },
     delete: {
       api: deleteRow,

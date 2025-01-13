@@ -327,7 +327,7 @@ function UserMenu(props) {
         <Divider />
         <MenuItem
           onClick={async () => {
-            history.push(SITEMAP.auth.Login.route)
+            history.push(SITEMAP.auth.Login.route);
 
             await ResetPasswordData().Logout();
             localStorage.removeItem("Token");

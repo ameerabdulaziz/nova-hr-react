@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import JobData from '../api/JobData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function Job({ intl }) {
   const Title = localStorage.getItem('MenuName');
@@ -76,10 +77,10 @@ function Job({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/MainData/JobCreate',
+      url: SITEMAP.mainData.JobCreate.route,
     },
     edit: {
-      url: '/app/Pages/MainData/JobEdit',
+      url: SITEMAP.mainData.JobEdit.route,
     },
     delete: {
       api: deleteRow,
