@@ -23,6 +23,7 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import SaveButton from '../../Component/SaveButton';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 
 
@@ -153,7 +154,7 @@ function CreateVacationType(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/vac/VacationsTypes`);
+        history.push(SITEMAP.vacation.VacationsTypes.route);
       }
     } catch (err) {
       //
@@ -273,7 +274,7 @@ useEffect(() => {
 
 
   function oncancel(){
-    history.push(`/app/Pages/vac/VacationsTypes`);
+    history.push(SITEMAP.vacation.VacationsTypes.route);
   }
 
 

@@ -9,6 +9,7 @@ import { formateDate } from '../../helpers';
 import api from '../api/GovernmentSickLeaveData';
 import payrollMessages from '../../messages';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function GovernmentSickLeave(props) {
   const { intl } = props;
@@ -114,10 +115,10 @@ function GovernmentSickLeave(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/vac/GovernmentSickLeaveCreate',
+      url: SITEMAP.vacation.GovernmentSickLeaveCreate.route,
     },
     edit: {
-      url: '/app/Pages/vac/GovernmentSickLeaveEdit',
+      url: SITEMAP.vacation.GovernmentSickLeaveEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -35,6 +35,7 @@ import { getDefaultYearAndMonth } from "../../helpers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import SITEMAP from "../../../../App/routes/sitemap";
 
 
 function GovernmentSickLeaveCreate(props) {
@@ -296,7 +297,7 @@ function GovernmentSickLeaveCreate(props) {
         });
 
         toast.success(notif.saved);
-        history.push("/app/Pages/vac/GovernmentSickLeave");
+        history.push(SITEMAP.vacation.GovernmentSickLeave.route);
       } catch (error) {
         //
       } finally {
@@ -322,7 +323,7 @@ function GovernmentSickLeaveCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push("/app/Pages/vac/GovernmentSickLeave");
+    history.push(SITEMAP.vacation.GovernmentSickLeave.route);
   };
 
   const onVacationChange = (_, value) => {

@@ -20,6 +20,7 @@ import api from '../api/LeaveTrxData';
 import messages from '../messages';
 
 import 'react-quill/dist/quill.snow.css';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function LeaveTrxList(props) {
   const { intl } = props;
@@ -217,10 +218,10 @@ function LeaveTrxList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/vac/LeaveTrxCreate',
+      url: SITEMAP.vacation.LeaveTrxCreate.route,
     },
     edit: {
-      url: '/app/Pages/vac/LeaveTrxEdit',
+      url: SITEMAP.vacation.LeaveTrxEdit.route,
       // disabled edit action is not HR and status is null
       disabled: isHR ? false : (row) => row.status !== null,
     },
