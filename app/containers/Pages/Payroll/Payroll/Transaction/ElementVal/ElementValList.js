@@ -35,6 +35,7 @@ import EditButton from "../../../Component/EditButton";
 import NamePopup from "../../../Component/NamePopup";
 import AlertPopup from "../../../Component/AlertPopup";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function ElementValList(props) {
   const { intl } = props;
@@ -613,7 +614,7 @@ function ElementValList(props) {
             <div className={style.actionsSty}>
               <EditButton
                 //param={{ id: tableMeta.rowData[0] }}
-                url={"/app/Pages/Payroll/ElementValEdit/"+btoa( encodeURIComponent(tableMeta.rowData[0]))}
+                url={SITEMAP.payroll.ElementValEdit.route+btoa( encodeURIComponent(tableMeta.rowData[0]))}
               ></EditButton>
               <DeleteButton
                 clickfnc={() => handleClickOpen(tableMeta.rowData[0])}
@@ -639,7 +640,7 @@ function ElementValList(props) {
       //some logic
     },
     customToolbar: () => (
-      <AddButton url={"/app/Pages/Payroll/ElementValCreate"}></AddButton>
+      <AddButton url={SITEMAP.payroll.ElementValCreate.route}></AddButton>
     ),
 
     customToolbarSelect: (selectedRows) => (

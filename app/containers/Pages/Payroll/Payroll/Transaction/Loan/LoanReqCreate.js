@@ -28,6 +28,7 @@ import LoanSettingApiData from "../../api/LoanSettingData";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function LoanReqCreate(props) {
   const { intl } = props;
@@ -106,7 +107,7 @@ function LoanReqCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Payroll/LoanReq`);
+        history.push(SITEMAP.payroll.LoanReq.route);
       } else {
         toast.error(response.statusText);
       }
@@ -116,7 +117,7 @@ function LoanReqCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Payroll/LoanReq`);
+    history.push(SITEMAP.payroll.LoanReq.route);
   }
 
   async function changeYear(value) {

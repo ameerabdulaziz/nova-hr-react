@@ -24,6 +24,7 @@ import NamePopup from "../../../Component/NamePopup";
 import PayRollLoader from "../../../Component/PayRollLoader";
 import ElementTable from "../PayTemplate/ElementTable";
 import NameList from "../../../Component/NameList";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function SalaryStructureCreate(props) {
   const { intl } = props;
@@ -117,7 +118,7 @@ function SalaryStructureCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Payroll/SalaryStructure`);
+        history.push(SITEMAP.payroll.SalaryStructure.route);
       } else {
         toast.error(response.statusText);
       }
@@ -127,7 +128,7 @@ function SalaryStructureCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Payroll/SalaryStructure`);
+    history.push(SITEMAP.payroll.SalaryStructure.route);
   }
   async function fetchData() {
     try {

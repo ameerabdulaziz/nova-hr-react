@@ -29,6 +29,7 @@ import payrollMessages from '../../messages';
 import api from '../api/PaymentSlipData';
 import PaymentReportItem from '../components/PaymentSlip/PaymentReportItem';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function PaymentSlip(props) {
   const { intl } = props;
@@ -282,7 +283,7 @@ useEffect(()=>{
       }));
 
 
-      window.open(`/app/Pages/Payroll/PaymentSlip/Review`, "_blank")?.focus();
+      window.open(SITEMAP.payroll.PaymentSlipReview.route, "_blank")?.focus();
 
     }
   },[paymentSlipReport])

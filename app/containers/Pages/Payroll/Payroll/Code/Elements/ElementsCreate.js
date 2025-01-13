@@ -27,6 +27,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import ElementTable from "../PayTemplate/ElementTable";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function ElementsCreate(props) {
   const { intl } = props;
@@ -188,7 +189,7 @@ function ElementsCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Payroll/Elements`);
+        history.push(SITEMAP.payroll.Elements.route);
       } else {
         toast.error(response.statusText);
       }
@@ -198,7 +199,7 @@ function ElementsCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Payroll/Elements`);
+    history.push(SITEMAP.payroll.Elements.route);
   }
   async function fetchData() {
     try {

@@ -25,6 +25,7 @@ import elementApi from "../../api/ElementsData";
 import EmployeeData from "../../../Component/EmployeeData";
 import { format } from "date-fns";
 import DecryptUrl from "../../../Component/DecryptUrl";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function ElementValCreate(props) {
   debugger;
@@ -77,7 +78,7 @@ function ElementValCreate(props) {
       
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Payroll/ElementVal` ,{
+        history.push(SITEMAP.payroll.ElementVal.route ,{
           branchId: data.branchId,
           employeeId: data.employeeId,
           payTemplateId: data.payTemplateId,
@@ -92,7 +93,7 @@ function ElementValCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Payroll/ElementVal`);
+    history.push(SITEMAP.payroll.ElementVal.route);
   }
 
   async function getOpenMonth(id) {

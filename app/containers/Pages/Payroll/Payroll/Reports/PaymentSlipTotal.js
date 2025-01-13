@@ -27,6 +27,7 @@ import payrollMessages from '../../messages';
 import api from '../api/PaymentSlipTotalData';
 import PaymentReportItem from '../components/PaymentSlipTotal/PaymentReportItem';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function PaymentSlipTotal(props) {
   const { intl } = props;
@@ -267,7 +268,7 @@ function PaymentSlipTotal(props) {
       }));
 
 
-      window.open(`/app/Pages/Payroll/PaymentSlipTotal/Review`, "_blank")?.focus();
+      window.open(SITEMAP.payroll.PaymentSlipTotalReview.route, "_blank")?.focus();
 
     }
   },[paymentSlipTotalReport])

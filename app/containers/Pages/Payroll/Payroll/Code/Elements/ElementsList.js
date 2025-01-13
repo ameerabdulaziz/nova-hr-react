@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import messages from "../../messages";
 import ApiData from '../../api/ElementsData';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function ElementsList(props) {
   const { intl } = props;
@@ -130,10 +131,10 @@ function ElementsList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Payroll/ElementsCreate',
+      url: SITEMAP.payroll.ElementsCreate.route,
     },
     edit: {
-      url: '/app/Pages/Payroll/ElementsEdit',
+      url: SITEMAP.payroll.ElementsEdit.route,
     },
     delete: {
       api: deleteRow,
