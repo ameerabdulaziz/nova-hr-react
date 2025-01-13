@@ -2022,10 +2022,15 @@ function Application(props) {
           component={PAGES.socialInsurance.Form6Insurance}
         />
 
-        {/* <Route
+        <Route
           path={SITEMAP.socialInsurance.Form1Insurance.route}
           component={PAGES.socialInsurance.Form1Insurance}
-        /> */}
+        />
+
+        <Route
+          path={SITEMAP.socialInsurance.Form1InsuranceReview.route}
+          component={PAGES.socialInsurance.Form1InsuranceReview}
+        />
 
         {/* Medical Insurance */}
         <Route

@@ -29,6 +29,7 @@ function InsuranceReportForm2(props) {
             <InsuranceReportForm2Header
               organizationId={toArabicDigits(props.organizationId)}
               organizationName={toArabicDigits(props.organizationName)}
+              rows={props.rows}
             />
 
             <InsuranceReportForm2Table
@@ -39,8 +40,9 @@ function InsuranceReportForm2(props) {
             />
 
             <InsuranceReportForm2Footer
-              totalSalary={toArabicDigits(props.totalSalary)}
+              totalSalary={toArabicDigits(props.totalSalary.toFixed(2))}
               totalEmployee={toArabicDigits(props.rows.length)}
+              rows={props.rows}
             />
           </Box>
     ))

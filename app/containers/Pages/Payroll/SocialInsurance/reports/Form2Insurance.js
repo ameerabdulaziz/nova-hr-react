@@ -254,9 +254,11 @@ function Form2Insurance(props) {
           },
         }}
       >
-        <InsuranceReportForm2 rows={tableData}
+        <InsuranceReportForm2 
+          rows={tableData}
           organizationName={  organizationList.find((item) => item.id === formInfo.InsuranceOrg)  ?.name ?? ''  }
-          totalSalary={extraData.total ?? 0} organizationId={formInfo.InsuranceOrg || 0}  
+          totalSalary={extraData.total ?? 0} 
+          organizationId={formInfo.InsuranceOrg || 0}  
           />
       </Box>
 

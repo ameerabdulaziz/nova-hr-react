@@ -424,6 +424,7 @@
             & > div:nth-child(3)
             {
                 display: inline-flex;
+                vertical-align: top;
 
                 & > div:nth-child(1)
                 {
@@ -443,7 +444,6 @@
                 transform: rotate(-68deg);
                 position: relative;
                 left: 8px;
-                top: -9px;
             }
 
             & > div:nth-child(5)
@@ -451,6 +451,7 @@
                 display: inline-flex;
                 position: relative;
                 right: -16px;
+                vertical-align: top;
 
                 & > div:nth-child(1)
                 {
@@ -471,6 +472,7 @@
         & > td:nth-child(1)
         {
             text-align: right;
+            padding-top: 4px;
 
             & > span:nth-child(1)
             {
@@ -499,7 +501,6 @@
                 transform: rotate(-68deg);
                 position: relative;
                 right: -8px;
-                // top: -9px;
             }
 
             & > div:nth-child(4)

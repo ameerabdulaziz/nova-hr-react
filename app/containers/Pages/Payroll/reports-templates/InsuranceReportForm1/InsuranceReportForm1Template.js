@@ -9,10 +9,6 @@ import {
   import { format } from 'date-fns';
   
   function InsuranceReportForm1Template({data}) {
-    // const { organizationId, organizationName } = props;
-
-    console.log("data =", data);
-
 
 
     const dateFun = (date,type) => {
@@ -50,16 +46,9 @@ import {
 
     const convertStringNumFun = (num,maxLenght) => {
 
+      let number = num
+      let reverseString = number.split('').reverse().join('')
 
-console.log("number =", num);
-
-
-      let reverseString = num.split('').reverse().join('')
-
-      console.log("reverseString =", reverseString);
-      
-
-      // const array = num.split("");
       const array = reverseString.split("");
       while (array.length < maxLenght) {
         array.push("");
@@ -69,12 +58,6 @@ console.log("number =", num);
       
     }
 
-    console.log("convertStringNumFun =",data && data.identityNumber ? convertStringNumFun(data.identityNumber) : "no data");
-    console.log("convertStringNumFun =",data && data.socialInsuranceID ? convertStringNumFun(data.socialInsuranceID,9) : "no data");
-    console.log("convertStringNum3Fun =",data && data.socialInsuranceID ? convertStringNumFun(data.socialInsuranceID,9).reverse() : "no data");
-    
-
-
 
     const salaryFun = (num,type) => {
 
@@ -83,9 +66,6 @@ console.log("number =", num);
 
       // Convert the fractional part to an integer by multiplying by 100
       let fractionalAsInteger = Math.round(fractionalPart * 100); 
-
-      console.log("integerPart =", integerPart);
-      console.log("fractionalAsInteger =", fractionalAsInteger);
 
       if(type === "pound")
       {
@@ -98,10 +78,6 @@ console.log("number =", num);
       
     }
 
-
-    console.log("salaryFun =",  salaryFun(123.454,"pound"));
-    console.log("salaryFun2 =", salaryFun(123.466,"penny"));
-    
   
     return (
       <>
@@ -238,9 +214,9 @@ console.log("number =", num);
 
                     {data.orgnizationInsuranceNumber ? 
                     
-                    convertStringNumFun(data.orgnizationInsuranceNumber,8).map((boxData,index)=>(
-                         <div key={index}>{boxData}</div>
-                    ))
+                      convertStringNumFun(data.orgnizationInsuranceNumber,8).map((boxData,index)=>(
+                          <div key={index}>{boxData}</div>
+                      ))
                     :
                     <>
                       <div ></div>
@@ -321,8 +297,6 @@ console.log("number =", num);
                     {data.identityNumber ? 
                     
                       convertStringNumFun(data.identityNumber,14).map((boxData,index)=>(
-                        // console.log("boxData =",  <div key={index}>{boxData}</div>),
-                        
                           <div key={index}>{boxData}</div>
                       )) 
               
@@ -374,25 +348,54 @@ console.log("number =", num);
               <tr className={style.row9Sty}>
                 <td colSpan="5">
                   <span>
-                    المؤهل: ................
+                    المؤهل: 
+                    &nbsp;
+                    {data.qualification ? 
+                      data.qualification
+                    : 
+                      "................"
+                    }
                   </span>
                     &nbsp;
                     &nbsp;
                   <span>
                     كود المهنة: 
                   </span>
-                   &nbsp;
+                  &nbsp;
                   <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+
+                   {data.insuJobCode ? 
+                      convertStringNumFun(data.insuJobCode,6).splice(0, 3).map((boxData,index)=>(
+                          <div key={index}>{boxData}</div>
+                      )) 
+              
+                    : 
+                      ( <>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </> )
+                  }
+
                   </div>
                       <img src={lineImg} alt="lineImg" />
                   <div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
+
+                    {data.insuJobCode ? 
+                        convertStringNumFun(data.insuJobCode,6).splice(3, 3).map((boxData,index)=>(
+                            <div key={index}>{boxData}</div>
+                        )) 
+                
+                      : 
+                        ( <>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </> )
+                    }
+
                   </div>
+
                   <span>
                     المسمى: 
                     &nbsp;
@@ -437,22 +440,18 @@ console.log("number =", num);
                   </div>
                     <img src={lineImg} alt="lineImg" />
                   <div>
-                      {/* <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div> */}
 
                     {data.insuranceDate ? 
-                      dateFun(data.insuranceDate,"year").map((boxData,index) => (
-                        <div key={index}>{boxData}</div>
-                      )) 
-                    : 
-                    <>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                    </>
+                        dateFun(data.insuranceDate,"year").map((boxData,index) => (
+                          <div key={index}>{boxData}</div>
+                        )) 
+                      : 
+                      <>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </>
                     }
                   </div>
                 </td>
@@ -606,8 +605,6 @@ console.log("number =", num);
                                 </td>
                                 <td>
                                   <div>
-                                  {/* salaryFun(123.454,"pound")
-                                  salaryFun(123.466,"penny") */}
 
                                     {data.mainSalary ? 
                                       salaryFun(data.mainSalary,"pound").map((boxData,index) => (

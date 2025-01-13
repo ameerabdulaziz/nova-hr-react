@@ -32,13 +32,13 @@ import {
   import InsuranceReportForm1 from '../../reports-templates/InsuranceReportForm1/InsuranceReportForm1';
   import api from '../api/Form2InsuranceData';
   import messages from '../messages';
+  import { useMediaQuery } from '@mui/material';
   
   function Form1Insurance(props) {
     const { intl } = props;
     const { classes } = useStyles();
     const locale = useSelector((state) => state.language.locale);
     const Title = localStorage.getItem('MenuName');
-   const [printAndReviewType, setPrintAndReviewType] = useState(null);
     const [tableData, setTableData] = useState([]);
     const [organizationList, setOrganizationList] = useState([]);
     const [dateError, setDateError] = useState({});
@@ -59,11 +59,15 @@ import {
       HiringDate: 'false',
     });
   
+    const isScreenSmall = useMediaQuery('(max-width:900px)');
+
+    const [SelectedRows, setSelectedRows] = useState([]);
+
     const printDivRef = useRef(null);
   
     const DOCUMENT_TITLE = 'Insurance Report Form 2 - ' + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
   
-    const fetchTableData = async (print) => {
+    const fetchTableData = async (printKey) => {
       try {
         setIsLoading(true);
   
@@ -83,9 +87,20 @@ import {
   
         const { list, ...response } = await api(locale).GetList(formData);
 
-        if(print)
+        if(printKey)
         {
-          setPrintData(list)
+          if(SelectedRows.length !== 0)
+          {
+            // used to print just selected rows in table
+            const filteredArray = list.filter((_, index) => SelectedRows.includes(index))
+
+            setPrintData(filteredArray)
+            
+          }
+          else
+          {
+            setPrintData(list)
+          }
         }
 
         setTableData(list);
@@ -181,25 +196,7 @@ import {
         },
       },
     ];
-  
-  
-      // const printJS = useReactToPrint({
-      //   documentTitle: DOCUMENT_TITLE,
-      //   content: () => printDivRef?.current,
-      //   onBeforeGetContent: () => {
-      //     setIsLoading(true);
-      //   },
-      //   onAfterPrint: () => {
-      //     setIsLoading(false);
-      //   },
-      //   onPrintError: () => {
-      //     setIsLoading(false);
-      //   },
-      // });
-    
-      // const onPrintClick = async () => {
-      //   printJS();
-      // };
+        
   
     const options = {
       print: false,
@@ -217,9 +214,15 @@ import {
           </IconButton>
         </Tooltip>
       ),
+      selectableRows: 'multiple',
+      customToolbarSelect: () => null,
+      onRowSelectionChange: (rowsSelectedIndexes) => {
+        setSelectedRows(rowsSelectedIndexes);
+      },
+      rowsSelected: SelectedRows
     };
   
-    const onFormSubmit = (evt,print) => {
+    const onFormSubmit = (evt,printKey) => {
       evt.preventDefault();
   
       // used to stop call api if user select wrong date
@@ -227,8 +230,14 @@ import {
         toast.error(intl.formatMessage(payrollMessages.DateNotValid));
         return;
       }
+
+      if(!formInfo.InsuranceOrg || formInfo.InsuranceOrg.length === 0)
+      {
+        toast.error(intl.formatMessage(messages.orgnizationErrMess));
+        return;
+      }
   
-      fetchTableData(print);
+      fetchTableData(printKey);
     };
   
     const onDatePickerChange = (value, name) => {
@@ -247,13 +256,10 @@ import {
 
      const onBeforeGetContent = () => {
         setIsLoading(true);
-        // setHeaderType()
       };
     
       const onAfterPrint = () => {
         setIsLoading(false);
-        // setHeaderType()
-        // setPrintData([])
       };
     
       const onPrintError = () => {
@@ -267,14 +273,11 @@ import {
         onBeforeGetContent,
         onAfterPrint,
         onPrintError,
-        documentTitle: "form 1",
-        // documentTitle: intl.formatMessage(messages.DetailedAttendanceReport),
+        documentTitle: intl.formatMessage(messages.form1Insurance),
       });
     
-      const onPrintClick = async (e,print) => {
-        // setHeaderType(type)
-        onFormSubmit(e,print)
-        // handleSearch(type)
+      const onPrintClick = async (e,printKey) => {
+        onFormSubmit(e,printKey)
       };
     
     
@@ -285,30 +288,33 @@ import {
           printJS();
         }
       },[printData])
-    
+
+
+      // used open the Review page in new tab by send filter data in session to call api at there
+      const reviewDetailsFun = ()=>{
+
+        if(!formInfo.InsuranceOrg || formInfo.InsuranceOrg.length === 0)
+          {
+            toast.error(intl.formatMessage(messages.orgnizationErrMess));
+            return;
+          }
+
+        sessionStorage.setItem('Review',JSON.stringify( {
+          formInfo,
+          SelectedRows
+        }));
+
+
+        window.open(`/app/Pages/insurance/Form1Insurance/Review`, "_blank")?.focus();
+      }
+
   
     return (
       <PayRollLoader isLoading={isLoading}>
         <Box
           ref={printDivRef}
-          // sx={{
-          //   // height:"0px",
-          //   // visibility:"hidden",
-          //   direction: 'ltr',
-          //   ...(locale === 'en' ? { textAlign: 'right', direction: 'rtl', } : {}),
-          //   '@media print': {
-          //   //   height:"100%",
-          //   //   visibility:"visible",
-          //   },
-          //   'p.MuiTypography-root, .MuiTableCell-root': {
-          //     fontSize: '10px',
-          //   },
-          // }}
         >
-          <InsuranceReportForm1 data={printData}
-            // organizationName={  organizationList.find((item) => item.id === formInfo.InsuranceOrg)  ?.name ?? ''  }
-            // totalSalary={extraData.total ?? 0} organizationId={formInfo.InsuranceOrg || 0}  
-            />
+          <InsuranceReportForm1 data={printData} />
         </Box>
   
         <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
@@ -415,7 +421,7 @@ import {
                 </Card>
               </Grid>
   
-              <Grid item>
+              <Grid item xs={12}>
                 <FormControl>
                   <RadioGroup
                     row
@@ -456,24 +462,30 @@ import {
                     variant="contained"
                     size="medium"
                     color="primary"
-                    // className={style.printBtnSty}
                   onClick={(e)=>{
-                    // if(printAndReviewType)
-                    // {
                       onPrintClick(e,true)
-                      // onPrintClick(printAndReviewType)
-                    // }
-                    // else
-                    // {
-                    //   toast.error("printAndReviewErrMess");
-                    //   // toast.error(intl.formatMessage(messages.printAndReviewErrMess));
-                    // }
                   }}
                   >
-                                Print
-                    {/* <FormattedMessage {...payrollmessages.Print} /> */}
+                    <FormattedMessage {...payrollMessages.Print} />
                   </Button>
                 </Grid>
+
+                {/* used to check if the screen size less than 900 (mobile) hide the button */}
+                {!isScreenSmall && (
+                  <Grid item xs={12} md={2}>
+                      <Button
+                        variant="contained"
+                        size="medium"
+                        color="primary"
+                        onClick={()=>{
+                            reviewDetailsFun()
+                        }}
+                      >
+                        
+                        <FormattedMessage {...payrollMessages.review} />
+                      </Button>
+                  </Grid>
+                )}
             </Grid>
   
             <Card className={classes.card}>

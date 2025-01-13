@@ -112,6 +112,13 @@ const Form1Insurance = loadable(
   }
 );
 
+const Form1InsuranceReview = loadable(
+  () => import('../../../Pages/Payroll/SocialInsurance/reports/Form1InsuranceReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const EmergencyBenefitList = loadable(
   () => import(
     '../../../Pages/Payroll/SocialInsurance/reports/EmergencyBenefitList'
@@ -163,6 +170,7 @@ const socialInsurance = {
   Form2Insurance,
   Form6Insurance,
   Form1Insurance,
+  Form1InsuranceReview,
   EmergencyBenefitList,
   InsuranceFormStatus,
   PositionOfGuaranteesAndContradictions,

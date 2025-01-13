@@ -661,6 +661,9 @@ const SITEMAP = {
       route: `${DOMAIN_NAME}/insurance/SocialInsuranceReport`,
     },
     Form1Insurance: { route: `${DOMAIN_NAME}/insurance/Form1Insurance` },
+    Form1InsuranceReview: {
+      route: `${DOMAIN_NAME}/insurance/Form1Insurance/Review`,
+    },
     Form2Insurance: { route: `${DOMAIN_NAME}/insurance/Form2Insurance` },
     Form6Insurance: { route: `${DOMAIN_NAME}/insurance/Form6Insurance` },
   },

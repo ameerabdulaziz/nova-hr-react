@@ -8,7 +8,7 @@ import { LoginForm, SelectLanguage } from "enl-components";
 import logo from "enl-images/Loginlogo.png";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import useStyles from "enl-components/Forms/user-jss";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
 import messages from "./messages";
 import axiosInstance from "../Payroll/api/axios";
 import {
@@ -20,8 +20,10 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
 import SITEMAP from "../../App/routes/sitemap";
+import { toast } from 'react-hot-toast';
+import Payrollmessages from "../../Pages/Payroll/messages";
 
-function Login() {
+function Login(props) {
   const { classes } = useStyles();
   const Dispatcher = useDispatch();
   const title = brand.name + " - Login";
@@ -32,7 +34,7 @@ function Login() {
   const { redirectTo } = queryString.parse(location.search);
   const submitForm = (values) => setValueForm(values);
   const Auth = useSelector((state) => state.authReducer.loggedIn);
-
+  const { intl } = props;
   // used to check if user login before and try to open login page redirect him to /app
   // useEffect(() => {
   //   if (Auth === true &&  localStorage.getItem("Token")) {
@@ -43,69 +45,77 @@ function Login() {
   async function fetchData() {
     if (valueForm) {
       try {
-        Dispatcher(login());
 
-        const data = {
-          UserName: valueForm.email,
-          Password: valueForm.password,
-          RememberMe: valueForm.RememberMe ? true : false,
-        };
-
-        const res = await axiosInstance.post("Account/Login", data);
-        debugger;
-
-        if (res.data.token) {
-          Dispatcher(loginSuccess());
-          localStorage.setItem("Token", res.data.token);
-          localStorage.setItem("IsStaticDashboard", res.data.isStaticDashboard);
-          localStorage.setItem("IsHR", res.data.isHR);
-          localStorage.setItem("userName", res.data.userName);
-          localStorage.setItem("IsManagement", res.data.isManagement);
-          let user = {
-            id: res.data.id,
-            email: res.data.email,
-            name: res.data.userName,
-            token: res.data.token,
-            avatar: null, //'/images/avatars/pp_boy4.jpg',
-            title: "Administrator",
-            status: "online",
-            displayName: res.data.userName,
-            isHR: res.data.isHR,
-            isManagement: res.data.isManagement,
-            isSuper: res.data.isSuper,
-            arName: res.data.arName,
-            enName: res.data.enName,
-            photoURL: res.data.photo,
-            branchId: res.data.branchId,
-          };
-          Dispatcher(syncUser(user));
-          localStorage.setItem("MenuName", "Dashboard");
-          if (res.data.isHR)
-            history.push(
-              redirectTo == null || redirectTo === SITEMAP.auth.Login.route
-                ? SITEMAP.global.AdminDashboard.route
-                : redirectTo
-            );
-          else if (res.data.isManagement)
-            history.push(
-              redirectTo == null || redirectTo === SITEMAP.auth.Login.route
-                ? SITEMAP.global.ManagementDashboard.route
-                : redirectTo
-            );
-          else
-            history.push(
-              redirectTo == null || redirectTo === SITEMAP.auth.Login.route
-                ? SITEMAP.global.AdminDashboard.route
-                : redirectTo
-            );
-        } else {
-          if (res.data == "you must register this device first")
-            Dispatcher(loginSuccess());
-            history.push(SITEMAP.auth.Register.route);
+        if(valueForm.email.toLowerCase() === "admin" && valueForm.password == "123456") 
+        {
+          toast.error(intl.formatMessage(Payrollmessages.invalidUser));
         }
+        else
+        {
+            Dispatcher(login());
 
-        //history.push('/app');
-        //window.location.href = '/app';
+            const data = {
+              UserName: valueForm.email,
+              Password: valueForm.password,
+              RememberMe: valueForm.RememberMe ? true : false,
+            };
+
+            const res = await axiosInstance.post("Account/Login", data);
+            debugger;
+
+            if (res.data.token) {
+              Dispatcher(loginSuccess());
+              localStorage.setItem("Token", res.data.token);
+              localStorage.setItem("IsStaticDashboard", res.data.isStaticDashboard);
+              localStorage.setItem("IsHR", res.data.isHR);
+              localStorage.setItem("userName", res.data.userName);
+              localStorage.setItem("IsManagement", res.data.isManagement);
+              let user = {
+                id: res.data.id,
+                email: res.data.email,
+                name: res.data.userName,
+                token: res.data.token,
+                avatar: null, //'/images/avatars/pp_boy4.jpg',
+                title: "Administrator",
+                status: "online",
+                displayName: res.data.userName,
+                isHR: res.data.isHR,
+                isManagement: res.data.isManagement,
+                isSuper: res.data.isSuper,
+                arName: res.data.arName,
+                enName: res.data.enName,
+                photoURL: res.data.photo,
+                branchId: res.data.branchId,
+              };
+              Dispatcher(syncUser(user));
+              localStorage.setItem("MenuName", "Dashboard");
+              if (res.data.isHR)
+                history.push(
+                  redirectTo == null || redirectTo === SITEMAP.auth.Login.route
+                  ? SITEMAP.global.AdminDashboard.route
+                  : redirectTo
+                );
+              else if (res.data.isManagement)
+                history.push(
+                  redirectTo == null || redirectTo === SITEMAP.auth.Login.route
+                  ? SITEMAP.global.ManagementDashboard.route
+                  : redirectTo
+                );
+              else
+                history.push(
+                  redirectTo == null || redirectTo === SITEMAP.auth.Login.route
+                  ? SITEMAP.global.AdminDashboard.route
+                  : redirectTo
+                );
+            } else {
+              if (res.data == "you must register this device first")
+                Dispatcher(loginSuccess());
+                history.push("register");
+            }
+
+            //history.push('/app');
+            //window.location.href = '/app';
+      }
       } catch (error) {
         if (!error.response) Dispatcher(loginFailure(error.message));
         if (error.response.data.error)
@@ -179,4 +189,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default injectIntl(Login);
