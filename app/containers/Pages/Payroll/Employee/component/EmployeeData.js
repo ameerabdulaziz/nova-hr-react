@@ -15,6 +15,7 @@ import { useLocation } from "react-router-dom";
 import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
 import DecryptUrl from "../../Component/DecryptUrl";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function EmployeeData(props) {
   const { intl } = props;
@@ -46,7 +47,7 @@ function EmployeeData(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   async function CreatResign() {
-    history.push(`/app/Pages/HR/ResignTrxCreate`,{
+    history.push(SITEMAP.humanResources.ResignTrxCreate.route,{
       employeeId:data.id,
       resignReasonId:resignReasonId,
       resignReasonName:resignReasonName,

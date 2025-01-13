@@ -37,6 +37,7 @@ import {
   validateEmail,
 } from "../../helpers";
 import style from "../../../../../styles/styles.scss";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function Personal(props) {
   const history = useHistory();
@@ -160,7 +161,7 @@ function Personal(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Employee/EmployeeList`);
+    history.push(SITEMAP.employee.EmployeeList.route);
   }
 
   const fetchEmployeeCode = async (code) => {
@@ -530,7 +531,7 @@ function Personal(props) {
   };
 
   const onEmployeeCreatedConfirm = () => {
-    history.push("/app/Pages/Employee/EmployeeList");
+    history.push(SITEMAP.employee.EmployeeList.route);
   };
 
   const onEmployeeExistClose = () => {

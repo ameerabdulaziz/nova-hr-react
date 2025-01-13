@@ -17,6 +17,7 @@ import GeneralListApis from "../../api/GeneralListApis";
 import { getAutoCompleteValue } from '../../helpers';
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function EmployeeList(props) {
   const { intl } = props;
@@ -150,7 +151,7 @@ function EmployeeList(props) {
             <Box
               sx={{ cursor: 'pointer' }}
               onClick={() => {
-                history.push('/app/Pages/Employee/Personal', {
+                history.push(SITEMAP.employee.Personal.route, {
                   empid: {
                     id: tableMeta.rowData[0],
                     name: tableMeta.rowData[2],
@@ -171,7 +172,7 @@ function EmployeeList(props) {
             <Box
               sx={{ cursor: 'pointer' }}
               onClick={() => {
-                history.push('/app/Pages/Employee/Personal', {
+                history.push(SITEMAP.employee.Personal.route, {
                   empid: {
                     id: tableMeta.rowData[0],
                     name: tableMeta.rowData[2],
@@ -193,7 +194,7 @@ function EmployeeList(props) {
             <Box
               sx={{ cursor: 'pointer' }}
               onClick={() => {
-                history.push('/app/Pages/Employee/Personal', {
+                history.push(SITEMAP.employee.Personal.route, {
                   empid: {
                     id: tableMeta.rowData[0],
                     name: tableMeta.rowData[2],
@@ -214,7 +215,7 @@ function EmployeeList(props) {
             <Box
               sx={{ cursor: 'pointer' }}
               onClick={() => {
-                history.push('/app/Pages/Employee/Personal', {
+                history.push(SITEMAP.employee.Personal.route, {
                   empid: {
                     id: tableMeta.rowData[0],
                     name: tableMeta.rowData[2],
@@ -283,7 +284,7 @@ function EmployeeList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Employee/Personal',
+      url: SITEMAP.employee.Personal.route,
     },
     delete: {
       api: deleteRow,
