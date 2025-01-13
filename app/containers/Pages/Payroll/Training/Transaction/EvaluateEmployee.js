@@ -21,6 +21,7 @@ import payrollMessages from '../../messages';
 import api from '../api/TrTrainingTrxListData';
 import PreviewCertificatePopup from '../components/EvaluateEmployee/PreviewCertificatePopup';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function EvaluateEmployee(props) {
   const { intl } = props;
@@ -189,7 +190,7 @@ function EvaluateEmployee(props) {
       trainingEmpId: row.trainingEmpId,
     };
 
-    history.push('/app/Pages/Survey/Survey', state);
+    history.push(SITEMAP.survey.Survey.route, state);
   };
 
   const onReviewBtnClick = (row) => {
@@ -198,7 +199,7 @@ function EvaluateEmployee(props) {
       evaluatedEmployeeId: row.employeeId,
     };
 
-    history.push('/app/Pages/Training/ReviewTest', state);
+    history.push(SITEMAP.training.ReviewTest.route, state);
   };
 
   const onRepeatBtnClick = async (row) => {

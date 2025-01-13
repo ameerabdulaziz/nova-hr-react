@@ -19,6 +19,7 @@ import api from "../api/TrTrainingTrxListData";
 import WorkFlowApi from "../../WorkFlow/api/WorkFlowData";
 
 import messages from "../messages";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function TrTrainingTrxListCreate(props) {
   const { intl } = props;
@@ -120,7 +121,7 @@ function TrTrainingTrxListCreate(props) {
         let response = await WorkFlowApi(locale).ExecuteWorkFlow(postDate);
       }
       toast.success(notif.saved);
-      history.push("/app/Pages/Training/TrTrainingTrxList");
+      history.push(SITEMAP.training.TrTrainingTrxList.route);
     } catch (error) {
       //
     } finally {
@@ -133,7 +134,7 @@ function TrTrainingTrxListCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push("/app/Pages/Training/TrTrainingTrxList");
+    history.push(SITEMAP.training.TrTrainingTrxList.route);
   };
 
   const onDatePickerChange = (value, name) => {

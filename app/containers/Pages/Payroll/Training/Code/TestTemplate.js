@@ -10,6 +10,7 @@ import { getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/TestTemplateData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function TestTemplate(props) {
   const { intl } = props;
@@ -97,10 +98,10 @@ function TestTemplate(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Training/TestTemplateCreate',
+      url: SITEMAP.training.TestTemplateCreate.route,
     },
     edit: {
-      url: '/app/Pages/Training/TestTemplateEdit',
+      url: SITEMAP.training.TestTemplateEdit.route,
     },
     delete: {
       api: deleteRow,

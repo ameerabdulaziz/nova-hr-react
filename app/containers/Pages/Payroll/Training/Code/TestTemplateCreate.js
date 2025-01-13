@@ -34,6 +34,7 @@ import api from '../api/TestTemplateData';
 import EmployeeList from '../components/TestTemplate/EmployeeList';
 import QuestionInfo from '../components/TestTemplate/QuestionInfo';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function TestTemplateCreate(props) {
   const { intl } = props;
@@ -149,7 +150,7 @@ function TestTemplateCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Training/TestTemplate');
+      history.push(SITEMAP.training.TestTemplate.route);
     } catch (error) {
       //
     } finally {
@@ -172,7 +173,7 @@ function TestTemplateCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Training/TestTemplate');
+    history.push(SITEMAP.training.TestTemplate.route);
   };
 
   const onDatePickerChange = (value, name) => {

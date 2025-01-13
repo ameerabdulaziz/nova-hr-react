@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/TrainingRequestListData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function TrainingRequestList(props) {
   const { intl } = props;
@@ -105,10 +106,10 @@ function TrainingRequestList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Training/TrainingRequestListCreate',
+      url: SITEMAP.training.TrainingRequestListCreate.route,
     },
     edit: {
-      url: '/app/Pages/Training/TrainingRequestListEdit',
+      url: SITEMAP.training.TrainingRequestListEdit.route,
     },
     delete: {
       api: deleteRow,
