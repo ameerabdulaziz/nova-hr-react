@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import borderHexaGrey from 'enl-images/decoration/hexaGrey.svg';
 import borderHexaWhite from 'enl-images/decoration/hexaWhite.svg';
 import messages from './messages';
+import { DOMAIN_NAME } from '../../containers/App/routes/sitemap';
 
 const useStyles = makeStyles()((theme, _params, classes) => ({
   invert: {},
@@ -81,7 +82,7 @@ function ErrorWrap(props) {
               color="secondary"
               className={classes.button}
               component={Link}
-              to="/app"
+              to={DOMAIN_NAME}
             >
               <FormattedMessage {...messages.button} />
             </Button>

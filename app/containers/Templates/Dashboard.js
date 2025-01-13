@@ -25,6 +25,7 @@ import {
 import { Helmet } from "react-helmet";
 import brand from "enl-api/dummy/brand";
 import DecryptUrl from "../Pages/Payroll/Component/DecryptUrl";
+import SITEMAP from "../App/routes/sitemap";
 
 function Dashboard(props) {
   const { classes, cx } = useStyles();
@@ -93,6 +94,7 @@ function Dashboard(props) {
       ? pathname.split('/').slice(0, -1).join('/') // used with open new tab pages
       : pathname
   );
+
   if (result) {
     localStorage.setItem(
       "MenuName",
@@ -101,11 +103,11 @@ function Dashboard(props) {
     localStorage.setItem("Menu", JSON.stringify(result));
     place = locale == "en" ? result.name : result.arname;
   } else if (
-    pathname != "/app/pages/error" &&
-    pathname != "/app" &&
-    pathname != "/app/EmployeeDashboard" &&
-    pathname != "/app/ManagementDashboard" &&
-    pathname != "/app/Pages/Employee/EmployeeData" &&
+    pathname != SITEMAP.global.Error.route &&
+    pathname != SITEMAP.global.AdminDashboard.route &&
+    pathname != SITEMAP.global.EmployeeDashboard.route &&
+    pathname != SITEMAP.global.ManagementDashboard.route &&
+    pathname != SITEMAP.employee.EmployeeData.route &&
     dataMenu &&
     lastPart !== "Review" &&
     lastPart !== "NewsDetails" &&
@@ -128,7 +130,7 @@ function Dashboard(props) {
         break;
       }
     }
-    if (isFound) history.push(`/app/pages/error`);
+    if (isFound) history.push(SITEMAP.global.Error.route);
   }
 
   // used to read page name ( MenuName ) from localStorage
@@ -241,9 +243,14 @@ function Dashboard(props) {
   };
 
   useEffect(() => {
-
     if (Auth === null || Auth === false) {
-      history.push(`/login?redirectTo=${history.location.pathname}`);
+      const nextUrl = history.location.pathname;
+
+      if (SITEMAP.auth.Login.route === nextUrl) {
+        history.push(SITEMAP.auth.Login.route);
+      } else {
+        history.push(`${SITEMAP.auth.Login.route}?redirectTo=${nextUrl}`);
+      }
     }
 
     fetchNeededData();

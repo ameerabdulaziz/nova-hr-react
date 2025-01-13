@@ -79,7 +79,7 @@ const uiReducer = (state = initialState, action = {}) => produce(state, draft =>
       if (action.initialLocation) {
         draft.subMenuOpen = [activeParent];
         const path = action.initialLocation.split('/');
-        if (path.length <= 3 && action.initialLocation !== '/app') {
+        if (path.length <= 3 && action.initialLocation !== '/') {
           draft.sidebarOpen = false;
         }
         return;

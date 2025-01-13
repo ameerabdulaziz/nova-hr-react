@@ -19,6 +19,7 @@ import {
 } from "../../../redux/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
+import SITEMAP from "../../App/routes/sitemap";
 
 function Login() {
   const { classes } = useStyles();
@@ -81,26 +82,26 @@ function Login() {
           localStorage.setItem("MenuName", "Dashboard");
           if (res.data.isHR)
             history.push(
-              redirectTo == null || redirectTo === "/login"
-                ? "/app"
+              redirectTo == null || redirectTo === SITEMAP.auth.Login.route
+                ? SITEMAP.global.AdminDashboard.route
                 : redirectTo
             );
           else if (res.data.isManagement)
             history.push(
-              redirectTo == null || redirectTo === "/login"
-                ? "/app/ManagementDashboard"
+              redirectTo == null || redirectTo === SITEMAP.auth.Login.route
+                ? SITEMAP.global.ManagementDashboard.route
                 : redirectTo
             );
           else
             history.push(
-              redirectTo == null || redirectTo === "/login"
-                ? "/app/EmployeeDashboard"
+              redirectTo == null || redirectTo === SITEMAP.auth.Login.route
+                ? SITEMAP.global.AdminDashboard.route
                 : redirectTo
             );
         } else {
           if (res.data == "you must register this device first")
             Dispatcher(loginSuccess());
-            history.push("register");
+            history.push(SITEMAP.auth.Register.route);
         }
 
         //history.push('/app');

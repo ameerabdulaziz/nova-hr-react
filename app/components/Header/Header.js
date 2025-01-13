@@ -38,6 +38,7 @@ import { useSelector } from "react-redux";
 import api from "../../containers/Pages/Payroll/Dashboard/api";
 import payrollMessages from "../../containers/Pages/Payroll/messages";
 import PayRollLoader from "../../containers/Pages/Payroll/Component/PayRollLoader";
+import SITEMAP, { DOMAIN_NAME } from "../../containers/App/routes/sitemap";
 
 const elem = document.documentElement;
 
@@ -64,7 +65,7 @@ function Header(props) {
   const [answer, setAnswer] = useState("");
   const [question, setQuestion] = useState("");
   const locale = useSelector((state) => state.language.locale);
-  const { isHR, isManagement, isSuper } = useSelector((state) => state.authReducer.user);
+  const { isHR, isManagement, isSuper } = useSelector((state) => state.authReducer.user) || {};
   const [notifications, setNotifications] = useState([]);
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -119,8 +120,10 @@ function Header(props) {
   };
 
   useEffect(() => {
-    fetchNeededList();
-  }, []);
+    if (isLogin) {
+      fetchNeededList();
+    }
+  }, [isLogin]);
 
   const openFullScreen = () => {
     setFullScreen(true);
@@ -185,7 +188,7 @@ function Header(props) {
 
     try {
 
-      const response = await await api(locale).UseChatGPT(question);
+      const response = await api(locale).UseChatGPT(question);
 
       setAnswer(response);
     } catch (error) {
@@ -295,7 +298,7 @@ function Header(props) {
             </IconButton>
           </span>
           <Hidden smDown>
-            <NavLink to="/app" className={cx(classes.brand, classes.brandBar)}>
+            <NavLink to={DOMAIN_NAME} className={cx(classes.brand, classes.brandBar)}>
               <img
                 src={logo}
                 alt={brand.name}
@@ -409,7 +412,7 @@ function Header(props) {
               color="primary"
               className={classes.buttonTop}
               component={Link}
-              to={link.login}
+              to={SITEMAP.auth.Login.route}
               variant="contained"
             >
               <AccountCircle />

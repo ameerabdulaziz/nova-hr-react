@@ -8,6 +8,7 @@ import {passwordForgetFailure,passwordForgetSuccess} from '../../../redux/action
 import {  useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import SITEMAP from '../../App/routes/sitemap';
 
 function ForgotPassword() {
   const { classes } = useStyles();
@@ -31,7 +32,7 @@ function ForgotPassword() {
         var data = {Email:Email, Password:valueForm.password,ConfirmPassword:valueForm.confirmpassword,Token:Token}
           const res =  await axiosInstance.post('Account/ResetPassword',data) ;
           if(res.status==200) {
-            history.push("/login" );
+            history.push(SITEMAP.auth.Login.route);
           }
         }
         catch(error){
