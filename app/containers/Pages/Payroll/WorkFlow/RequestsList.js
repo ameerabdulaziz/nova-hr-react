@@ -383,6 +383,7 @@ function RequestsList(props) {
                   <pre>{formateDate(value)}</pre>
                 ) 
                 : item === "notes" ? <div style={{minWidth:"250px", lineHeight:"25px"}}>{value}</div>
+                : item === "value" && Document === 4 ? <div>X</div>
                 : (
                  <pre> {value} </pre>
                 ),

@@ -188,6 +188,10 @@ function CustodyDeliveryReport(props) {
       },
     },
     {
+      name: "employeeCode",
+      label: intl.formatMessage(payrollMessages.employeeCode),
+    },
+    {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
     },
