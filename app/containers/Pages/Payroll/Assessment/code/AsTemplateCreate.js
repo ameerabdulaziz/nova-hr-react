@@ -33,6 +33,7 @@ import api from '../api/AsTemplateData';
 import CompetencyInfo from '../components/AsTemplate/CompetencyInfo';
 import StuffInfo from '../components/AsTemplate/StuffInfo';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function AsTemplateCreate(props) {
   const { intl } = props;
@@ -162,7 +163,7 @@ function AsTemplateCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Assessment/AsTemplate');
+      history.push(SITEMAP.assessment.AsTemplate);
     } catch (error) {
       //
     } finally {
@@ -179,7 +180,7 @@ function AsTemplateCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Assessment/AsTemplate');
+    history.push(SITEMAP.assessment.AsTemplate);
   };
 
   const onCheckboxChange = (evt) => {

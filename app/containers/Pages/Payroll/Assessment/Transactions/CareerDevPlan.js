@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/CareerDevPlanData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function CareerDevPlan(props) {
   const { intl } = props;
@@ -81,10 +82,10 @@ function CareerDevPlan(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Assessment/CareerDevPlanCreate',
+      url: SITEMAP.assessment.CareerDevPlanCreate.route,
     },
     edit: {
-      url: '/app/Pages/Assessment/CareerDevPlanEdit',
+      url: SITEMAP.assessment.CareerDevPlanEdit.route,
     },
     delete: {
       api: deleteRow,

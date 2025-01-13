@@ -11,6 +11,7 @@ import { getCheckboxIcon } from '../../helpers';
 import api from '../api/AsTemplateData';
 import AsTemplatePrint from '../components/AsTemplate/AsTemplatePrint';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function AsTemplate(props) {
   const { intl } = props;
@@ -103,10 +104,10 @@ function AsTemplate(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Assessment/AsTemplateCreate',
+      url: SITEMAP.assessment.AsTemplateCreate.route,
     },
     edit: {
-      url: '/app/Pages/Assessment/AsTemplateEdit',
+      url: SITEMAP.assessment.AsTemplateEdit.route,
     },
     delete: {
       api: deleteRow,

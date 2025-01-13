@@ -25,6 +25,7 @@ import {
   import { format } from 'date-fns';
 import { formateDate, getDefaultYearAndMonth } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function AssessmentReview({ intl }) {
   const { classes, cx } = useStyles();
@@ -151,7 +152,7 @@ function AssessmentReview({ intl }) {
                         color="secondary"
                         className={classes.button}
                     >
-                        <Link to={{ pathname: '/app/Pages/Assessment/AssessmentReviewEdit', state: { id: tableMeta.rowData[0] },}} color="secondary">
+                        <Link to={{ pathname: SITEMAP.assessment.AssessmentReviewEdit.route, state: { id: tableMeta.rowData[0] },}} color="secondary">
                             <VisibilityIcon color="secondary"/>             
                         </Link>
                     </IconButton>

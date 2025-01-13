@@ -18,6 +18,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import payrollMessages from '../../messages';
 import api from '../api/CompetenciesData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function CompetenciesCreate(props) {
   const { intl } = props;
@@ -48,7 +49,7 @@ function CompetenciesCreate(props) {
     try {
       await api(locale).save(formInfo);
       toast.success(notif.saved);
-      history.push('/app/Pages/Assessment/Competencies');
+      history.push(SITEMAP.assessment.Competencies.route);
     } catch (error) {
       //
     } finally {
@@ -101,7 +102,7 @@ function CompetenciesCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Assessment/Competencies');
+    history.push(SITEMAP.assessment.Competencies.route);
   };
 
   return (

@@ -27,6 +27,7 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/CareerDevPlanData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function CareerDevPlanCreate(props) {
   const { intl } = props;
@@ -138,7 +139,7 @@ function CareerDevPlanCreate(props) {
     try {
       await api(locale).save(formData);
       toast.success(notif.saved);
-      history.push('/app/Pages/Assessment/CareerDevPlan');
+      history.push(SITEMAP.assessment.CareerDevPlan.route);
     } catch (error) {
       //
     } finally {
@@ -238,7 +239,7 @@ function CareerDevPlanCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Assessment/CareerDevPlan');
+    history.push(SITEMAP.assessment.CareerDevPlan.route);
   };
 
   return (

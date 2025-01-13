@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/IndividualDevelopmentPlanData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function IndividualDevelopmentPlan(props) {
   const { intl } = props;
@@ -81,11 +82,11 @@ function IndividualDevelopmentPlan(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Assessment/IndividualDevelopmentPlanCreate',
+      url: SITEMAP.assessment.IndividualDevelopmentPlanCreate.route,
     },
     edit: {
       disabled: (row) => row.action !== 0,
-      url: '/app/Pages/Assessment/IndividualDevelopmentPlanEdit',
+      url: SITEMAP.assessment.IndividualDevelopmentPlanEdit.route,
     },
     delete: {
       disabled: (row) => row.action !== 0,

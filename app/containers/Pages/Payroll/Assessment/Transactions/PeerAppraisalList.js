@@ -8,6 +8,7 @@ import payrollMessages from '../../messages';
 import messages from '../messages';
 import { Button } from "@mui/material";
 import {  useHistory  } from 'react-router-dom';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function PeerAppraisalList(props) {
   const { intl } = props;
@@ -79,7 +80,7 @@ function PeerAppraisalList(props) {
             variant="contained" 
             size="medium" 
             color="primary" 
-            onClick={()=>history.push(`/app/Pages/Assessment/EmployeePeerAppraisal`, {
+            onClick={()=>history.push(SITEMAP.assessment.EmployeePeerAppraisal.route, {
               id: tableMeta.rowData[0]
             })}
             >
