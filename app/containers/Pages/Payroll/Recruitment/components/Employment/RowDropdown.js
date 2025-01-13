@@ -12,6 +12,7 @@ import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router';
 import { ServerURL } from '../../../api/ServerConfig';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function RowDropdown(props) {
   const {
@@ -30,7 +31,7 @@ function RowDropdown(props) {
   const onPreviewCVBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
 
-    window.open(`${encodeURI(`/app/Pages/Recruitment/JobApplicationPreview/${btoa(encodeURIComponent(JSON.stringify(
+    window.open(`${encodeURI(`${SITEMAP.recruitment.JobApplicationPreview.route}/${btoa(encodeURIComponent(JSON.stringify(
       {
           id: row.id 
       }

@@ -35,6 +35,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/HiringRequestData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function HiringRequestCreate(props) {
   const { intl } = props;
@@ -114,7 +115,7 @@ function HiringRequestCreate(props) {
     try {
       await api(locale).save(formData);
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/HiringRequest');
+      history.push(SITEMAP.recruitment.HiringRequest.route);
     } catch (error) {
       //
     } finally {
@@ -197,7 +198,7 @@ function HiringRequestCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/HiringRequest');
+    history.push(SITEMAP.recruitment.HiringRequest.route);
   };
 
   const onNumericInputChange = (evt) => {

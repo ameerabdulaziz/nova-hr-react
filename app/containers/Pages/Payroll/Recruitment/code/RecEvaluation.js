@@ -7,6 +7,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/RecEvaluationData';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function RecEvaluation(props) {
   const { intl } = props;
@@ -98,10 +99,10 @@ function RecEvaluation(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Recruitment/RecEvaluationCreate',
+      url: SITEMAP.recruitment.RecEvaluationCreate.route,
     },
     edit: {
-      url: '/app/Pages/Recruitment/RecEvaluationEdit',
+      url: SITEMAP.recruitment.RecEvaluationEdit.route,
     },
     delete: {
       api: deleteRow,

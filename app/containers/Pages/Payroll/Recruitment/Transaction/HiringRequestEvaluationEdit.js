@@ -29,6 +29,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/HiringRequestEvaluationData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function HiringRequestEvaluationEdit(props) {
   const { intl } = props;
@@ -80,7 +81,7 @@ function HiringRequestEvaluationEdit(props) {
     try {
       await api(locale).save(editInfo);
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/HiringRequestEvaluation');
+      history.push(SITEMAP.recruitment.HiringRequestEvaluation.route);
     } catch (error) {
       //
     } finally {
@@ -131,7 +132,7 @@ function HiringRequestEvaluationEdit(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/HiringRequestEvaluation');
+    history.push(SITEMAP.recruitment.HiringRequestEvaluation.route);
   };
 
   return (

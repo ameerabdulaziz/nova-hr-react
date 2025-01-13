@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import Payrollmessages from '../../messages';
 import { useHistory } from 'react-router-dom';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function JobAdvertisement(props) {
   const { intl } = props;
@@ -85,10 +86,10 @@ function JobAdvertisement(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Recruitment/JobAdvertisementCreate',
+      url: SITEMAP.recruitment.JobAdvertisementCreate.route,
     },
     edit: {
-      url: '/app/Pages/Recruitment/JobAdvertisementEdit',
+      url: SITEMAP.recruitment.JobAdvertisementEdit.route,
     },
     delete: {
       api: deleteRow,
@@ -101,7 +102,7 @@ function JobAdvertisement(props) {
         >
           <span>
             <IconButton onClick={() => {
-              history.push("/app/Pages/Recruitment/JobAdvertisementCreate", {
+              history.push(SITEMAP.recruitment.JobAdvertisementCreate.route, {
                 id: row.id,
                 isCopy: true});
               }}>

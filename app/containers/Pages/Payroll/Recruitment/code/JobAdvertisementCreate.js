@@ -26,6 +26,7 @@ import messages from '../messages';
 import QuesAndAnsPopup from '../../Component/QuesAndAnsPopup';
 import JobAdvertisementCards from '../components/JobAdvertisementCards/JobAdvertisementCards';
 import Styles from '../../../../../styles/styles.scss';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function JobAdvertisementCreate(props) {
   const { intl } = props;
@@ -176,7 +177,7 @@ formData.recQuestions = recQuestions
     try {
       await api(locale).save(formData);
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/JobAdvertisement');
+      history.push(SITEMAP.recruitment.JobAdvertisement.route);
     } catch (error) {
       //
     } finally {
@@ -332,7 +333,7 @@ formData.recQuestions = recQuestions
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/JobAdvertisement');
+    history.push(SITEMAP.recruitment.JobAdvertisement.route);
   };
 
   const anchorTable = [

@@ -10,6 +10,7 @@ import React, { memo, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function RowDropdown(props) {
   const {
@@ -33,7 +34,7 @@ function RowDropdown(props) {
   const onPreviewEmploymentRequestClick = (rowIndex) => {
     closeDropdown(rowIndex);
 
-    history.push('/app/Pages/Recruitment/ReviewEmploymentRequestEdit', {
+    history.push(SITEMAP.recruitment.ReviewEmploymentRequestEdit.route, {
       id: row.id,
     });
   };

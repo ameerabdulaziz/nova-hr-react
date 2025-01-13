@@ -6,6 +6,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/HiringRequestEvaluationData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function HiringRequestEvaluation(props) {
   const { intl } = props;
@@ -82,7 +83,7 @@ function HiringRequestEvaluation(props) {
 
   const actions = {
     edit: {
-      url: '/app/Pages/Recruitment/HiringRequestEvaluationEdit',
+      url: SITEMAP.recruitment.HiringRequestEvaluationEdit.route,
     },
   };
 

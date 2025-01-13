@@ -10,6 +10,7 @@ import tableMessage from '../../../../../components/Tables/messages';
 import PayRollLoader from '../../Component/PayRollLoader';
 import payrollMessages from '../../messages';
 import api from '../api/RecHrTestData';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function RecHrTestCreate(props) {
   const { intl } = props;
@@ -58,7 +59,7 @@ function RecHrTestCreate(props) {
       await api().save(formInfo);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/RecHrTest');
+      history.push(SITEMAP.recruitment.RecHrTest.route);
     } catch (error) {
       //
     } finally {
@@ -78,7 +79,7 @@ function RecHrTestCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/RecHrTest');
+    history.push(SITEMAP.recruitment.RecHrTest.route);
   };
 
   return (

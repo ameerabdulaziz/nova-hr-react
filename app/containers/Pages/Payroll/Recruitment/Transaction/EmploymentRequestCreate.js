@@ -43,6 +43,7 @@ import WorkKnowledgePopup from '../components/EmploymentRequest/WorkKnowledgePop
 import WorkSkillPopup from '../components/EmploymentRequest/WorkSkillPopup';
 import WorkLanguagePopup from '../components/EmploymentRequest/WorkLanguagePopup';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function EmploymentRequestCreate(props) {
   const { intl } = props;
@@ -157,7 +158,7 @@ function EmploymentRequestCreate(props) {
     try {
       await api(locale).save(formData);
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/EmploymentRequest');
+      history.push(SITEMAP.recruitment.EmploymentRequest.route);
     } catch (error) {
       //
     } finally {
@@ -256,7 +257,7 @@ function EmploymentRequestCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/EmploymentRequest');
+    history.push(SITEMAP.recruitment.EmploymentRequest.route);
   };
 
   const onNumericInputChange = (evt) => {
