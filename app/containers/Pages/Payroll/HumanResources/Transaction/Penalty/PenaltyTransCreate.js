@@ -396,6 +396,7 @@ function PenaltyTransCreate(props) {
                     label={intl.formatMessage(messages.penaltyName)}
                   />
                 )}
+                disabled={data.employeeId.length === 0 ? true : false}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -430,7 +431,7 @@ function PenaltyTransCreate(props) {
                     ...prevFilters,
                     penaltyTypeId: value !== null ? value.id : 0,
                     penaltyTypeName: value !== null ? value.name : "",
-                    penaltyDetailId: value.penaltyDetailId,
+                    penaltyDetailId: value !== null ?  value.penaltyDetailId : "",
                     value: value !== null ? value.value : "",
                   }));
                 }}
