@@ -26,6 +26,7 @@ import { formateDate, getDefaultYearAndMonth } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/MedicalInsuranceSubscriptionData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function MedicalInsuranceSubscriptionCreate(props) {
   const { intl } = props;
@@ -101,7 +102,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Minsurance/MedicalInsuranceSubscription');
+      history.push(SITEMAP.medicalInsurance.MedicalInsuranceSubscription.route);
     } catch (error) {
       //
     } finally {
@@ -216,7 +217,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Minsurance/MedicalInsuranceSubscription');
+    history.push(SITEMAP.medicalInsurance.MedicalInsuranceSubscription.route);
   };
 
   return (

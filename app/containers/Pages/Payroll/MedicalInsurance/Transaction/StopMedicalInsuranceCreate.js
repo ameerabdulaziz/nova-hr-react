@@ -20,6 +20,7 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/StopMedicalInsuranceData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function StopMedicalInsuranceCreate(props) {
   const { intl } = props;
@@ -62,7 +63,7 @@ function StopMedicalInsuranceCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Minsurance/StopMedicalInsurance');
+      history.push(SITEMAP.medicalInsurance.StopMedicalInsurance.route);
     } catch (error) {
       //
     } finally {
@@ -114,7 +115,7 @@ function StopMedicalInsuranceCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Minsurance/StopMedicalInsurance');
+    history.push(SITEMAP.medicalInsurance.StopMedicalInsurance.route);
   };
 
   return (
