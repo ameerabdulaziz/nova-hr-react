@@ -28,6 +28,8 @@ const PromotionsData = (locale) => {
   Apis.Save = async (data) => {
     var requestData = {
       date: data.date,
+      promotionDate: data.promotionDate,
+      decisionDate: data.decisionDate,
       employeeId: data.employeeId,
       id: data.id,
       reason: data.reason,

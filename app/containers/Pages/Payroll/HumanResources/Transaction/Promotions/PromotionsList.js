@@ -69,6 +69,22 @@ function PromotionsList(props) {
       label: intl.formatMessage(messages.employeeName),
     },
     {
+      name: 'promotionDate',
+      label: intl.formatMessage(messages.actualPromotionDate),
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
+      },
+    },
+    {
+      name: 'decisionDate',
+      label: intl.formatMessage(messages.decisionDate),
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
+      },
+    },
+    {
       name: 'job',
       label: intl.formatMessage(messages.oldJob),
     },

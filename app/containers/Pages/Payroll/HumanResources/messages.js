@@ -264,6 +264,14 @@ PromotionsUpdateTitle: {
   id: `${scope}.PromotionsUpdateTitle`,
   defaultMessage: 'PromotionsUpdateTitle',
 },
+actualPromotionDate: {
+  id: `${scope}.actualPromotionDate`,
+  defaultMessage: 'Actual Promotion Date',
+},
+decisionDate: {
+  id: `${scope}.decisionDate`,
+  defaultMessage: 'Decision Date',
+},
 //Explanation//////////////////////////////////////////////////////////////////////////////////////////////////////
 ExplanationEditTitle: {
   id: `${scope}.ExplanationEditTitle`,

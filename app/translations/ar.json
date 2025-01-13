@@ -1844,6 +1844,7 @@
   "boilerplate.containers.Payroll.HumanResources.planedManPower": "قوة العمالة المخططة",
   "boilerplate.containers.Payroll.HumanResources.PromotionsCreateTitle": "اضافة ترقية",
   "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle": "تعديل ترقية",
+  "boilerplate.containers.Payroll.HumanResources.actualPromotionDate": " تاريخ الترقيه الفعلي",
   "boilerplate.containers.Payroll.HumanResources.q": "س",
   "boilerplate.containers.Payroll.HumanResources.quantity": "الكمية",
   "boilerplate.containers.Payroll.HumanResources.Question": "السؤال",

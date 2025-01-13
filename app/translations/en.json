@@ -1843,6 +1843,7 @@
   "boilerplate.containers.Payroll.HumanResources.planedManPower": "Planed ManPower",
   "boilerplate.containers.Payroll.HumanResources.PromotionsCreateTitle": "Add Promotions",
   "boilerplate.containers.Payroll.HumanResources.PromotionsUpdateTitle": "Update Promotions",
+  "boilerplate.containers.Payroll.HumanResources.actualPromotionDate": "Actual Promotion Date",
   "boilerplate.containers.Payroll.HumanResources.q": "Q",
   "boilerplate.containers.Payroll.HumanResources.quantity": "Quantity",
   "boilerplate.containers.Payroll.HumanResources.Question": "Question",
