@@ -182,6 +182,10 @@ function UniformDeliveryReport(props) {
       label: intl.formatMessage(payrollMessages.date),
     },
     {
+      name: "employeeCode",
+      label: intl.formatMessage(payrollMessages.employeeCode),
+    },
+    {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
     },
