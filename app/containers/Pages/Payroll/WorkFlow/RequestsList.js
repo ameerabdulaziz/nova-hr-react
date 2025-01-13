@@ -38,6 +38,7 @@ import { ServerURL } from "../api/ServerConfig";
 import { useHistory } from "react-router-dom";
 import { getCheckboxIcon } from "../helpers";
 import { formateDate } from "../helpers";
+import SITEMAP from "../../../App/routes/sitemap";
 
 function RequestsList(props) {
   const { intl } = props;
@@ -50,37 +51,37 @@ function RequestsList(props) {
   const [cols, setCols] = useState([]);
 
   const [Document, setDocument] = useState(
-    location.pathname == "/app/Pages/Att/PermissionApproval"
+    location.pathname == SITEMAP.Attendance.PermissionApproval.route
       ? 1
-      : location.pathname == "/app/Pages/Att/MissionApproval"
+      : location.pathname == SITEMAP.Attendance.MissionApproval.route
       ? 2
-      : location.pathname == "/app/Pages/vac/VacApproval"
+      : location.pathname == SITEMAP.vacation.VacApproval.route
       ? 3
-      : location.pathname == "/app/Pages/HR/PenaltyApproval"
+      : location.pathname == SITEMAP.humanResources.PenaltyApproval.route
       ? 4
-      : location.pathname == "/app/Pages/HR/RewardsApproval"
+      : location.pathname == SITEMAP.humanResources.RewardsApproval.route
       ? 5
-      : location.pathname == "/app/Pages/Payroll/LoanApproval"
+      : location.pathname == SITEMAP.payroll.LoanApproval.route
       ? 6
-      : location.pathname == "/app/Pages/Att/OvertimeApproval"
+      : location.pathname == SITEMAP.Attendance.OvertimeApproval.route
       ? 7
-      : location.pathname == "/app/Pages/HR/UniformApproval"
+      : location.pathname == SITEMAP.humanResources.UniformApproval.route
       ? 8
-      : location.pathname == "/app/Pages/HR/ResignApproval"
+      : location.pathname == SITEMAP.humanResources.ResignApproval.route
       ? 9
-      : location.pathname == "/app/Pages/HR/CustodyApproval"
+      : location.pathname == SITEMAP.humanResources.CustodyApproval.route
       ? 9
-      : location.pathname == "/app/Pages/HR/DocumentApproval"
+      : location.pathname == SITEMAP.humanResources.DocumentApproval.route
       ? 10
-      : location.pathname == "/app/Pages/Att/ShiftSwapApproval"
+      : location.pathname == SITEMAP.Attendance.ShiftSwapApproval.route
       ? 11
-      : location.pathname == "/app/Pages/Training/FunctionApproval"
+      : location.pathname == SITEMAP.training.FunctionApproval.route
       ? 12
-      : location.pathname == "/app/Pages/Training/TrainingApproval"
+      : location.pathname == SITEMAP.training.TrainingApproval.route
       ? 13
-      : location.pathname == "/app/Pages/Att/ForgotFingerprintApproval"
+      : location.pathname == SITEMAP.Attendance.ForgotFingerprintApproval.route
       ? 14
-      : location.pathname == "/app/Pages/HR/TransferRequestApproval"
+      : location.pathname == SITEMAP.humanResources.TransferRequestApproval.route
       ? 15
       : 0
   );
@@ -192,7 +193,7 @@ function RequestsList(props) {
         employee,
         Fromdate,
         Todate,
-        location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false
+        location.pathname == SITEMAP.humanResources.CustodyApproval.route ? true : false
       );
       setdata(dataApi);
       if (dataApi && dataApi.length > 0) {
@@ -219,7 +220,7 @@ function RequestsList(props) {
         postDate.docId == 13 &&
         (postDate.trainingId == "" || postDate.trainingId == null)
       )
-        history.push("/app/Pages/Training/TrTrainingTrxListCreate", {
+        history.push(SITEMAP.training.TrTrainingTrxListCreate.route, {
           postDate: postDate,
         });
       else {
@@ -227,7 +228,7 @@ function RequestsList(props) {
         if (response.status == 200) {
           toast.success(notif.saved);
           if (postDate.docId == 9 && postDate.actionTypeId == 8)
-            history.push("/app/Pages/Employee/EmployeeData", {
+            history.push(SITEMAP.employee.EmployeeData.route, {
               id: postDate.employeeId,
               resignReasonId: postDate.resignReasonId,
               resignReasonName: postDate.resignReasonName,
@@ -252,37 +253,37 @@ function RequestsList(props) {
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
       var documentId = 0;
-      if (location.pathname == "/app/Pages/Att/PermissionApproval")
+      if (location.pathname == SITEMAP.attendance.PermissionApproval.route)
         documentId = 1;
-      else if (location.pathname == "/app/Pages/Att/MissionApproval")
+      else if (location.pathname == SITEMAP.attendance.MissionApproval.route)
         documentId = 2;
-      else if (location.pathname == "/app/Pages/vac/VacApproval")
+      else if (location.pathname == SITEMAP.vacation.VacApproval.route)
         documentId = 3;
-      else if (location.pathname == "/app/Pages/HR/PenaltyApproval")
+      else if (location.pathname == SITEMAP.humanResources.PenaltyApproval.route)
         documentId = 4;
-      else if (location.pathname == "/app/Pages/HR/RewardsApproval")
+      else if (location.pathname == SITEMAP.humanResources.RewardsApproval.route)
         documentId = 5;
-      else if (location.pathname == "/app/Pages/Att/OvertimeApproval")
+      else if (location.pathname == SITEMAP.attendance.OvertimeApproval.route)
         documentId = 6;
-      else if (location.pathname == "/app/Pages/Payroll/LoanApproval")
+      else if (location.pathname == SITEMAP.payroll.LoanApproval.route)
         documentId = 7;
-      else if (location.pathname == "/app/Pages/HR/UniformApproval")
+      else if (location.pathname == SITEMAP.humanResources.UniformApproval.route)
         documentId = 8;
-      else if (location.pathname == "/app/Pages/HR/ResignApproval")
+      else if (location.pathname == SITEMAP.humanResources.ResignApproval.route)
         documentId = 9;
-      else if (location.pathname == "/app/Pages/HR/CustodyApproval")
+      else if (location.pathname == SITEMAP.humanResources.CustodyApproval.route)
         documentId = 9;
-      else if (location.pathname == "/app/Pages/HR/DocumentApproval")
+      else if (location.pathname == SITEMAP.humanResources.DocumentApproval.route)
         documentId = 10;
-      else if (location.pathname == "/app/Pages/Att/ShiftSwapApproval")
+      else if (location.pathname == SITEMAP.attendance.ShiftSwapApproval.route)
         documentId = 11;
-      else if (location.pathname == "/app/Pages/Training/FunctionApproval")
+      else if (location.pathname == SITEMAP.training.FunctionApproval.route)
         documentId = 12;
-      else if (location.pathname == "/app/Pages/Training/TrainingApproval")
+      else if (location.pathname == SITEMAP.training.TrainingApproval.route)
         documentId = 13;
-      else if (location.pathname == "/app/Pages/Att/ForgotFingerprintApproval")
+      else if (location.pathname == SITEMAP.attendance.ForgotFingerprintApproval.route)
         documentId = 14;
-      else if (location.pathname == "/app/Pages/HR/TransferRequestApproval")
+      else if (location.pathname == SITEMAP.humanResources.TransferRequestApproval.route)
         documentId = 15;
       else documentId = 0;
 
@@ -294,7 +295,7 @@ function RequestsList(props) {
         employee,
         Fromdate,
         Todate,
-        location.pathname == "/app/Pages/HR/CustodyApproval" ? true : false
+        location.pathname == SITEMAP.humanResources.CustodyApproval.route ? true : false
       );
 
       setdata(dataApi);
@@ -631,7 +632,7 @@ function RequestsList(props) {
             postDate={postDate}
             setPostDate={setPostDate}
             isCustody={
-              location.pathname == "/app/Pages/HR/CustodyApproval"
+              location.pathname == SITEMAP.humanResources.CustodyApproval.route
                 ? true
                 : false
             }

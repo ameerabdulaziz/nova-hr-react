@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 
 import { useHistory } from 'react-router-dom';
+import SITEMAP from '../../../App/routes/sitemap';
 
 function WorkFlowList(props) {
   const { intl } = props;
@@ -25,7 +26,7 @@ function WorkFlowList(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const onCopyBtnClick = async (id) => {
-    history.push("/app/Pages/WF/WorkFlowEdit", {
+    history.push(SITEMAP.workFlow.WorkFlowEdit.route, {
       id: id,
       isCopy: true},);
   };
@@ -88,10 +89,10 @@ function WorkFlowList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/WF/WorkFlowCreate',
+      url: SITEMAP.workFlow.WorkFlowCreate.route,
     },
     edit: {
-      url: '/app/Pages/WF/WorkFlowEdit',
+      url: SITEMAP.workFlow.WorkFlowEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -25,6 +25,7 @@ import ActionsList from "./ActionsList";
 import GeneralListApis from "../api/GeneralListApis";
 import PayRollLoader from "../Component/PayRollLoader";
 import Vacapi from "../Vacation/api/LeaveTrxData";
+import SITEMAP from "../../../App/routes/sitemap";
 
 function WorkFlowCreate(props) {
   const { intl } = props;
@@ -97,7 +98,7 @@ function WorkFlowCreate(props) {
         if (response.status == 200) {
           toast.success(notif.saved);
 
-          history.push(`/app/Pages/WF/WorkFlow`);
+          history.push(SITEMAP.workFlow.WorkFlow.route);
         } else toast.error(response.statusText);
       }
     } catch (err) {
@@ -107,7 +108,7 @@ function WorkFlowCreate(props) {
   };
 
   async function oncancel() {
-    history.push(`/app/Pages/WF/WorkFlow`);
+    history.push(SITEMAP.workFlow.WorkFlow.route);
   }
   async function getDocType(DocumentId, fromchange) {
     try {
