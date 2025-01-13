@@ -384,9 +384,6 @@ function ReviewOvertime(props) {
   };
 
 
-  console.log("updatedTableData =", updatedTableData);
-  
-
   return (
     <PayRollLoader isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
