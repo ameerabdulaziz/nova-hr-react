@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import api from '../api/SInsuranceOrgnizationData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function SInsuranceOrgnization(props) {
   const { intl } = props;
@@ -96,10 +97,10 @@ function SInsuranceOrgnization(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/insurance/SInsuranceOrgnizationCreate',
+      url: SITEMAP.socialInsurance.SInsuranceOrgnizationCreate.route,
     },
     edit: {
-      url: '/app/Pages/insurance/SInsuranceOrgnizationEdit',
+      url: SITEMAP.socialInsurance.SInsuranceOrgnizationEdit.route,
     },
     delete: {
       api: deleteRow,

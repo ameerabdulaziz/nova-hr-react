@@ -9,6 +9,7 @@ import { formateDate } from '../../helpers';
 import api from '../api/StopInsuranceData';
 import messages from '../messages';
 import payrollMessages from '../../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function StopInsurance(props) {
   const { intl } = props;
@@ -105,10 +106,10 @@ function StopInsurance(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/insurance/StopInsuranceCreate',
+      url: SITEMAP.socialInsurance.StopInsuranceCreate.route,
     },
     edit: {
-      url: '/app/Pages/insurance/StopInsuranceEdit',
+      url: SITEMAP.socialInsurance.StopInsuranceEdit.route,
     },
     delete: {
       api: deleteRow,
