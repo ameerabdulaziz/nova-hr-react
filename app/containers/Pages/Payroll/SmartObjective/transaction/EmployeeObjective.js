@@ -16,6 +16,7 @@ import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeObjectiveData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function EmployeeObjective(props) {
   const { intl } = props;
@@ -235,11 +236,11 @@ function EmployeeObjective(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/SmartObjective/EmployeeObjectiveCreate',
+      url: SITEMAP.smartObjective.EmployeeObjectiveCreate.route,
       disabled: isNormalEmployee,
     },
     edit: {
-      url: '/app/Pages/SmartObjective/EmployeeObjectiveEdit',
+      url: SITEMAP.smartObjective.EmployeeObjectiveEdit.route,
     },
     delete: {
       api: deleteRow,
