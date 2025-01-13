@@ -14,6 +14,7 @@ import  AttAbscenceWidget  from "./Component/AttAbscenceWidget";
 import  OvertimeLateWidget  from "./Component/OvertimeLateWidget";
 import RewardsPenaltyWidget  from "./Component/RewardsPenaltyWidget";
 import useStyles from "./dashboard-jss";
+import SITEMAP from "../../../App/routes/sitemap";
 
 function EmployeeDashboard() {
   const { classes } = useStyles();
@@ -25,9 +26,9 @@ function EmployeeDashboard() {
 
   useEffect(() => {
     localStorage.setItem("MenuName", "Dashboard")
-    if (IsHR=="true") history.push("/app");
-    else if (IsManagement=="true") history.push("/app/ManagementDashboard");
-    else history.push("/app/EmployeeDashboard");
+    if (IsHR=="true") history.push(SITEMAP.global.AdminDashboard.route);
+    else if (IsManagement=="true") history.push(SITEMAP.global.ManagementDashboard.route);
+    else history.push(SITEMAP.global.EmployeeDashboard.route);
   }, []);
 
   return (
