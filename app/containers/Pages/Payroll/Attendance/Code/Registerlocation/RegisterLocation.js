@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import RegisterLocationData from '../../api/RegisterLocationData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function RegisterLocation({ intl }) {
   const Title = localStorage.getItem('MenuName');
@@ -88,10 +89,10 @@ function RegisterLocation({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/RegisterLocationCreate',
+      url: SITEMAP.attendance.RegisterLocationCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/RegisterLocationEdit',
+      url: SITEMAP.attendance.RegisterLocationEdit.route,
     },
     delete: {
       api: deleteRow,

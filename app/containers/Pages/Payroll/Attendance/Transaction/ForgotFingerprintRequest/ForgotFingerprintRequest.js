@@ -9,6 +9,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import payrollMessages from '../../../messages';
 import ApiData from '../../api/ForgotFingerprintRequestData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function ForgotFingerprintRequest(props) {
   const { intl } = props;
@@ -94,10 +95,10 @@ function ForgotFingerprintRequest(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/ForgotFingerprintRequestCreate',
+      url: SITEMAP.attendance.ForgotFingerprintRequestCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/ForgotFingerprintRequestEdit',
+      url: SITEMAP.attendance.ForgotFingerprintRequestEdit.route,
     },
     delete: {
       api: deleteRow,

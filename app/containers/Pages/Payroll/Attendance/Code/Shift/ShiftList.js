@@ -9,6 +9,7 @@ import { getCheckboxIcon } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/ShiftData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function ShiftList(props) {
   const { intl } = props;
@@ -106,10 +107,10 @@ function ShiftList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/ShiftCreate',
+      url: SITEMAP.attendance.ShiftCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/ShiftEdit',
+      url: SITEMAP.attendance.ShiftEdit.route,
     },
     delete: {
       api: deleteRow,

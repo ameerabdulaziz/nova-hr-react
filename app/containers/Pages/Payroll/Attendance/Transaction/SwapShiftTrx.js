@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import api from '../api/SwapShiftTrxData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function SwapShiftTrx(props) {
   const { intl } = props;
@@ -111,7 +112,7 @@ function SwapShiftTrx(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/SwapShiftTrxCreate',
+      url: SITEMAP.attendance.SwapShiftTrxCreate.route,
     },
     delete: {
       api: deleteRow,

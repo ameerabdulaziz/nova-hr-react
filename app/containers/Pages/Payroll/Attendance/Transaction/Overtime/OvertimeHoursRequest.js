@@ -10,6 +10,7 @@ import payrollMessages from '../../../messages';
 import WFExecutionList from '../../../WorkFlow/WFExecutionList';
 import api from '../../api/OvertimeHoursRequestData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function OvertimeHoursRequest(props) {
   const { intl } = props;
@@ -131,10 +132,10 @@ function OvertimeHoursRequest(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/OvertimeHoursRequestCreate',
+      url: SITEMAP.attendance.OvertimeHoursRequestCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/OvertimeHoursRequestEdit',
+      url: SITEMAP.attendance.OvertimeHoursRequestEdit.route,
       // disabled edit action is not HR and status is null
       disabled: isHR ? false : (row) => row.status !== null,
     },

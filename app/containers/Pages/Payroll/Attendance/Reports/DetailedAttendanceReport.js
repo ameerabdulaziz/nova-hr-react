@@ -28,6 +28,7 @@ import { format } from "date-fns";
 import { toast } from "react-hot-toast";
 import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function DetailedAttendanceReport(props) {
   const { intl } = props;
@@ -187,7 +188,7 @@ function DetailedAttendanceReport(props) {
           }));
 
 
-          window.open(`/app/Pages/Att/TimeTableDetailsReport/Review`, "_blank")?.focus();
+          window.open(SITEMAP.attendance.TimeTableDetailsReportReview.route, "_blank")?.focus();
   
         }
         else

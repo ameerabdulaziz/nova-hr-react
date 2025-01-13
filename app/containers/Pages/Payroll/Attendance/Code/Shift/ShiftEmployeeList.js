@@ -14,6 +14,7 @@ import { getCheckboxIcon } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/ShiftEmployeeData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function ShiftEmployeeList(props) {
   const { intl } = props;
@@ -183,7 +184,7 @@ function ShiftEmployeeList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/ShiftEmployeeCreate',
+      url: SITEMAP.attendance.ShiftEmployeeCreate.route,
       disabled: !employee,
       params: {
         employeeId: employee,
@@ -191,7 +192,7 @@ function ShiftEmployeeList(props) {
       },
     },
     edit: {
-      url: '/app/Pages/Att/ShiftEmployeeEdit',
+      url: SITEMAP.attendance.ShiftEmployeeEdit.route,
       params: {
         employeeId: employee,
         employeeName: selectedEmployee?.name ?? null,

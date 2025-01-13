@@ -29,6 +29,7 @@ import {
   Circle  
 } from '@react-google-maps/api';
 import deleteIcon from '../../../Assets/Attendance-imgs/remove.png';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 const libraries = ['places', 'drawing'];
 
@@ -267,7 +268,7 @@ const getLocationDataFun = async (lan,lng) => {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Att/RegisterLocation`);
+        history.push(SITEMAP.attendance.RegisterLocation.route);
       } else {
           toast.error(response.statusText);
       }
@@ -343,7 +344,7 @@ useEffect(() => {
 
 
   function oncancel(){
-    history.push(`/app/Pages/Att/RegisterLocation`);
+    history.push(SITEMAP.attendance.RegisterLocation.route);
   }
 
 

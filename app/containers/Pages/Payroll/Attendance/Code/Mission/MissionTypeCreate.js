@@ -17,6 +17,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import style from '../../../../../../styles/styles.scss';
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function MissionTypeCreate(props) {
   const { intl } = props;
@@ -84,7 +85,7 @@ function MissionTypeCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Att/MissionType`);
+        history.push(SITEMAP.attendance.MissionType.route);
       } else {
         toast.error(response.statusText);
       }
@@ -94,7 +95,7 @@ function MissionTypeCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Att/MissionType`);
+    history.push(SITEMAP.attendance.MissionType.route);
   }
 
  

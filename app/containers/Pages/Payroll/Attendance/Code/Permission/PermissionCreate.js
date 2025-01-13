@@ -34,6 +34,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import OrganizationTree from "../../../Component/OrganizationTree/Tree";
 import OrganizationTreePopup from "../../../Component/OrganizationTree/TreePopup";
 import { Box } from "@mui/material";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function PermissionCreate(props) {
   const { intl } = props;
@@ -162,7 +163,7 @@ function PermissionCreate(props) {
       await ApiData(locale).Save(body);
 
       toast.success(notif.saved);
-      history.push(`/app/Pages/Att/Permission`);
+      history.push(SITEMAP.attendance.Permission.route);
     } catch (err) {
       //
     } finally {
@@ -170,7 +171,7 @@ function PermissionCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Att/Permission`);
+    history.push(SITEMAP.attendance.Permission.route);
   }
   async function fetchData() {
     try {

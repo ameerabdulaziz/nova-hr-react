@@ -6,6 +6,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/DeviceData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function DeviceList(props) {
   const { intl } = props;
@@ -85,10 +86,10 @@ function DeviceList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/DeviceCreate',
+      url: SITEMAP.attendance.DeviceCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/DeviceEdit',
+      url: SITEMAP.attendance.DeviceEdit.route,
     },
     delete: {
       api: deleteRow,
