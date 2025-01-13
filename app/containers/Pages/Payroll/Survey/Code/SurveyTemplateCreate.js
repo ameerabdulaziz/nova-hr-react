@@ -34,6 +34,7 @@ import payrollMessages from '../../messages';
 import api from '../api/SurveyTemplateData';
 import QuestionInfo from '../components/SurveyTemplate/QuestionInfo';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function SurveyTemplateCreate(props) {
   const { intl } = props;
@@ -156,7 +157,7 @@ function SurveyTemplateCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Survey/SurveyTemplate');
+      history.push(SITEMAP.survey.SurveyTemplate.route);
     } catch (error) {
       //
     } finally {
@@ -179,7 +180,7 @@ function SurveyTemplateCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Survey/SurveyTemplate');
+    history.push(SITEMAP.survey.SurveyTemplate.route);
   };
 
   const onDatePickerChange = (value, name) => {

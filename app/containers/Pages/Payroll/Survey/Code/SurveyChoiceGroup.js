@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/SurveyChoiceGroupData';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function SurveyChoiceGroup(props) {
   const { intl } = props;
@@ -72,10 +73,10 @@ function SurveyChoiceGroup(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Survey/SurveyChoiceGroupCreate',
+      url: SITEMAP.survey.SurveyChoiceGroupCreate.route,
     },
     edit: {
-      url: '/app/Pages/Survey/SurveyChoiceGroupEdit',
+      url: SITEMAP.survey.SurveyChoiceGroupEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -14,6 +14,7 @@ import payrollMessages from '../../messages';
 import api from '../api/SurveyTemplateData';
 import SurveyTemplatePrint from '../components/SurveyTemplate/SurveyTemplatePrint';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function SurveyTemplate(props) {
   const { intl } = props;
@@ -143,10 +144,10 @@ function SurveyTemplate(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Survey/SurveyTemplateCreate',
+      url: SITEMAP.survey.SurveyTemplateCreate.route,
     },
     edit: {
-      url: '/app/Pages/Survey/SurveyTemplateEdit',
+      url: SITEMAP.survey.SurveyTemplateEdit.route,
     },
     delete: {
       api: deleteRow,
