@@ -9,6 +9,7 @@ import ProjectData from '../api/ProjectData';
 import messages from '../messages';
 import Payrollmessages from "../../messages";
 import { getCheckboxIcon } from '../../helpers';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function Project({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -89,10 +90,10 @@ function Project({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/ProjectManagment/ProjectCreate',
+      url: SITEMAP.projectManagement.ProjectCreate.route,
     },
     edit: {
-      url: '/app/Pages/ProjectManagment/ProjectEdit',
+      url: SITEMAP.projectManagement.ProjectEdit.route,
     },
     delete: {
       api: deleteRow,

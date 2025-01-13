@@ -35,6 +35,7 @@ import dayjs from 'dayjs';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import StageData from '../api/StageData';
+import SITEMAP from "../../../../App/routes/sitemap";
 
 
 
@@ -181,7 +182,7 @@ function ProjectCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/ProjectManagment/Project`);
+        history.push(SITEMAP.projectManagement.Project.route);
       } else {
         toast.error(response.statusText);
       }
@@ -320,7 +321,7 @@ function ProjectCreate(props) {
 
 
   function oncancel() {
-    history.push(`/app/Pages/ProjectManagment/Project`);
+    history.push(SITEMAP.projectManagement.Project.route);
   }
 
 

@@ -18,6 +18,7 @@ import {
   import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
   import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
   import useStyles from '../../Style';
+import SITEMAP from '../../../../App/routes/sitemap';
 
   
   function StageCreate(props) {
@@ -89,7 +90,7 @@ import {
         await api(locale).save(data);
   
         toast.success(notif.saved);
-        history.push('/app/Pages/ProjectManagment/Stage');
+        history.push(SITEMAP.projectManagement.Stage.route);
       } catch (error) {
         //
       } finally {
@@ -102,7 +103,7 @@ import {
     };
   
     const onCancelBtnClick = () => {
-      history.push('/app/Pages/ProjectManagment/Stage');
+      history.push(SITEMAP.projectManagement.Stage.route);
     };
 
 

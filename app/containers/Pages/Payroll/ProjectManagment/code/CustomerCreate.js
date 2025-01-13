@@ -17,6 +17,7 @@ import useStyles from "../../Style";
 import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { TextareaAutosize } from '@mui/material';
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function CustomerCreate(props) {
   const locale = useSelector((state) => state.language.locale);
@@ -71,7 +72,7 @@ function CustomerCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/ProjectManagment/Customer`);
+        history.push(SITEMAP.projectManagement.Customer.route);
       } else {
         toast.error(response.statusText);
       }
@@ -119,7 +120,7 @@ function CustomerCreate(props) {
   }, [ID]);
 
   function oncancel() {
-    history.push(`/app/Pages/ProjectManagment/Customer`);
+    history.push(SITEMAP.projectManagement.Customer.route);
   }
 
  
