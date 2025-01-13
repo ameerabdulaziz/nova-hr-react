@@ -30,6 +30,8 @@ import api from '../api/EmployeeStatusReportData';
 import messages from '../messages';
 import GeneralListApis from "../../api/GeneralListApis";
 import styles from '../../../../../styles/styles.scss';
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 function EmployeeStatusReport(props) {
   const { intl } = props;
@@ -54,8 +56,8 @@ function EmployeeStatusReport(props) {
     rewords: [],
     vacation: [],
     jobs: [],
-    department: [],
     profile: {},
+    employeeDocuments: [],
   });
 
   const onFormSubmit = async (evt) => {
@@ -79,9 +81,9 @@ function EmployeeStatusReport(props) {
         profile: response.empData,
         vacation: response.leaveData,
         jobs: response.jobData,
-        department: response.deptData,
         rewords: response.rewardData,
         penalty: response.penalityData,
+        employeeDocuments: response.empDoc,
       }));
     } catch (error) {
       //
@@ -283,25 +285,34 @@ function EmployeeStatusReport(props) {
     },
   ];
 
-  const departmentColumns = [
+   const employeeDocumentsColumns = [
     {
-      name: 'date',
-      label: intl.formatMessage(hrMessages.date),
+      name: 'name',
+      label: intl.formatMessage(payrollMessages.name),
     },
 
     {
-      name: 'oldDepartment',
-      label: intl.formatMessage(hrMessages.oldJob),
+      name: 'isDelivered',
+      label: intl.formatMessage(messages.isDelivered),
+      options: {
+        customBodyRender: (value) => (          
+          value ?
+              <CheckIcon style={{ color: "#3f51b5" }} /> 
+            : <CloseIcon style={{ color: "#717171" }} /> 
+          )
+      },
     },
 
     {
-      name: 'newDepartment',
-      label: intl.formatMessage(messages.department),
-    },
-
-    {
-      name: 'reason',
-      label: intl.formatMessage(hrMessages.reason),
+      name: '',
+      label: intl.formatMessage(messages.isNotDelivered),
+      options: {
+        customBodyRender: (value,tableMeta) => (          
+          employeeInfo.employeeDocuments[tableMeta.rowIndex]?.isDelivered ?
+              <CloseIcon style={{ color: "#717171" }} />
+            : <CheckIcon style={{ color: "#3f51b5" }} />  
+          )
+      },
     },
   ];
 
@@ -504,9 +515,9 @@ function EmployeeStatusReport(props) {
 
       <PayrollTable
         isLoading={isLoading}
-        title={intl.formatMessage(messages.departmentReport)}
-        data={employeeInfo.department}
-        columns={departmentColumns}
+        title={intl.formatMessage(messages.EmployeeDocuments)}
+        data={employeeInfo.employeeDocuments}
+        columns={employeeDocumentsColumns}
       />
     </PayRollLoader>
   );

@@ -1568,6 +1568,8 @@
   "boilerplate.containers.Payroll.Employee.job.ruleTemplate": "نموذج الفواعد",
   "boilerplate.containers.Payroll.Employee.jobName": "اسم الوظيفة",
   "boilerplate.containers.Payroll.Employee.jobsReport": "تقرير الوظائف",
+  "boilerplate.containers.Payroll.Employee.isDelivered": "تم التسليم",
+  "boilerplate.containers.Payroll.Employee.isNotDelivered": "لم يتم التسليم",
   "boilerplate.containers.Payroll.Employee.mobile": "الهاتف",
   "boilerplate.containers.Payroll.Employee.modifyEmployeeDataIfTheyAlreadyExist": "تعديل بيانات الموظف إذا كانت موجودة بالفعل",
   "boilerplate.containers.Payroll.Employee.nickName": "اسم الشهرة",

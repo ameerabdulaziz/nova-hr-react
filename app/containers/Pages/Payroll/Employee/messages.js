@@ -834,6 +834,14 @@ export default defineMessages({
     id: `${scope}.departmentReport`,
     defaultMessage: 'departmentReport',
   },
+  isDelivered: {
+    id: `${scope}.isDelivered`,
+    defaultMessage: 'Is Delivered',
+  },
+  isNotDelivered: {
+    id: `${scope}.isNotDelivered`,
+    defaultMessage: 'Is Not Delivered',
+  },
   employeeInfo: {
     id: `${scope}.employeeInfo`,
     defaultMessage: 'employeeInfo',
