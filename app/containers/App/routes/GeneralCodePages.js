@@ -1,31 +1,31 @@
 import Loading from 'enl-components/Loading';
 import React from 'react';
-import loadable from '../../utils/loadable';
+import loadable from '../../../utils/loadable';
 
-export const MainDataGeneralCode = loadable(
-  () => import('../Pages/Payroll/MainData/Code/General'),
+const MainDataGeneralCode = loadable(
+  () => import('../../Pages/Payroll/MainData/Code/General'),
   {
     fallback: <Loading />,
   }
 );
 
-export const Grade = (props) => (
+const Grade = (props) => (
   <MainDataGeneralCode text='Grade' table='MdGrade' {...props} />
 );
 
-export const JobLevel = (props) => (
+const JobLevel = (props) => (
   <MainDataGeneralCode text='Job Level' table='MdJobLevel' {...props} />
 );
 
-export const Month = (props) => (
+const Month = (props) => (
   <MainDataGeneralCode text='Month' table='MdMonth' {...props} />
 );
 
-export const Year = (props) => (
+const Year = (props) => (
   <MainDataGeneralCode text='Year' table='MdYear' {...props} />
 );
 
-export const Nationalities = (props) => (
+const Nationalities = (props) => (
   <MainDataGeneralCode
     text='Nationalities'
     table='MdNationalities'
@@ -33,7 +33,7 @@ export const Nationalities = (props) => (
   />
 );
 
-export const Qualifications = (props) => (
+const Qualifications = (props) => (
   <MainDataGeneralCode
     text='Qualifications'
     table='MdQualifications'
@@ -41,23 +41,23 @@ export const Qualifications = (props) => (
   />
 );
 
-export const Religions = (props) => (
+const Religions = (props) => (
   <MainDataGeneralCode text='Religions' table='MdReligions' {...props} />
 );
 
-export const Salute = (props) => (
+const Salute = (props) => (
   <MainDataGeneralCode text='Salute' table='MdSalute' {...props} />
 );
 
-export const LicenseGrade = (props) => (
+const LicenseGrade = (props) => (
   <MainDataGeneralCode text='License Grade' table='MdLicenseGrade' {...props} />
 );
 
-export const KinshipLink = (props) => (
+const KinshipLink = (props) => (
   <MainDataGeneralCode text='Kinship Link' table='MdKinshipLink' {...props} />
 );
 
-export const MilitaryStatus = (props) => (
+const MilitaryStatus = (props) => (
   <MainDataGeneralCode
     text='Military Status'
     table='MdMilitaryStatus'
@@ -65,23 +65,23 @@ export const MilitaryStatus = (props) => (
   />
 );
 
-export const ResignReason = (props) => (
+const ResignReason = (props) => (
   <MainDataGeneralCode text='ResignReason' table='HrResignReason' {...props} />
 );
 
-export const JobTypes = (props) => (
+const JobTypes = (props) => (
   <MainDataGeneralCode text='Job Types' table='MdJobsTypes' {...props} />
 );
 
-export const JobNatures = (props) => (
+const JobNatures = (props) => (
   <MainDataGeneralCode text='Job Natures' table='MdJobNatures' {...props} />
 );
 
-export const SocialStatus = (props) => (
+const SocialStatus = (props) => (
   <MainDataGeneralCode text='Social Status' table='MdSocialStatus' {...props} />
 );
 
-export const InsuranceRegion = (props) => (
+const InsuranceRegion = (props) => (
   <MainDataGeneralCode
     text='Insurance Region'
     table='SinsuranceRegion'
@@ -89,7 +89,7 @@ export const InsuranceRegion = (props) => (
   />
 );
 
-export const MinsuranceItem = (props) => (
+const MinsuranceItem = (props) => (
   <MainDataGeneralCode
     text='Insurance Item'
     table='MinsuranceItem'
@@ -97,7 +97,7 @@ export const MinsuranceItem = (props) => (
   />
 );
 
-export const RecHiringSource = (props) => (
+const RecHiringSource = (props) => (
   <MainDataGeneralCode
     text='Recruitment Hiring Source'
     table='RecHiringSource'
@@ -105,7 +105,7 @@ export const RecHiringSource = (props) => (
   />
 );
 
-export const RecJobGrade = (props) => (
+const RecJobGrade = (props) => (
   <MainDataGeneralCode
     text='Recruitment Job Grade'
     table='RecJobGrade'
@@ -113,7 +113,7 @@ export const RecJobGrade = (props) => (
   />
 );
 
-export const AsCategory = (props) => (
+const AsCategory = (props) => (
   <MainDataGeneralCode
     text='Assessment Category'
     table='AsCategory'
@@ -121,7 +121,7 @@ export const AsCategory = (props) => (
   />
 );
 
-export const MdDocumentCategory = (props) => (
+const MdDocumentCategory = (props) => (
   <MainDataGeneralCode
     text='Document Category'
     table='MdDocumentCategory'
@@ -129,19 +129,43 @@ export const MdDocumentCategory = (props) => (
   />
 );
 
-export const CourseType = (props) => (
-  <MainDataGeneralCode
-    text='Course Type'
-    table='HrCourseType'
-    {...props}
-  />
+const CourseType = (props) => (
+  <MainDataGeneralCode text='Course Type' table='HrCourseType' {...props} />
 );
 
 // Survey
-export const SurveyQuestionGroup = (props) => (
+const SurveyQuestionGroup = (props) => (
   <MainDataGeneralCode
     text='Survey Question Group'
     table='SurveyQuestionGroup'
     {...props}
   />
 );
+
+const GeneralCodePages = {
+  AsCategory,
+  CourseType,
+  Grade,
+  InsuranceRegion,
+  JobLevel,
+  JobNatures,
+  JobTypes,
+  KinshipLink,
+  LicenseGrade,
+  MdDocumentCategory,
+  MilitaryStatus,
+  MinsuranceItem,
+  Month,
+  Nationalities,
+  Qualifications,
+  RecHiringSource,
+  RecJobGrade,
+  Religions,
+  ResignReason,
+  Salute,
+  SocialStatus,
+  SurveyQuestionGroup,
+  Year,
+};
+
+export default GeneralCodePages;

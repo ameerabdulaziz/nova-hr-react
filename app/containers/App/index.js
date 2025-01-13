@@ -1,25 +1,26 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { PropTypes } from 'prop-types';
-import { Router, Switch, Route } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import NotFound from '../Pages/Standalone/NotFoundDedicated';
-import Auth from './Auth';
-import Application from './Application';
-import LandingCorporate from './Landing';
+import Application from './routes/Application';
+import PublicRoutes from './routes/PublicRoutes';
 import ThemeWrapper from './ThemeWrapper';
-import PublicRoutes from './PublicRoutes';
+import Auth from './Auth';
+import { DOMAIN_NAME } from './routes/sitemap';
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
 function App(props) {
   const { history } = props;
+
   return (
     <ThemeWrapper>
       <Router history={history}>
         <Switch>
           {/* <Route path="/" exact component={LandingCorporate} /> */}
-          <Route path="/public" component={PublicRoutes} />
-          <Route path="/app" component={Application} />
-          <Route component={Auth} />
+          <Route path={`${DOMAIN_NAME}/public`} component={PublicRoutes} />
+          <Route path={`${DOMAIN_NAME}/auth`} component={Auth} />
+          <Route path='/' component={Application} />
           <Route component={NotFound} />
         </Switch>
       </Router>
@@ -27,6 +28,6 @@ function App(props) {
   );
 }
 
-App.propTypes = { history: PropTypes.object.isRequired, };
+App.propTypes = { history: PropTypes.object.isRequired };
 
 export default App;
