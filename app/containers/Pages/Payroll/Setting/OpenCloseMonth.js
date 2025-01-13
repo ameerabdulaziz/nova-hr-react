@@ -166,6 +166,7 @@ function OpenCloseMonth(props) {
     setFormInfo((prev) => ({
       ...prev,
       [evt.target.name]: evt.target.checked,
+      requestEndDate: null
     }));
   };
 

@@ -45,7 +45,7 @@ function Login(props) {
     if (valueForm) {
       try {
 
-        if((valueForm.email === "Admin" || valueForm.email === "admin") && valueForm.password == "123456") 
+        if(valueForm.email.toLowerCase() === "admin" && valueForm.password == "123456") 
         {
           toast.error(intl.formatMessage(Payrollmessages.invalidUser));
         }

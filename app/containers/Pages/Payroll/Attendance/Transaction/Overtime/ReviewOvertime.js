@@ -272,8 +272,11 @@ function ReviewOvertime(props) {
         customBodyRender: (value, tableMeta) => (
           <TextField
             value={
-              updatedTableData[tableMeta.rowIndex]?.overtimeVal
-							?? tableData[tableMeta.rowIndex].overtimeVal
+              updatedTableData[tableMeta.rowIndex] ? 
+                updatedTableData[tableMeta.rowIndex].overtimeVal
+                : tableData[tableMeta.rowIndex] ?
+                    tableData[tableMeta.rowIndex].overtimeVal
+                    : ""
             }
             name='overtimeVal'
             className={classes.field}
@@ -292,8 +295,11 @@ function ReviewOvertime(props) {
         customBodyRender: (value, tableMeta) => (
           <Checkbox
             checked={
-              updatedTableData[tableMeta.rowIndex]?.calcASRepVac
-							?? tableData[tableMeta.rowIndex].calcASRepVac
+              updatedTableData[tableMeta.rowIndex] ?
+                updatedTableData[tableMeta.rowIndex].calcASRepVac
+                : tableData[tableMeta.rowIndex] ? 
+                    tableData[tableMeta.rowIndex].calcASRepVac 
+                    : false
             }
             name='calcASRepVac'
             onChange={(evt) => onCheckboxChange(tableMeta.rowIndex, evt)}
@@ -321,8 +327,11 @@ function ReviewOvertime(props) {
         customBodyRender: (value, tableMeta) => (
           <TextField
             value={
-              updatedTableData[tableMeta.rowIndex]?.repVacVal
-							?? tableData[tableMeta.rowIndex].repVacVal
+              updatedTableData[tableMeta.rowIndex] ?
+                updatedTableData[tableMeta.rowIndex].repVacVal
+                : tableData[tableMeta.rowIndex] ?
+                    tableData[tableMeta.rowIndex].repVacVal 
+                    : ""
             }
             name='repVacVal'
             className={classes.field}
@@ -373,6 +382,10 @@ function ReviewOvertime(props) {
       setIsLoading(false);
     }
   };
+
+
+  console.log("updatedTableData =", updatedTableData);
+  
 
   return (
     <PayRollLoader isLoading={isLoading}>
