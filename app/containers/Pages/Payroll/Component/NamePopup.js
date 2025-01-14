@@ -38,17 +38,17 @@ function NamePopup(props) {
       SelectedRows = [];
       for (let i = 0; i < allRowsSelected.length; i++) {
         SelectedRows.push({
-          id: EmployeeList[allRowsSelected[i].dataIndex].id,
-          name: EmployeeList[allRowsSelected[i].dataIndex].name,
+          id: EmployeeList[allRowsSelected[i]].id,
+          name: EmployeeList[allRowsSelected[i]].name,
           fixedElementsSilimit:
-            EmployeeList[allRowsSelected[i].dataIndex].fixedElementsSilimit,
+            EmployeeList[allRowsSelected[i]].fixedElementsSilimit,
           organizationName:
-            EmployeeList[allRowsSelected[i].dataIndex].organizationName || "",
+            EmployeeList[allRowsSelected[i]].organizationName || "",
           businessUnitName:
-            EmployeeList[allRowsSelected[i].dataIndex].businessUnitName || "",
+            EmployeeList[allRowsSelected[i]].businessUnitName || "",
           branchName:
-            EmployeeList[allRowsSelected[i].dataIndex].branchName || "",
-          sellPrice: EmployeeList[allRowsSelected[i].dataIndex].sellPrice || "",
+            EmployeeList[allRowsSelected[i]].branchName || "",
+          sellPrice: EmployeeList[allRowsSelected[i]].sellPrice || "",
           isSelected: true,
         });
       }
@@ -243,7 +243,7 @@ function NamePopup(props) {
     ),
     onRowSelectionChange: (curRowSelected, allRowsSelected) => {
       // onRowsSelect: (curRowSelected, allRowsSelected) => {
-      handleSelect(allRowsSelected);
+      handleSelect(curRowSelected);
     },
   };
 
