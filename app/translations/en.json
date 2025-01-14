@@ -2273,6 +2273,7 @@
   "boilerplate.containers.Payroll.Payroll.maxLoan": "Maximum Loan Value",
   "boilerplate.containers.Payroll.Payroll.maxRepeat": "max Repeat/month",
   "boilerplate.containers.Payroll.Payroll.MedInsElement": "Medical Ins Element",
+  "boilerplate.containers.Payroll.Payroll.eleOfCalcValOfVac": "Elements of calculating vacation value",
   "boilerplate.containers.Payroll.Payroll.min": "Minimum",
   "boilerplate.containers.Payroll.Payroll.minDailyWorkHours": "min Daily WorkHours",
   "boilerplate.containers.Payroll.Payroll.insDate": "Insert Date",

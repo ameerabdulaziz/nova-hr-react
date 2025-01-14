@@ -2274,6 +2274,7 @@
   "boilerplate.containers.Payroll.Payroll.maxLoan": "الحد الاقصى للسلفة",
   "boilerplate.containers.Payroll.Payroll.maxRepeat": "حد التكرار الاقصى",
   "boilerplate.containers.Payroll.Payroll.MedInsElement": "عنصر خصم التأمين",
+  "boilerplate.containers.Payroll.Payroll.eleOfCalcValOfVac": "عناصر احتساب قيمة الاحازات",
   "boilerplate.containers.Payroll.Payroll.min": "الحد الادنى",
   "boilerplate.containers.Payroll.Payroll.minDailyWorkHours": "الحد الادنى لساعات العمل",
   "boilerplate.containers.Payroll.Payroll.insDate": "تاريخ الطلب",
