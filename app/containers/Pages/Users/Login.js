@@ -104,13 +104,13 @@ function Login(props) {
               else
                 history.push(
                   redirectTo == null || redirectTo === SITEMAP.auth.Login.route
-                  ? SITEMAP.global.AdminDashboard.route
+                  ? SITEMAP.global.EmployeeDashboard.route
                   : redirectTo
                 );
             } else {
               if (res.data == "you must register this device first")
                 Dispatcher(loginSuccess());
-                history.push("register");
+                history.push(SITEMAP.auth.Register.route);
             }
 
             //history.push('/app');

@@ -55,7 +55,7 @@ function Dashboard(props) {
   const userName = localStorage.getItem("userName");
 
   const titleException = [
-    "/app",
+    SITEMAP.global.AdminDashboard.route,
     "/app/crm-dashboard",
     "/app/crypto-dashboard",
   ];

@@ -51,9 +51,9 @@ function RequestsList(props) {
   const [cols, setCols] = useState([]);
 
   const [Document, setDocument] = useState(
-    location.pathname == SITEMAP.Attendance.PermissionApproval.route
+    location.pathname == SITEMAP.attendance.PermissionApproval.route
       ? 1
-      : location.pathname == SITEMAP.Attendance.MissionApproval.route
+      : location.pathname == SITEMAP.attendance.MissionApproval.route
       ? 2
       : location.pathname == SITEMAP.vacation.VacApproval.route
       ? 3
@@ -63,7 +63,7 @@ function RequestsList(props) {
       ? 5
       : location.pathname == SITEMAP.payroll.LoanApproval.route
       ? 6
-      : location.pathname == SITEMAP.Attendance.OvertimeApproval.route
+      : location.pathname == SITEMAP.attendance.OvertimeApproval.route
       ? 7
       : location.pathname == SITEMAP.humanResources.UniformApproval.route
       ? 8
@@ -73,13 +73,13 @@ function RequestsList(props) {
       ? 9
       : location.pathname == SITEMAP.humanResources.DocumentApproval.route
       ? 10
-      : location.pathname == SITEMAP.Attendance.ShiftSwapApproval.route
+      : location.pathname == SITEMAP.attendance.ShiftSwapApproval.route
       ? 11
       : location.pathname == SITEMAP.training.FunctionApproval.route
       ? 12
       : location.pathname == SITEMAP.training.TrainingApproval.route
       ? 13
-      : location.pathname == SITEMAP.Attendance.ForgotFingerprintApproval.route
+      : location.pathname == SITEMAP.attendance.ForgotFingerprintApproval.route
       ? 14
       : location.pathname == SITEMAP.humanResources.TransferRequestApproval.route
       ? 15
