@@ -2058,6 +2058,13 @@ export const ImportLeaveBalance = loadable(
   }
 );
 
+export const VacationBalanceCostReport = loadable(
+  () => import('./Pages/Payroll/Vacation/Reports/VacationBalanceCostReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Social Insurance
 
 export const InsuranceOffices = loadable(

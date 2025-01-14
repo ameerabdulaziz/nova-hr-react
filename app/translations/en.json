@@ -2831,6 +2831,7 @@
   "boilerplate.containers.Payroll.vac.insDate": "Insert Date",
   "boilerplate.containers.Payroll.vac.address": "Address",
   "boilerplate.containers.Payroll.vac.allowedAfterMonthNo": "Allowed After Month Number",
+  "boilerplate.containers.Payroll.vac.cost": "Cost",
   "boilerplate.containers.Payroll.vac.alternativeEmployee": "Alternative Employee",
   "boilerplate.containers.Payroll.vac.alternativeEmployeeName": "alternativeEmployee",
   "boilerplate.containers.Payroll.vac.alternativeTask": "alternative Task",

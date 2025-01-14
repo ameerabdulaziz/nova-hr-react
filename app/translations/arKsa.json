@@ -2832,6 +2832,7 @@
   "boilerplate.containers.Payroll.vac.insDate": "تاريخ الطلب",
   "boilerplate.containers.Payroll.vac.address": "العنوان",
   "boilerplate.containers.Payroll.vac.allowedAfterMonthNo": "مسموح به بعد عدد شهور",
+  "boilerplate.containers.Payroll.vac.cost": "القيمة",
   "boilerplate.containers.Payroll.vac.alternativeEmployee": "الموظف البديل",
   "boilerplate.containers.Payroll.vac.alternativeEmployeeName": "الموظف البديل",
   "boilerplate.containers.Payroll.vac.alternativeTask": "المهمه البديلة",

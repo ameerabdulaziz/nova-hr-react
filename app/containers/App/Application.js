@@ -478,6 +478,7 @@ import {
   NewsDetails,
   Form1Insurance,
   Form1InsuranceReview,
+  VacationBalanceCostReport,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -1819,6 +1820,11 @@ function Application(props) {
         <Route
           path="/app/Pages/vac/ImportLeaveBalance"
           component={ImportLeaveBalance}
+        />
+
+        <Route
+          path="/app/Pages/vac/VacationBalanceCostReport"
+          component={VacationBalanceCostReport}
         />
 
         {/* Insurance */}
