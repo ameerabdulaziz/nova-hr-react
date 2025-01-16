@@ -66,6 +66,7 @@ function BranchSalarySetting(props) {
     GrossElementId:"",
     MedInsElement:"",
     eleOfCalcVac: [],
+    Smartobjectiveelement: [],
   });
 
   const handleSubmit = async (e) => {
@@ -101,7 +102,8 @@ function BranchSalarySetting(props) {
       newEmpDedEl: data.NewEmpDedEl,
       grossElementId:data.GrossElementId,
       medInsElement:data.MedInsElement,
-      VacBalCostElementIds: data.eleOfCalcVac.length !== 0 ? `,${data.eleOfCalcVac.map((item) => item.id).join(",")},` : ""
+      VacBalCostElementIds: data.eleOfCalcVac.length !== 0 ? `,${data.eleOfCalcVac.map((item) => item.id).join(",")},` : "",
+      Smartobjectiveelement: data.Smartobjectiveelement ? data.Smartobjectiveelement : ""
     };
 
     try {
@@ -135,6 +137,7 @@ function BranchSalarySetting(props) {
           CompanyShare: "",
           TheEmployeesShareOfSI: "",
           eleOfCalcVac: [],
+          Smartobjectiveelement: [],
         });
       } else {
         toast.error(response.statusText);
@@ -286,12 +289,6 @@ function BranchSalarySetting(props) {
   }
 
 
-  const onElementOfCalcVacMultiAutoCompleteChange = (value) => {
-    setdata((prev) => ({
-      ...prev,
-      eleOfCalcVac: value,
-    }));
-  };
 
 
   return (
@@ -1016,39 +1013,32 @@ function BranchSalarySetting(props) {
                       )}
                     />
                   </Grid>
+
                   <Grid item xs={12} md={3}>
                     <Autocomplete
                       options={eleOfCalcVacList}
-                      multiple
-                      disableCloseOnSelect
-                      className={`${style.AutocompleteMulSty} ${
-                        locale === "ar" ? style.AutocompleteMulStyAR : null
-                      }`}
-                      isOptionEqualToValue={(option, value) => option.id === value.id}
-                      value={data.eleOfCalcVac}
-                      renderOption={(optionProps, option, { selected }) => (
-                        <li {...optionProps} key={optionProps.id}>
-                          <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                            checkedIcon={<CheckBoxIcon fontSize="small" />}
-                            style={{ marginRight: 8 }}
-                            checked={selected}
-                          />
-                          {option.name}
-                        </li>
-                      )}
-                      getOptionLabel={(option) => (option ? option.name : "")}
-                      onChange={(_, value) =>
-                        onElementOfCalcVacMultiAutoCompleteChange(value)
+                      value={eleOfCalcVacList.find((item) => item.id === data.Smartobjectiveelement) || null}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 || value.id === "" || option.id === value.id
                       }
+                      getOptionLabel={(option) => (option.name ? option.name : "")}
+                      onChange={(event, value) => {
+                        setdata((prev) => ({
+                          ...prev,
+                          Smartobjectiveelement: value !== null ? value.id : null,
+                        }))
+                      }}
                       renderInput={(params) => (
                         <TextField
+                          variant="outlined"
                           {...params}
-                          label={intl.formatMessage(messages.eleOfCalcValOfVac)}
+                          name="Smartobjectiveelement"
+                          label={intl.formatMessage(messages.Smartobjectiveelement)}
                         />
                       )}
                     />
                   </Grid>
+                  
                   <Grid item xs={12} md={3}>
                     <TextField
                       name="EpidemicsContribution"
@@ -1094,6 +1084,43 @@ function BranchSalarySetting(props) {
                         }));
                       }}
                       autoComplete='off'
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={3}>
+                    <Autocomplete
+                      options={eleOfCalcVacList}
+                      multiple
+                      disableCloseOnSelect
+                      className={`${style.AutocompleteMulSty} ${
+                        locale !== "er" ? style.AutocompleteMulStyAR : null
+                      }`}
+                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      value={data.eleOfCalcVac}
+                      renderOption={(optionProps, option, { selected }) => (
+                        <li {...optionProps} key={optionProps.id}>
+                          <Checkbox
+                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                            checkedIcon={<CheckBoxIcon fontSize="small" />}
+                            style={{ marginRight: 8 }}
+                            checked={selected}
+                          />
+                          {option.name}
+                        </li>
+                      )}
+                      getOptionLabel={(option) => (option ? option.name : "")}
+                      onChange={(_, value) =>
+                        setdata((prev) => ({
+                          ...prev,
+                          eleOfCalcVac: value,
+                        }))
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={intl.formatMessage(messages.eleOfCalcValOfVac)}
+                        />
+                      )}
                     />
                   </Grid>
 
