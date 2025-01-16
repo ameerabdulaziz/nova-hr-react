@@ -836,11 +836,11 @@ export default defineMessages({
   },
   isDelivered: {
     id: `${scope}.isDelivered`,
-    defaultMessage: 'Is Delivered',
+    defaultMessage: 'Delivered',
   },
   isNotDelivered: {
     id: `${scope}.isNotDelivered`,
-    defaultMessage: 'Is Not Delivered',
+    defaultMessage: 'Not Delivered',
   },
   employeeInfo: {
     id: `${scope}.employeeInfo`,

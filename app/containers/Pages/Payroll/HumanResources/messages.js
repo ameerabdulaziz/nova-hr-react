@@ -423,7 +423,7 @@ idealManPower: {
 //Course/////////////////////////////////////////////////////////////////////////////////////////////////////////
 courseName: {
   id: `${scope}.courseName`,
-  defaultMessage: 'courseName',
+  defaultMessage: 'course Name',
 },
 
 EmpCourseCreateTitle: {

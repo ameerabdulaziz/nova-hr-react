@@ -479,6 +479,8 @@ import {
   Form1Insurance,
   Form1InsuranceReview,
   VacationBalanceCostReport,
+  WBS,
+  WBSReport,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -1574,6 +1576,10 @@ function Application(props) {
           component={SalarySigningListReport}
         />
         <Route path="/app/Pages/Payroll/LoanReport" component={LoanReport} />
+
+        <Route path="/app/Pages/Payroll/WBS" component={WBS} />
+
+        <Route path="/app/Pages/Payroll/WBSReport" component={WBSReport} />
 
         {/* WorkFlow */}
         <Route path="/app/Pages/WF/WorkFlow" component={WorkFlowList} />

@@ -1765,7 +1765,7 @@
   "boilerplate.containers.Payroll.HumanResources.commStartDate": "بداية الالتزام بالعمل",
   "boilerplate.containers.Payroll.HumanResources.courseDays": "عدد ايام الكورس",
   "boilerplate.containers.Payroll.HumanResources.courseHours": "عدد ساعات الكورس",
-  "boilerplate.containers.Payroll.HumanResources.courseName": "قوة العمالة المخططه",
+  "boilerplate.containers.Payroll.HumanResources.courseName": "اسم الدورة",
   "boilerplate.containers.Payroll.HumanResources.courseType": "نوع الكورس",
   "boilerplate.containers.Payroll.HumanResources.createPenaltyTitle": "اضافة جزاء",
   "boilerplate.containers.Payroll.HumanResources.createRewardTitle": "اضافة جزاءات الموظفين",

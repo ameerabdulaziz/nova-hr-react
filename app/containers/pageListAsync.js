@@ -1636,48 +1636,60 @@ export const LoanReqCreate = loadable(
         fallback: <Loading />,
       });
 
-      export const SalaryComparisonReport = loadable(
-        () => import('./Pages/Payroll/Payroll/Reports/SalaryComparisonReport'),
-        {
-          fallback: <Loading />,
-        });
+    export const SalaryComparisonReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/SalaryComparisonReport'),
+      {
+        fallback: <Loading />,
+      });
 
-      export const FollowEmployeeReport = loadable(
-        () => import('./Pages/Payroll/Payroll/Reports/FollowEmployee'),
-        {
-          fallback: <Loading />,
-        });
+    export const FollowEmployeeReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/FollowEmployee'),
+      {
+        fallback: <Loading />,
+      });
 
-      export const TaxReportReport = loadable(
-        () => import('./Pages/Payroll/Payroll/Reports/TaxReportReport'),
-        {
-          fallback: <Loading />,
-        });
+    export const TaxReportReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/TaxReportReport'),
+      {
+        fallback: <Loading />,
+      });
       
-      export const TotalDeptSalaryReport = loadable(
-        () => import('./Pages/Payroll/Payroll/Reports/TotalDeptSalaryReport'),
-        {
-          fallback: <Loading />,
-        });
+    export const TotalDeptSalaryReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/TotalDeptSalaryReport'),
+      {
+        fallback: <Loading />,
+      });
 
-      export const SalaryYearReport = loadable(
-        () => import('./Pages/Payroll/Payroll/Reports/SalaryYearReport'),
-        {
-          fallback: <Loading />,
-        });
+    export const SalaryYearReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/SalaryYearReport'),
+      {
+        fallback: <Loading />,
+      });
 
 
-      export const SalarySigningListReport = loadable(
-        () => import('./Pages/Payroll/Payroll/Reports/SalarySigningListReport'),
-        {
-          fallback: <Loading />,
-        });
+    export const SalarySigningListReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/SalarySigningListReport'),
+      {
+        fallback: <Loading />,
+      });
 
-      export const LoanReport = loadable(
-        () => import('./Pages/Payroll/Payroll/Reports/LoanReport'),
-        {
-          fallback: <Loading />,
-        });
+    export const LoanReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/LoanReport'),
+      {
+        fallback: <Loading />,
+      });
+
+    export const WBS = loadable(
+      () => import('./Pages/Payroll/Payroll/Transaction/WBS'),
+      {
+        fallback: <Loading />,
+      });
+
+    export const WBSReport = loadable(
+      () => import('./Pages/Payroll/Payroll/Reports/WBSReport'),
+      {
+        fallback: <Loading />,
+      });
 
 // Workflow /////////////////////////////////////////////////////////////////////////////////
 export const WorkFlowList = loadable(
