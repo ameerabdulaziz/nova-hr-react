@@ -149,6 +149,10 @@ function EmployeeShiftReport(props) {
         label: intl.formatMessage(messages.employeeName),
       },
       {
+        name: "shiftName",
+        label: intl.formatMessage(messages.shiftName),
+      },
+      {
         name: "startTime",
         label: intl.formatMessage(messages.startTime),
       },

@@ -26,6 +26,9 @@ import messages from '../messages';
 import QuesAndAnsPopup from '../../Component/QuesAndAnsPopup';
 import JobAdvertisementCards from '../components/JobAdvertisementCards/JobAdvertisementCards';
 import Styles from '../../../../../styles/styles.scss';
+import Checkbox from '@mui/material/Checkbox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 function JobAdvertisementCreate(props) {
   const { intl } = props;
@@ -59,6 +62,7 @@ function JobAdvertisementCreate(props) {
     jobDescription: '',
     experiance: '',
     organizationId: '',
+    OrganizationIds: [],
     recJobRequirement: [],
 
     employmentComments,
@@ -165,7 +169,9 @@ recAdvAnswer = []
   
 })
 
-formData.recQuestions = recQuestions
+    formData.recQuestions = recQuestions
+    formData.organizationId = formInfo.OrganizationIds.length !== 0 ? formInfo.OrganizationIds[0].id : ""
+    formData.OrganizationIds =  formData.OrganizationIds.length !== 0 ? `,${formData.OrganizationIds.map((item) => item.id).join(",")},` : ""
 
     if(isCopy)
     {
@@ -196,7 +202,7 @@ formData.recQuestions = recQuestions
 
     try {
       const response = await api(locale).CheckManPower(
-        formInfo.organizationId,
+        formInfo.OrganizationIds.length !== 0 ? formInfo.OrganizationIds[0].id : "",
         formInfo.jobId
       );
       if (response) {
@@ -211,10 +217,87 @@ formData.recQuestions = recQuestions
     }
   };
 
-  async function fetchNeededData() {
-    setIsLoading(true);
+
+  const getEditDataFun = async () => {
 
     let cards = {}
+
+      const dataApi = await api(locale).GetById(id);
+
+    const branches = dataApi.organizationIds ? dataApi.organizationIds.slice(1, -1).split(',').map((orgId) => {
+    const branch = organizationList.find((item) => item.id == orgId);
+
+      return branch;
+
+    }) : [];
+
+      setFormInfo((prev) => ({
+        ...prev,
+        experiance: dataApi.experiance,
+        expireDate: dataApi.expireDate,
+        jobId: dataApi.jobId,
+        jobAdvertisementCode: dataApi.jobAdvertisementCode,
+        jobDescription: dataApi.jobDescription,
+        recJobRequirement: dataApi.recJobRequirement,
+        organizationId: dataApi.organizationId,
+        OrganizationIds: branches.length !== 0 ? branches : [],
+      }));
+
+      let answers = {}
+      let answersCheckboxs = {}
+      let answersIdsVals = {}
+
+      dataApi.recQuestions.map((item,index)=>{
+
+        item.recAdvAnswer.map((item2,index)=>{
+          
+          if(index !== 0)
+          {
+            answers[`ans${index + 1}`] =  item2.enName
+            
+
+            answersCheckboxs[`ans${index + 1}Checkbox`] = item2.isCorrect
+
+            answersIdsVals[`ans${index + 1}Id`] = item2.id
+            
+          }
+        })
+
+        cards[`cardData${index + 1}`] = {
+            formData: {
+              Answer1: item.recAdvAnswer[0].enName,
+              Answer1Checkbox: item.recAdvAnswer[0].isCorrect,
+              Question1: item.enName,
+              queId: item.id,
+              ansId: item.recAdvAnswer[0].id,
+            },
+            quesAns:{
+              queAns1: answers,
+              que1AnswersCheckbox: answersCheckboxs,
+            },
+            answerIds: answersIdsVals
+          }
+
+          answers = {}
+          answersCheckboxs = {}
+          answersIdsVals = {}
+        
+      })
+
+     setQuesPopupData(cards)
+     
+  }
+
+
+  useEffect(()=>{
+    if(id !== 0 && jobList.length !== 0 && organizationList.length !== 0)
+    {
+      getEditDataFun()
+    }
+  },[id,jobList,organizationList])
+
+  async function fetchNeededData() {
+    setIsLoading(true);
 
     try {
       const organizations = await GeneralListApis(locale).GetDepartmentList();
@@ -223,63 +306,6 @@ formData.recQuestions = recQuestions
       const jobs = await api(locale).GetJobList();
       setJobList(jobs);
 
-      if (id !== 0) {
-        const dataApi = await api(locale).GetById(id);
-        setFormInfo((prev) => ({
-          ...prev,
-          experiance: dataApi.experiance,
-          expireDate: dataApi.expireDate,
-          jobId: dataApi.jobId,
-          jobAdvertisementCode: dataApi.jobAdvertisementCode,
-          jobDescription: dataApi.jobDescription,
-          recJobRequirement: dataApi.recJobRequirement,
-          organizationId: dataApi.organizationId,
-        }));
-
-        let answers = {}
-        let answersCheckboxs = {}
-        let answersIdsVals = {}
-
-        dataApi.recQuestions.map((item,index)=>{
-
-          item.recAdvAnswer.map((item2,index)=>{
-            
-            if(index !== 0)
-            {
-              answers[`ans${index + 1}`] =  item2.enName
-              
-
-              answersCheckboxs[`ans${index + 1}Checkbox`] = item2.isCorrect
-
-              answersIdsVals[`ans${index + 1}Id`] = item2.id
-              
-            }
-          })
-
-          cards[`cardData${index + 1}`] = {
-              formData: {
-                Answer1: item.recAdvAnswer[0].enName,
-                Answer1Checkbox: item.recAdvAnswer[0].isCorrect,
-                Question1: item.enName,
-                queId: item.id,
-                ansId: item.recAdvAnswer[0].id,
-              },
-              quesAns:{
-                queAns1: answers,
-                que1AnswersCheckbox: answersCheckboxs,
-              },
-              answerIds: answersIdsVals
-            }
-
-            answers = {}
-            answersCheckboxs = {}
-            answersIdsVals = {}
-          
-        })
-
-       setQuesPopupData(cards)
-       
-      }
     } catch (error) {
       //
     } finally {
@@ -471,21 +497,38 @@ const closeQuesPopup = () => {
 
             <Grid item xs={12} md={4}>
               <Autocomplete
-                options={organizationList}
-                value={
-                  organizationList.find(
-                    (item) => item.id === formInfo.organizationId
-                  ) ?? null
-                }
+                multiple  
+                className={`${Styles.AutocompleteMulSty} ${locale !== "en" ?  Styles.AutocompleteMulStyAR : null}`}
+                value={formInfo.OrganizationIds}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                onChange={(_, value) => onAutoCompleteChange(value, 'organizationId')
-                }
+                options={organizationList.length != 0 ? organizationList: []}
+                disableCloseOnSelect
+                getOptionLabel={(option) =>(
+                  option  ? option.name : ""
+                )}
+                onChange={(event, value) => {
+                    setFormInfo((prev) => ({
+                      ...prev,
+                      OrganizationIds: value !== null ? value : [],
+                    }));
+                }}
+                renderOption={(props, option, { selected }) => (
+                  <li {...props} key={option.id}>
+                    <Checkbox
+                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                      checkedIcon={<CheckBoxIcon fontSize="small" />}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option.name}
+                  </li>
+                )}
+                style={{ width: 500 }}
                 renderInput={(params) => (
-                  <TextField
-                    required
-                    {...params}
-                    label={intl.formatMessage(messages.organization)}
+                  <TextField {...params} 
+                  label={intl.formatMessage(messages.organization)}
+                  required={formInfo.OrganizationIds.length === 0}
+                  
                   />
                 )}
               />
