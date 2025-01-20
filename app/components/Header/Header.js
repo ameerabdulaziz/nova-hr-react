@@ -38,7 +38,7 @@ import { useSelector } from "react-redux";
 import api from "../../containers/Pages/Payroll/Dashboard/api";
 import payrollMessages from "../../containers/Pages/Payroll/messages";
 import PayRollLoader from "../../containers/Pages/Payroll/Component/PayRollLoader";
-import SITEMAP, { DOMAIN_NAME } from "../../containers/App/routes/sitemap";
+import SITEMAP from "../../containers/App/routes/sitemap";
 
 const elem = document.documentElement;
 
@@ -298,7 +298,7 @@ function Header(props) {
             </IconButton>
           </span>
           <Hidden smDown>
-            <NavLink to={DOMAIN_NAME} className={cx(classes.brand, classes.brandBar)}>
+            <NavLink to='/' className={cx(classes.brand, classes.brandBar)}>
               <img
                 src={logo}
                 alt={brand.name}
