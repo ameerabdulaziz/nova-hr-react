@@ -2743,6 +2743,7 @@
   "boilerplate.containers.Payroll.survey.surveyType": "نوع الاستبيان",
   "boilerplate.containers.Payroll.survey.thankYouForCompleteTheSurvey": "شكراً لإكمال الاستبيان",
   "boilerplate.containers.Payroll.survey.thereAreQuestionsThatYouDidNotAnswerWhichAre": "هناك أسئلة لم تجب عليها وهي",
+  "boilerplate.containers.Payroll.survey.surveyTemplate": "قالب استطلاع الراي",
   "boilerplate.containers.Payroll.thursday": "الخميس",
   "boilerplate.containers.Payroll.title": "الموضوع",
   "boilerplate.containers.Payroll.todate": "الى تاريخ",

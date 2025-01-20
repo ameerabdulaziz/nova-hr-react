@@ -39,7 +39,7 @@ function DetailedAttendanceReport(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [ShiftList, setShiftList] = useState([]);
   const [Shift, setShift] = useState(null);
-  const [printAndReviewType, setPrintAndReviewType] = useState(null);
+  const [printAndReviewType, setPrintAndReviewType] = useState("employee");
   const [searchData, setsearchData] = useState({
     FromDate: null,
     ToDate: null,
@@ -718,6 +718,7 @@ function DetailedAttendanceReport(props) {
                   row
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   name="row-radio-buttons-group"
+                  defaultValue="employee"
                   onChange={(e)=>{
                     setPrintAndReviewType(e.target.value)
                   }}

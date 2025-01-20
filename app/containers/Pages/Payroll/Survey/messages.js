@@ -119,4 +119,9 @@ export default defineMessages({
     id: `${scope}.save`,
     defaultMessage: 'save',
   },
+  // SurveyHistoryReport
+  surveyTemplate: {
+    id: `${scope}.surveyTemplate`,
+    defaultMessage: 'Survey Template',
+  },
 });
