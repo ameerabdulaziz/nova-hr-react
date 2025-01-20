@@ -2541,6 +2541,7 @@
   "boilerplate.containers.Payroll.recruitment.qualification": "Qualification",
   "boilerplate.containers.Payroll.recruitment.Question": "Question",
   "boilerplate.containers.Payroll.recruitment.questionsCardsTitle": "Exclusionary Questions for Candidates",
+  "boilerplate.containers.Payroll.recruitment.addToTraining": "Add To Training",
   "boilerplate.containers.Payroll.recruitment.reason": "Reason",
   "boilerplate.containers.Payroll.recruitment.rejected": "Rejected",
   "boilerplate.containers.Payroll.recruitment.replacementPosition": "Replacement Position",

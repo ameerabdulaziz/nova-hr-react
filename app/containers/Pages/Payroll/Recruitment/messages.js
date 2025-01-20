@@ -634,4 +634,9 @@ export default defineMessages({
     id: `${scope}.questionsCardsTitle`,
     defaultMessage: 'Questions Cards',
   },
+  // Employment
+  addToTraining: {
+    id: `${scope}.addToTraining`,
+    defaultMessage: 'Add To Training',
+  },
 });

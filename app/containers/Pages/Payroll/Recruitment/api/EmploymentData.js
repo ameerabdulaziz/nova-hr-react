@@ -10,10 +10,11 @@ const API = (locale) => {
     return result;
   };
 
-  api.save = async (body) => {
+  api.save = async (params,body) => {
+    const queryString = new URLSearchParams(params);
     const data = await axiosInstance.post(
-      `RecEmployment/Save?hiringdate=${body.date}`,
-      body.ids
+      `RecEmployment/Save?${queryString.toString()}`,
+      body
     );
 
     const result = data.data;

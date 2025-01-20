@@ -24,6 +24,9 @@ import payrollMessages from '../../messages';
 import api from '../api/EmploymentData';
 import RowDropdown from '../components/Employment/RowDropdown';
 import messages from '../messages';
+import AddToTrainingPopup from '../components/Employment/AddToTrainingPopup';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import Tooltip from '@mui/material/Tooltip';
 
 function Employment(props) {
   const { intl } = props;
@@ -35,12 +38,28 @@ function Employment(props) {
   const [tableData, setTableData] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
-
+  const [openAddToTrainIngPopup, setOpenAddToTrainIngPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [popupType, setPopupType] = useState("");
+  const [SelectedRows, setSelectedRows] = useState([]);
 
   const [popupState, setPopupState] = useState({
     date: new Date(),
   });
+
+   const [training, setTraining] = useState({
+      id: 0,
+      arName: "",
+      enName: "",
+      courseId: 0,
+      courseName: "",
+      fromDate: null,
+      toDate: null,
+      locationName: "",
+      trainerId: 0,
+      trainerName: "",
+      hiringDate: null
+    });
 
   const fetchTableData = async () => {
     setIsLoading(true);
@@ -62,6 +81,7 @@ function Employment(props) {
   const onSetHiringDateBtnClick = (ids) => {
     setSelectedRowsId(ids);
     setIsPopupOpen(true);
+    setPopupType("setHiringDate")
   };
 
   const columns = [
@@ -113,6 +133,7 @@ function Employment(props) {
               row={row}
               tableMeta={tableMeta}
               onSetHiringDateBtnClick={onSetHiringDateBtnClick}
+              addToTrainingFun={addToTrainingFun}
             />
           );
         },
@@ -120,23 +141,49 @@ function Employment(props) {
     },
   ];
 
-  const onToolBarIconClick = (rows) => {
+  const onToolBarIconClick = (rows,popupTypeData) => {
     const ids = rows.map((item) => tableData[item.dataIndex]?.id);
-
     setSelectedRowsId(ids);
-    setIsPopupOpen(true);
+
+    if(popupTypeData === "setHiringDate")
+    {
+      setIsPopupOpen(true);
+    }
+    else if(popupTypeData === "training")
+    {
+      setOpenAddToTrainIngPopup(true);
+    }
   };
 
   const options = {
     selectableRows: 'multiple',
     customToolbarSelect: (selectedRows) => (
-      <IconButton
-        sx={{ mx: 2 }}
-        onClick={() => onToolBarIconClick(selectedRows.data)}
-      >
+      <div>
+        <Tooltip title={intl.formatMessage(messages.addToTraining)} cursor="pointer" className="mr-6">  
+          <IconButton
+            onClick={() => {
+              onToolBarIconClick(selectedRows.data,"training")
+              setPopupType("training")
+            }}
+          >
+            <LocalLibraryIcon sx={{ fontSize: '25px' }} />
+          </IconButton>
+        </Tooltip>
+
+        <IconButton
+          onClick={() => {
+            onToolBarIconClick(selectedRows.data,"setHiringDate")
+            setPopupType("setHiringDate")
+          }}
+        >
         <ManageAccountsIcon sx={{ fontSize: '25px' }} />
-      </IconButton>
+        </IconButton>
+      </div>
     ),
+    onRowSelectionChange: (rowsSelectedIndexes) => {
+      setSelectedRows(rowsSelectedIndexes);
+    },
+    rowsSelected: SelectedRows
   };
 
   const onPopupDatePickerChange = (value, name) => {
@@ -159,24 +206,61 @@ function Employment(props) {
       return;
     }
 
-    onPopupClose();
+    let body = {} 
+    let params = {}
 
-    const body = {
-      ids: selectedRowsId,
-      date: formateDate(popupState.date),
-    };
+    if(popupType === "setHiringDate")
+      {
+        body = {
+          ids: selectedRowsId,
+        };
 
-    setIsLoading(true);
+        params = {
+          hiringdate:formateDate(popupState.date)
+        }
+
+        onPopupClose();
+      }
+
+      if(popupType === "training")
+      {
+        body = {
+          ids: selectedRowsId,
+        };
+
+
+        params = {
+          hiringdate:formateDate(popupState.date),
+          trainingId: training.trainerId,
+        }
+
+        handleClosePoup()
+      }
+
+      setIsLoading(true);
 
     try {
-      await api(locale).save(body);
+      await api(locale).save(params,body);
       toast.success(notif.updated);
     } catch (error) {
       //
     } finally {
       setIsLoading(false);
+      setSelectedRows([])
       await fetchTableData();
     }
+  };
+
+
+  const handleClosePoup = () => {
+    setOpenAddToTrainIngPopup(false);
+  };
+
+
+  const addToTrainingFun = (ids) => {    
+    setSelectedRowsId(ids);
+    setOpenAddToTrainIngPopup(true);
+    setPopupType("training")
   };
 
   return (
@@ -235,6 +319,14 @@ function Employment(props) {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <AddToTrainingPopup 
+        handleClose={handleClosePoup}
+        open={openAddToTrainIngPopup}
+        training={training}
+        setTraining={setTraining}
+        submitFun={onPopupFormSubmit}
+      />
 
       <PayrollTable
         isLoading={isLoading}
