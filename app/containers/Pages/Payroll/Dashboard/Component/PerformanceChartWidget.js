@@ -41,6 +41,7 @@ import Stack from "@mui/material/Stack";
 import NotificationsActive from "@mui/icons-material/NotificationsActive";
 import { useHistory } from "react-router-dom";
 import style from "../../../../../styles/styles.scss";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function PerformanceChartWidget(props) {
   const { intl } = props;
@@ -152,23 +153,23 @@ function PerformanceChartWidget(props) {
   const cardsRedirectFuc = (cardName) => {
     if(cardName === "Leaves")
     {
-      history.push(`app/Pages/vac/VacationTrxReport`, { todayDateKey: true });
+      history.push(SITEMAP.vacation.VacationTrxReport.route, { todayDateKey: true });
     }
     else if(cardName === "Mission")
       {
-        history.push(`app/Pages/Att/MissionTrxReport`, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
+        history.push(SITEMAP.attendance.MissionTrxReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
       }
     else if(cardName === "Permission")
       {
-        history.push(`app/Pages/Att/PermissionTrxReport`, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
+        history.push(SITEMAP.attendance.PermissionTrxReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
       }
     else if(cardName === "Rewards")
       {
-        history.push(`app/Pages/HR/RewardTransReport`, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
+        history.push(SITEMAP.humanResources.RewardTransReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
       }
     else if(cardName === "Penalty")
       {
-        history.push(`app/Pages/HR/PenaltyTransReport`, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
+        history.push(SITEMAP.humanResources.PenaltyTransReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
       }
   } 
 
