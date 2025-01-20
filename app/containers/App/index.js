@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
 import NotFound from '../Pages/Standalone/NotFoundDedicated';
+import Auth from './Auth';
 import Application from './routes/Application';
 import PublicRoutes from './routes/PublicRoutes';
+import SITEMAP from './routes/sitemap';
 import ThemeWrapper from './ThemeWrapper';
-import Auth from './Auth';
-import { DOMAIN_NAME } from './routes/sitemap';
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
@@ -17,9 +17,12 @@ function App(props) {
     <ThemeWrapper>
       <Router history={history}>
         <Switch>
-          {/* <Route path="/" exact component={LandingCorporate} /> */}
-          <Route path={`${DOMAIN_NAME}/public`} component={PublicRoutes} />
-          <Route path={`${DOMAIN_NAME}/auth`} component={Auth} />
+          <Route path='/public' component={PublicRoutes} />
+          <Route
+            path={Object.values(SITEMAP.auth).map((page) => page.route)}
+            exact
+            component={Auth}
+          />
           <Route path='/' component={Application} />
           <Route component={NotFound} />
         </Switch>
