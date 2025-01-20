@@ -148,12 +148,6 @@ function Application(props) {
 
         {/* Pages */}
         <Route
-          exact
-          path='/app/pages'
-          component={PAGES.themeComponents.Parent}
-        />
-
-        <Route
           path={SITEMAP.global.NotFound.route}
           component={PAGES.global.NotFound}
         />

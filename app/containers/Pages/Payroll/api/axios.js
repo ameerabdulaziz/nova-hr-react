@@ -2,7 +2,8 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { ServerURL } from './ServerConfig'
 import ErrorMessages from '../../Payroll/api/ApiMessages'
-import SITEMAP from '../../../App/routes/sitemap'
+import SITEMAP, { DOMAIN_NAME } from '../../../App/routes/sitemap'
+import history from 'utils/history';
 
 const axiosInstance = axios.create({
   baseURL: ServerURL,
@@ -71,12 +72,12 @@ axiosInstance.interceptors.response.use(
       else toast.error('Unauthorized')
       localStorage.removeItem('Token')
 
-      const nextUrl = window.location.pathname;
+      const nextUrl = window.location.pathname.replace(`/${DOMAIN_NAME}`, '');
 
       if (SITEMAP.auth.Login.route === nextUrl) {
-        window.location.href = nextUrl;
+        history.push(nextUrl);
       } else {
-        window.location.href = `${SITEMAP.auth.Login.route}?redirectTo=${nextUrl}`
+        history.push(`${SITEMAP.auth.Login.route}?redirectTo=${nextUrl}`);
       }
 
       return Promise.reject(error)
@@ -86,7 +87,7 @@ axiosInstance.interceptors.response.use(
       error.response.status === 401 &&
       originalRequest.url === baseURL + 'token/refresh/'
     ) {
-      window.location.href = SITEMAP.auth.Login.route
+      history.push(SITEMAP.auth.Login.route);
       return Promise.reject(error)
     }
 
@@ -121,10 +122,10 @@ axiosInstance.interceptors.response.use(
               // console.log(err);
             })
         } else {
-          window.location.href = SITEMAP.auth.Login.route
+          history.push(SITEMAP.auth.Login.route);
         }
       } else {
-        window.location.href = SITEMAP.auth.Login.route
+        history.push(SITEMAP.auth.Login.route);
       }
     }
 
