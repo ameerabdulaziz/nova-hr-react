@@ -124,4 +124,17 @@ export default defineMessages({
     id: `${scope}.surveyTemplate`,
     defaultMessage: 'Survey Template',
   },
+  // Survey Follow Report
+  allEmployee: {
+    id: `${scope}.allEmployee`,
+    defaultMessage: 'All Employee',
+  },
+  completeSurvey: {
+    id: `${scope}.completeSurvey`,
+    defaultMessage: 'Complete Survey',
+  },
+  surveyNotDone: {
+    id: `${scope}.surveyNotDone`,
+    defaultMessage: 'Survey Not Done',
+  },
 });

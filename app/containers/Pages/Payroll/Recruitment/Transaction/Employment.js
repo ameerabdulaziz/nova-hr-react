@@ -224,14 +224,12 @@ function Employment(props) {
 
       if(popupType === "training")
       {
-        body = {
-          ids: selectedRowsId,
-        };
+        body = selectedRowsId
 
 
         params = {
           hiringdate:formateDate(popupState.date),
-          trainingId: training.trainerId,
+          TrainingId: training.trainerId,
         }
 
         handleClosePoup()

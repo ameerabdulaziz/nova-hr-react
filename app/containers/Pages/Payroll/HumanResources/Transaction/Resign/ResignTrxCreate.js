@@ -356,7 +356,7 @@ function ResignTrxCreate(props) {
                 label={intl.formatMessage(messages.settlementV)}
                 className={classes.field}
                 variant="outlined"
-                required
+                // required
                 autoComplete="off"
               />
             </Grid>
@@ -370,7 +370,7 @@ function ResignTrxCreate(props) {
                 label={intl.formatMessage(messages.vacSettlValue)}
                 className={classes.field}
                 variant="outlined"
-                required
+                // required
                 autoComplete="off"
               />
             </Grid>
@@ -383,7 +383,7 @@ function ResignTrxCreate(props) {
                 label={intl.formatMessage(messages.otherDeductionValue)}
                 className={classes.field}
                 variant="outlined"
-                required
+                // required
                 autoComplete="off"
               />
             </Grid>

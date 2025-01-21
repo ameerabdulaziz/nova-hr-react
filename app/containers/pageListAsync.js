@@ -2805,6 +2805,13 @@ export const SurveyHistoryReport = loadable(
   }
 );
 
+export const surveyFollowReport = loadable(
+  () => import('./Pages/Payroll/Survey/Report/SurveyFollowReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 // Training
 export const TrFunctionsList = loadable(
   () => import('./Pages/Payroll/Training/Code/TrFunctionsList'),

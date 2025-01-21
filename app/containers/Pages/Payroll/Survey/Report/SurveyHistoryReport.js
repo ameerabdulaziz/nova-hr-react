@@ -64,11 +64,11 @@ function SurveyHistoryReport(props) {
     },
     {
       name: 'insDate',
-      label: intl.formatMessage(payrollMessages.fromdate),
+      label: intl.formatMessage(payrollMessages.startDate),
     },
     {
       name: 'doneDate',
-      label: intl.formatMessage(payrollMessages.todate),
+      label: intl.formatMessage(payrollMessages.endDate),
     },
     {
       name: '',

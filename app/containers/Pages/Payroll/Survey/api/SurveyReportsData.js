@@ -9,6 +9,13 @@ const API = (locale) => {
     return data.data;
   };
 
+  api.getSurveyStatisticList = async (surveyTemplateId,params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(`Survey/GetStatisticReport/${locale}/${surveyTemplateId}?${queryString.toString()}`);
+
+    return data.data;
+  };
+
   api.getSurveyTemplateList = async () => {
     const data = await axiosInstance.get(`SurveyTemplate/GetList/${locale}`);
 

@@ -482,6 +482,7 @@ import {
   WBS,
   WBSReport,
   SurveyHistoryReport,
+  surveyFollowReport,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -2432,6 +2433,11 @@ function Application(props) {
         <Route path="/app/Pages/Survey/Survey" component={Survey} />
 
         <Route path="/app/Pages/Survey/SurveyHistoryReport" component={SurveyHistoryReport} />
+
+        <Route 
+          path="/app/Pages/Survey/SurveyStatisticReport" 
+          component={surveyFollowReport} 
+          />
 
         {/* Training */}
         <Route

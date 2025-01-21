@@ -10,7 +10,7 @@ const VacationsTypesData = (locale) => {
 
 
   VacationsTypesApis.GetDataById = async (id,locale) => {
-  debugger;
+
     const data = await axiosInstance.get(`VacVacation/Get/${id}/${locale}`);
     const result = data.data;
 
