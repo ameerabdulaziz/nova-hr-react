@@ -1509,6 +1509,7 @@
   "boilerplate.containers.Payroll.Employee.businessUnit": "وحدات عمل",
   "boilerplate.containers.Payroll.Employee.birthDateValidationErrMess": "يجب ألا يقل العمر عن 16 عامًا",
   "boilerplate.containers.Payroll.Employee.salute": "التحية",
+  "boilerplate.containers.Payroll.Employee.menuTemplate": "قالب القائمة",
   "boilerplate.containers.Payroll.Employee.car.carModel": "موديل السيارة",
   "boilerplate.containers.Payroll.Employee.car.hasLicense": "يوجد رخصة قيادة",
   "boilerplate.containers.Payroll.Employee.car.licenseGrade": "درجة الرخصة",

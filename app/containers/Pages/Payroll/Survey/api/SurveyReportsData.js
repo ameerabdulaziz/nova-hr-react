@@ -16,13 +16,6 @@ const API = (locale) => {
     return data.data;
   };
 
-  api.getSurveyTemplateList = async () => {
-    const data = await axiosInstance.get(`SurveyTemplate/GetList/${locale}`);
-
-    return data.data;
-  };
-
-
 
   return api;
 };

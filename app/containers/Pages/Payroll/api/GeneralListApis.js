@@ -670,6 +670,22 @@ const GeneralListApis = (locale) => {
     return data.data;
   };
 
+  Apis.GetTemplateMenuList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetTemplateMenuList/${locale}`
+    );
+
+    return data.data;
+  };
+
+  Apis.GetSurveyTemplateList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetSurveyTemplateList/${locale}`
+    );
+
+    return data.data;
+  };
+
 
 
   return Apis;

@@ -966,4 +966,8 @@ export default defineMessages({
     id: `${scope}.salute`,
     defaultMessage: 'Salute',
   },
+  menuTemplate: {
+    id: `${scope}.menuTemplate`,
+    defaultMessage: 'Menu Template',
+  },
 });
