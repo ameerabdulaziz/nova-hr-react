@@ -3,6 +3,14 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll.survey';
 
 export default defineMessages({
+  nofound: {
+    id: `${scope}.nofound`,
+    defaultMessage: 'There is no data in the models.',
+  },
+  Choosequestionnaire: {
+    id: `${scope}.Choosequestionnaire`,
+    defaultMessage: 'employeeSatisfactionSurvey',
+  },
   noChoicesFound: {
     id: `${scope}.noChoicesFound`,
     defaultMessage: 'noChoicesFound',

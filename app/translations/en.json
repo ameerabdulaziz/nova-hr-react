@@ -2713,6 +2713,8 @@
   "boilerplate.containers.Payroll.step": "Step",
   "boilerplate.containers.Payroll.sunday": "Sunday",
   "boilerplate.containers.Payroll.superEmployeeName": "Super Employee",
+  "boilerplate.containers.Payroll.survey.nofound" : "There is no data in the form.",
+  "boilerplate.containers.Payroll.survey.Choosequestionnaire" :  "Employee Satisfaction Survey",
   "boilerplate.containers.Payroll.survey.addChoice": "Add choice",
   "boilerplate.containers.Payroll.survey.addOrChangeChoice": "Add or change choice",
   "boilerplate.containers.Payroll.survey.addOrChangeQuestion": "Add or change question",

@@ -10,12 +10,10 @@ import {
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import 'enl-styles/vendors/react-draft-wysiwyg/react-draft-wysiwyg.css';
-import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import ReactQuill from 'react-quill';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import PayRollLoader from '../Component/PayRollLoader';
@@ -25,27 +23,26 @@ import messages from './messages';
 import useStyles from "../Style";
 import style from "../../../../styles/styles.scss";
 import 'react-quill/dist/quill.snow.css';
+import JoditEditor from 'jodit-react';
+import HTMLReactParser from 'html-react-parser/lib/index';
+
 
 function SettingMailSmsFormCreate(props) {
-  const { intl } = props;
+  const [getFocusInpuy, setFocusInpuy] = useState(true)
+  const editor = useRef(null);
+  const { intl, placeholder } = props;
   const location = useLocation();
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
   const id = location.state?.id ?? 0;
-  const reactQuillRef = useRef(null);
-  const reactQuillMobileRef = useRef(null);
   const { classes } = useStyles();
   const title = localStorage.getItem('MenuName');
-
   const [formTypesList, setFormTypesList] = useState([]);
   const [decoratorList, setDecoratorList] = useState([]);
   const [decoratorMenuAnchorEl, setDecoratorMenuAnchorEl] = useState(null);
-
   const [isLoading, setIsLoading] = useState(true);
-
   const [formInfo, setFormInfo] = useState({
     id,
-
     formTypeId: null,
     subject: '',
     body: '',
@@ -131,31 +128,39 @@ function SettingMailSmsFormCreate(props) {
   };
 
   const onAddDecoratorBtnClick = (event) => {
-    setDecoratorMenuAnchorEl(event.currentTarget);    
+    setDecoratorMenuAnchorEl(event.currentTarget);
   };
+
   const closeDecoratorDropdown = () => {
     setDecoratorMenuAnchorEl(null);
   };
 
   const onDecoratorItemClick = async (key) => {
-    if (reactQuillRef.current || reactQuillMobileRef.current) {
-      const cursorPosition = reactQuillRef.current.getSelection()?.index;
-
-      if (cursorPosition) {
-        reactQuillRef.current.insertText(cursorPosition, key);
-        reactQuillRef.current.setSelection(cursorPosition + 1);
-      }
-
-      if (reactQuillMobileRef.current && !cursorPosition) {
+    if (editor.current) {
+      if (!getFocusInpuy) {
         setFormInfo((prev) => ({
           ...prev,
           mobileBody: prev.mobileBody + key,
+        }));
+      } else {
+        setFormInfo((prev) => ({
+          ...prev,
+          body: prev.body + key,
         }));
       }
     }
 
     closeDecoratorDropdown();
   };
+
+  const config = useMemo(() => ({
+    placeholder: '',
+    buttons: "bold,italic,underline,strikethrough,eraser,ul,ol,font,fontsize,symbols,indent,outdent,align,find,paragraph,lineHeight,brush,table,superscript,subscript,classSpan,image,hr,link,copy,paste,spellcheck,speechRecognize,selectall,source,preview,cut,fullsize,print"
+
+  }),
+    [placeholder]
+
+  );
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -216,23 +221,35 @@ function SettingMailSmsFormCreate(props) {
             </Grid>
 
             <Grid item xs={12}>
-                <TextareaAutosize
-                   name='customerAddress'
-                   value={formInfo.mobileBody}
-                   onChange={(e) => {
-                     onEditorMobileChange(e.target.value)
-                   }}
-                   ref={reactQuillMobileRef}
-                   maxLength={100}
-                   placeholder={intl.formatMessage(messages.mobileNotification)}
-                   className={`${style.investigationAnswer} ${classes.textareaSty}`}
-                   autoComplete='off'
-                 />
+              <TextareaAutosize
+                onClick={() => setFocusInpuy(false)}
+                name='customerAddress'
+                value={formInfo.mobileBody}
+                onChange={(e) => {
+                  onEditorMobileChange(e.target.value)
+                }}
+                maxLength={100}
+                placeholder={intl.formatMessage(messages.mobileNotification)}
+                className={`${style.investigationAnswer} ${classes.textareaSty}`}
+                autoComplete='off'
+              />
             </Grid>
 
             <Grid item xs={12}>
 
-              <p style={{fontWeight:"bolder"}}>{intl.formatMessage(messages.emailNotification)}</p>
+              <p style={{ fontWeight: "bolder" }}>{intl.formatMessage(messages.emailNotification)}</p>
+
+              <JoditEditor
+                ref={editor}
+                value={formInfo.body}
+                className={style.textEditorSty}
+                onBlur={onEditorChange}
+                onChange={onEditorChange}
+                onClick={() => setFocusInpuy(true)}
+                config={config}
+
+
+              />
 
               <Menu
                 anchorEl={decoratorMenuAnchorEl}
@@ -280,53 +297,23 @@ function SettingMailSmsFormCreate(props) {
                 ))}
               </Menu>
 
-              <ReactQuill
-                theme='snow'
-                value={formInfo.body}
-                onChange={onEditorChange}
-                style={{
-                  direction: 'ltr',
-                }}
-                className={style.textEditorSty}
-                modules={{
-                  toolbar: {
-                    container: [
-                      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                      [
-                        { list: 'ordered' },
-                        { list: 'bullet' },
-                        { indent: '-1' },
-                        { indent: '+1' },
-                        { align: [] }
-                      ],
-                      [{ script: 'sub' }, { script: 'super' }],
-                      [{ color: [] }, { background: [] }],
-                      ['link'],
-                      [{ direction: 'rtl' }, 'clean'],
-                    ],
-                  },
-                }}
-                ref={(ref) => {
-                  reactQuillRef.current = ref?.getEditor();
-                }}
-              />
             </Grid>
 
             <Grid item xs={12}>
-            {formInfo.body && (
-                  <PapperBlock
-                    whiteBg
-                    icon='border_color'
-                    desc=''
-                    title={intl.formatMessage(payrollMessages.preview)}
-                  >
-                    <div className='ql-snow'>
-                      <div className='ql-editor'>{parse(formInfo.body)}</div>
-                    </div>
-                  </PapperBlock>
-                )}
+              {formInfo.body && (
+                <PapperBlock
+                  whiteBg
+                  icon='border_color'
+                  desc=''
+                  title={intl.formatMessage(payrollMessages.preview)}
+                >
+                  <div className='ql-snow'>
+                    <div className='ql-editor'>{HTMLReactParser(formInfo.body)}</div>
+                  </div>
+                </PapperBlock>
+              )}
             </Grid>
+
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
