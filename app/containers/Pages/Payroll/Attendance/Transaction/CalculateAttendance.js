@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Grid,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -608,22 +609,52 @@ function CalculateAttendance(props) {
     {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
-    },
-
+      options: {
+        customBodyRender: (value) => ( 
+            <div>
+              <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.EmpCode)} >{value}</Tooltip>   
+            </div >
+        ),
+      },
+    },    
     {
       name: "weekDayName",
       label: intl.formatMessage(messages.day),
       options: {
-        customBodyRender: (value) => <pre>{value}</pre>,
+        customBodyRender: (value) => (
+        <pre>
+              <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.day)} >
+                {value}
+              </Tooltip> 
+        </pre>     
+        ),
       },
     },
     {
       name: "shiftCode",
       label: intl.formatMessage(messages.shiftCode),
+      options: {
+        customBodyRender: (value) => (
+          <div>
+              <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.shiftCode)} >
+                {value}
+              </Tooltip> 
+          </div>
+        ),
+      },
     },
     {
       name: "shiftName",
       label: intl.formatMessage(messages.shiftName),
+      options: {
+        customBodyRender: (value) => (
+        <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.shiftName)} >
+            {value}
+          </Tooltip> 
+        </div>
+        ),
+      },     
     },
     {
       name: "shiftDate",
@@ -652,7 +683,9 @@ function CalculateAttendance(props) {
                 }),
               }}
             >
-              {format(new Date(value), "yyyy-MM-dd")}
+              <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.shiftDate)} >
+                {format(new Date(value), "yyyy-MM-dd")}
+              </Tooltip>
             </pre>
           );
         },
@@ -668,53 +701,111 @@ function CalculateAttendance(props) {
     {
       name: "employeeName",
       label: intl.formatMessage(messages.employeeName),
+      options: {
+        customBodyRender: (value) => (
+          <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.employeeName)} >
+            {value}
+          </Tooltip> 
+        </div>
+        ),
+      },
     },
 
     {
       name: "timeIn",
       label: intl.formatMessage(messages.signIn),
-      /* options: {
+      options: {
         customBodyRender: (value) => (
-          <pre>
-            {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
-          </pre>
+          <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.signIn)} >
+            {value}
+          </Tooltip> 
+        </div>
         ),
-      }, */
+      },
     },
 
     {
       name: "timeOut",
       label: intl.formatMessage(messages.signOut),
-      /*  options: {
+      options: {
         customBodyRender: (value) => (
-          <pre>
-            {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
-          </pre>
+        <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.signOut)} >
+            {value}
+          </Tooltip> 
+        </div>
         ),
-      }, */
+      },
     },
     {
       name: "workHours",
       label: intl.formatMessage(messages.workHours),
+      options: {
+        customBodyRender: (value) => (
+        <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.workHours)} >
+            {value}
+          </Tooltip> 
+        </div>
+        ),
+      },
     },
     {
       name: "lateMin",
       label: intl.formatMessage(messages.late),
+      options: {
+        customBodyRender: (value) => (
+        <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.late)} >
+            {value}
+          </Tooltip> 
+        </div>
+        ),
+      },
     },
 
     {
       name: "extraTime",
       label: intl.formatMessage(messages.extraTime),
+      options: {
+        customBodyRender: (value) => (
+        <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.extraTime)} >
+            {value}
+          </Tooltip> 
+        </div>
+        ),
+      },
     },
 
     {
       name: "lessTime",
       label: intl.formatMessage(messages.LessTime),
+      options: {
+        customBodyRender: (value) => (
+        <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.LessTime)} >
+            {value}
+          </Tooltip> 
+        </div>
+        ),
+      },
     },
 
     {
       name: "ReplaceVac",
       label: intl.formatMessage(messages.AccuredLeave),
+      options: {
+        customBodyRender: (value) => (
+        <div>
+          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.AccuredLeave)} >
+            {value}
+          </Tooltip> 
+        </div>
+        ),
+      },
     },
 
     {
@@ -722,25 +813,44 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.leave),
       options: {
         filter: false,
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => (
+          <pre>
+            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.leave)} >
+              {getCheckboxIcon(value)}     
+            </Tooltip>
+          </pre>
+        ),
       },
     },
 
     {
       name: "mission",
       label: intl.formatMessage(messages.mission),
-      options: {
-        filter: false,
-        customBodyRender: (value) => getCheckboxIcon(value),
+        options: {
+          filter: false,
+          customBodyRender: (value) => (
+          <pre>
+            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.mission)} >
+              {getCheckboxIcon(value)}     
+            </Tooltip>
+          </pre>
+          ),
+        },
       },
-    },
+
 
     {
       name: "per",
       label: intl.formatMessage(messages.permission),
       options: {
         filter: false,
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => (
+          <pre>
+            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.permission)} >
+              {getCheckboxIcon(value)}     
+            </Tooltip>
+          </pre>
+        ),
       },
     },
 
@@ -749,7 +859,13 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.absent),
       options: {
         filter: false,
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => (
+          <pre>
+            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.absent)} >
+              {getCheckboxIcon(value)}     
+            </Tooltip>
+          </pre>
+        ),
       },
     },
 
@@ -758,7 +874,13 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.weekendLeave),
       options: {
         filter: false,
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => (
+          <pre>
+            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.weekendLeave)} >
+              {getCheckboxIcon(value)}     
+            </Tooltip>
+          </pre>
+        ),
       },
     },
 
@@ -767,7 +889,13 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.manual),
       options: {
         filter: false,
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => (
+          <pre>
+            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.manual)} >
+              {getCheckboxIcon(value)}     
+            </Tooltip>
+          </pre>
+        ),
       },
     },
 
@@ -776,7 +904,13 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.stop),
       options: {
         filter: false,
-        customBodyRender: (value) => getCheckboxIcon(value),
+        customBodyRender: (value) => (
+          <pre>
+            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={ intl.formatMessage(messages.stop)} >
+              {getCheckboxIcon(value)}     
+            </Tooltip>
+          </pre>
+        ),
       },
     },
     {

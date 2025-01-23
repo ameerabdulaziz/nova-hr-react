@@ -9,7 +9,7 @@ export default function SurveyResultReportReview() {
     const id = sessionStorage.idPrviewSurvay
     const [data , setData ] = useState(null)
     const locale = useSelector((state) => state.language.locale);
-  
+
     const getReportData = async () =>{
         if(id !== null){
             try{
