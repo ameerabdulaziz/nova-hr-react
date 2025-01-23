@@ -112,7 +112,7 @@ function SurveyFollowReport(props) {
     try {
       setIsLoading(true);
 
-      const SurveyTemplate = await API(locale).getSurveyTemplateList();
+      const SurveyTemplate = await GeneralListApis(locale).GetSurveyTemplateList();
       setSurveyTemplateList(SurveyTemplate);
 
       const company = await GeneralListApis(locale).GetBranchList();

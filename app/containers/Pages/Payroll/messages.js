@@ -830,4 +830,8 @@ employeeId: {
     id: `${scope}.endDate`,
     defaultMessage: 'End Date',
   },
+  menuTemplate: {
+    id: `${scope}.menuTemplate`,
+    defaultMessage: 'Menu Template',
+  },
 });

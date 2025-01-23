@@ -485,6 +485,7 @@ import {
   surveyFollowReport,
   Surveysummary,
   Surveysummaryreview,
+  menuTemplate,
 } from "../pageListAsync";
 
 function Application(props) {
@@ -664,6 +665,7 @@ function Application(props) {
           component={ChangePassword}
         />
         <Route path="/app/Pages/Setting/UserMenu" component={UserMenu} />
+        <Route path="/app/Pages/Setting/menuTemplate" component={menuTemplate} />
         <Route path="/app/Pages/Setting/MailSetting" component={MailSetting} />
         <Route path="/app/Pages/Setting/SMSSetting" component={SMSSetting} />
         <Route
