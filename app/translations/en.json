@@ -3028,6 +3028,7 @@
   "boilerplate.containers.Payroll.transactionDate": "Transaction Date",
   "boilerplate.containers.Payroll.startDate": "Start Date",
   "boilerplate.containers.Payroll.endDate": "End Date",
+  "boilerplate.containers.Payroll.menuTemplate": "Menu Template",
   "boilerplate.containers.Tables.Basic.bordered.desc": "Old is gold, here is old fashion bordered table, we tweaked it a bit so that the headings looks more prominent.",
   "boilerplate.containers.Tables.Basic.bordered.title": "Bordered Table",
   "boilerplate.containers.Tables.Basic.coloured.desc": "Description",

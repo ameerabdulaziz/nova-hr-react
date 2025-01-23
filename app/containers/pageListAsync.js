@@ -330,6 +330,14 @@ export const UserMenu = loadable(
     fallback: <Loading />,
   }
 );
+
+export const menuTemplate = loadable(
+  () => import('./Pages/Payroll/Setting/MenuTemplate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 export const MailSetting = loadable(
   () => import('./Pages/Payroll/Setting/MailSetting'),
   {

@@ -1527,6 +1527,7 @@
   "boilerplate.containers.Payroll.Employee.doc.EditEmployeeDocument": "تعديل وثيقة الموظف",
   "boilerplate.containers.Payroll.Employee.doc.EmployeeDocuments": "وثائق الموظف",
   "boilerplate.containers.Payroll.Employee.doc.endDate": "تاريخ الانتهاء",
+  "boilerplate.containers.Payroll.menuTemplate": "قالب القائمة",
   "boilerplate.containers.Payroll.Employee.doc.FilePreview": "معاينة الملف",
   "boilerplate.containers.Payroll.Employee.doc.followDate": "تاريخ المتابعة",
   "boilerplate.containers.Payroll.Employee.doc.HardCopy": "نسخة ورقية",

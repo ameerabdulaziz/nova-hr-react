@@ -3029,6 +3029,7 @@
   "boilerplate.containers.Payroll.transactionDate": "تاريخ التسجيل",
   "boilerplate.containers.Payroll.startDate": "تاريخ البدايه",
   "boilerplate.containers.Payroll.endDate": " تاريخ الانتهاء",
+  "boilerplate.containers.Payroll.menuTemplate": "قالب القائمة",
   "boilerplate.containers.Tables.Basic.bordered.desc": "القديم ذهب ، وهنا طاولة قديمة تحدها الموضة ، قمنا بتبديلها قليلاً حتى تبدو العناوين أكثر وضوحًا.",
   "boilerplate.containers.Tables.Basic.bordered.title": "جدول يحده",
   "boilerplate.containers.Tables.Basic.coloured.desc": "Description",
