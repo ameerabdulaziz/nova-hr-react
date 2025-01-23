@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import API from '../api/SurveyResultReportData';
 import { useSelector } from 'react-redux';
 import SurveyResultReportPrint from '../report-tamplate/SurveyResultReportPrint';
+import { PapperBlock } from 'enl-components';
 
 export default function SurveyResultReportReview() {
     const id = sessionStorage.idPrviewSurvay
@@ -31,7 +32,9 @@ export default function SurveyResultReportReview() {
 
   return (
   <div>
+    <PapperBlock whiteBg icon='border_color' desc=''>
     <SurveyResultReportPrint data={data} />
+    </PapperBlock>
   </div>
   )
 }

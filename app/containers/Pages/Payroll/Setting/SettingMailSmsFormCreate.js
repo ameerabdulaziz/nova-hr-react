@@ -49,6 +49,8 @@ function SettingMailSmsFormCreate(props) {
     mobileBody: '',
   });
 
+  console.log(formInfo.body)
+
   useEffect(() => {
     if (formInfo.formTypeId) {
       setDecoratorList(
@@ -103,6 +105,7 @@ function SettingMailSmsFormCreate(props) {
   };
 
   const onEditorChange = (value) => {
+    setFocusInpuy(true)
     setFormInfo((prev) => ({
       ...prev,
       body: value,
@@ -137,7 +140,7 @@ function SettingMailSmsFormCreate(props) {
 
   const onDecoratorItemClick = async (key) => {
     if (editor.current) {
-      if (!getFocusInpuy) {
+      if (getFocusInpuy === false) {
         setFormInfo((prev) => ({
           ...prev,
           mobileBody: prev.mobileBody + key,
@@ -145,8 +148,9 @@ function SettingMailSmsFormCreate(props) {
       } else {
         setFormInfo((prev) => ({
           ...prev,
-          body: prev.body + key,
+          body:  prev.body + key,
         }));
+     
       }
     }
 
@@ -154,9 +158,9 @@ function SettingMailSmsFormCreate(props) {
   };
 
   const config = useMemo(() => ({
+    readonly: false,    
     placeholder: '',
     buttons: "bold,italic,underline,strikethrough,eraser,ul,ol,font,fontsize,symbols,indent,outdent,align,find,paragraph,lineHeight,brush,table,superscript,subscript,classSpan,image,hr,link,copy,paste,spellcheck,speechRecognize,selectall,source,preview,cut,fullsize,print"
-
   }),
     [placeholder]
 
@@ -245,9 +249,8 @@ function SettingMailSmsFormCreate(props) {
                 className={style.textEditorSty}
                 onBlur={onEditorChange}
                 onChange={onEditorChange}
-                onClick={() => setFocusInpuy(true)}
+                onClick={onEditorChange}
                 config={config}
-
 
               />
 
