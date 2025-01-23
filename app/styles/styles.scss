@@ -1150,6 +1150,20 @@
 // RegisterLocation -- end
 }
 
+.textEditorSty,.textEditorSty  > div:first-child + div ,.textEditorSty  > div:first-child + div div   , .textEditorSty .jodit-workplace 
+{
+    background-color: transparent !important ; 
+  
+}
+
+.textEditorSty  > div:first-child ,.textEditorSty  > div:first-child + div + div{
+    background-color: #3f51b5 !important;
+    opacity: 0.9 !important;
+    border-color:  #3f51b5 !important ;
+    
+}
+
+
 
 
 

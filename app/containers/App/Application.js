@@ -483,6 +483,8 @@ import {
   WBSReport,
   SurveyHistoryReport,
   surveyFollowReport,
+  Surveysummary,
+  Surveysummaryreview,
   menuTemplate,
 } from "../pageListAsync";
 
@@ -2626,15 +2628,15 @@ function Application(props) {
           path="/app/Pages/ProjectManagment/ProjectEdit"
           component={ProjectEdit}
         />
-
-
-
-
-
-
-
-
-
+        <Route
+          path="/app/Pages/Survey/Surveysummary/Review"
+          component={Surveysummaryreview}
+        />
+        
+        <Route
+          path="/app/Pages/Survey/Surveysummary"
+          component={Surveysummary}
+        />
 
         {/* Default */}
         <Route component={NotFound} />

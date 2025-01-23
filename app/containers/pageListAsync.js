@@ -3071,3 +3071,20 @@ export const ProjectEdit = loadable(
     fallback: <Loading />,
   }
 );
+
+export const Surveysummary = loadable(
+  () => import('./Pages/Payroll/Survey/Report/SurveyResultReport'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
+export const Surveysummaryreview = loadable(
+  () => import('./Pages/Payroll/Survey/Report/SurveyResultReportReview'),
+  {
+    fallback: <Loading />,
+  }
+  
+);
+
