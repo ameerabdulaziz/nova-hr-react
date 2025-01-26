@@ -189,6 +189,13 @@ const ImportLeaveBalance = loadable(
   }
 );
 
+const VacationBalanceCostReport = loadable(
+  () => import('../../../Pages/Payroll/Vacation/Reports/VacationBalanceCostReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const vacation = {
   CreateVacationType,
   EditVacationType,
@@ -215,6 +222,7 @@ const vacation = {
   ImportVacations,
   GroupLeaves,
   ImportLeaveBalance,
+  VacationBalanceCostReport,
 };
 
 export default vacation;

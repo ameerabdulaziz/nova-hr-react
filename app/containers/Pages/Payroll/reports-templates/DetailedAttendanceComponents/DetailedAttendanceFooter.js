@@ -6,7 +6,7 @@ import { Grid } from '@mui/material';
   
   function DetailedAttendanceFooter({Data}) {
 
-    console.log("Data foo= ", Data);
+
     
 
     return (
@@ -45,7 +45,7 @@ import { Grid } from '@mui/material';
                           <Grid item xs={12} >
                             <div style={{display:"flex", justifyContent:"space-between",paddingTop:0,paddingBottom:5}}>
                               <span><FormattedMessage {...messages.LateTime} /></span>
-                              <span>{Data.lateTimeEleVal}</span>
+                              <span>{Data.details[0]?.lateTimeEleVal.toFixed(2)}</span>
                               <span></span>
                             </div>
                           </Grid>
@@ -53,7 +53,7 @@ import { Grid } from '@mui/material';
                           <Grid item xs={12} >
                             <div style={{display:"flex", justifyContent:"space-between",paddingTop:0,paddingBottom:5}}>
                               <span><FormattedMessage {...messages.lateTimeMinus} /></span>
-                              <span>{Data.lateTimeMinusElVal}</span>
+                              <span>{Data.details[0]?.lateTimeMinusElVal.toFixed(2)}</span>
                               <span></span>
                             </div>
                           </Grid>

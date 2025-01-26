@@ -822,4 +822,16 @@ employeeId: {
     id: `${scope}.invalidUser`,
     defaultMessage: 'Invalid User',
   },
+  startDate: {
+    id: `${scope}.startDate`,
+    defaultMessage: 'Start Date',
+  },
+  endDate: {
+    id: `${scope}.endDate`,
+    defaultMessage: 'End Date',
+  },
+  menuTemplate: {
+    id: `${scope}.menuTemplate`,
+    defaultMessage: 'Menu Template',
+  },
 });

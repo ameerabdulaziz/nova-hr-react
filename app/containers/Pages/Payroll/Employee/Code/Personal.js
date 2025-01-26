@@ -118,6 +118,8 @@ function Personal(props) {
   const [saluteId, setsaluteId] = useState(null);
   const [statusId, setstatusId] = useState(null);
   const [statusList, setstatusList] = useState([]);
+  const [menuTemplateList, setMenuTemplateList] = useState([]);
+  const [menuTemplate, setMenuTemplate] = useState(null);
 
   const [businessUnitList, setBusinessUnitList] = useState([]);
   const [businessUnitId, setBusinessUnitId] = useState(null);
@@ -467,6 +469,7 @@ function Personal(props) {
         isHr: isHR,
         nickName,
         BusinessUnitId: businessUnitId?.id ?? "",
+        MenuTemplateId: menuTemplate?.id ?? "",
         // hrBranchList: isHR ? hrBranchList.map(item => item.id) : []
       };
 
@@ -677,7 +680,8 @@ function Personal(props) {
           MilitaryStatusdata,
           Statusdata,
           businessUnit,
-          SaluteData
+          SaluteData,
+          MenuTemplateData
         ] = await Promise.all([
           GeneralListApis(locale).GetEmployeeList(),
           GeneralListApis(locale).GetJobList(),
@@ -695,6 +699,7 @@ function Personal(props) {
           GeneralListApis(locale).GetEmpStatusList(),
           GeneralListApis(locale).GetBusinessUnitList(),
           GeneralListApis(locale).GetSaluteList(),
+          GeneralListApis(locale).GetTemplateMenuList(),
         ]);
 
         setreportToList(employeedata || []);
@@ -728,6 +733,8 @@ function Personal(props) {
         setBusinessUnitList(businessUnit || []);
 
         setSaluteList(SaluteData || [])
+
+        setMenuTemplateList(MenuTemplateData || [])
 
         if (id > 0) {
           const dataApi = await EmployeeData(locale).GetList(id);
@@ -892,6 +899,13 @@ function Personal(props) {
                 name: dataApi.businessUnitName,
               }
             : null)
+
+
+            setMenuTemplate(
+              MenuTemplateData && MenuTemplateData.length !== 0 && dataApi.menuTemplateId ?
+                MenuTemplateData.find((item) => item.id === dataApi.menuTemplateId)
+                : null
+            )
 
           //else clear();
         }
@@ -1938,6 +1952,43 @@ function Personal(props) {
                     )}
                   />
                 </Grid>
+
+                <Grid item xs={12} md={3}>
+                  <Autocomplete
+                    id="menuTemplate"
+                    options={menuTemplateList || []}
+                    value={menuTemplate}
+                    isOptionEqualToValue={(option, value) =>
+                      value.id === 0 ||
+                      value.id === "" ||
+                      option.id === value.id
+                    }
+                    renderOption={(props, option) => {
+                      return (
+                        <li {...props} key={option.id}>
+                          {option.name}
+                        </li>
+                      );
+                    }}
+                    getOptionLabel={(option) =>
+                      option.name ? option.name : ""
+                    }
+                    onChange={(event, value) => {
+                      setMenuTemplate(value ? value : null);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        variant="outlined"
+                        {...params}
+                        name="menuTemplate"
+                        label={intl.formatMessage(messages.menuTemplate)}
+                      />
+                    )}
+                    disabled={id !== 0? true : false}
+                  />
+                </Grid>
+
+                
 
                 <Grid item xs={12} md={12}>
                   <hr />

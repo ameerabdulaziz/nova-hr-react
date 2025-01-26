@@ -834,6 +834,14 @@ export default defineMessages({
     id: `${scope}.departmentReport`,
     defaultMessage: 'departmentReport',
   },
+  isDelivered: {
+    id: `${scope}.isDelivered`,
+    defaultMessage: 'Delivered',
+  },
+  isNotDelivered: {
+    id: `${scope}.isNotDelivered`,
+    defaultMessage: 'Not Delivered',
+  },
   employeeInfo: {
     id: `${scope}.employeeInfo`,
     defaultMessage: 'employeeInfo',
@@ -957,5 +965,9 @@ export default defineMessages({
   salute: {
     id: `${scope}.salute`,
     defaultMessage: 'Salute',
+  },
+  menuTemplate: {
+    id: `${scope}.menuTemplate`,
+    defaultMessage: 'Menu Template',
   },
 });

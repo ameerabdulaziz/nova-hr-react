@@ -12,11 +12,12 @@ import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router';
 import { ServerURL } from '../../../api/ServerConfig';
 import messages from '../../messages';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import SITEMAP from '../../../../../App/routes/sitemap';
 
 function RowDropdown(props) {
   const {
-    tableMeta, intl, row
+    tableMeta, intl, row, addToTrainingFun
   } = props;
 
   const history = useHistory();
@@ -41,6 +42,12 @@ function RowDropdown(props) {
   const onSetHiringDateBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
     props.onSetHiringDateBtnClick([row.id]);
+  };
+
+
+  const onAddTotrainingBtnClick = (rowIndex) => {    
+    onDropdownClose(rowIndex);
+    addToTrainingFun([row.id]);
   };
 
   return (
@@ -98,6 +105,16 @@ function RowDropdown(props) {
 
           <ListItemText>
             {intl.formatMessage(messages.setHiringDate)}
+          </ListItemText>
+        </MenuItem>
+
+        <MenuItem onClick={() => onAddTotrainingBtnClick(tableMeta.rowIndex)}>
+          <ListItemIcon>
+            <ControlPointIcon fontSize='small' />
+          </ListItemIcon>
+
+          <ListItemText>
+            {intl.formatMessage(messages.addToTraining)}
           </ListItemText>
         </MenuItem>
 

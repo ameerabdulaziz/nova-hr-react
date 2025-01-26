@@ -33,6 +33,8 @@ function PromotionsCreate(props) {
   const [data, setdata] = useState({
     id: 0,
     date: format(new Date(), "yyyy-MM-dd"),
+    promotionDate: format(new Date(), "yyyy-MM-dd"),
+    decisionDate: format(new Date(), "yyyy-MM-dd"),
     reason: "",
     employeeId: "",
     employeeName: "",
@@ -79,6 +81,11 @@ function PromotionsCreate(props) {
       setIsLoading(true);
 
       data.date = dateFormatFun(data.date)
+      data.promotionDate = dateFormatFun(data.promotionDate)
+      data.decisionDate = dateFormatFun(data.decisionDate)
+
+      console.log("data =", data);
+      
 
       let response = await ApiData(locale).Save(data);
 
@@ -132,38 +139,103 @@ function PromotionsCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-                  <Grid item xs={12} md={4}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(messages.date)}
-                          value={data.date ? dayjs(data.date) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              date: date ,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
+            <Grid item xs={12} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker 
+                    label={intl.formatMessage(messages.date)}
+                    value={data.date ? dayjs(data.date) : null}
+                    className={classes.field}
+                    onChange={(date) => {
+                      setdata((prevFilters) => ({
+                        ...prevFilters,
+                        date: date ,
+                      }))
+                    }}
+                    onError={(error,value)=>{
+                      if(error !== null)
+                      {
+                        setDateError((prevState) => ({
+                            ...prevState,
+                              [`date`]: true
+                          }))
+                      }
+                      else
+                      {
+                        setDateError((prevState) => ({
+                            ...prevState,
+                              [`date`]: false
+                          }))
+                      }
+                    }}
+                    disabled
+                  />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker 
+                    label={intl.formatMessage(messages.actualPromotionDate)}
+                    value={data.promotionDate ? dayjs(data.promotionDate) : null}
+                    className={classes.field}
+                    onChange={(date) => {
+                      setdata((prevFilters) => ({
+                        ...prevFilters,
+                        promotionDate: date ,
+                      }))
+                    }}
+                    onError={(error,value)=>{
+                      if(error !== null)
+                      {
+                        setDateError((prevState) => ({
+                            ...prevState,
+                              [`date`]: true
+                          }))
+                      }
+                      else
+                      {
+                        setDateError((prevState) => ({
+                            ...prevState,
+                              [`date`]: false
+                          }))
+                      }
+                    }}
+                  />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker 
+                    // label="decisionDate"
+                    label={intl.formatMessage(messages.decisionDate)}
+                    value={data.decisionDate ? dayjs(data.decisionDate) : null}
+                    className={classes.field}
+                    onChange={(date) => {
+                      setdata((prevFilters) => ({
+                        ...prevFilters,
+                        decisionDate: date ,
+                      }))
+                    }}
+                    onError={(error,value)=>{
+                      if(error !== null)
+                      {
+                        setDateError((prevState) => ({
+                            ...prevState,
+                              [`date`]: true
+                          }))
+                      }
+                      else
+                      {
+                        setDateError((prevState) => ({
+                            ...prevState,
+                              [`date`]: false
+                          }))
+                      }
+                    }}
+                  />
+              </LocalizationProvider>
+            </Grid>
 
             <Grid item xs={12} md={12}>
               <EmployeeData

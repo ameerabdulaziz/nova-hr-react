@@ -213,7 +213,7 @@ insDate: {
   },
   trainingName: {
     id: `${scope}.trainingName`,
-    defaultMessage: "trainingName",
+    defaultMessage: "Training Name",
   },
   trainingId: {
     id: `${scope}.trainingId`,

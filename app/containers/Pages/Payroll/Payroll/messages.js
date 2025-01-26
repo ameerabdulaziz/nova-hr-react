@@ -249,6 +249,14 @@ export default defineMessages({
     id: `${scope}.MedInsElement`,
     defaultMessage: 'MedInsElement',
   },
+  eleOfCalcValOfVac: {
+    id: `${scope}.eleOfCalcValOfVac`,
+    defaultMessage: 'Elements of calculating vacation value',
+  },
+  Smartobjectiveelement: {
+    id: `${scope}.Smartobjectiveelement`,
+    defaultMessage: 'Smart objective element',
+  },
   calcValMin: {
     id: `${scope}.calcValMin`,
     defaultMessage: 'calcValMin',

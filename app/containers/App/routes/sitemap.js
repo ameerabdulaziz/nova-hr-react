@@ -72,6 +72,8 @@ const SITEMAP = {
       route: '/Payroll/SalarySigningListReport',
     },
     LoanReport: { route: '/Payroll/LoanReport' },
+    WBS: { route: '/Payroll/WBS' },
+    WBSReport: { route: '/Payroll/WBSReport' },
   },
   mainData: {
     Government: {
@@ -237,6 +239,9 @@ const SITEMAP = {
     },
     LogReport: {
       route: '/Setting/LogReport',
+    },
+    MenuTemplate: {
+      route: '/Setting/menuTemplate',
     },
   },
   humanResources: {
@@ -616,6 +621,9 @@ const SITEMAP = {
     ImportVacations: { route: '/vac/ImportVacations' },
     GroupLeaves: { route: '/vac/GroupLeaves' },
     ImportLeaveBalance: { route: '/vac/ImportLeaveBalance' },
+    VacationBalanceCostReport: {
+      route: '/vac/VacationBalanceCostReport',
+    },
   },
   socialInsurance: {
     InsuranceOffices: { route: '/insurance/InsuranceOffices' },
@@ -907,6 +915,16 @@ const SITEMAP = {
     },
     SurveyTemplateEdit: { route: '/Survey/SurveyTemplateEdit' },
     Survey: { route: '/Survey/Survey' },
+    SurveySummaryReview: {
+      route: '/Survey/SurveysummaryReview',
+    },
+    SurveySummary: { route: '/Survey/Surveysummary' },
+    SurveyHistoryReport: {
+      route: '/Survey/SurveyHistoryReport',
+    },
+    SurveyFollowReport: {
+      route: '/Survey/SurveyStatisticReport',
+    },
   },
   training: {
     TrFunctionsList: { route: '/Training/TrFunctionsList' },

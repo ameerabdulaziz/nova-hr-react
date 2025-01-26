@@ -281,6 +281,20 @@ const LoanReport = loadable(
   }
 );
 
+const WBS = loadable(
+  () => import('../../../Pages/Payroll/Payroll/Transaction/WBS'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+const WBSReport = loadable(
+  () => import('../../../Pages/Payroll/Payroll/Reports/WBSReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const payroll = {
   LoanSetting,
   PayTemplateList,
@@ -321,6 +335,8 @@ const payroll = {
   SalaryYearReport,
   SalarySigningListReport,
   LoanReport,
+  WBS,
+  WBSReport,
 };
 
 export default payroll;

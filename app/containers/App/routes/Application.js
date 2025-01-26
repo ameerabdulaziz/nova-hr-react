@@ -434,6 +434,11 @@ function Application(props) {
           component={PAGES.setting.LogReport}
         />
 
+        <Route
+          path={SITEMAP.setting.MenuTemplate.route}
+          component={PAGES.setting.MenuTemplate}
+        />
+
         {/* Human Resources */}
         <Route
           path={SITEMAP.humanResources.ResignReason.route}
@@ -1619,6 +1624,16 @@ function Application(props) {
           component={PAGES.payroll.LoanReport}
         />
 
+        <Route
+          path={SITEMAP.payroll.WBS.route}
+          component={PAGES.payroll.WBS}
+        />
+
+        <Route
+          path={SITEMAP.payroll.WBSReport.route}
+          component={PAGES.payroll.WBSReport}
+        />
+
         {/* WorkFlow */}
         <Route
           path={SITEMAP.workFlow.WorkFlow.route}
@@ -1910,6 +1925,11 @@ function Application(props) {
         <Route
           path={SITEMAP.vacation.ImportLeaveBalance.route}
           component={PAGES.vacation.ImportLeaveBalance}
+        />
+
+        <Route
+          path={SITEMAP.vacation.VacationBalanceCostReport.route}
+          component={PAGES.vacation.VacationBalanceCostReport}
         />
 
         {/* Social Insurance */}
@@ -2533,6 +2553,26 @@ function Application(props) {
         <Route
           path={SITEMAP.survey.Survey.route}
           component={PAGES.survey.Survey}
+        />
+
+        <Route
+          path={SITEMAP.survey.SurveyHistoryReport.route}
+          component={PAGES.survey.SurveyHistoryReport}
+        />
+
+        <Route
+          path={SITEMAP.survey.SurveyFollowReport.route}
+          component={PAGES.survey.SurveyFollowReport}
+        />
+
+        <Route
+          path={SITEMAP.survey.SurveySummaryReview.route}
+          component={PAGES.survey.SurveySummaryReview}
+        />
+
+        <Route
+          path={SITEMAP.survey.SurveySummary.route}
+          component={PAGES.survey.SurveySummary}
         />
 
         {/* Training */}

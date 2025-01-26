@@ -400,11 +400,13 @@ function EmployeeTrainingReport(props) {
       <Box
         ref={printSurveyRef}
         sx={{
-          display: 'none',
+          height:"0px",
+          visibility:"hidden",
           pageBreakBefore: 'always',
           direction: 'ltr',
           '@media print': {
-            display: 'block',
+            height:"100%",
+            visibility:"visible",
           },
           'p.MuiTypography-root, .MuiTableCell-root': {
             fontSize: '10px',
@@ -443,11 +445,13 @@ function EmployeeTrainingReport(props) {
       <Box
         ref={printTestRef}
         sx={{
-          display: 'none',
+          height:"0px",
+          visibility:"hidden",
           pageBreakBefore: 'always',
           direction: 'ltr',
           '@media print': {
-            display: 'block',
+            height:"100%",
+            visibility:"visible",
           },
           'p.MuiTypography-root, .MuiTableCell-root': {
             fontSize: '10px',

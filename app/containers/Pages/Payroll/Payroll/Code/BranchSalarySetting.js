@@ -19,7 +19,7 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
-import { Box, Card, CardContent, InputAdornment } from "@mui/material";
+import { Box, Card, CardContent, InputAdornment, Checkbox } from "@mui/material";
 import Payrollmessages from "../../messages";
 
 function BranchSalarySetting(props) {
@@ -36,6 +36,7 @@ function BranchSalarySetting(props) {
   const [group1ElemList, setgroup1ElemList] = useState([]);
   const [MedInsElemList, setMedInsElemList] = useState([]);
   const [GrossElemList, setGrossElemList] = useState([]);
+  const [eleOfCalcVacList, setEleOfCalcVacList] = useState([]);
   
   const [data, setdata] = useState({
     PersonalExemption: "",
@@ -64,6 +65,8 @@ function BranchSalarySetting(props) {
     NewEmpDedEl: "",
     GrossElementId:"",
     MedInsElement:"",
+    eleOfCalcVac: [],
+    Smartobjectiveelement: [],
   });
 
   const handleSubmit = async (e) => {
@@ -98,7 +101,9 @@ function BranchSalarySetting(props) {
       fixedElementsEmpRate: data.TheEmployeesShareOfSI,
       newEmpDedEl: data.NewEmpDedEl,
       grossElementId:data.GrossElementId,
-      medInsElement:data.MedInsElement
+      medInsElement:data.MedInsElement,
+      VacBalCostElementIds: data.eleOfCalcVac.length !== 0 ? `,${data.eleOfCalcVac.map((item) => item.id).join(",")},` : "",
+      Smartobjectiveelement: data.Smartobjectiveelement ? data.Smartobjectiveelement : ""
     };
 
     try {
@@ -131,6 +136,8 @@ function BranchSalarySetting(props) {
           FixedElementsSILimit: "",
           CompanyShare: "",
           TheEmployeesShareOfSI: "",
+          eleOfCalcVac: [],
+          Smartobjectiveelement: [],
         });
       } else {
         toast.error(response.statusText);
@@ -155,21 +162,29 @@ function BranchSalarySetting(props) {
         2,
         2
       );
-      setgroup1ElemList(group1data);
 
       const meddata = await GeneralListApis(locale).GetElementListByTemplate(
         1,
         2,
         1
       );
-      setMedInsElemList(meddata);
 
       const grossdata = await GeneralListApis(locale).GetElementListByTemplate(
         1,
         1,
         1
       );
+     
+
+      const eleOfCalcVacData = await GeneralListApis(locale).GetElementList(0,1,0,1);
+
+
+      setgroup1ElemList(group1data);
+      setMedInsElemList(meddata);
       setGrossElemList(grossdata);
+      setEleOfCalcVacList(eleOfCalcVacData);
+
+
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -184,7 +199,8 @@ function BranchSalarySetting(props) {
     if (id) {
       const dataList = await BranchSalarySettingData().Get(id);
 
-      setdata({
+      setdata((prev) => ({
+        ...prev,
         PersonalExemption: dataList.personalexemption
           ? dataList.personalexemption
           : "0",
@@ -252,7 +268,7 @@ function BranchSalarySetting(props) {
           ? dataList.medInsElement
           : "",
           
-      });
+      }));
     }
   };
 
@@ -271,6 +287,9 @@ function BranchSalarySetting(props) {
       setIsLoading(false);
     }
   }
+
+
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -894,7 +913,7 @@ function BranchSalarySetting(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item md={4} xs={12}>
+                  <Grid item md={3} xs={12}>
                     <Autocomplete
                       id="ddlNewEmpDedEl"
                       options={group1ElemList}
@@ -927,7 +946,7 @@ function BranchSalarySetting(props) {
                       )}
                     />
                   </Grid>
-                  <Grid item md={4} xs={12}>
+                  <Grid item md={3} xs={12}>
                     <Autocomplete
                       id="ddlGrossElementId"
                       options={GrossElemList}
@@ -961,7 +980,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
                   
-                  <Grid item md={4} xs={12}>
+                  <Grid item md={3} xs={12}>
                     <Autocomplete
                       id="ddlMedInsElement"
                       options={MedInsElemList}
@@ -994,6 +1013,32 @@ function BranchSalarySetting(props) {
                       )}
                     />
                   </Grid>
+
+                  <Grid item xs={12} md={3}>
+                    <Autocomplete
+                      options={eleOfCalcVacList}
+                      value={eleOfCalcVacList.find((item) => item.id === data.Smartobjectiveelement) || null}
+                      isOptionEqualToValue={(option, value) =>
+                        value.id === 0 || value.id === "" || option.id === value.id
+                      }
+                      getOptionLabel={(option) => (option.name ? option.name : "")}
+                      onChange={(event, value) => {
+                        setdata((prev) => ({
+                          ...prev,
+                          Smartobjectiveelement: value !== null ? value.id : null,
+                        }))
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          variant="outlined"
+                          {...params}
+                          name="Smartobjectiveelement"
+                          label={intl.formatMessage(messages.Smartobjectiveelement)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  
                   <Grid item xs={12} md={3}>
                     <TextField
                       name="EpidemicsContribution"
@@ -1039,6 +1084,43 @@ function BranchSalarySetting(props) {
                         }));
                       }}
                       autoComplete='off'
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={3}>
+                    <Autocomplete
+                      options={eleOfCalcVacList}
+                      multiple
+                      disableCloseOnSelect
+                      className={`${style.AutocompleteMulSty} ${
+                        locale !== "er" ? style.AutocompleteMulStyAR : null
+                      }`}
+                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      value={data.eleOfCalcVac}
+                      renderOption={(optionProps, option, { selected }) => (
+                        <li {...optionProps} key={optionProps.id}>
+                          <Checkbox
+                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                            checkedIcon={<CheckBoxIcon fontSize="small" />}
+                            style={{ marginRight: 8 }}
+                            checked={selected}
+                          />
+                          {option.name}
+                        </li>
+                      )}
+                      getOptionLabel={(option) => (option ? option.name : "")}
+                      onChange={(_, value) =>
+                        setdata((prev) => ({
+                          ...prev,
+                          eleOfCalcVac: value,
+                        }))
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={intl.formatMessage(messages.eleOfCalcValOfVac)}
+                        />
+                      )}
                     />
                   </Grid>
 

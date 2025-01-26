@@ -656,4 +656,9 @@ company: {
     id: `${scope}.allowedAfterMonthNo`,
     defaultMessage: 'allowedAfterMonthNo',
   },
+  // VacationBalanceCostReport
+  cost: {
+    id: `${scope}.cost`,
+    defaultMessage: 'Cost',
+  },
 });

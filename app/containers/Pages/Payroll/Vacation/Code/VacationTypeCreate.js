@@ -252,6 +252,7 @@ const getEditdata =  async () => {
       setAllowLessOneDay(data.allowLessOneDay);
       setMaxRequestNo(data.maxRequestNo ?? 0);
       setAllowedAfterMonthNo(data.allowedAfterMonthNo ?? 0);
+      setWebInvisible(data.webInvisible)
   } catch (error) {
     //
   } finally {

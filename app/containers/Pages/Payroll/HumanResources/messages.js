@@ -264,6 +264,14 @@ PromotionsUpdateTitle: {
   id: `${scope}.PromotionsUpdateTitle`,
   defaultMessage: 'PromotionsUpdateTitle',
 },
+actualPromotionDate: {
+  id: `${scope}.actualPromotionDate`,
+  defaultMessage: 'Actual Promotion Date',
+},
+decisionDate: {
+  id: `${scope}.decisionDate`,
+  defaultMessage: 'Decision Date',
+},
 //Explanation//////////////////////////////////////////////////////////////////////////////////////////////////////
 ExplanationEditTitle: {
   id: `${scope}.ExplanationEditTitle`,
@@ -415,7 +423,7 @@ idealManPower: {
 //Course/////////////////////////////////////////////////////////////////////////////////////////////////////////
 courseName: {
   id: `${scope}.courseName`,
-  defaultMessage: 'courseName',
+  defaultMessage: 'course Name',
 },
 
 EmpCourseCreateTitle: {

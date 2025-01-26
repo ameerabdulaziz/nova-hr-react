@@ -83,6 +83,13 @@ const LogReport = loadable(
   }
 );
 
+const MenuTemplate = loadable(
+  () => import('../../../Pages/Payroll/Setting/MenuTemplate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const setting = {
   UserMenu,
   MailSetting,
@@ -96,6 +103,7 @@ const setting = {
   HrPermission,
   OpenCloseMonth,
   LogReport,
+  MenuTemplate,
 };
 
 export default setting;

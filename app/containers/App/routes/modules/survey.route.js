@@ -37,12 +37,44 @@ const Survey = loadable(
   }
 );
 
+const SurveyHistoryReport = loadable(
+  () => import('../../../Pages/Payroll/Survey/Report/SurveyHistoryReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+const SurveyFollowReport = loadable(
+  () => import('../../../Pages/Payroll/Survey/Report/SurveyFollowReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+const SurveySummary = loadable(
+  () => import('../../../Pages/Payroll/Survey/Report/SurveyResultReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+const SurveySummaryReview = loadable(
+  () => import('../../../Pages/Payroll/Survey/Report/SurveyResultReportReview'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const survey = {
   Survey,
   SurveyChoiceGroup,
   SurveyChoiceGroupCreate,
   SurveyTemplate,
   SurveyTemplateCreate,
+  SurveyHistoryReport,
+  SurveyFollowReport,
+  SurveySummary,
+  SurveySummaryReview,
 };
 
 export default survey;

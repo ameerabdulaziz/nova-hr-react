@@ -3,6 +3,14 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll.survey';
 
 export default defineMessages({
+  nofound: {
+    id: `${scope}.nofound`,
+    defaultMessage: 'There is no data in the models.',
+  },
+  Choosequestionnaire: {
+    id: `${scope}.Choosequestionnaire`,
+    defaultMessage: 'employeeSatisfactionSurvey',
+  },
   noChoicesFound: {
     id: `${scope}.noChoicesFound`,
     defaultMessage: 'noChoicesFound',
@@ -118,5 +126,23 @@ export default defineMessages({
   save: {
     id: `${scope}.save`,
     defaultMessage: 'save',
+  },
+  // SurveyHistoryReport
+  surveyTemplate: {
+    id: `${scope}.surveyTemplate`,
+    defaultMessage: 'Survey Template',
+  },
+  // Survey Follow Report
+  allEmployee: {
+    id: `${scope}.allEmployee`,
+    defaultMessage: 'All Employee',
+  },
+  completeSurvey: {
+    id: `${scope}.completeSurvey`,
+    defaultMessage: 'Complete Survey',
+  },
+  surveyNotDone: {
+    id: `${scope}.surveyNotDone`,
+    defaultMessage: 'Survey Not Done',
   },
 });
