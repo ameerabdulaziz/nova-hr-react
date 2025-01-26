@@ -14,6 +14,14 @@ const API = (locale) => {
     return data.data;
   };
 
+  api.changeEmployeeStatus = async (employeeId, statusId) => {
+    const data = await axiosInstance.post(
+      `TrTrainingTrx/ChangeEmployeeStatus/${employeeId}/${statusId}`
+    );
+
+    return data.data;
+  };
+
   api.printSurvey = async (surveyId) => {
     const data = await axiosInstance.get(
       `Survey/GetPrint/${locale}/${surveyId}`
@@ -23,9 +31,7 @@ const API = (locale) => {
   };
 
   api.printTest = async (testId) => {
-    const data = await axiosInstance.get(
-      `Test/GetPrint/${locale}/${testId}`
-    );
+    const data = await axiosInstance.get(`Test/GetPrint/${locale}/${testId}`);
 
     return data.data;
   };

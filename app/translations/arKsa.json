@@ -2827,6 +2827,7 @@
   "boilerplate.containers.Payroll.training.trainingDate": "تاريخ التدريب",
   "boilerplate.containers.Payroll.training.trainingId": "كود التدريب",
   "boilerplate.containers.Payroll.training.trainingName": "اسم التدريب",
+  "boilerplate.containers.Payroll.training.changeEmployeeStatus": "تغيير حالة الموظف",
   "boilerplate.containers.Payroll.training.uploadCreatedCertificate": "تحميل الشهادة التي تم إنشاؤها",
   "boilerplate.containers.Payroll.training.uploadFromDevice": "تحميل من الجهاز",
   "boilerplate.containers.Payroll.training.viewTest": "عرض الاختبار",

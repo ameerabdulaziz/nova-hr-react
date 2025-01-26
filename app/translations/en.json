@@ -2824,6 +2824,7 @@
   "boilerplate.containers.Payroll.training.trainerName": "Trainer Name",
   "boilerplate.containers.Payroll.training.trainerSurvey": "Trainer Survey",
   "boilerplate.containers.Payroll.training.trainingDate": "Training Date",
+  "boilerplate.containers.Payroll.training.changeEmployeeStatus": "Change Employee Status",
   "boilerplate.containers.Payroll.training.trainingId": "Training Id",
   "boilerplate.containers.Payroll.training.trainingName": "Training Name",
   "boilerplate.containers.Payroll.training.uploadCreatedCertificate": "Upload Created Certificate",

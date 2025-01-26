@@ -285,9 +285,10 @@ const GeneralListApis = (locale) => {
     const result = await axiosInstance.get(`MdSalute/GetListModel/${locale}`);
     return result.data;
   };
-  Apis.GetEmpStatusList = async () => {
+
+  Apis.GetEmpStatusList = async (NotTraining = false) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetEmpStatusList/${locale}`
+      `GeneralList/GetEmpStatusList/${locale}?NotTraining=${Boolean(NotTraining)}`,
     );
     return result.data;
   };

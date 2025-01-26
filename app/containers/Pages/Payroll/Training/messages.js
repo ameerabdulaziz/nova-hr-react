@@ -299,4 +299,8 @@ insDate: {
     id: `${scope}.testDone`,
     defaultMessage: 'testDone',
   },
+  changeEmployeeStatus: {
+    id: `${scope}.changeEmployeeStatus`,
+    defaultMessage: 'changeEmployeeStatus',
+  },
 });

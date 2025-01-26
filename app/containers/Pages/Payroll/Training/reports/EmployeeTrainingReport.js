@@ -20,9 +20,15 @@ import { useReactToPrint } from 'react-to-print';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
-import { formateDate, formatNumber, getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
+import {
+  formateDate,
+  formatNumber,
+  getAutoCompleteValue,
+  getCheckboxIcon,
+} from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeTrainingReportData';
+import ChangeEmployeeStatus from '../components/EmployeeTrainingReport/ChangeEmployeeStatus';
 import SurveyTemplatePrint from '../components/EmployeeTrainingReport/SurveyTemplatePrint';
 import TestTemplatePrint from '../components/EmployeeTrainingReport/TestTemplatePrint';
 import messages from '../messages';
@@ -40,6 +46,7 @@ function EmployeeTrainingReport(props) {
 
   const [trainingList, setTrainingList] = useState([]);
   const [courseList, setCourseList] = useState([]);
+  const [employeeStatus, setEmployeeStatus] = useState([]);
 
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
@@ -139,6 +146,9 @@ function EmployeeTrainingReport(props) {
 
       const courses = await GeneralListApis(locale).GetCourseList();
       setCourseList(courses);
+
+      const status = await GeneralListApis(locale).GetEmpStatusList(true);
+      setEmployeeStatus(status);
     } catch (error) {
       //
     } finally {
@@ -361,9 +371,29 @@ function EmployeeTrainingReport(props) {
     }
   };
 
+  const onChangeEmployeeStatusChange = async (employeeId, statusId) => {
+    setIsLoading(true);
+
+    try {
+      await api(locale).changeEmployeeStatus(employeeId, statusId);
+
+      fetchTableData();
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const actions = {
     extraActions: (row) => (
       <>
+        <ChangeEmployeeStatus
+          employeeStatus={employeeStatus}
+          row={row}
+          onChangeEmployeeStatusChange={onChangeEmployeeStatusChange}
+        />
+
         <Button
           variant='contained'
           color='primary'
@@ -400,13 +430,13 @@ function EmployeeTrainingReport(props) {
       <Box
         ref={printSurveyRef}
         sx={{
-          height:"0px",
-          visibility:"hidden",
+          height: '0px',
+          visibility: 'hidden',
           pageBreakBefore: 'always',
           direction: 'ltr',
           '@media print': {
-            height:"100%",
-            visibility:"visible",
+            height: '100%',
+            visibility: 'visible',
           },
           'p.MuiTypography-root, .MuiTableCell-root': {
             fontSize: '10px',
@@ -445,13 +475,13 @@ function EmployeeTrainingReport(props) {
       <Box
         ref={printTestRef}
         sx={{
-          height:"0px",
-          visibility:"hidden",
+          height: '0px',
+          visibility: 'hidden',
           pageBreakBefore: 'always',
           direction: 'ltr',
           '@media print': {
-            height:"100%",
-            visibility:"visible",
+            height: '100%',
+            visibility: 'visible',
           },
           'p.MuiTypography-root, .MuiTableCell-root': {
             fontSize: '10px',
