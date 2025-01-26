@@ -14,6 +14,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
+import MenuTemplatePopup from './Components/MenuTemplatePopup';
+import AddIcon from '@mui/icons-material/Add';
 import {
     Button ,
     Grid,
@@ -35,7 +37,7 @@ import {
 
 const MenuTemplate = (props) => {
 
-    const {intl} = props;
+        const {intl} = props;
 
       const {classes,cx} = useStyles();  
       const [query, setQuery] = useState("");  
@@ -51,6 +53,14 @@ const MenuTemplate = (props) => {
       const [isLoading, setIsLoading] = useState(true);
       const [filteredData, setFilteredData] = useState([]);
       const [paginatedData, setPaginatedData] = useState([]);
+      const [openMenuTemplatePopup, setOpenMenuTemplatePopup] = useState(false);
+      const [menuTemplateForPopup, setMenuTemplateForPopup] = useState(null);
+      const [menuTemplateForm, setOpenMenuTemplateForm] = useState({
+        id:0,
+        enName:"",
+        arName:"",
+      });
+
 
 
     const getDataFun = async () => {
@@ -269,9 +279,144 @@ useEffect(()=>{
             };
 
 
+            const handleClickOpen = () => {
+                setOpenMenuTemplatePopup(true);
+              };
+            
+              const handleClose = () => {
+                setOpenMenuTemplatePopup(false);
+
+                setMenuTemplateForPopup(null)
+                setOpenMenuTemplateForm({
+                    id:0,
+                    enName:"",
+                    arName:"",
+                  });
+              };
+
+              const onFieldChangeFun = (e,name) => {
+                setOpenMenuTemplateForm((prev)=>({
+                    ...prev,
+                    [name]:  e.target.value
+                }))
+              }
+
+
+              const onSubmitMenuTemplate = async () => {
+
+                if (menuTemplateForm.enName === "" || menuTemplateForm.arName === ""){
+                    toast.error("Please Select Menu Template")
+                    return
+                  }
+
+                  let response 
+
+                  try {
+                    setIsLoading(true);
+
+                    if(menuTemplateForm.id === 0)
+                    {
+                        response = await  MenuTemplateData().SaveMenuTemplateNewElements(menuTemplateForm)
+                    }
+                    else
+                    {
+                        response = await  MenuTemplateData().updateMenuTemplateData(menuTemplateForPopup.id,menuTemplateForm)
+                    }
+        
+
+                    if (response.status == 200) {
+                        toast.success(notif.saved);
+                        getDataFun()
+                    } else {
+                        toast.error(response.statusText);
+                    }
+                  } catch (err) {
+                    
+                  }
+                  finally {
+                    setIsLoading(false);
+                }
+            }
+
+
+            const getMenuTemplateDataById = async () => {
+                try {
+                    setIsLoading(true);
+        
+                    const data = await MenuTemplateData(locale).GetMenuTemplateById(menuTemplateForPopup.id);
+                  
+                    setOpenMenuTemplateForm({
+                        id: data.id,
+                        enName: data.enName,
+                        arName: data.arName,
+                    })
+
+                    // setdataList(data || []);
+        
+                } catch (err) {
+                    
+                }
+                finally{setIsLoading(false);}
+            }
+
+
+            useEffect(() => {
+                if(menuTemplateForPopup)
+                {
+                    getMenuTemplateDataById();
+                }
+                else
+                {
+                    setOpenMenuTemplateForm({
+                        id: 0,
+                        enName: "",
+                        arName: "",
+                    })
+                }
+              }, [menuTemplateForPopup]);
+
+
+
+              const deleteFun = async () => {
+                try {
+                    setIsLoading(true);
+        
+                    const response = await MenuTemplateData(locale).delete(menuTemplateForPopup.id);
+                  
+
+                    if (response === "Success") {
+                        toast.success(notif.saved);
+                        handleClose()
+                        getDataFun()
+                    } 
+        
+                } catch (err) {
+                    
+                }
+                finally{setIsLoading(false);}
+            }
+
+
     return (
         <PayRollLoader isLoading={isLoading}>
               <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+
+                <MenuTemplatePopup
+                    handleClickOpen={handleClickOpen}
+                    handleClose={handleClose}
+                    openMenuTemplatePopup={openMenuTemplatePopup}
+                    menuTemplateList={menuTemplateList}
+                    setMenuTemplate={setMenuTemplate}
+                    menuTemplate={menuTemplate}
+                    menuTemplateForm={menuTemplateForm}
+                    onFieldChangeFun={onFieldChangeFun}
+                    onSubmitMenuTemplate={onSubmitMenuTemplate}
+                    menuTemplateForPopup={menuTemplateForPopup}
+                    setMenuTemplateForPopup={setMenuTemplateForPopup}
+                    getMenuTemplateDataById={getMenuTemplateDataById}
+                    deleteFun={deleteFun}
+                />
+                
                     <div>
                         <Grid container spacing={3} mb={3}>            
                             <Grid item xs={6} md={3}>
@@ -344,6 +489,19 @@ useEffect(()=>{
                                 
                                 <Button variant="contained" size="medium" color="primary" onClick={on_submit} >
                                     <FormattedMessage {...Payrollmessages.save} />
+                                </Button>
+                            </Grid>   
+
+                            <Grid item>
+                                
+                                <Button 
+                                    variant="contained" 
+                                    size="medium" 
+                                    color="primary" 
+                                    onClick={handleClickOpen} >
+                                        <AddIcon />
+                                        &nbsp;
+                                        <FormattedMessage {...Payrollmessages.menuTemplate} />
                                 </Button>
                             </Grid>   
                         </Grid>

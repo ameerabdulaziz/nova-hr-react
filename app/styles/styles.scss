@@ -16,6 +16,18 @@
     }
 }
 
+.popupContainerStySize2
+{
+    & > div
+    {
+        & > div
+        {
+            max-width: none;
+            width: 50%;
+        }
+    }
+}
+
 
 .gridSty
 {
