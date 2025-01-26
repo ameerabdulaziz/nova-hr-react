@@ -622,6 +622,18 @@ export default defineMessages({
     id: `${scope}.Question`,
     defaultMessage: 'Question',
   },
+  unHold: {
+    id: `${scope}.unHold`,
+    defaultMessage: 'unHold',
+  },
+  hold: {
+    id: `${scope}.hold`,
+    defaultMessage: 'hold',
+  },
+  holdBy: {
+    id: `${scope}.holdBy`,
+    defaultMessage: 'holdBy',
+  },
   Answer: {
     id: `${scope}.Answer`,
     defaultMessage: 'Answer',

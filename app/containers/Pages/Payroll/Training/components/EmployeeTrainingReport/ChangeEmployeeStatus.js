@@ -21,7 +21,7 @@ function ChangeEmployeeStatus(props) {
     closeMenu();
   };
 
-  if (row.statusId === 3) {
+  if (row.statusId !== 3) {
     return null;
   }
 

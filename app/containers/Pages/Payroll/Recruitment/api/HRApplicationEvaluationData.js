@@ -53,6 +53,14 @@ const API = (locale) => {
     return result;
   };
 
+  api.HoldingApp = async (id, isClosed) => {
+    const data = await axiosInstance.post(
+      `RecJobApplicationEvaluation/HoldingApp/${id}/${isClosed}`
+    );
+
+    return data.data;
+  };
+
   api.SaveAiEvaluation = async (body) => {
     const data = await axiosInstance.post(
       `RecJobApplicationEvaluation/SaveAiEvaluation`,

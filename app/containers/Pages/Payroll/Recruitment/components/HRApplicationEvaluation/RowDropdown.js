@@ -106,7 +106,7 @@ function RowDropdown(props) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-         <MenuItem onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}>
+         <MenuItem disabled={row.isClosed} onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
             <SystemUpdateAltIcon fontSize="small" />
           </ListItemIcon>

@@ -8,6 +8,7 @@ import PersonOffIcon from "@mui/icons-material/PersonOff";
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
 import {
   Autocomplete,
+  Box,
   Button,
   Card,
   CardContent,
@@ -18,7 +19,9 @@ import {
   DialogTitle,
   FormControlLabel,
   Grid,
+  Stack,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -370,10 +373,47 @@ function HRApplicationEvaluation(props) {
     }
   };
 
+  const onHoldCvBtnClick = async (row) => {
+    setIsLoading(true);
+
+    try {
+      await api(locale).HoldingApp(row.id, !row.isClosed);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+
+      await fetchTableData();
+    }
+  };
+
   const columns = [
     {
       name: "empName",
       label: intl.formatMessage(messages.applicantName),
+      options: {
+        customBodyRender: (value, tableMeta) => {
+          const row = tableData[tableMeta.rowIndex];
+
+          if (row?.isClosed) {
+            return (
+              <Box
+                sx={{
+                  backgroundColor: "red",
+                  padding: "7px",
+                  borderRadius: "6px",
+                  margin: "0",
+                  color: "#fff",
+                }}
+              >
+                {value}
+              </Box>
+            );
+          }
+
+          return value;
+        },
+      },
     },
 
     {
@@ -415,13 +455,38 @@ function HRApplicationEvaluation(props) {
           }
 
           return (
-            <RowDropdown
-              row={row}
-              tableMeta={tableMeta}
-              onUpdateStatusBtnClick={onUpdateStatusBtnClick}
-              onAiEvaluationBtnClick={onAiEvaluationBtnClick}
-              onSendRejectMailBtnClick={onSendRejectMailBtnClick}
-            />
+            <Stack direction='row' alignItems='center' gap={1}>
+              {(row.appFirstStatus === 0 || row.appFirstStatus === null) && (
+                <Tooltip
+                  placement='top'
+                  title={
+                    row.isClosed
+                      ? `${intl.formatMessage(messages.holdBy)} ${
+                          row.closedEmployee
+                        } - ${formateDate(row.closedDate)}`
+                      : undefined
+                  }
+                >
+                  <Button
+                    variant={row.isClosed ? "outlined" : "contained"}
+                    color='primary'
+                    onClick={() => onHoldCvBtnClick(row)}
+                  >
+                    {intl.formatMessage(
+                      row.isClosed ? messages.unHold : messages.hold
+                    )}
+                  </Button>
+                </Tooltip>
+              )}
+
+              <RowDropdown
+                row={row}
+                tableMeta={tableMeta}
+                onUpdateStatusBtnClick={onUpdateStatusBtnClick}
+                onAiEvaluationBtnClick={onAiEvaluationBtnClick}
+                onSendRejectMailBtnClick={onSendRejectMailBtnClick}
+              />
+            </Stack>
           );
         },
       },
