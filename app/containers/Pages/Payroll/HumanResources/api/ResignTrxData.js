@@ -46,9 +46,9 @@ const ResignTrxData = (locale) => {
     return result;
   };
    
-  Apis.CalculateSettlement = async (EmployeeId,WorkingYears) => {
+  Apis.CalculateSettlement = async (EmployeeId,ResignReasonId,LastWorkingDate) => {
     
-    const data = await axiosInstance.get(`HrResignTrx/CalculateSettlement?EmployeeId=${EmployeeId}&WorkingYears=${WorkingYears}`);
+    const data = await axiosInstance.get(`HrResignTrx/CalculateSettlement?EmployeeId=${EmployeeId}&ResignReasonId=${ResignReasonId}&LastWorkingDate=${LastWorkingDate}`);
     return data.data;    
   };
 
