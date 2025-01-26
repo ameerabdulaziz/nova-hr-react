@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/LoanReqData';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function LoanReqList(props) {
   const { intl } = props;
@@ -93,10 +94,10 @@ function LoanReqList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Payroll/LoanReqCreate',
+      url: SITEMAP.payroll.LoanReqCreate.route,
     },
     edit: {
-      url: '/app/Pages/Payroll/LoanReqEdit',
+      url: SITEMAP.payroll.LoanReqEdit.route,
       disabled: (row) => row.isSubmitted || (row.stepId != null),
     },
     delete: {

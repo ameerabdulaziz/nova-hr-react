@@ -30,6 +30,7 @@ import api from '../api/JobOfferData';
 import messages from '../messages';
 
 import 'react-quill/dist/quill.snow.css';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function JobOfferCreate(props) {
   const { intl } = props;
@@ -133,7 +134,7 @@ function JobOfferCreate(props) {
     try {
       await api(locale).save(formData);
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/JobOffer');
+      history.push(SITEMAP.recruitment.JobOffer.route);
     } catch (error) {
       //
     } finally {
@@ -281,7 +282,7 @@ function JobOfferCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/JobOffer');
+    history.push(SITEMAP.recruitment.JobOffer.route);
   };
 
   const onNumericInputChange = (evt) => {

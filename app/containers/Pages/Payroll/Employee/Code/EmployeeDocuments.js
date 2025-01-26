@@ -27,6 +27,7 @@ import EmployeeNavigation from '../../Component/EmployeeNavigation';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import payrollMessages from '../../messages';
 import { Button } from '@mui/material';
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function EmployeeDocuments({ intl }) {
   const Title = localStorage.getItem("MenuName");
@@ -108,7 +109,7 @@ function EmployeeDocuments({ intl }) {
     customToolbar: () => (
       <span>
         <AddButton
-          url={"/app/Pages/Employee/EmployeeDocumentsCreate"}
+          url={SITEMAP.employee.EmployeeDocumentsCreate.route}
           param={{ employeeId: employee.id }}
           disabled={employee.id !== 0 ? false : true}
         ></AddButton>
@@ -133,7 +134,7 @@ function EmployeeDocuments({ intl }) {
 
   const actions = {
     edit: {
-      url: '/app/Pages/Employee/EmployeeDocumentsEdit',
+      url: SITEMAP.employee.EmployeeDocumentsEdit.route,
     },
     delete: {
       api: deleteRow,

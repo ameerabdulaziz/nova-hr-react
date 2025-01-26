@@ -30,6 +30,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { calculateTimeDifference } from "../../../helpers";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function ShiftEmployeeCreate(props) {
   const { intl } = props;
@@ -106,7 +107,7 @@ debugger;
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Att/ShiftEmployee`, {
+        history.push(SITEMAP.attendance.ShiftEmployee.route, {
           employeeId: data.employeeId,
         });
       } else {
@@ -118,7 +119,7 @@ debugger;
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Att/ShiftEmployee`, {
+    history.push(SITEMAP.attendance.ShiftEmployee.route, {
       employeeId: data.employeeId,
     });
   }

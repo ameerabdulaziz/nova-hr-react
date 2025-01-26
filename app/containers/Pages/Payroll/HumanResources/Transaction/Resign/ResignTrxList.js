@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
 import ApiData from '../../api/ResignTrxData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function ResignTrxList(props) {
   const { intl } = props;
@@ -89,10 +90,10 @@ function ResignTrxList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/ResignTrxCreate',
+      url: SITEMAP.humanResources.ResignTrxCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/ResignTrxEdit',
+      url: SITEMAP.humanResources.ResignTrxEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -26,6 +26,7 @@ import messages from '../messages';
 import QuesAndAnsPopup from '../../Component/QuesAndAnsPopup';
 import JobAdvertisementCards from '../components/JobAdvertisementCards/JobAdvertisementCards';
 import Styles from '../../../../../styles/styles.scss';
+import SITEMAP from '../../../../App/routes/sitemap';
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -182,7 +183,7 @@ recAdvAnswer = []
     try {
       await api(locale).save(formData);
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/JobAdvertisement');
+      history.push(SITEMAP.recruitment.JobAdvertisement.route);
     } catch (error) {
       //
     } finally {
@@ -358,7 +359,7 @@ recAdvAnswer = []
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/JobAdvertisement');
+    history.push(SITEMAP.recruitment.JobAdvertisement.route);
   };
 
   const anchorTable = [

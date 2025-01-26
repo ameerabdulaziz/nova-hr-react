@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { getCheckboxIcon } from '../../helpers';
 import VacationsTypesData from '../api/VacationsTypesData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function VacationsTypes({ intl }) {
   const stringMenu = localStorage.getItem('Menu');
@@ -101,10 +102,10 @@ function VacationsTypes({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/vac/VacationsTypesCreate',
+      url: SITEMAP.vacation.VacationsTypesCreate.route,
     },
     edit: {
-      url: '/app/Pages/vac/VacationsTypesEdit',
+      url: SITEMAP.vacation.VacationsTypesEdit.route,
     },
     delete: {
       api: deleteRow,

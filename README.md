@@ -364,10 +364,10 @@ function ExamplePage(props) {
   // Define actions for the PayrollTable
   const actions = {
     add: {
-      url: "/app/Pages/Recruitment/ExamplePageCreate",
+      url: "/Recruitment/ExamplePageCreate",
     },
     edit: {
-      url: "/app/Pages/Recruitment/ExamplePageEdit",
+      url: "/Recruitment/ExamplePageEdit",
     },
     delete: {
       api: deleteRow,

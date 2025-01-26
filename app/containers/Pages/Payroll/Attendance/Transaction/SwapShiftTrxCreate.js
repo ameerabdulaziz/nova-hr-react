@@ -19,6 +19,7 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SwapShiftTrxData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function SwapShiftTrxCreate(props) {
   const { intl } = props;
@@ -75,7 +76,7 @@ function SwapShiftTrxCreate(props) {
 
       await api(locale).save(formData);
 
-      history.push('/app/Pages/Att/SwapShiftTrx');
+      history.push(SITEMAP.attendance.SwapShiftTrx.route);
     } catch (err) {
       //
     } finally {
@@ -84,7 +85,7 @@ function SwapShiftTrxCreate(props) {
   };
 
   function onCancel() {
-    history.push('/app/Pages/Att/SwapShiftTrx');
+    history.push(SITEMAP.attendance.SwapShiftTrx.route);
   }
 
   async function fetchData() {

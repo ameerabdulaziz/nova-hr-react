@@ -30,6 +30,7 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import SITEMAP from "../../../../App/routes/sitemap";
 
 
 function CreateAndEditEmployeeDocuments(props) {
@@ -125,7 +126,7 @@ function CreateAndEditEmployeeDocuments(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Employee/EmployeeDocuments`, {
+        history.push(SITEMAP.employee.EmployeeDocuments.route, {
           employeeId: employeeID,
         });
       } else {
@@ -214,7 +215,7 @@ function CreateAndEditEmployeeDocuments(props) {
   useEffect(() => {
     history.listen(() => {
       if (history.action === "POP") {
-        history.push(`/app/Pages/Employee/EmployeeDocuments`, {
+        history.push(SITEMAP.employee.EmployeeDocuments.route, {
           employeeId: employeeID,
         });
       }
@@ -222,7 +223,7 @@ function CreateAndEditEmployeeDocuments(props) {
   }, []);
 
   function oncancel() {
-    history.push(`/app/Pages/Employee/EmployeeDocuments`, {
+    history.push(SITEMAP.employee.EmployeeDocuments.route, {
       employeeId: employeeID,
     });
   }

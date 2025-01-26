@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import StageData from '../api/StageData';
 import messages from '../messages';
 import { getCheckboxIcon } from '../../helpers';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function Stage({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -64,10 +65,10 @@ function Stage({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/ProjectManagment/StageCreate',
+      url: SITEMAP.projectManagement.StageCreate.route,
     },
     edit: {
-      url: '/app/Pages/ProjectManagment/StageEdit',
+      url: SITEMAP.projectManagement.StageEdit.route,
     },
     delete: {
       api: deleteRow,

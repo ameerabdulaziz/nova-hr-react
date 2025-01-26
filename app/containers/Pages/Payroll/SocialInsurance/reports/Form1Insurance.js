@@ -33,6 +33,7 @@ import {
   import api from '../api/Form2InsuranceData';
   import messages from '../messages';
   import { useMediaQuery } from '@mui/material';
+import SITEMAP from '../../../../App/routes/sitemap';
   
   function Form1Insurance(props) {
     const { intl } = props;
@@ -305,7 +306,7 @@ import {
         }));
 
 
-        window.open(`/app/Pages/insurance/Form1Insurance/Review`, "_blank")?.focus();
+        window.open(SITEMAP.socialInsurance.Form1InsuranceReview.route, "_blank")?.focus();
       }
 
   

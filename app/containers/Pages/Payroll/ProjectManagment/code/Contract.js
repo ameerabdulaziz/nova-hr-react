@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import ContractData from '../api/ContractData';
 import messages from '../messages';
 import { formateDate } from '../../helpers';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function Contract({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -76,10 +77,10 @@ function Contract({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/ProjectManagment/ContractCreate',
+      url: SITEMAP.projectManagement.ContractCreate.route,
     },
     edit: {
-      url: '/app/Pages/ProjectManagment/ContractEdit',
+      url: SITEMAP.projectManagement.ContractEdit.route,
     },
     delete: {
       api: deleteRow,

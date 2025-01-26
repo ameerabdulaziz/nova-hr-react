@@ -21,6 +21,7 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeMedicalBenefitsData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function EmployeeMedicalBenefitsCreate(props) {
   const { intl } = props;
@@ -68,7 +69,7 @@ function EmployeeMedicalBenefitsCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Minsurance/EmployeeMedicalBenefits');
+      history.push(SITEMAP.medicalInsurance.EmployeeMedicalBenefits.route);
     } catch (error) {
       //
     } finally {
@@ -132,7 +133,7 @@ function EmployeeMedicalBenefitsCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Minsurance/EmployeeMedicalBenefits');
+    history.push(SITEMAP.medicalInsurance.EmployeeMedicalBenefits.route);
   };
 
   return (

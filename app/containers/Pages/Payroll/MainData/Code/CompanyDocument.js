@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { ServerURL } from '../../api/ServerConfig';
 import api from '../api/CompanyDocumentData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function CompanyDocument(props) {
   const { intl } = props;
@@ -103,10 +104,10 @@ function CompanyDocument(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/MainData/CompanyDocumentCreate',
+      url: SITEMAP.mainData.CompanyDocumentCreate.route,
     },
     edit: {
-      url: '/app/Pages/MainData/CompanyDocumentEdit',
+      url: SITEMAP.mainData.CompanyDocumentEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/CustodyTrxData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function CustodyReceiveList(props) {
   const { intl } = props;
@@ -92,10 +93,10 @@ function CustodyReceiveList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/CustodyReceiveCreate',
+      url: SITEMAP.humanResources.CustodyReceiveCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/CustodyReceiveEdit',
+      url: SITEMAP.humanResources.CustodyReceiveEdit.route,
     },
     delete: {
       api: deleteRow,

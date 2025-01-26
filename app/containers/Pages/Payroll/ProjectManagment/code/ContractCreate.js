@@ -24,6 +24,7 @@ import { format } from "date-fns";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function ContractCreate(props) {
   const locale = useSelector((state) => state.language.locale);
@@ -72,7 +73,7 @@ function ContractCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/ProjectManagment/Contract`);
+        history.push(SITEMAP.projectManagement.Contract.route);
       } else {
         toast.error(response.statusText);
       }
@@ -128,7 +129,7 @@ function ContractCreate(props) {
   }, [ID,customerList]);
 
   function oncancel() {
-    history.push(`/app/Pages/ProjectManagment/Contract`);
+    history.push(SITEMAP.projectManagement.Contract.route);
   }
 
 

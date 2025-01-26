@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { useLocation } from "react-router-dom";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function DeviceCreate(props) {
   const { intl } = props;
@@ -99,7 +100,7 @@ function DeviceCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Att/Device`);
+        history.push(SITEMAP.attendance.Device.route);
       } else {
         toast.error(response.statusText);
       }
@@ -109,7 +110,7 @@ function DeviceCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Att/Device`);
+    history.push(SITEMAP.attendance.Device.route);
   }
 
   const ontestConnection = async (e) => {

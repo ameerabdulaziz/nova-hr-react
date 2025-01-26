@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../Component/PayrollTable';
 import api from '../api/CompetenciesData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function Competencies(props) {
   const { intl } = props;
@@ -83,10 +84,10 @@ function Competencies(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Assessment/CompetenciesCreate',
+      url: SITEMAP.assessment.CompetenciesCreate.route,
     },
     edit: {
-      url: '/app/Pages/Assessment/CompetenciesEdit',
+      url: SITEMAP.assessment.CompetenciesEdit.route,
     },
     delete: {
       api: deleteRow,

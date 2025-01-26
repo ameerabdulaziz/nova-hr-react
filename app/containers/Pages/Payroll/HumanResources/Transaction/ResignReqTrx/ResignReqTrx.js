@@ -16,6 +16,7 @@ import {
 import FileViewerPopup from "../../../../../../components/Popup/fileViewerPopup";
 import { ServerURL } from "../../../api/ServerConfig";
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function ResignReqTrx(props) {
   const { intl } = props;
@@ -119,10 +120,10 @@ function ResignReqTrx(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/ResignReqTrxCreate',
+      url: SITEMAP.humanResources.ResignReqTrxCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/ResignReqTrxEdit',
+      url: SITEMAP.humanResources.ResignReqTrxEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -9,6 +9,7 @@ import { formateDate } from '../../helpers';
 import Payrollmessages from '../../messages';
 import OfficialVacationsData from '../api/OfficialVacationsData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function OfficialVacations({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -72,10 +73,10 @@ function OfficialVacations({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/vac/OfficialVacationsCreate',
+      url: SITEMAP.vacation.OfficialVacationsCreate.route,
     },
     edit: {
-      url: '/app/Pages/vac/OfficialVacationsEdit',
+      url: SITEMAP.vacation.OfficialVacationsEdit.route,
     },
     delete: {
       api: deleteRow,

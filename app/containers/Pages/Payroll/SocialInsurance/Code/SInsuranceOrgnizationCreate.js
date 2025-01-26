@@ -20,6 +20,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import Payrollmessages from '../../messages';
 import api from '../api/SInsuranceOrgnizationData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function SInsuranceOrgnizationCreate(props) {
   const { intl } = props;
@@ -89,7 +90,7 @@ function SInsuranceOrgnizationCreate(props) {
       }
 
       toast.success(notif.saved);
-      history.push('/app/Pages/insurance/SInsuranceOrgnization');
+      history.push(SITEMAP.socialInsurance.SInsuranceOrgnization.route);
     } catch (error) {
       // 
     } finally {
@@ -113,7 +114,7 @@ function SInsuranceOrgnizationCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/insurance/SInsuranceOrgnization');
+    history.push(SITEMAP.socialInsurance.SInsuranceOrgnization.route);
   };
 
   return (

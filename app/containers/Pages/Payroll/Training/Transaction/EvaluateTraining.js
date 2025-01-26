@@ -16,6 +16,7 @@ import api from "../api/TrTrainingTrxListData";
 import PayrollTable from "../../Component/PayrollTable";
 import messages from "../messages";
 import { useHistory } from "react-router";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function EvaluateTraining(props) {
   const { intl } = props;
@@ -129,13 +130,13 @@ function EvaluateTraining(props) {
   const onEvaluateBtnClick = (row) => {
     const state = { typeId: 1, trainingId: row.trainingId, trainingEmpId: row.trainingEmpId };
 
-    history.push('/app/Pages/Survey/Survey', state);
+    history.push(SITEMAP.survey.Survey.route, state);
   };
 
   const onTestBtnClick = (row) => {
     const state = { typeId: 1, trainingId: row.trainingId, trainingEmpId: row.trainingEmpId };
 
-    history.push('/app/Pages/Training/Test', state);
+    history.push(SITEMAP.training.Test.route, state);
   };
 
   const actions = {

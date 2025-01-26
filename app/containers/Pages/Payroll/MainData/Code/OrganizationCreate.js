@@ -20,6 +20,7 @@ import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function CreateAndEditOrg(props) {
   const [id, setid] = useState(0);
@@ -65,7 +66,7 @@ function CreateAndEditOrg(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/MainData/Organization`);
+        history.push(SITEMAP.mainData.Organization.route);
       } else {
         toast.error(response.statusText);
       }
@@ -130,7 +131,7 @@ function CreateAndEditOrg(props) {
   }, [ID]);
 
   function oncancel() {
-    history.push(`/app/Pages/MainData/Organization`);
+    history.push(SITEMAP.mainData.Organization.route);
   }
 
   const errorMesFun = (e, type) => {

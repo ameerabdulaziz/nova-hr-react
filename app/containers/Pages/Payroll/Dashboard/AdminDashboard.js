@@ -14,6 +14,7 @@ import OrgLevelWidget from "./Component/OrgLevelWidget";
 import { useHistory } from "react-router-dom";
 import AbscencebichartWidget from "./Component/AbscencebichartWidget";
 import useStyles from "./dashboard-jss";
+import SITEMAP from "../../../App/routes/sitemap";
 
 function AdminDashboard() {
   const { classes } = useStyles();
@@ -24,9 +25,9 @@ function AdminDashboard() {
 
   useEffect(() => {
     localStorage.setItem("MenuName", "Dashboard")
-    if (IsHR=="true") history.push("/app");
-    else if (IsManagement=="true") history.push("/app/ManagementDashboard");
-    else history.push("/app/EmployeeDashboard");
+    if (IsHR=="true") history.push(SITEMAP.global.AdminDashboard.route);
+    else if (IsManagement=="true") history.push(SITEMAP.global.ManagementDashboard.route);
+    else history.push(SITEMAP.global.EmployeeDashboard.route);
   }, []);
 
   return (

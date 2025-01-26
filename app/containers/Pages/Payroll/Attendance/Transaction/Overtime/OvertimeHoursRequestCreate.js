@@ -21,6 +21,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import Payrollmessages from "../../../messages";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function OvertimeHoursRequestCreate(props) {
   const { intl } = props;
@@ -101,7 +102,7 @@ function OvertimeHoursRequestCreate(props) {
     try {
       await api(locale).save(formData);
       toast.success(notif.saved);
-      history.push("/app/Pages/Att/OvertimeHoursRequest");
+      history.push(SITEMAP.attendance.OvertimeHoursRequest.route);
     } catch (error) {
       //
     } finally {
@@ -227,7 +228,7 @@ function OvertimeHoursRequestCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push("/app/Pages/Att/OvertimeHoursRequest");
+    history.push(SITEMAP.attendance.OvertimeHoursRequest.route);
   };
 
   return (

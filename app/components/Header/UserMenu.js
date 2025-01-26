@@ -31,6 +31,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import ApiData from "../../containers/Pages/Payroll/Dashboard/api";
 import { useSelector } from "react-redux";
+import SITEMAP from "../../containers/App/routes/sitemap";
 
 function UserMenu(props) {
   const { classes, cx } = useStyles();
@@ -144,7 +145,7 @@ function UserMenu(props) {
       >
         <div 
         style={{color:"#838383",textAlign:"right", padding:"0px 10px",fontSize:"13px", cursor:"pointer"}}
-        onClick={() => onOpenNews("/app/NewsDetails", "all")}
+        onClick={() => onOpenNews(SITEMAP.global.NewsDetails.route, "all")}
         >
           <FormattedMessage {...messages.seeAll} />
         </div>
@@ -153,7 +154,7 @@ function UserMenu(props) {
           newsData.map((item, index) => (
             <MenuItem
               divider={index < newsData.length - 1}
-              onClick={() => onOpenNews("/app/NewsDetails","oneNews",item.id)}
+              onClick={() => onOpenNews(SITEMAP.global.NewsDetails.route,"oneNews",item.id)}
               key={index}
             >
               <div className={messageStyles.messageInfo}>
@@ -319,14 +320,14 @@ function UserMenu(props) {
         <MenuItem
           onClick={handleClose}
           component={Link}
-          to="/app/Pages/Setting/ChangePassword"
+          to={SITEMAP.setting.ChangePassword.route}
         >
           <FormattedMessage {...messages.changePassword} />
         </MenuItem>
         <Divider />
         <MenuItem
           onClick={async () => {
-            signOut();
+            history.push(SITEMAP.auth.Login.route);
 
             await ResetPasswordData().Logout();
             localStorage.removeItem("Token");

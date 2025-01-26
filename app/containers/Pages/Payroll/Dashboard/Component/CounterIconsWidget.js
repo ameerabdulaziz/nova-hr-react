@@ -15,6 +15,7 @@ import api from "../api";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import style from "../../../../../styles/styles.scss";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function CounterIconWidget(props) {
   const { intl } = props;
@@ -53,23 +54,23 @@ function CounterIconWidget(props) {
   const cardsRedirectFuc = (cardName) => {
     if(cardName === "Employee")
     {
-      history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: null });
+      history.push(SITEMAP.employee.EmployeeList.route, { dashboardCardKey: null });
     }
     else if(cardName === "NewHired")
       {
-        history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: "NewHired" });
+        history.push(SITEMAP.employee.EmployeeList.route, { dashboardCardKey: "NewHired" });
       }
     else if(cardName === "InPorpatiom")
       {
-        history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: "InPorpatiom" });
+        history.push(SITEMAP.employee.EmployeeList.route, { dashboardCardKey: "InPorpatiom" });
       }
     else if(cardName === "Resignation")
       {
-        history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: "Resignation" });
+        history.push(SITEMAP.employee.EmployeeList.route, { dashboardCardKey: "Resignation" });
       }
     else if(cardName === "Terminated")
       {
-        history.push(`app/Pages/Employee/EmployeeList`, { dashboardCardKey: "Terminated" });
+        history.push(SITEMAP.employee.EmployeeList.route, { dashboardCardKey: "Terminated" });
       }
   }
 

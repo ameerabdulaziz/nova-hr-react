@@ -143,7 +143,7 @@ function MainMenuBig(props) { // eslint-disable-line
         className={classes.item}
         activeClassName={classes.active}
         component={LinkBtn}
-        to={item.link ? item.link : "/app/Pages/MainData/Gender"}
+        to={item.link}
         onClick={() => handleLoadPage()}
       >
         <ListItemIcon>

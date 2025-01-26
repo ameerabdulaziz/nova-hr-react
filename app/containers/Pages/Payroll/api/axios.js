@@ -2,6 +2,8 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { ServerURL } from './ServerConfig'
 import ErrorMessages from '../../Payroll/api/ApiMessages'
+import SITEMAP, { DOMAIN_NAME } from '../../../App/routes/sitemap'
+import history from 'utils/history';
 
 const axiosInstance = axios.create({
   baseURL: ServerURL,
@@ -9,7 +11,7 @@ const axiosInstance = axios.create({
   headers: {
     Authorization: localStorage.getItem('Token')
       ? 'Bearer ' + localStorage.getItem('Token')
-      : null, //Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImNlZWU1YWJjLTdlODYtNDZmZS04NmY3LTQ0MzFmYTk4OWU4YiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNGMyMDA3ODAtMDk1MS00NDA3LWFmZTAtNTgyMTgzNzZiNzE2IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9leHBpcmF0aW9uIjoiSnVsIFdlZCAxOSAyMDIzIDEzOjEyOjIzIFBNIiwibmJmIjoxNjg5Njg1OTQzLCJleHAiOjE2ODk3OTc1NDMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTExNiIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTExNiJ9.SwCPkzxvustLy9hfdlIcnBzKCww_9CWZWXTLRDcgy4E
+      : null,
     'Content-Type': 'application/json',
     accept: 'application/json',
   },
@@ -70,7 +72,13 @@ axiosInstance.interceptors.response.use(
       else toast.error('Unauthorized')
       localStorage.removeItem('Token')
 
-      window.location.href = '/login?redirectTo=' + window.location.pathname
+      const nextUrl = window.location.pathname.replace(`/${DOMAIN_NAME}`, '');
+
+      if (SITEMAP.auth.Login.route === nextUrl) {
+        history.push(nextUrl);
+      } else {
+        history.push(`${SITEMAP.auth.Login.route}?redirectTo=${nextUrl}`);
+      }
 
       return Promise.reject(error)
     }
@@ -79,7 +87,7 @@ axiosInstance.interceptors.response.use(
       error.response.status === 401 &&
       originalRequest.url === baseURL + 'token/refresh/'
     ) {
-      window.location.href = '/login/'
+      history.push(SITEMAP.auth.Login.route);
       return Promise.reject(error)
     }
 
@@ -114,10 +122,10 @@ axiosInstance.interceptors.response.use(
               // console.log(err);
             })
         } else {
-          window.location.href = '/login/'
+          history.push(SITEMAP.auth.Login.route);
         }
       } else {
-        window.location.href = '/login/'
+        history.push(SITEMAP.auth.Login.route);
       }
     }
 

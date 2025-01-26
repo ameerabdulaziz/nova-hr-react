@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/AttRulesData';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function AttRulesList(props) {
   const { intl } = props;
@@ -70,10 +71,10 @@ function AttRulesList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/RulesCreate',
+      url: SITEMAP.attendance.RulesCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/RulesEdit',
+      url: SITEMAP.attendance.RulesEdit.route,
     },
     delete: {
       api: deleteRow,

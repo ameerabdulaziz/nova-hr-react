@@ -25,6 +25,7 @@ import VacationsRules from "./Component/VacationsRules";
 import WorkhoursRules from "./Component/WorkHoursRules";
 import GeneralListApis from "../../../api/GeneralListApis";
 import PayRollLoader from "../../../Component/PayRollLoader";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function AttRulesCreate(props) {
   const { intl } = props;
@@ -215,10 +216,10 @@ function AttRulesCreate(props) {
     setValue(val);
   };
   async function oncancel() {
-    history.push(`/app/Pages/Att/Rules`);
+    history.push(SITEMAP.attendance.Rules.route);
   }
   async function ViewEmployees() {
-    history.push(`/app/Pages/Att/EmployeeAttendanceTemplate`, {
+    history.push(SITEMAP.attendance.EmployeeAttendanceTemplate.route, {
       Tamplete: data.id,
     });
   }
@@ -249,7 +250,7 @@ function AttRulesCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Att/Rules`);
+        history.push(SITEMAP.attendance.Rules.route);
       } else {
         toast.error(response.statusText);
       }

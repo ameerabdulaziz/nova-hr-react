@@ -9,6 +9,7 @@ import { formateDate } from '../../helpers';
 import Payrollmessages from '../../messages';
 import ReplaceAnnualLeaveBalanceData from '../api/ReplaceAnnualLeaveBalanceData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function ReplaceAnnualLeaveBalance({ intl }) {
   const stringMenu = localStorage.getItem('Menu');
@@ -92,10 +93,10 @@ function ReplaceAnnualLeaveBalance({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/vac/ReplaceAnnualLeaveBalanceCreate',
+      url: SITEMAP.vacation.ReplaceAnnualLeaveBalanceCreate.route,
     },
     edit: {
-      url: '/app/Pages/vac/ReplaceAnnualLeaveBalanceEdit',
+      url: SITEMAP.vacation.ReplaceAnnualLeaveBalanceEdit.route,
     },
     delete: {
       api: deleteRow,

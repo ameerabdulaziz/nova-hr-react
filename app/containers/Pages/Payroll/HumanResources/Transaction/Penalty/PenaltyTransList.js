@@ -23,6 +23,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import useStyles from "../../../Style";
 import GeneralListApis from "../../../api/GeneralListApis";
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 
 function PenaltyTransList(props) {
@@ -130,10 +131,10 @@ function PenaltyTransList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/PenaltyTransCreate',
+      url: SITEMAP.humanResources.PenaltyTransCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/PenaltyTransEdit',
+      url: SITEMAP.humanResources.PenaltyTransEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -34,6 +34,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import GeneralListApis from "../../../api/GeneralListApis";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function RewardTransCreate(props) {
   const { intl } = props;
@@ -120,7 +121,7 @@ function RewardTransCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/RewardTrans`);
+        history.push(SITEMAP.humanResources.RewardTrans.route);
       } else {
         toast.error(response.statusText);
       }
@@ -131,7 +132,7 @@ function RewardTransCreate(props) {
   };
 
   async function oncancel() {
-    history.push(`/app/Pages/HR/RewardTrans`);
+    history.push(SITEMAP.humanResources.RewardTrans.route);
   }
   async function fetchData() {
     try {
@@ -325,12 +326,12 @@ function RewardTransCreate(props) {
             </Grid>
             <Grid item xs={12} md={2}>
               {data.docName && (
-                <NavLink
-                  to={{ pathname: `${ServerURL}${data.docName}` }}
+                <a
+                  href={`${ServerURL}${data.docName}`}
                   target="_blank"
                 >
                   <Button size="small">Open File</Button>
-                </NavLink>
+                </a>
               )}
             </Grid>
             <Grid item xs={12} md={12}>

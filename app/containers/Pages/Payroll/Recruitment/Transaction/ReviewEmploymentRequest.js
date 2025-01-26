@@ -22,6 +22,7 @@ import payrollMessages from '../../messages';
 import api from '../api/ReviewEmploymentRequestData';
 import RowDropdown from '../components/ReviewEmploymentRequest/RowDropdown';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function ReviewEmploymentRequest(props) {
   const { intl } = props;
@@ -138,7 +139,7 @@ function ReviewEmploymentRequest(props) {
     onPopupClose();
 
     if (isCreateEmploymentRequest) {
-      history.push('/app/Pages/Recruitment/JobAdvertisementCreate', {
+      history.push(SITEMAP.recruitment.JobAdvertisementCreate.route, {
         employmentId: selectedRowId,
         employmentComments: popupState.comments,
       });

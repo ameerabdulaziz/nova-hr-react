@@ -34,6 +34,7 @@ import { formateDate } from "../../helpers";
 import payrollMessages from "../../messages";
 import api from "../api/LeaveTrxData";
 import messages from "../messages";
+import SITEMAP from "../../../../App/routes/sitemap";
 
 function LeaveTrxCreate(props) {
   const { intl } = props;
@@ -308,7 +309,7 @@ function LeaveTrxCreate(props) {
         await api(locale).save(formData);
 
         toast.success(notif.saved);
-        history.push("/app/Pages/vac/LeaveTrx");
+        history.push(SITEMAP.vacation.LeaveTrx.route);
       } catch (error) {
         //
       } finally {
@@ -334,7 +335,7 @@ function LeaveTrxCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push("/app/Pages/vac/LeaveTrx");
+    history.push(SITEMAP.vacation.LeaveTrx.route);
   };
 
   const onVacationChange = (_, value) => {

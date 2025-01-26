@@ -10,6 +10,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/TrTrainingTrxListData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function TrTrainingTrxList(props) {
   const { intl } = props;
@@ -97,11 +98,11 @@ function TrTrainingTrxList(props) {
 
   const onCreateTestBtnClick = (row) => {
     if (row.templateId) {
-      history.push('/app/Pages/Training/TestTemplateCreate', {
+      history.push(SITEMAP.training.TestTemplateCreate.route, {
         id: row.templateId,
       });
     } else {
-      history.push('/app/Pages/Training/TestTemplateEdit', {
+      history.push(SITEMAP.training.TestTemplateEdit.route, {
         trainingId: row.id,
       });
     }
@@ -109,10 +110,10 @@ function TrTrainingTrxList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Training/TrTrainingTrxListCreate',
+      url: SITEMAP.training.TrTrainingTrxListCreate.route,
     },
     edit: {
-      url: '/app/Pages/Training/TrTrainingTrxListEdit',
+      url: SITEMAP.training.TrTrainingTrxListEdit.route,
     },
     delete: {
       api: deleteRow,

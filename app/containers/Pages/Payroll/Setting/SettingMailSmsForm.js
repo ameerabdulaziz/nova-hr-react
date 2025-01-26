@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../Component/PayrollTable';
 import api from './api/SettingMailSmsFormData';
 import messages from './messages';
+import SITEMAP from '../../../App/routes/sitemap';
 
 function SettingMailSmsForm(props) {
   const { intl } = props;
@@ -69,10 +70,10 @@ function SettingMailSmsForm(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Setting/SettingMailSmsFormCreate',
+      url: SITEMAP.setting.SettingMailSmsFormCreate.route,
     },
     edit: {
-      url: '/app/Pages/Setting/SettingMailSmsFormEdit',
+      url: SITEMAP.setting.SettingMailSmsFormEdit.route,
     },
     delete: {
       api: deleteRow,

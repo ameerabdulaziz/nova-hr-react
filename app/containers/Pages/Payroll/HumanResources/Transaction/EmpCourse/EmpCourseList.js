@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/EmpCourseData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function EmpCourseList(props) {
   const { intl } = props;
@@ -88,10 +89,10 @@ function EmpCourseList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/EmpCourseCreate',
+      url: SITEMAP.humanResources.EmpCourseCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/EmpCourseEdit',
+      url: SITEMAP.humanResources.EmpCourseEdit.route,
     },
     delete: {
       api: deleteRow,

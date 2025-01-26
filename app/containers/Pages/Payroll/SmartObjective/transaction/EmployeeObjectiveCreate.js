@@ -25,6 +25,7 @@ import payrollMessages from '../../messages';
 import useStyles from '../../Style';
 import api from '../api/EmployeeObjectiveData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function EmployeeObjectiveCreate(props) {
   const { intl } = props;
@@ -88,7 +89,7 @@ function EmployeeObjectiveCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/SmartObjective/EmployeeObjective');
+      history.push(SITEMAP.smartObjective.EmployeeObjective.route);
     } catch (err) {
       //
     } finally {
@@ -98,7 +99,7 @@ function EmployeeObjectiveCreate(props) {
 
 
   function onCancelBtnClick() {
-    history.push('/app/Pages/SmartObjective/EmployeeObjective');
+    history.push(SITEMAP.smartObjective.EmployeeObjective.route);
   }
 
   async function fetchNeededData() {

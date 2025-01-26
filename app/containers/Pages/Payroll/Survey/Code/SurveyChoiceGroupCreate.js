@@ -18,6 +18,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import payrollMessages from '../../messages';
 import api from '../api/SurveyChoiceGroupData';
 import ChoicesInfo from '../components/SurveyChoiceGroup/ChoicesInfo';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function SurveyChoiceGroupCreate(props) {
   const { intl } = props;
@@ -70,7 +71,7 @@ function SurveyChoiceGroupCreate(props) {
       await api(locale).save(body);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Survey/SurveyChoiceGroup');
+      history.push(SITEMAP.survey.SurveyChoiceGroup.route);
     } catch (error) {
       //
     } finally {
@@ -83,7 +84,7 @@ function SurveyChoiceGroupCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Survey/SurveyChoiceGroup');
+    history.push(SITEMAP.survey.SurveyChoiceGroup.route);
   };
 
   return (

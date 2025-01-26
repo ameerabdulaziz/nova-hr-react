@@ -20,6 +20,7 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/StopInsuranceData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function StopInsuranceCreate(props) {
   const { intl } = props;
@@ -83,7 +84,7 @@ function StopInsuranceCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/insurance/StopInsurance');
+      history.push(SITEMAP.socialInsurance.StopInsurance.route);
     } catch (error) {
       //
     } finally {
@@ -111,7 +112,7 @@ function StopInsuranceCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/insurance/StopInsurance');
+    history.push(SITEMAP.socialInsurance.StopInsurance.route);
   };
 
   return (

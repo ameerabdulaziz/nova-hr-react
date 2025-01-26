@@ -13,6 +13,7 @@ import DoDisturbOnOutlinedIcon from "@mui/icons-material/DoDisturbOnOutlined";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import toast from "react-hot-toast";
 import messages from "../../messages";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function RowDropdown(props) {
   const { tableMeta, intl, row, handleClickOpen, DataOfSelectedRow } = props;  
@@ -129,7 +130,7 @@ function RowDropdown(props) {
             onRedirectBtnClick(
               tableMeta,
               12,
-              "/app/Pages/vac/LeaveTrxCreate",
+              SITEMAP.vacation.LeaveTrxCreate.route,
               "Vacation"
             );
           }}
@@ -151,7 +152,7 @@ function RowDropdown(props) {
             onRedirectBtnClick(
               tableMeta,
               13,
-              "/app/Pages/Att/MissionTrxEdit",
+              SITEMAP.attendance.MissionTrxEdit.route,
               "Mission"
             );
           }}
@@ -172,7 +173,7 @@ function RowDropdown(props) {
             onRedirectBtnClick(
               tableMeta,
               14,
-              "/app/Pages/Att/PermissionTrxCreate",
+              SITEMAP.attendance.PermissionTrxCreate.route,
               "Permission"
             );
           }}

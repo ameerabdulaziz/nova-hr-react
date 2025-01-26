@@ -20,6 +20,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function LayOffNoticeCreate(props) {
   const { intl } = props;
@@ -74,7 +75,7 @@ function LayOffNoticeCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/LayOffNotice`);
+        history.push(SITEMAP.humanResources.LayOffNotice.route);
       } else {
         toast.error(response.statusText);
       }
@@ -84,7 +85,7 @@ function LayOffNoticeCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/HR/LayOffNotice`);
+    history.push(SITEMAP.humanResources.LayOffNotice.route);
   }
 
   async function fetchData() {

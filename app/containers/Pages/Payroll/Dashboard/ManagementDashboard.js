@@ -14,6 +14,7 @@ import TaxInsWidget from "./Component/TaxInsWidget";
 import VacWidget from "./Component/VacWidget";
 
 import AbscencebichartWidget from "./Component/AbscencebichartWidget";
+import SITEMAP from "../../../App/routes/sitemap";
 
 function ManagementDashboard() {
   const { classes } = useStyles();
@@ -23,9 +24,9 @@ function ManagementDashboard() {
 
   useEffect(() => {
     localStorage.setItem("MenuName", "Dashboard")
-    if (IsHR=="true") history.push("/app");
-    else if (IsManagement=="true") history.push("/app/ManagementDashboard");
-    else history.push("/app/EmployeeDashboard");
+    if (IsHR=="true") history.push(SITEMAP.global.AdminDashboard.route);
+    else if (IsManagement=="true") history.push(SITEMAP.global.ManagementDashboard.route);
+    else history.push(SITEMAP.global.EmployeeDashboard.route);
   }, []);
   return (
     <div>

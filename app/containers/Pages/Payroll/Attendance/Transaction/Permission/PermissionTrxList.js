@@ -16,6 +16,7 @@ import payrollMessages from '../../../messages';
 import WFExecutionList from '../../../WorkFlow/WFExecutionList';
 import ApiData from '../../api/PermissionTrxData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function PermissionTrxList(props) {
   const { intl } = props;
@@ -167,10 +168,10 @@ function PermissionTrxList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/PermissionTrxCreate',
+      url: SITEMAP.attendance.PermissionTrxCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/PermissionTrxEdit',
+      url: SITEMAP.attendance.PermissionTrxEdit.route,
       // disabled edit action is not HR and status is null
       disabled: isHR ? false : (row) => row.status !== null,
     },

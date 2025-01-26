@@ -13,7 +13,7 @@ module.exports = options => ({
   output: {
     // Compile into js/build.js
     path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/',
+    publicPath: '/Novahr/',
     ...options.output,
   }, // Merge with env dependent settings
   optimization: options.optimization,

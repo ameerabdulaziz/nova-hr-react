@@ -26,6 +26,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/ManagerInterviewEvaluationData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function ManagerInterviewEvaluationEdit(props) {
   const { intl } = props;
@@ -117,7 +118,7 @@ function ManagerInterviewEvaluationEdit(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/ManagerInterviewEvaluation');
+      history.push(SITEMAP.recruitment.ManagerInterviewEvaluation.route);
     } catch (error) {
       //
     } finally {
@@ -162,7 +163,7 @@ function ManagerInterviewEvaluationEdit(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/ManagerInterviewEvaluation');
+    history.push(SITEMAP.recruitment.ManagerInterviewEvaluation.route);
   };
 
   const jobEvaluationFinalGrade = useMemo(() => {

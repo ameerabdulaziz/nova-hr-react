@@ -6,6 +6,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/JobOfferData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function JobOffer(props) {
   const { intl } = props;
@@ -83,10 +84,10 @@ function JobOffer(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Recruitment/JobOfferCreate',
+      url: SITEMAP.recruitment.JobOfferCreate.route,
     },
     edit: {
-      url: '/app/Pages/Recruitment/JobOfferEdit',
+      url: SITEMAP.recruitment.JobOfferEdit.route,
     },
     delete: {
       api: deleteRow,

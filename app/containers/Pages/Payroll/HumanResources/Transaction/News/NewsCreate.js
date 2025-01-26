@@ -34,6 +34,7 @@ import videoIcon from "../../../../../../../public/images/videoIcon.png";
 import FileViewerPopup from "../../../../../../components/Popup/fileViewerPopup";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function NewsCreate(props) {
   const { intl } = props;
@@ -126,7 +127,7 @@ function NewsCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/News`);
+        history.push(SITEMAP.humanResources.News.route);
       } else {
         toast.error(response.statusText);
       }
@@ -136,7 +137,7 @@ function NewsCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/HR/News`);
+    history.push(SITEMAP.humanResources.News.route);
   }
 
   async function fetchData() {

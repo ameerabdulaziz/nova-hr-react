@@ -50,6 +50,7 @@ import { uuid } from '../../helpers';
 import DecryptUrl from "../../Component/DecryptUrl";
 import { PapperBlock } from 'enl-components';
 import { useLocation } from 'react-router-dom';
+import { DOMAIN_NAME } from '../../../../App/routes/sitemap';
 
 const INIT_FORM_INFO = {
   id: 0,
@@ -388,7 +389,7 @@ function EmployeeBank(props) {
                     <ListItemAvatar>
                       <Avatar
                         alt={item.bankName}
-                        src={avatarApi[11]}
+                        src={`/${DOMAIN_NAME}/${avatarApi[11]}`}
                         className={classes.avatar}
                       />
                     </ListItemAvatar>

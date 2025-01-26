@@ -18,6 +18,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 
 import Autocomplete from "@mui/material/Autocomplete";
 import { calculateTimeDifference } from "../../../helpers";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function ShiftCreate(props) {
   const { intl } = props;
@@ -167,7 +168,7 @@ function ShiftCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Att/Shift`);
+        history.push(SITEMAP.attendance.Shift.route);
       } else {
         toast.error(response.statusText);
       }
@@ -177,7 +178,7 @@ function ShiftCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Att/Shift`);
+    history.push(SITEMAP.attendance.Shift.route);
   }
   async function fetchData() {
     if (id) {

@@ -20,6 +20,7 @@ import { toast } from 'react-hot-toast';
 import notif from 'enl-api/ui/notifMessage';
 import PersonIcon from '@mui/icons-material/Person';
 import { format } from 'date-fns';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 
 
@@ -351,7 +352,7 @@ function AssessmentReviewEdit(props) {
 
       if (response.status==200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Assessment/AssessmentReview`);
+        history.push(SITEMAP.assessment.AssessmentReview.route);
       } else {
           toast.error(response.statusText);
       }

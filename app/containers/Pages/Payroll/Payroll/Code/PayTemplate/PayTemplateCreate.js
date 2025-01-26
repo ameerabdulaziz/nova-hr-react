@@ -16,6 +16,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import NamePopup from "../../../Component/NamePopup";
 import PayRollLoader from "../../../Component/PayRollLoader";
 import ElementTable from "./ElementTable";
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function PayTemplateCreate(props) {
   const { intl } = props;
@@ -131,7 +132,7 @@ function PayTemplateCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/Payroll/PayTemplate`);
+        history.push(SITEMAP.payroll.PayTemplate.route);
       } else {
         toast.error(response.statusText);
       }
@@ -141,7 +142,7 @@ function PayTemplateCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/Payroll/PayTemplate`);
+    history.push(SITEMAP.payroll.PayTemplate.route);
   }
   async function fetchData() {
     try {

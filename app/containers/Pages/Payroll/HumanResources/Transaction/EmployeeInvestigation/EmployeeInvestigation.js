@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import payrollMessages from '../../../messages';
 import api from '../../api/EmployeeInvestigationData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function EmployeeInvestigation(props) {
   const { intl } = props;
@@ -90,10 +91,10 @@ function EmployeeInvestigation(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/EmpInvestigationCreate',
+      url: SITEMAP.humanResources.EmpInvestigationCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/EmpInvestigationEdit',
+      url: SITEMAP.humanResources.EmpInvestigationEdit.route,
     },
     delete: {
       api: deleteRow,

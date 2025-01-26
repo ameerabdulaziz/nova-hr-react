@@ -18,6 +18,7 @@ import ApiData from '../../api/MissionTrxData';
 import messages from '../../messages';
 import MissionDetails from '../../../Component/MissionDetails';
 import ImageIcon from '@mui/icons-material/Image';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function MissionTrxList(props) {
   const { intl } = props;
@@ -172,10 +173,10 @@ function MissionTrxList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/MissionTrxCreate',
+      url: SITEMAP.attendance.MissionTrxCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/MissionTrxEdit',
+      url: SITEMAP.attendance.MissionTrxEdit.route,
       // disabled edit action is not HR and status is null
       disabled: authState.user.isHR ? false : (row) => row.status !== null,
     },

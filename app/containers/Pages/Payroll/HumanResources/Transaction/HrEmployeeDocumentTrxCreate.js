@@ -22,6 +22,7 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/HrEmployeeDocumentTrxData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function HrEmployeeDocumentTrxCreate(props) {
   const { intl } = props;
@@ -87,7 +88,7 @@ function HrEmployeeDocumentTrxCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/HR/HrEmployeeDocumentTrx');
+      history.push(SITEMAP.humanResources.HrEmployeeDocumentTrx.route);
     } catch (err) {
       //
     } finally {
@@ -95,7 +96,7 @@ function HrEmployeeDocumentTrxCreate(props) {
     }
   };
   function oncancel() {
-    history.push('/app/Pages/HR/HrEmployeeDocumentTrx');
+    history.push(SITEMAP.humanResources.HrEmployeeDocumentTrx.route);
   }
 
   async function fetchData() {

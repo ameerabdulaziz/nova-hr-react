@@ -9,6 +9,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import api from '../../api/MissionTypeData';
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -90,10 +91,10 @@ function MissionType(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/MissionTypeCreate',
+      url: SITEMAP.attendance.MissionTypeCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/MissionTypeEdit',
+      url: SITEMAP.attendance.MissionTypeEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/TrFunctionsListData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function TrFunctionsList(props) {
   const { intl } = props;
@@ -83,10 +84,10 @@ function TrFunctionsList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Training/TrFunctionsListCreate',
+      url: SITEMAP.training.TrFunctionsListCreate.route,
     },
     edit: {
-      url: '/app/Pages/Training/TrFunctionsListEdit',
+      url: SITEMAP.training.TrFunctionsListEdit.route,
     },
     delete: {
       api: deleteRow,

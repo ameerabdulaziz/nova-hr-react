@@ -34,6 +34,7 @@ import payrollMessages from '../../messages';
 import { default as api } from '../api/CompanyDocumentData';
 import EmployeePopup from '../components/CompanyDocument/EmployeePopup';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function CompanyDocumentCreate(props) {
   const { intl } = props;
@@ -177,7 +178,7 @@ function CompanyDocumentCreate(props) {
     try {
       await api(locale).save(fd);
       toast.success(notif.saved);
-      history.push('/app/Pages/MainData/CompanyDocument');
+      history.push(SITEMAP.mainData.CompanyDocument.route);
     } catch (error) {
       //
     } finally {
@@ -271,7 +272,7 @@ function CompanyDocumentCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/MainData/CompanyDocument');
+    history.push(SITEMAP.mainData.CompanyDocument.route);
   };
 
   return (

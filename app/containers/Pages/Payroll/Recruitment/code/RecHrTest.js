@@ -5,6 +5,7 @@ import tableMessage from '../../../../../components/Tables/messages';
 import PayrollTable from '../../Component/PayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/RecHrTestData';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function RecHrTest(props) {
   const { intl } = props;
@@ -86,10 +87,10 @@ function RecHrTest(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Recruitment/RecHrTestCreate',
+      url: SITEMAP.recruitment.RecHrTestCreate.route,
     },
     edit: {
-      url: '/app/Pages/Recruitment/RecHrTestEdit',
+      url: SITEMAP.recruitment.RecHrTestEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -33,6 +33,7 @@ import {
   import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
   import { DatePicker } from '@mui/x-date-pickers/DatePicker';
   import dayjs from 'dayjs';
+import SITEMAP from '../../../../../App/routes/sitemap';
   
   function EmployeeInvestigationCreate(props) {
     const { intl } = props;
@@ -169,7 +170,7 @@ import {
         await api(locale).save(getFormData(data));
   
         toast.success(notif.saved);
-        history.push('/app/Pages/HR/EmpInvestigation');
+        history.push(SITEMAP.humanResources.EmpInvestigation.route);
       } catch (error) {
         //
       } finally {
@@ -182,7 +183,7 @@ import {
     };
   
     const onCancelBtnClick = () => {
-      history.push('/app/Pages/HR/EmpInvestigation');
+      history.push(SITEMAP.humanResources.EmpInvestigation.route);
     };
 
 

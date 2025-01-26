@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import CustomerData from '../api/CustomerData';
 import messages from '../messages';
 import { getCheckboxIcon } from '../../helpers';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function Customer({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -75,10 +76,10 @@ function Customer({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/ProjectManagment/CustomerCreate',
+      url: SITEMAP.projectManagement.CustomerCreate.route,
     },
     edit: {
-      url: '/app/Pages/ProjectManagment/CustomerEdit',
+      url: SITEMAP.projectManagement.CustomerEdit.route,
     },
     delete: {
       api: deleteRow,

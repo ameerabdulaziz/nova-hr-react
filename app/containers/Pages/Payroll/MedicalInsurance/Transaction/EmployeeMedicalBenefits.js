@@ -7,6 +7,7 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeMedicalBenefitsData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function EmployeeMedicalBenefits(props) {
   const { intl } = props;
@@ -107,10 +108,10 @@ function EmployeeMedicalBenefits(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Minsurance/EmployeeMedicalBenefitsCreate',
+      url: SITEMAP.medicalInsurance.EmployeeMedicalBenefitsCreate.route,
     },
     edit: {
-      url: '/app/Pages/Minsurance/EmployeeMedicalBenefitsEdit',
+      url: SITEMAP.medicalInsurance.EmployeeMedicalBenefitsEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
 import ApiData from '../../api/AttentionData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function AttentionList(props) {
   const { intl } = props;
@@ -73,10 +74,10 @@ function AttentionList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/AttentionCreate',
+      url: SITEMAP.humanResources.AttentionCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/AttentionEdit',
+      url: SITEMAP.humanResources.AttentionEdit.route,
     },
     delete: {
       api: deleteRow,

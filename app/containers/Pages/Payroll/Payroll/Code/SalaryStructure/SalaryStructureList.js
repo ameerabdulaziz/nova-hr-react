@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/SalaryStructureData';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function SalaryStructureList(props) {
   const { intl } = props;
@@ -70,10 +71,10 @@ function SalaryStructureList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Payroll/SalaryStructureCreate',
+      url: SITEMAP.payroll.SalaryStructureCreate.route,
     },
     edit: {
-      url: '/app/Pages/Payroll/SalaryStructureEdit',
+      url: SITEMAP.payroll.SalaryStructureEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -8,6 +8,7 @@ import PayrollTable from '../../Component/PayrollTable';
 import TimeSheetData from '../api/TimeSheetData';
 import messages from '../messages';
 import payrollMessages from '../../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function TimeSheet({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -72,10 +73,10 @@ function TimeSheet({ intl }) {
 
   const actions = {
     add: {
-      url: '/app/Pages/ProjectManagment/TimeSheetCreate',
+      url: SITEMAP.projectManagement.TimeSheetCreate.route,
     },
     edit: {
-      url: '/app/Pages/ProjectManagment/TimeSheetEdit',
+      url: SITEMAP.projectManagement.TimeSheetEdit.route,
     },
     delete: {
       api: deleteRow,

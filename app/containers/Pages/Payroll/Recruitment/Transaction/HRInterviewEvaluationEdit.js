@@ -26,6 +26,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/HRInterviewEvaluationData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function HRInterviewEvaluationEdit(props) {
   const { intl } = props;
@@ -128,7 +129,7 @@ function HRInterviewEvaluationEdit(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/HRInterviewEvaluation');
+      history.push(SITEMAP.recruitment.HRInterviewEvaluation.route);
     } catch (error) {
       //
     } finally {
@@ -197,7 +198,7 @@ function HRInterviewEvaluationEdit(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/HRInterviewEvaluation');
+    history.push(SITEMAP.recruitment.HRInterviewEvaluation.route);
   };
 
   const hrTestsFinalGrade = useMemo(() => {

@@ -6,6 +6,7 @@ import React, { memo, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router';
 import payrollMessages from '../messages';
+import SITEMAP, { DOMAIN_NAME } from '../../../App/routes/sitemap';
 
 function EmployeeNavigation(props) {
   const {
@@ -13,18 +14,53 @@ function EmployeeNavigation(props) {
   } = props;
 
   const OPTIONS = [
-    { name: intl.formatMessage(payrollMessages.personal), url: 'Personal' },
-    { name: intl.formatMessage(payrollMessages.qualification), url: 'EmployeeQualification' },
-    { name: intl.formatMessage(payrollMessages.contactInfo), url: 'EmployeeContactInfo' },
-    { name: intl.formatMessage(payrollMessages.address), url: 'EmployeeAddress' },
-    { name: intl.formatMessage(payrollMessages.car), url: 'EmployeeCar' },
-    { name: intl.formatMessage(payrollMessages.course), url: 'EmployeeCourse' },
-    { name: intl.formatMessage(payrollMessages.contract), url: 'EmployeeContract' },
-    { name: intl.formatMessage(payrollMessages.experience), url: 'EmployeeExperince' },
-    { name: intl.formatMessage(payrollMessages.insurance), url: 'EmployeeInsurance' },
-    { name: intl.formatMessage(payrollMessages.bank), url: 'EmployeeBank' },
-    { name: intl.formatMessage(payrollMessages.salary), url: 'EmployeeSalary' },
-    { name: intl.formatMessage(payrollMessages.resetDeviceKey) },
+    {
+      name: intl.formatMessage(payrollMessages.personal),
+      url: SITEMAP.employee.Personal.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.qualification),
+      url: SITEMAP.employee.EmployeeQualification.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.contactInfo),
+      url: SITEMAP.employee.EmployeeContactInfo.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.address),
+      url: SITEMAP.employee.EmployeeAddress.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.car),
+      url: SITEMAP.employee.EmployeeCar.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.course),
+      url: SITEMAP.employee.EmployeeCourse.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.contract),
+      url: SITEMAP.employee.EmployeeContract.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.experience),
+      url: SITEMAP.employee.EmployeeExperince.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.insurance),
+      url: SITEMAP.employee.EmployeeInsurance.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.bank),
+      url: SITEMAP.employee.EmployeeBank.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.salary),
+      url: SITEMAP.employee.EmployeeSalary.route,
+    },
+    {
+      name: intl.formatMessage(payrollMessages.resetDeviceKey)
+    },
   ];
 
   const history = useHistory();
@@ -35,7 +71,7 @@ function EmployeeNavigation(props) {
 
   const getPageURL = (url) => {
     if (!employeeId || !employeeName) {
-      return encodeURI(`/app/Pages/Employee/${url}`);
+      return `/${DOMAIN_NAME}${encodeURI(url)}`;
     }
 
     const payload = JSON.stringify({
@@ -43,7 +79,8 @@ function EmployeeNavigation(props) {
       name: employeeName,
     });
 
-    var url= encodeURI(`/app/Pages/Employee/${url}/${btoa(encodeURIComponent(payload))}`);
+    var url= encodeURI(`/${DOMAIN_NAME}${url}/${btoa(encodeURIComponent(payload))}`);
+
     return url;
   };
 

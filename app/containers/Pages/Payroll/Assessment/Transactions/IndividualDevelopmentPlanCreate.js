@@ -38,6 +38,7 @@ import payrollMessages from '../../messages';
 import api from '../api/IndividualDevelopmentPlanData';
 import DevelopmentPlanPopup from '../components/IndividualDevelopmentPlan/DevelopmentPlanPopup';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function IndividualDevelopmentPlanCreate(props) {
   const { intl } = props;
@@ -108,7 +109,7 @@ function IndividualDevelopmentPlanCreate(props) {
     try {
       await api(locale).save(formData);
       toast.success(notif.saved);
-      history.push('/app/Pages/Assessment/IndividualDevelopmentPlan');
+      history.push(SITEMAP.assessment.IndividualDevelopmentPlan.route);
     } catch (error) {
       //
     } finally {
@@ -187,7 +188,7 @@ function IndividualDevelopmentPlanCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Assessment/IndividualDevelopmentPlan');
+    history.push(SITEMAP.assessment.IndividualDevelopmentPlan.route);
   };
 
   useEffect(() => {

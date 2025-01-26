@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/PermissionData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function PermissionList(props) {
   const { intl } = props;
@@ -83,10 +84,10 @@ function PermissionList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Att/PermissionCreate',
+      url: SITEMAP.attendance.PermissionCreate.route,
     },
     edit: {
-      url: '/app/Pages/Att/PermissionEdit',
+      url: SITEMAP.attendance.PermissionEdit.route,
     },
     delete: {
       api: deleteRow,

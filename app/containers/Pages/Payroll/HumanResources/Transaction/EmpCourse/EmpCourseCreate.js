@@ -20,6 +20,7 @@ import PayRollLoader from "../../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import SITEMAP from "../../../../../App/routes/sitemap";
 
 function EmpCourseCreate(props) {
   const { intl } = props;
@@ -99,7 +100,7 @@ function EmpCourseCreate(props) {
 
       if (response.status == 200) {
         toast.success(notif.saved);
-        history.push(`/app/Pages/HR/EmpCourse`);
+        history.push(SITEMAP.humanResources.EmpCourse.route);
       } else {
         toast.error(response.statusText);
       }
@@ -109,7 +110,7 @@ function EmpCourseCreate(props) {
     }
   };
   async function oncancel() {
-    history.push(`/app/Pages/HR/EmpCourse`);
+    history.push(SITEMAP.humanResources.EmpCourse.route);
   }
   async function fetchData() {
     try {

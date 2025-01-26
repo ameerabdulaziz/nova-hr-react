@@ -7,6 +7,7 @@ import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/StopMedicalInsuranceData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function StopMedicalInsurance(props) {
   const { intl } = props;
@@ -127,10 +128,10 @@ function StopMedicalInsurance(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Minsurance/StopMedicalInsuranceCreate',
+      url: SITEMAP.medicalInsurance.StopMedicalInsuranceCreate.route,
     },
     edit: {
-      url: '/app/Pages/Minsurance/StopMedicalInsuranceEdit',
+      url: SITEMAP.medicalInsurance.StopMedicalInsuranceEdit.route,
     },
     delete: {
       api: deleteRow,

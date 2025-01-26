@@ -19,6 +19,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import payrollMessages from '../../messages';
 import api from '../api/TrFunctionsListData';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function TrFunctionsListCreate(props) {
   const { intl } = props;
@@ -84,7 +85,7 @@ function TrFunctionsListCreate(props) {
       await api(locale).save(body);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Training/TrFunctionsList');
+      history.push(SITEMAP.training.TrFunctionsList.route);
     } catch (error) {
       //
     } finally {
@@ -97,7 +98,7 @@ function TrFunctionsListCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Training/TrFunctionsList');
+    history.push(SITEMAP.training.TrFunctionsList.route);
   };
 
   return (

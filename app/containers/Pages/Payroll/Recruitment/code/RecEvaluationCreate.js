@@ -19,6 +19,7 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/RecEvaluationData';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function RecEvaluationCreate(props) {
   const { intl } = props;
@@ -77,7 +78,7 @@ function RecEvaluationCreate(props) {
       await api(locale).save(formInfo);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Recruitment/RecEvaluation');
+      history.push(SITEMAP.recruitment.RecEvaluation.route);
     } catch (error) {
       //
     } finally {
@@ -97,7 +98,7 @@ function RecEvaluationCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Recruitment/RecEvaluation');
+    history.push(SITEMAP.recruitment.RecEvaluation.route);
   };
 
   const onCheckboxChange = (evt) => {

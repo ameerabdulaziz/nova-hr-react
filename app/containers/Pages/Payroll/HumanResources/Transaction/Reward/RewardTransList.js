@@ -9,6 +9,7 @@ import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/RewardTransData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function RewardTransList(props) {
   const { intl } = props;
@@ -103,10 +104,10 @@ function RewardTransList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/HR/RewardTransCreate',
+      url: SITEMAP.humanResources.RewardTransCreate.route,
     },
     edit: {
-      url: '/app/Pages/HR/RewardTransEdit',
+      url: SITEMAP.humanResources.RewardTransEdit.route,
     },
     delete: {
       api: deleteRow,

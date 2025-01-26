@@ -19,6 +19,7 @@ import payrollMessages from '../../messages';
 import api from '../api/TrainingRequestListData';
 import TrainingList from '../components/TrainingRequestList/TrainingList';
 import messages from '../messages';
+import SITEMAP from '../../../../App/routes/sitemap';
 
 function TrainingRequestListCreate(props) {
   const { intl } = props;
@@ -106,7 +107,7 @@ function TrainingRequestListCreate(props) {
       await api(locale).save(body);
 
       toast.success(notif.saved);
-      history.push('/app/Pages/Training/TrainingRequestList');
+      history.push(SITEMAP.training.TrainingRequestList.route);
     } catch (error) {
       //
     } finally {
@@ -119,7 +120,7 @@ function TrainingRequestListCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Training/TrainingRequestList');
+    history.push(SITEMAP.training.TrainingRequestList.route);
   };
 
   const onDatePickerChange = (value, name) => {

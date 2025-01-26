@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/LoanTrxData';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function LoanTrxList(props) {
   const { intl } = props;
@@ -87,10 +88,10 @@ function LoanTrxList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Payroll/LoanTrxCreate',
+      url: SITEMAP.payroll.LoanTrxCreate.route,
     },
     edit: {
-      url: '/app/Pages/Payroll/LoanTrxEdit',
+      url: SITEMAP.payroll.LoanTrxEdit.route,
     },
     delete: {
       api: deleteRow,

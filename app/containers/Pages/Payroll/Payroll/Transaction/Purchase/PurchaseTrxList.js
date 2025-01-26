@@ -8,6 +8,7 @@ import PayrollTable from '../../../Component/PayrollTable';
 import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/PurchaseTrxData';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function PurchaseTrxList(props) {
   const { intl } = props;
@@ -82,10 +83,10 @@ function PurchaseTrxList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Payroll/PurchaseTrxCreate',
+      url: SITEMAP.payroll.PurchaseTrxCreate.route,
     },
     edit: {
-      url: '/app/Pages/Payroll/PurchaseTrxEdit',
+      url: SITEMAP.payroll.PurchaseTrxEdit.route,
     },
     delete: {
       api: deleteRow,

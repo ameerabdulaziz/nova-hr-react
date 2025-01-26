@@ -9,6 +9,7 @@ import { getCheckboxIcon } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/PayTemplateData';
 import messages from '../../messages';
+import SITEMAP from '../../../../../App/routes/sitemap';
 
 function PayTemplateList(props) {
   const { intl } = props;
@@ -86,10 +87,10 @@ function PayTemplateList(props) {
 
   const actions = {
     add: {
-      url: '/app/Pages/Payroll/PayTemplateCreate',
+      url: SITEMAP.payroll.PayTemplateCreate.route,
     },
     edit: {
-      url: '/app/Pages/Payroll/PayTemplateEdit',
+      url: SITEMAP.payroll.PayTemplateEdit.route,
     },
     delete: {
       api: deleteRow,

@@ -23,6 +23,7 @@ import messages from './messages';
 import useStyles from "../Style";
 import style from "../../../../styles/styles.scss";
 import 'react-quill/dist/quill.snow.css';
+import SITEMAP from '../../../App/routes/sitemap';
 import JoditEditor from 'jodit-react';
 import HTMLReactParser from 'html-react-parser/lib/index';
 
@@ -67,7 +68,7 @@ function SettingMailSmsFormCreate(props) {
     try {
       await api(locale).save(formInfo);
       toast.success(notif.saved);
-      history.push('/app/Pages/Setting/SettingMailSmsForm');
+      history.push(SITEMAP.setting.SettingMailSmsForm.route);
     } catch (error) {
       //
     } finally {
@@ -127,7 +128,7 @@ function SettingMailSmsFormCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push('/app/Pages/Setting/SettingMailSmsForm');
+    history.push(SITEMAP.setting.SettingMailSmsForm.route);
   };
 
   const onAddDecoratorBtnClick = (event) => {
