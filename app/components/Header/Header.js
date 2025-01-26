@@ -38,7 +38,7 @@ import { useSelector } from "react-redux";
 import api from "../../containers/Pages/Payroll/Dashboard/api";
 import payrollMessages from "../../containers/Pages/Payroll/messages";
 import PayRollLoader from "../../containers/Pages/Payroll/Component/PayRollLoader";
-import SITEMAP from "../../containers/App/routes/sitemap";
+import SITEMAP, { DOMAIN_NAME } from "../../containers/App/routes/sitemap";
 
 const elem = document.documentElement;
 
@@ -379,7 +379,7 @@ function Header(props) {
           placement="bottom"
         >
           <Box onClick={handleChat} sx={{ cursor: 'pointer' }}>
-            <img src='/images/chat.png' alt='chat' height={40} />
+            <img src={`/${DOMAIN_NAME}/images/chat.png`} alt='chat' height={40} />
           </Box>
         </Tooltip>
         )

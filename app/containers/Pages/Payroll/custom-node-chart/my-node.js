@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./my-node.css";
 import randomcolor from "randomcolor";
 import Face2Icon from '@mui/icons-material/Face2';
+import { DOMAIN_NAME } from "../../../App/routes/sitemap";
 
 function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -42,7 +43,7 @@ const MyNode = ({ nodeData }) => {
             <div className="image">
             <img
                 /* src={`https://randomuser.me/api/portraits/men/${nodeData.employeeid}.jpg`} */
-                src={nodeData.photo?nodeData.photo:(nodeData.genderId == 1?'/images/avatars/pp_boy4.jpg':'/images/pp_girl.svg')}
+                src={nodeData.photo?nodeData.photo:`/${DOMAIN_NAME}`+(nodeData.genderId == 1?'/images/avatars/pp_boy4.jpg':'/images/pp_girl.svg')}
                 alt="Profile"
                 style={{ borderColor: colors[nodeData.levelNo]  }}
             />

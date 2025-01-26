@@ -145,7 +145,7 @@ function UserMenu(props) {
       >
         <div 
         style={{color:"#838383",textAlign:"right", padding:"0px 10px",fontSize:"13px", cursor:"pointer"}}
-        onClick={() => onOpenNews(SITEMAP.global.NewsDetails, "all")}
+        onClick={() => onOpenNews(SITEMAP.global.NewsDetails.route, "all")}
         >
           <FormattedMessage {...messages.seeAll} />
         </div>
@@ -154,7 +154,7 @@ function UserMenu(props) {
           newsData.map((item, index) => (
             <MenuItem
               divider={index < newsData.length - 1}
-              onClick={() => onOpenNews(SITEMAP.global.NewsDetails,"oneNews",item.id)}
+              onClick={() => onOpenNews(SITEMAP.global.NewsDetails.route,"oneNews",item.id)}
               key={index}
             >
               <div className={messageStyles.messageInfo}>

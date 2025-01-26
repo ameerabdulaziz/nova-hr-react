@@ -163,7 +163,7 @@ function AsTemplateCreate(props) {
       await api(locale).save(formData);
 
       toast.success(notif.saved);
-      history.push(SITEMAP.assessment.AsTemplate);
+      history.push(SITEMAP.assessment.AsTemplate.route);
     } catch (error) {
       //
     } finally {
@@ -180,7 +180,7 @@ function AsTemplateCreate(props) {
   };
 
   const onCancelBtnClick = () => {
-    history.push(SITEMAP.assessment.AsTemplate);
+    history.push(SITEMAP.assessment.AsTemplate.route);
   };
 
   const onCheckboxChange = (evt) => {

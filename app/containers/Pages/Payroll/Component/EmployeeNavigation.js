@@ -6,7 +6,7 @@ import React, { memo, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useHistory } from 'react-router';
 import payrollMessages from '../messages';
-import SITEMAP from '../../../App/routes/sitemap';
+import SITEMAP, { DOMAIN_NAME } from '../../../App/routes/sitemap';
 
 function EmployeeNavigation(props) {
   const {
@@ -71,7 +71,7 @@ function EmployeeNavigation(props) {
 
   const getPageURL = (url) => {
     if (!employeeId || !employeeName) {
-      return encodeURI(url);
+      return `/${DOMAIN_NAME}${encodeURI(url)}`;
     }
 
     const payload = JSON.stringify({
@@ -79,7 +79,8 @@ function EmployeeNavigation(props) {
       name: employeeName,
     });
 
-    var url= encodeURI(`${url}/${btoa(encodeURIComponent(payload))}`);
+    var url= encodeURI(`/${DOMAIN_NAME}${url}/${btoa(encodeURIComponent(payload))}`);
+
     return url;
   };
 

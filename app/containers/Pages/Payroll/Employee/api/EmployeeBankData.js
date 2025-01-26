@@ -1,5 +1,6 @@
 import avatarApi from 'enl-api/images/avatars';
 import axiosInstance from '../../api/axios';
+import { DOMAIN_NAME } from '../../../../App/routes/sitemap';
 
 const EmployeeBankData = (lang) => {
   const EmployeeBankApis = {};
@@ -24,7 +25,7 @@ const EmployeeBankData = (lang) => {
           employeeId,
           key: 0,
           name: '',
-          avatar: avatarApi[11],
+          avatar: `/${DOMAIN_NAME}${avatarApi[11]}`,
           bankId: null,
           bnkAcc: '',
           bankBranchNo: '',

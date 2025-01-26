@@ -11,6 +11,7 @@ import dataMenu from 'enl-api/ui/menu';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import messages from 'enl-api/ui/menuMessages';
 import useStyles from '../appStyles-jss';
+import { DOMAIN_NAME } from '../../App/routes/sitemap';
 
 function LeftSidebarBigLayout(props) {
   const { classes, cx } = useStyles();
@@ -63,7 +64,7 @@ function LeftSidebarBigLayout(props) {
               <BreadCrumb separator=" / " theme="light" location={history.location} />
             </div>
           )}
-          { !pageLoaded && (<img src="/images/spinner.gif" alt="spinner" className={classes.circularProgress} />) }
+          { !pageLoaded && (<img src={`/${DOMAIN_NAME}/images/spinner.gif`} alt="spinner" className={classes.circularProgress} />) }
           <Fade
             in={pageLoaded}
             {...(pageLoaded ? { timeout: 700 } : {})}

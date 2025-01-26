@@ -326,12 +326,12 @@ function RewardTransCreate(props) {
             </Grid>
             <Grid item xs={12} md={2}>
               {data.docName && (
-                <NavLink
-                  to={{ pathname: `${ServerURL}${data.docName}` }}
+                <a
+                  href={`${ServerURL}${data.docName}`}
                   target="_blank"
                 >
                   <Button size="small">Open File</Button>
-                </NavLink>
+                </a>
               )}
             </Grid>
             <Grid item xs={12} md={12}>
