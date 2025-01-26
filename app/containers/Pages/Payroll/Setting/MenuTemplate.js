@@ -12,6 +12,8 @@ import MenuTemplateData from './api/MenuTemplateData';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
+import { toast } from 'react-hot-toast';
+import notif from 'enl-api/ui/notifMessage';
 import {
     Button ,
     Grid,
@@ -55,7 +57,7 @@ const MenuTemplate = (props) => {
 
         try{
 
-            const menuTemplateData =  await GeneralListApis(locale).GetSurveyTemplateList();
+            const menuTemplateData =  await GeneralListApis(locale).GetTemplateMenuList();
             const data = await UserMenuData().GetUserMenuLookup(locale);
 
             setMenuList(data.parentMenu || []);
@@ -168,14 +170,17 @@ useEffect(()=>{
             let response = await  MenuTemplateData().SaveMenuTemplate(menuTemplate.id,dataList)
 
             
-            if (response.status==200) {
-              toast.success(notif.saved);
+            if (response.status == 200) {
+                toast.success(notif.saved);
             } else {
                 toast.error(response.statusText);
             }
           } catch (err) {
+            
           }
-          finally {setIsLoading(false);}
+          finally {
+            setIsLoading(false);
+        }
     }
 
     const handlePageChange = (event, newPage) => {

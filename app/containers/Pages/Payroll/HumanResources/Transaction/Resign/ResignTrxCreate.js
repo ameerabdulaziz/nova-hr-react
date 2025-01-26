@@ -116,17 +116,14 @@ function ResignTrxCreate(props) {
         vacSettlValue: event.target.value,
       }));
   };
-  const handleCalculate = async (id, workingYears) => {
+  const handleCalculate = async () => {
     try {
-      if (!id && !data.employeeId) {
-        toast.error("choose Employee First");
+      if ( !data.employeeId || !data.resignReasonId || !data.lworkingDay) {
+        toast.error("choose Employee ,Resign Reason and Last working Date");
         return;
       }
       setIsLoading(true);
-      const dataApi = await ApiData(locale).CalculateSettlement(
-        id ? id : data.employeeId,
-        workingYears ? workingYears : data.workingYears
-      );
+      const dataApi = await ApiData(locale).CalculateSettlement(data.employeeId,data.resignReasonId,data.lworkingDay);
       setdata((prevFilters) => ({
         ...prevFilters,
         settlementV: dataApi.settlementV,

@@ -229,7 +229,7 @@ function Employment(props) {
 
         params = {
           hiringdate:formateDate(popupState.date),
-          TrainingId: training.trainerId,
+          TrainingId: training.id,
         }
 
         handleClosePoup()
