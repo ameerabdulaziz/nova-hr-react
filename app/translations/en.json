@@ -2633,6 +2633,8 @@
   "boilerplate.containers.Payroll.Setting.favorites": "Favorites",
   "boilerplate.containers.Payroll.Setting.filterMess": "You must to select employee name or user name",
   "boilerplate.containers.Payroll.Setting.notAllowedEmployees": "Not Allowed Employees",
+  "boilerplate.containers.Payroll.Setting.menutemplateEN": "Menu Template EN",
+  "boilerplate.containers.Payroll.Setting.menutemplateAR": "Menu Template AR",
   "boilerplate.containers.Payroll.Setting.fontSize": "Font Size",
   "boilerplate.containers.Payroll.Setting.formTypeName": "Form Type Name",
   "boilerplate.containers.Payroll.Setting.fromDate": "From Date",

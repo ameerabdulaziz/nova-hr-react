@@ -362,4 +362,13 @@ export default defineMessages({
     id: `${scope}.notAllowedEmployees`,
     defaultMessage: 'Not Allowed Employees',
   },
+    // menu Template
+    menutemplateEN: {
+      id: `${scope}.menutemplateEN`,
+      defaultMessage: 'Menu Template EN',
+    },
+    menutemplateAR: {
+      id: `${scope}.menutemplateAR`,
+      defaultMessage: 'Menu Template AR',
+    },
 });
