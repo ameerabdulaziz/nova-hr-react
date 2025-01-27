@@ -228,6 +228,7 @@ function Dashboard(props) {
         enName: userInfo.enName,
         photoURL: userInfo.photo,
         branchId: userInfo.branchId,
+        employeeId: userInfo.employeeId,
       };
 
       Dispatcher(syncUser(userPayload));

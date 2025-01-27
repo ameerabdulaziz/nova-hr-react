@@ -2556,6 +2556,11 @@ function Application(props) {
         />
 
         <Route
+          path={SITEMAP.survey.EmployeeSurvey.route}
+          component={PAGES.survey.Survey}
+        />
+
+        <Route
           path={SITEMAP.survey.SurveyHistoryReport.route}
           component={PAGES.survey.SurveyHistoryReport}
         />

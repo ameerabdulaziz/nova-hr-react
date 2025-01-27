@@ -55,6 +55,7 @@ function HRApplicationEvaluation(props) {
   const { classes: widgetClass } = useWidgetStyles();
   const isInitialRender = useRef(true);
 
+  const user = useSelector((state) => state.authReducer.user);
   const locale = useSelector((state) => state.language.locale);
   const pageTitle = localStorage.getItem("MenuName");
   const workFromList = [
@@ -397,17 +398,29 @@ function HRApplicationEvaluation(props) {
 
           if (row?.isClosed) {
             return (
-              <Box
-                sx={{
-                  backgroundColor: "red",
-                  padding: "7px",
-                  borderRadius: "6px",
-                  margin: "0",
-                  color: "#fff",
-                }}
+              <Tooltip
+                placement='top'
+                title={
+                  row.isClosed
+                    ? `${intl.formatMessage(messages.holdBy)} ${
+                      row.closedEmployee
+                    } - ${formateDate(row.closedDate)}`
+                    : undefined
+                }
               >
-                {value}
-              </Box>
+
+                <Box
+                  sx={{
+                    backgroundColor: 'red',
+                    padding: '7px',
+                    borderRadius: '6px',
+                    margin: '0',
+                    color: '#fff',
+                  }}
+                >
+                  {value}
+                </Box>
+              </Tooltip>
             );
           }
 
@@ -462,20 +475,23 @@ function HRApplicationEvaluation(props) {
                   title={
                     row.isClosed
                       ? `${intl.formatMessage(messages.holdBy)} ${
-                          row.closedEmployee
-                        } - ${formateDate(row.closedDate)}`
+                        row.closedEmployee
+                      } - ${formateDate(row.closedDate)}`
                       : undefined
                   }
                 >
-                  <Button
-                    variant={row.isClosed ? "outlined" : "contained"}
-                    color='primary'
-                    onClick={() => onHoldCvBtnClick(row)}
-                  >
-                    {intl.formatMessage(
-                      row.isClosed ? messages.unHold : messages.hold
-                    )}
-                  </Button>
+                  <div>
+                    <Button
+                      variant={row.isClosed ? 'outlined' : 'contained'}
+                      color='primary'
+                      onClick={() => onHoldCvBtnClick(row)}
+                      disabled={row.isClosed && row.closedEmployeeId !== user.employeeId}
+                    >
+                      {intl.formatMessage(
+                        row.isClosed ? messages.unHold : messages.hold
+                      )}
+                    </Button>
+                  </div>
                 </Tooltip>
               )}
 
