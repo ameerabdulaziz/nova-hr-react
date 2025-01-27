@@ -64,7 +64,7 @@ function SurveyResultReport(props) {
 
     const openReview = () => {
 
-        window.open(`/${DOMAIN_NAME}${SITEMAP.survey.SurveysummaryReview.route}`, "_blank")?.focus()
+        window.open(`/${DOMAIN_NAME}${SITEMAP.survey.SurveySummaryReview.route}`, "_blank")?.focus()
     }
 
     const printJS = useReactToPrint({
