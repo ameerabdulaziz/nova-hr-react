@@ -51,6 +51,7 @@ npm run start:prod
 ## BUGS 🐛
 
 - [ ] Eliminate the **debugger** from the project codebase.
+- [ ] Hide menu or submenu if empty or all is hidden
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
 - [ ] **Notification** still not work (on click **view** button the notification still appear)
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
