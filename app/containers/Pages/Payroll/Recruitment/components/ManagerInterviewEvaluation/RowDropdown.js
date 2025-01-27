@@ -12,7 +12,7 @@ import { injectIntl } from "react-intl";
 import { useHistory } from "react-router";
 import { ServerURL } from "../../../api/ServerConfig";
 import messages from "../../messages";
-import SITEMAP from "../../../../../App/routes/sitemap";
+import SITEMAP, { DOMAIN_NAME } from "../../../../../App/routes/sitemap";
 
 function RowDropdown(props) {
   const { tableMeta, intl, row } = props;
@@ -32,7 +32,7 @@ function RowDropdown(props) {
 
     window
       .open(
-        `${encodeURI(
+        `/${DOMAIN_NAME}${encodeURI(
           `${SITEMAP.recruitment.JobApplicationPreview.route}/${btoa(
             encodeURIComponent(
               JSON.stringify({

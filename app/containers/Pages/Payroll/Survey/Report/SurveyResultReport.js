@@ -13,7 +13,7 @@ import { useReactToPrint } from 'react-to-print';
 import SurveyResultReportPrint from '../report-tamplate/SurveyResultReportPrint';
 import Gmassage from '../../messages'
 import toast from 'react-hot-toast';
-import SITEMAP from '../../../../App/routes/sitemap';
+import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
 
 
 function SurveyResultReport(props) {
@@ -64,7 +64,7 @@ function SurveyResultReport(props) {
 
     const openReview = () => {
 
-        window.open(SITEMAP.survey.SurveysummaryReview.route, "_blank")?.focus()
+        window.open(`/${DOMAIN_NAME}${SITEMAP.survey.SurveysummaryReview.route}`, "_blank")?.focus()
     }
 
     const printJS = useReactToPrint({
