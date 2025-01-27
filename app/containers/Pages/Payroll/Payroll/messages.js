@@ -1056,4 +1056,9 @@ export default defineMessages({
     id: `${scope}.joblevel`,
     defaultMessage: "Job Level",
   }, 
+   // Elements
+   AffectSettlement: {
+    id: `${scope}.AffectSettlement`,
+    defaultMessage: "Affect Settlement",
+  }, 
 });

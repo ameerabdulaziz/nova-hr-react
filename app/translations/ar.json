@@ -2222,6 +2222,7 @@
   "boilerplate.containers.Payroll.Payroll.elementValColNum": "رقم العمود الذى يحتوى على القيمة",
   "boilerplate.containers.Payroll.Payroll.exportSectionAndCode": "تصدير القسم والكود",
   "boilerplate.containers.Payroll.Payroll.joblevel": "الدرجات الوظيفية",
+  "boilerplate.containers.Payroll.Payroll.AffectSettlement": "تسوية التأثير",
   "boilerplate.containers.Payroll.Payroll.ElementValCreateTitle": "اضافة عناصر للموظفين",
   "boilerplate.containers.Payroll.Payroll.ElementValUpdateTitle": "تعديل عناصر للموظفين",
   "boilerplate.containers.Payroll.Payroll.elemMaxMin": "قيمة العنصر له حد ادنى واقصى",

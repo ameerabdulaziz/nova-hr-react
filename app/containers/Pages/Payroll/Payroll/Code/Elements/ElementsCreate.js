@@ -52,6 +52,7 @@ function ElementsCreate(props) {
     inWeb: false,
     calcOnEachTemp: false,
     perOfDailyFee: false,
+    affectSettlement: false,
     elementCalcMethodId: 1,
     elementModeId: 1,
     elementMinVal: "",
@@ -184,6 +185,9 @@ function ElementsCreate(props) {
       );
       data.payrollRefElements = payrollRefElements;
       data.payrollRefElements2 = payrollRefElements2;
+
+console.log("data =", data);
+
 
       response = await ApiData(locale).Save(data);
 
@@ -519,6 +523,24 @@ function ElementsCreate(props) {
                           />
                         }
                         label={intl.formatMessage(messages.percentOfDaily)}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={data.affectSettlement || null}
+                            onChange={(e) =>
+                              setdata((prevFilters) => ({
+                                ...prevFilters,
+                                affectSettlement: e.target.checked,
+                              }))
+                            }
+                            value={data.affectSettlement || null}
+                            color="primary"
+                          />
+                        }
+                        label={intl.formatMessage(messages.AffectSettlement)}
                       />
                     </Grid>
                   </CardContent>
