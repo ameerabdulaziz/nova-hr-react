@@ -65,9 +65,9 @@ const MilitaryStatus = (props) => (
   />
 );
 
-const ResignReason = (props) => (
-  <MainDataGeneralCode text='ResignReason' table='HrResignReason' {...props} />
-);
+// const ResignReason = (props) => (
+//   <MainDataGeneralCode text='ResignReason' table='HrResignReason' {...props} />
+// );
 
 const JobTypes = (props) => (
   <MainDataGeneralCode text='Job Types' table='MdJobsTypes' {...props} />
@@ -161,7 +161,7 @@ const GeneralCodePages = {
   RecHiringSource,
   RecJobGrade,
   Religions,
-  ResignReason,
+  // ResignReason,
   Salute,
   SocialStatus,
   SurveyQuestionGroup,

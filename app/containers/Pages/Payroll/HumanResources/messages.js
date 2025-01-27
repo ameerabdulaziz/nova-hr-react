@@ -622,4 +622,21 @@ actualManPower: {
     id: `${scope}.newOrganization`,
     defaultMessage: 'New Organization',
   },
+  // Resign Reason
+  specifiedContract: {
+    id: `${scope}.specifiedContract`,
+    defaultMessage: 'Specified Contract',
+  },
+  notSpecifiedContract: {
+    id: `${scope}.notSpecifiedContract`,
+    defaultMessage: 'Not Specified Contract',
+  },
+  CreateResignReason: {
+    id: `${scope}.CreateResignReason`,
+    defaultMessage: 'Create Resign Reason',
+  },
+  EditResignReason: {
+    id: `${scope}.EditResignReason`,
+    defaultMessage: 'Edit Resign Reason',
+  },
 });

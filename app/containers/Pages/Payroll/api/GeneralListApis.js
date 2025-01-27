@@ -687,6 +687,14 @@ const GeneralListApis = (locale) => {
     return data.data;
   };
 
+  Apis.GetResignRuleList = async () => {
+    const data = await axiosInstance.get(
+      `GeneralList/GetResignRuleList/${locale}`
+    );
+
+    return data.data;
+  };
+
 
 
   return Apis;

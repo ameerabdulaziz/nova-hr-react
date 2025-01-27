@@ -440,10 +440,10 @@ function Application(props) {
         />
 
         {/* Human Resources */}
-        <Route
+        {/* <Route
           path={SITEMAP.humanResources.ResignReason.route}
           component={GeneralCodePages.ResignReason}
-        />
+        /> */}
 
         <Route
           path={SITEMAP.humanResources.CourseType.route}
@@ -878,6 +878,21 @@ function Application(props) {
         <Route
           path={SITEMAP.humanResources.TransferRequestEdit.route}
           component={PAGES.humanResources.TransferRequestEdit}
+        />
+
+        <Route
+          path={SITEMAP.humanResources.ResignReason.route}
+          component={PAGES.humanResources.ResignReasonList}
+        />
+
+        <Route
+          path={SITEMAP.humanResources.ResignReasonCreate.route}
+          component={PAGES.humanResources.ResignReasonCreate}
+        />
+
+        <Route
+          path={SITEMAP.humanResources.ResignReasonEdit.route}
+          component={PAGES.humanResources.ResignReasonEdit}
         />
 
         <Route

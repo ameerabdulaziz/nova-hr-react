@@ -246,6 +246,8 @@ const SITEMAP = {
   },
   humanResources: {
     ResignReason: { route: '/HR/ResignReason' },
+    ResignReasonCreate: { route: '/HR/ResignReasonCreate' },
+    ResignReasonEdit: { route: '/HR/ResignReasonEdit' },
     CourseType: { route: '/HR/CourseType' },
     CourseList: { route: '/HR/CourseList' },
     CourseListCreate: { route: '/HR/CourseListCreate' },
