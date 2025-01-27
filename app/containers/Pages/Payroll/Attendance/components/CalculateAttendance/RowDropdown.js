@@ -13,7 +13,7 @@ import DoDisturbOnOutlinedIcon from "@mui/icons-material/DoDisturbOnOutlined";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import toast from "react-hot-toast";
 import messages from "../../messages";
-import SITEMAP from "../../../../../App/routes/sitemap";
+import SITEMAP, { DOMAIN_NAME } from "../../../../../App/routes/sitemap";
 
 function RowDropdown(props) {
   const { tableMeta, intl, row, handleClickOpen, DataOfSelectedRow } = props;  
@@ -47,7 +47,7 @@ function RowDropdown(props) {
 
       window
         .open(
-          `${encodeURI(
+          `/${DOMAIN_NAME}${encodeURI(
             `${url}/${btoa(
               encodeURIComponent(
                 JSON.stringify({

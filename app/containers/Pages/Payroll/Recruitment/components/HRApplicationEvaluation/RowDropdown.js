@@ -13,9 +13,12 @@ import { injectIntl } from "react-intl";
 import { ServerURL } from "../../../api/ServerConfig";
 import messages from "../../messages";
 import SITEMAP, { DOMAIN_NAME } from "../../../../../App/routes/sitemap";
+import { useSelector } from "react-redux";
 
 function RowDropdown(props) {
   const { tableMeta, intl, row } = props;
+
+  const user = useSelector((state) => state.authReducer.user);
 
   const [openedDropdown, setOpenedDropdown] = useState({});
 
@@ -30,7 +33,7 @@ function RowDropdown(props) {
 
     window
       .open(
-        `${encodeURI(
+        `/${DOMAIN_NAME}${encodeURI(
           `${SITEMAP.recruitment.JobApplicationPreview.route}/${btoa(
             encodeURIComponent(
               JSON.stringify({
@@ -106,7 +109,10 @@ function RowDropdown(props) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-         <MenuItem disabled={row.isClosed} onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}>
+        <MenuItem
+          disabled={row.isClosed && row.closedEmployeeId !== user.employeeId}
+          onClick={() => onUpdateStatusBtnClick(tableMeta.rowIndex)}
+        >
           <ListItemIcon>
             <SystemUpdateAltIcon fontSize="small" />
           </ListItemIcon>

@@ -197,7 +197,10 @@ function Dashboard(props) {
       const userInfo = await API(locale).getUserInfo();
 
       if (!userInfo && userName!="admin") {
-        signOut();
+        history.push(SITEMAP.auth.Login.route);
+
+        localStorage.removeItem("Token");
+        sessionStorage.removeItem("Review");
       }
 
       const mappedMenu = menuItems.map((item) => ({
@@ -228,6 +231,7 @@ function Dashboard(props) {
         enName: userInfo.enName,
         photoURL: userInfo.photo,
         branchId: userInfo.branchId,
+        employeeId: userInfo.employeeId,
       };
 
       Dispatcher(syncUser(userPayload));

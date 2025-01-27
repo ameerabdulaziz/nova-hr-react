@@ -198,11 +198,11 @@ export default defineMessages({
   },
   refranceElement: {
     id: `${scope}.refranceElement`,
-    defaultMessage: 'refranceElement',
+    defaultMessage: 'Refrence Element',
   },
-  relatedToWorkdays: {
+  relatedToWorkhours: {
     id: `${scope}.relatedToWorkhours`,
-    defaultMessage: 'relatedToWorkhours',
+    defaultMessage: 'Related to work hours',
   },
 
   inWeb: {
@@ -1055,5 +1055,10 @@ export default defineMessages({
   joblevel: {
     id: `${scope}.joblevel`,
     defaultMessage: "Job Level",
+  }, 
+   // Elements
+   AffectSettlement: {
+    id: `${scope}.AffectSettlement`,
+    defaultMessage: "Affect Settlement",
   }, 
 });
