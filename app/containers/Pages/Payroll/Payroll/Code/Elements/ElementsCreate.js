@@ -464,7 +464,7 @@ function ElementsCreate(props) {
                             color="primary"
                           />
                         }
-                        label={intl.formatMessage(messages.relatedToWorkdays)}
+                        label={intl.formatMessage(messages.relatedToWorkhours)}
                       />
                     </Grid>
                     <Grid item xs={12} md={12}>

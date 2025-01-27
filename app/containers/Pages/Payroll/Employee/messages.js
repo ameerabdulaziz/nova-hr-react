@@ -968,6 +968,6 @@ export default defineMessages({
   },
   menuTemplate: {
     id: `${scope}.menuTemplate`,
-    defaultMessage: 'Menu Template',
+    defaultMessage: 'Permission Templete',
   },
 });
