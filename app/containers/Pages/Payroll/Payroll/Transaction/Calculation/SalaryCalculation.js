@@ -134,6 +134,7 @@ function SalaryCalculation(props) {
 
   const handleSearch = async () => {
     try {
+      debugger;
       if (!PayTemplateId && !BranchId) {
         toast.error("you must choose Template && Branch");
         return;
@@ -143,6 +144,8 @@ function SalaryCalculation(props) {
         BranchId: BranchId,
         EmployeeId: EmployeeId,
         PayTemplateID: PayTemplateId,
+        FromDate: dateFormatFun(OpenMonth.fromdate),
+        ToDate: dateFormatFun(OpenMonth.todate),
       };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
@@ -188,16 +191,7 @@ function SalaryCalculation(props) {
 
       if (response.status == 200) {
         toast.success(response.data);
-        var formData = {
-          BranchId: BranchId,
-          EmployeeId: EmployeeId,
-          PayTemplateID: PayTemplateId,
-        };
-        Object.keys(formData).forEach((key) => {
-          formData[key] = formData[key] === null ? "" : formData[key];
-        });
-        var result = await ApiData(locale).GetList(formData);
-        setdataList(result || []);
+        await handleSearch();
       }
     } catch (err) {
     } finally {

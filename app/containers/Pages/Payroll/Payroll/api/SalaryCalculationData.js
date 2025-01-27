@@ -5,7 +5,7 @@ const SalaryCalculationData = (locale) => {
   const Apis = {};
 
   Apis.GetList = async (param) => {
-    
+    debugger;
     const queryString = new URLSearchParams(param);
     const data = await axiosInstance.get(`PayrollCalculation/GetList/${locale}?${queryString}`);
     const result = data.data;    

@@ -3,7 +3,7 @@
   <head>
     <script>
       /* window.config = { apiUrl: 'http://160.153.234.244:901/' }; */
-      window.config = { apiUrl: 'http://92.205.178.113:8089/' }; //'http://92.205.178.113:801/'
+      window.config = { apiUrl: 'http://localhost:5116/' }; //'http://92.205.178.113:801/'
     </script>
     <!-- The first thing in any HTML file should be the charset -->
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <title>nova HR System</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/Novahr/favicons/favicon.ico" />
+    <link rel="shortcut icon" href="/favicons/favicon.ico" />
     <!-- <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png" />
     <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-icon-72x72.png" />
@@ -26,9 +26,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" /> -->
-    <link rel="manifest" href="/Novahr/favicons/manifest.json" />
+    <link rel="manifest" href="/favicons/manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-TileImage" content="/Novahr/favicons/ms-icon-144x144.png" />
+    <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png" />
     <meta name="theme-color" content="#2196F3" />
     <link href="https://fonts.googleapis.com/css?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&Maven+Pro:400,500,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -38,17 +38,17 @@
     <meta property="og:site_name" content="enlite.ux-maestro.com" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/Novahr/logo.jpg" />
+    <meta property="og:image" content="/logo.jpg" />
     <!-- Twitter -->
     <meta property="twitter:site" content="enlite.ux-maestro.com" />
     <meta property="twitter:domain" content="enlite.ux-maestro.com" />
     <meta property="twitter:creator" content="enlite" />
     <meta property="twitter:card" content="summary" />
-    <meta property="twitter:image:src" content="/Novahr/logo.jpg" />
+    <meta property="twitter:image:src" content="/logo.jpg" />
     <style>
       @font-face {
         font-family: 'DINNextLTArabic';
-        src: url('/Novahr/fonts/DINNextLTArabic.ttf');
+        src: url('/fonts/DINNextLTArabic.ttf');
       }
 
       #app { position: absolute;top:0;left: 0;background: #fafafa;width: 100%;min-height: 100%;z-index: 1000; display: flex;}
@@ -61,7 +61,7 @@
 
     <!-- The app hooks into this div -->
     <div id="app">
-      <img src="/Novahr/images/spinner.gif" class="preloader-init" alt="spinner" />
+      <img src="/images/spinner.gif" class="preloader-init" alt="spinner" />
     </div>
     <!-- A lot of magic happens in this file. HtmlWebpackPlugin automatically includes all assets (e.g. bundle.js, main.css) with the correct HTML tags, which is why they are missing in this HTML file. Don't add any assets here! (Check out webpackconfig.js if you want to know more) -->
   </body>

@@ -610,23 +610,35 @@ function CalculateAttendance(props) {
       name: "employeeCode",
       label: intl.formatMessage(messages.EmpCode),
       options: {
-        customBodyRender: (value) => ( 
-            <div>
-              <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.EmpCode)} >{value}</Tooltip>   
-            </div >
+        customBodyRender: (value) => (
+          <div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.EmpCode)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
-    },    
+    },
     {
       name: "weekDayName",
       label: intl.formatMessage(messages.day),
       options: {
         customBodyRender: (value) => (
-        <pre>
-              <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.day)} >
-                {value}
-              </Tooltip> 
-        </pre>     
+          <pre>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.day)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </pre>
         ),
       },
     },
@@ -636,9 +648,14 @@ function CalculateAttendance(props) {
       options: {
         customBodyRender: (value) => (
           <div>
-              <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.shiftCode)} >
-                {value}
-              </Tooltip> 
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.shiftCode)}
+            >
+              <span>{value}</span>
+            </Tooltip>
           </div>
         ),
       },
@@ -648,13 +665,18 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.shiftName),
       options: {
         customBodyRender: (value) => (
-        <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.shiftName)} >
-            {value}
-          </Tooltip> 
-        </div>
+          <div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.shiftName)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
-      },     
+      },
     },
     {
       name: "shiftDate",
@@ -683,8 +705,13 @@ function CalculateAttendance(props) {
                 }),
               }}
             >
-              <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.shiftDate)} >
-                {format(new Date(value), "yyyy-MM-dd")}
+              <Tooltip
+                enterDelay={500}
+                leaveDelay={200}
+                placement="top"
+                title={intl.formatMessage(messages.shiftDate)}
+              >
+                <span>{format(new Date(value), "yyyy-MM-dd")}</span>
               </Tooltip>
             </pre>
           );
@@ -704,10 +731,15 @@ function CalculateAttendance(props) {
       options: {
         customBodyRender: (value) => (
           <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.employeeName)} >
-            {value}
-          </Tooltip> 
-        </div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.employeeName)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
     },
@@ -718,10 +750,15 @@ function CalculateAttendance(props) {
       options: {
         customBodyRender: (value) => (
           <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.signIn)} >
-            {value}
-          </Tooltip> 
-        </div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.signIn)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
     },
@@ -731,11 +768,16 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.signOut),
       options: {
         customBodyRender: (value) => (
-        <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.signOut)} >
-            {value}
-          </Tooltip> 
-        </div>
+          <div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.signOut)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
     },
@@ -744,11 +786,16 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.workHours),
       options: {
         customBodyRender: (value) => (
-        <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.workHours)} >
-            {value}
-          </Tooltip> 
-        </div>
+          <div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.workHours)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
     },
@@ -757,11 +804,16 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.late),
       options: {
         customBodyRender: (value) => (
-        <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.late)} >
-            {value}
-          </Tooltip> 
-        </div>
+          <div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.late)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
     },
@@ -771,11 +823,16 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.extraTime),
       options: {
         customBodyRender: (value) => (
-        <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.extraTime)} >
-            {value}
-          </Tooltip> 
-        </div>
+          <div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.extraTime)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
     },
@@ -785,11 +842,16 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.LessTime),
       options: {
         customBodyRender: (value) => (
-        <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.LessTime)} >
-            {value}
-          </Tooltip> 
-        </div>
+          <div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.LessTime)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
     },
@@ -799,11 +861,16 @@ function CalculateAttendance(props) {
       label: intl.formatMessage(messages.AccuredLeave),
       options: {
         customBodyRender: (value) => (
-        <div>
-          <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.AccuredLeave)} >
-            {value}
-          </Tooltip> 
-        </div>
+          <div>
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.AccuredLeave)}
+            >
+              <span>{value}</span>
+            </Tooltip>
+          </div>
         ),
       },
     },
@@ -815,8 +882,13 @@ function CalculateAttendance(props) {
         filter: false,
         customBodyRender: (value) => (
           <pre>
-            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.leave)} >
-              {getCheckboxIcon(value)}     
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.leave)}
+            >
+              {getCheckboxIcon(value)}
             </Tooltip>
           </pre>
         ),
@@ -826,18 +898,22 @@ function CalculateAttendance(props) {
     {
       name: "mission",
       label: intl.formatMessage(messages.mission),
-        options: {
-          filter: false,
-          customBodyRender: (value) => (
+      options: {
+        filter: false,
+        customBodyRender: (value) => (
           <pre>
-            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.mission)} >
-              {getCheckboxIcon(value)}     
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.mission)}
+            >
+              {getCheckboxIcon(value)}
             </Tooltip>
           </pre>
-          ),
-        },
+        ),
       },
-
+    },
 
     {
       name: "per",
@@ -846,8 +922,13 @@ function CalculateAttendance(props) {
         filter: false,
         customBodyRender: (value) => (
           <pre>
-            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.permission)} >
-              {getCheckboxIcon(value)}     
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.permission)}
+            >
+              {getCheckboxIcon(value)}
             </Tooltip>
           </pre>
         ),
@@ -861,8 +942,13 @@ function CalculateAttendance(props) {
         filter: false,
         customBodyRender: (value) => (
           <pre>
-            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.absent)} >
-              {getCheckboxIcon(value)}     
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.absent)}
+            >
+              {getCheckboxIcon(value)}
             </Tooltip>
           </pre>
         ),
@@ -876,8 +962,13 @@ function CalculateAttendance(props) {
         filter: false,
         customBodyRender: (value) => (
           <pre>
-            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.weekendLeave)} >
-              {getCheckboxIcon(value)}     
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.weekendLeave)}
+            >
+              {getCheckboxIcon(value)}
             </Tooltip>
           </pre>
         ),
@@ -891,8 +982,13 @@ function CalculateAttendance(props) {
         filter: false,
         customBodyRender: (value) => (
           <pre>
-            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={intl.formatMessage(messages.manual)} >
-              {getCheckboxIcon(value)}     
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.manual)}
+            >
+              {getCheckboxIcon(value)}
             </Tooltip>
           </pre>
         ),
@@ -906,8 +1002,13 @@ function CalculateAttendance(props) {
         filter: false,
         customBodyRender: (value) => (
           <pre>
-            <Tooltip enterDelay={500} leaveDelay={200} placement="top" title={ intl.formatMessage(messages.stop)} >
-              {getCheckboxIcon(value)}     
+            <Tooltip
+              enterDelay={500}
+              leaveDelay={200}
+              placement="top"
+              title={intl.formatMessage(messages.stop)}
+            >
+              {getCheckboxIcon(value)}
             </Tooltip>
           </pre>
         ),
