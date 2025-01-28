@@ -22,16 +22,23 @@ import api from './api/SettingMailSmsFormData';
 import messages from './messages';
 import useStyles from "../Style";
 import style from "../../../../styles/styles.scss";
-import 'react-quill/dist/quill.snow.css';
 import SITEMAP from '../../../App/routes/sitemap';
 import JoditEditor from 'jodit-react';
 import HTMLReactParser from 'html-react-parser/lib/index';
 
 
+const config = {
+  readonly: false,
+  placeholder: '',
+  textBlocks: ['span'],  
+  buttons: "bold,italic,underline,strikethrough,fontsize,eraser,ul,ol,font,fontsize,symbols,indent,outdent,align,find,paragraph,lineHeight,brush,table,superscript,subscript,classSpan,image,hr,link,copy,paste,spellcheck,speechRecognize,selectall,source,preview,cut,fullsize,print"
+};
+
 function SettingMailSmsFormCreate(props) {
-  const [getFocusInpuy, setFocusInpuy] = useState(true)
+ 
+  const [focusInput, setFocusInput] = useState('joditBody')
   const editor = useRef(null);
-  const { intl, placeholder } = props;
+  const { intl } = props;
   const location = useLocation();
   const history = useHistory();
   const locale = useSelector((state) => state.language.locale);
@@ -50,14 +57,12 @@ function SettingMailSmsFormCreate(props) {
     mobileBody: '',
   });
 
-  console.log(formInfo.body)
-
   useEffect(() => {
     if (formInfo.formTypeId) {
       setDecoratorList(
         formTypesList.find((item) => item.id === formInfo.formTypeId)?.keyList
       );
-    }
+    } 
   }, [formInfo.formTypeId]);
 
   const onFormSubmit = async (evt) => {
@@ -106,7 +111,7 @@ function SettingMailSmsFormCreate(props) {
   };
 
   const onEditorChange = (value) => {
-    setFocusInpuy(true)
+    setFocusInput("joditBody")
     setFormInfo((prev) => ({
       ...prev,
       body: value,
@@ -127,7 +132,7 @@ function SettingMailSmsFormCreate(props) {
     }));
   };
 
-  const onCancelBtnClick = () => {
+  const onCancelBtnClick = () => {    
     history.push(SITEMAP.setting.SettingMailSmsForm.route);
   };
 
@@ -140,32 +145,36 @@ function SettingMailSmsFormCreate(props) {
   };
 
   const onDecoratorItemClick = async (key) => {
-    if (editor.current) {
-      if (getFocusInpuy === false) {
+    if (editor.current && editor.current.selection) {
+      if (focusInput == "joditBody") {  
+        if (document.activeElement !== editor.current.editor) {
+          editor.current.editor.focus(); 
+        } 
+        const range = editor.current.selection.range; 
+        const span = document.createElement('span');
+        span.innerHTML = key;  
+  
+        if (range) {
+          range.deleteContents();  
+          range.insertNode(span); 
+        } else {      
+          editor.current.selection.insertNode(span);
+        }
+  
         setFormInfo((prev) => ({
           ...prev,
-          mobileBody: prev.mobileBody + key,
+          body: editor.current.value,  
         }));
-      } else {
-        setFormInfo((prev) => ({
-          ...prev,
-          body:  prev.body + key,
-        }));
-     
-      }
+      }else if(focusInput == "mobileBody") {
+          setFormInfo((prev) => ({
+            ...prev,
+            mobileBody: prev.mobileBody + key , 
+          }));
+        }     
     }
-
-    closeDecoratorDropdown();
+    closeDecoratorDropdown();  
   };
 
-  const config = useMemo(() => ({
-    readonly: false,    
-    placeholder: '',
-    buttons: "bold,italic,underline,strikethrough,eraser,ul,ol,font,fontsize,symbols,indent,outdent,align,find,paragraph,lineHeight,brush,table,superscript,subscript,classSpan,image,hr,link,copy,paste,spellcheck,speechRecognize,selectall,source,preview,cut,fullsize,print"
-  }),
-    [placeholder]
-
-  );
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -227,7 +236,7 @@ function SettingMailSmsFormCreate(props) {
 
             <Grid item xs={12}>
               <TextareaAutosize
-                onClick={() => setFocusInpuy(false)}
+                onClick={() => setFocusInput("mobileBody")}
                 name='customerAddress'
                 value={formInfo.mobileBody}
                 onChange={(e) => {
@@ -248,11 +257,9 @@ function SettingMailSmsFormCreate(props) {
                 ref={editor}
                 value={formInfo.body}
                 className={style.textEditorSty}
-                onBlur={onEditorChange}
                 onChange={onEditorChange}
                 onClick={onEditorChange}
                 config={config}
-
               />
 
               <Menu
@@ -263,8 +270,9 @@ function SettingMailSmsFormCreate(props) {
                   paper: {
                     elevation: 0,
                     sx: {
-                      overflow: 'visible',
+                      overflow: 'auto',
                       minWidth: 200,
+                      maxHeight: 250 ,
                       filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                       mt: 1.5,
                       '& .MuiAvatar-root': {
@@ -272,18 +280,6 @@ function SettingMailSmsFormCreate(props) {
                         height: 32,
                         ml: -0.5,
                         mr: 1,
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
                       },
                     },
                   },
@@ -300,9 +296,7 @@ function SettingMailSmsFormCreate(props) {
                   </MenuItem>
                 ))}
               </Menu>
-
             </Grid>
-
             <Grid item xs={12}>
               {formInfo.body && (
                 <PapperBlock
@@ -311,14 +305,10 @@ function SettingMailSmsFormCreate(props) {
                   desc=''
                   title={intl.formatMessage(payrollMessages.preview)}
                 >
-                  <div className='ql-snow'>
-                    <div className='ql-editor'>{HTMLReactParser(formInfo.body)}</div>
-                  </div>
+                    <div>{HTMLReactParser(formInfo.body)}</div>
                 </PapperBlock>
               )}
             </Grid>
-
-
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={1}>
