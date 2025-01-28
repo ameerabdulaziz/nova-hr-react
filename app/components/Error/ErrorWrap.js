@@ -82,7 +82,7 @@ function ErrorWrap(props) {
               color="secondary"
               className={classes.button}
               component={Link}
-              to={DOMAIN_NAME}
+              to='/'
             >
               <FormattedMessage {...messages.button} />
             </Button>
