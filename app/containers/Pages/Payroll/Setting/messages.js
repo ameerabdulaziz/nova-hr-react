@@ -316,6 +316,14 @@ export default defineMessages({
     id: `${scope}.abscence`,
     defaultMessage: 'abscence',
   },
+  enableSsl: {
+    id: `${scope}.enableSsl`,
+    defaultMessage: 'enableSsl',
+  },
+  emailsCommaSeparated: {
+    id: `${scope}.emailsCommaSeparated`,
+    defaultMessage: 'emailsCommaSeparated',
+  },
   late: {
     id: `${scope}.late`,
     defaultMessage: 'late',

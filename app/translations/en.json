@@ -2620,6 +2620,8 @@
   "boilerplate.containers.Payroll.search": "Search",
   "boilerplate.containers.Payroll.send": "Send",
   "boilerplate.containers.Payroll.september": "September",
+  "boilerplate.containers.Payroll.Setting.emailsCommaSeparated": "Emails Comma Separated",
+  "boilerplate.containers.Payroll.Setting.enableSsl": "Enable SSL",
   "boilerplate.containers.Payroll.Setting.abscence": "Abscence",
   "boilerplate.containers.Payroll.Setting.accomplishDate": "Accomplish Date",
   "boilerplate.containers.Payroll.Setting.Action": "Action",

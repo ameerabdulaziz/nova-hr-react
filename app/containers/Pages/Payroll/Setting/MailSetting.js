@@ -40,6 +40,8 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
   "password": "",
   "serverName": "",
   stopSending: false,
+  enableSsl: false,
+  jobAdvMails: '',
   "url": ""});
 
   const handleChange = (event) => {
@@ -76,6 +78,12 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
       setdata((prevFilters) => ({
         ...prevFilters,
         mailPort: event.target.value,
+      }));
+
+      if(event.target.name=="jobAdvMails")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        jobAdvMails: event.target.value,
       }));
       
       
@@ -277,7 +285,19 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                 />
               </Grid>
 
-                <Grid item md={3} xs={12}>
+                <Grid item xs={12} md={4}>
+                  <TextField
+                    name="jobAdvMails"
+                    label={intl.formatMessage(messages.emailsCommaSeparated)}
+                    className={classes.field}
+                    variant="outlined"
+                    value={data.jobAdvMails}
+                    onChange={(e) => handleChange(e)}
+                    autoComplete='off'
+                  />
+                </Grid>
+
+                <Grid item>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -287,6 +307,19 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                       />
                     }
                     label={intl.formatMessage(messages.stopSending)}
+                  />
+                </Grid>
+
+                <Grid item>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={data.enableSsl}
+                        onChange={onCheckboxChange}
+                        name='enableSsl'
+                      />
+                    }
+                    label={intl.formatMessage(messages.enableSsl)}
                   />
                 </Grid>
 

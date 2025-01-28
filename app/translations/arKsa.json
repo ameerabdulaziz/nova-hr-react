@@ -2622,6 +2622,8 @@
   "boilerplate.containers.Payroll.send": "ارسال",
   "boilerplate.containers.Payroll.september": "سبتمبر",
   "boilerplate.containers.Payroll.Setting.abscence": "تغيب",
+  "boilerplate.containers.Payroll.Setting.emailsCommaSeparated": "البريد الإلكتروني متبوعا بفاصلة",
+  "boilerplate.containers.Payroll.Setting.enableSsl": "تمكين SSL",
   "boilerplate.containers.Payroll.Setting.accomplishDate": "تاريخ الانتهاء",
   "boilerplate.containers.Payroll.Setting.Action": "الاجراء",
   "boilerplate.containers.Payroll.Setting.add": "اضافة",
