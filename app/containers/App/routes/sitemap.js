@@ -916,7 +916,7 @@ const SITEMAP = {
     SurveyTemplateEdit: { route: '/Survey/SurveyTemplateEdit' },
     Survey: { route: '/Survey/Survey' },
     SurveySummaryReview: {
-      route: '/Survey/SurveysummaryReview',
+      route: '/Survey/Surveysummary/Review',
     },
     SurveySummary: { route: '/Survey/Surveysummary' },
     SurveyHistoryReport: {

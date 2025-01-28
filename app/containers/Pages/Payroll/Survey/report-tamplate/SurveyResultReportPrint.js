@@ -1,17 +1,36 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux';
 import { Grid, Typography, Box } from '@mui/material';
+import messages from '../messages'
+import { injectIntl } from 'react-intl';
+import PropTypes from 'prop-types';
 
 
-export default function SurveyResultReportPrint(props) {
+ function SurveyResultReportPrint(props) {
 
-    const { data } = props
-    const locale = useSelector((state) => state.language.locale);
-    const filterChose = data?.question.filter((el) => el.questionType == "Choice Only" || el.questionType == "اختيارات فقط")
-    const filterComment = data?.question.filter((el) => el.questionType == "Comment Only" || el.questionType == "تعليقات فقط")
-    const filterChoseAndComment = data?.question.filter((el) => el.questionType == "Choice & Comment" || el.questionType == "اختيار وتعليق")
+    const {intl , data } = props
     const company = useSelector((state) => state.authReducer.companyInfo);
 
+    const visibleTodos = useMemo(() => {
+      if (!data) {
+        return;
+      }
+      const filter = data.question.reduce((prev, current) => {
+        if (current.questionTypeId == 2) {
+          prev.filterChose.push(current);
+        } else if (current.questionTypeId == 1) {
+          prev.filterComment.push(current);
+        } else {
+          prev.filterChoseAndComment.push(current);
+        }
+        return prev;
+      }, { filterChose: [], filterComment: [], filterChoseAndComment: [] });
+      return filter;
+    }, [data]);
+
+    if (!data ) {
+      return <div>No Data Provide</div>;
+    }
     return (<>
   
         <header>
@@ -24,10 +43,10 @@ export default function SurveyResultReportPrint(props) {
         </header>
 
         <div>
-            {filterChose && filterChose.length > 0 ? (
+            {visibleTodos.filterChose && visibleTodos.filterChose.length > 0 && (
                 <>
  
-                    {filterChose.map((el, index) => (
+                    {visibleTodos.filterChose.map((el, index) => (
                         <Box
                             key={index}
                             sx={{
@@ -52,12 +71,12 @@ export default function SurveyResultReportPrint(props) {
                                 >
                                     <Grid item xs={6} sm={4} >
                                         <Typography variant="body2">
-                                        {locale === 'en' ? 'Choice' : 'الاختيار'}: {answer.name}  
+                                          {intl.formatMessage(messages.choice)} : {answer.name}  
                                         </Typography>
                                     </Grid>                                    
                                     <Grid item xs={6} sm={4}>
                                         <Typography variant="body2">
-                                        {locale === 'en' ? 'Total choices' : 'إجمالي الاختيارات'}: {answer.selno} 
+                                         {intl.formatMessage(messages.totalchoices)}: {answer.selno} 
                                         </Typography>
                                     </Grid>                                    
 
@@ -67,14 +86,12 @@ export default function SurveyResultReportPrint(props) {
                         </Box>
                     ))}
                 </>
-            ) : (
-                ''
             )}
 
-            {filterComment && filterComment.length > 0 ? (
+            {visibleTodos.filterComment && visibleTodos.filterComment.length > 0 && (
                 <>
 
-                    {filterComment.map((el, index) => (
+                    {visibleTodos.filterComment.map((el, index) => (
                         <Box
                             key={index}
                             sx={{
@@ -99,13 +116,11 @@ export default function SurveyResultReportPrint(props) {
                         </Box>
                     ))}
                 </>
-            ) : (
-                ''
             )}
 
-{filterChoseAndComment && filterChoseAndComment.length > 0 ? (
+            {visibleTodos.filterChoseAndComment && visibleTodos.filterChoseAndComment.length > 0 && (
   <>
-    {filterChoseAndComment.map((el, index) => (
+    {visibleTodos.filterChoseAndComment.map((el, index) => (
       <Box
         key={index}
         sx={{
@@ -132,12 +147,12 @@ export default function SurveyResultReportPrint(props) {
           >
             <Grid item xs={6} sm={4}>
               <Typography variant="body2">
-                {locale === 'en' ? 'Choice' : 'الاختيار'}: {answer.name}
+                  {intl.formatMessage(messages.choice)} : {answer.name}
               </Typography>
             </Grid>
             <Grid item xs={6} sm={4}>
               <Typography variant="body2">
-                {locale === 'en' ? 'Total choices' : 'إجمالي الاختيارات'}: {answer.selno}
+                 {intl.formatMessage(messages.totalchoices)}: {answer.selno}
               </Typography>
             </Grid>
           </Grid>
@@ -145,7 +160,7 @@ export default function SurveyResultReportPrint(props) {
 
        {el?.textAnswer.length > 0 ? (<>
                <Typography variant="h6" style={{ fontSize: '14px', marginTop: '15px' }}>
-          {locale === 'en' ? 'Text Answers' : 'الإجابات المقالية'}
+               {intl.formatMessage(messages.textAnswers)}
         </Typography>
         <Grid container spacing={2} justifyContent="center" style={{ pageBreakInside: 'avoid' }}>
           {el?.textAnswer.map((comment, commentIndex) => (
@@ -161,10 +176,14 @@ export default function SurveyResultReportPrint(props) {
       </Box>
     ))}
   </>
-) : (
-  ''
-)}
+             )}
         </div>
 
       </>)
 }
+
+
+SurveyResultReportPrint.propTypes = {
+  intl: PropTypes.object.isRequired,
+};
+export default injectIntl(SurveyResultReportPrint);
