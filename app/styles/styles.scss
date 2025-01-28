@@ -1162,17 +1162,13 @@
 // RegisterLocation -- end
 }
 
-.textEditorSty,.textEditorSty  > div:first-child + div ,.textEditorSty  > div:first-child + div div   , .textEditorSty .jodit-workplace 
+.textEditorSty,.textEditorSty  > div:first-child + div ,.textEditorSty  > div:first-child + div div   , .textEditorSty .jodit-workplace ,.textEditorSty  > div:first-child + div + div
 {
     background-color: transparent !important ; 
-  
 }
 
-.textEditorSty  > div:first-child ,.textEditorSty  > div:first-child + div + div{
-    background-color: #3f51b5 !important;
-    opacity: 0.9 !important;
-    border-color:  #3f51b5 !important ;
-    
+.textEditorSty  > div:first-child {
+    background-color: #e0e0e06e !important ; 
 }
 
 

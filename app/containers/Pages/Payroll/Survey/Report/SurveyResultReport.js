@@ -71,9 +71,9 @@ function SurveyResultReport(props) {
         content: () => printDivRef?.current,
         documentTitle: intl.formatMessage(messages.Choosequestionnaire),
         onBeforeGetContent: () => {
-            setIsLoading(true);
+            setIsLoading(false);
         },
-        onAfterPrint: () => {
+        onAfterPrint: () => {s
             setIsLoading(false);
             setSurveyInfo(null);
             setGroupedQuestion({});
@@ -144,23 +144,23 @@ function SurveyResultReport(props) {
                     />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
-                    <Grid container spacing={4} justifyContent="flex-start">
+                <Grid item xs={12} md={6}>
+                    <Grid container spacing={2} justifyContent="flex-start">
                         {id != null && (
                             <>
-                                <Grid item>
+                                <Grid item xs={6} sm={3} md={3}>
                                     <Button
                                         onClick={getReportData}
-                                        sx={{ width: 100, height: 40 }}
+                                        sx={{ width: '100%', height: 40 }}
                                         variant="contained"
                                     >
                                         {intl.formatMessage(Gmassage.Print)}
                                     </Button>
                                 </Grid>
-                                <Grid item>
+                                <Grid item xs={6} sm={3} md={3}>
                                     <Button
                                         onClick={openReview}
-                                        sx={{ width: 100, height: 40 }}
+                                        sx={{ width: '100%', height: 40 }}
                                         variant="contained"
                                     >
                                         {intl.formatMessage(Gmassage.review)}
