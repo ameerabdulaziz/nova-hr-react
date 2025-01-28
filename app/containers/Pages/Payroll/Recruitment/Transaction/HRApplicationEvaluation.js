@@ -468,7 +468,7 @@ function HRApplicationEvaluation(props) {
           }
 
           return (
-            <Stack direction='row' alignItems='center' gap={1}>
+            <Stack direction='row' justifyContent='flex-end' alignItems='center' gap={1}>
               {(row.appFirstStatus === 0 || row.appFirstStatus === null) && (
                 <Tooltip
                   placement='top'
@@ -526,6 +526,16 @@ function HRApplicationEvaluation(props) {
         <ManageAccountsIcon sx={{ fontSize: "25px" }} />
       </IconButton>
     ),
+    isRowSelectable: (dataIndex) => {
+      const row = tableData[dataIndex];
+
+      // Disable Row Selection if (2 => Rejected) and (5 => Black List)
+      if (row.appFirstStatus === 2 || row.appFirstStatus === 5) {
+        return false;
+      }
+
+      return true;
+    },
   };
 
   const onFormSubmit = (evt) => {
